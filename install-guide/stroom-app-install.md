@@ -56,6 +56,6 @@ You might want to configure some of the following:
 
 * [Processing User Setup](setup/processing-user-setup.md)
 * [MySQL Server Setup](setup/mysql-server-setup.md)
-* [Java Key Store Setup](setup/java-key-store-setup.html)
-* [Apache Forwarding](setup/apache-forwarding.html)
-* [Securing Stroom](setup/securing-stroom.html)
+* [Java Key Store Setup](setup/java-key-store-setup.md)
+* [Apache Forwarding](setup/apache-forwarding.md)
+* [Securing Stroom](setup/securing-stroom.md)
