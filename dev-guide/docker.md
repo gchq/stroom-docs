@@ -25,6 +25,15 @@ docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=st
 
 ## Stroom
 
+### Create configuration file
+Stroom will look for configuration in `~/.stroom.conf.d/stroom.conf`. You can create a basic configuration file like this:
+
+```bash
+mkdir ~/.stroom.conf.d
+cd ~/.stroom.conf.d
+wget https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/resources/stroom.conf
+```
+
 ### Clone and build `event-logging`
 
 ```bash
@@ -58,5 +67,3 @@ docker rmi stroom
 docker build --tag=stroom:latest target/stroom-app
 docker run -p 8888:8888 -p:9876:9876 --link stroom-db -v ~/.stroom.conf.d:/root/.stroom.conf.d --name=stroom -e Stroom_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e Stroom_JDBC_DRIVER_USERNAME="stroomuser" -e Stroom_JDBC_DRIVER_PASSWORD="stroompassword1" stroom
 ```
-
-You can get to Stroom by going to the address of the
