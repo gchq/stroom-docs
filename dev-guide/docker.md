@@ -65,5 +65,7 @@ docker rm stroom
 docker rmi stroom
 
 docker build --tag=stroom:latest target/stroom-app
-docker run -p 8888:8888 -p:9876:9876 --link stroom-db -v ~/.stroom.conf.d:/root/.stroom.conf.d --name=stroom -e Stroom_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e Stroom_JDBC_DRIVER_USERNAME="stroomuser" -e Stroom_JDBC_DRIVER_PASSWORD="stroompassword1" stroom
+docker run -p 8888:8888 -p:9876:9876 --link stroom-db -v ~/.stroom.conf.d:/root/.stroom.conf.d --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" stroom
 ```
+
+Navigate to [http://localhost:8080/stroom/stroom.jsp](http://localhost:8080/stroom/stroom.jsp) to see Stroom running.
