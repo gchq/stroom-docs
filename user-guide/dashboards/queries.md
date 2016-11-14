@@ -12,6 +12,7 @@ Times can be specified in two ways:
 
 * Relative times
 
+
 ### Absolute Times
 
 An absolute time is specified in ISO 8601 date time format, e.g.  `2016-01-23T12:34:11.844Z`
@@ -20,23 +21,24 @@ An absolute time is specified in ISO 8601 date time format, e.g.  `2016-01-23T12
 
 In addition to absolute times it is possible to specify times using expressions. Relative time expressions create a date time that is relative to the execution time of the query. Supported expressons are as follows:
 
-* now() - The current execution time of the query.
+* now\(\) - The current execution time of the query.
 
-* second() - The current execution time of the query rounded down to the nearest second.
+* second\(\) - The current execution time of the query rounded down to the nearest second.
 
-* minute() - The current execution time of the query rounded down to the nearest minute.
+* minute\(\) - The current execution time of the query rounded down to the nearest minute.
 
-* hour() - The current execution time of the query rounded down to the nearest hour.
+* hour\(\) - The current execution time of the query rounded down to the nearest hour.
 
-* day() - The current execution time of the query rounded down to the nearest day.
+* day\(\) - The current execution time of the query rounded down to the nearest day.
 
-* week() - The current execution time of the query rounded down to the first day of the week (Monday).
+* week\(\) - The current execution time of the query rounded down to the first day of the week \(Monday\).
 
-* month() - The current execution time of the query rounded down to the start of the current month.
+* month\(\) - The current execution time of the query rounded down to the start of the current month.
 
-* year() - The current execution time of the query rounded down to the start of the current year.
+* year\(\) - The current execution time of the query rounded down to the start of the current year.
 
-### Adding/Subtracting Durations
+
+### Adding\/Subtracting Durations
 
 With relative times it is possible to add or subtract durations so that queries can be constructed to provide for example, the last week of data, the last hour of data etc.
 
@@ -66,6 +68,7 @@ Durations consist of a number and duration unit. Supported duration units are:
 
 * y - Years
 
+
 Using these durations a query to get the last weeks data could be as follows:
 
 `between now() - 1w and now()`
@@ -76,4 +79,12 @@ Or midnight a week ago to midnight today:
 
 Or if you just wanted data for the week so far:
 
-`between week() and now()`
+`greater than week()`
+
+Or all data for the previous year:
+
+`between year() - 1y and year()`
+
+Or this year so far:
+
+`greater than year()`
