@@ -39,8 +39,9 @@
       * [XSLT includes](user-guide/pipelines/xslt/xslt-includes.md)
       * [XSLT functions](user-guide/pipelines/xslt/xslt-functions.md)
     * [File output](user-guide/pipelines/file-output.md)
-  * [Search](user-guide/search/search.md)
-  * [Dictionaries](user-guide/search/dictionaries.md)
+  * [Dashboards](user-guide/dashboards/README.md)
+    * [Queries](user-guide/dashboards/queries.md)
+    * [Dictionaries](user-guide/dashboards/dictionaries.md)
   * [Security](user-guide/security.md)
   * Data splitter
     * [Introduction](datasplitter/1-0-introduction.md)

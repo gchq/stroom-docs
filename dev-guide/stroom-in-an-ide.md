@@ -10,7 +10,7 @@ In order to build/run/debug Stroom you will need the following:
  * Git
  * Maven
  * IntelliJ
- * A MySQL database server v5.6 (either installed directly or inside a Docker container)
+ * A MySQL database server v5.5 (either installed directly or inside a Docker container)
 
 ### Clone and build _event-logging_
 
@@ -42,7 +42,7 @@ To configure the stroom database in a MySQL Docker container see [Running Stroom
 
 ### Host based MySQL server
 
-With an instance of MySQL server 5.6 running on your local machine do the following to create the _stroom_ database:
+With an instance of MySQL server 5.5 running on your local machine do the following to create the _stroom_ database:
 
 ```bash
 # log into your MySQL server using your root credentials
