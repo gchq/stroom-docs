@@ -49,10 +49,11 @@ All the things we create here are available as a [content pack](https://github.c
 
 There isn't much to this and there'll be less when the application is available from [Docker Hub](https://hub.docker.com/). There are several options to get Stroom running:
 
+* [Run using a DockerHub image](../install-guide/docker.md#using-a-pre-built-dockerhub-image)
 * [Run using a release](../install-guide/stroom-app-install.md)
 * From source you can:
   * [Build and run from IntelliJ](../dev-guide/stroom-in-an-ide.md)
-  * [Build and run using Docker](../dev-guide/docker.md)
+  * [Build and run using Docker](../dev-guide/docker.md#building-a-docker-image-from-a-stroom-distribution)
       
 #### A note on using Docker 
 
