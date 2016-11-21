@@ -1,16 +1,16 @@
-# Running Stroom in a docker
+# Running Stroom in a Docker Container
 
 This is how to run Stroom in a Docker container (assuming you have already installed Docker). There are two options for running Stroom within a Docker container.
 
-* [Using a pre-built DockerHub image](#using-a-pre-built-dockerhub-image)
+* [Using a pre-built Docker Hub image](#using-a-pre-built-docker-hub-image)
 * [Building a Docker image from a Stroom distribution](#building-a-docker-image-from-a-stroom-distribution)
 
-The first option of using a pre-built DockerHub image is the quickest and easiest way to ghet Stroom up and running.
+The first option of using a pre-built _Docker Hub_ image is the quickest and easiest way to get Stroom up and running.
 
-## Using a pre-built DockerHub image
+## Using a pre-built _Docker Hub_ image
 
 ```bash
-# Clean up if necessary
+# If you have already run stroom/stroom-db in Docker then clean up any old images
 docker stop stroom
 docker stop stroom-db
 docker rm stroom
@@ -24,9 +24,11 @@ docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=st
 docker run -p 8080:8080 --link stroom-db -v ~/.stroom.conf.d:/root/.stroom.conf.d --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" gchq/stroom
 ```
 
+Now open a browser (preferably Chrome) at [localhost:8080/stroom](http://localhost:8080/stroom) to get started with Stroom.
+
 ## Building a Docker image from a Stroom distribution
 
-These instructions show how to build MySQL from DockerHub and Stroom from source code. 
+These instructions show how to build MySQL from Docker Hub and Stroom from source code. 
 
 ### MySQL 
 ```bash

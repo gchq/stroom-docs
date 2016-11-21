@@ -43,27 +43,19 @@ We're going to do the following:
 
 All the things we create here are available as a [content pack](https://github.com/gchq/stroom-content/releases/tag/stroom-101-v1.0), so if you just wanted to see it running you could get there quite easily.
 
-
-
 ## Getting and Running Stroom
 
-There isn't much to this and there'll be less when the application is available from [Docker Hub](https://hub.docker.com/). There are several options to get Stroom running:
+There are several options to get Stroom running and by far the quickest and easiest is to follow the first option of running the pre-built Docker Hub image of Stroom.
 
-* [Run using a DockerHub image](../install-guide/docker.md#using-a-pre-built-dockerhub-image)
+> If you're new to [Docker](https://www.docker.com/what-docker) then you might want to follow their [getting started guide](https://www.docker.com/products/docker) first.
+
+Running Stroom options:
+
+* [Run using a Docker Hub image](../install-guide/docker.md#using-a-pre-built-docker-hub-image)
 * [Run using a release](../install-guide/stroom-app-install.md)
 * From source you can:
   * [Build and run from IntelliJ](../dev-guide/stroom-in-an-ide.md)
   * [Build and run using Docker](../dev-guide/docker.md#building-a-docker-image-from-a-stroom-distribution)
-      
-#### A note on using Docker 
-
-Only follow the [docker instructions](../dev-guide/docker.md) for the following sections:
-
-1. Setting up the [MySQL database](https://hub.docker.com/_/mysql/) (docker container: `stroom-db`) 
-2. Building `event-logging` 
-3. Building and running the main Stroom application (docker container: `stroom`)
-
-If you're new to [Docker](https://www.docker.com/what-docker) then you might want to follow their [getting started guide](https://www.docker.com/products/docker) first.
 
 ## Basic configuration
 
