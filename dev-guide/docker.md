@@ -83,7 +83,7 @@ cd stroom-app-distribution
 unzip target/stroom-app-distribution-<version>-bin.zip -d target
 ```
 
-g### Building and running the docker image
+### Building and running the docker image
 
 ```bash
 docker stop stroom
