@@ -101,7 +101,7 @@ worker.stroom_1_proxy.port=9009
 worker.stroom_1_proxy.host=localhost
 worker.stroom_1_proxy.type=ajp13
 worker.stroom_1_proxy.lbfactor=1
-worker.stroom_1_proxy.max_packet_size=60000
+worker.stroom_1_proxy.max_packet_size=65536
 ....
 ....
 worker.loadbalancer_proxy.type=lb

@@ -102,7 +102,7 @@ worker.stroom_1.port=8009
 worker.stroom_1.host=localhost
 worker.stroom_1.type=ajp13
 worker.stroom_1.lbfactor=1
-worker.stroom_1.max_packet_size=60000
+worker.stroom_1.max_packet_size=65536
 ....
 ....
 worker.loadbalancer.type=lb
