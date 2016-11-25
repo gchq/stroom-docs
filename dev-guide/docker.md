@@ -21,7 +21,7 @@ docker rmi stroom
 docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=stroomuser -e MYSQL_PASSWORD=stroompassword1 -e MYSQL_DATABASE=stroom -d mysql:5.5
 
 # Run the Stroom docker image
-docker run -p 8080:8080 --link stroom-db -v ~/.stroom.conf.d:/root/.stroom.conf.d --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" gchq/stroom
+docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" gchq/stroom
 ```
 
 Now open a browser (preferably Chrome) at [localhost:8080/stroom](http://localhost:8080/stroom) to get started with Stroom.
@@ -52,11 +52,11 @@ docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=st
 ### Stroom
 
 #### Create configuration file
-Stroom will look for configuration in `~/.stroom.conf.d/stroom.conf`. You can create a basic configuration file like this:
+Stroom will look for configuration in `~/.stroom/stroom.conf`. You can create a basic configuration file like this:
 
 ```bash
-mkdir ~/.stroom.conf.d
-cd ~/.stroom.conf.d
+mkdir ~/.stroom
+cd ~/.stroom
 wget https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/resources/stroom.conf
 ```
 
@@ -91,7 +91,7 @@ docker rm stroom
 docker rmi stroom
 
 docker build --tag=stroom:latest target/stroom-app
-docker run -p 8080:8080 --link stroom-db -v ~/.stroom.conf.d:/root/.stroom.conf.d --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" stroom
+docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" stroom
 ```
 
 Navigate to [http://localhost:8080/stroom/stroom.jsp](http://localhost:8080/stroom/stroom.jsp) to see Stroom running.

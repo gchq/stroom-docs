@@ -71,7 +71,7 @@ stroom-config/src/main/resources/stroom.properties
 Create the your local configuration file and directory:
 
 ```bash
-mkdir -p ~/.stroom.conf.d/
+mkdir -p ~/.stroom/
 touch stroom.conf
 ```
 
