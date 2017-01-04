@@ -72,7 +72,7 @@ cd ..
 #### Clone and build `stroom`
 
 ```bash
-git clone https://github.com/gchq.git
+git clone https://github.com/gchq/stroom.git
 mvn clean install
 ```
 
