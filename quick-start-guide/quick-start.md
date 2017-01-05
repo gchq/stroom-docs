@@ -51,7 +51,7 @@ There are several options to get Stroom running and by far the quickest and easi
 
 Running Stroom options:
 
-* [Run using a Docker Hub image](../install-guide/docker.md#using-a-pre-built-docker-hub-image)
+* [Run using a Docker Hub image](../dev-guide/docker.md#using-a-pre-built-docker-hub-image)
 * [Run using a release](../install-guide/stroom-app-install.md)
 * From source you can:
   * [Build and run from IntelliJ](../dev-guide/stroom-in-an-ide.md)
