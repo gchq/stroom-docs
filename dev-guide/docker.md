@@ -95,3 +95,13 @@ docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroo
 ```
 
 Navigate to [http://localhost:8080/stroom/stroom.jsp](http://localhost:8080/stroom/stroom.jsp) to see Stroom running.
+
+## Releasing the Docker image to Docker Hub (or any other Docker registry)
+
+1. Build an image using the method above, and then test it.
+
+2. Check that the image name is correct. For Docker Hub the Stroom image needs to be called `gchq/stroom` so that it gets pushed to the GCHQ Docker Hub organisation. You can rename it like this: `docker tag stroom:latest gchq/stroom:latest`.
+
+3. Log in to the registry using `docker login` followed by your credentials when prompted. 
+
+4. Push the image up using `docker push gchq/stroom`.
