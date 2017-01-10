@@ -105,3 +105,8 @@ Navigate to [http://localhost:8080/stroom/stroom.jsp](http://localhost:8080/stro
 3. Log in to the registry using `docker login` followed by your credentials when prompted. 
 
 4. Push the image up using `docker push gchq/stroom`.
+
+### Docker Hub links
+[The Stroom image](https://hub.docker.com/r/gchq/stroom/)
+
+[The GCHQ organisation](https://hub.docker.com/u/gchq/)
