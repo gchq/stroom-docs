@@ -3,8 +3,12 @@ The following is a HOWTO to set up a Stroom cluster based on Centos 7.3/Mariadb 
 
 The HOWTO results with a running, but not operational, a two processing node Stroom Cluster with separate database node. To make the deployment operational, additional configuration is required thru the Stroom User Interface. Details on this can be found in the [Stroom User Interface - Initial Configuration](StroomHowTo-1.60-a.md "Initial Configuration via User Interface").
 
-Last Update: Burn Alting, 13 Jan 2017
+Last Update: Burn Alting, 15 Jan 2017
+
+- Corrected http to https forwarding in /etc/httpd/conf.d/ssl.conf configuration
+  Burn Alting, 15 Jan 2017
 - Initial release (1.40-a)
+  Burn Alting, 13 Jan 2017
 
 Assumptions:
  - the user has reasonable RHEL/Centos System administration skills
@@ -949,7 +953,13 @@ Now modify `/etc/httpd/conf.d/ssl.conf`, backing up first,
 cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG
 ```
 
-For a cluster we don't want to redirect http as it's used internally. 
+Before the <VirtualHost _default_:443> context we add http to https redirection by adding the directives (noting we specify the server name)
+```
+<VirtualHost *:80>
+  ServerName stroomp00.strmdev00.org
+  Redirect permanent "/" "https://stroomp00.strmdev00.org/"
+</VirtualHost>
+```
 
 Within the <VirtualHost _default_:443> context set the directives
 ```
@@ -982,6 +992,13 @@ to
 ...
 ## SSL Virtual Host Context
 ##
+
+# Stroom Change: Start - Add http redirection to https
+<VirtualHost *:80>
+  ServerName stroomp.strmdev00.org
+  Redirect permanent "/" "https://stroomp.strmdev00.org/"
+</VirtualHost>
+# Stroom Change: End
 
 <VirtualHost _default_:443>
 
