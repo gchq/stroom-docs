@@ -13,15 +13,15 @@ __NOTE:__ This is a living document and as such screen images will be updated as
 
 ## Logging into the Stroom UI for the first time.
 To log into the UI of your newly installed Stroom instance, present the base url to your `Chrome` browser. The urls in our example HOWTOs are typically either `https://stroomp.strmdev00.org` or `https://stroomp.strmdev00.org/stroom`. You should enter such a url into your browser. If you have personal certificates loaded in your Chrome, you may be asked which certificate to use to authenticate yourself to `stroomp.strmdev00.org:443`. As Stroom has not been configured to use user certificates, the choice is not relevant. Additionally, if you followed the usual _HOWTO_ certificate creation process (i.e. self-signed), your browser will generate an alert as per
-![Chrome SelfSigned Certificate Issue - Initial](../resources/Series01/UI-Chrome-NoCa-00.png "Self Signed Certificate Initial Warning")
+![Chrome SelfSigned Certificate Issue - Initial](../resources/series01/UI-Chrome-NoCa-00.png "Self Signed Certificate Initial Warning")
 
 To proceed you need to select the __ADVANCED__ hyperlink to see
 
-![Chrome SelfSigned Certificate Issue - Advanced](../resources/Series01/UI-Chrome-NoCa-01.png "Self Signed Certificate Advanced Warning")
+![Chrome SelfSigned Certificate Issue - Advanced](../resources/series01/UI-Chrome-NoCa-01.png "Self Signed Certificate Advanced Warning")
 
 If you select the __Proceed to stroomp.strmdev00.org (unsafe)__ hyper-link you will be presented with the standard Stroom UI login page.
 
-![Stroom User Interface login page](../resources/Series01/UI-Login-00.png "Stroom UI Login Page")
+![Stroom User Interface login page](../resources/series01/UI-Login-00.png "Stroom UI Login Page")
 
 This page has two panels - **About Stroom** and **Login**.
 
@@ -33,77 +33,77 @@ In the **About Stroom** panel we see an introductory description of Stroom in th
 
 Each new Stroom deployment automatically creates the administrative user `admin` and this user's password is initially set to `admin`. Within the **Login** panel, enter `admin` into the *User Name:* entry box and `admin` into the *Password:* entry box as per
 
-![Stroom UI Login Panel - Enter user](../resources/Series01/UI-Login-01.png "Stroom UI Login - logging in as admin")
+![Stroom UI Login Panel - Enter user](../resources/series01/UI-Login-01.png "Stroom UI Login - logging in as admin")
 
 <a name="ExpiredPasswordAnchor"></a>When you press the
 ![Stroom UI LoginButton](../resources/icons/buttonLogin.png "Stroom UI LoginButton")
 button, you are advised that your user's password has expired and you need to change it.
 
-![Stroom UI Login Panel - Password Expiry](../resources/Series01/UI-Login-02.png "Stroom UI Login - password expiry")
+![Stroom UI Login Panel - Password Expiry](../resources/series01/UI-Login-02.png "Stroom UI Login - password expiry")
 
 Press the
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 button and enter the old password `admin` and a new password with confirmation in the appropriate entry boxes.
 
-![Stroom UI Login Panel - Password Change](../resources/Series01/UI-Login-03.png "Stroom UI Login - password change")
+![Stroom UI Login Panel - Password Change](../resources/series01/UI-Login-03.png "Stroom UI Login - password change")
 
 Again press the
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 button to see the confirmation that the password has changed.
 
-![Stroom UI Login Panel - Password Change Confirmation](../resources/Series01/UI-Login-04.png "Stroom UI Login - password change confirmation").
+![Stroom UI Login Panel - Password Change Confirmation](../resources/series01/UI-Login-04.png "Stroom UI Login - password change confirmation").
 
 On pressing
 ![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton")
 you will be logged in as the `admin` user and you will be presented with the __Main Menu__ (`Item Tools Monitoring User Help`), and the `Explorer` and `Welcome` panels (or tabs).
 
-![Stroom UI Login Panel - Logged in](../resources/Series01/UI-Login-06.png "Stroom UI Login - user logged in").
+![Stroom UI Login Panel - Logged in](../resources/series01/UI-Login-06.png "Stroom UI Login - user logged in").
 
 ### Create an attributed administrative user
 When configuring Stroom, we should do this as an _attributed_ user. That is we should create a user, in our case it will be `burn` and once created, we will perform all future activities within the User Interface as that _attributed_ user. You don't have to do this, but it is good security practice.
 
 To add a new user, move your cursor to the `Tools` item of the __Main Menu__ and select to bring up the `Tools` sub-menu.
 
-![Stroom UI New User - Tools Menu](../resources/Series01/UI-ToolsSubmenu-00.png "Stroom UI Tools sub-menu")
+![Stroom UI New User - Tools Menu](../resources/series01/UI-ToolsSubmenu-00.png "Stroom UI Tools sub-menu")
 
 then move down and select the `Users and Groups` sub-item to be presented with the `Users and Groups` configuration window as seen below.
 
-![Stroom UI New User - Users and Groups](../resources/Series01/UI-AddUser-00.png "Stroom UI New User - Users and Groups configuration")
+![Stroom UI New User - Users and Groups](../resources/series01/UI-AddUser-00.png "Stroom UI New User - Users and Groups configuration")
 
 To add the user, move the cursor to the _New_ icon ![New](../resources/icons/add.png "New") in the top left and select it. On selection you will be prompted for a user name. In our case we will enter the user `burn`.
 
-![Stroom UI New User - Add User](../resources/Series01/UI-AddUser-01.png "Stroom UI New User - Add User")
+![Stroom UI New User - Add User](../resources/series01/UI-AddUser-01.png "Stroom UI New User - Add User")
 
 and on pressing
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 will be presented with the User configuration window.
 
-![Stroom UI New User - User Configuration](../resources/Series01/UI-AddUser-02.png "Stroom UI New User - User configuration")
+![Stroom UI New User - User Configuration](../resources/series01/UI-AddUser-02.png "Stroom UI New User - User configuration")
 
 As we want our user to be an administrator, select the __Administrator__ Permission check-box
 
-![Stroom UI New User - User Configuration Set Permission](../resources/Series01/UI-AddUser-03.png "Stroom UI New User - User configuration - set administrator permission")
+![Stroom UI New User - User Configuration Set Permission](../resources/series01/UI-AddUser-03.png "Stroom UI New User - User configuration - set administrator permission")
 
 and we also need to set `burn's` password (which he will need to reset on first login). So, select the
 ![Stroom UI ResetPasswordButton](../resources/icons/buttonResetPassword.png "Stroom UI ResetPasswordButton")
 button to gain the Reset Password window
 
-![Stroom UI New User - User Configuration Reset Password](../resources/Series01/UI-AddUser-04.png "Stroom UI New User - User configuration - reset password")
+![Stroom UI New User - User Configuration Reset Password](../resources/series01/UI-AddUser-04.png "Stroom UI New User - User configuration - reset password")
 
 After setting a password and pressing the
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 button we get the informational Alert window as per
 
-![Stroom UI New User - User Configuration Reset Password Complete](../resources/Series01/UI-AddUser-05.png "Stroom UI New User - User configuration - reset password complete")
+![Stroom UI New User - User Configuration Reset Password Complete](../resources/series01/UI-AddUser-05.png "Stroom UI New User - User configuration - reset password complete")
 
 and on close of the Alert we are presented again with the `User` configuration window.
 
-![Stroom UI New User - User Configuration User Added](../resources/Series01/UI-AddUser-06.png "Stroom UI New User - User configuration - user added")
+![Stroom UI New User - User Configuration User Added](../resources/series01/UI-AddUser-06.png "Stroom UI New User - User configuration - user added")
 
 We should close this window by pressing the 
 ![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton") button to be presented with the `Users and Groups` window with the new user `burn` added.
 
-![Stroom UI New User - User Configuration Show User Added](../resources/Series01/UI-AddUser-07.png "Stroom UI New User - User configuration - show user added")
+![Stroom UI New User - User Configuration Show User Added](../resources/series01/UI-AddUser-07.png "Stroom UI New User - User configuration - show user added")
 
 At this one can close the `User` configuration window by pressing the 
 ![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton") button.
@@ -111,20 +111,20 @@ At this one can close the `User` configuration window by pressing the
 ### Log out of UI as admin
 Having created our administrative user, we should log out. To do this, select the `User` item of the __Main Menu__ and to bring up the `User` sub-menu.
 
-![Stroom UI New User - User Sub-menu](../resources/Series01/UI-UserSubmenu-00.png "Stroom UI - User Sub-menu")
+![Stroom UI New User - User Sub-menu](../resources/series01/UI-UserSubmenu-00.png "Stroom UI - User Sub-menu")
 
 and select the `Logout` sub-item and confirm you wish to log out by selecting the
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 button.
 
-![Stroom UI New User - User Logout confirmation](../resources/Series01/UI-UserLogout-00.png "Stroom UI - User Logout")
+![Stroom UI New User - User Logout confirmation](../resources/series01/UI-UserLogout-00.png "Stroom UI - User Logout")
 
 This will return you to the Login page
 
 ### Log in as the Attributed User to perform configuration tasks
 
 This time we log in as the user `burn`.
-![Stroom UI Login - Attributed User Login](../resources/Series01/UI-Login-05.png "Stroom UI Login - Attributed User Login")
+![Stroom UI Login - Attributed User Login](../resources/series01/UI-Login-05.png "Stroom UI Login - Attributed User Login")
 
 Note that the user `burn` will need to change his password as it would be been set to expire immediately. Follow the same steps as for changing the `admin` user's password [earlier](#ExpiredPasswordAnchor).
 
@@ -132,10 +132,10 @@ Note that the user `burn` will need to change his password as it would be been s
 We need to configured the volumes for Stroom. The following example is for a two node Stroom cluster, but works equally well for a single node deployment as well.
 
 To configure the volumes, move to the `Tools` item of the __Main Menu__ and select it to bring up the `Tools` sub-menu.
-![Stroom UI Volume Management - Tools Menu](../resources/Series01/UI-ToolsSubmenu-00.png "Stroom UI Tools sub-menu")
+![Stroom UI Volume Management - Tools Menu](../resources/series01/UI-ToolsSubmenu-00.png "Stroom UI Tools sub-menu")
 
 then move down and select the `Volumes` sub-item to be presented with the `Volumes` configuration window as seen below.
-![Stroom UI Volume Management - Configuration](../resources/Series01/UI-ManageVolumes-01.png "Stroom UI Volumes - configuration window")
+![Stroom UI Volume Management - Configuration](../resources/series01/UI-ManageVolumes-01.png "Stroom UI Volumes - configuration window")
 
 The attributes we see for each volume are
 - Node - the processing node the volume resides on (this is just the node name entered when configuration the Stroom application)
@@ -183,18 +183,18 @@ and on `stroomp01.strmdev00.org` we create
  - `/stroomdata/stroom-index-p01`       - location to store Stroom application index files 
 
 So the first step to configure a volume is to move the cursor to the _New_ icon ![New](../resources/icons/add.png "New") in the top left of the `Volumes` window and select it. This will bring up the `Add Volume` configuration window
-![Stroom UI Volume Management - Add Volume](../resources/Series01/UI-ManageVolumes-02.png "Stroom UI Add Volume - Volume configuration window")
+![Stroom UI Volume Management - Add Volume](../resources/series01/UI-ManageVolumes-02.png "Stroom UI Add Volume - Volume configuration window")
 
 As you can see, the entry box titles reflect the attributes of a volume. So we will add the first nodes _data_ volume
  - `/stroomdata/stroom-data-p00`        - location to store Stroom application data files (events, etc.) for this node
 for node `stroomp00`.
 
 If you move the the *Node* drop down entry box and select it you will be presented with a choice of available nodes - in this case `stroomp00` and `stroomp01` as we have a two node cluster with these node names.
-![Stroom UI Volume Management - Add Volume - Select node](../resources/Series01/UI-ManageVolumes-03.png "Stroom UI Add Volume - select node")
+![Stroom UI Volume Management - Add Volume - Select node](../resources/series01/UI-ManageVolumes-03.png "Stroom UI Add Volume - select node")
 
 By selecting the node `stroomp00` we see
 
-![Stroom UI Volume Management - Add Volume - Selected node](../resources/Series01/UI-ManageVolumes-04.png "Stroom UI Add Volume - selected node")
+![Stroom UI Volume Management - Add Volume - Selected node](../resources/series01/UI-ManageVolumes-04.png "Stroom UI Add Volume - selected node")
 
 To configure the rest of the attributes for this volume, we:
 - enter the *Path* to our first node's _data_ volume
@@ -203,35 +203,35 @@ To configure the rest of the attributes for this volume, we:
 - select an *Index Status* of _Inactive_ as we do __NOT__ want index data stored on it
 - set a *Limit* of 12GB for allowed storage
 
-![Stroom UI Volume Management - Add Volume - Adding First Data Volume](../resources/Series01/UI-ManageVolumes-05.png "Stroom UI Add Volume - adding first data volume")
+![Stroom UI Volume Management - Add Volume - Adding First Data Volume](../resources/series01/UI-ManageVolumes-05.png "Stroom UI Add Volume - adding first data volume")
 
 and on selection of the 
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 we see the changes in the `Volumes` configuration window
-![Stroom UI Volume Management - Add Volume - Added First Data Volume](../resources/Series01/UI-ManageVolumes-06.png "Stroom UI Add Volume - added first data volume")
+![Stroom UI Volume Management - Add Volume - Added First Data Volume](../resources/series01/UI-ManageVolumes-06.png "Stroom UI Add Volume - added first data volume")
 
 We next add the first node's index volume, as per
 
-![Stroom UI Volume Management - Add Volume - Adding First Index Volume](../resources/Series01/UI-ManageVolumes-07.png "Stroom UI Add Volume - adding first index volume")
+![Stroom UI Volume Management - Add Volume - Adding First Index Volume](../resources/series01/UI-ManageVolumes-07.png "Stroom UI Add Volume - adding first index volume")
 
 And after adding the second node's volumes we are finally presented with our configured volumes
-![Stroom UI Volume Management - Add Volume - All Volumes Added](../resources/Series01/UI-ManageVolumes-08.png "Stroom UI Add Volume - all volumes added")
+![Stroom UI Volume Management - Add Volume - All Volumes Added](../resources/series01/UI-ManageVolumes-08.png "Stroom UI Add Volume - all volumes added")
 
 #### Delete Default Volumes
 We now need to deal with our default volumes. We want to delete them.
 
-![Stroom UI Volume Management - Delete Default Volumes](../resources/Series01/UI-ManageVolumes-09.png "Stroom UI Delete Default - display default")
+![Stroom UI Volume Management - Delete Default Volumes](../resources/series01/UI-ManageVolumes-09.png "Stroom UI Delete Default - display default")
 
 So we move the cursor to the first volume's line (_stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume_ ...) and select the line then move the cursor to the  _Delete_ icon ![Delete](../resources/icons/delete.png "Delete") in the top left of the `Volumes` window and select it. On selection you will be given a confirmation request
 
-![Stroom UI Volume Management - Delete Default Volumes Confirm](../resources/Series01/UI-ManageVolumes-10.png "Stroom UI Delete Default - confirm deletion")
+![Stroom UI Volume Management - Delete Default Volumes Confirm](../resources/series01/UI-ManageVolumes-10.png "Stroom UI Delete Default - confirm deletion")
 
 at which we press the 
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 button to see the first default volume has been deleted
-![Stroom UI Volume Management - Delete Default Volumes First Complete](../resources/Series01/UI-ManageVolumes-11.png "Stroom UI Delete Default - first volume deleted")
+![Stroom UI Volume Management - Delete Default Volumes First Complete](../resources/series01/UI-ManageVolumes-11.png "Stroom UI Delete Default - first volume deleted")
 and after we select then delete the second default volume( _stroomp00 /home/stroomuser/stroom-app/volumes/defaultStreamVolume_ ...), we are left with
-![Stroom UI Volume Management - Delete Default Volumes All Deleted](../resources/Series01/UI-ManageVolumes-12.png "Stroom UI Delete Default - all deleted")
+![Stroom UI Volume Management - Delete Default Volumes All Deleted](../resources/series01/UI-ManageVolumes-12.png "Stroom UI Delete Default - all deleted")
 
 At this one can close the `Volumes` configuration window by pressing the 
 ![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton") button.
@@ -264,71 +264,71 @@ The current _workaround_ is to restart all the Stroom applications which will ca
 In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our installation in a multi node environment ensures the firewall will allow this but we also need to configure the nodes. This is achieved via the Stroom UI where we set a _Cluster URL_ for each node. We first log in as an administrative user.
 
 To configure the nodes, move to the `Monitoring` item of the __Main Menu__ and select it to bring up the `Monitoring` sub-menu.
-![Stroom UI Node Management - Monitoring Menu](../resources/Series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
+![Stroom UI Node Management - Monitoring Menu](../resources/series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
 
 then move down and select the `Nodes` sub-item to be presented with the `Nodes` configuration tab as seen below.
 
-![Stroom UI Node Management - Management Tab](../resources/Series01/UI-NodeClusterSetup-01.png "Stroom UI Node Management - management tab")
+![Stroom UI Node Management - Management Tab](../resources/series01/UI-NodeClusterSetup-01.png "Stroom UI Node Management - management tab")
 
 To set `stroomp00`'s Cluster URL, move the it's line in the display and select it. It will be highlighted.
 
-![Stroom UI Node Management - Management Tab - Select first node](../resources/Series01/UI-NodeClusterSetup-02.png "Stroom UI Node Management - select first node")
+![Stroom UI Node Management - Management Tab - Select first node](../resources/series01/UI-NodeClusterSetup-02.png "Stroom UI Node Management - select first node")
 
 Then move the cursor to the _Edit Node_ icon ![EditNode](../resources/icons/edit.png "Edit Node") in the top left of the `Nodes` tab and select it. On selection the `Edit Node` configuration window will be displayed and into the __Cluster URL:__ entry box, enter the first node's URL of `http://stroomp00.strmdev00.org:8080/stroom/clustercall.rpc`
 
-![Stroom UI Node Management - First Node setup](../resources/Series01/UI-NodeClusterSetup-03.png "Stroom UI Node Management - set clustercall url for first node")
+![Stroom UI Node Management - First Node setup](../resources/series01/UI-NodeClusterSetup-03.png "Stroom UI Node Management - set clustercall url for first node")
 
 then press the 
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 at which we see the _Cluster URL_ has been set for the first node as per
 
-![Stroom UI Node Management - First Node set](../resources/Series01/UI-NodeClusterSetup-04.png "Stroom UI Node Management - set clustercall url on first node")
+![Stroom UI Node Management - First Node set](../resources/series01/UI-NodeClusterSetup-04.png "Stroom UI Node Management - set clustercall url on first node")
 
 We next select the second node
 
-![Stroom UI Node Management - Management Tab - Select second node](../resources/Series01/UI-NodeClusterSetup-05.png "Stroom UI Node Management - select second node")
+![Stroom UI Node Management - Management Tab - Select second node](../resources/series01/UI-NodeClusterSetup-05.png "Stroom UI Node Management - select second node")
 
 then move the cursor to the _Edit Node_ icon ![EditNode](../resources/icons/edit.png "Edit Node") in the top left of the `Nodes` tab and select it. On selection the `Edit Node` configuration window will be displayed and into the __Cluster URL:__ entry box, enter the second node's URL of `http://stroomp01.strmdev00.org:8080/stroom/clustercall.rpc`
 
-![Stroom UI Node Management - Second Node setup](../resources/Series01/UI-NodeClusterSetup-06.png "Stroom UI Node Management - set clustercall url for second node")
+![Stroom UI Node Management - Second Node setup](../resources/series01/UI-NodeClusterSetup-06.png "Stroom UI Node Management - set clustercall url for second node")
 
 then press the 
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 
 At this we will see both nodes have the __Cluster URLs__ set.
 
-![Stroom UI Node Management - Both Nodes setup](../resources/Series01/UI-NodeClusterSetup-07.png "Stroom UI Node Management - both nodes setup").
+![Stroom UI Node Management - Both Nodes setup](../resources/series01/UI-NodeClusterSetup-07.png "Stroom UI Node Management - both nodes setup").
 
 You may need to press the _Refresh_ icon
 ![Stroom UI Refresh](../resources/icons/refresh.png "Stroom UI RefreshButton")
 found at top left of `Nodes` configuration tab, until both nodes show healthy pings.
 
-![Stroom UI Node Management - Both Nodes ping](../resources/Series01/UI-NodeClusterSetup-08.png "Stroom UI Node Management - both nodes ping").
+![Stroom UI Node Management - Both Nodes ping](../resources/series01/UI-NodeClusterSetup-08.png "Stroom UI Node Management - both nodes ping").
 
 If you do not get ping results for each node, then they are not configured correctly. In that situation, review all log files and processes that you have performed.
 
 Once you have set the Cluster URLs of each node you should also set the _master assignment priority_ for each node to be different to all of the others. In the image above both have been assigned equal priority - `1`. We will change `stroomp00` to have a different priority - `3`. You should note that the node with the highest priority gains the `Master` node status.
 
-![Stroom UI Node Management - Node priority](../resources/Series01/UI-NodeClusterSetup-09.png "Stroom UI Node Management - set node priorities").
+![Stroom UI Node Management - Node priority](../resources/series01/UI-NodeClusterSetup-09.png "Stroom UI Node Management - set node priorities").
 
 ### Enable Stream Processors
 To enable Stroom to process data, it's `Stream  Processors` need to be enabled. There are NOT enabled by default on installation.
 
 To enable the `Stream Processors` we first log in as an administrative user, move to the `Monitoring` item of the __Main Menu__ and select it to bring up the `Monitoring` sub-menu.
 
-![Stroom UI Node Management - Monitoring Menu](../resources/Series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
+![Stroom UI Node Management - Monitoring Menu](../resources/series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
 
 then move down and select the `Jobs` sub-item to be presented with the `Jobs` configuration tab as seen below.
 
-![Stroom UI Jobs Management - Management Tab](../resources/Series01/UI-NodeProcessors-00.png "Stroom UI Jobs Management - management tab")
+![Stroom UI Jobs Management - Management Tab](../resources/series01/UI-NodeProcessors-00.png "Stroom UI Jobs Management - management tab")
 
 At this we select the `Stream Processor` _Job_ whose check-box is not selected
 
-![Stroom UI Jobs Management - Stream processor](../resources/Series01/UI-NodeProcessors-01.png "Stroom UI Jobs Management - Stream Processor")
+![Stroom UI Jobs Management - Stream processor](../resources/series01/UI-NodeProcessors-01.png "Stroom UI Jobs Management - Stream Processor")
 
 We enable both nodes by selecting their check-boxes as well as the main `Stream Processors` check-box.
 
-![Stroom UI Jobs Management - Stream processor enabled](../resources/Series01/UI-NodeProcessors-02.png "Stroom UI Jobs Management - Stream Processor enabled")
+![Stroom UI Jobs Management - Stream processor enabled](../resources/series01/UI-NodeProcessors-02.png "Stroom UI Jobs Management - Stream Processor enabled")
 
 ## Add A Test Feed
 In order for Stroom to be able to handle various data sources, be they Apache HTTPD web access, MicroSoft Windows Event or Squid Proxy logs, Stroom must be told what the data is when it is received. This is achieved using `Event Feeds`. Each feed has a unique name within the system.
@@ -337,36 +337,36 @@ To test our installation can accept and ingest data, we will create a test Event
 
 Once you have logged in, move the cursor to the **System** directory with the `Explorer` tab and select it.
 
-![Stroom UI Create Feed - System Selected](../resources/Series01/UI-CreateFeed-00.png "Stroom UI Create Feed - System selected")
+![Stroom UI Create Feed - System Selected](../resources/series01/UI-CreateFeed-00.png "Stroom UI Create Feed - System selected")
 
 Once selected, _right click_ to bring up the `New Item` selection sub-menu. By selecting the **System** directory we are requesting any  _new_ item created to be placed within in.
 
-![Stroom UI Create Feed - New Item Sub-menu](../resources/Series01/UI-CreateFeed-01.png "Stroom UI Create Feed - New item sub-menu")
+![Stroom UI Create Feed - New Item Sub-menu](../resources/series01/UI-CreateFeed-01.png "Stroom UI Create Feed - New item sub-menu")
 
 Now move the cursor to the _Feed_ sub-item 
 ![Stroom UI FeedItem](../resources/icons/feedItem.png "Stroom UI FeedItem")
 and select it. You will be presented with a `New Feed` configuration window.
 
-![Stroom UI Create Feed - New Feed Configuration](../resources/Series01/UI-CreateFeed-02.png "Stroom UI Create Feed - New feed configuration window")
+![Stroom UI Create Feed - New Feed Configuration](../resources/series01/UI-CreateFeed-02.png "Stroom UI Create Feed - New feed configuration window")
 
 You will note that the **System** directory has already been selected as the _parent group_ and all we need to do is enter our feed's name in the **Name:** entry box
 
-![Stroom UI Create Feed - New Feed Configuration named](../resources/Series01/UI-CreateFeed-03.png "Stroom UI Create Feed - New feed configuration window enter name")
+![Stroom UI Create Feed - New Feed Configuration named](../resources/series01/UI-CreateFeed-03.png "Stroom UI Create Feed - New feed configuration window enter name")
 
 On pressing
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 we are presented with the `Feed` tab for our new feed. The tab is labelled with the feed name `TEST-FEED-V1_0`.
 
-![Stroom UI Create Feed - New Feed Tab](../resources/Series01/UI-CreateFeed-04.png "Stroom UI Create Feed - New feed tab").
+![Stroom UI Create Feed - New Feed Tab](../resources/series01/UI-CreateFeed-04.png "Stroom UI Create Feed - New feed tab").
 
 We will leave the definitions of the Feed attributes for the present, but we _will_ enter a **Description:** for our feed as we should _ALWAYS_ do this fundamental tenet of data management - document the data. We will use the description of '_Feed for installation validation only. No data value_'.
 
-![Stroom UI Create Feed - New Feed Tab with Description](../resources/Series01/UI-CreateFeed-05.png "Stroom UI Create Feed - New feed tab with Description").
+![Stroom UI Create Feed - New Feed Tab with Description](../resources/series01/UI-CreateFeed-05.png "Stroom UI Create Feed - New feed tab with Description").
 
 One should note that the `Feed` tab as been marked as having unsaved changes. This is indicated by the asterisk character `*` between the _Feed_ icon ![Feed](../resources/icons/feed.png "Feed") and the name of the feed `TEST-FEED-V1_0`.
 We can save the changes to our feed by pressing the _Save_ icon ![Save](../resources/icons/save.png "Save") in the top left of the `TEST-FEED-V1_0` tab. At this point one should notice two things, the first is that the asterisk has disappeared from the `Feed` tab and the _Save_ icon ![Save](../resources/icons/save.png "Save") is _ghosted_.
 
-![Stroom UI Create Feed - New Feed Tab with Description saved](../resources/Series01/UI-CreateFeed-06.png "Stroom UI Create Feed - New feed tab with description saved").
+![Stroom UI Create Feed - New Feed Tab with Description saved](../resources/series01/UI-CreateFeed-06.png "Stroom UI Create Feed - New feed tab with description saved").
 
 ### Sending data to our Test Feed
 
@@ -397,19 +397,19 @@ As part of our testing will check the presence of files within the proxy landing
 #### Turning off Proxy Aggregation
 First log into the Stroom UI as an administrative user and by selecting the `Monitoring` item of the __Main Menu__ to bring up the `Monitoring` sub-menu.
 
-![Stroom UI Node Management - Monitoring Menu](../resources/Series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
+![Stroom UI Node Management - Monitoring Menu](../resources/series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
 
 then move down and select the `Jobs` sub-item to be presented with the `Jobs` configuration tab as seen below.
 
-![Stroom UI Jobs Management - Management Tab](../resources/Series01/UI-JobsTab-00.png "Stroom UI Jobs Management - management tab")
+![Stroom UI Jobs Management - Management Tab](../resources/series01/UI-JobsTab-00.png "Stroom UI Jobs Management - management tab")
 
 Highlight the `Proxy Aggregation` job to display
 
-![Stroom UI Jobs Management - Proxy Aggregation Job](../resources/Series01/UI-ProxyAggregation-00.png "Stroom UI Jobs Management - Proxy Aggregation Job")
+![Stroom UI Jobs Management - Proxy Aggregation Job](../resources/series01/UI-ProxyAggregation-00.png "Stroom UI Jobs Management - Proxy Aggregation Job")
 
 At this, uncheck the `Enabled` check-boxes for both nodes and the main Proxy Aggregation check-box.
 
-![Stroom UI Jobs Management - Proxy Aggregation Job Off](../resources/Series01/UI-ProxyAggregation-01.png "Stroom UI Jobs Management - Proxy Aggregation Job Off")
+![Stroom UI Jobs Management - Proxy Aggregation Job Off](../resources/series01/UI-ProxyAggregation-01.png "Stroom UI Jobs Management - Proxy Aggregation Job Off")
 
 We know that any files the proxies receive will remain in place until we re-enable `Proxy Aggregation`.
 
@@ -661,13 +661,13 @@ and on `stroomp01:`
 
 To confirm this data arrived, we need to view the __Data__ pane of our `TEST-FEED-V1_0` tab. To do this, first move the cursor to the `TEST-FEED-V1_0` entry in the `Explorer` tab and select the item with a left click
 
-![Stroom UI Test Feed - Open Feed](../resources/Series01/UI-TestDirectFeed-00.png "Stroom UI Test Feed - Open Feed")
+![Stroom UI Test Feed - Open Feed](../resources/series01/UI-TestDirectFeed-00.png "Stroom UI Test Feed - Open Feed")
 
 and double click on the entry to see our `TEST-FEED-V1_0` tab.
 
-![Stroom UI Test Feed - Opened Feed](../resources/Series01/UI-TestDirectFeed-01.png "Stroom UI Test Feed - Opened Feed")
+![Stroom UI Test Feed - Opened Feed](../resources/series01/UI-TestDirectFeed-01.png "Stroom UI Test Feed - Opened Feed")
 and it is noted that we are viewing the Feed's attributes as we can see the __Setting__ hyper-link highlighted. As we want to see the Data we have received for this feed, move the cursor to the __Data__ hyper-link and select it to see
-![Stroom UI Test Feed - Opened Feed Data](../resources/Series01/UI-TestDirectFeed-02.png "Stroom UI Test Feed - Opened Feed view Data").
+![Stroom UI Test Feed - Opened Feed Data](../resources/series01/UI-TestDirectFeed-02.png "Stroom UI Test Feed - Opened Feed view Data").
 
 These three entries correspond to the three posts we performed.
 
@@ -678,7 +678,7 @@ We have successfully tested direct posting to a Stroom feed and that the Apache 
 To test that the Proxy Aggregation is working, return to the `Jobs` tab and re-enable each node's `Proxy Aggregation` check-box and the main `Proxy Aggregation` check-box. After checking the check-boxes, perform a refresh of the display by pressing
 the _Refresh_ icon ![Stroom UI Refresh](../resources/icons/refresh.png "Stroom UI RefreshButton")
 on the top right of the lower (node display) pane. You should note the `Last Executed` date/time change to see
-![Stroom UI Test Feed - Re-enable Proxy Aggregation](../resources/Series01/UI-TestProxyAggregation-00.png "Stroom UI Test Feed - Re-enable Proxy Aggregation").
+![Stroom UI Test Feed - Re-enable Proxy Aggregation](../resources/series01/UI-TestProxyAggregation-00.png "Stroom UI Test Feed - Re-enable Proxy Aggregation").
 
 By enabling the Proxy Aggregation process, both nodes immediately performed the task as indicated by each node's Stroom application logs as per
 `stroomp00:`
@@ -707,7 +707,7 @@ d in 310 ms
 
 And on refreshing the top pane of the `TEST-FEED-V1_0` tab we see that two more _batches_ of data have arrived.
 
-![Stroom UI Test Feed - Proxy Aggregated Data Arrival](../resources/Series01/UI-TestProxyAggregation-01.png "Stroom UI Test Feed - Proxy Aggregated data arrival").
+![Stroom UI Test Feed - Proxy Aggregated Data Arrival](../resources/series01/UI-TestProxyAggregation-01.png "Stroom UI Test Feed - Proxy Aggregated data arrival").
 
 This demonstrates that Proxy Aggregation is working.
 
@@ -729,26 +729,26 @@ From this we need to create two volumes on `stroomp02`
  - `/stroomdata/stroom-index-p02`       - location to store Stroom application index files
 
 To configure the volumes, move to the `Tools` item of the __Main Menu__ and select it to bring up the `Tools` sub-menu.
-![Stroom UI Volume Management - Tools Menu](../resources/Series01/UI-ToolsSubmenu-00.png "Stroom UI Tools sub-menu")
+![Stroom UI Volume Management - Tools Menu](../resources/series01/UI-ToolsSubmenu-00.png "Stroom UI Tools sub-menu")
 
 then move down and select the `Volumes` sub-item to be presented with the `Volumes` configuration window as. We then move the cursor to the _New_ icon ![New](../resources/icons/add.png "New") in the top left of the `Volumes` window and select it. This will bring up the `Add Volume` configuration window where we select our volume's node `stroomp02`.
 
-![Stroom UI Volume Management - Configuration - New Node Data Start](../resources/Series01/UI-ManageNewVolume-00.png "Stroom UI Volumes - New Node configuration window start data volume")
+![Stroom UI Volume Management - Configuration - New Node Data Start](../resources/series01/UI-ManageNewVolume-00.png "Stroom UI Volumes - New Node configuration window start data volume")
 
 We select this node and then configure the rest of the attributes for this _data_ volume
 
-![Stroom UI Volume Management - Configuration - New Node Data](../resources/Series01/UI-ManageNewVolume-01.png "Stroom UI Volumes - New Node configuration window data volume")
+![Stroom UI Volume Management - Configuration - New Node Data](../resources/series01/UI-ManageNewVolume-01.png "Stroom UI Volumes - New Node configuration window data volume")
 
 then press the
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button.
 
 We then add another volume for the _index_ volume for this node with attributes as per
 
-![Stroom UI Volume Management - Configuration - New Index Added](../resources/Series01/UI-ManageNewVolume-02.png "Stroom UI Volumes - New Node configuration window index volume added")
+![Stroom UI Volume Management - Configuration - New Index Added](../resources/series01/UI-ManageNewVolume-02.png "Stroom UI Volumes - New Node configuration window index volume added")
 
 And on pressing the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button we see our two new volumes for this node have been added.
 
-![Stroom UI Volume Management - Configuration - New Node Added](../resources/Series01/UI-ManageNewVolume-03.png "Stroom UI Volumes - New Node configuration window volumes added")
+![Stroom UI Volume Management - Configuration - New Node Added](../resources/series01/UI-ManageNewVolume-03.png "Stroom UI Volumes - New Node configuration window volumes added")
 
 At this one can close the `Volumes` configuration window by pressing the 
 ![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton") button.
@@ -757,56 +757,56 @@ At this one can close the `Volumes` configuration window by pressing the
 
 To configure the new node, move to the `Monitoring` item of the __Main Menu__ and select it to bring up the `Monitoring` sub-menu.
 
-![Stroom UI Node Management - Monitoring Menu](../resources/Series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
+![Stroom UI Node Management - Monitoring Menu](../resources/series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
 
 then move down and select the `Nodes` sub-item to be presented with the `Nodes` configuration tab as seen below.
 
-![Stroom UI New Node Management - Management Tab](../resources/Series01/UI-AddNewNode-00.png "Stroom UI New Node Management - management tab")
+![Stroom UI New Node Management - Management Tab](../resources/series01/UI-AddNewNode-00.png "Stroom UI New Node Management - management tab")
 
 To set `stroomp02`'s Cluster URL, move the it's line in the display and select it. It will be highlighted.
 
-![Stroom UI Node Management - Management Tab - Select new node](../resources/Series01/UI-AddNewNode-01.png "Stroom UI Node Management - select new node")
+![Stroom UI Node Management - Management Tab - Select new node](../resources/series01/UI-AddNewNode-01.png "Stroom UI Node Management - select new node")
 
 Then move the cursor to the _Edit Node_ icon ![EditNode](../resources/icons/edit.png "Edit Node") in the top left of the `Nodes` tab and select it. On selection the `Edit Node` configuration window will be displayed and into the __Cluster URL:__ entry box, enter the first node's URL of `http://stroomp02.strmdev00.org:8080/stroom/clustercall.rpc`
 
-![Stroom UI New Node Management - Node setup](../resources/Series01/UI-AddNewNode-02.png "Stroom UI New Node Management - set clustercall url for new node")
+![Stroom UI New Node Management - Node setup](../resources/series01/UI-AddNewNode-02.png "Stroom UI New Node Management - set clustercall url for new node")
 
 then press the 
 ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
 button at which we see the _Cluster URL_ has been set for the first node as per
 
-![Stroom UI New Node Management - New Node set](../resources/Series01/UI-AddNewNode-03.png "Stroom UI New Node Management - set clustercall url on new node")
+![Stroom UI New Node Management - New Node set](../resources/series01/UI-AddNewNode-03.png "Stroom UI New Node Management - set clustercall url on new node")
 
 You need to press the _Refresh_ icon
 ![Stroom UI Refresh](../resources/icons/refresh.png "Stroom UI RefreshButton")
 found at top left of `Nodes` configuration tab, until the new node shows a healthy ping.
 
-![Stroom UI New Node Management - All Nodes ping](../resources/Series01/UI-AddNewNode-04.png "Stroom UI New Node Management - all nodes ping").
+![Stroom UI New Node Management - All Nodes ping](../resources/series01/UI-AddNewNode-04.png "Stroom UI New Node Management - all nodes ping").
 
 If you do not get a ping results for the new node, then it is not configured correctly. In that situation, review all log files and processes that you have performed.
 
 Once you have set the Cluster URL you should also set the _master assignment priority_ for each node to be different to all of the others. In the image above both `stroomp01` and the new node, `stroomp02`, have been assigned equal priority - `1`. We will change `stroomp01` to have a different priority - `2`. You should note that the node with the highest priority maintains the `Master` node status.
 
-![Stroom UI New Node Management - Node priority](../resources/Series01/UI-AddNewNode-05.png "Stroom UI New Node Management - set node priorities").
+![Stroom UI New Node Management - Node priority](../resources/series01/UI-AddNewNode-05.png "Stroom UI New Node Management - set node priorities").
 
 ### Enable Stream Processors for New Node
 To enable Stroom to process data, it's `Stream  Processors` need to be enabled. There are NOT enabled by default on installation.
 
 To enable the `Stream Processors` for this new node, move to the `Monitoring` item of the __Main Menu__ and select it to bring up the `Monitoring` sub-menu.
 
-![Stroom UI Node Management - Monitoring Menu](../resources/Series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
+![Stroom UI Node Management - Monitoring Menu](../resources/series01/UI-MonitoringSubmenu-00.png "Stroom UI Monitoring sub-menu")
 
 then move down and select the `Jobs` sub-item to be presented with the `Jobs` configuration tab as seen below.
 
-![Stroom UI Jobs Management - Management Tab](../resources/Series01/UI-NodeProcessors-00.png "Stroom UI Jobs Management - management tab")
+![Stroom UI Jobs Management - Management Tab](../resources/series01/UI-NodeProcessors-00.png "Stroom UI Jobs Management - management tab")
 
 At this we select the `Stream Processor` _Job_ whose check-box is selected
 
-![Stroom UI Jobs Management - Stream processor New Node](../resources/Series01/UI-NewNodeProcessors-00.png "Stroom UI Jobs Management - Stream Processor new node")
+![Stroom UI Jobs Management - Stream processor New Node](../resources/series01/UI-NewNodeProcessors-00.png "Stroom UI Jobs Management - Stream Processor new node")
 
 We enable the new node by selecting it's check-box.
 
-![Stroom UI Jobs Management - Stream processor New Node enabled](../resources/Series01/UI-NewNodeProcessors-01.png "Stroom UI Jobs Management - Stream Processor enabled on new node")
+![Stroom UI Jobs Management - Stream processor New Node enabled](../resources/series01/UI-NewNodeProcessors-01.png "Stroom UI Jobs Management - Stream Processor enabled on new node")
 
 ## Reload the Apache HTTPD services on existing nodes
 To finish the addition of the new node, we need to restart the httpd service on our original nodes so that the new loadbalancer properties are accepted and our new node can participate in the cluster. This can be done by executing on `stroomp00` and `stroomp01`, the command (as root)
