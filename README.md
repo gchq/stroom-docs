@@ -1,6 +1,13 @@
 ![Stroom](resources/logo.png)
 
-If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md), alternatively you can find the full documentation [here](SUMMARY.md).
+If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md), alternatively you can find the full documentation [here](SUMMARY.md). Alternatively, if you'd just like to see it running then do this (it'll start up two dockers: mysql and Stroom):
+
+```bash
+docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=stroomuser -e MYSQL_PASSWORD=stroompassword1 -e MYSQL_DATABASE=stroom -d mysql:5.6
+
+# Run the Stroom docker image
+docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" gchq/stroom
+```
 
 # Stroom
 

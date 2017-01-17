@@ -44,11 +44,15 @@ All the things we create here are available as a [content pack](https://github.c
 
 ## Getting and Running Stroom
 
-There are several options to get Stroom running and by far the quickest and easiest is to follow the first option of running the pre-built Docker Hub image of Stroom.
+There are several options to get Stroom running and by far the quickest and easiest is to use Docker. If you're new to [Docker](https://www.docker.com/what-docker) then you might want to follow their [getting started guide](https://www.docker.com/products/docker) first. Otherwise you can run this:
+```bash
+docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=stroomuser -e MYSQL_PASSWORD=stroompassword1 -e MYSQL_DATABASE=stroom -d mysql:5.6
 
-> If you're new to [Docker](https://www.docker.com/what-docker) then you might want to follow their [getting started guide](https://www.docker.com/products/docker) first.
+# Run the Stroom docker image
+docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" gchq/stroom
+```
 
-Running Stroom options:
+If you're really interested here are your full options for running Stroom:
 
 * [Run using a Docker Hub image](../dev-guide/docker.md#using-a-pre-built-docker-hub-image)
 * [Run using a release](../install-guide/stroom-app-install.md)
@@ -57,20 +61,6 @@ Running Stroom options:
   * [Build and run using Docker](../dev-guide/docker.md#building-a-docker-image-from-a-stroom-distribution)
 
 ## Basic configuration
-
-### Somewhere for Stroom to store data
-
-In Stroom a [_volume_](../user-guide/volumes.md) is a place to store data. When you first load up Stroom there won't be any volumes configured so that's the first thing to do. If you don't then when you try and upload data to a [feed](../user-guide/feeds.md) (the next thing we'll do) it won't have anywhere to put the data.
-
-1. From the menu at the top select Tools -> Volumes:
-
-![This is where you open a volume](resources/go-volumes.png)
-
-2. Then click the new icon (![The new volume icon](../../resources/icons/add.png)) at the top left.
-
-3. You need to select a [node](../user-guide/nodes.md). There will be one there already - the node you're currently running on. And add a path, e.g. ~/tmp/1. It should look something like this:
-
-![This is what the new volume should look like](resources/edit-volume.png)
 
 ### Enable processing of data streams
 
@@ -84,22 +74,6 @@ Next we need to enable Stream Processor jobs:
 Below the list of jobs is the properties pane. The Stream Processor's properties show the list of nodes. You should have one. You'll need to enable it by scrolling right:
 
 ![Enabling the nodes for the stream processor](resources/configure-jobs-stream.png)
-
-### Getting ready to use the data splitter
-
-We're going to use something called a [_Data Splitter_](../datasplitter/1-0-introduction.md) to take apart some CSV. We'll create an instance of a data splitter and configure it, and this configuration will be in XML. This XML is actually schema-constrained, but vanilla Stroom doesn't come with that schema - in fact it doesn't come with anything. So the first thing we need to do is import the schema. 
-
-The schema is stored in what we call _content packs_. There are [lots of content packs](https://github.com/gchq/stroom-content) and there will be more: they add configurable functionality to Stroom. The [XML Schemas](https://github.com/gchq/stroom-content/releases/tag/core-xml-schemas-v1.0) pack contains the Data Splitter schema. This is a core content pack and we're working on a way to have it included by default.
-
-Go to _Tools_ -> _Import_:
-
-![Load the import dialog](resources/go-import.png)
-
-You'll need to select the data-splitter-schema.zip import pack, then make sure everything is checked:
-
-![Import all data splitter schema components](resources/import-data-splitter.png)
-
-You'll see a new folder for XML Schemas, and inside the Data Splitter Schema. Any other content packs you import that have schemas will also go here. It's not a special folder, just a convention, so you can move them around if you don't like where the content pack puts it.
 
 ## Getting data into Stroom
 
