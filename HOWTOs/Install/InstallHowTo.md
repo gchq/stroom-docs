@@ -454,7 +454,7 @@ curl -k --data-binary @/etc/group "https://stroomfp0.strmdev00.org/stroom/datafe
 ```
 Before testing, it is recommended you set up to monitor the Stroom proxy logs on the central server as well as on the Forwarding Proxy server.
 
-Follow the steps in the [Forwarding Proxy Data Posting Tests](InstallTestingHowTo.md#stroom-forwarding-proxy-tests "Stroom Proxy Data Post Tests") section
+Follow the steps in the [Forwarding Proxy Data Posting Tests](InstallTestingHowTo.md#stroom-forwarding-proxy-testing "Stroom Proxy Data Post Tests") section
 of the [Testing Stroom Installation HOWTO](InstallTestingHowTo.md "Stroom Installation Testing")
 
 # Standalone Stroom Proxy Deployment
@@ -481,7 +481,7 @@ sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the
-[Web Service Integration for Standalone Proxy](#web-service-integration-standalone-proxy "Web Service Integration - Standalone proxy")
+[Web Service Integration for Standalone Proxy](#web-service-integration-for-standalone-proxy "Web Service Integration - Standalone proxy")
 section of this document.
 
 ## Standalone Proxy Storage
@@ -544,7 +544,7 @@ curl -k --data-binary @/etc/group "https://stroomsap0.strmdev00.org/stroom/dataf
 ```
 Before testing, it is recommended you set up to monitor the Standalone Proxy logs.
 
-Follow the steps in the [Standalone Proxy Data Posting Tests](InstallTestingHowTo.md#stroom-standalone-proxy-tests "Stroom Proxy Data Post Tests")
+Follow the steps in the [Standalone Proxy Data Posting Tests](InstallTestingHowTo.md#stroom-standalone-proxy-testing "Stroom Proxy Data Post Tests")
 section of the [Testing Stroom Installation HOWTO](InstallTestingHowTo.md "Stroom Installation Testing")
 
 # Addition of a Node to a Stroom Cluster Deployment
@@ -702,15 +702,17 @@ This HOWTO is designed to deploy Apache's httpd web service as a front end (http
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found [here](InstallHttpdHowTo.md "Apache Httpd/Mod_JK Installation").
 You should pay particular attention to the section on the
-[Apache Mod_JK configuration](InstallHttpdHowTo.md#apache-mod-jk-configuration "Apache Mo_JK Configuration")
+[Apache Mod_JK configuration](InstallHttpdHowTo.md#apache-mod_jk-configuration "Apache Mod_JK Configuration")
 as you **MUST** regenerate the Mod_JK workers.properties file on the existing cluster nodes as well as generating it on our new node.
 
 Other Web service capability can be used, for example, [NGINX](https://nginx.org "NGINX Web Service Capability").
 
 Note that once you have integrated the web services for our new node, you will need to restart the Apache systemd process on the existing
 two nodes that that the new Mod_JK configuration has taken place.
+
 ## Installation Validation
-We will now check that the installation and web services integration has worked.
+We will now check that the installation and web services integration has worked. We do this with a simple firewall check
+and [later](#testing-our-new-node-installation "Integration Tests") perform complete integration tests.
 
 ### Sanity firewall check
 To ensure you have the firewall correctly set up, the following command
