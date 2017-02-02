@@ -41,8 +41,6 @@ The attributes we see for each volume are
 If you are setting up Stroom for the first time and you had accepted the default for the __CREATE_DEFAULT_VOLUME_ON_START__ configuration option (_true_) when
 configuring the Stroom service application, you will see two default volumes have already been created. Had you set this option to _false_ then the window would be empty.
 
-It should be noted that at the time of writing, the default Status's of `Closed` are incorrect and they should default to `Inactive`. This will be corrected once issue https://github.com/gchq/stroom/issues/77 is deployed.
-
 #### Add Volumes
 Now from our two node Stroom Cluster example, our storage hierarchy was
 
@@ -129,24 +127,7 @@ and after we select then delete the second default volume( _stroomp00 /home/stro
 At this one can close the `Volumes` configuration window by pressing the 
 ![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton") button.
 
-__NOTE__: At the time of writing there are a number of Volume issues.
-##### Stroom Github Issue 79  - https://github.com/gchq/stroom/issues/79
-Due to Issue 79, when configuring our volumes, we note that the directory stroom-index-p01 is created on `stroomp00.strmdev00.org` in `/stroomdata`.
-```
-[stroomuser@stroomp00 ~]$ cd /stroomdata
-[stroomuser@stroomp00 stroomdata]$ ls -la
-total 0
-drwxr-x---. 7 stroomuser stroomuser 126 Jan 12 12:55 .
-drwxr-xr-x. 5 root       root        54 Jan 12 10:00 ..
-drwxr-x---. 2 stroomuser stroomuser   6 Jan 12 10:33 stroom-data-p00
-drwxr-x---. 2 stroomuser stroomuser   6 Jan 12 12:04 stroom-data-p01
-drwxr-x---. 2 stroomuser stroomuser   6 Jan 12 10:00 stroom-index-p00
-drwxrwxr-x. 2 stroomuser stroomuser   6 Jan 12 12:55 stroom-index-p01
-drwxr-x---. 4 stroomuser stroomuser  36 Jan 12 10:53 stroom-working-p00
-[stroomuser@stroomp00 stroomdata]$ 
-```
-One can simply remove the directory a'la `rmdir stroom-index-p01`.
-If the loadbalancer had logged us on to stroomp01 when one configured the volumes, the directory `stroom-index-p00` would have been created on `stroomp01.strmdev00.org` in `/stroomdata`.
+__NOTE__: At the time of writing there is an issue regarding volumes
 
 ##### Stroom Github Issue 84  - https://github.com/gchq/stroom/issues/84
 Due to Issue 84, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster. Thus if we attempted to use the volumes we would get a database error.
