@@ -43,13 +43,14 @@ Bye
 If there are any errors, correct them.
 
 ## Get the Software
-The following will gain the identified, in this case release `5.0-beta.8`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
+The following will gain the identified, in this case release `5.0-beta.9`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
 ```bash
 sudo -i -u stroomuser
-App=5.0-beta.8
+App=5.0-beta.9
 wget https://github.com/gchq/stroom/releases/download/v${App}/stroom-app-distribution-${App}-bin.zip
 unzip stroom-app-distribution-${App}-bin.zip
+find stroom-app -name '*.sh' -exec chmod 755 {} \+;
 chmod 750 stroom-app
 ```
 
