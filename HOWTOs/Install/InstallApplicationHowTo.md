@@ -43,11 +43,11 @@ Bye
 If there are any errors, correct them.
 
 ## Get the Software
-The following will gain the identified, in this case release `5.0-beta.9`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
+The following will gain the identified, in this case release `5.0-beta.10`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
 ```bash
 sudo -i -u stroomuser
-App=5.0-beta.9
+App=5.0-beta.10
 wget https://github.com/gchq/stroom/releases/download/v${App}/stroom-app-distribution-${App}-bin.zip
 unzip stroom-app-distribution-${App}-bin.zip
 find stroom-app -name '*.sh' -exec chmod 755 {} \+;
@@ -83,16 +83,6 @@ If you made an error then just re-run the script.
 You will note that __TEMP_DIR__ is the same directory we used for our __STROOM_TMP__ environment variable when we set up the processing user scripts.
 Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the __JDBC_URL__ setting can be the default.
 
-Given we are using mod_jk then we need to modify the application's AJP connector to specify a larger packetSize.
-Edit the file `stroom-app/instance/conf/server.xml` to change
-```
-<Connector port="8009" protocol="AJP/1.3" connectionTimeout="20000" redirectPort="8443" maxThreads="200" />
-```
-to
-```
-<Connector port="8009" protocol="AJP/1.3" connectionTimeout="20000" redirectPort="8443" maxThreads="200" packetSize="65536" />
-```
-
 ## Start the Application service
 Now we start the application. In the case of multi node Stroom deployment, we start the Stroom application on the first node in the cluster,
 then __wait__ until it has initialised the database commenced it's Lifecycle task. You will need to monitor the log file to see it's
@@ -109,7 +99,7 @@ be initialised. That is, wait for the Lifecycle service thread to start. This is
 ```
 INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166) - Started Stroom Lifecycle service
 ```
-The directory `stroom-proxy/instance/logs/events` will also appear with an empty file with
+The directory `stroom-app/instance/logs/events` will also appear with an empty file with
 the nomenclature `events_YYYY-MM-DDThh:mm:ss.msecZ`. This is the directory for storing Stroom's application event logs. We will return to this
 directory and it's content in a later HOWTO.
 
