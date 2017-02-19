@@ -123,7 +123,9 @@ Although one can modify the above for Stroom Forwarding or Standalone Proxy depl
 
 ## Establish and Deploy Systemd services
 
-Now we create the system service file for Stroom. (Noting this is done as root)
+### Processing or Proxy node
+For a standard Stroom Processing or Proxy nodes, we can use the following service script.
+(Noting this is done as root)
 ```bash
 sudo bash
 F=/etc/systemd/system/stroom-services.service
@@ -132,7 +134,35 @@ printf '# Enable via systemctl enable stroom-services.service\n\n' >> ${F}
 printf '[Unit]\n' >> ${F}
 printf '# Who we are\n' >> ${F}
 printf 'Description=Stroom Service\n' >> ${F}
-printf '# We want the network, httpd and mariadb up before us\n' >> ${F}
+printf '# We want the network and httpd up before us\n' >> ${F}
+printf 'Requires=network-online.target httpd.service\n' >> ${F}
+printf 'After= httpd.service network-online.target\n\n' >> ${F}
+printf '[Service]\n' >> ${F}
+printf '# Source our environment file so the Stroom service start/stop scripts work\n' >> ${F}
+printf 'EnvironmentFile=/home/stroomuser/env_service.sh\n' >> ${F}
+printf 'Type=oneshot\n' >> ${F}
+printf 'ExecStart=/bin/su --login stroomuser /home/stroomuser/bin/StartServices.sh\n' >> ${F}
+printf 'ExecStop=/bin/su --login stroomuser /home/stroomuser/bin/StopServices.sh\n' >> ${F}
+printf 'RemainAfterExit=yes\n\n' >> ${F}
+printf '[Install]\n' >> ${F}
+printf 'WantedBy=multi-user.target\n' >> ${F}
+chmod 640 ${F}
+```
+
+### Single Node Scenario with local database
+Should you only have a deployment where the database is on a processing node, use the following service script. The only
+difference is the Stroom dependency on the database. The database dependency below is for the MariaDB database. If you had 
+installed the MySQL Community database, then replace `mariadb.service` with `mysqld.service`.
+(Noting this is done as root)
+```bash
+sudo bash
+F=/etc/systemd/system/stroom-services.service
+printf '# Install in /etc/systemd/system\n' > ${F}
+printf '# Enable via systemctl enable stroom-services.service\n\n' >> ${F}
+printf '[Unit]\n' >> ${F}
+printf '# Who we are\n' >> ${F}
+printf 'Description=Stroom Service\n' >> ${F}
+printf '# We want the network, httpd and Database up before us\n' >> ${F}
 printf 'Requires=network-online.target httpd.service mariadb.service\n' >> ${F}
 printf 'After=mariadb.service httpd.service network-online.target\n\n' >> ${F}
 printf '[Service]\n' >> ${F}
@@ -147,6 +177,7 @@ printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 640 ${F}
 ```
 
+### Enable the service
 Now we enable the Stroom service, but we **DO NOT** start it as we will manually start the Stroom services as part of
 the installation process.
 ```bash

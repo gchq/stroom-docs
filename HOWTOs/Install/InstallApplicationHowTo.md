@@ -15,17 +15,20 @@ This HOWTO describes the installation and initial configuration of the Stroom Ap
 The following command will ensure the prerequisite software has been deployed
 
 ```bash
-sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip mariadb
+sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
+sudo yum -y install mariadb
+or
+sudo yum -y install mysql-community-client
 ```
 
 ## Test Database connectivity
 We need to test access to the Stroom database server - `stroomdb0.strmdev00.org`. We do this using the client `mysql` utility. We note that we
-must enter the _stroomuser_ user's password set up in the creation of the database earlier (`stroompassword1`).
+must enter the _stroomuser_ user's password set up in the creation of the database earlier (`Stroompassword1@`).
 
 Our test connects to the database and sets the default database to be the `stroom` database.
 ```
 [root@stroomp00 tmp]# mysql --user=stroomuser --host=stroomdb0.strmdev00.org -p
-Enter password: <__ stroompassword1 __>
+Enter password: <__ Stroompassword1@ __>
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 2
 Server version: 5.5.52-MariaDB MariaDB Server
@@ -40,6 +43,29 @@ MariaDB [stroom]> exit
 Bye
 [root@stroomp00 tmp]# 
 ```
+In the case of a MySQL Community deployment you will see
+```
+[root@stroomp00 tmp]# mysql --user=stroomuser --host=stroomdb0.strmdev00.org -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7
+Server version: 5.7.17 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use stroom;
+Database changed
+mysql> exit
+Bye
+[root@stroomp00 tmp]# 
+```
+
 If there are any errors, correct them.
 
 ## Get the Software
@@ -69,7 +95,7 @@ PORT_PREFIX should use the default, just press return
 JDBC_CLASSNAME should use the default, just press return
 JDBC_URL to 'jdbc:mysql://stroomdb0.strmdev00.org/stroom?useUnicode=yes&characterEncoding=UTF-8'
 DB_USERNAME should be our processing user, 'stroomuser'
-DB_PASSWORD should be the one we set when creating the stroom database, that is 'stroompassword1'
+DB_PASSWORD should be the one we set when creating the stroom database, that is 'Stroompassword1@'
 JPA_DIALECT should use the default, just press return
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 STATS_ENGINES should use the default, just press return

@@ -100,10 +100,23 @@ The core software list is
 Most of the required software are packages available via standard repositories and hence we can simply execute
 ```bash
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
+```
+
+One has a choice of database clients. MariaDB is directly supported by Centos 7 and is simplest to install. This is done via
+```bash
 sudo yum -y install mariadb
 ```
-In the above instance, the database client choice is MariaDB as it is directly supported by Centos 7. One could deploy the MySQL
-database software as the alternative.
+
+One could deploy the MySQL database software as the alternative.
+
+<a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client. 
+Instructions for installation of the MySQL Community repository files can be
+found [here](InstallDataBaseHowTo.md#mysql-community-repository-installation "MySQL Community Repository Installation") or on
+the [MySQL Site](https://dev.mysql.com/downloads/repo/yum "Download MySQL Yum Repository").
+Once you have installed the MySQL repository files, install the client via
+```bash
+sudo yum -y install mysql-community-client
+```
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the [Web Service Integration](#web-service-integration "Web Service Integration") section of this document.
@@ -561,10 +574,10 @@ Connect to the Stroom database as the administrative (root) user, via the comman
 sudo mysql --user=root -p
 ```
 
-and at the `MariaDB [(none)]>` prompt enter
+and at the `MariaDB [(none)]>` or `mysql> ` prompt enter
 
 ```bash
-grant all privileges on stroom.* to stroomuser@stroomp02.strmdev00.org identified by 'stroompassword1';
+grant all privileges on stroom.* to stroomuser@stroomp02.strmdev00.org identified by 'Stroompassword1@';
 quit;
 ```
 
@@ -586,7 +599,7 @@ sudo yum -y install mariadb
 ```
 In the above instance, the database client choice is MariaDB as it is directly supported by Centos 7. One could deploy the MySQL
 database software as the alternative. If you have chosen a different database for the already deployed Stroom Cluster then you
-should use that one.
+should use that one. See [earlier](#mysqlclientinstall) in this document on how to install the MySQL Community client.
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the [Web Service Integration](#web-service-integration "Web Service Integration") section of this document.
