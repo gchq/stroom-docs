@@ -111,7 +111,7 @@ One could deploy the MySQL database software as the alternative.
 
 <a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client. 
 Instructions for installation of the MySQL Community repository files can be
-found [here](InstallDataBaseHowTo.md#mysql-community-repository-installation "MySQL Community Repository Installation") or on
+found [here](InstallDatabaseHowTo.md#mysql-community-repository-installation "MySQL Community Repository Installation") or on
 the [MySQL Site](https://dev.mysql.com/downloads/repo/yum "Download MySQL Yum Repository").
 Once you have installed the MySQL repository files, install the client via
 ```bash
