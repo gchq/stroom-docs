@@ -18,9 +18,11 @@ The following command will ensure the prerequisite software has been deployed
 ```bash
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
 sudo yum -y install mariadb
+or
+sudo yum -y install mysql-community-client
 ```
 
-Note that we do __NOT__ need the Mariadb client software for a Forwarding or Standalone proxy.
+Note that we do __NOT__ need the database client software for a Forwarding or Standalone proxy.
 
 ## Get the Software
 The following will gain the identified, in this case release `5.1-beta.3`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
@@ -66,7 +68,7 @@ REPO_DIR should be set to '/stroomdata/stroom-working-p00/proxy' or '/stroomdata
 JDBC_CLASSNAME should use the default, just press return
 JDBC_URL should be set to 'jdbc:mysql://stroomdb0.strmdev00.org/stroom'
 DB_USERNAME should be our processing user, 'stroomuser'
-DB_PASSWORD should be the one we set when creating the stroom database, that is 'stroompassword1'
+DB_PASSWORD should be the one we set when creating the stroom database, that is 'Stroompassword1@'
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 ```
 
