@@ -8,7 +8,7 @@ In order to build/run/debug Stroom you will need the following:
 
  * Java 8 JDK
  * Git
- * Maven
+ * Gradle
  * IntelliJ
  * A MySQL database server v5.5 (either installed directly or inside a Docker container)
 
@@ -87,22 +87,22 @@ stroom.jdbcDriverUsername=myOtherUser
 stroom.jdbcDriverPassword=myOtherPassword
 ```
 
-## Verify the Maven build
+## Verify the Gradle build
 
-Before trying to run Stroom in an IDE it is worth performing a Maven build without all the tests to verify the code is in a sound state.
+Before trying to run Stroom in an IDE it is worth performing a Gradle build without all the tests to verify the code compiles.
 
-Stroom is dependant on the _event-logging_ repo for its build. Utill _event-logging_ has been added to maven central you need to clone and build this first. So in your chosen directory for git repositories do:
+Stroom is dependant on the _event-logging_ repo for its build. Utill _event-logging_ has been added to Maven Central you need to clone and build this first. So in your chosen directory for git repositories do:
 
 ```bash
-git clone git@github.com:gchq/event-loggin.git
+git clone git@github.com:gchq/event-logging.git
 cd event-logging
 mvn clean install
 ```
 
-Once event-logging has built successfully it will exist in you local maven repository so you can now build Stroom, skipping the tests.
+Once event-logging has built successfully it will exist in you local Maven repository so you can now build Stroom, skipping the tests and the GWT compilation.
 
 ```bash 
-mvn -Pgwt-dev-chrome -Dskip.surefire.tests=true clean install -U
+gradle clean build -x test -PskipGWT
 ```
 
 ## Sample Data

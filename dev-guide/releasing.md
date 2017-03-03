@@ -1,29 +1,19 @@
-# Releasing
-
-## To Perform A Release
-
-```bash
-mvn release:prepare
-mvn release:perform
-```
-
 ## To Perform a Local Build
-`mvn -Dskip.surefire.tests=true clean install -U`
 
-(`-U` is to force update of dependencies)
+###Full build:
+`gradle clean build`
 
-For quick GWT compilation run:
+###Build without tests
+`gradle clean build -x test`
 
-`mvn -Pgwt-dev-chrome -Dskip.surefire.tests=true clean install -U`
-
-## To Perform a SNAPSHOT Release
-`mvn deploy`
+###Build without tests or GWT compilation
+`gradle clean build -x test -PskipGWT`
 
 ## Version Numbers
 Release Builds -
  * 3.3.0
- * 3.3.0-beta-1
+ * 3.3.0-beta.1
 
 Snapshot Builds -
  * 3.3.0-SNAPSHOT
- * 3.3.0-beta-1-SNAPSHOT
+ * 3.3.0-beta.1-SNAPSHOT

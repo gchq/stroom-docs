@@ -73,7 +73,7 @@ cd ..
 
 ```bash
 git clone https://github.com/gchq/stroom.git
-mvn clean install
+gradle clean build
 ```
 
 ####  Unpack the Stroom distribution in preparation for building the docker image
