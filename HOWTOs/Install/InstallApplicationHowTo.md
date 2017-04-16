@@ -4,7 +4,10 @@ This HOWTO describes the installation and initial configuration of the Stroom Ap
 ## Assumptions
 - the user has reasonable RHEL/Centos System administration skills
 - installation is on a fully patched minimal Centos 7.3 instance.
-- the Stroom database has been created and resides on the host `stroomdb0.strmdev00.org`
+- the Stroom `stroom` database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3307.
+- the Stroom `stroom` database user is `stroomuser` with a password of `Stroompassword1@`.
+- the Stroom `statistics` database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3308.
+- the Stroom `statistics` database user is `stroomuser` with a password of `Stroompassword2@`.
 - the application user `stroomuser` has been created
 - the user is or has deployed the two node Stroom cluster described [here](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario")
 - the user has set up the Stroom processing user as described [here](InstallProcessingUserSetupHowTo.md "Processing User Setup")
@@ -22,12 +25,13 @@ sudo yum -y install mysql-community-client
 ```
 
 ## Test Database connectivity
-We need to test access to the Stroom database server - `stroomdb0.strmdev00.org`. We do this using the client `mysql` utility. We note that we
-must enter the _stroomuser_ user's password set up in the creation of the database earlier (`Stroompassword1@`).
+We need to test access to the Stroom databases on `stroomdb0.strmdev00.org`. We do this using the client `mysql` utility. We note that we
+must enter the _stroomuser_ user's password set up in the creation of the database earlier (`Stroompassword1@`) when connecting to
+the `stroom` database and we must enter the _stroomstats_ user's password (`Stroompassword2@`) when connecting to the `statistics` database.
 
-Our test connects to the database and sets the default database to be the `stroom` database.
+We first test we can connect to the `stroom` database and then set the default database to be `stroom`.
 ```
-[root@stroomp00 tmp]# mysql --user=stroomuser --host=stroomdb0.strmdev00.org -p
+[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
 Enter password: <__ Stroompassword1@ __>
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 2
@@ -41,17 +45,17 @@ MariaDB [(none)]> use stroom;
 Database changed
 MariaDB [stroom]> exit
 Bye
-[root@stroomp00 tmp]# 
+[burn@stroomp00 ~]$
 ```
 In the case of a MySQL Community deployment you will see
 ```
-[root@stroomp00 tmp]# mysql --user=stroomuser --host=stroomdb0.strmdev00.org -p
-Enter password: 
+[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
+Enter password: <__ Stroompassword1@ __>
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 7
-Server version: 5.7.17 MySQL Community Server (GPL)
+Your MySQL connection id is 9
+Server version: 5.7.18 MySQL Community Server (GPL)
 
-Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
 
 Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
@@ -61,22 +65,62 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> use stroom;
 Database changed
-mysql> exit
+mysql> quit
 Bye
-[root@stroomp00 tmp]# 
+[burn@stroomp00 ~]$ 
+```
+
+We next test connecting to the `statistics` database and verify we can set the default database to be `statistics`.
+```
+[burn@stroomp00 ~]$ mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
+Enter password: <__ Stroompassword2@ __>
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 5.5.52-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use statistics;
+Database changed
+MariaDB [stroom]> exit
+Bye
+[burn@stroomp00 ~]$
+```
+In the case of a MySQL Community deployment you will see
+```
+[burn@stroomp00 ~]$ mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
+Enter password:  <__ Stroompassword2@ __>
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 5.7.18 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use statistics;
+Database changed
+mysql> quit
+Bye
+[burn@stroomp00 ~]$ 
 ```
 
 If there are any errors, correct them.
 
 ## Get the Software
-The following will gain the identified, in this case release `5.0-beta.10`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
+The following will gain the identified, in this case release `5.0-beta.18`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
 ```bash
 sudo -i -u stroomuser
-App=5.0-beta.10
+App=5.0-beta.18
 wget https://github.com/gchq/stroom/releases/download/v${App}/stroom-app-distribution-${App}-bin.zip
 unzip stroom-app-distribution-${App}-bin.zip
-find stroom-app -name '*.sh' -exec chmod 755 {} \+;
 chmod 750 stroom-app
 ```
 
@@ -93,11 +137,15 @@ NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01'
 RACK can be ignored, just press return
 PORT_PREFIX should use the default, just press return
 JDBC_CLASSNAME should use the default, just press return
-JDBC_URL to 'jdbc:mysql://stroomdb0.strmdev00.org/stroom?useUnicode=yes&characterEncoding=UTF-8'
+JDBC_URL to 'jdbc:mysql://stroomdb0.strmdev00.org:3307/stroom?useUnicode=yes&characterEncoding=UTF-8'
 DB_USERNAME should be our processing user, 'stroomuser'
 DB_PASSWORD should be the one we set when creating the stroom database, that is 'Stroompassword1@'
 JPA_DIALECT should use the default, just press return
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
+STROOM_STATISTICS_SQL_JDBC_CLASSNAME should use the default, just press return
+STROOM_STATISTICS_SQL_JDBC_URL to 'jdbc:mysql://stroomdb0.strmdev00.org:3308/statistics?useUnicode=yes&characterEncoding=UTF-8'
+STROOM_STATISTICS_SQL_DB_USERNAME should be our processing user, 'stroomstats'
+STROOM_STATISTICS_SQL_DB_PASSWORD should be the one we set when creating the stroom database, that is 'Stroompassword2@'
 STATS_ENGINES should use the default, just press return
 CONTENT_PACK_IMPORT_ENABLED should use the default, just press return
 CREATE_DEFAULT_VOLUME_ON_START should use the default, just press return

@@ -81,10 +81,10 @@ to both our processing nodes. At this point we will then integrate a web service
 then perform the initial configuration of Stroom via the user interface.
 
 ## Database Installation
-The Stroom capability requires access to a MySQL/MariaDB database to persist application configuration and metadata.
-Instructions for installation of the Stroom database can be found [here](InstallDatabaseHowTo.md "Database Installation").
-Although these instructions describe the deployment of the database to it's own node, there is no reason why one can't
-just install it on the first (or only) Stroom node.
+The Stroom capability requires access to two MySQL/MariaDB databases. The first is for persisting application configuration and metadata information, and the second is for the Stroom Statistics capability.
+Instructions for installation of the Stroom databases can be found [here](InstallDatabaseHowTo.md "Database Installation").
+Although these instructions describe the deployment of the databases to their own node, there is no reason why one can't
+just install them both on the first (or only) Stroom node.
 
 ## Prerequisite Software Installation
 Certain software packages are required for either the Stroom Proxy or Stroom Application to run.
@@ -780,7 +780,7 @@ in our [Stroom Tasks HowTo](../General/TasksHowTo.md "Stroom Task HOWTO") shows 
 
 
 ## Testing our New Node Installation
-To complete the installation process we will test that our new node has succsesfully integrated into our cluster.
+To complete the installation process we will test that our new node has successfully integrated into our cluster.
 
 First we need to ensure we have restarted the Apache Httpd service (httpd.service) on the original nodes so that the new workers.properties
 configuration files take effect.
