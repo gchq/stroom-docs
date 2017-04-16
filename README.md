@@ -9,6 +9,7 @@ docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=st
 docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" gchq/stroom
 ```
 
+A series of HOWTO Recipes for various elements of Stroom can be found [here](HOWTOs/StroomHowTos.md "Stroom HOWTO Recipes")
 # Stroom
 
 Stroom is a data processing, storage and analysis platform. It is scalable - just add more CPUs / servers for greater throughput. It is suitable for processing high volume data such as system logs, to provide valuable insights into IT performance and usage.
