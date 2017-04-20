@@ -123,7 +123,33 @@ described in the [Web Service Integration](#web-service-integration "Web Service
 
 Note also, that Standalone or Forwarding Stroom Proxy deployments do __NOT__ need a database client deployed.
 
-### Storage Scenario
+### Entropy Issues in Virtual environments
+Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java SecureRandom class to provide
+random values for any generated session identifiers as well as other components. In some circumstances the Java runtime can be delayed if the entropy source that is
+used to initialise SecureRandom is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy souce
+/dev/random to have sufficient entropy. This quite often occurs in virtual environments were there are few sources that can contribute to 
+a system's entropy.
+
+To view the current available entropy on a Linux system, run the command
+```bash
+cat /proc/sys/kernel/random/entropy_avail
+```
+A reasonable value would be over 2000 and a poor value would be below a few hundred.
+
+If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
+the Application as high as 15 minutes.
+
+One software based solution would be to install the [haveged](http://www.issihosts.com/haveged "Haveged Web Site") service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
+To install execute
+```bash
+yum -y install haveged
+systemctl enable haveged
+systemctl start haveged
+```
+
+For background reading in this matter, see [this reference](https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged "Haveged Entropy Service") or [this reference](https://wiki.apache.org/tomcat/HowTo/FasterStartUp#Entropy_Source "How do I make Tomcat startup faster?").
+
+## Storage Scenario
 For the purpose of this Installation HOWTO, the following sets up the storage hierarchy for a two node processing
 cluster. To share our __permanent data__ we will use NFS. Accept that the NFS deployment described here is very simple, and
 in a production deployment, a _lot_ more security controls should be used. Further, 
