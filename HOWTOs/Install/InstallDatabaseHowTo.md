@@ -454,3 +454,22 @@ All files will, by default, generate up to 9 rotated files.
 If you wish to rotate a log file manually, log into the database as the administrative user and execute either
 - `set global server_audit_file_rotate_now=1;` to rotate the audit log file
 - `set global sql_error_log_rotate=1;` to rotate the sql_errlog log file
+
+### Initial Database Access
+
+It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, it's initial access to the `stroom` database will result in the following attempted sql statements.
+```sql
+2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
+2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.STROOM_VER' doesn't exist : SELECT VER_MAJ, VER_MIN, VER_PAT FROM STROOM_VER ORDER BY VER_MAJ DESC, VER_MIN DESC, VER_PAT DESC LIMIT 1
+2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.FD' doesn't exist : SELECT ID FROM FD LIMIT 1
+2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.FEED' doesn't exist : SELECT ID FROM FEED LIMIT 1
+```
+
+After this access the application will realise the database does not exist and it will initialise the database.
+
+In the case of the `statistics` database you may note the following attempted access
+```sql
+2017-04-16 16:25:09 stroomstats[stroomstats] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'statistics.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC 
+```
+
+Again, at this point the application will initialise this database.
