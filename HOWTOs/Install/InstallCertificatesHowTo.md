@@ -136,6 +136,7 @@ mv stroom-jks.tar /stroomdata/stroom-data-p01
 ```
 then on the another node, say `stroomp01.strmdev00.org`, as the stroomuser we extract the data.
 ```bash
+sudo -i -u stroomuser
 cd ~stroomuser
 tar xf /stroomdata/stroom-data-p01/stroom-jks.tar && rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
 ```

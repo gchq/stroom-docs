@@ -3,13 +3,14 @@ This HOWTO describes the installation and configuration of the Stroom Proxy soft
 
 ## Assumptions
 The following assumptions are used in this document.
-- the user has reasonable RHEL/Centos System administration skills
+- the user has reasonable RHEL/Centos System administration skills.
 - installation is on a fully patched minimal Centos 7.3 instance.
-- the Stroom database has been created and resides on the host `stroomdb0.strmdev00.org`
-- the application user `stroomuser` has been created
-- the user is or has deployed the two node Stroom cluster described [here](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario")
-- the user has set up the Stroom processing user as described [here](InstallProcessingUserSetupHowTo.md "Processing User Setup")
-- the prerequisite software has been installed
+- the Stroom database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3307.
+- the Stroom database user is `stroomuser` with a password of `Stroompassword1@`.
+- the application user `stroomuser` has been created.
+- the user is or has deployed the two node Stroom cluster described [here](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario").
+- the user has set up the Stroom processing user as described [here](InstallProcessingUserSetupHowTo.md "Processing User Setup").
+- the prerequisite software has been installed.
 - when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
 
 ## Confirm Prerequisite Software Installation
@@ -66,7 +67,7 @@ NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01'
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to '/stroomdata/stroom-working-p00/proxy' or '/stroomdata/stroom-working-p01/proxy' depending on the node we are installing on
 JDBC_CLASSNAME should use the default, just press return
-JDBC_URL should be set to 'jdbc:mysql://stroomdb0.strmdev00.org/stroom'
+JDBC_URL should be set to 'jdbc:mysql://stroomdb0.strmdev00.org:3307/stroom'
 DB_USERNAME should be our processing user, 'stroomuser'
 DB_PASSWORD should be the one we set when creating the stroom database, that is 'Stroompassword1@'
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
