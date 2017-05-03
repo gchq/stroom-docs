@@ -54,11 +54,11 @@ docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroo
 
 If you're really interested here are your full options for running Stroom:
 
-* [Run using a Docker Hub image](../dev-guide/docker.md#using-a-pre-built-docker-hub-image)
+* [Run using a Docker Hub image](../dev-guide/docker-running.md#using-a-pre-built-docker-hub-image)
 * [Run using a release](../install-guide/stroom-app-install.md)
 * From source you can:
   * [Build and run from IntelliJ](../dev-guide/stroom-in-an-ide.md)
-  * [Build and run using Docker](../dev-guide/docker.md#building-a-docker-image-from-a-stroom-distribution)
+  * [Build and run using Docker](../dev-guide/docker-building.md)
 
 ## Basic configuration
 

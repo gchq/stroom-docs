@@ -38,7 +38,7 @@ Stroom requires a MySQL database to run. You can either point stroom at a MySQL 
 
 ### MySQL in a Docker container
 
-To configure the stroom database in a MySQL Docker container see [Running Stroom using Docker](./docker.md) for how to set this up.
+To configure the stroom database in a MySQL Docker container see [Running Stroom using Docker](./docker-running.md) for how to set this up.
 
 ### Host based MySQL server
 
