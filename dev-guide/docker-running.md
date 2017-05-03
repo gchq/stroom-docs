@@ -1,11 +1,6 @@
 # Running Stroom in a Docker Container
 
-This is how to run Stroom in a Docker container (assuming you have already installed Docker). There are two options for running Stroom within a Docker container.
-
-* [Using a pre-built Docker Hub image](#using-a-pre-built-docker-hub-image)
-* [Building a Docker image from a Stroom distribution](#building-a-docker-image-from-a-stroom-distribution)
-
-The first option of using a pre-built _Docker Hub_ image is the quickest and easiest way to get Stroom up and running.
+This is how to run Stroom using Docker (assuming you already have Docker installed). You may also [build a Docker image from scratch](./docker-building.md).
 
 ## Using a pre-built _Docker Hub_ image for Stroom 5.0
 
