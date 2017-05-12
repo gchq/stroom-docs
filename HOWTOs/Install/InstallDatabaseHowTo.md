@@ -38,6 +38,56 @@ On correct validation of the MD5 checksum, we install the repository files via
 sudo yum -y localinstall mysql57-community-release-el7.rpm
 ```
 
+**NOTE:** Stroom currently does not support the latest production MySQL version - 5.7. You will need to install MySQL Version 5.6.
+
+Now since we must use MySQL Version 5.6 you will need to edit the MySQL repo file `/etc/yum.repos.d/mysql-community.repo` to
+disable the `mysql57-community` channel and enable the `mysql56-community` channel. We start by, backing up the repo file with
+```bash
+sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG
+```
+
+Then edit the file to change
+
+```
+...
+# Enable to use MySQL 5.6
+[mysql56-community]
+name=MySQL 5.6 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/7/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+...
+```
+
+to become
+
+```
+...
+# Enable to use MySQL 5.6
+[mysql56-community]
+name=MySQL 5.6 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+...
+```
+
 Next we install server software and SELinux policy files, as per
 ```bash
 sudo yum -y install policycoreutils-python mysql-community-server
@@ -160,7 +210,8 @@ At this we should have both instances running. One should check each instance's 
 
 #### Secure each database instance
 We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
-only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use.
+only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+we will use `Stroom5User@`.
 The utility `mysql_secure_installation` expects to find the Linux socket file to access the database it's securing at `/var/lib/mysql/mysql.sock`.
 Since we have used other locations, we temporarily link the real socket file to `/var/lib/mysql/mysql.sock` for each invocation of the
 utility. Thus we execute
@@ -186,8 +237,8 @@ Setting the root password ensures that nobody can log into the MariaDB
 root user without the proper authorisation.
 
 Set root password? [Y/n] 
-New password: <__ENTER_ROOT_DATABASE_PASSWORD__>
-Re-enter new password: <__ENTER_ROOT_DATABASE_PASSWORD__>
+New password: <__ Stroom5User@ __>
+Re-enter new password: <__ Stroom5User@ __>
 Password updated successfully!
 Reloading privilege tables..
  ... Success!
@@ -242,9 +293,10 @@ and process as before (for when running mysql_secure_installation). At this both
 
 ### MySQL Community Variant
 #### Create and instantiate both database instances
-As of MySQL 5.7.13, on platforms for which systemd support is installed (i.e. Centos 7.3), systemd has the capability of managing multiple MySQL instances. We will make use of this facility.
 
-To use this multiple-instance capability, we need to create two data directories for each database instance and also modify the MySQL configuration file, `/etc/my.cnf`, to include configuration of key options for each instance. We will name our instances, `mysqld0` and `mysqld1`. We will also create specific log files for each instance.
+To set up two MySQL database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an `@` character before the `.service` suffix.
+
+To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MySQL configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance. We will name our instances, `mysqld0` and `mysqld1`. We will also create specific log files for each instance.
 
 We will use the directories, `/var/lib/mysql-mysqld0` and `/var/lib/mysql-mysqld1` for the data directories and `/var/log/mysql-mysqld0.log` and `/var/log/mysql-mysqld1.log` for the log directories. Note you should modify /etc/logrotate.d/mysql to manage these log files. Note also, we need to set the appropriate SELinux file context on the created directories and files.
 
@@ -268,6 +320,17 @@ sudo chown mysql:mysql /var/log/mysql-mysqld1.log
 sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld1.log
 ```
 
+We now initialise the our two database data directories via
+```bash
+sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
+sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
+```
+
+Disable the default database via
+```bash
+sudo systemctl disable mysqld
+```
+
 We now modify the  MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively.  First backup the existing configuration file with
 ```bash
 sudo cp /etc/my.cnf /etc/my.cnf.ORIG
@@ -276,19 +339,33 @@ then setup `/etc/my.cnf` as per
 ```bash
 sudo bash
 F=/etc/my.cnf
-printf '# Database for Stroom Application - stroom\n' >> ${F}
-printf '[mysqld@mysqld0]\n' >> ${F}
-printf 'datadir=/var/lib/mysql-mysqld0\n' >> ${F}
-printf 'socket=/var/lib/mysql-mysqld0/mysql.sock\n' >> ${F}
+printf '[mysqld_multi]\n' > ${F}
+printf 'mysqld = /usr/bin/mysqld_safe --basedir=/usr\n' >> ${F}
+printf '\n' >> ${F}
+printf '[mysqld0]\n' >> ${F}
 printf 'port=3307\n' >> ${F}
+printf 'mysqld = /usr/bin/mysqld_safe --basedir=/usr\n' >> ${F}
+printf 'datadir=/var/lib/mysql-mysqld0/\n' >> ${F}
+printf 'socket=/var/lib/mysql-mysqld0/mysql.sock\n' >> ${F}
+printf 'pid-file=/var/run/mysqld/mysql-mysqld0.pid\n' >> ${F}
+printf '\n' >> ${F}
 printf 'log-error=/var/log/mysql-mysqld0.log\n' >> ${F}
 printf '\n' >> ${F}
-printf '# Database for Stroom Statistics - statistics\n' >> ${F}
-printf '[mysqld@mysqld1]\n' >> ${F}
-printf 'datadir=/var/lib/mysql-mysqld1\n' >> ${F}
-printf 'socket=/var/lib/mysql-mysqld1/mysql.sock\n' >> ${F}
+printf '# Disabling symbolic-links is recommended to prevent assorted security\n' >> ${F}
+printf '# risks\n' >> ${F}
+printf 'symbolic-links=0\n' >> ${F}
+printf '\n' >> ${F}
+printf '[mysqld1]\n' >> ${F}
+printf 'mysqld = /usr/bin/mysqld_safe --basedir=/usr\n' >> ${F}
 printf 'port=3308\n' >> ${F}
+printf 'datadir=/var/lib/mysql-mysqld1/\n' >> ${F}
+printf 'socket=/var/lib/mysql-mysqld1/mysql.sock\n' >> ${F}
+printf 'pid-file=/var/run/mysqld/mysql-mysqld1.pid\n' >> ${F}
+printf '\n' >> ${F}
 printf 'log-error=/var/log/mysql-mysqld1.log\n' >> ${F}
+printf '\n' >> ${F}
+printf '# Disabling symbolic-links is recommended to prevent assorted security risks\n' >> ${F}
+printf 'symbolic-links=0\n' >> ${F}
 exit # To exit the root shell
 ```
 We also need to associate the ports with the `mysqld_port_t` SELinux context as per
@@ -296,62 +373,131 @@ We also need to associate the ports with the `mysqld_port_t` SELinux context as 
 sudo semanage port -a -t mysqld_port_t -p tcp 3307
 sudo semanage port -a -t mysqld_port_t -p tcp 3308
 ```
+We next create the systemd service template as per
+```bash
+sudo bash
+F=/etc/systemd/system/mysqld@.service
+
+printf '# Install in /etc/systemd/system\n' > ${F}
+printf '# Enable via systemctl enable mysqld@0 or systemctl enable mysqld@1\n' >> ${F}
+printf '[Unit]\n' >> ${F}
+printf 'Description=MySQL Multi Server for instance %%i\n' >> ${F}
+printf 'After=syslog.target\n' >> ${F}
+printf 'After=network.target\n' >> ${F}
+printf '\n' >> ${F}
+printf '[Service]\n' >> ${F}
+printf 'User=mysql\n' >> ${F}
+printf 'Group=mysql\n' >> ${F}
+printf 'Type=forking\n' >> ${F}
+printf 'ExecStart=/usr/bin/mysqld_multi start %%i\n' >> ${F}
+printf 'ExecStop=/usr/bin/mysqld_multi stop %%i\n' >> ${F}
+printf 'Restart=always\n' >> ${F}
+printf 'PrivateTmp=true\n' >> ${F}
+printf '\n' >> ${F}
+printf '[Install]\n' >> ${F}
+printf 'WantedBy=multi-user.target\n' >> ${F}
+chmod 644 ${F}
+exit; # to exit the root shell
+```
+
 
 We next enable and start both instances via
 ```bash
-sudo systemctl enable mysqld@mysqld0
-sudo systemctl enable mysqld@mysqld1
-sudo systemctl start mysqld@mysqld0
-sudo systemctl start mysqld@mysqld1
+sudo systemctl enable mysqld@0
+sudo systemctl enable mysqld@1
+sudo systemctl start mysqld@0
+sudo systemctl start mysqld@1
 ```
+
 At this we should have both instances running. One should check each instance's log file for any errors.
 
 #### Secure each database instance
-There is no need to run the (traditional) `mysql_secure_installation` script for MySQL 5.7 versions or beyond, as the function of this program is effected the first time a database instance is started.
-That said, the initial start up of each mysqld service will have created the administrator (root) account and set it's password.
-To reveal the passwords, run
+We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
+only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+we will use `Stroom5User@`.
+The utility `mysql_secure_installation` expects to find the Linux socket file to access the database it's securing at `/var/lib/mysql/mysql.sock`.
+Since we have used other locations, we temporarily link the real socket file to `/var/lib/mysql/mysql.sock` for each invocation of the
+utility. Thus we execute
+
 ```bash
-sudo grep 'temporary password' /var/log/mysql-mysqld0.log
-sudo grep 'temporary password' /var/log/mysql-mysqld1.log
+sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
 ```
-You should now reset the passwords. Note that MySQL 5.7 implements the validate_password plugin, so you will need a password that contains
-at least one upper case letter, one lower case letter, one digit, and one special character, and that the total password length is at least
-8 characters. Change the password via the following, using the password gained from the logfiles above to authenticate to the mysql service. For `mysqld0`, run
+to see
+```
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MySQL to secure it, we'll need the current
+password for the root user.  If you've just installed MySQL, and
+you haven't set the root password yet, the password will be blank,
+so you should just press enter here.
+
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+
+Setting the root password ensures that nobody can log into the MySQL
+root user without the proper authorisation.
+
+Set root password? [Y/n] y
+New password: <__ Stroom5User@ __>
+Re-enter new password: <__ Stroom5User@ __>
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MySQL installation has an anonymous user, allowing anyone
+to log into MySQL without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] 
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] 
+ ... Success!
+
+By default, MySQL comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] 
+ - Dropping test database...
+ERROR 1008 (HY000) at line 1: Can't drop database 'test'; database doesn't exist
+ ... Failed!  Not critical, keep moving...
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] 
+ ... Success!
+
+
+
+
+All done!  If you've completed all of the above steps, your MySQL
+installation should now be secure.
+
+Thanks for using MySQL!
+
+
+Cleaning up...
+```
+then we execute
 ```bash
-mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
+sudo rm /var/lib/mysql/mysql.sock
+sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+sudo rm /var/lib/mysql/mysql.sock
 ```
-then entering the command
-```sql
-ALTER USER 'root'@'localhost' IDENTIFIED BY '<__ENTER_ROOT_DATABASE_PASSWORD__>';
-```
-For example, we set the password to `Stroom5User@` as per 
-```bash
-[burn@stroomdb0 ~]$ mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
-Enter password: < __ENTER_ROOT_DATABASE_PASSWORD_FROM_MYSQLD_LOG__>
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 4
-Server version: 5.7.18
-
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'Stroom5User@';
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> quit
-Bye
-[burn@stroomdb0 ~]$
-```
-and for the second instance, `mysqld1`, run
-```bash
-mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
-```
-and set the password appropriately as for the first instance then exit.
+and process as before (for when running mysql_secure_installation). At this both database instances should be secure.
 
 ## Create the Databases and Enable access by the Stroom processing users
 We now create the `stroom` database within the first instance, `mysqld0` and the `statistics` database within the second
