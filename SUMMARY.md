@@ -60,6 +60,29 @@
       * [Use of fixed strings](datasplitter/3-3-use-of-fixed-strings.md)
       * [Concatenation of references](datasplitter/3-4-concatenation-of-references.md)
 
+### 5. HOWTOs
+
+* [Introduction](HOWTOs/StroomHowTos.md)
+* General
+  * [Feed Management](HOWTOs/General/FeedManagementHowTo.md)
+  * [Tasks](HOWTOs/General/TasksHowTo.md)
+* Authentication
+  * [User Logout](HOWTOs/Authentication/UserLogoutHowTo.md)
+  * [User Login](HOWTOs/Authentication/UserLoginHowTo.md)
+  * [Create User](HOWTOs/Authentication/CreateUserHowTo.md)
+* Install
+  * [Nodes](HOWTOs/Install/InstallNodesHowTo.md)
+  * [Database](HOWTOs/Install/InstallDatabaseHowTo.md)
+  * [Install](HOWTOs/Install/InstallHowTo.md)
+  * [Processing User Setup](HOWTOs/Install/InstallProcessingUserSetupHowTo.md)
+  * [NFS](HOWTOs/Install/InstallNFSHowTo.md)
+  * [Testing](HOWTOs/Install/InstallTestingHowTo.md)
+  * [Proxy](HOWTOs/Install/InstallProxyHowTo.md)
+  * [Volumes](HOWTOs/Install/InstallVolumesHowTo.md)
+  * [Httpd](HOWTOs/Install/InstallHttpdHowTo.md)
+  * [Certificates](HOWTOs/Install/InstallCertificatesHowTo.md)
+  * [Application](HOWTOs/Install/InstallApplicationHowTo.md)
+
 ### 6. Stroom Proxy
 
 * [Installing Stroom proxy](proxy/install.md)
@@ -74,3 +97,4 @@
   * [Running Stroom using Docker](dev-guide/docker-running.md)
   * [Building a Stroom Docker image](dev-guide/docker-building.md)
   * [Building GitBook documentation](dev-guide/gitbook.md)
+  * [C# Client](dev-guidec#-client.md)
