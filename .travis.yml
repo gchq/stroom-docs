@@ -23,31 +23,41 @@ install:
   - npm install -g gitbook-cli
 
 script:
-  - openssl aes-256-cbc -K $encrypted_3312804ce423_key -iv $encrypted_3312804ce423_iv -in deploy-key.enc -out ~/.ssh/deploy-key -d
-  - chmod 600 ~/.ssh/deploy-key
-  - eval `ssh-agent -s`
-  - ssh-add ~/.ssh/deploy-key
-  - cp ssh_config ~/.ssh/config
+  #- openssl aes-256-cbc -K $encrypted_3312804ce423_key -iv $encrypted_3312804ce423_iv -in deploy-key.enc -out ~/.ssh/deploy-key -d
+  #- chmod 600 ~/.ssh/deploy-key
+  #- eval "$(ssh-agent -s)"
+  #- ssh-add ~/.ssh/deploy-key
+  #- cp ssh_config ~/.ssh/config
   - gitbook install
   - gitbook build
+  - echo "Finding un-converted markdown files" && find ./_book/ -name "*.md"
 #    - gitbook pdf ./ ./stroom-docs.pdf
-  - git fetch origin gh-pages:gh-pages
-  - git worktree add build gh-pages
-  - rsync -ar --delete --exclude '.git' ./_book/ ./build/
-  - pushd build
+  #- git fetch origin gh-pages:gh-pages >/dev/null 2>&1
+  #- git worktree add build gh-pages
+  #- rsync -ar --delete --exclude '.git' ./_book/ ./build/
+  #- pushd build
 # TODO could fail the build if we find un-converted markdown files
-  - echo "Finding un-converted markdown files" && find . -name "*.md"
-  - git remote set-url origin git@github.com:gchq/stroom-docs.git
-  - git config --global user.name "$GIT_USER"
-  - git config --global user.email "$GIT_EMAIL"
-  - git status
-  - git add -all
-  - git commit -m 'Automated update of gitbook generated html from master'
-  - git push --set-upstream origin gh-pages
+  #- echo "Finding un-converted markdown files" && find . -name "*.md"
+  #- git remote set-url origin git@github.com:gchq/stroom-docs.git
+  #- git config --global user.name "$GIT_USER"
+  #- git config --global user.email "$GIT_EMAIL"
+  #- git status
+  #- git add --all
+  #- git commit -m 'Automated update of gitbook generated html from master'
+  #- git push --set-upstream origin gh-pages >/dev/null 2>&1
 # TODO add, commit and push to git
-  - popd
+  #- popd
 
 # TODO release the pdf to a release tag, e.g. 'latest', updating the artifact
+
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    local_dir: _book
+    target_branch: gh-pages
+    on:
+      branch: master
 
 branches:
   only:
