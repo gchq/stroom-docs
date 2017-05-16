@@ -29,6 +29,8 @@ script:
   #- eval "$(ssh-agent -s)"
   #- ssh-add ~/.ssh/deploy-key
   #- cp ssh_config ~/.ssh/config
+
+  #move the wrapper script to hide the real binary meaning this gets run instead
   - sudo mv ebook-convert /usr/local/bin/
   - gitbook install
   - gitbook build
@@ -53,7 +55,15 @@ script:
 # TODO release the pdf to a release tag, e.g. 'latest', updating the artifact
 # http://stackoverflow.com/questions/28217556/travis-ci-auto-tag-build-for-github-release
 
+before_deploy:
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - export GIT_TAG=Build-$TRAVIS_BUILD_NUMBER
+  - git tag $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER"
+  - git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags
+
 deploy:
+    #Push the generated gitbook html to the gh-pages branch
   - provider: pages
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
@@ -61,7 +71,27 @@ deploy:
     target_branch: gh-pages
     on:
       branch: master
+    #Upload the pdf of the docs as a release tagged with the build number
+  - provider: releases
+    api_key: 
+      #encrypted github oauth token
+      secure: "JBXDI5R2yXtKJNY0Wi2lnD7tRqWKhvO9Fv0iaDQgZPtdWcouzJqi0hn8pz4MyE/uFWqbnfqOKloPTHOhydZRvFqWkOZc40RzP74acXaFH7txX06z7AWTc/AFNR8wpMygrpNiRIhwnj6P734gWD95+xnn9DGox2PizCwREKzpcjecScFdWiq72sNz1nfab7uIaFerUzq+HE7KnwlZmGBH0RdkZuEiihPhA5zmew0iexScQf6NHI7JlZUkFdNdyaeT8hmzF12LthnvUmV6MnFJ4mDRYeroCUkxMrJHqbxgHQB6PwQPaugAwRKZvyHislMUP7jT1BRdQtgqjL4p83SaA+PI61d0DpbgL6qQnwaedgveCL9EHXw2dKVNYNVZsGBSTtSl2eEtPujKs8EKZK7HEAOBF2tKR99CY4qcopk79NOrrMpMcNW2bpOCoFqEEFeTb26zCV9o9p6Xosrc9QzZLE52RCJxY8iRo/DsgOwxjGLFVJIxmxWqh+pwomUs//dkDvOF3bqv8+VgnI6zjZ/XVXZ5jTz2soLN1tCiB0cl3RxYM3SADEp85wqTGwwAvNNc+EboG8HELLtrgV1IL7z9mfoPBEUFsH0xt6pmmwYC7whTiKBf9PiXjgFB7QhpbJJWCWL6sP/23Ot9pljeH4KEHy8aJbspaGxt63OWwL1D+4s="
+    file: "stroom-docs.pdf"
+    skip_cleanup: true
+    on:
+      tags: false
+      branch: master
 
 branches:
   only:
     - master
+
+env:
+  global:
+    # $TAGPERM environment variable
+    # generate a token at https://github.com/settings/tokens and encrypt it
+    # with `travis encrypt TAGPERM=<yoursecrettoken> --add env.global`
+    # also see: https://docs.travis-ci.com/user/encryption-keys/#Usage
+    # and: https://docs.travis-ci.com/user/best-practices-security/
+    - secure: "JZN366De63sAUbPIZ0Gm/2GJWzPVpGNdD73lu8zSioUFghDg1xIccUSEENnq+r76EE1umre8RUJWVk57WiIaGRXNSidir44lfu23uwkR8fv06EXvCnHi6HSnCBGtnCtq3Ph0K9Fn5fAitKAJJ3vqvlmjjoBVFV68eGFayStZ4PhknwcMpXnIOhl1+hi8L7NgrVhU3P80cAkjGpDoXt8bXCatIj4wFxGheJUOAuh5Y11DuZeWeWTqDDMBaM55NqYc3bkAFYMJSMB0c/E3lsLwFCd2TToDDAuqguAlCIRUvji4I2cg4jXWsmUXh10fblpTUv++yB/jumutwGAlF7TbVIuyfbgWo0IaL0pDNT8b+X7vq+TcQiL41PvvskdYdDcs2C3Zaj14z5ndeThMI/Xo7qxpiFWNaVd07rT6S/TLN53dA2X/Ahr4G+9PlxuZr0T2RqsY0lmm4K+Gw8k9L7cICSfAKXgTF2NVBgpk/GK16UH46e0pr94QQLYF283ND9UvPy1LpSW/PXfZ5kMmTW9NSSnYjqOluz1/h4i3pUh9K9yVttwQMfGF5/H0VAYalyLM/LuqCucOrjWZsVrDlnyUBygJMcc8HRF+p31jyhhcwP5V3Yaq3RfXzeI0ZCp2pKpsrJSRRBNs0r4mrUmrZkBg76e9scwzepmKWqSLgVfS2Go="
+
