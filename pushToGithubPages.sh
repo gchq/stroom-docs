@@ -2,8 +2,19 @@
 
 #The pushing of code to the gh-pages branch will be handled by travis-ci but this is here for reference
 
-#created local and remote gh-pages branch using
-#git subtree split --prefix war -b gh-pages
-#git push -f origin gh-pages:gh-pages
 
-git subtree push --prefix war origin gh-pages
+
+#Create a new empty gh-pages branch
+git checkout --orphan gh-pages
+git reset
+git commit --allow-empty -m 'Initial commit'
+git checkout --force master
+
+#ensure 'build' is in .gitignore
+
+#create directory build that is backed by the gh-pages branch
+git worktree add build gh-pages
+
+#build the gitbook and copy it into the build dir
+gitbook install && gitbook build
+cp -r ./_book/* ./build
