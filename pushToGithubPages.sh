@@ -17,4 +17,5 @@ git worktree add build gh-pages
 
 #build the gitbook and copy it into the build dir
 gitbook install && gitbook build
-cp -r ./_book/* ./build
+gitbook pdf ./ ./stroom-docs.pdf
+rsync -avr --delete --exclude '.git' ./_book/ ./build/
