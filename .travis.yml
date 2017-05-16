@@ -63,7 +63,8 @@ before_deploy:
   - export GIT_TAG=Build-$TRAVIS_BUILD_NUMBER
     #It appears the action of creating a tag caused travis to fire off another build within a build 
     #resulting in it trying to create the same tag twice
-  - if git tag $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null; then; git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1; else; echo "Tag already exists, ignoring"; fi
+  - git tag -f $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null
+  - git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1
 
 deploy:
     #Push the generated gitbook html to the gh-pages branch
