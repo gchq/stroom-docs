@@ -319,7 +319,7 @@ Processors are created from the _Processors_ section of the pipeline:
 
 ![The processors section of the pipeline](resources/go-processors.png)
 
-Click the add button ![Add icon](../../resources/icons/add.png) and configure the huge dialog. You only need to set the incoming feed and the stream types:
+Click the add button ![Add icon](/resources/icons/add.png) and configure the huge dialog. You only need to set the incoming feed and the stream types:
 
 (![Configure the new processor](resources/configure-processor.png)
 
