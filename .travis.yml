@@ -18,8 +18,15 @@ install:
   - nvm use stable
   - npm install
   - npm install -g gitbook-cli
-  - gitbook install
 
 script:
-    - gitbook build
-    - gitbook pdf ./ ./stroom-docs.pdf
+  - gitbook install
+  - gitbook build
+#    - gitbook pdf ./ ./stroom-docs.pdf
+  - git worktree add build gh-pages
+  - rsync -ar --delete --exclude '.git' ./_book/ ./build/
+  - pushd build
+# TODO add, commit and push to git
+  - popd
+
+# TODO release the pdf to a release tag, e.g. 'latest', updating the artifact
