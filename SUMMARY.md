@@ -17,7 +17,7 @@
   * [Securing Stroom](install-guide/setup/securing-stroom.md)
 * [Upgrading and patching](install-guide/upgrade-patch.md)
 
-### 4. User Guide
+### 3. User Guide
 
   * [Nodes](user-guide/nodes.md)
   * [Volumes](user-guide/volumes.md)
@@ -60,7 +60,7 @@
       * [Use of fixed strings](datasplitter/3-3-use-of-fixed-strings.md)
       * [Concatenation of references](datasplitter/3-4-concatenation-of-references.md)
 
-### 5. HOWTOs
+### 4. HOWTOs
 
 * [Introduction](HOWTOs/StroomHowTos.md)
 * General
@@ -83,13 +83,13 @@
   * [Certificates](HOWTOs/Install/InstallCertificatesHowTo.md)
   * [Application](HOWTOs/Install/InstallApplicationHowTo.md)
 
-### 6. Stroom Proxy
+### 5. Stroom Proxy
 
 * [Installing Stroom proxy](proxy/install.md)
 * [Docker](proxy/docker.md)
 * [Apache forwarding](proxy/apache-forwarding.md)
 
-### 7. Developer Guide
+### 6. Developer Guide
 
 * [Developer guide](dev-guide/README.md)
   * [Releasing](dev-guide/releasing.md)
