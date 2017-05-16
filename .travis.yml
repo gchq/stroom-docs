@@ -62,7 +62,7 @@ before_deploy:
   - git config --global user.name "Travis CI"
   - export GIT_TAG=Build-$TRAVIS_BUILD_NUMBER
   - git tag $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER"
-  - git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags
+  - git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1
 
 deploy:
     #Push the generated gitbook html to the gh-pages branch
