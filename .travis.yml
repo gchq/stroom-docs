@@ -1,7 +1,10 @@
 #No language required so just use ruby to avoid warnings in travis yml linter
-language: ruby
+language: node_js
 dist: trusty
 sudo: required
+
+node_js:
+  - "stable"
 
 cache:
   directories:
@@ -20,11 +23,11 @@ install:
   - npm install -g gitbook-cli
 
 script:
-  - openssl aes-256-cbc -K $encrypted_3312804ce423_key -iv $encrypted_3312804ce423_iv -in deploy-key.enc -out deploy-key -d
-  - chmod 600 deploy-key
+  - openssl aes-256-cbc -K $encrypted_3312804ce423_key -iv $encrypted_3312804ce423_iv -in deploy-key.enc -out ~/.ssh/deploy-key -d
+  - chmod 600 ~/.ssh/deploy-key
   - eval `ssh-agent -s`
-  - ssh-add deploy-key
-  - rm deploy-key
+  - ssh-add ~/.ssh/deploy-key
+  - cp ssh_config ~/.ssh/config
   - gitbook install
   - gitbook build
 #    - gitbook pdf ./ ./stroom-docs.pdf
@@ -34,8 +37,8 @@ script:
   - pushd build
 # TODO could fail the build if we find un-converted markdown files
   - echo "Finding un-converted markdown files" && find . -name "*.md"
-  - git config user.name "Automatic Publish"
-  - git config user.email "$GIT_EMAIL"
+  - git config --global user.name "$GIT_USER"
+  - git config --global user.email "$GIT_EMAIL"
   - git status
   - git add -all
   - git commit -m 'Automated update of gitbook generated html from master'
