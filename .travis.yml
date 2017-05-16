@@ -14,7 +14,7 @@ before_install:
   - sudo apt-get -qq update
     #calibre required for gitbook pdf
   - sudo apt-get install -y calibre
-  - sudo apt-get install -y vino
+  - sudo apt-get install -y xvfb
 
 install:
   - . $HOME/.nvm/nvm.sh
@@ -29,6 +29,7 @@ script:
   #- eval "$(ssh-agent -s)"
   #- ssh-add ~/.ssh/deploy-key
   #- cp ssh_config ~/.ssh/config
+  - mv ebook-convert /usr/local/bin/
   - gitbook install
   - gitbook build
   - echo "Finding un-converted markdown files" && find ./_book/ -name "*.md"
