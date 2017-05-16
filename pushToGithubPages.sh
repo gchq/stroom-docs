@@ -22,3 +22,9 @@
 gitbook build
 gitbook pdf ./ ./stroom-docs.pdf
 rsync -avr --delete --exclude '.git' ./_book/ ./build/
+
+pushd build
+git add --all
+git commit -m 'Update gitbook generated html from master'
+git push
+popd
