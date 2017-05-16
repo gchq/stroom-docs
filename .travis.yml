@@ -27,7 +27,8 @@ script:
   - git worktree add build gh-pages
   - rsync -ar --delete --exclude '.git' ./_book/ ./build/
   - pushd build
-  - ls -l
+# TODO could fail the build if we find un-converted markdown files
+  - echo "Finding un-converted markdown files" && find . -name "*.md"
 # TODO add, commit and push to git
   - popd
 
