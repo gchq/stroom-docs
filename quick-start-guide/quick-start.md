@@ -87,7 +87,7 @@ Right-click again and create a feed. The name needs to be capitalised, e.g. `CSV
 
    ![The Data section of a feed](resources/go-feed-data.png)
 
-3. Then click the green up arrow (![The upload icon](../../resources/icons/upload.png)) to get the file upload dialog.
+3. Then click the green up arrow (![The upload icon](resources/icons/upload.png)) to get the file upload dialog.
 
 4. We're going to be putting in unprocessed events, known in Stroom as _raw_ events. That's the type of stream this feed will contain, so that's the Stream Type you need to select. 
 
@@ -95,7 +95,7 @@ Right-click again and create a feed. The name needs to be capitalised, e.g. `CSV
 
 4. Download [this file](resources/mock_stroom_data.csv), then click _choose file_ from the dialog, select the file, and then _ok_ everything until you're back at the feed.
 
-That's it, there's now data in Stroom. You should be able to see it in the data table (you might need to click the refresh (![Refresh button](../../resources/icons/refresh.png)button):
+That's it, there's now data in Stroom. You should be able to see it in the data table (you might need to click the refresh (![Refresh button](resources/icons/refresh.png)button):
 
 ![The data on a feed](resources/show-feed-data.png)
 
@@ -162,7 +162,7 @@ Now go to the _Conversion_ tab. What you need to put in here is specific to the 
 </dataSplitter>
 ```
 
-You can see that it uses the `data-splitter-v3.0.1.xsd` that we imported earlier. Save it by clicking the save icon (![The save icon](../../resources/icons/save.png)).
+You can see that it uses the `data-splitter-v3.0.1.xsd` that we imported earlier. Save it by clicking the save icon (![The save icon](resources/icons/save.png)).
 
 So we now have a configured, re-usable data splitter for CSV files that have headers. We need to add this to our pipeline as a filter, so head back to the pipeline's Structure section and add a DSParser, as below. Call it something like `CSV splitter filter`:
 ![Adding a dsParser](resources/add-dsParser.png)
@@ -263,7 +263,7 @@ In the dialog make sure the value is the `XSLT` filter. Save the pipeline.
 
 #### Test the XSLT filter
 
-We're going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed. Click the step forward button (![Step forward button](../../resources/icons/stepForward.png)) a few times to make sure it's working then click on the XSLT element. This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:
+We're going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed. Click the step forward button (![Step forward button](resources/icons/stepForward.png)) a few times to make sure it's working then click on the XSLT element. This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:
 
 ![Debugging the XSLT filter](resources/stepping-03.png)
 
