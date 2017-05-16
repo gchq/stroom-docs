@@ -14,7 +14,8 @@ before_install:
   - sudo apt-get -qq update
     #calibre required for gitbook pdf
   - sudo apt-get install -y calibre
-  - sudo apt-get install -y xvfb
+    #required by calibre when running in a headless server
+  - sudo apt-get install -y xvfb 
 
 install:
   - . $HOME/.nvm/nvm.sh
@@ -83,6 +84,8 @@ deploy:
       branch: master
 
 branches:
+  except:
+    - /^Build-.*$/
   only:
     - master
 
