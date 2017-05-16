@@ -20,6 +20,10 @@ install:
   - npm install -g gitbook-cli
 
 script:
+  - openssl aes-256-cbc -K $encrypted_3312804ce423_key -iv $encrypted_3312804ce423_iv -in deploy-key.enc -out deploy-key -d
+  - chmod 600 deploy-key
+  - eval `ssh-agent -s`
+  - ssh-add deploy-key
   - gitbook install
   - gitbook build
 #    - gitbook pdf ./ ./stroom-docs.pdf
@@ -29,6 +33,12 @@ script:
   - pushd build
 # TODO could fail the build if we find un-converted markdown files
   - echo "Finding un-converted markdown files" && find . -name "*.md"
+  - git config user.name "Automatic Publish"
+  - git config user.email "stroom-docs_travis-ci"
+  - git pull
+  #- git add -all
+  #- git commit -m 'Update gitbook generated html from master'
+  #- git push
 # TODO add, commit and push to git
   - popd
 
