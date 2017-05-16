@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #The pushing of code to the gh-pages branch will be handled by travis-ci but this is here for reference
 
@@ -21,7 +21,7 @@
 #build the gitbook and copy it into the build dir
 gitbook build
 gitbook pdf ./ ./stroom-docs.pdf
-rsync -avr --delete --exclude '.git' ./_book/ ./build/
+rsync -ar --delete --exclude '.git' ./_book/ ./build/
 
 pushd build
 git add --all
