@@ -1,16 +1,16 @@
 #No language required so just use ruby to avoid warnings in travis yml linter
 language: ruby
 dist: trusty
-sudo: false
+sudo: required
 
 cache:
   directories:
     - node_modules # NPM packages
 
 before_install:
-  - apt-get -qq update
+  - sudo apt-get -qq update
     #calibre required for gitbook pdf
-  - apt-get install -y calibre
+  - sudo apt-get install -y calibre
 
 install:
   - . $HOME/.nvm/nvm.sh
