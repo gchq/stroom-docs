@@ -1,24 +1,25 @@
 #No language required so just use ruby to avoid warnings in travis yml linter
 language: ruby
 dist: trusty
+sudo: false
 
 cache:
   directories:
     - node_modules # NPM packages
 
 before_install:
-  - sudo apt-get -qq update
+  - apt-get -qq update
     #calibre required for gitbook pdf
-  - sudo apt-get install -y calibre
+  - apt-get install -y calibre
 
 install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
   - npm install
-  - npm install gitbook
+  - npm install -g gitbook-cli
+  - gitbook install
 
 script:
-    - gitbook install
     - gitbook build
     - gitbook pdf ./ ./stroom-docs.pdf
