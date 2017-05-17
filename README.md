@@ -1,6 +1,6 @@
 ![Stroom](resources/logo.png)
 
-If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md), alternatively you can find the full documentation [here](SUMMARY.md). Alternatively, if you'd just like to see it running then do this (it'll start up two dockers: mysql and Stroom):
+If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md), alternatively you can find the full documentation [here](https://gchq.github.io/stroom-docs/). Alternatively, if you'd just like to see it running then do this (it'll start up two dockers: mysql and Stroom):
 
 ```bash
 docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=stroomuser -e MYSQL_PASSWORD=stroompassword1 -e MYSQL_DATABASE=stroom -d mysql:5.6
