@@ -47,7 +47,9 @@ script:
   - rm -v _book/*.md
   - rm -v _book/*.sh
   - echo "Making a zip of the html content"
-  - zip -r -9 $ZIP_FILENAME _book/*
+  - pushd _book
+  - zip -r -9 $ZIP_FILENAME ./*
+  - popd
   #- git fetch origin gh-pages:gh-pages >/dev/null 2>&1
   #- git worktree add build gh-pages
   #- rsync -ar --delete --exclude '.git' ./_book/ ./build/
