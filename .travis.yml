@@ -14,8 +14,6 @@ before_install:
   - sudo apt-get -qq update
     #calibre required for gitbook pdf
   - sudo apt-get install -y calibre
-    #required by calibre when running in a headless server
-  - sudo apt-get install -y xvfb 
 
 install:
   - . $HOME/.nvm/nvm.sh
@@ -25,13 +23,8 @@ install:
   - npm install -g gitbook-cli
 
 script:
-  #- openssl aes-256-cbc -K $encrypted_3312804ce423_key -iv $encrypted_3312804ce423_iv -in deploy-key.enc -out ~/.ssh/deploy-key -d
-  #- chmod 600 ~/.ssh/deploy-key
-  #- eval "$(ssh-agent -s)"
-  #- ssh-add ~/.ssh/deploy-key
-  #- cp ssh_config ~/.ssh/config
-
-  #move the wrapper script to hide the real binary meaning this gets run instead
+  #Move the ebook-convert wrapper script to hide the real binary meaning this gets run instead.
+  #This is to get round the issue of running gitbook pdf inside a headless server
   - sudo mv ebook-convert /usr/local/bin/
   - gitbook install
   - gitbook build
@@ -50,24 +43,6 @@ script:
   - pushd _book
   - zip -r -9 $ZIP_FILENAME ./*
   - popd
-  #- git fetch origin gh-pages:gh-pages >/dev/null 2>&1
-  #- git worktree add build gh-pages
-  #- rsync -ar --delete --exclude '.git' ./_book/ ./build/
-  #- pushd build
-# TODO could fail the build if we find un-converted markdown files
-  #- echo "Finding un-converted markdown files" && find . -name "*.md"
-  #- git remote set-url origin git@github.com:gchq/stroom-docs.git
-  #- git config --global user.name "$GIT_USER"
-  #- git config --global user.email "$GIT_EMAIL"
-  #- git status
-  #- git add --all
-  #- git commit -m 'Automated update of gitbook generated html from master'
-  #- git push --set-upstream origin gh-pages >/dev/null 2>&1
-# TODO add, commit and push to git
-  #- popd
-
-# TODO release the pdf to a release tag, e.g. 'latest', updating the artifact
-# http://stackoverflow.com/questions/28217556/travis-ci-auto-tag-build-for-github-release
 
 #before_deploy will be run once for each deploy provider so protection for non-idempotent 
 #operations is needed
@@ -76,24 +51,13 @@ before_deploy:
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
   - export GIT_TAG=$BUILD_NAME
-    #It appears the action of creating a tag caused travis to fire off another build within a build 
-    #resulting in it trying to create the same tag twice
   - >
       if ! [ "$BEFORE_DEPLOY_HAS_RUN" ]; then
+        #Ensure this code runs once only
         export BEFORE_DEPLOY_HAS_RUN=1;
         git tag $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null;
         git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1;
-        #export PDF_FILENAME=stroom-docs-v$TRAVIS_BUILD_NUMBER.pdf
-        #mv stroom-docs.pdf $PDF_FILENAME
       fi
-  #- echo "Branch - $TRAVIS_BRANCH, Build No - $TRAVIS_BUILD_NUMBER, Commit - $TRAVIS_COMMIT"
-  #- git config --global user.email "builds@travis-ci.com"
-  #- git config --global user.name "Travis CI"
-  #- export GIT_TAG=Build-$TRAVIS_BUILD_NUMBER
-    ##It appears the action of creating a tag caused travis to fire off another build within a build 
-    ##resulting in it trying to create the same tag twice
-  #- git tag -f $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null
-  #- git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1
 
 deploy:
     #Push the generated gitbook html to the gh-pages branch
@@ -111,8 +75,6 @@ deploy:
       secure: "JBXDI5R2yXtKJNY0Wi2lnD7tRqWKhvO9Fv0iaDQgZPtdWcouzJqi0hn8pz4MyE/uFWqbnfqOKloPTHOhydZRvFqWkOZc40RzP74acXaFH7txX06z7AWTc/AFNR8wpMygrpNiRIhwnj6P734gWD95+xnn9DGox2PizCwREKzpcjecScFdWiq72sNz1nfab7uIaFerUzq+HE7KnwlZmGBH0RdkZuEiihPhA5zmew0iexScQf6NHI7JlZUkFdNdyaeT8hmzF12LthnvUmV6MnFJ4mDRYeroCUkxMrJHqbxgHQB6PwQPaugAwRKZvyHislMUP7jT1BRdQtgqjL4p83SaA+PI61d0DpbgL6qQnwaedgveCL9EHXw2dKVNYNVZsGBSTtSl2eEtPujKs8EKZK7HEAOBF2tKR99CY4qcopk79NOrrMpMcNW2bpOCoFqEEFeTb26zCV9o9p6Xosrc9QzZLE52RCJxY8iRo/DsgOwxjGLFVJIxmxWqh+pwomUs//dkDvOF3bqv8+VgnI6zjZ/XVXZ5jTz2soLN1tCiB0cl3RxYM3SADEp85wqTGwwAvNNc+EboG8HELLtrgV1IL7z9mfoPBEUFsH0xt6pmmwYC7whTiKBf9PiXjgFB7QhpbJJWCWL6sP/23Ot9pljeH4KEHy8aJbspaGxt63OWwL1D+4s="
     file_glob: true
     file: $BUILD_NAME.*
-      #- "$PDF_FILENAME"
-      #- "$ZIP_FILENAME"
     skip_cleanup: true
     on:
       tags: false
