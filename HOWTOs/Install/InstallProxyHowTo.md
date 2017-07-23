@@ -30,10 +30,9 @@ The following will gain the identified, in this case release `5.1-beta.3`, Stroo
 
 ```bash
 sudo -i -u stroomuser
-Prx=5.1-beta.3
-wget https://github.com/gchq/stroom-proxy/releases/download/v${Prx}/stroom-proxy-distribution-${Prx}-bin.zip
-unzip stroom-proxy-distribution-${Prx}-bin.zip
-chmod 750 stroom-proxy
+Prx=v5.1-beta.8
+wget https://github.com/gchq/stroom-proxy/releases/download/${Prx}/stroom-proxy-distribution-${Prx}.zip
+unzip stroom-proxy-distribution-${Prx}.zip
 ```
 
 ## Configure the Software
@@ -66,6 +65,7 @@ during which one is prompted for a number of configuration settings. Use the fol
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' depending on the node we are installing on)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to '/stroomdata/stroom-working-p00/proxy' or '/stroomdata/stroom-working-p01/proxy' depending on the node we are installing on
+REPO_FORMAT can be left as the default, just press return
 JDBC_CLASSNAME should use the default, just press return
 JDBC_URL should be set to 'jdbc:mysql://stroomdb0.strmdev00.org:3307/stroom'
 DB_USERNAME should be our processing user, 'stroomuser'
@@ -93,6 +93,7 @@ during which one is prompted for a number of configuration settings. Use the fol
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomfp0' in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to '/stroomdata/stroom-working-fp0/proxy' which we created earlier.
+REPO_FORMAT can be left as the default, just press return
 FORWARD_SERVER should be set to our stroom server. (i.e. 'stroomp.strmdev00.org' in our example)
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 ```
@@ -112,6 +113,7 @@ during which one is prompted for a number of configuration settings. Use the fol
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomsap0' in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to '/stroomdata/stroom-working-sap0/proxy' which we created earlier.
+REPO_FORMAT can be left as the default, just press return
 JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either change or accept the default
 ```
 
@@ -119,16 +121,15 @@ At this point, the script will configure the proxy. There should be no errors, b
 
 ## Apache/Mod_JK change
 For all proxy deployments,
-if we are using Apache's mod_jk then we need to modify the proxy's AJP connector to specify a larger packetSize. Edit the file `stroom-proxy/instance/conf/server.xml` to change
+if we are using Apache's mod_jk then we need to ensure the proxy's AJP connector specifies a 64K packetSize. View the file `stroom-proxy/instance/conf/server.xml` to ensure the Connector element for the AJP protocol has a packetSize attribute of `65536`. For example,
+```bash
+grep AJP stroom-proxy/instance/conf/server.xml
 ```
-<Connector port="9009" protocol="AJP/1.3"
-    redirectPort="8443" />
+shows
 ```
-to
+<Connector port="9009" protocol="AJP/1.3" connectionTimeout="20000" redirectPort="8443" maxThreads="200" packetSize="65536" />
 ```
-<Connector port="9009" protocol="AJP/1.3"
-    redirectPort="8443" packetSize="65536" />
-```
+This check is required for earlier releases of the Stroom Proxy. Releases since `v5.1-beta.4` have set the AJP packetSize.
 
 ## Start the Proxy Service
 We can now manually start our proxy service. Do so as the `stroomuser` with the command
@@ -151,5 +152,120 @@ INFO  [localhost-startStop-1] spring.StroomBeanLifeCycleReloadableContextBeanPro
 
 If you leave it for a while you will eventually see cyclic (10 minute cycle) messages of the form
 ```
-INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at YYYY-MM-DD ...
+INFO  [Repository Reader Thread 1] repo.ProxyRepositoryReader (ProxyRepositoryReader.java:170) - run() - Cron Match at YYYY-MM-DD ...
+```
+
+If a proxy takes too long to start, you should read the section on [Entropy Issues](InstallHowTo.md#entropy-issues-in-virtual-environments "Entropy Issues in Virtual environments").
+
+## Proxy Repository Format
+A Stroom Proxy stores inbound files in a hierarchical file system whose root is supplied during the proxy setup (`REPO_DIR`) and
+as files arrive they are given a _repository id_ that is a one-up number starting at one (1). The files are stored in a specific _repository format_.
+The default template is `${pathId}/${id}` and this pattern will produce the following output files under `REPO_DIR` for the given repository id
+
+| Repository Id | FilePath |
+| ------------: | -----------: |
+| 1 | 000.zip |
+| 100 | 100.zip |
+| 1000 | 001/001000.zip |
+| 10000 | 010/010000.zip |
+| 100000 | 100/100000.zip |
+
+Since version v5.1-beta.4, this template can be specified during proxy setup via the entry to the `Stroom Proxy Repository Format` prompt
+```
+...
+@@REPO_FORMAT@@ : Stroom Proxy Repository Format [${pathId}/${id}] > 
+...
+```
+
+The template uses replacement variables to form the file path. As indicated above, the default template is `${pathId}/${id}` where `${pathId}` is
+the automatically generated directory for a given _repository id_ and `${id}` is the _repository id_.
+
+Other replacement variables can be used to in the template including http header meta data parameters (e.g. '${feed}') and time based
+parameters (e.g. '${year}'). Replacement variables that cannot be resolved will be output as '_'. You must ensure
+that all templates include the '${id}' replacement variable at the start of the file name, failure to do this will result in an invalid repository.
+
+Available time based parameters are based on the file's time of processing and are zero filled (excluding `ms`).
+
+| Parameter | Description |
+| --------- | :---------- |
+| year | four digit year |
+| month | two digit month |
+| day | two digit day |
+| hour | two digit hour |
+| minute | two digit minute |
+| second | two digit second |
+| millis | three digit milliseconds value |
+| ms | milliseconds since Epoch value |
+
+### Proxy Repository Template Examples
+For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent
+to the test feed `TEST-FEED-V1_0` and two posts to the test feed `FEED-NOVALUE-V9_0`
+
+#### Example A - The default - `${pathId}/${id}`
+```bash
+[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/001.zip
+/stroomdata/stroom-working-sap0/proxy/002.zip
+/stroomdata/stroom-working-sap0/proxy/003.zip
+/stroomdata/stroom-working-sap0/proxy/004.zip
+/stroomdata/stroom-working-sap0/proxy/005.zip
+[stroomuser@stroomsap0 ~]$ 
+```
+
+#### Example B - A feed orientated structure - `${feed}/${year}/${month}/${day}/${pathId}/${id}`
+```bash
+[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip
+[stroomuser@stroomsap0 ~]$ 
+```
+
+#### Example C - A date orientated structure - `${year}/${month}/${day}/${pathId}/${id}`
+```bash
+[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/2017
+/stroomdata/stroom-working-sap0/proxy/2017/07
+/stroomdata/stroom-working-sap0/proxy/2017/07/23
+/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
+/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
+/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
+/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
+/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip
+[stroomuser@stroomsap0 ~]$ 
+```
+
+#### Example D - A feed orientated structure, but with a bad parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
+```bash
+[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
+/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
+/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
+[stroomuser@stroomsap0 ~]$ 
+```
+and one would also see a warning for each post in the proxy's log file of the form
+```
+WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 ```
