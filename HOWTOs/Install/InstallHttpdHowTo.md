@@ -52,7 +52,7 @@ Although you could remove the gcc compiler at this point, we leave it installed 
 We need to configure Apache as the `root` user.
 
 If the Apache httpd service is 'fronting' a Stroom user interface, we should create an index file (/var/www/html/index.html) on all nodes so browsing to
-the root of the node will present the Stroom UI. This is not be needed if you are deploying a Forwarding or Standalone Stroom proxy.
+the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.
 
 ### Forwarding file for Stroom User Interface deployments
 ```bash
