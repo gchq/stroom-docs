@@ -1,4 +1,4 @@
-# Quick-Start Dashboards
+# Stroom Quick-Start Guide - Dashboards
 
 Create a new dashboard the same way you create anything else
 ![New dashboard](images/001_dashboard_new.png)
