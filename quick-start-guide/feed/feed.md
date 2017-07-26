@@ -26,7 +26,7 @@ Right-click again and create a feed. The name needs to be capitalised, e.g. `CSV
 
 4. Download [this file](../resources/mock_stroom_data.csv), then click _choose file_ from the dialog, select the file, and then _ok_ everything until you're back at the feed.
 
-That's it, there's now data in Stroom. You should be able to see it in the data table (you might need to click the refresh (![Refresh button](/resources/icons/refresh.png)button):
+That's it, there's now data in Stroom. You should be able to see it in the data table (you might need to click the refresh (![Refresh button](/resources/icons/refresh.png)) button:
 
 ![The data on a feed](images/show-feed-data.png)
 

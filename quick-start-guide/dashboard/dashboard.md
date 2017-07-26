@@ -4,7 +4,7 @@ Create a new dashboard the same way you create anything else
 
 ![New dashboard](images/001_dashboard_new.png)
 
-On the query pane click the settings button ![Dashboard settings button](images/007_dashboard_settings_button.png).
+On the query pane click the settings (![Dashboard settings button](images/007_dashboard_settings_button.png)) button.
 
 Choose the index you just created as your data source.
 
