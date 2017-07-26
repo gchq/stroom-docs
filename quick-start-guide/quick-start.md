@@ -29,7 +29,7 @@ To this XML:
   ...
 ```
 
-You will go from a clean vanilla Stroom to having a simple [pipeline](../user-guide/pipelines/README.md) that takes in CSV data and outputs that data transformed into XML. Stroom is a generic and powerful tool for ingesting and processing data: it's flexible because it's generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you'll find yourself struggling.
+You will go from a clean vanilla Stroom to having a simple [pipeline](/user-guide/pipelines/README.md) that takes in CSV data and outputs that data transformed into XML. Stroom is a generic and powerful tool for ingesting and processing data: it's flexible because it's generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you'll find yourself struggling.
 
 We're going to do the following:
 
@@ -46,15 +46,15 @@ All the things we create here are available as a [content pack](https://github.c
 
 ## Getting and Running Stroom
 
-There are several options to get Stroom running and by far the quickest and easiest is to use Docker. If you're new to [Docker](https://www.docker.com/what-docker) then you might want to follow their [getting started guide](https://www.docker.com/products/docker) first. Otherwise you can follow our [quick guide](../dev-guide/docker-running.md).
+There are several options to get Stroom running and by far the quickest and easiest is to use Docker. If you're new to [Docker](https://www.docker.com/what-docker) then you might want to follow their [getting started guide](https://www.docker.com/products/docker) first. Otherwise you can follow our [quick guide](/dev-guide/docker-running.md).
 
 If you're really interested here are your full options for running Stroom:
 
-* [Run using a Docker Hub image (recommended)](../dev-guide/docker-running.md#using-a-pre-built-docker-hub-image)
-* [Run using a release](../install-guide/stroom-app-install.md)
+* [Run using a Docker Hub image (recommended)](/dev-guide/docker-running.md#using-a-pre-built-docker-hub-image)
+* [Run using a release](/install-guide/stroom-app-install.md)
 * From source you can:
-  * [Build and run from IntelliJ](../dev-guide/stroom-in-an-ide.md)
-  * [Build and run using Docker](../dev-guide/docker-building.md)
+  * [Build and run from IntelliJ](/dev-guide/stroom-in-an-ide.md)
+  * [Build and run using Docker](/dev-guide/docker-building.md)
 
 ## Basic configuration
 

@@ -16,7 +16,7 @@ We already have a `Source` element. Unlike most other pipeline elements this isn
 
 ### Add a data splitter
 
-Data splitters are powerful, and [a lot we can say](../datasplitter/1-0-introduction.md) about them. Here we're just going to make a basic one.
+Data splitters are powerful, and [a lot we can say](/datasplitter/1-0-introduction.md) about them. Here we're just going to make a basic one.
 
 #### Create a CSV splitter
 
@@ -111,7 +111,7 @@ So here we have some XML in a basic format we call the _records_ format. You can
 
 This process is very similar to creating the `CSV splitter`: 
 
-1. Create the [XSLT](../user-guide/pipelines/xslt/README.md) filter
+1. Create the [XSLT](/user-guide/pipelines/xslt/README.md) filter
 2. Add it to the pipeline 
 3. Step through to make sure it's doing what we expect
 
@@ -166,7 +166,7 @@ We're going to test this in the same way we tested the CSV splitter, by clicking
 
 ![Debugging the XSLT filter](images/stepping-03.png)
 
-Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task](../user-guide/tasks.md) for real. We need to get this data to a destination.
+Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task](/user-guide/tasks.md) for real. We need to get this data to a destination.
 
 ### Outputting the transformed data
 

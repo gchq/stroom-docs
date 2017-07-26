@@ -4,20 +4,25 @@ Before you can visualise your data with dashboards you have to index the data;
 First I opted for creating a specific volume to hold my data, just because I wanted to keep my shards away from the default volumes;
 
 Go to the Tools ➔ Volumes menu
+
 ![Volumes](images/001_volumes.png)
 
 Once the volumes dialogue opens click the blue plus sign at the top left of the window to add a new one
+
 ![Volume list](images/002_volume_list.png)
 
 Select the node where you want the volume to be and the path you want to create, (because we are following the quick-start guide we just have one node and limited size, but we do want it to active so we can write documents to it and we want it to be public, because we might want other indexes to use it; your needs might be different.
+
 ![Volume edit](images/003_volume_edit.png)
 
 Click ok and we’re good to go.
 
 Then we can create an index by selecting index item in the explorer tree. You do this in the same way you create any of the items. Just select/create a folder that you want to create the new index in and right click, select New Index.
+
 ![New index](images/004_index_new.png)
 
 Choose a name for your new index
+
 ![Index name](images/005_index_name.png)
 
 In the settings tab we need to specify the volume where we will store our shards
@@ -27,6 +32,7 @@ Now you need to add fields to this index.
 Firstly there are two mandatory fields that need to be added: `StreamId` and `EventId`
 
 Both should be of type Id, stored and indexed with the `Keyword` analyser
+
 ![Index field](images/006_index_field.png)
 
 If you were following the quick-start instruction on ingesting the `mock_stroom_data.csv`, we’ll use those fields here.
@@ -44,20 +50,25 @@ ToIp            |Text   |Yes    |Yes    |Yes        |Keyword        |false
 Application     |Text   |Yes    |Yes    |Yes        |Alpha numeric  |false
 
 We are creating fields in our index to match the fields we have ingested to provide a place for the data to go that Stroom can reference.
+
 ![Index field list](images/007_index_field_list.png)
 
 When you've done that, save the new index.
 
 Now create a new XSLT (for the uninitiated like me) XSLT (Extensible Stylesheet Language Transformations). We are going to convert xml data into something indexable by Stroom.
+
 ![New XSLT](images/008_xslt_new.png)
 
 To make things manageable we create our new XSLT with the same name as the index in the same folder. After you've set the name just save it and close it, we’ll add some code in there later.
+
 ![XSLT name](images/009_xslt_name.png)
+
 ![XSLT settings](images/010_xslt_settings.png)
 
 Now we get to send data to the index
 
 Create a new pipeline called Indexing (we are going to make this a template for all future indexing requirements).
+
 ![New pipeline](images/011_pipeline_new.png)
 
 Edit the structure of the pipeline
@@ -75,6 +86,7 @@ RecordCountFilter   |writeRecordCountFilter
 IndexingFilter      |indexingFilter
 
 So it looks like this
+
 ![Indexing pipeline](images/012_indexing_pipeline.png)
 
 Once the elements have been added you need to set the following properties on the elements:
@@ -86,9 +98,11 @@ splitFilter             |splitCount |100
 writeRecordCountFilter  |countRead  |false
 
 To do this we select the element then double click the property value in the property panel which is below it.
+
 ![Pipeline element property](images/013_pipeline_element_property.png)
 
 The dialogue pops up
+
 ![Pipeline edit element property](images/014_pipeline_edit_element_property.png)
 
 Where you can set the values.
@@ -96,19 +110,25 @@ Where you can set the values.
 Save the pipeline, using the top left icon (![The save icon](/resources/icons/save.png)) close it the pipeline tab.
 
 Now create a new pipeline
+
 ![Pipeline name](images/015_pipeline_name.png)
 
 Which we will base on our new “Indexing” pipeline
+
 On our structure tab
+
 ![Pipeline structure](images/016_pipeline_structure_new.png)
 
 Click in the “Inherit From” window
+
 ![Pipeline inheritance](images/017_pipeline_inheritance.png)
 
 Select our Indexing pipeline we just created
+
 ![Pipeline inheritance selection](images/018_pipeline_inheritance_selection.png)
 
 Now we need to set the XSLT property on the `xsltFilter` to point at the XSLT we created earlier and set the index on the `indexFilter` to point to the index we created.
+
 ![Pipeline XSLT properties](images/019_pipeline_properties_xslt.png)
 
 Once that's done you can save your new pipeline
@@ -116,12 +136,13 @@ Once that's done you can save your new pipeline
 Next we need to add XSLT to create XML that the `IndexingFilter` understands. Again all of this seems a little time consuming but once you've done this stuff and have some resources you can reuse it all gets much easier.
 
 Open the feed we created in the quick-start guide if you find some processed data in your feed - i.e. browse the data
+
 ![Data browsing](images/020_data_browsing.png)
 
-Click the stepping button
-![The stepping button](images/021_stepping_button.png)
+Click the stepping button ![The stepping button](images/021_stepping_button.png)
 
 Select your new pipeline
+
 ![Stepping choose pipeline](images/022_stepping_choose_pipeline.png)
 
 Paste the following into your `xsltFilter`
