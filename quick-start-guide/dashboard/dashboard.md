@@ -4,7 +4,7 @@ Create a new dashboard the same way you create anything else
 
 ![New dashboard](images/001_dashboard_new.png)
 
-On the query pane click the settings (![Dashboard settings button](images/007_dashboard_settings_button.png)) button.
+On the query pane click the settings (![Dashboard settings button](images/007_dashboard_settings_button.png)) button on the top right of the panel.
 
 Choose the index you just created as your data source.
 
@@ -28,9 +28,7 @@ Then we can add an element from the top again and this time use visualisation
 
 ![Dashboard add visualisation](images/006_dashboard_add_visualisation.png)
 
-In the visualisation panel that opens click the cog on the top right of the panel for settings
-
-![Dashboard settings button](images/007_dashboard_settings_button.png)
+In the visualisation panel that has been added to the bottom, click the settings (![Dashboard settings button](images/007_dashboard_settings_button.png)) button on the top right of the panel.
 
 In our example we have used the Bubble visualisation
 
