@@ -1,5 +1,5 @@
 # Stroom Quick-Start Tutorial
-In this quick-start guide you will learn how to use Stroom to get from [this CSV](./resources/mock_stroom_data.csv), which looks like this:
+In this quick-start guide you will learn how to use Stroom to get from [this CSV](resources/mock_stroom_data.csv), which looks like this:
 
 ```
 id,guid,from_ip,to_ip,application
@@ -61,14 +61,14 @@ If you're really interested here are your full options for running Stroom:
 ### Enable processing of data streams
 
 Automatic processing isn't enabled by default: you might first want to check other settings (for example  nodes, properties, and volumes). So we need to enable Stream Processing. This is in Tools -> Jobs menu::
-![Opening the jobs ment](resources/go-jobs.png)
+![Opening the jobs ment](images/go-jobs.png)
 
 Next we need to enable Stream Processor jobs:
 
-![Enabling stream processing](resources/configure-jobs.png)
+![Enabling stream processing](images/configure-jobs.png)
 
 Below the list of jobs is the properties pane. The Stream Processor's properties show the list of nodes. You should have one. You'll need to enable it by scrolling right:
 
-![Enabling the nodes for the stream processor](resources/configure-jobs-stream.png)
+![Enabling the nodes for the stream processor](images/configure-jobs-stream.png)
 
 So now we've done that lets [get data into stroom](feed/feed.md).
