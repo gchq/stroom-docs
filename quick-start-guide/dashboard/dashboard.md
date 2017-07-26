@@ -8,6 +8,8 @@ On the query pane click the settings (![Dashboard settings button](images/007_da
 
 Choose the index you just created as your data source.
 
+![New dashboard](images/002_dashboard_query_settings.png)
+
 Now add a term to the query to get a handle on the data
 
 ![Dashboard query add term](images/002_dashboard_query_add_term.png)
