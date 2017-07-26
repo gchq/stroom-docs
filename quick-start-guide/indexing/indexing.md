@@ -208,8 +208,6 @@ If it all goes to plan you'll see index shards appear if you open the index you 
 
 ![Index shards](images/027_index_shard_list.png)
 
-The document count doesn't update immediately so don't worry if the count is 0. The count is updated on shard flush and happens in the background but can be forced if you want using the flush shards button:
-
-![Flush index shards](images/028_index_shard_flush.png)
+The document count doesn't update immediately so don't worry if the count is 0. The count is updated on shard flush and happens in the background.
 
 Now that we have finished indexing we can display data on [dashboards](../dashboards/dashboards.md).
