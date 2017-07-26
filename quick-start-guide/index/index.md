@@ -31,7 +31,7 @@ Now you need to add fields to this index.
 
 Firstly there are two mandatory fields that need to be added: `StreamId` and `EventId`
 
-Both should be of type Id, stored and indexed with the `Keyword` analyser
+Both should be of type `Id`, stored and indexed with the `Keyword` analyser
 
 ![Index field](images/006_index_field.png)
 
@@ -101,13 +101,11 @@ To do this we select the element then double click the property value in the pro
 
 ![Pipeline element property](images/013_pipeline_element_property.png)
 
-The dialogue pops up
+The dialogue pops up where you can set the values
 
 ![Pipeline edit element property](images/014_pipeline_edit_element_property.png)
 
-Where you can set the values.
-
-Save the pipeline, using the top left icon (![The save icon](/resources/icons/save.png)) close it the pipeline tab.
+Save the pipeline, using the top left icon (![The save icon](/resources/icons/save.png)), then close the pipeline tab.
 
 Now create a new pipeline
 
@@ -203,6 +201,8 @@ Paste the following into your `xsltFilter`
 </xsl:stylesheet>
 ```
 
+Which should look like this
+
 ![Stepping edit XSLT](images/023_stepping_edit_xslt.png)
 
 What we are trying to do is turn the data into Stroom `record` format. This is basically name value pairs that we pass to the index. Step through the data using the top right arrows to ensure the XSLT produces output.
@@ -231,4 +231,4 @@ If it all goes to plan you'll see index shards appear if you open the index you 
 
 The document count doesn't update immediately so don't worry if the count is 0. The count is updated on shard flush and happens in the background.
 
-Now that we have finished indexing we can display data on [dashboards](../dashboards/dashboards.md).
+Now that we have finished indexing we can display data on a [dashboard](../dashboard/dashboard.md).
