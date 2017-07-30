@@ -26,11 +26,11 @@ sudo yum -y install mysql-community-client
 Note that we do __NOT__ need the database client software for a Forwarding or Standalone proxy.
 
 ## Get the Software
-The following will gain the identified, in this case release `5.1-beta.3`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
+The following will gain the identified, in this case release `5.1-beta.10`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
 ```bash
 sudo -i -u stroomuser
-Prx=v5.1-beta.8
+Prx=v5.1-beta.10
 wget https://github.com/gchq/stroom-proxy/releases/download/${Prx}/stroom-proxy-distribution-${Prx}.zip
 unzip stroom-proxy-distribution-${Prx}.zip
 ```
