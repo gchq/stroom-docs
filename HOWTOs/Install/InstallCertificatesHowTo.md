@@ -191,12 +191,12 @@ Enter pass phrase for private/stroomfp0.key.secure: <__ENTER_SERVER_KEY_PASSWORD
 
 We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it's found with the command
 ```bash
-find ~stroomuser/*proxy -name 'stroom-util*.jar' -print | head -1
+find ~stroomuser/*proxy -name 'stroom*util*.jar' -print | head -1
 ```
-which should return _/home/stroomuser/stroom-proxy/instance/webapps/stroom/WEB-INF/lib/stroom-util-5.0.beta1-SNAPSHOT.jar_ or similar depending on the release version.
+which should return _/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar_ or similar depending on the release version.
 To make execution simpler, we set this as a shell variable as per
 ```bash
-Stroom_UTIL_JAR=`find ~/*proxy -name 'stroom-util*.jar' -print | head -1`
+Stroom_UTIL_JAR=`find ~/*proxy -name 'stroom*util*.jar' -print | head -1`
 ```
 We now create the keystore and import the proxy's server key
 ```bash

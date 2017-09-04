@@ -6,12 +6,15 @@ This HOWTO will demonstrate various ways to test that your Stroom installation h
  - the [Multi Node Stroom Cluster (Proxy and Application)](InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment "Multi Node Stroom Cluster (Proxy and Application") has been deployed
  - a [Test Feed](InstallHowTo.md#add-a-test-feed "Add a Test Feed"), `TEST-FEED-V1_0` has been added
  - Proxy aggregation has been turned off on all Stroom _Store_ Proxies
+ - the Stroom Proxy Repository Format (`REPO_FORMAT`) chosen was the default - `${pathId}/${id`
 - Stroom Forwarding Proxy Testing
  - the [Multi Node Stroom Cluster (Proxy and Application)](InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment "Multi Node Stroom Cluster (Proxy and Application") has been deployed
  - the [Stroom Forwarding Proxy](InstallHowTo.md#forwarding-stroom-proxy-deployment "Stroom Forwarding Proxy") has been deployed
  - a [Test Feed](InstallHowTo.md#add-a-test-feed "Add a Test Feed"), `TEST-FEED-V1_0` has been added
+ - the Stroom Proxy Repository Format (`REPO_FORMAT`) chosen was the default - `${pathId}/${id`
 - Stroom Standalone Proxy Testing
  - the [Stroom Standalone Proxy](InstallHowTo.md#standalone-stroom-proxy-deployment "Stroom Standalone Proxy") has been deployed
+ - the Stroom Proxy Repository Format (`REPO_FORMAT`) chosen was the default - `${pathId}/${id`
 
 ## Stroom Single or Multi Node Cluster Testing
 ### Data Post Tests
