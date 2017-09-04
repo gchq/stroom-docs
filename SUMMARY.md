@@ -59,6 +59,10 @@
       * [Variable reference](datasplitter/3-2-variable-reference.md)
       * [Use of fixed strings](datasplitter/3-3-use-of-fixed-strings.md)
       * [Concatenation of references](datasplitter/3-4-concatenation-of-references.md)
+  * [Application Programming Interfaces (API)](user-guide/api/README.md)
+      * [Query API](user-guide/api/query-api.md)
+
+
 
 ### 4. HOWTOs
 
