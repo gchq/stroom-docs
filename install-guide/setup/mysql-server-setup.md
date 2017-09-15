@@ -56,6 +56,12 @@ Query OK, 1 row affected (0.02 sec)
 mysql> grant all privileges on stroom.* to 'stroomuser'@'host' identified by 'password';
 Query OK, 0 rows affected (0.00 sec)
 
+mysql> create database stroom_stats;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> grant all privileges on stroom_stats.* to 'stroomuser'@'host' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
 mysql> flush privileges;
 Query OK, 0 rows affected (0.00 sec)
 ```
