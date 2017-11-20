@@ -93,7 +93,6 @@
   * [Application](HOWTOs/Install/InstallApplicationHowTo.md)
 
 ### 5. Stroom Proxy
-
 * [Installing Stroom proxy](proxy/install.md)
 * [Docker](proxy/docker.md)
 * [Apache forwarding](proxy/apache-forwarding.md)
@@ -106,4 +105,3 @@
   * [Running Stroom using Docker](dev-guide/docker-running.md)
   * [Building a Stroom Docker image](dev-guide/docker-building.md)
   * [Building GitBook documentation](dev-guide/gitbook.md)
-  * [C# Client](dev-guide/c#-client.md)
