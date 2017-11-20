@@ -245,7 +245,7 @@ You can see that there are the `Raw Events` and the processed `Events`. If you c
 
 #### Troubleshooting
 
-If nothing happens you might need to enable stream processing. This was explained [earlier](process.md#create-a-processor).
+If nothing happens you might need to enable stream processing. This was explained [earlier](../running/running.md#enable-processing-of-data-streams).
 
 Now you've processed your data you can go ahead and [index](../index/index.md) it.
 
