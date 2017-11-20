@@ -25,4 +25,4 @@ Below the list of jobs is the properties pane. The Stream Processor's properties
 
 ![Enabling the nodes for the stream processor](images/configure-jobs-stream.png)
 
-So now we've done that lets [get data into stroom](feed/feed.md).
+So now we've done that lets [get data into stroom](../feed/feed.md).
