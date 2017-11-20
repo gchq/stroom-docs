@@ -5,6 +5,11 @@
 * [Introduction](README.md)
 * [Screenshots](screenshots.md)
 * [Quick-start guide](quick-start-guide/quick-start.md)
+  * [Running](quick-start-guide/running/running.md)
+  * [Getting data in](quick-start-guide/feed/feed.md)
+  * [Processing the data](quick-start-guide/process/process.md)
+  * [Indexing the data](quick-start-guide/index/index.md)
+  * [Visualising the data](quick-start-guide/dashboard/dashboard.md)
 
 ### 2. Installation
 
