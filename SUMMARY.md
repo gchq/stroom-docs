@@ -67,8 +67,6 @@
   * [Application Programming Interfaces (API)](user-guide/api/README.md)
       * [Query API](user-guide/api/query-api.md)
 
-
-
 ### 4. HOWTOs
 
 * [Introduction](HOWTOs/StroomHowTos.md)
@@ -93,6 +91,7 @@
   * [Application](HOWTOs/Install/InstallApplicationHowTo.md)
 
 ### 5. Stroom Proxy
+
 * [Installing Stroom proxy](proxy/install.md)
 * [Docker](proxy/docker.md)
 * [Apache forwarding](proxy/apache-forwarding.md)
@@ -100,6 +99,7 @@
 ### 6. Developer Guide
 
 * [Developer guide](dev-guide/README.md)
+  * [Contributing](CONTRIBUTING.md)
   * [Releasing](dev-guide/releasing.md)
   * [Running Stroom from IntelliJ](dev-guide/stroom-in-an-ide.md)
   * [Running Stroom using Docker](dev-guide/docker-running.md)
