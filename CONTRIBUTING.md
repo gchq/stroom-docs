@@ -14,6 +14,7 @@ All commits should follow these rules:
 * Capital letters at the start of summary/sentences.
 * If the commit relates to an issue the summary should include the issue number as follows: `gh-nnn Summary text`.
 * No emojis.
+* This is a good guide to a [good commit message](http://chris.beams.io/posts/git-commit/).
 
 ### Pull Request Process
 
@@ -21,9 +22,13 @@ When submiting a pull request (PR) the following rules should be observed:
 
 1. The PR should relate to an existing issue or issues.
 1. Name the PR in the form `gh-nnn Summary text`, where `nnn` is the issue number.
+1. Make the required code changes.
+1. Add/update any tests
 1. Commit code following the commit message standards above.
 1. Update the CHANGELOG.md with details of the changes
 1. Update any documentation in the repository, and/or in the gchq/stroom-docs repository (an additional PR will be required for this)
+1. Run a full build including integration tests to ensure it passes.
+1. Sign the [GCHQ Contributor Licence Agreement](https://github.com/gchq/Gaffer/wiki/GCHQ-OSS-Contributor-License-Agreement-V1.0) 
 1. Inform the project maintainers when the PR is ready to be reviewed/merged.
 
 ### Coding Standards
