@@ -7,7 +7,6 @@ This is a general guide for performing a release of a named version of one of th
 1. Ensure the CHANGELOG has been updated for the new x.y.z version, i.e. ensure there is a section for vx.y.z and the links to git diffs at the bottom are up to date. e.g. 
 
     ```
-    ...
     ## [v3.1.1_schema-v3.1.2] - 2017-11-14
 
     ### Added
@@ -19,9 +18,12 @@ This is a general guide for performing a release of a named version of one of th
     * Uplift schema to v3.1.2
 
     * Change build to Gradle
-    ...
+    ```
+
+    and
+
+    ```
     [v3.1.2_schema-v3.1.2]: https://github.com/gchq/event-logging/compare/v3.1.1_schema-v3.1.2...v3.1.2_schema-v3.1.2
-    ...
     ```
 
 
@@ -44,7 +46,8 @@ This is a general guide for performing a release of a named version of one of th
 
     Where _@@@_ is the content of the x.y.z section from the CHANGELOG. GitHub takes the top line as the title for the release. Git will ignore any lines starting with a `#` so remove them from the markdown headings. Keep the `*` bullets.  E.g.
 
-    ```event-logging-v3.1.1_schema-v3.1.2
+    ```
+    event-logging-v3.1.1_schema-v3.1.2
 
     Added 
 
