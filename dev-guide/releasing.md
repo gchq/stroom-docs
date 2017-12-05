@@ -25,7 +25,14 @@ This is a general guide for performing a release of a named version of one of th
     ```
     [v3.1.2_schema-v3.1.2]: https://github.com/gchq/event-logging/compare/v3.1.1_schema-v3.1.2...v3.1.2_schema-v3.1.2
     ```
+1. If the changes include merges in from other branches, e.g. merging a big fix from _v1.0_ to _v2.0_ then add a _Merged_ section to make it clear that the changes in the merge have been applied, e.g.
 
+    ```
+    ### Merged
+
+    * Merged in [v1.0.1]
+
+    ```
 
 1. Test the named release build locally by adding the argument `-Pversion=vx.y.z` to the gradle build command.
 
