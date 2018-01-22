@@ -120,7 +120,7 @@ sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomda
 sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
 ```
 
-  * Once the test mounts work, we them permanent by adding the following to the /etc/fstab file.
+  * Once the test mounts work, we make them permanent by adding the following to the /etc/fstab file.
 
 ```
 stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
