@@ -642,119 +642,30 @@ decode('red')
 
 # URI Functions
 
-## ExtractAuthorityFromUri
-1. A URI
-```
-extractAuthorityFromUri(uri)
-```
+Fields containing a Uniform Resource Identifier (URI) in string form can queried to extract the URI's individual components of `authority`, `fragment`, `host`, `path`, `port`, `query`, `scheme`, `schemeSpecificPart` and `userInfo`. See either [RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax](http://www.ietf.org/rfc/rfc2396.txt) or Java's java.net.URI Class for details regarding the components. If any component is not present within the passed URI, then an empty string is returned.
 
-Example
-```
-extractAuthorityFromUri('http://www.example.com:1234/this/is/a/path')
+The extraction functions are
 
-> 'www.example.com:1234'
-```
+* extractAuthorityFromUri\(\) - extract the Authority component
+* extractFragmentFromUri\(\) - extract the Fragment component
+* extractHostFromUri\(\) - extract the Host component
+* extractPathFromUri\(\) - extract the Path component
+* extractPortFromUri\(\) - extract the Port component
+* extractQueryFromUri\(\) - extract the Query component
+* extractSchemeFromUri\(\) - extract the Scheme component
+* extractSchemeSpecificPartFromUri\(\) - extract the Scheme specific part component
+* extractUserInfoFromUri\(\) - extract the UserInfo component
 
-## ExtractFragmentFromUri
-1. A URI
-```
-extractFragmentFromUri(uri)
-```
+If the URI is `http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details` the table below displays the extracted components
 
-Example
-```
-extractFragmentFromUri('http://www.example.com:1234/this/is/a/path#frag')
-
-> 'frag'
-```
-
-## ExtractHostFromUri
-1. A URI
-```
-extractHostFromUri(uri)
-```
-
-Example
-```
-extractHostFromUri('http://www.example.com:1234/this/is/a/path')
-
-> 'www.example.com'
-```
-
-## ExtractPathFromUri
-1. A URI
-```
-extractPathFromUri(uri)
-```
-
-Example
-```
-extractPathFromUri('http://www.example.com:1234/this/is/a/path')
-
-> '/this/is/a/path'
-```
-
-## ExtractPortFromUri
-1. A URI
-```
-extractPortFromUri(uri)
-```
-
-Example
-```
-extractPortFromUri('http://www.example.com:1234/this/is/a/path')
-
-> '1234'
-```
-
-## ExtractQueryFromUri
-1. A URI
-```
-extractQueryFromUri(uri)
-```
-
-Example
-```
-extractQueryFromUri('http://www.example.com:1234/this/is/a/path?this=that&foo=bar')
-
-> 'this=that&foo=bar'
-```
-
-## ExtractSchemeFromUri
-1. A URI
-```
-extractSchemeFromUri(uri)
-```
-
-Example
-```
-extractSchemeFromUri('http://www.example.com:1234/this/is/a/path')
-
-> 'http'
-```
-
-## ExtractSchemeSpecificPartFromUri
-1. A URI
-```
-extractSchemeSpecificPartFromUri(uri)
-```
-
-Example
-```
-extractSchemeSpecificPartFromUri('http://www.example.com:1234/this/is/a/path')
-
-> '//www.example.com:1234/this/is/a/path'
-```
-
-## ExtractUserInfoFromUri
-1. A URI
-```
-extractUserInfoFromUri(uri)
-```
-
-Example
-```
-extractUserInfoFromUri('http://john:doe@example.com:81/')
-
-> 'john:doe'
-```
+Expression | Extraction
+--- | ---
+extractAuthorityFromUri(${URI})	| foo:bar@w1.superman.com:8080
+extractFragmentFromUri(${URI}) | more-details
+extractHostFromUri(${URI}) | w1.superman.com
+extractPathFromUri(${URI}) | /very/long/path.html
+extractPortFromUri(${URI}) | 8080
+extractQueryFromUri(${URI}) | p1=v1&amp;p2=v2
+extractSchemeFromUri(${URI}) | http
+extractSchemeSpecificPartFromUri(${URI}) | //foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2
+extractUserInfoFromUri(${URI}) | foo:bar
