@@ -88,3 +88,32 @@ Or all data for the previous year:
 Or this year so far:
 
 `greater than year()`
+
+## URI Fields
+Fields containing a Uniform Resource Identifier (URI) in string form can queried to extract the URI's individual components of `authority`, `fragment`, `host`, `path`, `port`, `query`, `scheme`, `schemeSpecificPart` and `userInfo`. See either [RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax](http://www.ietf.org/rfc/rfc2396.txt) or Java's java.net.URI Class for details regarding the components. If any component is not present within the passed URI, then an empty string is returned.
+
+The extraction functions are
+
+* extractAuthorityFromUri\(\) - extract the Authority component
+* extractFragmentFromUri\(\) - extract the Fragment component
+* extractHostFromUri\(\) - extract the Host component
+* extractPathFromUri\(\) - extract the Path component
+* extractPortFromUri\(\) - extract the Port component
+* extractQueryFromUri\(\) - extract the Query component
+* extractSchemeFromUri\(\) - extract the Scheme component
+* extractSchemeSpecificPartFromUri\(\) - extract the Scheme specific part component
+* extractUserInfoFromUri\(\) - extract the UserInfo component
+
+If the URI is `http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details` the table below displays the extracted components
+
+Expression | Extraction
+--- | ---
+extractAuthorityFromUri(${URI})	| foo:bar@w1.superman.com:8080
+extractFragmentFromUri(${URI}) | more-details
+extractHostFromUri(${URI}) | w1.superman.com
+extractPathFromUri(${URI}) | /very/long/path.html
+extractPortFromUri(${URI}) | 8080
+extractQueryFromUri(${URI}) | p1=v1&amp;p2=v2
+extractSchemeFromUri(${URI}) | http
+extractSchemeSpecificPartFromUri(${URI}) | //foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2
+extractUserInfoFromUri(${URI}) | foo:bar
