@@ -1,8 +1,6 @@
 # Dashboard Expressions
 
-[![Build Status](https://travis-ci.org/gchq/stroom-expression.svg?branch=master)](https://travis-ci.org/gchq/stroom-expression)
-
-This library provides Stroom with the functions for manipulating data on Stroom Dashboards.
+Expressions can be used to manipulate data on Stroom Dashboards.
 
 Each function has a name, and some have additional aliases.
 
