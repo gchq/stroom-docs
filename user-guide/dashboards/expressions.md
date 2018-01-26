@@ -667,3 +667,102 @@ extractQueryFromUri(${URI}) | p1=v1&amp;p2=v2
 extractSchemeFromUri(${URI}) | http
 extractSchemeSpecificPartFromUri(${URI}) | //foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2
 extractUserInfoFromUri(${URI}) | foo:bar
+
+## extractAuthorityFromUri
+Extracts the Authority component from a URI
+
+`extractAuthorityFromUri(uri)`
+
+Example
+```
+extractAuthorityFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> foo:bar@w1.superman.com:8080
+```
+
+## extractFragmentFromUri
+Extracts the Fragment component from a URI
+
+`extractFragmentFromUri(uri)`
+
+Example
+```
+extractFragmentFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> more-details
+```
+
+## extractHostFromUri
+Extracts the Host component from a URI
+
+`extractHostFromUri(uri)`
+
+Example
+```
+extractHostFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> w1.superman.com
+```
+
+## extractPathFromUri
+Extracts the Path component from a URI
+
+`extractPathFromUri(uri)`
+
+Example
+```
+extractPathFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> /very/long/path.html
+```
+
+## extractPortFromUri
+Extracts the Port component from a URI
+
+`extractPortFromUri(uri)`
+
+Example
+```
+extractPortFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> 8080
+```
+
+## extractQueryFromUri
+Extracts the Query component from a URI
+
+`extractQueryFromUri(uri)`
+
+Example
+```
+extractQueryFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> p1=v1&p2=v2
+```
+
+## extractSchemeFromUri
+Extracts the Scheme component from a URI
+
+`extractSchemeFromUri(uri)`
+
+Example
+```
+extractSchemeFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> http
+```
+
+## extractSchemeSpecificPartFromUri
+Extracts the SchemeSpecificPart component from a URI
+
+`extractSchemeSpecificPartFromUri(uri)`
+
+Example
+```
+extractSchemeSpecificPartFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> //foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2
+```
+
+## extractUserInfoFromUri
+Extracts the UserInfo component from a URI
+
+`extractUserInfoFromUri(uri)`
+
+Example
+```
+extractUserInfoFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
+> foo:bar
+```
