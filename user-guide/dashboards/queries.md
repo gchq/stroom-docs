@@ -111,9 +111,9 @@ Expression | Extraction
 extractAuthorityFromUri(${URI})	| foo:bar@w1.superman.com:8080
 extractFragmentFromUri(${URI}) | more-details
 extractHostFromUri(${URI}) | w1.superman.com
-extractQueryFromUri(${URI}) | p1=v1&amp;p2=v2
 extractPathFromUri(${URI}) | /very/long/path.html
 extractPortFromUri(${URI}) | 8080
+extractQueryFromUri(${URI}) | p1=v1&amp;p2=v2
 extractSchemeFromUri(${URI}) | http
 extractSchemeSpecificPartFromUri(${URI}) | //foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2
 extractUserInfoFromUri(${URI}) | foo:bar
