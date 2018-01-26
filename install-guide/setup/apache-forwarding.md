@@ -53,6 +53,9 @@ SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
 SSLCertificateKeyFile /etc/httpd/conf/[YOUR SERVER].key
 SSLCertificateChainFile /etc/httpd/conf/[YOUR CA].crt
 SSLCACertificateFile /etc/httpd/conf/[YOUR CA APPENDED LIST].crt
+
+SSLOptions +ExportCertData
+
 ```
 
 - Remove /etc/httpd/conf.d/nss.conf to avoid a 8443 port clash
