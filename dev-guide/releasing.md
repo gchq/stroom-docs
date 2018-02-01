@@ -89,16 +89,16 @@ Semantic versioning is used, and this should be adhered to, see [SemVer](https:/
 
 ## To Perform a Local Build
 
-###Full build:
+### Full build:
 `./gradlew clean build`
 
-###Build without unit tests
+### Build without unit tests
 `./gradlew clean build -x test`
 
-###Build without integration tests
+### Build without integration tests
 `./gradlew clean build -x integrationTest`
 
-###Build without any tests or GWT compilation (GWT compilation applies to stroom only)
+### Build without any tests or GWT compilation (GWT compilation applies to stroom only)
 `./gradlew clean build -x test -x integrationTest -x gwtCompile`
 
 
