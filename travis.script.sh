@@ -29,9 +29,9 @@ echo -e "ZIP_FILENAME:        [${GREEN}${ZIP_FILENAME}${NC}]"
 #wrap the ebook-convert binary with our own wrapper script of the same name
 sudo mv ebook-convert /usr/local/bin/
 
-#Replace the @@VERSION@@ tag in the VERSION.md file
-echo -e "${GREEN}Replacing VERSION tag in ${BLUE}VERSION.md${NC}"
+echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC} tags in ${BLUE}VERSION.md${NC}"
 sed -i "s/@@VERSION@@/${BUILD_NAME}/" VERSION.md
+sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 
 #build the gitbook
 echo -e "${GREEN}Installing and building gitbook${NC}"

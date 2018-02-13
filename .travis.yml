@@ -24,6 +24,10 @@ install:
 
 script: ./travis.script.sh
 
+before_deploy:
+  #Ensure we are in the right dir
+  - cd ${TRAVIS_BUILD_DIR}
+
 deploy:
     #Push the generated gitbook html to the gh-pages branch
   - provider: pages
