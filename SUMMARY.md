@@ -105,3 +105,8 @@
   * [Running Stroom using Docker](dev-guide/docker-running.md)
   * [Building a Stroom Docker image](dev-guide/docker-building.md)
   * [Building GitBook documentation](dev-guide/gitbook.md)
+
+### 7. About Stroom-docs
+
+* [Change Log](CHANGELOG.md)
+* [Version Information](VERSION.md)
