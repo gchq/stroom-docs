@@ -30,7 +30,7 @@ echo -e "ZIP_FILENAME:        [${GREEN}${ZIP_FILENAME}${NC}]"
 sudo mv ebook-convert /usr/local/bin/
 
 echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC} tags in ${BLUE}VERSION.md${NC}"
-sed -i "s/@@VERSION@@/${BUILD_NAME}/" VERSION.md
+sed -i "s/@@VERSION@@/${BUILD_NAME}/g" VERSION.md
 sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 
 #build the gitbook
