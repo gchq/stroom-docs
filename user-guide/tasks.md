@@ -1,4 +1,4 @@
-#Stroom Tasks
+# Stroom Tasks
 There are various tasks that run in the background within Stroom. Among these are tasks that control pipeline processing, removing old files from the file system, checking the status of nodes and volumes etc. Each task executes at a different time depending on the purpose of the task. There are three ways that a task can be executed:
 
  1. Scheduled tasks execute periodically according to a cron schedule. These include tasks such as cleaning the file system where Stroom only needs to perform this action once a day and can do so overnight.
@@ -53,7 +53,7 @@ How frequently we try and delete attributes older than system property
 #### SQL Stats Database Aggregation
 
 How frequently we try and aggregate stats on the database.
-If this job is enabled on a number of nodes only one will actually perform the aggregation on the database.  
+If this job is enabled on a number of nodes only one will actually perform the aggregation on the database.
 
 #### Node Status
 
@@ -90,7 +90,7 @@ unused accounts.
 #### Pipeline Destination Roll
 
 How frequently we check pipeline destination's to roll (age off and start a new one).
-This period is controlled in the pipeline.   
+This period is controlled in the pipeline.
 
 #### Benchmark System
 

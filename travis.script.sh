@@ -38,8 +38,16 @@ echo -e "${GREEN}Installing and building gitbook${NC}"
 gitbook install
 gitbook build
 
-echo -e "${GREEN}Highlighting un-converted markdown files as they could be missing from the ${BLUE}SUMMARY.md${NC}"
-find ./_book/ -name "*.md"
+#For a markdown file to be included in the gitbook conversion to html/pdf it must be linked to in SUMMARY.md
+missingFileCount=$(find ./_book/ -name "*.md" | wc -l)
+if [ ${missingFileCount} -gt 0 ]; then
+    echo -e "${missingFileCount} markdown file(s) have not been converted, ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
+    for file in $(find ./_book/ -name "*.md"); do
+        echo -e "  ${RED}${file}${NC}"
+    done
+    echo "Failing the build"
+    exit 1
+fi
 
 #generate a pdf of the gitbook
 gitbook pdf ./ ./${PDF_FILENAME}
