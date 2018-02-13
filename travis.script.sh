@@ -63,14 +63,4 @@ pushd _book
 zip -r -9 ../${ZIP_FILENAME} ./*
 popd
 
-if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-    git config --global user.email "builds@travis-ci.com"
-    git config --global user.name "Travis CI"
-    export GIT_TAG=${BUILD_NAME}
-
-    echo -e "Creating tag ${GREEN}${GIT_TAG}${NC}"
-    git tag $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null;
-    git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1;
-else
-    echo -e "${GREEN}Branch is not master so won't tag the repository${NC}"
-fi
+exit 0

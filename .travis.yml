@@ -24,9 +24,20 @@ install:
 
 script: ./travis.script.sh
 
+#before_deploy will be run once for each deploy provider so protection for non-idempotent 
+#operations is needed
 before_deploy:
-  #Ensure we are in the right dir
-  - cd ${TRAVIS_BUILD_DIR}
+  - echo "Branch - $TRAVIS_BRANCH, Build No - $TRAVIS_BUILD_NUMBER, Commit - $TRAVIS_COMMIT"
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - export GIT_TAG=$BUILD_NAME
+  - >
+      if ! [ "$BEFORE_DEPLOY_HAS_RUN" ]; then
+        #Ensure this code runs once only
+        export BEFORE_DEPLOY_HAS_RUN=1;
+        git tag $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null;
+        git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1;
+      fi
 
 deploy:
     #Push the generated gitbook html to the gh-pages branch
