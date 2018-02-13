@@ -55,7 +55,6 @@ gitbook pdf ./ ./${PDF_FILENAME}
 echo -e "${GREEN}Removing unwanted files${NC}"
 rm -v _book/.travis.yml
 rm -v _book/*.yml
-rm -v _book/*.md
 rm -v _book/*.sh
 
 echo -e "${GREEN}Making a zip of the html content${NC}"
