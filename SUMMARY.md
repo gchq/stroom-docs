@@ -109,6 +109,6 @@
 
 ### 7. About Stroom-docs
 
-* [Change Log](CHANGELOG.md)
-* [Version Information](VERSION.md)
+* [Change log](CHANGELOG.md)
+* [Version information](VERSION.md)
 * [Building stroom-docs](gitbook.md)
