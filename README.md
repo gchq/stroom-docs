@@ -1,28 +1,12 @@
 ![Stroom](resources/logo.png)
 
-If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md), alternatively you can find the full documentation [here](https://gchq.github.io/stroom-docs/). Alternatively, if you'd just like to see it running then do this (you will need docker, docker-compose, git and a linux-like shell with bash):
+> A published HTML version of these documents are available to view at [here](https://gchq.github.io/stroom-docs/). You can also download a _PDF_ version or a zip file of all the HTML documentation from [here](https://github.com/gchq/stroom-docs/releases).
 
+If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md). 
 
-```bash
-git clone https://github.com/gchq/stroom-resources.git
-cd stroom-resources/bin
+Alternatively, if you'd just like to see Stroom running then follow the very simple steps [here](dev-guide/docker-running.md).
 
-# To run the latest stroom 5 release using docer-compose
-./bounceIt.sh -f env/stroom5.env
-
-# Open a browser (preferably Chrome) at localhost:8080/stroom
-# and login with username:admin, password:admin
-
-# To run the latest stroom 6 pre-release (still under development) using docer-compose
-./bounceIt.sh -f env/stroom6-core.env
-
-# Open a browser (preferably Chrome) at localhost:8080 
-# and login with username:admin (NOT an email address), password:admin 
-# Stroom uses a self-signed certificate so you may need to accept a prompt warning you
-# about visiting an untrusted site.
-```
-
-A series of HOWTO Recipes for various elements of Stroom can be found [here](HOWTOs/StroomHowTos.md "Stroom HOWTO Recipes")
+A series of _HOWTO_ Recipes for various elements of Stroom can be found [here](HOWTOs/StroomHowTos.md)
 
 # Stroom
 
@@ -47,15 +31,22 @@ The person who introduces a new log format is probably best placed to describe i
 
 # Architecture
 
-Stroom is a Java web application that runs on _Apache Tomcat_, with _Apache Lucene_ indexes over a compressed data store. It uses a _MySQL_ RDBMS to persist application configuration and metadata. 
+Stroom 5.x is a Java web application that runs on _Apache Tomcat_, with _Apache Lucene_ indexes over a compressed data store. It uses two _MySQL_ RDBMSs to persist application configuration and metadata. 
+
+Stroom v6.x uses a more service oriented architecture with a number of additional peripheral services such as stroom-auth, stroom-stats, stroom-query-elastic, stroom-annotations, etc. The core Stroom application and the majority of the services all run on _DropWizard_ using embedded _Jetty_.
 
 Currently Stroom has only been tested with _Google Chrome_. For this reason some functionality may not work correctly in other browsers. Now that Stroom is an open source project, support for other browsers will be improved.
 
 There are several optional components for different use cases:
 
 * **Stroom Proxy** - An application that receives and forwards data to Stroom.
+* **Stroom Stats** - An HBase based service for storing and querying aggregates of event data.
+* **Stroom Stats** - An HBase based service for storing and querying aggregates of event data (still in development).
+* **Stroom Annotations** - A service for recording data relating to events or records in Stroom (still in development).
+* **Stroom Query Elastic** - A service to allow Stroom dashboards to query Elastic Search indexes.
 * **Stroom Agent** - An application that extracts data from sources. 
-* **Logging Events XML Schema** - A common language for describing audit events.
+* **Event Logging XML Schema** - A common language for describing audit events.
+* **Event Logging JAXB Library** - A Java library to help client systems send events to Stroom.
 * **Content Packs** - Transformation packages for standard log formats (e.g. Windows, Linux) into Logging Events XML.
 
 # Screenshots
@@ -64,7 +55,7 @@ Some screenshots of the application can be seen [here](screenshots.md).
 
 # State of the Project
 
-Stroom has recently undergone a significant code refactor and change to its security model. As a result v5.0.0, the forthcoming version, is currently in beta and is still being tested. We would recommend waiting for a stable release before deploying into a production environment.
+Stroom v5.0 and v5.1 represent the first open source releases of Stroom and are suitable for use in a production environment. Stroom v6.x is currently in development with alpha and beta releases available for testing.
 
 # Future
 
@@ -75,3 +66,18 @@ Although Stroom is a mature product it is receiving more active development effo
 * New visualisations to improve analysis
 * A modularised, micro-service-based architecture
 * Further integration with the Hadoop ecosystem
+
+# Developers and Contributors
+
+If you want to contribute to the development of Stroom or its related repositories please see [here](CONTRIBUTING.md).
+
+For details of how get started setting up a Stroom development environment see [here](dev-guide/stroom-in-an-ide.md).
+
+# Stroom Content
+
+A lot of the power of Stroom comes from the content that is developed within it. The content includes XSLT transformations, data-splitter definitions, dashboards, visualisations, processing pipeline definitions, etc. The content developed within Stroom can be exported and shared between other Stroom installations. The content can be packaged into convenient content pack zip files.
+
+Generic Stroom content is available [here](https://github.com/gchq/stroom-content/releases)
+
+Stroom visualisations (for use in dashboards) are available [here](https://github.com/gchq/stroom-visualisations-dev/releases)
+
