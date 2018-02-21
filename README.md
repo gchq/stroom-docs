@@ -1,15 +1,29 @@
 ![Stroom](resources/logo.png)
 
-If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md), alternatively you can find the full documentation [here](https://gchq.github.io/stroom-docs/). Alternatively, if you'd just like to see it running then do this (it'll start up two dockers: mysql and Stroom):
+If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md), alternatively you can find the full documentation [here](https://gchq.github.io/stroom-docs/). Alternatively, if you'd just like to see it running then do this (you will need docker, docker-compose, git and a linux-like shell with bash):
+
 
 ```bash
-docker run --name stroom-db -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_USER=stroomuser -e MYSQL_PASSWORD=stroompassword1 -e MYSQL_DATABASE=stroom -d mysql:5.6
+git clone https://github.com/gchq/stroom-resources.git
+cd stroom-resources/bin
 
-# Run the Stroom docker image
-docker run -p 8080:8080 --link stroom-db -v ~/.stroom:/root/.stroom --name=stroom -e STROOM_JDBC_DRIVER_URL="jdbc:mysql://stroom-db/stroom?useUnicode=yes&characterEncoding=UTF-8" -e STROOM_JDBC_DRIVER_USERNAME="stroomuser" -e STROOM_JDBC_DRIVER_PASSWORD="stroompassword1" gchq/stroom
+# To run the latest stroom 5 release using docer-compose
+./bounceIt.sh -f env/stroom5.env
+
+# Open a browser (preferably Chrome) at localhost:8080/stroom
+# and login with username:admin, password:admin
+
+# To run the latest stroom 6 pre-release (still under development) using docer-compose
+./bounceIt.sh -f env/stroom6-core.env
+
+# Open a browser (preferably Chrome) at localhost:8080 
+# and login with username:admin (NOT an email address), password:admin 
+# Stroom uses a self-signed certificate so you may need to accept a prompt warning you
+# about visiting an untrusted site.
 ```
 
 A series of HOWTO Recipes for various elements of Stroom can be found [here](HOWTOs/StroomHowTos.md "Stroom HOWTO Recipes")
+
 # Stroom
 
 Stroom is a data processing, storage and analysis platform. It is scalable - just add more CPUs / servers for greater throughput. It is suitable for processing high volume data such as system logs, to provide valuable insights into IT performance and usage.
