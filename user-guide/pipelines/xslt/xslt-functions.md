@@ -33,6 +33,8 @@ The following functions are available to aid your translation:
 * `format-date(String date, String patternIn, String timeZoneIn, String patternOut, String timeZoneOut)` - Parse a date with the specified input pattern and time zone and format the output with the specified output pattern and time zone
 * `format-date(String milliseconds)` - Format a date that is specified as a number of milliseconds since a standard base time known as "the epoch", namely January 1, 1970, 00:00:00 GMT
 * `get(String key)` - Returns the value associated with a key that has been stored using put()
+* `hash(String value)` - Hash a string value using SHA-256 and no salt
+* `hash(String value, String algorithm, String salt)` - Hash a string value using the specified hashing algorithm and supplied salt value. Supported hashing algorithms include `SHA-256`, `SHA-512`, `MD5`.
 * `json-to-xml(String json)` - Returns an XML representation of the supplied JSON value for use in XPath expressions
 * `log(String severity, String message)` - Logs a message to the processing log with the specified severity
 * `lookup(String map, String key)` - Look up a reference data map using the period start time
