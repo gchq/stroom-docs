@@ -2,12 +2,11 @@
 
 ## Post-install hardening
 
-### Change API tokens
+### Before first run
 
-  * `STROOM_SECURITY_API_TOKEN`
-    * This is the API token for user `stroomServiceUser`. You'll need to generate a new API key for this user and paste it into the `.env` configuration file. You can generate a new API key using Stroom, under `Tools` -> `API Keys`.
+#### Change database passwords
 
-### Change database password
+This change should be made in the `.env` configuration file.
 
   * `STROOM_DB_PASSWORD`
   * `STROOM_DB_ROOT_PASSWORD`
@@ -18,10 +17,24 @@
   * `STROOM_AUTH_DB_PASSWORD`
   * `STROOM_AUTH_DB_ROOT_PASSWORD`
 
-### Delete un-used users and API keys
+### On first run
 
-  * If you're not using stats you can delete or disable:
+#### Change the admin password
+
+Change the admin password using Stroom, under `User` -> `Change password`. In a future release you will be required to change the admin password on first run.
+
+#### Delete un-used users and API keys
+
+  * If you're not using stats you can delete or disable the following:
     * the user `statsServiceUser`
     * the API key for `statsServiceUser`
 
 
+#### Change the API keys
+
+First generate new API keys. You can generate a new API key using Stroom, under `Tools` -> `API Keys`. The following need to be changed:
+
+  * `STROOM_SECURITY_API_TOKEN`
+    * This is the API token for user `stroomServiceUser`. 
+    
+Then stop Stroom and update the API key in the `.env` configuration file with the new value.
