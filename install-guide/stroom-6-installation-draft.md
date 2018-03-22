@@ -6,7 +6,7 @@
 
 #### Change database passwords
 
-This change should be made in the `.env` configuration file.
+This change should be made in the `.env` configuration file. If the values are not there then this service is not included in your Stroom stack and there is nothing to change.
 
   * `STROOM_DB_PASSWORD`
   * `STROOM_DB_ROOT_PASSWORD`
@@ -16,6 +16,9 @@ This change should be made in the `.env` configuration file.
 
   * `STROOM_AUTH_DB_PASSWORD`
   * `STROOM_AUTH_DB_ROOT_PASSWORD`
+  
+  * `STROOM_ANNOTATIONS_DB_PASSWORD`
+  * `STROOM_ANNOTATIONS_DB_ROOT_PASSWORD`
 
 ### On first run
 
