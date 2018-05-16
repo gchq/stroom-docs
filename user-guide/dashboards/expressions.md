@@ -30,6 +30,59 @@ g.eval
 ```
 
 
+# Table of Contents
+
+<!-- vim-markdown-toc GFM -->
+
+* [Math Functions](#math-functions)
+    * [Add](#add)
+    * [Subtract](#subtract)
+    * [Multiply](#multiply)
+    * [Divide](#divide)
+    * [Power](#power)
+    * [Negate](#negate)
+    * [Equals](#equals)
+    * [Greater Than](#greater-than)
+    * [Less Than](#less-than)
+    * [Greater Than or Equal To](#greater-than-or-equal-to)
+    * [Less Than or Equal To](#less-than-or-equal-to)
+    * [Random](#random)
+* [Aggregation Functions](#aggregation-functions)
+    * [Max](#max)
+    * [Min](#min)
+    * [Sum](#sum)
+    * [Average](#average)
+* [Rounding Functions](#rounding-functions)
+    * [Ceiling](#ceiling)
+    * [Floor](#floor)
+    * [Round](#round)
+    * [Ceiling Year/Month/Day/Hour/Minute/Second](#ceiling-yearmonthdayhourminutesecond)
+    * [Floor Year/Month/Day/Hour/Minute/Second](#floor-yearmonthdayhourminutesecond)
+    * [Round Year/Month/Day/Hour/Minute/Second](#round-yearmonthdayhourminutesecond)
+* [Counting Functions](#counting-functions)
+    * [Count](#count)
+    * [Count Groups](#count-groups)
+* [String Functions](#string-functions)
+    * [Replace](#replace)
+    * [Concatenate](#concatenate)
+    * [String Length](#string-length)
+    * [Upper Case](#upper-case)
+    * [Lower Case](#lower-case)
+    * [Substring](#substring)
+    * [Decode](#decode)
+* [URI Functions](#uri-functions)
+    * [extractAuthorityFromUri](#extractauthorityfromuri)
+    * [extractFragmentFromUri](#extractfragmentfromuri)
+    * [extractHostFromUri](#extracthostfromuri)
+    * [extractPathFromUri](#extractpathfromuri)
+    * [extractPortFromUri](#extractportfromuri)
+    * [extractQueryFromUri](#extractqueryfromuri)
+    * [extractSchemeFromUri](#extractschemefromuri)
+    * [extractSchemeSpecificPartFromUri](#extractschemespecificpartfromuri)
+    * [extractUserInfoFromUri](#extractuserinfofromuri)
+
+<!-- vim-markdown-toc -->
+
 # Math Functions
 
 ## Add

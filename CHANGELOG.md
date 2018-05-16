@@ -5,6 +5,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add table of contents to _Dashboard Expressions_ page
+
 * Update sections relating to running Stroom in docker and an IDE
 
 * Improve formatting of `VERSION.md`
