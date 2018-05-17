@@ -13,15 +13,18 @@ A function Generator is given arrays of values for each 'row':
 A FieldIndexMap is used to map named fields to indexes of these arrays
 
 Example
-```
+``` java
 FieldIndexMap fim = FieldIndexMap.forFields("name", "age", "occupation")
 Generator g = parseExpression("concat(${name}, ${age})")
 
-g.addData('JDoe', 45, 'Butcher')
-g.addData('JBloggs', 23, 'Baker')
-g.addData('JSmith', 34, 'Candlestick Maker')
+g.addData("JDoe", 45, "Butcher")
+g.addData("JBloggs", 23, "Baker")
+g.addData("JSmith", 34, "Candlestick Maker")
 
 g.eval
+```
+
+```
 > [
     'JDoe45',
     'JBloggs23',
@@ -685,7 +688,9 @@ String decode(value) {
             return "rgb(255, 255, 255)"
     }
 }
+```
 
+```
 decode('red')
 > 'rgb(255, 0, 0)'
 
