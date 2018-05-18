@@ -37,19 +37,27 @@ g.eval
 
 <!-- vim-markdown-toc GFM -->
 
-* [Math Functions](#math-functions)
+* [Cast Functions](#cast-functions)
+    * [To Boolean](#to-boolean)
+    * [To Double](#to-double)
+    * [To Integer](#to-integer)
+    * [To Long](#to-long)
+    * [To String](#to-string)
+    * [Type Of](#type-of)
+* [Mathematics Functions](#mathematics-functions)
     * [Add](#add)
     * [Subtract](#subtract)
     * [Multiply](#multiply)
     * [Divide](#divide)
     * [Power](#power)
     * [Negate](#negate)
+    * [Random](#random)
+* [Logic Functions](#logic-functions)
     * [Equals](#equals)
     * [Greater Than](#greater-than)
     * [Less Than](#less-than)
     * [Greater Than or Equal To](#greater-than-or-equal-to)
     * [Less Than or Equal To](#less-than-or-equal-to)
-    * [Random](#random)
 * [Aggregation Functions](#aggregation-functions)
     * [Max](#max)
     * [Min](#min)
@@ -86,7 +94,96 @@ g.eval
 
 <!-- vim-markdown-toc -->
 
-# Math Functions
+# Cast Functions
+A set of functions for converting between different data types or for working with data types.
+
+## To Boolean
+Allows Nesting: Yes
+Attempts to convert the passed value to a _boolean_ data type.
+```
+toBoolean(arg1)
+```
+Examples:
+```
+toBoolean(1)
+> true
+toBoolean(0)
+> false
+toBoolean('true')
+> true
+toBoolean('false')
+> false
+```
+
+## To Double
+Allows Nesting: Yes
+Attempts to convert the passed value to a _double_ data type.
+```
+toDouble(arg1)
+```
+Examples:
+```
+toDouble('1.2')
+> 1.2
+```
+
+## To Integer
+Allows Nesting: Yes
+Attempts to convert the passed value to a _integer_ data type.
+```
+toInteger(arg1)
+```
+Examples:
+```
+toInteger('1')
+> 1
+```
+
+## To Long
+Allows Nesting: Yes
+Attempts to convert the passed value to a _long_ data type.
+```
+toLong(arg1)
+```
+Examples:
+```
+toLong('1')
+> 1
+```
+
+## To String
+Allows Nesting: Yes
+Attempts to convert the passed value to a _string_ data type.
+```
+toString(arg1)
+```
+Examples:
+```
+toString(1.2)
+> 1.2
+```
+
+## Type Of
+Allows Nesting: Yes
+Returns the data type of the passed value as a string.
+```
+typeOf(arg1)
+```
+Examples:
+```
+typeOf('abc')
+> string
+typeOf(toInteger(123))
+> integer
+typeOf(err())
+> error
+typeOf(null())
+> null
+typeOf(toBoolean('false'))
+> false
+```
+
+# Mathematics Functions
 
 ## Add
 Allows Nesting: Yes
@@ -200,6 +297,24 @@ negage(-9.5)
 > 9.5
 ```
 
+## Random
+Allows Nesting: No
+Generates a random number between 0.0 and 1.0
+```
+random()
+```
+
+Examples
+```
+random()
+> 0.78
+random()
+> 0.89
+...you get the idea
+```
+
+# Logic Functions
+
 ## Equals
 Allows Nesting: Yes
 Evaluates if arg1 is equal to arg2
@@ -307,22 +422,6 @@ g.eval()
 g.setValues(24);
 g.eval()
 > true
-```
-
-## Random
-Allows Nesting: No
-Generates a random number between 0.0 and 1.0
-```
-random()
-```
-
-Examples
-```
-random()
-> 0.78
-random()
-> 0.89
-...you get the idea
 ```
 
 # Aggregation Functions
