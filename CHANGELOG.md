@@ -1,15 +1,18 @@
 # Change Log
+
 All notable changes to the documentation will be documented in this file.
 
 A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add Stroom 6 Install Guide
+
 * Add _Cast Functions_ section
 
 * Move some Mathematics functions into _Logic Functions_
 
-* Rename _Math_ to Mathematics_
+* Rename _Math_ to Mathematics\_
 
 * Tweak code block syntax highlighting on _Dashboard Expressions_ page
 
