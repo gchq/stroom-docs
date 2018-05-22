@@ -12,7 +12,7 @@ recent at the top.
 
 * Move some Mathematics functions into _Logic Functions_
 
-* Rename _Math_ to Mathematics\_
+* Rename _Math_ to _Mathematics_
 
 * Tweak code block syntax highlighting on _Dashboard Expressions_ page
 
