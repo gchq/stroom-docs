@@ -1,4 +1,4 @@
-#HTTP POST Header Arguments
+# HTTP POST Header Arguments
 
 The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST. These arguments are case insensitive.
 
