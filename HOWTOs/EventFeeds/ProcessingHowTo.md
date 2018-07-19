@@ -40,7 +40,7 @@ They will be placed a folder appropriately named **BlueCoat** in the path **Syst
 There will be four components
 - the Event Feed to group the BlueCoat log files
 - the Text Converter to convert the BlueCoat raw logs files into simple XML
-- the XSLT Translation to translate the simple XML formed by the Text Converter into the Strom Event Logging XML form, and
+- the XSLT Translation to translate the simple XML formed by the Text Converter into the Stroom Event Logging XML form, and
 - the Processing pipeline which manages how the processing is performed.
 
 All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**.
@@ -76,7 +76,7 @@ In our example, we will set the above to
 
  * Description - *BlueCoat Proxy log data sent in W2C Extended Log File Format (ELFF)*
  * Classification - We will leave this blank
- * Reference Feed Flag - We leave the checkbox unchecked as this is not a *Reference Feed*
+ * Reference Feed Flag - We leave the check-box unchecked as this is not a *Reference Feed*
  * Feed Status - We set to *Receive*
  * Stream Type - We set to *Raw Events* as we will be sending batches (streams) of raw event logs
  * Data Encoding - We leave at the default of *UTF-8* as this is the proposed character encoding
@@ -107,7 +107,7 @@ and it's corresponding reference in the `Explorer` display.
 We set the configuration for this `Text Converter` to be
 
  * Description - *Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format (ELFF)*
- * Conveter Type - We set to *Data Splitter* was we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
+ * Converter Type - We set to *Data Splitter* was we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
  
 Again, press the _Save_ icon ![Save](../resources/icons/save.png "Save") to save the configuration items.
 
@@ -153,7 +153,7 @@ At this we see the `Pipeline Structure` configuration tab
 
 As noted in the Assumptions at the start, we have loaded the **Template Pipeline** content pack, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
-We find a template by selecting the **Inherit From:** entry box labelled ![Stroom UI noneEntryBox](../resources/icons/noneEntryBox.png "Stroom UI NoneEntryBox") to reveal a **Choose Item** configuration item window.
+We find a template by selecting the **Inherit From:** entry box labeled ![Stroom UI noneEntryBox](../resources/icons/noneEntryBox.png "Stroom UI NoneEntryBox") to reveal a **Choose Item** configuration item window.
 
 ![Stroom UI Create Feed - Pipeline Structure - Inherit](../resources/UI-FeedProcessing-08.png "Stroom UI Create Feed - Pipeline Structure tab - Inherit")
 
@@ -174,8 +174,8 @@ then pressing ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI O
 
 For the purpose of this HOWTO, we are only interested in two of the eleven (11) elements in this pipeline
 
- * the Text Converter labelled *dsParser*
- * the XSLT Translation labelled *translationFilter*
+ * the Text Converter labeled *dsParser*
+ * the XSLT Translation labeled *translationFilter*
 
 We need to assign our BlueCoat-Proxy-V1.0-EVENTS Text Converter and XSLT Translation to these elements respectively.
 
@@ -193,18 +193,18 @@ then press the `Edit Property` button ![Stroom UI EditProperty](../resources/ico
 
 ![Stroom UI Create Feed - Pipeline Structure - dsParser edit Property](../resources/UI-FeedProcessing-14.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property")
 
-We select the **Value:** entry box labelled ![Stroom UI noneEntryBox](../resources/icons/noneEntryBox.png "Stroom UI NoneEntryBox") to reveal a **Choose Item** configuration item window.
+We select the **Value:** entry box labeled ![Stroom UI noneEntryBox](../resources/icons/noneEntryBox.png "Stroom UI NoneEntryBox") to reveal a **Choose Item** configuration item window.
 
 
 ![Stroom UI Create Feed - Pipeline Structure - dsParser edit Property choose item](../resources/UI-FeedProcessing-15.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item")
 
 We traverse the folder structure until we can select the **BlueCoat-Proxy-V1.0-EVENTS** `Text Converter` as per
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser edit Property choosen item](../resources/UI-FeedProcessing-16.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choosen item")
+![Stroom UI Create Feed - Pipeline Structure - dsParser edit Property chosen item](../resources/UI-FeedProcessing-16.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property chosen item")
 
 and then press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") to see that the Property **Value:** has been selected.
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser set Property choosen item](../resources/UI-FeedProcessing-17.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property choosen item")
+![Stroom UI Create Feed - Pipeline Structure - dsParser set Property chosen item](../resources/UI-FeedProcessing-17.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property chosen item")
 
 and pressing the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button of the `Edit Property` configuration window results in the pipelines `dsParser` property being set. 
 
@@ -283,7 +283,7 @@ If we were to select the **Meta** hyper-link of the lower pane, one would see th
 
 You should see all the HTTP variables we set as part of the Upload step as well as some that Stroom has automatically set.
 
-We new swtich back to the **Data** hyper-link before we start to develop the actual translation.
+We new switch back to the **Data** hyper-link before we start to develop the actual translation.
 
 ### Stepping the Pipeline
 
@@ -397,8 +397,8 @@ As mentioned earlier, to _step_ the translation, one uses the green  _Stepping A
 The actions are
 
    * ![stepFirst](../resources/icons/stepFirst.png "Step First") - progress the transformation to the first line of the translation input
-   * ![stepBack](../resources/icons/stepBack.png "Step Back") - progress the transformation one step backwards
-   * ![stepForward](../resources/icons/stepForward.png "Step Forward") - progress the transformation one step forwards
+   * ![stepBack](../resources/icons/stepBack.png "Step Back") - progress the transformation one step backward
+   * ![stepForward](../resources/icons/stepForward.png "Step Forward") - progress the transformation one step forward
    * ![stepLast](../resources/icons/stepLast.png "Step Last") - progress the transformation to the end of the translation input
    * ![stepRefresh](../resources/icons/stepRefresh.png "Refresh Current Step") - refresh the transformation based on the current translation input
 
@@ -422,7 +422,7 @@ If one presses the ![stepForward](../resources/icons/stepForward.png "Step Forwa
 
 ![Stroom UI Create Feed - Translation - Stepping dsParser textConverter 2](../resources/UI-FeedProcessing-34.png "Stroom UI Create Feed - Translation - Stepping dsParser textConverter 2")
 
-Stepping forwards once more causes the translation to ignore the Date comment line, define a Data Splitter $headings variable from the Fields comment line and transform the first line of actual event data.
+Stepping forward once more causes the translation to ignore the Date comment line, define a Data Splitter $headings variable from the Fields comment line and transform the first line of actual event data.
 
 
 ![Stroom UI Create Feed - Translation - Stepping dsParser textConverter 3](../resources/UI-FeedProcessing-35.png "Stroom UI Create Feed - Translation - Stepping dsParser textConverter 3")
@@ -540,7 +540,7 @@ Note that this is the 31st record, so if we were to jump to the first record usi
 
 You will note that there is no `Event` element in the _output_ as the _record_ template only stores the input's key value and does not process an event log (the <xsl:otherwise> in our xslt translation above).
 
-Further note that the **BlueCoat_Proxy-V1.0-EVENTS** tab has a _star_ in front of it and also the _Save_ icon ![Save](../resources/icons/save.png "Save") is highlighted. This indciates that a component of the pipeline needs to be saved. In this case, the XSLT translation.
+Further note that the **BlueCoat_Proxy-V1.0-EVENTS** tab has a _star_ in front of it and also the _Save_ icon ![Save](../resources/icons/save.png "Save") is highlighted. This indicates that a component of the pipeline needs to be saved. In this case, the XSLT translation.
 
 
 ![Stroom UI Create Feed - Translation - Stepping XSLT Translation 3](../resources/UI-FeedProcessing-44.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 3")
@@ -693,7 +693,7 @@ Stepping to the 3 record (the first real data record in our sample log) will rev
 
 Note also, that our _Save_ icon ![Save](../resources/icons/save.png "Save") is also highlighted, so we should at some point save the extensions to our translation.
 
-The complete translation now follows. A copy of the XSLT translation can be found [here](BlueCoat.xslt "BlueCoat XSLT Tranlsation").
+The complete translation now follows. A copy of the XSLT translation can be found [here](BlueCoat.xslt "BlueCoat XSLT Translation").
 
 ```xslt
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -835,9 +835,9 @@ The complete translation now follows. A copy of the XSLT translation can be foun
     <EventDetail>
 
       <!--
-      We model Proxy events as either Recieve or Send events depending on the method.
+      We model Proxy events as either Receive or Send events depending on the method.
       
-      We make use of the Receive/Send subelements Source/Destination to map the Client/Destination Proxy values
+      We make use of the Receive/Send sub-elements Source/Destination to map the Client/Destination Proxy values
       and the Payload sub-element to map the URL and other details of the activity. If we have a query, we model it
       as a Criteria
       
@@ -1027,7 +1027,7 @@ The complete translation now follows. A copy of the XSLT translation can be foun
   <!-- 
   Set up the Outcome node.
   
-  We only set an Outcome for an error state. The absence of an Outcome inferrs success
+  We only set an Outcome for an error state. The absence of an Outcome infers success
   -->
   <xsl:template name="setOutcome">
     <xsl:choose>
@@ -1122,7 +1122,7 @@ The complete translation now follows. A copy of the XSLT translation can be foun
       <xsl:when test="$code = 601">Squid: header size overflow detected while parsing/roundcube: software configuration error</xsl:when>
       <xsl:when test="$code = 603">roundcube: invalid authorization</xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="concat('Uknown Code:', $code)" />
+        <xsl:value-of select="concat('Unknown Code:', $code)" />
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -1235,7 +1235,7 @@ for the given input
 Do not forget to Save ![Save](../resources/icons/save.png "Save") the translation as we are complete.
 
 #### Schema Validation
-One last point, validating the use of the Stroom Event Logging Schema is performed in the `schemFilter` component of the pipeline. Had our translation resulted in a malformed Event, this pipeline component displays any errors. In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd`. If one selects the `schemaFilter` component and then Refesh ![stepRefresh](../resources/icons/stepRefresh.png "Refresh Current Step") the current step, we will see that
+One last point, validating the use of the Stroom Event Logging Schema is performed in the `schemaFilter` component of the pipeline. Had our translation resulted in a malformed Event, this pipeline component displays any errors. In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd`. If one selects the `schemaFilter` component and then Refresh ![stepRefresh](../resources/icons/stepRefresh.png "Refresh Current Step") the current step, we will see that
 
    * there is an error as indicated by a square **Red** box ![errorIndicator](../resources/icons/errorIndicator.png "Error Indicator") in the top right hand corner
    * there is a **Red** rectangle line indicator mark ![errorLine](../resources/icons/errorLine.png "Error Line Indicator") on the right hand side in the display slide bar
@@ -1309,7 +1309,7 @@ As we have selected our filter items, press the ![Stroom UI OkButton](../resourc
 
 ![Stroom UI Enable Processing - Configured Processors](../resources/UI-FeedProcessing-61.png "Stroom UI Enable Processing - Configured Processors").
 
-We now see our disply is divided into two panes. The Processors table pane at the top and the specific Processor pane below. In our case, our filter selection has left the **BlueCoat-Proxy-V1.0-EVENTS** `Filter` selected in the Processors table
+We now see our display is divided into two panes. The Processors table pane at the top and the specific Processor pane below. In our case, our filter selection has left the **BlueCoat-Proxy-V1.0-EVENTS** `Filter` selected in the Processors table
 
 ![Stroom UI Enable Processing - Configured Processors - Selected Processor](../resources/UI-FeedProcessing-62.png "Stroom UI Enable Processing - Configured Processors - Selected Processor").
 
@@ -1327,7 +1327,7 @@ The column entries in the Processors Table pane describe
  * Priority - the queue scheduling priority of task submission to available stream processors
  * Streams - the number of streams that have been processed (includes currently running streams)
  * Events - ??
- * Status - the status of the processor. Normally empty if the number of stream is open-ended. If only are subset of streams were chosen (eg a time range in the filter) then the status will be _Complete_
+ * Status - the status of the processor. Normally empty if the number of stream is open-ended. If only are subset of streams were chosen (e.g. a time range in the filter) then the status will be _Complete_
  * Enabled - check box to indicate the processor is enabled
 
 We now need only `Enable` both the pipeline Processor and the pipeline Filter for automatic processing to occur. We do this by selecting both check boxes in the `Enabled` column.
@@ -1338,7 +1338,7 @@ If we refresh our Processor table by pressing the ![Stroom UI Refresh](../resour
 
 ![Stroom UI Enable Processing - Configured Processors - Enable Processor Result](../resources/UI-FeedProcessing-65.png "Stroom UI Enable Processing - Configured Processors - Enable Processor Result")
 
-We see that the tracker last updated at _2018-07-14T04:00:35.289Z_, the percentage complete is _100_ (we only had one stream after all), the last time active streams were checked for was _2.3_ minutes ago, there are no tasks running and that _1_ stream has completed. Note that the `Status` column is blank as we have an _open ended_ filter in that the processor will continue to select and process any new stream of `Raw Events` comming into the **BlueCoat-Proxy-V1.0-EVENTS** feed.
+We see that the tracker last updated at _2018-07-14T04:00:35.289Z_, the percentage complete is _100_ (we only had one stream after all), the last time active streams were checked for was _2.3_ minutes ago, there are no tasks running and that _1_ stream has completed. Note that the `Status` column is blank as we have an _open ended_ filter in that the processor will continue to select and process any new stream of `Raw Events` coming into the **BlueCoat-Proxy-V1.0-EVENTS** feed.
 
 If we return to the *BlueCoat-Proxy-V1.0-EVENTS** `Feed` tab, ensuring the **Data** hyper-link is selected and then refresh (![Refresh](../resources/icons/refresh.png "Refresh")) the top pane that holds the summary of the latest Feed streams
 

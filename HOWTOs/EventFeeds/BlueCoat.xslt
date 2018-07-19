@@ -137,9 +137,9 @@
     <EventDetail>
 
       <!--
-                 We model Proxy events as either Recieve or Send events depending on the method.
+                 We model Proxy events as either Receive or Send events depending on the method.
       
-      We make use of the Receive/Send subelements Source/Destination to map the Client/Destination Proxy values
+      We make use of the Receive/Send sub-elements Source/Destination to map the Client/Destination Proxy values
       and the Payload sub-element to map the URL and other details of the activity. If we have a query, we model it
       as a Criteria
       
@@ -329,7 +329,7 @@
   <!-- 
          Set up the Outcome node.
   
-  We only set an Outcome for an error state. The absence of an Outcome inferrs success
+  We only set an Outcome for an error state. The absence of an Outcome infers success
   -->
   <xsl:template name="setOutcome">
     <xsl:choose>
@@ -424,7 +424,7 @@
       <xsl:when test="$code = 601">Squid: header size overflow detected while parsing/roundcube: software configuration error</xsl:when>
       <xsl:when test="$code = 603">roundcube: invalid authorization</xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="concat('Uknown Code:', $code)" />
+        <xsl:value-of select="concat('Unknown Code:', $code)" />
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
