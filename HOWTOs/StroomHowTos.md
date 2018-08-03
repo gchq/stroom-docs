@@ -10,3 +10,7 @@ although if a sequence of captures is contained within a section of a document, 
 
 The [Installation Scenarios](Install/InstallHowTo.md "Stroom Installation Deployments") HOWTO is provided to assist users in setting up a number
 of different Stroom deployments.
+
+## Event Feed Processing
+
+The [Event Feed Processing](EventFeeds/ProcessingHowTo.md "Event Feed Processing") HOWTO is provided to assist users in setting up Stroom to process inbound event logs and transform them into the Stroom Event Logging XML Schema.
