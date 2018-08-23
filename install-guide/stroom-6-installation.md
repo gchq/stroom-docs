@@ -1,5 +1,30 @@
 # Stroom 6 Installation Guide [DRAFT]
 
+## Quick-install
+If you'd like to run a test or demo of Stroom then you probably need something easy and quick. This means using Docker images for everything, and using the `bounceIt.sh` script to start the containers. 
+
+If you don't want to use containers at all then please feel free to submit a PR indicating how you plan to do this.
+
+### Getting the Docker images
+If your host for Stroom has access to hub.docker.com then you can go to the next step; `bounceIt.sh` uses `docker-compose`, which will pull down the images automatically.
+
+If you don't have direct access to the internet then you've got some work to do. If you have a Docker image repository on your intranet then you might already have an automatic mechanism for getting the images onto your network. If you don't have a Docker image repository then you need to do the following:
+
+1. Download the images (TODO: link to images) on a machine which does have access to the internet. The easiest way to do this is by running `bounceIt.sh`. Instructions are below (TODO: link).
+2. (Export)[https://docs.docker.com/engine/reference/commandline/export/] each image to a file. Something like this: `docker export gchq/stroom:v6.0-beta.2 > gchq_stroom_v6.0-beta.2.tar`
+3. Get these images onto your network and onto your host machine, however you do that.
+4. (Import)[https://docs.docker.com/engine/reference/commandline/import/] the images to your host's local repository. Something like this: `docker import /path/to/gchq_stroom_v6.0-beta.2.tgz`.
+
+### Getting bounceIt.sh
+Clone the git repository. `stroom-resources` contains scripts and configuration that is used to build and run stroom.
+
+`git clone git@github.com:gchq/stroom-resources.git`
+
+### Running Stroom
+TODO: customise the tags? Run a canned version? What about the repo?
+`cd strom-resources/bin`
+`./bounceIt.sh`
+
 ## Post-install hardening
 
 ### Before first run
