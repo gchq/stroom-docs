@@ -1,4 +1,4 @@
-# Stroom 6 Installation Guide [DRAFT]
+# Stroom 6 Installation Guide
 
 We would welcome feedback on this documentation.
 
