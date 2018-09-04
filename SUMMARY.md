@@ -91,6 +91,8 @@
   * [Httpd](HOWTOs/Install/InstallHttpdHowTo.md)
   * [Certificates](HOWTOs/Install/InstallCertificatesHowTo.md)
   * [Application](HOWTOs/Install/InstallApplicationHowTo.md)
+* Event Feeds
+  * [Event Processing](HOWTOs/EventFeeds/ProcessingHowTo.md)
 
 ### 5. Stroom Proxy
 
