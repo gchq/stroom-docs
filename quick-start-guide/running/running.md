@@ -1,20 +1,23 @@
 ## Getting and Running Stroom
 
-For this quick start you want a simple single-node Stroom. You will want to follow [these instructions](https://github.com/gchq/stroom-docs/blob/master/install-guide/stroom-6-installation.md#running-on-a-single-box). They do require Docker and Docker Compose, so make sure you've installed that first.
+For this quick start you want a simple single-node Stroom. You will want to follow [these instructions](../../dev-guide/docker-running.md). 
+They do require Docker and Docker Compose, so make sure you've installed that first.
 
 At the risk of sowing confusion you should know that there are different ways of running Stroom. Here are the full options:
 
-* [Run using a Docker Hub image (recommended)](/dev-guide/docker-running.md#using-a-pre-built-docker-hub-image)
-* [Run using a release](/install-guide/stroom-app-install.md)
+* [Run using Docker Hub images (recommended)](../../dev-guide/docker-running.md)
+* [Run a stroom v5.x release](../../install-guide/stroom-app-install.md)
+* [Run a stroom v6.x release](../../install-guide/stroom-6-installation.md)
 * From source you can:
-  * [Build and run from IntelliJ](/dev-guide/stroom-in-an-ide.md)
-  * [Build and run using Docker](/dev-guide/docker-building.md)
+  * [Build and run from IntelliJ](../../dev-guide/stroom-in-an-ide.md)
+  * [Build and run using Docker](../../dev-guide/docker-building.md)
 
 ## Basic configuration
 
 ### Enable processing of data streams
 
-Automatic processing isn't enabled by default: you might first want to check other settings (for example  nodes, properties, and volumes). So we need to enable Stream Processing. This is in Tools -> Jobs menu::
+Automatic processing isn't enabled by default: you might first want to check other settings (for example  nodes, properties, and volumes). So we need to enable Stream Processing. 
+This is in Tools -> Jobs menu::
 ![Opening the jobs ment](images/go-jobs.png)
 
 Next we need to enable Stream Processor jobs:
