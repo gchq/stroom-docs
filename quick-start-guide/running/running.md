@@ -1,8 +1,8 @@
 ## Getting and Running Stroom
 
-There are several options to get Stroom running and by far the quickest and easiest is to use Docker and specifically Docker-Compose. If you're new to [Docker](https://www.docker.com/what-docker) then you might want to follow their [getting started guide](https://www.docker.com/products/docker) first. Otherwise you can follow our [quick guide](/dev-guide/docker-running.md).
+For this quick start you want a simple single-node Stroom. You will want to follow [these instructions](https://github.com/gchq/stroom-docs/blob/master/install-guide/stroom-6-installation.md#running-on-a-single-box). They do require Docker and Docker Compose, so make sure you've installed that first.
 
-Here are your full options for running Stroom:
+At the risk of sowing confusion you should know that there are different ways of running Stroom. Here are the full options:
 
 * [Run using a Docker Hub image (recommended)](/dev-guide/docker-running.md#using-a-pre-built-docker-hub-image)
 * [Run using a release](/install-guide/stroom-app-install.md)
