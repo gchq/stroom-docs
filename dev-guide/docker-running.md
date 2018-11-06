@@ -1,47 +1,71 @@
-# Running Stroom in  Docker Containers
+# Running Stroom in Docker Containers
 
-This is how to run Stroom using _Docker_. You may also [build a Docker image from scratch](./docker-building.md). Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running.
+This is how to run Stroom and its peripheral services using _Docker_. 
+Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running. 
 
-## Prerequisites
+> _NOTE_: The published docker images are intended for small scale testing or evaluation purposes and are currently un-tested in a production environment.
 
-In order to run Stroom using Docker you will need the following installed on the machine you intend to run Stroom on:
+## Stroom v6.x pre-release
 
-* A Linux-like shell environment with bash and GNU sed/grep
-* docker CE
-* docker-compose
-* git
+### Prerequisites
 
-## Using pre-built _Docker Hub_ images for the latest v6.x pre-release of Stroom.
+In order to run Stroom v6.x using Docker you will need the following installed on the machine you intend to run Stroom on:
+
+* A Linux-like shell environment with bash and curl.
+* docker CE (v17.12.0+)
+* docker-compose (v1.21.0+)
+
+### Install steps
 
 This will install the core stack of peripheral services required to run Stroom.
 
-1. Download the latest _stroom_core_ release from [github.com/gchq/stroom-resources/releases](https://github.com/gchq/stroom-resources/releases).
-1. Unpack the release file by doing something like:
-    ```bash
-    mkdir ./myStack
-    cd myStack
-    tar -xvf ~/Downloads/stroom_core*.tar.gz
-    ```
-1. Run the stack
-    ```bash
-    ./start.sh
-    ```
-Wait a while for all the services to fully start. On first run stroom will build the database schemas so this can take a minute or so. You can monitor progress by running `./logs.sh` (ctrl-c to exit from the log tailing).
+Find the latest release of the _stroom_core_ stack from [github.com/gchq/stroom-resources/releases](https://github.com/gchq/stroom-resources/releases). 
 
-Open a browser (preferably Chrome) at [http://localhost/stroom](http://localhost/stroom) and login with:
+Run the following command, replacing the `stroom_core-v6.0-beta.10-2` part with the appropriate tag from the _GitHub_ releases page.
+
+```bash
+# Download and extract the Stroom stack
+bash <(curl -sL https://github.com/gchq/stroom-resources/releases/download/stroom_core-v6.0-beta.10-2/get_stroom.sh)
+
+# Navigate into the new stack directory
+cd stroom_core-v6.0-beta.10-2
+
+# Start the stack
+./start.sh
+```
+
+On first run stroom will build the database schemas so this can take a minute or two. 
+The `start.sh` script will provide details of the various URLs that are available.
+
+Open a browser (preferably Chrome) at [https://localhost/stroom](https://localhost/stroom) and login with:
 
 * username: _admin_ (NOT an email address)
 * password: _admin_
 
-Stroom uses a self-signed certificate so you may need to accept a prompt warning you about visiting an untrusted site.
+The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.
 
-## Using pre-built _Docker Hub_ images for the latest v5.x release of Stroom.
+
+## Stroom v5.x release
+
+### Prerequisites
+
+In order to run Stroom v5.x using Docker you will need the following installed on the machine you intend to run Stroom on:
+
+* A Linux-like shell environment with bash and GNU sed/grep
+* docker CE (v17.12.0+)
+* docker-compose (v1.21.0+)
+* git
+
+### Install steps
 
 ```bash
+# Clone the stroom-resources git repository
 git clone https://github.com/gchq/stroom-resources.git
 
+# Navigate to the bin directory in the repository
 cd stroom-resources/bin
 
+# Start the stroom v5.x stack using docker/docker-compose
 ./bounceIt.sh -f env/stroom5.env
 ```
 
@@ -53,5 +77,7 @@ Open a browser (preferably Chrome) at [http://localhost:8080/stroom](http://loca
 
 ## Docker Hub links
 [The Stroom image](https://hub.docker.com/r/gchq/stroom/)
+
+[The Stroom Authentication image](https://hub.docker.com/r/gchq/stroom-auth/)
 
 [The GCHQ organisation](https://hub.docker.com/r/gchq/)

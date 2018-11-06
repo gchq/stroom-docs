@@ -1,16 +1,16 @@
 ## Getting and Running Stroom
 
-For this quick start you want a simple single-node Stroom. You will want to follow [these instructions](../../dev-guide/docker-running.md). 
-They do require Docker and Docker Compose, so make sure you've installed that first.
+For this quick start you want a simple single-node Stroom. 
+You will want to follow [these instructions](../../dev-guide/docker-running.md). 
+They do require Docker and Docker Compose, so make sure you've installed those first.
 
 At the risk of sowing confusion you should know that there are different ways of running Stroom. Here are the full options:
 
 * [Run using Docker Hub images (recommended)](../../dev-guide/docker-running.md)
-* [Run a stroom v5.x release](../../install-guide/stroom-app-install.md)
-* [Run a stroom v6.x release](../../install-guide/stroom-6-installation.md)
+* [Install a stroom v5.x release](../../install-guide/stroom-app-install.md)
+* [Install a stroom v6.x release](../../install-guide/stroom-6-installation.md)
 * From source you can:
   * [Build and run from IntelliJ](../../dev-guide/stroom-in-an-ide.md)
-  * [Build and run using Docker](../../dev-guide/docker-building.md)
 
 ## Basic configuration
 

@@ -6,6 +6,10 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Remove `docker-building.md` page
+
+* Update `docker-running.md` and `running.md` with details of `get_stroom.sh`
+
 * Update `docker-running.md`, `stroom-6-installation.md` and `running.md`
 
 * Add `ProcessingHowTo.md`
