@@ -17,18 +17,14 @@ In order to run Stroom v6.x using Docker you will need the following installed o
 
 ### Install steps
 
-This will install the core stack of peripheral services required to run Stroom.
-
-Find the latest release of the _stroom_core_ stack from [github.com/gchq/stroom-resources/releases](https://github.com/gchq/stroom-resources/releases). 
-
-Run the following command, replacing the `stroom_core-v6.0-beta.10-2` part with the appropriate tag from the _GitHub_ releases page.
+This will install the core stack (Stroom and the peripheral services required to run Stroom).
 
 ```bash
 # Download and extract the Stroom stack
-bash <(curl -sL https://github.com/gchq/stroom-resources/releases/download/stroom_core-v6.0-beta.10-2/get_stroom.sh)
+bash <(curl -s https://gchq.github.io/stroom-resources/get_stroom.sh)
 
-# Navigate into the new stack directory
-cd stroom_core-v6.0-beta.10-2
+# Navigate into the new stack directory, where xxxx is the directory that has just been created
+cd stroom_core-xxxx
 
 # Start the stack
 ./start.sh
