@@ -32,9 +32,11 @@ This change should be made in the `.env` configuration file. If the values are n
 
 ### On first run
 
-#### Change the admin password
+#### Create yourself an account
 
-Change the admin password using Stroom, under `User` -> `Change password`. In a future release you will be required to change the admin password on first run.
+After first logging in as `admin` you should create yourself a normal account (using your email address) and add yourself to the `Administrators` group. You should then log out of `admin`, log in with your new administrator account and then disable the `admin` account. 
+
+If you decide to use the `admin` account as your normal account you might find yourself locked out. The `admin` account has no associated email address, so the Reset Password feature will not work if your account is locked. It might become locked if you enter your password incorrectly too many times.
 
 #### Delete un-used users and API keys
 
