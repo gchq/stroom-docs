@@ -43,6 +43,9 @@ The arguments to functions can either be other functions, literal values, or the
     * [Count](#count)
     * [Count Groups](#count-groups)
     * [Count Unique](#count-unique)
+* [Statistical Functions](#statistical-functions)
+    * [Variance](#variance)
+    * [Standard Deviation](#standard-deviation)
 * [String Functions](#string-functions)
     * [Replace](#replace)
     * [Concatenate](#concatenate)
@@ -583,6 +586,53 @@ For Example, a data set grouped as follows
 2. Group by Type
 
 `countUnique()` could be used to count the number of distinct values of 'type' for each value of 'name'
+
+# Statistical Functions
+These are statistical functions
+
+## Variance
+Calculate the variance of a set of input values.
+
+```
+variance(value...)
+```
+
+Examples
+```
+variance(600, 470, 170, 430, 300)
+> 21704
+```
+
+Or on aggregated data that supplies multiple values for a variable to a single cell
+```
+variance(${val})
+
+Supplying multiple values (600, 470, 170, 430, 300) for ${val}
+
+> 21704
+```
+
+## Standard Deviation
+Calculate the standard deviation for a set of input values.
+
+```
+stDev(value...)
+```
+
+Examples
+```
+round(stDev(600, 470, 170, 430, 300))
+> 147
+```
+
+Or on aggregated data that supplies multiple values for a variable to a single cell
+```
+round(stDev(${val}))
+
+Supplying multiple values (600, 470, 170, 430, 300) for ${val}
+
+> 147
+```
 
 # String Functions
 
