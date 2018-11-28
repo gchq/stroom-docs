@@ -56,6 +56,8 @@ The arguments to functions can either be other functions, literal values, or the
     * [Substring After](#substring-after)
     * [Decode](#decode)
     * [Hash](#hash)
+    * [Include](#include)
+    * [Exclude](#exclude)
 * [Date Functions](#date-functions)
     * [Parse Date](#parse-date)
     * [Format Date](#format-date)
@@ -782,6 +784,42 @@ hash(${val}, 'SHA-512', 'mysalt')
 ```
 
 If not specified the `hash()` function will use the `SHA-256` algorithm. Supported algorithms are determined by Java runtime environment.
+
+## Include
+If the supplied string matches one of the supplied match strings then return it, otherwise return null
+```
+include(aString, match...)
+```
+
+Example
+```
+include('hello', 'hello', 'hi')
+> hello
+
+include('hi', 'hello', 'hi')
+> hi
+
+include('bye', 'hello', 'hi')
+> NULL
+```
+
+## Exclude
+If the supplied string matches one of the supplied match strings then return null, otherwise return the supplied string
+```
+exclude(aString, match...)
+```
+
+Example
+```
+exclude('hello', 'hello', 'hi')
+> NULL
+
+exclude('hi', 'hello', 'hi')
+> NULL
+
+exclude('bye', 'hello', 'hi')
+> bye
+```
 
 # Date Functions
 
