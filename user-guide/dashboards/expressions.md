@@ -114,7 +114,6 @@ Examples
 ```
 34 + 9
 > 43
-
 add(45, 6, 72)
 > 123
 ```
@@ -234,21 +233,22 @@ equals(arg1, arg2)
 
 Examples
 ```
-equals('foo', 'bar')
-> false
 'foo' = 'bar'
+> false
+'foo' = 'foo'
+> true
+51 = 50
+> false
+50 = 50
+> true
+
+equals('foo', 'bar')
 > false
 equals('foo', 'foo')
 > true
-'foo' = 'foo'
-> true
 equals(51, 50)
 > false
-51 = 50
-> false
 equals(50, 50)
-> true
-50 = 50
 > true
 ```
 
@@ -263,17 +263,18 @@ greaterThan(arg1, arg2)
 
 Examples
 ```
-greaterThan(51, 50)
-> true
 51 > 50
+> true
+50 > 50
+> false
+49 > 50
+> false
+
+greaterThan(51, 50)
 > true
 greaterThan(50, 50)
 > false
-50 > 50
-> false
 greaterThan(49, 50)
-> false
-49 > 50
 > false
 ```
 
@@ -286,17 +287,18 @@ lessThan(arg1, arg2)
 
 Examples
 ```
-lessThan(51, 50)
-> false
 51 < 50
-> false
-lessThan(50, 50)
 > false
 50 < 50
 > false
-lessThan(49, 50)
-> true
 49 < 50
+> true
+
+lessThan(51, 50)
+> false
+lessThan(50, 50)
+> false
+lessThan(49, 50)
 > true
 ```
 
@@ -309,17 +311,18 @@ greaterThanOrEqualTo(arg1, arg2)
 
 Examples
 ```
-greaterThanOrEqualTo(51, 50)
-> true
 51 >= 50
-> true
-greaterThanOrEqualTo(50, 50)
 > true
 50 >= 50
 > true
-greaterThanOrEqualTo(49, 50)
-> false
 49 >= 50
+> false
+
+greaterThanOrEqualTo(51, 50)
+> true
+greaterThanOrEqualTo(50, 50)
+> true
+greaterThanOrEqualTo(49, 50)
 > false
 ```
 
@@ -332,17 +335,18 @@ lessThanOrEqualTo(arg1, arg2)
 
 Examples
 ```
-lessThanOrEqualTo(51, 50)
-> false
 51 <= 50
+> false
+50 <= 50
+> true
+49 <= 50
+> true
+
+lessThanOrEqualTo(51, 50)
 > false
 lessThanOrEqualTo(50, 50)
 > true
-50 <= 50
-> true
 lessThanOrEqualTo(49, 50)
-> true
-49 <= 50
 > true
 ```
 
