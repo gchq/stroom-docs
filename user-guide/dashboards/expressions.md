@@ -587,11 +587,9 @@ For Example, a data set grouped as follows
 # String Functions
 
 ## Replace
-1. A regex
-2. The string to replace
-3. The replacement string
+Perform text replacement on an input string using a regular expression to match part (or all) of the input string and a replacement string to insert in place of the matched part
 ```
-replace(input, findThis, replaceWithThis)
+replace(input, regex, replacement)
 ```
 
 Example
