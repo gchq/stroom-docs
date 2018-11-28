@@ -36,24 +36,6 @@ g.eval
 # Table of Contents
 
 <!-- vim-markdown-toc GFM -->
-
-* [Cast Functions](#cast-functions)
-    * [To Boolean](#to-boolean)
-    * [To Double](#to-double)
-    * [To Integer](#to-integer)
-    * [To Long](#to-long)
-    * [To String](#to-string)
-* [Type Checking Functions](#type-checking-functions)
-    * [Is Boolean](#is-boolean)
-    * [Is Double](#is-double)
-    * [Is Integer](#is-integer)
-    * [Is Long](#is-long)
-    * [Is String](#is-string)
-    * [Is Number](#is-number)
-    * [Is Value](#is-value)
-    * [Is Null](#is-null)
-    * [Is Error](#is-error)
-    * [Type Of](#type-of)
 * [Mathematics Functions](#mathematics-functions)
     * [Add](#add)
     * [Subtract](#subtract)
@@ -101,213 +83,31 @@ g.eval
     * [extractSchemeFromUri](#extractschemefromuri)
     * [extractSchemeSpecificPartFromUri](#extractschemespecificpartfromuri)
     * [extractUserInfoFromUri](#extractuserinfofromuri)
+    
+* [Cast Functions](#cast-functions)
+    * [To Boolean](#to-boolean)
+    * [To Double](#to-double)
+    * [To Integer](#to-integer)
+    * [To Long](#to-long)
+    * [To String](#to-string)
+* [Type Checking Functions](#type-checking-functions)
+    * [Is Boolean](#is-boolean)
+    * [Is Double](#is-double)
+    * [Is Integer](#is-integer)
+    * [Is Long](#is-long)
+    * [Is String](#is-string)
+    * [Is Number](#is-number)
+    * [Is Value](#is-value)
+    * [Is Null](#is-null)
+    * [Is Error](#is-error)
+    * [Type Of](#type-of)
+* [Constant Functions](#constant-functions)
+    * [True](#true)
+    * [False](#false)
+    * [Null](#null)
+    * [Err](#err)
 
 <!-- vim-markdown-toc -->
-
-# Cast Functions
-A set of functions for converting between different data types or for working with data types.
-
-## To Boolean
-Allows Nesting: Yes
-Attempts to convert the passed value to a _boolean_ data type.
-```
-toBoolean(arg1)
-```
-Examples:
-```
-toBoolean(1)
-> true
-toBoolean(0)
-> false
-toBoolean('true')
-> true
-toBoolean('false')
-> false
-```
-
-## To Double
-Allows Nesting: Yes
-Attempts to convert the passed value to a _double_ data type.
-```
-toDouble(arg1)
-```
-Examples:
-```
-toDouble('1.2')
-> 1.2
-```
-
-## To Integer
-Allows Nesting: Yes
-Attempts to convert the passed value to a _integer_ data type.
-```
-toInteger(arg1)
-```
-Examples:
-```
-toInteger('1')
-> 1
-```
-
-## To Long
-Allows Nesting: Yes
-Attempts to convert the passed value to a _long_ data type.
-```
-toLong(arg1)
-```
-Examples:
-```
-toLong('1')
-> 1
-```
-
-## To String
-Allows Nesting: Yes
-Attempts to convert the passed value to a _string_ data type.
-```
-toString(arg1)
-```
-Examples:
-```
-toString(1.2)
-> 1.2
-```
-
-# Type checking functions
-
-## Is Boolean
-Allows Nesting: Yes
-Checks if the passed value is a _boolean_ data type.
-```
-isBoolean(arg1)
-```
-Examples:
-```
-isBoolean(toBoolean('true'))
-> true
-```
-
-## Is Double
-Allows Nesting: Yes
-Checks if the passed value is a _double_ data type.
-```
-isDouble(arg1)
-```
-Examples:
-```
-isDouble(toDouble('1.2'))
-> true
-```
-
-## Is Integer
-Allows Nesting: Yes
-Checks if the passed value is an _integer_ data type.
-```
-isInteger(arg1)
-```
-Examples:
-```
-isInteger(toInteger('1'))
-> true
-```
-
-## Is Long
-Allows Nesting: Yes
-Checks if the passed value is a _long_ data type.
-```
-isLong(arg1)
-```
-Examples:
-```
-isLong(toLong('1'))
-> true
-```
-
-## Is String
-Allows Nesting: Yes
-Checks if the passed value is a _string_ data type.
-```
-isString(arg1)
-```
-Examples:
-```
-isString(toString(1.2))
-> true
-```
-
-## Is Number
-Allows Nesting: Yes
-Checks if the passed value is a numeric data type.
-```
-isNumber(arg1)
-```
-Examples:
-```
-isNumber(toLong('1'))
-> true
-```
-
-## Is Value
-Allows Nesting: Yes
-Checks if the passed value is a value data type, e.g. not `null` or `error`.
-```
-isValue(arg1)
-```
-Examples:
-```
-isValue(toLong('1'))
-> true
-isValue(null())
-> false
-```
-
-## Is Null
-Allows Nesting: Yes
-Checks if the passed value is `null`. Note that this method must be used to check for `null` as null equality using `x=null()` is not supported.
-```
-isNull(arg1)
-```
-Examples:
-```
-isNull(toLong('1'))
-> false
-isNull(null())
-> true
-```
-
-## Is Error
-Allows Nesting: Yes
-Checks if the passed value is an error caused by an invalid evaluation of an expression on passed values, e.g. some values passed to an expression could result in a divide by 0 error. Note that this method must be used to check for `error` as error equality using `x=err()` is not supported.
-```
-isError(arg1)
-```
-Examples:
-```
-isError(toLong('1'))
-> false
-isError(err())
-> true
-```
-
-## Type Of
-Allows Nesting: Yes
-Returns the data type of the passed value as a string.
-```
-typeOf(arg1)
-```
-Examples:
-```
-typeOf('abc')
-> string
-typeOf(toInteger(123))
-> integer
-typeOf(err())
-> error
-typeOf(null())
-> null
-typeOf(toBoolean('false'))
-> false
-```
 
 # Mathematics Functions
 
@@ -1050,4 +850,239 @@ Example
 ```
 extractUserInfoFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
 > foo:bar
+```
+
+# Cast Functions
+A set of functions for converting between different data types or for working with data types.
+
+## To Boolean
+Allows Nesting: Yes
+Attempts to convert the passed value to a _boolean_ data type.
+```
+toBoolean(arg1)
+```
+Examples:
+```
+toBoolean(1)
+> true
+toBoolean(0)
+> false
+toBoolean('true')
+> true
+toBoolean('false')
+> false
+```
+
+## To Double
+Allows Nesting: Yes
+Attempts to convert the passed value to a _double_ data type.
+```
+toDouble(arg1)
+```
+Examples:
+```
+toDouble('1.2')
+> 1.2
+```
+
+## To Integer
+Allows Nesting: Yes
+Attempts to convert the passed value to a _integer_ data type.
+```
+toInteger(arg1)
+```
+Examples:
+```
+toInteger('1')
+> 1
+```
+
+## To Long
+Allows Nesting: Yes
+Attempts to convert the passed value to a _long_ data type.
+```
+toLong(arg1)
+```
+Examples:
+```
+toLong('1')
+> 1
+```
+
+## To String
+Allows Nesting: Yes
+Attempts to convert the passed value to a _string_ data type.
+```
+toString(arg1)
+```
+Examples:
+```
+toString(1.2)
+> 1.2
+```
+
+# Type checking functions
+
+## Is Boolean
+Allows Nesting: Yes
+Checks if the passed value is a _boolean_ data type.
+```
+isBoolean(arg1)
+```
+Examples:
+```
+isBoolean(toBoolean('true'))
+> true
+```
+
+## Is Double
+Allows Nesting: Yes
+Checks if the passed value is a _double_ data type.
+```
+isDouble(arg1)
+```
+Examples:
+```
+isDouble(toDouble('1.2'))
+> true
+```
+
+## Is Integer
+Allows Nesting: Yes
+Checks if the passed value is an _integer_ data type.
+```
+isInteger(arg1)
+```
+Examples:
+```
+isInteger(toInteger('1'))
+> true
+```
+
+## Is Long
+Allows Nesting: Yes
+Checks if the passed value is a _long_ data type.
+```
+isLong(arg1)
+```
+Examples:
+```
+isLong(toLong('1'))
+> true
+```
+
+## Is String
+Allows Nesting: Yes
+Checks if the passed value is a _string_ data type.
+```
+isString(arg1)
+```
+Examples:
+```
+isString(toString(1.2))
+> true
+```
+
+## Is Number
+Allows Nesting: Yes
+Checks if the passed value is a numeric data type.
+```
+isNumber(arg1)
+```
+Examples:
+```
+isNumber(toLong('1'))
+> true
+```
+
+## Is Value
+Allows Nesting: Yes
+Checks if the passed value is a value data type, e.g. not `null` or `error`.
+```
+isValue(arg1)
+```
+Examples:
+```
+isValue(toLong('1'))
+> true
+isValue(null())
+> false
+```
+
+## Is Null
+Allows Nesting: Yes
+Checks if the passed value is `null`. Note that this method must be used to check for `null` as null equality using `x=null()` is not supported.
+```
+isNull(arg1)
+```
+Examples:
+```
+isNull(toLong('1'))
+> false
+isNull(null())
+> true
+```
+
+## Is Error
+Allows Nesting: Yes
+Checks if the passed value is an error caused by an invalid evaluation of an expression on passed values, e.g. some values passed to an expression could result in a divide by 0 error. Note that this method must be used to check for `error` as error equality using `x=err()` is not supported.
+```
+isError(arg1)
+```
+Examples:
+```
+isError(toLong('1'))
+> false
+isError(err())
+> true
+```
+
+## Type Of
+Allows Nesting: Yes
+Returns the data type of the passed value as a string.
+```
+typeOf(arg1)
+```
+Examples:
+```
+typeOf('abc')
+> string
+typeOf(toInteger(123))
+> integer
+typeOf(err())
+> error
+typeOf(null())
+> null
+typeOf(toBoolean('false'))
+> false
+```
+
+# Constant functions
+
+## True
+Allows Nesting: No
+Returns _boolean_ true.
+```
+true()
+```
+
+## False
+Allows Nesting: No
+Returns _boolean_ false.
+```
+false()
+```
+
+## Null
+Allows Nesting: No
+Returns _null_.
+```
+null()
+```
+
+## Err
+Allows Nesting: No
+Returns _err_.
+```
+err()
 ```
