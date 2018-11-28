@@ -8,30 +8,7 @@ In some cases, functions can be nested. The return value for some functions bein
 as the arguments for other functions. Each function documented below will indicate if it can
 contain nested children.
 
-The arguments can either be literal values, or they can refer to fields on the input data using the ${} syntax.
-A function Generator is given arrays of values for each 'row':
-A FieldIndexMap is used to map named fields to indexes of these arrays
-
-Example
-``` java
-FieldIndexMap fim = FieldIndexMap.forFields("name", "age", "occupation")
-Generator g = parseExpression("concat(${name}, ${age})")
-
-g.addData("JDoe", 45, "Butcher")
-g.addData("JBloggs", 23, "Baker")
-g.addData("JSmith", 34, "Candlestick Maker")
-
-g.eval
-```
-
-```
-> [
-    'JDoe45',
-    'JBloggs23',
-    'JSmith34'
-]
-```
-
+The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the ${} syntax.
 
 # Table of Contents
 
@@ -72,7 +49,11 @@ g.eval
     * [String Length](#string-length)
     * [Upper Case](#upper-case)
     * [Lower Case](#lower-case)
+    * [Index Of](#index-of)
+    * [Last Index Of](#last-index-of)
     * [Substring](#substring)
+    * [Substring Before](#substring-before)
+    * [Substring After](#substring-after)
     * [Decode](#decode)
     * [Hash](#hash)
 * [Date Functions](#date-functions)
@@ -680,6 +661,30 @@ lowerCase('Hello DeVeLoPER')
 > hello developer
 ```
 
+## Index Of
+Finds the first position of the second string within the first
+```
+indexOf(firstString, secondString)
+```
+
+Example
+```
+indexOf('aa-bb-cc', '-')
+> 2
+```
+
+## Last Index Of
+Finds the last position of the second string within the first
+```
+lastIndexOf(firstString, secondString)
+```
+
+Example
+```
+lastIndexOf('aa-bb-cc', '-')
+> 5
+```
+
 ## Substring
 Take a substring based on start/end index of letters
 ```
@@ -689,7 +694,31 @@ substring(aString, startIndex, endIndex)
 Example
 ```
 substring('this', 1, 2)
-> 'h'
+> h
+```
+
+## Substring Before
+Get the substring from the first string that occurs before the presence of the second string
+```
+substringBefore(firstString, secondString)
+```
+
+Example
+```
+substringBefore('aa-bb', '-')
+> aa
+```
+
+## Substring After
+Get the substring from the first string that occurs after the presence of the second string
+```
+substringAfter(firstString, secondString)
+```
+
+Example
+```
+substringAfter('aa-bb', '-')
+> bb
 ```
 
 ## Decode
