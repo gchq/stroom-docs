@@ -33,6 +33,11 @@ The arguments to functions can either be other functions, literal values, or the
     * [Min](#min)
     * [Sum](#sum)
     * [Average](#average)
+    * [Count](#count)
+    * [Count Groups](#count-groups)
+    * [Count Unique](#count-unique)
+    * [Variance](#variance)
+    * [Standard Deviation](#standard-deviation)
 * [Rounding Functions](#rounding-functions)
     * [Ceiling](#ceiling)
     * [Floor](#floor)
@@ -40,13 +45,6 @@ The arguments to functions can either be other functions, literal values, or the
     * [Ceiling Year/Month/Day/Hour/Minute/Second](#ceiling-yearmonthdayhourminutesecond)
     * [Floor Year/Month/Day/Hour/Minute/Second](#floor-yearmonthdayhourminutesecond)
     * [Round Year/Month/Day/Hour/Minute/Second](#round-yearmonthdayhourminutesecond)
-* [Counting Functions](#counting-functions)
-    * [Count](#count)
-    * [Count Groups](#count-groups)
-    * [Count Unique](#count-unique)
-* [Statistical Functions](#statistical-functions)
-    * [Variance](#variance)
-    * [Standard Deviation](#standard-deviation)
 * [String Functions](#string-functions)
     * [Replace](#replace)
     * [Match](#match)
@@ -444,6 +442,81 @@ mean(8.9, 24, 1.2, 1008)
 > 260.525
 ```
 
+## Count
+Counts the number of records that are passed through it. Doesn't take any notice of the values of any fields.
+
+```
+count()
+```
+
+Examples
+```
+Supplying 3 values...
+
+count()
+> 3
+```
+
+## Count Groups
+This is used to count the number of unique values where there are multiple group levels.
+For Example, a data set grouped as follows
+1. Group by Name
+2. Group by Type
+
+A groupCount could be used to count the number of distinct values of 'type' for each value of 'name'
+
+## Count Unique
+This is used to count the number of unique values passed to the function where grouping is used to aggregate values in other columns.
+For Example, a data set grouped as follows
+1. Group by Name
+2. Group by Type
+
+`countUnique()` could be used to count the number of distinct values of 'type' for each value of 'name'
+
+## Variance
+Calculate the variance of a set of input values.
+
+```
+variance(value...)
+```
+
+Examples
+```
+variance(600, 470, 170, 430, 300)
+> 21704
+```
+
+Or on aggregated data that supplies multiple values for a variable to a single cell
+```
+variance(${val})
+
+Supplying multiple values (600, 470, 170, 430, 300) for ${val}
+
+> 21704
+```
+
+## Standard Deviation
+Calculate the standard deviation for a set of input values.
+
+```
+stDev(value...)
+```
+
+Examples
+```
+round(stDev(600, 470, 170, 430, 300))
+> 147
+```
+
+Or on aggregated data that supplies multiple values for a variable to a single cell
+```
+round(stDev(${val}))
+
+Supplying multiple values (600, 470, 170, 430, 300) for ${val}
+
+> 147
+```
+
 # Rounding Functions
 These functions require a value, and an optional decimal places.
 If the decimal places are not given it will give you nearest whole number.
@@ -569,87 +642,6 @@ roundMonth("2014-02-22T12:12:12.888Z"
 > "2014-03-01T00:00:00.000Z"
 roundYear("2014-02-22T12:12:12.888Z"
 > "2014-01-01T00:00:00.000Z"
-```
-
-# Counting Functions
-These are aggregation functions
-
-## Count
-Counts the number of records that are passed through it. Doesn't take any notice of the values of any fields.
-
-```
-count()
-```
-
-Examples
-```
-Supplying 3 values...
-
-count()
-> 3
-```
-
-## Count Groups
-This is used to count the number of unique values where there are multiple group levels.
-For Example, a data set grouped as follows
-1. Group by Name
-2. Group by Type
-
-A groupCount could be used to count the number of distinct values of 'type' for each value of 'name'
-
-## Count Unique
-This is used to count the number of unique values passed to the function where grouping is used to aggregate values in other columns.
-For Example, a data set grouped as follows
-1. Group by Name
-2. Group by Type
-
-`countUnique()` could be used to count the number of distinct values of 'type' for each value of 'name'
-
-# Statistical Functions
-These are statistical functions
-
-## Variance
-Calculate the variance of a set of input values.
-
-```
-variance(value...)
-```
-
-Examples
-```
-variance(600, 470, 170, 430, 300)
-> 21704
-```
-
-Or on aggregated data that supplies multiple values for a variable to a single cell
-```
-variance(${val})
-
-Supplying multiple values (600, 470, 170, 430, 300) for ${val}
-
-> 21704
-```
-
-## Standard Deviation
-Calculate the standard deviation for a set of input values.
-
-```
-stDev(value...)
-```
-
-Examples
-```
-round(stDev(600, 470, 170, 430, 300))
-> 147
-```
-
-Or on aggregated data that supplies multiple values for a variable to a single cell
-```
-round(stDev(${val}))
-
-Supplying multiple values (600, 470, 170, 430, 300) for ${val}
-
-> 147
 ```
 
 # String Functions
