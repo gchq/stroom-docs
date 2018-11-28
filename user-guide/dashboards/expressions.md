@@ -26,6 +26,7 @@ The arguments to functions can either be other functions, literal values, or the
     * [Less Than](#less-than)
     * [Greater Than or Equal To](#greater-than-or-equal-to)
     * [Less Than or Equal To](#less-than-or-equal-to)
+    * [Not](#not)
     * [If](#if)
 * [Aggregation Functions](#aggregation-functions)
     * [Max](#max)
@@ -48,6 +49,7 @@ The arguments to functions can either be other functions, literal values, or the
     * [Standard Deviation](#standard-deviation)
 * [String Functions](#string-functions)
     * [Replace](#replace)
+    * [Match](#match)
     * [Concatenate](#concatenate)
     * [String Length](#string-length)
     * [Upper Case](#upper-case)
@@ -343,6 +345,22 @@ lessThanOrEqualTo(50, 50)
 lessThanOrEqualTo(49, 50)
 > true
 49 <= 50
+> true
+```
+
+## Not
+Inverts boolean values making true, false etc.
+```
+not(booleanValue)
+```
+
+Examples
+```
+not(5 > 10)
+> true
+not(5 = 5)
+> false
+not(false())
 > true
 ```
 
@@ -645,8 +663,21 @@ replace(input, regex, replacement)
 Example
 ```
 replace('this', 'is', 'at')
-
 > 'that'
+```
+
+## Match
+Test an input string using a regular expression to see if it matches
+```
+match(input, regex)
+```
+
+Example
+```
+match('this', 'this')
+> true
+match('this', 'that')
+> false
 ```
 
 ## Concatenate
