@@ -75,6 +75,9 @@ g.eval
     * [Substring](#substring)
     * [Decode](#decode)
     * [Hash](#hash)
+* [Date Functions](#date-functions)
+    * [Parse Date](#parse-date)
+    * [Format Date](#format-date)
 * [URI Functions](#uri-functions)
     * [extractAuthorityFromUri](#extractauthorityfromuri)
     * [extractFragmentFromUri](#extractfragmentfromuri)
@@ -750,6 +753,38 @@ hash(${val}, 'SHA-512', 'mysalt')
 ```
 
 If not specified the `hash()` function will use the `SHA-256` algorithm. Supported algorithms are determined by Java runtime environment.
+
+# Date Functions
+
+## Parse Date
+Parse a date and return a long number of milliseconds since the epoch.
+```
+parseDate(aString)
+parseDate(aString, pattern)
+parseDate(aString, pattern, timeZone)
+```
+
+Example
+```
+parseDate('2014 02 22', 'yyyy MM dd', '+0400')
+
+> 1393012800000
+```
+
+## Format Date
+Format a date supplied as milliseconds since the epoch.
+```
+formatDate(aLong)
+formatDate(aLong, pattern)
+formatDate(aLong, pattern, timeZone)
+```
+
+Example
+```
+formatDate(1393071132888, 'yyyy MM dd', '+1200')
+
+> 2014 02 23
+```
 
 # URI Functions
 
