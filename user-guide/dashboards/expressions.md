@@ -5,8 +5,7 @@ Expressions can be used to manipulate data on Stroom Dashboards.
 Each function has a name, and some have additional aliases.
 
 In some cases, functions can be nested. The return value for some functions being used
-as the arguments for other functions. Each function documented below will indicate if it can
-contain nested children.
+as the arguments for other functions.
 
 The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the ${} syntax.
 
@@ -27,6 +26,7 @@ The arguments to functions can either be other functions, literal values, or the
     * [Less Than](#less-than)
     * [Greater Than or Equal To](#greater-than-or-equal-to)
     * [Less Than or Equal To](#less-than-or-equal-to)
+    * [If](#if)
 * [Aggregation Functions](#aggregation-functions)
     * [Max](#max)
     * [Min](#min)
@@ -100,7 +100,6 @@ The arguments to functions can either be other functions, literal values, or the
 # Mathematics Functions
 
 ## Add
-Allows Nesting: Yes
 ```
 arg1 + arg2
 ```
@@ -113,12 +112,12 @@ Examples
 ```
 34 + 9
 > 43
+
 add(45, 6, 72)
 > 123
 ```
 
 ## Subtract
-Allows Nesting: Yes
 ```
 arg1 - arg2
 ```
@@ -136,7 +135,6 @@ subtract(100, 20, 34, 2)
 ```
 
 ## Multiply
-Allows Nesting: Yes
 Multiplies arg1 by arg2
 ```
 arg1 * arg2
@@ -155,7 +153,6 @@ multiply(4, 5, 2, 6)
 ```
 
 ## Divide
-Allows Nesting: Yes
 Divides arg1 by arg2
 ```
 arg1 / arg2
@@ -176,7 +173,6 @@ divide(100, 4, 3)
 ```
 
 ## Power
-Allows Nesting: Yes
 Raises arg1 to the power arg2
 ```
 arg1 ^ arg2
@@ -195,7 +191,6 @@ power(2, 4, 3)
 ```
 
 ## Negate
-Allows Nesting: Yes
 Multiplies arg1 by -1
 ```
 negate(arg1)
@@ -207,12 +202,11 @@ negate(80)
 > -80
 negate(23.33)
 > -23.33
-negage(-9.5)
+negate(-9.5)
 > 9.5
 ```
 
 ## Random
-Allows Nesting: No
 Generates a random number between 0.0 and 1.0
 ```
 random()
@@ -230,7 +224,6 @@ random()
 # Logic Functions
 
 ## Equals
-Allows Nesting: Yes
 Evaluates if arg1 is equal to arg2
 ```
 arg1 = arg2
@@ -239,21 +232,34 @@ equals(arg1, arg2)
 
 Examples
 ```
-equals(${val1}, ${val2})
-g.setValues("plop", "plip");
-g.eval()
+equals('foo', 'bar')
 > false
 
-equals(${val1}, 'blob')
-g.setValues("blob");
-g.eval()
+'foo' = 'bar'
+> false
+
+equals('foo', 'foo')
+> true
+
+'foo' = 'foo'
+> true
+
+equals(51, 50)
+> false
+
+51 = 50
+> false
+
+equals(50, 50)
+> true
+
+50 = 50
 > true
 ```
 
 Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`](#is-null) and [`isError()`](#is-error) functions must be used instead.
 
 ## Greater Than
-Allows Nesting: Yes
 Evaluates if arg1 is greater than to arg2
 ```
 arg1 > arg2
@@ -262,18 +268,26 @@ greaterThan(arg1, arg2)
 
 Examples
 ```
-greaterThan(${val1}, 50)
-g.setValues(70);
-g.eval()
+greaterThan(51, 50)
 > true
 
-g.setValues(20);
-g.eval()
+51 > 50
+> true
+
+greaterThan(50, 50)
+> false
+
+50 > 50
+> false
+
+greaterThan(49, 50)
+> false
+
+49 > 50
 > false
 ```
 
 ## Less Than
-Allows Nesting: Yes
 Evaluates if arg1 is less than to arg2
 ```
 arg1 < arg2
@@ -282,18 +296,26 @@ lessThan(arg1, arg2)
 
 Examples
 ```
-lessThan(${val1}, 30)
-g.setValues(45);
-g.eval()
+lessThan(51, 50)
 > false
 
-g.setValues(15);
-g.eval()
+51 < 50
+> false
+
+lessThan(50, 50)
+> false
+
+50 < 50
+> false
+
+lessThan(49, 50)
+> true
+
+49 < 50
 > true
 ```
 
 ## Greater Than or Equal To
-Allows Nesting: Yes
 Evaluates if arg1 is greater than or equal to arg2
 ```
 arg1 >= arg2
@@ -302,22 +324,26 @@ greaterThanOrEqualTo(arg1, arg2)
 
 Examples
 ```
-greaterThanOrEqualTo(${val1}, 50)
-g.setValues(70);
-g.eval()
+greaterThanOrEqualTo(51, 50)
 > true
 
-g.setValues(50);
-g.eval()
+51 >= 50
 > true
 
-g.setValues(49);
-g.eval()
+greaterThanOrEqualTo(50, 50)
+> true
+
+50 >= 50
+> true
+
+greaterThanOrEqualTo(49, 50)
+> false
+
+49 >= 50
 > false
 ```
 
 ## Less Than or Equal To
-Allows Nesting: Yes
 Evaluates if arg1 is less than or equal to arg2
 ```
 arg1 <= arg2
@@ -326,24 +352,46 @@ lessThanOrEqualTo(arg1, arg2)
 
 Examples
 ```
-lessThanOrEqualTo(${val1}, 25)
-g.setValues(45);
-g.eval()
+lessThanOrEqualTo(51, 50)
 > false
 
-g.setValues(25);
-g.eval()
+51 <= 50
+> false
+
+lessThanOrEqualTo(50, 50)
 > true
 
-g.setValues(24);
-g.eval()
+50 <= 50
 > true
+
+lessThanOrEqualTo(49, 50)
+> true
+
+49 <= 50
+> true
+```
+
+## If
+Evaluates the supplied boolean condition and returns one value if true or another if false
+```
+if(expression, trueReturnValue, falseReturnValue)
+```
+
+Examples
+```
+if(5 < 10, 'foo', 'bar')
+> 'foo'
+
+if(5 > 10, 'foo', 'bar')
+> 'bar'
+
+if(isNull(null()), 'foo', 'bar')
+> 'foo'
 ```
 
 # Aggregation Functions
 
 ## Max
-Allows Nesting: Yes
 Determines the maximum value given in the args
 ```
 max(args...)
@@ -361,7 +409,6 @@ ${val} = [20, 1002]
 ```
 
 ## Min
-Allows Nesting: Yes
 Determines the minimum value given in the args
 ```
 min(args...)
@@ -379,7 +426,6 @@ ${val} = [20, 1002]
 ```
 
 ## Sum
-Allows Nesting: Yes
 Sums all the arguments together
 ```
 sum(args...)
@@ -392,7 +438,6 @@ sum(89, 12, 3, 45)
 ```
 
 ## Average
-Allows Nesting: Yes
 Takes an average value of the arguments
 ```
 average(args...)
@@ -408,11 +453,8 @@ mean(8.9, 24, 1.2, 1008)
 ```
 
 # Rounding Functions
-Allows Nesting: Yes
-
 These functions require a value, and an optional decimal places.
 If the decimal places are not given it will give you nearest whole number.
-
 
 ## Ceiling
 ```
@@ -558,8 +600,6 @@ roundYear("2014-02-22T12:12:12.888Z"
 These are aggregation functions
 
 ## Count
-Allows Nesting: No
-
 Counts the number of records that are passed through it. Doesn't take any notice of the values of any fields.
 
 ```
@@ -568,19 +608,13 @@ count()
 
 Examples
 ```
-g = count()
+Supplying 3 values...
 
-g.setData(...)
-g.setData(...)
-g.setData(...)
-
-g.eval()
+count()
 > 3
 ```
 
 ## Count Groups
-Allows Nesting: No
-
 This is used to count the number of unique values where there are multiple group levels.
 For Example, a data set grouped as follows
 1. Group by Name
@@ -589,8 +623,6 @@ For Example, a data set grouped as follows
 A groupCount could be used to count the number of distinct values of 'type' for each value of 'name'
 
 ## Count Unique
-Allows Nesting: Yes
-
 This is used to count the number of unique values passed to the function where grouping is used to aggregate values in other columns.
 For Example, a data set grouped as follows
 1. Group by Name
@@ -648,7 +680,7 @@ upperCase(aString)
 Example
 ```
 upperCase('Hello DeVeLoPER')
-> HELLO DEVELOPER
+> 'HELLO DEVELOPER'
 ```
 
 ## Lower Case
@@ -660,7 +692,7 @@ lowerCase(aString)
 Example
 ```
 lowerCase('Hello DeVeLoPER')
-> hello developer
+> 'hello developer'
 ```
 
 ## Index Of
@@ -696,7 +728,7 @@ substring(aString, startIndex, endIndex)
 Example
 ```
 substring('this', 1, 2)
-> h
+> 'h'
 ```
 
 ## Substring Before
@@ -708,7 +740,7 @@ substringBefore(firstString, secondString)
 Example
 ```
 substringBefore('aa-bb', '-')
-> aa
+> 'aa'
 ```
 
 ## Substring After
@@ -720,7 +752,7 @@ substringAfter(firstString, secondString)
 Example
 ```
 substringAfter('aa-bb', '-')
-> bb
+> 'bb'
 ```
 
 ## Decode
@@ -780,7 +812,7 @@ hash(value, algorithm, salt)
 Example
 ```
 hash(${val}, 'SHA-512', 'mysalt')
-> #######################
+> A hashed result...
 ```
 
 If not specified the `hash()` function will use the `SHA-256` algorithm. Supported algorithms are determined by Java runtime environment.
@@ -794,13 +826,13 @@ include(aString, match...)
 Example
 ```
 include('hello', 'hello', 'hi')
-> hello
+> 'hello'
 
 include('hi', 'hello', 'hi')
-> hi
+> 'hi'
 
 include('bye', 'hello', 'hi')
-> NULL
+> null
 ```
 
 ## Exclude
@@ -812,13 +844,13 @@ exclude(aString, match...)
 Example
 ```
 exclude('hello', 'hello', 'hi')
-> NULL
+> null
 
 exclude('hi', 'hello', 'hi')
-> NULL
+> null
 
 exclude('bye', 'hello', 'hi')
-> bye
+> 'bye'
 ```
 
 # Date Functions
@@ -850,7 +882,7 @@ Example
 ```
 formatDate(1393071132888, 'yyyy MM dd', '+1200')
 
-> 2014 02 23
+> '2014 02 23'
 ```
 
 # URI Functions
@@ -891,7 +923,7 @@ Extracts the Authority component from a URI
 Example
 ```
 extractAuthorityFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> foo:bar@w1.superman.com:8080
+> 'foo:bar@w1.superman.com:8080'
 ```
 
 ## extractFragmentFromUri
@@ -902,7 +934,7 @@ Extracts the Fragment component from a URI
 Example
 ```
 extractFragmentFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> more-details
+> 'more-details'
 ```
 
 ## extractHostFromUri
@@ -913,7 +945,7 @@ Extracts the Host component from a URI
 Example
 ```
 extractHostFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> w1.superman.com
+> 'w1.superman.com'
 ```
 
 ## extractPathFromUri
@@ -924,7 +956,7 @@ Extracts the Path component from a URI
 Example
 ```
 extractPathFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> /very/long/path.html
+> '/very/long/path.html'
 ```
 
 ## extractPortFromUri
@@ -935,7 +967,7 @@ Extracts the Port component from a URI
 Example
 ```
 extractPortFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> 8080
+> '8080'
 ```
 
 ## extractQueryFromUri
@@ -946,7 +978,7 @@ Extracts the Query component from a URI
 Example
 ```
 extractQueryFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> p1=v1&p2=v2
+> 'p1=v1&p2=v2'
 ```
 
 ## extractSchemeFromUri
@@ -957,7 +989,7 @@ Extracts the Scheme component from a URI
 Example
 ```
 extractSchemeFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> http
+> 'http'
 ```
 
 ## extractSchemeSpecificPartFromUri
@@ -968,7 +1000,7 @@ Extracts the SchemeSpecificPart component from a URI
 Example
 ```
 extractSchemeSpecificPartFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> //foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2
+> '//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2'
 ```
 
 ## extractUserInfoFromUri
@@ -979,14 +1011,13 @@ Extracts the UserInfo component from a URI
 Example
 ```
 extractUserInfoFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&p2=v2#more-details')
-> foo:bar
+> 'foo:bar'
 ```
 
 # Cast Functions
 A set of functions for converting between different data types or for working with data types.
 
 ## To Boolean
-Allows Nesting: Yes
 Attempts to convert the passed value to a _boolean_ data type.
 ```
 toBoolean(arg1)
@@ -1004,7 +1035,6 @@ toBoolean('false')
 ```
 
 ## To Double
-Allows Nesting: Yes
 Attempts to convert the passed value to a _double_ data type.
 ```
 toDouble(arg1)
@@ -1016,7 +1046,6 @@ toDouble('1.2')
 ```
 
 ## To Integer
-Allows Nesting: Yes
 Attempts to convert the passed value to a _integer_ data type.
 ```
 toInteger(arg1)
@@ -1028,7 +1057,6 @@ toInteger('1')
 ```
 
 ## To Long
-Allows Nesting: Yes
 Attempts to convert the passed value to a _long_ data type.
 ```
 toLong(arg1)
@@ -1040,7 +1068,6 @@ toLong('1')
 ```
 
 ## To String
-Allows Nesting: Yes
 Attempts to convert the passed value to a _string_ data type.
 ```
 toString(arg1)
@@ -1048,13 +1075,12 @@ toString(arg1)
 Examples:
 ```
 toString(1.2)
-> 1.2
+> '1.2'
 ```
 
 # Type checking functions
 
 ## Is Boolean
-Allows Nesting: Yes
 Checks if the passed value is a _boolean_ data type.
 ```
 isBoolean(arg1)
@@ -1066,7 +1092,6 @@ isBoolean(toBoolean('true'))
 ```
 
 ## Is Double
-Allows Nesting: Yes
 Checks if the passed value is a _double_ data type.
 ```
 isDouble(arg1)
@@ -1078,7 +1103,6 @@ isDouble(toDouble('1.2'))
 ```
 
 ## Is Integer
-Allows Nesting: Yes
 Checks if the passed value is an _integer_ data type.
 ```
 isInteger(arg1)
@@ -1090,7 +1114,6 @@ isInteger(toInteger('1'))
 ```
 
 ## Is Long
-Allows Nesting: Yes
 Checks if the passed value is a _long_ data type.
 ```
 isLong(arg1)
@@ -1102,7 +1125,6 @@ isLong(toLong('1'))
 ```
 
 ## Is String
-Allows Nesting: Yes
 Checks if the passed value is a _string_ data type.
 ```
 isString(arg1)
@@ -1114,7 +1136,6 @@ isString(toString(1.2))
 ```
 
 ## Is Number
-Allows Nesting: Yes
 Checks if the passed value is a numeric data type.
 ```
 isNumber(arg1)
@@ -1126,7 +1147,6 @@ isNumber(toLong('1'))
 ```
 
 ## Is Value
-Allows Nesting: Yes
 Checks if the passed value is a value data type, e.g. not `null` or `error`.
 ```
 isValue(arg1)
@@ -1140,7 +1160,6 @@ isValue(null())
 ```
 
 ## Is Null
-Allows Nesting: Yes
 Checks if the passed value is `null`. Note that this method must be used to check for `null` as null equality using `x=null()` is not supported.
 ```
 isNull(arg1)
@@ -1154,7 +1173,6 @@ isNull(null())
 ```
 
 ## Is Error
-Allows Nesting: Yes
 Checks if the passed value is an error caused by an invalid evaluation of an expression on passed values, e.g. some values passed to an expression could result in a divide by 0 error. Note that this method must be used to check for `error` as error equality using `x=err()` is not supported.
 ```
 isError(arg1)
@@ -1168,7 +1186,6 @@ isError(err())
 ```
 
 ## Type Of
-Allows Nesting: Yes
 Returns the data type of the passed value as a string.
 ```
 typeOf(arg1)
@@ -1190,28 +1207,24 @@ typeOf(toBoolean('false'))
 # Constant functions
 
 ## True
-Allows Nesting: No
 Returns _boolean_ true.
 ```
 true()
 ```
 
 ## False
-Allows Nesting: No
 Returns _boolean_ false.
 ```
 false()
 ```
 
 ## Null
-Allows Nesting: No
 Returns _null_.
 ```
 null()
 ```
 
 ## Err
-Allows Nesting: No
 Returns _err_.
 ```
 err()
