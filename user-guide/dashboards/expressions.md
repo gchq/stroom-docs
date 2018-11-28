@@ -7,7 +7,7 @@ Each function has a name, and some have additional aliases.
 In some cases, functions can be nested. The return value for some functions being used
 as the arguments for other functions.
 
-The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the ${} syntax.
+The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the field reference `${val}` syntax.
 
 # Table of Contents
 
@@ -1230,25 +1230,25 @@ typeOf(toBoolean('false'))
 # Constant functions
 
 ## True
-Returns _boolean_ true.
+Returns boolean _true_
 ```
 true()
 ```
 
 ## False
-Returns _boolean_ false.
+Returns boolean _false_
 ```
 false()
 ```
 
 ## Null
-Returns _null_.
+Returns _null_
 ```
 null()
 ```
 
 ## Err
-Returns _err_.
+Returns _err_
 ```
 err()
 ```
