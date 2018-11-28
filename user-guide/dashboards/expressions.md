@@ -65,6 +65,7 @@ g.eval
 * [Counting Functions](#counting-functions)
     * [Count](#count)
     * [Count Groups](#count-groups)
+    * [Count Unique](#count-unique)
 * [String Functions](#string-functions)
     * [Replace](#replace)
     * [Concatenate](#concatenate)
@@ -73,6 +74,7 @@ g.eval
     * [Lower Case](#lower-case)
     * [Substring](#substring)
     * [Decode](#decode)
+    * [Hash](#hash)
 * [URI Functions](#uri-functions)
     * [extractAuthorityFromUri](#extractauthorityfromuri)
     * [extractFragmentFromUri](#extractfragmentfromuri)
@@ -600,6 +602,16 @@ For Example, a data set grouped as follows
 
 A groupCount could be used to count the number of distinct values of 'type' for each value of 'name'
 
+## Count Unique
+Allows Nesting: Yes
+
+This is used to count the number of unique values passed to the function where grouping is used to aggregate values in other columns.
+For Example, a data set grouped as follows
+1. Group by Name
+2. Group by Type
+
+`countUnique()` could be used to count the number of distinct values of 'type' for each value of 'name'
+
 # String Functions
 
 ## Replace
@@ -722,6 +734,22 @@ decode('red')
 > 'rgb(255, 0, 0)'
 
 ```
+
+## Hash
+Cryptographically hashes a string
+```
+hash(value)
+hash(value, algorithm)
+hash(value, algorithm, salt)
+```
+
+Example
+```
+hash(${val}, 'SHA-512', 'mysalt')
+> #######################
+```
+
+If not specified the `hash()` function will use the `SHA-256` algorithm. Supported algorithms are determined by Java runtime environment.
 
 # URI Functions
 
