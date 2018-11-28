@@ -43,6 +43,16 @@ g.eval
     * [To Integer](#to-integer)
     * [To Long](#to-long)
     * [To String](#to-string)
+* [Type Checking Functions](#type-checking-functions)
+    * [Is Boolean](#is-boolean)
+    * [Is Double](#is-double)
+    * [Is Integer](#is-integer)
+    * [Is Long](#is-long)
+    * [Is String](#is-string)
+    * [Is Number](#is-number)
+    * [Is Value](#is-value)
+    * [Is Null](#is-null)
+    * [Is Error](#is-error)
     * [Type Of](#type-of)
 * [Mathematics Functions](#mathematics-functions)
     * [Add](#add)
@@ -161,6 +171,122 @@ Examples:
 ```
 toString(1.2)
 > 1.2
+```
+
+# Type checking functions
+
+## Is Boolean
+Allows Nesting: Yes
+Checks if the passed value is a _boolean_ data type.
+```
+isBoolean(arg1)
+```
+Examples:
+```
+isBoolean(toBoolean('true'))
+> true
+```
+
+## Is Double
+Allows Nesting: Yes
+Checks if the passed value is a _double_ data type.
+```
+isDouble(arg1)
+```
+Examples:
+```
+isDouble(toDouble('1.2'))
+> true
+```
+
+## Is Integer
+Allows Nesting: Yes
+Checks if the passed value is an _integer_ data type.
+```
+isInteger(arg1)
+```
+Examples:
+```
+isInteger(toInteger('1'))
+> true
+```
+
+## Is Long
+Allows Nesting: Yes
+Checks if the passed value is a _long_ data type.
+```
+isLong(arg1)
+```
+Examples:
+```
+isLong(toLong('1'))
+> true
+```
+
+## Is String
+Allows Nesting: Yes
+Checks if the passed value is a _string_ data type.
+```
+isString(arg1)
+```
+Examples:
+```
+isString(toString(1.2))
+> true
+```
+
+## Is Number
+Allows Nesting: Yes
+Checks if the passed value is a numeric data type.
+```
+isNumber(arg1)
+```
+Examples:
+```
+isNumber(toLong('1'))
+> true
+```
+
+## Is Value
+Allows Nesting: Yes
+Checks if the passed value is a value data type, e.g. not `null` or `error`.
+```
+isValue(arg1)
+```
+Examples:
+```
+isValue(toLong('1'))
+> true
+isValue(null())
+> false
+```
+
+## Is Null
+Allows Nesting: Yes
+Checks if the passed value is `null`. Note that this method must be used to check for `null` as null equality using `x=null()` is not supported.
+```
+isNull(arg1)
+```
+Examples:
+```
+isNull(toLong('1'))
+> false
+isNull(null())
+> true
+```
+
+## Is Error
+Allows Nesting: Yes
+Checks if the passed value is an error caused by an invalid evaluation of an expression on passed values, e.g. some values passed to an expression could result in a divide by 0 error. Note that this method must be used to check for `error` as error equality using `x=err()` is not supported.
+```
+isError(arg1)
+```
+Examples:
+```
+isError(toLong('1'))
+> false
+isError(err())
+> true
 ```
 
 ## Type Of
@@ -335,6 +461,8 @@ g.setValues("blob");
 g.eval()
 > true
 ```
+
+Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`](#is-null) and [`isError()`](#is-error) functions must be used instead.
 
 ## Greater Than
 Allows Nesting: Yes
