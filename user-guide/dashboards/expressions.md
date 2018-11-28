@@ -71,7 +71,6 @@ The arguments to functions can either be other functions, literal values, or the
     * [extractSchemeFromUri](#extractschemefromuri)
     * [extractSchemeSpecificPartFromUri](#extractschemespecificpartfromuri)
     * [extractUserInfoFromUri](#extractuserinfofromuri)
-    
 * [Cast Functions](#cast-functions)
     * [To Boolean](#to-boolean)
     * [To Double](#to-double)
@@ -234,25 +233,18 @@ Examples
 ```
 equals('foo', 'bar')
 > false
-
 'foo' = 'bar'
 > false
-
 equals('foo', 'foo')
 > true
-
 'foo' = 'foo'
 > true
-
 equals(51, 50)
 > false
-
 51 = 50
 > false
-
 equals(50, 50)
 > true
-
 50 = 50
 > true
 ```
@@ -270,19 +262,14 @@ Examples
 ```
 greaterThan(51, 50)
 > true
-
 51 > 50
 > true
-
 greaterThan(50, 50)
 > false
-
 50 > 50
 > false
-
 greaterThan(49, 50)
 > false
-
 49 > 50
 > false
 ```
@@ -298,19 +285,14 @@ Examples
 ```
 lessThan(51, 50)
 > false
-
 51 < 50
 > false
-
 lessThan(50, 50)
 > false
-
 50 < 50
 > false
-
 lessThan(49, 50)
 > true
-
 49 < 50
 > true
 ```
@@ -326,19 +308,14 @@ Examples
 ```
 greaterThanOrEqualTo(51, 50)
 > true
-
 51 >= 50
 > true
-
 greaterThanOrEqualTo(50, 50)
 > true
-
 50 >= 50
 > true
-
 greaterThanOrEqualTo(49, 50)
 > false
-
 49 >= 50
 > false
 ```
@@ -354,19 +331,14 @@ Examples
 ```
 lessThanOrEqualTo(51, 50)
 > false
-
 51 <= 50
 > false
-
 lessThanOrEqualTo(50, 50)
 > true
-
 50 <= 50
 > true
-
 lessThanOrEqualTo(49, 50)
 > true
-
 49 <= 50
 > true
 ```
@@ -381,10 +353,8 @@ Examples
 ```
 if(5 < 10, 'foo', 'bar')
 > 'foo'
-
 if(5 > 10, 'foo', 'bar')
 > 'bar'
-
 if(isNull(null()), 'foo', 'bar')
 > 'foo'
 ```
@@ -418,8 +388,9 @@ Examples
 ```
 min(100, 30, 45, 109)
 > 30
-
-# They can be nested
+```
+They can be nested
+```
 min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 > 20
@@ -515,22 +486,16 @@ Examples
 ```
 ceilingSecond("2014-02-22T12:12:12.888Z"
 > "2014-02-22T12:12:13.000Z"
-
 ceilingMinute("2014-02-22T12:12:12.888Z"
 > "2014-02-22T12:13:00.000Z"
-
 ceilingHour("2014-02-22T12:12:12.888Z"
 > "2014-02-22T13:00:00.000Z"
-
 ceilingDay("2014-02-22T12:12:12.888Z"
 > "2014-02-23T00:00:00.000Z"
-
 ceilingMonth("2014-02-22T12:12:12.888Z"
 > "2014-03-01T00:00:00.000Z"
-
 ceilingYear("2014-02-22T12:12:12.888Z"
 > "2015-01-01T00:00:00.000Z"
-
 ```
 
 ## Floor Year/Month/Day/Hour/Minute/Second
@@ -547,22 +512,16 @@ Examples
 ```
 floorSecond("2014-02-22T12:12:12.888Z"
 > "2014-02-22T12:12:12.000Z"
-
 floorMinute("2014-02-22T12:12:12.888Z"
 > "2014-02-22T12:12:00.000Z"
-
 floorHour("2014-02-22T12:12:12.888Z"
 > 2014-02-22T12:00:00.000Z"
-
 floorDay("2014-02-22T12:12:12.888Z"
 > "2014-02-22T00:00:00.000Z"
-
 floorMonth("2014-02-22T12:12:12.888Z"
 > "2014-02-01T00:00:00.000Z"
-
 floorYear("2014-02-22T12:12:12.888Z"
 > "2014-01-01T00:00:00.000Z"
-
 ```
 
 ## Round Year/Month/Day/Hour/Minute/Second
@@ -579,19 +538,14 @@ Examples
 ```
 roundSecond("2014-02-22T12:12:12.888Z")
 > "2014-02-22T12:12:13.000Z"
-
 roundMinute("2014-02-22T12:12:12.888Z")
 > "2014-02-22T12:12:00.000Z"
-
 roundHour("2014-02-22T12:12:12.888Z"
 > "2014-02-22T12:00:00.000Z"
-
 roundDay("2014-02-22T12:12:12.888Z"
 > "2014-02-23T00:00:00.000Z"
-
 roundMonth("2014-02-22T12:12:12.888Z"
 > "2014-03-01T00:00:00.000Z"
-
 roundYear("2014-02-22T12:12:12.888Z"
 > "2014-01-01T00:00:00.000Z"
 ```
@@ -827,10 +781,8 @@ Example
 ```
 include('hello', 'hello', 'hi')
 > 'hello'
-
 include('hi', 'hello', 'hi')
 > 'hi'
-
 include('bye', 'hello', 'hi')
 > null
 ```
@@ -845,10 +797,8 @@ Example
 ```
 exclude('hello', 'hello', 'hi')
 > null
-
 exclude('hi', 'hello', 'hi')
 > null
-
 exclude('bye', 'hello', 'hi')
 > 'bye'
 ```
@@ -866,7 +816,6 @@ parseDate(aString, pattern, timeZone)
 Example
 ```
 parseDate('2014 02 22', 'yyyy MM dd', '+0400')
-
 > 1393012800000
 ```
 
@@ -881,7 +830,6 @@ formatDate(aLong, pattern, timeZone)
 Example
 ```
 formatDate(1393071132888, 'yyyy MM dd', '+1200')
-
 > '2014 02 23'
 ```
 
