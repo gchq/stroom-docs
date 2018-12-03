@@ -6,6 +6,10 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Update `example-clients.md` with details about stroom-log-sender and send_to_stroom.sh.
+
+* Update `header-arguments.md` with more detail about compression.
+
 * Update `docker-running.md` with alternative install instructions.
 
 * Update `docker-running.md` with https://gchq.github.io/stroom-resources/get_stroom.sh URL.

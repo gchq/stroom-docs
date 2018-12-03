@@ -1,5 +1,40 @@
 # Example Clients
-The following article provides examples to help data providers send data to Stroom via the HTTPS interface. The code for the clients is in the `stroom-clients` repository (TODO link).
+The following article provides examples to help data providers send data to Stroom via the HTTPS interface. The code for the clients is in the _stroom-clients_ repository [stroom-clients](https://github.com/gchq/stroom-clients).
+
+## Using Docker
+[stroom-log-sender](https://hub.docker.com/r/gchq/stroom-log-sender/) is a small Docker image for sending data to _stroom_. 
+This is the simplest way to get data into stroom if the data provider is itself running in docker. 
+It can also be used for sending data to _stroom_ from data providers that are not running in Docker.
+_stroom-log-sender_ makes use of the _send_to_stroom.sh_ bash script that is described below.
+For details on how to use _stroom-log-sender_, see the Dockerhub link above.
+
+## UNIX (using send_to_stroom.sh)
+[send_to_stroom.sh](https://github.com/gchq/stroom-clients/releases) is a small bash script to make it easier to send data to _stroom_. To use it download the following files using wget or similar, replacing `SEND_TO_STROOM_VER` with the latest released version from [here](https://github.com/gchq/stroom-clients/releases):
+
+``` bash
+SEND_TO_STROOM_VER="send-to-stroom-v2.0" && \
+    wget "https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom.sh" && \
+    wget "https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom_args.sh" && \
+    chmod u+x send_to_stroom*.sh
+```
+
+To see the help for _send_to_stroom.sh_, enter `./send_to_stroom.sh --help`
+
+The following is an example of using _send_to_stroom.sh_ to send all logs in a directory:
+
+``` bash
+./send_to_stroom.sh \
+    --delete-after-sending \
+    --file-regex ".*/access-[0-9]+.*\.log(\.gz)?$" \
+    --key ./client..key \
+    --cert ./client.pem.crt \
+    --cacert ./ca.pem.crt \
+    /some_directory/logs \
+    MY_FEED \
+    MY_SYSTEM \
+    DEV \
+    https://stroom-host/stroom/datafeed
+```
 
 ## UNIX (using curl)
 Curl is a standard unix tool to send data to or from a server. In the following examples -H is used to specify the header arguments required by Stroom, see [Header Arguments](header-arguments.md).
