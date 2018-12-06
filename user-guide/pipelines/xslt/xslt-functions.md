@@ -36,6 +36,10 @@ The following functions are available to aid your translation:
 * `hash(String value)` - Hash a string value using the default `SHA-256` algorithm and no salt
 * `hash(String value, String algorithm, String salt)` - Hash a string value using the specified hashing algorithm and supplied salt value. Supported hashing algorithms include `SHA-256`, `SHA-512`, `MD5`.
 * `json-to-xml(String json)` - Returns an XML representation of the supplied JSON value for use in XPath expressions
+* `link(String url)` - Creates a stroom dashboard table link.
+* `link(String title, String url)` - Creates a stroom dashboard table link.
+* `link(String title, String host, String path)` - Creates a stroom dashboard table link.
+* `link(String title, String host, String path, String target)` - Creates a stroom dashboard table link.
 * `log(String severity, String message)` - Logs a message to the processing log with the specified severity
 * `lookup(String map, String key)` - Look up a reference data map using the period start time
 * `lookup(String map, String key, String time)` - Look up a reference data map using a specified time, e.g. the event time
@@ -115,6 +119,26 @@ E.g. Look up a SID given a PF
        </xsl:choose>
     </xsl:if>
 ```
+
+## `link()`
+The link() function function creates a link string that is usable in a stroom dashboard table.
+
+```
+link('http://www.somehost.com/somepath')
+> [http://www.somehost.com/somepath](http://www.somehost.com/somepath){BROWSER_TAB}
+link('Click Here','http://www.somehost.com/somepath')
+> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
+link('Click Here','http://www.somehost.com', '/somepath')
+> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
+link('Click Here','http://www.somehost.com', '/somepath', 'DIALOG')
+> [Click Here](http://www.somehost.com/somepath){DIALOG}
+```
+
+Target can be one of:
+
+* DIALOG : Display the content of the link URL within a stroom popup dialog.
+* STROOM_TAB : Display the content of the link URL within a stroom tab.
+* BROWSER_TAB : Display the content of the link URL within a new browser tab.
 
 ## `log()`
 The log() function writes a message to the processing log with the specified severity.
