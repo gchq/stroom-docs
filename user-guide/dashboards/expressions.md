@@ -61,6 +61,7 @@ The arguments to functions can either be other functions, literal values, or the
     * [Hash](#hash)
     * [Include](#include)
     * [Exclude](#exclude)
+    * [Link](#link)
 * [Date Functions](#date-functions)
     * [Parse Date](#parse-date)
     * [Format Date](#format-date)
@@ -877,6 +878,32 @@ exclude('hi', 'hello', 'hi')
 exclude('bye', 'hello', 'hi')
 > 'bye'
 ```
+
+## Link
+Create a string that represents a hyperlink for display in a dashboard table.
+```
+link(url)
+link(title, url)
+link(title, host, path)
+link(title, host, path, target)
+```
+
+Example
+```
+link('http://www.somehost.com/somepath')
+> [http://www.somehost.com/somepath](http://www.somehost.com/somepath){BROWSER_TAB}
+link('Click Here','http://www.somehost.com/somepath')
+> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
+link('Click Here','http://www.somehost.com', '/somepath')
+> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
+link('Click Here','http://www.somehost.com', '/somepath', 'DIALOG')
+> [Click Here](http://www.somehost.com/somepath){DIALOG}
+```
+
+Target can be one of:
+* `DIALOG` : Display the content of the link URL within a stroom popup dialog.
+* `STROOM_TAB` : Display the content of the link URL within a stroom tab.
+* `BROWSER_TAB` : Display the content of the link URL within a new browser tab.
 
 # Date Functions
 
