@@ -92,12 +92,12 @@ The arguments to functions can either be other functions, literal values, or the
     * [Is Null](#is-null)
     * [Is Error](#is-error)
     * [Type Of](#type-of)
-* [Constant Functions](#constant-functions)
-    * [True](#true)
+* [Value Functions](#value-functions)
+    * [Err](#err)
     * [False](#false)
     * [Null](#null)
-    * [Err](#err)
-
+    * [True](#true)
+    
 <!-- vim-markdown-toc -->
 
 # Mathematics Functions
@@ -1254,12 +1254,12 @@ typeOf(toBoolean('false'))
 > false
 ```
 
-# Constant functions
+# Value functions
 
-## True
-Returns boolean _true_
+## Err
+Returns _err_
 ```
-true()
+err()
 ```
 
 ## False
@@ -1274,8 +1274,8 @@ Returns _null_
 null()
 ```
 
-## Err
-Returns _err_
+## True
+Returns boolean _true_
 ```
-err()
+true()
 ```
