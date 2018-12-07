@@ -1,4 +1,4 @@
-# Aggregation Functions
+# Aggregate Functions
 
 <!-- vim-markdown-toc GFM -->
 * [Average](#average)
