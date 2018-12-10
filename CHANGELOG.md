@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add `direct-urls.md` with details about direct dashboard URLs.
+
 * Update `example-clients.md` with details about stroom-log-sender and send_to_stroom.sh.
 
 * Update `header-arguments.md` with more detail about compression.

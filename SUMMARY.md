@@ -49,6 +49,7 @@
   * [Queries](user-guide/dashboards/queries.md)
   * [Dictionaries](user-guide/dashboards/dictionaries.md)
   * [Expressions](user-guide/dashboards/expressions.md)
+  * [Direct URLs](user-guide/dashboards/direct-urls.md)
 * [Security](user-guide/security.md)
 * Data splitter
   * [Introduction](datasplitter/1-0-introduction.md)
