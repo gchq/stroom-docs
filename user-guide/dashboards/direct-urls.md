@@ -28,17 +28,22 @@ Updated On: 2018-12-10T07:47:06.841Z
 
 In order for as user to view a dashboard they will need the necessary permission on the various entities that make up the dashboard.
 
-For a Lucene index query the following permissions will be required:
+For a Lucene index query and associated table the following permissions will be required:
 
-* _Read_ permission on the Dashboard
-* _Use_ permission on the Index being queried
-* _Use_ permission on the Index being queried
-* _Use_ permission on the search extraction pipeline used in the dashboard
-* _Use_ permission on the XSLT used by the search extraction pipeline
-* _Use_ permission on ancestor pipelines (if the search extraction pipeline inherits from other pipelines)
+* _Read_ permission on the _Dashboard_ entity.
+* _Use_ permission on any _Indexe_ entities being queried in the dashboard.
+* _Use_ permission on any _Pipeline_ entities set as search extraction _Pipelines_ in any of the dashboard's tables.
+* _Use_ permission on any _XSLT_ entities used by the above search extraction _Pipeline_ entites.
+* _Use_ permission on any ancestor pipelines of any of the above search extraction _Pipeline_ entites (if applicable).
+* _Use_ permission on any _Feed_ entities that you want the user to be able to see data for.
 
-For a SQL Statistics query the following permissions will be required:
+For a SQL Statistics query and associated table the following permissions will be required:
 
-* _Read_ permission on the Dashboard
-* _Use_ permission on the StatisticStore being queried
+* _Read_ permission on the _Dashboard_ entity.
+* _Use_ permission on the _StatisticStore_ entity being queried.
 
+For a visualisation the following permissions will be required:
+
+* _Read_ permission on any _Visualiation_ entities used in the dashboard.
+* _Read_ permission on any _Script_ entities used by the above _Visualiation_ entities.
+* _Read_ permission on any _Script_ entities used by the above _Script_ entities.
