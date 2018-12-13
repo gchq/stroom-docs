@@ -38,8 +38,7 @@ The following functions are available to aid your translation:
 * `json-to-xml(String json)` - Returns an XML representation of the supplied JSON value for use in XPath expressions
 * `link(String url)` - Creates a stroom dashboard table link.
 * `link(String title, String url)` - Creates a stroom dashboard table link.
-* `link(String title, String host, String path)` - Creates a stroom dashboard table link.
-* `link(String title, String host, String path, String target)` - Creates a stroom dashboard table link.
+* `link(String title, String url, String type)` - Creates a stroom dashboard table link.
 * `log(String severity, String message)` - Logs a message to the processing log with the specified severity
 * `lookup(String map, String key)` - Look up a reference data map using the period start time
 * `lookup(String map, String key, String time)` - Look up a reference data map using a specified time, e.g. the event time
@@ -121,24 +120,30 @@ E.g. Look up a SID given a PF
 ```
 
 ## `link()`
-The link() function function creates a link string that is usable in a stroom dashboard table.
+Create a string that represents a hyperlink for display in a dashboard table.
+```
+link(url)
+link(title, url)
+link(title, url, type)
+```
 
+Example
 ```
 link('http://www.somehost.com/somepath')
-> [http://www.somehost.com/somepath](http://www.somehost.com/somepath){BROWSER_TAB}
+> [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
 link('Click Here','http://www.somehost.com/somepath')
-> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
-link('Click Here','http://www.somehost.com', '/somepath')
-> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
-link('Click Here','http://www.somehost.com', '/somepath', 'DIALOG')
-> [Click Here](http://www.somehost.com/somepath){DIALOG}
+> [Click Here](http://www.somehost.com/somepath)
+link('Click Here','http://www.somehost.com/somepath', 'dialog')
+> [Click Here](http://www.somehost.com/somepath){dialog}
+link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
+> [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
 ```
 
-Target can be one of:
-
-* DIALOG : Display the content of the link URL within a stroom popup dialog.
-* STROOM_TAB : Display the content of the link URL within a stroom tab.
-* BROWSER_TAB : Display the content of the link URL within a new browser tab.
+Type can be one of:
+* `dialog` : Display the content of the link URL within a stroom popup dialog.
+* `tab` : Display the content of the link URL within a stroom tab.
+* `browser` : Display the content of the link URL within a new browser tab.
+* `dashboard` : Used to launch a stroom dashboard internally with parameters in the URL.
 
 ## `log()`
 The log() function writes a message to the processing log with the specified severity.
