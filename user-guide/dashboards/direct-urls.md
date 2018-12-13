@@ -7,10 +7,23 @@ This can be useful when you have a dashboard that needs to be viewed by users th
 
 The format for the URL is as follows:
 
-`https://<HOST>/stroom/dashboard?type=Dashboard&uuid=<DASHBOARD UUID>`
+`https://<HOST>/stroom/dashboard?type=Dashboard&uuid=<DASHBOARD UUID>[&title=<DASHBOARD TITLE>][&params=<DASHBOARD PARAMETERS>]`
 
-Where `<HOTST>` is the hostname/IP for for _Stroom_ and `<DASHBOARD UUID>` is the UUID for the dashboard you want a direct URL to.
-The UUID for the dashboard can be found by right clicking on the dashboard icon in the explorer tree and selecting Info.
+Example:
+
+`https://localhost/stroom/dashboard?type=Dashboard&uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09&title=My%20Dash&params=userId%3DFred%20Bloggs`
+
+### Host and path
+The host and path are typically `https://<HOST>/stroom/dashboard` where `<HOST>` is the hostname/IP for _Stroom_.
+
+### type
+`type` is a required parameter and must always be `Dashboard` since we are opening a dashboard.
+
+### uuid
+`uuid` is a required parameter where `<DASHBOARD UUID>` is the UUID for the dashboard you want a direct URL to, e.g. `uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09`
+
+The UUID for the dashboard that you want to link to can be found by right clicking on the dashboard icon in the explorer tree and selecting Info.
+
 The Info dialog will display something like this and the UUID can be copied from it:
 
 ```
@@ -23,6 +36,14 @@ Created On: 2018-12-10T06:33:03.275Z
 Updated By: admin
 Updated On: 2018-12-10T07:47:06.841Z
 ```
+
+### title (Optional)
+`title` is an optional URL parameter where `<DASHBOARD TITLE>` allows the specification of a specific title for the opened dashboard instead of the default dashboard name.
+
+The inclusion of `${name}` in the title allows the default dashboard name to be used and appended with other values, e.g. `'title=${name}%20-%20' + param.name`
+
+### params
+`params` is an optional URL parameter where `<DASHBOARD PARAMETERS>` includes any parameters that have been defined for the dashboard in any of the expressions, e.g. `params=userId%3DFred%20Bloggs`
 
 ## Permissions
 
