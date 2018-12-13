@@ -154,7 +154,7 @@ Create a string that represents a hyperlink for display in a dashboard table.
 ```
 link(url)
 link(title, url)
-link(title, url, target)
+link(title, url, type)
 ```
 
 Example
@@ -169,7 +169,7 @@ link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
 > [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
 ```
 
-Target can be one of:
+Type can be one of:
 * `dialog` : Display the content of the link URL within a stroom popup dialog.
 * `tab` : Display the content of the link URL within a stroom tab.
 * `browser` : Display the content of the link URL within a new browser tab.
