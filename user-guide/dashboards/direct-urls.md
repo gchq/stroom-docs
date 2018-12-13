@@ -42,7 +42,7 @@ Updated On: 2018-12-10T07:47:06.841Z
 
 The inclusion of `${name}` in the title allows the default dashboard name to be used and appended with other values, e.g. `'title=${name}%20-%20' + param.name`
 
-### params
+### params (Optional)
 `params` is an optional URL parameter where `<DASHBOARD PARAMETERS>` includes any parameters that have been defined for the dashboard in any of the expressions, e.g. `params=userId%3DFred%20Bloggs`
 
 ## Permissions
