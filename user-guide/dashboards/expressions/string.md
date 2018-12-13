@@ -154,26 +154,26 @@ Create a string that represents a hyperlink for display in a dashboard table.
 ```
 link(url)
 link(title, url)
-link(title, host, path)
-link(title, host, path, target)
+link(title, url, target)
 ```
 
 Example
 ```
 link('http://www.somehost.com/somepath')
-> [http://www.somehost.com/somepath](http://www.somehost.com/somepath){BROWSER_TAB}
+> [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
 link('Click Here','http://www.somehost.com/somepath')
-> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
-link('Click Here','http://www.somehost.com', '/somepath')
-> [Click Here](http://www.somehost.com/somepath){BROWSER_TAB}
-link('Click Here','http://www.somehost.com', '/somepath', 'DIALOG')
-> [Click Here](http://www.somehost.com/somepath){DIALOG}
+> [Click Here](http://www.somehost.com/somepath)
+link('Click Here','http://www.somehost.com/somepath', 'dialog')
+> [Click Here](http://www.somehost.com/somepath){dialog}
+link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
+> [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
 ```
 
 Target can be one of:
-* `DIALOG` : Display the content of the link URL within a stroom popup dialog.
-* `STROOM_TAB` : Display the content of the link URL within a stroom tab.
-* `BROWSER_TAB` : Display the content of the link URL within a new browser tab.
+* `dialog` : Display the content of the link URL within a stroom popup dialog.
+* `tab` : Display the content of the link URL within a stroom tab.
+* `browser` : Display the content of the link URL within a new browser tab.
+* `dashboard` : Used to launch a stroom dashboard internally with parameters in the URL.
 
 ## Lower Case
 Converts the string to lower case
