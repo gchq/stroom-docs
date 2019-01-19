@@ -170,7 +170,7 @@ Our hierarchy is
 #### Creation of Storage Hierarchy 
 So, we first create processing user on all nodes as per
 ```bash
-sudo useradd stroomuser
+sudo useradd --system stroomuser
 ```
 
 And the relevant commands to create the above hierarchy would be
@@ -439,7 +439,7 @@ You will note that these HOWTOs use a consistent storage nomenclature for simpli
 We create the processing user, as per
 
 ```bash
-sudo useradd stroomuser
+sudo useradd --system stroomuser
 ```
 
 then create the storage hierarchy with the commands
@@ -534,7 +534,7 @@ You will note that these HOWTOs use a consistent storage nomenclature for simpli
 We create the processing user, as per
 
 ```bash
-sudo useradd stroomuser
+sudo useradd --system stroomuser
 ```
 
 then create the storage hierarchy with the commands
@@ -641,7 +641,7 @@ To maintain our Storage Scenario them, the scenario for this node is
 #### Creation of Storage Hierarchy 
 So, we first create processing user on our new node as per
 ```bash
-sudo useradd stroomuser
+sudo useradd --system stroomuser
 ```
 
 then create the storage via
