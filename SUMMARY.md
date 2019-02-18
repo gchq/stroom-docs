@@ -3,6 +3,7 @@
 ### 1. Introduction
 
 * [Introduction](README.md)
+* [Release Notes](release-notes.md)
 * [Screenshots](screenshots.md)
 * [Quick-start guide](quick-start-guide/quick-start.md)
   * [Running](quick-start-guide/running/running.md)
