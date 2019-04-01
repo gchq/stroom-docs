@@ -31,11 +31,11 @@ The uppermost layer of the server side code services requests from the client. T
 
 Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc. No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.
 
-The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code. This allows multiple types of endpoint to use the same underlying service layer.
+The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code. This allows multiple types of endpoint to use the same underlying service layer. If a request requires the use of multiple services to form a response, this must be handled within the service layer by the primary service which will be responsible for any such orchestration.
 
 ### Service layer
 
-The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed. The service layer performs all business logic and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.
+The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed. The service layer performs all orchestration and business logic, and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.
 
 The service layer provides implementations for any API that the component may have.
 
