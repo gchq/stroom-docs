@@ -10,11 +10,17 @@ Some examples of components in Stroom include
 In the project structure a component appears as a first level subdirectory of the root project folder. Components have further subdirectories (modules) that make up the various parts of the component, e.g.
 
 *stroom* - root project
+
     *stroom-activity* - component
+    
         *stroom-activity-api* - The API module for `stroom-activity`
+        
         *stroom-activity-impl* - The implementation of the API and other module implementation code
+        
         *stroom-activity-impl-db* - Database persistence implementation used by impl
+        
         *stroom-activity-impl-db-jooq* - JOOQ generated classes used by `stroom-activity-impl-db`
+        
         *stroom-activity-impl-mock* - Mock persistence for the `stroom-activity` component
 
 ## Component API, e.g. modules ending in `-api`
