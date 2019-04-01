@@ -21,7 +21,7 @@ In the project structure a component appears as a first level subdirectory of th
 
 ### API layer
 
-All communication between components in stroom are made via the components API. The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code. For component testing purposes mock implementations of these APIs can be used for dependant components to limit testing to just a single component.
+All communication between components in stroom must be made via a component's API. The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code. For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.
 
 ## Component API and service implementation, e.g. modules ending in `-impl`
 
