@@ -11,11 +11,11 @@ In the project structure a component appears as a first level subdirectory of th
 
 * `stroom` - root project
   * `stroom-activity` - component
-    * `stroom-activity-api` - The API module for `stroom-activity`
-    * `stroom-activity-impl` - The implementation of the API and other module implementation code
-    * `stroom-activity-impl-db` - Database persistence implementation used by impl
+    * `stroom-activity-api` - API module for `stroom-activity`
+    * `stroom-activity-impl` - implementation of the API and other module implementation code
+    * `stroom-activity-impl-db` - database persistence implementation used by impl
     * `stroom-activity-impl-db-jooq` - JOOQ generated classes used by `stroom-activity-impl-db`
-    * `stroom-activity-impl-mock` - Mock persistence for the `stroom-activity` component
+    * `stroom-activity-impl-mock` - mock persistence for the `stroom-activity` component
 
 ## Component API, e.g. modules ending in `-api`
 
