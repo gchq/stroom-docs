@@ -17,6 +17,40 @@ In the project structure a component appears as a first level subdirectory of th
     * `stroom-activity-impl-db-jooq` - JOOQ generated classes used by `stroom-activity-impl-db`
     * `stroom-activity-impl-mock` - Mock persistence for the `stroom-activity` component
 
+
+@startuml
+
+package "api" {
+  API - [API]
+  [API Component]
+}
+
+package "impl" {
+  REST Endpoint - [REST Endpoint]
+  GWT Action Handler - [GWT Action Handler]
+  Service - [Service]
+  DAO Interface - [DAO Interface]
+  [Impl Component]
+}
+
+package "impl-db" {
+  DAO Implementation - [DAO Implementation]
+  [Impl Db Component]
+}
+
+[Impl Component] --> [API Component]
+[Impl Db Component] --> [Impl Component]
+
+[REST Endpoint] --> [Service]
+[GWT Action Handler] --> [Service]
+[Service] --> [DAO Interface]
+[DAO Implementation] --> [DAO Interface]
+
+
+
+@enduml
+
+
 ## Component API, e.g. modules ending in `-api`
 
 ### API layer
