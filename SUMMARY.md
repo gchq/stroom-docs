@@ -119,6 +119,7 @@
   * [Releasing](dev-guide/releasing.md)
   * [Running Stroom from IntelliJ](dev-guide/stroom-in-an-ide.md)
   * [Running Stroom using Docker](dev-guide/docker-running.md)
+  * [Components](dev-guide/components.md)
   * [Building GitBook documentation](dev-guide/gitbook.md)
 
 ### 7. About Stroom-docs
