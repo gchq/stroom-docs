@@ -1,7 +1,7 @@
 @startuml
 
 package "api" {
-[API Code]
+[API]
 }
 
 package "impl" {
@@ -23,12 +23,12 @@ package "impl-mock" {
 [Mock Persistence Implementation]
 }
 
-[Service] --> [API Code]
+[Service] ..> [API]
 [REST Endpoint] --> [Service]
 [GWT Action Handler] --> [Service]
 [Service] --> [DAO Interface]
-[DAO Implementation] --> [DAO Interface]
-[DAO Implementation] --> [JOOQ Generated Code]
-[Mock Persistence Implementation] ---> [DAO Interface]
+[DAO Implementation] ..> [DAO Interface]
+[DAO Implementation] ..> [JOOQ Generated Code]
+[Mock Persistence Implementation] ...> [DAO Interface]
 
 @enduml
