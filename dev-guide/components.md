@@ -17,7 +17,7 @@ In the project structure a component appears as a first level subdirectory of th
     * `stroom-activity-impl-db-jooq` - JOOQ generated classes used by `stroom-activity-impl-db`
     * `stroom-activity-impl-mock` - Mock persistence for the `stroom-activity` component
 
-
+```
 @startuml
 
 package "api" {
@@ -49,7 +49,7 @@ package "impl-db" {
 
 
 @enduml
-
+```
 
 ## Component API, e.g. modules ending in `-api`
 
