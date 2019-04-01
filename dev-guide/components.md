@@ -9,13 +9,13 @@ Some examples of components in Stroom include
 
 In the project structure a component appears as a first level subdirectory of the root project folder. Components have further subdirectories (modules) that make up the various parts of the component, e.g.
 
-* `stroom` - root project
-  * `stroom-activity` - component
+* `stroom` - Root project
+  * `stroom-activity` - The component
     * `stroom-activity-api` - API module for `stroom-activity`
-    * `stroom-activity-impl` - implementation of the API and other module implementation code
-    * `stroom-activity-impl-db` - database persistence implementation used by impl
+    * `stroom-activity-impl` - Implementation of the API and other module implementation code
+    * `stroom-activity-impl-db` - Database persistence implementation used by impl
     * `stroom-activity-impl-db-jooq` - JOOQ generated classes used by `stroom-activity-impl-db`
-    * `stroom-activity-impl-mock` - mock persistence for the `stroom-activity` component
+    * `stroom-activity-impl-mock` - Mock persistence for the `stroom-activity` component
 
 ## Component API, e.g. modules ending in `-api`
 
@@ -46,4 +46,6 @@ The service layer provides the DAO (Data Access Object) API for the persistence 
 ### Persistence layer - DAOs
 
 The persistence layer is an implementation of one or more DAOs specified in the service layer. The persistence layer provides no logic, it just stores and retrieves objects in a database or other persistence technology. If serialisation/de-serialisation is required in order to persist the object then that should also be performed by this layer so that no code above this layer has to care about this implementation detail.
+
+The persistence layer does not apply security or permissions checking so should not need to reference the security API.
 
