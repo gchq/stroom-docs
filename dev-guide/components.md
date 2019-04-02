@@ -17,7 +17,9 @@ In the project structure a component appears as a first level subdirectory of th
     * `stroom-activity-impl-db-jooq` - JOOQ generated classes used by `stroom-activity-impl-db`
     * `stroom-activity-impl-mock` - Mock persistence for the `stroom-activity` component
 
-![UML](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/components.puml)
+## Dependencies between a modules components 
+
+![Internal Component Dependencies](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/components.puml&random=1)
 
 ## Component API, e.g. modules ending in `-api`
 
