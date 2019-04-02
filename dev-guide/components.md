@@ -17,9 +17,17 @@ In the project structure a component appears as a first level subdirectory of th
     * `stroom-activity-impl-db-jooq` - JOOQ generated classes used by `stroom-activity-impl-db`
     * `stroom-activity-impl-mock` - Mock persistence for the `stroom-activity` component
 
-## Dependencies between a modules components 
+## Dependencies between a modules components
 
-![Internal Component Dependencies](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/components.puml&random=1)
+The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the `impl` module. The actual implementations used at runtime are determined by Guice binding in whichever Guice modules are loaded by the application. Tests can bind mock implementations of a components persistence layer just by using the Guice module within the mock implementation module.
+
+![Internal Component Dependencies](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/module-dependencies.puml&random=1)
+
+## Dependencies between other components
+
+Typically a component will need to call out to other components to apply security constraints and to log user activity. These typical relationships are shown in the diagram below.
+
+![External Component Dependencies](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/external-dependencies.puml&random=1)
 
 ## Component API, e.g. modules ending in `-api`
 
