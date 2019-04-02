@@ -1,0 +1,30 @@
+@startuml
+
+package "component" {
+[REST Endpoint]
+[GWT Action Handler]
+[Service]
+[DAO Interface]
+}
+
+package "other-component" {
+[API]
+}
+
+package "security" {
+[Security API]
+}
+
+package "event-logging" {
+[Event Logging API]
+}
+
+[Service] ----> [API]
+[REST Endpoint] --> [Service]
+[REST Endpoint] -> [Event Logging API]
+[GWT Action Handler] --> [Service]
+[GWT Action Handler] -> [Event Logging API]
+[Service] ---> [Security API]
+[Service] --> [DAO Interface]
+
+@enduml
