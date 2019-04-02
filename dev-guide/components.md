@@ -23,7 +23,7 @@ The diagram below shows the dependencies between the different modules that make
 
 ![Internal Component Dependencies](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/module-dependencies.puml&random=1)
 
-## Dependencies between other components
+## Dependencies between components
 
 Typically a component will need to call out to other components to apply security constraints and to log user activity. These typical relationships are shown in the diagram below.
 
