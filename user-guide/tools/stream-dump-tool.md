@@ -1,10 +1,10 @@
-#Stream Dump Tool
+# Stream Dump Tool
 
 Data within Stroom can be exported to a directory using the `StreamDumpTool`. The tool is contained within the core Stroom Java library and can be accessed via the command line, e.g.
 
 `java -cp "apache-tomcat-7.0.53/lib/*:lib/*:instance/webapps/stroom/WEB-INF/lib/*" stroom.util.StreamDumpTool outputDir=output`
 
-**Note the classpath may need to be altered depending on your installation.**
+*Note the classpath may need to be altered depending on your installation.*
 
 The above command will export all content from Stroom and output it to a directory called `output`. Data is exported to zip files in the same format as zip files in proxy repositories. The structure of the exported data is `${feed}/${pathId}/${id}` by default with a zip extension.
 
