@@ -80,6 +80,8 @@
     * [Concatenation of references](datasplitter/3-4-concatenation-of-references.md)
 * [Application Programming Interfaces (API)](user-guide/api/README.md)
   * [Query API](user-guide/api/query-api.md)
+* [Tools](user-guide/tools/README.md)
+  * [Stream Dump Tool](user-guide/tools/stream-dump-tool.md)
 
 ### 4. HOWTOs
 
