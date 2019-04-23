@@ -6,7 +6,7 @@ Data within Stroom can be exported to a directory using the `StreamDumpTool`. Th
 
 *Note the classpath may need to be altered depending on your installation.*
 
-The above command will export all content from Stroom and output it to a directory called `output`. Data is exported to zip files in the same format as zip files in proxy repositories. The structure of the exported data is `${feed}/${pathId}/${id}` by default with a zip extension.
+The above command will export all content from Stroom and output it to a directory called `output`. Data is exported to zip files in the same format as zip files in proxy repositories. The structure of the exported data is `${feed}/${pathId}/${id}` by default with a `.zip` extension.
 
 To provide greater control over what is exported and how the following additional parameters can be used:
 
