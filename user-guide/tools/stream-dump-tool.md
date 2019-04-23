@@ -22,6 +22,8 @@ To provide greater control over what is exported and how the following additiona
 
 `format` - The format of the output data directory and file structure (`${feed}/${pathId}/${id}` by default).
 
+## Format
+
 The format parameter can include several replacement variables:
 
 `feed` - The name of the feed for the exported data.
