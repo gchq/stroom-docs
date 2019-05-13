@@ -80,6 +80,8 @@
     * [Concatenation of references](datasplitter/3-4-concatenation-of-references.md)
 * [Application Programming Interfaces (API)](user-guide/api/README.md)
   * [Query API](user-guide/api/query-api.md)
+* [Tools](user-guide/tools/README.md)
+  * [Stream Dump Tool](user-guide/tools/stream-dump-tool.md)
 
 ### 4. HOWTOs
 
@@ -119,6 +121,7 @@
   * [Releasing](dev-guide/releasing.md)
   * [Running Stroom from IntelliJ](dev-guide/stroom-in-an-ide.md)
   * [Running Stroom using Docker](dev-guide/docker-running.md)
+  * [Components](dev-guide/components.md)
   * [Building GitBook documentation](dev-guide/gitbook.md)
 
 ### 7. About Stroom-docs
