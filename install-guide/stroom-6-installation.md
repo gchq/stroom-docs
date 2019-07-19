@@ -53,3 +53,12 @@ First generate new API keys. You can generate a new API key using Stroom, under 
   - This is the API token for user `stroomServiceUser`.
 
 Then stop Stroom and update the API key in the `.env` configuration file with the new value.
+
+## Troubleshooting
+
+### I'm trying to use certificate logins (PKI) but I keep being prompted for the username and password!
+You need to be sure of several things:
+- When a user arrives at Stroom the first thing Stroom does is redirect the user to the authentication service. This is when the certificate is checked. If this redirect doesn't use HTTPS then nginx will not get the cert and will not send it onwards to the authentication service. Remember that all of this stuff, apart from back-channel/service-to-service chatter, goes through nginx. The env var that needs to use HTTPS is STROOM_AUTHENTICATION_SERVICE_URL. Note that this is the var Stroom looks for, not the var as set in the stack, so you'll find it in the stack YAML.
+- Are your certs configured properly? If nginx isn't able to decode the incoming cert for some reason then it won't pass anything on to the service.
+- Is your browser sending certificates?
+

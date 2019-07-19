@@ -2,7 +2,10 @@
 
 <!-- vim-markdown-toc GFM -->
 * [Concat](#concat)
+* [Dashboard](#dashboard)
 * [Decode](#decode)
+* [DecodeUrl](#decodeUrl)
+* [EncodeUrl](#encodeUrl)
 * [Exclude](#exclude)
 * [Hash](#hash)
 * [Include](#include)
@@ -29,6 +32,21 @@ Example
 ```
 concat('this ', 'is ', 'how ', 'it ', 'works')
 > 'this is how it works'
+```
+
+## Dashboard
+A helper function to make forming links to dashboards easier than using [Link](#link).
+```
+dashboard(text, uuid)
+dashboard(text, uuid, params)
+```
+
+Example
+```
+dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da')
+> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da){dashboard)
+dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
+> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&params=userId%3Duser1){dashboard)
 ```
 
 ## Decode
@@ -75,6 +93,22 @@ String decode(value) {
 decode('red')
 > 'rgb(255, 0, 0)'
 
+```
+
+## DecodeUrl
+Decodes a URL
+
+```
+decodeUrl('userId%3Duser1')
+> userId=user1
+```
+
+## EncodeUrl
+Encodes a URL
+
+```
+encodeUrl('userId=user1')
+> userId%3Duser1
 ```
 
 ## Exclude
@@ -153,8 +187,8 @@ lastIndexOf('aa-bb-cc', '-')
 Create a string that represents a hyperlink for display in a dashboard table.
 ```
 link(url)
-link(title, url)
-link(title, url, type)
+link(text, url)
+link(text, url, type)
 ```
 
 Example
