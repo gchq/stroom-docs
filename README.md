@@ -40,7 +40,6 @@ Currently Stroom has only been tested with _Google Chrome_. For this reason some
 There are several optional components for different use cases:
 
 * **Stroom Proxy** - An application that receives and forwards data to Stroom.
-* **Stroom Stats** - An HBase based service for storing and querying aggregates of event data.
 * **Stroom Stats** - An HBase based service for storing and querying aggregates of event data (still in development).
 * **Stroom Annotations** - A service for recording data relating to events or records in Stroom (still in development).
 * **Stroom Query Elastic** - A service to allow Stroom dashboards to query Elastic Search indexes.
