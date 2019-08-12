@@ -5,7 +5,7 @@ Stroom / Stroom Proxy should be run under a processing user (we assume stroomuse
 - Setup this user
 
 ```bash
-/usr/sbin/adduser stroomuser
+/usr/sbin/adduser --system stroomuser
 ```
 
 - You may want to allow normal accounts to sudo to this account for maintenance (visudo)
