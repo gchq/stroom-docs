@@ -31,6 +31,8 @@ As mentioned, we will use BlueCoat Proxy logs as a sample event source. Although
     ...
 
 A copy of this sample data source can be found [here](sampleBluecoat.log "Sample BlueCoat logs").
+Later in this HOWTO, one will be required to upload this file. If you save this file now, ensure the file is saved
+as a text document with ANSI encoding.
 
 ## Establish the Processing Pipeline
 
@@ -43,7 +45,7 @@ There will be four components
 - the XSLT Translation to translate the simple XML formed by the Text Converter into the Stroom Event Logging XML form, and
 - the Processing pipeline which manages how the processing is performed.
 
-All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**.
+All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**. It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{3,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties.md "System Properties") docment to see how to make this change.
 
 ### Create the Event Feed
 
@@ -125,6 +127,8 @@ and it's corresponding reference in the `Explorer` display.
 We set the configuration for this `XSLT Translation` to be
 
  * Description - *Transform simple XML of BlueCoat Proxy log data into Stroom Event Logging XML form*
+
+Again, press the _Save_ icon ![Save](../resources/icons/save.png "Save") to save the configuration items.
 
 ### Create the Pipeline
 
@@ -242,7 +246,7 @@ Although we can post our test data set to this feed, we will manually upload it 
 In a _Production_ situation, where we would post log files to Stroom, we would include certain HTTP Header variables that, as we shall see, will be used
 as part of the translation. These header variables typically provide situational awareness of the source system sending the events.
 
-For our purposes we set
+For our purposes we set the following HTTP Header variables
 
     Environment:Development
     LogFileName:sampleBluecoat.log
@@ -255,13 +259,15 @@ For our purposes we set
     System:Site http://log-sharing.dreamhosters.com/ Bluecoat Logs
     Version:V1.0
 
-We set these header variables in the **Meta Data:** entry box.
+These are set by entering them into the **Meta Data:** entry box.
 
-We select a **Stream Type:** of `Raw Events`
+![Stroom UI Create Feed - Translation - Data Pane Upload Metadata](../resources/UI-FeedProcessing-24b.png "Stroom UI Create Feed - Translation - Data Pane Upload Metadata")
+
+Having done this we select a **Stream Type:** of `Raw Events`
 
 We leave the **Effective:** entry box empty as this stream of raw event logs does not have an `Effective Date` (only Reference Feeds set this).
 
-And we choose our file `sampleBluecoat.log`as per
+And we choose our file `sampleBluecoat.log`, by clicking on the `Browse` button in the **File:** entry box, which brings up the brower's standard file upload selection window. Having selected our file, we see
 
 ![Stroom UI Create Feed - Translation - Data Pane Upload Complete](../resources/UI-FeedProcessing-24.png "Stroom UI Create Feed - Translation - Data Pane Upload Complete")
 
@@ -283,7 +289,7 @@ If we were to select the **Meta** hyper-link of the lower pane, one would see th
 
 You should see all the HTTP variables we set as part of the Upload step as well as some that Stroom has automatically set.
 
-We new switch back to the **Data** hyper-link before we start to develop the actual translation.
+We now switch back to the **Data** hyper-link before we start to develop the actual translation.
 
 ### Stepping the Pipeline
 
@@ -312,7 +318,7 @@ The bottom pane displays the first page (up to 100 lines) of data along with a s
 
 ### Stepping the Pipeline - dsParser
 
-We now select the `dsParser` pipeline element that results in 
+We now select the `dsParser` pipeline element that results in the window below
 
 ![Stroom UI Create Feed - Translation - Stepping dsParser Element](../resources/UI-FeedProcessing-31.png "Stroom UI Create Feed - Translation - Stepping dsParser Element")
 
@@ -456,7 +462,7 @@ If we change the record number from __3__ to __12__ then either press Enter or p
 
 ![Stroom UI Create Feed - Translation - Stepping Indicator 3](../resources/UI-FeedProcessing-38.png "Stroom UI Create Feed - Translation - Stepping Indicator 3")
 
-and note that a new record has been processed in the _input_ and _output_ panes. Further, if one steps back to the `Source` element of the pipeline to view the raw source file, we see that the highlighted __current__ line is the 12th line of process data (It may be the 10 actual bluecoat event, but remember the #Software, #Version lines are considered as processed data)
+and note that a new record has been processed in the _input_ and _output_ panes. Further, if one steps back to the `Source` element of the pipeline to view the raw source file, we see that the highlighted __current__ line is the 12th line of processed data. It is the 10th actual bluecoat event, but remember the #Software, #Version lines are considered as processed data  (2+10 = 12). Also noted that the #Date and #Fields lines are not considered processed data, and hence do not contribute to the **recordNo** value.
 
 ![Stroom UI Create Feed - Translation - Stepping Indicator 4](../resources/UI-FeedProcessing-39.png "Stroom UI Create Feed - Translation - Stepping Indicator 4")
 
@@ -538,7 +544,7 @@ Note that this is the 31st record, so if we were to jump to the first record usi
 
 ![Stroom UI Create Feed - Translation - Stepping XSLT Translation 2](../resources/UI-FeedProcessing-43.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 2")
 
-You will note that there is no `Event` element in the _output_ as the _record_ template only stores the input's key value and does not process an event log (the <xsl:otherwise> in our xslt translation above).
+You will note that there is no `Event` element in the _output_ pane as the _record_ template in our xslt translation above is only storing the input's key value (_bc_software's value).
 
 Further note that the **BlueCoat_Proxy-V1.0-EVENTS** tab has a _star_ in front of it and also the _Save_ icon ![Save](../resources/icons/save.png "Save") is highlighted. This indicates that a component of the pipeline needs to be saved. In this case, the XSLT translation.
 
@@ -1045,7 +1051,7 @@ The complete translation now follows. A copy of the XSLT translation can be foun
       </xsl:when>
 
       <!-- Now check for 'normal' errors -->
-      <xsl:when test="tCliStatus > 400">
+      <xsl:when test="data[@name='sc-status']/@value > 400">
         <Outcome>
           <Success>false</Success>
           <Description>
