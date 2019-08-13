@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add System Properties HOWTO
+
 * Added initial section to dev guide to describe stroom component project structure.
 
 * Update `direct-urls.md` to finish the Permissions section.

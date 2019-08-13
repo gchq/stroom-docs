@@ -107,6 +107,8 @@
   * [Application](HOWTOs/Install/InstallApplicationHowTo.md)
 * Event Feeds
   * [Event Processing](HOWTOs/EventFeeds/ProcessingHowTo.md)
+* Administration
+  * [System Properties](HOWTOs/Administration/SystemProperties.md)
 
 ### 5. Stroom Proxy
 
