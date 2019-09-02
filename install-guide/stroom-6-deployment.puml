@@ -1,0 +1,97 @@
+@startuml
+
+title
+    ==Stroom multi-node mixed-economy deployment
+    Stroom services in Docker
+    Stroom and MySQL on bare OS
+end title
+
+node dataload_client_host <<device>> {
+    node "Event generator" as dataload_client_app <<application>>
+}
+
+node ui_client_host <<device>> {
+    node "Web browser" as ui_client_browser <<web browser>>
+}
+
+node stroom_host <<device>> {
+    node "stroom" as stroom_dropwiz <<java app>>
+}
+
+node database_host <<device>> {
+    database stroom_all_dbs <<mysql>> {
+        storage "stroom" as stroom_db <<database>>
+        storage "stats" as stroom_stats_db <<database>>
+        storage "auth" as stroom_auth_db <<database>>
+    }
+}
+
+node services_host <<device>> {
+    node nginx_container <<docker container>>{
+        node "nginx" as nginx <<web server>>
+    }
+    node stroom_auth_ui_container <<docker container>>{
+        node "stroom-auth-ui nginx" as stroom_auth_ui_nginx <<web server>>
+    }
+    node stroom_auth_service_container <<docker container>>{
+        node "stroom-auth-service" as stroom_auth_service_dropwiz <<java app>>
+    }
+}
+
+!function $concat($name, $id)
+!return $name + $id
+!endfunction
+
+' Function to generate a stroom host with links to and from it
+!function add_stroom_host($node_id)
+    !$host_name=$concat("stroom_host_", $node_id)
+    !$stroom_dropwiz_name=$concat("stroom_dropwiz_", $node_id)
+
+    node $host_name <<device>> {
+        node $concat("stroom", $node_id) as $stroom_dropwiz_name <<java app>>
+    }
+    ' Database connections
+    $stroom_dropwiz_name --> stroom_db
+    $stroom_dropwiz_name --> stroom_stats_db
+    ' API Gateway connection
+    $stroom_dropwiz_name --> nginx : <<protocol>> HTTP? ????
+!endfunction
+
+together {
+    add_stroom_host("1")
+    add_stroom_host("2")
+}
+
+'DB connections
+stroom_auth_service_dropwiz --> stroom_auth_db
+
+'Client connections
+ui_client_browser --> nginx : <<protocol>> HTTPS
+dataload_client_app --> nginx : <<protocol>> HTTPS
+
+'Reverse proxy connections
+nginx --> stroom_dropwiz : <<protocol>> HTTP 8080
+nginx --> stroom_auth_ui_nginx : <<protocol>> HTTP ????
+stroom_auth_ui_nginx --> stroom_auth_service_dropwiz : <<protocol>> HTTP ????
+
+
+' see http://plantuml.com/skinparam & https://github.com/plantuml/plantuml/pull/31
+
+'skinparam handwritten true
+'skinparam monochrome reverse
+'skinparam backgroundColor DimGrey
+'skinparam ClassBackgroundColor DimGrey
+'skinparam ClassBorderColor WhiteSmoke
+'skinparam backgroundColor transparent
+
+' light theme
+'skinparam backgroundColor LightGrey
+'skinparam ClassBackgroundColor LightGrey
+'skinparam ClassBorderColor CornflowerBlue
+'skinparam DatabaseBackgroundColor LightGrey
+'skinparam DatabaseBorderColor CornflowerBlue
+
+'hide empty members
+
+@enduml
+
