@@ -6,6 +6,10 @@ title
     Stroom and MySQL on bare OS
 end title
 
+skinparam rectangle {
+	roundCorner<<container>> 25
+}
+
 node dataload_client_host <<device>> {
     node "Event generator" as dataload_client_app <<application>>
 }
@@ -14,9 +18,9 @@ node ui_client_host <<device>> {
     node "Web browser" as ui_client_browser <<web browser>>
 }
 
-node stroom_host <<device>> {
-    node "stroom" as stroom_dropwiz <<java app>>
-}
+'node stroom_host <<device>> {
+'    node "stroom" as stroom_dropwiz <<java app>>
+'}
 
 node database_host <<device>> {
     database stroom_all_dbs <<mysql>> {
@@ -27,13 +31,13 @@ node database_host <<device>> {
 }
 
 node services_host <<device>> {
-    node nginx_container <<docker container>>{
+    rectangle nginx_container <<container>>{
         node "nginx" as nginx <<web server>>
     }
-    node stroom_auth_ui_container <<docker container>>{
+    rectangle stroom_auth_ui_container <<container>>{
         node "stroom-auth-ui nginx" as stroom_auth_ui_nginx <<web server>>
     }
-    node stroom_auth_service_container <<docker container>>{
+    rectangle stroom_auth_service_container <<container>>{
         node "stroom-auth-service" as stroom_auth_service_dropwiz <<java app>>
     }
 }
@@ -46,33 +50,38 @@ node services_host <<device>> {
 !function add_stroom_host($node_id)
     !$host_name=$concat("stroom_host_", $node_id)
     !$stroom_dropwiz_name=$concat("stroom_dropwiz_", $node_id)
+    !$stroom_proxy_dropwiz_name=$concat("stroom_proxy_dropwiz_", $node_id)
 
     node $host_name <<device>> {
         node $concat("stroom", $node_id) as $stroom_dropwiz_name <<java app>>
+        'node $concat("stroom-proxy", $node_id) as $stroom_proxy_dropwiz_name <<java app>>
     }
     ' Database connections
     $stroom_dropwiz_name --> stroom_db
     $stroom_dropwiz_name --> stroom_stats_db
     ' API Gateway connection
-    $stroom_dropwiz_name --> nginx : <<protocol>> HTTP? ????
+    $stroom_dropwiz_name --> nginx : HTTP?:????
+    'Reverse proxy connections
+    nginx --> $stroom_dropwiz_name : HTTP:8080\nRev. proxy
 !endfunction
 
 together {
     add_stroom_host("1")
-    add_stroom_host("2")
+    'add_stroom_host("2")
 }
 
 'DB connections
 stroom_auth_service_dropwiz --> stroom_auth_db
 
 'Client connections
-ui_client_browser --> nginx : <<protocol>> HTTPS
-dataload_client_app --> nginx : <<protocol>> HTTPS
+ui_client_browser --> nginx : HTTPS:443\n/stroom/ui
+dataload_client_app --> nginx : HTTPS:443\n/datafeed
 
 'Reverse proxy connections
-nginx --> stroom_dropwiz : <<protocol>> HTTP 8080
-nginx --> stroom_auth_ui_nginx : <<protocol>> HTTP ????
-stroom_auth_ui_nginx --> stroom_auth_service_dropwiz : <<protocol>> HTTP ????
+nginx --> stroom_auth_ui_nginx : HTTP:????\nRev. proxy
+nginx --> stroom_auth_service_dropwiz : HTTP:????\nRev. proxy
+
+stroom_auth_ui_nginx --> nginx : HTTP:????\nREST calls
 
 
 ' see http://plantuml.com/skinparam & https://github.com/plantuml/plantuml/pull/31
