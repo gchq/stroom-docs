@@ -53,16 +53,19 @@ node services_host <<device>> {
     !$stroom_proxy_dropwiz_name=$concat("stroom_proxy_dropwiz_", $node_id)
 
     node $host_name <<device>> {
-        node $concat("stroom", $node_id) as $stroom_dropwiz_name <<java app>>
-        'node $concat("stroom-proxy", $node_id) as $stroom_proxy_dropwiz_name <<java app>>
+        node "$concat("stroom", $node_id)" as $stroom_dropwiz_name <<java app>>
+        node "$concat("stroom local proxy", $node_id)" as $stroom_proxy_dropwiz_name <<java app>>
     }
     ' Database connections
     $stroom_dropwiz_name --> stroom_db
     $stroom_dropwiz_name --> stroom_stats_db
     ' API Gateway connection
-    $stroom_dropwiz_name --> nginx : HTTP?:????
+    $stroom_dropwiz_name --> nginx : HTTP:80\nAuth REST calls
+
     'Reverse proxy connections
-    nginx --> $stroom_dropwiz_name : HTTP:8080\nRev. proxy
+    nginx --> $stroom_dropwiz_name : HTTP:8080\n/stroom Rev. proxy
+    nginx --> $stroom_dropwiz_name : HTTP:8080\n/datafeeddirect Rev. proxy
+    nginx --> $stroom_proxy_dropwiz_name : HTTP:8090\n/datafeed Rev. proxy
 !endfunction
 
 together {
