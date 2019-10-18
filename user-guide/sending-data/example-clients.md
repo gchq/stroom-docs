@@ -133,7 +133,7 @@ For older versions of Windows, the cURL project has Windows binaries.
 ```bash
 curl -s -k --data-binary @file.dat "https://stroomp.strmdev00.org/stroom/datafeed" -H"Feed:TEST-FEED-V1_0" -H"System:EXAMPLE_SYSTEM" -H"Environment:EXAMPLE_ENVIRONMENT"
 ```
-![New dashboard](images/curl_windows.png)
+![Windows curl CLI](images/curl_windows.png)
 
 ### Using VBScript
 `extract-data.vbs` uses wevtutil.exe to extract **Security** event information from the windows event log.  This script has been tested on Windows 2008.
