@@ -11,9 +11,12 @@ Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and 
 
 In order to run Stroom v6.x using Docker you will need the following installed on the machine you intend to run Stroom on:
 
-* A Linux-like shell environment with bash and curl.
-* docker CE (v17.12.0+)
-* docker-compose (v1.21.0+)
+* A Linux-like shell environment.
+* docker CE (v17.12.0+) - e.g https://docs.docker.com/install/linux/docker-ce/centos/ for Centos
+* docker-compose (v1.21.0+) - https://docs.docker.com/compose/install/ 
+* bash (v4+)
+* jq - https://stedolan.github.io/jq/, e.g. `sudo yum install jq`
+* curl
 
 ### Install steps
 
