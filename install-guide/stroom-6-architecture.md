@@ -3,7 +3,7 @@
 The diagram below shows the logical architecture of Stroom v6.
 It is not concerned with how/where the various services are deployed.
 
-![Logical Architecture Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/setup/stroom-6-architecture.puml&random=2)
+![Logical Architecture Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/install-guide/stroom-6-architecture.puml&random=2)
 
 In stroom v6, a central nginx is key to the whole architecture.
 It acts in the following capacities:
@@ -28,7 +28,7 @@ Such a deployment can be achieved by following [these instructions](dev-guide/do
 
 The following diagram shows how a single node deployment would look.
 
-![Logical Architecture Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/setup/stroom-6-deployment-docker-single.puml&random=2)
+![Logical Architecture Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/install-guide/stroom-6-deployment-docker-single.puml&random=2)
 
 ### Multi Node Mixed Deployment
 
@@ -38,7 +38,7 @@ This approach was taken to gradually introduce docker into the stroom deployment
 
 The following diagram shows how a multi node deployment would look.
 
-![Logical Architecture Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/setup/stroom-6-deployment-mixed-multi.puml&random=2)
+![Logical Architecture Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/install-guide/stroom-6-deployment-mixed-multi.puml&random=2)
 
 ### Multi Node All docker Deployment
 
