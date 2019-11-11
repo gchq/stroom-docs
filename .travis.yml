@@ -49,6 +49,11 @@ deploy:
       tags: false
       branch: master
 
+# Don't build the tags spawned by the master build as it will be the same as the master build
+branches:
+  except:
+  - /stroom-docs-v.*/
+
 env:
   global:
     # $TAGPERM environment variable
