@@ -1,6 +1,6 @@
 ![Stroom](resources/logo.png)
 
-> A published HTML version of these documents are available to view at [here](https://gchq.github.io/stroom-docs/). You can also download a _PDF_ version or a zip file of all the HTML documentation from [here](https://github.com/gchq/stroom-docs/releases).
+> A published HTML version of these documents are available to view [here](https://gchq.github.io/stroom-docs/). You can also download a _PDF_ version or a zip file of all the HTML documentation from [here](https://github.com/gchq/stroom-docs/releases).
 
 If you'd like to jump straight in then see the [Quick Start Guide](quick-start-guide/quick-start.md). 
 
