@@ -8,6 +8,8 @@ recent at the top.
 
 * Add `stroom-6-architecture.md`
 
+* Add detail to prerequisites section in `docker-running.md`
+
 * Fix markdown syntax in `InstallHowTo.md`
 
 * Add System Properties HOWTO

@@ -125,7 +125,15 @@ There is a version of wget for windows
 ### Using curl
 There is a version of curl for Windows
 
-*Note: We haven't tried using this so if anybody would like to have a go and provide documentation for this section please do.*
+Windows 10 is the latest desktop OS offering from Microsoft.
+From Windows 10 build 17063 and later, curl is now natively included - you can execute it directly from Cmd.exe or PowerShell.exe.
+Curl.exe is located at c:\windows\system32 (which is included in the standard PATH environment variable) - all you need to do is run Command Prompt with administrative rights and you can use Curl. You can execute it directly from Cmd.exe or PowerShell.exe.
+For older versions of Windows, the cURL project has Windows binaries.
+
+```bash
+curl -s -k --data-binary @file.dat "https://stroomp.strmdev00.org/stroom/datafeed" -H"Feed:TEST-FEED-V1_0" -H"System:EXAMPLE_SYSTEM" -H"Environment:EXAMPLE_ENVIRONMENT"
+```
+![Windows curl CLI](images/curl_windows.png)
 
 ### Using VBScript
 `extract-data.vbs` uses wevtutil.exe to extract **Security** event information from the windows event log.  This script has been tested on Windows 2008.
