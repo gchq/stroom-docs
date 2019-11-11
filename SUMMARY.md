@@ -14,6 +14,7 @@
 
 ### 2. Installation
 
+* [Architecture & Deployment](install-guide/stroom-6-architecture.md)
 * [Installing Stroom](install-guide/stroom-app-install.md)
 * Setup
   * [Apache forwarding](install-guide/setup/apache-forwarding.md)

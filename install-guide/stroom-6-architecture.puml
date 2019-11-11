@@ -1,0 +1,89 @@
+@startuml
+
+title
+    ==Stroom Logical Architecture
+    Client UI connections in <color:Green>green</color>
+    Client datafeed connections in <color:Blue>blue</color>
+    Effective connections (ignoring nginx reverse proxying) <color:Grey>dashed grey</color>
+end title
+
+'Define the various application ports
+!stroom_auth_service_port=8099
+!stroom_auth_ui_port=9443
+!stroom_port=8080
+!stroom_proxy_port=8090
+
+'Define all the nodes (services, actors, etc.)
+node "Event generator" as dataload_client_app <<application>>
+node "Web browser" as ui_client_browser <<web browser>>
+node "Remote stroom-proxy" as remote_proxy <<application>>
+node "nginx" as nginx <<web server>>
+node "stroom-auth-ui nginx" as stroom_auth_ui_nginx <<web server>>
+node "stroom-auth-service" as stroom_auth_service_dropwiz <<java app>>
+node "stroom" as stroom_dropwiz <<java app>>
+node "stroom-proxy (local)" as stroom_proxy_dropwiz <<java app>>
+node "stroom-log-sender" as stroom_log_sender_script <<script>>
+
+database stroom_all_dbs <<mysql>> {
+    storage "stroom" as stroom_db <<database>>
+    storage "stats" as stroom_stats_db <<database>>
+    storage "auth" as stroom_auth_db <<database>>
+}
+
+'DB connections
+stroom_auth_service_dropwiz --> stroom_auth_db
+stroom_dropwiz --> stroom_db
+stroom_dropwiz --> stroom_stats_db
+
+'Client connections
+ui_client_browser -[#Green]-> nginx : HTTPS:443\n/stroom
+dataload_client_app -[#Blue]-> nginx : HTTPS:443\n/datafeed POSTs
+remote_proxy -[#Blue]-> nginx : HTTPS:443\n/datafeed POSTs
+
+' Inter-service REST calls to nginx api gateway
+stroom_dropwiz --> nginx \
+    : HTTP:80\nAuthentication REST calls\n(to stroom-auth-service)
+stroom_auth_service_dropwiz --> nginx \
+    : HTTP:80\nAuthorisation REST calls\n(to stroom)
+stroom_log_sender_script -right-> nginx \
+    : HTTPS:443\n/datafeed POSTs
+'stroom_auth_ui_nginx --> nginx \
+'  : HTTP:80\nREST calls
+
+'Reverse proxy connections
+nginx -[#Green]-> stroom_dropwiz : HTTP:stroom_port\n/stroom Rev. proxy
+nginx -[#Blue]-> stroom_dropwiz : HTTP:stroom_port\n/datafeeddirect Rev. proxy
+nginx -[#Blue]-> stroom_proxy_dropwiz : HTTP:stroom_proxy_port\n/datafeed Rev. proxy
+nginx -[#Green]-> stroom_auth_ui_nginx : HTTP:stroom_auth_ui_port\nRev. proxy
+nginx --> stroom_auth_service_dropwiz : HTTP:stroom_auth_service_port\nREST calls
+
+'Effective connections (i.e. ignoring ngix gateway)
+'stroom_auth_ui_nginx .[#Grey].> stroom_auth_service_dropwiz \
+'  : <color:Grey>HTTP:stroom_auth_service_port</color>\n<color:Grey>REST calls</color>
+stroom_dropwiz .[#Grey].> stroom_auth_service_dropwiz \
+    : <color:Grey>HTTP:stroom_auth_service_port</color>\n<color:Grey>Authorisation REST calls</color>
+stroom_proxy_dropwiz .[#Grey].> stroom_dropwiz \
+    : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Feed status</color>
+stroom_auth_service_dropwiz .[#Grey].> stroom_dropwiz \
+    : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Authentication REST calls</color>
+
+' see http://plantuml.com/skinparam & https://github.com/plantuml/plantuml/pull/31
+
+'skinparam handwritten true
+'skinparam monochrome reverse
+'skinparam backgroundColor DimGrey
+'skinparam ClassBackgroundColor DimGrey
+'skinparam ClassBorderColor WhiteSmoke
+'skinparam backgroundColor transparent
+
+' light theme
+'skinparam backgroundColor LightGrey
+'skinparam ClassBackgroundColor LightGrey
+'skinparam ClassBorderColor CornflowerBlue
+'skinparam DatabaseBackgroundColor LightGrey
+'skinparam DatabaseBorderColor CornflowerBlue
+
+'hide empty members
+
+@enduml
+

@@ -10,19 +10,23 @@ skinparam rectangle {
 	roundCorner<<container>> 25
 }
 
-node dataload_client_host <<device>> {
+node "Datafeed client host" as dataload_client_host <<device>> {
     node "Event generator" as dataload_client_app <<application>>
 }
 
-node ui_client_host <<device>> {
+node "User desktop host" as ui_client_host <<device>> {
     node "Web browser" as ui_client_browser <<web browser>>
+}
+
+node "Remote stroom-proxy host" as remote_proxy_host <<device>> {
+    node "stroom-proxy" as remote_proxy <<application>>
 }
 
 'node stroom_host <<device>> {
 '    node "stroom" as stroom_dropwiz <<java app>>
 '}
 
-node database_host <<device>> {
+node "Database host" as database_host <<device>> {
     database stroom_all_dbs <<mysql>> {
         storage "stroom" as stroom_db <<database>>
         storage "stats" as stroom_stats_db <<database>>
@@ -30,16 +34,21 @@ node database_host <<device>> {
     }
 }
 
-node services_host <<device>> {
-    rectangle nginx_container <<container>>{
+node "Services host" as services_host <<device>> {
+    rectangle "nginx" as nginx_container <<container>>{
         node "nginx" as nginx <<web server>>
     }
-    rectangle stroom_auth_ui_container <<container>>{
+    rectangle "stroom-auth-ui" as stroom_auth_ui_container <<container>>{
         node "stroom-auth-ui nginx" as stroom_auth_ui_nginx <<web server>>
     }
-    rectangle stroom_auth_service_container <<container>>{
+    rectangle "stroom-auth-service" as stroom_auth_service_container <<container>>{
         node "stroom-auth-service" as stroom_auth_service_dropwiz <<java app>>
     }
+    rectangle "stroom-log-sender" as stroom_log_sender <<container>>{
+        node "stroom-log-sender" as stroom_log_sender_script <<script>>
+    }
+
+    stroom_log_sender_script -left-> nginx
 }
 
 !function $concat($name, $id)
@@ -52,39 +61,40 @@ node services_host <<device>> {
     !$stroom_dropwiz_name=$concat("stroom_dropwiz_", $node_id)
     !$stroom_proxy_dropwiz_name=$concat("stroom_proxy_dropwiz_", $node_id)
 
-    node $host_name <<device>> {
-        node "$concat("stroom", $node_id)" as $stroom_dropwiz_name <<java app>>
-        node "$concat("stroom local proxy", $node_id)" as $stroom_proxy_dropwiz_name <<java app>>
+    node "$concat("stroom host ", $node_id)" as $host_name <<device>> {
+        node "$concat("stroom ", $node_id)" as $stroom_dropwiz_name <<java app>>
+        node "$concat("stroom-proxy (local) ", $node_id)" as $stroom_proxy_dropwiz_name <<java app>>
     }
     ' Database connections
     $stroom_dropwiz_name --> stroom_db
     $stroom_dropwiz_name --> stroom_stats_db
     ' API Gateway connection
-    $stroom_dropwiz_name --> nginx : HTTP:80\nAuth REST calls
+    $stroom_dropwiz_name --> nginx
+    $stroom_proxy_dropwiz_name --> nginx
 
     'Reverse proxy connections
-    nginx --> $stroom_dropwiz_name : HTTP:8080\n/stroom Rev. proxy
-    nginx --> $stroom_dropwiz_name : HTTP:8080\n/datafeeddirect Rev. proxy
-    nginx --> $stroom_proxy_dropwiz_name : HTTP:8090\n/datafeed Rev. proxy
+    nginx --> $stroom_dropwiz_name
+    nginx --> $stroom_proxy_dropwiz_name
 !endfunction
 
 together {
     add_stroom_host("1")
-    'add_stroom_host("2")
+    add_stroom_host("2")
 }
 
 'DB connections
 stroom_auth_service_dropwiz --> stroom_auth_db
 
 'Client connections
-ui_client_browser --> nginx : HTTPS:443\n/stroom/ui
-dataload_client_app --> nginx : HTTPS:443\n/datafeed
+ui_client_browser --> nginx
+dataload_client_app --> nginx
+remote_proxy --> nginx
 
 'Reverse proxy connections
-nginx --> stroom_auth_ui_nginx : HTTP:????\nRev. proxy
-nginx --> stroom_auth_service_dropwiz : HTTP:????\nRev. proxy
+nginx --> stroom_auth_ui_nginx
+nginx --> stroom_auth_service_dropwiz
 
-stroom_auth_ui_nginx --> nginx : HTTP:????\nREST calls
+'stroom_auth_ui_nginx --> nginx
 
 
 ' see http://plantuml.com/skinparam & https://github.com/plantuml/plantuml/pull/31
