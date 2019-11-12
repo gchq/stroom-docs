@@ -2,22 +2,40 @@
 
 The diagram below shows the logical architecture of Stroom v6.
 It is not concerned with how/where the various services are deployed.
+This page describes represents a reference architecture and deployment for stroom but it is possible to deploy the various services in many different ways, e.g. using a different web server to Nginx or introducing load balancers.
 
 ![Logical Architecture Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/install-guide/stroom-6-architecture.puml&random=2)
 
-In stroom v6, a central nginx is key to the whole architecture.
+## Nginx
+
+In stroom v6, a central Nginx is key to the whole architecture.
 It acts in the following capacities:
 
-* The termination point for client SSL traffic.
-* An API gateway for all service traffic.
 * A reverse proxy to abstract clients from the multiple service instances.
+* An API gateway for all service traffic.
+* The termination point for client SSL traffic.
 
-All inter-service calls go via the nginx gateway so each service only needs to know the location of the nginx gateway.
-Nginx will reverse proxy all requests to the appropriate instance of an upstream service.
+### Reverse Proxy
 
-All SSL termination is handled by nginx.
+Nginx is used to reverse proxy all client connections (even those from within the estate) to the various services that sit behind it.
+For example, a client request to `https://nginx-host/stroom` will be reverse proxied to `http://a-stroom-host:8080/stroom`.
+Nginx is responsible for selecting the upstream server to reverse proxy to.
+It is possible to use multiple instances of Nginx for redundancy or improved performance, however care needs to be taken to ensure all requests for a session go to the same Nginx instance, i.e. sticky sessions.
+Some requests are stateful and some are stateless but the Nginx config will reverse proxy them accordingly.
 
-The grey dashed lines on the diagram attempt to show the effective inter-service connections that are being made if you ignore the nginx reverse proxying.
+### API Gateway
+
+Nginx is also used as an API gateway.
+This means all inter-service calls go via the Nginx gateway so each service only needs to know the location of the Nginx gateway.
+Nginx will then reverse proxy all requests to the appropriate instance of an upstream service.
+
+The grey dashed lines on the diagram attempt to show the effective inter-service connections that are being made if you ignore the Nginx reverse proxying.
+
+### SSL Termination
+
+All SSL termination is handled by Nginx.
+Nginx holds the server and certificate authority certificate and will authenticate the client requests if the client has a certificate.
+Any client certificate details will be passed on to the service that is being reverse proxied.
 
 ## Physical Deployment
 
