@@ -5,7 +5,7 @@ Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and 
 
 > _NOTE_: The published docker images are intended for small scale testing or evaluation purposes and are currently un-tested in a production environment.
 
-## Stroom v6.x pre-release
+## Stroom v6.x release
 
 ### Prerequisites
 
@@ -24,16 +24,16 @@ This will install the core stack (Stroom and the peripheral services required to
 
 Visit [stroom-resources/releases](https://github.com/gchq/stroom-resources/releases) and find the latest stroom_core release and copy the link to the associated `stroom_core*.tar.gz` archive file.
 
-Using `stroom_core-v6.0-beta.11-2` as an example:
+Using `stroom_core-v6.0.19` as an example:
 
-```bash
+``` bash
 # Set the release version to download
-export STROOM_STACK_VER="stroom_core-v6.0-beta.11-2"
+export STROOM_STACK_VER="stroom_core-v6.0.19"
 
 # Make the stack directory
 mkdir ${STROOM_STACK_VER}
 
-# Download and extract the Stroom stack into the directory stroom_core-v6.0-beta.11-2
+# Download and extract the Stroom stack into the directory stroom_core-vX.Y.Z
 curl -sL https://github.com/gchq/stroom-resources/releases/download/${STROOM_STACK_VER}/${STROOM_STACK_VER}.tar.gz | tar xz -C ${STROOM_STACK_VER}
 
 # Navigate into the new stack directory, where xxxx is the directory that has just been created
@@ -45,7 +45,7 @@ cd ${STROOM_STACK_VER}
 
 Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest release using:
 
-```bash
+``` bash
 # Download and extract the Stroom stack
 bash <(curl -s https://gchq.github.io/stroom-resources/get_stroom.sh)
 
