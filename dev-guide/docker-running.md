@@ -49,8 +49,8 @@ Alternatively if you understand the risks of redirecting web sourced content dir
 # Download and extract the Stroom stack
 bash <(curl -s https://gchq.github.io/stroom-resources/get_stroom.sh)
 
-# Navigate into the new stack directory, where xxxx is the directory that has just been created
-cd stroom_core-xxxx
+# Navigate into the new stack directory
+cd stroom_core_test/stroom_core_test*
 
 # Start the stack
 ./start.sh
