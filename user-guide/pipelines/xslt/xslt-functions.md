@@ -28,7 +28,9 @@ The following functions are available to aid your translation:
 * `col-to()` - The column in the input that the current record ends at.
 * `current-time()` - The current system time
 * `current-user()` - The current user logged into Stroom (only relevant for interactive use, e.g. search)
+* `decode-url(String encodedUrl)` - Decode the provided url.
 * `dictionary(String name)` - Loads the contents of the named dictionary for use within the translation
+* `encode-url(String url)` - Encode the provided url.
 * `feed-name()` - Name of the feed for the data being processed
 * `format-date(String date, String pattern)` - Format a date that uses the specified pattern using the default time zone
 * `format-date(String date, String pattern, String timeZone)` - Format a date that uses the specified pattern with the specified time zone

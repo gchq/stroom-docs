@@ -6,7 +6,8 @@ The following replacement variables are specific to the current processing conte
 
 * `${feed}` - The name of the feed that the stream being processed belongs to
 * `${pipeline}` - The name of the pipeline that is producing output
-* `${streamId}` - The id of the stream being processed
+* `${sourceId}` - The id of the input data being processed
+* `${partNo}` - The part number of the input data being processed where data is in aggregated batches
 * `${searchId}` - The id of the batch search being performed. This is only available during a batch search
 * `${node}` - The name of the node producing the output
 
