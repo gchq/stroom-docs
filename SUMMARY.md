@@ -27,6 +27,7 @@
 
 ### 3. User Guide
 
+* [Properties](user-guide/properties.md)
 * [Nodes](user-guide/nodes.md)
 * [Volumes](user-guide/volumes.md)
 * [Tasks](user-guide/tasks.md)
