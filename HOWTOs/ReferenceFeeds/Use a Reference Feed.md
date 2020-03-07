@@ -10,8 +10,7 @@ HOWTO - Creating a Simple Reference Feed
 
 ## **Using a Reference Feed**
 
-To use a Reference Feed, one uses the STROOM xslt function STROOM:lookup(). This function is found within the xml namespSTROOM
-xmlns:STROOM="http://accounting/xml/ns/xslt".
+To use a Reference Feed, one uses the Stroom xslt function stroom:lookup(). This function is found within the xml namespace xmlns:stroom="stroom".
 
 The lookup function has two mandatory arguments and two optional as per
 
@@ -49,21 +48,21 @@ Lets say, we have the Event fragment
 
 then the following XSLT would lookup our GEOHOST Reference map to find the FQDN of our client
 
-<xsl:variable name="chost" select="STROOM:lookup('IP_TO_FQDN',  Event/EventSource/Client/IPAddress)" />
+<xsl:variable name="chost" select="stroom:lookup('IP_TO_FQDN',  Event/EventSource/Client/IPAddress)" />
 
 And the XSLT to find the IP Address for our Server would be
 
-<xsl:variable name="sip" select="STROOM:lookup('FQDN_TO_IP',  Event/EventSource/Server/HostName)"  />
+<xsl:variable name="sip" select="stroom:lookup('FQDN_TO_IP',  Event/EventSource/Server/HostName)"  />
 
-In practice, one would also pass the element as well as setting ignoreWarnings to true(). IE
+In practice, one would also pass the element as well as setting ignoreWarnings to true(). i.e.
 
-<xsl:variable name="chost" select="STROOM:lookup('IP_TO_FQDN',  Event/EventSource/Client/IPAddress, Event/EventTime/TimeCreated, true())"  />
+<xsl:variable name="chost" select="stroom:lookup('IP_TO_FQDN',  Event/EventSource/Client/IPAddress, Event/EventTime/TimeCreated, true())"  />
 ...
-<xsl:variable name="sip" select="STROOM:lookup('FQDN_TO_IP',  Event/EventSource/Client/IPAddress, Event/EventTime/TimeCreated, true())"  />
+<xsl:variable name="sip" select="stroom:lookup('FQDN_TO_IP',  Event/EventSource/Client/IPAddress, Event/EventTime/TimeCreated, true())"  />
 
 ## **Modifying an Event feed to use a Reference Feed**
 
-We will now modify an Event feed to have it lookup our GEOHOST reference maps to add additional information to the event. The feed for this exercise is the ApacheHttpd-BlackBox-V1.0-EVENTS event feed which processes Apache HTTPD SSL logs which make use of a variation on the BlackBox log format. We will step through a Raw Event stream and modify the translation directly. This way, we see the changes directly.
+We will now modify an Event feed to have it lookup our GEOHOST reference maps to add additional information to the event. The feed for this exercise is the Apache-SSL-BlackBox-V2.0-EVENTS event feed which processes Apache HTTPD SSL logs which make use of a variation on the BlackBox log format. We will step through a Raw Event stream and modify the translation directly. This way, we see the changes directly.
 
 Using the Explorer pane’s _Quick Filter_, entry box, we will find the Apache feed. 
 
