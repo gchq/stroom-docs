@@ -1,0 +1,159 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.1.xsd" version="3.0">
+
+<!-- CLASSIFICATION: UNCLASSIFIED -->
+
+<!-- Release History:
+Release 20131001, 1 Oct 2013 - Initial release 
+
+General Notes: 
+This data splitter takes audit events for the Stroom variant of the Black Box Apache Auditing.
+
+Event Format: The following is extracted from the Configuration settings for the Stroom variant of the Black Box Apache Auditing format.
+
+#  Stroom - Black  Box  Auditing configuration
+#
+#  %a  - Client  IP address  (not  hostname (%h) to ensure ip address only)
+#  When  logging the remote host,  it is important to log the client  IP address, not the
+#  hostname. We do   this  with the '%a' directive.  Even  if HostnameLookups  are turned on,
+#  using '%a' will  only record the IP address.  For the purposes of BlackBox formats,
+#  reversed DNS should not  be trusted
+
+#  %{REMOTE_PORT}e  - Client source port
+#  Logging the client  source TCP  port  can provide some   useful  network data and can help
+#  one associate a single client  with multiple requests.
+#  If two   clients from the  same IP address  make   simultaneous connections, the 'common  log'
+#  file format cannot distinguish  between those  clients. Otherwise, if  the client uses
+#  keep-alives, then every hit  made   from a single  TCP  session will  be associated  by   the  same
+#  client  port number.
+#  The   port information can indicate  how  many   connections our server is  handling at  once,
+#  which may  help in tuning server TCP/OP   settings. It will also identify which client ports
+#  are legitimate requests if  the administrator is examining a possible  SYN-attack against  a
+#  server.
+#  Note we  are using the REMOTE_PORT  environment variable. Environment variables  only come
+#  into play when   mod_cgi or  mod_cgid is  handling the request.
+
+#  %X   - Connection status  (use %c  for  Apache 1.3)
+#  The   connection status  directive  tells us detailed  information about the client  connection.
+#  It returns  one of three flags:
+#  x  if the client aborted the connection before completion,
+#  +  if  the client has indicated that it will  use keep-alives (and request additional  URLS),
+#  - if the connection will  be closed after  the event
+#  Keep-Alive is a HTTP 1.1.  directive  that  informs a web  server that  a client  can request multiple
+#  files during the  same connection.  This way  a client  doesn't need to go   through the  overhead
+#  of re-establishing  a TCP  connection to retrieve  a new  file.
+
+#  %t  - time - or  [%{%d/%b/%Y:%T}t.%{msec_frac}t %{%z}t] for  Apache 2.4
+#  The   %t  directive  records the time that  the request started.
+#  NOTE:  When  deployed on   an  Apache 2.4, or better,  environment, you   should use
+#  strftime  format in  order  to  get  microsecond resolution.
+
+#  %l  - remote logname
+#
+
+#  %u - username [in quotes]
+#  The   remote user  (from auth;  This may  be bogus if the return status  (%s) is  401
+#  for non-ssl services)
+#  For SSL  services,  user names need to  be delivered  as DNs  to deliver PKI   user details
+#  in full.  To  pass through PKI   certificate  properties in the correct form you   need to
+#  add the following directives  to your  Apache configuration:
+#  SSLUserName   SSL_CLIENT_S_DN
+#  SSLOptions +StdEnvVars
+#  If you   cannot,  then use %{SSL_CLIENT_S_DN}x   in place of %u and use  blackboxSSLUser
+#  LogFormat nickname
+
+#  %r  - first  line of text sent by   web  client [in quotes]
+#  This is the first  line of text send by   the web  client, which includes the request
+#  method, the  full URL,  and the  HTTP protocol.
+
+#  %s  - status  code before any redirection
+#  This is  the status  code of the original request.
+
+#  %>s  - status  code after  any redirection  has taken place
+#  This is  the final  status  code of the request, after  any internal  redirections  may
+#  have taken  place.
+
+#  %D   - time in  microseconds to handle the request
+#  This is the  number of microseconds the  server  took to  handle the  request  in  microseconds
+
+#  %I  - incoming bytes
+#  This is  the bytes received, include request and headers. It  cannot, by   definition be zero.
+
+#  %O   - outgoing bytes
+#  This is  the size in bytes of the outgoing data,  including HTTP headers. It  cannot,  by
+#  definition be zero.
+
+#  %B  - outgoing content bytes
+#  This is  the size in bytes of the outgoing data,  EXCLUDING  HTTP headers.  Unlike %b,   which
+#  records '-' for zero bytes transferred,  %B  will record '0'.
+
+#  %{Referer}i - Referrer HTTP Request  Header [in quotes]
+#  This is  typically the URL of the page that  made   the request.  If  linked from
+#  e-mail or direct  entry this  value will be empty. Note, this  can be spoofed
+#  or turned off
+
+#  %{User-Agent}i - User agent HTTP Request  Header [in quotes]
+#  This is  the identifying information the client  (browser) reports about itself.
+#  It can be spoofed or  turned  off
+ 
+#  %V   - the server name   according to the UseCannonicalName setting
+#  This identifies  the virtual  host in a multi host webservice
+
+#  %p - the canonical port of the server servicing the request
+
+#  Define a variation  of the Black Box  logs
+#
+#  Note, you   only need to  use the  'blackboxSSLUser' nickname if you cannot set  the
+#  following directives  for any SSL  configurations
+#  SSLUserName   SSL_CLIENT_S_DN
+#  SSLOptions +StdEnvVars
+#  You  will also note the variation for no   logio  module. The   logio  module supports
+#  the %I  and %O   formatting directive
+#
+<IfModule mod_logio.c> LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%u\" \"%r\" %s/%>s %D I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxUser LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN}x\" \"%r\" %s/%>s %D %I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxSSLUser </IfModule> <IfModule !mod_logio.c> LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%u\" \"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxUser LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN}x\" \"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxSSLUser </IfModule> -->
+
+<!--  Match line -->
+<split  delimiter="\n">
+    <group>
+        <regex pattern="^([^/]+)/([^ ]+) ([^ ]+) \[([^\]]+)] ([^ ]+) &#34;([^&#34;]+)&#34; &#34;([^&#34;]+)&#34; (\d+)/(\d+) (\d+) ([^/]+)/([^/]+)/(\d+) &#34;([^&#34;]+)&#34; &#34;([^&#34;]+)&#34; ([^/]+)/([^ ]+)">
+            <data name="clientip"  value="$1" />
+            <data name="clientport"  value="$2" />
+            <data name="constatus" value="$3" />
+            <data  name="time" value="$4"  />
+            <data  name="remotelname" value="$5"  />
+            <data  name="user" value="$6" />
+            <data  name="url" value="$7">
+                <group value="$7" ignoreErrors="true">
+                <!-- 
+                Special case the "GET  /" url string as opposed to  the  more standard  "method url protocol/protocol_version".
+                Also special  case a url  of "-"  which occurs  on   some   errors  (eg 408)
+                -->
+                    <regex pattern="^-$">
+                        <data  name="url" value="error" />
+                    </regex>
+                    <regex pattern="^([^ ]+) (/)$">
+                        <data  name="httpMethod" value="$1"  />
+                        <data  name="url" value="$2" />
+                    </regex>
+                    <regex pattern="^([^ ]+) ([^  ]+) ([^ /]*)/([^  ]*)">
+                        <data  name="httpMethod" value="$1"  />
+                        <data  name="url" value="$2" />
+                        <data  name="protocol" value="$3" />
+                        <data  name="version" value="$4" />
+                    </regex>
+                </group>
+            </data>
+            <data  name="responseB" value="$8"  />
+            <data  name="response" value="$9" />
+            <data  name="timeM" value="$10" />
+            <data  name="bytesIn" value="$11" />
+            <data  name="bytesOut" value="$12"  />
+            <data  name="bytesOutContent" value="$13" />
+            <data name="referer"  value="$14" />
+            <data  name="userAgent" value="$15"  />
+            <data  name="vserver" value="$16" />
+            <data name="vserverport"  value="$17" />
+        </regex>
+    </group>
+</split>
+</dataSplitter>
