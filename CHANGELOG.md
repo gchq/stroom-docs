@@ -6,25 +6,27 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
-* Add `properties.md` place holder
+* Complete `properties.md` for Stroom v7.
 
-* Update `stroom-6-architecture.md`
+* Add `properties.md` place holder.
 
-* Update version numbers in `docker-running.md`
+* Update `stroom-6-architecture.md`.
 
-* Add grouping rectangle to architecture and deployment diagrams
+* Update version numbers in `docker-running.md`.
+
+* Add grouping rectangle to architecture and deployment diagrams.
 
 * Fix typo.
 
 * Fix broken links.
 
-* Add `stroom-6-architecture.md`
+* Add `stroom-6-architecture.md`.
 
-* Add detail to prerequisites section in `docker-running.md`
+* Add detail to prerequisites section in `docker-running.md`.
 
-* Fix markdown syntax in `InstallHowTo.md`
+* Fix markdown syntax in `InstallHowTo.md`.
 
-* Add System Properties HOWTO
+* Add System Properties HOWTO.
 
 * Added initial section to dev guide to describe stroom component project structure.
 
