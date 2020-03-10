@@ -1,8 +1,8 @@
 # **HOWTO - Apache HTTPD Event Feed**
 
-The following will take you though the process of creating an Event Feed in Stroom.
+The following will take you through the process of creating an Event Feed in Stroom.
 
-In this example, the logs are in a well defined, line based, text format so we will use a Data Splitter parser to transform the logs into simple record based XML and then a XSLT translation to normalise them into the Event schema.
+In this example, the logs are in a well-defined, line based, text format so we will use a Data Splitter parser to transform the logs into simple record-based XML and then a XSLT translation to normalise them into the Event schema.
 
 A separate document will describe the method of automating the storage of normalised events for this feed. Further, we will not Decorate these events. Again, Event Decoration is described in another document.
 
@@ -15,7 +15,7 @@ HOWTO - Enabling Processors for a Pipeline
 
 For this example, we will use logs from an Apache HTTPD Web server. In fact, the web server in front of Stroom.
 
-To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension the the BlackBox format. The format is described and defined below. This is an extract from a httpd configuration file (/etc/httpd/conf/httpd.conf)
+To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension of the BlackBox format. The format is described and defined below. This is an extract from a httpd configuration file (/etc/httpd/conf/httpd.conf)
 
 ```
 #  Stroom - Black  Box  Auditing configuration
@@ -150,9 +150,9 @@ As Stroom can use PKI for login, you can configure Stroom’s Apache to make use
 
 A copy of this sample data source can be found [here](sampleApacheBlackBox.log "Apache BlackBox sample log"). Save a copy of this data to your local environment for use later in this HowTo.
 
-## **Create the Feed and it’s Pipeline**
+## **Create the Feed and its Pipeline**
 
-To reflect the source of these Accounting Logs, we will name our feed and it’s pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group
+To reflect the source of these Accounting Logs, we will name our feed and its pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group
 Apache  HTTPD under the main system group - Feeds  and Translations.
 
 ### **Create System Group**
@@ -170,7 +170,7 @@ The click on **OK** at which point you will be presented with the Apache HTTPD s
 
 ![Stroom UI ApacheHTTPDEventFeed - Apache System Group tab](../resources/v6/UI-ApacheHttpEventFeed-02.png "Create System Group tab")
 
-Close the Apache HTTPD system group configuration tab by clicking on the close item icon on the right hand side of the tab ![close](../resources/icons/closeItem.png "closeItem"). We now need to create, in order
+Close the Apache HTTPD system group configuration tab by clicking on the close item icon on the right-hand side of the tab ![close](../resources/icons/closeItem.png "closeItem"). We now need to create, in order
 - the Feed,
 - the Text Parser,
 - the Translation and finally,
@@ -184,7 +184,7 @@ Within the Explorer pane, and having selected the Apache HTTPD group, right clic
 
 Select the Feed icon ![feed](../resources/icons/feedItem.png "feedItem"), when the **New Feed** selection window comes up, ensure the `Apache HTTPD` system group is selected or navigate to it. Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box the press **OK**. 
 
-It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{4,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties.md "System Properties") docment to see how to make this change.
+It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{4,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties.md "System Properties") document to see how to make this change.
 
 ![Stroom UI ApacheHTTPDEventFeed - New Feed dialog](../resources/v6/UI-ApacheHttpEventFeed-04.png "New Feed dialog")
 
@@ -284,7 +284,7 @@ Save the pipeline by clicking on the ![save](../resources/icons/save.png "Save")
 
 We now need to select the structure this pipeline will use. We need to move from the **Settings** sub-item on the pipeline configuration tab to the **Structure** sub-item. This is done by clicking on the **Structure** link, at which we see
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline Strructure](../resources/v6/UI-ApacheHttpEventFeed-17.png "New Pipeline Structure")
+![Stroom UI ApacheHTTPDEventFeed - New Pipeline Structure](../resources/v6/UI-ApacheHttpEventFeed-17.png "New Pipeline Structure")
 
 Next we will choose an Event Data pipeline. This is done by inheriting it from a defined set of Template Pipelines. To do this, click on the menu selection icon  to the right of the Inherit From: text display box.
 
@@ -304,8 +304,8 @@ then press **OK**. At this we see the inherited pipeline structure of
 
 For the purpose of this HOWTO, we are only interested in two of the eleven (11) elements in this pipeline
 
- * the Text Converter labeled *dsParser*
- * the XSLT Translation labeled *translationFilter*
+ * the Text Converter labelled *dsParser*
+ * the XSLT Translation labelled *translationFilter*
 
 We now need to associate our Text Converter and Translation with the pipeline so that we can pass raw events (logs) through our pipeline in order to save them in the Event Store.
 
@@ -335,7 +335,7 @@ Again press _OK_ to finish editing this property and we see that the _textConver
 
 We perform the same actions to associate the translation.
 
-First, we select the translation Filter’s ![translationFilter](../resources/icons/translationFilter.png "Translation Filter") icon and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**. As before, bring up the **Choose item** selection window, navigate the to `Apache HTTPD` system group and select the
+First, we select the translation Filter’s ![translationFilter](../resources/icons/translationFilter.png "Translation Filter") icon and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**. As before, bring up the **Choose item** selection window, navigate to the `Apache HTTPD` system group and select the
 Apache-SSLBlackBox-V2.0-EVENTS xslt Translation.
 
 ![Stroom UI ApacheHTTPDEventFeed - New Pipeline Translation association](../resources/v6/UI-ApacheHttpEventFeed-26.png "New Pipeline Translation association")
@@ -346,7 +346,7 @@ We leave the remaining properties in the translation Filter’s **Property** pan
 
 For the moment, we will not associate a decoration filter. 
 
-Save the pipeline by clicking on it’s ![save](../resources/icons/save.png "Save") icon.
+Save the pipeline by clicking on its ![save](../resources/icons/save.png "Save") icon.
 
 ### **Manually load Raw Event test data**
 
@@ -376,10 +376,10 @@ Note the Upload icon ![upload](../resources/icons/upload.png "Upload") in the to
 
 ![Stroom UI ApacheHTTPDEventFeed - Data Loading - Upload Data](../resources/v6/UI-ApacheHttpEventFeed-33.png "Data Loading - Upload Data")
 
-As stated earlier, raw event data is normally posted as a file to the Stroom web server. As part of this posting action, a set of well defined HTTP _extra headers_ are sent as part of the post. These headers, in the form of key value pairs, provide additional context associated with the system sending the logs. These standard headers become Stroom _feed attributes_ available to the Stroom translation. Common attributes are
+As stated earlier, raw event data is normally posted as a file to the Stroom web server. As part of this posting action, a set of well-defined HTTP _extra headers_ are sent as part of the post. These headers, in the form of key value pairs, provide additional context associated with the system sending the logs. These standard headers become Stroom _feed attributes_ available to the Stroom translation. Common attributes are
 
 -  System - the name of the System providing the logs
--  Environment - the environment of the system (Production, QualityAssurance, Reference, Development)
+-  Environment - the environment of the system (Production, Quality Assurance, Reference, Development)
 -  Feed - the feedname itself
 -  MyHost - the fully qualified domain name of the system sending the logs
 -  MyIPaddress - the IP address of the system sending the logs
@@ -412,7 +412,7 @@ and _Data/Meta-data_ panes are still blank.
 
 ![Stroom UI ApacheHTTPDEventFeed - Data Loading - Streams Table](../resources/v6/UI-ApacheHttpEventFeed-38.png "Data Loading - Streams Table")
 
-If we select the stream by clicking anywhere along it’s line, the stream is highlighted and the _Specific Stream_ and Data/Meta-data_ panes now display data.
+If we select the stream by clicking anywhere along its line, the stream is highlighted and the _Specific Stream_ and Data/Meta-data_ panes now display data.
 
 ![Stroom UI ApacheHTTPDEventFeed - Data Loading - Streams Table](../resources/v6/UI-ApacheHttpEventFeed-39.png "Data Loading - Streams Table")
 
@@ -462,7 +462,9 @@ This _stepping_ tab is divided into three sub-panes. The top one is the Text Con
 
 We also note an error indicator - that of an error in the editor pane as indicated by the black back-grounded x and rectangular black boxes to the right of the editor’s scroll bar.
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Error](../resources/v6/UI-ApacheHttpEventFeed-47.png "pipeline Stepping tab - Error"). In essence, this means that we have no text converter to pass the Raw Event data through.
+![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Error](../resources/v6/UI-ApacheHttpEventFeed-47.png "pipeline Stepping tab - Error") 
+
+In essence, this means that we have no text converter to pass the Raw Event data through.
 
 To correct this, we will author our text converter using the Data Splitter _language_. Normally this is done incrementally to more easily develop the parser. The minimum text converter contains
 
@@ -673,7 +675,7 @@ Event Format: The following is extracted from the Configuration settings for the
 </split>
 </dataSplitter>
 ```
-A copy of this Data Splitter can be found [here](ApacheHTTPDBlackBox-DataSplitter.txt "ApacheHTTPD BlackBox - Data Slpitter").
+A copy of this Data Splitter can be found [here](ApacheHTTPDBlackBox-DataSplitter.txt "ApacheHTTPD BlackBox - Data Splitter").
 
 If we now press the Step First ![stepFirst](../resources/icons/stepFirst.png "Step first") icon we will see the complete parsed record
 
@@ -687,11 +689,11 @@ we click on the Step Last ![stepLast](../resources/icons/stepLast.png "Step Last
 
 ![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Complete last event](../resources/v6/UI-ApacheHttpEventFeed-52.png "pipeline Stepping tab - Text Converter Complete last event")
 
-You should take note of the stepping key that has been displayed in each stepping window. The stepping key are the numbers enclosed in square brackets e.g. [297:1:1] found in the top right hand side of the stepping window next to the stepping icons
+You should take note of the stepping key that has been displayed in each stepping window. The stepping key are the numbers enclosed in square brackets e.g. [297:1:1] found in the top right-hand side of the stepping window next to the stepping icons
 
 ![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Stepping Key](../resources/v6/UI-ApacheHttpEventFeed-53.png "pipeline Stepping tab - Stepping Key")
 
-The form of these keys are [ streamId ':' subStreamId ':' recordNo]
+The form of these keys is [ streamId ':' subStreamId ':' recordNo]
 
 where
 
