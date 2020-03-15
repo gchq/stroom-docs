@@ -110,7 +110,7 @@
   * [Event Processing](HOWTOs/EventFeeds/ProcessingHowTo.md)
   * [Apache HTTPD Event Feed](HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed.md)
 * Reference Feeds
-  * [Create Reference Feed](HOWTOs/EventFeeds/CreateSimpleReferenceFeed.md)
+  * [Create Reference Feed](HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)
 * Administration
   * [System Properties](HOWTOs/Administration/SystemProperties.md)
 
