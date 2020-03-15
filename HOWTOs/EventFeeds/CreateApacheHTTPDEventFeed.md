@@ -1,4 +1,4 @@
-# **HOWTO - Apache HTTPD Event Feed**
+# Stroom HOWTO - Apache HTTPD Event Feed
 
 The following will take you through the process of creating an Event Feed in Stroom.
 
@@ -6,18 +6,18 @@ In this example, the logs are in a well-defined, line based, text format so we w
 
 A separate document will describe the method of automating the storage of normalised events for this feed. Further, we will not Decorate these events. Again, Event Decoration is described in another document.
 
-Author: John Doe
-Last Updated: 7 Mar 2020
+Author: John Doe \
+Last Updated: 7 Mar 2020 \
 Recommended Additional Documentation: 
 HOWTO - Enabling Processors for a Pipeline
 
-## **Event Log Source**
+## Event Log Source
 
 For this example, we will use logs from an Apache HTTPD Web server. In fact, the web server in front of Stroom.
 
 To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension of the BlackBox format. The format is described and defined below. This is an extract from a httpd configuration file (/etc/httpd/conf/httpd.conf)
 
-```
+``` 
 #  Stroom - Black  Box  Auditing configuration
 #
 #  %a  - Client  IP address  (not  hostname (%h) to ensure ip address only)
@@ -117,21 +117,23 @@ To get the optimal information from the Apache HTTPD access logs, we define our 
 #  You  will also note the variation for no   logio  module. The   logio  module supports
 #  the %I  and %O   formatting directive
 #
+
 <IfModule mod_logio.c>
-LogFormat "%a/%{REMOTE_PORT}e  %X   %t  %l  \"../../"%r\" %s/%>s   %D   %I/%O/%B  \"%{Referer}i\"  \"%{User-Agent}i\" %V/%p"  blackboxUser
-LogFormat "%a/%{REMOTE_PORT}e  %X   %t  %l  \"%{SSL_CLIENT_S_DN../../"%r\" %s/%>s   %D   %I/%O/%B  \"%{Referer}i\"  \"%{User-Agent}i\" %V/%p"  blackboxSSLUser
+   LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"../../"%r\" %s/%>s %D %I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxUser
+   LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN../../"%r\" %s/%>s %D %I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxSSLUser
 </IfModule>
 <IfModule !mod_logio.c>
-LogFormat "%a/%{REMOTE_PORT}e  %X   %t  %l  \"../../"%r\" %s/%>s   %D   0/0/%B  \"%{Referer}i\"  \"%{User-Agent}i\" %V/$p"  blackboxUser
-LogFormat "%a/%{REMOTE_PORT}e  %X   %t  %l  \"%{SSL_CLIENT_S_DN../../"%r\" %s/%>s   %D   0/0/%B  \"%{Referer}i\"  \"%{User-Agent}i\" %V/$p"  blackboxSSLUser
+   LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"../../"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxUser
+   LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN../../"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxSSLUser
 </IfModule>
+
 ```
 
-A copy of this sample data source can be found [here](ApacheHTTPDAuditConfig.txt "Apache BlackBox Auditing Configuration"). Save a copy of this data to your local environment for use later in this HowTo.
+A copy of this configuration can be found [here](ApacheHTTPDAuditConfig.txt "Apache BlackBox Auditing Configuration"). 
 
 As Stroom can use PKI for login, you can configure Stroom’s Apache to make use of the blackboxSSLUser log format. A sample set of logs in this format appear below.
 
-```
+```text
 192.168.4.220/61801 - [18/Jan/2020:12:39:04 -0800] - "/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)" "POST /accounting/ui/dispatch.rpc HTTP/1.1" 200/200 21221 2289/415/14 "https://host01.company4.org/accounting/" "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36" host01.company4.org/443
 192.168.4.220/61854 - [18/Jan/2020:12:40:04 -0800] - "/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)" "POST /accounting/ui/dispatch.rpc HTTP/1.1" 200/200 7889 2289/415/14 "https://host01.company4.org/accounting/" "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36" host01.company4.org/443
 192.168.4.220/61909 - [18/Jan/2020:12:41:04 -0800] - "/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)" "POST /accounting/ui/dispatch.rpc HTTP/1.1" 200/200 6901 2389/3796/14 "https://host01.company4.org/accounting/" "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36" host01.company4.org/443
@@ -148,14 +150,13 @@ As Stroom can use PKI for login, you can configure Stroom’s Apache to make use
 192.168.2.245/62626 - [18/Jan/2020:12:52:04 +0200] - "/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)" "POST /accounting/ui/dispatch.rpc HTTP/1.1" 200/200 11386 2289/415/14 "https://stroomnode00.strmdev01.org/accounting/" "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36" stroomnode00.strmdev01.org/443
 ```
 
-A copy of this sample data source can be found [here](sampleApacheBlackBox.log "Apache BlackBox sample log"). Save a copy of this data to your local environment for use later in this HowTo.
+A copy of this sample data source can be found [here](sampleApacheBlackBox.log "Apache BlackBox sample log"). Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.
 
-## **Create the Feed and its Pipeline**
+## Create the Feed and its Pipeline
 
-To reflect the source of these Accounting Logs, we will name our feed and its pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group
-Apache  HTTPD under the main system group - Feeds  and Translations.
+To reflect the source of these Accounting Logs, we will name our feed and its pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group Apache HTTPD under the main system group - `Event Sources`.
 
-### **Create System Group**
+### Create System Group
 
 To create the system group Apache  HTTPD, navigate to the _Event Sources/Infrastructure/WebServer_ system group within the Explorer pane (if this system group structure does not already exist in your Stroom instance then refer to the **HOWTO Stroom Explorer Management** for guidance). Left click to highlight the
 _WebServer_ system group then right click to bring up the object context menu. Navigate to the _New_ icon, then the _Folder_ icon to reveal the _New Folder_ selection window.
@@ -171,12 +172,12 @@ The click on **OK** at which point you will be presented with the Apache HTTPD s
 ![Stroom UI ApacheHTTPDEventFeed - Apache System Group tab](../resources/v6/UI-ApacheHttpEventFeed-02.png "Create System Group tab")
 
 Close the Apache HTTPD system group configuration tab by clicking on the close item icon on the right-hand side of the tab ![close](../resources/icons/closeItem.png "closeItem"). We now need to create, in order
-- the Feed,
-- the Text Parser,
-- the Translation and finally,
-- the Pipeline.
+* the Feed,
+* the Text Parser,
+* the Translation and finally,
+* the Pipeline.
 
-### **Create Feed**
+### Create Feed
 
 Within the Explorer pane, and having selected the Apache HTTPD group, right click to bring up object context menu. Navigate to New, Feed
 
@@ -215,7 +216,7 @@ This results in
 
 Save the feed by clicking on the ![save](../resources/icons/save.png "Save") icon.
 
-### **Create Text Converter**
+### Create Text Converter
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the ![new-v6](../resources/icons/newItemv6.png "New") icon to reveal the New sub-context menu. Next, navigate to the ![textConverterItem](../resources/icons/save.png "Text Converter Item")  Text Converter item
 
@@ -239,7 +240,7 @@ Set the **Converter Type:** to be Data Splitter from drop down menu.
 
 Save the text converter by clicking on the ![save](../resources/icons/save.png "Save") icon.
 
-### **Create XSLT Translation**
+### Create XSLT Translation
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the 	New icon to reveal the New sub-context menu. Next, navigate to the ![xsltItem](../resources/icons/xsltItem.png "xsltItem") item and left click to select.
 
@@ -261,7 +262,7 @@ When the **New XSLT** selection window comes up,
 
 Save the XSLT by clicking on the ![save](../resources/icons/save.png "Save") icon.
 
-### **Create Pipeline**
+### Create Pipeline
 
 In the process of creating this pipeline we have assumed that the  **Template Pipeline** content pack has been loaded, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
@@ -318,10 +319,9 @@ Property** selection window that allows you to edit the given property
 
 ![Stroom UI ApacheHTTPDEventFeed - New Pipeline textconverter association](../resources/v6/UI-ApacheHttpEventFeed-22.png "New Pipeline textconverter association")
 
-We leave the Property **Source:** as Inherit but we need to change the Property **Value:** from _None_ to be our newly created Apache-SSLBlackBox-V2.0-EVENTS Text
-Converter.
+We leave the Property **Source:** as Inherit but we need to change the Property **Value:** from _None_ to be our newly created Apache-SSLBlackBox-V2.0-EVENTS Text Converter.
 
-To do this, position the cursor over the menu selection ![menu](../resources/icons/menu-button.png "Menu") icon to the right of the **Value:** text display box and click to select. Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V2.0-EVENTS text Converter
+To do this, position the cursor over the menu selection ![menu](../resources/icons/menu-selection-horizontal.png "Menu") icon to the right of the **Value:** text display box and click to select. Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V2.0-EVENTS text Converter
 
 ![Stroom UI ApacheHTTPDEventFeed - New Pipeline textconverter association](../resources/v6/UI-ApacheHttpEventFeed-23.png "New Pipeline textconverter association")
 
@@ -348,7 +348,7 @@ For the moment, we will not associate a decoration filter.
 
 Save the pipeline by clicking on its ![save](../resources/icons/save.png "Save") icon.
 
-### **Manually load Raw Event test data**
+### Manually load Raw Event test data
 
 Having established the pipeline, we can now start authoring our text converter and translation. The first step is to load some Raw Event test data. Previously in the **Event Log Source** of this HOWTO you saved a copy of the file _sampleApacheBlackBox.log_ to your local environment. It contains only a few events as the content is consistently formatted. We could feed the test data by posting the file to Stroom’s accounting/datafeed url, but for this example we will manually load the file. Once developed, raw data is posted to the web service.
 
@@ -378,20 +378,20 @@ Note the Upload icon ![upload](../resources/icons/upload.png "Upload") in the to
 
 As stated earlier, raw event data is normally posted as a file to the Stroom web server. As part of this posting action, a set of well-defined HTTP _extra headers_ are sent as part of the post. These headers, in the form of key value pairs, provide additional context associated with the system sending the logs. These standard headers become Stroom _feed attributes_ available to the Stroom translation. Common attributes are
 
--  System - the name of the System providing the logs
--  Environment - the environment of the system (Production, Quality Assurance, Reference, Development)
--  Feed - the feedname itself
--  MyHost - the fully qualified domain name of the system sending the logs
--  MyIPaddress - the IP address of the system sending the logs
--  MyNameServer - the name server the system resolves names through
+*  System - the name of the System providing the logs
+*  Environment - the environment of the system (Production, Quality Assurance, Reference, Development)
+*  Feed - the feedname itself
+*  MyHost - the fully qualified domain name of the system sending the logs
+*  MyIPaddress - the IP address of the system sending the logs
+*  MyNameServer - the name server the system resolves names through
 
 Since our translation will want these feed attributes, we will set them in the Meta Data text entry box of the **Upload** selection window. Note we can skip _Feed_ as this will automatically be assigned correctly as part of the upload action (setting it to Apache-SSLBlackBox-V2.0-EVENTS obviously). Our **Meta Data:** will have
 
-- System:LinuxWebServer 
-- Environment:Production 
-- MyHost:stroomnode00.strmdev01.org 
-- MyIPaddress:192.168.2.245
-- MyNameServer:192.168.2.254
+* System:LinuxWebServer 
+* Environment:Production 
+* MyHost:stroomnode00.strmdev01.org 
+* MyIPaddress:192.168.2.245
+* MyNameServer:192.168.2.254
 
 We select a **Stream Type:** of _Raw Events_ as this data is for an _Event Feed_. As this is not a _Reference Feed_ we ignore the **Effective:** entry box (a date/time selector).
 
@@ -422,15 +422,15 @@ The _Specific Stream_ pane only displays the Raw Event stream and the _Data/Meta
 
 Note that, in addition to the feed attributes we set, the upload process added additional feed attributes of
 
--  Feed - the feed name
--  ReceivedTime - the time the feed was received by Stroom
--  RemoteFile - the name of the file loaded
--  StreamSize - the size, in bytes, of the loaded data within the stream
--  user-agent - the user agent used to present the stream to Stroom - in this case, the Stroom user Interface
+*  Feed - the feed name
+*  ReceivedTime - the time the feed was received by Stroom
+*  RemoteFile - the name of the file loaded
+*  StreamSize - the size, in bytes, of the loaded data within the stream
+*  user-agent - the user agent used to present the stream to Stroom - in this case, the Stroom user Interface
 
 We now have data that will allow us to develop our text converter and translation.
 
-### **Step data through Pipeline - Source**
+### Step data through Pipeline - Source
 
  We now need to step our data through the pipeline.
 
@@ -452,7 +452,7 @@ At this point, we enter the pipeline Stepping tab
 
 which, initially displays the Raw Event data from our stream. This is the Source display for the Event Pipeline.
 
-### **Step data through Pipeline - Text Converter**
+### Step data through Pipeline - Text Converter
 
 We click on the ![dsParserv6](../resources/icons/dsParserv6.png "dsParser") icon to enter the Text Converter stepping window.
 
@@ -468,7 +468,7 @@ In essence, this means that we have no text converter to pass the Raw Event data
 
 To correct this, we will author our text converter using the Data Splitter _language_. Normally this is done incrementally to more easily develop the parser. The minimum text converter contains
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8"?>
 <dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.1.xsd" version="3.0">
     <split  delimiter="\n">
@@ -491,7 +491,7 @@ The next incremental step in the parser, would be to _parse out_ additional _dat
 
 With the text converter containing
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8"?>
 <dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.1.xsd" version="3.0">
     <split  delimiter="\n">
@@ -514,7 +514,7 @@ We continue this incremental parsing until we have our complete parser.
 
 The following is our complete Text Converter which generates xml records as defined by the Stroom **records v3.0** schema.
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8"?>
 <dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.1.xsd" version="3.0">
 
@@ -627,7 +627,14 @@ Event Format: The following is extracted from the Configuration settings for the
 #  You  will also note the variation for no   logio  module. The   logio  module supports
 #  the %I  and %O   formatting directive
 #
-<IfModule mod_logio.c> LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%u\" \"%r\" %s/%>s %D I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxUser LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN}x\" \"%r\" %s/%>s %D %I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxSSLUser </IfModule> <IfModule !mod_logio.c> LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%u\" \"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxUser LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN}x\" \"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxSSLUser </IfModule> -->
+<IfModule mod_logio.c> 
+LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%u\" \"%r\" %s/%>s %D I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxUser 
+LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN}x\" \"%r\" %s/%>s %D %I/%O/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/%p" blackboxSSLUser 
+</IfModule> 
+<IfModule !mod_logio.c> 
+LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%u\" \"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxUser 
+LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN}x\" \"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxSSLUser 
+</IfModule> -->
 
 <!--  Match line -->
 <split  delimiter="\n">
@@ -689,7 +696,7 @@ we click on the Step Last ![stepLast](../resources/icons/stepLast.png "Step Last
 
 ![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Complete last event](../resources/v6/UI-ApacheHttpEventFeed-52.png "pipeline Stepping tab - Text Converter Complete last event")
 
-You should take note of the stepping key that has been displayed in each stepping window. The stepping key are the numbers enclosed in square brackets e.g. [297:1:1] found in the top right-hand side of the stepping window next to the stepping icons
+You should take note of the stepping key that has been displayed in each stepping window. The stepping key are the numbers enclosed in square brackets e.g. [146271:1:14] found in the top right-hand side of the stepping window next to the stepping icons
 
 ![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Stepping Key](../resources/v6/UI-ApacheHttpEventFeed-53.png "pipeline Stepping tab - Stepping Key")
 
@@ -697,15 +704,15 @@ The form of these keys is [ streamId ':' subStreamId ':' recordNo]
 
 where
 
--  **streamId** - is the stream ID and won’t change when stepping through the selected stream.
--  **subStreamId** - is the sub stream ID. When STROOM processes event streams it aggregates multiple input files and this is the file number.
--  **recordNo** - is the record number within the sub stream.
+*  **streamId** - is the stream ID and won’t change when stepping through the selected stream.
+*  **subStreamId** - is the sub stream ID. When Stroom processes event streams it aggregates multiple input files and this is the file number.
+*  **recordNo** - is the record number within the sub stream.
 
 One can double click on either the **subStreamId** or **recordNo** numbers and enter a new number. This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.
 
 Note, you should now Save ![save](../resources/icons/save.png "Save") your edited Text Converter.
 
-### **Step data through Pipeline - Translation**
+### Step data through Pipeline - Translation
 
 To start authoring the xslt Translation Filter, press the ![translationFilter](../resources/icons/translationFilter.png "Translation Filter")  icon which steps us to the xsl Translation Filter pane.
 
@@ -717,7 +724,7 @@ We now click on the pipeline Step Forward button ![stepForward](../resources/ico
 
 To correct this, we will author our xslt translation. Like the Data Splitter this is also authored incrementally. A minimum xslt translation might contain
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet xpath-default-namespace="records:2" xmlns="event-logging:3" xmlns:stroom="stroom" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="3.0">
 
@@ -775,7 +782,7 @@ To correct this, we will author our xslt translation. Like the Data Splitter thi
 
 Clearly this doesn’t generate useful events. Our first iterative change might be to generate the TimeCreated element value. The change would be
 
-```
+```xml
     <xsl:template match="node()" mode="eventTime">
         <EventTime>
           <TimeCreated>
@@ -789,7 +796,7 @@ Clearly this doesn’t generate useful events. Our first iterative change might 
 
 Adding in the EventSource elements (without ANY error checking!) as per
 
-```
+```xml
     <xsl:template match="node()"  mode="eventSource">
         <EventSource>
             <System>
@@ -840,7 +847,7 @@ And after a Refresh Current Step ![stepRefresh](../resources/icons/stepRefresh.p
 
 We now complete our translation by expanding the _EventDetail_ elements to have the completed translation of (again with limited error checking and non-existent documentation!)
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet xpath-default-namespace="records:2" xmlns="event-logging:3" xmlns:stroom="stroom" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="3.0">
 
@@ -996,5 +1003,3 @@ A copy of this XSLT Translation can be found  [here](ApacheHTTPDBlackBox-Transla
 We have completed the translation and have completed developing our Apache-SSLBlackBox-V2.0-EVENTS event feed.
 
 At this point, this event feed is set up to accept Raw Event data, but it will not automatically process the raw data and hence it will not place events into the Event Store. To have Stroom automatically process Raw Event streams, you will need to enable Processors for this pipeline.
-
-

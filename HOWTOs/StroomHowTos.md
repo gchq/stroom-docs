@@ -14,3 +14,9 @@ of different Stroom deployments.
 ## Event Feed Processing
 
 The [Event Feed Processing](EventFeeds/ProcessingHowTo.md "Event Feed Processing") HOWTO is provided to assist users in setting up Stroom to process inbound event logs and transform them into the Stroom Event Logging XML Schema.
+
+The [Apache HTTPD Event Feed](HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed.md "Apache HTTPD Event Feed") is interwoven into other HOWTOs that utilise this feed as a datasource.
+
+## Reference Feeds
+
+Reference Feeds are used to provide look up data for a translation. The reference feed HOWTOs illustrate how to create reference feeds and how to use look up reference data maps to enrich the data you are processing.

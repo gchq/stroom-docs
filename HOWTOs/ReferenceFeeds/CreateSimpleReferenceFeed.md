@@ -1,4 +1,4 @@
-# **Stroom HOWTO - Create a Simple Reference Feed**
+# Stroom HOWTO - Create a Simple Reference Feed
 A **Reference Feed** is a temporal set of data that a pipeline's translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.
 
 A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded. Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.
@@ -7,15 +7,15 @@ A typical reference data set to support the Stroom XML Event schema might be on 
 
 The following example will describe how to create a reference feed for such device data. we will call the reference feed `GeoHost-V1.0-REFERENCE`.
 
-## **Reference Data**
+## Reference Data
 Our reference data will be supplied in a <TAB> separated file containing the fields
 
-- the device Fully Qualified Domain Name
-- the device IP Address
-- the device Country location (using ISO 3166-1 alpha-3 codes)
-- the device Site location
-- the device Building location
-- the device TimeZone location (both standard then daylight timezone offsets from UTC)
+* the device Fully Qualified Domain Name
+* the device IP Address
+* the device Country location (using ISO 3166-1 alpha-3 codes)
+* the device Site location
+* the device Building location
+* the device TimeZone location (both standard then daylight timezone offsets from UTC)
 
 For simplicity, our example will use a file with just 3 entries
 
@@ -26,20 +26,20 @@ stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
 host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 ```
 
-A copy of this sample data source can be found [here](GeoHostReference.log "GeoHost REFERENCE  sample logs"). Save a copy of this data to your local environment for use later in this HowTo.
+A copy of this sample data source can be found [here](GeoHostReference.log "GeoHost REFERENCE  sample logs"). Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.
 
 
-## **Creation**
+## Creation
 
 To create our Reference Event stream we need to create:
 
-- the **Feed**
-- a **Pipeline** to automatically process and store the Reference data
-- a **Text Parser** to convert the text file into simple XML record format, and 
-- a **Translation** to create reference data maps
+* the **Feed**
+* a **Pipeline** to automatically process and store the Reference data
+* a **Text Parser** to convert the text file into simple XML record format, and 
+* a **Translation** to create reference data maps
 
 
-### **Create Feed**
+### Create Feed
 
 First, within the Explorer pane, and with the cursor having selected the Event Sources group, right click the mouse to have the object context menu appear.
 
@@ -64,7 +64,7 @@ and we then use the Stream Type drop-down menu to set the stream type as Raw Ref
 
 ![Stroom UI CreateReferenceFeed - New Feed Settings window configuration](../resources/v6/UI-CreateReferenceFeed-05.png "New Feed Settings window configuration")
 
-### **Load sample Reference data**
+### Load sample Reference data
 
 At this point we want to load our sample reference data, in order to develop our reference feed. We can do this two ways - posting the file to our Stroom web server, or directly upload the data using the user interface. For this example we will use Stroom's user interface upload facility.
 
@@ -76,7 +76,7 @@ Note the Upload icon ![Upload](../resources/icons/upload.png "Upload") in the bo
 
 ![Stroom UI CreateReferenceFeed - Upload Selection window](../resources/v6/UI-CreateReferenceFeed-07.png "Upload Selection window")
 
-Naturally, as this is a reference feed we are creating and this is raw data we are uploading, we select a **Stream Type:** of Raw Reference. We need to set the **Effective:** date (really a timestamp) for tis specific _stream_ of reference data. Clicking in the **Effective:** entry box will cause a calendar selection window to be displayed (initially set to the current date).
+Naturally, as this is a reference feed we are creating and this is raw data we are uploading, we select a **Stream Type:** of Raw Reference. We need to set the **Effective:** date (really a timestamp) for this specific _stream_ of reference data. Clicking in the **Effective:** entry box will cause a calendar selection window to be displayed (initially set to the current date).
 
 ![Stroom UI CreateReferenceFeed - Upload data settings](../resources/v6/UI-CreateReferenceFeed-08.png "Upload data settings")
 
@@ -129,7 +129,7 @@ The bottom pane displays the selected stream's data or meta-data. If we click on
 
 We can see the metadata we set - the EffectiveTime, and implicitly, the Feed but we also see additional fields that Stroom has added that provide more detail about the data and its delivery to Stroom such as how and when it was received. We now need to switch back to the Data display as we need to author our reference feed translation.
 
-### **Create Pipeline**
+### Create Pipeline
 
 We now need to create the pipeline for our reference feed so that we can create our translation and hence create reference data for our feed.
 
@@ -149,7 +149,7 @@ We now need to select the structure this pipeline will use. We need to move from
 
 ![Stroom UI CreateReferenceFeed - New Pipeline - Structure configuration](../resources/v6/UI-CreateReferenceFeed-20.png "New Pipeline - Structure configuration")
 
-As this pipeline will be processing reference data, we would use a `Reference Data` pipeline. This is done by inheriting it from a defined set of Standard Pipelines. To do this, click on the menu selection icon ![Menu Selection](../resources/icons/menu-button.png "Menu Selection") to the right of the **Inherit From:** test display box.
+As this pipeline will be processing reference data, we would use a `Reference Data` pipeline. This is done by inheriting it from a defined set of Standard Pipelines. To do this, click on the menu selection icon ![Menu Selection](../resources/icons/menu-selection-horizontal.png "Menu Selection") to the right of the **Inherit From:** test display box.
 
 When the **Choose item** selection window appears, navigate to `Template Pipelines` system group (if not already displayed), and select (left click) the ![Pipeline](../resources/icons/pipeline.png "Pipeline") `Reference Data` pipeline
 
@@ -165,7 +165,7 @@ Noting that this pipeline has not yet been saved - indicated by the * in the tab
 
 This ends the first stage of the pipeline creation. We need to author the feed's translation.
 
-### **Create Text Converter**
+### Create Text Converter
 
 To turn our tab delimited data in Stroom reference data, we first need to convert the text into simple XML. We do this using a _Text Converter. Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
 
@@ -193,7 +193,7 @@ We next press the **Conversion** sub-item on the TextConverter tab to bring up t
 
 The following is our Data Splitter code (see **Data Splitter** documentation for more complete details)
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8"?>
 <dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.1.xsd" version="3.0">
   <!-- 
@@ -251,9 +251,9 @@ At this point we want to save our Text Converter, so click on the ![save](../res
 
 A copy of this data splitter can be found [here](GeoHost-data-splitter.txt "GEOHOST Data Splitter").
 
-### **Assign Text Converter to Pipeline**
+### Assign Text Converter to Pipeline
 
-To test our Text Converter, we need to modify our `GeoHost-V1.0-REFERENCE` pipeline to use it. Select the `GeoHost-V1.0-REFERENCE` pipeline tab and then select the **Structure**sub-item
+To test our Text Converter, we need to modify our `GeoHost-V1.0-REFERENCE` pipeline to use it. Select the `GeoHost-V1.0-REFERENCE` pipeline tab and then select the **Structure** sub-item
 
 ![Stroom UI CreateReferenceFeed - Associated text converter with pipeline](../resources/v6/UI-CreateReferenceFeed-27.png "Associated text converter with pipeline")
 
@@ -263,7 +263,7 @@ To associate our new Text Converter with the pipeline, click on the ![combinedPa
 
 We leave the Property **Source:** as _Inherit_ but we need to change the Property **Value:** from _None_ to be our newly created `GeoHost-V1.0-REFERENCE` text Converter
 
-![Stroom UI CreateReferenceFeed - textConverter select GEOHOST-REFERENCE](../resources/v6/UI-CreateReferenceFeed-29.png "textConverter select GEOHOST-REFERENCE")
+![Stroom UI CreateReferenceFeed - textConverter select GeoHost-V1.0-REFERENCE](../resources/v6/UI-CreateReferenceFeed-29.png "textConverter select GeoHost-V1.0-REFERENCE")
 
 then press **OK**. At this we will see the Property _Value_ set
 
@@ -276,9 +276,9 @@ At this point, we should save our changes, by clicking on the highlighted ![save
 
 ![Stroom UI CreateReferenceFeed - textConverter set Property Value type](../resources/v6/UI-CreateReferenceFeed-31.png "textConverter set Property Value type")
 
-### **Test Text Converter**
+### Test Text Converter
 
-To test our Text Converter, we select the GeoHost-V1.0-REFERENCE **Feed** tab ![GEOHOST-REFERENCE Feed](../resources/v6/UI-CreateReferenceFeed-32.png "GeoHost-V1.0-REFERENCE Feed") then click on our uploaded stream in the _Stream Table_ pane, then click the check box of the _Raw Reference_ stream in the _Specific Stream_ table (middle pane)
+To test our Text Converter, we select the GeoHost-V1.0-REFERENCE **Feed** tab ![GeoHost-V1.0-REFERENCE Feed](../resources/v6/UI-CreateReferenceFeed-32.png "GeoHost-V1.0-REFERENCE Feed") then click on our uploaded stream in the _Stream Table_ pane, then click the check box of the _Raw Reference_ stream in the _Specific Stream_ table (middle pane)
 
 ![Stroom UI CreateReferenceFeed - textConverter - select raw reference data](../resources/v6/UI-CreateReferenceFeed-33.png "textConverter - select raw reference data")
 
@@ -316,7 +316,7 @@ Pressing the Step Forward button ![stepForward](../resources/icons/stepForward.p
 
 We have now successfully tested the Text Converter for our reference feed. Our next step is to author our translation to generate reference data records that Stroom can use.
 
-### **Create XSLT Translation**
+### Create XSLT Translation
 
 We now need to create our translation. This XSLT translation will convert simple _records_ XML data into _ReferenceData_ records - see the Stroom **reference-data v2.0.1** Schema for details.
 
@@ -338,9 +338,9 @@ On selection of the **XSLT** sub-item, we are presented with the XSLT editor win
 
 ![Stroom UI CreateReferenceFeed - xslt Translation - XSLT editor](../resources/v6/UI-CreateReferenceFeed-43.png "xslt Translation - XSLT editor")
 
-At this point, rather than edit the translation in this editor and then assign this translation to the GEOHOST-REFERENCE pipeline, we will first make the assignment in the pipeline and then develop the translation whilst stepping through the raw data. This is to demonstrate there are a number of ways to _develop a translation_.
+At this point, rather than edit the translation in this editor and then assign this translation to the GeoHost-V1.0-REFERENCE pipeline, we will first make the assignment in the pipeline and then develop the translation whilst stepping through the raw data. This is to demonstrate there are a number of ways to _develop a translation_.
 
-So, to start, save the XSLT by clicking on the ![save](../resources/icons/save.png "Save") icon, then click on the GEOHOST-REFERENCE pipeline ![GeoHost-V1.0-REFERENCE pipeline](../resources/v6/UI-CreateReferenceFeed-44.png "GeoHost-V1.0-REFERENCE Pipeline") tab to raise the GeoHost-V1.0-REFERENCE pipeline. Then select the **Structure** sub-item followed by selecting the **XSL translationFilter** icon. We now see the  **XSL translationFilter** Property Table for our pipeline in the middle pane.
+So, to start, save the XSLT by clicking on the ![save](../resources/icons/save.png "Save") icon, then click on the GeoHost-V1.0-REFERENCE pipeline ![GeoHost-V1.0-REFERENCE pipeline](../resources/v6/UI-CreateReferenceFeed-44.png "GeoHost-V1.0-REFERENCE Pipeline") tab to raise the GeoHost-V1.0-REFERENCE pipeline. Then select the **Structure** sub-item followed by selecting the **XSL translationFilter** icon. We now see the  **XSL translationFilter** Property Table for our pipeline in the middle pane.
 
 ![Stroom UI CreateReferenceFeed - xslt translation element - property pane](../resources/v6/UI-CreateReferenceFeed-45.png "xslt translation element - property pane")
 
@@ -349,7 +349,7 @@ To associate our new translation with the pipeline, move the cursor to the _Prop
 ![Stroom UI CreateReferenceFeed - xslt -property editor](../resources/v6/UI-CreateReferenceFeed-46.png "xslt -property editor")
 
 We leave the Property **Source:** as _Inherit_ and we need to change the Property **Value:** from _None_ to be our newly created GeoHost-V1.0-REFERENCE XSL translation.
-To do this, position the cursor over the menu selection icon ![Menu Selection](../resources/icons/menu-button.png "Menu Selection") of the **Value:** chooser and right click, at which the `Choose item` selection window appears. Navigate to the `Event Sources` system group then select the GeoHost-V1.0-REFERENCE xsl translation.
+To do this, position the cursor over the menu selection icon ![Menu Selection](../resources/icons/menu-selection-horizontal.png "Menu Selection") of the **Value:** chooser and right click, at which the `Choose item` selection window appears. Navigate to the `Event Sources` system group then select the GeoHost-V1.0-REFERENCE xsl translation.
 
 ![Stroom UI CreateReferenceFeed - xslt - value selection](../resources/v6/UI-CreateReferenceFeed-47.png "xslt - value selection")
 
@@ -357,13 +357,13 @@ then press **OK**. At this point we will see the property **Value:** set
 
 ![Stroom UI CreateReferenceFeed - xslt - value selected](../resources/v6/UI-CreateReferenceFeed-48.png "xslt - value selected")
 
-Again press **OK** to finish editing this property and we see that the _xslt_ property has been set to GEOHOST-REFERENCE.
+Again press **OK** to finish editing this property and we see that the _xslt_ property has been set to GeoHost-V1.0-REFERENCE.
 
 ![Stroom UI CreateReferenceFeed - xslt - property set](../resources/v6/UI-CreateReferenceFeed-49.png "xslt - property set")
 
 At this point, we should save our changes, by clicking on the highlighted ![save](../resources/icons/save.png "Save") icon.
 
-### **Test XSLT Translation**
+### Test XSLT Translation
 
 We now go back to the GeoHost-V1.0-REFERENCE **Feed** tab ![GeoHost-V1.0-REFERENCE Feed](../resources/v6/UI-CreateReferenceFeed-32.png "GeoHost-V1.0-REFERENCE Feed") then click on our uploaded stream in the _Stream Table_ pane. Next click the check box of the _Raw Reference_ stream in the _Specific Stream_ table (middle pane) as per
 
@@ -371,7 +371,7 @@ We now go back to the GeoHost-V1.0-REFERENCE **Feed** tab ![GeoHost-V1.0-REFEREN
 
 We now want to step our data through the xslt Translation. We enter Stepping Mode by pressing the stepping button ![enterStepping](../resources/icons/enterStepping.png "Enter Stepping") found at the bottom of the right of the stream _Raw Data_ display.
 
-You will then be requested to choose a pipeline to step with, at which, you should navigate to the GEOHOST-REFERENCE pipeline as per
+You will then be requested to choose a pipeline to step with, at which, you should navigate to the GeoHost-V1.0-REFERENCE pipeline as per
 
 ![Stroom UI CreateReferenceFeed - xslt Translation - select pipeline to step with](../resources/v6/UI-CreateReferenceFeed-50.png "xslt Translation - select pipeline to step with")
 
@@ -400,7 +400,7 @@ In essence, since the _translation_ has done nothing, and the data is simple _re
 We can correct this by adding the skeleton xslt translation for reference data into our translationFilter. Move back to the ![translationFilter](../resources/icons/translationFilter.png "translationFilter") icon on the pipeline structure and add the following to the xsl 
 window
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8" ?>
 <xsl:stylesheet xpath-default-namespace="records:2"
 xmlns="reference-data:2"
@@ -435,7 +435,7 @@ Also note that if we move to the ![schemaFilter](../resources/icons/schemaFilter
 
 We next extend the translation to actually generate reference data. The translation will now look like
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8" ?>
 <xsl:stylesheet xpath-default-namespace="records:2"
 xmlns="reference-data:2"
@@ -518,7 +518,7 @@ At this point it would be wise to save our translation. This is done by clicking
 
 We can now further our Reference by adding a Fully Qualified Domain Name to Location reference - FQDN_TO_LOC and so now the translation looks like
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8" ?>
 <xsl:stylesheet xpath-default-namespace="records:2"
 xmlns="reference-data:2"
@@ -624,11 +624,11 @@ and our second ReferenceData element would now look like
 
 ![Stroom UI CreateReferenceFeed - xslt Translation - complete translation 2nd record](../resources/v6/UI-CreateReferenceFeed-57.png "xslt Translation - complete translation 2nd record")
 
-We have completed the translation and have hence completed the development of our GeoHost-REFERENCE reference feed.
+We have completed the translation and have hence completed the development of our GeoHost-V1.0-REFERENCE reference feed.
 
 At this point, the reference feed is set up to accept Raw Reference data, but it will not automatically process the raw data and hence it will not place reference data into the reference data store. To have Stroom automatically process Raw Reference streams, you will need to enable _Processors_ for this pipeline.
 
-### **Enabling the Reference Feed Processors**
+### Enabling the Reference Feed Processors
 
 We now create the pipeline Processors for this feed, so that the raw reference data will be transformed into Reference Data on ingest and save to Reference Data stores.
 
@@ -642,9 +642,9 @@ First, move the mouse to the Add Processor  ![add](../resources/icons/add.png "A
 
 ![Stroom UI CreateReferenceFeed - pipeline Processors - Add Filter](../resources/v6/UI-CreateReferenceFeed-59.png "pipeline Processors - Add Filter")
 
-This selection window allows us to _filter_ what set of data streams we want our Processor to process. As our intent is to enable processing for all GeoHost-V1.0-REFERNCE streams, both already received and yet to be received, then our filtering criteria is just to process all Raw Reference for this feed, ignoring all other conditions.
+This selection window allows us to _filter_ what set of data streams we want our Processor to process. As our intent is to enable processing for all GeoHost-V1.0-REFERENCE streams, both already received and yet to be received, then our filtering criteria is just to process all Raw Reference for this feed, ignoring all other conditions.
 
-To do this, first click on the **Add Term** ![add](../resources/icons/add.png "Add") icon. Keep the term and operator at the default settings, and select the **Choose item**  ![menu-button](../resources/icons/menu-button.png "Menu button") icon to navigate to the desired feed name (GeoHost-V1.0-REFERENCE) object
+To do this, first click on the **Add Term** ![add](../resources/icons/add.png "Add") icon. Keep the term and operator at the default settings, and select the **Choose item**  ![menu-selection-horizontal](../resources/icons/menu-selection-horizontal.png "Menu button") icon to navigate to the desired feed name (GeoHost-V1.0-REFERENCE) object
 
 ![Stroom UI CreateReferenceFeed - pipeline Processors - choose feed name](../resources/v6/UI-CreateReferenceFeed-60.png "pipeline Processors - Choose Feed name")
 
@@ -681,7 +681,7 @@ In the top pane, we see the _Streams table_ as per normal, but in the _Specific 
 
 The complete ReferenceData for this stream is
 
-```
+```xml
 <?xml version="1.1" encoding="UTF-8"?>
 <referenceData xmlns="reference-data:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stroom="stroom" xmlns:evt="event-logging:3" xsi:schemaLocation="reference-data:2 file://reference-data-v2.0.xsd" version="2.0.1">
   <reference>
@@ -781,7 +781,7 @@ Selecting the _Raw Reference_ stream in the _Streams Table_ will result in the _
 
 The creation of the _Raw Reference_ is now complete.
 
-At this point you may wish to organise the resources you have created within the Explorer pane such as `Reference>GeoHost`. Because Stroom Explorer is a flat structure you can move resources around to reorganise the content without any impact on directory paths, configurations etc.
+At this point you may wish to organise the resources you have created within the Explorer pane to a more appropriate location such as `Reference/GeoHost`. Because Stroom Explorer is a flat structure you can move resources around to reorganise the content without any impact on directory paths, configurations etc.
 
 ![Stroom UI CreateReferenceFeed - Organise Resources](../resources/v6/UI-CreateReferenceFeed-71.png "reference feed - Organise Resources")
 
@@ -790,7 +790,7 @@ Select all four resources by using the mouse right-click button while holding do
 
 ![Stroom UI CreateReferenceFeed - Organise Resources - move content](../resources/v6/UI-CreateReferenceFeed-72.png "Organise Resources - move content")
 
-Select **move** and the _Move Multiple Items_ window will display. Navigate to the `Reference>GeoHost` folder to move the items to this destination.
+Select **move** and the _Move Multiple Items_ window will display. Navigate to the `Reference/GeoHost` folder to move the items to this destination.
 
 ![Stroom UI CreateReferenceFeed - Organise Resources - select destination](../resources/v6/UI-CreateReferenceFeed-73.png "Organise Resources - select destination")
 
