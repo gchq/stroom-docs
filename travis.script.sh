@@ -4,11 +4,14 @@ set -e
 
 #Shell Colour constants for use in 'echo -e'
 #e.g.  echo -e "My message ${GREEN}with just this text in green${NC}"
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-NC='\033[0m' # No Colour 
+# shellcheck disable=SC2034
+{
+  RED='\033[1;31m'
+  GREEN='\033[1;32m'
+  YELLOW='\033[1;33m'
+  BLUE='\033[1;34m'
+  NC='\033[0m' # No Colour 
+}
 
 BUILD_NAME=stroom-docs-v$TRAVIS_BUILD_NUMBER
 PDF_FILENAME=$BUILD_NAME.pdf
@@ -40,8 +43,9 @@ gitbook build
 
 #For a markdown file to be included in the gitbook conversion to html/pdf it must be linked to in SUMMARY.md
 missingFileCount=$(find ./_book/ -name "*.md" | wc -l)
-if [ ${missingFileCount} -gt 0 ]; then
+if [ "${missingFileCount}" -gt 0 ]; then
     echo -e "${missingFileCount} markdown file(s) have not been converted, ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
+    # shellcheck disable=SC2044
     for file in $(find ./_book/ -name "*.md"); do
         echo -e "  ${RED}${file}${NC}"
     done
@@ -50,7 +54,7 @@ if [ ${missingFileCount} -gt 0 ]; then
 fi
 
 #generate a pdf of the gitbook
-gitbook pdf ./ ./${PDF_FILENAME}
+gitbook pdf ./ ./"${PDF_FILENAME}"
 
 echo -e "${GREEN}Removing unwanted files${NC}"
 rm -v _book/.travis.yml
@@ -59,17 +63,17 @@ rm -v _book/*.sh
 
 echo -e "${GREEN}Making a zip of the html content${NC}"
 pushd _book
-zip -r -9 ../${ZIP_FILENAME} ./*
+zip -r -9 ../"${ZIP_FILENAME}" ./*
 popd
 
-if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+if [[ "$TRAVIS_BRANCH" == "master" && "${TRAVIS_EVENT_TYPE}" != "pull_request" ]]; then
     git config --global user.email "builds@travis-ci.com"
     git config --global user.name "Travis CI"
     export GIT_TAG=${BUILD_NAME}
 
     echo -e "Creating tag ${GREEN}${GIT_TAG}${NC}"
-    git tag $GIT_TAG -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null;
-    git push -q https://$TAGPERM@github.com/gchq/stroom-docs --tags >/dev/null 2>&1;
+    git tag "${GIT_TAG}" -a -m "Automated build $TRAVIS_BUILD_NUMBER" 2>/dev/null;
+    git push -q https://"${TAGPERM}"@github.com/gchq/stroom-docs --tags >/dev/null 2>&1;
 else
     echo -e "${GREEN}Branch is not master so won't tag the repository${NC}"
 fi
