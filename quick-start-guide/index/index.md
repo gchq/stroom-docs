@@ -11,7 +11,7 @@ Once the volumes dialogue opens click the blue plus sign at the top left of the 
 
 ![Volume list](images/002_volume_list.png)
 
-Select the node where you want the volume to be and the path you want to create, (because we are following the quick-start guide we just have one node and limited size, but we do want it to active so we can write documents to it and we want it to be public, because we might want other indexes to use it; your needs might be different.
+Select the node where you want the volume to be and the path you want to create, (because we are following the quick-start guide we just have one node and limited size, but we do want to set it as active so we can write documents to it and we want it to be public, because we might want other indexes to use it; your needs might be different.
 
 ![Volume edit](images/003_volume_edit.png)
 
@@ -55,7 +55,7 @@ We are creating fields in our index to match the fields we have ingested to prov
 
 When you've done that, save the new index.
 
-Now create a new XSLT (for the uninitiated like me) XSLT (Extensible Stylesheet Language Transformations). We are going to convert xml data into something indexable by Stroom.
+Now create a new XSLT.  We are going to convert xml data into something indexable by Stroom.
 
 ![New XSLT](images/008_xslt_new.png)
 
@@ -67,7 +67,7 @@ To make things manageable we create our new XSLT with the same name as the index
 
 Now we get to send data to the index
 
-Create a new pipeline called Indexing (we are going to make this a template for all future indexing requirements).
+Create a new pipeline called Indexing (we are going to make this a template for future indexing requirements).
 
 ![New pipeline](images/011_pipeline_new.png)
 
@@ -78,24 +78,20 @@ Add the following element types with the specified names
 Type                |Name
 ----                |----
 XMLParser           |parser
-RecordCountFilter   |readRecordCountFilter
 SplitFilter         |splitFilter
 IdEnrichmentFilter  |idEnrichmentFilter
 XSLTFilter          |xsltFilter
-RecordCountFilter   |writeRecordCountFilter
 IndexingFilter      |indexingFilter
 
-So it looks like this
+So it looks like this (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)
 
 ![Indexing pipeline](images/012_indexing_pipeline.png)
 
-Once the elements have been added you need to set the following properties on the elements:
+Once the elements have been added you need to set the following property on the elements:
 
 Element                 |Property   |Value
 -------                 |--------   |-----
-readRecordCountFilter   |countRead  |true
 splitFilter             |splitCount |100
-writeRecordCountFilter  |countRead  |false
 
 To do this we select the element then double click the property value in the property panel which is below it.
 
@@ -111,7 +107,7 @@ Now create a new pipeline
 
 ![Pipeline name](images/015_pipeline_name.png)
 
-Which we will base on our new “Indexing” pipeline
+Which we will base on our new “Indexing” template pipeline
 
 On our structure tab
 
@@ -121,17 +117,17 @@ Click in the “Inherit From” window
 
 ![Pipeline inheritance](images/017_pipeline_inheritance.png)
 
-Select our Indexing pipeline we just created
+Select our Indexing pipeline template that we just created
 
 ![Pipeline inheritance selection](images/018_pipeline_inheritance_selection.png)
 
-Now we need to set the XSLT property on the `xsltFilter` to point at the XSLT we created earlier and set the index on the `indexFilter` to point to the index we created.
+Now we need to set the XSLT property on the `xsltFilter` to point at the XSLT we created earlier and set the index on the `indexFilter` to point to the index we created.  This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)
 
 ![Pipeline XSLT properties](images/019_pipeline_properties_xslt.png)
 
 Once that's done you can save your new pipeline
 
-Next we need to add XSLT to create XML that the `IndexingFilter` understands. Again all of this seems a little time consuming but once you've done this stuff and have some resources you can reuse it all gets much easier.
+Next we need to create an XSLT that the `IndexingFilter` understands.
 
 Open the feed we created in the quick-start guide if you find some processed data in your feed - i.e. browse the data
 
@@ -205,7 +201,7 @@ Which should look like this
 
 ![Stepping edit XSLT](images/023_stepping_edit_xslt.png)
 
-What we are trying to do is turn the data into Stroom `record` format. This is basically name value pairs that we pass to the index. Step through the data using the top right arrows to ensure the XSLT produces output.
+What we are trying to do is turn the data into Stroom `record` format. This is basically name value pairs that we pass to the index. Step through the data using the top right arrows to ensure the XSLT produces correct output.
 
 We're nearly there for indexing the data - you just need to tell the pipeline to pick up all processed data and index it.
 
@@ -221,9 +217,9 @@ Enable the processor and the filter by clicking the enabled tick boxes
 
 ![Enable processors](images/026_processors_enable.png)
 
-Stroom should then go away and index the data assuming everything is correct
+Stroom should then index the data, assuming everything is correct
 
-If there are errors you'll see error streams produced in the data browsing page, i.e. where you see your processed and raw data
+If there are errors you'll see error streams produced in the data browsing page, i.e. where you would normally see your processed and raw data.  If no errors have occurred, there will be no rows in the data page.
 
 If it all goes to plan you'll see index shards appear if you open the index you created and click the shards tab.
 
