@@ -83,11 +83,11 @@ IdEnrichmentFilter  |idEnrichmentFilter
 XSLTFilter          |xsltFilter
 IndexingFilter      |indexingFilter
 
-So it looks like this
+So it looks like this (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)
 
 ![Indexing pipeline](images/012_indexing_pipeline.png)
 
-Once the elements have been added you need to set the following properties on the elements:
+Once the elements have been added you need to set the following property on the elements:
 
 Element                 |Property   |Value
 -------                 |--------   |-----
@@ -107,7 +107,7 @@ Now create a new pipeline
 
 ![Pipeline name](images/015_pipeline_name.png)
 
-Which we will base on our new “Indexing” pipeline
+Which we will base on our new “Indexing” template pipeline
 
 On our structure tab
 
@@ -121,7 +121,7 @@ Select our Indexing pipeline template that we just created
 
 ![Pipeline inheritance selection](images/018_pipeline_inheritance_selection.png)
 
-Now we need to set the XSLT property on the `xsltFilter` to point at the XSLT we created earlier and set the index on the `indexFilter` to point to the index we created.
+Now we need to set the XSLT property on the `xsltFilter` to point at the XSLT we created earlier and set the index on the `indexFilter` to point to the index we created.  This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)
 
 ![Pipeline XSLT properties](images/019_pipeline_properties_xslt.png)
 
