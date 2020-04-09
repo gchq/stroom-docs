@@ -27,6 +27,7 @@ In the table panel we can add the fields we are interested in, in this case we w
 ![Dashboard table fields](images/004_dashboard_table_fields.png)
 
 If at this point, we decide that we'd like to see additional fields in the table extracted from each record then the Extraction Pipeline XSLT can be modified to extract them from the Event:
+
 ```xml
 ...
 <xsl:template match="/xpath/to/usefulField">
@@ -36,10 +37,12 @@ If at this point, we decide that we'd like to see additional fields in the table
 </xsl:template>
 ...
 ```
+
 To be able to select this new field from the table drop-down, it needs to be added back into the list of fields in the original index:
-Name         |Type   |Store  |Index  |Positions  |Analyser       |Case Sensitive
-----         |----   |-----  |-----  |---------  |--------       |--------------
-UsefulField  |Text   |No     |No     |No         |Keyword        |false
+
+| Name         | Type   | Store  | Index  | Positions  | Analyser       | Case Sensitive
+| ----         | ----   | -----  | -----  | ---------  | --------       | --------------
+| UsefulField  | Text   | No     | No     | No         | Keyword        | false
 
 If any additionals are made at this point, the index must first be saved and then the dashboard closed and reopened. `UsefulField` will then be available as a drop-down option in the table.
 
