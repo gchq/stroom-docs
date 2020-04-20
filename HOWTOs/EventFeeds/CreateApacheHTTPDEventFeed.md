@@ -185,7 +185,7 @@ Within the Explorer pane, and having selected the Apache HTTPD group, right clic
 
 Select the Feed icon ![feed](../resources/icons/feedItem.png "feedItem"), when the **New Feed** selection window comes up, ensure the `Apache HTTPD` system group is selected or navigate to it. Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box the press **OK**. 
 
-It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{4,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties.md "System Properties") document to see how to make this change.
+It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{3,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties.md "System Properties") document to see how to make this change.
 
 ![Stroom UI ApacheHTTPDEventFeed - New Feed dialog](../resources/v6/UI-ApacheHttpEventFeed-04.png "New Feed dialog")
 
@@ -753,26 +753,25 @@ To correct this, we will author our xslt translation. Like the Data Splitter thi
     <xsl:template match="node()"  mode="eventSource">
         <EventSource>
             <System>
-            <Name  />
-            <Environment />
+                <Name  />
+                <Environment />
             </System>
             <Generator />
             <Device />
             <Client />
             <Server />
             <User>
-            <Id />
+                <Id />
             </User>
         </EventSource>
     </xsl:template>
 
     <xsl:template match="node()"  mode="eventDetail">
         <EventDetail>
-            <View>
-                <WebPage>
-                    <Type>WebPage</Type>
-                </WebPage>
-            </View>
+            <TypeId>SendToWebService</TypeId>
+            <Description />
+            <Classification />
+            <Send />
         </EventDetail>
     </xsl:template>
 </xsl:stylesheet>
@@ -922,77 +921,84 @@ We now complete our translation by expanding the _EventDetail_ elements to have 
     <!-- -->
     <xsl:template match="node()"  mode="eventDetail">
         <EventDetail>
-            <View>
-              <WebPage>
-                  <Type>WebPage</Type>
-                    <URL>
-                      <xsl:value-of select="data[@name =  'url']/data[@name =  'url']/@value"  />
-                    </URL>
-                  <xsl:if test="data[@name =  'referer']/@value  != '-'">
-                    <Referrer>
-                      <xsl:value-of select="data[@name =  'referer']/@value"  />
-                    </Referrer>
-                  </xsl:if>
-                    <HTTPMethod>
-                      <xsl:value-of select="data[@name =  'url']/data[@name =  'httpMethod']/@value" />
-                     </HTTPMethod>
-                  <UserAgent>
-                      <xsl:value-of select="data[@name =  'userAgent']/@value" />
-                  </UserAgent>
-                  <ResponseCode>
-                      <xsl:value-of select="data[@name =  'response']/@value" />
-                  </ResponseCode>
-
-                  <!-- Protocol -->
-                  <Data Name="Protocol">
-                      <xsl:attribute name="Value" select="data[@name  =  'url']/data[@name =  'protocol']/@value"  />
-                  </Data>
-
-                  <!-- Protocol Version -->
-                  <Data  Name="Version">
-                      <xsl:attribute name="Value" select="data[@name  =  'url']/data[@name =  'version']/@value"  />
-                  </Data>
-
-                  <!--  Response Code   Before -->
-                  <Data  Name="ResponseCodeBefore">
-                      <xsl:attribute name="Value" select="data[@name  =  'responseB']/@value" />
-                  </Data>
-
-                  <!--  Connection Status -->
-                  <Data Name="ConnectionStatus">
-                      <xsl:attribute name="Value" select="data[@name  =  'constatus']/@value"  />
-                  </Data>
-
-                  <!-- Bytes transferred  -->
-                  <xsl:if test="data[@name =  'bytesIn']/@value  != '0' and  data[@name =  'bytesIn']/@value  != '-'">
-                  <Data  Name="BytesIn">
-                      <xsl:attribute name="Value" select="data[@name  =  'bytesIn']/@value"  />
-                  </Data>
-                  </xsl:if>
-                  <xsl:if test="data[@name =  'bytesOut']/@value  != '0' and  data[@name =  'bytesOut']/@value  != '-'">
-                  <Data  Name="BytesOut">
-                      <xsl:attribute name="Value" select="data[@name  =  'bytesOut']/@value" />
-                  </Data>
-                  </xsl:if>
-                  <xsl:if test="data[@name =  'bytesOutContent']/@value  != '0'">
-                  <Data Name="BytesOutContentOnly">
-                      <xsl:attribute name="Value" select="data[@name  =  'bytesOutContent']/@value" />
-                  </Data>
-                  </xsl:if>
-
-                  <!-- Time   to serve Request -->
-                  <xsl:if test="data[@name =  'timeM']/@value != '0'">
-                  <Data Name="TotalRequestTimeMicroseconds">
-                      <xsl:attribute name="Value" select="data[@name  =  'timeM']/@value" />
-                  </Data>
-                  </xsl:if>
-            </WebPage>
-          </View>
+          <TypeId>SendToWebService</TypeId>
+          <Description>Send/Access data to Web Service</Description>
+          <Classification>
+            <Text>UNCLASSIFIED</Text>
+          </Classification>
+          <Send>
+            <Source>
+              <Device>
+                <IPAddress>
+                    <xsl:value-of select="data[@name = 'clientip']/@value"/>
+                </IPAddress>
+                <Port>
+                    <xsl:value-of select="data[@name = 'vserverport']/@value"/>
+                </Port>
+              </Device>
+            </Source>
+            <Destination>
+              <Device>
+                <HostName>
+                    <xsl:value-of select="data[@name = 'vserver']/@value"/>
+                </HostName>
+                <Port>
+                    <xsl:value-of select="data[@name = 'vserverport']/@value"/>
+                </Port>
+              </Device>
+            </Destination>
+            <Payload>
+              <Resource>
+                <URL>
+                    <xsl:value-of select="data[@name = 'url']/@value"/>
+                </URL>
+                <Referrer>
+                    <xsl:value-of select="data[@name = 'referer']/@value"/>
+                </Referrer>
+                <HTTPMethod>
+                    <xsl:value-of select="data[@name = 'url']/data[@name = 'httpMethod']/@value"/>
+                </HTTPMethod>
+                <HTTPVersion>
+                    <xsl:value-of select="data[@name = 'url']/data[@name = 'version']/@value"/>
+                </HTTPVersion>
+                <UserAgent>
+                    <xsl:value-of select="data[@name = 'userAgent']/@value"/>
+                </UserAgent>
+                <InboundSize>
+                    <xsl:value-of select="data[@name = 'bytesIn']/@value"/>
+                </InboundSize>
+                <OutboundSize>
+                    <xsl:value-of select="data[@name = 'bytesOut']/@value"/>
+                </OutboundSize>
+                <OutboundContentSize>
+                    <xsl:value-of select="data[@name = 'bytesOutContent']/@value"/>
+                </OutboundContentSize>
+                <RequestTime>
+                    <xsl:value-of select="data[@name = 'timeM']/@value"/>
+                </RequestTime>
+                <ConnectionStatus>
+                    <xsl:value-of select="data[@name = 'constatus']/@value"/>
+                </ConnectionStatus>
+                <InitialResponseCode>
+                    <xsl:value-of select="data[@name = 'responseB']/@value"/>
+                </InitialResponseCode>
+                <ResponseCode>
+                    <xsl:value-of select="data[@name = 'response']/@value"/>
+                </ResponseCode>
+                <Data Name="Protocol">
+                  <xsl:attribute select="data[@name = 'url']/data[@name = 'protocol']/@value" name="Value"/>
+                </Data>
+              </Resource>
+            </Payload>
+            <!-- Normally our translation at this point would contain an <Outcome> attribute.
+            Since all our sample data includes only successful outcomes we have ommitted the <Outcome> attribute 
+            in the translation to minimise complexity-->
+          </Send>
         </EventDetail>
     </xsl:template>
 </xsl:stylesheet>
 ```
-And after a Refresh Current Step Refresh ![stepRefresh](../resources/icons/stepRefresh.png "Step Refresh") we see our complete output event
+And after a Refresh Current Step Refresh ![stepRefresh](../resources/icons/stepRefresh.png "Step Refresh") we see the completed ```<EventDetail>``` section of our output event
 
 ![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Complete](../resources/v6/UI-ApacheHttpEventFeed-58.png "Translation Complete")
 
