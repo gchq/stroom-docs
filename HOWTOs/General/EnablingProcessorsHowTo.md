@@ -1,8 +1,14 @@
 # Stroom HOWTO - Enabling Processors for a Pipeline
 
-Author: John Doe  \
-Last Updated: 30 Mar 2020 \
-Recommended Additional Documentation: Stroom HOWTO - Task Maintenance
+### Document Properties
+
+* Author: John Doe 
+* Last Updated: 30 Mar 2020
+* Recommended Additional Documentation:
+HOWTO - Creating a Simple Reference Feed
+* Version Information: Created with Stroom v6
+
+## Introduction
 
 A pipeline is a structure that allows for the processing of streams of data.
 Once you have defined a pipeline, built its structure, and tested it via 'Stepping' the pipeline, you will want to enable the automatic processing of raw event data streams.
@@ -103,3 +109,6 @@ In the below example we have a stream that is displaying errors (this was due to
 Once the translation was remediated to remove schema issues the pipeline could successfully process the stream and the errors disappeared.
 
 ![Stroom UI EnableProcessors - pipeline Data Events reprocessed](../resources/v6/UI-EnableProcessors-19.png "pipeline Data Events reprocessed")
+
+NOTE: If you need to reprocess bulk streams you need to be aware that there is an upper limit of 1000 streams that can be reprocessed in a single batch. As at Stroom v6 if you exceed this number then you receive no error notification but the task never completes.
+The reason for this behaviour is to do with database performance and complexity. When you reprocess the current selection of filtered data, it can contain data that has resulted from many pipelines and this requires creation of new processor filters for each of these pipelines. Due to this complexity there exists an arbitrary limit of 1000 streams. 

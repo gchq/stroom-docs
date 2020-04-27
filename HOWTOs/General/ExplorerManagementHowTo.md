@@ -1,7 +1,10 @@
 # Stroom HOWTO - Explorer Management
 
-Author: John Doe  \
-Last Updated: 25 Mar 2020
+### Document Properties
+
+* Author: John Doe 
+* Last Updated: 25 Mar 2020
+* Version Information: Created with Stroom v6
 
 ## Moving a set of Objects
 
