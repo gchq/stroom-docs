@@ -91,6 +91,8 @@
 * General
   * [Feed Management](HOWTOs/General/FeedManagementHowTo.md)
   * [Tasks](HOWTOs/General/TasksHowTo.md)
+  * [Moving Object in Explorer](HOWTOs/General/ExplorerManagementHowTo.md)
+  * [Enabling Processors](HOWTOs/General/EnablingProcessorsHowTo.md)
 * Authentication
   * [User Logout](HOWTOs/Authentication/UserLogoutHowTo.md)
   * [User Login](HOWTOs/Authentication/UserLoginHowTo.md)
@@ -112,6 +114,9 @@
   * [Apache HTTPD Event Feed](HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed.md)
 * Reference Feeds
   * [Create Reference Feed](HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)
+  * [Use Reference Feed](HOWTOs/ReferenceFeeds/UseSimpleReferenceFeedHowTo.md)
+* Event Post Processing
+  * [Event Forwarding](HOWTOs/EventPostProcessing/EventForwardingHowTo.md)
 * Administration
   * [System Properties](HOWTOs/Administration/SystemProperties.md)
 
