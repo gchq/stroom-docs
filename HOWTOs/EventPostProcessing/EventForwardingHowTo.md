@@ -3,7 +3,7 @@
 ### Document Properties
 
 * Author: John Doe 
-* Last Updated: 15 Apr 2020
+* Last Updated: 8 May 2020
 * Recommended Additional Documentation: HOWTO - Apache HTTPD Event Feed
 * Version Information: Created with Stroom v6
 
@@ -138,7 +138,7 @@ Now select the multiGeoSplitFilter Element again and add another XSLTFilter as p
 
 ![Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline XSLT Filter2](../resources/v6/UI-MultiGeoFwd-11.png "MultiGeoFwd Pipeline  pipeline XSLT Filter2")
 
-name this xsltFilter _ClientGBRxsltFilter_.
+Name this xsltFilter _ClientGBRxsltFilter_.
 
 At this stage the Pipeline should look like
 
@@ -260,7 +260,7 @@ If we step forward by clicking on the ![stepForward](../resources/icons/stepForw
 
 ![Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test first record](../resources/v6/UI-MultiGeoFwd-37.png "MultiGeoFwd Pipeline Test first record")
 
-If we now click on the ![Stroom UI MultiGeoFwd - AUSxsltFilter](../resources/v6/UI-MultiGeoFwd-13.png "AUSxsltFilter") element we will see the ClientAUS translation in the code pane. the first Event in the _input_ pane and an empty event in the _output_ pane. The output is empty as the Client/Location/Country is NOT the string _AUS_, which is what the translation is matching on.
+If we now click on the ![Stroom UI MultiGeoFwd - AUSxsltFilter](../resources/v6/UI-MultiGeoFwd-13.png "AUSxsltFilter") element we will see the ClientAUS translation in the code pane. The first Event in the _input_ pane and an empty event in the _output_ pane. The output is empty as the Client/Location/Country is NOT the string _AUS_, which is what the translation is matching on.
 
 ![Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test first record output empty](../resources/v6/UI-MultiGeoFwd-38.png "MultiGeoFwd Pipeline Test first record output empty")
 

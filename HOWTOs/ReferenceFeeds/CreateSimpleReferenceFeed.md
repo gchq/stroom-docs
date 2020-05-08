@@ -3,7 +3,7 @@
 ### Document Properties
 
 * Author: John Doe 
-* Last Updated: 29 Feb 2020
+* Last Updated: 8 May 2020
 * Version Information: Created with Stroom v6
 
 ## Introduction
@@ -14,7 +14,7 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 
 A typical reference data set to support the Stroom XML Event schema might be on that relates to devices. Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and timezone.
 
-The following example will describe how to create a reference feed for such device data. we will call the reference feed `GeoHost-V1.0-REFERENCE`.
+The following example will describe how to create a reference feed for such device data. We will call the reference feed `GeoHost-V1.0-REFERENCE`.
 
 ## Reference Data
 Our reference data will be supplied in a <TAB> separated file containing the fields
@@ -151,11 +151,11 @@ We now need to select the structure this pipeline will use. We need to move from
 
 As this pipeline will be processing reference data, we would use a `Reference Data` pipeline. This is done by inheriting it from a defined set of Standard Pipelines. To do this, click on the menu selection icon ![Menu Selection](../resources/icons/menu-selection-horizontal.png "Menu Selection") to the right of the **Inherit From:** test display box.
 
-When the **Choose item** selection window appears, navigate to `Template Pipelines` system group (if not already displayed), and select (left click) the ![Pipeline](../resources/icons/pipeline.png "Pipeline") `Reference Data` pipeline
+When the **Choose item** selection window appears, navigate to the `Template Pipelines` system group (if not already displayed), and select (left click) the ![Pipeline](../resources/icons/pipeline.png "Pipeline") `Reference Data` pipeline. You can find further information about the Template Pipelines [here](https://github.com/gchq/stroom-content/blob/master/source/template-pipelines/README.md).
 
 ![Stroom UI CreateReferenceFeed - New Pipeline - Reference Data pipeline inherited](../resources/v6/UI-CreateReferenceFeed-21.png "New Pipeline - Reference Data pipeline inherited")
 
-then press **OK**. At this we will see the inherited pipeline structure of 
+Then press **OK**. At this we will see the inherited pipeline structure of 
 
 ![Stroom UI CreateReferenceFeed - New Pipeline - Inherited set](../resources/v6/UI-CreateReferenceFeed-22.png "New Pipeline - Inherited set")
 
@@ -318,7 +318,7 @@ We have now successfully tested the Text Converter for our reference feed. Our n
 
 ### Create XSLT Translation
 
-We now need to create our translation. This XSLT translation will convert simple _records_ XML data into _ReferenceData_ records - see the Stroom **reference-data v2.0.1** Schema for details.
+We now need to create our translation. This XSLT translation will convert simple _records_ XML data into _ReferenceData_ records - see the Stroom **reference-data v2.0.1** Schema for details. More information can be found [here](https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/README.md).
 
 We first need to create an XSLT translation for our feed. Move back to the Explorer window, and with the cursor having selected the `Event Sources` system group, right click the mouse to display the object context menu, select **New** 
 

@@ -3,7 +3,7 @@
 ### Document Properties
 
 * Author: John Doe 
-* Last Updated: 30 Mar 2020
+* Last Updated: 8 May 2020
 * Recommended Additional Documentation:
 HOWTO - Creating a Simple Reference Feed
 * Version Information: Created with Stroom v6
@@ -110,5 +110,29 @@ Once the translation was remediated to remove schema issues the pipeline could s
 
 ![Stroom UI EnableProcessors - pipeline Data Events reprocessed](../resources/v6/UI-EnableProcessors-19.png "pipeline Data Events reprocessed")
 
-NOTE: If you need to reprocess bulk streams you need to be aware that there is an upper limit of 1000 streams that can be reprocessed in a single batch. As at Stroom v6 if you exceed this number then you receive no error notification but the task never completes.
+You should be aware that if you need to reprocess bulk streams that there is an upper limit of 1000 streams that can be reprocessed in a single batch. As at Stroom v6 if you exceed this number then you receive no error notification but the task never completes.
 The reason for this behaviour is to do with database performance and complexity. When you reprocess the current selection of filtered data, it can contain data that has resulted from many pipelines and this requires creation of new processor filters for each of these pipelines. Due to this complexity there exists an arbitrary limit of 1000 streams. 
+
+A workaround for this limitation is to create batches of 'Events' by filtering the event streams based on **Type** and **Create Time**. 
+
+For example in our `Apache-SSLBlackBox-V2.0-EVENTS` event feed select the ![filter](../resources/icons/filter.png "Filter") icon.
+
+![Stroom UI EnableProcessors - pipeline Data Events reprocessed filter ](../resources/v6/UI-EnableProcessors-20.png "pipeline Data Events reprocessed filter ")
+
+Filter the feed by errors and creation time. Then click **OK**.
+
+
+![Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection](../resources/v6/UI-EnableProcessors-21.png "pipeline Data Events reprocessed filter selection")
+
+You will need to adjust the  create time range until you get the number of event streams displayed in the feed window below 1000.
+
+![Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection](../resources/v6/UI-EnableProcessors-22.png "pipeline Data Events reprocessed filter selection")
+
+Once you are displaying less than 1000 streams you can select all the streams in your filtered selection by clicking in the topmost selection box ![select](../resources/icons/select.png "Select"). Then click on the ![reprocess](../resources/icons/reprocess.png "Process") icon to reprocess these streams.
+
+![Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection](../resources/v6/UI-EnableProcessors-23.png "pipeline Data Events reprocessed filter selection"). 
+
+Repeat the process in batches of less that 1000 until your entire error stream backlog has been reprocessed.
+
+In a worst case senario, one can also delete a set of streams for a given time period and then reprocess them all. The only risk here is that if there
+are other pipelines that trigger on Event creation, you will activate them. That is you may have two index entries in an index, although Stroom dashboards silently caters for this or you may re-flatten data to some exteral downstream capability.

@@ -23,7 +23,7 @@ of different Stroom deployments.
 
 The [Event Feed Processing](EventFeeds/ProcessingHowTo.md "Event Feed Processing") HOWTO is provided to assist users in setting up Stroom to process inbound event logs and transform them into the Stroom Event Logging XML Schema.
 
-The [Apache HTTPD Event Feed](HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed.md "Apache HTTPD Event Feed") is interwoven into other HOWTOs that utilise this feed as a datasource.
+The [Apache HTTPD Event Feed](EventFeeds/CreateApacheHTTPDEventFeed.md "Apache HTTPD Event Feed") is interwoven into other HOWTOs that utilise this feed as a datasource.
 
 ## Reference Feeds
 
@@ -31,7 +31,7 @@ Reference Feeds are used to provide look up data for a translation. The referenc
 
 ## Event Post Processing
 
-The [Event Forwarding](EventPostProcessing/EventForwardingHowTo.md "Event Forwarding") HOWTO demonstrates how to extract xertain events from the Stroom event store and export the events in XML to a file system.
+The [Event Forwarding](EventPostProcessing/EventForwardingHowTo.md "Event Forwarding") HOWTO demonstrates how to extract certain events from the Stroom event store and export the events in XML to a file system.
 
 ## Administration
 
