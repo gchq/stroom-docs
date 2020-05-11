@@ -159,7 +159,7 @@ _Stroom Duration_ uses a number of string forms to support legacy property value
 #### ISO 8601 Durations
 
 _Stroom Duration_ can be expressed using [_ISO 8601_](https://en.wikipedia.org/wiki/ISO_8601) duration strings.
-It does NOT support the full _ISO 8601_ format, only `D`, `H`, `M` ans `S`.
+It does NOT support the full _ISO 8601_ format, only `D`, `H`, `M` and `S`.
 For details of how the string is parsed to a Stroom Duration, see [Duration](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence))
 
 The following are examples of _ISO 8601_ duration strings:
