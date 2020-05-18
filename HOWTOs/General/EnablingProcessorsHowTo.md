@@ -135,4 +135,12 @@ Once you are displaying less than 1000 streams you can select all the streams in
 Repeat the process in batches of less that 1000 until your entire error stream backlog has been reprocessed.
 
 In a worst case senario, one can also delete a set of streams for a given time period and then reprocess them all. The only risk here is that if there
-are other pipelines that trigger on Event creation, you will activate them. That is you may have two index entries in an index, although Stroom dashboards silently caters for this or you may re-flatten data to some exteral downstream capability.
+are other pipelines that trigger on Event creation, you will activate them. 
+
+The reprocessing may result in having two index entries in an index. Stroom dashboards can silently cater for this, or you may chose to re-flatten data to some external downstream capability.
+
+When considering reprocessing streams there are some other 'downstream effects' to be mindful of.
+
+If you have indexing in place, then additional index documents will be added to the index as the indexing capability does not replace documents, but adds them. If there are only a small number of streams reprocessed then there should not be too big an index storage impost, but should a large number of streams be reprocessed, then consideration of rebuilding resultant indices may need to be considered.
+
+If the pipeline exports data for consumption by another capability, then you will have exported a portion of the data twice. Depending on the risk of downstream data duplication, you may need to prevent the export or the consumption of the export. Some ways to address this can vary from creating a new pipeline to reprocess the errant streams which does not export data, to temporarily redirecting the export destination whilst reprocessing and preventing ingest of new source data to the pipeline at the same time.

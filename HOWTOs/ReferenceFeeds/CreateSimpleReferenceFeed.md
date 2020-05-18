@@ -405,14 +405,15 @@ window
 <xsl:stylesheet xpath-default-namespace="records:2"
 xmlns="reference-data:2"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stroom="stroom" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:stroom="stroom" 
 xmlns:evt="event-logging:3"
 version="2.0">
 
  <xsl:template match="records">
   <referenceData xmlns="reference-data:2"
-  xsi:schemaLocation="reference-data:2 file://reference-data-v2.0.xsd" version="2.0.1">
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="reference-data:2 file://reference-data-v2.0.xsd" version="2.0.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xsl:apply-templates/>
   </referenceData>
   </xsl:template>
