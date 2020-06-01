@@ -32,6 +32,7 @@
 * [Volumes](user-guide/volumes.md)
 * [Tasks](user-guide/tasks.md)
 * [Feeds](user-guide/feeds.md)
+* [Finding Things](user-guide/finding-things/finding-things.md)
 * [Roles and permissions](user-guide/roles.md)
 * [Sending data to Stroom](user-guide/sending-data/README.md)
   * [Header Arguments](user-guide/sending-data/header-arguments.md)
