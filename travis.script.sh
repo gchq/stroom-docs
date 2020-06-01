@@ -40,6 +40,7 @@ sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 echo -e "${GREEN}Installing and building gitbook${NC}"
 gitbook install
 gitbook build
+npm install svgexport -g
 
 #For a markdown file to be included in the gitbook conversion to html/pdf it must be linked to in SUMMARY.md
 missingFileCount=$(find ./_book/ -name "*.md" | wc -l)
