@@ -156,7 +156,8 @@ The matching is case insensitive.
 
 If the conditions are not met for the above matching approaches then word boundary matching will be employed.
 This approaches uses upper case letters to denote the start or a word.
-Words are defined as either being separated by characters like `_- ()[]`, or where lowerCamelCase or upperCamleCase is used.
+If you know all the words in the item you are looking for then condensing those words down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
+Words can either be separated by characters like `_- ()[]`, or be distinguished with `lowerCamelCase` or `upperCamelCase` format.
 An upper case letter in the input denotes the beginning of a 'word' and any subsequent lower case characters are treated as contiguously following the character at the start of the word.
 
 **User input**: `OTheiMa`
@@ -164,3 +165,10 @@ An upper case letter in the input denotes the beginning of a 'word' and any subs
 **Will match**: `the cat sat on their mat`, `ON THEIR MAT`, `Of their magic`, `o thei ma`, `onTheirMat`, `OnTheirMat`
 
 **Won't match**: `On the mat`, `the cat sat on there mat`, `On their moat`
+
+
+**User input**: `MFN`
+
+**Will match**: `MY_FEED_NAME`, `MY FEED NAME`, `myFeedName`, `MyFeedName`, `my-feed-name`, `MFN`
+
+**Won't match**: `myfeedname`, `NOT MY FEED NAME`
