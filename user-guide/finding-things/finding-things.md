@@ -82,10 +82,66 @@ In some instances, the list of matched items will be truncated to a more managea
 
 The fuzzy matching employs a number of approaches that are attempted in the following order:
 
+NOTE: In the following examples the `^` character is used to indicate which characters have been matched.
+
 
 ### No Input
 
 If no input is provided all items will match.
+
+### Word Boundary Matching
+
+If the user input is prefixed with a `?` character then word boundary matching will be employed.
+This approaches uses upper case letters to denote the start of a word.
+If you know all the words in the item you are looking for then condensing those words down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
+Words can either be separated by characters like `_- ()[]`, or be distinguished with `lowerCamelCase` or `upperCamelCase` format.
+An upper case letter in the input denotes the beginning of a 'word' and any subsequent lower case characters are treated as contiguously following the character at the start of the word.
+
+**User input**: `?OTheiMa`
+
+**Will match**: 
+
+```
+the cat sat on their mat
+            ^  ^^^^  ^^                                                                  
+ON THEIR MAT
+^  ^^^^  ^^ 
+Of their magic
+^  ^^^^  ^^   
+o thei ma
+^ ^^^^ ^^
+onTheirMat
+^ ^^^^ ^^ 
+OnTheirMat
+^ ^^^^ ^^ 
+```
+
+
+**Won't match**: `On the mat`, `the cat sat on there mat`, `On their moat`
+
+
+**User input**: `?MFN`
+
+**Will match**: 
+
+```
+MY_FEED_NAME
+^  ^    ^   
+MY FEED NAME
+^  ^    ^   
+THIS_IS_MY_FEED_NAME_TOO
+        ^  ^    ^                  
+myFeedName
+^ ^   ^   
+MyFeedName
+^ ^   ^   
+my-feed-name
+^  ^    ^   
+MFN
+^^^
+```
+
+**Won't match**: `myfeedname`, `NOT MY FEED NAME`
 
 
 ### Regular Expression Matching
@@ -96,7 +152,17 @@ The regular expression operates in case insensitive mode.
 
 **User input**: `/(^|wo)man`
 
-**Will match**: `MAN`, `A WOMAN`, `Manly`, `Womanly`
+**Will match**: 
+```
+MAN
+^^^
+A WOMAN
+  ^^^^^
+Manly
+^^^  
+Womanly
+^^^^^  
+```
 
 **Won't match**: `A MAN`, `HUMAN`
 
@@ -107,9 +173,16 @@ If the user input is prefixed with a `^` character and suffixed with a `$` chara
 
 **User input**: `^xml-events$`
 
-**Will match**: `xml-events`, `XML-EVENTS`
+**Will match**: 
 
-**Won't match**: `xslt-events`, `XML EVENTS`
+```
+xml-events
+^^^^^^^^^^
+XML-EVENTS
+^^^^^^^^^^
+```
+
+**Won't match**: `xslt-events`, `XML EVENTS`, `SOME-XML-EVENTS`, `AN-XML-EVENTS-PIPELINE`
 
 Note: Despite the similarity in syntax, this is NOT regular expression matching.
 
@@ -120,7 +193,16 @@ If the user input is prefixed with a `^` character then a case-insensitive start
 
 **User input**: `^events`
 
-**Will match**: `events`, `EVENTS_FEED`, `events-xslt`
+**Will match**: 
+
+```
+events
+^^^^^^
+EVENTS_FEED
+^^^^^^     
+events-xslt
+^^^^^^     
+```
 
 **Won't match**: `xslt-events`, `JSON_EVENTS`
 
@@ -133,7 +215,16 @@ If the user input is suffixed with a `$` character then a case-insensitive ends 
 
 **User input**: `events$`
 
-**Will match**: `events`, `xslt-events`, `JSON_EVENTS`
+**Will match**:
+
+```
+events
+^^^^^^
+xslt-events
+     ^^^^^^
+JSON_EVENTS
+     ^^^^^^
+```
 
 **Won't match**: `EVENTS_FEED`, `events-xslt`
 
@@ -142,33 +233,30 @@ Note: Despite the similarity in syntax, this is NOT regular expression matching.
 
 ### Characters Anywhere Matching
 
-If the user input is all lower case with no prefixes or suffixes then all characters in the user input will need to appear in the matched item in the order input.
+If no prefixes or suffixes are used then all characters in the user input will need to appear in the matched item in the order input.
 The matching is case insensitive.
 
 **User input**: `bad`
 
-**Will match**: `Big Angry Dog`, `BAD`, `badly`, `Very bad`, `b a d`, `bbaadd`
+**Will match**:
+
+```
+Big Angry Dog
+^   ^     ^  
+bad angry dog
+^^^          
+BAD
+^^^
+badly
+^^^  
+Very bad
+     ^^^
+b a d
+^ ^ ^
+bbaadd
+^ ^ ^ 
+```
 
 **Won't match**: `dab`, `ba`
 
 
-### Word Boundary Matching
-
-If the conditions are not met for the above matching approaches then word boundary matching will be employed.
-This approaches uses upper case letters to denote the start or a word.
-If you know all the words in the item you are looking for then condensing those words down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
-Words can either be separated by characters like `_- ()[]`, or be distinguished with `lowerCamelCase` or `upperCamelCase` format.
-An upper case letter in the input denotes the beginning of a 'word' and any subsequent lower case characters are treated as contiguously following the character at the start of the word.
-
-**User input**: `OTheiMa`
-
-**Will match**: `the cat sat on their mat`, `ON THEIR MAT`, `Of their magic`, `o thei ma`, `onTheirMat`, `OnTheirMat`
-
-**Won't match**: `On the mat`, `the cat sat on there mat`, `On their moat`
-
-
-**User input**: `MFN`
-
-**Will match**: `MY_FEED_NAME`, `MY FEED NAME`, `myFeedName`, `MyFeedName`, `my-feed-name`, `MFN`
-
-**Won't match**: `myfeedname`, `NOT MY FEED NAME`
