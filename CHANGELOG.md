@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Update `finding-things.md` to reflect support of wild-carded strings, e.g. `XML_*`.
+
 * Update `finding-things.md` to reflect use of `?` prefix for word boundary matching.
 
 * Add more examples to `finding-things.md`.

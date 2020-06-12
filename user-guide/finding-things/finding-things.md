@@ -25,7 +25,10 @@ Clicking _All/None_ toggles between all types selected and no types selected.
 
 ### Filtering by Name
 
-The _Explorer Tree_ can be filtered by the name of the entity. This is done by entering some text in the _Quick Filter_ field. The tree will then be updated to only show entities matching the _Quick Filter_. The way the matching works for entity names is described in [Common Fuzzy Matching](#common-fuzzy-matching)
+The _Explorer Tree_ can be filtered by the name of the entity. 
+This is done by entering some text in the _Quick Filter_ field.
+The tree will then be updated to only show entities matching the _Quick Filter_.
+The way the matching works for entity names is described in [Common Fuzzy Matching](#common-fuzzy-matching)
 
 ### Filtering by UUID
 
@@ -39,7 +42,8 @@ An entity's UUID is generated randomly by Stroom upon creation and is fixed for 
 When an entity is exported it is exported with its UUID and if it is then imported into another instance of Stroom the same UUID will be used.
 The name of an entity can be changed within Stroom but its UUID remains un-changed.
 
-With the exception of _Feeds_, Stroom allows multiple entities to have the same name. This is because entities may exist that a user does not have access to see so restricting their choice of names based on existing invisible entities would be confusing.
+With the exception of _Feeds_, Stroom allows multiple entities to have the same name.
+This is because entities may exist that a user does not have access to see so restricting their choice of names based on existing invisible entities would be confusing.
 Where there are multiple entities with the same name the UUID can be used to distinguish between them.
 
 The UUID of an entity can be viewed using the context menu for the entity.
@@ -169,7 +173,8 @@ Womanly
 
 ### Exact Match
 
-If the user input is prefixed with a `^` character and suffixed with a `$` character then a case-insensitive exact match will be used. E.g:
+If the user input is prefixed with a `^` character and suffixed with a `$` character then a case-insensitive exact match will be used.
+E.g:
 
 **User input**: `^xml-events$`
 
@@ -189,7 +194,8 @@ Note: Despite the similarity in syntax, this is NOT regular expression matching.
 
 ### Starts With
 
-If the user input is prefixed with a `^` character then a case-insensitive starts with match will be used. E.g:
+If the user input is prefixed with a `^` character then a case-insensitive starts with match will be used.
+E.g:
 
 **User input**: `^events`
 
@@ -211,7 +217,8 @@ Note: Despite the similarity in syntax, this is NOT regular expression matching.
 ### Ends With
 
 
-If the user input is suffixed with a `$` character then a case-insensitive ends with match will be used. E.g:
+If the user input is suffixed with a `$` character then a case-insensitive ends with match will be used.
+E.g:
 
 **User input**: `events$`
 
@@ -229,6 +236,44 @@ JSON_EVENTS
 **Won't match**: `EVENTS_FEED`, `events-xslt`
 
 Note: Despite the similarity in syntax, this is NOT regular expression matching.
+
+
+### Wild-Carded Case Sensitive Exact Matching
+
+If one or more `*` characters are found in the user input then this form of matching will be used.
+
+This form of matching is to support those fields that accept wild-carded values, e.g. a whild-carded feed name expression term.
+In this instance you are NOT picking a value from the suggestion list but entering a wild-carded value that will be evaluated when the expression/filter is actually used.
+The user may want an expression term that matches on all feeds starting with `XML_`, in which case they would enter `XML_*`.
+To give an indication of what it would match on if the list of feeds remains the same, the list of suggested items will reflect the wild-carded input.
+
+**User input**: `XML_*`
+
+**Will match**:
+
+```
+XML_
+^^^^
+XML_EVENTS
+^^^^          
+```
+
+**Won't match**: `BAD_XML_EVENTS`, `XML-EVENTS`, `xml_events`
+
+**User input**: `XML_*EVENTS*`
+
+**Will match**:
+
+```
+XML_EVENTS
+^^^^^^^^^^
+XML_SEC_EVENTS
+^^^^    ^^^^^^
+XML_SEC_EVENTS_FEED
+^^^^    ^^^^^^
+```
+
+**Won't match**: `BAD_XML_EVENTS`, `xml_events`
 
 
 ### Characters Anywhere Matching
