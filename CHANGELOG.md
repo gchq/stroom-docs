@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add field matching and negation to `finding-things.md`.
+
 * Add v7 new features.
 
 * Update `finding-things.md` to reflect support of wild-carded strings, e.g. `XML_*`.
