@@ -1,11 +1,20 @@
 # Stroom HOWTO - Create a Simple Reference Feed
+
+### Document Properties
+
+* Author: John Doe 
+* Last Updated: 8 May 2020
+* Version Information: Created with Stroom v6
+
+## Introduction
+
 A **Reference Feed** is a temporal set of data that a pipeline's translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.
 
 A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded. Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.
 
 A typical reference data set to support the Stroom XML Event schema might be on that relates to devices. Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and timezone.
 
-The following example will describe how to create a reference feed for such device data. we will call the reference feed `GeoHost-V1.0-REFERENCE`.
+The following example will describe how to create a reference feed for such device data. We will call the reference feed `GeoHost-V1.0-REFERENCE`.
 
 ## Reference Data
 Our reference data will be supplied in a <TAB> separated file containing the fields
@@ -17,14 +26,9 @@ Our reference data will be supplied in a <TAB> separated file containing the fie
 * the device Building location
 * the device TimeZone location (both standard then daylight timezone offsets from UTC)
 
-For simplicity, our example will use a file with just 3 entries
+For simplicity, our example will use a file with just 5 entries
 
-```
-FQDN	IPAddress	Country	Site	Building	Room	TimeZones
-stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
-stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
-host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
-```
+![Stroom UI CreateReferenceFeed - Raw Data](../resources/v6/UI-CreateReferenceFeed-75.png "Raw Data")
 
 A copy of this sample data source can be found [here](GeoHostReference.log "GeoHost REFERENCE  sample logs"). Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.
 
@@ -93,14 +97,10 @@ Note, if you happen to click on the **OK** button before selecting the **File** 
 
 ![Stroom UI CreateReferenceFeed - Upload Data No file set](../resources/v6/UI-CreateReferenceFeed-11.png "Upload Data No file set")
 
-We don't need to set **Meta Data** for this stream of reference data, but we (obviously) need to select the file. For the purposes of this example, we will utilise the file **GeoHostReference.log** you downloaded earlier in the **Reference Data** section of this document. This file contains a header and three lines of reference data as per
+We don't need to set **Meta Data** for this stream of reference data, but we (obviously) need to select the file. For the purposes of this example, we will utilise the file **GeoHostReference.log** you downloaded earlier in the **Reference Data** section of this document. This file contains a header and five lines of reference data as per
 
-```
-FQDN	IPAddress	Country	Site	Building	Room	TimeZones
-stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
-stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
-host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
-```
+![Stroom UI CreateReferenceFeed - Raw Data](../resources/v6/UI-CreateReferenceFeed-75.png "Raw Data")
+
 When we construct the pipeline for this reference feed, we will see how to make use of the header line.
 
 So, click on the **Choose File** button to bring up a file selector window. Navigate within the selector window to the location on your location machine where you have saved the GeoHostReference.log file. On clicking **Open** we return to the **Upload** window with the file selected.
@@ -151,11 +151,11 @@ We now need to select the structure this pipeline will use. We need to move from
 
 As this pipeline will be processing reference data, we would use a `Reference Data` pipeline. This is done by inheriting it from a defined set of Standard Pipelines. To do this, click on the menu selection icon ![Menu Selection](../resources/icons/menu-selection-horizontal.png "Menu Selection") to the right of the **Inherit From:** test display box.
 
-When the **Choose item** selection window appears, navigate to `Template Pipelines` system group (if not already displayed), and select (left click) the ![Pipeline](../resources/icons/pipeline.png "Pipeline") `Reference Data` pipeline
+When the **Choose item** selection window appears, navigate to the `Template Pipelines` system group (if not already displayed), and select (left click) the ![Pipeline](../resources/icons/pipeline.png "Pipeline") `Reference Data` pipeline. You can find further information about the Template Pipelines [here](https://github.com/gchq/stroom-content/blob/master/source/template-pipelines/README.md).
 
 ![Stroom UI CreateReferenceFeed - New Pipeline - Reference Data pipeline inherited](../resources/v6/UI-CreateReferenceFeed-21.png "New Pipeline - Reference Data pipeline inherited")
 
-then press **OK**. At this we will see the inherited pipeline structure of 
+Then press **OK**. At this we will see the inherited pipeline structure of 
 
 ![Stroom UI CreateReferenceFeed - New Pipeline - Inherited set](../resources/v6/UI-CreateReferenceFeed-22.png "New Pipeline - Inherited set")
 
@@ -310,7 +310,7 @@ If we again press the ![stepForward](../resources/icons/stepForward.png "Step Fo
 
 ![Stroom UI CreateReferenceFeed - textConverter - pipeline stepping - 2nd record](../resources/v6/UI-CreateReferenceFeed-38.png "textConverter - pipeline stepping - 2nd record")
 
-Pressing the Step Forward button ![stepForward](../resources/icons/stepForward.png "Step Forward") again displays our third and last line of our raw and converted data. 
+Pressing the Step Forward button ![stepForward](../resources/icons/stepForward.png "Step Forward") again displays our third line of our raw and converted data. Repeat this process to view the fourth and fifth lines of converted data.
 
 ![Stroom UI CreateReferenceFeed - textConverter - pipeline stepping - 3rd record](../resources/v6/UI-CreateReferenceFeed-39.png "textConverter - pipeline stepping - 3rd record")
 
@@ -318,7 +318,7 @@ We have now successfully tested the Text Converter for our reference feed. Our n
 
 ### Create XSLT Translation
 
-We now need to create our translation. This XSLT translation will convert simple _records_ XML data into _ReferenceData_ records - see the Stroom **reference-data v2.0.1** Schema for details.
+We now need to create our translation. This XSLT translation will convert simple _records_ XML data into _ReferenceData_ records - see the Stroom **reference-data v2.0.1** Schema for details. More information can be found [here](https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/README.md).
 
 We first need to create an XSLT translation for our feed. Move back to the Explorer window, and with the cursor having selected the `Event Sources` system group, right click the mouse to display the object context menu, select **New** 
 
@@ -405,14 +405,15 @@ window
 <xsl:stylesheet xpath-default-namespace="records:2"
 xmlns="reference-data:2"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stroom="stroom" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:stroom="stroom" 
 xmlns:evt="event-logging:3"
 version="2.0">
 
  <xsl:template match="records">
   <referenceData xmlns="reference-data:2"
-  xsi:schemaLocation="reference-data:2 file://reference-data-v2.0.xsd" version="2.0.1">
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="reference-data:2 file://reference-data-v2.0.xsd" version="2.0.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xsl:apply-templates/>
   </referenceData>
   </xsl:template>
@@ -731,7 +732,7 @@ The complete ReferenceData for this stream is
     <value>
       <evt:Location>
         <evt:Country>AUS</evt:Country>
-        <evt:Site>Sydeny-S04</evt:Site>
+        <evt:Site>Sydney-S04</evt:Site>
         <evt:Building>R6</evt:Building>
         <evt:Room>5-134</evt:Room>
         <evt:TimeZone>+10:00/+11:00</evt:TimeZone>
@@ -762,6 +763,61 @@ The complete ReferenceData for this stream is
         <evt:Building>ILM</evt:Building>
         <evt:Room>C5-54-2</evt:Room>
         <evt:TimeZone>-08:00/-07:00</evt:TimeZone>
+      </evt:Location>
+    </value>
+  </reference>
+</referenceData>
+<reference>
+    <map>FQDN_TO_IP</map>
+    <key>host32.strmdev01.org</key>
+    <value>
+      <IPAddress>192.168.8.151</IPAddress>
+    </value>
+  </reference>
+  <reference>
+    <map>IP_TO_FQDN</map>
+    <key>192.168.8.151</key>
+    <value>
+      <HostName>host32.strmdev01.org</HostName>
+    </value>
+  </reference>
+  <reference>
+    <map>FQDN_TO_LOC</map>
+    <key>host32.strmdev01.org</key>
+    <value>
+      <evt:Location>
+        <evt:Country>AUS</evt:Country>
+        <evt:Site>Sydney-S02</evt:Site>
+        <evt:Building>RC45</evt:Building>
+        <evt:Room>5-134</evt:Room>
+        <evt:TimeZone>+10:00/+11:00</evt:TimeZone>
+      </evt:Location>
+    </value>
+  </reference>
+  <reference>
+    <map>FQDN_TO_IP</map>
+    <key>host14.strmdev00.org</key>
+    <value>
+      <IPAddress>192.168.234.9</IPAddress>
+    </value>
+  </reference>
+  <reference>
+    <map>IP_TO_FQDN</map>
+    <key>192.168.234.9</key>
+    <value>
+      <HostName>host14.strmdev00.org</HostName>
+    </value>
+  </reference>
+  <reference>
+    <map>FQDN_TO_LOC</map>
+    <key>host14.strmdev00.org</key>
+    <value>
+      <evt:Location>
+        <evt:Country>GBR</evt:Country>
+        <evt:Site>Bristol-S22</evt:Site>
+        <evt:Building>CAMP2</evt:Building>
+        <evt:Room>Rm67</evt:Room>
+        <evt:TimeZone>+00:00/+01:00</evt:TimeZone>
       </evt:Location>
     </value>
   </reference>
