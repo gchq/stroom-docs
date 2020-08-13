@@ -26,4 +26,11 @@ Reference Feeds are used to provide look up data for a translation. The referenc
 Once you have some indexed some data you can create queries to
  search for it.  Various methods of searching are listed
  * [Search using bash](HOWTOs/Search/SearchFromBash.md "Search using Bash")
- * todo
+
+## General
+
+[Raw Source Tracking](HOWTOs/General/RawSourceTracking.md "Raw Source Tracking") show how to associate a processed Event with the source line that generated it
+
+Other topics in this section are
+1. [Feed Management](HOWTOs/General/TasksHowTo.md "Feed Management").
+2. [Tasks](HOWTOs/General/TasksHowTo.md "Tasks")
