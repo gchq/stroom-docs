@@ -1,16 +1,17 @@
 Link every Event back to the Raw log
 ==
 
-Stroom v6.1 introduced a new feature (_stroom:source()_) to allow a translation developer to obtain positional details of the source file that is currently being processed.  Using the positional information it is possible to tag Events with sufficient details to link back to the Raw source.
+Stroom v6.1 introduced a new feature (_stroom:source()_) to allow a translation developer to obtain positional details of the source file that is currently being processed.
+Using the positional information it is possible to tag Events with sufficient details to link back to the Raw source.
 
 ## Assumptions
 1. You have a working pipeline that processes logs into Events.
-2. Events are indexed
-3. You have a Dashboard uses a Search Extraction pipeline.
+1. Events are indexed
+1. You have a Dashboard uses a Search Extraction pipeline.
 
 ## Steps
 1. Create a new XSLT called Source Decoration containing the following:
-```
+```xml
 <xsl:stylesheet xpath-default-namespace="event-logging:3" xmlns:sm="stroom-meta" xmlns="event-logging:3" xmlns:rec="records:2" xmlns:stroom="stroom"  version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="@*|node()">
     <xsl:copy>
@@ -34,10 +35,10 @@ Stroom v6.1 introduced a new feature (_stroom:source()_) to allow a translation 
 </xsl:stylesheet>
 ```
 This XSLT will add or augment the Meta section of the Event with the source details.
-2. Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.
-3. Reprocess the Events through the modified pipeline, also ensure your Events are indexed.
-4. Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data. Add the following to the XSLT:
-```
+1. Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.
+1. Reprocess the Events through the modified pipeline, also ensure your Events are indexed.
+1. Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data. Add the following to the XSLT:
+```xml
 <xsl:element name="data">
   <xsl:attribute name="name">
     <xsl:text>src-id</xsl:text>
@@ -81,10 +82,11 @@ This XSLT will add or augment the Meta section of the Event with the source deta
   <xsl:attribute name="value" select="Meta/sm:source/sm:colTo" />
 </xsl:element>
 ```
-5.  Open your dashboard, now add the following custom fields to your table : ```${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}```
-6. Now add a New Text Window to your Dashboard, and configure it as below:
+1.  Open your dashboard, now add the following custom fields to your table : `${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}`
+1. Now add a New Text Window to your Dashboard, and configure it as below:
 !["TextWindow Config"](../resources/HT-RawSourceTextWindow.png "TextWindow Config")
-7. You can also add a column to the table that will open a data window showing the source.  Add a custom column with the following expression:
+1. You can also add a column to the table that will open a data window showing the source.
+Add a custom column with the following expression:
 ```
 data('Raw Log',${src-id},${src-partNo},'',${src-lineFrom},${src-colFrom},${src-lineTo},${src-colTo})
 ```
