@@ -20,3 +20,17 @@ The [Apache HTTPD Event Feed](HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed.md "A
 ## Reference Feeds
 
 Reference Feeds are used to provide look up data for a translation. The reference feed HOWTOs illustrate how to create reference feeds and how to use look up reference data maps to enrich the data you are processing.
+
+## Searches
+
+Once you have some indexed some data you can create queries to
+ search for it.  Various methods of searching are listed
+ * [Search using bash](HOWTOs/Search/SearchFromBash.md "Search using Bash")
+
+## General
+
+[Raw Source Tracking](HOWTOs/General/RawSourceTracking.md "Raw Source Tracking") show how to associate a processed Event with the source line that generated it
+
+Other topics in this section are
+1. [Feed Management](HOWTOs/General/TasksHowTo.md "Feed Management").
+2. [Tasks](HOWTOs/General/TasksHowTo.md "Tasks")

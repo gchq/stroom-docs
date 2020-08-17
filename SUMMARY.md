@@ -92,6 +92,7 @@
 * General
   * [Feed Management](HOWTOs/General/FeedManagementHowTo.md)
   * [Tasks](HOWTOs/General/TasksHowTo.md)
+  * [Raw Source Tracking](HOWTOs/General/RawSourceTracking.md)
 * Authentication
   * [User Logout](HOWTOs/Authentication/UserLogoutHowTo.md)
   * [User Login](HOWTOs/Authentication/UserLoginHowTo.md)
@@ -115,6 +116,9 @@
   * [Create Reference Feed](HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)
 * Administration
   * [System Properties](HOWTOs/Administration/SystemProperties.md)
+* Search
+  * [Search API using bash](HOWTOs/Search/SearchFromBash.md)
+
 
 ### 5. Stroom Proxy
 
