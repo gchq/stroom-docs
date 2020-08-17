@@ -118,6 +118,7 @@
   * [System Properties](HOWTOs/Administration/SystemProperties.md)
 * Search
   * [Search API using bash](HOWTOs/Search/SearchFromBash.md)
+  * [Simple Solr integration](HOWTOs/Search/SimpleSolr.md)
 
 
 ### 5. Stroom Proxy
