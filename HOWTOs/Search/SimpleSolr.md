@@ -32,4 +32,5 @@ Note the "Solr URL" field is a reference to the newly created Solr core.
 e.g.EventTime, UserId
 1. Retention is different in Solr, you must specify an expression that matches data that can be deleted.
 !["Solr Retention"](../resources/v7/HT_SimpleSolr_Retention.png "Solr Retention")
-1. Your Solr Index can now be user as per a Stroom Lucene Index.
+1. Your Solr Index can now be used as per a Stroom Lucene Index.
+However, your Indexing pipeline must use a SolrIndexingFilter instead of an IndexingFilter.
