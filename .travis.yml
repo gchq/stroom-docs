@@ -7,9 +7,11 @@ node_js:
   # Node fixed at v13 else we get errors to do with graceful-fs when `gitbook install` is called 
   - 13
 
+# want to cache npm global
 cache:
   directories:
-    - node_modules # NPM packages
+    - node_modules
+    - $(npm root -g)
 
 before_install:
   - sudo apt-get -qq update
@@ -17,13 +19,8 @@ before_install:
   - sudo apt-get install -y calibre
 
 install:
-  #- . $HOME/.nvm/nvm.sh
-  #- nvm install stable
-  #- nvm use stable
-  #- npm install
   - npm install -g gitbook-cli
   - npm install -g svgexport
-  - npm -g ls graceful-fs
 
 script: ./travis.script.sh
 
