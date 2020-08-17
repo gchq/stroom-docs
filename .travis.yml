@@ -7,10 +7,10 @@ node_js:
   # Node fixed at v13 else we get errors to do with graceful-fs when `gitbook install` is called 
   - 13
 
-# want to cache npm global
+# want to cache npm global modules, local node_modules is done automatically by travis.
+# Hard to say if this caching helps or not
 cache:
   directories:
-    - node_modules
     - $(npm root -g)
 
 before_install:
