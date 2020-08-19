@@ -24,18 +24,16 @@ Neither of the pre-requisites are available from the CentOS ditribution.
 To download and install - docker-ce - from the internet, a new 'repo' file is downloaded first. 
 e.g. as *root* user:
 
-wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
-
-yum install docker-ce.x86_64
-
+- wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+- yum install docker-ce.x86_64
 
 This will install the packages - docker-ce docker-ce-cli & containerd.io
 
  
 The docker-compose software can de downloaded from github 
 e.g. as *root* user to download docker-compose version 1.25.4 and save it to - /usr/local/bin/docker-compose 
-curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
-chmod 755 /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+- chmod 755 /usr/local/bin/docker-compose
 
 
 
