@@ -44,7 +44,6 @@ e.g. as *root* user to download docker-compose version 1.25.4 and save it to -  
 - chmod 755 /usr/local/bin/docker-compose
 
 &nbsp;  
-&nbsp;  
 
 
 ### Firewall Configuration
@@ -63,7 +62,7 @@ Currently these ports are:
 - 443
 - 80
 
-For example on a RHEL/CentOS server using `firewalld` the commands would be:  
+For example on a RHEL/CentOS server using `firewalld` the commands would be as *root* user:  
 
 firewall-cmd --zone=public --permanent --add-port=3307/tcp  
 firewall-cmd --zone=public --permanent --add-port=8080/tcp  
@@ -77,6 +76,7 @@ firewall-cmd --zone=public --permanent --add-port=443/tcp
 firewall-cmd --zone=public --permanent --add-port=80/tcp  
 firewall-cmd --reload  
 
+&nbsp;  
 &nbsp;  
 
 ### Download and install Stroom v7 (docker version)
