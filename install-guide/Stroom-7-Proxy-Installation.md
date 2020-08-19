@@ -25,7 +25,9 @@ To download and install - docker-ce - from the internet, a new 'repo' file is do
 e.g. as *root* user:
 
 wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+
 yum install docker-ce.x86_64
+
 
 This will install the packages - docker-ce docker-ce-cli & containerd.io
 
