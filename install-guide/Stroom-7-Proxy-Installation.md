@@ -1,5 +1,7 @@
 # Installation of Stroom Proxy
-The installation and configuration of the Stroom Proxy software for the docker and 'app' versions.
+The installation and configuration of the Stroom Proxy software for the docker and 'app' versions.  
+&nbsp;
+
 
 ## Assumptions
 The following assumptions are used in this document.
@@ -11,9 +13,13 @@ The following assumptions are used in this document.
 - the user is or has deployed the two node Stroom cluster described [here](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario").
 - the user has set up the Stroom processing user as described [here](InstallProcessingUserSetupHowTo.md "Processing User Setup").
 - the prerequisite software has been installed.
-- when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
+- when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.  
 
+&nbsp;
 
+&nbsp;
+
+  
 ## Stroom Remote Proxy (docker version)
 
 The operating system (OS) build for a stroom proxy is minimal CentOS plus a pre-requisite of docker-ce & docker-compose.
