@@ -56,7 +56,7 @@ As a suitable stroom user e.g. aasuser - download and unpack the stroom software
 
 Because this is a stroom proxy, the stroom configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env  
 needs to be edited, with the connection details of the stroom server that data files will be sent to.  
-The values that need to be set are:
+The values that need to be set are:  
 STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY  
 STROOM_PROXY_REMOTE_FEED_STATUS_URL  
 STROOM_PROXY_REMOTE_FORWARD_URL  
@@ -70,6 +70,13 @@ export STROOM_PROXY_REMOTE_FEED_STATUS_URL="http://stroom-serve.somewhere.co.uk:
 export STROOM_PROXY_REMOTE_FORWARD_URL="http://stroom-serve.somewhere.co.uk:8080/stroom/noauth/datafeed"
 
 
+### To Start Stroom Proxy
+As the stroom user, run the 'start.sh' script found in the stroom install:
+
+- cd ~/stroom_proxy/stroom_proxy-v7.0-beta.45/
+-- ./start.sh  
+
+The first time the script is ran it will download from github, the docker containers
 
 
 
