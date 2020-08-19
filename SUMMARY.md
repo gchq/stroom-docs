@@ -16,7 +16,7 @@
 
 * [Architecture & Deployment](install-guide/stroom-6-architecture.md)
 * [Installing Stroom](install-guide/stroom-app-install.md)
-* [Installing Stroom Proxy v7](install-guide/stroom-proxy-v7-install.md)
+* [Installing Stroom Proxy v7](install-guide/stroom-7-proxy-installation.md)
 * Setup
   * [Apache forwarding](install-guide/setup/apache-forwarding.md)
   * [Java key store setup](install-guide/setup/java-key-store-setup.md)
