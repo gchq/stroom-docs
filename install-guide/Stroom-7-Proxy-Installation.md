@@ -21,8 +21,8 @@ The following assumptions are used in this document.
 
 ## Stroom Remote Proxy (docker version)
 
-The bui,d of a stroom proxy where the stroom applications are running in docker containers.  
-The operating system (OS) build for a 'dockerised stroom proxy is minimal CentOS plus the docker-ce & docker-compose packages.  
+The build of a stroom proxy where the stroom applications are running in docker containers.  
+The operating system (OS) build for a 'dockerised' stroom proxy is minimal RHEL/CentOS 7 plus the docker-ce & docker-compose packages.  
 Neither of the pre-requisites are available from the CentOS ditribution.  
 &nbsp;  
 
@@ -122,7 +122,7 @@ these are - stroom-proxy-remote, stroom-log-sender and nginx
 ## Stroom Remote Proxy (app version)
 
 The build of a stroom proxy server, where the stroom application is running locally.  
-The operating system (OS) build for an 'appliaction' stroom proxy is minimal CentOS plus Java.  
+The operating system (OS) build for an 'application' stroom proxy is minimal RHEL/CentOS 7 plus Java.  
 The Java version required for stroom v7 is 12+. 
 &nbsp;  
 
