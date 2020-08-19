@@ -41,6 +41,8 @@ e.g. as *root* user to download docker-compose version 1.25.4 and save it to -  
 - curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
 - chmod 755 /usr/local/bin/docker-compose
 
+&nbsp;
+
 
 ### Download and install Stroom v7 (docker version)
 
@@ -61,9 +63,10 @@ STROOM_PROXY_REMOTE_FORWARD_URL.
 
 The 'API key' is generated on the stroom server for a specific user e.g. proxyServiceUser. 
 The 2 URL values also reffer to the stroom server and can be a fully qualiffued domain name (fqdn) or the IP Address.  
+&nbsp;
 
-If, the stroom server was - stroom-serve.somewhere.co.uk - the URKL lines would be:  
-export STROOM_PROXY_REMOTE_FEED_STATUS_URL="http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1"
+If, the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:  
+export STROOM_PROXY_REMOTE_FEED_STATUS_URL="http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1". 
 export STROOM_PROXY_REMOTE_FORWARD_URL="http://stroom-serve.somewhere.co.uk:8080/stroom/noauth/datafeed"
 
 
