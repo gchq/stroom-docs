@@ -54,15 +54,15 @@ As a suitable stroom user e.g. aasuser - download and unpack the stroom software
 
 &nbsp;  
 
-Because this is a stroom proxy, the stroom configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env 
+Because this is a stroom proxy, the stroom configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env  
 needs to be edited, with the connection details of the stroom server that data files will be sent to.  
 The values that need to be set are:
-STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY
-STROOM_PROXY_REMOTE_FEED_STATUS_URL
-STROOM_PROXY_REMOTE_FORWARD_URL. 
+STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY  
+STROOM_PROXY_REMOTE_FEED_STATUS_URL  
+STROOM_PROXY_REMOTE_FORWARD_URL  
 
 The 'API key' is generated on the stroom server for a specific user e.g. proxyServiceUser. 
-The 2 URL values also reffer to the stroom server and can be a fully qualiffued domain name (fqdn) or the IP Address.  
+The 2 URL values also refer to the stroom server and can be a fully qualiffued domain name (fqdn) or the IP Address.  
 &nbsp;  
 
 If, the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:  
