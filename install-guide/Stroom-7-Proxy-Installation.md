@@ -44,6 +44,40 @@ e.g. as *root* user to download docker-compose version 1.25.4 and save it to -  
 - chmod 755 /usr/local/bin/docker-compose
 
 &nbsp;  
+&nbsp;  
+
+
+### Firewall Configuration
+
+If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.  
+Currently these ports are:  
+
+- 3307
+- 8080
+- 8081
+- 8090
+- 8091
+- 8543
+- 5000
+- 2888
+- 443
+- 80
+
+For example on a RHEL/CentOS server using `firewalld` the commands would be:  
+
+firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+firewall-cmd --zone=public --permanent --add-port=8080/tcp  
+firewall-cmd --zone=public --permanent --add-port=8081/tcp  
+firewall-cmd --zone=public --permanent --add-port=8090/tcp  
+firewall-cmd --zone=public --permanent --add-port=8091/tcp  
+firewall-cmd --zone=public --permanent --add-port=8099/tcp  
+firewall-cmd --zone=public --permanent --add-port=5000/tcp  
+firewall-cmd --zone=public --permanent --add-port=2888/tcp  
+firewall-cmd --zone=public --permanent --add-port=443/tcp  
+firewall-cmd --zone=public --permanent --add-port=80/tcp  
+firewall-cmd --reload  
+
+&nbsp;  
 
 ### Download and install Stroom v7 (docker version)
 The installation example below is for stroom version 7.0.beta.45 - but is appliacle to other stroom v7 versions.  
@@ -69,14 +103,18 @@ If, the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would b
 export STROOM_PROXY_REMOTE_FEED_STATUS_URL="http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1"  
 export STROOM_PROXY_REMOTE_FORWARD_URL="http://stroom-serve.somewhere.co.uk:8080/stroom/noauth/datafeed"
 
+&nbsp;  
 
 ### To Start Stroom Proxy
 As the stroom user, run the 'start.sh' script found in the stroom install:
 
 - cd ~/stroom_proxy/stroom_proxy-v7.0-beta.45/
--- ./start.sh  
+- ./start.sh  
 
-The first time the script is ran it will download from github, the docker containers
+The first time the script is ran it will download from github, the docker containers, for a stroom proxy  
+these are - stroom-proxy-remote, stroom-log-sender and nginx
+
+&nbsp;  
 
 
 
