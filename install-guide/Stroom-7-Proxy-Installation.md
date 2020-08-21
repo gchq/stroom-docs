@@ -256,17 +256,18 @@ but their location can be changed in the – config.yml –
 
 keyStorePath: "/stroom-proxy/certs/client.jks"  
 trustStorePath: "/stroom-proxy/certs/ca.jks"  
-keyStorePath: "/stroom-proxy/certs/client.jks". 
-trustStorePath: "/stroom-proxy/certs/ca.jks". 
+keyStorePath: "/stroom-proxy/certs/client.jks"  
+trustStorePath: "/stroom-proxy/certs/ca.jks"  
 
 Could be changed to……………….  
 keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks"  
 trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks"  
-keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks". 
-trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks". 
+keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks"  
+trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks"  
 &nbsp;  
 
-Create a directory - **/stroom-proxy** – and ensure that stroom can write to it. This is where the proxy data files are stored - /stroom-proxy/repo – 
+Create a directory - **/stroom-proxy** – and ensure that stroom can write to it 
+This is where the proxy data files are stored - /stroom-proxy/repo  
 proxyRepositoryConfig:
     storingEnabled: true
     repoDir: **"/stroom-proxy/repo"**
