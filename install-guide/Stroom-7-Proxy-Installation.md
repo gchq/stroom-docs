@@ -142,11 +142,13 @@ This can be downloaded from the internet.
 Version 12.0.1  
 wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_lin
 ux-x64_bin.tar.gz
-* Or version 14.0.2 https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz *  
+*Or version 14.0.2 https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz* 
+&nbsp;  
 
 The gzipped tar file needs to be untarred and moved to a suitable location. 
 - tar xvf openjdk-12.0.1_linux-x64_bin.tar.gz
 - mv jdk-12.0.1 /opt/  
+&nbsp;  
 
 Create a shell script that will define the Java variables	OR add the statements to .bash_profile
 e.g. vi /etc/profile.d/jdk12.sh  
@@ -155,7 +157,8 @@ e.g. vi /etc/profile.d/jdk12.sh
 
 - source /etc/profile.d/jdk12.sh
 - echo $JAVA_HOME
-	/opt/jdk-12.0.1
+	/opt/jdk-12.0.1  
+
 - java --version
 openjdk version "12.0.1" 2019-04-16
 OpenJDK Runtime Environment (build 12.0.1+12)
