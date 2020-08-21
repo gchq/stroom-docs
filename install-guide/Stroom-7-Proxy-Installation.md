@@ -1,6 +1,6 @@
 # Installation of Stroom Proxy
 There are 2 versions of the stroom software availble for building a proxy server.  
-There is an 'app'version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.  
+There is an 'app' version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.  
 The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database.  
 The document will cover the installation and configuration of the stroom proxy software for both the docker and 'app' versions.  
 &nbsp;
@@ -69,8 +69,8 @@ Currently these ports are:
 
 For example on a RHEL/CentOS server using `firewalld` the commands would be as *root* user:  
 
-- firewall-cmd --zone=public --permanent --add-port=3307/tcp  
-- firewall-cmd --zone=public --permanent --add-port=8080/tcp  
+firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
 firewall-cmd --zone=public --permanent --add-port=8091/tcp  
@@ -93,14 +93,15 @@ As a suitable stroom user e.g. stroomuser - download and unpack the stroom softw
 
 &nbsp;  
 
-Because this is a stroom proxy, the stroom configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env  
+For a stroom proxy, the configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env  
 needs to be edited, with the connection details of the stroom server that data files will be sent to.  
+The default network port for connection to the stroom server is 8080
 The values that need to be set are:  
 STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY  
 STROOM_PROXY_REMOTE_FEED_STATUS_URL  
 STROOM_PROXY_REMOTE_FORWARD_URL  
 
-The 'API key' is generated on the stroom server for a specific user e.g. proxyServiceUser. 
+The 'API key' is generated on the stroom server and is related to a specific user e.g. proxyServiceUser
 The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.  
 &nbsp;  
 
@@ -117,17 +118,51 @@ As the stroom user, run the 'start.sh' script found in the stroom install:
 - ./start.sh  
 
 The first time the script is ran it will download from github the docker containers for a stroom proxy  
-these are - stroom-proxy-remote, stroom-log-sender and nginx
+these are - stroom-proxy-remote, stroom-log-sender and nginx.  
+Once the script has completed the stroom proxy server should be running.
+There are additional scripts - status.sh - that will show the status of the docker containers (stroom-proxy-remote, stroom-log-sender and nginx)
+and - logs.sh - that will tail all of the stroom message files to the screen.   
 
 &nbsp;  
 
 &nbsp;  
+
+
 
 ## Stroom Remote Proxy (app version)
 
-The build of a stroom proxy server, where the stroom application is running locally.  
+The build of a stroom proxy server, where the stroom application is running locally as a Java ARchive (jar) file.  
 The operating system (OS) build for an 'application' stroom proxy is minimal RHEL/CentOS 7 plus Java.  
-The Java version required for stroom v7 is 12+. 
+&nbsp;  
+
+The Java version required for stroom v7 is 12+ This version of Java is not available from the RHEL/CentOS distribution.  
+The version of Java used below is the 'openJDK' version as opposed to Oracle's version.  
+This can be downloaded from the internet.  
+
+Version 12.0.1  
+wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_lin
+ux-x64_bin.tar.gz
+* Or version 14.0.2 https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz *  
+
+The gzipped tar file needs to be untarred and moved to a suitable location. 
+- tar xvf openjdk-12.0.1_linux-x64_bin.tar.gz
+- mv jdk-12.0.1 /opt/  
+
+Create a shell script that will define the Java variables	OR add the statements to .bash_profile
+e.g. vi /etc/profile.d/jdk12.sh  
+          export JAVA_HOME=/opt/jdk-12.0.1  
+          export PATH=$PATH:$JAVA_HOME/bin  
+
+- source /etc/profile.d/jdk12.sh
+- echo $JAVA_HOME
+	/opt/jdk-12.0.1
+- java --version
+openjdk version "12.0.1" 2019-04-16
+OpenJDK Runtime Environment (build 12.0.1+12)
+OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing)
+
+
+
 &nbsp;  
 
 
