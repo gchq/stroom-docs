@@ -251,8 +251,8 @@ proxyConfig:
 
 The location of the jks files has to be set, or comment all of the lines that have **sslConfig: & tls:** sections out to not use jks checking. 
 
-Stroom also needs the client & ca ‘jks’ files and by default are located in - /stroom-proxy/certs/ca.jks & client.jks
-but their location can be changed in the – config.yml –
+Stroom also needs the client & ca ‘jks’ files and by default are located in - **/stroom-proxy/certs/ca.jks & client.jks**
+Their location can be changed in the – config.yml –  
 
 keyStorePath: "/stroom-proxy/certs/client.jks"  
 trustStorePath: "/stroom-proxy/certs/ca.jks"  
@@ -266,8 +266,8 @@ keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks"
 trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks"  
 &nbsp;  
 
-Create a directory - **/stroom-proxy** – and ensure that stroom can write to it 
-This is where the proxy data files are stored - /stroom-proxy/repo  
+Create a directory - **/stroom-proxy** – and ensure that stroom can write to it  
+This is where the proxy data files are stored - **/stroom-proxy/repo**    
 proxyRepositoryConfig:
     storingEnabled: true
     repoDir: **"/stroom-proxy/repo"**
