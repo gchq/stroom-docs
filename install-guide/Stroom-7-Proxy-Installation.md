@@ -1,5 +1,8 @@
 # Installation of Stroom Proxy
-The installation and configuration of the Stroom Proxy software for the docker and 'app' versions.  
+There are 2 versions of the stroom software availble for building a proxy server.  
+There is an 'app'version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.  
+The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database.  
+The document will cover the installation and configuration of the stroom proxy software for both the docker and 'app' versions.  
 &nbsp;
 
 
@@ -24,18 +27,19 @@ The following assumptions are used in this document.
 The build of a stroom proxy where the stroom applications are running in docker containers.  
 The operating system (OS) build for a 'dockerised' stroom proxy is minimal RHEL/CentOS 7 plus the docker-ce & docker-compose packages.  
 Neither of the pre-requisites are available from the CentOS ditribution.  
+It will also be necessary to open additional ports on the system firewall (where appropriate).  
 &nbsp;  
 
 
 ### Download and install docker
-To download and install - docker-ce - from the internet, a new 'repo' file is downloaded first. 
+To download and install - docker-ce - from the internet, a new 'repo' file is downloaded first, that provides access to the docker.com repository. 
 e.g. as *root* user:
 &nbsp;  
 
 - wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
 - yum install docker-ce.x86_64
 
-This will install the packages - docker-ce docker-ce-cli & containerd.io
+The packages - docker-ce docker-ce-cli & containerd.io - will be installed 
 
 &nbsp;  
 
@@ -65,8 +69,8 @@ Currently these ports are:
 
 For example on a RHEL/CentOS server using `firewalld` the commands would be as *root* user:  
 
-firewall-cmd --zone=public --permanent --add-port=3307/tcp  
-firewall-cmd --zone=public --permanent --add-port=8080/tcp  
+- firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+- firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
 firewall-cmd --zone=public --permanent --add-port=8091/tcp  
@@ -81,8 +85,8 @@ firewall-cmd --reload
 &nbsp;  
 
 ### Download and install Stroom v7 (docker version)
-The installation example below is for stroom version 7.0.beta.45 - but is appliacle to other stroom v7 versions.  
-As a suitable stroom user e.g. aasuser - download and unpack the stroom software. 
+The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.  
+As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.  
 
 - wget https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.0-beta.41/stroom_proxy-v7.0-beta.45.tar.gz
 - tar zxf stroom-stacks…………..
@@ -97,12 +101,12 @@ STROOM_PROXY_REMOTE_FEED_STATUS_URL
 STROOM_PROXY_REMOTE_FORWARD_URL  
 
 The 'API key' is generated on the stroom server for a specific user e.g. proxyServiceUser. 
-The 2 URL values also refer to the stroom server and can be a fully qualiffued domain name (fqdn) or the IP Address.  
+The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.  
 &nbsp;  
 
-If, the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:  
+e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:  
 export STROOM_PROXY_REMOTE_FEED_STATUS_URL="http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1"  
-export STROOM_PROXY_REMOTE_FORWARD_URL="http://stroom-serve.somewhere.co.uk:8080/stroom/noauth/datafeed"
+export STROOM_PROXY_REMOTE_FORWARD_URL="http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed"
 
 &nbsp;  
 
@@ -112,7 +116,7 @@ As the stroom user, run the 'start.sh' script found in the stroom install:
 - cd ~/stroom_proxy/stroom_proxy-v7.0-beta.45/
 - ./start.sh  
 
-The first time the script is ran it will download from github, the docker containers, for a stroom proxy  
+The first time the script is ran it will download from github the docker containers for a stroom proxy  
 these are - stroom-proxy-remote, stroom-log-sender and nginx
 
 &nbsp;  
