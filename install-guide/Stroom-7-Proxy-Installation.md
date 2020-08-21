@@ -152,17 +152,17 @@ The gzipped tar file needs to be untarred and moved to a suitable location.
 
 Create a shell script that will define the Java variables	OR add the statements to .bash_profile
 e.g. vi /etc/profile.d/jdk12.sh  
-          export JAVA_HOME=/opt/jdk-12.0.1  
-          export PATH=$PATH:$JAVA_HOME/bin  
+export JAVA_HOME=/opt/jdk-12.0.1  
+export PATH=$PATH:$JAVA_HOME/bin  
 
-- source /etc/profile.d/jdk12.sh
-- echo $JAVA_HOME
-	/opt/jdk-12.0.1  
+- source /etc/profile.d/jdk12.sh  
+- echo $JAVA_HOME  
+/opt/jdk-12.0.1  
 
 - java --version
-openjdk version "12.0.1" 2019-04-16
+*openjdk version "12.0.1" 2019-04-16
 OpenJDK Runtime Environment (build 12.0.1+12)
-OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing)
+OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing)*
 
 
 
