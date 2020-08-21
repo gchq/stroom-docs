@@ -160,18 +160,122 @@ export PATH=$PATH:$JAVA_HOME/bin
 /opt/jdk-12.0.1  
 
 - java --version
-*openjdk version "12.0.1" 2019-04-16
-OpenJDK Runtime Environment (build 12.0.1+12)
-OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing)*
+*openjdk version "12.0.1" 2019-04-16*  
+*OpenJDK Runtime Environment (build 12.0.1+12)*  
+*OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing)*  
+
+&nbsp;  
+
+**Disable selinux to avoid issues with access and file permissions. **  
+ 
+&nbsp;
+
+
+### Firewall Configuration
+
+If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.  
+Currently these ports are:  
+
+- 3307
+- 8080
+- 8081
+- 8090
+- 8091
+- 8543
+- 5000
+- 2888
+- 443
+- 80
+
+For example on a RHEL/CentOS server using `firewalld` the commands would be as *root* user:  
+
+firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+firewall-cmd --zone=public --permanent --add-port=8080/tcp  
+firewall-cmd --zone=public --permanent --add-port=8081/tcp  
+firewall-cmd --zone=public --permanent --add-port=8090/tcp  
+firewall-cmd --zone=public --permanent --add-port=8091/tcp  
+firewall-cmd --zone=public --permanent --add-port=8099/tcp  
+firewall-cmd --zone=public --permanent --add-port=5000/tcp  
+firewall-cmd --zone=public --permanent --add-port=2888/tcp  
+firewall-cmd --zone=public --permanent --add-port=443/tcp  
+firewall-cmd --zone=public --permanent --add-port=80/tcp  
+firewall-cmd --reload  
+
+&nbsp;  
+&nbsp;  
+
+
+### Download and install Stroom v7 (app version)
+The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.  
+As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.  
+
+- wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
+- unzip stroom-proxy-app...............  
+&nbsp;  
+
+The configuration file – stroom-proxy/config/config.yml – is the principal file to be edited, as it contains  
+
+- connection details to the stroom server
+- the locations of the proxy server log files   
+- the directory on the proxy server, where data files will be stored prior to forwarding onot stroom 
+- the location of the PKI Java keystore (jks) files  
+&nbsp;  
+
+The log file locations are changed to be relative to where stroom is started i.e. ~stroomuser/stroom-proxy/logs/…..
+currentLogFilename: logs/events/event.log		
+archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd'T'HH:mm}.log
+currentLogFilename: logs/events/event.log
+archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd'T'HH:mm}.log
+currentLogFilename: logs/send/send.log
+archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+currentLogFilename: logs/app/app.log
+archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+&nbsp;  
+
+An API key created on the stroom server for a special proxy user is added to the configuration file.
+The API key is used to validate access to the application
+proxyConfig:
+  useDefaultOpenIdCredentials: **false**
+  proxyContentDir: "/stroom-proxy/content"
+
+  #If you want to use a receipt policy then the RuleSet must exist
+  #in Stroom and have the UUID as specified below in receiptPolicyUuid
+  #proxyRequestConfig:
+  #receiptPolicyUuid: "${RECEIPT_POLICY_UUID:-}"
+  feedStatus:
+    url: **“http://stroomserver.somewhere.co.uk:8080/api/feedStatus/v1}"**
+    apiKey: **" eyJhbGciOiJSUz ……………………….ScdPX0qai5UwlBA"**
+  forwardStreamConfig:
+    forwardingEnabled: true
+&nbsp;  
+
+The location of the jks files has to be set, or comment all of the lines that have **sslConfig: & tls:** sections out to not use jks checking. 
+
+Stroom also needs the client & ca ‘jks’ files and by default are located in - /stroom-proxy/certs/ca.jks & client.jks
+but their location can be changed in the – config.yml –
+
+keyStorePath: "/stroom-proxy/certs/client.jks"  
+trustStorePath: "/stroom-proxy/certs/ca.jks"  
+keyStorePath: "/stroom-proxy/certs/client.jks". 
+trustStorePath: "/stroom-proxy/certs/ca.jks". 
+
+Could be changed to……………….  
+keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks"  
+trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks"  
+keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks". 
+trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks". 
+&nbsp;  
+
+Create a directory - **/stroom-proxy** – and ensure that stroom can write to it. This is where the proxy data files are stored - /stroom-proxy/repo – 
+proxyRepositoryConfig:
+    storingEnabled: true
+    repoDir: **"/stroom-proxy/repo"**
+    format: "${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}"
+
 
 
 
 &nbsp;  
-
-
-
-
-
 
 
 
