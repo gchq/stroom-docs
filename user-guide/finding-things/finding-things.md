@@ -75,9 +75,9 @@ The UUID can be copied by selecting it and then pressing `ctrl-c`.
 
 In the _Explorer Tree_ _Quick Filter_ you can filter by UUIDs in the following ways:
 
-To show the entity matching a UUID, enter the full UUID value (with dashes), e.g. `a95e5c59-2a3a-4f14-9b26-2911c6043028`.
+To show the entity matching a UUID, enter the full UUID value (with dashes) prefixed with the field qualifier `uuid`, e.g. `uuid:a95e5c59-2a3a-4f14-9b26-2911c6043028`.
 
-To match on entities whose UUID contains the entered text, prefix the partial UUID with a `#`, e.g. `#2a3a`.
+To filter on part of a UUID you can do `uuid:/2a3a` to find an entity whose UUID contains `2a3a` or `uuid:^2a3a` to find an entity whose UUID starts with `2a3a`.
 
 
 ## Quick Filters
