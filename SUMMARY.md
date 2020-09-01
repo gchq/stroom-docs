@@ -49,6 +49,7 @@
     * [XSLT includes](user-guide/pipelines/xslt/xslt-includes.md)
     * [XSLT functions](user-guide/pipelines/xslt/xslt-functions.md)
   * [File output](user-guide/pipelines/file-output.md)
+  * [Reference_Data](user-guide/pipelines/reference-data.md)
 * [Dashboards](user-guide/dashboards/README.md)
   * [Queries](user-guide/dashboards/queries.md)
   * [Dictionaries](user-guide/dashboards/dictionaries.md)
