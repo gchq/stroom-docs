@@ -80,7 +80,7 @@ Naturally, as this is a reference feed we are creating and this is raw data we a
 
 ![Stroom UI CreateReferenceFeed - Upload data settings](../resources/v6/UI-CreateReferenceFeed-08.png "Upload data settings")
 
-We are going to set the effective date to be late in 2019. Normally, you would choose a time stamp that matches the generation of the reference data. Click on the blue Previous Month icon (a less than symbol - <) on the Year/Month line to move back to December 2019.
+We are going to set the effective date to be late in 2019. Normally, you would choose a time stamp that matches the generation of the reference data. Click on the blue Previous Month icon (a less than symbol `<`) on the Year/Month line to move back to December 2019.
 
 ![Stroom UI CreateReferenceFeed - Calendar Effective Date Selection](../resources/v6/UI-CreateReferenceFeed-09.png "Calendar Effective Date Selection")
 
