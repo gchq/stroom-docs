@@ -2,7 +2,9 @@
 
 > * Version Information: Created with Stroom v7.0  
 * Last Updated: 28 August 2020  
-* See also: [HOWTO - Creating a Simple Reference Feed](../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)
+* See also:  
+* [HOWTO - Creating a Simple Reference Feed](../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)  
+* [XSLT Functions](./xslt/xslt-functions.md)
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the physical location.
@@ -200,6 +202,14 @@ For simple ASCII characters then this means less than 507 characters.
 If non-ASCII characters are in the key then these will take up more than one byte per character so the length of the key in characters will be less.
 This is a limitation inherent to LMDB.
 
+#### Commit intervals
+
+The property `stroom.pipeline.referenceData.maxPutsBeforeCommit` controls the number of entries that are put into the store between each commit.
+As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
+There is a trade off though as reducing the number of entries put between each commit can seriously affect performance.
+For the fastest single process performane a value of zero should be used which means it will not commit mid-load.
+This however means all other processes wanting to write to the store will need to wait.
+
 ## The Loading Process
 
 Reference data is loaded into the store on demand during the processing of a `stroom:lookup()` method call.
@@ -234,7 +244,7 @@ In a multi-node environment where some nodes are UI only and most are processing
 
 Reference data loading and purging is done at the level of a reference stream.
 Whenever a reference lookup is performed the last accessed time of the reference stream in the store is checked.
-If it is older than one hour then it will be update to the current time.
+If it is older than one hour then it will be updated to the current time.
 This last access time is used to determine reference streams that are no longer in active use and thus can be purged.
 
 The Stroom job _Ref Data Off-heap Store Purge_ is used to perform the purge operation on the Off-Heap reference data store.
@@ -243,11 +253,29 @@ When the purge job is run it checks the time since each reference stream was acc
 The purge age is configured via the property `stroom.pipeline.referenceData.purgeAge`.
 It is advised to schedule this job for quiet times when it is unlikely to conflict with reference loading operations as they will fight for access to the single write transaction.
 
+## Lookups
+
+Lookups are performed in XSLT Filters using the XSLT functions.
+In order to perform a lookup one or more reference feeds must be specified on the XSLT Filter.
+Each reference feed is specified along with a reference loader pipeline to load the data.
+
+### Standard Key/Value Lookups
+
+Standard key/value lookups consist of a simple string key and a value that is either a sinple string or an XML fragment.
+Standard lookups are performed using the various forms of the `stroom:lookup()` XSLT [function](./xslt/xslt-functions.md#).
+
+### Range Lookups
+
+### Nested Lookups
+
+
+### Bitmap Lookups
+
+
+## Reference Data API
 
 
 
 
 TODO
-Range lookups
-Commit intervals
 Context data lookups

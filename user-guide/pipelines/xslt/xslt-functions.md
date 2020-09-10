@@ -65,13 +65,13 @@ The following functions are available to aid your translation:
 * `pipeline-name()` - Name of the current processing pipeline using the XSLT
 * `put(String key, String value)` - Store a value for use later on in the translation
 
-## `dictionary()`
+## dictionary()
 The dictionary() function gets the contents of the specified dictionary for use during translation.
  The main use for this function is to allow users to abstract the management of a set of keywords from
  the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used
  by some XSLT, without the need for the user to understand the complexities of XSLT.
 
-## `format-date()`
+## format-date()
 The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
 contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.  If the
 optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
@@ -104,9 +104,25 @@ E.g. Convert a date time specified as milliseconds since the epoch "126927001164
 
 Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.
 
-## `lookup()`
-The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it
-to the resultant XML.  If the look up fails no result will be returned. By testing the result a default value may be output if no result is returned.
+## lookup()
+The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.
+
+```
+lookup(String map, String key)
+lookup(String map, String key, String time)
+lookup(String map, String key, String time, Boolean ignoreWarnings)
+lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+```
+
+* `map` - The name of the reference data map to perform the lookup against.
+* `key` - The key to lookup. The key can be a simple string, a vaule in a numeric range or a nested lookup key.
+* `time` - Determines which set of reference data was effective at the requested time.
+           If no reference data exists with an effective time before the requested time then the lookup will fail.
+* `ignoreWarnings` - If true, any lookup failures will be ignored, else they will be reported as warnings.
+* `trace` - If true, additional trace information is output as INFO messages.
+
+If the look up fails no result will be returned.
+By testing the result a default value may be output if no result is returned.
 
 E.g. Look up a SID given a PF
 
@@ -130,7 +146,7 @@ E.g. Look up a SID given a PF
     </xsl:if>
 ```
 
-## `link()`
+## link()
 Create a string that represents a hyperlink for display in a dashboard table.
 ```
 link(url)
@@ -158,7 +174,7 @@ Type can be one of:
 
 If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both `dialog` and `tab` types allow titles to be specified after a `|`, e.g. `dialog|My Title`.
 
-## `log()`
+## log()
 The log() function writes a message to the processing log with the specified severity.
  Severities of INFO, WARN, ERROR and FATAL can be used.
  Severities of ERROR and FATAL will result in records being omitted from the output if a RecordOutputFilter is used in the pipeline.
@@ -172,7 +188,7 @@ E.g. Warn if a SID is not the correct length.
     </xsl:if>
 ```
 
-## `put()` and `get()`
+## put() and get()
 You can put values into a map using the put() function. These values can then be retrieved
 later using the get() function. Values are stored against a key name so that multiple values
 can be stored. These functions can be used for many purposes but are most commonly used to
@@ -205,7 +221,7 @@ An example of how to count records is shown below:
     </data>
 ```
 
-## `parse-uri()`
+## parse-uri()
 The parse-uri() function takes a Uniform Resource Identifier (URI) in string form and returns an XML node with a namespace of `uri` containing the URI's individual components of `authority`, `fragment`, `host`, `path`, `port`, `query`, `scheme`, `schemeSpecificPart` and `userInfo`. See either [RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax](http://www.ietf.org/rfc/rfc2396.txt) or Java's java.net.URI Class for details regarding the components.
 
 The following xml
