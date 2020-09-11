@@ -17,6 +17,7 @@ Each command value is described in its own section.
 > **NOTE:** These commands are very powerful and potentially dangerous in the wrong hands, e.g. they allow the changing of user's passwords.
 > Access to these commands should be strictly limited.
 
+
 ## `server`
 
 ```bash
@@ -30,6 +31,7 @@ Stroom would typically be started using the `start.sh` shell script, but the com
 When stroom starts it will check the database to see if any migration is required.
 If migration from an earlier version (including from an empty database) is required then this will happen as part of the application start process.
 
+
 ## `migrate`
 
 ```bash
@@ -40,6 +42,7 @@ There may be occasions where you want to migrate an old version but not start th
 This command will run the process that checks for any required migrations and then performs them.
 On completion of the process it exits.
 This runs as a foreground process.
+
 
 ## `create_account`
 
@@ -64,6 +67,9 @@ There are times when you may wish to create this account manually which this com
 The command will fail if the user already exists.
 This command should NOT be run if you are using a third party identity provider.
 
+This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
+
+
 ## `reset_password`
 
 ```bash
@@ -75,8 +81,12 @@ Where the named arguments are:
 * `-p` `--password` - The password for the user.
 
 This command is used for changing the password of an existing account in stroom's internal identity provider.
+It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.
 This command should NOT be run if you are using a third party identity provider.
 It will fail if the account does not exist.
+
+This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
+
 
 ## `manage_users`
 
@@ -104,5 +114,15 @@ java -jar /absolute/path/to/stroom-app.jar manage_users --createUser jbloggs --c
 
 Where _jbloggs_ is the user name of the account on the 3rd party IDP.
 
+This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
 
+The named arguments can be used as many times as you like so you can create multiple users/groups/grants/etc.
+Regardless of the order of the arguments, the changes are executed in the following order:
+
+1. Create users
+1. Create groups
+1. Add users/groups to a group
+1. Remove users/groups from a group
+1. Grant permissions to users/groups
+1. Revoke permissions from users/groups
 
