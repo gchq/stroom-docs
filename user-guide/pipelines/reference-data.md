@@ -33,6 +33,9 @@ A reference data entry essentially consists of the following:
   The name only needs to be unique within all map names that me be loaded within an XSLT Filter.
   In practice it makes sense to keep map names globally unique.
 * **Key** - The text that will be used to lookup the value in the reference data map.
+  Mutually exclusive with **Range**.
+* **Range** - The inclusive range of integer keys that the entry applies to.
+  Mutually exclusive with **Key**.
 * **Value** - The value can either be simple text, e.g. an IP address, or an XML fragment that can be inserted into another XML document.
   XML values must be correctly namespaced.
 
@@ -66,6 +69,16 @@ Two of the entries are simple text values and the last has an XML value.
     <value>
       <HostName>stroomnode00.strmdev00.org</HostName>
     </value>
+  </reference>
+
+  <!-- A range key-->
+  <reference>
+    <map>USER_ID_TO_COUNTRY_CODE</map>
+    <range>
+      <from>1</from>
+      <to>1000</to>
+    </range>
+    <value>GBR</value>
   </reference>
 
   <!-- An XML value -->
@@ -163,7 +176,7 @@ As the store is also persisted to local disk it means the reference data will su
 Storing the data off-heap means Stroom can run with a much smaller Java Heap size.
 
 The Off-Heap store is based on the Lightning Memory-Mapped Database (LMDB).
-LMDB makes use of the linux page cache to ensure that hot portions of the reference data are held in the page cache (making use of all available free memory).
+LMDB makes use of the Linux page cache to ensure that hot portions of the reference data are held in the page cache (making use of all available free memory).
 Infrequently used portions of the reference data will be evicted from the page cache by the Operating System.
 Given that LMDB utilises the page cache for holding reference data in memory the more free memory the host has the better as there will be less shifting of pages in/out of the OS page cache.
 When storing large amounts of data you may experience the OS reporting very little free memory as a large amount will be in use by the page cache.
@@ -207,7 +220,7 @@ This is a limitation inherent to LMDB.
 The property `stroom.pipeline.referenceData.maxPutsBeforeCommit` controls the number of entries that are put into the store between each commit.
 As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
 There is a trade off though as reducing the number of entries put between each commit can seriously affect performance.
-For the fastest single process performane a value of zero should be used which means it will not commit mid-load.
+For the fastest single process performance a value of zero should be used which means it will not commit mid-load.
 This however means all other processes wanting to write to the store will need to wait.
 
 ## The Loading Process
@@ -235,7 +248,7 @@ The store will only hold the first instance of duplicate values.
 
 ## Querying the Reference Data Store
 
-The reference data store can be queried within a Dashboard in Stroom by selecting `Reference Data Store` in the data source selection popup.
+The reference data store can be queried within a Dashboard in Stroom by selecting `Reference Data Store` in the data source selection pop-up.
 Querying the store is currently an experimental feature and is mostly intended for use in fault finding.
 Given the localised nature of the reference data store the dashboard can currently only query the store on the node that the user interface is being served from.
 In a multi-node environment where some nodes are UI only and most are processing only, the UI nodes will have no reference data in their store.
@@ -261,21 +274,58 @@ Each reference feed is specified along with a reference loader pipeline to load 
 
 ### Standard Key/Value Lookups
 
-Standard key/value lookups consist of a simple string key and a value that is either a sinple string or an XML fragment.
-Standard lookups are performed using the various forms of the `stroom:lookup()` XSLT [function](./xslt/xslt-functions.md#).
+Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
+Standard lookups are performed using the various forms of the [`stroom:lookup()`](./xslt/xslt-functions.md#lookup) XSLT function.
 
 ### Range Lookups
 
-### Nested Lookups
+Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
+Range lookups are performed using the various forms of the [`stroom:lookup()`](./xslt/xslt-functions.md#range-lookups) XSLT function.
 
+### Nested Map Lookups
+
+Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
+Nested map lookups are performed using the various forms of the [`stroom:lookup()`](./xslt/xslt-functions.md#nested-maps) XSLT function.
 
 ### Bitmap Lookups
 
+A bitmap lookup is a special kind of lookup that actually performs a lookup for each enabled bit position of the passed bitmap value.
+Bitmap lookups are performed using the various forms of the [`stroom:bitmap-lookup()`](./xslt/xslt-functions.md#bitmap-lookup) XSLT function.
+
+Values can either be a simple string or an XML fragment.
+
+### Context data lookups
+
+Some event streams have a Context stream associated with them.
+Context streams all the system sending the events to Stroom to supply and additional stream of data that provides context to the raw event stream.
+The context stream can be used in lookups.
+Context reference data is specific to a single event stream so is transient in nature, therefore the On Heap Store is used to hold it for the duration of the event stream processing only.
 
 ## Reference Data API
 
+The reference data store has an API to allow other systems to access the reference data store.
+The `lookup` endpoint requires the caller to provide details of the reference feed and loader pipeline so if the effective stream is not in the store it can be loaded prior to performing the lookup.
 
+Below is an example of a lookup request.
 
-
-TODO
-Context data lookups
+``` json
+{
+  "mapName": "USER_ID_TO_LOCATION",
+  "effectiveTimeEpochMs": "1599479196533",
+  "key": "jbloggs",
+  "referenceLoaders": [
+    {
+      "loaderPipeline" : {
+        "name" : "Reference Loader",
+        "uuid" : "da1c7351-086f-493b-866a-b42dbe990700",
+        "type" : "Pipeline"
+      },
+      "referenceFeed" : {
+        "name": "USER_ID_TOLOCATION-REFERENCE",
+        "uuid": "60f9f51d-e5d6-41f5-86b9-ae866b8c9fa3",
+        "type" : "Feed"
+      }
+    }
+  ]
+}
+```
