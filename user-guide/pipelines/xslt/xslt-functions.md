@@ -110,25 +110,25 @@ British Summer Time).
 E.g. Convert a GMT date time "2009/12/01 12:34:11"
 
 ```xml
-    <xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')"/>
+<xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')"/>
 ```
 
 E.g. Convert a GMT or BST date time "2009/08/01 12:34:11"
 
 ```xml
-    <xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')"/>
+<xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')"/>
 ```
 
 E.g. Convert a GMT+1:00 date time "2009/08/01 12:34:11"
 
 ```xml
-    <xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')"/>
+<xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')"/>
 ```
 
 E.g. Convert a date time specified as milliseconds since the epoch "1269270011640"
 
 ```xml
-    <xsl:value-of select="s:format-date('1269270011640')"/>
+<xsl:value-of select="s:format-date('1269270011640')"/>
 ```
 
 Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.
@@ -170,9 +170,9 @@ The log() function writes a message to the processing log with the specified sev
 E.g. Warn if a SID is not the correct length.
 
 ```xml
-    <xsl:if test="string-length($sid) != 7">
-      <xsl:value-of select="s:log('WARN', concat($sid, ' is not the correct length'))"/>
-    </xsl:if>
+<xsl:if test="string-length($sid) != 7">
+  <xsl:value-of select="s:log('WARN', concat($sid, ' is not the correct length'))"/>
+</xsl:if>
 ```
 
 ## lookup()
@@ -198,31 +198,31 @@ By testing the result a default value may be output if no result is returned.
 E.g. Look up a SID given a PF
 
 ```xml
-    <xsl:variable name="pf" select="PFNumber"/>
-    <xsl:if test="$pf">
-       <xsl:variable name="sid" select="s:lookup('PF_TO_SID', $pf, $formattedDateTime)"/>
+<xsl:variable name="pf" select="PFNumber"/>
+<xsl:if test="$pf">
+   <xsl:variable name="sid" select="s:lookup('PF_TO_SID', $pf, $formattedDateTime)"/>
 
-       <xsl:choose>
-          <xsl:when test="$sid">
-             <User>
-                 <Id><xsl:value-of select="$sid"/></Id>
-             </User>
-          </xsl:when>
-          <xsl:otherwise>
-             <data name="PFNumber">
-                <xsl:attribute name="Value"><xsl:value-of select="$pf"/></xsl:attribute>
-             </data>
-          </xsl:otherwise>
-       </xsl:choose>
-    </xsl:if>
+   <xsl:choose>
+      <xsl:when test="$sid">
+         <User>
+             <Id><xsl:value-of select="$sid"/></Id>
+         </User>
+      </xsl:when>
+      <xsl:otherwise>
+         <data name="PFNumber">
+            <xsl:attribute name="Value"><xsl:value-of select="$pf"/></xsl:attribute>
+         </data>
+      </xsl:otherwise>
+   </xsl:choose>
+</xsl:if>
 ```
 
 ### Range lookups
 
-Reference data entries can either be stored with single string key or a range key that defines a numeric range, e.g 1-100.
+Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g 1-100.
 When a lookup is preformed the passed key is looked up as if it were a normal string key.
 If that lookup fails Stroom will try to convert the key to an integer (long) value.
-If it can be converted to an integer than a second lookup will be performed against entries with range keys to see if there is a range key that includes the requested key.
+If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.
 
 Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
 In this use case, the IP address must first be converted into a numeric value using `numeric-ip()`, e.g:
@@ -258,28 +258,28 @@ count a number of records that meet certain criteria.
 An example of how to count records is shown below:
 
 ```xml
-    <!-- Get the current record count -->
-    <xsl:variable name="currentCount" select="number(s:get('count'))" />
+<!-- Get the current record count -->
+<xsl:variable name="currentCount" select="number(s:get('count'))" />
 
-    <!-- Increment the record count -->
-    <xsl:variable name="count">
-      <xsl:choose>
-        <xsl:when test="$currentCount">
-          <xsl:value-of select="$currentCount + 1" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="1" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+<!-- Increment the record count -->
+<xsl:variable name="count">
+  <xsl:choose>
+    <xsl:when test="$currentCount">
+      <xsl:value-of select="$currentCount + 1" />
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="1" />
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:variable>
 
-    <!-- Store the count for future retrieval -->
-    <xsl:value-of select="s:put('count', $count)" />
+<!-- Store the count for future retrieval -->
+<xsl:value-of select="s:put('count', $count)" />
 
-    <!-- Output the new count -->
-    <data name="Count">
-      <xsl:attribute name="Value" select="$count" />
-    </data>
+<!-- Output the new count -->
+<data name="Count">
+  <xsl:attribute name="Value" select="$count" />
+</data>
 ```
 
 ## parse-uri()
@@ -287,33 +287,33 @@ The parse-uri() function takes a Uniform Resource Identifier (URI) in string for
 
 The following xml
 
-```xml
-    <!-- Display and parse the URI contained within the text of the rURI element -->
-    <xsl:variable name="u" select="s:parseUri(rURI)" />
+``` xml
+<!-- Display and parse the URI contained within the text of the rURI element -->
+<xsl:variable name="u" select="s:parseUri(rURI)" />
 
-    <URI>
-      <xsl:value-of select="rURI" />
-    </URI>
-    <URIDetail>
-      <xsl:copy-of select="$v"/>
-    </URIDetail>
+<URI>
+  <xsl:value-of select="rURI" />
+</URI>
+<URIDetail>
+  <xsl:copy-of select="$v"/>
+</URIDetail>
 ```
 given the rURI text contains
 ```
    http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details
 ```
 would provide
-```xml
-    <URL>http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details</URL>
-    <URIDetail>
-      <authority xmlns="uri">foo:bar@w1.superman.com:8080</authority>
-      <fragment xmlns="uri">more-details</fragment>
-      <host xmlns="uri">w1.superman.com</host>
-      <path xmlns="uri">/very/long/path.html</path>
-      <port xmlns="uri">8080</port>
-      <query xmlns="uri">p1=v1&amp;p2=v2</query>
-      <scheme xmlns="uri">http</scheme>
-      <schemeSpecificPart xmlns="uri">//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2</schemeSpecificPart>
-      <userInfo xmlns="uri">foo:bar</userInfo>
-    </URIDetail>
+``` xml
+<URL>http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details</URL>
+<URIDetail>
+  <authority xmlns="uri">foo:bar@w1.superman.com:8080</authority>
+  <fragment xmlns="uri">more-details</fragment>
+  <host xmlns="uri">w1.superman.com</host>
+  <path xmlns="uri">/very/long/path.html</path>
+  <port xmlns="uri">8080</port>
+  <query xmlns="uri">p1=v1&amp;p2=v2</query>
+  <scheme xmlns="uri">http</scheme>
+  <schemeSpecificPart xmlns="uri">//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2</schemeSpecificPart>
+  <userInfo xmlns="uri">foo:bar</userInfo>
+</URIDetail>
 ```

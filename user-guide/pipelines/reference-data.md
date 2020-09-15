@@ -71,7 +71,7 @@ Two of the entries are simple text values and the last has an XML value.
     </value>
   </reference>
 
-  <!-- A range key-->
+  <!-- A key range -->
   <reference>
     <map>USER_ID_TO_COUNTRY_CODE</map>
     <range>
@@ -81,7 +81,7 @@ Two of the entries are simple text values and the last has an XML value.
     <value>GBR</value>
   </reference>
 
-  <!-- An XML value -->
+  <!-- An XML fragment value -->
   <reference>
     <map>FQDN_TO_LOC</map>
     <key>stroomnode00.strmdev00.org</key>
@@ -236,8 +236,15 @@ The test for existence in the store is based on the following criteria:
 * The Stream Number (in the case of multi part streams).
 
 If a reference stream has already been loaded matching the above criteria then no additional load is required.
-It should be noted that as the version of the reference data pipeline forms part of the criteria, if the reference loader pipeline is changed then this will invalidate ALL existing reference data.
+
+**IMPORTANT**: It should be noted that as the version of the reference data pipeline forms part of the criteria, if the reference loader pipeline is changed, for whatever reason, then this will invalidate ALL existing reference data associated with that reference loader pipeline.
+
 Typically the reference loader pipeline is very static so this should not be an issue.
+
+Standard practice is to convert raw reference data into `reference:2` XML on receipt using a pipeline separate to the reference loader.
+The reference loader is then only concerned with reading cooked `reference:2` into the Reference Data Filter.
+
+In instances where reference data streams are infrequently used it may be preferable to not convert the raw reference on receipt but instead to do it in the reference loader pipeline.
 
 ### De-Duplication
 
@@ -297,9 +304,12 @@ Values can either be a simple string or an XML fragment.
 ### Context data lookups
 
 Some event streams have a Context stream associated with them.
-Context streams all the system sending the events to Stroom to supply and additional stream of data that provides context to the raw event stream.
-The context stream can be used in lookups.
+Context streams allow the system sending the events to Stroom to supply an additional stream of data that provides context to the raw event stream.
+This can be useful when the system sending the events has no control over the event content but needs to supply additional information.
+The context stream can be used in lookups as a reference source to decorate events on receipt.
 Context reference data is specific to a single event stream so is transient in nature, therefore the On Heap Store is used to hold it for the duration of the event stream processing only.
+
+Typically the reference loader for a context stream will include a translation step to convert the raw context data into `reference:2` XML.
 
 ## Reference Data API
 
