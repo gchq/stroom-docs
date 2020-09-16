@@ -3,7 +3,7 @@
 > * Version Information: Created with Stroom v7.0  
 * Last Updated: 15 September 2020  
 * See also:  
-  * [HOWTO - Creating a Simple Reference Feed](../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)  
+  * [HOWTO - Creating a Simple Reference Feed](../../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)  
   * [XSLT Functions](./xslt/xslt-functions.md)
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
