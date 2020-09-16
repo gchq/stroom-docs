@@ -49,6 +49,7 @@
     * [XSLT includes](user-guide/pipelines/xslt/xslt-includes.md)
     * [XSLT functions](user-guide/pipelines/xslt/xslt-functions.md)
   * [File output](user-guide/pipelines/file-output.md)
+  * [Reference_Data](user-guide/pipelines/reference-data.md)
 * [Dashboards](user-guide/dashboards/README.md)
   * [Queries](user-guide/dashboards/queries.md)
   * [Dictionaries](user-guide/dashboards/dictionaries.md)
@@ -84,6 +85,7 @@
 * [Application Programming Interfaces (API)](user-guide/api/README.md)
   * [Query API](user-guide/api/query-api.md)
 * [Tools](user-guide/tools/README.md)
+  * [Command Line Tools](user-guide/tools/command-line.md)
   * [Stream Dump Tool](user-guide/tools/stream-dump-tool.md)
 
 ### 4. HOWTOs
@@ -92,6 +94,7 @@
 * General
   * [Feed Management](HOWTOs/General/FeedManagementHowTo.md)
   * [Tasks](HOWTOs/General/TasksHowTo.md)
+  * [Raw Source Tracking](HOWTOs/General/RawSourceTracking.md)
 * Authentication
   * [User Logout](HOWTOs/Authentication/UserLogoutHowTo.md)
   * [User Login](HOWTOs/Authentication/UserLoginHowTo.md)
@@ -115,6 +118,10 @@
   * [Create Reference Feed](HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)
 * Administration
   * [System Properties](HOWTOs/Administration/SystemProperties.md)
+* Search
+  * [Search API using bash](HOWTOs/Search/SearchFromBash.md)
+  * [Simple Solr integration](HOWTOs/Search/SimpleSolr.md)
+
 
 ### 5. Stroom Proxy
 

@@ -75,9 +75,67 @@ The UUID can be copied by selecting it and then pressing `ctrl-c`.
 
 In the _Explorer Tree_ _Quick Filter_ you can filter by UUIDs in the following ways:
 
-To show the entity matching a UUID, enter the full UUID value (with dashes), e.g. `a95e5c59-2a3a-4f14-9b26-2911c6043028`.
+To show the entity matching a UUID, enter the full UUID value (with dashes) prefixed with the field qualifier `uuid`, e.g. `uuid:a95e5c59-2a3a-4f14-9b26-2911c6043028`.
 
-To match on entities whose UUID contains the entered text, prefix the partial UUID with a `#`, e.g. `#2a3a`.
+To filter on part of a UUID you can do `uuid:/2a3a` to find an entity whose UUID contains `2a3a` or `uuid:^2a3a` to find an entity whose UUID starts with `2a3a`.
+
+
+## Quick Filters
+
+Quick Filter controls are used in a number of screens in _Stroom_.
+The most prominent use of a Quick Filter is in the Explorer Tree as described above.
+Quick filters allow for quick searching of a data set or a list of items using a text based query language.
+The basis of the query language is described in [Common Fuzzy Matching](#common-fuzzy-matching).
+
+A number of the Quick Filters are used for filter tables of data that have a number of fields.
+The quick filter query language supports matching in specified fields.
+Each Quick Filter will have a number of named fields that it can filter on. 
+The field to match on is specified by prefixing the match term with the name of the field followed by a `:`, i.e. `type:`.
+Multiple field matches can be used, each separate by a space.
+E.g:
+
+```
+name:^xml name:events$ type:feed
+```
+In the above example the filter will match on items with a name beginning `xml`, a name ending `events` and a type partially matching `feed`.
+
+All the match terms are combined together with an AND operator.
+The same field can be used multiple times in the match.
+The list of filterable fields and their qualifier names (sometimes a shortened form) are listed by clicking on the help icon <img src="../../resources/v7/icons/help.svg" alt="Help Icon" width="16"></img>.
+
+One or more of the fields will be defined as _default_ fields.
+This means the if no qualifier is entered the match will be applied to all _default_ fields using an OR operator.
+Sometimes all fields may be considered _default_ which means a match term will be tested against all fields and an item will be included in the results if one or more of those fields match.
+
+For example if the Quick Filter has fields `Name`, `Type` and `Status`, of which `Name` and `Type` are _default_:
+
+```
+feed status:ok
+```
+
+The above would match items with the Name OR Type fields match `feed` AND the Status field matches `ok`.
+
+### Match Negation
+
+Each match item can be negated using the `!` prefix.
+This is also described in [Common Fuzzy Matching](#common-fuzzy-matching).
+The prefix is applied after the field qualifier.
+E.g:
+
+```
+name:xml source:!/default
+```
+In the above example it would match on items where the Name field matched `xml` and the Source field does NOT match the regex pattern `default`.
+
+### Spaces and Quotes
+
+If your match term contains a space then you can surround the match term with double quotes.
+Also if your match term contains a double quote you can escape it with a `\` character.
+The following would be valid for example.
+
+```
+"name:csv splitter" "default field match" "symbol:\""
+```
 
 
 ## Quick Filters
