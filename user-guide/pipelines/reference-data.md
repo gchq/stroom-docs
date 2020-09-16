@@ -273,7 +273,7 @@ Entries are loaded in the order they are found in the `reference:2` XML document
 If set to _false_ then the existing entry will be kept.
 If `warnOnDuplicateKeys` is set to _true_ then a warning will be logged for any duplicate keys, whether an overwrite happens or not.
 
-### De-Duplication
+### Value De-Duplication
 
 Only unique values are held in the store to reduce the storage footprint.
 This is useful given that typically, reference data updates may be received daily and each one is a full snapshot of the whole reference data.
@@ -313,7 +313,7 @@ There must be at least one in order to perform lookups.
 If there are multiple then when a lookup is called for a given time, the effective stream for each feed/loader combination is determined.
 The effective stream for each feed/loader combination will be loaded into the store, unless it is already present.
 
-When the actual lookup is performed Stroom will try to find the key/map in each of the effective streams that have been loaded.
+When the actual lookup is performed Stroom will try to find the key in each of the effective streams that have been loaded and that contain the map in the lookup call.
 If the lookup is unsuccessful in the effective stream for the first feed/loader combination then it will try the next, and so on until it has tried all of them.
 For this reason if you have multiple feed/loader combinations then order is important.
 It is possible for multiple effective streams to contain the same map/key so a feed/loader combination higher up the list will trump one lower down with the same map/key.
