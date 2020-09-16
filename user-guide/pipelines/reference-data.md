@@ -266,9 +266,16 @@ The reference loader is then only concerned with reading cooked `reference:2` in
 
 In instances where reference data streams are infrequently used it may be preferable to not convert the raw reference on receipt but instead to do it in the reference loader pipeline.
 
+### Duplicate Keys
+
+The Reference Data Filter pipeline element has a property `overrideExistingValues` which if set to _true_ means if an entry is found in an effective stream with the same key as an entry already loaded then it will overwrite the existing one.
+Entries are loaded in the order they are found in the `reference:2` XML document.
+If set to _false_ then the existing entry will be kept.
+If `warnOnDuplicateKeys` is set to _true_ then a warning will be logged for any duplicate keys, whether an overwrite happens or not.
+
 ### De-Duplication
 
-Only unique values held in the store to reduce the storage footprint.
+Only unique values are held in the store to reduce the storage footprint.
 This is useful given that typically, reference data updates may be received daily and each one is a full snapshot of the whole reference data.
 As a result this can mean many copies of the same value being loaded into the store.
 The store will only hold the first instance of duplicate values.
