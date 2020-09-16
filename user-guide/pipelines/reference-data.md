@@ -30,7 +30,7 @@ A reference data entry essentially consists of the following:
 
 * **Effective time** - The data/time that the entry was effective from, i.e the time the raw reference data was received.
 * **Map name** - A unique name for the key/value map that the entry will be stored in.
-  The name only needs to be unique within all map names that me be loaded within an XSLT Filter.
+  The name only needs to be unique within all map names that may be loaded within an XSLT Filter.
   In practice it makes sense to keep map names globally unique.
 * **Key** - The text that will be used to lookup the value in the reference data map.
   Mutually exclusive with **Range**.
@@ -223,6 +223,26 @@ There is a trade off though as reducing the number of entries put between each c
 For the fastest single process performance a value of zero should be used which means it will not commit mid-load.
 This however means all other processes wanting to write to the store will need to wait.
 
+#### Cloning The Off Heap Store
+
+If you are provisioning a new stroom node it is possible to copy the off heap store from another node.
+Stroom should not be running on the node being copied from.
+Simply copy the contents of `stroom.pipeline.referenceData.localDir` into the same configured location on the other node.
+The new node will use the copied store and have access to its reference data.
+
+#### Store Size & Compaction
+
+Due to the way LMDB works the store can only grow in size, it will never shrink, even if data is deleted.
+Deleted data frees up space for new writes to the store so will be reused but never freed. 
+If there is a regular process of purging old data and adding new reference data then this should not be an issue as the new reference data will use the space made available by the purged data.
+
+If store size becomes an issue then it is possible to compact the store.
+`lmdb-utils` is available on some package managers and this has an `mdb_copy` command that can be used with the `-c` switch to copy the LMDB environment to a new one, compacting it in the process.
+This should be done when Stroom is down to avoid writes happening to the store while the copy is happening.
+
+Given that the store is essentially a cache and all data can be re-loaded another option is to delete the contents of `stroom.pipeline.referenceData.localDir` when Stroom is not running.
+On boot Stroom will create a brand new store and reference data will be re-loaded as required.
+
 ## The Loading Process
 
 Reference data is loaded into the store on demand during the processing of a `stroom:lookup()` method call.
@@ -276,8 +296,21 @@ It is advised to schedule this job for quiet times when it is unlikely to confli
 ## Lookups
 
 Lookups are performed in XSLT Filters using the XSLT functions.
-In order to perform a lookup one or more reference feeds must be specified on the XSLT Filter.
-Each reference feed is specified along with a reference loader pipeline to load the data.
+In order to perform a lookup one or more reference feeds must be specified on the XSLT Filter pipeline element.
+Each reference feed is specified along with a reference loader pipeline that will ingest the specified feed (optional convert it into `reference:2` XML if it is not already) and pass it into a Reference Data Filter pipeline element.
+
+### Reference Feeds & Loaders
+
+In the XSLT Filter pipeline element multiple combinations of feed and reference loader pipeline can be specified.
+There must be at least one in order to perform lookups.
+If there are multiple then when a lookup is called for a given time, the effective stream for each feed/loader combination is determined.
+The effective stream for each feed/loader combination will be loaded into the store, unless it is already present.
+
+When the actual lookup is performed Stroom will try to find the key/map in each of the effective streams that have been loaded.
+If the lookup is unsuccessful in the effective stream for the first feed/loader combination then it will try the next, and so on until it has tried all of them.
+For this reason if you have multiple feed/loader combinations then order is important.
+It is possible for multiple effective streams to contain the same map/key so a feed/loader combination higher up the list will trump one lower down with the same map/key.
+Also if you have some lookups that may not return a value and others that should always return a value then the feed/loader for the latter should be higher up the list so it is searched first.
 
 ### Standard Key/Value Lookups
 
