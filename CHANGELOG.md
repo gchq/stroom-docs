@@ -9,6 +9,8 @@ recent at the top.
 
 * Add new section on rreference data `reference-data.md`.
 
+* Add `command-line.md`.
+
 * Update `finding-things.md` to reflect changes to UUID matching.
 
 * Add field matching and negation to `finding-things.md`.
