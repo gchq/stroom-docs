@@ -46,6 +46,8 @@ This meta data either comes from the HTTP headers when the data was POSTed to St
 
 ### Non-Segmented Stream
 
+The following is a representation of a non-segmented stream with three parts, each with Meta Data and Context child streams.
+
 ![Non-Segmented Stream](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/user-guide/concepts/non-segmented-stream.puml&random=2)
 
 Raw Events and Raw Reference streams contain non-segmented data, e.g. a large batch of CSV, JSON, XML, etc. data.
@@ -56,6 +58,8 @@ If it is the product of proxy aggregation then it is likely to be multi-part.
 Each part will have its own context and meta data child streams, if applicable.
 
 ### Segmented Stream
+
+The following is a representation of a segmented stream that contains three records (i.e events) and has Meta Data and Context child streams.
 
 ![Segmented Stream](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/user-guide/concepts/segmented-stream.puml&random=2)
 
