@@ -1,7 +1,7 @@
 # Streams
 
 Data received into Stroom is stored in units called _streams_.
-A stream is essentially an bounded stream or batch of data.
+A stream is essentially a bounded stream or batch of data.
 
 Streams can either be created when data is directly POSTed in to Stroom or during the proxy aggregation process.
 When data is directly POSTed to Stroom the content of the POST will be stored as one Stream.
@@ -37,7 +37,7 @@ This is the actual data of the stream, e.g. the XML events, raw CSV, JSON, etc.
 #### Context
 
 This is additional contextual data that can be sent with the data.
-Context data can be used foe reference data lookups.
+Context data can be used for reference data lookups.
 
 #### Meta Data
 
