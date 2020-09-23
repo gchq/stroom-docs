@@ -27,6 +27,8 @@
 
 ### 3. User Guide
 
+* [Concepts](user-guide/concepts/README.md)
+  * [Streams](user-guide/concepts/streams.md)
 * [Properties](user-guide/properties.md)
 * [Nodes](user-guide/nodes.md)
 * [Volumes](user-guide/volumes.md)
