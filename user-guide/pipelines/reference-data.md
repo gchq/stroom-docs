@@ -327,17 +327,17 @@ Standard lookups are performed using the various forms of the [`stroom:lookup()`
 ### Range Lookups
 
 Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
-Range lookups are performed using the various forms of the [`stroom:lookup()`](./xslt/xslt-functions.md#range-lookups) XSLT function.
+For more detail on range lookups see the XSLT function [`stroom:lookup()`](./xslt/xslt-functions.md#range-lookups).
 
 ### Nested Map Lookups
 
 Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
-Nested map lookups are performed using the various forms of the [`stroom:lookup()`](./xslt/xslt-functions.md#nested-maps) XSLT function.
+For more detail on nested lookups see the XSLT function [`stroom:lookup()`](./xslt/xslt-functions.md#nested-maps).
 
 ### Bitmap Lookups
 
 A bitmap lookup is a special kind of lookup that actually performs a lookup for each enabled bit position of the passed bitmap value.
-Bitmap lookups are performed using the various forms of the [`stroom:bitmap-lookup()`](./xslt/xslt-functions.md#bitmap-lookup) XSLT function.
+For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`](./xslt/xslt-functions.md#bitmap-lookup).
 
 Values can either be a simple string or an XML fragment.
 
