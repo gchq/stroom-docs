@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add overview sections and diagrams to root README, also update some of the README wording.
+
 * Minor improvements to `reference-data.md` and `xslt-functions.md`.
 
 * Add new section on streams `streams.md`.
