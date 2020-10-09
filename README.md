@@ -123,7 +123,9 @@ Some screenshots of the application can be seen [here](screenshots.md).
 # State of the Project
 
 Stroom v5 was the first open source release of Stroom and v5.5 is still being supported.
+
 Stroom v6.1 is the current latest stable release of Stroom and this is in use in production environments.
+
 Stroom v7.0 is currently in active development with regular beta releases available for testing.
 
 # Future
