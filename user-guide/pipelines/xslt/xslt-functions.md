@@ -81,6 +81,7 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
           This can either be represented as a decimal integer (e.g. `14`) or as hexadecimal by prefixing with `0x` (e.g `0xE`).
 * `time` - Determines which set of reference data was effective at the requested time.
            If no reference data exists with an effective time before the requested time then the lookup will fail.
+           Time is in the format `yyyy-MM-dd'T'HH:mm:ss.SSSXX`, e.g. `2010-01-01T00:00:00.000Z`.
 * `ignoreWarnings` - If true, any lookup failures will be ignored, else they will be reported as warnings.
 * `trace` - If true, additional trace information is output as INFO messages.
 
@@ -212,6 +213,7 @@ lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trac
 * `key` - The key to lookup. The key can be a simple string, an integer value in a numeric range or a nested lookup key.
 * `time` - Determines which set of reference data was effective at the requested time.
            If no reference data exists with an effective time before the requested time then the lookup will fail.
+           Time is in the format `yyyy-MM-dd'T'HH:mm:ss.SSSXX`, e.g. `2010-01-01T00:00:00.000Z`.
 * `ignoreWarnings` - If true, any lookup failures will be ignored, else they will be reported as warnings.
 * `trace` - If true, additional trace information is output as INFO messages.
 
