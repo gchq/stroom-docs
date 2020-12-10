@@ -22,6 +22,15 @@ Cluster wide configuration properties are still stored in the database and manag
 
 There has been a change to the precedence of the configuration properties held in different locations (YAML, database, default) and this is described in [Properties](user-guide/properties.md).
 
+#### Stroom Home and relative paths
+
+The concept of _Stroom Home_ has been introduced.
+Stroom Home allows for one path to be configured and for all other configurable paths to default to being a child of this path.
+This keeps all configured directories in one place by default.
+Each configured directory can be set to an absolute path if a location outside Stroom Home is required.
+If a relative path is used it will be relative to Stroom Home.
+Stroom Home can be configured with the property `stroom.path.home`.
+
 #### Improved _Properties_ UI screens that tell you the values over the cluster
 
 Previously the _Properties_ UI screens could only tell you the values held within the database and not the value that a node was actually using.
@@ -46,10 +55,12 @@ Some properties however do not support being changed at runtime so will still re
 
 ### Data retention impact summary
 
-The _Data_Retention_ screen now provides an _Impact Summary_ tab that will show you a summary of what will be deleted by the current rules.
+The _Data_Retention_ screen now provides an _Impact Summary_ tab that will show you a summary of what will be deleted by the current active rules.
 The summary is based on the rules as they currently are in the UI, so it allows you to see the impact before saving rule changes.
 The summary is a count of the number of streams that will be deleted by each rule, broken down by feed and stream type.
 In very large systems with a lot of data or where complex rules are in place the summary may take a some time (minutes) to produce.
+
+See [Data Retention](user-guide/data-retention.md) for more details.
 
 ### Fuzzy Finding in Quick Filters and Suggestion Text Fields
 
@@ -70,7 +81,61 @@ In large systems this can mean keeping your `-Xmx` value below the 32Gb threshol
 Because the store is disk backed frequently used reference data can be kept in the store to reduce the loading overhead.
 As the reference data is held off-heap it _stroom_ can make use of all available free RAM for the reference data.
 
-> TODO Add user-guide section on reference data loading, sotring, lookups, etc.
+See [Reference Data](user-guide/pipelines/reference-data.md)
+
+#### Reference Data API
+
+A RESTful API has been added for the reference data store.
+This primarily allows reference lookups to be performed by external systems.
+
+See [Reference Data API](user-guide/pipelines/reference-data.md#reference-data-api)
+
+### Text editor improvements
+
+The Ace text editor is used widely in Stroom for such things as editing XSLTs, editing dashboard column expressions, viewing stream data and stepping.
+There have been a number of improvements to this editor.
+
+See [Editing and Viewing Text Data](user-guide/editing-and-viewing.md)
+
+#### Editor context menu
+
+Additional options have been added to the context menu in the text editor:
+
+* Toggle soft line wrapping of long lines.
+* Toggle viewing hidden characters, e.g. tabs, spaces, line breaks.
+* Toggle Vim key bindings. The Ace editor does not implement all Vim functionality but supports the core key bindings.
+* Toggle auto-completion. Completion is triggered using `ctrl-space`.
+* Toggle live auto-completion. Completion is triggered as you type.
+* Toggle the inclusion of snippets in the auto-complete suggestions.
+
+#### Auto-completion and snippets
+
+Most editor screens now support basic auto-completion of existing words found in the text.
+Some editor screens, such as XSLT, dashboard column expressions and Javascript scripts also support keyword and snippet completion.
+
+### Data viewing improvements
+
+The way data is viewed in Stroom has changed to improve the viewing of large files or files with no line breaks.
+Previously a set number of lines of data would be fetched for display on the page in the Data Viewer.
+This did not work for data that has no line breaks as Stroom would then try to fetch all data.
+
+In v7 Stroom works at the character level so can fetch a reasonable number of characters for display whether they are all one line or spread over multiple lines.
+
+The viewing of data has been separated into two mechanisms, _Data Preview_ and _Source View_.
+
+See [Editing and Viewing Text Data](user-guide/editing-and-viewing.md)
+
+#### Data Preview
+
+This is the default view of the data.
+It displays the first n characters (configurable) of the data.
+It will attempt the format the data, e.g. showing pretty-printed XML.
+You cannot navigate around the data.
+
+#### Source View
+
+This view is intended for seeing the actual data in its raw un-formatted form and for navigating around it.
+This view provides navigation controls to define the range of data being display, e.g. from a character offset, line number or line and column.
 
 
 ### You can now query data, server tasks and processing tasks on dashboards
@@ -101,7 +166,7 @@ Pipeline elements that use Kafka now provide a means to select the Kafka Configu
 
 #### An Improved Pipeline Element for Sending Data to Kafka
 
-The previous Kafka pipeline elemtents in v6 have been replaced with a single _StandardKafkaProducer_ element.
+The previous Kafka pipeline elements in v6 have been replaced with a single _StandardKafkaProducer_ element.
 The new element allows for the dynamic construction of a Kafka Producer message via an XML document conforming to the _kafka-records_ XmlSchema.
 With this new element events can be translated into kafka records which will be then given to the Kafka Producer to send to the Kafka Cluster.
 This allows for complete control of things like timestamps, topics, keys, values, etc.
@@ -139,10 +204,15 @@ _stroom_ v7 now runs on the Java 12 JVM.
 _stroom_ v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.
 
 
+---
+
 
 ## v6.1
 
 > TODO
+
+
+---
 
 
 ## v6.0
@@ -189,6 +259,8 @@ The data fetched via the search API can be received and processed via an externa
 
 New pipeline elements for writing XML or text data to a Kafka topic.
 This provides more options for using Stroom's data in other systems.
+
+---
 
 ## v5.0
 
