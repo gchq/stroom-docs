@@ -7,9 +7,17 @@ are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
 
+* Add `data-retention.md`.
+
+* Add `editing-and-viewing.md`.
+
 * Add overview sections and diagrams to root README, also update some of the README wording.
 
 * Update `tasks.md` for version 7.
+
+* Add v7 new features.
+
+* Add new section on rreference data `reference-data.md`.
 
 * Add details of time format to XSLT lookup functions.
 

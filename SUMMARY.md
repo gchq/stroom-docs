@@ -35,6 +35,7 @@
 * [Tasks](user-guide/tasks.md)
 * [Feeds](user-guide/feeds.md)
 * [Finding Things](user-guide/finding-things/finding-things.md)
+* [Editing and Viewing Text Data](user-guide/editing-and-viewing.md)
 * [Roles and permissions](user-guide/roles.md)
 * [Sending data to Stroom](user-guide/sending-data/README.md)
   * [Header Arguments](user-guide/sending-data/header-arguments.md)
@@ -67,6 +68,7 @@
     * [Type Checking Functions](user-guide/dashboards/expressions/type-checking.md)
     * [URI Functions](user-guide/dashboards/expressions/uri.md)
     * [Value Functions](user-guide/dashboards/expressions/value.md)
+* [Data Retention](user-guide/data-retention.md)
 * [Security](user-guide/security.md)
 * Data splitter
   * [Introduction](datasplitter/1-0-introduction.md)

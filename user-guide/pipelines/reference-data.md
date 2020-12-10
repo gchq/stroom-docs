@@ -361,7 +361,7 @@ Below is an example of a lookup request.
 ``` json
 {
   "mapName": "USER_ID_TO_LOCATION",
-  "effectiveTimeEpochMs": "1599479196533",
+  "effectiveTime": "2020-12-02T08:37:02.772Z",
   "key": "jbloggs",
   "referenceLoaders": [
     {
