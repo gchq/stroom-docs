@@ -54,10 +54,17 @@ do_copy() {
   
   echo -e "Copying SVG files from" \
     "${BLUE}${source_dir}${NC} to ${BLUE}${dest_dir}${NC}"
+  echo
 
   mkdir -p "${dest_dir}"
 
-  cp -f "${source_dir}"/*.svg "${dest_dir}/"
+  rsync \
+    --verbose \
+    --recursive \
+    --delete \
+    "${source_dir}"/ \
+    "${dest_dir}/"
+  echo
 }
 
 main() {
