@@ -101,7 +101,7 @@ In the above example the filter will match on items with a name beginning `xml`,
 
 All the match terms are combined together with an AND operator.
 The same field can be used multiple times in the match.
-The list of filterable fields and their qualifier names (sometimes a shortened form) are listed by clicking on the help icon <img src="../../resources/v7/icons/help.svg" alt="Help Icon" width="16"></img>.
+The list of filterable fields and their qualifier names (sometimes a shortened form) are listed by clicking on the help icon <img src="../../resources/v7/icons/help.svg" title="Help" width="18"></img>.
 
 One or more of the fields will be defined as _default_ fields.
 This means the if no qualifier is entered the match will be applied to all _default_ fields using an OR operator.
