@@ -166,7 +166,7 @@ We're going to test this in the same way we tested the CSV splitter, by clicking
 
 ![Debugging the XSLT filter](images/stepping-03.png)
 
-Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task](/user-guide/tasks.md) for real. We need to get this data to a destination.
+Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task](/user-guide/jobs.md) for real. We need to get this data to a destination.
 
 ### Outputting the transformed data
 

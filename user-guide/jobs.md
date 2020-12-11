@@ -28,24 +28,35 @@ This job checks user accounts on the system and de-activates them under the foll
 
 #### Attribute Value Data Retention
 
-Deletes Meta attribute values older than `stroom.data.meta.metaValue.deleteAge`.
+Deletes Meta attribute values (additional and less valuable metadata) older than `stroom.data.meta.metaValue.deleteAge`.
 
 #### Data Delete
 
-How frequently we physically delete data from the stream store that has been logically deleted for the duration configured with `stroom.data.store.deletePurgeAge`.
+Before data is physically removed from the database and file system it is marked as logically deleted by adding a flag to the metadata record in the database.
+Data can be logically deleted by a user from the UI or via a process such as data retention.
+Data is deleted logically as it is faster to do than a physical delete (important in the UI), and it also allows for data to be restored (undeleted) from the UI.
+This job performs the actual physical deletion of data that has been marked logically deleted for longer than the duration configured with `stroom.data.store.deletePurgeAge`.
+All data files associated with a metadata record are deleted from the file system before the metadata is physically removed from the database.
 
 #### Data Processor
 
-Distributes stream tasks to worker nodes for processing.
-Stream tasks are created based on stream filters added to the Processors screen of each pipeline.
+Processes data by finding data that matches processing filters on each pipeline.
+When enabled, each worker node asks the master node for data processing tasks.
+The master node creates tasks based on processing filters added to the `Processors` screen of each pipeline and supplies them to the requesting workers.
 
 #### Feed Based Data Retention
 
-TODO
+This job uses the retention property of each feed to logically delete data from the associated feed that is older than the retention period.
+The recommended way of specifying data retention rules is via the data retention policy feature, but feed based retention still exists for backwards compatibility.
+Feed based data retention will be removed in a future release and should be considered deprecated.
 
 #### File System Clean (deprecated)
 
-TODO
+This is the previous incarnation of the `Data Delete` job.
+This job scans the file system looking for files that are no longer associated with metadata in the database or where the metadata is marked as deleted and deletes the files if this is the case.
+The process is slow to run as it has to traverse all stored data files and examine each.
+However, this version of the data deletion process was created when metadata was deleted immediately, i.e. not marked for future physical deletion, so was the only way to perform this clean up activity at the time.
+This job will be removed in a future release. The `Data Delete` job should be used instead from now on.
 
 #### File System Volume Status
 
@@ -54,13 +65,13 @@ Records this status in the Volume Status table.
 
 #### Index Searcher Cache Refresh
 
-TODO
+Refresh references to Lucene index searchers that have been cached for a while.
 
 #### Index Shard Delete
 
 How frequently index shards that have been logically deleted are physically deleted from the file system.
-#### Index Shard Retention
 
+#### Index Shard Retention
 
 How frequently index shards that are older then their retention period are logically deleted.
 
@@ -94,7 +105,7 @@ This frequency should be at least as short as the most frequent rolling frequenc
 
 #### Policy Based Data Retention
 
-How frequently the policy based data retention rules are checked to see if any data needs to be logically deleted.
+Run the policy based data retention rules over the data and logically delete and data that should no longer be retained.
 
 #### Processor Task Queue Statistics
 

@@ -1,6 +1,6 @@
 # Stroom HOWTO - Task Maintenance
 Various
-[Tasks](../../user-guide/tasks.md "Stroom Tasks")
+[Tasks](../../user-guide/jobs.md "Stroom Jobs")
 run in the background within Stroom. This HOWTO demonstrates how to manage these tasks
 
 ## Assumptions
