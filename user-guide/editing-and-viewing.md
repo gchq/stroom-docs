@@ -20,7 +20,7 @@ The Data Viewer screen is made up of the following three parts which are shown a
 This shows all streams within the opened entity (feed or folder).
 The streams are shown in reverse chronological order.
 By default _Deleted_ and _Locked_ streams are filtered out.
-The filtering can be changed by clicking on the ![filter](../resources/v7/icons/filter.png "Filter") icon.
+The filtering can be changed by clicking on the ![filter](../resources/v7/icons/filter.svg "Filter") icon.
 This will show all stream types by default so may be a mixture of _Raw events_, _Events_, _Errors_, etc. depending on the feed/folder in question.
 
 ### Related Stream List

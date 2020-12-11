@@ -6,6 +6,7 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Fix icon links in `data-retention` and `editing-and-viewing.md`.
 
 * Add `data-retention.md`.
 
