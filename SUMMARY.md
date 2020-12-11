@@ -32,7 +32,7 @@
 * [Properties](user-guide/properties.md)
 * [Nodes](user-guide/nodes.md)
 * [Volumes](user-guide/volumes.md)
-* [Tasks](user-guide/tasks.md)
+* [Jobs](user-guide/jobs.md)
 * [Feeds](user-guide/feeds.md)
 * [Finding Things](user-guide/finding-things/finding-things.md)
 * [Editing and Viewing Text Data](user-guide/editing-and-viewing.md)
