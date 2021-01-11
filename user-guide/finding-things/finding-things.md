@@ -223,13 +223,43 @@ NOTE: In the following examples the `^` character is used to indicate which char
 
 If no input is provided all items will match.
 
+
+### Characters Anywhere Matching (Default)
+
+If no prefixes or suffixes are used then all characters in the user input will need to appear in the matched item in the order input.
+The matching is case insensitive.
+
+**User input**: `bad`
+
+**Will match**:
+
+```
+Big Angry Dog
+^   ^     ^  
+bad angry dog
+^^^          
+BAD
+^^^
+badly
+^^^  
+Very bad
+     ^^^
+b a d
+^ ^ ^
+bbaadd
+^ ^ ^ 
+```
+
+**Won't match**: `dab`, `ba`
+
+
 ### Word Boundary Matching
 
 If the user input is prefixed with a `?` character then word boundary matching will be employed.
-This approaches uses upper case letters to denote the start of a word.
-If you know all the words in the item you are looking for then condensing those words down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
-Words can either be separated by characters like `_- ()[]`, or be distinguished with `lowerCamelCase` or `upperCamelCase` format.
-An upper case letter in the input denotes the beginning of a 'word' and any subsequent lower case characters are treated as contiguously following the character at the start of the word.
+This approache uses upper case letters to denote the start of a _word_.
+If you know all the _words_ in the item you are looking for then condensing those _words_ down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
+Words can either be separated by characters like `_- ()[].`, or be distinguished with `lowerCamelCase` or `upperCamelCase` format.
+An upper case letter in the input denotes the beginning of a _word_ and any subsequent lower case characters are treated as contiguously following the character at the start of the word.
 
 **User input**: `?OTheiMa`
 
@@ -250,7 +280,6 @@ OnTheirMat
 ^ ^^^^ ^^ 
 ```
 
-
 **Won't match**: `On the mat`, `the cat sat on there mat`, `On their moat`
 
 
@@ -263,19 +292,23 @@ MY_FEED_NAME
 ^  ^    ^   
 MY FEED NAME
 ^  ^    ^   
+MY_FEED_OTHER_NAME
+^  ^          ^   
 THIS_IS_MY_FEED_NAME_TOO
         ^  ^    ^                  
 myFeedName
 ^ ^   ^   
 MyFeedName
 ^ ^   ^   
-my-feed-name
-^  ^    ^   
+also-my-feed-name
+     ^  ^    ^   
 MFN
 ^^^
+stroom.something.somethingElse.maxFileNumber
+                               ^  ^   ^
 ```
 
-**Won't match**: `myfeedname`, `NOT MY FEED NAME`
+**Won't match**: `myfeedname`, `MY FEEDNAME`
 
 
 ### Regular Expression Matching
@@ -405,34 +438,6 @@ XML_SEC_EVENTS_FEED
 
 **Won't match**: `BAD_XML_EVENTS`, `xml_events`
 
-
-### Characters Anywhere Matching
-
-If no prefixes or suffixes are used then all characters in the user input will need to appear in the matched item in the order input.
-The matching is case insensitive.
-
-**User input**: `bad`
-
-**Will match**:
-
-```
-Big Angry Dog
-^   ^     ^  
-bad angry dog
-^^^          
-BAD
-^^^
-badly
-^^^  
-Very bad
-     ^^^
-b a d
-^ ^ ^
-bbaadd
-^ ^ ^ 
-```
-
-**Won't match**: `dab`, `ba`
 
 ### Match Negation
 
