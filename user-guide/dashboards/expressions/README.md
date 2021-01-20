@@ -11,7 +11,6 @@ The arguments to functions can either be other functions, literal values, or the
 
 # Table of Contents
 
-<!-- vim-markdown-toc GFM -->
 * [Aggregate Functions](aggregate.md)
   * [Average](aggregate.md#average)
   * [Count](aggregate.md#count)
@@ -29,8 +28,14 @@ The arguments to functions can either be other functions, literal values, or the
   * [To Long](cast.md#to-long)
   * [To String](cast.md#to-string)
 * [Date Functions](date.md)
-  * [Parse Date](date.md#parse-date)
   * [Format Date](date.md#format-date)
+  * [Parse Date](date.md#parse-date)
+  * [Ceiling Year/Month/Day/Hour/Minute/Second](rounding.md#ceiling-yearmonthdayhourminutesecond)
+  * [Floor Year/Month/Day/Hour/Minute/Second](rounding.md#floor-yearmonthdayhourminutesecond)
+  * [Round Year/Month/Day/Hour/Minute/Second](rounding.md#round-yearmonthdayhourminutesecond)
+* [Link Functions](link.md)
+  * [Dashboard](link.md#dasboard)
+  * [Link](link.md#link)
 * [Logic Functions](logic.md)
   * [Equals](logic.md#equals)
   * [Greater Than](logic.md#greater-than)
@@ -55,9 +60,6 @@ The arguments to functions can either be other functions, literal values, or the
   * [Ceiling](rounding.md#ceiling)
   * [Floor](rounding.md#floor)
   * [Round](rounding.md#round)
-  * [Ceiling Year/Month/Day/Hour/Minute/Second](rounding.md#ceiling-yearmonthdayhourminutesecond)
-  * [Floor Year/Month/Day/Hour/Minute/Second](rounding.md#floor-yearmonthdayhourminutesecond)
-  * [Round Year/Month/Day/Hour/Minute/Second](rounding.md#round-yearmonthdayhourminutesecond)
 * [String Functions](string.md)
   * [Concat](string.md#concat)
   * [Decode](string.md#decode)
@@ -66,7 +68,6 @@ The arguments to functions can either be other functions, literal values, or the
   * [Include](string.md#include)
   * [Index Of](string.md#index-of)
   * [Last Index Of](string.md#last-index-of)
-  * [Link](string.md#link)
   * [Lower Case](string.md#lower-case)
   * [Match](string.md#match)
   * [Replace](string.md#replace)
@@ -101,4 +102,3 @@ The arguments to functions can either be other functions, literal values, or the
   * [False](value.md#false)
   * [Null](value.md#null)
   * [True](value.md#true)
-<!-- vim-markdown-toc -->

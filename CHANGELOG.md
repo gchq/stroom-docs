@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Re-arrange the location of some of the expression functions.
+
 * Minor tweaks to `finding-things.md`.
 
 * Fix icon sizes.
