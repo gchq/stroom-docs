@@ -61,6 +61,7 @@
     * [Aggregate Functions](user-guide/dashboards/expressions/aggregate.md)
     * [Cast Functions](user-guide/dashboards/expressions/cast.md)
     * [Date Functions](user-guide/dashboards/expressions/date.md)
+    * [Link Functions](user-guide/dashboards/expressions/link.md)
     * [Logic Functions](user-guide/dashboards/expressions/logic.md)
     * [Mathematics Functions](user-guide/dashboards/expressions/mathematics.md)
     * [Rounding Functions](user-guide/dashboards/expressions/rounding.md)
