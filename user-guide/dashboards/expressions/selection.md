@@ -1,5 +1,7 @@
 # Selection Functions
 
+Selection functions are a form of aggregate function operating on grouped data.
+
 <!-- vim-markdown-toc GFM -->
 
 * [Any](#any)
@@ -10,8 +12,6 @@
 * [Top](#top)
 
 <!-- vim-markdown-toc -->
-
-Selection functions are a form of aggregate function operating on grouped data.
 
 ## Any
 

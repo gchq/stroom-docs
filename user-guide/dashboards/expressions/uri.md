@@ -29,6 +29,7 @@ extractSchemeSpecificPartFromUri(${URI}) | //foo:bar@w1.superman.com:8080/very/l
 extractUserInfoFromUri(${URI}) | foo:bar
 
 <!-- vim-markdown-toc GFM -->
+
 * [extractAuthorityFromUri](#extractauthorityfromuri)
 * [extractFragmentFromUri](#extractfragmentfromuri)
 * [extractHostFromUri](#extracthostfromuri)
@@ -38,6 +39,7 @@ extractUserInfoFromUri(${URI}) | foo:bar
 * [extractSchemeFromUri](#extractschemefromuri)
 * [extractSchemeSpecificPartFromUri](#extractschemespecificpartfromuri)
 * [extractUserInfoFromUri](#extractuserinfofromuri)
+
 <!-- vim-markdown-toc -->
 
 ## extractAuthorityFromUri

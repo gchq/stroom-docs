@@ -65,6 +65,7 @@
     * [Logic Functions](user-guide/dashboards/expressions/logic.md)
     * [Mathematics Functions](user-guide/dashboards/expressions/mathematics.md)
     * [Rounding Functions](user-guide/dashboards/expressions/rounding.md)
+    * [Selection Functions](user-guide/dashboards/expressions/selection.md)
     * [String Functions](user-guide/dashboards/expressions/string.md)
     * [Type Checking Functions](user-guide/dashboards/expressions/type-checking.md)
     * [URI Functions](user-guide/dashboards/expressions/uri.md)
