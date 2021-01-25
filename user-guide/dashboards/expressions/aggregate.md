@@ -1,15 +1,18 @@
 # Aggregate Functions
 
 <!-- vim-markdown-toc GFM -->
+
 * [Average](#average)
 * [Count](#count)
 * [Count Groups](#count-groups)
 * [Count Unique](#count-unique)
+* [Joining](#joining)
 * [Max](#max)
 * [Min](#min)
 * [Standard Deviation](#standard-deviation)
 * [Sum](#sum)
 * [Variance](#variance)
+
 <!-- vim-markdown-toc -->
 
 ## Average
@@ -66,6 +69,23 @@ Examples
 countUnique(${val})
 ${val} = ['bill', 'bob', 'fred', 'bill']
 > 3
+```
+
+## Joining
+Concatenates all values together into a single string.
+If a delimter is supplied then the delimiter is placed bewteen each concatenated string.
+If a limit is supplied then it will only concatenate up to limit values.
+```
+joining(values)
+joining(values, delimiter)
+joining(values, delimiter, limit)
+```
+
+Examples
+```
+joining(${val}, ', ')
+${val} = ['bill', 'bob', 'fred', 'bill']
+> 'bill, bob, fred, bill'
 ```
 
 ## Max

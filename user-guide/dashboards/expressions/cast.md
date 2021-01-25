@@ -2,11 +2,13 @@
 A set of functions for converting between different data types or for working with data types.
 
 <!-- vim-markdown-toc GFM -->
+
 * [To Boolean](#to-boolean)
 * [To Double](#to-double)
 * [To Integer](#to-integer)
 * [To Long](#to-long)
 * [To String](#to-string)
+
 <!-- vim-markdown-toc -->
 
 ## To Boolean

@@ -1,17 +1,20 @@
 # Mathematics Functions
 
 <!-- vim-markdown-toc GFM -->
+
 * [Add](#add)
 * [Average](#average)
 * [Divide](#divide)
 * [Max](#max)
 * [Min](#min)
+* [Modulo](#modulo)
 * [Multiply](#multiply)
 * [Negate](#negate)
 * [Power](#power)
 * [Random](#random)
 * [Subtract](#subtract)
 * [Sum](#sum)
+
 <!-- vim-markdown-toc -->
 
 ## Add
@@ -99,6 +102,18 @@ They can be nested
 min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 > 20
+```
+
+## Modulo
+Determines the modulus of the dividend divided by the divisor.
+```
+modulo(dividend, divisor)
+```
+
+Examples
+```
+modulo(100, 30)
+> 10
 ```
 
 ## Multiply

@@ -3,6 +3,7 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Concat](#concat)
+* [Current User](#current-user)
 * [Decode](#decode)
 * [DecodeUrl](#decodeurl)
 * [EncodeUrl](#encodeurl)
@@ -13,6 +14,8 @@
 * [Last Index Of](#last-index-of)
 * [Lower Case](#lower-case)
 * [Match](#match)
+* [Query Param](#query-param)
+* [Query Params](#query-params)
 * [Replace](#replace)
 * [String Length](#string-length)
 * [Substring](#substring)
@@ -32,6 +35,19 @@ Example
 ```
 concat('this ', 'is ', 'how ', 'it ', 'works')
 > 'this is how it works'
+```
+
+
+## Current User
+Returns the username of the user running the query.
+```
+currentUser()
+```
+
+Example
+```
+currentUser()
+> 'jbloggs'
 ```
 
 ## Decode
@@ -193,6 +209,32 @@ match('this', 'this')
 match('this', 'that')
 > false
 ```
+
+## Query Param
+Returns the value of the requested query parameter.
+```
+queryParam(paramKey)
+```
+
+Examples
+```
+queryParam('user')
+> 'jbloggs'
+```
+
+
+## Query Params
+Returns all query parameters as a space delimited string.
+```
+queryParams()
+```
+
+Examples
+```
+queryParams()
+> 'user=jbloggs site=HQ'
+```
+
 
 ## Replace
 Perform text replacement on an input string using a regular expression to match part (or all) of the input string and a replacement string to insert in place of the matched part
