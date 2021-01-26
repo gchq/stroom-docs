@@ -1,5 +1,21 @@
 # Link Functions
 
+<!-- vim-markdown-toc GFM -->
+
+* [Annotation](#annotation)
+* [Dashboard](#dashboard)
+* [Data](#data)
+* [Link](#link)
+* [Stepping](#stepping)
+
+<!-- vim-markdown-toc -->
+
+## Annotation
+A helper function to make forming links to annotations easier than using [Link](#link).
+
+> TODO Complete this section.
+
+
 ## Dashboard
 A helper function to make forming links to dashboards easier than using [Link](#link).
 ```
@@ -14,6 +30,21 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da')
 dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 > [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&params=userId%3Duser1){dashboard)
 ```
+
+## Data
+Creates a link to open a source for data for viewing.
+
+```
+data(id, partNo, [recordNo, lineFrom, colFrom, lineTo, colTo, viewType, displayType])
+```
+
+_viewType_ can be one of:
+* `preview` : Display the data as a formatted preview of a limited portion of the data.
+* `source` : Display the un-formatted data in its original form with the ability to navigate around all of the data source.
+
+_displayType_ can be one of:
+* `dialog` : Open as a modal popup dialog.
+* `tab` : Open as a top level tab within the Stroom browser tab.
 
 ## Link
 Create a string that represents a hyperlink for display in a dashboard table.
@@ -42,5 +73,14 @@ Type can be one of:
 * `dashboard` : Used to launch a stroom dashboard internally with parameters in the URL.
 
 If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both `dialog` and `tab` types allow titles to be specified after a `|`, e.g. `dialog|My Title`.
+
+## Stepping
+Open the _Stepping_ tab for the requested data source.
+
+```
+stepping(id)
+stepping(id, partNo)
+stepping(id, partNo, recordNo)
+```
 
 

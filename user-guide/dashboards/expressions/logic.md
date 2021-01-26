@@ -1,6 +1,7 @@
 # Logic Functions
 
 <!-- vim-markdown-toc GFM -->
+
 * [Equals](#equals)
 * [Greater Than](#greater-than)
 * [Greater Than or Equal To](#greater-than-or-equal-to)
@@ -8,6 +9,7 @@
 * [Less Than](#less-than)
 * [Less Than or Equal To](#less-than-or-equal-to)
 * [Not](#not)
+
 <!-- vim-markdown-toc -->
 
 ## Equals

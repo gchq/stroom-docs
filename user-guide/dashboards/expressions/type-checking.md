@@ -1,6 +1,7 @@
 # Type checking functions
 
 <!-- vim-markdown-toc GFM -->
+
 * [Is Boolean](#is-boolean)
 * [Is Double](#is-double)
 * [Is Error](#is-error)
@@ -11,6 +12,7 @@
 * [Is String](#is-string)
 * [Is Value](#is-value)
 * [Type Of](#type-of)
+
 <!-- vim-markdown-toc -->
 
 ## Is Boolean
@@ -36,7 +38,8 @@ isDouble(toDouble('1.2'))
 ```
 
 ## Is Error
-Checks if the passed value is an error caused by an invalid evaluation of an expression on passed values, e.g. some values passed to an expression could result in a divide by 0 error. Note that this method must be used to check for `error` as error equality using `x=err()` is not supported.
+Checks if the passed value is an error caused by an invalid evaluation of an expression on passed values, e.g. some values passed to an expression could result in a divide by 0 error.
+Note that this method must be used to check for `error` as error equality using `x=err()` is not supported.
 ```
 isError(arg1)
 ```
@@ -71,7 +74,8 @@ isLong(toLong('1'))
 ```
 
 ## Is Null
-Checks if the passed value is `null`. Note that this method must be used to check for `null` as null equality using `x=null()` is not supported.
+Checks if the passed value is `null`.
+Note that this method must be used to check for `null` as null equality using `x=null()` is not supported.
 ```
 isNull(arg1)
 ```
