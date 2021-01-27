@@ -12,9 +12,30 @@
 
 ## Annotation
 A helper function to make forming links to annotations easier than using [Link](#link).
+The Annotation function allows you to create a link to open the Annotation editor, either to view an existing annotation or to begin creating one with pre-populated values.
 
-> TODO Complete this section.
+```
+annotation(text, annotationId)
+annotation(text, annotationId, [streamId, eventId, title, subject, status, assignedTo, comment])
+```
 
+If you provide just the _text_ and an _annotationId_ then it will produce a link that opens an existing annotation with the supplied ID in the Annotation Edit dialog.
+
+Example
+```
+annotation('Open annotation', ${annotation:Id})
+> [Open annotation](?annotationId=1234){annotation}
+```
+
+If you don't supply an _annotationId_ then the link will open the Annotation Edit dialog pre-populated with the optional arguments so that an annotation can be created.
+If the _annotationId_ is not provided then you must provide a _streamId_ and an _eventId_.
+If you don't need to pre-populate a value then you can use `''` or `null()` instead.
+
+Example
+```
+annotation('Create suspect event annotation', null(), 123, 456, 'Suspect Event', null(), 'assigned', 'jbloggs')
+> [Create suspect event annotation](?streamId=123&eventId=456&title=Suspect%20Event&assignedTo=jbloggs){annotation}
+```
 
 ## Dashboard
 A helper function to make forming links to dashboards easier than using [Link](#link).
@@ -26,9 +47,9 @@ dashboard(text, uuid, params)
 Example
 ```
 dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da')
-> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da){dashboard)
+> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da){dashboard}
 dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
-> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&params=userId%3Duser1){dashboard)
+> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&params=userId%3Duser1){dashboard}
 ```
 
 ## Data
