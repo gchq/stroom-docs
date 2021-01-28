@@ -16,7 +16,7 @@ Each command value is described in its own section.
 
 > **NOTE:** These commands are very powerful and potentially dangerous in the wrong hands, e.g. they allow the changing of user's passwords.
 > Access to these commands should be strictly limited.
-
+> Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.
 
 ## `server`
 
@@ -64,6 +64,12 @@ Stroom is able to use third party OpenID identity providers such as Google or AW
 When configured to use its own (the default) it will auto create an admin account when starting up a fresh instance.
 There are times when you may wish to create this account manually which this command allows.
 
+### Authentication Accounts and Stroom Users
+The user account used for authentication is distinct to the Stroom _user_ entity that is used for authorisation within Stroom.
+If an external IDP is used then the mechanism for creating the authentication account will be specific to that IDP.
+If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged used or using this command.
+In either case a Stroom user will need to exist with the same username as the authentication account.
+
 The command will fail if the user already exists.
 This command should NOT be run if you are using a third party identity provider.
 
@@ -107,6 +113,12 @@ This command allows you to manage the account permissions within stroom regardle
 A typical use case for this is when using a third party identity provider.
 In this instance Stroom has no way of auto creating an admin account when first started so the association between the account on the 3rd party IDP and the stroom user account needs to be made manually.
 To set up an admin account to enable you to login to stroom you can do:
+
+This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
+It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
+If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at `/stroom/noauth/swagger-ui`.
+
+> See the [note](#authentication-accounts-and-stroom-users) above about the distinction between authentication accounts and stroom users.
 
 ```bash
 java -jar /absolute/path/to/stroom-app.jar manage_users --createUser jbloggs --createGroup Administrators --addToGroup jbloggs Administrators --grantPermission Administrators "Administrator" path/to/config.yml
