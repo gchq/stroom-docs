@@ -42,7 +42,7 @@ This guide will take you through creating an Elasticsearch index, setting up an 
 1. Unlike both Solr and Lucene indexing, it is not necessary to mark a field as `stored` (i.e. storing its raw value in the inverted index).
    This is because Elasticsearch stores the content of the original document in the [`_source` field](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-source-field.html),
    which is retrieved when populating search results.
-   Provided the `_source` field is enabled (as it is by default), a field is treated as `stored` and its value doesn't need to be retrieved via an _extraction pipeline_.
+   Provided the `_source` field is enabled (as it is by default), a field is treated as `stored` in Stroom and its value doesn't need to be retrieved via an _extraction pipeline_.
 
 ## 2. Indexing data
 ### 2.1. Creating an index in Elasticsearch
