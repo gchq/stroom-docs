@@ -27,7 +27,7 @@ docker exec -it my_solr solr create_core -c test_index
 1. Update settings for your new Solr Index in Stroom then press "Test Connection".
 If successful then press Save
 Note the "Solr URL" field is a reference to the newly created Solr core.
-!["Solr Index Setings"](../resources/v7/HT_SimpleSolr_Settings.png "Solr Index Settings")
+!["Solr Index Settings"](../resources/v7/HT_SimpleSolr_Settings.png "Solr Index Settings")
 1. Add some Index fields.
 e.g.EventTime, UserId
 1. Retention is different in Solr, you must specify an expression that matches data that can be deleted.
