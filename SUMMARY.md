@@ -124,9 +124,10 @@
   * [Create Reference Feed](HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)
 * Administration
   * [System Properties](HOWTOs/Administration/SystemProperties.md)
-* Search
+* Indexing and Search
   * [Search API using bash](HOWTOs/Search/SearchFromBash.md)
-  * [Simple Solr integration](HOWTOs/Search/SimpleSolr.md)
+  * [Elasticsearch integration](HOWTOs/Search/Elasticsearch.md)
+  * [Solr integration](HOWTOs/Search/Solr.md)
 
 
 ### 5. Stroom Proxy

@@ -20,7 +20,8 @@ Reference Feeds are used to provide look up data for a translation. The referenc
 ## Searches and Indexing
 This section covers Indexing and Searching for data in Stroom
  * [Search using bash](Search/SearchFromBash.md "Search using Bash")
- * [Simple Solr integration](Search/SimpleSolr.md "Simple Solr integration")
+ * [Elasticsearch integration](Search/Elasticsearch.md "Elasticsearch integration")
+ * [Solr integration](Search/Solr.md "Solr integration")
 
 ## General
 [Raw Source Tracking](General/RawSourceTracking.md "Raw Source Tracking") show how to associate a processed Event with the source line that generated it
