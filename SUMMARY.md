@@ -24,6 +24,7 @@
   * [Processing user setup](install-guide/setup/processing-user-setup.md)
   * [Securing Stroom](install-guide/setup/securing-stroom.md)
 * [Upgrading and patching](install-guide/upgrade-patch.md)
+  * [v6 to v7 Upgrade](install-guide/upgrades/6_to_7_upgrade.md)
 * [Stroom 6 installation guide (DRAFT)](install-guide/stroom-6-installation.md)
 
 ### 3. User Guide

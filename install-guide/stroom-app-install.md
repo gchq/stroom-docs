@@ -1,3 +1,5 @@
+> *NOTE* This document was written for stroom v4/5. It is not applicable for v6+.
+
 # Stroom Install
 
 ## Prerequisites

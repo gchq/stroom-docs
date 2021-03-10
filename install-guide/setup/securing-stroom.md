@@ -1,3 +1,5 @@
+> *NOTE* This document was written for stroom v4/5. Some parts may not be applicable for v6+.
+
 ## Securing Stroom
 
 ### Firewall

@@ -1,3 +1,5 @@
+> *NOTE* This document was written for stroom v4/5. It is not applicable for v6+.
+
 # Apache Forwarding
 
 Stroom defaults to listening for HTTP on port 8080.
