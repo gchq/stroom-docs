@@ -23,6 +23,25 @@ Stroom v7 has significant differences to v6 which make the upgrade process a lit
 
 The following steps are required to be performed before migrating from v6 to v7.
 
+
+### Stop processing
+
+Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.
+
+*TODO* clairfy steps for this.
+
+
+### Stop the stack
+
+Stop the stack but start up the database.
+Do this using the v6 stack.
+This ensures that stroom is not trying to access the database.
+
+```bash
+./stop.sh
+./start stroom-all-dbs
+```
+
 ### Backup the databases
 
 Backup all the databases for the different components.
@@ -31,11 +50,90 @@ Typically these will be `stroom`, `stats` and `auth`.
 If you are running in a docker stack then you can run the `./backup_databases.sh` script.
 
 
-### Export database property values
+### Stop the database
 
-Stroom stores global property values in the database.
+Stop the database using the v6 stack.
+
+```bash
+./stop.sh
+```
 
 
+### Deploy v7
+
+Deploy the v7 stack.
+*TODO* - more detail
+
+### Start the database
+
+Start the database using the v7 stack.
+
+```bash
+./start.sh stroom-all-dbs
+```
+
+### Running `mysql_upgrade`
+
+Stroom v6 ran on mysql v5.6.
+Stroom v7 runs on mysql v8.
+To ensure the database is up to date `mysql_upgrade` neeeds to be run, [see](https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html).
+Run this 
+
+```bash
+#docker exec -it container_name bash -c 'mysql_upgrade -u"root" -p"my-secret-pw"'
+docker exec -it stroom-all-dbs mysql_upgrade -u"root" -p"my-secret-pw"
+./restart.sh stroom-all-dbs
+```
+
+
+### Rename legacy stroom-auth tables
+
+*TODO* - Where is the script released to?
+
+Run this command to connect to the `auth` database and run the pre-migration SQL script.
+
+```bash
+docker exec -i stroom-all-dbs mysql --table -h"localhost" -P"3307" -u"authuser" -p"stroompassword1" auth < v7_auth_db_table_rename.sql > v7_auth_db_table_rename.out 2>&1
+```
+
+This will rename all but one of the tables in the `auth` database.
+
+
+### Copy the `auth` database content to `stroom`
+
+Having run the table rename perform another backup of just the `auth` database.
+
+Now restore this backup into the `stroom` database.
+You can use the v7 stack scripts to do this.
+
+```bash
+./restore_database.sh stroom auth_20210312143513.sql.gz
+```
+
+You should now see the following tables in the `stroom` database:
+
+```
+OLD_AUTH_json_web_key
+OLD_AUTH_token_types
+OLD_AUTH_tokens
+OLD_AUTH_users
+```
+
+This can be checked by running the following in the v7 stack.
+
+```bash
+echo 'select table_name from information_schema.tables where table_name like "OLD_AUTH%"' | ./database_shell.sh
+```
+
+### Drop unused databases
+
+There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
+Note the use of the `--force` argument so it copes with users that are not there.
+
+```bash
+docker exec -i stroom-all-dbs mysql --force -u"root" -p"my-secret-pw" < v7_drop_unused_databases.sql > v7_drop_unused_databases.out
+
+```
 
 
 ## Performing the upgrade
