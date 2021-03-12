@@ -64,25 +64,37 @@ Stop the database using the v6 stack.
 Deploy the v7 stack.
 *TODO* - more detail
 
-### Start the database
-
-Start the database using the v7 stack.
-
-```bash
-./start.sh stroom-all-dbs
-```
 
 ### Running `mysql_upgrade`
 
 Stroom v6 ran on mysql v5.6.
 Stroom v7 runs on mysql v8.
-To ensure the database is up to date `mysql_upgrade` neeeds to be run, [see](https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html).
-Run this 
+The upgrade path is 5.6 => 5.7.33 => 8.x
+
+
+To ensure the database is up to date `mysql_upgrade` neeeds to be run using the 5.7.33 binaries, [see](https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html).
+This is the process for 
 
 ```bash
-#docker exec -it container_name bash -c 'mysql_upgrade -u"root" -p"my-secret-pw"'
+# Set the version of mysql to use
+export MYSQL_TAG=5.7.33
+
+# Start MySQL at v5.7, this will recreate the container
+./start.sh stroom-all-dbs
+
+# Run the upgrade
 docker exec -it stroom-all-dbs mysql_upgrade -u"root" -p"my-secret-pw"
-./restart.sh stroom-all-dbs
+
+# Stop MySQL
+./stop.sh
+
+# Unset the tag variable so it uses the default from the stack (8.x)
+unset MYSQL_TAG
+
+# Start MySQL at v8.x, this will recreate the container and run the upgrade
+./start.sh stroom-all-dbs
+
+./stop.sh
 ```
 
 
