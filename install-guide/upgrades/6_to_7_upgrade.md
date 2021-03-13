@@ -59,39 +59,42 @@ Stop the database using the v6 stack.
 ```
 
 
-### Deploy v7
+### Deploy and configure v7
 
 Deploy the v7 stack.
 *TODO* - more detail
+
+Verify the database connection configuration for the stroom and stats databases.
+Ensure that there is NOT any configuration for a separate auth database as this will now be in stroom.
 
 
 ### Running `mysql_upgrade`
 
 Stroom v6 ran on mysql v5.6.
 Stroom v7 runs on mysql v8.
-The upgrade path is 5.6 => 5.7.33 => 8.x
-
+The upgrade path for MySQL is 5.6 => 5.7.33 => 8.x
 
 To ensure the database is up to date `mysql_upgrade` neeeds to be run using the 5.7.33 binaries, [see](https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html).
-This is the process for 
+
+This is the process for upgrading the database. All of these commands are using the v7 stack.
 
 ```bash
-# Set the version of mysql to use
+# Set the version of the MySQL docker image to use
 export MYSQL_TAG=5.7.33
 
 # Start MySQL at v5.7, this will recreate the container
 ./start.sh stroom-all-dbs
 
-# Run the upgrade
+# Run the upgrade from 5.6 => 5.7.33
 docker exec -it stroom-all-dbs mysql_upgrade -u"root" -p"my-secret-pw"
 
 # Stop MySQL
 ./stop.sh
 
-# Unset the tag variable so it uses the default from the stack (8.x)
+# Unset the tag variable so that it now uses the default from the stack (8.x)
 unset MYSQL_TAG
 
-# Start MySQL at v8.x, this will recreate the container and run the upgrade
+# Start MySQL at v8.x, this will recreate the container and run the upgrade from 5.7.33=>8
 ./start.sh stroom-all-dbs
 
 ./stop.sh
@@ -146,6 +149,7 @@ Note the use of the `--force` argument so it copes with users that are not there
 docker exec -i stroom-all-dbs mysql --force -u"root" -p"my-secret-pw" < v7_drop_unused_databases.sql > v7_drop_unused_databases.out
 
 ```
+
 
 
 ## Performing the upgrade
