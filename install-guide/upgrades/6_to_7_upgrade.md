@@ -108,7 +108,7 @@ unset MYSQL_TAG
 Run this command to connect to the `auth` database and run the pre-migration SQL script.
 
 ```bash
-docker exec -i stroom-all-dbs mysql --table -h"localhost" -P"3307" -u"authuser" -p"stroompassword1" auth < v7_auth_db_table_rename.sql > v7_auth_db_table_rename.out 2>&1
+docker exec -i stroom-all-dbs mysql --table -u"authuser" -p"stroompassword1" auth < v7_auth_db_table_rename.sql
 ```
 
 This will rename all but one of the tables in the `auth` database.
@@ -122,6 +122,7 @@ Now restore this backup into the `stroom` database.
 You can use the v7 stack scripts to do this.
 
 ```bash
+.backup_databases.sh
 ./restore_database.sh stroom auth_20210312143513.sql.gz
 ```
 
@@ -146,13 +147,24 @@ There may be a number of databases that are no longer used that can be dropped p
 Note the use of the `--force` argument so it copes with users that are not there.
 
 ```bash
-docker exec -i stroom-all-dbs mysql --force -u"root" -p"my-secret-pw" < v7_drop_unused_databases.sql > v7_drop_unused_databases.out
+docker exec -i stroom-all-dbs mysql --force -u"root" -p"my-secret-pw" < v7_drop_unused_databases.sql
 
 ```
 
+Verify it worked with:
+
+```bash
+echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u"root" -p"my-secret-pw"
+```
 
 
 ## Performing the upgrade
+
+To perform the upgrade to stroom v7 run the migrate command which will migrate the database then exit.
+
+```bash
+./migrate.sh
+```
 
 
 
