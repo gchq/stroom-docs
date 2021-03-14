@@ -160,7 +160,9 @@ echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u"root" -p"my-secr
 
 ## Performing the upgrade
 
-To perform the upgrade to stroom v7 run the migrate command which will migrate the database then exit.
+To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
+For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
+Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.
 
 ```bash
 ./migrate.sh
@@ -168,5 +170,6 @@ To perform the upgrade to stroom v7 run the migrate command which will migrate t
 
 
 
-
 ## Post-Upgrade tasks
+
+*TODO* remove auth* containers,images,volumes
