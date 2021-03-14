@@ -1,4 +1,27 @@
+> * Last Updated: 10 Mar 2021  
+
 # Stroom Upgrades and Patches
+
+## Stroom v6+
+
+Stroom is designed to detect the version of the database schema present and to run any migrations necessary to bring it up to the version begin deployed.
+
+### Docker stack deployments
+
+*TODO*
+
+### Non-docker deployments
+
+*TODO*
+
+### Major version upgrades
+
+The following notes are specific for these major version upgrades
+
+* [v6 => v7](./upgrades/6_to_7_upgrade.md)
+
+
+## Stroom v5
 
 The cleanest way to upgrade or patch is to simply remove the installed content and reinstall.  For example: 
 
@@ -18,6 +41,6 @@ You should remove and reinstall all components you originally installed i.e. str
 
 You should temporary disable the cron auto deploy script if you have it running during the above.
 
-## Patching 
+### Patching 
 
 You can choose for a minor patch (1-2-X) to simply copy the new WAR file into relevant lib directory and run the deploy.sh script (which you may have running on a cron tab).  However this would not patch any potential script or tomcat setting changes.
