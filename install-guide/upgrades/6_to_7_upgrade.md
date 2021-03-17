@@ -39,7 +39,7 @@ This ensures that stroom is not trying to access the database.
 
 ```bash
 ./stop.sh
-./start stroom-all-dbs
+./start.sh stroom-all-dbs
 ```
 
 ### Backup the databases
