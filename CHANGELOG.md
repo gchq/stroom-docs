@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Change `finding-things.md` to reflect the change of default match mode to contains.
+
 * Add `6_to_7_upgrade.md`.
 
 * Add note about the use of `manage_users` command.

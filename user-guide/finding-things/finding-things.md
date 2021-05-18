@@ -101,64 +101,6 @@ In the above example the filter will match on items with a name beginning `xml`,
 
 All the match terms are combined together with an AND operator.
 The same field can be used multiple times in the match.
-The list of filterable fields and their qualifier names (sometimes a shortened form) are listed by clicking on the help icon <img src="../../resources/v7/icons/help.svg" title="Help" width="18"></img>.
-
-One or more of the fields will be defined as _default_ fields.
-This means the if no qualifier is entered the match will be applied to all _default_ fields using an OR operator.
-Sometimes all fields may be considered _default_ which means a match term will be tested against all fields and an item will be included in the results if one or more of those fields match.
-
-For example if the Quick Filter has fields `Name`, `Type` and `Status`, of which `Name` and `Type` are _default_:
-
-```
-feed status:ok
-```
-
-The above would match items with the Name OR Type fields match `feed` AND the Status field matches `ok`.
-
-### Match Negation
-
-Each match item can be negated using the `!` prefix.
-This is also described in [Common Fuzzy Matching](#common-fuzzy-matching).
-The prefix is applied after the field qualifier.
-E.g:
-
-```
-name:xml source:!/default
-```
-In the above example it would match on items where the Name field matched `xml` and the Source field does NOT match the regex pattern `default`.
-
-### Spaces and Quotes
-
-If your match term contains a space then you can surround the match term with double quotes.
-Also if your match term contains a double quote you can escape it with a `\` character.
-The following would be valid for example.
-
-```
-"name:csv splitter" "default field match" "symbol:\""
-```
-
-
-## Quick Filters
-
-Quick Filter controls are used in a number of screens in _Stroom_.
-The most prominent use of a Quick Filter is in the Explorer Tree as described above.
-Quick filters allow for quick searching of a data set or a list of items using a text based query language.
-The basis of the query language is described in [Common Fuzzy Matching](#common-fuzzy-matching).
-
-A number of the Quick Filters are used for filter tables of data that have a number of fields.
-The quick filter query language supports matching in specified fields.
-Each Quick Filter will have a number of named fields that it can filter on. 
-The field to match on is specified by prefixing the match term with the name of the field followed by a `:`, i.e. `type:`.
-Multiple field matches can be used, each separate by a space.
-E.g:
-
-```
-name:^xml name:events$ type:feed
-```
-In the above example the filter will match on items with a name beginning `xml`, a name ending `events` and a type partially matching `feed`.
-
-All the match terms are combined together with an AND operator.
-The same field can be used multiple times in the match.
 The list of filterable fields and their qualifier names (sometimes a shortened form) are listed by clicking on the help icon <img src="../../resources/v7/icons/help.svg" alt="Help Icon" width="16"></img>.
 
 One or more of the fields will be defined as _default_ fields.
@@ -171,19 +113,21 @@ For example if the Quick Filter has fields `Name`, `Type` and `Status`, of which
 feed status:ok
 ```
 
-The above would match items with the Name OR Type fields match `feed` AND the Status field matches `ok`.
+The above would match items where the Name OR Type fields match `feed` AND the Status field matches `ok`.
+
 
 ### Match Negation
 
 Each match item can be negated using the `!` prefix.
 This is also described in [Common Fuzzy Matching](#common-fuzzy-matching).
-The prefix is applied after the field qualifier.
+The prefix is applied **after** the field qualifier.
 E.g:
 
 ```
 name:xml source:!/default
 ```
 In the above example it would match on items where the Name field matched `xml` and the Source field does NOT match the regex pattern `default`.
+
 
 ### Spaces and Quotes
 
@@ -195,6 +139,49 @@ The following would be valid for example.
 "name:csv splitter" "default field match" "symbol:\""
 ```
 
+
+### Multiple Terms
+
+If multiple terms are provided for the same field then an AND is used to combine them.
+This can be useful where you are not sure of the order of _words_ within the items being filtered.
+
+For example:
+
+**User input**: `spain plain rain`
+
+**Will match**:
+
+```
+The rain in spain stays mainly in the plain
+    ^^^^    ^^^^^                     ^^^^^
+rainspainplain
+^^^^^^^^^^^^^^
+spain plain rain
+^^^^^ ^^^^^ ^^^^
+raining spain plain
+^^^^^^^ ^^^^^ ^^^^^
+```
+
+**Won't match**: `sprain`, `rain`, `spain`
+
+
+### OR Logic
+
+There is no support for combining terms with an OR.
+However you can acheive this using a sinlge regular expression term.
+For example
+
+**User input**: `status:/(disabled|locked)`
+
+**Will match**: 
+```
+Locked
+^^^^^^
+Disabled
+^^^^^^^^
+```
+
+**Won't match**: `A MAN`, `HUMAN`
 
 ## Suggestion Input Fields
 
@@ -223,10 +210,32 @@ NOTE: In the following examples the `^` character is used to indicate which char
 
 If no input is provided all items will match.
 
+### Contains (Default)
 
-### Characters Anywhere Matching (Default)
+If no prefixes or suffixes are used then all characters in the user input will need to be contained as a whole somewhere within the string being tested.
+The matching is case insensitive.
 
-If no prefixes or suffixes are used then all characters in the user input will need to appear in the matched item in the order input.
+**User input**: `bad`
+
+**Will match**:
+
+```
+bad angry dog
+^^^          
+BAD
+^^^
+very badly
+     ^^^  
+Very bad
+     ^^^
+```
+
+**Won't match**: `dab`, `ba d`, `ba`
+
+
+### Characters Anywhere Matching
+
+If the user input is prefixed with a `~` (tilde) character then characters anywher matching will be employed.
 The matching is case insensitive.
 
 **User input**: `bad`
@@ -257,7 +266,7 @@ bbaadd
 
 If the user input is prefixed with a `?` character then word boundary matching will be employed.
 This approache uses upper case letters to denote the start of a _word_.
-If you know all the _words_ in the item you are looking for then condensing those _words_ down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
+If you know the some or all of _words_ in the item you are looking for, and their order, then condensing those _words_ down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
 Words can either be separated by characters like `_- ()[].`, or be distinguished with `lowerCamelCase` or `upperCamelCase` format.
 An upper case letter in the input denotes the beginning of a _word_ and any subsequent lower case characters are treated as contiguously following the character at the start of the word.
 
@@ -316,6 +325,7 @@ stroom.something.somethingElse.maxFileNumber
 If the user input is prefixed with a `/` character then the remaining user input is treated as a Java syntax regular expression.
 An string will be considered a match if any part of it matches the regular expression pattern.
 The regular expression operates in case insensitive mode.
+For more details on the syntax of java regular expressions see this internet link https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/regex/Pattern.html.
 
 **User input**: `/(^|wo)man`
 
