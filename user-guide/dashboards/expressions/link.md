@@ -25,6 +25,10 @@ Example
 ```
 annotation('Open annotation', ${annotation:Id})
 > [Open annotation](?annotationId=1234){annotation}
+annotation('Create annotation', '', ${StreamId}, ${EventId})
+> [Create annotation](?annotationId=&streamId=1234&eventId=45){annotation}
+annotation('Escalate', '', ${StreamId}, ${EventId}, 'Escalation', 'Triage required')
+> [Escelate](?annotationId=&streamId=1234&eventId=45&title=Have%20a%20look%20at%20this){annotation}
 ```
 
 If you don't supply an _annotationId_ then the link will open the Annotation Edit dialog pre-populated with the optional arguments so that an annotation can be created.
@@ -56,7 +60,7 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 Creates a link to open a source for data for viewing.
 
 ```
-data(id, partNo, [recordNo, lineFrom, colFrom, lineTo, colTo, viewType, displayType])
+data(text, id, partNo, [recordNo, lineFrom, colFrom, lineTo, colTo, viewType, displayType])
 ```
 
 _viewType_ can be one of:
@@ -66,6 +70,13 @@ _viewType_ can be one of:
 _displayType_ can be one of:
 * `dialog` : Open as a modal popup dialog.
 * `tab` : Open as a top level tab within the Stroom browser tab.
+
+
+Example
+```
+data('Quick View', ${StreamId}, 1)
+> [Quick View]?id=1234&&partNo=1)
+```
 
 ## Link
 Create a string that represents a hyperlink for display in a dashboard table.
@@ -99,9 +110,13 @@ If you wish to override the default title or URL of the target link in either a 
 Open the _Stepping_ tab for the requested data source.
 
 ```
-stepping(id)
-stepping(id, partNo)
-stepping(id, partNo, recordNo)
+stepping(text, id)
+stepping(text, id, partNo)
+stepping(text, id, partNo, recordNo)
 ```
 
-
+Example
+```
+stepping('Click here to step',${StreamId})
+> [Click here to step](?id=1)
+```
