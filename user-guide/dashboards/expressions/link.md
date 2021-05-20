@@ -28,7 +28,7 @@ annotation('Open annotation', ${annotation:Id})
 annotation('Create annotation', '', ${StreamId}, ${EventId})
 > [Create annotation](?annotationId=&streamId=1234&eventId=45){annotation}
 annotation('Escalate', '', ${StreamId}, ${EventId}, 'Escalation', 'Triage required')
-> [Escelate](?annotationId=&streamId=1234&eventId=45&title=Have%20a%20look%20at%20this){annotation}
+> [Escalate](?annotationId=&streamId=1234&eventId=45&title=Escalation&subject=Triage%20required){annotation}
 ```
 
 If you don't supply an _annotationId_ then the link will open the Annotation Edit dialog pre-populated with the optional arguments so that an annotation can be created.
