@@ -1,0 +1,115 @@
+@startuml
+
+title
+    ==Stroom multi-node mixed-economy deployment
+    Stroom services in Docker
+    Stroom and MySQL on bare OS
+end title
+
+skinparam rectangle {
+	roundCorner<<container>> 25
+}
+
+node "Datafeed client host" as dataload_client_host <<device>> {
+    node "Event generator" as dataload_client_app <<application>>
+}
+
+node "User desktop host" as ui_client_host <<device>> {
+    node "Web browser" as ui_client_browser <<web browser>>
+}
+
+node "Remote stroom-proxy host" as remote_proxy_host <<device>> {
+    node "stroom-proxy" as remote_proxy <<application>>
+}
+
+rectangle "stroom estate" {
+    node "Database host" as database_host <<device>> {
+        database stroom_all_dbs <<mysql>> {
+            storage "stroom" as stroom_db <<database>>
+            storage "stats" as stroom_stats_db <<database>>
+            storage "auth" as stroom_auth_db <<database>>
+        }
+    }
+
+    node "Services host" as services_host <<device>> {
+        rectangle "nginx" as nginx_container <<container>>{
+            node "nginx" as nginx <<web server>>
+        }
+        rectangle "stroom-auth-ui" as stroom_auth_ui_container <<container>>{
+            node "stroom-auth-ui nginx" as stroom_auth_ui_nginx <<web server>>
+        }
+        rectangle "stroom-auth-service" as stroom_auth_service_container <<container>>{
+            node "stroom-auth-service" as stroom_auth_service_dropwiz <<java app>>
+        }
+        rectangle "stroom-log-sender" as stroom_log_sender <<container>>{
+            node "stroom-log-sender" as stroom_log_sender_script <<script>>
+        }
+
+        stroom_log_sender_script -left-> nginx
+    }
+
+    !function $concat($name, $id)
+    !return $name + $id
+    !endfunction
+
+    ' Function to generate a stroom host with links to and from it
+    !function add_stroom_host($node_id)
+        !$host_name=$concat("stroom_host_", $node_id)
+        !$stroom_dropwiz_name=$concat("stroom_dropwiz_", $node_id)
+        !$stroom_proxy_dropwiz_name=$concat("stroom_proxy_dropwiz_", $node_id)
+
+        node "$concat("stroom host ", $node_id)" as $host_name <<device>> {
+            node "$concat("stroom ", $node_id)" as $stroom_dropwiz_name <<java app>>
+            node "$concat("stroom-proxy (local) ", $node_id)" as $stroom_proxy_dropwiz_name <<java app>>
+        }
+        ' Database connections
+        $stroom_dropwiz_name --> stroom_db
+        $stroom_dropwiz_name --> stroom_stats_db
+        ' API Gateway connection
+        $stroom_dropwiz_name --> nginx
+        $stroom_proxy_dropwiz_name --> nginx
+
+        'Reverse proxy connections
+        nginx --> $stroom_dropwiz_name
+        nginx --> $stroom_proxy_dropwiz_name
+    !endfunction
+
+    together {
+        add_stroom_host("1")
+        add_stroom_host("2")
+    }
+}
+
+'DB connections
+stroom_auth_service_dropwiz --> stroom_auth_db
+
+'Client connections
+ui_client_browser --> nginx
+dataload_client_app --> nginx
+remote_proxy --> nginx
+
+'Reverse proxy connections
+nginx --> stroom_auth_ui_nginx
+nginx --> stroom_auth_service_dropwiz
+
+
+' see http://plantuml.com/skinparam & https://github.com/plantuml/plantuml/pull/31
+
+'skinparam handwritten true
+'skinparam monochrome reverse
+'skinparam backgroundColor DimGrey
+'skinparam ClassBackgroundColor DimGrey
+'skinparam ClassBorderColor WhiteSmoke
+'skinparam backgroundColor transparent
+
+' light theme
+'skinparam backgroundColor LightGrey
+'skinparam ClassBackgroundColor LightGrey
+'skinparam ClassBorderColor CornflowerBlue
+'skinparam DatabaseBackgroundColor LightGrey
+'skinparam DatabaseBorderColor CornflowerBlue
+
+'hide empty members
+
+@enduml
+

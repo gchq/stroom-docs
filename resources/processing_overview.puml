@@ -1,0 +1,98 @@
+@startuml
+
+skinparam defaultTextAlignment center
+
+'skinparam backgroundcolor transparent
+'left to right direction
+
+rectangle "Stroom Cluster" as stroomCluster {
+
+    database "Data Store" as dataStore #LightSteelBlue {
+        rectangle "Raw" {
+            file "Fixed Width Log" as rawFixedWidthLog #LightBlue
+            file "CSV Log" as rawCsvLog #LightBlue
+            file "XML Log" as rawXmlLog #LightBlue
+            file "XML (event-logging)\nEvents" as rawEventsLog #LightBlue
+            file "JSON Log" as rawJsonLog #LightBlue
+        }
+        rectangle "Cooked" {
+            file "XML (event-logging)\nEvents" as cookedEventsLog #LightBlue
+        }
+    'file "Reference Data" as refDataLog #LightBlue
+    }
+
+    'Parsers
+    rectangle "Data\nSplitter" as dataSplitter #DarkGoldenRod
+    rectangle "JSON\nParser" as jsonParser #DarkGoldenRod
+    rectangle "XML\nParser" as xmlParser #DarkGoldenRod
+    rectangle "XML\nParser" as xmlParser2 #DarkGoldenRod
+
+    'XSLT Filters
+    rectangle "Normalisation\nXSLT Translation" as normalisation #DarkOrange
+    rectangle "Decoration\nXSLT Translations" as decoration #DarkOrange
+    rectangle "Indexing\nXSLT Translation" as indexing #DarkOrange
+    rectangle "Analytic\nXSLT Translation" as analytic #DarkOrange
+    rectangle "Flattener\nXSLT Translation" as flattener #DarkOrange
+    rectangle "Statistics\nXSLT Translation" as statsXslt #DarkOrange
+
+    'Writers/appenders/filters
+    rectangle "Indexer" as indexer #MediumOrchid
+    rectangle "Solr Indexer" as solrIndexer #MediumOrchid
+    rectangle "Producer record\nXSLT Translation" as producerTranslation #DarkOrange
+    rectangle "Kafka\nproducer" as kafkaProducer #MediumOrchid
+    rectangle "XML Writer" as xmlWriter #MediumOrchid
+    rectangle "Text Writer" as textWriter #MediumOrchid
+    rectangle "Statistics\nAggregator" as statsAggregator #MediumOrchid
+
+    'Stores
+    database "Reference\nData Store" as refDataStore #LightSteelBlue
+    database "Lucene\nIndex" as index #LightSteelBlue
+    database "Data\nStore" as dataStore2 #LightSteelBlue
+    database "Meta\nStore" as metaStore #LightSteelBlue
+    database "File\nSystem" as fileSystem #LightSteelBlue
+    database "Statistics\nStore" as statsStore #LightSteelBlue
+
+}
+
+'External Systems
+rectangle "Kafka" as kafka #LightGreen
+database "Solr" as solr #LightGreen
+
+rawCsvLog -[#Grey]-> dataSplitter :Text
+rawFixedWidthLog -[#Grey]-> dataSplitter :Text
+rawJsonLog -[#Grey]-> jsonParser :JSON
+rawXmlLog -[#Grey]-> xmlParser : XML
+rawEventsLog --> xmlParser2 : event-logging\nXML
+dataSplitter -[#Blue]-> normalisation :XML
+jsonParser -[#Blue]d-> normalisation :XML
+xmlParser -[#Blue]> normalisation :XML
+xmlParser2 -> decoration :event-logging\nXML
+normalisation --> decoration :event-logging\nXML
+decoration <-[#Grey]- refDataStore :Lookup
+decoration --> producerTranslation :event-logging XML
+decoration --> indexing :event-logging\nXML
+decoration --> analytic :event-logging\nXML
+decoration --> flattener :event-logging\nXML
+decoration --> statsXslt :event-logging\nXML
+decoration --> xmlWriter :event-logging\nXML
+
+indexing -[#Green]-> indexer :records\nXML
+indexing -[#Green]-> solrIndexer :records\nXML
+indexer -[#Grey]-> index :Store
+solrIndexer -[#Grey]d--> solr :Store
+
+statsXslt -[#Green]-> statsAggregator : statistics XML
+statsAggregator -[#Grey]-> statsStore : Store
+
+producerTranslation -[#Green]-> kafkaProducer :kafka-records\nXML
+kafkaProducer -[#Grey]d--> kafka : Send to topic
+
+xmlWriter --> cookedEventsLog :Store\nevent-logging\nXML
+xmlWriter -[#Grey]-> metaStore :Event metadata
+flattener -[#Grey]-> textWriter : Text data
+textWriter -[#Grey]-> fileSystem :Text data
+analytic -[#Grey]-> dataStore2 :"Store\n(Errors/Warnings/Alerts)"
+
+
+
+@enduml
