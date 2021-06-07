@@ -1,3 +1,6 @@
+> * Version Information: Created with Stroom v7.0  
+* Last Updated: 2021-06-07
+
 # Stroom Application Configuration
 
 ## Without Docker
@@ -6,8 +9,8 @@ The Stroom application is essentially just an executable jar file that can be ru
 Stroom running without docker has two files to configure it.
 The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.
 
-* ./config/config.yml - Stroom configuration YAML file
-* ./config/scripts.env - Stroom scripts configuration env file
+* `./config/config.yml` - Stroom configuration YAML file
+* `./config/scripts.env` - Stroom scripts configuration env file
 
 
 ### config.yml

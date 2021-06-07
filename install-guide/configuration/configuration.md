@@ -65,19 +65,23 @@ In these instances it may be necessary to have static configuration files that h
 
 ## Stroom-proxy
 
-### Without Docker
+[Stroom Proxy Configuration](./configuring-stroom-proxy.md)
 
-### As part of a docker stack
 
 ## MySQL
 
-### Without Docker
+[MySQL Configuration](./configuring-mysql.md)
 
-### As part of a docker stack
+
 
 ## Nginx
 
+[Nginx Configuration](./configuring-nginx.md)
+
+
 ## Stroom-log-sender
+
+[Stroom log sender Configuration](./configuring-stroom-log-sender.md)
 
 
 
