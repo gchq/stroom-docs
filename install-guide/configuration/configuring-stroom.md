@@ -1,26 +1,8 @@
-> * Version Information: Created with Stroom v7.0  
-* Last Updated: 2021-06-04
+# Stroom Application Configuration
 
-# Configuring Stroom
+## Without Docker
 
-Stroom can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
-This document will cover two types of deployment:
-
-* Single node stroom_core docker stack.
-* A mixed deployment with nginx in docker and stroom, stroom-proxy and the database not in docker.
-
-This document will explain how each application/service is configured and where its configuration files live.
-
-## General configuration of docker stacks
-
-The docker stacks have a single env file `<stack name>.env` that acts as a single point to configure 
-
-
-## Stroom Configuration
-
-
-### Without Docker
-
+The Stroom application is essentially just an executable jar file that can be run when provided with a configuration file.
 Stroom running without docker has two files to configure it.
 The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.
 
@@ -28,7 +10,7 @@ The following locations are relative to the stroom home directory, i.e. the root
 * ./config/scripts.env - Stroom scripts configuration env file
 
 
-#### config.yml
+### config.yml
 
 This file, sometimes known as the DropWizard configuration file (as DropWizard is the java framework on which Stroom runs) is the primary means of configuring stroom.
 As a minimum this file should be used to configure anything that needs to be set before stroom can start up, e.g. database connection details or is specific to a node in a stroom cluster.
@@ -43,7 +25,7 @@ The full tree of properties can be seen in `./config/config-defaults.yml` and a 
 These two files can be used as a reference when configuring stroom.
 
 
-##### Key Configuration Properties
+#### Key Configuration Properties
 
 The following are key properties that would typically be changed for a production deployment.
 All configuration branches are relative to the `appConfig` root.
@@ -74,17 +56,18 @@ In a clustered deployment each node should be given a node name that is unique w
 ```
 
 Each node should have its identity on the network configured so that it uses the appropriate FQDNs.
-The nodeUri hostname is the FQDN of each node and used by nodes to communicate with each other, therefore it can be private to the cluster of nodes.
-The publicUri hostname is the public facing FQDN for stroom, i.e. the address of a load balancer or Nginx.
+The `nodeUri` hostname is the FQDN of each node and used by nodes to communicate with each other, therefore it can be private to the cluster of nodes.
+The `publicUri` hostname is the public facing FQDN for stroom, i.e. the address of a load balancer or Nginx.
+This is the address that users will use in their browser.
 
 ```yaml
   nodeUri:
-    hostname: "localhost"
+    hostname: "localhost" # e.g. node5.stroomnodes.somedomain
   publicUri:
-    hostname: "localhost"
+    hostname: "localhost" # e.g. stroom.somedomain
 ```
 
-#### scripts.env
+### scripts.env
 
 This file is used by the various shell scripts like `start.sh`, `stop.sh`, etc.
 This file should not need to be unless you want to change the locations where certain log files are written to or need to change the java memory settings.
@@ -97,35 +80,37 @@ JAVA_OPTS="-Xms512m -Xmx2048m"
 ```
 
 
-### As part of a docker stack
+## As part of a docker stack
 
-When stroom is run as part of one of our docker stacks, e.g. _stroom_core_ there are some additional layers of configuration to take into account.
+When stroom is run as part of one of our docker stacks, e.g. _stroom_core_ there are some additional layers of configuration to take into account, but the configuration is still primarily done using the `config.yml` file.
+The stack ships with a default `config.yml` file baked into the docker image.
+This fallback file (located in `/stroom/config-fallback` inside the container) will be used in the absence of one provided in the docker stack configuration (`./volumes/stroom/config`).
+This fallback config file contains environment variable substitution so some configuration items will be set by environment variables set into the container by the stack env file and the docker-compose YAML.
 
-## Stroom-proxy
+For basic configuration it is possible to configure stroom via the env file only.
+The env file contains the configuration items that need to be set for stroom to run or typically need to be changed in a production environment.
+It does not contain all possible configuration items.
 
-### Without Docker
+If you need to further customise the stroom configuration then it is recommended to create a `./volumes/stroom/config/config.yml` file.
+This can either be a simple file with hard coded values or one that uses environment variables for some of its
+configuration items.
 
-### As part of a docker stack
+The configuration works as follows:
 
-## MySQL
+```
+env file (stroom<stack name>.emv)
+              |
+              | environment variable substitution
+              v
+docker compose YAML (01_stroom.yml)
+              |
+              | environment variable substitution
+              v
+Stroom configuration file (config.yml)
+```
 
-### Without Docker
+### Ansible
 
-### As part of a docker stack
-
-## Nginx
-
-## Stroom-log-sender
-
-
-
-
-
-
-
-
-
-
-
-
+If you are deploying a stack with Ansible then to make life easier we have provided `./stroom_<stack name>-X.Y-Z/config/ansible/stroom_<stack name>.env.j2` which is a jinja2 templated version of the env file.
+This file is for use with stroom-ansible and means you can simply set variables in your inventory and this template will be used to create an env file.
 
