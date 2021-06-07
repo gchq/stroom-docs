@@ -1,7 +1,7 @@
 # Editing and Viewing Data
 
-> * Version Information: Created with Stroom v7.0  
-* Last Updated: 10 December 2020  
+> **Version Information:** Created with Stroom v7.0  
+> **Last Updated:** 10 December 2020
 
 ## Viewing Data
 

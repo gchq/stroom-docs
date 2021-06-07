@@ -1,7 +1,7 @@
-> **Version Information:** Created with Stroom v7.0  
-**Last Updated:** 2021-06-07
-
 # Stroom log sender Configuration
+
+> **Version Information:** Created with Stroom v7.0  
+> **Last Updated:** 2021-06-07
 
 
 ## Without Docker

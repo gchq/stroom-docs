@@ -1,7 +1,7 @@
-> * Version Information: Created with Stroom v7.0  
-* Last Updated: 01 Jun 2020  
-
 # Finding Things
+
+> **Version Information:** Created with Stroom v7.0  
+> **Last Updated:** 01 Jun 2020
 
 This section describes how to find things in Stroom, for example content, simple string values, etc.
 

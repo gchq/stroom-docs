@@ -1,9 +1,8 @@
-> * Version Information: Created with Stroom v7.0  
-* Last Updated: 2021-06-07
-
-> TODO: This needs updating for v7.1
-
 # Stroom Proxy Application Configuration
+
+> **Version Information:** Created with Stroom v7.0  
+> **Last Updated:** 2021-06-07
+> **TODO:** This needs updating for v7.1
 
 The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the `config.yml` file.
 Stroom-proxy has a `proxyConfig` key in the YAML while Stroom has `appConfig`.
