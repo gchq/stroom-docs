@@ -28,6 +28,9 @@ echo -e "BUILD_NAME:          [${GREEN}${BUILD_NAME}${NC}]"
 echo -e "PDF_FILENAME:        [${GREEN}${PDF_FILENAME}${NC}]"
 echo -e "ZIP_FILENAME:        [${GREEN}${ZIP_FILENAME}${NC}]"
 
+# Check if there are any broken links/anchors in the docs
+./broken_links.sh
+
 #In order to make gitbook's pdf generation work on a headless server we need to 
 #wrap the ebook-convert binary with our own wrapper script of the same name
 sudo mv ebook-convert /usr/local/bin/

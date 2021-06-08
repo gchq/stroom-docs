@@ -22,7 +22,7 @@
   * [Stroom-proxy](install-guide/configuration/configuring-stroom-proxy.md)
   * [MySQL](install-guide/configuration/configuring-mysql.md)
   * [Nginx](install-guide/configuration/configuring-nginx.md)
-  * [Stroom-log-sender](install-guide/configuration/configuring-nginx.md)
+  * [Stroom-log-sender](install-guide/configuration/configuring-log-sender.md)
 * Setup
   * [Apache forwarding](install-guide/setup/apache-forwarding.md)
   * [Java key store setup](install-guide/setup/java-key-store-setup.md)

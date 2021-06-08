@@ -20,7 +20,7 @@ As a minimum this file should be used to configure anything that needs to be set
 If you are using some form of scripted deployment, e.g. ansible then it can be used to set all stroom properties for the environment that stroom runs in.
 If you are not using scripted deployments then you can maintain stroom's node agnostic configuration properties via the user interface.
 
-For more details on the structure of the file and property precedence see [Properties](../user-guide/properties.md).
+For more details on the structure of the file and property precedence see [Properties](../../user-guide/properties.md).
 
 Stroom's operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment.
 As a result `config.yml` only contains a minimal set of properties.
