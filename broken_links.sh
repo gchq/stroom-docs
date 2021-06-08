@@ -44,11 +44,38 @@ debug() {
 }
 
 check_anchor_in_file() {
-  #local file="$1"; shift
-  #local anchor="$1"; shift
-  return 0
-  
+  local source_file="$1"; shift
+  local link_name="$1"; shift
+  local link_path="$1"; shift
+  local link_anchor="$1"; shift
 
+  if [[ ! "${link_anchor}" =~ ^[a-z0-9-]+$ ]]; then
+    echo -e "${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
+      "should be lower-snake-case${NC}"
+    problem_count=$((problem_count + 1))
+  else
+    # Replace - with space
+    local anchor_as_heading="${link_anchor//-/ }"
+
+    local effective_link_path
+    if [[ -n "${link_path}" ]]; then
+      effective_link_path="$( \
+        make_path_relative_to_root "${source_file}" "${link_path}" \
+      )"
+    else
+      # no path so local anchor
+      effective_link_path="${source_file}"
+    fi
+
+    debug_value "anchor_as_heading" "${anchor_as_heading}"
+    debug_value "effective_link_path" "${effective_link_path}"
+    
+    if ! grep -q -i -P "^#+ ${anchor_as_heading}$" "${effective_link_path}"; then
+      echo -e "${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
+        "has no corresponding header in ${effective_link_path}"
+      problem_count=$((problem_count + 1))
+    fi
+  fi
 }
 
 verify_http_link() {
@@ -72,11 +99,12 @@ verify_http_link() {
   fi
 }
 
-verify_file_exists() {
+make_path_relative_to_root() {
   local source_file="$1"; shift
-  local link_name="$1"; shift
-  # Strip ./ off front
-  local rel_link_path="${1#./}"; shift
+  local link_path="$1"; shift
+  
+  # Strip ./ off front if it is there
+  local rel_link_path="${link_path#./}"
 
   local source_dir
   source_dir="$(dirname "${source_file}")"
@@ -84,19 +112,47 @@ verify_file_exists() {
   local effective_link_path="${source_dir}/${rel_link_path}"
   debug "effective_link_path" "${effective_link_path}"
 
-  if [[ -f "${effective_link_path}" ]]; then
-    return 0
+  # echo to sdtout so we can get the output from the func
+  echo "${effective_link_path}"
+}
+
+verify_file_exists() {
+  local source_file="$1"; shift
+  local link_name="$1"; shift
+  local link_path="$1"; shift
+
+  if [[ "${link_path}" =~ ^/ ]]; then
+    problem_count=$((problem_count + 1))
+    echo -e "  ${RED}Found link with absolute path in file" \
+      "${BLUE}${source_file}${RED}" \
+      "with name ${BLUE}${link_name}${RED} and link path" \
+      "${BLUE}${link_path}${NC}"
   else
-    return 1
+    # Strip ./ off front
+    local rel_link_path="${link_path#./}"
+
+    local source_dir
+    source_dir="$(dirname "${source_file}")"
+
+    local effective_link_path
+    effective_link_path="$( \
+      make_path_relative_to_root "${source_file}" "${link_path}" \
+    )"
+    debug "effective_link_path" "${effective_link_path}"
+
+    if [[ ! -f "${effective_link_path}" ]]; then
+      log_broken_link "${file}" "${link_name}" "${link_path}"
+      return 1
+    fi
   fi
 }
 
 log_broken_link() {
   local source_file="$1"; shift
   local link_name="$1"; shift
-  local rel_link_path="${1}"; shift
+  local rel_link_path="$1"; shift
 
-  broken_links_found=$((broken_links_found + 1))
+  problem_count=$((problem_count + 1))
   echo -e "  ${RED}Found broken link in file ${BLUE}${source_file}${RED}" \
     "with name ${BLUE}${link_name}${RED} and link path" \
     "${BLUE}${rel_link_path}${NC}"
@@ -108,11 +164,12 @@ verify_link() {
   local link_location="$1"; shift
   
   local link_anchor
+  local link_path
   if [[ "${link_location}" =~ ^http ]]; then
     if [[  "${link_location}" == *"www.plantuml.com/plantuml/proxy"* ]]; then
       echo -e "  ${YELLOW}Unable to check plantuml link [${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
-    elif [[  "${link_location}" == *"localhost"* ]]; then
+    elif [[  "${link_location}" =~ (localhost|127.0.0.1) ]]; then
       echo -e "  ${YELLOW}Unable to check localhost link [${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
     else
@@ -126,12 +183,17 @@ verify_link() {
   elif [[ "${link_location}" =~ ^# ]]; then
     # local anchor link
     link_anchor="${link_location#*#}"
+    link_path=""
     echo -e "  ${GREEN}${GREEN}Checking local anchor link" \
       "[${BLUE}${link_name}${GREEN}] with anchor" \
       "[${BLUE}${link_anchor}${GREEN}]${NC}"
-    check_anchor_in_file "${file}" "${link_anchor}${NC}"
+
+    check_anchor_in_file \
+      "${file}" \
+      "${link_name}" \
+      "${link_path}" \
+      "${link_anchor}"
   else
-    local link_path
     if [[ "${link_location}" == *#* ]]; then
       # path with anchor
       # Get everything after first #
@@ -141,9 +203,14 @@ verify_link() {
       echo -e "  ${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         "path [${BLUE}${link_path}${GREEN}] and" \
         "anchor [${BLUE}${link_anchor}${GREEN}]${NC}"
-      if ! verify_file_exists "${file}" "${link_name}" "${link_path}"; then
-        
-        log_broken_link "${file}" "${link_name}" "${link_location}"
+      if verify_file_exists "${file}" "${link_name}" "${link_path}"; then
+
+        # Can't check anchor if the link file doesn't exist
+        check_anchor_in_file \
+          "${file}" \
+          "${link_name}" \
+          "${link_path}" \
+          "${link_anchor}"
       fi
     else
       # path without anchor
@@ -151,9 +218,8 @@ verify_link() {
       echo -e "  ${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         "path [${BLUE}${link_path}${GREEN}]${NC}"
 
-      if ! verify_file_exists "${file}" "${link_name}" "${link_path}"; then
-        log_broken_link "${file}" "${link_name}" "${link_location}"
-      fi
+      verify_file_exists "${file}" "${link_name}" "${link_path}" \
+        || true
     fi
   fi
 }
@@ -223,15 +289,15 @@ main() {
 
   pushd "${repo_root}" > /dev/null
 
-  local broken_links_found=0
+  local problem_count=0
 
   for file in ./**/*.md; do
     check_links_in_file "${file}"
   done
 
-  if [[ "${broken_links_found}" -gt 0 ]]; then
-    echo -e "${RED}ERROR${NC}: Found ${BLUE}${broken_links_found}${NC}" \
-      "broken links${NC}"
+  if [[ "${problem_count}" -gt 0 ]]; then
+    echo -e "${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
+      "problems with links and anchors${NC}"
     exit 1
   fi
 }
