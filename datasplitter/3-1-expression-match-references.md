@@ -4,10 +4,6 @@ Referencing matches in expressions is done using `$`. In addition to this a matc
 
 ## <a id="sec_3_1_1"></a>References to &lt;split&gt; Match Groups
 
-## References to <split> Match Groups
-
-## References to <> Match Groups
-
 In the following example a line matched by a parent `<split>` expression is referenced by a child `<data>` element.
 
 ```xml
