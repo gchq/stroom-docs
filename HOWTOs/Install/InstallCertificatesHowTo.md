@@ -14,7 +14,6 @@ The following assumptions are used in this document.
  - the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments
  - in this document, when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
 
-<a name="createcertificates-anchor"></a>
 ## Create certificates
 The first step is to establish a self signed certificate for our Stroom service. If you have a certificate server, then certainly gain an
 appropriately signed certificate. For this HOWTO, we will stay with a self signed solution and hence no certificate authorities are
@@ -28,8 +27,8 @@ As the certificates will be stored in the `stroomuser's` home directory, we beco
 sudo -i -u stroomuser
 ```
 
-<a name="sslhostvar-anchor"></a>
-To make things simpler in the following bash extracts, we establish the bash variable **H** to be used in filename generation. The variable name
+### Use host variable
+To make things simpler in the following bash extracts, we establish the bash variable `H` to be used in filename generation. The variable name
 is set to the name of the host (or cluster alias) your are deploying the certificates on. In our multi node HOWTO example we are using, we
 would use the host CNAME `stroomp`.  Thus we execute
 
@@ -142,7 +141,7 @@ tar xf /stroomdata/stroom-data-p01/stroom-jks.tar && rm -f /stroomdata/stroom-da
 ```
 
 ### Protection, Ownership and SELinux Context
-Now ensure protection, ownership and SELinux context for these key files on _ALL__ nodes via
+Now ensure protection, ownership and SELinux context for these key files on **ALL** nodes via
 ```bash
 chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
@@ -153,14 +152,14 @@ chcon -R --reference /etc/pki ~stroomuser/stroom-jks
 In order for a Stroom Forwarding Proxy to communicate to a central Stroom proxy over https, the JVM running the forwarding proxy needs
 relevant keystores set up.
 
-One would set up a Stroom's forwarding proxy SSL certificate as per [above](#createcertificates-anchor), with the change that the
-hostname would be different. That is, in the initial setup, we would set the hostname variable __H__ to be the hostname of the forwarding
+One would set up a Stroom's forwarding proxy SSL certificate as per [above](#create-certificates), with the change that the
+hostname would be different. That is, in the initial setup, we would set the hostname variable `H` to be the hostname of the forwarding
 proxy. Lets say it is `stroomfp0` thus we would set
 
 ```bash
 export H=stroomfp0
 ```
-and then proceed as [above](#sslhostvar-anchor).
+and then proceed as [above](#use-host-variable).
 
 Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
 the central Stroom proxy is the _stroomp.strmdev00.org_ server and it's public key is stored in the file `stroomp.crt`. We will store

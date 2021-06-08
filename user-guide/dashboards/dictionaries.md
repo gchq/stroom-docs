@@ -3,18 +3,15 @@
 ## Creating
 Right click on a folder in the explorer tree that you want to create a dictionary in. Choose ‘New/Dictionary’ from the popup menu:
 
-TODO: Fix image
-![Create](create-dictionary.png)
+> **TODO**: Fix image
 
 Call the dictionary something like ‘My Dictionary’ and click OK.
 
-TODO: Fix image
-![Create](create-dictionary2.png)
+> **TODO**: Fix image
 
 Now just add any search terms you want to the newly created dictionary and click save.
 
-TODO: Fix image
-![Add Words](add-words.png)
+> **TODO**: Fix image
 
 You can add multiple terms.
 
@@ -24,5 +21,4 @@ You can add multiple terms.
 ## Using
 To perform a search using your dictionary, just choose the newly created dictionary as part of your search expression:
 
-TODO: Fix image
-![Using](search-with-dictionary.png)
+> **TODO**: Fix image

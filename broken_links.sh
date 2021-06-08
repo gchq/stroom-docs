@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
 # Requires bash >=4.3
+# Requires realpath
 
 set -eo pipefail
+shopt -s globstar
+
+file_blacklist=(
+  ./VERSION.md
+)
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -51,14 +57,13 @@ check_anchor_in_file() {
 
   if [[ ! "${link_anchor}" =~ ^[a-z0-9-]+$ ]]; then
     echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
-      "should be lower-snake-case${NC}"
+      "should be lower-kebab-case${NC}"
     problem_count=$((problem_count + 1))
   else
-    # Replace - with space
-    #local anchor_as_heading="${link_anchor//-/ }"
-
     local effective_link_path
     if [[ -n "${link_path}" ]]; then
+      # link is in another file so make the link path relative to the
+      # repo root
       effective_link_path="$( \
         make_path_relative_to_root "${source_file}" "${link_path}" \
       )"
@@ -67,7 +72,6 @@ check_anchor_in_file() {
       effective_link_path="${source_file}"
     fi
 
-    #debug_value "anchor_as_heading" "${anchor_as_heading}"
     debug_value "effective_link_path" "${effective_link_path}"
 
     # e.g. ./some/path/file.md#eats-shoots--leaves
@@ -82,12 +86,6 @@ check_anchor_in_file() {
         "has no corresponding header in ${BLUE}${effective_link_path}${NC}"
       problem_count=$((problem_count + 1))
     fi
-    
-    #if ! grep -q -i -P "^#+ ${anchor_as_heading}$" "${effective_link_path}"; then
-      #echo -e "${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
-        #"has no corresponding header in ${effective_link_path}"
-      #problem_count=$((problem_count + 1))
-    #fi
   fi
 }
 
@@ -96,6 +94,9 @@ verify_http_link() {
   local link_name="$1"; shift
   local link_location="$1"; shift
 
+  # 'http://domain.com/path "title"' => 'http://domain.com/path'  
+  local link_url="${link_location%% \"*}"
+
   local response_code
   response_code="$( \
     curl \
@@ -103,7 +104,7 @@ verify_http_link() {
       --location \
       --output /dev/null \
       --write-out "%{http_code}" \
-      "${link_location}" \
+      "${link_url}" \
     || echo "" \
   )"
 
@@ -123,6 +124,12 @@ make_path_relative_to_root() {
   source_dir="$(dirname "${source_file}")"
 
   local effective_link_path="${source_dir}/${rel_link_path}"
+  # turn ./a/aa/../../b/bb into ./b/bb
+  effective_link_path="./$( \
+    realpath \
+      --relative-to="${repo_root}" \
+      "${effective_link_path}" \
+  )"
   debug "effective_link_path" "${effective_link_path}"
 
   # echo to sdtout so we can get the output from the func
@@ -277,6 +284,11 @@ check_links_in_file() {
   #echo -e "links:\n${links}"
 
   # Not using herestring as it seemt to mess up syntax hlighting in vim
+  # Find all the markdown links e.g. 
+  # [Name](./path/file.md#heading-anchor "Title")
+  # Also ignore ones like [...](?...) as these appear in link.md fence
+  # blocks.  Bit of a hack, but ignoring text inside fences would be
+  # a bit of an adventure in bash.
   while read -r link; do
     if [[ -n "${link}" ]]; then
       parse_link "${link}"
@@ -285,7 +297,7 @@ check_links_in_file() {
   done < <(grep \
       --perl-regexp \
       --only-matching \
-      "\[[^\]]*?\]\([^)]+?\)" \
+      "\[[^\]]*?\]\([^?)][^)]*?\)" \
       "${file}" \
       || echo "")
 }
@@ -339,7 +351,6 @@ main() {
   local repo_root
   repo_root="$(git rev-parse --show-toplevel)"
 
-
   pushd "${repo_root}" > /dev/null
 
   local problem_count=0
@@ -347,13 +358,34 @@ main() {
 
   local file_count=0
   local link_count=0
-  for file in ./**/*.md; do
-    find_headings "${file}"
-    check_links_in_file "${file}"
-    file_count=$((file_count + 1))
+
+  declare -A file_blacklist_map
+  for file in "${file_blacklist[@]}"; do 
+    file_blacklist_map[${file}]=1
   done
+
+
+  echo -e "${GREEN}Scanning files to find headings${NC}"
+  # Loop over all files and build a map of all file heading combos
+  for file in ./**/*.md; do
+    if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+      debug_value "file" "${file}"
+      find_headings "${file}"
+      file_count=$((file_count + 1))
+    fi
+  done
+
+  # Now loop over all files again and verify the links in the files
+  echo -e "${GREEN}Scanning files to check links${NC}"
+  for file in ./**/*.md; do
+    if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+      check_links_in_file "${file}"
+    fi
+  done
+
   echo -e "${GREEN}File count: ${BLUE}${file_count}${NC}"
   echo -e "${GREEN}Link count: ${BLUE}${link_count}${NC}"
+  echo -e "${GREEN}Heading count: ${BLUE}${#file_and_anchor_map[@]}${NC}"
 
   if [[ "${problem_count}" -gt 0 ]]; then
     echo -e "  ${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \

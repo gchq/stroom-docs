@@ -16,7 +16,7 @@ We already have a `Source` element. Unlike most other pipeline elements this isn
 
 ### Add a data splitter
 
-Data splitters are powerful, and [a lot we can say](/datasplitter/1-0-introduction.md) about them. Here we're just going to make a basic one.
+Data splitters are powerful, and [a lot we can say](../../datasplitter/1-0-introduction.md) about them. Here we're just going to make a basic one.
 
 #### Create a CSV splitter
 
@@ -61,7 +61,7 @@ Now go to the _Conversion_ tab. What you need to put in here is specific to the 
 </dataSplitter>
 ```
 
-You can see that it uses the `data-splitter-v3.0.1.xsd` that we imported earlier. Save it by clicking the save icon (![The save icon](/resources/icons/save.png)).
+You can see that it uses the `data-splitter-v3.0.1.xsd` that we imported earlier. Save it by clicking the save icon (![The save icon](../../resources/icons/save.png)).
 
 So we now have a configured, re-usable data splitter for CSV files that have headers. We need to add this to our pipeline as a filter, so head back to the pipeline's Structure section and add a DSParser, as below. Call it something like `CSV splitter filter`:
 ![Adding a dsParser](images/add-dsParser.png)
@@ -90,7 +90,7 @@ Now you get a view that's similar to your feed view, except it also shows the pi
 
 ![Debugging - source data](images/debug-source.png)
 
-It also has stepping controls. Click the green step forward icon (![Step forward button](/resources/icons/stepForward.png)). You should see something like this:
+It also has stepping controls. Click the green step forward icon (![Step forward button](../../resources/icons/stepForward.png)). You should see something like this:
 
 ![Stepping through the CSV data](images/stepping-01.png)
 
@@ -111,7 +111,7 @@ So here we have some XML in a basic format we call the _records_ format. You can
 
 This process is very similar to creating the `CSV splitter`: 
 
-1. Create the [XSLT](/user-guide/pipelines/xslt/README.md) filter
+1. Create the [XSLT](../../user-guide/pipelines/xslt/README.md) filter
 2. Add it to the pipeline 
 3. Step through to make sure it's doing what we expect
 
@@ -162,11 +162,11 @@ In the dialog make sure the value is the `XSLT` filter. Save the pipeline.
 
 #### Test the XSLT filter
 
-We're going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed. Click the step forward button (![Step forward button](/resources/icons/stepForward.png)) a few times to make sure it's working then click on the XSLT element. This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:
+We're going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed. Click the step forward button (![Step forward button](../../resources/icons/stepForward.png)) a few times to make sure it's working then click on the XSLT element. This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:
 
 ![Debugging the XSLT filter](images/stepping-03.png)
 
-Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task](/user-guide/jobs.md) for real. We need to get this data to a destination.
+Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task](../../user-guide/jobs.md) for real. We need to get this data to a destination.
 
 ### Outputting the transformed data
 
@@ -218,7 +218,7 @@ Processors are created from the _Processors_ section of the pipeline:
 
 ![The processors section of the pipeline](images/go-processors.png)
 
-Click the add button ![Add icon](/resources/icons/add.png) and configure the huge dialog. You only need to set the incoming feed and the stream types:
+Click the add button ![Add icon](../../resources/icons/add.png) and configure the huge dialog. You only need to set the incoming feed and the stream types:
 
 (![Configure the new processor](images/configure-processor.png)
 

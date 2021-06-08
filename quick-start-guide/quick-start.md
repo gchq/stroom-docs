@@ -29,7 +29,7 @@ To this XML:
   ...
 ```
 
-You will go from a clean vanilla Stroom to having a simple [pipeline](/user-guide/pipelines/README.md) that takes in CSV data and outputs that data transformed into XML. Stroom is a generic and powerful tool for ingesting and processing data: it's flexible because it's generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you'll find yourself struggling.
+You will go from a clean vanilla Stroom to having a simple [pipeline](../user-guide/pipelines/README.md) that takes in CSV data and outputs that data transformed into XML. Stroom is a generic and powerful tool for ingesting and processing data: it's flexible because it's generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you'll find yourself struggling.
 
 We're going to do the following:
 

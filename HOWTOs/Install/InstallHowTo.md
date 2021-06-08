@@ -147,7 +147,7 @@ systemctl enable haveged
 systemctl start haveged
 ```
 
-For background reading in this matter, see [this reference](https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged "Haveged Entropy Service") or [this reference](https://wiki.apache.org/tomcat/HowTo/FasterStartUp#Entropy_Source "How do I make Tomcat startup faster?").
+For background reading in this matter, see [this reference](https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged "Haveged Entropy Service") or [this reference](https://cwiki.apache.org/confluence/display/TOMCAT/HowTo+FasterStartUp "How do I make Tomcat startup faster?").
 
 ## Storage Scenario
 For the purpose of this Installation HOWTO, the following sets up the storage hierarchy for a two node processing
