@@ -492,6 +492,9 @@ main() {
     echo -e "  ${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
       "problems with links and anchors${NC}"
     exit 1
+  else
+    echo -e "${GREEN}All checks completed with no problems found${NC}"
+    exit 0
   fi
 }
 
