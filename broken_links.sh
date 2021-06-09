@@ -42,19 +42,31 @@ setup_echo_colours() {
   fi
 }
 
+setup_debuging() {
+  if [ ! "${IS_DEBUG}" = true ]; then
+    # redefine the debug funcs as no ops, saves having a test in each call to
+    # the debug func
+    eval "
+    debug() { 
+      true 
+    }
+    debug_value() { 
+      true 
+    }"
+  fi
+}
+
+# Requires setup_debuging to be run once
 debug_value() {
   local name="$1"; shift
   local value="$1"; shift
   
-  if [ "${IS_DEBUG}" = true ]; then
-    echo -e "${DGREY}DEBUG ${name}: [${value}]${NC}"
-  fi
+  echo -e "${DGREY}DEBUG ${name}: [${value}]${NC}"
 }
 
+# Requires setup_debuging to be run once
 debug() {
-  if [ "${IS_DEBUG}" = true ]; then
-    echo -e "${DGREY}DEBUG $* ${NC}"
-  fi
+  echo -e "${DGREY}DEBUG $* ${NC}"
 }
 
 check_anchor_in_file() {
@@ -321,6 +333,9 @@ find_headings() {
   # It is non trivial to see if an anchor exists as a heading in a file
   # so instead we convert ALL headings to anchor form and hold them in an
   # assoc array to lookup against.
+  # Some headings look like:
+  #  ## <a name="sec-3-1-1"></a>References to &lt;split&gt; Match Groups
+  # so need to strip the <a...> tags and other bits of html
   while read -r heading_line; do
     if [[ -n "${heading_line}" ]]; then
       local heading_as_anchor
@@ -330,7 +345,8 @@ find_headings() {
         | sed \
           -r \
           -e 's/^#+\s+//' \
-          -e 's/[^a-z0-9A-Z -]//g' \
+          -e 's/<a\s+name="[^"]+"\s*(><\/a>|\/>)//g' \
+          -e 's/(&lt;|&gt;|[^a-z0-9A-Z -])//g' \
           -e 's/\s/-/g' \
       )"
       # Make it lower case, obvs
@@ -427,6 +443,7 @@ main() {
   #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
   setup_echo_colours
+  setup_debuging
 
   local repo_root
   repo_root="$(git rev-parse --show-toplevel)"
