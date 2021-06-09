@@ -2,7 +2,7 @@
 
 Referencing matches in expressions is done using `$`. In addition to this a match group number may be added to just retrieve part of the expression match. The applicability and effect that this has depends on the type of expression used.
 
-## <a id="sec_3_1_1"></a>References to &lt;split&gt; Match Groups
+## <a name="sec-3-1-1"></a>References to &lt;split&gt; Match Groups
 
 In the following example a line matched by a parent `<split>` expression is referenced by a child `<data>` element.
 

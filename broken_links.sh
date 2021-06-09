@@ -3,6 +3,14 @@
 # Requires bash >=4.3
 # Requires realpath
 
+# Script to check the markdown in a repo to ensure that all links to
+# other files are not broken and that link anchors are valid.
+# Also will hit each url link to see if it gets a 2** response.
+# Also spots duplicate anchors in files.
+# In hindsight this should probably have been written python as it is
+# not the quickest, probably due to the large number of possible anchors
+# it must check against.
+
 set -eo pipefail
 shopt -s globstar
 
@@ -77,8 +85,8 @@ check_anchor_in_file() {
     # e.g. ./some/path/file.md#eats-shoots--leaves
     local key="${effective_link_path}#${link_anchor}"
 
-    # shellcheck disable=SC2086
-    if [ ${file_and_anchor_map[$key]+_} ]; then
+    #if [[ ${file_and_anchor_map[$key]+_} ]]; then
+    if is_anchor_in_file "${effective_link_path}" "${link_anchor}"; then
       #file#anchor compound key is in the map so the anchor is valid
       debug "Found anchor ${link_anchor}"
     else
@@ -308,6 +316,11 @@ find_headings() {
   # turn all headings into their anchor form then add them to
   # the assoc. array concatted with the filename so we can look
   # them up later
+  # A heading in anchor form keeps only a-zA-Z0-9 and - with 
+  # all spaces replaced with a '-'.
+  # It is non trivial to see if an anchor exists as a heading in a file
+  # so instead we convert ALL headings to anchor form and hold them in an
+  # assoc array to lookup against.
   while read -r heading_line; do
     if [[ -n "${heading_line}" ]]; then
       local heading_as_anchor
@@ -326,13 +339,18 @@ find_headings() {
       debug_value "heading_line" "${heading_line}"
       debug_value "heading_as_anchor" "${heading_as_anchor}"
 
+      if [[ ${single_file_anchors_map[$heading_as_anchor]+_} ]]; then
+        echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${heading_as_anchor}${NC}" \
+          "already exists in file ${BLUE}${file}${NC}"
+        problem_count=$((problem_count + 1))
+      fi
+
       # e.g. ./some/path/file.md#eats-shoots--leaves
       local key="${file}#${heading_as_anchor}"
-
       debug_value "key" "${key}"
 
-      # Don't care about value so just put 1
-      file_and_anchor_map["${key}"]=1
+      # Don't care about value so just put an empty string
+      file_and_anchor_map["${key}"]=""
     fi
   done < <(grep \
       --perl-regexp \
@@ -340,6 +358,68 @@ find_headings() {
       "^#+\s+.*" \
       "${file}" \
       || echo "")
+}
+
+find_anchors() {
+  local file="$1"; shift
+  
+  # Fine the names of all 
+  # <a name="my-anchor">
+  # tags and add them to our list of anchors
+  while read -r anchor_name; do
+    if [[ -n "${anchor_name}" ]]; then
+      if [[ ${single_file_anchors_map[$anchor_name]+_} ]]; then
+        echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${anchor_name}${NC}" \
+          "already exists in file ${BLUE}${file}${NC}"
+        problem_count=$((problem_count + 1))
+      fi
+
+      local key="${file}#${anchor_name}"
+      debug_value "key" "${key}"
+
+      # Don't care about value so just put an empty string
+      file_and_anchor_map["${key}"]=""
+    fi
+  done < <(grep \
+      --perl-regexp \
+      --only-matching \
+      '(?<=<a name=")[^"]+(?=")' \
+      "${file}" \
+      || echo "")
+}
+
+is_anchor_in_file() {
+  local file="$1"; shift
+  local anchor_name="$1"; shift
+
+  local key="${file}#${anchor_name}"
+  debug_value "key" "${key}"
+
+  if [[ ${file_and_anchor_map[$key]+_} ]]; then
+    ## Found key in associative array
+    return 0
+  else
+    ## Didn't find key in associative array
+    return 1
+  fi
+
+  # This way uses grep, but seems to be slower so will stick with
+  # assoc. array lookups
+  # Change field separator to \n in a sub shell so we can grep over the
+  # array items
+  #if ( IFS=$'\n'; echo "${!file_and_anchor_map[*]}" ) \
+    #| grep \
+      #--quiet \
+      #--fixed-strings \
+      #--line-regexp \
+      #"${key}"; then
+
+    ## Found key in associative array
+    #return 0
+  #else
+    ## Didn't find key in associative array
+    #return 1
+  #fi
 }
 
 main() {
@@ -370,7 +450,11 @@ main() {
   for file in ./**/*.md; do
     if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
       debug_value "file" "${file}"
+      # An associative array to hold all anchors for this file
+      # so we can check for dups
+      declare -A single_file_anchors_map
       find_headings "${file}"
+      find_anchors "${file}"
       file_count=$((file_count + 1))
     fi
   done

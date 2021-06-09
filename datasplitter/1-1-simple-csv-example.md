@@ -40,7 +40,7 @@ We can now add a `<group>` element within `<split>` to take content matched by t
 </dataSplitter>
 ```
 
-The `<group>` within the `<split>` chooses to take the content from the `<split>` without including the new line '\n' delimiter by using match group 1, see [expression match references](3-1-expression-match-references.md#references-to-split-match-groups) for details.
+The `<group>` within the `<split>` chooses to take the content from the `<split>` without including the new line '\n' delimiter by using match group 1, see [expression match references](3-1-expression-match-references.md#sec-3-1-1) for details.
 
 ```
 01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
@@ -96,7 +96,7 @@ The content matched by the inner `<split>` element can be passed to a `<data>` e
 </dataSplitter>
 ```
 
-In the above example each match from the inner `<split>` is made available to the inner `<data>` element that chooses to output content from match group 1, see [expression match references](3-1-expression-match-references.md#sec_3_1_1) for details.
+In the above example each match from the inner `<split>` is made available to the inner `<data>` element that chooses to output content from match group 1, see [expression match references](3-1-expression-match-references.md#sec-3-1-1) for details.
 
 The above configuration results in the following XML output for the whole input:
 
