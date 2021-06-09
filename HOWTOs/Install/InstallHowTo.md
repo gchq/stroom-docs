@@ -111,7 +111,7 @@ One could deploy the MySQL database software as the alternative.
 
 <a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client. 
 Instructions for installation of the MySQL Community repository files can be
-found [here](InstallDatabaseHowTo.md#mysql-community-repository-installation "MySQL Community Repository Installation") or on
+found [here](InstallDatabaseHowTo.md#mysql-community-server-installation "MySQL Community Repository Installation") or on
 the [MySQL Site](https://dev.mysql.com/downloads/repo/yum "Download MySQL Yum Repository").
 Once you have installed the MySQL repository files, install the client via
 ```bash
@@ -342,7 +342,7 @@ set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
-[Stream Processors](../../user-guide/jobs.md#stream-processor "Stream Processor")
+[Data Processors](../../user-guide/jobs.md#data-processor "Data Processor")
 need to be enabled. There are NOT enabled by default on installation. The following
 [section](../General/TasksHowTo.md#enable-stream-processors "Enable Stream Processors")
 in our [Stroom Tasks HowTo](../General/TasksHowTo.md "Stroom Task HOWTO") shows how to do this.
@@ -425,7 +425,7 @@ sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the
-[Web Service Integration for Forwarding Proxy](#web-service-integration-forwarding-proxy "Web Service Integration - Forwarding proxy")
+[Web Service Integration for Forwarding Proxy](#web-service-integration-for-forwarding-proxy "Web Service Integration - Forwarding proxy")
 section of this document.
 
 ## Forwarding Proxy Storage
@@ -741,7 +741,7 @@ This HOWTO is designed to deploy Apache's httpd web service as a front end (http
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found [here](InstallHttpdHowTo.md "Apache Httpd/Mod_JK Installation").
 You should pay particular attention to the section on the
-[Apache Mod_JK configuration](InstallHttpdHowTo.md#apache-mod_jk-configuration "Apache Mod_JK Configuration")
+[Apache Mod_JK configuration](InstallHttpdHowTo.md#apache-modjk-configuration "Apache Mod_JK Configuration")
 as you **MUST** regenerate the Mod_JK workers.properties file on the existing cluster nodes as well as generating it on our new node.
 
 Other Web service capability can be used, for example, [NGINX](https://nginx.org "NGINX Web Service Capability").
@@ -799,7 +799,7 @@ set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
-[Stream Processors](../../user-guide/jobs.md#stream-processor "Stream Processor")
+[Data Processors](../../user-guide/jobs.md#data-processor "Data Processor")
 need to be enabled. There are NOT enabled by default on installation. The following
 [section](../General/TasksHowTo.md#enable-stream-processors-on-new-node "Enable Stream Processors")
 in our [Stroom Tasks HowTo](../General/TasksHowTo.md "Stroom Task HOWTO") shows how to do this.
