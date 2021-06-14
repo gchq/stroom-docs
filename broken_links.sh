@@ -58,15 +58,19 @@ setup_debuging() {
 
 # Requires setup_debuging to be run once
 debug_value() {
-  local name="$1"; shift
-  local value="$1"; shift
+  local debug_name="$1"; shift
+  local debug_value="$1"; shift
   
-  echo -e "${DGREY}DEBUG ${name}: [${value}]${NC}"
+  # echo to stderr so we don't polute stdout which causes issues
+  # for funcs that return via stdout
+  echo -e "${DGREY}DEBUG ${debug_name}: [${debug_value}]${NC}" >&2
 }
 
 # Requires setup_debuging to be run once
 debug() {
-  echo -e "${DGREY}DEBUG $* ${NC}"
+  # echo to stderr so we don't polute stdout which causes issues
+  # for funcs that return via stdout
+  echo -e "${DGREY}DEBUG $* ${NC}" >&2
 }
 
 check_anchor_in_file() {
@@ -129,7 +133,7 @@ verify_http_link() {
   )"
 
   if [[ ! "${response_code}" =~ ^2 ]]; then
-    log_broken_link "${source_file}" "${link_name}" "${link_location}"
+    log_broken_http_link "${source_file}" "${link_name}" "${link_url}"
   fi
 }
 
@@ -181,7 +185,11 @@ verify_file_exists() {
     debug "effective_link_path" "${effective_link_path}"
 
     if [[ ! -f "${effective_link_path}" ]]; then
-      log_broken_link "${file}" "${link_name}" "${link_path}"
+      log_broken_link \
+        "${file}" \
+        "${link_name}" \
+        "${link_path}" \
+        "${effective_link_path}"
       return 1
     fi
   fi
@@ -191,11 +199,24 @@ log_broken_link() {
   local source_file="$1"; shift
   local link_name="$1"; shift
   local rel_link_path="$1"; shift
+  local effective_link_path="$1"; shift
 
   problem_count=$((problem_count + 1))
   echo -e "  ${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
-    "with name ${BLUE}${link_name}${NC} and link path" \
-    "${BLUE}${rel_link_path}${NC}"
+    "with name ${BLUE}${link_name}${NC}, link path " \
+    "${BLUE}${rel_link_path}${NC} and effective link path" \
+    "${BLUE}${effective_link_path}${NC}"
+}
+
+log_broken_http_link() {
+  local source_file="$1"; shift
+  local link_name="$1"; shift
+  local url="$1"; shift
+
+  problem_count=$((problem_count + 1))
+  echo -e "  ${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
+    "with name ${BLUE}${link_name}${NC} and link URL " \
+    "${BLUE}${url}${NC}"
 }
 
 verify_link() {
@@ -439,6 +460,10 @@ is_anchor_in_file() {
 }
 
 main() {
+  if [[ $# -gt 0 ]]; then
+    local named_file="${1}"; shift
+
+  fi
   IS_DEBUG="${IS_DEBUG:-false}"
   #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -449,6 +474,8 @@ main() {
   repo_root="$(git rev-parse --show-toplevel)"
 
   pushd "${repo_root}" > /dev/null
+
+  debug_value "PWD" "${PWD}"
 
   local problem_count=0
   declare -A file_and_anchor_map
@@ -461,8 +488,7 @@ main() {
     file_blacklist_map[${file}]=1
   done
 
-
-  echo -e "${GREEN}Scanning files to find headings${NC}"
+  echo -e "${GREEN}Scanning all .md files to find headings${NC}"
   # Loop over all files and build a map of all file heading combos
   for file in ./**/*.md; do
     if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
@@ -476,13 +502,27 @@ main() {
     fi
   done
 
-  # Now loop over all files again and verify the links in the files
-  echo -e "${GREEN}Scanning files to check links${NC}"
-  for file in ./**/*.md; do
-    if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
-      check_links_in_file "${file}"
+  if [[ -n "${named_file}" ]]; then
+    if [[ ! -f "${named_file}" ]]; then
+      echo -e "  ${RED}ERROR${NC}: File ${BLUE}${named_file}${NC}" \
+        "doesn't exist${NC}"
+      exit 1
     fi
-  done
+    if [[ ! ${file_blacklist_map["${named_file}"]+_} ]]; then
+      check_links_in_file "${named_file}"
+    else
+      echo -e "  ${YELLOW}Ignoring blacklisted file" \
+        "[${BLUE}${named_file}${YELLOW}]${NC}"
+    fi
+  else
+    # Now loop over all files again and verify the links in the files
+    echo -e "${GREEN}Scanning all .md files to check links${NC}"
+    for file in ./**/*.md; do
+      if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+        check_links_in_file "${file}"
+      fi
+    done
+  fi
 
   echo -e "${GREEN}File count: ${BLUE}${file_count}${NC}"
   echo -e "${GREEN}Link count: ${BLUE}${link_count}${NC}"
