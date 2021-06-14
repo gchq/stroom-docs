@@ -40,17 +40,23 @@ This file contains both the Drop Wizard configuration settings (settings for por
 The file is in YAML format and the Stroom properties are located under the `appConfig` key.
 For details of the Drop Wizard configuration structure, see [here](https://www.dropwizard.io/en/latest/manual/configuration.html).
 
+The file is split into three sections using these keys:
+
+* `server` - Configuration of the web server, e.g. ports, paths, request logging.
+* `logging` - Configuration of application logging
+* `appConfig` - The stroom configuration properties
+
 The following is an example of the YAML configuration file:
 
 ```yaml
 # Drop Wizard configuration section
 server:
-  ...
+  # e.g. ports and paths
 logging:
-  ...
+  # e.g. logging levels/appenders
+
 # Stroom properties configuration section
 appConfig:
-  superDevMode: true
   commonDbDetails:
     connection:
       jdbcDriverClassName: ${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}
@@ -68,7 +74,7 @@ Each part of the dot notation property name represents a key in the YAML file, e
 ```yaml
 appConfig:
   contentPackImport:
-    enabled: true
+    enabled: true   # stroom.contentPackImport.enabled
 ```
 
 The _stroom_ part of the dot notation name is replaced with _appConfig_.

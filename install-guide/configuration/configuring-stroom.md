@@ -1,17 +1,13 @@
 # Stroom Application Configuration
 
 > **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-07
+> **Last Updated:** 2021-06-07  
+> **See Also:** [Properties](../../user-guide/properties.md).  
 
-## Without Docker
+## General configuration
 
-The Stroom application is essentially just an executable jar file that can be run when provided with a configuration file.
-Stroom running without docker has two files to configure it.
-The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.
-
-* `./config/config.yml` - Stroom configuration YAML file
-* `./config/scripts.env` - Stroom scripts configuration env file
-
+The Stroom application is essentially just an executable [JAR](https://en.wikipedia.org/wiki/JAR_%28file_format%29) file that can be run when provided with a configuration file, `config.yml`.
+This config file is common to all forms of deployment.
 
 ### config.yml
 
@@ -20,9 +16,9 @@ As a minimum this file should be used to configure anything that needs to be set
 If you are using some form of scripted deployment, e.g. ansible then it can be used to set all stroom properties for the environment that stroom runs in.
 If you are not using scripted deployments then you can maintain stroom's node agnostic configuration properties via the user interface.
 
-For more details on the structure of the file and property precedence see [Properties](../../user-guide/properties.md).
+For more details on the structure of the file, data types and property precedence see [Properties](../../user-guide/properties.md).
 
-Stroom's operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment.
+Stroom operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
 As a result `config.yml` only contains a minimal set of properties.
 The full tree of properties can be seen in `./config/config-defaults.yml` and a schema for the configuration tree (along with descriptions for each property) can be found in `./config/config-schema.yml`.
 These two files can be used as a reference when configuring stroom.
@@ -69,6 +65,22 @@ This is the address that users will use in their browser.
   publicUri:
     hostname: "localhost" # e.g. stroom.somedomain
 ```
+
+
+## Deploying without Docker
+
+Stroom running without docker has two files to configure it.
+The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.
+
+* `./config/config.yml` - Stroom configuration YAML file
+* `./config/scripts.env` - Stroom scripts configuration env file
+
+The distribution also includes these files which are helpful when it comes to configuring stroom.
+
+* `./config/config-defaults.yml` - Full version of the config.yml file containing all branches/leaves with default values set.
+                                   Useful as a reference for the structure and the default values.
+* `./config/config-schema.yml` - The schema defining the structure of the `config.yml` file.
+
 
 ### scripts.env
 

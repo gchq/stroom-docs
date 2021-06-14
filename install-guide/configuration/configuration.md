@@ -12,11 +12,27 @@ This document will cover two types of deployment:
 This document will explain how each application/service is configured and where its configuration files live.
 
 
+## Application Configuration
+
+The following sections provide links to how to configure each application.
+
+* [Stroom Configuration](./configuring-stroom.md)
+
+* [Stroom Proxy Configuration](./configuring-stroom-proxy.md)
+
+* [MySQL Configuration](./configuring-mysql.md)
+
+* [Nginx Configuration](./configuring-nginx.md)
+
+* [Stroom log sender Configuration](./configuring-stroom-log-sender.md)
+
+
 ## General configuration of docker stacks
 
 ### Environment variables
 
 The stroom docker stacks have a single env file `<stack name>.env` that acts as a single point to configure some aspects of the stack.
+Setting values in the env file can be useful when the value is shared between multiple containers.
 This env file sets environment variables that are then used for variable substitution in the docker compose YAML files, e.g.
 
 ```yaml
@@ -44,6 +60,20 @@ appConfig:
 
 In this example `jdbcDriverUrl` will be set to the value of environment variable `STROOM_JDBC_DRIVER_CLASS_NAME` or `com.mysql.cj.jdbc.Driver` if that is not set.
 
+The following example shows how setting `MY_ENV_VAR=123` means `myProperty` will ultimately get a value of `123` and not its default of `789`.
+
+```
+env file (stroom<stack name>.emv) - MY_ENV_VAR=123
+              |
+              | environment variable substitution
+              v
+docker compose YAML (01_stroom.yml) - STROOM_ENV_VAR=${MY_ENV_VAR:-456}
+              |
+              | environment variable substitution
+              v
+Stroom configuration file (config.yml) - myProperty: "${STROOM_ENV_VAR:-789}"
+```
+
 ### Configuration files
 
 The following shows the basic structure of a stack with respect to the location of the configuration files:
@@ -59,34 +89,70 @@ The following shows the basic structure of a stack with respect to the location 
 Some aspects of configuration do not lend themselves to environment variable substitution, e.g. deeply nested parts of stroom's `config.yml`.
 In these instances it may be necessary to have static configuration files that have no connection to the env file or only use environment variables for some values.
 
-## Application Configuration
 
-The following sections provide links to how to configure each application.
+### Bind mounts
 
+Everything in the stack `volumes` directory is bind-mounted into the named docker container but is mounted read-only to the container.
+This allows configuration files to be read by the container but not modified.
 
-### Stroom Configuration
-
-[Stroom Configuration](./configuring-stroom.md)
-
-
-### Stroom-proxy
-
-[Stroom Proxy Configuration](./configuring-stroom-proxy.md)
+Typically the bind mounts mount a directory into the container, though in the case of the `stroom-all-dbs.cnf` file, the file is mounted.
+The mounts are done using the inode of the file/directory rather than the name, so docker will mount whatever the inode points to even if the name changes.
+If for instance the `stroom-all-dbs.cnf` file is renamed to `stroom-all-dbs.cnf.old` then copied to `stroom-all-dbs.cnf` and then the new version modified, the container would still see the old file.
 
 
-### MySQL
+### Docker managed volumes
 
-[MySQL Configuration](./configuring-mysql.md)
+When stroom is running various forms of data are persisted, e.g. stroom's stream store, stroom-all-dbs database files, etc.
+All this data is stored in docker managed volumes.
+By default these will be located in `/var/lib/docker/volumes/<volume name>/_data` and root/sudo access will be needed to access these directories.
+
+#### Docker data root
+
+> **IMPORTANT**
+
+By default Docker stores all its images, container layers and managed volumes in its default data root directory which defaults to `/var/lib/docker`.
+It is typical in server deployments for the root file system to be kept fairly small and this is likely to result in the root file system running out of space due to the growth in docker images/layers/volumes in `/var/lib/docker`.
+It is therefore strongly recommended to move the docker data root to another location with more space.
+
+There are various options for achieving this.
+In all cases the docker daemon should be stopped prior to making the changes, e.g. `service docker stop`, then started afterwards.
+
+* **Symlink** - One option is to move the `var/lib/docker` directory to a new location then create a symlink to it.
+    For example: 
+    ```sh
+    ln -s /large_mount/docker_data_root /var/lib/docker
+    ```
+    This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.
+
+* **Configuration** - The location can be changed by adding this key to the file `/etc/docker/daemon.json` (or creating this file if it doesn't exist.
+    ```json
+    {
+      "data-root": "/mnt/docker"
+    }
+    
+    ```
+* **Mount** - If your intention is to use a whole storage device for the docker data root then you can mount that device to `/var/lib/docker`.
+    You will need to make a copy of the `/var/lib/docker` directory prior to doing this then copy it mount once created.
+    The process for setting up this mount will be OS dependent and is outside the scope of this document.
 
 
-### Nginx
+### Active services
 
-[Nginx Configuration](./configuring-nginx.md)
+Each stroom docker stack comes pre-built with a number of different services, e.g. the _stroom_core_ stack contains the following:
 
+* stroom
+* stroom-proxy-local
+* stroom-all-dbs
+* nginx
+* stroom-log-sender
 
-### Stroom-log-sender
+While you can pass a set of service names to the commands like `start.sh` and `stop.sh`, it may sometimes be required to configure the stack instance to only have a set of services active.
+You can set the active services like so:
 
-[Stroom log sender Configuration](./configuring-stroom-log-sender.md)
+```bash
+./set_services.sh stroom stroom-all-dbs nginx
+```
 
-
+In the above example and subsequent use of commands like `start.sh` and `stop.sh` with no named services would only act upon the active services set by `set_services.sh`.
+This list of active services is held in `ACTIVE_SERVICES.txt` and the full list of available services is held in `ALL_SERVICES.txt`.
 

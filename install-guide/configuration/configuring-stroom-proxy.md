@@ -1,28 +1,38 @@
 # Stroom Proxy Application Configuration
 
 > **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-07
-> **TODO:** This needs updating for v7.1
+> **Last Updated:** 2021-06-07  
+> **See Also:** [Stroom Application Configuration](./configuring-stroom.md)  
+> **See Also:** [Properties](../../user-guide/properties.md).  
+> **TODO:** This needs updating for v7.1  
 
 The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the `config.yml` file.
 Stroom-proxy has a `proxyConfig` key in the YAML while Stroom has `appConfig`.
-It is recomended to read [Stroom Application Configuration](./configuring-stroom.md) to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.
+It is recommended to first read [Stroom Application Configuration](./configuring-stroom.md) to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.
 
-## Without Docker
 
-As with stroom, stroom-proxy is configured using two files:
+## General configuration
 
-* `./config/config.yml` - Stroom configuration YAML file
-* `./config/scripts.env` - Stroom scripts configuration env file
+The Stroom-proxy application is essentially just an executable [JAR](https://en.wikipedia.org/wiki/JAR_%28file_format%29) file that can be run when provided with a configuration file, `config.yml`.
+This configuration file is common to all forms of deployment.
+
 
 ### config.yml
 
 Stroom-proxy does not have a user interface so the `config.yml` file is the only way of configuring stroom-proxy.
-As with stroom, the `config.yml` file is split into three sections:
+As with stroom, the `config.yml` file is split into three sections using these keys:
 
 * `server` - Configuration of the web server, e.g. ports, paths, request logging.
 * `logging` - Configuration of application logging
 * `proxyConfig` - Configuration of stroom-proxy
+
+See also [Properties](../../user-guide/properties.md) for more details on structure of the config.yml file and supported data types.
+
+Stroom-proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
+As a result `config.yml` only contains a minimal set of properties.
+The full tree of properties can be seen in `./config/config-defaults.yml` and a schema for the configuration tree (along with descriptions for each property) can be found in `./config/config-schema.yml`.
+These two files can be used as a reference when configuring stroom.
+
 
 #### Key Configuration Properties
 
@@ -59,11 +69,16 @@ This may also be te address of a load balancer or similar that is fronting a clu
       - forwardUrl: "https://nginx/stroom/datafeed"
 ```
 
-If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different localtion to the proxy home directory, e.g. on another mount point.
+If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.
 
+
+## Deploying without Docker
+
+Apart from the structure of the `config.yml` file, the configuration in a non-docker environment is the same as for [stroom](./configuring-stroom-proxy.md#deploying-without-docker)
 
 
 ## As part of a docker stack
 
+The way stroom-proxy is configured is essentially the same as for [stroom](./configuring-stroom-proxy.md#as-part-of-a-docker-stack) with the only real difference being the structure of the `config.yml` file as note [above](#) .
 As with stroom the docker image comes with a baked in fallback `config.yml` file that will be used in the absence of a provided one.
-Also as with stroom, the file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose yaml files. 
+Also as with stroom, the `config.yml` file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files. 
