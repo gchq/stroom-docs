@@ -10,14 +10,14 @@ For most large installations Stroom uses shared storage for its data store. This
 
 ### Accounts
 
-It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install. Official guidance for doing this can be found [here](https://dev.mysql.com/doc/refman/5.6/en/security.html).
+It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install. Official guidance for doing this can be found [here (external link)](https://dev.mysql.com/doc/refman/5.6/en/security.html).
 
 ### Communication
 
 Communication between MySQL and the application should be secured. This can be achieved in one of the following ways:
 * Placing MySQL and the application behind a firewall
 * Securing communication through the use of iptables
-* Making MySQL and the application communicate over SSL (see [here](https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html) for instructions)
+* Making MySQL and the application communicate over SSL (see [here (external link)](https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html) for instructions)
 
 The above options are not mutually exclusive and may be combined to better secure communication.
 

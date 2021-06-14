@@ -74,7 +74,7 @@ Stroom v6 ran on mysql v5.6.
 Stroom v7 runs on mysql v8.
 The upgrade path for MySQL is 5.6 => 5.7.33 => 8.x
 
-To ensure the database is up to date `mysql_upgrade` neeeds to be run using the 5.7.33 binaries, [see](https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html).
+To ensure the database is up to date `mysql_upgrade` neeeds to be run using the 5.7.33 binaries, [see (external link)](https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html).
 
 This is the process for upgrading the database. All of these commands are using the v7 stack.
 

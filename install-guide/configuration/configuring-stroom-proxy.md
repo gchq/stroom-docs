@@ -13,7 +13,7 @@ It is recommended to first read [Stroom Application Configuration](./configuring
 
 ## General configuration
 
-The Stroom-proxy application is essentially just an executable [JAR](https://en.wikipedia.org/wiki/JAR_%28file_format%29) file that can be run when provided with a configuration file, `config.yml`.
+The Stroom-proxy application is essentially just an executable [JAR (external link)](https://en.wikipedia.org/wiki/JAR_%28file_format%29) file that can be run when provided with a configuration file, `config.yml`.
 This configuration file is common to all forms of deployment.
 
 
