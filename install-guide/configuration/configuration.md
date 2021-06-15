@@ -74,6 +74,10 @@ docker compose YAML (01_stroom.yml) - STROOM_ENV_VAR=${MY_ENV_VAR:-456}
 Stroom configuration file (config.yml) - myProperty: "${STROOM_ENV_VAR:-789}"
 ```
 
+Note that environment variables are only set into the container on start.
+Any changes to the env file will not take effect until the container is (re)started.
+
+
 ### Configuration files
 
 The following shows the basic structure of a stack with respect to the location of the configuration files:
