@@ -160,3 +160,24 @@ You can set the active services like so:
 In the above example and subsequent use of commands like `start.sh` and `stop.sh` with no named services would only act upon the active services set by `set_services.sh`.
 This list of active services is held in `ACTIVE_SERVICES.txt` and the full list of available services is held in `ALL_SERVICES.txt`.
 
+
+### Certificates
+
+A number of the services in the docker stacks will make use of SSL certificates/keys in various forms.
+The certificate/key files are typically found in the directories `volumes/<service>/certs/`.
+
+The stacks come with a set of client/server certificates that can be used for demo/test purposes.
+For production deployments these should be replaced with the actual certificates/keys for your environment.
+
+In general the best approach to configuring the certificates/keys is to replace the existing files with symlinks to the actual files.
+For example in the case of the server certificates for nginx (found in `volumes/nginx/certs/`) the directory would look like:
+
+```
+ca.pem.crt -> /some/path/to/certificate_authority.pem.crt
+server.pem.crt -> /some/path/to/host123.pem.crt
+server.unencrypted.key -> /some/path/to/host123.key
+```
+
+This approach avoids the need to change any configuration files to reference differently named certificate/key files and avoids having to copy your real certificates/keys into multiple places.
+
+For examples of how to create certificates, keys and keystores see [creatCerts.sh (external link)](https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh)

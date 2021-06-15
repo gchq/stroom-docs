@@ -65,7 +65,15 @@ As the variables are substituted on container start you will need to restart the
 
 ### Certificates
 
-The directory `volumes/stroom-log-sender/certs` contains the default certificates used for the stack.
+The directory `volumes/stroom-log-sender/certs` contains the default client certificates used for the stack.
+These allow stroom-log-sender to send the log files over SSL which also provides stroom with details of the sender.
 These will need to be replaced in a production environment.
-Either the paths to the certificates in the `crontab.txt` file need to be changed or the default certificate files can be replaced with symlinks to the required certificates.
+
+```
+volumes/stroom-log-sender/certs/ca.pem.crt
+volumes/stroom-log-sender/certs/client.pem.crt
+volumes/stroom-log-sender/certs/client.unencrypted.key
+```
+
+For a production deployment these will need to be changed, see [Certificates](../configuration.md#configuration)
 

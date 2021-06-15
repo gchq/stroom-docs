@@ -82,3 +82,17 @@ Apart from the structure of the `config.yml` file, the configuration in a non-do
 The way stroom-proxy is configured is essentially the same as for [stroom](./configuring-stroom-proxy.md#as-part-of-a-docker-stack) with the only real difference being the structure of the `config.yml` file as note [above](#configyml) .
 As with stroom the docker image comes with a baked in fallback `config.yml` file that will be used in the absence of a provided one.
 Also as with stroom, the `config.yml` file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files. 
+
+
+### Certificates
+
+Stroom-proxy uses a client certificate in order to communicate with a downstream stroom/stroom-proxy in order to establish the status of feeds.
+The stack comes with the following files that can be used for demo/test purposes.
+
+```
+volumes/stroom-proxy-*/certs/ca.jks
+volumes/stroom-proxy-*/certs/client.jks
+```
+
+For a production deployment these will need to be changed, see [Certificates](../configuration.md#configuration)
+
