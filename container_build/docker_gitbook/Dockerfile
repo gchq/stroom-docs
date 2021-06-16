@@ -64,7 +64,7 @@ RUN apt-get update && apt-get install -y \
     && echo "user_name from passwd with id ${USER_ID}: [$user_name]" \
     && if [ -n "${user_name}" ]; then echo "Found user [${user_name}] with id ${USER_ID}"; fi \
     && if [ ! -n "${user_name}" ]; then echo "Creating user [builder] with id ${USER_ID}"; fi \
-    && if [ ! -n "${user_name}" ]; then adduser --uid "$USER_ID" --system --shell /bin/false --disabled-password --gid "${group_name}" builder; fi \
+    && if [ ! -n "${user_name}" ]; then adduser --uid "$USER_ID" --system --shell /bin/false --disabled-password --ingroup  "${group_name}" builder; fi \
     && if [ ! -n "${user_name}" ]; then user_name="builder"; fi \
     && echo "user_name: [$user_name]" \
     && mkdir -p /builder/shared \
