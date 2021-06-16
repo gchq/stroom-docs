@@ -110,7 +110,7 @@ docker build \
   --build-arg "USER_ID=${user_id}" \
   --build-arg "GROUP_ID=${group_id}" \
   --build-arg "HOST_REPO_DIR=${host_abs_repo_dir}" \
-  "${local_repo_root}/container_build/docker_gitbook2"
+  "${local_repo_root}/container_build/docker_gitbook"
 
 if [ -t 1 ]; then 
   # In a terminal
