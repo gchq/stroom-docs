@@ -55,7 +55,7 @@ RUN apt-get update && apt-get install -y \
     && echo "group_name from /etc/group: [$group_name"] \
     && if [ -n "${group_name}" ]; then echo "Found group [${group_name}] with id ${GROUP_ID}"; fi \
     && if [ ! -n "${group_name}" ]; then echo "Creating group [builder] with id ${GROUP_ID}"; fi \
-    && if [ ! -n "${group_name}" ]; then addgroup -g "$GROUP_ID" -S builder; fi \
+    && if [ ! -n "${group_name}" ]; then addgroup --gid "$GROUP_ID" --system builder; fi \
     && if [ ! -n "${group_name}" ]; then group_name="builder"; fi \
     && echo "group_name: [$group_name"] \
     && echo \
@@ -64,7 +64,7 @@ RUN apt-get update && apt-get install -y \
     && echo "user_name from passwd with id ${USER_ID}: [$user_name]" \
     && if [ -n "${user_name}" ]; then echo "Found user [${user_name}] with id ${USER_ID}"; fi \
     && if [ ! -n "${user_name}" ]; then echo "Creating user [builder] with id ${USER_ID}"; fi \
-    && if [ ! -n "${user_name}" ]; then adduser -u "$USER_ID" -S -s /bin/false -D -G "${group_name}" builder; fi \
+    && if [ ! -n "${user_name}" ]; then adduser --uid "$USER_ID" --system --shell /bin/false --disabled-password --gid "${group_name}" builder; fi \
     && if [ ! -n "${user_name}" ]; then user_name="builder"; fi \
     && echo "user_name: [$user_name]" \
     && mkdir -p /builder/shared \
