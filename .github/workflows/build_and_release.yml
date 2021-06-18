@@ -21,9 +21,9 @@ jobs:
       SSH_AUTH_SOCK: "/tmp/ssh-agent-stroom.sock"
     steps:
 
-      #- name: Checkout code
-        #id: checkout_code
-        #uses: actions/checkout@v2
+      - name: Checkout code
+        id: checkout_code
+        uses: actions/checkout@v2
         #with:
           ## Set this so it gets the annotated commit, not the commit being tagged.
           ## Which means we can get the release msg
@@ -33,15 +33,13 @@ jobs:
       - name: Set Environment Variables
         id: set_env_var
         run: |
-          echo -e "${GREEN}Running ${BLUE}setup_env_vars.sh${NC}"
           ${GITHUB_WORKSPACE}/.github/workflows/scripts/setup_env_vars.sh
 
         # Separate step to show what is visible across steps
       - name: Build Environment Info
         id: build_info
         run: |
-          echo -e "${GREEN}Running ${BLUE}dump_env_vars.sh${NC}"
-          ${GITHUB_WORKSPACE}/.github/workflows/scripts/dump_env_vars.sh
+          ${ACTIONS_SCRIPTS_DIR}/dump_env_vars.sh
 
       - name: Run full build
         id: run_build
@@ -53,9 +51,8 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           pushd "${BUILD_DIR}" > /dev/null
-          echo -e "${GREEN}Running ${BLUE}ci_build.sh${NC}"
           ./ci_build.sh
-          echo -e "${GREEN}Finished running build script${NC}"
+          echo "Finished running build script"
 
       - name: Release to GitHub
         id: create_release
