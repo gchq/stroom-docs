@@ -52,6 +52,8 @@ main() {
   RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
   RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
   RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
+  GITBOOK_DIR="${BUILD_DIR}/_book"
+  GITHUB_PAGES_DIR="${BUILD_DIR}/gh-pages"
 
   echo -e "BUILD_NUMBER:          [${GREEN}${BUILD_NUMBER}${NC}]"
   echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
@@ -75,11 +77,11 @@ main() {
   ./container_build/runInNodeDocker.sh "gitbook install; gitbook build"
 
   #For a markdown file to be included in the gitbook conversion to html/pdf it must be linked to in SUMMARY.md
-  missingFileCount=$(find ./_book/ -name "*.md" | wc -l)
+  missingFileCount=$(find "./${GITBOOK_DIR}/" -name "*.md" | wc -l)
   if [ "${missingFileCount}" -gt 0 ]; then
     echo -e "${missingFileCount} markdown file(s) have not been converted, ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
     # shellcheck disable=SC2044
-    for file in $(find ./_book/ -name "*.md"); do
+    for file in $(find "./${GITBOOK_DIR}/" -name "*.md"); do
         echo -e "  ${RED}${file}${NC}"
     done
     echo "Failing the build"
@@ -92,14 +94,13 @@ main() {
   ./container_build/runInNodeDocker.sh \
     "gitbook pdf ./ \"${RELEASE_ARTEFACTS_REL_DIR}/${PDF_FILENAME}\""
 
-
   echo -e "${GREEN}Removing unwanted files${NC}"
-  rm -v _book/*.yml
-  rm -v _book/*.sh
-  rm -v -rf _book/.github
+  rm -v "${GITBOOK_DIR}"/*.yml
+  rm -v "${GITBOOK_DIR}"/*.sh
+  rm -v -rf "${GITBOOK_DIR}/.github"
 
   echo -e "${GREEN}Making a zip of the html content${NC}"
-  pushd _book
+  pushd "${GITBOOK_DIR}"
   zip -r -9 "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
   popd
 
@@ -109,11 +110,17 @@ main() {
   #We release on every commit to master
   if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]]; then
 
+    mkdir -p "${GITHUB_PAGES_DIR}"
+
+    echo -e "${GREEN}Copying from ${GITBOOK_DIR}/ to ${GITHUB_PAGES_DIR}/${NC}"
+    cp -r "${GITBOOK_DIR}"/* "${GITHUB_PAGES_DIR}/"
+
     setup_ssh_agent
 
     git config user.name "${GITHUB_ACTOR}"
     git config user.email "${GITHUB_ACTOR}@bots.github.com"
 
+    # Tag the commit so we can create a release against it in github
     echo -e "Creating tag ${GREEN}${BUILD_TAG}${NC}"
     git tag \
       "${BUILD_TAG}" \
