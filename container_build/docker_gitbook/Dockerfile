@@ -40,7 +40,8 @@ CMD id
 # We don't know if the uid/gid on the host are in used in the container
 # or not so we need to test for their existence and create a user and/or group
 # as needed.
-# Lots of echo to help debug in travis
+# Lots of echo to help debug 
+# All the packages are to get the pdf generation with calibre working
 RUN apt-get update && apt-get install -y \
       bash \
       ca-certificates \
