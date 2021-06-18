@@ -77,10 +77,11 @@ main() {
   # At some point we will use versioned dirs, but not yet
   local gh_pages_versioned_dir="${gh_pages_clone_dir}"
 
-  # Start ssh-agent and add our private ssh deploy key to it
-  if [[ -f "${SSH_AUTH_SOCK}" ]]; then
+  # See if there is already a socket for ssh-agent
+  if [[ -S "${SSH_AUTH_SOCK}" ]]; then
     echo -e "${GREEN}ssh-agent already bound to ${BLUE}SSH_AUTH_SOCK${NC}"
   else
+    # Start ssh-agent and add our private ssh deploy key to it
     echo -e "${GREEN}Starting ssh-agent${NC}"
     ssh-agent -a "${SSH_AUTH_SOCK}" > /dev/null
   fi
