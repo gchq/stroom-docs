@@ -60,6 +60,8 @@ main() {
 
   setup_echo_colours
 
+  echo -e "${GREEN}Setting up variables${NC}"
+
   local repo_uri="git@github.com:${GITHUB_REPOSITORY}.git"
   local remote_name="origin"
   local gh_pages_branch="gh-pages"

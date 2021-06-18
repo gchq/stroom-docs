@@ -88,7 +88,7 @@ main() {
     "${BUILD_TAG}"
 
   #hub release create "${args[@]}" "$BUILD_TAG"
-  echo "${GREEN}Release created for tag ${BLUE}${BUILD_TAG}${NC}"
+  echo -e "${GREEN}Release created for tag ${BLUE}${BUILD_TAG}${NC}"
 }
 
 main "$@"
