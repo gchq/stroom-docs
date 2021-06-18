@@ -63,6 +63,7 @@ mkdir -p "${RELEASE_ARTEFACTS_DIR}"
 echo -e "${GREEN}Removing unwanted files${NC}"
 rm -v _book/*.yml
 rm -v _book/*.sh
+rm -v _book/.github
 
 echo -e "${GREEN}Making a zip of the html content${NC}"
 pushd _book
