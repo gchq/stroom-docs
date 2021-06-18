@@ -16,7 +16,7 @@ The arguments to functions can either be other functions, literal values, or the
   * [Count](aggregate.md#count)
   * [Count Groups](aggregate.md#count-groups)
   * [Count Unique](aggregate.md#count-unique)
-  * [Joining](aggregate#joining)
+  * [Joining](aggregate.md#joining)
   * [Max](aggregate.md#max)
   * [Min](aggregate.md#min)
   * [Standard Deviation](aggregate.md#standard-deviation)

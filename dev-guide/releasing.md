@@ -75,7 +75,7 @@ SNAPSHOT releases should not and cannot be released to Bintray. If a development
 
 ## Release Versioning conventions
 
-Semantic versioning is used, and this should be adhered to, see [SemVer](https://semver.org/). The following are examples of valid version names
+Semantic versioning is used, and this should be adhered to, see [SemVer (external link)](https://semver.org/). The following are examples of valid version names
 
 * `SNAPSHOT` - Used only for local development, never to be published publicly.
 

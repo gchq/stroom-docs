@@ -1,15 +1,15 @@
 # Example Clients
-The following article provides examples to help data providers send data to Stroom via the HTTPS interface. The code for the clients is in the _stroom-clients_ repository [stroom-clients](https://github.com/gchq/stroom-clients).
+The following article provides examples to help data providers send data to Stroom via the HTTPS interface. The code for the clients is in the _stroom-clients_ repository [stroom-clients (external link)](https://github.com/gchq/stroom-clients).
 
 ## Using Docker
-[stroom-log-sender](https://hub.docker.com/r/gchq/stroom-log-sender/) is a small Docker image for sending data to _stroom_. 
+[stroom-log-sender (external link)](https://hub.docker.com/r/gchq/stroom-log-sender/) is a small Docker image for sending data to _stroom_. 
 This is the simplest way to get data into stroom if the data provider is itself running in docker. 
 It can also be used for sending data to _stroom_ from data providers that are not running in Docker.
 _stroom-log-sender_ makes use of the _send_to_stroom.sh_ bash script that is described below.
 For details on how to use _stroom-log-sender_, see the Dockerhub link above.
 
 ## UNIX (using send_to_stroom.sh)
-[send_to_stroom.sh](https://github.com/gchq/stroom-clients/releases) is a small bash script to make it easier to send data to _stroom_. To use it download the following files using wget or similar, replacing `SEND_TO_STROOM_VER` with the latest released version from [here](https://github.com/gchq/stroom-clients/releases):
+[send_to_stroom.sh (external link)](https://github.com/gchq/stroom-clients/releases) is a small bash script to make it easier to send data to _stroom_. To use it download the following files using wget or similar, replacing `SEND_TO_STROOM_VER` with the latest released version from [here (external link)](https://github.com/gchq/stroom-clients/releases):
 
 ``` bash
 SEND_TO_STROOM_VER="send-to-stroom-v2.0" && \

@@ -4,14 +4,14 @@ The following example uses a real world Apache log and demonstrates the use of r
 
 This example also demonstrates that the names and values that are output can be hard coded in the absence of field name information to make XSLT conversion easier later on. Also shown is that any match can be divided into further fields with additional expressions and the ability to nest data elements to provide structure if needed.
 
-## <a id="sec_1_3_1"></a>Input
+## <a name="sec_1_3_1"></a>Input
 
 ```
 192.168.1.100 - "-" [12/Jul/2012:11:57:07 +0000] "GET /doc.htm HTTP/1.1" 200 4235 "-" "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"
 192.168.1.100 - "-" [12/Jul/2012:11:57:07 +0000] "GET /default.css HTTP/1.1" 200 3494 "http://some.server:8080/doc.htm" "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"
 ```
 
-## <a id="sec_1_3_2"></a>Configuration
+## <a name="sec_1_3_2"></a>Configuration
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -67,7 +67,7 @@ This example also demonstrates that the names and values that are output can be 
 </dataSplitter>
 ```
 
-## <a id="sec_1_3_3"></a>Output
+## <a name="sec_1_3_3"></a>Output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

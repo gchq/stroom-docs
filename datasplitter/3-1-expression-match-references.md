@@ -2,7 +2,7 @@
 
 Referencing matches in expressions is done using `$`. In addition to this a match group number may be added to just retrieve part of the expression match. The applicability and effect that this has depends on the type of expression used.
 
-## <a id="sec_3_1_1"></a>References to &lt;split&gt; Match Groups
+## <a name="sec-3-1-1"></a>References to &lt;split&gt; Match Groups
 
 In the following example a line matched by a parent `<split>` expression is referenced by a child `<data>` element.
 
@@ -12,7 +12,7 @@ In the following example a line matched by a parent `<split>` expression is refe
 </split>
 ```
 
-A `<split>` element matches content up to and including the specified [delimiter](2-2-expressions.md#sec_2_2_1_1_2), so the above reference would output the entire line plus the delimiter. However there are various match groups that can be used by child `<group>` and `<data>` elements to reference sections of the matched content.
+A `<split>` element matches content up to and including the specified [delimiter](2-2-expressions.md#sec-2-2-1-1-2), so the above reference would output the entire line plus the delimiter. However there are various match groups that can be used by child `<group>` and `<data>` elements to reference sections of the matched content.
 
 To illustrate the content provided by each match group, take the following example:
 
@@ -66,7 +66,7 @@ The match groups are as follows:
 
 `This is some text, that we wish to match`
 
-## <a id="sec_3_1_2"></a>References to &lt;regex&gt; Match Groups
+## <a name="sec_3_1_2"></a>References to &lt;regex&gt; Match Groups
 
 Like the `<split>` element various match groups can be referenced in a `<regex>` expression to retrieve portions of matched content. This content can be used as values for `<group>` and `<data>` elements.
 
@@ -98,6 +98,6 @@ The match groups are as follows:
 
 Match group numbers in regular expressions are determined by the order that their open bracket appears in the expression.
 
-## <a id="sec_3_1_3"></a>References to &lt;any&gt; Match Groups
+## <a name="sec_3_1_3"></a>References to &lt;any&gt; Match Groups
 
 The `<any>` element does not have any match groups and always returns the entire content that was passed to it when referenced with $.

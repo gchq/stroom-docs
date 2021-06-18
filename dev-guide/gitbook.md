@@ -1,9 +1,9 @@
 # Building the documentation
-Stroom's documentation is built using [GitBook](https://www.gitbook.com). 
+Stroom's documentation is built using [GitBook (external link)](https://www.gitbook.com). 
 
 ## Prerequisites
 ### NPM
-You need NPM to install the GitBook command line toolchain. To get NPM install [node](https://nodejs.org/en/).
+You need NPM to install the GitBook command line toolchain. To get NPM install [node (external link)](https://nodejs.org/en/).
 
 ### GitBook command line tools
 

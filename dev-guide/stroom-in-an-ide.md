@@ -19,7 +19,8 @@ These instructions assume that all servcies will either run in the IDE or in Doc
 
 ## Stroom git repositories
 
-To develop stroom you will need to clone/fork multiple git repositories. To quickly clone all of the Stroom repositories you can use the helper script described in [stroom-resource](https://github.com/gchq/stroom-resources/blob/master/README.md).
+To develop stroom you will need to clone/fork multiple git repositories.
+To quickly clone all of the Stroom repositories you can use the helper script described in [stroom-resource (external link)](https://github.com/gchq/stroom-resources/blob/master/README.md).
 
 
 ## Database setup

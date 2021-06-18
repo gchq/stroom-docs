@@ -2,7 +2,7 @@
 
 In addition to referencing content produced by a parent element it is often desirable to store content and reference it later. The following example of a CSV with a heading demonstrates how content can be stored in a variable and then referenced later on.
 
-## <a id="sec_1_2_1"></a>Input
+## <a name="sec_1_2_1"></a>Input
 
 This example will use a similar input to the one in the previous CSV example but also adds a heading line.
 
@@ -13,7 +13,7 @@ Date,Time,IPAddress,HostName,User,EventType,Detail
 01/01/2010,00:02:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logoff,
 ```
 
-## <a id="sec_1_2_2"></a>Configuration
+## <a name="sec_1_2_2"></a>Configuration
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -49,7 +49,7 @@ Date,Time,IPAddress,HostName,User,EventType,Detail
 </dataSplitter>
 ```
 
-## <a id="sec_1_2_3"></a>Output
+## <a name="sec_1_2_3"></a>Output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

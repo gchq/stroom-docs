@@ -6,20 +6,20 @@ Variables are added to Data Splitter configuration using the `<var>` element, se
 <data name="$heading$" value="$" />
 ```
 
-## <a id="sec_3_2_1"></a>Identification
+## <a name="sec-3-2-1"></a>Identification
 
 Data Splitter validates the configuration on load and ensures that all element ids are unique and that referenced ids belong to a variable.
 
 A variable will only store data if it is referenced so variables that are not referenced will do nothing. In addition to this a variable will only store data for match groups that are referenced, e.g. if `$heading$1` is the only reference to a variable with an id of ‘heading’ then only data for match group 1 will be stored for reference lookup.
 
-## <a id="sec_3_2_2"></a>Scopes
+## <a name="sec-3-2-2"></a>Scopes
 
 Variables have two scopes which affect how data is retrieved when referenced:
 
-* [Local scope](#sec_3_2_2_1)
-* [Remote scope](#sec_3_2_2_2)
+* [Local scope](#sec-3-2-2-1)
+* [Remote scope](#sec-3-2-2-2)
 
-### <a id="sec_3_2_2_1"></a>Local Scope
+### <a name="sec-3-2-2-1"></a>Local Scope
 
 Variables are local to a reference if the reference exists as a descendant of the variables parent expression, e.g.
 
@@ -40,9 +40,9 @@ Variables are local to a reference if the reference exists as a descendant of th
 In the above example, matches for the outermost `<split>` expression are stored in the variable with the id of `line`. The only reference to this variable is in a data element that is a descendant of the variables parent expression `<split>`, i.e. it is nested within split/group/regex.
 
 Because the variable is referenced locally only the most recent parent match is relevant, i.e. no retrieval of values by 
-[iteration](#sec_3_2_2_2_1), [iteration offset](#sec_3_2_2_2_2) or [fixed position](#sec_3_2_2_2_3) is applicable. These features only apply to remote variables that store multiple values.
+[iteration](#sec-3-2-2-2-1), [iteration offset](#sec-3-2-2-2-2) or [fixed position](#sec-3-2-2-2-3) is applicable. These features only apply to remote variables that store multiple values.
 
-### <a id="sec_3_2_2_2"></a>Remote Scope
+### <a name="sec-3-2-2-2"></a>Remote Scope
 
 The [CSV example with a heading](1-2-simple-csv-example-with-heading.md) is an example of a variable being referenced from a remote scope.
 
@@ -84,13 +84,13 @@ In the above example the parent expression of the variable is not the ancestor o
 2. The match count of the parent expression, plus or minus an offset.
 3. A fixed position in the variable store.
 
-#### <a id="sec_3_2_2_2_1"></a>Retrieval of value by iteration
+#### <a name="sec-3-2-2-2-1"></a>Retrieval of value by iteration
 
 In the above example the first line is taken then repeatedly matched by delimiting with commas. This results in multiple values being stored in the ‘heading’ variable. Once this is done subsequent lines are matched and then also repeatedly matched by delimiting with commas in the same way the heading is.
 
 Each time a line is matched the internal match count of all sub expressions, (e.g. the `<split>` expression that is delimited by comma) is reset to 0. Every time the sub `<split>` expression matches up to a comma delimiter the match count is incremented. Any references to remote variables will, by default, use the current match count as an index to retrieve one of the many values stored in the variable. This means that the `<data>` element in the above example will retrieve the corresponding heading for each value as the match count of the values will match the storage position of each heading.
 
-#### <a id="sec_3_2_2_2_2"></a>Retrieval of value by iteration offset
+#### <a name="sec-3-2-2-2-2"></a>Retrieval of value by iteration offset
 
 In some cases there may be a mismatch between the position where a value is stored in a variable and the match count applicable when remotely referencing the variable.
 
@@ -111,7 +111,7 @@ To make this adjustment the reference just needs to be told what offset to apply
 
 The above reference just uses the match count plus 1 to retrieve the stored value. Any integral offset plus or minus may be used, e.g. [+4] or [-10]. Offsets that result in a position that is outside of the storage range for the variable will not return a value.
 
-#### <a id="sec_3_2_2_2_3"></a>Retrieval of value by fixed position
+#### <a name="sec-3-2-2-2-3"></a>Retrieval of value by fixed position
 
 In addition to retrieval by offset from the current match count, a stored value can be returned by a fixed position that has no relevance to the current match count.
 

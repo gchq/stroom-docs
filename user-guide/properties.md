@@ -38,19 +38,25 @@ This is typically `config.yml` and is located in the `config` directory.
 
 This file contains both the Drop Wizard configuration settings (settings for ports, paths and application logging) and the Stroom specific properties configuration.
 The file is in YAML format and the Stroom properties are located under the `appConfig` key.
-For details of the Drop Wizard configuration structure, see [here](https://www.dropwizard.io/en/latest/manual/configuration.html).
+For details of the Drop Wizard configuration structure, see [here (external link)](https://www.dropwizard.io/en/latest/manual/configuration.html).
+
+The file is split into three sections using these keys:
+
+* `server` - Configuration of the web server, e.g. ports, paths, request logging.
+* `logging` - Configuration of application logging
+* `appConfig` - The stroom configuration properties
 
 The following is an example of the YAML configuration file:
 
 ```yaml
 # Drop Wizard configuration section
 server:
-  ...
+  # e.g. ports and paths
 logging:
-  ...
+  # e.g. logging levels/appenders
+
 # Stroom properties configuration section
 appConfig:
-  superDevMode: true
   commonDbDetails:
     connection:
       jdbcDriverClassName: ${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}
@@ -68,7 +74,7 @@ Each part of the dot notation property name represents a key in the YAML file, e
 ```yaml
 appConfig:
   contentPackImport:
-    enabled: true
+    enabled: true   # stroom.contentPackImport.enabled
 ```
 
 The _stroom_ part of the dot notation name is replaced with _appConfig_.
@@ -158,9 +164,9 @@ _Stroom Duration_ uses a number of string forms to support legacy property value
 
 #### ISO 8601 Durations
 
-_Stroom Duration_ can be expressed using [_ISO 8601_](https://en.wikipedia.org/wiki/ISO_8601) duration strings.
+_Stroom Duration_ can be expressed using [_ISO 8601_ (external link)](https://en.wikipedia.org/wiki/ISO_8601) duration strings.
 It does NOT support the full _ISO 8601_ format, only `D`, `H`, `M` and `S`.
-For details of how the string is parsed to a Stroom Duration, see [Duration](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence))
+For details of how the string is parsed to a Stroom Duration, see [Duration (external link)](https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence))
 
 The following are examples of _ISO 8601_ duration strings:
 
@@ -248,7 +254,7 @@ See [Delimiters in String Conversion](#delimiters-in-string-conversion) for deta
 ### DocRef Data Type
 
 A DocRef (or Document Reference) is a type specific to Stroom that defines a reference to an instance of a Document within Stroom, e.g. an XLST, Pipeline, Dictionary, etc.
-A DocRef consists of three parts, the type, the [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) and the name of the Document.
+A DocRef consists of three parts, the type, the [UUID (external link)](https://en.wikipedia.org/wiki/Universally_unique_identifier) and the name of the Document.
 
 The following is an example of how a property (`aDocRefProperty`) that is a DocRef would be represented in the YAML:
 
@@ -267,7 +273,7 @@ See [Delimiters in String Conversion](#delimiters-in-string-conversion) for deta
 
 ### Byte Size Data Type
 
-The Byte Size data type is used to represent a quantity of bytes using the [IEC](https://en.wikipedia.org/wiki/Binary_prefix) standard.
+The Byte Size data type is used to represent a quantity of bytes using the [IEC (external link)](https://en.wikipedia.org/wiki/Binary_prefix) standard.
 Quantities are represented as powers of 1024, i.e. a Kib (Kibibyte) means 1024 bytes.
 
 Examples of Byte Size values in string form are (a YAML value would optionally be surrounded with double quotes):

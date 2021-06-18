@@ -15,7 +15,7 @@ The sample event source used will be based on BlueCoat Proxy logs. An extract of
 
 Template pipelines are being used to simplify the establishment of this processing pipeline.
 
-The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the [Stroom Event Logging XML Schema](https://github.com/gchq/event-logging-schema) format.
+The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the [Stroom Event Logging XML Schema (external link)](https://github.com/gchq/event-logging-schema) format.
 
 ## Event Source
 

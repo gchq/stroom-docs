@@ -2,7 +2,7 @@
 
 Example multi line file where records are split over may lines. There are various ways this data could be treated but this example forms a record from data created when some fictitious query starts plus the subsequent query results.
 
-## <a id="sec_1_4_1"></a>Input
+## <a name="sec_1_4_1"></a>Input
 
 ```
 09/07/2016    14:49:36    User = user1
@@ -24,7 +24,7 @@ Example multi line file where records are split over may lines. There are variou
 09/07/2009    16:45:36    Line 4:   result4
 ```
 
-## <a id="sec_1_4_2"></a>Configuration
+## <a name="sec_1_4_2"></a>Configuration
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -78,7 +78,7 @@ Example multi line file where records are split over may lines. There are variou
 </dataSplitter>
 ```
 
-## <a id="sec_1_4_3"></a>Output
+## <a name="sec_1_4_3"></a>Output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

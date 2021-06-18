@@ -13,7 +13,7 @@ The following assumptions are used in this document.
 - better security of password choices, networking, firewalls, data stores, etc. can and should be achieved in various ways, but these HOWTOs are just a quick means of getting a working system, so only limited security is applied
 - better configuration of the database (e.g. more memory. redundancy) should be considered in production environments
 - the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments
-- the user has access to a [Chrome](https://www.google.com/chrome "Google Chrome Web Browser") web browser as Stroom is optimised for this browser.
+- the user has access to a [Chrome (external link)](https://www.google.com/chrome "Google Chrome Web Browser") web browser as Stroom is optimised for this browser.
 
 # Introduction
 This HOWTO provides guidance on a variety of simple Stroom deployments.
@@ -111,8 +111,8 @@ One could deploy the MySQL database software as the alternative.
 
 <a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client. 
 Instructions for installation of the MySQL Community repository files can be
-found [here](InstallDatabaseHowTo.md#mysql-community-repository-installation "MySQL Community Repository Installation") or on
-the [MySQL Site](https://dev.mysql.com/downloads/repo/yum "Download MySQL Yum Repository").
+found [here](InstallDatabaseHowTo.md#mysql-community-server-installation "MySQL Community Repository Installation") or on
+the [MySQL Site (external link)](https://dev.mysql.com/downloads/repo/yum "Download MySQL Yum Repository").
 Once you have installed the MySQL repository files, install the client via
 ```bash
 sudo yum -y install mysql-community-client
@@ -139,7 +139,7 @@ A reasonable value would be over 2000 and a poor value would be below a few hund
 If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
 the Application as high as 15 minutes.
 
-One software based solution would be to install the [haveged](http://www.issihosts.com/haveged "Haveged Web Site") service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
+One software based solution would be to install the [haveged (external link)](http://www.issihosts.com/haveged "Haveged Web Site") service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
 To install execute
 ```bash
 yum -y install haveged
@@ -147,7 +147,7 @@ systemctl enable haveged
 systemctl start haveged
 ```
 
-For background reading in this matter, see [this reference](https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged "Haveged Entropy Service") or [this reference](https://wiki.apache.org/tomcat/HowTo/FasterStartUp#Entropy_Source "How do I make Tomcat startup faster?").
+For background reading in this matter, see [this reference (external link)](https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged "Haveged Entropy Service") or [this reference (external link)](https://cwiki.apache.org/confluence/display/TOMCAT/HowTo+FasterStartUp "How do I make Tomcat startup faster?").
 
 ## Storage Scenario
 For the purpose of this Installation HOWTO, the following sets up the storage hierarchy for a two node processing
@@ -224,7 +224,7 @@ This HOWTO is designed to deploy Apache's httpd web service as a front end (http
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found [here](InstallHttpdHowTo.md "Apache Httpd/Mod_JK Installation").
 
-Other Web service capability can be used, for example, [NGINX](https://nginx.org "NGINX Web Service Capability").
+Other Web service capability can be used, for example, [NGINX (external link)](https://nginx.org "NGINX Web Service Capability").
 
 ## Installation Validation
 We will now check that the installation and web services integration has worked.
@@ -282,7 +282,7 @@ We do this via the user interface (UI).
 
 ### Logging into the Stroom UI for the first time
 To log into the UI of your newly installed Stroom instance, present the base URL to your 
-[Chrome](https://www.google.com/chrome "Google Chrome Web Browser") browser. In this deployment, you should enter the URLS
+[Chrome (external link)](https://www.google.com/chrome "Google Chrome Web Browser") browser. In this deployment, you should enter the URLS
 `http://stroomp.strmdev00.org`, or `https://stroomp.strmdev00.org` or `https://stroomp.strmdev00.org/stroom`, noting the first URLs
 should automatically direct you to the last URL.
 
@@ -342,7 +342,7 @@ set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
-[Stream Processors](../../user-guide/jobs.md#stream-processor "Stream Processor")
+[Data Processors](../../user-guide/jobs.md#data-processor "Data Processor")
 need to be enabled. There are NOT enabled by default on installation. The following
 [section](../General/TasksHowTo.md#enable-stream-processors "Enable Stream Processors")
 in our [Stroom Tasks HowTo](../General/TasksHowTo.md "Stroom Task HOWTO") shows how to do this.
@@ -425,7 +425,7 @@ sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the
-[Web Service Integration for Forwarding Proxy](#web-service-integration-forwarding-proxy "Web Service Integration - Forwarding proxy")
+[Web Service Integration for Forwarding Proxy](#web-service-integration-for-forwarding-proxy "Web Service Integration - Forwarding proxy")
 section of this document.
 
 ## Forwarding Proxy Storage
@@ -476,7 +476,7 @@ Apache's mod_jk as the interface between Apache and the Stroom tomcat applicatio
 to configure this can be found [here](InstallHttpdHowTo.md "Apache Httpd/Mod_JK Installation"). Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.
 
-Other Web service capability can be used, for example, [NGINX](https://nginx.org "NGINX Web Service Capability").
+Other Web service capability can be used, for example, [NGINX (external link)](https://nginx.org "NGINX Web Service Capability").
 
 ## Testing our Forwarding Proxy Installation
 To complete the installation process we will test that we can send data to the forwarding proxy and that it forwards the files
@@ -569,7 +569,7 @@ Apache's mod_jk as the interface between Apache and the Stroom tomcat applicatio
 to configure this can be found [here](InstallHttpdHowTo.md "Apache Httpd/Mod_JK Installation"). Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.
 
-Other Web service capability can be used, for example, [NGINX](https://nginx.org "NGINX Web Service Capability").
+Other Web service capability can be used, for example, [NGINX (external link)](https://nginx.org "NGINX Web Service Capability").
 
 ## Testing our Standalone Proxy Installation
 To complete the installation process we will test that we can send data to the standalone proxy and it stores it.
@@ -741,10 +741,10 @@ This HOWTO is designed to deploy Apache's httpd web service as a front end (http
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found [here](InstallHttpdHowTo.md "Apache Httpd/Mod_JK Installation").
 You should pay particular attention to the section on the
-[Apache Mod_JK configuration](InstallHttpdHowTo.md#apache-mod_jk-configuration "Apache Mod_JK Configuration")
+[Apache Mod_JK configuration](InstallHttpdHowTo.md#apache-modjk-configuration "Apache Mod_JK Configuration")
 as you **MUST** regenerate the Mod_JK workers.properties file on the existing cluster nodes as well as generating it on our new node.
 
-Other Web service capability can be used, for example, [NGINX](https://nginx.org "NGINX Web Service Capability").
+Other Web service capability can be used, for example, [NGINX (external link)](https://nginx.org "NGINX Web Service Capability").
 
 Note that once you have integrated the web services for our new node, you will need to restart the Apache systemd process on the existing
 two nodes that that the new Mod_JK configuration has taken place.
@@ -799,7 +799,7 @@ set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
-[Stream Processors](../../user-guide/jobs.md#stream-processor "Stream Processor")
+[Data Processors](../../user-guide/jobs.md#data-processor "Data Processor")
 need to be enabled. There are NOT enabled by default on installation. The following
 [section](../General/TasksHowTo.md#enable-stream-processors-on-new-node "Enable Stream Processors")
 in our [Stroom Tasks HowTo](../General/TasksHowTo.md "Stroom Task HOWTO") shows how to do this.

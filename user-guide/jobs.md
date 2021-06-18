@@ -12,12 +12,11 @@ Each task executes at a different time depending on the purpose of the task. The
 
 A list of task types and their execution method can be seen by opening _Monitoring/Jobs_ from the main menu.
 
-![Tasks](tasks.png) TODO image
+> **TODO**: image
 
 Expanding each task type allows you to configure how a task behaves on each node:
 
-![Task Nodes](task-nodes.png) TODO image
-
+> **TODO**: image
 
 #### Account Maintenance
 

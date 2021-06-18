@@ -22,7 +22,7 @@ In order to run Stroom v6.x using Docker you will need the following installed o
 
 This will install the core stack (Stroom and the peripheral services required to run Stroom).
 
-Visit [stroom-resources/releases](https://github.com/gchq/stroom-resources/releases) and find the latest stroom_core release and copy the link to the associated `stroom_core*.tar.gz` archive file.
+Visit [stroom-resources/releases (external link)](https://github.com/gchq/stroom-resources/releases) and find the latest stroom_core release and copy the link to the associated `stroom_core*.tar.gz` archive file.
 
 Using `stroom_core-v6.0.19` as an example:
 
@@ -97,7 +97,7 @@ Open a browser (preferably Chrome) at [http://localhost:8080/stroom](http://loca
 * password: _admin_
 
 
-## Docker Hub links
+## Docker Hub links (external)
 [The Stroom image](https://hub.docker.com/r/gchq/stroom/)
 
 [The Stroom Authentication image](https://hub.docker.com/r/gchq/stroom-auth/)

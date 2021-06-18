@@ -1,7 +1,7 @@
 # Command Line Tools
 
-> * Version Information: Created with Stroom v7.0  
-* Last Updated: 10 September 2020  
+> **Version Information:** Created with Stroom v7.0  
+> **Last Updated:** 10 September 2020  
 
 Stroom has a number of tools that are available from the command line in addition to starting the main application.
 
