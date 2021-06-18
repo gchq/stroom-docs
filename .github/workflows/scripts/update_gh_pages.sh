@@ -78,8 +78,12 @@ main() {
   local gh_pages_versioned_dir="${gh_pages_clone_dir}"
 
   # Start ssh-agent and add our private ssh deploy key to it
-  echo -e "${GREEN}Starting ssh-agent${NC}"
-  ssh-agent -a "${SSH_AUTH_SOCK}" > /dev/null
+  if [[ -f "${SSH_AUTH_SOCK}" ]]; then
+    echo -e "${GREEN}ssh-agent already bound to ${BLUE}SSH_AUTH_SOCK${NC}"
+  else
+    echo -e "${GREEN}Starting ssh-agent${NC}"
+    ssh-agent -a "${SSH_AUTH_SOCK}" > /dev/null
+  fi
 
   # SSH_DEPLOY_KEY is the private ssh key that corresponds to the public key
   # that is held in the 'deploy keys' section of the stroom repo on github
