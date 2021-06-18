@@ -69,11 +69,8 @@ pushd _book
 zip -r -9 "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
 popd
 
-find  "${RELEASE_ARTEFACTS_DIR}" -name "*.pdf"
-find  "${RELEASE_ARTEFACTS_DIR}" -name "*.zip"
-
 echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
-ls -l "${RELEASE_ARTEFACTS_DIR}/"
+ls -1 "${RELEASE_ARTEFACTS_DIR}/"
 
 #We release on every commit to master
 if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]]; then
