@@ -84,6 +84,7 @@ main() {
   # SSH_DEPLOY_KEY is the private ssh key that corresponds to the public key
   # that is held in the 'deploy keys' section of the stroom repo on github
   # https://github.com/gchq/stroom/settings/keys
+  echo -e "${GREEN}Adding ssh key${NC}"
   ssh-add - <<< "${SSH_DEPLOY_KEY}"
 
   # Clone the repo with just the gh-pages branch
