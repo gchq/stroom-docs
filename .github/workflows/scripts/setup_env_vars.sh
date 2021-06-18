@@ -25,11 +25,12 @@
 
   if [[ ${GITHUB_REF} =~ ^refs/heads/ ]]; then
     # strip off the 'ref/heads/' bit
-    echo "BUILD_BRANCH=${GITHUB_REF#refs/heads/}"
+    build_branch="${GITHUB_REF#refs/heads/}"
+    echo "BUILD_BRANCH=${build_branch}"
   fi
 
   # Every commit to master is a new release, at least at the moment
-  if [[ ${BUILD_BRANCH} = "master" ]]; then
+  if [[ ${build_branch} = "master" ]]; then
     echo "BUILD_IS_RELEASE=true"
     echo "BUILD_TAG=stroom-docs-v${build_number}"
   else
