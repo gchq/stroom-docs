@@ -14,6 +14,8 @@
 # limitations under the License.
 #**********************************************************************
 
+# Had issues getting this to work in alpine (which needs glibc adding to it)
+# so had to settle for the not so slim debian instead
 FROM node:13.14.0-buster-slim
 WORKDIR /builder
 
