@@ -110,14 +110,6 @@ main() {
   if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]]; then
 
     setup_ssh_agent
-    # Start ssh-agent and add our private ssh deploy key to it
-    echo -e "${GREEN}Starting ssh-agent${NC}"
-    ssh-agent -a "${SSH_AUTH_SOCK}" > /dev/null
-
-    # SSH_DEPLOY_KEY is the private ssh key that corresponds to the public key
-    # that is held in the 'deploy keys' section of the stroom repo on github
-    # https://github.com/gchq/stroom-docs/settings/keys
-    ssh-add - <<< "${SSH_DEPLOY_KEY}"
 
     git config user.name "${GITHUB_ACTOR}"
     git config user.email "${GITHUB_ACTOR}@bots.github.com"
