@@ -66,9 +66,11 @@ rm -v -rf _book/.github
 
 echo -e "${GREEN}Making a zip of the html content${NC}"
 pushd _book
-zip -r -9 "../${RELEASE_ARTEFACTS_DIR_NAME}/${ZIP_FILENAME}" ./*
+zip -r -9 "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
 popd
 
+find  "${RELEASE_ARTEFACTS_DIR}" -name "*.pdf"
+find  "${RELEASE_ARTEFACTS_DIR}" -name "*.zip"
 echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
 ls -l "${RELEASE_ARTEFACTS_DIR}"
 
