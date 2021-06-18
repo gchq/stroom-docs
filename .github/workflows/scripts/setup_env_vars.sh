@@ -3,6 +3,7 @@
 # Set variables in github's special env file which are then automatically 
 # read into env vars in each subsequent step
 
+# Brace block means all echo stdout get appended to GITHUB_ENV
 {
   # Map the GITHUB env vars to our own
   echo "BUILD_DIR=${GITHUB_WORKSPACE}"

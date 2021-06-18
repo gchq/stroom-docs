@@ -49,6 +49,11 @@ jobs:
           # https://github.com/gchq/stroom/settings/secrets/actions
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          # ssh private key (corresponding to the public key in github deploy keys
+          # for the stroom repo), manually added to secrets
+          # https://github.com/gchq/stroom/settings/secrets/actions
+          # https://github.com/gchq/stroom/settings/keys
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
         run: |
           pushd "${BUILD_DIR}" > /dev/null
           ./ci_build.sh
