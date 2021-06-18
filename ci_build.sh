@@ -77,11 +77,11 @@ main() {
   ./container_build/runInNodeDocker.sh "gitbook install; gitbook build"
 
   #For a markdown file to be included in the gitbook conversion to html/pdf it must be linked to in SUMMARY.md
-  missingFileCount=$(find "./${GITBOOK_DIR}/" -name "*.md" | wc -l)
+  missingFileCount=$(find "${GITBOOK_DIR}/" -name "*.md" | wc -l)
   if [ "${missingFileCount}" -gt 0 ]; then
     echo -e "${missingFileCount} markdown file(s) have not been converted, ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
     # shellcheck disable=SC2044
-    for file in $(find "./${GITBOOK_DIR}/" -name "*.md"); do
+    for file in $(find "${GITBOOK_DIR}/" -name "*.md"); do
         echo -e "  ${RED}${file}${NC}"
     done
     echo "Failing the build"
