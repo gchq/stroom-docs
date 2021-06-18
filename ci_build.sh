@@ -13,8 +13,8 @@ set -e
   NC='\033[0m' # No Colour 
 }
 
-PDF_FILENAME="${BUILD_TAG}.pdf"
-ZIP_FILENAME="${BUILD_TAG}.zip"
+PDF_FILENAME="${BUILD_TAG:-SNAPSHOT}.pdf"
+ZIP_FILENAME="${BUILD_TAG:-SNAPSHOT}.zip"
 RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
 RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
 RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
@@ -33,7 +33,7 @@ echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
 #sudo mv ebook-convert /usr/local/bin/
 
 echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC} tags in ${BLUE}VERSION.md${NC}"
-sed -i "s/@@VERSION@@/${BUILD_TAG}/g" VERSION.md
+sed -i "s/@@VERSION@@/${BUILD_TAG:-SNAPSHOT}/g" VERSION.md
 sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 
 #build the gitbook
@@ -71,8 +71,9 @@ popd
 
 find  "${RELEASE_ARTEFACTS_DIR}" -name "*.pdf"
 find  "${RELEASE_ARTEFACTS_DIR}" -name "*.zip"
+
 echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
-ls -l "${RELEASE_ARTEFACTS_DIR}"
+ls -l "${RELEASE_ARTEFACTS_DIR}/"
 
 #We release on every commit to master
 if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]]; then
@@ -96,7 +97,10 @@ if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]]; then
     -m "Automated build ${BUILD_NUMBER}"
 
   echo -e "Pushing tag ${GREEN}${BUILD_TAG}${NC}"
-  git push -q origin "${BUILD_TAG}"
+  git push \
+    -q \
+    origin \
+    "${BUILD_TAG}"
 else
   echo -e "${GREEN}Not a release so won't tag the repository${NC}"
 fi
