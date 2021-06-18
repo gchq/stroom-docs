@@ -55,6 +55,23 @@ debug() {
   fi
 }
 
+setup_ssh_agent() {
+  # See if there is already a socket for ssh-agent
+  if [[ -S "${SSH_AUTH_SOCK}" ]]; then
+    echo -e "${GREEN}ssh-agent already bound to ${BLUE}SSH_AUTH_SOCK${NC}"
+  else
+    # Start ssh-agent and add our private ssh deploy key to it
+    echo -e "${GREEN}Starting ssh-agent${NC}"
+    ssh-agent -a "${SSH_AUTH_SOCK}" > /dev/null
+  fi
+
+  # SSH_DEPLOY_KEY is the private ssh key that corresponds to the public key
+  # that is held in the 'deploy keys' section of the stroom repo on github
+  # https://github.com/gchq/stroom/settings/keys
+  echo -e "${GREEN}Adding ssh key${NC}"
+  ssh-add - <<< "${SSH_DEPLOY_KEY}"
+}
+
 main() {
   IS_DEBUG=false
 
@@ -77,20 +94,7 @@ main() {
   # At some point we will use versioned dirs, but not yet
   local gh_pages_versioned_dir="${gh_pages_clone_dir}"
 
-  # See if there is already a socket for ssh-agent
-  if [[ -S "${SSH_AUTH_SOCK}" ]]; then
-    echo -e "${GREEN}ssh-agent already bound to ${BLUE}SSH_AUTH_SOCK${NC}"
-  else
-    # Start ssh-agent and add our private ssh deploy key to it
-    echo -e "${GREEN}Starting ssh-agent${NC}"
-    ssh-agent -a "${SSH_AUTH_SOCK}" > /dev/null
-  fi
-
-  # SSH_DEPLOY_KEY is the private ssh key that corresponds to the public key
-  # that is held in the 'deploy keys' section of the stroom repo on github
-  # https://github.com/gchq/stroom/settings/keys
-  echo -e "${GREEN}Adding ssh key${NC}"
-  ssh-add - <<< "${SSH_DEPLOY_KEY}"
+  setup_ssh_agent
 
   # Clone the repo with just the gh-pages branch
   echo -e "${GREEN}Cloning branch ${BLUE}${gh_pages_branch}${GREEN} to" \
