@@ -121,9 +121,9 @@ main() {
     "${gh_pages_source_dir}/" \
     "${gh_pages_versioned_dir}/"
 
-  echo -e "${GREEN}Writing version ${BLUE}${BUILD_TAG}${GREEN} to" \
-    "${BLUE}${version_file}${NC}"
-  echo -e "${BUILD_TAG}" > "${version_file}"
+  #echo -e "${GREEN}Writing version ${BLUE}${BUILD_TAG}${GREEN} to" \
+    #"${BLUE}${version_file}${NC}"
+  #echo -e "${BUILD_TAG}" > "${version_file}"
 
   git config user.name "$GITHUB_ACTOR"
   git config user.email "${GITHUB_ACTOR}@bots.github.com"
