@@ -70,9 +70,12 @@ main() {
   # Dir where our new gh-pages content is to be found
   local gh_pages_source_dir="${GITHUB_WORKSPACE}/gh-pages"
   local minor_version
-  minor_version=$(echo "${BUILD_TAG}" | grep -oP "^v[0-9]+\.[0-9]+")
-  local gh_pages_versioned_dir="${gh_pages_clone_dir}/${minor_version}"
-  local version_file="${gh_pages_versioned_dir}/version.txt"
+  #minor_version=$(echo "${BUILD_TAG}" | grep -oP "^v[0-9]+\.[0-9]+")
+  #local gh_pages_versioned_dir="${gh_pages_clone_dir}/${minor_version}"
+  #local version_file="${gh_pages_versioned_dir}/version.txt"
+
+  # At some point we will use versioned dirs, but not yet
+  local gh_pages_versioned_dir="${gh_pages_clone_dir}"
 
   # Start ssh-agent and add our private ssh deploy key to it
   echo -e "${GREEN}Starting ssh-agent${NC}"
