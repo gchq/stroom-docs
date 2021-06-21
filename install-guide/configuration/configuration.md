@@ -63,7 +63,7 @@ In this example `jdbcDriverUrl` will be set to the value of environment variable
 The following example shows how setting `MY_ENV_VAR=123` means `myProperty` will ultimately get a value of `123` and not its default of `789`.
 
 ```
-env file (stroom<stack name>.emv) - MY_ENV_VAR=123
+env file (stroom<stack name>.env) - MY_ENV_VAR=123
               |
               | environment variable substitution
               v

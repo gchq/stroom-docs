@@ -113,7 +113,7 @@ configuration items.
 The configuration works as follows:
 
 ```
-env file (stroom<stack name>.emv)
+env file (stroom<stack name>.env)
               |
               | environment variable substitution
               v
