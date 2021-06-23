@@ -1,10 +1,14 @@
 > * Last Updated: 10 Mar 2021  
 
+
 # Upgrading From v6 to v7
 
-This document describes the process for upgrading a Stroom instance/cluster from v6.x to v7.x
+This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.
 
 *IMPORTANT* - Before comencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.
+
+This document has been written 
+
 
 ## Differences between v6 and v7
 
@@ -19,9 +23,29 @@ Stroom v7 has significant differences to v6 which make the upgrade process a lit
   As a result ALL v6 tables get renamed with the prefix `OLD_`, the new tables created and any content copied over.
   As the database will be holding two copies of most data you need to ensure you have space to accomodate it.
 
+
 ## Pre-Upgrade tasks
 
 The following steps are required to be performed before migrating from v6 to v7.
+
+
+### Download migration scripts
+
+Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts 
+e.g. https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts 
+
+These scripts will be used in the steps below.
+
+
+### Pre-migration database checks
+
+Run the pre-migration checks script.
+
+```bash
+docker exec -i stroom-all-dbs mysql --table -u"stroomuser" -p"stroompassword1" stroom < v7_db_pre_migration_checks.sql
+```
+
+This will produce a report of items that will not be migrated or need attention before migration.
 
 
 ### Stop processing
@@ -33,7 +57,7 @@ Before shutting stroom down it is wise to turn off stream processing and let all
 
 ### Stop the stack
 
-Stop the stack but start up the database.
+Stop the stack (stroom and the database) then start up the database.
 Do this using the v6 stack.
 This ensures that stroom is not trying to access the database.
 
@@ -102,8 +126,6 @@ unset MYSQL_TAG
 
 
 ### Rename legacy stroom-auth tables
-
-*TODO* - Where is the script released to?
 
 Run this command to connect to the `auth` database and run the pre-migration SQL script.
 
