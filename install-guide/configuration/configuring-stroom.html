@@ -2396,7 +2396,7 @@
                                 
                                 <h1 id="stroom-application-configuration">Stroom Application Configuration</h1>
 <blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br><strong>Last Updated:</strong> 2021-06-07<br><strong>See Also:</strong> <a href="../../user-guide/properties.html">Properties</a>.  </p>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br><strong>Last Updated:</strong> 2021-06-23<br><strong>See Also:</strong> <a href="../../user-guide/properties.html">Properties</a>.  </p>
 </blockquote>
 <h2 id="general-configuration">General configuration</h2>
 <p>The Stroom application is essentially just an executable <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29" target="_blank">JAR (external link)</a> file that can be run when provided with a configuration file, <code>config.yml</code>.
@@ -2429,7 +2429,9 @@ Typically stroom is configured to keep it statistics data in a separate database
           jdbcDriverUsername: &quot;statsuser&quot;
           jdbcDriverPassword: &quot;stroompassword1&quot;
 </code></pre>
-<p>In a clustered deployment each node should be given a node name that is unique within the cluster.</p>
+<p>In a clustered deployment each node must be given a node name that is unique within the cluster.
+This is used to identify nodes in the Nodes screen.
+It could be the hostname of the node or follow some other naming convetion.</p>
 <pre><code class="lang-yaml">  node:
     name: &quot;node1a&quot;
 </code></pre>
@@ -2463,29 +2465,34 @@ The heap size settings and any other java command line options can be set by cha
 <pre><code class="lang-sh">JAVA_OPTS=&quot;-Xms512m -Xmx2048m&quot;
 </code></pre>
 <h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
-<p>When stroom is run as part of one of our docker stacks, e.g. <em>stroom_core</em> there are some additional layers of configuration to take into account, but the configuration is still primarily done using the <code>config.yml</code> file.
-The stack ships with a default <code>config.yml</code> file baked into the docker image.
-This fallback file (located in <code>/stroom/config-fallback</code> inside the container) will be used in the absence of one provided in the docker stack configuration (<code>./volumes/stroom/config</code>).
-This fallback config file contains environment variable substitution so some configuration items will be set by environment variables set into the container by the stack env file and the docker-compose YAML.</p>
-<p>For basic configuration it is possible to configure stroom via the env file only.
-The env file contains the configuration items that need to be set for stroom to run or typically need to be changed in a production environment.
-It does not contain all possible configuration items.</p>
-<p>If you need to further customise the stroom configuration then it is recommended to create a <code>./volumes/stroom/config/config.yml</code> file.
+<p>When stroom is run as part of one of our docker stacks, e.g. <em>stroom_core</em> there are some additional layers of configuration to take into account, but the configuration is still primarily done using the <code>config.yml</code> file.</p>
+<p>Stroom&apos;s <code>config.yml</code> file is found in the stack in <code>./volumes/stroom/config/</code> and this is the primary means of configuring Stroom.</p>
+<p>The stack also ships with a default <code>config.yml</code> file baked into the docker image.
+This minimal fallback file (located in <code>/stroom/config-fallback/</code> inside the container) will be used in the absence of one provided in the docker stack configuration (<code>./volumes/stroom/config/</code>).</p>
+<p>The default <code>config.yml</code> file uses <a href="configuration.html#environment-variables">environment variable substitution</a> so some configuration items will be set by environment variables set into the container by the stack <em>env</em> file and the docker-compose YAML.
+This approach is useful for configuration values that need to be used by multiple containers, e.g. the public FQDN of Nginx, so it can be configured in one place.</p>
+<p>If you need to further customise the stroom configuration then it is recommended to edit the <code>./volumes/stroom/config/config.yml</code> file.
 This can either be a simple file with hard coded values or one that uses environment variables for some of its
 configuration items.</p>
 <p>The configuration works as follows:</p>
 <pre><code>env file (stroom&lt;stack name&gt;.env)
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 docker compose YAML (01_stroom.yml)
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 Stroom configuration file (config.yml)
 </code></pre><h3 id="ansible">Ansible</h3>
-<p>If you are deploying a stack with Ansible then to make life easier we have provided <code>./stroom_&lt;stack name&gt;-X.Y-Z/config/ansible/stroom_&lt;stack name&gt;.env.j2</code> which is a jinja2 templated version of the env file.
-This file is for use with stroom-ansible and means you can simply set variables in your inventory and this template will be used to create an env file.</p>
+<p>If you are using Ansible to deploy a stack then it is recommended that all of stroom&apos;s configuration properties are set directly in the <code>config.yml</code> file using a templated version of the file and to NOT use any environment variable substitution.
+When using Ansible, the Ansible inventory is the single source of truth for your configuration so not using environment variable substitution for stroom simplifies the configuration and makes it clearer when looking at deployed configuration files.</p>
+<p><a href="https://github.com/gchq/stroom-ansible" target="_blank">Stroom-ansible</a> has an example inventory for a single node stroom stack deployment.
+The <a href="https://github.com/gchq/stroom-ansible/blob/master/config/single_node_stroom_core_stack/example_inventory/group_vars/all" target="_blank">group_vars/all</a> file shows how values can be set into the <em>env</em> file.</p>
 
                                 
                                 </section>
@@ -2529,7 +2536,7 @@ This file is for use with stroom-ansible and means you can simply set variables 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Stroom","level":"2.4.1","depth":2,"next":{"title":"Stroom-proxy","level":"2.4.2","depth":2,"path":"install-guide/configuration/configuring-stroom-proxy.md","ref":"install-guide/configuration/configuring-stroom-proxy.md","articles":[]},"previous":{"title":"Configuration","level":"2.4","depth":1,"path":"install-guide/configuration/configuration.md","ref":"install-guide/configuration/configuration.md","articles":[{"title":"Stroom","level":"2.4.1","depth":2,"path":"install-guide/configuration/configuring-stroom.md","ref":"install-guide/configuration/configuring-stroom.md","articles":[]},{"title":"Stroom-proxy","level":"2.4.2","depth":2,"path":"install-guide/configuration/configuring-stroom-proxy.md","ref":"install-guide/configuration/configuring-stroom-proxy.md","articles":[]},{"title":"MySQL","level":"2.4.3","depth":2,"path":"install-guide/configuration/configuring-mysql.md","ref":"install-guide/configuration/configuring-mysql.md","articles":[]},{"title":"Nginx","level":"2.4.4","depth":2,"path":"install-guide/configuration/configuring-nginx.md","ref":"install-guide/configuration/configuring-nginx.md","articles":[]},{"title":"Stroom-log-sender","level":"2.4.5","depth":2,"path":"install-guide/configuration/configuring-stroom-log-sender.md","ref":"install-guide/configuration/configuring-stroom-log-sender.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/configuration/configuring-stroom.md","mtime":"2021-06-23T11:38:28.438Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-23T11:41:08.977Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Stroom","level":"2.4.1","depth":2,"next":{"title":"Stroom-proxy","level":"2.4.2","depth":2,"path":"install-guide/configuration/configuring-stroom-proxy.md","ref":"install-guide/configuration/configuring-stroom-proxy.md","articles":[]},"previous":{"title":"Configuration","level":"2.4","depth":1,"path":"install-guide/configuration/configuration.md","ref":"install-guide/configuration/configuration.md","articles":[{"title":"Stroom","level":"2.4.1","depth":2,"path":"install-guide/configuration/configuring-stroom.md","ref":"install-guide/configuration/configuring-stroom.md","articles":[]},{"title":"Stroom-proxy","level":"2.4.2","depth":2,"path":"install-guide/configuration/configuring-stroom-proxy.md","ref":"install-guide/configuration/configuring-stroom-proxy.md","articles":[]},{"title":"MySQL","level":"2.4.3","depth":2,"path":"install-guide/configuration/configuring-mysql.md","ref":"install-guide/configuration/configuring-mysql.md","articles":[]},{"title":"Nginx","level":"2.4.4","depth":2,"path":"install-guide/configuration/configuring-nginx.md","ref":"install-guide/configuration/configuring-nginx.md","articles":[]},{"title":"Stroom-log-sender","level":"2.4.5","depth":2,"path":"install-guide/configuration/configuring-stroom-log-sender.md","ref":"install-guide/configuration/configuring-stroom-log-sender.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/configuration/configuring-stroom.md","mtime":"2021-06-23T12:19:53.949Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-23T12:23:07.328Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

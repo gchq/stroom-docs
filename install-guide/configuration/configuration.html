@@ -2396,7 +2396,7 @@
                                 
                                 <h1 id="configuration">Configuration</h1>
 <blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br><strong>Last Updated:</strong> 2021-06-07</p>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br><strong>Last Updated:</strong> 2021-06-23</p>
 </blockquote>
 <p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
 This document will cover two types of deployment:</p>
@@ -2443,23 +2443,27 @@ For example, stroom&apos;s <code>config.yml</code> file also uses variable subst
 <p>In this example <code>jdbcDriverUrl</code> will be set to the value of environment variable <code>STROOM_JDBC_DRIVER_CLASS_NAME</code> or <code>com.mysql.cj.jdbc.Driver</code> if that is not set.</p>
 <p>The following example shows how setting <code>MY_ENV_VAR=123</code> means <code>myProperty</code> will ultimately get a value of <code>123</code> and not its default of <code>789</code>.</p>
 <pre><code>env file (stroom&lt;stack name&gt;.env) - MY_ENV_VAR=123
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 docker compose YAML (01_stroom.yml) - STROOM_ENV_VAR=${MY_ENV_VAR:-456}
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 Stroom configuration file (config.yml) - myProperty: &quot;${STROOM_ENV_VAR:-789}&quot;
 </code></pre><p>Note that environment variables are only set into the container on start.
 Any changes to the env file will not take effect until the container is (re)started.</p>
 <h3 id="configuration-files">Configuration files</h3>
 <p>The following shows the basic structure of a stack with respect to the location of the configuration files:</p>
-<pre><code>&#x251C;&#x2500;&#x2500; stroom_core_test-vX.Y.Z
-&#x2502;   &#x2514;&#x2500;&#x2500; config                [stack env file and docker compose YAML files]
-&#x2514;&#x2500;&#x2500; volumes
-    &#x2514;&#x2500;&#x2500; &lt;service&gt;
-        &#x2514;&#x2500;&#x2500; conf/config       [service specifc configuration files]
+<pre><code>&#x2500;&#x2500; stroom_core_test-vX.Y.Z
+   &#x251C;&#x2500;&#x2500; config                [stack env file and docker compose YAML files]
+   &#x2514;&#x2500;&#x2500; volumes
+       &#x2514;&#x2500;&#x2500; &lt;service&gt;
+           &#x2514;&#x2500;&#x2500; conf/config   [service specifc configuration files]
 </code></pre><p>Some aspects of configuration do not lend themselves to environment variable substitution, e.g. deeply nested parts of stroom&apos;s <code>config.yml</code>.
 In these instances it may be necessary to have static configuration files that have no connection to the env file or only use environment variables for some values.</p>
 <h3 id="bind-mounts">Bind mounts</h3>
@@ -2568,7 +2572,7 @@ server.unencrypted.key -&gt; /some/path/to/host123.key
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Configuration","level":"2.4","depth":1,"next":{"title":"Stroom","level":"2.4.1","depth":2,"path":"install-guide/configuration/configuring-stroom.md","ref":"install-guide/configuration/configuring-stroom.md","articles":[]},"previous":{"title":"Installing Stroom Proxy v7","level":"2.3","depth":1,"path":"install-guide/Stroom-7-Proxy-Installation.md","ref":"install-guide/Stroom-7-Proxy-Installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/configuration/configuration.md","mtime":"2021-06-23T11:38:28.438Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-23T11:41:08.977Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Configuration","level":"2.4","depth":1,"next":{"title":"Stroom","level":"2.4.1","depth":2,"path":"install-guide/configuration/configuring-stroom.md","ref":"install-guide/configuration/configuring-stroom.md","articles":[]},"previous":{"title":"Installing Stroom Proxy v7","level":"2.3","depth":1,"path":"install-guide/Stroom-7-Proxy-Installation.md","ref":"install-guide/Stroom-7-Proxy-Installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/configuration/configuration.md","mtime":"2021-06-23T12:19:53.949Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-23T12:23:07.328Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

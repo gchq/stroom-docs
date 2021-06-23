@@ -2396,7 +2396,7 @@
                                 
                                 <h1 id="stroom-proxy-application-configuration">Stroom Proxy Application Configuration</h1>
 <blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br><strong>Last Updated:</strong> 2021-06-07<br><strong>See Also:</strong> <a href="configuring-stroom.html">Stroom Application Configuration</a><br><strong>See Also:</strong> <a href="../../user-guide/properties.html">Properties</a>.<br><strong>TODO:</strong> This needs updating for v7.1  </p>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br><strong>Last Updated:</strong> 2021-06-23<br><strong>See Also:</strong> <a href="configuring-stroom.html">Stroom Application Configuration</a><br><strong>See Also:</strong> <a href="../../user-guide/properties.html">Properties</a>.<br><strong>TODO:</strong> This needs updating for v7.1  </p>
 </blockquote>
 <p>The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the <code>config.yml</code> file.
 Stroom-proxy has a <code>proxyConfig</code> key in the YAML while Stroom has <code>appConfig</code>.
@@ -2433,28 +2433,86 @@ These functions are enabled/disabled using:</p>
 This is done by configuring the end point of a downstream stroom-proxy or stroom.</p>
 <pre><code class="lang-yaml">  feedStatus:
     url: &quot;http://stroom:8080/api/feedStatus/v1&quot;
-    apiKey: &quot;http://stroom:8080/api/feedStatus/v1&quot;
+    apiKey: &quot;&quot;
 </code></pre>
+<p>The <code>url</code> should be the url for the feed status API on the downstream stroom(-proxy).
+If this is on the same host then you can use the http endpoint, however if it is on a remote host then you should use https and the host of its nginx, e.g. <code>https://downstream-instance/api/feedStatus/v1</code>.</p>
+<p>In order to use the API, the proxy must have a configured <code>apiKey</code>.
+The API key must be created in the downstream stroom instance and then copied into this configuration.</p>
 <p>If the proxy is configured to forward data then the forward destination(s) should be set.
 This is the <code>datafeed</code> endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
-This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.</p>
+This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
+See also <a href="#feed-status-certificate-configuration">Feed status certificate configuration</a>.</p>
 <pre><code class="lang-yaml">  forwardStreamConfig:
     forwardDestinations:
       - forwardUrl: &quot;https://nginx/stroom/datafeed&quot;
 </code></pre>
+<p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
+Each forward location can use a different key/trust store pair.
+See also <a href="#forwarding-certificate-configuration">Forwarding certificate configuration</a>.</p>
 <p>If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.</p>
 <h2 id="deploying-without-docker">Deploying without Docker</h2>
 <p>Apart from the structure of the <code>config.yml</code> file, the configuration in a non-docker environment is the same as for <a href="configuring-stroom-proxy.html#deploying-without-docker">stroom</a></p>
 <h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
 <p>The way stroom-proxy is configured is essentially the same as for <a href="configuring-stroom-proxy.html#as-part-of-a-docker-stack">stroom</a> with the only real difference being the structure of the <code>config.yml</code> file as note <a href="#configyml">above</a> .
-As with stroom the docker image comes with a baked in fallback <code>config.yml</code> file that will be used in the absence of a provided one.
+As with stroom the docker stack comes with a <code>./volumes/stroom-proxy-*/config/config.yml</code> file that will be used in the absence of a provided one.
 Also as with stroom, the <code>config.yml</code> file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files. </p>
 <h3 id="certificates">Certificates</h3>
-<p>Stroom-proxy uses a client certificate in order to communicate with a downstream stroom/stroom-proxy in order to establish the status of feeds.
-The stack comes with the following files that can be used for demo/test purposes.</p>
+<p>Stroom-proxy makes use of client certificates for two purposes:</p>
+<ul>
+<li>Communicating with a downstream stroom/stroom-proxy in order to establish the receipt status for the feeds it has received data for.</li>
+<li>When forwarding data to a downstream stroom/stroom-proxy</li>
+</ul>
+<p>The stack comes with the following files that can be used for demo/test purposes.</p>
 <pre><code>volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
-</code></pre><p>For a production deployment these will need to be changed, see <a href="../configuration.md#configuration">Certificates</a></p>
+</code></pre><p>For a production deployment these will need to be changed, see <a href="../configuration.md#certificates">Certificates</a></p>
+<h4 id="feed-status-certificate-configuration">Feed status certificate configuration</h4>
+<p>The configuration of the client certificates for feed status checks is done using: </p>
+<pre><code class="lang-yaml">proxyConfig:
+
+  jerseyClient:
+    timeout: &quot;10s&quot;
+    connectionTimeout: &quot;10s&quot;
+    timeToLive: &quot;1h&quot;
+    cookiesEnabled: false
+    maxConnections: 1024
+    maxConnectionsPerRoute: &quot;1024&quot;
+    keepAlive: &quot;0ms&quot;
+    retries: 0
+    tls:
+      verifyHostname: true
+      keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+      keyStorePassword: &quot;password&quot;
+      keyStoreType: &quot;JKS&quot;
+      trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+      trustStorePassword: &quot;password&quot;
+      trustStoreType: &quot;JKS&quot;
+      trustSelfSignedCertificates: false
+</code></pre>
+<p>This configuration is also used for making any other REST API calls.</p>
+<h4 id="forwarding-certificate-configuration">Forwarding certificate configuration</h4>
+<p>Stroom-proxy can forward to multiple locations.
+The configuration of the certificate(s) for the forwarding locations is as follows:</p>
+<pre><code class="lang-yaml">proxyConfig:
+
+  forwardStreamConfig:
+    forwardingEnabled: true
+    forwardDestinations:
+      # If you want multiple forward destinations then you will need to edit this file directly
+      # instead of using env var substitution
+      - forwardUrl: &quot;https://nginx/stroom/datafeed&quot;
+        sslConfig:
+          keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+          keyStorePassword: &quot;password&quot;
+          keyStoreType: &quot;JKS&quot;
+          trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+          trustStorePassword: &quot;password&quot;
+          trustStoreType: &quot;JKS&quot;
+          hostnameVerificationEnabled: true
+</code></pre>
+<p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
+Each forward location can use a different key/trust store pair.</p>
 
                                 
                                 </section>
@@ -2498,7 +2556,7 @@ volumes/stroom-proxy-*/certs/client.jks
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Stroom-proxy","level":"2.4.2","depth":2,"next":{"title":"MySQL","level":"2.4.3","depth":2,"path":"install-guide/configuration/configuring-mysql.md","ref":"install-guide/configuration/configuring-mysql.md","articles":[]},"previous":{"title":"Stroom","level":"2.4.1","depth":2,"path":"install-guide/configuration/configuring-stroom.md","ref":"install-guide/configuration/configuring-stroom.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/configuration/configuring-stroom-proxy.md","mtime":"2021-06-23T11:38:28.438Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-23T11:41:08.977Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Stroom-proxy","level":"2.4.2","depth":2,"next":{"title":"MySQL","level":"2.4.3","depth":2,"path":"install-guide/configuration/configuring-mysql.md","ref":"install-guide/configuration/configuring-mysql.md","articles":[]},"previous":{"title":"Stroom","level":"2.4.1","depth":2,"path":"install-guide/configuration/configuring-stroom.md","ref":"install-guide/configuration/configuring-stroom.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/configuration/configuring-stroom-proxy.md","mtime":"2021-06-23T12:19:53.949Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-23T12:23:07.328Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
