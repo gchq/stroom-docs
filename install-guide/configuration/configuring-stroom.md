@@ -1,7 +1,7 @@
 # Stroom Application Configuration
 
 > **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-07  
+> **Last Updated:** 2021-06-23  
 > **See Also:** [Properties](../../user-guide/properties.md).  
 
 ## General configuration
@@ -47,7 +47,9 @@ Typically stroom is configured to keep it statistics data in a separate database
           jdbcDriverPassword: "stroompassword1"
 ```
 
-In a clustered deployment each node should be given a node name that is unique within the cluster.
+In a clustered deployment each node must be given a node name that is unique within the cluster.
+This is used to identify nodes in the Nodes screen.
+It could be the hostname of the node or follow some other naming convetion.
 
 ```yaml
   node:
@@ -98,15 +100,16 @@ JAVA_OPTS="-Xms512m -Xmx2048m"
 ## As part of a docker stack
 
 When stroom is run as part of one of our docker stacks, e.g. _stroom_core_ there are some additional layers of configuration to take into account, but the configuration is still primarily done using the `config.yml` file.
-The stack ships with a default `config.yml` file baked into the docker image.
-This fallback file (located in `/stroom/config-fallback` inside the container) will be used in the absence of one provided in the docker stack configuration (`./volumes/stroom/config`).
-This fallback config file contains environment variable substitution so some configuration items will be set by environment variables set into the container by the stack env file and the docker-compose YAML.
 
-For basic configuration it is possible to configure stroom via the env file only.
-The env file contains the configuration items that need to be set for stroom to run or typically need to be changed in a production environment.
-It does not contain all possible configuration items.
+Stroom's `config.yml` file is found in the stack in `./volumes/stroom/config/` and this is the primary means of configuring Stroom.
 
-If you need to further customise the stroom configuration then it is recommended to create a `./volumes/stroom/config/config.yml` file.
+The stack also ships with a default `config.yml` file baked into the docker image.
+This minimal fallback file (located in `/stroom/config-fallback/` inside the container) will be used in the absence of one provided in the docker stack configuration (`./volumes/stroom/config/`).
+
+The default `config.yml` file uses [environment variable substitution](./configuration.md#environment-variables) so some configuration items will be set by environment variables set into the container by the stack _env_ file and the docker-compose YAML.
+This approach is useful for configuration values that need to be used by multiple containers, e.g. the public FQDN of Nginx, so it can be configured in one place.
+
+If you need to further customise the stroom configuration then it is recommended to edit the `./volumes/stroom/config/config.yml` file.
 This can either be a simple file with hard coded values or one that uses environment variables for some of its
 configuration items.
 
@@ -114,18 +117,26 @@ The configuration works as follows:
 
 ```
 env file (stroom<stack name>.env)
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 docker compose YAML (01_stroom.yml)
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 Stroom configuration file (config.yml)
 ```
 
+
 ### Ansible
 
-If you are deploying a stack with Ansible then to make life easier we have provided `./stroom_<stack name>-X.Y-Z/config/ansible/stroom_<stack name>.env.j2` which is a jinja2 templated version of the env file.
-This file is for use with stroom-ansible and means you can simply set variables in your inventory and this template will be used to create an env file.
+If you are using Ansible to deploy a stack then it is recommended that all of stroom's configuration properties are set directly in the `config.yml` file using a templated version of the file and to NOT use any environment variable substitution.
+When using Ansible, the Ansible inventory is the single source of truth for your configuration so not using environment variable substitution for stroom simplifies the configuration and makes it clearer when looking at deployed configuration files.
+
+[Stroom-ansible](https://github.com/gchq/stroom-ansible) has an example inventory for a single node stroom stack deployment.
+The [group_vars/all](https://github.com/gchq/stroom-ansible/blob/master/config/single_node_stroom_core_stack/example_inventory/group_vars/all) file shows how values can be set into the _env_ file.
 

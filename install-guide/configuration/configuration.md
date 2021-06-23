@@ -1,7 +1,7 @@
 # Configuration
 
 > **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-07
+> **Last Updated:** 2021-06-23
 
 Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
 This document will cover two types of deployment:
@@ -28,6 +28,7 @@ The following sections provide links to how to configure each application.
 
 
 ## General configuration of docker stacks
+
 
 ### Environment variables
 
@@ -64,13 +65,17 @@ The following example shows how setting `MY_ENV_VAR=123` means `myProperty` will
 
 ```
 env file (stroom<stack name>.env) - MY_ENV_VAR=123
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 docker compose YAML (01_stroom.yml) - STROOM_ENV_VAR=${MY_ENV_VAR:-456}
-              |
-              | environment variable substitution
-              v
+                |
+                |
+                | environment variable substitution
+                |
+                v
 Stroom configuration file (config.yml) - myProperty: "${STROOM_ENV_VAR:-789}"
 ```
 
@@ -83,11 +88,11 @@ Any changes to the env file will not take effect until the container is (re)star
 The following shows the basic structure of a stack with respect to the location of the configuration files:
 
 ```
-├── stroom_core_test-vX.Y.Z
-│   └── config                [stack env file and docker compose YAML files]
-└── volumes
-    └── <service>
-        └── conf/config       [service specifc configuration files]
+── stroom_core_test-vX.Y.Z
+   ├── config                [stack env file and docker compose YAML files]
+   └── volumes
+       └── <service>
+           └── conf/config   [service specifc configuration files]
 ```
 
 Some aspects of configuration do not lend themselves to environment variable substitution, e.g. deeply nested parts of stroom's `config.yml`.
@@ -109,6 +114,7 @@ If for instance the `stroom-all-dbs.cnf` file is renamed to `stroom-all-dbs.cnf.
 When stroom is running various forms of data are persisted, e.g. stroom's stream store, stroom-all-dbs database files, etc.
 All this data is stored in docker managed volumes.
 By default these will be located in `/var/lib/docker/volumes/<volume name>/_data` and root/sudo access will be needed to access these directories.
+
 
 #### Docker data root
 

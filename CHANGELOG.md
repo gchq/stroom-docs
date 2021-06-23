@@ -6,6 +6,10 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Improve `configuring-stroom.md` and `configuring-stroom-proxy.md`.
+
+* Add links to migration scripts in `6_to_7_upgrade.md`.
+
 * Fix typos.
 
 * Add `configuration.md` for v7 configuration guide.
