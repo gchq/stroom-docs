@@ -2422,7 +2422,7 @@ As the database will be holding two copies of most data you need to ensure you h
 e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts" target="_blank">https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts</a> </p>
 <p>These scripts will be used in the steps below.</p>
 <h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
-<p>Run the pre-migration checks script.</p>
+<p>Run the pre-migration checks script on the running database.</p>
 <pre><code class="lang-bash">docker exec -i stroom-all-dbs mysql --table -u&quot;stroomuser&quot; -p&quot;stroompassword1&quot; stroom &lt; v7_db_pre_migration_checks.sql
 </code></pre>
 <p>This will produce a report of items that will not be migrated or need attention before migration.</p>
@@ -2482,10 +2482,11 @@ unset MYSQL_TAG
 <p>This will rename all but one of the tables in the <code>auth</code> database.</p>
 <h3 id="copy-the-auth-database-content-to-stroom">Copy the <code>auth</code> database content to <code>stroom</code></h3>
 <p>Having run the table rename perform another backup of just the <code>auth</code> database.</p>
+<pre><code class="lang-bash">./backup_databases.sh . auth
+</code></pre>
 <p>Now restore this backup into the <code>stroom</code> database.
 You can use the v7 stack scripts to do this.</p>
-<pre><code class="lang-bash">.backup_databases.sh
-./restore_database.sh stroom auth_20210312143513.sql.gz
+<pre><code class="lang-bash">./restore_database.sh stroom auth_20210312143513.sql.gz
 </code></pre>
 <p>You should now see the following tables in the <code>stroom</code> database:</p>
 <pre><code>OLD_AUTH_json_web_key
@@ -2554,7 +2555,7 @@ Running migrate ensures all parts of the migration are completed when the comman
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"v6 to v7 Upgrade","level":"2.6.1","depth":2,"next":{"title":"Stroom 6 installation guide (DRAFT)","level":"2.7","depth":1,"path":"install-guide/stroom-6-installation.md","ref":"install-guide/stroom-6-installation.md","articles":[]},"previous":{"title":"Upgrading and patching","level":"2.6","depth":1,"path":"install-guide/upgrade-patch.md","ref":"install-guide/upgrade-patch.md","articles":[{"title":"v6 to v7 Upgrade","level":"2.6.1","depth":2,"path":"install-guide/upgrades/6_to_7_upgrade.md","ref":"install-guide/upgrades/6_to_7_upgrade.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/upgrades/6_to_7_upgrade.md","mtime":"2021-06-23T12:20:24.130Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-23T12:23:56.445Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"v6 to v7 Upgrade","level":"2.6.1","depth":2,"next":{"title":"Stroom 6 installation guide (DRAFT)","level":"2.7","depth":1,"path":"install-guide/stroom-6-installation.md","ref":"install-guide/stroom-6-installation.md","articles":[]},"previous":{"title":"Upgrading and patching","level":"2.6","depth":1,"path":"install-guide/upgrade-patch.md","ref":"install-guide/upgrade-patch.md","articles":[{"title":"v6 to v7 Upgrade","level":"2.6.1","depth":2,"path":"install-guide/upgrades/6_to_7_upgrade.md","ref":"install-guide/upgrades/6_to_7_upgrade.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"install-guide/upgrades/6_to_7_upgrade.md","mtime":"2021-06-24T08:25:53.645Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-24T08:29:12.203Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
