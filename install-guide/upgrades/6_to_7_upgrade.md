@@ -39,7 +39,7 @@ These scripts will be used in the steps below.
 
 ### Pre-migration database checks
 
-Run the pre-migration checks script.
+Run the pre-migration checks script on the running database.
 
 ```bash
 docker exec -i stroom-all-dbs mysql --table -u"stroomuser" -p"stroompassword1" stroom < v7_db_pre_migration_checks.sql
@@ -140,11 +140,14 @@ This will rename all but one of the tables in the `auth` database.
 
 Having run the table rename perform another backup of just the `auth` database.
 
+```bash
+./backup_databases.sh . auth
+```
+
 Now restore this backup into the `stroom` database.
 You can use the v7 stack scripts to do this.
 
 ```bash
-.backup_databases.sh
 ./restore_database.sh stroom auth_20210312143513.sql.gz
 ```
 
@@ -189,7 +192,6 @@ Running migrate ensures all parts of the migration are completed when the comman
 ```bash
 ./migrate.sh
 ```
-
 
 
 ## Post-Upgrade tasks
