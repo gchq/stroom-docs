@@ -155,6 +155,7 @@ You should now see the following tables in the `stroom` database:
 
 ```
 OLD_AUTH_json_web_key
+OLD_AUTH_schema_version
 OLD_AUTH_token_types
 OLD_AUTH_tokens
 OLD_AUTH_users
