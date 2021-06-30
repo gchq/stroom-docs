@@ -75,5 +75,5 @@ volumes/stroom-log-sender/certs/client.pem.crt
 volumes/stroom-log-sender/certs/client.unencrypted.key
 ```
 
-For a production deployment these will need to be changed, see [Certificates](../configuration.md#configuration)
+For a production deployment these will need to be changed, see [Certificates](./configuration.md#certificates)
 

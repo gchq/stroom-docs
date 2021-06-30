@@ -109,7 +109,7 @@ volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 ```
 
-For a production deployment these will need to be changed, see [Certificates](../configuration.md#certificates)
+For a production deployment these will need to be changed, see [Certificates](./configuration.md#certificates)
 
 
 #### Feed status certificate configuration

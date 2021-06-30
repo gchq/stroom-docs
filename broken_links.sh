@@ -60,6 +60,12 @@ setup_debuging() {
 
 # Requires setup_debuging to be run once
 debug_value() {
+  if [ ${#} -ne 2 ]; then
+    echo -e "${RED}Error${NC}: Invalid arguments${NC}"
+    echo -e "Usage: $0 debug_name debug_value"
+    exit 1
+  fi
+  
   local debug_name="$1"; shift
   local debug_value="$1"; shift
   
@@ -77,13 +83,14 @@ debug() {
 
 check_anchor_in_file() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local link_path="$1"; shift
   local link_anchor="$1"; shift
 
   if [[ ! "${link_anchor}" =~ ^[a-z0-9-]+$ ]]; then
     echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
-      "should be lower-kebab-case${NC}"
+      "should be lower-kebab-case at line ${BLUE}${line_no}${NC}"
     problem_count=$((problem_count + 1))
   else
     local effective_link_path
@@ -109,7 +116,8 @@ check_anchor_in_file() {
       debug "Found anchor ${link_anchor}"
     else
       echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
-        "has no corresponding header in ${BLUE}${effective_link_path}${NC}"
+        "at line ${BLUE}${line_no}${NC} has no corresponding header in" \
+        "${BLUE}${effective_link_path}${NC}"
       problem_count=$((problem_count + 1))
     fi
   fi
@@ -167,13 +175,14 @@ make_path_relative_to_root() {
 
 verify_file_exists() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local link_path="$1"; shift
 
   if [[ "${link_path}" =~ ^/ ]]; then
     problem_count=$((problem_count + 1))
     echo -e "${indent}${RED}ERROR${NC}: Found link with absolute path in file" \
-      "${BLUE}${source_file}${NC}" \
+      "${BLUE}${source_file}:${line_no}${NC}" \
       "with name ${BLUE}${link_name}${NC} and link path" \
       "${BLUE}${link_path}${NC}"
   else
@@ -192,6 +201,7 @@ verify_file_exists() {
     if [[ ! -f "${effective_link_path}" ]]; then
       log_broken_link \
         "${file}" \
+        "${line_no}" \
         "${link_name}" \
         "${link_path}" \
         "${effective_link_path}"
@@ -202,13 +212,15 @@ verify_file_exists() {
 
 log_broken_link() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local rel_link_path="$1"; shift
   local effective_link_path="$1"; shift
 
   problem_count=$((problem_count + 1))
-  echo -e "${indent}${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
-    "with name ${BLUE}${link_name}${NC}, link path " \
+  echo -e "${indent}${RED}Error${NC}: Found broken link in file" \
+    "${BLUE}${source_file}:${line_no}${NC}" \
+    "with name ${BLUE}${link_name}${NC}, link path" \
     "${BLUE}${rel_link_path}${NC} and effective link path" \
     "${BLUE}${effective_link_path}${NC}"
 }
@@ -220,12 +232,13 @@ log_broken_http_link() {
 
   problem_count=$((problem_count + 1))
   echo -e "${indent}${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
-    "with name ${BLUE}${link_name}${NC} and link URL " \
+    "with name ${BLUE}${link_name}${NC} and link URL" \
     "${BLUE}${url}${NC}"
 }
 
 verify_link() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local link_location="$1"; shift
   
@@ -256,6 +269,7 @@ verify_link() {
 
     check_anchor_in_file \
       "${file}" \
+      "${line_no}" \
       "${link_name}" \
       "${link_path}" \
       "${link_anchor}"
@@ -269,11 +283,12 @@ verify_link() {
       #echo -e "${indent}${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         #"path [${BLUE}${link_path}${GREEN}] and" \
         #"anchor [${BLUE}${link_anchor}${GREEN}]${NC}"
-      if verify_file_exists "${file}" "${link_name}" "${link_path}"; then
+      if verify_file_exists "${file}" "${line_no}" "${link_name}" "${link_path}"; then
 
         # Can't check anchor if the link file doesn't exist
         check_anchor_in_file \
           "${file}" \
+          "${line_no}" \
           "${link_name}" \
           "${link_path}" \
           "${link_anchor}"
@@ -284,13 +299,14 @@ verify_link() {
       #echo -e "${indent}${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         #"path [${BLUE}${link_path}${GREEN}]${NC}"
 
-      verify_file_exists "${file}" "${link_name}" "${link_path}" \
+      verify_file_exists "${file}" "${line_no}" "${link_name}" "${link_path}" \
         || true
     fi
   fi
 }
 
 parse_link() {
+  local line_no="$1"; shift
   local link="$1"; shift
   
   local link_name
@@ -310,8 +326,9 @@ parse_link() {
   debug_value "link" "${link}"
   debug_value "link_name" "${link_name}"
   debug_value "link_location" "${link_location}"
+  debug_value "line_no" "${line_no}"
 
-  verify_link "${file}" "${link_name}" "${link_location}"
+  verify_link "${file}" "${line_no}" "${link_name}" "${link_location}"
 }
 
 check_links_in_file() {
@@ -335,12 +352,23 @@ check_links_in_file() {
   # Also ignore ones like [...](?...) as these appear in link.md fence
   # blocks.  Bit of a hack, but ignoring text inside fences would be
   # a bit of an adventure in bash.
-  while read -r link; do
-    if [[ -n "${link}" ]]; then
-      parse_link "${link}"
+  while read -r grep_line; do
+    debug_value "grep_line" "${grep_line}"
+
+    if [[ -n "${grep_line}" ]]; then
+      # grep line looks like:
+      # 6:[Properties](../../user-guide/properties.md)
+      # So parse out the line no and link
+      local line_no="${grep_line%%:*}"
+      local link="${grep_line#*:}"
+      debug_value "line_no" "${line_no}"
+      debug_value "link" "${link}"
+
+      parse_link "${line_no}" "${link}"
       link_count=$((link_count + 1))
     fi
   done < <(grep \
+      --line-number \
       --perl-regexp \
       --only-matching \
       "\[[^\]]*?\]\([^?)][^)]*?\)" \
@@ -467,8 +495,8 @@ is_anchor_in_file() {
 main() {
   if [[ $# -gt 0 ]]; then
     local named_file="${1}"; shift
-
   fi
+
   IS_DEBUG="${IS_DEBUG:-false}"
   #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
