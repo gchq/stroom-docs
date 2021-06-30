@@ -18,6 +18,8 @@ file_blacklist=(
   ./VERSION.md
 )
 
+indent="    "
+
 setup_echo_colours() {
   # Exit the script on any error
   set -e
@@ -80,7 +82,7 @@ check_anchor_in_file() {
   local link_anchor="$1"; shift
 
   if [[ ! "${link_anchor}" =~ ^[a-z0-9-]+$ ]]; then
-    echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
+    echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
       "should be lower-kebab-case${NC}"
     problem_count=$((problem_count + 1))
   else
@@ -106,7 +108,7 @@ check_anchor_in_file() {
       #file#anchor compound key is in the map so the anchor is valid
       debug "Found anchor ${link_anchor}"
     else
-      echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
+      echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
         "has no corresponding header in ${BLUE}${effective_link_path}${NC}"
       problem_count=$((problem_count + 1))
     fi
@@ -121,10 +123,13 @@ verify_http_link() {
   # 'http://domain.com/path "title"' => 'http://domain.com/path'  
   local link_url="${link_location%% \"*}"
 
+  echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
+
   local response_code
   response_code="$( \
     curl \
       --silent \
+      --head \
       --location \
       --output /dev/null \
       --write-out "%{http_code}" \
@@ -167,7 +172,7 @@ verify_file_exists() {
 
   if [[ "${link_path}" =~ ^/ ]]; then
     problem_count=$((problem_count + 1))
-    echo -e "  ${RED}ERROR${NC}: Found link with absolute path in file" \
+    echo -e "${indent}${RED}ERROR${NC}: Found link with absolute path in file" \
       "${BLUE}${source_file}${NC}" \
       "with name ${BLUE}${link_name}${NC} and link path" \
       "${BLUE}${link_path}${NC}"
@@ -202,7 +207,7 @@ log_broken_link() {
   local effective_link_path="$1"; shift
 
   problem_count=$((problem_count + 1))
-  echo -e "  ${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
+  echo -e "${indent}${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
     "with name ${BLUE}${link_name}${NC}, link path " \
     "${BLUE}${rel_link_path}${NC} and effective link path" \
     "${BLUE}${effective_link_path}${NC}"
@@ -214,7 +219,7 @@ log_broken_http_link() {
   local url="$1"; shift
 
   problem_count=$((problem_count + 1))
-  echo -e "  ${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
+  echo -e "${indent}${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
     "with name ${BLUE}${link_name}${NC} and link URL " \
     "${BLUE}${url}${NC}"
 }
@@ -228,16 +233,16 @@ verify_link() {
   local link_path
   if [[ "${link_location}" =~ ^http ]]; then
     if [[  "${link_location}" == *"www.plantuml.com/plantuml/proxy"* ]]; then
-      echo -e "  ${YELLOW}Unable to check plantuml link [${BLUE}${link_name}${YELLOW}]" \
+      echo -e "${indent}${YELLOW}Unable to check plantuml link [${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
     elif [[  "${link_location}" =~ (localhost|127.0.0.1) ]]; then
-      echo -e "  ${YELLOW}Unable to check localhost link [${BLUE}${link_name}${YELLOW}]" \
+      echo -e "${indent}${YELLOW}Unable to check localhost link [${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
     else
       # HTTP link
       # We can't verify the plant uml links as the file in the link may not exist
       # on github yet
-      #echo -e "  ${GREEN}Checking http link [${BLUE}${link_name}${GREEN}]" \
+      #echo -e "${indent}${GREEN}Checking http link [${BLUE}${link_name}${GREEN}]" \
         #"with url [${BLUE}${link_location}${GREEN}]${NC}"
       verify_http_link "${file}" "${link_name}" "${link_location}"
     fi
@@ -245,7 +250,7 @@ verify_link() {
     # local anchor link
     link_anchor="${link_location#*#}"
     link_path=""
-    #echo -e "  ${GREEN}${GREEN}Checking local anchor link" \
+    #echo -e "${indent}${GREEN}${GREEN}Checking local anchor link" \
       #"[${BLUE}${link_name}${GREEN}] with anchor" \
       #"[${BLUE}${link_anchor}${GREEN}]${NC}"
 
@@ -261,7 +266,7 @@ verify_link() {
       link_anchor="${link_location#*#}"
       # Get everything before first #
       link_path="${link_location%%#*}"
-      #echo -e "  ${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
+      #echo -e "${indent}${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         #"path [${BLUE}${link_path}${GREEN}] and" \
         #"anchor [${BLUE}${link_anchor}${GREEN}]${NC}"
       if verify_file_exists "${file}" "${link_name}" "${link_path}"; then
@@ -276,7 +281,7 @@ verify_link() {
     else
       # path without anchor
       link_path="${link_location}"
-      #echo -e "  ${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
+      #echo -e "${indent}${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         #"path [${BLUE}${link_path}${GREEN}]${NC}"
 
       verify_file_exists "${file}" "${link_name}" "${link_path}" \
@@ -377,7 +382,7 @@ find_headings() {
       debug_value "heading_as_anchor" "${heading_as_anchor}"
 
       if [[ ${single_file_anchors_map[$heading_as_anchor]+_} ]]; then
-        echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${heading_as_anchor}${NC}" \
+        echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${heading_as_anchor}${NC}" \
           "already exists in file ${BLUE}${file}${NC}"
         problem_count=$((problem_count + 1))
       fi
@@ -406,7 +411,7 @@ find_anchors() {
   while read -r anchor_name; do
     if [[ -n "${anchor_name}" ]]; then
       if [[ ${single_file_anchors_map[$anchor_name]+_} ]]; then
-        echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${anchor_name}${NC}" \
+        echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${anchor_name}${NC}" \
           "already exists in file ${BLUE}${file}${NC}"
         problem_count=$((problem_count + 1))
       fi
@@ -491,7 +496,9 @@ main() {
   echo -e "${GREEN}Scanning all .md files to find headings${NC}"
   # Loop over all files and build a map of all file heading combos
   for file in ./**/*.md; do
-    if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+    # shellcheck disable=SC1001
+    if [[ ! "${file}" =~ \/node_modules\/ ]] \
+      && [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
       debug_value "file" "${file}"
       # An associative array to hold all anchors for this file
       # so we can check for dups
@@ -499,26 +506,31 @@ main() {
       find_headings "${file}"
       find_anchors "${file}"
       file_count=$((file_count + 1))
+    else
+      debug "Skipping file ${file}"
     fi
   done
 
   if [[ -n "${named_file}" ]]; then
     if [[ ! -f "${named_file}" ]]; then
-      echo -e "  ${RED}ERROR${NC}: File ${BLUE}${named_file}${NC}" \
+      echo -e "${indent}${RED}ERROR${NC}: File ${BLUE}${named_file}${NC}" \
         "doesn't exist${NC}"
       exit 1
     fi
     if [[ ! ${file_blacklist_map["${named_file}"]+_} ]]; then
       check_links_in_file "${named_file}"
     else
-      echo -e "  ${YELLOW}Ignoring blacklisted file" \
+      echo -e "${indent}${YELLOW}Ignoring blacklisted file" \
         "[${BLUE}${named_file}${YELLOW}]${NC}"
     fi
   else
     # Now loop over all files again and verify the links in the files
     echo -e "${GREEN}Scanning all .md files to check links${NC}"
     for file in ./**/*.md; do
-      if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+      # shellcheck disable=SC1001
+      if [[ ! "${file}" =~ \/node_modules\/ ]] \
+        && [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+
         check_links_in_file "${file}"
       fi
     done
@@ -529,7 +541,7 @@ main() {
   echo -e "${GREEN}Heading count: ${BLUE}${#file_and_anchor_map[@]}${NC}"
 
   if [[ "${problem_count}" -gt 0 ]]; then
-    echo -e "  ${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
+    echo -e "${indent}${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
       "problems with links and anchors${NC}"
     exit 1
   else
