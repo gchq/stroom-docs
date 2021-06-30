@@ -95,6 +95,7 @@ main() {
 
       if [[ "${is_success}" = "false" ]]; then
         failed_count=$(( failed_count + 1 ))
+        # When it errors it seems to still create an svg so delete it if there
         rm -f "${generated_svg_file}"
       else 
         # Now rename the file so we can distinguish puml generated svgs from
