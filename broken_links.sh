@@ -542,7 +542,7 @@ main() {
 
   if [[ "${problem_count}" -gt 0 ]]; then
     echo -e "${indent}${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
-      "problems with links and anchors${NC}"
+      "problems with links and anchors. See output above.${NC}"
     exit 1
   else
     echo -e "${GREEN}All checks completed with no problems found${NC}"

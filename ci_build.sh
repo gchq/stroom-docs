@@ -73,7 +73,7 @@ main() {
   sed -i "s/@@VERSION@@/${BUILD_TAG:-SNAPSHOT}/g" VERSION.md
   sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 
-  # Check all the .md files for broken links
+  echo -e "${GREEN}Checking all .md files for broken links${NC}"
   ./broken_links.sh
 
   # build the gitbook
