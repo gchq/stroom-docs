@@ -64,6 +64,8 @@ main() {
     exit 1
   fi
 
+  local failed_count=0
+
   for puml_file in "${dir}"/**/*.puml; do
     # shellcheck disable=SC1001
     if [[ ! "${puml_file}" =~ \/_book\/ ]]; then
@@ -81,23 +83,33 @@ main() {
       local renamed_svg_file="${puml_file_dir}/${renamed_svg_filename}"
 
       echo -e "${GREEN}Converting file ${BLUE}${puml_file}${GREEN}" \
-        "to ${BLUE}${renamed_svg_file}${NC}"
+        "to ${BLUE}${renamed_svg_filename}${NC}"
 
+      local is_success=true
       # convert the .puml to .svg with same name
       java \
-        -jar /builder/plantuml.jar \
-        "${puml_file}" \
-        -svg
+          -jar /builder/plantuml.jar \
+          "${puml_file}" \
+          -svg \
+        || is_success=false
 
-      # Now rename the file so we can distinguish puml generated svgs from
-      # other svgs in the gitignore
-      mv "${generated_svg_file}" "${renamed_svg_file}"
-
+      if [[ "${is_success}" = "false" ]]; then
+        failed_count=$(( failed_count + 1 ))
+        rm -f "${generated_svg_file}"
+      else 
+        # Now rename the file so we can distinguish puml generated svgs from
+        # other svgs in the gitignore
+        mv "${generated_svg_file}" "${renamed_svg_file}"
+      fi
     else
       echo -e "${YELLOW}Skipping file ${BLUE}${puml_file}${NC}"
     fi
-
   done
+
+  if [[ "${failed_count}" -gt 0 ]]; then
+    echo -e "${RED}ERROR${NC}: Failed to convert ${failed_count} files" >&2
+    exit 1
+  fi
 }
 
 main "$@"
