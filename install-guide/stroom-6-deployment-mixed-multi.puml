@@ -52,8 +52,8 @@ rectangle "stroom estate" {
     !return $name + $id
     !endfunction
 
-    ' Function to generate a stroom host with links to and from it
-    !function add_stroom_host($node_id)
+    ' Procedure to generate a stroom host with links to and from it
+    !procedure add_stroom_host($node_id)
         !$host_name=$concat("stroom_host_", $node_id)
         !$stroom_dropwiz_name=$concat("stroom_dropwiz_", $node_id)
         !$stroom_proxy_dropwiz_name=$concat("stroom_proxy_dropwiz_", $node_id)
@@ -72,7 +72,7 @@ rectangle "stroom estate" {
         'Reverse proxy connections
         nginx --> $stroom_dropwiz_name
         nginx --> $stroom_proxy_dropwiz_name
-    !endfunction
+    !endprocedure
 
     together {
         add_stroom_host("1")
