@@ -73,6 +73,9 @@ main() {
   sed -i "s/@@VERSION@@/${BUILD_TAG:-SNAPSHOT}/g" VERSION.md
   sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 
+  echo -e "${GREEN}Converting .puml files to .puml.svg${NC}"
+  ./container_build/runInPumlDocker.sh SVG
+
   echo -e "${GREEN}Checking all .md files for broken links${NC}"
   ./broken_links.sh
 
