@@ -9,7 +9,7 @@
 # Also spots duplicate anchors in files.
 # In hindsight this should probably have been written python as it is
 # not the quickest, probably due to the large number of possible anchors
-# it must check against.
+# it must check against. Was too far down the road to change languages.
 
 set -eo pipefail
 shopt -s globstar
@@ -231,7 +231,8 @@ log_broken_http_link() {
   local url="$1"; shift
 
   problem_count=$((problem_count + 1))
-  echo -e "${indent}${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
+  echo -e "${indent}${RED}Error${NC}: Found broken link in file" \
+    "${BLUE}${source_file}${NC}" \
     "with name ${BLUE}${link_name}${NC} and link URL" \
     "${BLUE}${url}${NC}"
 }
@@ -246,10 +247,12 @@ verify_link() {
   local link_path
   if [[ "${link_location}" =~ ^http ]]; then
     if [[  "${link_location}" == *"www.plantuml.com/plantuml/proxy"* ]]; then
-      echo -e "${indent}${YELLOW}Unable to check plantuml link [${BLUE}${link_name}${YELLOW}]" \
+      echo -e "${indent}${YELLOW}Unable to check plantuml link" \
+        "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
     elif [[  "${link_location}" =~ (localhost|127.0.0.1) ]]; then
-      echo -e "${indent}${YELLOW}Unable to check localhost link [${BLUE}${link_name}${YELLOW}]" \
+      echo -e "${indent}${YELLOW}Unable to check localhost link" \
+        "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
     else
       # HTTP link
@@ -283,7 +286,11 @@ verify_link() {
       #echo -e "${indent}${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         #"path [${BLUE}${link_path}${GREEN}] and" \
         #"anchor [${BLUE}${link_anchor}${GREEN}]${NC}"
-      if verify_file_exists "${file}" "${line_no}" "${link_name}" "${link_path}"; then
+      if verify_file_exists \
+        "${file}" \
+        "${line_no}" \
+        "${link_name}" \
+        "${link_path}"; then
 
         # Can't check anchor if the link file doesn't exist
         check_anchor_in_file \
@@ -410,7 +417,8 @@ find_headings() {
       debug_value "heading_as_anchor" "${heading_as_anchor}"
 
       if [[ ${single_file_anchors_map[$heading_as_anchor]+_} ]]; then
-        echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${heading_as_anchor}${NC}" \
+        echo -e "${indent}${RED}ERROR${NC}: Anchor" \
+          "${BLUE}${heading_as_anchor}${NC}" \
           "already exists in file ${BLUE}${file}${NC}"
         problem_count=$((problem_count + 1))
       fi
