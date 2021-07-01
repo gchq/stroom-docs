@@ -95,6 +95,19 @@ main() {
     exit 1
   fi
 
+  # In hindsight this could be done like this, which is faster than
+  # calling java for each file
+  # java \
+  #   -jar ../plantuml.jar \
+  #   -exclude "**/_book/**" \
+  #   -exclude "**/node_modules/**" \
+  #   -svg \
+  #   -output "./generated/" \
+  #   ./**/*.puml
+  # Which gives you:
+  #   file.puml
+  #   generated/file.svg
+
   # remove any trailing slash
   local file_or_dir="$1"; shift
   local failed_count=0
