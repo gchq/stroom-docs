@@ -21,13 +21,13 @@ In the project structure a component appears as a first level subdirectory of th
 
 The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the `impl` module. The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application. Tests can bind mock implementations of a components API just by using the Guice module within the mock module.
 
-![Internal Component Dependencies](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/module-dependencies.puml&random=2)
+![Internal Component Dependencies](module-dependencies.puml.svg)
 
 ## Dependencies between components
 
 Typically a component will need to call out to other components to apply security constraints and to log user activity. These typical relationships are shown in the diagram below.
 
-![External Component Dependencies](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/dev-guide/external-dependencies.puml&random=3)
+![External Component Dependencies](external-dependencies.puml.svg)
 
 ## Component API, e.g. modules ending in `-api`
 
