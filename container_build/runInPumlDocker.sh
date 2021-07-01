@@ -51,14 +51,12 @@ docker_login() {
 
 run_cmd=()
 
-if [[ $# -ne 1 ]]; then
+if [[ $# -lt 1 ]]; then
   echo -e "${RED}ERROR: Invalid arguments.${NC}"
   echo -e "Usage: $0 bash_command"
   echo -e "e.g:   $0 \"./some_path/a_script.sh arg1 arg2\""
   echo -e "or:    $0 bash  # for a bash prompt in the container"
   echo -e "or:    $0 SVG  # To convert all .puml files to .puml.svg"
-  echo -e "or:    $0 GRADLE_BUILD  # To run the full gradle build"
-  echo -e "or:    $0 MIGRATE  # To run the db migration"
   echo -e "Commands are relative to the repo root."
   echo -e "Commands/scripts with args must be quoted as a whole."
   exit 1
@@ -66,12 +64,12 @@ else
   if [[ $# -eq 1 ]] && [[ "$1" = "bash" ]]; then
 
     run_cmd=( "bash" )
-  elif [[ $# -eq 1 ]] && [[ "$1" = "SVG" ]]; then
+  elif [[ $# -ge 1 ]] && [[ "$1" = "SVG" ]]; then
     # convert all .puml files to .puml.svg
     run_cmd=( \
       "bash" \
       "-c"  \
-      "/builder/convert_puml_files.sh /builder/shared" \
+      "/builder/convert_puml_files.sh ${2:-/builder/shared}" \
     )
   else
     run_cmd=( \
