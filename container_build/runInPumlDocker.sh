@@ -56,7 +56,7 @@ if [[ $# -ne 1 ]]; then
   echo -e "Usage: $0 bash_command"
   echo -e "e.g:   $0 \"./some_path/a_script.sh arg1 arg2\""
   echo -e "or:    $0 bash  # for a bash prompt in the container"
-  echo -e "or:    $0 ERD  # To run the entity relationship diagram build"
+  echo -e "or:    $0 SVG  # To convert all .puml files to .puml.svg"
   echo -e "or:    $0 GRADLE_BUILD  # To run the full gradle build"
   echo -e "or:    $0 MIGRATE  # To run the db migration"
   echo -e "Commands are relative to the repo root."
@@ -66,13 +66,6 @@ else
   if [[ $# -eq 1 ]] && [[ "$1" = "bash" ]]; then
 
     run_cmd=( "bash" )
-  elif [[ $# -eq 1 ]] && [[ "$1" = "ERD" ]]; then
-    # Generate an entity relationship diagram from an existing DB
-    run_cmd=( \
-      "bash" \
-      "-c"  \
-      "./container_build/runPlantErd.sh" \
-    )
   elif [[ $# -eq 1 ]] && [[ "$1" = "SVG" ]]; then
     # convert all .puml files to .puml.svg
     run_cmd=( \
