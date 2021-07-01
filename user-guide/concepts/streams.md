@@ -48,7 +48,8 @@ This meta data either comes from the HTTP headers when the data was POSTed to St
 
 The following is a representation of a non-segmented stream with three parts, each with Meta Data and Context child streams.
 
-![Non-Segmented Stream](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/user-guide/concepts/non-segmented-stream.puml&random=2)
+![Non-Segmented Stream](non-segmented-stream.puml.svg)
+
 
 Raw Events and Raw Reference streams contain non-segmented data, e.g. a large batch of CSV, JSON, XML, etc. data.
 There is no notion of a record/event/segment in the data, it is simply data in any form (including malformed data) that is yet to be processed and demarcated into records/events, for example using a Data Splitter or an XML parser.
@@ -61,7 +62,7 @@ Each part will have its own context and meta data child streams, if applicable.
 
 The following is a representation of a segmented stream that contains three records (i.e events) and has Meta Data and Context child streams.
 
-![Segmented Stream](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/user-guide/concepts/segmented-stream.puml&random=2)
+![Segmented Stream](segmented-stream.puml.svg)
 
 Cooked Events and Reference data are forms of segmented data.
 The raw data has been parsed and split into records/events and the resulting data is stored in a way that allows Stroom to know where each record/event starts/ends.
@@ -69,7 +70,7 @@ These streams only have a single part.
 
 ### Error Stream
 
-![Error Stream](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/gchq/stroom-docs/master/user-guide/concepts/error-stream.puml&random=2)
+![Error Stream](error-stream.puml.svg)
 
 Error streams are similar to segmented Event/Reference streams in that they are single-part and have demarcated records (where each error/warning/info message is a record).
 Error streams do not have any Meta Data or Context child streams.

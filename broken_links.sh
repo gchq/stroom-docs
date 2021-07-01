@@ -9,7 +9,7 @@
 # Also spots duplicate anchors in files.
 # In hindsight this should probably have been written python as it is
 # not the quickest, probably due to the large number of possible anchors
-# it must check against.
+# it must check against. Was too far down the road to change languages.
 
 set -eo pipefail
 shopt -s globstar
@@ -17,6 +17,8 @@ shopt -s globstar
 file_blacklist=(
   ./VERSION.md
 )
+
+indent="    "
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -58,6 +60,12 @@ setup_debuging() {
 
 # Requires setup_debuging to be run once
 debug_value() {
+  if [ ${#} -ne 2 ]; then
+    echo -e "${RED}Error${NC}: Invalid arguments${NC}"
+    echo -e "Usage: $0 debug_name debug_value"
+    exit 1
+  fi
+  
   local debug_name="$1"; shift
   local debug_value="$1"; shift
   
@@ -75,13 +83,14 @@ debug() {
 
 check_anchor_in_file() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local link_path="$1"; shift
   local link_anchor="$1"; shift
 
   if [[ ! "${link_anchor}" =~ ^[a-z0-9-]+$ ]]; then
-    echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
-      "should be lower-kebab-case${NC}"
+    echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
+      "should be lower-kebab-case at line ${BLUE}${line_no}${NC}"
     problem_count=$((problem_count + 1))
   else
     local effective_link_path
@@ -106,8 +115,9 @@ check_anchor_in_file() {
       #file#anchor compound key is in the map so the anchor is valid
       debug "Found anchor ${link_anchor}"
     else
-      echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
-        "has no corresponding header in ${BLUE}${effective_link_path}${NC}"
+      echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${link_anchor}${NC}" \
+        "at line ${BLUE}${line_no}${NC} has no corresponding header in" \
+        "${BLUE}${effective_link_path}${NC}"
       problem_count=$((problem_count + 1))
     fi
   fi
@@ -121,10 +131,13 @@ verify_http_link() {
   # 'http://domain.com/path "title"' => 'http://domain.com/path'  
   local link_url="${link_location%% \"*}"
 
+  echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
+
   local response_code
   response_code="$( \
     curl \
       --silent \
+      --head \
       --location \
       --output /dev/null \
       --write-out "%{http_code}" \
@@ -162,13 +175,14 @@ make_path_relative_to_root() {
 
 verify_file_exists() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local link_path="$1"; shift
 
   if [[ "${link_path}" =~ ^/ ]]; then
     problem_count=$((problem_count + 1))
-    echo -e "  ${RED}ERROR${NC}: Found link with absolute path in file" \
-      "${BLUE}${source_file}${NC}" \
+    echo -e "${indent}${RED}ERROR${NC}: Found link with absolute path in file" \
+      "${BLUE}${source_file}:${line_no}${NC}" \
       "with name ${BLUE}${link_name}${NC} and link path" \
       "${BLUE}${link_path}${NC}"
   else
@@ -187,6 +201,7 @@ verify_file_exists() {
     if [[ ! -f "${effective_link_path}" ]]; then
       log_broken_link \
         "${file}" \
+        "${line_no}" \
         "${link_name}" \
         "${link_path}" \
         "${effective_link_path}"
@@ -197,13 +212,15 @@ verify_file_exists() {
 
 log_broken_link() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local rel_link_path="$1"; shift
   local effective_link_path="$1"; shift
 
   problem_count=$((problem_count + 1))
-  echo -e "  ${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
-    "with name ${BLUE}${link_name}${NC}, link path " \
+  echo -e "${indent}${RED}Error${NC}: Found broken link in file" \
+    "${BLUE}${source_file}:${line_no}${NC}" \
+    "with name ${BLUE}${link_name}${NC}, link path" \
     "${BLUE}${rel_link_path}${NC} and effective link path" \
     "${BLUE}${effective_link_path}${NC}"
 }
@@ -214,13 +231,15 @@ log_broken_http_link() {
   local url="$1"; shift
 
   problem_count=$((problem_count + 1))
-  echo -e "  ${RED}Error${NC}: Found broken link in file ${BLUE}${source_file}${NC}" \
-    "with name ${BLUE}${link_name}${NC} and link URL " \
+  echo -e "${indent}${RED}Error${NC}: Found broken link in file" \
+    "${BLUE}${source_file}${NC}" \
+    "with name ${BLUE}${link_name}${NC} and link URL" \
     "${BLUE}${url}${NC}"
 }
 
 verify_link() {
   local source_file="$1"; shift
+  local line_no="$1"; shift
   local link_name="$1"; shift
   local link_location="$1"; shift
   
@@ -228,16 +247,18 @@ verify_link() {
   local link_path
   if [[ "${link_location}" =~ ^http ]]; then
     if [[  "${link_location}" == *"www.plantuml.com/plantuml/proxy"* ]]; then
-      echo -e "  ${YELLOW}Unable to check plantuml link [${BLUE}${link_name}${YELLOW}]" \
+      echo -e "${indent}${YELLOW}Unable to check plantuml link" \
+        "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
     elif [[  "${link_location}" =~ (localhost|127.0.0.1) ]]; then
-      echo -e "  ${YELLOW}Unable to check localhost link [${BLUE}${link_name}${YELLOW}]" \
+      echo -e "${indent}${YELLOW}Unable to check localhost link" \
+        "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
     else
       # HTTP link
       # We can't verify the plant uml links as the file in the link may not exist
       # on github yet
-      #echo -e "  ${GREEN}Checking http link [${BLUE}${link_name}${GREEN}]" \
+      #echo -e "${indent}${GREEN}Checking http link [${BLUE}${link_name}${GREEN}]" \
         #"with url [${BLUE}${link_location}${GREEN}]${NC}"
       verify_http_link "${file}" "${link_name}" "${link_location}"
     fi
@@ -245,12 +266,13 @@ verify_link() {
     # local anchor link
     link_anchor="${link_location#*#}"
     link_path=""
-    #echo -e "  ${GREEN}${GREEN}Checking local anchor link" \
+    #echo -e "${indent}${GREEN}${GREEN}Checking local anchor link" \
       #"[${BLUE}${link_name}${GREEN}] with anchor" \
       #"[${BLUE}${link_anchor}${GREEN}]${NC}"
 
     check_anchor_in_file \
       "${file}" \
+      "${line_no}" \
       "${link_name}" \
       "${link_path}" \
       "${link_anchor}"
@@ -261,14 +283,19 @@ verify_link() {
       link_anchor="${link_location#*#}"
       # Get everything before first #
       link_path="${link_location%%#*}"
-      #echo -e "  ${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
+      #echo -e "${indent}${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         #"path [${BLUE}${link_path}${GREEN}] and" \
         #"anchor [${BLUE}${link_anchor}${GREEN}]${NC}"
-      if verify_file_exists "${file}" "${link_name}" "${link_path}"; then
+      if verify_file_exists \
+        "${file}" \
+        "${line_no}" \
+        "${link_name}" \
+        "${link_path}"; then
 
         # Can't check anchor if the link file doesn't exist
         check_anchor_in_file \
           "${file}" \
+          "${line_no}" \
           "${link_name}" \
           "${link_path}" \
           "${link_anchor}"
@@ -276,16 +303,17 @@ verify_link() {
     else
       # path without anchor
       link_path="${link_location}"
-      #echo -e "  ${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
+      #echo -e "${indent}${GREEN}Checking link [${BLUE}${link_name}${GREEN}] with" \
         #"path [${BLUE}${link_path}${GREEN}]${NC}"
 
-      verify_file_exists "${file}" "${link_name}" "${link_path}" \
+      verify_file_exists "${file}" "${line_no}" "${link_name}" "${link_path}" \
         || true
     fi
   fi
 }
 
 parse_link() {
+  local line_no="$1"; shift
   local link="$1"; shift
   
   local link_name
@@ -305,8 +333,9 @@ parse_link() {
   debug_value "link" "${link}"
   debug_value "link_name" "${link_name}"
   debug_value "link_location" "${link_location}"
+  debug_value "line_no" "${line_no}"
 
-  verify_link "${file}" "${link_name}" "${link_location}"
+  verify_link "${file}" "${line_no}" "${link_name}" "${link_location}"
 }
 
 check_links_in_file() {
@@ -330,12 +359,23 @@ check_links_in_file() {
   # Also ignore ones like [...](?...) as these appear in link.md fence
   # blocks.  Bit of a hack, but ignoring text inside fences would be
   # a bit of an adventure in bash.
-  while read -r link; do
-    if [[ -n "${link}" ]]; then
-      parse_link "${link}"
+  while read -r grep_line; do
+    debug_value "grep_line" "${grep_line}"
+
+    if [[ -n "${grep_line}" ]]; then
+      # grep line looks like:
+      # 6:[Properties](../../user-guide/properties.md)
+      # So parse out the line no and link
+      local line_no="${grep_line%%:*}"
+      local link="${grep_line#*:}"
+      debug_value "line_no" "${line_no}"
+      debug_value "link" "${link}"
+
+      parse_link "${line_no}" "${link}"
       link_count=$((link_count + 1))
     fi
   done < <(grep \
+      --line-number \
       --perl-regexp \
       --only-matching \
       "\[[^\]]*?\]\([^?)][^)]*?\)" \
@@ -377,7 +417,8 @@ find_headings() {
       debug_value "heading_as_anchor" "${heading_as_anchor}"
 
       if [[ ${single_file_anchors_map[$heading_as_anchor]+_} ]]; then
-        echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${heading_as_anchor}${NC}" \
+        echo -e "${indent}${RED}ERROR${NC}: Anchor" \
+          "${BLUE}${heading_as_anchor}${NC}" \
           "already exists in file ${BLUE}${file}${NC}"
         problem_count=$((problem_count + 1))
       fi
@@ -406,7 +447,7 @@ find_anchors() {
   while read -r anchor_name; do
     if [[ -n "${anchor_name}" ]]; then
       if [[ ${single_file_anchors_map[$anchor_name]+_} ]]; then
-        echo -e "  ${RED}ERROR${NC}: Anchor ${BLUE}${anchor_name}${NC}" \
+        echo -e "${indent}${RED}ERROR${NC}: Anchor ${BLUE}${anchor_name}${NC}" \
           "already exists in file ${BLUE}${file}${NC}"
         problem_count=$((problem_count + 1))
       fi
@@ -462,8 +503,8 @@ is_anchor_in_file() {
 main() {
   if [[ $# -gt 0 ]]; then
     local named_file="${1}"; shift
-
   fi
+
   IS_DEBUG="${IS_DEBUG:-false}"
   #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -491,7 +532,9 @@ main() {
   echo -e "${GREEN}Scanning all .md files to find headings${NC}"
   # Loop over all files and build a map of all file heading combos
   for file in ./**/*.md; do
-    if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+    # shellcheck disable=SC1001
+    if [[ ! "${file}" =~ \/node_modules\/ ]] \
+      && [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
       debug_value "file" "${file}"
       # An associative array to hold all anchors for this file
       # so we can check for dups
@@ -499,26 +542,31 @@ main() {
       find_headings "${file}"
       find_anchors "${file}"
       file_count=$((file_count + 1))
+    else
+      debug "Skipping file ${file}"
     fi
   done
 
   if [[ -n "${named_file}" ]]; then
     if [[ ! -f "${named_file}" ]]; then
-      echo -e "  ${RED}ERROR${NC}: File ${BLUE}${named_file}${NC}" \
+      echo -e "${indent}${RED}ERROR${NC}: File ${BLUE}${named_file}${NC}" \
         "doesn't exist${NC}"
       exit 1
     fi
     if [[ ! ${file_blacklist_map["${named_file}"]+_} ]]; then
       check_links_in_file "${named_file}"
     else
-      echo -e "  ${YELLOW}Ignoring blacklisted file" \
+      echo -e "${indent}${YELLOW}Ignoring blacklisted file" \
         "[${BLUE}${named_file}${YELLOW}]${NC}"
     fi
   else
     # Now loop over all files again and verify the links in the files
     echo -e "${GREEN}Scanning all .md files to check links${NC}"
     for file in ./**/*.md; do
-      if [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+      # shellcheck disable=SC1001
+      if [[ ! "${file}" =~ \/node_modules\/ ]] \
+        && [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+
         check_links_in_file "${file}"
       fi
     done
@@ -529,8 +577,8 @@ main() {
   echo -e "${GREEN}Heading count: ${BLUE}${#file_and_anchor_map[@]}${NC}"
 
   if [[ "${problem_count}" -gt 0 ]]; then
-    echo -e "  ${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
-      "problems with links and anchors${NC}"
+    echo -e "${indent}${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
+      "problems with links and anchors. See output above.${NC}"
     exit 1
   else
     echo -e "${GREEN}All checks completed with no problems found${NC}"

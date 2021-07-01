@@ -64,22 +64,31 @@ main() {
   echo -e "PDF_FILENAME:          [${GREEN}${PDF_FILENAME}${NC}]"
   echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
 
-  #In order to make gitbook's pdf generation work on a headless server we need to 
-  #wrap the ebook-convert binary with our own wrapper script of the same name
-  #sudo mv ebook-convert /usr/local/bin/
+  # In order to make gitbook's pdf generation work on a headless server we need to 
+  # wrap the ebook-convert binary with our own wrapper script of the same name
+  # sudo mv ebook-convert /usr/local/bin/
 
-  echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC} tags in ${BLUE}VERSION.md${NC}"
+  echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC}" \
+    "tags in ${BLUE}VERSION.md${NC}"
   sed -i "s/@@VERSION@@/${BUILD_TAG:-SNAPSHOT}/g" VERSION.md
   sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 
-  #build the gitbook
+  echo -e "${GREEN}Converting .puml files to .puml.svg${NC}"
+  ./container_build/runInPumlDocker.sh SVG
+
+  echo -e "${GREEN}Checking all .md files for broken links${NC}"
+  ./broken_links.sh
+
+  # build the gitbook
   echo -e "${GREEN}Installing and building gitbook${NC}"
   ./container_build/runInNodeDocker.sh "gitbook install; gitbook build"
 
-  #For a markdown file to be included in the gitbook conversion to html/pdf it must be linked to in SUMMARY.md
+  # For a markdown file to be included in the gitbook conversion to html/pdf
+  # it must be linked to in SUMMARY.md
   missingFileCount=$(find "${GITBOOK_DIR}/" -name "*.md" | wc -l)
   if [ "${missingFileCount}" -gt 0 ]; then
-    echo -e "${missingFileCount} markdown file(s) have not been converted, ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
+    echo -e "${missingFileCount} markdown file(s) have not been converted," \
+      "ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
     # shellcheck disable=SC2044
     for file in $(find "${GITBOOK_DIR}/" -name "*.md"); do
         echo -e "  ${RED}${file}${NC}"
@@ -90,7 +99,7 @@ main() {
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
 
-  #generate a pdf of the gitbook
+  # generate a pdf of the gitbook
   ./container_build/runInNodeDocker.sh \
     "gitbook pdf ./ \"${RELEASE_ARTEFACTS_REL_DIR}/${PDF_FILENAME}\""
 
@@ -107,7 +116,7 @@ main() {
   echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
   ls -1 "${RELEASE_ARTEFACTS_DIR}/"
 
-  #We release on every commit to master
+  # We release on every commit to master
   if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]]; then
 
     mkdir -p "${GITHUB_PAGES_DIR}"
