@@ -275,10 +275,7 @@ _stroom_ v7 now runs on the Java 12 JVM.
 
 _stroom_ v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.
 
-## Reference Data Storage
-Reference data uses a memory-mapped disk-based store rather than direct memory to reduce the memory overhead associated with storing reference data.
-
-## Search Result Storage
+### Search Result Storage
 Search results are stored on disk rather than in memory during creation to reduce the memory overhead incurred by search.
 
 
