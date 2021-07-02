@@ -34,6 +34,44 @@ The aggregation process has been changed to be more performant and produce aggre
 The previously standalone (in v6) _stroom-auth-service_ and _stroom-auth-ui_ services have been integrated into the core _stroom_ application.
 This simplifies the installation and configuration of stroom.
 
+Support has been added for multiple OpenID Connect identity providers including Amazon AWS and Google.
+
+### Annotations
+
+Search results in dashboards can be annotated to provide status and notes relating to the result item, e.g. an event. These annotations can later be searched to see which events have annotations associated with them.
+
+### Conditional Formatting
+
+Dashboard tables have added support for conditional formatting allowing rows to have custom background and text color when user defined conditions are matched.
+
+### New Dashboard Functions
+
+* Functions to select data from nested child rows, `any()`, `first()`, `last()`, `nth()`, `top()` and `bottom()`.
+* `joining()` function to concatenate supplied fields in child rows.
+* `modulus()` function along with alias `mod()` and modulus operator `%`.
+* `annotation()` link creation function, `currentUser()` alias for `param('currentUser()')` and additional link creation functions for `data()` and `stepping()`.
+* Dashboard link option to link to a dashboard using the `DASHBOARD` target name, e.g. `link(${UserId}, concat('type=Dashboard&uuid=<TARGET_DASHBOARD_UUID>', ${UserId}), '', 'DASHBOARD')`.
+* Dashboard link option to link to a dashboard from within a vis, e.g. `stroomLink(d.name, 'type=Dashboard&uuid=<TARGET_DASHBOARD_UUID>&params=userId%3D' + d.name, 'DASHBOARD')`.
+* Dashboard visualisations now link with similar functions available to dashboard tables, e.g. `link()`, `dashboard()`, `annotation()`, `stepping()`, `data()`.
+* Mechanism to inject dashboard parameters into expressions using the `param` and `params` functions so that dashboard parameters can be echoed by expressions to create dashboard links.
+* `encodeUrl()`, `decodeUrl()` and `dashboard()` functions to dashboard tables to make dashboard linking easier. The `link()` function now automatically encodes/decodes each param so that parameters do not break the link format, e.g. `[Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}`.  
+* `typeOf(...)` function to dashboard.
+* Cast functions `toBoolean`, `toDouble`, `toInteger`, `toLong` and `toString`.
+* `include` and `exclude` functions.
+* `if` and `not` functions.
+* Value functions `true()`, `false()`, `null()` and `err()`.
+* `match` boolean function.
+* `variance` and `stDev` functions.
+* `hash` function.
+* `formatDate`, `parseDate` functions.
+*  Made `substring` and `decode` functions capable of accepting functional parameters.
+* `substringBefore`, `substringAfter`, `indexOf` and `lastIndexOf` functions.
+* `countUnique` function.
+
+### New XSLT Functions
+
+Added XSLT functions (`source`, `sourceId`, `partNo`, `recordNo`, `lineFrom`, `colFrom`, `lineTo`, `colTo`) to determine the current source location so it can be embedded in a cooked event. Events containing raw source location info can be made into links in dashboard tables or the text pane so that a user can see raw source data or jump directly to stepping the raw record.
+
 ### Configuration Properties Improvements
 
 #### Configuration is now provided by YAML files on boot
@@ -80,7 +118,10 @@ Validation will be enforced on application boot or when a value is edited via th
 Now that node specific configuration is managed via the YAML configuration file _stroom_ will detect changes to this file and update the configuration properties accordingly.
 Some properties however do not support being changed at runtime so will still require either the whole system or the UI nodes to be restarted.
 
-### Data retention impact summary
+### Data Retention Policies
+Data retention is now controlled via a user defined policy that allows the specification of multiple filters.
+
+#### Data retention impact summary
 
 The _Data_Retention_ screen now provides an _Impact Summary_ tab that will show you a summary of what will be deleted by the current active rules.
 The summary is based on the rules as they currently are in the UI, so it allows you to see the impact before saving rule changes.
@@ -170,9 +211,13 @@ This view provides navigation controls to define the range of data being display
 > TODO
 
 
-### Data actions such as delete, download, reprocess now provide an impact summary before proceeding.
-
-> TODO
+### New Dashboard Data Sources
+Dashboards can now be created to show data from the following internal sources:
+* Annotations
+* Stream meta data store
+* Reference data
+* Processor tasks
+* System wide processes
 
 
 ### Index volume groups for easier index volume assignment
@@ -229,6 +274,12 @@ _stroom_ v7 now runs on the Java 12 JVM.
 ### MySQL 8 support.
 
 _stroom_ v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.
+
+## Reference Data Storage
+Reference data uses a memory-mapped disk-based store rather than direct memory to reduce the memory overhead associated with storing reference data.
+
+## Search Result Storage
+Search results are stored on disk rather than in memory during creation to reduce the memory overhead incurred by search.
 
 
 ---
