@@ -1,0 +1,28 @@
+{{ $image := .Page.Resources.GetMatch (printf "**%s*" (.Get 0)) }}
+{{ $param1 := .Get 1 }}
+{{ $width := 0 }}
+{{ $height := 0 }}
+{{ if hasPrefix $param1 "x" }}
+  {{ $height = int (strings.TrimPrefix "x" $param1) }}
+{{ else }}
+  {{ $width = int (strings.TrimSuffix "x" $param1) }}
+{{ end }}
+
+{{ if gt $width 0 }}
+<div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: {{ add $width 10 }}px">
+{{ else }}
+<div class="card rounded p-2 td-post-card mb-4 mt-4" >
+{{ end }}
+  <figure style="margin-block-end: 0px" >
+    {{ if $width }}
+    <img class="card-img-top" src="{{ $image.RelPermalink }}" width="{{ $width }}" alt="{{ $image.Name }}">
+    {{ else }}
+    <img class="card-img-top" src="{{ $image.RelPermalink }}" height="{{ $height }}" alt="{{ $image.Name }}">
+    {{ end }}
+    {{ with .Inner }}
+    <div class="card-body px-0 pt-2 pb-0">
+      <figcaption class="card-text" style="font-size: smaller">{{ . }}{{ with $image.Params.byline }}<span class="text-muted" style="font-size: smaller"><br/>{{ . | html }}</span>{{ end }}</figcaption>
+    </div>
+  </figure>
+	{{ end }}
+</div>

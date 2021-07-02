@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
+
+  <!--<meta charset="utf-8">-->
+
+  <!--[>[><xbase href="file:///mnt/websites/xxxxxxxx/public"><]<]-->
+
+  <!--<title>All the Posts!</title>-->
+
+  <!--<style>-->
+    
+  <!--</style>-->
+    {{ partial "head.html" . }}
+
+  <link rel="stylesheet" href="{{ "/css/all-content.css" | relURL }}"/>
+
+
+</head>
+
+<body>
+
+  <h1>Table of Contents:</h1>
+
+  <ul>
+    {{ range where .Site.Pages "Section" "docs" }}
+      <li><a href="#{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+
+  <!--<div class="pagebreak"> </div>-->
+
+  {{ range where .Site.Pages "Section" "docs" }}
+
+    <h1 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h1>
+    <!--<p style=""><a href="{{ .Permalink }}">{{ .Permalink }}</a> - {{ .Params.sdate }}</p>-->
+    {{ .Content }}
+
+  {{ end }}
+
+</body>
+</html>
