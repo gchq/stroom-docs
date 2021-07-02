@@ -2415,6 +2415,37 @@
 <h3 id="integrated-authentication">Integrated Authentication</h3>
 <p>The previously standalone (in v6) <em>stroom-auth-service</em> and <em>stroom-auth-ui</em> services have been integrated into the core <em>stroom</em> application.
 This simplifies the installation and configuration of stroom.</p>
+<p>Support has been added for multiple OpenID Connect identity providers including Amazon AWS and Google.</p>
+<h3 id="annotations">Annotations</h3>
+<p>Search results in dashboards can be annotated to provide status and notes relating to the result item, e.g. an event. These annotations can later be searched to see which events have annotations associated with them.</p>
+<h3 id="conditional-formatting">Conditional Formatting</h3>
+<p>Dashboard tables have added support for conditional formatting allowing rows to have custom background and text color when user defined conditions are matched.</p>
+<h3 id="new-dashboard-functions">New Dashboard Functions</h3>
+<ul>
+<li>Functions to select data from nested child rows, <code>any()</code>, <code>first()</code>, <code>last()</code>, <code>nth()</code>, <code>top()</code> and <code>bottom()</code>.</li>
+<li><code>joining()</code> function to concatenate supplied fields in child rows.</li>
+<li><code>modulus()</code> function along with alias <code>mod()</code> and modulus operator <code>%</code>.</li>
+<li><code>annotation()</code> link creation function, <code>currentUser()</code> alias for <code>param(&apos;currentUser()&apos;)</code> and additional link creation functions for <code>data()</code> and <code>stepping()</code>.</li>
+<li>Dashboard link option to link to a dashboard using the <code>DASHBOARD</code> target name, e.g. <code>link(${UserId}, concat(&apos;type=Dashboard&amp;uuid=&lt;TARGET_DASHBOARD_UUID&gt;&apos;, ${UserId}), &apos;&apos;, &apos;DASHBOARD&apos;)</code>.</li>
+<li>Dashboard link option to link to a dashboard from within a vis, e.g. <code>stroomLink(d.name, &apos;type=Dashboard&amp;uuid=&lt;TARGET_DASHBOARD_UUID&gt;&amp;params=userId%3D&apos; + d.name, &apos;DASHBOARD&apos;)</code>.</li>
+<li>Dashboard visualisations now link with similar functions available to dashboard tables, e.g. <code>link()</code>, <code>dashboard()</code>, <code>annotation()</code>, <code>stepping()</code>, <code>data()</code>.</li>
+<li>Mechanism to inject dashboard parameters into expressions using the <code>param</code> and <code>params</code> functions so that dashboard parameters can be echoed by expressions to create dashboard links.</li>
+<li><code>encodeUrl()</code>, <code>decodeUrl()</code> and <code>dashboard()</code> functions to dashboard tables to make dashboard linking easier. The <code>link()</code> function now automatically encodes/decodes each param so that parameters do not break the link format, e.g. <code>[Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}</code>.  </li>
+<li><code>typeOf(...)</code> function to dashboard.</li>
+<li>Cast functions <code>toBoolean</code>, <code>toDouble</code>, <code>toInteger</code>, <code>toLong</code> and <code>toString</code>.</li>
+<li><code>include</code> and <code>exclude</code> functions.</li>
+<li><code>if</code> and <code>not</code> functions.</li>
+<li>Value functions <code>true()</code>, <code>false()</code>, <code>null()</code> and <code>err()</code>.</li>
+<li><code>match</code> boolean function.</li>
+<li><code>variance</code> and <code>stDev</code> functions.</li>
+<li><code>hash</code> function.</li>
+<li><code>formatDate</code>, <code>parseDate</code> functions.</li>
+<li>Made <code>substring</code> and <code>decode</code> functions capable of accepting functional parameters.</li>
+<li><code>substringBefore</code>, <code>substringAfter</code>, <code>indexOf</code> and <code>lastIndexOf</code> functions.</li>
+<li><code>countUnique</code> function.</li>
+</ul>
+<h3 id="new-xslt-functions">New XSLT Functions</h3>
+<p>Added XSLT functions (<code>source</code>, <code>sourceId</code>, <code>partNo</code>, <code>recordNo</code>, <code>lineFrom</code>, <code>colFrom</code>, <code>lineTo</code>, <code>colTo</code>) to determine the current source location so it can be embedded in a cooked event. Events containing raw source location info can be made into links in dashboard tables or the text pane so that a user can see raw source data or jump directly to stepping the raw record.</p>
 <h3 id="configuration-properties-improvements">Configuration Properties Improvements</h3>
 <h4 id="configuration-is-now-provided-by-yaml-files-on-boot">Configuration is now provided by YAML files on boot</h4>
 <p>Previously <em>stroom</em> used a flat <code>.conf</code> file to manage the application configuration.
@@ -2448,7 +2479,9 @@ The validation rules are defined in the application code and allow for things li
 <h4 id="hot-loading-of-node-configuration">Hot Loading of Node Configuration</h4>
 <p>Now that node specific configuration is managed via the YAML configuration file <em>stroom</em> will detect changes to this file and update the configuration properties accordingly.
 Some properties however do not support being changed at runtime so will still require either the whole system or the UI nodes to be restarted.</p>
-<h3 id="data-retention-impact-summary">Data retention impact summary</h3>
+<h3 id="data-retention-policies">Data Retention Policies</h3>
+<p>Data retention is now controlled via a user defined policy that allows the specification of multiple filters.</p>
+<h4 id="data-retention-impact-summary">Data retention impact summary</h4>
 <p>The <em>Data_Retention</em> screen now provides an <em>Impact Summary</em> tab that will show you a summary of what will be deleted by the current active rules.
 The summary is based on the rules as they currently are in the UI, so it allows you to see the impact before saving rule changes.
 The summary is a count of the number of streams that will be deleted by each rule, broken down by feed and stream type.
@@ -2508,10 +2541,15 @@ This view provides navigation controls to define the range of data being display
 <blockquote>
 <p>TODO</p>
 </blockquote>
-<h3 id="data-actions-such-as-delete-download-reprocess-now-provide-an-impact-summary-before-proceeding">Data actions such as delete, download, reprocess now provide an impact summary before proceeding.</h3>
-<blockquote>
-<p>TODO</p>
-</blockquote>
+<h3 id="new-dashboard-data-sources">New Dashboard Data Sources</h3>
+<p>Dashboards can now be created to show data from the following internal sources:</p>
+<ul>
+<li>Annotations</li>
+<li>Stream meta data store</li>
+<li>Reference data</li>
+<li>Processor tasks</li>
+<li>System wide processes</li>
+</ul>
 <h3 id="index-volume-groups-for-easier-index-volume-assignment">Index volume groups for easier index volume assignment</h3>
 <blockquote>
 <p>TODO</p>
@@ -2552,6 +2590,8 @@ This separation makes for a more logical code base and allows for the possibilit
 <p><em>stroom</em> v7 now runs on the Java 12 JVM.</p>
 <h3 id="mysql-8-support">MySQL 8 support.</h3>
 <p><em>stroom</em> v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.</p>
+<h3 id="search-result-storage">Search Result Storage</h3>
+<p>Search results are stored on disk rather than in memory during creation to reduce the memory overhead incurred by search.</p>
 <hr>
 <h2 id="v61">v6.1</h2>
 <blockquote>
@@ -2646,7 +2686,7 @@ The value to use for any variable can be set for the whole dashboard in a text a
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Release Notes","level":"1.2","depth":1,"next":{"title":"Screenshots","level":"1.3","depth":1,"path":"screenshots.md","ref":"screenshots.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"release-notes.md","mtime":"2021-07-02T10:45:32.741Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-02T10:49:14.547Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Release Notes","level":"1.2","depth":1,"next":{"title":"Screenshots","level":"1.3","depth":1,"path":"screenshots.md","ref":"screenshots.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/gchq/stroom-docs"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true},"anchorjs":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Stroom Docs","gitbook":"3.x.x"},"file":{"path":"release-notes.md","mtime":"2021-07-02T10:53:54.745Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-02T10:57:27.477Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
