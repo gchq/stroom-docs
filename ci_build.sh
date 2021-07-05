@@ -125,13 +125,14 @@ main() {
   echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
   ls -1 "${RELEASE_ARTEFACTS_DIR}/"
 
+  mkdir -p "${GITHUB_PAGES_DIR}"
+
+  echo -e "${GREEN}Copying from ${SITE_DIR}/ to ${GITHUB_PAGES_DIR}/${NC}"
+  cp -r "${SITE_DIR}"/* "${GITHUB_PAGES_DIR}/"
+
   # We release on every commit to master
-  if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]]; then
-
-    mkdir -p "${GITHUB_PAGES_DIR}"
-
-    echo -e "${GREEN}Copying from ${SITE_DIR}/ to ${GITHUB_PAGES_DIR}/${NC}"
-    cp -r "${SITE_DIR}"/* "${GITHUB_PAGES_DIR}/"
+  # TODO remove this temporary hugo-docsy condition
+  if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]] ; then
 
     setup_ssh_agent
 

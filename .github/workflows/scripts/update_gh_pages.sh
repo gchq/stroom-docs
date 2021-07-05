@@ -100,7 +100,8 @@ main() {
     gh_pages_versioned_dir="${gh_pages_clone_dir}/${BUILD_BRANCH}"
   fi
 
-  echo -e "${GREEN}Using gh-pages dir${BLUE}${gh_pages_versioned_dir}${NC}"
+  echo -e "${GREEN}Using destination gh-pages dir" \
+    "${BLUE}${gh_pages_versioned_dir}${NC}"
 
   setup_ssh_agent
 
