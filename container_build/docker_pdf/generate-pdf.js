@@ -22,7 +22,7 @@ console.log('Generating pdf for: ', url);
   await page.goto(url, {
     waitUntil: 'networkidle2',
   });
-  await page.pdf({ path: 'all-content.pdf', format: 'a4' });
+  await page.pdf({ path: 'stroom-docs.pdf', format: 'a4' });
 
   await browser.close();
 })();

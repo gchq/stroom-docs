@@ -52,7 +52,7 @@ main() {
   RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
   RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
   RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
-  GITBOOK_DIR="${BUILD_DIR}/_book"
+  SITE_DIR="${BUILD_DIR}/public"
   GITHUB_PAGES_DIR="${BUILD_DIR}/gh-pages"
 
   echo -e "BUILD_NUMBER:          [${GREEN}${BUILD_NUMBER}${NC}]"
@@ -68,10 +68,10 @@ main() {
   # wrap the ebook-convert binary with our own wrapper script of the same name
   # sudo mv ebook-convert /usr/local/bin/
 
-  echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC}" \
-    "tags in ${BLUE}VERSION.md${NC}"
-  sed -i "s/@@VERSION@@/${BUILD_TAG:-SNAPSHOT}/g" VERSION.md
-  sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
+  #echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC}" \
+    #"tags in ${BLUE}VERSION.md${NC}"
+  #sed -i "s/@@VERSION@@/${BUILD_TAG:-SNAPSHOT}/g" VERSION.md
+  #sed -i "s/@@BUILD_DATE@@/$(date -u)/" VERSION.md
 
   echo -e "${GREEN}Converting .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
@@ -79,37 +79,43 @@ main() {
   echo -e "${GREEN}Checking all .md files for broken links${NC}"
   ./broken_links.sh
 
-  # build the gitbook
+  # build the static site
   echo -e "${GREEN}Installing and building gitbook${NC}"
-  ./container_build/runInNodeDocker.sh "gitbook install; gitbook build"
+  docker-compose \
+    -f ./container_build/docker_hugo/docker-compose.yaml \
+    run \
+    site \
+    -D
+
+  # TODO do we need any kind of similr check for hugo?
 
   # For a markdown file to be included in the gitbook conversion to html/pdf
   # it must be linked to in SUMMARY.md
-  missingFileCount=$(find "${GITBOOK_DIR}/" -name "*.md" | wc -l)
-  if [ "${missingFileCount}" -gt 0 ]; then
-    echo -e "${missingFileCount} markdown file(s) have not been converted," \
-      "ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
-    # shellcheck disable=SC2044
-    for file in $(find "${GITBOOK_DIR}/" -name "*.md"); do
-        echo -e "  ${RED}${file}${NC}"
-    done
-    echo "Failing the build"
-    exit 1
-  fi
+  #missingFileCount=$(find "${SITE_DIR}/" -name "*.md" | wc -l)
+  #if [ "${missingFileCount}" -gt 0 ]; then
+    #echo -e "${missingFileCount} markdown file(s) have not been converted," \
+      #"ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
+    ## shellcheck disable=SC2044
+    #for file in $(find "${SITE_DIR}/" -name "*.md"); do
+        #echo -e "  ${RED}${file}${NC}"
+    #done
+    #echo "Failing the build"
+    #exit 1
+  #fi
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
 
   # generate a pdf of the gitbook
-  ./container_build/runInNodeDocker.sh \
-    "gitbook pdf ./ \"${RELEASE_ARTEFACTS_REL_DIR}/${PDF_FILENAME}\""
+  ./container_build/runInPupeteerDocker.sh PDF
+  mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${PDF_FILENAME}"
 
-  echo -e "${GREEN}Removing unwanted files${NC}"
-  rm -v "${GITBOOK_DIR}"/*.yml
-  rm -v "${GITBOOK_DIR}"/*.sh
-  rm -v -rf "${GITBOOK_DIR}/.github"
+  #echo -e "${GREEN}Removing unwanted files${NC}"
+  #rm -v "${SITE_DIR}"/*.yml
+  #rm -v "${SITE_DIR}"/*.sh
+  #rm -v -rf "${SITE_DIR}/.github"
 
   echo -e "${GREEN}Making a zip of the html content${NC}"
-  pushd "${GITBOOK_DIR}"
+  pushd "${SITE_DIR}"
   zip -r -9 "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
   popd
 
@@ -121,8 +127,8 @@ main() {
 
     mkdir -p "${GITHUB_PAGES_DIR}"
 
-    echo -e "${GREEN}Copying from ${GITBOOK_DIR}/ to ${GITHUB_PAGES_DIR}/${NC}"
-    cp -r "${GITBOOK_DIR}"/* "${GITHUB_PAGES_DIR}/"
+    echo -e "${GREEN}Copying from ${SITE_DIR}/ to ${GITHUB_PAGES_DIR}/${NC}"
+    cp -r "${SITE_DIR}"/* "${GITHUB_PAGES_DIR}/"
 
     setup_ssh_agent
 

@@ -82,7 +82,7 @@ run_hugo_server() {
     echo -e "${GREEN}Run Hugo server in the background on port 1313${NC}"
     docker-compose \
       --project-name hugo-stroom \
-      -f "${local_repo_root}/docker-compose.yaml" \
+      -f "${local_repo_root}/container_build/docker_hugo/docker-compose.yaml" \
       up \
       --detach
   fi
