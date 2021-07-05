@@ -106,9 +106,11 @@ main() {
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
 
+  # TODO get this working in gh actions
+
   # generate a pdf of the gitbook
-  ./container_build/runInPupeteerDocker.sh PDF
-  mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${PDF_FILENAME}"
+  #./container_build/runInPupeteerDocker.sh PDF
+  #mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${PDF_FILENAME}"
 
   #echo -e "${GREEN}Removing unwanted files${NC}"
   #rm -v "${SITE_DIR}"/*.yml
