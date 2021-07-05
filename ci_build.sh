@@ -76,8 +76,9 @@ main() {
   echo -e "${GREEN}Converting .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
 
-  echo -e "${GREEN}Checking all .md files for broken links${NC}"
-  ./broken_links.sh
+  # TODO get this working for hugo content
+  #echo -e "${GREEN}Checking all .md files for broken links${NC}"
+  #./broken_links.sh
 
   # build the static site
   echo -e "${GREEN}Installing and building gitbook${NC}"
