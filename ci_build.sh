@@ -54,6 +54,7 @@ main() {
   RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
   SITE_DIR="${BUILD_DIR}/public"
   GITHUB_PAGES_DIR="${BUILD_DIR}/gh-pages"
+  BASE_URL_BASE="https://gchq.github.io/stroom-docs"
 
   echo -e "BUILD_NUMBER:          [${GREEN}${BUILD_NUMBER}${NC}]"
   echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
@@ -80,13 +81,20 @@ main() {
   #echo -e "${GREEN}Checking all .md files for broken links${NC}"
   #./broken_links.sh
 
+  local hugo_base_url
+  if [[ "${BUILD_BRANCH}" = "master" ]]; then
+    hugo_base_url="${BASE_URL_BASE}/"
+  else
+    hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
+  fi
+
   # build the static site
   echo -e "${GREEN}Installing and building gitbook${NC}"
   docker-compose \
     -f ./container_build/docker_hugo/docker-compose.yaml \
     run \
     site \
-    -D
+    --baseDir "${hugo_base_url}"
 
   # TODO do we need any kind of similr check for hugo?
 
