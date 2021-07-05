@@ -94,7 +94,7 @@ main() {
     -f ./container_build/docker_hugo/docker-compose.yaml \
     run \
     site \
-    --baseDir "${hugo_base_url}"
+    --baseUrl "${hugo_base_url}"
 
   # TODO do we need any kind of similr check for hugo?
 
