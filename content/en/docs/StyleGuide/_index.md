@@ -10,29 +10,86 @@ menu:
 draft: true
 ---
 
-# Heading Level 1 - A
+## Links
 
-Some text at level 1
+[A link to a page anchor](#heading-bb-level-3)
 
 
-## Heading Level 2 - AA
+## Images
+
+
+### Using page resources (with caption)
+
+{{< svg-image stroom-oo "200x" >}}
+This is some optional caption text for the image.
+And this is another line.
+{{< /svg-image >}}
+
+
+### Using page resources (without caption)
+
+{{< svg-image stroom-oo "200x" />}}
+
+
+
+
+## Code highlighting
+
+### YAML
+
+```yaml
+---
+root:
+  someKey: "value"
+```
+
+### Bash
+
+```bash
+echo "${VAR}"
+```
+
+### XML
+
+```xml
+<root>
+  <child attr="xxx">some val</child>
+</root>
+```
+
+
+
+
+
+
+
+## Heading A (level 2)
 
 Some text at level 2
 
-### Heading Level 3 - AB
+
+### Heading AA (level 3)
 
 Some text at level 3
 
 
-# Heading Level 1 - B
+### Heading AB (level 3)
 
-Some text at level 1
+Some text at level 3
 
 
-## Heading Level 2 - BA
+## Heading B (level 2)
 
 Some text at level 2
 
-### Heading Level 3 - BB
+
+### Heading BA (level 3)
 
 Some text at level 3
+
+
+### Heading BB (level 3)
+
+Some text at level 3
+
+
