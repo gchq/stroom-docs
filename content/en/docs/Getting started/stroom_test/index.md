@@ -36,10 +36,10 @@ Alice <-- Bob: Another authentication Response
 
 ### SVG Page Resource
 
-{{< svg-image puml2 "150x" >}}
+{{< image puml2 "150x" >}}
 This is some wordy text
 And so is this
-{{< /svg-image >}}
+{{< /image >}}
 
 
 ### PNG resized
