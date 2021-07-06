@@ -108,32 +108,45 @@ main() {
   #   file.puml
   #   generated/file.svg
 
-  # remove any trailing slash
-  local file_or_dir="$1"; shift
   local failed_count=0
 
-  if [[ -f "${file_or_dir}" ]]; then
-    local puml_file="${file_or_dir}"
-    convert_file "${puml_file}"
-  else
-    # Not a file so assume it 
+  for arg in "$@"; do
+    echo -e "${GREEN}Processing argument ${BLUE}${arg}${NC}"
     # remove any trailing slash
-    local dir="${file_or_dir%/}"
+    local file_or_dir="${arg}"; shift
 
-    if [[ ! -d "${dir}" ]]; then
-      echo -e "${RED}ERROR: File or directory ${dir} does not exist.${NC}"
-      exit 1
-    fi
+    if [[ -f "${file_or_dir}" ]]; then
+      echo -e "${GREEN}Path ${BLUE}${file_or_dir}${GREEN} is a file${NC}"
+      local puml_file="${file_or_dir}"
+      convert_file "${puml_file}"
+    else
+      # Not a file so assume it 
+      # remove any trailing slash
+      local dir="${file_or_dir%/}"
 
-    for puml_file in "${dir}"/**/*.puml; do
-      # shellcheck disable=SC1001
-      if [[ ! "${puml_file}" =~ \/_book\/ ]]; then
-        convert_file "${puml_file}"
-      else
-        echo -e "${YELLOW}Skipping file ${BLUE}${puml_file}${NC}"
+      if [[ ! -d "${dir}" ]]; then
+        echo -e "${RED}ERROR: File or directory ${dir} does not exist.${NC}"
+        exit 1
       fi
-    done
-  fi
+
+      echo -e "${GREEN}Path ${BLUE}${file_or_dir}${GREEN} is a directory${NC}"
+
+      if ls "${dir}"/**/*.puml > /dev/null 2>&1; then
+        for puml_file in "${dir}"/**/*.puml; do
+          # shellcheck disable=SC1001
+          if [[ ! "${puml_file}" =~ \/_book\/ ]]; then
+            convert_file "${puml_file}"
+          else
+            echo -e "${YELLOW}Skipping file ${BLUE}${puml_file}${NC}"
+          fi
+        done
+      else
+        echo -e "${YELLOW}No files found matching ${BLUE}${dir}/**/*.puml${NC}"
+      fi
+    fi
+  done
+  
+
 
   if [[ "${failed_count}" -gt 0 ]]; then
     echo -e "${RED}ERROR${NC}: Failed to convert ${failed_count} files" >&2
