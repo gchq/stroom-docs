@@ -18,22 +18,22 @@
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
 
-<title>Stroom News | Stroom</title>
-<meta name="description" content="A Stroom example site"><meta property="og:title" content="Stroom News" />
+<title>News / Releases | Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="News / Releases" />
 <meta property="og:description" content="A Stroom example site" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/news/" /><meta property="og:site_name" content="Stroom" />
 
-<meta itemprop="name" content="Stroom News">
+<meta itemprop="name" content="News / Releases">
 <meta itemprop="description" content="A Stroom example site"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Stroom News"/>
+<meta name="twitter:title" content="News / Releases"/>
 <meta name="twitter:description" content="A Stroom example site"/>
 
 
 
 
-<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.7cdb540ff0e8de8cced0cce6bc6dda55c55e485c79a43926f6b129a91e1eb41e.css" as="style">
-<link href="/stroom-docs/hugo-docsy/scss/main.min.7cdb540ff0e8de8cced0cce6bc6dda55c55e485c79a43926f6b129a91e1eb41e.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.b0a81f98a4d0c1284e579a5f2e9f805ae7636605c6a0e743d566ad878c5056b6.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.b0a81f98a4d0c1284e579a5f2e9f805ae7636605c6a0e743d566ad878c5056b6.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -90,7 +90,7 @@
 				
 				
 				
-				<a class="nav-link active" href="/stroom-docs/hugo-docsy/news/" ><span class="active">News</span></a>
+				<a class="nav-link active" href="/stroom-docs/hugo-docsy/news/" ><span class="active">News / Releases</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -177,7 +177,7 @@ This the multi-page printable view of this section.
 
 
 
-<h1 class="title">Stroom News</h1>
+<h1 class="title">News / Releases</h1>
 
 
 
@@ -248,6 +248,36 @@ This the multi-page printable view of this section.
   
   
 
+  
+    
+    
+	
+
+    <li><a href="#pg-452bebe2145b6f619d0c79bac3541324">Version 7.0</a></li>
+
+
+
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-d6a8fe6b4a3868d8e7ff5415227fd1d7">Version 6.1</a></li>
+
+
+
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-7dc04dcd9337650f0803d83e574efd9b">Version 6.0</a></li>
+
+
+
+    
   
     
     
@@ -755,6 +785,291 @@ bar := &quot;foo&quot;;
   
 
 <div class="td-content" style="">
+    <h1 id="pg-452bebe2145b6f619d0c79bac3541324">Version 7.0</h1>
+	<div class="lead">This is my heading</div>
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2021-07-07" class="text-muted">Wednesday, July 07, 2021</time>
+        
+	</div>
+	<h2 id="integrated-authentication">Integrated Authentication</h2>
+<p>The previously standalone (in v6) <em>stroom-auth-service</em> and <em>stroom-auth-ui</em> services have been integrated into the core <em>stroom</em> application.
+This simplifies the installation and configuration of stroom.</p>
+<h2 id="configuration-properties-improvements">Configuration Properties Improvements</h2>
+<h3 id="configuration-is-now-provided-by-yaml-files-on-boot">Configuration is now provided by YAML files on boot</h3>
+<p>Previously <em>stroom</em> used a flat <code>.conf</code> file to manage the application configuration.
+Application logging was configured either via a <code>.yml</code> file (in v6) or in an <code>.xml</code> file (in v5).
+Now <em>stroom</em> uses a single <code>.yml</code> file to configure the application and logging.
+This file is different to the <code>.yml</code> files(s) used in the docker compose configuration.
+The YAML file provides a more logical hierarchical structure and support for typed values (longs, doubles, maps, lists, etc.).</p>
+<p>The YAML configuration is intended for configuration items that are either needed to bootstrap <em>stroom</em> or have values that are specific to a node.
+Cluster wide configuration properties are still stored in the database and managed via the UI.</p>
+<p>There has been a change to the precedence of the configuration properties held in different locations (YAML, database, default) and this is described in <a href="user-guide/properties.md">Properties</a>.</p>
+<h3 id="stroom-home-and-relative-paths">Stroom Home and relative paths</h3>
+<p>The concept of <em>Stroom Home</em> has been introduced.
+Stroom Home allows for one path to be configured and for all other configurable paths to default to being a child of this path.
+This keeps all configured directories in one place by default.
+Each configured directory can be set to an absolute path if a location outside Stroom Home is required.
+If a relative path is used it will be relative to Stroom Home.
+Stroom Home can be configured with the property <code>stroom.path.home</code>.</p>
+<h3 id="improved-_properties_-ui-screens-that-tell-you-the-values-over-the-cluster">Improved <em>Properties</em> UI screens that tell you the values over the cluster</h3>
+<p>Previously the <em>Properties</em> UI screens could only tell you the values held within the database and not the value that a node was actually using.
+The Properties screens have been improved to tell you the source of a property value and where multiple values exist across the cluster, which nodes have what values.
+See <a href="user-guide/properties.md">Properties</a>.</p>
+<h3 id="validation-of-configuration-property-values">Validation of Configuration Property Values</h3>
+<p>Validation of configuration property values is now possible.
+The validation rules are defined in the application code and allow for things like:</p>
+<ul>
+<li>Ensuring that a regex pattern is a valid pattern</li>
+<li>Setting maximum or minimum values to numeric properties.</li>
+<li>Ensuring a property has a value.</li>
+</ul>
+<p>Validation will be enforced on application boot or when a value is edited via the UI.</p>
+<h3 id="hot-loading-of-node-configuration">Hot Loading of Node Configuration</h3>
+<p>Now that node specific configuration is managed via the YAML configuration file <em>stroom</em> will detect changes to this file and update the configuration properties accordingly.
+Some properties however do not support being changed at runtime so will still require either the whole system or the UI nodes to be restarted.</p>
+<h2 id="data-retention-impact-summary">Data retention impact summary</h2>
+<p>The <em>Data_Retention</em> screen now provides an <em>Impact Summary</em> tab that will show you a summary of what will be deleted by the current active rules.
+The summary is based on the rules as they currently are in the UI, so it allows you to see the impact before saving rule changes.
+The summary is a count of the number of streams that will be deleted by each rule, broken down by feed and stream type.
+In very large systems with a lot of data or where complex rules are in place the summary may take a some time (minutes) to produce.</p>
+<p>See <a href="user-guide/data-retention.md">Data Retention</a> for more details.</p>
+<h2 id="fuzzy-finding-in-quick-filters-and-suggestion-text-fields">Fuzzy Finding in Quick Filters and Suggestion Text Fields</h2>
+<p>A richer fuzzy find algorithm has been added to the Quick filter search fields.
+It has also been added to some text input fields with suggestion fields, e.g. <em>Feed Name</em> input fields.
+This makes finding values or rows in a table faster and more precise.</p>
+<p>See <a href="user-guide/finding-things/finding-things.md">Finding Things</a> for more details.</p>
+<h2 id="new-off-heap-memory-efficient-reference-data">New (off-heap) memory efficient reference data</h2>
+<p>The reference data feature in previous versions of <em>stroom</em> loaded the reference data on demand and held it in Java&rsquo;s heap memory.
+In large systems or where a pipeline doing reference data lookups across a wide time range this can lead to very large heap sizes.</p>
+<p>In v7 <em>stroom</em> now uses an off-heap, disk backed store (<a href="http://www.lmdb.tech/doc/">LMDB</a>) for the reference data.
+This removes all (with the exception of context lookups) from the Java heap, so the <code>-Xmx</code> value can be reduced.
+In large systems this can mean keeping your <code>-Xmx</code> value below the 32Gb threshold to further reduce the memory usage.
+Because the store is disk backed frequently used reference data can be kept in the store to reduce the loading overhead.
+As the reference data is held off-heap it <em>stroom</em> can make use of all available free RAM for the reference data.</p>
+<p>See <a href="user-guide/pipelines/reference-data.md">Reference Data</a></p>
+<h3 id="reference-data-api">Reference Data API</h3>
+<p>A RESTful API has been added for the reference data store.
+This primarily allows reference lookups to be performed by external systems.</p>
+<p>See <a href="user-guide/pipelines/reference-data.md#reference-data-api">Reference Data API</a></p>
+<h2 id="text-editor-improvements">Text editor improvements</h2>
+<p>The Ace text editor is used widely in Stroom for such things as editing XSLTs, editing dashboard column expressions, viewing stream data and stepping.
+There have been a number of improvements to this editor.</p>
+<p>See <a href="user-guide/editing-and-viewing.md">Editing and Viewing Text Data</a></p>
+<h3 id="editor-context-menu">Editor context menu</h3>
+<p>Additional options have been added to the context menu in the text editor:</p>
+<ul>
+<li>Toggle soft line wrapping of long lines.</li>
+<li>Toggle viewing hidden characters, e.g. tabs, spaces, line breaks.</li>
+<li>Toggle Vim key bindings. The Ace editor does not implement all Vim functionality but supports the core key bindings.</li>
+<li>Toggle auto-completion. Completion is triggered using <code>ctrl-space</code>.</li>
+<li>Toggle live auto-completion. Completion is triggered as you type.</li>
+<li>Toggle the inclusion of snippets in the auto-complete suggestions.</li>
+</ul>
+<h3 id="auto-completion-and-snippets">Auto-completion and snippets</h3>
+<p>Most editor screens now support basic auto-completion of existing words found in the text.
+Some editor screens, such as XSLT, dashboard column expressions and Javascript scripts also support keyword and snippet completion.</p>
+<h2 id="data-viewing-improvements">Data viewing improvements</h2>
+<p>The way data is viewed in Stroom has changed to improve the viewing of large files or files with no line breaks.
+Previously a set number of lines of data would be fetched for display on the page in the Data Viewer.
+This did not work for data that has no line breaks as Stroom would then try to fetch all data.</p>
+<p>In v7 Stroom works at the character level so can fetch a reasonable number of characters for display whether they are all one line or spread over multiple lines.</p>
+<p>The viewing of data has been separated into two mechanisms, <em>Data Preview</em> and <em>Source View</em>.</p>
+<p>See <a href="user-guide/editing-and-viewing.md">Editing and Viewing Text Data</a></p>
+<h3 id="data-preview">Data Preview</h3>
+<p>This is the default view of the data.
+It displays the first n characters (configurable) of the data.
+It will attempt the format the data, e.g. showing pretty-printed XML.
+You cannot navigate around the data.</p>
+<h3 id="source-view">Source View</h3>
+<p>This view is intended for seeing the actual data in its raw un-formatted form and for navigating around it.
+This view provides navigation controls to define the range of data being display, e.g. from a character offset, line number or line and column.</p>
+<h2 id="you-can-now-query-data-server-tasks-and-processing-tasks-on-dashboards">You can now query data, server tasks and processing tasks on dashboards</h2>
+
+<div class="alert alert-secondary" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section
+
+</div>
+
+<h2 id="data-actions-such-as-delete-download-reprocess-now-provide-an-impact-summary-before-proceeding">Data actions such as delete, download, reprocess now provide an impact summary before proceeding.</h2>
+
+<div class="alert alert-secondary" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section
+
+</div>
+
+<h2 id="index-volume-groups-for-easier-index-volume-assignment">Index volume groups for easier index volume assignment</h2>
+
+<div class="alert alert-secondary" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section
+
+</div>
+
+<h2 id="kafka-integration">Kafka Integration</h2>
+<h3 id="new-kafka-configuration-entity">New Kafka Configuration Entity</h3>
+<p>Integration with Apache Kafka was introduced in v6 however the way the connection to Kafka cluster(s) is configured has been improved.
+We have introduced a new entity type called <em>Kafka Configuration</em> that can be created/managed via the explorer tree.
+This means <em>stroom</em> can integrate with many Kafka clusters or connect to a cluster using different sets of Kafka Configuration properties.
+The Kafka Configuration entity provides an editor for setting all the Kafka specific configuration properties.
+Pipeline elements that use Kafka now provide a means to select the Kafka Configuration to use.</p>
+
+<div class="alert alert-secondary" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Add user guide section on Kafka configuration
+
+</div>
+
+<h3 id="an-improved-pipeline-element-for-sending-data-to-kafka">An Improved Pipeline Element for Sending Data to Kafka</h3>
+<p>The previous Kafka pipeline elements in v6 have been replaced with a single <em>StandardKafkaProducer</em> element.
+The new element allows for the dynamic construction of a Kafka Producer message via an XML document conforming to the <em>kafka-records</em> XmlSchema.
+With this new element events can be translated into kafka records which will be then given to the Kafka Producer to send to the Kafka Cluster.
+This allows for complete control of things like timestamps, topics, keys, values, etc.</p>
+
+<div class="alert alert-secondary" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Add user guide section on Kafka Standard Producer
+
+</div>
+
+<h2 id="no-limitations-on-data-reprocessing">No limitations on data reprocessing</h2>
+
+<div class="alert alert-secondary" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section
+
+</div>
+
+<h2 id="improved-rest-api">Improved REST API</h2>
+<h3 id="a-rich-rest-api-for-all-ui-accessible-functions">A rich REST API for all UI accessible functions</h3>
+<p>The architecture of the <em>stroom</em> UI has been changed such that all communication between the UI and the back end is via REST calls.
+This means all of these REST calls are available as an API for users of <em>stroom</em> to take advantage of.
+It opens up the possibility for interacting with <em>stoom</em> via scripts or from other applications.</p>
+<h3 id="swagger-ui-to-document-rest-api-methods">Swagger UI to document REST API methods</h3>
+<p>The Swagger UI and specification file have been improved to include all of the API methods available in stroom.</p>
+<h2 id="improved-architecture-with-separate-modules-with-individual-db-access-to-spread-load">Improved architecture with separate modules with individual DB access to spread load.</h2>
+<p>The architecture of the core stroom application has been fundamentally changed in v7 to internally break up the application into its functional areas.
+This separation makes for a more logical code base and allows for the possibility of each functional area having its own database instance, if required.</p>
+<h2 id="java-12">Java 12</h2>
+<p><em>stroom</em> v7 now runs on the Java 12 JVM.</p>
+<h2 id="mysql-8-support">MySQL 8 support.</h2>
+<p><em>stroom</em> v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.</p>
+
+</div>
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-d6a8fe6b4a3868d8e7ff5415227fd1d7">Version 6.1</h1>
+	
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2020-02-14" class="text-muted">Friday, February 14, 2020</time>
+        
+	</div>
+	
+<div class="alert alert-secondary" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Version 6.1 release notes need populating.
+
+</div>
+
+
+</div>
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-7dc04dcd9337650f0803d83e574efd9b">Version 6.0</h1>
+	
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2019-08-02" class="text-muted">Friday, August 02, 2019</time>
+        
+	</div>
+	<h2 id="oauth-20openid-connect-authentication">OAuth 2.0/OpenID Connect authentication</h2>
+<p>Authentication for Stroom provided by an external service rather than a service internal to Stroom.
+This change allows support for broader corporate authentication schemes and is a key requirement for enabling the future microservice architecture for Stroom.</p>
+<h2 id="api-keys-for-third-party-clients">API keys for third party clients</h2>
+<p>Anyone wishing to make use of the data exposed by Stroom&rsquo;s services can request an API key.
+This key acts as a password for their own applications.
+It allows administrators to secure and manage access to Stroom&rsquo;s data.</p>
+<h2 id="hbase-backed-statistics-store">HBase backed statistics store</h2>
+<p>This new implementation of statistics (Stroom-Stats) provides a vastly more scalable time series DB for large scale collection of Stroom&rsquo;s data aggregated to various time buckets.
+Stroom-Stats uses Kafka for ingesting the source data.</p>
+<h2 id="data-receipt-filtering">Data receipt filtering</h2>
+<p>Data arriving in Stroom has meta data that can be matched against a policy so that certain actions can be taken.
+This could be to receive, drop or reject the data.</p>
+<p>Filtering of data also applies to Stroom proxy where each proxy can get a filtering policy from an upstream proxy or a Stroom instance.</p>
+<h2 id="data-retention-policies">Data retention policies</h2>
+<p>The length of time that data will be retained in Strooms stream store can be defined by creating data retention rules.
+These rules match streams based on their meta data and will automatically delete data once the retention period associated with the rule is exceeded.</p>
+<h2 id="dashboard-linking">Dashboard linking</h2>
+<p>Links can be created in dashboards to jump to other dashboards or other external sites that provide additional contextual information.</p>
+<h2 id="search-api">Search API</h2>
+<p>The search system used by Dashboards can be used via a restful API.
+This provides access to data stored in search indices (including the ability to extract data) and statistics stores.
+The data fetched via the search API can be received and processed via an external system.</p>
+<h2 id="kafka-appender-and-filter">Kafka appender and filter</h2>
+<p>New pipeline elements for writing XML or text data to a Kafka topic.
+This provides more options for using Stroom&rsquo;s data in other systems.</p>
+
+</div>
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
     <h1 id="pg-451d925a211003bcc4883ef8c9243a55">Another Great Release</h1>
 	<div class="lead">A short lead description about this content page. Text here can also be <strong>bold</strong> or <em>italic</em> and can even be split over multiple paragraphs.</div>
 	<div class="td-byline mb-4">

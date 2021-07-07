@@ -13,6 +13,249 @@
     
     
     <item>
+      <title>News: Version 7.0</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/news/releases/v07.00/</link>
+      <pubDate>Wed, 07 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/news/releases/v07.00/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;integrated-authentication&#34;&gt;Integrated Authentication&lt;/h2&gt;
+&lt;p&gt;The previously standalone (in v6) &lt;em&gt;stroom-auth-service&lt;/em&gt; and &lt;em&gt;stroom-auth-ui&lt;/em&gt; services have been integrated into the core &lt;em&gt;stroom&lt;/em&gt; application.
+This simplifies the installation and configuration of stroom.&lt;/p&gt;
+&lt;h2 id=&#34;configuration-properties-improvements&#34;&gt;Configuration Properties Improvements&lt;/h2&gt;
+&lt;h3 id=&#34;configuration-is-now-provided-by-yaml-files-on-boot&#34;&gt;Configuration is now provided by YAML files on boot&lt;/h3&gt;
+&lt;p&gt;Previously &lt;em&gt;stroom&lt;/em&gt; used a flat &lt;code&gt;.conf&lt;/code&gt; file to manage the application configuration.
+Application logging was configured either via a &lt;code&gt;.yml&lt;/code&gt; file (in v6) or in an &lt;code&gt;.xml&lt;/code&gt; file (in v5).
+Now &lt;em&gt;stroom&lt;/em&gt; uses a single &lt;code&gt;.yml&lt;/code&gt; file to configure the application and logging.
+This file is different to the &lt;code&gt;.yml&lt;/code&gt; files(s) used in the docker compose configuration.
+The YAML file provides a more logical hierarchical structure and support for typed values (longs, doubles, maps, lists, etc.).&lt;/p&gt;
+&lt;p&gt;The YAML configuration is intended for configuration items that are either needed to bootstrap &lt;em&gt;stroom&lt;/em&gt; or have values that are specific to a node.
+Cluster wide configuration properties are still stored in the database and managed via the UI.&lt;/p&gt;
+&lt;p&gt;There has been a change to the precedence of the configuration properties held in different locations (YAML, database, default) and this is described in &lt;a href=&#34;user-guide/properties.md&#34;&gt;Properties&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;stroom-home-and-relative-paths&#34;&gt;Stroom Home and relative paths&lt;/h3&gt;
+&lt;p&gt;The concept of &lt;em&gt;Stroom Home&lt;/em&gt; has been introduced.
+Stroom Home allows for one path to be configured and for all other configurable paths to default to being a child of this path.
+This keeps all configured directories in one place by default.
+Each configured directory can be set to an absolute path if a location outside Stroom Home is required.
+If a relative path is used it will be relative to Stroom Home.
+Stroom Home can be configured with the property &lt;code&gt;stroom.path.home&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;improved-_properties_-ui-screens-that-tell-you-the-values-over-the-cluster&#34;&gt;Improved &lt;em&gt;Properties&lt;/em&gt; UI screens that tell you the values over the cluster&lt;/h3&gt;
+&lt;p&gt;Previously the &lt;em&gt;Properties&lt;/em&gt; UI screens could only tell you the values held within the database and not the value that a node was actually using.
+The Properties screens have been improved to tell you the source of a property value and where multiple values exist across the cluster, which nodes have what values.
+See &lt;a href=&#34;user-guide/properties.md&#34;&gt;Properties&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;validation-of-configuration-property-values&#34;&gt;Validation of Configuration Property Values&lt;/h3&gt;
+&lt;p&gt;Validation of configuration property values is now possible.
+The validation rules are defined in the application code and allow for things like:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ensuring that a regex pattern is a valid pattern&lt;/li&gt;
+&lt;li&gt;Setting maximum or minimum values to numeric properties.&lt;/li&gt;
+&lt;li&gt;Ensuring a property has a value.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Validation will be enforced on application boot or when a value is edited via the UI.&lt;/p&gt;
+&lt;h3 id=&#34;hot-loading-of-node-configuration&#34;&gt;Hot Loading of Node Configuration&lt;/h3&gt;
+&lt;p&gt;Now that node specific configuration is managed via the YAML configuration file &lt;em&gt;stroom&lt;/em&gt; will detect changes to this file and update the configuration properties accordingly.
+Some properties however do not support being changed at runtime so will still require either the whole system or the UI nodes to be restarted.&lt;/p&gt;
+&lt;h2 id=&#34;data-retention-impact-summary&#34;&gt;Data retention impact summary&lt;/h2&gt;
+&lt;p&gt;The &lt;em&gt;Data_Retention&lt;/em&gt; screen now provides an &lt;em&gt;Impact Summary&lt;/em&gt; tab that will show you a summary of what will be deleted by the current active rules.
+The summary is based on the rules as they currently are in the UI, so it allows you to see the impact before saving rule changes.
+The summary is a count of the number of streams that will be deleted by each rule, broken down by feed and stream type.
+In very large systems with a lot of data or where complex rules are in place the summary may take a some time (minutes) to produce.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;user-guide/data-retention.md&#34;&gt;Data Retention&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;h2 id=&#34;fuzzy-finding-in-quick-filters-and-suggestion-text-fields&#34;&gt;Fuzzy Finding in Quick Filters and Suggestion Text Fields&lt;/h2&gt;
+&lt;p&gt;A richer fuzzy find algorithm has been added to the Quick filter search fields.
+It has also been added to some text input fields with suggestion fields, e.g. &lt;em&gt;Feed Name&lt;/em&gt; input fields.
+This makes finding values or rows in a table faster and more precise.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;user-guide/finding-things/finding-things.md&#34;&gt;Finding Things&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;h2 id=&#34;new-off-heap-memory-efficient-reference-data&#34;&gt;New (off-heap) memory efficient reference data&lt;/h2&gt;
+&lt;p&gt;The reference data feature in previous versions of &lt;em&gt;stroom&lt;/em&gt; loaded the reference data on demand and held it in Java&amp;rsquo;s heap memory.
+In large systems or where a pipeline doing reference data lookups across a wide time range this can lead to very large heap sizes.&lt;/p&gt;
+&lt;p&gt;In v7 &lt;em&gt;stroom&lt;/em&gt; now uses an off-heap, disk backed store (&lt;a href=&#34;http://www.lmdb.tech/doc/&#34;&gt;LMDB&lt;/a&gt;) for the reference data.
+This removes all (with the exception of context lookups) from the Java heap, so the &lt;code&gt;-Xmx&lt;/code&gt; value can be reduced.
+In large systems this can mean keeping your &lt;code&gt;-Xmx&lt;/code&gt; value below the 32Gb threshold to further reduce the memory usage.
+Because the store is disk backed frequently used reference data can be kept in the store to reduce the loading overhead.
+As the reference data is held off-heap it &lt;em&gt;stroom&lt;/em&gt; can make use of all available free RAM for the reference data.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;user-guide/pipelines/reference-data.md&#34;&gt;Reference Data&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;reference-data-api&#34;&gt;Reference Data API&lt;/h3&gt;
+&lt;p&gt;A RESTful API has been added for the reference data store.
+This primarily allows reference lookups to be performed by external systems.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;user-guide/pipelines/reference-data.md#reference-data-api&#34;&gt;Reference Data API&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;text-editor-improvements&#34;&gt;Text editor improvements&lt;/h2&gt;
+&lt;p&gt;The Ace text editor is used widely in Stroom for such things as editing XSLTs, editing dashboard column expressions, viewing stream data and stepping.
+There have been a number of improvements to this editor.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;user-guide/editing-and-viewing.md&#34;&gt;Editing and Viewing Text Data&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;editor-context-menu&#34;&gt;Editor context menu&lt;/h3&gt;
+&lt;p&gt;Additional options have been added to the context menu in the text editor:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Toggle soft line wrapping of long lines.&lt;/li&gt;
+&lt;li&gt;Toggle viewing hidden characters, e.g. tabs, spaces, line breaks.&lt;/li&gt;
+&lt;li&gt;Toggle Vim key bindings. The Ace editor does not implement all Vim functionality but supports the core key bindings.&lt;/li&gt;
+&lt;li&gt;Toggle auto-completion. Completion is triggered using &lt;code&gt;ctrl-space&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Toggle live auto-completion. Completion is triggered as you type.&lt;/li&gt;
+&lt;li&gt;Toggle the inclusion of snippets in the auto-complete suggestions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;auto-completion-and-snippets&#34;&gt;Auto-completion and snippets&lt;/h3&gt;
+&lt;p&gt;Most editor screens now support basic auto-completion of existing words found in the text.
+Some editor screens, such as XSLT, dashboard column expressions and Javascript scripts also support keyword and snippet completion.&lt;/p&gt;
+&lt;h2 id=&#34;data-viewing-improvements&#34;&gt;Data viewing improvements&lt;/h2&gt;
+&lt;p&gt;The way data is viewed in Stroom has changed to improve the viewing of large files or files with no line breaks.
+Previously a set number of lines of data would be fetched for display on the page in the Data Viewer.
+This did not work for data that has no line breaks as Stroom would then try to fetch all data.&lt;/p&gt;
+&lt;p&gt;In v7 Stroom works at the character level so can fetch a reasonable number of characters for display whether they are all one line or spread over multiple lines.&lt;/p&gt;
+&lt;p&gt;The viewing of data has been separated into two mechanisms, &lt;em&gt;Data Preview&lt;/em&gt; and &lt;em&gt;Source View&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;user-guide/editing-and-viewing.md&#34;&gt;Editing and Viewing Text Data&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;data-preview&#34;&gt;Data Preview&lt;/h3&gt;
+&lt;p&gt;This is the default view of the data.
+It displays the first n characters (configurable) of the data.
+It will attempt the format the data, e.g. showing pretty-printed XML.
+You cannot navigate around the data.&lt;/p&gt;
+&lt;h3 id=&#34;source-view&#34;&gt;Source View&lt;/h3&gt;
+&lt;p&gt;This view is intended for seeing the actual data in its raw un-formatted form and for navigating around it.
+This view provides navigation controls to define the range of data being display, e.g. from a character offset, line number or line and column.&lt;/p&gt;
+&lt;h2 id=&#34;you-can-now-query-data-server-tasks-and-processing-tasks-on-dashboards&#34;&gt;You can now query data, server tasks and processing tasks on dashboards&lt;/h2&gt;
+
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this section
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;data-actions-such-as-delete-download-reprocess-now-provide-an-impact-summary-before-proceeding&#34;&gt;Data actions such as delete, download, reprocess now provide an impact summary before proceeding.&lt;/h2&gt;
+
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this section
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;index-volume-groups-for-easier-index-volume-assignment&#34;&gt;Index volume groups for easier index volume assignment&lt;/h2&gt;
+
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this section
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;kafka-integration&#34;&gt;Kafka Integration&lt;/h2&gt;
+&lt;h3 id=&#34;new-kafka-configuration-entity&#34;&gt;New Kafka Configuration Entity&lt;/h3&gt;
+&lt;p&gt;Integration with Apache Kafka was introduced in v6 however the way the connection to Kafka cluster(s) is configured has been improved.
+We have introduced a new entity type called &lt;em&gt;Kafka Configuration&lt;/em&gt; that can be created/managed via the explorer tree.
+This means &lt;em&gt;stroom&lt;/em&gt; can integrate with many Kafka clusters or connect to a cluster using different sets of Kafka Configuration properties.
+The Kafka Configuration entity provides an editor for setting all the Kafka specific configuration properties.
+Pipeline elements that use Kafka now provide a means to select the Kafka Configuration to use.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Add user guide section on Kafka configuration
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;an-improved-pipeline-element-for-sending-data-to-kafka&#34;&gt;An Improved Pipeline Element for Sending Data to Kafka&lt;/h3&gt;
+&lt;p&gt;The previous Kafka pipeline elements in v6 have been replaced with a single &lt;em&gt;StandardKafkaProducer&lt;/em&gt; element.
+The new element allows for the dynamic construction of a Kafka Producer message via an XML document conforming to the &lt;em&gt;kafka-records&lt;/em&gt; XmlSchema.
+With this new element events can be translated into kafka records which will be then given to the Kafka Producer to send to the Kafka Cluster.
+This allows for complete control of things like timestamps, topics, keys, values, etc.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Add user guide section on Kafka Standard Producer
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;no-limitations-on-data-reprocessing&#34;&gt;No limitations on data reprocessing&lt;/h2&gt;
+
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this section
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;improved-rest-api&#34;&gt;Improved REST API&lt;/h2&gt;
+&lt;h3 id=&#34;a-rich-rest-api-for-all-ui-accessible-functions&#34;&gt;A rich REST API for all UI accessible functions&lt;/h3&gt;
+&lt;p&gt;The architecture of the &lt;em&gt;stroom&lt;/em&gt; UI has been changed such that all communication between the UI and the back end is via REST calls.
+This means all of these REST calls are available as an API for users of &lt;em&gt;stroom&lt;/em&gt; to take advantage of.
+It opens up the possibility for interacting with &lt;em&gt;stoom&lt;/em&gt; via scripts or from other applications.&lt;/p&gt;
+&lt;h3 id=&#34;swagger-ui-to-document-rest-api-methods&#34;&gt;Swagger UI to document REST API methods&lt;/h3&gt;
+&lt;p&gt;The Swagger UI and specification file have been improved to include all of the API methods available in stroom.&lt;/p&gt;
+&lt;h2 id=&#34;improved-architecture-with-separate-modules-with-individual-db-access-to-spread-load&#34;&gt;Improved architecture with separate modules with individual DB access to spread load.&lt;/h2&gt;
+&lt;p&gt;The architecture of the core stroom application has been fundamentally changed in v7 to internally break up the application into its functional areas.
+This separation makes for a more logical code base and allows for the possibility of each functional area having its own database instance, if required.&lt;/p&gt;
+&lt;h2 id=&#34;java-12&#34;&gt;Java 12&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;stroom&lt;/em&gt; v7 now runs on the Java 12 JVM.&lt;/p&gt;
+&lt;h2 id=&#34;mysql-8-support&#34;&gt;MySQL 8 support.&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;stroom&lt;/em&gt; v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>News: Version 6.1</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/news/releases/v06.01/</link>
+      <pubDate>Fri, 14 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/news/releases/v06.01/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Version 6.1 release notes need populating.
+
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>News: Version 6.0</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/news/releases/v06.00/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/news/releases/v06.00/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;oauth-20openid-connect-authentication&#34;&gt;OAuth 2.0/OpenID Connect authentication&lt;/h2&gt;
+&lt;p&gt;Authentication for Stroom provided by an external service rather than a service internal to Stroom.
+This change allows support for broader corporate authentication schemes and is a key requirement for enabling the future microservice architecture for Stroom.&lt;/p&gt;
+&lt;h2 id=&#34;api-keys-for-third-party-clients&#34;&gt;API keys for third party clients&lt;/h2&gt;
+&lt;p&gt;Anyone wishing to make use of the data exposed by Stroom&amp;rsquo;s services can request an API key.
+This key acts as a password for their own applications.
+It allows administrators to secure and manage access to Stroom&amp;rsquo;s data.&lt;/p&gt;
+&lt;h2 id=&#34;hbase-backed-statistics-store&#34;&gt;HBase backed statistics store&lt;/h2&gt;
+&lt;p&gt;This new implementation of statistics (Stroom-Stats) provides a vastly more scalable time series DB for large scale collection of Stroom&amp;rsquo;s data aggregated to various time buckets.
+Stroom-Stats uses Kafka for ingesting the source data.&lt;/p&gt;
+&lt;h2 id=&#34;data-receipt-filtering&#34;&gt;Data receipt filtering&lt;/h2&gt;
+&lt;p&gt;Data arriving in Stroom has meta data that can be matched against a policy so that certain actions can be taken.
+This could be to receive, drop or reject the data.&lt;/p&gt;
+&lt;p&gt;Filtering of data also applies to Stroom proxy where each proxy can get a filtering policy from an upstream proxy or a Stroom instance.&lt;/p&gt;
+&lt;h2 id=&#34;data-retention-policies&#34;&gt;Data retention policies&lt;/h2&gt;
+&lt;p&gt;The length of time that data will be retained in Strooms stream store can be defined by creating data retention rules.
+These rules match streams based on their meta data and will automatically delete data once the retention period associated with the rule is exceeded.&lt;/p&gt;
+&lt;h2 id=&#34;dashboard-linking&#34;&gt;Dashboard linking&lt;/h2&gt;
+&lt;p&gt;Links can be created in dashboards to jump to other dashboards or other external sites that provide additional contextual information.&lt;/p&gt;
+&lt;h2 id=&#34;search-api&#34;&gt;Search API&lt;/h2&gt;
+&lt;p&gt;The search system used by Dashboards can be used via a restful API.
+This provides access to data stored in search indices (including the ability to extract data) and statistics stores.
+The data fetched via the search API can be received and processed via an external system.&lt;/p&gt;
+&lt;h2 id=&#34;kafka-appender-and-filter&#34;&gt;Kafka appender and filter&lt;/h2&gt;
+&lt;p&gt;New pipeline elements for writing XML or text data to a Kafka topic.
+This provides more options for using Stroom&amp;rsquo;s data in other systems.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>News: Easy documentation with Docsy</title>
       <link>https://gchq.github.io/stroom-docs/hugo-docsy/news/news/first-post/</link>
       <pubDate>Sat, 06 Oct 2018 00:00:00 +0000</pubDate>
