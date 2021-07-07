@@ -1,13 +1,13 @@
 ---
-title: "_Style Guide"
-linkTitle: "_Style Guide"
+title: "__Style Guide"
+linkTitle: "__Style Guide"
 weight: 1
 description: >
   A style guide page that won't be visible in production.
   It should be viewed both in its published form and as source to understand how the page elements are formed.
 menu:
   main:
-    weight: 20
+    weight: 100
 # Set draft: true to stop the page appearing in the published/released version.
 draft: true
 ---
