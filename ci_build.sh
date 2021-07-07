@@ -89,11 +89,13 @@ main() {
   fi
 
   # build the static site
+  # TODO, remove --buildDrafts arg once we merge to master
   echo -e "${GREEN}Installing and building gitbook${NC}"
   docker-compose \
     -f ./container_build/docker_hugo/docker-compose.yaml \
     run \
     site \
+    --buildDrafts \
     --baseUrl "${hugo_base_url}"
 
   # TODO do we need any kind of similr check for hugo?
