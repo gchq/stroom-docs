@@ -1,3 +1,4 @@
+
 ---
 # The top of page title
 title: "__Style Guide"
@@ -15,6 +16,8 @@ tags:
   - "foo"
   - "bar"
 draft: true
+exclude_search: true
+
 ---
 
 ## Heading A (level 2)
