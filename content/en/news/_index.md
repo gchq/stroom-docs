@@ -1,6 +1,6 @@
 ---
-title: "Stroom News"
-linkTitle: "News"
+title: "News / Releases"
+linkTitle: "News / Releases"
 menu:
   main:
     weight: 30
