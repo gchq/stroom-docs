@@ -11,6 +11,9 @@ menu:
   main:
     weight: 100
 # Set draft: true to stop the page appearing in the published/released version.
+tags:
+  - "foo"
+  - "bar"
 draft: true
 ---
 
