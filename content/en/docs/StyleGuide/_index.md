@@ -1,5 +1,7 @@
 ---
+# The top of page title
 title: "__Style Guide"
+# The link title in the left menu
 linkTitle: "__Style Guide"
 weight: 1
 description: >
@@ -151,10 +153,19 @@ echo "${VAR}"
 
 ### Note
 
-{{% alert title="Note" %}}This is an alert with a title and **Markdown**.{{% /alert %}}
+{{% note %}}
+This is a warning that can contain **markdown**.
+{{% /note %}}
 
 ### Warning
 
-{{% alert color="warning" title="Warning" %}}This is a warning with a title and _markdown_.{{% /alert %}}
+{{% warning %}}
+This is a warning that can contain _markdown_.
+{{% /warning %}}
 
+### TODO
+
+{{% todo %}}
+This is a TODO that can contain `markdown`.
+{{% /todo %}}
 
