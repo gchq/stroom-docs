@@ -1,6 +1,6 @@
 ---
-title: "__All Content"
-linkTitle: "__All Content"
+title: "All Content (DRAFT)"
+linkTitle: "All Content (DRAFT)"
 menu:
   main:
     weight: 110
