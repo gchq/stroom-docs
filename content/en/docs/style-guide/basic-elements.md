@@ -106,11 +106,11 @@ Color
 
 A [link](#alerts) to an anchor on this page.
 
-A [link]({{< ref "UsingImages#captions" >}}) link to an anchor on page below this one.
+A [link]({{< ref "using-images#captions" >}}) link to an anchor on page below this one.
 
-A [link]({{< ref "../Proxy/install.md#prerequisites" >}}) link to an anchor on page above this one, using a relative path.
+A [link]({{< ref "../proxy/install.md#prerequisites" >}}) link to an anchor on page above this one, using a relative path.
 
-A [link]({{< relref "/docs/Proxy/install.md#prerequisites" >}}) link to an anchor on page above this one, using an absolute path, that will be converted to a relative one.
+A [link]({{< relref "/docs/proxy/install.md#prerequisites" >}}) link to an anchor on page above this one, using an absolute path, that will be converted to a relative one.
 
 
 ## Code highlighting

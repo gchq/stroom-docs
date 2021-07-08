@@ -38,6 +38,7 @@ or
 
 {{< image puml-example.svg "300x" />}}
 
+
 ### Captions
 
 The image can be displayed with a caption:
@@ -47,6 +48,7 @@ This is some optional caption text for the image.
 And this is another line.
 {{< /image >}}
 
+
 ### Size
 
 The image can be defined with a maximum width (`nnnx`) or a maximum height (`xnnn`).
@@ -54,18 +56,22 @@ The image can be defined with a maximum width (`nnnx`) or a maximum height (`xnn
 {{< image puml-example.svg "120x" />}}
 
 
+### .png files
+
+{{< image stroom-amber.png "100x" />}}
+
+
 ## Using global `/assets/` resources
 
 For images that are shared by multiple page bundles, e.g. stroom icons, place them in `/assets/images/`.
-The image path is relative to `/assets/images/`, e.g. file  `/assets/images/StyleGuide/svg-example.svg` becomes:
+The image path is relative to `/assets/images/`, e.g. file  `/assets/images/style-guide/svg-example.svg` becomes:
 
 ```
-{{</* image "StyleGuide/svg-example.svg" "200x" */>}}
+{{</* image "style-guide/svg-example.svg" "200x" */>}}
 ```
 
-{{< image "StyleGuide/svg-example.svg" "200x" >}}
+{{< image "style-guide/svg-example.svg" "200x" >}}
 This is some optional caption text for the image.
 And this is another line.
 {{< /image >}}
-
 
