@@ -1,4 +1,17 @@
-# Stroom Proxy Install
+---
+title: "Stroom Proxy Installation"
+linkTitle: "Stroom Proxy Installation"
+weight: 5
+description: >
+  
+tags:
+  - proxy
+  - v5
+---
+
+{{% page-warning %}}
+This document refers to v5.
+{{% /page-warning %}}
 
 ## Prerequisites
 

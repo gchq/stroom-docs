@@ -64,6 +64,7 @@ Some text at level 3
     * Item 2b
 * Item 3
 
+
 ## Numbered List
 
 1. Item 1
@@ -71,6 +72,7 @@ Some text at level 3
     1. Item 2a
     1. Item 2b
 1. Item 3
+
 
 ## Check List
 
@@ -127,6 +129,7 @@ Use the `image` short code to display an image in the same directory as the page
 
 ## Code highlighting
 
+
 ### Inline code
 
 Inline code `looks like this`
@@ -157,19 +160,36 @@ echo "${VAR}"
 
 ## Alerts
 
-### Note
 
-{{% note %}}
-This is a warning that can contain **markdown**.
-{{% /note %}}
-
-### Warning
+### Warning block Quote
 
 {{% warning %}}
 This is a warning that can contain _markdown_.
 {{% /warning %}}
 
-### TODO
+
+### Page level warning
+
+{{% page-warning %}}
+This is a warning that can contain _markdown_.
+{{% /page-warning %}}
+
+
+### Note block Quote
+
+{{% note %}}
+This is a note that can contain **markdown**.
+{{% /note %}}
+
+
+### Page level info
+
+{{% pageinfo %}}
+This is some info that can contain **markdown**.
+{{% /pageinfo %}}
+
+
+### TODO block Quote
 
 {{% todo %}}
 This is a TODO that can contain `markdown`.

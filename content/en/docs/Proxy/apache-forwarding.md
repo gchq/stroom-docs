@@ -1,4 +1,15 @@
-# Apache Forwarding
+---
+title: "Apache Forwarding"
+linkTitle: "Apache Forwarding"
+weight: 5
+description: >
+  
+
+---
+
+{{% page-warning %}}
+This document refers to v5.
+{{% /page-warning %}}
 
 Stroom Proxy defaults to listening for HTTP on port 9080.
 It is recommended that Apache is used to listen on the standard HTTP port 80 and forward requests on via the Apache mod_jk module and the AJP protocol (on 9009).

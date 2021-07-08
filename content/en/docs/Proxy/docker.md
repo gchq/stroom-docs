@@ -1,4 +1,17 @@
-# Stroom Proxy
+---
+title: "Running with docker"
+linkTitle: "Running with docker"
+weight: 5
+description: >
+  
+tags:
+  - proxy
+  - docker
+---
+
+{{% todo %}}
+This document is out of date and needs updating to refer to the stroom-proxy docker stack.
+{{% /todo %}}
 
 ## Clone and build _stroom-proxy_
 
