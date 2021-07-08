@@ -1,0 +1,23 @@
+<!-- 
+Short code to display all stroom icons
+-->
+
+{{ $pathPrefix := "images/stroom-ui/" }}
+{{ with resources.Match (printf "%s*.svg" $pathPrefix) }}
+  <div class="row">
+  {{ range . }}
+    <!--{{ printf "%s%" .Name }}-->
+    <div style="padding-top: 10px;" class="col-md-4 bg-light">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="{{ .RelPermalink }}" 
+        width="30px" 
+        title="{{ .Name }}" 
+        alt="{{ .Name }}">
+      <span style="padding-top: 5px">{{ strings.TrimPrefix $pathPrefix .Name }}</span>
+    </div>
+  {{ end }}
+  </div>
+{{ end }}
+
