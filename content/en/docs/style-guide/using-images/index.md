@@ -77,9 +77,8 @@ And this is another line.
 
 ## Stroom icons
 
-Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} 
-or 
-{{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
+Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
+The filename is relative to `/assets/images/stroom-ui/`.
 
 
 
