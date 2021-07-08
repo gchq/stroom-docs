@@ -75,3 +75,11 @@ This is some optional caption text for the image.
 And this is another line.
 {{< /image >}}
 
+## Stroom icons
+
+Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} 
+or 
+{{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
+
+
+

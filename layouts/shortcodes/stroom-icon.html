@@ -1,0 +1,16 @@
+<!-- 
+Short code to add a stroom icon (from /assets/images/stroom-ui/) to the page 
+with an optional hover title.
+Usage:
+stroom-icon filename title
+e.g
+stroom-icon add.svg "Add"
+-->
+
+{{/* First try to get the resource from the page resources */}}
+{{ $filename := (.Get 0) }}
+{{ $title := (.Get 1) }}
+{{ $path := printf "/images/stroom-ui/%s" $filename }}
+{{ $image := resources.Get (printf "%s" $path) }}
+
+<img class="" src="{{ $image.RelPermalink }}" width="18" title="{{ $title }}" alt="{{ $filename }}">
