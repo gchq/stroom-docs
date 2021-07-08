@@ -80,7 +80,7 @@ main() {
 
   local stroom_repo_root="$1"
   local images_base_dir="${stroom_repo_root}/stroom-app/src/main/resources/ui/images"
-  local dest="./resources/v7/icons"
+  local dest="./assets/images/stroom-ui/"
 
   if [ ! -d "${stroom_repo_root}" ]; then
     echo -e "${RED}ERROR${NC}: Can't find stroom repo root ${BLUE}${stroom_repo_root}${NC}"
