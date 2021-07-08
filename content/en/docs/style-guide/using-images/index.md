@@ -75,16 +75,29 @@ This is some optional caption text for the image.
 And this is another line.
 {{< /image >}}
 
+
 ## Stroom icons
 
 Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
 The filename is relative to `/assets/images/stroom-ui/`.
+
+
+## PlantUML
+
+[PlantUML](https://plantuml.com) is the favoured tool for producing diagrams such as UML diagrams, entity relationship diagrams and other more general architecture diagrams.
+
+{{% todo %}}
+Finish this section with detail of the .puml => .puml.svg conversion process.
+{{% /todo %}}
+
 
 ### Icon Gallery
 
 The following are all the icons available in Stroom for reference.
 
 {{< stroom-icons-gallery >}}
+
+
 
 
 
