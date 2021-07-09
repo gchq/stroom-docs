@@ -11,6 +11,17 @@ tags:
 ## Heading A (level 2)
 
 The page title uses heading level one (`# ` in markdown) so all markdown headings should be >= 2 (`## `, `### `, `#### `, etc.).
+Headings should have two blank lines above them for clarity in the raw markdown, e.g.:
+
+```markdown
+The text of the previous heading.
+
+
+## A Heading
+
+The text of this heading.
+```
+
 
 Page table of contents (right hand pane) is controlled by this in `config.toml`.
 
@@ -120,7 +131,21 @@ A [link]({{< relref "/docs/proxy/install.md#prerequisites" >}}) link to an ancho
 Inline code `looks like this`
 
 
-### YAML
+### Code blocks
+
+Code blocks should be surrounded with fences and the code type specified to ensure correct syntax highlighting (if applicable).
+The following are some example of code blocks:
+
+**Plain text**
+
+```
+id,date,time,guid,from_ip,to_ip,application
+1,6/2/2018,10:18,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
+2,12/6/2017,5:58,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
+3,6/7/2018,11:58,fabdeb8a-936f-4e1e-a410-3ca5f2ac3ed6,153.216.143.195,152.3.51.83,Otcom
+```
+
+**YAML**
 
 ```yaml
 ---
@@ -128,13 +153,13 @@ root:
   someKey: "value"
 ```
 
-### Bash
+**Bash**
 
 ```bash
 echo "${VAR}"
 ```
 
-### XML
+**XML**
 
 ```xml
 <root>

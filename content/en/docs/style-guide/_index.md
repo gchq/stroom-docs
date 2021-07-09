@@ -19,12 +19,6 @@ menu:
 # Use this if you want to control over the positions
 weight: 90
 
-# Description section that goes between the page title and the list of tags for the page
-# It is also shown on the parent page, beneath the link, so it is useful for eah page to have at least a sentence summarising the page.
-description: >
-  A style guide page that won't be visible in production.
-  It should be viewed both in its published form and as source to understand how the page elements are formed.
-
 # An optional  list of tags applicable to this page. Allows searching by tags.
 tags:
   - style
@@ -37,6 +31,17 @@ cascade:
 # Prevent this page from being included in 'Search this site...'
 exclude_search: true
 
+# Description section that goes between the page title and the list of tags for the page
+# It is also shown on the parent page, beneath the link, so it is useful for eah page to have at least a sentence summarising the page.
+description: >
+  A guide on the house style, structure and content for this site.
+  It should be viewed both in its rendered form and as source to understand how the page elements are formed.
+  This section is draft so won't be visible in the published site.
 ---
+
+{{% todo %}}
+Add section on naming, i.e. what names we use for things, e.g. data/meta/stream, config/properties, job/task, etc.
+{{% /todo %}}
+
 
 
