@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSplitter bufferSize="5000000" xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd" version="3.0" ignoreErrors="true">
+
+  <!-- 
+  This datasplitter gains the Software and and Proxy version strings along with the log field names from the comments section of the log file.
+  That is from the lines ...
+  
+  #Software: SGOS 3.2.4.28
+  #Version: 1.0
+  #Date: 2005-04-27 20:57:09
+  #Fields: date time time-taken c-ip sc-status s-action sc-bytes cs-bytes cs-method ... x-icap-error-code x-icap-error-details
+  
+  We use the Field values as the header for the subsequent log fields
+  -->
+  
+  <!-- Match the software comment line and save it in _bc_software -->
+  <regex id="software" pattern="^#Software: (.+) ?\n*">
+    <data name="_bc_software" value="$1" />
+  </regex>
+    <!-- Match the version comment line and save it in _bc_version -->
+
+  <regex id="version" pattern="^#Version: (.+) ?\n*">
+    <data name="_bc_version" value="$1" />
+  </regex>
+
+  <!-- Match against a Fields: header comment and save all the field names in a headings -->
+  
+  <regex id="heading" pattern="^#Fields: (.+) ?\n*">
+    <group value="$1">
+      <regex pattern="^(\S+) ?\n*">
+        <var id="headings" />
+      </regex>
+    </group>
+  </regex>
+
+  <!-- Skip all other comment lines -->
+  <regex pattern="^#.+\n*">
+    <var id="ignorea" />
+  </regex>
+
+  <!-- We now match all other lines, applying the headings captured at the start of the file to each field value -->
+  
+  <regex id="body" pattern="^[^#].+\n*">
+    <group>
+      <regex pattern="^&#34;([^&#34;]*)&#34; ?\n*">
+        <data name="$headings$1" value="$1" />
+      </regex>
+      <regex pattern="^([^ ]+) *\n*">
+        <data name="$headings$1" value="$1" />
+      </regex>
+    </group>
+  </regex>
+
+  <!-- -->
+</dataSplitter>

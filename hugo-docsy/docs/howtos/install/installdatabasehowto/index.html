@@ -1,0 +1,2780 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.84.4" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="shortcut icon" href="/stroom-docs/hugo-docsy/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/stroom-docs/hugo-docsy/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
+
+<title>Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="" />
+<meta property="og:description" content="Stroom HOWTO - Database Installation This HOWTO describes the installation of the Stroom databases. Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
+Stroom has two databases. The first, stroom, is used for management of Stroom itself and the second, statistics is used for the Stroom Statistics capability." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" /><meta property="article:section" content="docs" />
+
+<meta property="article:modified_time" content="2021-07-09T16:24:55+01:00" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="Stroom HOWTO - Database Installation This HOWTO describes the installation of the Stroom databases. Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
+Stroom has two databases. The first, stroom, is used for management of Stroom itself and the second, statistics is used for the Stroom Statistics capability.">
+<meta itemprop="dateModified" content="2021-07-09T16:24:55+01:00" />
+<meta itemprop="wordCount" content="3382">
+<meta itemprop="keywords" content="howto," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Stroom HOWTO - Database Installation This HOWTO describes the installation of the Stroom databases. Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
+Stroom has two databases. The first, stroom, is used for management of Stroom itself and the second, statistics is used for the Stroom Statistics capability."/>
+
+
+
+
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.483b37455a06bc1122dc23fe9270a6eb0a29bfc6feb0659f6856c91ce1142d2e.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.483b37455a06bc1122dc23fe9270a6eb0a29bfc6feb0659f6856c91ce1142d2e.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/stroom-docs/hugo-docsy/">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="text-uppercase font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/stroom-docs/hugo-docsy/docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/news/" ><span>News / Releases</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/docs/style-guide/" ><span>Style Guide (DRAFT)</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/all-content/" ><span>All Content (DRAFT)</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="50"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+  
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="50"
+>
+
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    
+    
+    
+    
+    
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocs-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-stroom-docshugo-docsydocs"><span class="">Documentation</span></a>
+    
+    
+      
+      <ul class="ul-1">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsquick-start-guide-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsquick-start-guide"><span class="">Quick Start Guide</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guiderunning-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/running/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guiderunning"><span class="">Running Stroom</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guidefeed-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/feed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guidefeed"><span class="">Feeds</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guideprocess-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/process/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guideprocess"><span class="">Pipeline Processing</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guideindex-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/index/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guideindex"><span class="">Indexing</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guidedashboard-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/dashboard/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guidedashboard"><span class="">Dashboards</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocshowtos-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtos"><span class="">How Tos</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosadministration-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/administration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosadministration"><span class="">Administration</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosadministrationsystemproperties-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/administration/systemproperties/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosadministrationsystemproperties"><span class="">System Properties</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosauthentication-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosauthentication"><span class="">Authentication</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosauthenticationcreateuserhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/createuserhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosauthenticationcreateuserhowto"><span class="">Create a user</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosauthenticationuserloginhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/userloginhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosauthenticationuserloginhowto"><span class="">Login</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosauthenticationuserlogouthowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/userlogouthowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosauthenticationuserlogouthowto"><span class="">Logout</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtoseventfeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/eventfeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtoseventfeeds"><span class="">Event Feeds</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtoseventfeedscreateapachehttpdeventfeed-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/eventfeeds/createapachehttpdeventfeed/" title="Apache HTTPD Event Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtoseventfeedscreateapachehttpdeventfeed"><span class="">Apache HTTPD</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtoseventfeedsprocessinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/eventfeeds/processinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtoseventfeedsprocessinghowto"><span class="">Event Processing</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosgeneral-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosgeneral"><span class="">General</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosgeneralfeedmanagementhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/feedmanagementhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosgeneralfeedmanagementhowto"><span class="">Feed Management</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosgeneralrawsourcetracking-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/rawsourcetracking/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosgeneralrawsourcetracking"><span class="">Raw Source Tracking</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosgeneraltaskshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosgeneraltaskshowto"><span class="">Task Management</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class="td-sidebar-nav-active-item"></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsproxy-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsproxy"><span class="">Stroom Proxy</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsproxyapache-forwarding-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/apache-forwarding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsproxyapache-forwarding"><span class="">Apache Forwarding</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsproxydocker-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/docker/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsproxydocker"><span class="">Running with docker</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsproxyinstall-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsproxyinstall"><span class="">Stroom Proxy Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsstyle-guide-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/style-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsstyle-guide"><span class="">Style Guide (DRAFT)</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guidebasic-elements-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/style-guide/basic-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guidebasic-elements"><span class="">Basic Page Elements</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guideusing-images-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/style-guide/using-images/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guideusing-images"><span class="">Images</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsdocsy-examples-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examples"><span class="">Docsy Examples (DRAFT)</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesoverview-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/overview/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesoverview"><span class="">Overview</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-started-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/getting-started/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-started"><span class="">Getting Started</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedexample-page-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/getting-started/example-page/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedexample-page"><span class="">Example Page</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedstroom_test-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/getting-started/stroom_test/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedstroom_test"><span class="">Stroom Test Page</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesexamples-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/examples/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesexamples"><span class="">Examples</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesconcepts-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/concepts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesconcepts"><span class="">Concepts</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasks-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplestasks"><span class="">Core Tasks</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksbeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/beds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksbeds"><span class="">Bed and Chair Metrics</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksporridge-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/porridge/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksporridge"><span class="">Porridge Assessment</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestaskstask-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/task/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestaskstask"><span class="">Another Task</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopters-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/ponycopters/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopters"><span class="">Working with Ponycopters</span></a>
+    
+    
+      
+      <ul class="ul-4 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycoptersconfiguring-ponycopters-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/ponycopters/configuring-ponycopters/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycoptersconfiguring-ponycopters"><span class="">Configuring Ponycopters</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopterslaunching-ponycopters-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/ponycopters/launching-ponycopters/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopterslaunching-ponycopters"><span class="">Launching Ponycopters</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestutorials-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tutorials/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplestutorials"><span class="">Tutorials</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialsmulti-bear-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tutorials/multi-bear/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialsmulti-bear"><span class="">Multi-Bear Domicile Setup</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialstutorial2-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tutorials/tutorial2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialstutorial2"><span class="">Another Tutorial</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesreference-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesreference"><span class="">Reference</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesreferenceparameter-reference-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/reference/parameter-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplesreferenceparameter-reference"><span class="">Parameter Reference</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplescontribution-guidelines-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/contribution-guidelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplescontribution-guidelines"><span class="">Contribution Guidelines</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+    </ul>
+  </nav>
+</div>
+
+
+
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+  
+  
+  
+  
+  
+  
+  <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+  
+    
+    
+      
+    
+    
+    
+    
+    
+    
+    
+
+    <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/HOWTOs/Install/InstallDatabaseHowTo.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+    <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/HOWTOs/Install/InstallDatabaseHowTo.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/gchq/stroom-docs/issues/new?title=" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    
+      
+      <a href="https://github.com/gchq/stroom/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+    
+
+  
+  
+    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+  
+  </div>
+
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#assumptions">Assumptions</a></li>
+    <li><a href="#installation-of-software">Installation of Software</a>
+      <ul>
+        <li><a href="#mariadb-server-installation">MariaDB Server Installation</a></li>
+        <li><a href="#mysql-community-server-installation">MySQL Community Server Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#preparing-the-database-deployment">Preparing the Database Deployment</a>
+      <ul>
+        <li><a href="#mariadb-variant">MariaDB Variant</a>
+          <ul>
+            <li><a href="#create-and-instantiate-both-database-instances">Create and instantiate both database instances</a></li>
+            <li><a href="#secure-each-database-instance">Secure each database instance</a></li>
+          </ul>
+        </li>
+        <li><a href="#mysql-community-variant">MySQL Community Variant</a>
+          <ul>
+            <li><a href="#create-and-instantiate-both-database-instances-1">Create and instantiate both database instances</a></li>
+            <li><a href="#secure-each-database-instance-1">Secure each database instance</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#create-the-databases-and-enable-access-by-the-stroom-processing-users">Create the Databases and Enable access by the Stroom processing users</a></li>
+    <li><a href="#configure-firewall">Configure Firewall</a>
+      <ul>
+        <li><a href="#debugging-of-mariadb-for-stroom">Debugging of Mariadb for Stroom</a></li>
+        <li><a href="#initial-database-access">Initial Database Access</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+    <div class="taxonomy taxonomy-terms-cloud taxo-tags">
+      
+        <h5 class="taxonomy-title">Tags</h5>
+      
+      <ul class="taxonomy-terms">
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span><span class="taxonomy-count">15</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/jobs/" data-taxonomy-term="jobs"><span class="taxonomy-label">jobs</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/" data-taxonomy-term="properties"><span class="taxonomy-label">properties</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/style/" data-taxonomy-term="style"><span class="taxonomy-label">style</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/tasks/" data-taxonomy-term="tasks"><span class="taxonomy-label">tasks</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/users/" data-taxonomy-term="users"><span class="taxonomy-label">users</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+      </ul>
+    </div>
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/">How Tos</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/"></a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1></h1>
+	
+	<header class="article-meta">
+		
+		
+			
+				
+
+
+			
+				
+
+
+<div class="taxonomy taxonomy-terms-article taxo-tags">
+  <h5 class="taxonomy-title">Tags:</h5>
+  <ul class="taxonomy-terms">
+    
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span></a></li>
+    
+  </ul>
+</div>
+
+			
+		
+		
+	</header>    
+	<h1 id="stroom-howto---database-installation">Stroom HOWTO - Database Installation</h1>
+<p>This HOWTO describes the installation of the Stroom databases. Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.</p>
+<p>Stroom has two databases. The first, <code>stroom</code>, is used for management of Stroom itself and the second, <code>statistics</code> is used for the Stroom Statistics capability. There are many ways to deploy these two databases. One could</p>
+<ul>
+<li>have a single database instance and serve both databases from it</li>
+<li>have two database instances on the same server and serve one database per instance</li>
+<li>have two separate nodes, each with it&rsquo;s own database instance</li>
+<li>the list goes on.</li>
+</ul>
+<p>In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the <a href="https://mariadb.com" title="MariaDB Site">MariaDB (external link)</a> or <a href="https://www.mysql.com/products/community/" title="MySQL Community Site">MySQL Community (external link)</a> versions of MySQL.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ul>
+<li>we are installing the MariaDB or MySQL Community RDBMS software.</li>
+<li>the primary database node is &lsquo;stroomdb0.strmdev00.org&rsquo;.</li>
+<li>installation is on a fully patched minimal Centos 7.3 instance.</li>
+<li>we are installing BOTH databases (<code>stroom</code> and <code>statistics</code>) on the same node - &lsquo;stroomdb0.stromdev00.org&rsquo; but with two distinct database engines. The first database will communicate on port <code>3307</code> and the second on <code>3308</code>.</li>
+<li>we are deploying with SELinux in enforcing mode.</li>
+<li>any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems.</li>
+<li>in this document, when a textual screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
+</ul>
+<h2 id="installation-of-software">Installation of Software</h2>
+<h3 id="mariadb-server-installation">MariaDB Server Installation</h3>
+<p>As MariaDB is directly supported by Centos 7, we simply install the database server software and SELinux policy files, as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo yum -y install policycoreutils-python mariadb-server
+</code></pre></div><h3 id="mysql-community-server-installation">MySQL Community Server Installation</h3>
+<p>As MySQL is not directly supported by Centos 7, we need to install it&rsquo;s repository files prior to installation.
+We get the current MySQL Community release repository rpm and validate it&rsquo;s MD5 checksum against the published value found on the
+<a href="https://dev.mysql.com/downloads/repo/yum" title="Download MySQL Yum Repository">MySQL Yum Repository (external link)</a> site.</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://repo.mysql.com/mysql57-community-release-el7.rpm
+md5sum mysql57-community-release-el7.rpm
+</code></pre></div><p>On correct validation of the MD5 checksum, we install the repository files via</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo yum -y localinstall mysql57-community-release-el7.rpm
+</code></pre></div><p><strong>NOTE:</strong> Stroom currently does not support the latest production MySQL version - 5.7. You will need to install MySQL Version 5.6.</p>
+<p>Now since we must use MySQL Version 5.6 you will need to edit the MySQL repo file <code>/etc/yum.repos.d/mysql-community.repo</code> to
+disable the <code>mysql57-community</code> channel and enable the <code>mysql56-community</code> channel. We start by, backing up the repo file with</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG
+</code></pre></div><p>Then edit the file to change</p>
+<pre><code>...
+# Enable to use MySQL 5.6
+[mysql56-community]
+name=MySQL 5.6 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/7/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+...
+</code></pre><p>to become</p>
+<pre><code>...
+# Enable to use MySQL 5.6
+[mysql56-community]
+name=MySQL 5.6 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+...
+</code></pre><p>Next we install server software and SELinux policy files, as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo yum -y install policycoreutils-python mysql-community-server
+</code></pre></div><h2 id="preparing-the-database-deployment">Preparing the Database Deployment</h2>
+<h3 id="mariadb-variant">MariaDB Variant</h3>
+<h4 id="create-and-instantiate-both-database-instances">Create and instantiate both database instances</h4>
+<p>To set up two MariaDB database instances on the one node, we will use <code>mysql_multi</code> and systemd service templates. The <code>mysql_multi</code> utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an <code>@</code> character before the <code>.service</code> suffix.</p>
+<p>To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MariaDB configuration file, <code>/etc/my.cnf</code>, with one that includes configuration of key options for each instance. We will name our instances, <code>mysqld0</code> and <code>mysqld1</code>. We will also create specific log files for each instance.</p>
+<p>We will use the directories, <code>/var/lib/mysql-mysqld0</code> and <code>/var/lib/mysql-mysqld1</code> for the data directories and <code>/var/log/mariadb/mysql-mysqld0.log</code> and <code>/var/log/mariadb/mysql-mysqld1.log</code> for the log files. Note you should modify /etc/logrotate.d/mariadb to manage these log files. Note also, we need to set the appropriate SELinux file contexts on the created directories and any files.</p>
+<p>We create the data directories and log files and set their respective SELinux contexts via</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mkdir /var/lib/mysql-mysqld0
+sudo chown mysql:mysql /var/lib/mysql-mysqld0
+sudo semanage fcontext -a -t mysqld_db_t <span style="color:#c30">&#34;/var/lib/mysql-mysqld0(/.*)?&#34;</span>
+sudo restorecon -Rv /var/lib/mysql-mysqld0
+
+sudo touch /var/log/mariadb/mysql-mysqld0.log
+sudo chown mysql:mysql /var/log/mariadb/mysql-mysqld0.log
+sudo chcon --reference<span style="color:#555">=</span>/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysqld0.log
+
+sudo mkdir /var/lib/mysql-mysqld1
+sudo chown mysql:mysql /var/lib/mysql-mysqld1
+sudo semanage fcontext -a -t mysqld_db_t <span style="color:#c30">&#34;/var/lib/mysql-mysqld1(/.*)?&#34;</span>
+sudo restorecon -Rv /var/lib/mysql-mysqld1
+
+sudo touch /var/log/mariadb/mysql-mysqld1.log
+sudo chown mysql:mysql /var/log/mariadb/mysql-mysqld1.log
+sudo chcon --reference<span style="color:#555">=</span>/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysqld1.log
+</code></pre></div><p>We now initialise the our two database data directories via</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mysql_install_db --user<span style="color:#555">=</span>mysql --datadir<span style="color:#555">=</span>/var/lib/mysql-mysqld0
+sudo mysql_install_db --user<span style="color:#555">=</span>mysql --datadir<span style="color:#555">=</span>/var/lib/mysql-mysqld1
+</code></pre></div><p>We now replace the  MySQL configuration file to set the options for each instance. Note that we will serve <code>mysqld0</code> and <code>mysqld1</code> via TCP ports <code>3307</code> and <code>3308</code> respectively. First backup the existing configuration file with</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /etc/my.cnf /etc/my.cnf.ORIG
+</code></pre></div><p>then setup <code>/etc/my.cnf</code> as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo bash
+<span style="color:#033">F</span><span style="color:#555">=</span>/etc/my.cnf
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[mysqld_multi]\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[mysqld0]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;port=3307\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;datadir=/var/lib/mysql-mysqld0/\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;socket=/var/lib/mysql-mysqld0/mysql.sock\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;pid-file=/var/run/mariadb/mysql-mysqld0.pid\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;log-error=/var/log/mariadb/mysql-mysqld0.log\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Disabling symbolic-links is recommended to prevent assorted security\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# risks\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;symbolic-links=0\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[mysqld1]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;port=3308\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;datadir=/var/lib/mysql-mysqld1/\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;socket=/var/lib/mysql-mysqld1/mysql.sock\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;pid-file=/var/run/mariadb/mysql-mysqld1.pid\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;log-error=/var/log/mariadb/mysql-mysqld1.log\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Disabling symbolic-links is recommended to prevent assorted security risks\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;symbolic-links=0\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">exit</span> <span style="color:#09f;font-style:italic"># To exit the root shell</span>
+</code></pre></div><p>We also need to associate the ports with the <code>mysqld_port_t</code> SELinux context as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo semanage port -a -t mysqld_port_t -p tcp <span style="color:#f60">3307</span>
+sudo semanage port -a -t mysqld_port_t -p tcp <span style="color:#f60">3308</span>
+</code></pre></div><p>We next create the systemd service template as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo bash
+<span style="color:#033">F</span><span style="color:#555">=</span>/etc/systemd/system/mysqld@.service
+
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Install in /etc/systemd/system\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Enable via systemctl enable mysqld@0 or systemctl enable mysqld@1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[Unit]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Description=MySQL Multi Server for instance %%i\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;After=syslog.target\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;After=network.target\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[Service]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;User=mysql\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Group=mysql\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Type=forking\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;ExecStart=/usr/bin/mysqld_multi start %%i\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;ExecStop=/usr/bin/mysqld_multi stop %%i\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Restart=always\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;PrivateTmp=true\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[Install]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;WantedBy=multi-user.target\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+chmod <span style="color:#f60">644</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+exit; <span style="color:#09f;font-style:italic"># to exit the root shell</span>
+</code></pre></div><p>We next enable and start both instances via</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl <span style="color:#366">enable</span> mysqld@0
+sudo systemctl <span style="color:#366">enable</span> mysqld@1
+sudo systemctl start mysqld@0
+sudo systemctl start mysqld@1
+</code></pre></div><p>At this we should have both instances running. One should check each instance&rsquo;s log file for any errors.</p>
+<h4 id="secure-each-database-instance">Secure each database instance</h4>
+<p>We secure each database engine by running the <code>mysql_secure_installation</code> script. One should accept all defaults, which means the
+only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+we will use <code>Stroom5User@</code>.
+The utility <code>mysql_secure_installation</code> expects to find the Linux socket file to access the database it&rsquo;s securing at <code>/var/lib/mysql/mysql.sock</code>.
+Since we have used other locations, we temporarily link the real socket file to <code>/var/lib/mysql/mysql.sock</code> for each invocation of the
+utility. Thus we execute</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+</code></pre></div><p>to see</p>
+<pre><code>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we'll need the current
+password for the root user.  If you've just installed MariaDB, and
+you haven't set the root password yet, the password will be blank,
+so you should just press enter here.
+
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+
+Setting the root password ensures that nobody can log into the MariaDB
+root user without the proper authorisation.
+
+Set root password? [Y/n] 
+New password: &lt;__ Stroom5User@ __&gt;
+Re-enter new password: &lt;__ Stroom5User@ __&gt;
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] 
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] 
+ ... Success!
+
+By default, MariaDB comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n]
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n]
+... Success!
+
+Cleaning up...
+
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+</code></pre><p>then we execute</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo rm /var/lib/mysql/mysql.sock
+sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+sudo rm /var/lib/mysql/mysql.sock
+</code></pre></div><p>and process as before (for when running mysql_secure_installation). At this both database instances should be secure.</p>
+<h3 id="mysql-community-variant">MySQL Community Variant</h3>
+<h4 id="create-and-instantiate-both-database-instances-1">Create and instantiate both database instances</h4>
+<p>To set up two MySQL database instances on the one node, we will use <code>mysql_multi</code> and systemd service templates. The <code>mysql_multi</code> utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an <code>@</code> character before the <code>.service</code> suffix.</p>
+<p>To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MySQL configuration file, <code>/etc/my.cnf</code>, with one that includes configuration of key options for each instance. We will name our instances, <code>mysqld0</code> and <code>mysqld1</code>. We will also create specific log files for each instance.</p>
+<p>We will use the directories, <code>/var/lib/mysql-mysqld0</code> and <code>/var/lib/mysql-mysqld1</code> for the data directories and <code>/var/log/mysql-mysqld0.log</code> and <code>/var/log/mysql-mysqld1.log</code> for the log directories. Note you should modify /etc/logrotate.d/mysql to manage these log files. Note also, we need to set the appropriate SELinux file context on the created directories and files.</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mkdir /var/lib/mysql-mysqld0
+sudo chown mysql:mysql /var/lib/mysql-mysqld0
+sudo semanage fcontext -a -t mysqld_db_t <span style="color:#c30">&#34;/var/lib/mysql-mysqld0(/.*)?&#34;</span>
+sudo restorecon -Rv /var/lib/mysql-mysqld0
+
+sudo touch /var/log/mysql-mysqld0.log
+sudo chown mysql:mysql /var/log/mysql-mysqld0.log
+sudo chcon --reference<span style="color:#555">=</span>/var/log/mysqld.log /var/log/mysql-mysqld0.log
+
+sudo mkdir /var/lib/mysql-mysqld1
+sudo chown mysql:mysql /var/lib/mysql-mysqld1 
+sudo semanage fcontext -a -t mysqld_db_t <span style="color:#c30">&#34;/var/lib/mysql-mysqld1(/.*)?&#34;</span>
+sudo restorecon -Rv /var/lib/mysql-mysqld1
+
+sudo touch /var/log/mysql-mysqld1.log
+sudo chown mysql:mysql /var/log/mysql-mysqld1.log
+sudo chcon --reference<span style="color:#555">=</span>/var/log/mysqld.log /var/log/mysql-mysqld1.log
+</code></pre></div><p>We now initialise the our two database data directories via</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mysql_install_db --user<span style="color:#555">=</span>mysql --datadir<span style="color:#555">=</span>/var/lib/mysql-mysqld0
+sudo mysql_install_db --user<span style="color:#555">=</span>mysql --datadir<span style="color:#555">=</span>/var/lib/mysql-mysqld1
+</code></pre></div><p>Disable the default database via</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl disable mysqld
+</code></pre></div><p>We now modify the  MySQL configuration file to set the options for each instance. Note that we will serve <code>mysqld0</code> and <code>mysqld1</code> via TCP ports <code>3307</code> and <code>3308</code> respectively.  First backup the existing configuration file with</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp /etc/my.cnf /etc/my.cnf.ORIG
+</code></pre></div><p>then setup <code>/etc/my.cnf</code> as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo bash
+<span style="color:#033">F</span><span style="color:#555">=</span>/etc/my.cnf
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[mysqld_multi]\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[mysqld0]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;port=3307\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;datadir=/var/lib/mysql-mysqld0/\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;socket=/var/lib/mysql-mysqld0/mysql.sock\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;pid-file=/var/run/mysqld/mysql-mysqld0.pid\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;log-error=/var/log/mysql-mysqld0.log\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Disabling symbolic-links is recommended to prevent assorted security\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# risks\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;symbolic-links=0\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[mysqld1]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;port=3308\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;datadir=/var/lib/mysql-mysqld1/\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;socket=/var/lib/mysql-mysqld1/mysql.sock\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;pid-file=/var/run/mysqld/mysql-mysqld1.pid\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;log-error=/var/log/mysql-mysqld1.log\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Disabling symbolic-links is recommended to prevent assorted security risks\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;symbolic-links=0\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">exit</span> <span style="color:#09f;font-style:italic"># To exit the root shell</span>
+</code></pre></div><p>We also need to associate the ports with the <code>mysqld_port_t</code> SELinux context as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo semanage port -a -t mysqld_port_t -p tcp <span style="color:#f60">3307</span>
+sudo semanage port -a -t mysqld_port_t -p tcp <span style="color:#f60">3308</span>
+</code></pre></div><p>We next create the systemd service template as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo bash
+<span style="color:#033">F</span><span style="color:#555">=</span>/etc/systemd/system/mysqld@.service
+
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Install in /etc/systemd/system\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Enable via systemctl enable mysqld@0 or systemctl enable mysqld@1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[Unit]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Description=MySQL Multi Server for instance %%i\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;After=syslog.target\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;After=network.target\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[Service]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;User=mysql\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Group=mysql\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Type=forking\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;ExecStart=/usr/bin/mysqld_multi start %%i\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;ExecStop=/usr/bin/mysqld_multi stop %%i\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;Restart=always\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;PrivateTmp=true\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;[Install]\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+<span style="color:#366">printf</span> <span style="color:#c30">&#39;WantedBy=multi-user.target\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+chmod <span style="color:#f60">644</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
+exit; <span style="color:#09f;font-style:italic"># to exit the root shell</span>
+</code></pre></div><p>We next enable and start both instances via</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl <span style="color:#366">enable</span> mysqld@0
+sudo systemctl <span style="color:#366">enable</span> mysqld@1
+sudo systemctl start mysqld@0
+sudo systemctl start mysqld@1
+</code></pre></div><p>At this we should have both instances running. One should check each instance&rsquo;s log file for any errors.</p>
+<h4 id="secure-each-database-instance-1">Secure each database instance</h4>
+<p>We secure each database engine by running the <code>mysql_secure_installation</code> script. One should accept all defaults, which means the
+only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+we will use <code>Stroom5User@</code>.
+The utility <code>mysql_secure_installation</code> expects to find the Linux socket file to access the database it&rsquo;s securing at <code>/var/lib/mysql/mysql.sock</code>.
+Since we have used other locations, we temporarily link the real socket file to <code>/var/lib/mysql/mysql.sock</code> for each invocation of the
+utility. Thus we execute</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+</code></pre></div><p>to see</p>
+<pre><code>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MySQL to secure it, we'll need the current
+password for the root user.  If you've just installed MySQL, and
+you haven't set the root password yet, the password will be blank,
+so you should just press enter here.
+
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+
+Setting the root password ensures that nobody can log into the MySQL
+root user without the proper authorisation.
+
+Set root password? [Y/n] y
+New password: &lt;__ Stroom5User@ __&gt;
+Re-enter new password: &lt;__ Stroom5User@ __&gt;
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MySQL installation has an anonymous user, allowing anyone
+to log into MySQL without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] 
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] 
+ ... Success!
+
+By default, MySQL comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] 
+ - Dropping test database...
+ERROR 1008 (HY000) at line 1: Can't drop database 'test'; database doesn't exist
+ ... Failed!  Not critical, keep moving...
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] 
+ ... Success!
+
+
+
+
+All done!  If you've completed all of the above steps, your MySQL
+installation should now be secure.
+
+Thanks for using MySQL!
+
+
+Cleaning up...
+</code></pre><p>then we execute</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo rm /var/lib/mysql/mysql.sock
+sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+sudo rm /var/lib/mysql/mysql.sock
+</code></pre></div><p>and process as before (for when running mysql_secure_installation). At this both database instances should be secure.</p>
+<h2 id="create-the-databases-and-enable-access-by-the-stroom-processing-users">Create the Databases and Enable access by the Stroom processing users</h2>
+<p>We now create the <code>stroom</code> database within the first instance, <code>mysqld0</code> and the <code>statistics</code> database within the second
+instance <code>mysqld1</code>. It does not matter which database variant used as all commands are the same for both.</p>
+<p>As well as creating the databases, we also need to establish the Stroom processing users
+that the Stroom processing nodes will use to access each database.
+For the <code>stroom</code> database, we will use the database user <code>stroomuser</code> with a password of <code>Stroompassword1@</code> and for the <code>statistics</code> database, we will use the database user <code>stroomstats</code> with a password of <code>Stroompassword2@</code>. One identifies a processing user as <code>&lt;user&gt;@&lt;host&gt;</code> on a <code>grant</code> SQL command.</p>
+<p>In the <code>stroom</code> database instance, we will grant access for</p>
+<ul>
+<li>stroomuser@localhost for local access for maintenance etc.</li>
+<li><a href="mailto:stroomuser@stroomp00.strmdev00.org">stroomuser@stroomp00.strmdev00.org</a> for access by processing node stroomp00.strmdev00.org</li>
+<li><a href="mailto:stroomuser@stroomp01.strmdev00.org">stroomuser@stroomp01.strmdev00.org</a> for access by processing node stroomp01.strmdev00.org</li>
+</ul>
+<p>and in the <code>statistics</code> database instance, we will grant access for</p>
+<ul>
+<li>stroomstats@localhost for local access for maintenance etc.</li>
+<li><a href="mailto:stroomstats@stroomp00.strmdev00.org">stroomstats@stroomp00.strmdev00.org</a> for access by processing node stroomp00.strmdev00.org</li>
+<li><a href="mailto:stroomstats@stroomp01.strmdev00.org">stroomstats@stroomp01.strmdev00.org</a> for access by processing node stroomp01.strmdev00.org</li>
+</ul>
+<p>Thus for the <code>stroom</code> database we execute</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysql --user<span style="color:#555">=</span>root --port<span style="color:#555">=</span><span style="color:#f60">3307</span> --socket<span style="color:#555">=</span>/var/lib/mysql-mysqld0/mysql.sock --password
+</code></pre></div><p>and on entering the administrator&rsquo;s password, we arrive at the <code>MariaDB [(none)]&gt;</code> or <code>mysql&gt;</code> prompt. At this we create the database with</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#069;font-weight:bold">create</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">database</span><span style="color:#bbb"> </span>stroom;<span style="color:#bbb">
+</span></code></pre></div><p>and then to establish the users, we execute</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#069;font-weight:bold">grant</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">all</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">privileges</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">on</span><span style="color:#bbb"> </span>stroom.<span style="color:#555">*</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">to</span><span style="color:#bbb"> </span>stroomuser<span style="color:#555">@</span>localhost<span style="color:#bbb"> </span>identified<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">by</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;Stroompassword1@&#39;</span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#069;font-weight:bold">grant</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">all</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">privileges</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">on</span><span style="color:#bbb"> </span>stroom.<span style="color:#555">*</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">to</span><span style="color:#bbb"> </span>stroomuser<span style="color:#555">@</span>stroomp00.strmdev00.org<span style="color:#bbb"> </span>identified<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">by</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;Stroompassword1@&#39;</span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#069;font-weight:bold">grant</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">all</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">privileges</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">on</span><span style="color:#bbb"> </span>stroom.<span style="color:#555">*</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">to</span><span style="color:#bbb"> </span>stroomuser<span style="color:#555">@</span>stroomp01.strmdev00.org<span style="color:#bbb"> </span>identified<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">by</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;Stroompassword1@&#39;</span>;<span style="color:#bbb">
+</span></code></pre></div><p>then</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">quit;<span style="color:#bbb">
+</span></code></pre></div><p>to exit.</p>
+<p>And for the <code>statistics</code> database</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysql --user<span style="color:#555">=</span>root --port<span style="color:#555">=</span><span style="color:#f60">3308</span> --socket<span style="color:#555">=</span>/var/lib/mysql-mysqld1/mysql.sock --password
+</code></pre></div><p>with</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#069;font-weight:bold">create</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">database</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">statistics</span>;<span style="color:#bbb">
+</span></code></pre></div><p>and then to establish the users, we execute</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#069;font-weight:bold">grant</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">all</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">privileges</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">on</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">statistics</span>.<span style="color:#555">*</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">to</span><span style="color:#bbb"> </span>stroomstats<span style="color:#555">@</span>localhost<span style="color:#bbb"> </span>identified<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">by</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;Stroompassword2@&#39;</span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#069;font-weight:bold">grant</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">all</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">privileges</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">on</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">statistics</span>.<span style="color:#555">*</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">to</span><span style="color:#bbb"> </span>stroomstats<span style="color:#555">@</span>stroomp00.strmdev00.org<span style="color:#bbb"> </span>identified<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">by</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;Stroompassword2@&#39;</span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#069;font-weight:bold">grant</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">all</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">privileges</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">on</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">statistics</span>.<span style="color:#555">*</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">to</span><span style="color:#bbb"> </span>stroomstats<span style="color:#555">@</span>stroomp01.strmdev00.org<span style="color:#bbb"> </span>identified<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">by</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;Stroompassword2@&#39;</span>;<span style="color:#bbb">
+</span></code></pre></div><p>then</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">quit;<span style="color:#bbb">
+</span></code></pre></div><p>to exit.</p>
+<p>Clearly if we need to add more processing nodes, additional <code>grant</code> commands would be used. Further, if we were installing the databases in a single node Stroom environment, we would just have the first two pairs of <code>grants</code>.</p>
+<h2 id="configure-firewall">Configure Firewall</h2>
+<p>Next we need to modify our firewall to allow remote access to our databases which listens on ports 3307 and 3308.
+The simplest way to achieve this is with the commands</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo firewall-cmd --zone<span style="color:#555">=</span>public --add-port<span style="color:#555">=</span>3307/tcp --permanent
+sudo firewall-cmd --zone<span style="color:#555">=</span>public --add-port<span style="color:#555">=</span>3308/tcp --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd --zone<span style="color:#555">=</span>public --list-all
+</code></pre></div><p><strong>Note</strong> that this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.</p>
+<h3 id="debugging-of-mariadb-for-stroom">Debugging of Mariadb for Stroom</h3>
+<p>If there is a need to debug the Mariadb database and Stroom interaction, one can turn on auditing for the Mariadb service.
+To do so, log onto the relevant database as the administrative user as per</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mysql --user<span style="color:#555">=</span>root --port<span style="color:#555">=</span><span style="color:#f60">3307</span> --socket<span style="color:#555">=</span>/var/lib/mysql-mysqld0/mysql.sock --password
+or
+mysql --user<span style="color:#555">=</span>root --port<span style="color:#555">=</span><span style="color:#f60">3308</span> --socket<span style="color:#555">=</span>/var/lib/mysql-mysqld1/mysql.sock --password
+</code></pre></div><p>and at the <code>MariaDB [(none)]&gt; </code> prompt enter</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">install plugin server_audit SONAME <span style="color:#c30">&#39;server_audit&#39;</span>;
+<span style="color:#366">set</span> global <span style="color:#033">server_audit_file_path</span><span style="color:#555">=</span><span style="color:#c30">&#39;/var/log/mariadb/mysqld-mysqld0_server_audit.log&#39;</span>;
+or
+<span style="color:#366">set</span> global <span style="color:#033">server_audit_file_path</span><span style="color:#555">=</span><span style="color:#c30">&#39;/var/log/mariadb/mysqld-mysqld1_server_audit.log&#39;</span>;
+<span style="color:#366">set</span> global <span style="color:#033">server_audit_logging</span><span style="color:#555">=</span>ON;
+<span style="color:#366">set</span> global <span style="color:#033">server_audit_file_rotate_size</span><span style="color:#555">=</span>10485760;
+install plugin SQL_ERROR_LOG soname <span style="color:#c30">&#39;sql_errlog&#39;</span>;
+quit;
+</code></pre></div><p>The above will generate two log files,</p>
+<ul>
+<li><code>/var/log/mariadb/mysqld-mysqld0_server_audit.log</code> or <code>/var/log/mariadb/mysqld-mysqld1_server_audit.log</code> which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.</li>
+<li><code>/var/lib/mysql-mysqld0/sql_errors.log</code> or <code>/var/lib/mysql-mysqld1/sql_errors.log</code> which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.
+All files will, by default, generate up to 9 rotated files.</li>
+</ul>
+<p>If you wish to rotate a log file manually, log into the database as the administrative user and execute either</p>
+<ul>
+<li><code>set global server_audit_file_rotate_now=1;</code> to rotate the audit log file</li>
+<li><code>set global sql_error_log_rotate=1;</code> to rotate the sql_errlog log file</li>
+</ul>
+<h3 id="initial-database-access">Initial Database Access</h3>
+<p>It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, it&rsquo;s initial access to the <code>stroom</code> database will result in the following attempted sql statements.</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f60">2017</span><span style="color:#555">-</span><span style="color:#f60">04</span><span style="color:#555">-</span><span style="color:#f60">16</span><span style="color:#bbb"> </span><span style="color:#f60">16</span>:<span style="color:#f60">24</span>:<span style="color:#f60">50</span><span style="color:#bbb"> </span>stroomuser[stroomuser]<span style="color:#bbb"> </span><span style="color:#555">@</span><span style="color:#bbb"> </span>stroomp00.strmdev00.org<span style="color:#bbb"> </span>[<span style="color:#f60">192</span>.<span style="color:#f60">168</span>.<span style="color:#f60">2</span>.<span style="color:#f60">126</span>]<span style="color:#bbb"> </span>ERROR<span style="color:#bbb"> </span><span style="color:#f60">1146</span>:<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">Table</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;stroom.schema_version&#39;</span><span style="color:#bbb"> </span>doesn<span style="color:#c30">&#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
+</span><span style="color:#c30">2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;</span>stroom.STROOM_VER<span style="color:#c30">&#39; doesn&#39;</span>t<span style="color:#bbb"> </span>exist<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">SELECT</span><span style="color:#bbb"> </span>VER_MAJ,<span style="color:#bbb"> </span>VER_MIN,<span style="color:#bbb"> </span>VER_PAT<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">FROM</span><span style="color:#bbb"> </span>STROOM_VER<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">ORDER</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">BY</span><span style="color:#bbb"> </span>VER_MAJ<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">DESC</span>,<span style="color:#bbb"> </span>VER_MIN<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">DESC</span>,<span style="color:#bbb"> </span>VER_PAT<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">DESC</span><span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">LIMIT</span><span style="color:#bbb"> </span><span style="color:#f60">1</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#f60">2017</span><span style="color:#555">-</span><span style="color:#f60">04</span><span style="color:#555">-</span><span style="color:#f60">16</span><span style="color:#bbb"> </span><span style="color:#f60">16</span>:<span style="color:#f60">24</span>:<span style="color:#f60">50</span><span style="color:#bbb"> </span>stroomuser[stroomuser]<span style="color:#bbb"> </span><span style="color:#555">@</span><span style="color:#bbb"> </span>stroomp00.strmdev00.org<span style="color:#bbb"> </span>[<span style="color:#f60">192</span>.<span style="color:#f60">168</span>.<span style="color:#f60">2</span>.<span style="color:#f60">126</span>]<span style="color:#bbb"> </span>ERROR<span style="color:#bbb"> </span><span style="color:#f60">1146</span>:<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">Table</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;stroom.FD&#39;</span><span style="color:#bbb"> </span>doesn<span style="color:#c30">&#39;t exist : SELECT ID FROM FD LIMIT 1
+</span><span style="color:#c30">2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;</span>stroom.FEED<span style="color:#c30">&#39; doesn&#39;</span>t<span style="color:#bbb"> </span>exist<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">SELECT</span><span style="color:#bbb"> </span>ID<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">FROM</span><span style="color:#bbb"> </span>FEED<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">LIMIT</span><span style="color:#bbb"> </span><span style="color:#f60">1</span><span style="color:#bbb">
+</span></code></pre></div><p>After this access the application will realise the database does not exist and it will initialise the database.</p>
+<p>In the case of the <code>statistics</code> database you may note the following attempted access</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f60">2017</span><span style="color:#555">-</span><span style="color:#f60">04</span><span style="color:#555">-</span><span style="color:#f60">16</span><span style="color:#bbb"> </span><span style="color:#f60">16</span>:<span style="color:#f60">25</span>:<span style="color:#f60">09</span><span style="color:#bbb"> </span>stroomstats[stroomstats]<span style="color:#bbb"> </span><span style="color:#555">@</span><span style="color:#bbb"> </span>stroomp00.strmdev00.org<span style="color:#bbb"> </span>[<span style="color:#f60">192</span>.<span style="color:#f60">168</span>.<span style="color:#f60">2</span>.<span style="color:#f60">126</span>]<span style="color:#bbb"> </span>ERROR<span style="color:#bbb"> </span><span style="color:#f60">1146</span>:<span style="color:#bbb"> </span><span style="color:#069;font-weight:bold">Table</span><span style="color:#bbb"> </span><span style="color:#c30">&#39;statistics.schema_version&#39;</span><span style="color:#bbb"> </span>doesn<span style="color:#c30">&#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC 
+</span></code></pre></div><p>Again, at this point the application will initialise this database.</p>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">
+
+    Last modified
+    July 9, 2021
+    : <a  href="https://github.com/gchq/stroom-docs/commit/d3aa4421684510eef91c5062737207b88f72fd01">Migrate HOWTOs (WIP) (d3aa442)</a>
+
+</div>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2021 Crown Copyright 2021 All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
+
+
+
+
+  </body>
+</html>

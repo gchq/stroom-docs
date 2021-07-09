@@ -1,0 +1,2614 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.84.4" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="shortcut icon" href="/stroom-docs/hugo-docsy/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/stroom-docs/hugo-docsy/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
+
+<title>Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="" />
+<meta property="og:description" content="Stroom HOWTO - Testing Stroom Installation This HOWTO will demonstrate various ways to test that your Stroom installation has been successful.
+Assumptions  Stroom Single or Multi Node Cluster Testing the Multi Node Stroom Cluster (Proxy and Application) has been deployed a Test Feed, TEST-FEED-V1_0 has been added Proxy aggregation has been turned off on all Stroom Store Proxies the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id Stroom Forwarding Proxy Testing the Multi Node Stroom Cluster (Proxy and Application) has been deployed the Stroom Forwarding Proxy has been deployed a Test Feed, TEST-FEED-V1_0 has been added the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id Stroom Standalone Proxy Testing the Stroom Standalone Proxy has been deployed the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id  Stroom Single or Multi Node Cluster Testing Data Post Tests Simple Post tests These tests are to ensure the Stroom Store proxy and it&rsquo;s connection to the database is working along with the Apache mod_jk loadbalancer." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" /><meta property="article:section" content="docs" />
+
+<meta property="article:modified_time" content="2021-07-09T16:24:55+01:00" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="Stroom HOWTO - Testing Stroom Installation This HOWTO will demonstrate various ways to test that your Stroom installation has been successful.
+Assumptions  Stroom Single or Multi Node Cluster Testing the Multi Node Stroom Cluster (Proxy and Application) has been deployed a Test Feed, TEST-FEED-V1_0 has been added Proxy aggregation has been turned off on all Stroom Store Proxies the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id Stroom Forwarding Proxy Testing the Multi Node Stroom Cluster (Proxy and Application) has been deployed the Stroom Forwarding Proxy has been deployed a Test Feed, TEST-FEED-V1_0 has been added the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id Stroom Standalone Proxy Testing the Stroom Standalone Proxy has been deployed the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id  Stroom Single or Multi Node Cluster Testing Data Post Tests Simple Post tests These tests are to ensure the Stroom Store proxy and it&rsquo;s connection to the database is working along with the Apache mod_jk loadbalancer.">
+<meta itemprop="dateModified" content="2021-07-09T16:24:55+01:00" />
+<meta itemprop="wordCount" content="2495">
+<meta itemprop="keywords" content="howto," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Stroom HOWTO - Testing Stroom Installation This HOWTO will demonstrate various ways to test that your Stroom installation has been successful.
+Assumptions  Stroom Single or Multi Node Cluster Testing the Multi Node Stroom Cluster (Proxy and Application) has been deployed a Test Feed, TEST-FEED-V1_0 has been added Proxy aggregation has been turned off on all Stroom Store Proxies the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id Stroom Forwarding Proxy Testing the Multi Node Stroom Cluster (Proxy and Application) has been deployed the Stroom Forwarding Proxy has been deployed a Test Feed, TEST-FEED-V1_0 has been added the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id Stroom Standalone Proxy Testing the Stroom Standalone Proxy has been deployed the Stroom Proxy Repository Format (REPO_FORMAT) chosen was the default - ${pathId}/${id  Stroom Single or Multi Node Cluster Testing Data Post Tests Simple Post tests These tests are to ensure the Stroom Store proxy and it&rsquo;s connection to the database is working along with the Apache mod_jk loadbalancer."/>
+
+
+
+
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.483b37455a06bc1122dc23fe9270a6eb0a29bfc6feb0659f6856c91ce1142d2e.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.483b37455a06bc1122dc23fe9270a6eb0a29bfc6feb0659f6856c91ce1142d2e.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/stroom-docs/hugo-docsy/">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="text-uppercase font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/stroom-docs/hugo-docsy/docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/news/" ><span>News / Releases</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/community/" ><span>Community</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/docs/style-guide/" ><span>Style Guide (DRAFT)</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/all-content/" ><span>All Content (DRAFT)</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="50"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+
+
+
+
+  
+
+
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="50"
+>
+
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    
+    
+    
+    
+    
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocs-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-stroom-docshugo-docsydocs"><span class="">Documentation</span></a>
+    
+    
+      
+      <ul class="ul-1">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsquick-start-guide-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsquick-start-guide"><span class="">Quick Start Guide</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guiderunning-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/running/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guiderunning"><span class="">Running Stroom</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guidefeed-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/feed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guidefeed"><span class="">Feeds</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guideprocess-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/process/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guideprocess"><span class="">Pipeline Processing</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guideindex-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/index/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guideindex"><span class="">Indexing</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsquick-start-guidedashboard-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/dashboard/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guidedashboard"><span class="">Dashboards</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocshowtos-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtos"><span class="">How Tos</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosadministration-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/administration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosadministration"><span class="">Administration</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosadministrationsystemproperties-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/administration/systemproperties/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosadministrationsystemproperties"><span class="">System Properties</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosauthentication-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosauthentication"><span class="">Authentication</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosauthenticationcreateuserhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/createuserhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosauthenticationcreateuserhowto"><span class="">Create a user</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosauthenticationuserloginhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/userloginhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosauthenticationuserloginhowto"><span class="">Login</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosauthenticationuserlogouthowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/userlogouthowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosauthenticationuserlogouthowto"><span class="">Logout</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtoseventfeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/eventfeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtoseventfeeds"><span class="">Event Feeds</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtoseventfeedscreateapachehttpdeventfeed-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/eventfeeds/createapachehttpdeventfeed/" title="Apache HTTPD Event Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtoseventfeedscreateapachehttpdeventfeed"><span class="">Apache HTTPD</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtoseventfeedsprocessinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/eventfeeds/processinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtoseventfeedsprocessinghowto"><span class="">Event Processing</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosgeneral-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosgeneral"><span class="">General</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosgeneralfeedmanagementhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/feedmanagementhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosgeneralfeedmanagementhowto"><span class="">Feed Management</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosgeneralrawsourcetracking-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/rawsourcetracking/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosgeneralrawsourcetracking"><span class="">Raw Source Tracking</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosgeneraltaskshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosgeneraltaskshowto"><span class="">Task Management</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class="td-sidebar-nav-active-item"></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class=""></span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsproxy-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsproxy"><span class="">Stroom Proxy</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsproxyapache-forwarding-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/apache-forwarding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsproxyapache-forwarding"><span class="">Apache Forwarding</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsproxydocker-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/docker/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsproxydocker"><span class="">Running with docker</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsproxyinstall-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/proxy/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsproxyinstall"><span class="">Stroom Proxy Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsstyle-guide-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/style-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsstyle-guide"><span class="">Style Guide (DRAFT)</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guidebasic-elements-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/style-guide/basic-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guidebasic-elements"><span class="">Basic Page Elements</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guideusing-images-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/style-guide/using-images/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guideusing-images"><span class="">Images</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsdocsy-examples-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examples"><span class="">Docsy Examples (DRAFT)</span></a>
+    
+    
+      
+      <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesoverview-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/overview/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesoverview"><span class="">Overview</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-started-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/getting-started/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-started"><span class="">Getting Started</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedexample-page-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/getting-started/example-page/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedexample-page"><span class="">Example Page</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedstroom_test-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/getting-started/stroom_test/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplesgetting-startedstroom_test"><span class="">Stroom Test Page</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesexamples-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/examples/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesexamples"><span class="">Examples</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesconcepts-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/concepts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesconcepts"><span class="">Concepts</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasks-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplestasks"><span class="">Core Tasks</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksbeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/beds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksbeds"><span class="">Bed and Chair Metrics</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksporridge-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/porridge/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksporridge"><span class="">Porridge Assessment</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestaskstask-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/task/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestaskstask"><span class="">Another Task</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopters-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/ponycopters/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopters"><span class="">Working with Ponycopters</span></a>
+    
+    
+      
+      <ul class="ul-4 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycoptersconfiguring-ponycopters-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/ponycopters/configuring-ponycopters/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycoptersconfiguring-ponycopters"><span class="">Configuring Ponycopters</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopterslaunching-ponycopters-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tasks/ponycopters/launching-ponycopters/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestasksponycopterslaunching-ponycopters"><span class="">Launching Ponycopters</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestutorials-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tutorials/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplestutorials"><span class="">Tutorials</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialsmulti-bear-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tutorials/multi-bear/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialsmulti-bear"><span class="">Multi-Bear Domicile Setup</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialstutorial2-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/tutorials/tutorial2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplestutorialstutorial2"><span class="">Another Tutorial</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesreference-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplesreference"><span class="">Reference</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplesreferenceparameter-reference-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/reference/parameter-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsdocsy-examplesreferenceparameter-reference"><span class="">Parameter Reference</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsdocsy-examplescontribution-guidelines-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/docsy-examples/contribution-guidelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsdocsy-examplescontribution-guidelines"><span class="">Contribution Guidelines</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+    </ul>
+  </nav>
+</div>
+
+
+
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+  
+  
+  
+  
+  
+  
+  <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+  
+    
+    
+      
+    
+    
+    
+    
+    
+    
+    
+
+    <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/HOWTOs/Install/InstallTestingHowTo.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+    <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/HOWTOs/Install/InstallTestingHowTo.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/gchq/stroom-docs/issues/new?title=" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    
+      
+      <a href="https://github.com/gchq/stroom/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+    
+
+  
+  
+    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+  
+  </div>
+
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#assumptions">Assumptions</a></li>
+    <li><a href="#stroom-single-or-multi-node-cluster-testing">Stroom Single or Multi Node Cluster Testing</a>
+      <ul>
+        <li><a href="#data-post-tests">Data Post Tests</a>
+          <ul>
+            <li><a href="#simple-post-tests">Simple Post tests</a></li>
+            <li><a href="#simple-direct-post-tests">Simple Direct Post tests</a></li>
+            <li><a href="#test-proxy-aggregation-is-working">Test Proxy Aggregation is Working</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#stroom-forwarding-proxy-testing">Stroom Forwarding Proxy Testing</a>
+      <ul>
+        <li><a href="#data-post-tests-1">Data Post Tests</a>
+          <ul>
+            <li><a href="#simple-post-tests-1">Simple Post tests</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#stroom-standalone-proxy-testing">Stroom Standalone Proxy Testing</a>
+      <ul>
+        <li><a href="#data-post-tests-2">Data Post Tests</a>
+          <ul>
+            <li><a href="#simple-post-tests-2">Simple Post tests</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+    <div class="taxonomy taxonomy-terms-cloud taxo-tags">
+      
+        <h5 class="taxonomy-title">Tags</h5>
+      
+      <ul class="taxonomy-terms">
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span><span class="taxonomy-count">15</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/jobs/" data-taxonomy-term="jobs"><span class="taxonomy-label">jobs</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/" data-taxonomy-term="properties"><span class="taxonomy-label">properties</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/style/" data-taxonomy-term="style"><span class="taxonomy-label">style</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/tasks/" data-taxonomy-term="tasks"><span class="taxonomy-label">tasks</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/users/" data-taxonomy-term="users"><span class="taxonomy-label">users</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+      </ul>
+    </div>
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/">Documentation</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/">How Tos</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/"></a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1></h1>
+	
+	<header class="article-meta">
+		
+		
+			
+				
+
+
+			
+				
+
+
+<div class="taxonomy taxonomy-terms-article taxo-tags">
+  <h5 class="taxonomy-title">Tags:</h5>
+  <ul class="taxonomy-terms">
+    
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span></a></li>
+    
+  </ul>
+</div>
+
+			
+		
+		
+	</header>    
+	<h1 id="stroom-howto---testing-stroom-installation">Stroom HOWTO - Testing Stroom Installation</h1>
+<p>This HOWTO will demonstrate various ways to test that your Stroom installation has been successful.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ul>
+<li>Stroom Single or Multi Node Cluster Testing</li>
+<li>the <a href="InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment" title="Multi Node Stroom Cluster (Proxy and Application">Multi Node Stroom Cluster (Proxy and Application)</a> has been deployed</li>
+<li>a <a href="InstallHowTo.md#add-a-test-feed" title="Add a Test Feed">Test Feed</a>, <code>TEST-FEED-V1_0</code> has been added</li>
+<li>Proxy aggregation has been turned off on all Stroom <em>Store</em> Proxies</li>
+<li>the Stroom Proxy Repository Format (<code>REPO_FORMAT</code>) chosen was the default - <code>${pathId}/${id</code></li>
+<li>Stroom Forwarding Proxy Testing</li>
+<li>the <a href="InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment" title="Multi Node Stroom Cluster (Proxy and Application">Multi Node Stroom Cluster (Proxy and Application)</a> has been deployed</li>
+<li>the <a href="InstallHowTo.md#forwarding-stroom-proxy-deployment" title="Stroom Forwarding Proxy">Stroom Forwarding Proxy</a> has been deployed</li>
+<li>a <a href="InstallHowTo.md#add-a-test-feed" title="Add a Test Feed">Test Feed</a>, <code>TEST-FEED-V1_0</code> has been added</li>
+<li>the Stroom Proxy Repository Format (<code>REPO_FORMAT</code>) chosen was the default - <code>${pathId}/${id</code></li>
+<li>Stroom Standalone Proxy Testing</li>
+<li>the <a href="InstallHowTo.md#standalone-stroom-proxy-deployment" title="Stroom Standalone Proxy">Stroom Standalone Proxy</a> has been deployed</li>
+<li>the Stroom Proxy Repository Format (<code>REPO_FORMAT</code>) chosen was the default - <code>${pathId}/${id</code></li>
+</ul>
+<h2 id="stroom-single-or-multi-node-cluster-testing">Stroom Single or Multi Node Cluster Testing</h2>
+<h3 id="data-post-tests">Data Post Tests</h3>
+<h4 id="simple-post-tests">Simple Post tests</h4>
+<p>These tests are to ensure the Stroom <em>Store</em> proxy and it&rsquo;s connection to the database is working along with the Apache mod_jk loadbalancer.
+We will send a file to the load balanced <code>stroomp.strmdev00.org</code> node (really <code>stroomp00.strmdev00.org</code>) and each time we send the file,
+it&rsquo;s receipt should be managed by alternate proxy nodes. As a number of elements can effect load balancing, it is not always guaranteed
+to alternate every time but for the most part it will.</p>
+<p>Perform the following</p>
+<ul>
+<li>Log onto the Stroom database node (stroomdb0.strmdev00.org) as any user.</li>
+<li>Log onto both Stroom nodes and become the <code>stroomuser</code> and monitor each node&rsquo;s Stroom proxy service using the <code>Tp</code> bash macro. That is, on each node, run</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo -i -u stroomuser
+Tp
+</code></pre></div><p>You will note events of the form from
+<code>stroomp00.strmdev00.org</code>:</p>
+<pre><code>...
+2017-01-14T06:22:26.672Z INFO  [ProxyProperties refresh thread 0] datafeed.ProxyHandlerFactory$1 (ProxyHandlerFactory.java:96) - refreshThread() - Started
+2017-01-14T06:30:00.993Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:30:00.993Z
+2017-01-14T06:40:00.245Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:40:00.245Z
+</code></pre><p>and from <code>stroomp01.strmdev00.org</code>:</p>
+<pre><code>...
+2017-01-14T06:22:26.828Z INFO  [ProxyProperties refresh thread 0] datafeed.ProxyHandlerFactory$1 (ProxyHandlerFactory.java:96) - refreshThread() - Started
+2017-01-14T06:30:00.066Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:30:00.066Z
+2017-01-14T06:40:00.318Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:40:00.318Z
+</code></pre><ul>
+<li>On the Stroom database node, execute the command</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -k --data-binary @/etc/group <span style="color:#c30">&#34;https://stroomp.strmdev00.org/stroom/datafeed&#34;</span> -H <span style="color:#c30">&#34;Feed:TEST-FEED-V1_0&#34;</span> -H <span style="color:#c30">&#34;System:EXAMPLE_SYSTEM&#34;</span> -H <span style="color:#c30">&#34;Environment:EXAMPLE_ENVIRONMENT&#34;</span>
+</code></pre></div><p>If you are monitoring the proxy log of <code>stroomp00.strmdev00.org</code> you would see two new logs indicating the successful arrival of the file</p>
+<pre><code>2017-01-14T06:46:06.411Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=54dc0da2-f35c-4dc2-8a98-448415ffc76b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+2017-01-14T06:46:06.449Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 571 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=54dc0da2-f35c-4dc2-8a98-448415ffc76b&quot;,&quot;ReceivedTime=2017-01-14T06:46:05.883Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
+</code></pre><ul>
+<li>On the Stroom database node, again execute the command</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -k --data-binary @/etc/group <span style="color:#c30">&#34;https://stroomp.strmdev00.org/stroom/datafeed&#34;</span> -H <span style="color:#c30">&#34;Feed:TEST-FEED-V1_0&#34;</span> -H <span style="color:#c30">&#34;System:EXAMPLE_SYSTEM&#34;</span> -H <span style="color:#c30">&#34;Environment:EXAMPLE_ENVIRONMENT&#34;</span>
+</code></pre></div><p>If you are monitoring the proxy log of <code>stroomp01.strmdev00.org</code> you should see a new log. As foreshadowed, we didn&rsquo;t as the time delay resulted
+in the first node getting the file. That is <code>stroomp00.strmdev00.org</code> log file gained the two entries</p>
+<pre><code>2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+2017-01-14T06:47:26.645Z INFO  [ajp-apr-9009-exec-2] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 174 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=941d2904-734f-4764-9ccf-4124b94a56f6&quot;,&quot;ReceivedTime=2017-01-14T06:47:26.470Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
+</code></pre><ul>
+<li>Again on the database node, execute the command and this time we see that node <code>stroomp01.strmdev00.org</code> received the file as per</li>
+</ul>
+<pre><code>2017-01-14T06:47:30.782Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=2cef6e23-b0e6-4d75-8374-cca7caf66e15,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+2017-01-14T06:47:30.816Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 593 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=2cef6e23-b0e6-4d75-8374-cca7caf66e15&quot;,&quot;ReceivedTime=2017-01-14T06:47:30.238Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
+</code></pre><ul>
+<li>Running the curl post command in quick succession shows the loadbalancer working &hellip; four executions result in seeing our pair of logs appearing on alternate proxies.</li>
+</ul>
+<p><code>stroomp00</code>:</p>
+<pre><code>2017-01-14T06:52:09.815Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=bf0bc38c-3533-4d5c-9ddf-5d30c0302787,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+2017-01-14T06:52:09.817Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 262 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=bf0bc38c-3533-4d5c-9ddf-5d30c0302787&quot;,&quot;ReceivedTime=2017-01-14T06:52:09.555Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
+</code></pre><p><code>stroomp01</code>:</p>
+<pre><code>2017-01-14T06:52:11.139Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=1088fdd8-6869-489f-8baf-948891363734,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+2017-01-14T06:52:11.150Z INFO  [ajp-apr-9009-exec-2] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 289 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=1088fdd8-6869-489f-8baf-948891363734&quot;,&quot;ReceivedTime=2017-01-14T06:52:10.861Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
+</code></pre><p><code>stroomp00</code>:</p>
+<pre><code>2017-01-14T06:52:12.284Z INFO  [ajp-apr-9009-exec-4] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=def94a4a-cf78-4c4d-9261-343663f7f79a,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+2017-01-14T06:52:12.289Z INFO  [ajp-apr-9009-exec-4] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 5.0 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=def94a4a-cf78-4c4d-9261-343663f7f79a&quot;,&quot;ReceivedTime=2017-01-14T06:52:12.284Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
+</code></pre><p><code>stroomp01</code>:</p>
+<pre><code>2017-01-14T06:52:13.374Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+2017-01-14T06:52:13.378Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 3.0 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b&quot;,&quot;ReceivedTime=2017-01-14T06:52:13.374Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
+</code></pre><p>At this point we will see what the proxies have received.</p>
+<ul>
+<li>On each node run the command</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls -l /stroomdata/stroom-working*/proxy
+</code></pre></div><p>On <code>stroomp00</code> we see</p>
+<pre><code>[stroomuser@stroomp00 ~]$ ls -l /stroomdata/stroom-working*/proxy
+total 16
+-rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:46 001.zip
+-rw-rw-r--. 1 stroomuser stroomuser 783 Jan 14 17:47 002.zip
+-rw-rw-r--. 1 stroomuser stroomuser 784 Jan 14 17:52 003.zip
+-rw-rw-r--. 1 stroomuser stroomuser 783 Jan 14 17:52 004.zip
+[stroomuser@stroomp00 ~]$
+</code></pre><p>and on <code>stroomp01</code> we see</p>
+<pre><code>[stroomuser@stroomp01 ~]$ ls -l /stroomdata/stroom-working*/proxy
+total 12
+-rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:47 001.zip
+-rw-rw-r--. 1 stroomuser stroomuser 783 Jan 14 17:52 002.zip
+-rw-rw-r--. 1 stroomuser stroomuser 784 Jan 14 17:52 003.zip
+[stroomuser@stroomp01 ~]$
+</code></pre><p>which corresponds to the seven posts of data and the associated events in the proxy logs. To see the contents of one of these files we execute on either node, the command</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">unzip -c /stroomdata/stroom-working*/proxy/001.zip
+</code></pre></div><p>to see</p>
+<pre><code>Archive:  /stroomdata/stroom-working-p00/proxy/001.zip
+  inflating: 001.dat
+root:x:0:
+bin:x:1:
+daemon:x:2:
+sys:x:3:
+adm:x:4:
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mem:x:8:
+kmem:x:9:
+wheel:x:10:burn
+cdrom:x:11:
+mail:x:12:postfix
+man:x:15:
+dialout:x:18:
+floppy:x:19:
+games:x:20:
+tape:x:30:
+video:x:39:
+ftp:x:50:
+lock:x:54:
+audio:x:63:
+nobody:x:99:
+users:x:100:
+utmp:x:22:
+utempter:x:35:
+input:x:999:
+systemd-journal:x:190:
+systemd-bus-proxy:x:998:
+systemd-network:x:192:
+dbus:x:81:
+polkitd:x:997:
+ssh_keys:x:996:
+dip:x:40:
+tss:x:59:
+sshd:x:74:
+postdrop:x:90:
+postfix:x:89:
+chrony:x:995:
+burn:x:1000:burn
+mysql:x:27:
+
+  inflating: 001.meta
+content-type:application/x-www-form-urlencoded
+Environment:EXAMPLE_ENVIRONMENT
+Feed:TEST-FEED-V1_0
+GUID:54dc0da2-f35c-4dc2-8a98-448415ffc76b
+host:stroomp.strmdev00.org
+ReceivedTime:2017-01-14T06:46:05.883Z
+RemoteAddress:192.168.2.144
+RemoteHost:192.168.2.144
+StreamSize:527
+System:EXAMPLE_SYSTEM
+user-agent:curl/7.29.0
+
+[stroomuser@stroomp00 ~]$
+</code></pre><p>Checking the /etc/group file on <code>stroomdb0.strmdev00.org</code> confirms the above contents. For the present, ignore
+the metadata file present in the zip archive.</p>
+<p>If you execute the same command on the other files, all that changes is the value of the <em>ReceivedTime:</em> attribute in the <code>.meta</code> file.</p>
+<p>For those curious about the file size differences, this is a function of the compression process within the proxy.
+Using <code>stroomp01</code>&rsquo;s files and extracting them manually and renaming them results in the six files</p>
+<pre><code>[stroomuser@stroomp01 xx]$ ls -l
+total 24
+-rw-rw-r--. 1 stroomuser stroomuser 527 Jan 14 17:47 A_001.dat
+-rw-rw-r--. 1 stroomuser stroomuser 321 Jan 14 17:47 A_001.meta
+-rw-rw-r--. 1 stroomuser stroomuser 527 Jan 14 17:52 B_001.dat
+-rw-rw-r--. 1 stroomuser stroomuser 321 Jan 14 17:52 B_001.meta
+-rw-rw-r--. 1 stroomuser stroomuser 527 Jan 14 17:52 C_001.dat
+-rw-rw-r--. 1 stroomuser stroomuser 321 Jan 14 17:52 C_001.meta
+[stroomuser@stroomp01 xx]$ cmp A_001.dat B_001.dat
+[stroomuser@stroomp01 xx]$ cmp B_001.dat C_001.dat
+[stroomuser@stroomp01 xx]$ 
+</code></pre><p>We have effectively tested the receipt of our data and the load balancing of the Apache mod_jk installation.</p>
+<h4 id="simple-direct-post-tests">Simple Direct Post tests</h4>
+<p>In this test we will use the direct feed interface of the Stroom application, rather than sending data via the proxy.
+One would normally use this interface for time sensitive data which shouldn&rsquo;t aggregate in a proxy waiting for
+the Stroom application to collect it. In this situation we use the command</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -k --data-binary @/etc/group <span style="color:#c30">&#34;https://stroomp.strmdev00.org/stroom/datafeed/direct&#34;</span> -H <span style="color:#c30">&#34;Feed:TEST-FEED-V1_0&#34;</span> -H <span style="color:#c30">&#34;System:EXAMPLE_SYSTEM&#34;</span> -H <span style="color:#c30">&#34;Environment:EXAMPLE_ENVIRONMENT&#34;</span>
+</code></pre></div><p>To prepare for this test, we monitor the Stroom application log using the <code>T</code> bash alias on each node. So on each node run the command</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo -i -u stroomuser
+T
+</code></pre></div><p>On each node you should see <em>LifecyleTask</em> events, for example,</p>
+<pre><code>2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
+2017-01-14T07:42:18.284Z INFO  [Stroom P2 #2 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing SQLStatisticEventStore.evict
+2017-01-14T07:42:18.284Z INFO  [Stroom P2 #10 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing activeQueriesManager.evictExpiredElements
+2017-01-14T07:42:18.285Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing distributedTaskFetcher.execute
+</code></pre><p>To perform the test, on the database node, run the posting command a number of times in rapid succession. This will result
+in  <em>server.DataFeedServiceImpl</em> events in both log files. The Stroom application log is quite busy, you may have to look for these logs.</p>
+<p>In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
+times, the file turned up on the second node twice before appearing on the first node.
+<code>strooomp00:</code></p>
+<pre><code>2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
+</code></pre><p>and on <code>stroomp01:</code></p>
+<pre><code>2017-01-14T07:43:05.614Z INFO  [ajp-apr-8009-exec-1] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
+2017-01-14T07:43:06.821Z INFO  [ajp-apr-8009-exec-2] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
+</code></pre><p>To confirm this data arrived, we need to view the <strong>Data</strong> pane of our <code>TEST-FEED-V1_0</code> tab. To do this, log onto the Stroom UI then
+move the cursor to the <code>TEST-FEED-V1_0</code> entry in the <code>Explorer</code> tab and select the item with a left click</p>
+<p><img src="../resources/UI-TestDirectFeed-00.png" alt="Stroom UI Test Feed - Open Feed" title="Stroom UI Test Feed - Open Feed"></p>
+<p>and double click on the entry to see our <code>TEST-FEED-V1_0</code> tab.</p>
+<p><img src="../resources/UI-TestDirectFeed-01.png" alt="Stroom UI Test Feed - Opened Feed" title="Stroom UI Test Feed - Opened Feed">
+and it is noted that we are viewing the Feed&rsquo;s attributes as we can see the <strong>Setting</strong> hyper-link highlighted. As we want to see the Data we have received for this feed, move the cursor to the <strong>Data</strong> hyper-link and select it to see
+<img src="../resources/UI-TestDirectFeed-02.png" alt="Stroom UI Test Feed - Opened Feed Data" title="Stroom UI Test Feed - Opened Feed view Data">.</p>
+<p>These three entries correspond to the three posts we performed.</p>
+<p>We have successfully tested direct posting to a Stroom feed and that the Apache mod_jk loadbalancer also works for this posting method.</p>
+<h4 id="test-proxy-aggregation-is-working">Test Proxy Aggregation is Working</h4>
+<p>To test that the Proxy Aggregation is working,
+we need to <a href="../General/TasksHowTo.md#turn-on-proxy-aggregation" title="Enable Proxy Aggregation">enable</a> on each node.</p>
+<p>By enabling the Proxy Aggregation process, both nodes immediately performed the task as indicated by each node&rsquo;s Stroom application logs as per
+<code>stroomp00:</code></p>
+<pre><code>2017-01-14T07:58:58.752Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
+2017-01-14T07:58:58.937Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedF
+iles() - Started TEST-FEED-V1_0 (4 Files)
+2017-01-14T07:58:59.045Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedF
+iles() - Completed TEST-FEED-V1_0 in 108 ms
+2017-01-14T07:58:59.101Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - completed
+ in 349 ms
+</code></pre><p>and <code>stroomp01:</code></p>
+<pre><code>2017-01-14T07:59:16.687Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
+2017-01-14T07:59:16.799Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedF
+iles() - Started TEST-FEED-V1_0 (3 Files)
+2017-01-14T07:59:16.909Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedF
+iles() - Completed TEST-FEED-V1_0 in 110 ms
+2017-01-14T07:59:16.997Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - complete
+d in 310 ms
+</code></pre><p>And on refreshing the top pane of the <code>TEST-FEED-V1_0</code> tab we see that two more <em>batches</em> of data have arrived.</p>
+<p><img src="../resources/UI-TestProxyAggregation-01.png" alt="Stroom UI Test Feed - Proxy Aggregated Data Arrival" title="Stroom UI Test Feed - Proxy Aggregated data arrival">.</p>
+<p>This demonstrates that Proxy Aggregation is working.</p>
+<h2 id="stroom-forwarding-proxy-testing">Stroom Forwarding Proxy Testing</h2>
+<h3 id="data-post-tests-1">Data Post Tests</h3>
+<h4 id="simple-post-tests-1">Simple Post tests</h4>
+<p>This test is to ensure the Stroom <em>Forwarding</em> proxy and it&rsquo;s connection to the central Stroom Processing system is working.</p>
+<p>We will send a file to our <em>Forwarding</em> proxy (<code>stroomfp0.strmdev00.org</code>) and monitor this nodes' proxy log files as well as all the
+destination nodes proxy log files. The reason for monitoring all the destination system&rsquo;s proxy log files is that the destination system is
+probably load balancing and hence the forwarded file may turn up on any of the destination nodes.</p>
+<p>Perform the following</p>
+<ul>
+<li>Log onto any host where you will perform the <code>curl</code> post</li>
+<li>Monitor all proxy log files</li>
+<li>Log onto the Forwarding Proxy node and become the <code>stroomuser</code> and monitor the Stroom proxy service using the <code>Tp</code> bash macro.</li>
+<li>Log onto the destination Stroom nodes and become the <code>stroomuser</code> and monitor each node&rsquo;s Stroom proxy service using the <code>Tp</code> bash macro. That is, on each node, run</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo -i -u stroomuser
+Tp
+</code></pre></div><ul>
+<li>On the &lsquo;posting&rsquo; node, run the command</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -k --data-binary @/etc/group <span style="color:#c30">&#34;https://stroomfp0.strmdev00.org/stroom/datafeed&#34;</span> -H <span style="color:#c30">&#34;Feed:TEST-FEED-V1_0&#34;</span> -H <span style="color:#c30">&#34;System:EXAMPLE_SYSTEM&#34;</span> -H <span style="color:#c30">&#34;Environment:EXAMPLE_ENVIRONMENT&#34;</span>
+</code></pre></div><p>In the Stroom Forwarding proxy log, <code>~/stroom-proxy/instance/logs/stroom.log</code>, you will see the arrival of the
+file as per the <em>datafeed.DataFeedRequestHandler$1</em> event running under, in this case, the <em>ajp-apr-9009-exec-1</em> thread.</p>
+<pre><code>...
+2017-01-01T23:17:00.240Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:17:00.240Z
+2017-01-01T23:18:00.275Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:18:00.275Z
+2017-01-01T23:18:12.367Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 782 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Expect=100-continue&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=9601198e-98db-4cae-8b71-9404722ef1f9&quot;,&quot;ReceivedTime=2017-01-01T23:18:11.588Z&quot;,&quot;RemoteAddress=192.168.2.220&quot;,&quot;RemoteHost=192.168.2.220&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=1051&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomfp0.strmdev00.org&quot;,&quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&quot;
+</code></pre><p>And then at the next
+periodic interval (60 second intervals) this file will be forwarded to the main stroom proxy
+server <code>stroomp.strmdev00.org</code> as shown by the <em>handler.ForwardRequestHandler</em> events running under the <em>pool-10-thread-2</em> thread.</p>
+<pre><code>2017-01-01T23:19:00.304Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:19:00.304Z
+2017-01-01T23:19:00.586Z INFO  [pool-10-thread-2] handler.ForwardRequestHandler (ForwardRequestHandler.java:109) - handleHeader() - https://stroomp00.strmdev00.org/stroom/datafeed Sending request {ReceivedPath=stroomfp0.strmdev00.org, Feed=TEST-FEED-V1_0, Compression=ZIP}
+2017-01-01T23:19:00.990Z INFO  [pool-10-thread-2] handler.ForwardRequestHandler (ForwardRequestHandler.java:89) - handleFooter() - b5722ead-714b-411b-a09f-901fb8b20389 took 403 ms to forward 1.4 kB response 200 - {ReceivedPath=stroomfp0.strmdev00.org, Feed=TEST-FEED-V1_0, GUID=b5722ead-714b-411b-a09f-901fb8b20389, Compression=ZIP}
+2017-01-01T23:20:00.064Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:20:00.064Z
+...
+</code></pre><p>On one of the central processing nodes, when the file is send by the Forwarding Proxy, you will see the file&rsquo;s arrival as per
+the <em>datafeed.DataFeedRequestHandler$1</em> event in the <em>ajp-apr-9009-exec-3</em> thread.</p>
+<pre><code>...
+2017-01-01T23:00:00.236Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:00:00.236Z
+2017-01-01T23:10:00.473Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:10:00.473Z
+2017-01-01T23:19:00.787Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=b5722ead-714b-411b-a09f-901fb8b20389,feed=TEST-FEED-V1_0,system=null,environment=null,remotehost=null,remoteaddress=null
+2017-01-01T23:19:00.981Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 196 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Cache-Control=no-cache&quot;,&quot;Compression=ZIP&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=b5722ead-714b-411b-a09f-901fb8b20389&quot;,&quot;ReceivedPath=stroomfp0.strmdev00.org&quot;,&quot;Transfer-Encoding=chunked&quot;,&quot;accept=text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2&quot;,&quot;connection=keep-alive&quot;,&quot;content-type=application/audit&quot;,&quot;host=stroomp00.strmdev00.org&quot;,&quot;pragma=no-cache&quot;,&quot;user-agent=Java/1.8.0_111&quot;
+2017-01-01T23:20:00.771Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:20:00.771Z
+...
+</code></pre><h2 id="stroom-standalone-proxy-testing">Stroom Standalone Proxy Testing</h2>
+<h3 id="data-post-tests-2">Data Post Tests</h3>
+<h4 id="simple-post-tests-2">Simple Post tests</h4>
+<p>This test is to ensure the Stroom <em>Store NODB</em> or <em>Standalone</em> proxy is working.</p>
+<p>We will send a file to our <em>Standalone</em> proxy (<code>stroomsap0.strmdev00.org</code>) and monitor this nodes' proxy log files as well the directory the
+received files are meant to be stored in.</p>
+<p>Perform the following</p>
+<ul>
+<li>Log onto any host where you will perform the <code>curl</code> post</li>
+<li>Log onto the Standalone Proxy node and become the <code>stroomuser</code> and monitor the Stroom proxy service using the <code>Tp</code> bash macro. That is run</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo -i -u stroomuser
+Tp
+</code></pre></div><ul>
+<li>On the &lsquo;posting&rsquo; node, run the command</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -k --data-binary @/etc/group <span style="color:#c30">&#34;https://stroomsap0.strmdev00.org/stroom/datafeed&#34;</span> -H <span style="color:#c30">&#34;Feed:TEST-FEED-V1_0&#34;</span> -H <span style="color:#c30">&#34;System:EXAMPLE_SYSTEM&#34;</span> -H <span style="color:#c30">&#34;Environment:EXAMPLE_ENVIRONMENT&#34;</span>
+</code></pre></div><p>In the stroom proxy log, <code>~/stroom-proxy/instance/logs/stroom.log</code>, you will see the arrival of the file via both the <em>handler.LogRequestHandler</em> and  <em>datafeed.DataFeedRequestHandler$1</em> events running under, in this case, the <em>ajp-apr-9009-exec-1</em> thread.</p>
+<pre><code>...
+2017-01-02T02:10:00.325Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-02T02:10:00.325Z
+2017-01-02T02:11:34.501Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=ebd11215-7d4c-4be6-a524-358015e2ac38,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.220,remoteaddress=192.168.2.220
+2017-01-02T02:11:34.528Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 33 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Expect=100-continue&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=ebd11215-7d4c-4be6-a524-358015e2ac38&quot;,&quot;ReceivedTime=2017-01-02T02:11:34.501Z&quot;,&quot;RemoteAddress=192.168.2.220&quot;,&quot;RemoteHost=192.168.2.220&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=1051&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomsap0.strmdev00.org&quot;,&quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&quot;
+...
+</code></pre><p>Further, if you check the proxy&rsquo;s storage directory, you will see the file <code>001.zip</code>. The file names number upwards from 001.</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls -l /stroomdata/stroom-working-sap0/proxy
+</code></pre></div><p>shows</p>
+<pre><code>[stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy
+total 4
+-rw-rw-r--. 1 stroomuser stroomuser 1107 Jan  2 13:11 001.zip
+[stroomuser@stroomsap0 ~]$ 
+</code></pre><p>On viewing the contents of this file we see both a <code>.dat</code> and <code>.meta</code> file.</p>
+<pre><code>[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; unzip 001.zip)
+Archive:  001.zip
+  inflating: 001.dat                 
+  inflating: 001.meta                
+[stroomuser@stroomsap0 ~]$
+</code></pre><p>The <code>.dat</code> file holds the content of the file we posted - <code>/etc/group</code>.</p>
+<pre><code>[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; head -5 001.dat)
+root:x:0:
+bin:x:1:bin,daemon
+daemon:x:2:bin,daemon
+sys:x:3:bin,adm
+adm:x:4:adm,daemon
+[stroomuser@stroomsap0 ~]$ 
+</code></pre><p>The <code>.meta</code> file is generated by the proxy and holds information about the posted file</p>
+<pre><code>[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; cat 001.meta)
+content-type:application/x-www-form-urlencoded
+Environment:EXAMPLE_ENVIRONMENT
+Feed:TEST-FEED-V1_0
+GUID:ebd11215-7d4c-4be6-a524-358015e2ac38
+host:stroomsap0.strmdev00.org
+ReceivedTime:2017-01-02T02:11:34.501Z
+RemoteAddress:192.168.2.220
+RemoteHost:192.168.2.220
+StreamSize:1051
+System:EXAMPLE_SYSTEM
+user-agent:curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; rm 001.meta 001.dat)
+[stroomuser@stroomsap0 ~]$ 
+</code></pre>
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">
+
+    Last modified
+    July 9, 2021
+    : <a  href="https://github.com/gchq/stroom-docs/commit/d3aa4421684510eef91c5062737207b88f72fd01">Migrate HOWTOs (WIP) (d3aa442)</a>
+
+</div>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2021 Crown Copyright 2021 All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
+
+
+
+
+  </body>
+</html>

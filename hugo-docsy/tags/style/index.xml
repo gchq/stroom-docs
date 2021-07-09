@@ -23,6 +23,14 @@
         
         
         
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Add section on naming, i.e. what names we use for things, e.g. data/meta/stream, config/properties, job/task, etc.
+
+&lt;/div&gt;
+
+
       </description>
     </item>
     
@@ -36,8 +44,15 @@
         
         
         &lt;h2 id=&#34;heading-a-level-2&#34;&gt;Heading A (level 2)&lt;/h2&gt;
-&lt;p&gt;The page title uses heading level one (&lt;code&gt;# &lt;/code&gt; in markdown) so all markdown headings should be &amp;gt;= 2 (&lt;code&gt;## &lt;/code&gt;, &lt;code&gt;### &lt;/code&gt;, &lt;code&gt;#### &lt;/code&gt;, etc.).&lt;/p&gt;
-&lt;p&gt;Page table of contents (right hand pane) is controlled by this in &lt;code&gt;config.toml&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The page title uses heading level one (&lt;code&gt;# &lt;/code&gt; in markdown) so all markdown headings should be &amp;gt;= 2 (&lt;code&gt;## &lt;/code&gt;, &lt;code&gt;### &lt;/code&gt;, &lt;code&gt;#### &lt;/code&gt;, etc.).
+Headings should have two blank lines above them for clarity in the raw markdown, e.g.:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;The text of the previous heading.
+
+
+&lt;span style=&#34;color:#030;font-weight:bold&#34;&gt;## A Heading
+&lt;/span&gt;&lt;span style=&#34;color:#030;font-weight:bold&#34;&gt;&lt;/span&gt;
+The text of this heading.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Page table of contents (right hand pane) is controlled by this in &lt;code&gt;config.toml&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;[markup]
   [markup.tableOfContents]
     endLevel = &lt;span style=&#34;color:#f60&#34;&gt;4&lt;/span&gt;
@@ -135,13 +150,21 @@ This is the second line.&lt;/p&gt;
 &lt;h2 id=&#34;code-highlighting&#34;&gt;Code highlighting&lt;/h2&gt;
 &lt;h3 id=&#34;inline-code&#34;&gt;Inline code&lt;/h3&gt;
 &lt;p&gt;Inline code &lt;code&gt;looks like this&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;yaml&#34;&gt;YAML&lt;/h3&gt;
+&lt;h3 id=&#34;code-blocks&#34;&gt;Code blocks&lt;/h3&gt;
+&lt;p&gt;Code blocks should be surrounded with fences and the code type specified to ensure correct syntax highlighting (if applicable).
+The following are some example of code blocks:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Plain text&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;id,date,time,guid,from_ip,to_ip,application
+1,6/2/2018,10:18,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
+2,12/6/2017,5:58,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
+3,6/7/2018,11:58,fabdeb8a-936f-4e1e-a410-3ca5f2ac3ed6,153.216.143.195,152.3.51.83,Otcom
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;YAML&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#0cf;font-weight:bold&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;root&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;someKey&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;bash&#34;&gt;Bash&lt;/h3&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Bash&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#366&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a00&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#033&#34;&gt;VAR&lt;/span&gt;&lt;span style=&#34;color:#a00&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;xml&#34;&gt;XML&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;root&amp;gt;&lt;/span&gt;
   &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;child&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;attr=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;some val&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/child&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/root&amp;gt;&lt;/span&gt;
@@ -167,7 +190,7 @@ This is the second line.&lt;/p&gt;
 
 &lt;h3 id=&#34;note-block-quote&#34;&gt;Note block Quote&lt;/h3&gt;
 
-&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
 
     This is a note that can contain &lt;strong&gt;markdown&lt;/strong&gt;.
@@ -185,7 +208,7 @@ This is the second line.&lt;/p&gt;
 
 &lt;h3 id=&#34;todo-block-quote&#34;&gt;TODO block Quote&lt;/h3&gt;
 
-&lt;div class=&#34;alert alert-secondary&#34; role=&#34;alert&#34;&gt;
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
 
     This is a TODO that can contain &lt;code&gt;markdown&lt;/code&gt;.
