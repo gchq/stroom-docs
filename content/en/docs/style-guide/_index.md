@@ -20,6 +20,7 @@ menu:
 weight: 90
 
 # Description section that goes between the page title and the list of tags for the page
+# It is also shown on the parent page, beneath the link, so it is useful for eah page to have at least a sentence summarising the page.
 description: >
   A style guide page that won't be visible in production.
   It should be viewed both in its published form and as source to understand how the page elements are formed.
