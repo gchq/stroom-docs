@@ -6,7 +6,8 @@
 # The top of page title
 title: "Style Guide (DRAFT)"
 
-# The link title in the left menu
+# The link title in the left menu. Often the same as the title but if the title
+# is long then it is better to shorten/abbreviate the link title
 linkTitle: "Style Guide (DRAFT)"
 
 # Priority in the main (top) menu bar, lower numbers to left
