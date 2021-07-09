@@ -1,4 +1,13 @@
-# Stroom Quick-Start Tutorial
+---
+title: "Quick Start Guide"
+linkTitle: "Quick Start Guide"
+weight: 10
+date: 2021-07-09
+tags: 
+description: >
+  
+---
+
 In this quick-start guide you will learn how to use Stroom to get from [this CSV](resources/mock_stroom_data.csv), which looks like this:
 
 ```
@@ -7,6 +16,7 @@ id,guid,from_ip,to_ip,application
 2,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
 ...
 ```
+
 To this XML:
 
 ```xml
@@ -29,7 +39,8 @@ To this XML:
   ...
 ```
 
-You will go from a clean vanilla Stroom to having a simple [pipeline](../user-guide/pipelines/README.md) that takes in CSV data and outputs that data transformed into XML. Stroom is a generic and powerful tool for ingesting and processing data: it's flexible because it's generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you'll find yourself struggling.
+You will go from a clean vanilla Stroom to having a simple [pipeline](../user-guide/pipelines/README.md) that takes in CSV data and outputs that data transformed into XML.
+Stroom is a generic and powerful tool for ingesting and processing data: it's flexible because it's generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you'll find yourself struggling.
 
 We're going to do the following:
 

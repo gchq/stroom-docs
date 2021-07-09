@@ -2,7 +2,6 @@
 ---
 title: "Images"
 linkTitle: "Images"
-weight: 1
 description: >
 # Set draft: true to stop the page appearing in the published/released version.
 tags:

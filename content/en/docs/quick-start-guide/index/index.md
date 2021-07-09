@@ -1,4 +1,13 @@
-# Stroom Quick-Start Guide - Indexing
+---
+title: "Indexing"
+linkTitle: "Indexing"
+weight: 40
+date: 2021-07-09
+tags:
+  - index
+description: >
+  
+---
 
 Before you can visualise your data with dashboards you have to index the data;
 First I opted for creating a specific volume to hold my data, just because I wanted to keep my shards away from the default volumes;

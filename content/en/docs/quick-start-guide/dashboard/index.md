@@ -1,4 +1,13 @@
-# Stroom Quick-Start Guide - Dashboards
+---
+title: "Dashboards"
+linkTitle: "Dashboards"
+weight: 50
+date: 2021-07-09
+tags: 
+  - dashboard
+description: >
+  
+---
 
 Create a new dashboard the same way you create anything else
 

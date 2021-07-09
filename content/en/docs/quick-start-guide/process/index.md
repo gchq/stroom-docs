@@ -1,4 +1,13 @@
-# Stroom Quick-Start Guide - Processing
+---
+title: "Pipeline Processing"
+linkTitle: "Pipeline Processing"
+weight: 30
+date: 2021-07-09
+tags:
+  - processing
+description: >
+  
+---
 
 ## Create a pipeline
 

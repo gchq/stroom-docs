@@ -2,7 +2,6 @@
 ---
 title: "Basic Page Elements"
 linkTitle: "Basic Page Elements"
-weight: 1
 description: >
 tags:
   - style

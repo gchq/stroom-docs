@@ -1,3 +1,13 @@
+---
+title: "Running Stroom"
+linkTitle: "Running Stroom"
+weight: 10
+date: 2021-07-09
+tags: 
+description: >
+  
+---
+
 ## Getting and Running Stroom
 
 For this quick start you want a simple single-node Stroom. 

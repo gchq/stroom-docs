@@ -1,4 +1,13 @@
-# Stroom Quick-Start Guide - Feed
+---
+title: "Feeds"
+linkTitle: "Feeds"
+weight: 20
+date: 2021-07-09
+tags: 
+  - feed
+description: >
+  
+---
 
 ## Getting data into Stroom
 
