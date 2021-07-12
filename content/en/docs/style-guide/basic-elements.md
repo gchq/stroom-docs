@@ -31,6 +31,17 @@ Long lines should not be hard wrapped by adding line breaks.
 You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
 The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.
 
+```markdown
+## Don't do this
+
+This is a very long
+line that has had
+hard breaks added
+to it.
+Don't do it.
+```
+
+
 ### Blank lines and spacing
 
 * A heading line should be preceded by two blank lines and followed by one blank line.
@@ -156,8 +167,10 @@ This is an example of a level 6 heading.
 
 ## Block quotes
 
-> This is a single line block quote.
-> This is the second line.
+A simple paragraph block quote.
+
+> This is a simple block quote.
+> This is the second sentence.
 
 A pair of spaces at the end of a line can be used to force line breaks, e.g.:
 
