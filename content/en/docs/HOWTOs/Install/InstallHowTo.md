@@ -1,5 +1,12 @@
-# Stroom HOWTO - Installation
-This HOWTO is provided to assist users in setting up a number of different Stroom environments based on Centos 7.3 infrastructure.
+---
+title: "Installation"
+linkTitle: "Installation"
+#weight:
+date: 2021-07-12
+#tags: 
+description: >
+  This HOWTO is provided to assist users in setting up a number of different Stroom environments based on Centos 7.3 infrastructure.
+---
 
 ## Assumptions
 The following assumptions are used in this document.

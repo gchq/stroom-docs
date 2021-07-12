@@ -1,5 +1,12 @@
-# Stroom HOWTO - Installation of Stroom Application
-This HOWTO describes the installation and initial configuration of the Stroom Application.
+---
+title: "Installation of Stroom Application"
+linkTitle: "Installation of Stroom"
+#weight:
+date: 2021-07-12
+# tags: 
+description: >
+  This HOWTO describes the installation and initial configuration of the Stroom Application.
+---
 
 ## Assumptions
 - the user has reasonable RHEL/Centos System administration skills

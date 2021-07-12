@@ -1,5 +1,14 @@
-# Stroom HOWTO - Installation of Stroom Proxy
-This HOWTO describes the installation and configuration of the Stroom Proxy software.
+---
+title: "Installation of Stroom Proxy"
+linkTitle: "Installation of Stroom Proxy"
+#weight:
+date: 2021-07-12
+tags:
+  - installation
+  - proxy
+description: >
+  This HOWTO describes the installation and configuration of the Stroom Proxy software.
+---
 
 ## Assumptions
 The following assumptions are used in this document.

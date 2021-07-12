@@ -1,5 +1,14 @@
-# Stroom HOWTO - Testing Stroom Installation
-This HOWTO will demonstrate various ways to test that your Stroom installation has been successful.
+---
+title: "Testing Stroom Installation"
+linkTitle: "Testing Stroom Installation"
+#weight:
+date: 2021-07-12
+tags:
+  - testing
+  - installation
+description: >
+  This HOWTO will demonstrate various ways to test that your Stroom installation has been successful.
+---
 
 ## Assumptions
 - Stroom Single or Multi Node Cluster Testing

@@ -1,5 +1,12 @@
-# Stroom HOWTO - Processing User Setup
-This HOWTO demonstrates how to set up various files and scripts that the Stroom processing user requires.
+---
+title: "Processing User setup"
+linkTitle: "Processing User"
+#weight:
+date: 2021-07-12
+#tags: 
+description: >
+  This HOWTO demonstrates how to set up various files and scripts that the Stroom processing user requires.
+---
 
 ## Assumptions
 - the user has reasonable RHEL/Centos System administration skills

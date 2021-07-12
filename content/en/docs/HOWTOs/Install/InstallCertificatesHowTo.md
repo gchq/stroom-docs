@@ -1,5 +1,14 @@
-# Stroom HOWTO - SSL Certificate Generation
-The following is a HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
+---
+title: "SSL Certificate Generation"
+linkTitle: "SSL Certificate Generation"
+#weight:
+date: 2021-07-12
+tags: 
+  - certificates
+  - installation
+description: >
+  A HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
+---
 
 ## Assumptions
 The following assumptions are used in this document.

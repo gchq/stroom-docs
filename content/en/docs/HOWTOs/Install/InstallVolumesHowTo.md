@@ -1,8 +1,18 @@
-# Stroom HOWTO - Volume Maintenance
-Stroom stores data in
-[volumes](../../user-guide/volumes.md "Stroom Volumes").
-These are the logical link to the Storage hierarchy we setup on the operating system. This HOWTO will demonstrate how one first sets up volumes and also how
-to add additional volumes if one expanded an existing Stroom cluster.
+---
+title: "Volume Maintenance"
+linkTitle: "Volume Maintenance"
+#weight:
+date: 2021-07-12
+tags: 
+  - volumes
+  - installation
+description: >
+  How to maintain Stroom's data and index volumes.
+---
+
+Stroom stores data in [volumes](../../user-guide/volumes.md "Stroom Volumes").
+These are the logical link to the Storage hierarchy we setup on the operating system.
+This HOWTO will demonstrate how one first sets up volumes and also how to add additional volumes if one expanded an existing Stroom cluster.
 
 ## Assumptions
 - an account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.

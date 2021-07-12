@@ -1,8 +1,17 @@
+---
+title: "Node Cluster URL Setup"
+linkTitle: "Node Cluster"
+#weight:
+date: 2021-07-12
+tags: 
+  - cluster
+  - installation
+description: >
+  Configuring Stroom cluster URLs
+---
+
 # Stroom HOWTO - Node Cluster URL Setup
-In a Stroom cluster, 
-[Nodes](../../user-guide/nodes.md "Stroom Nodes")
-are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node's Cluster URL and the
-following demonstrates this process.
+In a Stroom cluster, [Nodes](../../user-guide/nodes.md "Stroom Nodes") are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node's Cluster URL and the following demonstrates this process.
 
 ## Assumptions
 - an account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.

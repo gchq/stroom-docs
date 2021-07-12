@@ -1,4 +1,13 @@
-# Stroom HOWTO - Create a Simple Reference Feed
+---
+title: "Create a Simple Reference Feed"
+linkTitle: "Create a Reference Feed"
+#weight:
+date: 2021-07-12
+#tags: 
+description: >
+  How to create a reference feed for decorating event data using reference data lookups.
+---
+
 A **Reference Feed** is a temporal set of data that a pipeline's translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.
 
 A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded. Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.

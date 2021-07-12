@@ -1,5 +1,14 @@
-# Stroom HOWTO - Apache Httpd/Mod_JK configuration for Stroom
-The following is a HOWTO to assist users in configuring Apache's HTTPD with Mod_JK for Stroom.
+---
+title: "Apache Httpd/Mod_JK configuration for Stroom"
+linkTitle: "Apache Httpd/Mod_JK"
+#weight:
+date: 2021-07-12
+tags: 
+  - httpd
+  - installation
+description: >
+  The following is a HOWTO to assist users in configuring Apache's HTTPD with Mod_JK for Stroom.
+---
 
 ## Assumptions
 The following assumptions are used in this document.
@@ -78,7 +87,8 @@ Stroom Proxy, the configuration of the `/etc/httpd/conf/httpd.conf` file is the 
 
 We start by modify the configuration file by,
 add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.
-```
+
+```text
 # Stroom Change: Start - Apply generic security directives
 ServerTokens Prod
 ServerSignature Off
@@ -89,7 +99,9 @@ RewriteRule .* - [F]
 Header set X-XSS-Protection "1; mode=block"
 # Stroom Change: End
 ```
+
 That is,
+
 ```
 ...
 # Do not add a slash at the end of the directory path.  If you point

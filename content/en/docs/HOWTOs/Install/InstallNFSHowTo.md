@@ -1,6 +1,14 @@
-# Stroom HOWTO - NFS Installation and Configuration
-The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or
-add a new node to an existing cluster.
+---
+title: "NFS Installation and Configuration"
+linkTitle: "NFS"
+#weight:
+date: 2021-07-12
+tags: 
+  - NFS
+  - installation
+description: >
+  The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.
+---
 
 ## Assumptions
 The following assumptions are used in this document.

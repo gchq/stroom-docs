@@ -1,4 +1,14 @@
-# Elasticsearch integration
+---
+title: "Elasticsearch integration"
+linkTitle: "Elasticsearch integration"
+#weight:
+date: 2021-07-12
+tags:
+  - search
+  - elastic-search
+description: >
+  How to integrate Stroom with Elastic Search
+---
 
 ## Contents
 1. [Introduction](#1-introduction)

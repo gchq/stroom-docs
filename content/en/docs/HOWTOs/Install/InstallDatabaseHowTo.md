@@ -1,5 +1,16 @@
-# Stroom HOWTO - Database Installation
-This HOWTO describes the installation of the Stroom databases. Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
+---
+title: "Database Installation"
+linkTitle: "Database Installation"
+#weight:
+date: 2021-07-12
+tags: 
+  - database
+  - installation
+description: >
+  This HOWTO describes the installation of the Stroom databases.
+---
+
+Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
 
 Stroom has two databases. The first, `stroom`, is used for management of Stroom itself and the second, `statistics` is used for the Stroom Statistics capability. There are many ways to deploy these two databases. One could
 - have a single database instance and serve both databases from it
