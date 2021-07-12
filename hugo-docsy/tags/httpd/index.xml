@@ -4,7 +4,7 @@
     <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/</link>
     <description>Recent content in httpd on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,828 @@
         
       
     
+    
+    <item>
+      <title>Docs: Apache Httpd/Mod_JK configuration for Stroom</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;p&gt;The following assumptions are used in this document.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the user has reasonable RHEL/Centos System administration skills&lt;/li&gt;
+&lt;li&gt;installations are on Centos 7.3 minimal systems (fully patched)&lt;/li&gt;
+&lt;li&gt;the security of the HTTPD deployment should be reviewed for a production environment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;installation-of-apache-httpd-and-mod_jk-software&#34;&gt;Installation of Apache httpd and Mod_JK Software&lt;/h2&gt;
+&lt;p&gt;To deploy Stroom using Apache&amp;rsquo;s httpd web service as a front end (https) and Apache&amp;rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications, we also need&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;apr&lt;/li&gt;
+&lt;li&gt;apr-util&lt;/li&gt;
+&lt;li&gt;apr-devel&lt;/li&gt;
+&lt;li&gt;gcc&lt;/li&gt;
+&lt;li&gt;httpd&lt;/li&gt;
+&lt;li&gt;httpd-devel&lt;/li&gt;
+&lt;li&gt;mod_ssl&lt;/li&gt;
+&lt;li&gt;epel-release&lt;/li&gt;
+&lt;li&gt;tomcat-native&lt;/li&gt;
+&lt;li&gt;apache&amp;rsquo;s mod_jk tomcat connector plugin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Most of the required software are packages available via standard repositories and hence we can simply execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
+sudo yum -y install tomcat-native
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The reason for the distinct &lt;code&gt;tomcat-native&lt;/code&gt; installation is that this package is from the &lt;a href=&#34;https://fedoraproject.org/wiki/EPEL&#34; title=&#34;Extra Packages for Enterprise Linux (EPEL)&#34;&gt;EPEL (external link)&lt;/a&gt; repository so it must be installed first.&lt;/p&gt;
+&lt;p&gt;For the Apache mod_jk Tomcat connector we need to acquire a recent
+&lt;a href=&#34;http://tomcat.apache.org/connectors-doc/&#34; title=&#34;The Apache Tomcat Connectors: mod_jk, ISAPI redirector, NSAPI redirector&#34;&gt;release (external link)&lt;/a&gt; and install it.
+The following commands achieve this for the 1.2.42 release.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
+cd /tmp
+V=1.2.42
+wget https://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-${V}-src.tar.gz
+tar xf tomcat-connectors-${V}-src.tar.gz
+cd tomcat-connectors-*-src/native
+./configure --with-apxs=/bin/apxs
+make &amp;amp;&amp;amp; make install
+cd /tmp
+rm -rf tomcat-connectors-*-src
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Although you could remove the gcc compiler at this point, we leave it installed as one &lt;em&gt;should&lt;/em&gt; continue to upgrade the Tomcat Connectors to later releases.&lt;/p&gt;
+&lt;h2 id=&#34;configure-apache-httpd&#34;&gt;Configure Apache httpd&lt;/h2&gt;
+&lt;p&gt;We need to configure Apache as the &lt;code&gt;root&lt;/code&gt; user.&lt;/p&gt;
+&lt;p&gt;If the Apache httpd service is &amp;lsquo;fronting&amp;rsquo; a Stroom user interface, we should create an index file (/var/www/html/index.html) on all nodes so browsing to
+the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.&lt;/p&gt;
+&lt;h3 id=&#34;forwarding-file-for-stroom-user-interface-deployments&#34;&gt;Forwarding file for Stroom User Interface deployments&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/var/www/html/index.html
+printf &#39;&amp;lt;html&amp;gt;\n&#39; &amp;gt; ${F}
+printf &#39;&amp;lt;head&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  &amp;lt;meta http-equiv=&amp;quot;Refresh&amp;quot; content=&amp;quot;0; URL=stroom&amp;quot;/&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;/head&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;/html&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 644 ${F}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Remember, deploy this file on all nodes running the Stroom Application.&lt;/p&gt;
+&lt;h3 id=&#34;httpdconf-configuration&#34;&gt;Httpd.conf Configuration&lt;/h3&gt;
+&lt;p&gt;We modify &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; on all nodes, but backup the file first with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
+Stroom Proxy, the configuration of the &lt;code&gt;/etc/httpd/conf/httpd.conf&lt;/code&gt; file is the same.&lt;/p&gt;
+&lt;p&gt;We start by modify the configuration file by,
+add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;# Stroom Change: Start - Apply generic security directives
+ServerTokens Prod
+ServerSignature Off
+FileETag None
+RewriteEngine On
+RewriteCond %{THE_REQUEST} !HTTP/1.1$
+RewriteRule .* - [F]
+Header set X-XSS-Protection &amp;quot;1; mode=block&amp;quot;
+# Stroom Change: End
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+# Do not add a slash at the end of the directory path.  If you point
+# ServerRoot at a non-local disk, be sure to specify a local disk on the
+# Mutex directive, if file-based mutexes are used.  If you wish to share the
+# same ServerRoot for multiple httpd daemons, you will need to change at
+# least PidFile.
+#
+ServerRoot &amp;quot;/etc/httpd&amp;quot;
+
+#
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;becomes&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+# Do not add a slash at the end of the directory path.  If you point
+# ServerRoot at a non-local disk, be sure to specify a local disk on the
+# Mutex directive, if file-based mutexes are used.  If you wish to share the
+# same ServerRoot for multiple httpd daemons, you will need to change at
+# least PidFile.
+#
+# Stroom Change: Start - Apply generic security directives
+ServerTokens Prod
+ServerSignature Off
+FileETag None
+RewriteEngine On
+RewriteCond %{THE_REQUEST} !HTTP/1.1$
+RewriteRule .* - [F]
+Header set X-XSS-Protection &amp;quot;1; mode=block&amp;quot;
+# Stroom Change: End
+ServerRoot &amp;quot;/etc/httpd&amp;quot;
+
+#
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now block access to the /var/www directory by commenting out&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;Directory &amp;quot;/var/www&amp;quot;&amp;gt;
+  AllowOverride None
+  # Allow open access:
+  Require all granted
+&amp;lt;/Directory&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;that is&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#
+# Relax access to content within /var/www.
+#
+&amp;lt;Directory &amp;quot;/var/www&amp;quot;&amp;gt;
+    AllowOverride None
+    # Allow open access:
+    Require all granted
+&amp;lt;/Directory&amp;gt;
+
+# Further relax access to the default document root:
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;becomes&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#
+# Relax access to content within /var/www.
+#
+# Stroom Change: Start - Block access to /var/www
+# &amp;lt;Directory &amp;quot;/var/www&amp;quot;&amp;gt;
+#     AllowOverride None
+#     # Allow open access:
+#     Require all granted
+# &amp;lt;/Directory&amp;gt;
+# Stroom Change: End
+
+# Further relax access to the default document root:
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then within the /var/www/html directory turn off Indexes FollowSymLinks by commenting out the line&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Options Indexes FollowSymLinks
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+    # The Options directive is both complicated and important.  Please see
+    # http://httpd.apache.org/docs/2.4/mod/core.html#options
+    # for more information.
+    #
+    Options Indexes FollowSymLinks
+
+    #
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be &amp;quot;All&amp;quot;, &amp;quot;None&amp;quot;, or any combination of the keywords:
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;becomes&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+    # The Options directive is both complicated and important.  Please see
+    # http://httpd.apache.org/docs/2.4/mod/core.html#options
+    # for more information.
+    #
+    # Stroom Change: Start - turn off indexes and FollowSymLinks
+    # Options Indexes FollowSymLinks
+    # Stroom Change: End
+
+    #
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be &amp;quot;All&amp;quot;, &amp;quot;None&amp;quot;, or any combination of the keywords:
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then finally we add two new log formats and configure the access log to use the new format. This is done within the &lt;code&gt;&amp;lt;IfModule logio_module&amp;gt;&lt;/code&gt; by adding the two new LogFormat directives&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%u\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D %I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxUser
+LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D %I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxSSLUser
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and replacing the CustomLog directive&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CustomLog &amp;quot;logs/access_log&amp;quot; combined
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;with&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CustomLog logs/access_log blackboxSSLUser
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+    LogFormat &amp;quot;%h %l %u %t \&amp;quot;%r\&amp;quot; %&amp;gt;s %b&amp;quot; common
+
+    &amp;lt;IfModule logio_module&amp;gt;
+      # You need to enable mod_logio.c to use %I and %O
+      LogFormat &amp;quot;%h %l %u %t \&amp;quot;%r\&amp;quot; %&amp;gt;s %b \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %I %O&amp;quot; combinedio
+    &amp;lt;/IfModule&amp;gt;
+
+    #
+    # The location and format of the access logfile (Common Logfile Format).
+    # If you do not define any access logfiles within a &amp;lt;VirtualHost&amp;gt;
+    # container, they will be logged here.  Contrariwise, if you *do*
+    # define per-&amp;lt;VirtualHost&amp;gt; access logfiles, transactions will be
+    # logged therein and *not* in this file.
+    #
+    #CustomLog &amp;quot;logs/access_log&amp;quot; common
+
+    #
+    # If you prefer a logfile with access, agent, and referer information
+    # (Combined Logfile Format) you can use the following directive.
+    #
+    CustomLog &amp;quot;logs/access_log&amp;quot; combined
+&amp;lt;/IfModule&amp;gt;
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;becomes&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+    LogFormat &amp;quot;%h %l %u %t \&amp;quot;%r\&amp;quot; %&amp;gt;s %b&amp;quot; common
+
+    &amp;lt;IfModule logio_module&amp;gt;
+      # You need to enable mod_logio.c to use %I and %O
+      LogFormat &amp;quot;%h %l %u %t \&amp;quot;%r\&amp;quot; %&amp;gt;s %b \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %I %O&amp;quot; combinedio
+      # Stroom Change: Start - Add new logformats
+      LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%u\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D %I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxUser
+      LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D %I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxSSLUser
+      # Stroom Change: End
+    &amp;lt;/IfModule&amp;gt;
+    # Stroom Change: Start - Add new logformats without the additional byte values
+    &amp;lt;IfModule !logio_module&amp;gt;
+      LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%u\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D 0/0/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxUser
+      LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D 0/0/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxSSLUser
+    &amp;lt;/IfModule&amp;gt;
+    # Stroom Change: End
+
+    #
+    # The location and format of the access logfile (Common Logfile Format).
+    # If you do not define any access logfiles within a &amp;lt;VirtualHost&amp;gt;
+    # container, they will be logged here.  Contrariwise, if you *do*
+    # define per-&amp;lt;VirtualHost&amp;gt; access logfiles, transactions will be
+    # logged therein and *not* in this file.
+    #
+    #CustomLog &amp;quot;logs/access_log&amp;quot; common
+
+    #
+    # If you prefer a logfile with access, agent, and referer information
+    # (Combined Logfile Format) you can use the following directive.
+    #
+    # Stroom Change: Start - Make the access log use a new format
+    # CustomLog &amp;quot;logs/access_log&amp;quot; combined
+    CustomLog logs/access_log blackboxSSLUser
+    # Stroom Change: End
+&amp;lt;/IfModule&amp;gt;
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Remember, deploy this file on all nodes.&lt;/p&gt;
+&lt;h3 id=&#34;configuration-of-sslconf&#34;&gt;Configuration of ssl.conf&lt;/h3&gt;
+&lt;p&gt;We modify &lt;code&gt;/etc/httpd/conf.d/ssl.conf&lt;/code&gt; on all nodes, backing up first,&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-base&#34;&gt;cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The configuration of the &lt;code&gt;/etc/httpd/conf.d/ssl.conf&lt;/code&gt; &lt;strong&gt;does&lt;/strong&gt; change depending on the Stroom scenario deployed. In the following we will indicate
+differences by tagged sub-headings. If the configuration applies irrespective of scenario, then &lt;strong&gt;All scenarios&lt;/strong&gt; is the tag, else the tag indicated the
+type of Stroom deployment.&lt;/p&gt;
+&lt;h4 id=&#34;sslconf-http-to-https-redirection---all-scenarios&#34;&gt;ssl.conf: HTTP to HTTPS Redirection - All scenarios&lt;/h4&gt;
+&lt;p&gt;Before the &lt;VirtualHost _default_:443&gt; context we add http to https redirection by adding the directives (noting we specify the actual server name)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;VirtualHost *:80&amp;gt;
+  ServerName stroomp00.strmdev00.org
+  Redirect permanent &amp;quot;/&amp;quot; &amp;quot;https://stroomp00.strmdev00.org/&amp;quot;
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is, we change&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+## SSL Virtual Host Context
+##
+
+&amp;lt;VirtualHost _default_:443&amp;gt;
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+## SSL Virtual Host Context
+##
+
+# Stroom Change: Start - Add http redirection to https
+&amp;lt;VirtualHost *:80&amp;gt;
+  ServerName stroomp00.strmdev00.org
+  Redirect permanent &amp;quot;/&amp;quot; &amp;quot;https://stroomp00.strmdev00.org/&amp;quot;
+&amp;lt;/VirtualHost&amp;gt;
+# Stroom Change: End
+
+&amp;lt;VirtualHost _default_:443&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment&#34;&gt;ssl.conf: VirtualHost directives - Multi Node &amp;lsquo;Application and Proxy&amp;rsquo; deployment&lt;/h4&gt;
+&lt;p&gt;Within the &lt;VirtualHost _default_:443&gt; context we set the directives, in this case, we use the CNAME &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ServerName stroomp.strmdev00.org
+JkMount /stroom* loadbalancer
+JkMount /stroom/remoting/cluster* local
+JkMount /stroom/datafeed* loadbalancer_proxy
+JkMount /stroom/remoting* loadbalancer_proxy
+JkMount /stroom/datafeed/direct* loadbalancer
+JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is, we change&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+&amp;lt;VirtualHost _default_:443&amp;gt;
+
+# General setup for the virtual host, inherited from global configuration
+#DocumentRoot &amp;quot;/var/www/html&amp;quot;
+#ServerName www.example.com:443
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+&amp;lt;VirtualHost _default_:443&amp;gt;
+
+# General setup for the virtual host, inherited from global configuration
+#DocumentRoot &amp;quot;/var/www/html&amp;quot;
+#ServerName www.example.com:443
+# Stroom Change: Start - Set servername and mod_jk connectivity
+ServerName stroomp.strmdev00.org
+JkMount /stroom* loadbalancer
+JkMount /stroom/remoting/cluster* local
+JkMount /stroom/datafeed* loadbalancer_proxy
+JkMount /stroom/remoting* loadbalancer_proxy
+JkMount /stroom/datafeed/direct* loadbalancer
+JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+# Stroom Change: End
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment&#34;&gt;ssl.conf: VirtualHost directives - Standalone or Forwarding Proxy deployment&lt;/h4&gt;
+&lt;p&gt;Within the &lt;VirtualHost _default_:443&gt; context set the directives, in this case, for a node named say &lt;code&gt;stroomfp0.strmdev00.org&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ServerName stroomfp0.strmdev00.org
+JkMount /stroom/datafeed* local_proxy
+JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is, we change&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+&amp;lt;VirtualHost _default_:443&amp;gt;
+
+# General setup for the virtual host, inherited from global configuration
+#DocumentRoot &amp;quot;/var/www/html&amp;quot;
+#ServerName www.example.com:443
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+&amp;lt;VirtualHost _default_:443&amp;gt;
+
+# General setup for the virtual host, inherited from global configuration
+#DocumentRoot &amp;quot;/var/www/html&amp;quot;
+#ServerName www.example.com:443
+# Stroom Change: Start - Set servername and mod_jk connectivity
+ServerName stroomfp0.strmdev00.org
+JkMount /stroom/datafeed* local_proxy
+JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+# Stroom Change: End
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sslconf-virtualhost-directives---single-node-application-and-proxy-deployment&#34;&gt;ssl.conf: VirtualHost directives - Single Node &amp;lsquo;Application and Proxy&amp;rsquo; deployment&lt;/h4&gt;
+&lt;p&gt;Within the &lt;VirtualHost _default_:443&gt; context set the directives, in this case, for a node name &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ServerName stroomp00.strmdev00.org
+JkMount /stroom* local
+JkMount /stroom/remoting/cluster* local
+JkMount /stroom/datafeed* local_proxy
+JkMount /stroom/remoting* local_proxy
+JkMount /stroom/datafeed/direct* local
+JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is, we change&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+&amp;lt;VirtualHost _default_:443&amp;gt;
+
+# General setup for the virtual host, inherited from global configuration
+#DocumentRoot &amp;quot;/var/www/html&amp;quot;
+#ServerName www.example.com:443
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+&amp;lt;VirtualHost _default_:443&amp;gt;
+
+# General setup for the virtual host, inherited from global configuration
+#DocumentRoot &amp;quot;/var/www/html&amp;quot;
+#ServerName www.example.com:443
+# Stroom Change: Start - Set servername and mod_jk connectivity
+ServerName stroomp00.strmdev00.org
+JkMount /stroom* local
+JkMount /stroom/remoting/cluster* local
+JkMount /stroom/datafeed* local_proxy
+JkMount /stroom/remoting* local_proxy
+JkMount /stroom/datafeed/direct* local
+JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+# Stroom Change: End
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sslconf-certificate-file-changes---all-scenarios&#34;&gt;ssl.conf: Certificate file changes - All scenarios&lt;/h4&gt;
+&lt;p&gt;We replace the standard certificate files with the generated certificates. In the example below, we are using the multi node scenario, in
+that the key file names are &lt;code&gt;stroomp.crt&lt;/code&gt; and &lt;code&gt;stroomp.key&lt;/code&gt;. For other scenarios, use the appropriate file names generated. We replace&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;with&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SSLCertificateFile /home/stroomuser/stroom-jks/public/stroomp.crt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;with&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is, change&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+# pass phrase.  Note that a kill -HUP will prompt again.  A new
+# certificate can be generated using the genkey(1) command.
+SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+
+#   Server Private Key:
+#   If the key is not combined with the certificate, use this
+#   directive to point at the key file.  Keep in mind that if
+#   you&#39;ve both a RSA and a DSA private key you can configure
+#   both in parallel (to also allow the use of DSA ciphers, etc.)
+SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+
+#   Server Certificate Chain:
+#   Point SSLCertificateChainFile at a file containing the
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+# pass phrase.  Note that a kill -HUP will prompt again.  A new
+# certificate can be generated using the genkey(1) command.
+# Stroom Change: Start - Replace with Stroom server certificate
+# SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+SSLCertificateFile /home/stroomuser/stroom-jks/public/stroomp.crt
+# Stroom Change: End
+
+#   Server Private Key:
+#   If the key is not combined with the certificate, use this
+#   directive to point at the key file.  Keep in mind that if
+#   you&#39;ve both a RSA and a DSA private key you can configure
+#   both in parallel (to also allow the use of DSA ciphers, etc.)
+# Stroom Change: Start - Replace with Stroom server private key file
+# SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
+# Stroom Change: End
+
+#   Server Certificate Chain:
+#   Point SSLCertificateChainFile at a file containing the
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sslconf-certificate-bundleno-ca-verification---all-scenarios&#34;&gt;ssl.conf: Certificate Bundle/NO-CA Verification - All scenarios&lt;/h4&gt;
+&lt;p&gt;If you have signed your Stroom server certificate with a Certificate Authority, then change&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to be your own certificate bundle which you should probably store as &lt;code&gt;~stroomuser/stroom-jks/public/stroomp-ca-bundle.crt&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now if you are using a self signed certificate, you will need to set the Client Authentication to have a value of&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SSLVerifyClient optional_no_ca
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;noting that this may change if you actually use a CA.
+That is, changing&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#   Client Authentication (Type):
+#   Client certificate verification type and depth.  Types are
+#   none, optional, require and optional_no_ca.  Depth is a
+#   number which specifies how deeply to verify the certificate
+#   issuer chain before deciding the certificate is not valid.
+#SSLVerifyClient require
+#SSLVerifyDepth  10
+
+#   Access Control:
+#   With SSLRequire you can do per-directory access control based
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#   Client Authentication (Type):
+#   Client certificate verification type and depth.  Types are
+#   none, optional, require and optional_no_ca.  Depth is a
+#   number which specifies how deeply to verify the certificate
+#   issuer chain before deciding the certificate is not valid.
+#SSLVerifyClient require
+#SSLVerifyDepth  10
+# Stroom Change: Start - Set optional_no_ca (given we have a self signed certificate)
+SSLVerifyClient optional_no_ca
+# Stroom Change: End
+
+#   Access Control:
+#   With SSLRequire you can do per-directory access control based
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy&#34;&gt;ssl.conf: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)&lt;/h4&gt;
+&lt;p&gt;We now need to secure certain Stroom Application servlets, to ensure they are only accessed under appropriate control.&lt;/p&gt;
+&lt;p&gt;This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost). We achieve this by adding after the example Location directives&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;Location ~ &amp;quot;stroom/(status|echo|sessionList|debug)&amp;quot; &amp;gt;
+ Require all denied
+ Require ip 127.0.0.1 192.168.2
+&amp;lt;/Location&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We further restrict the clustercall and export servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;Location ~ &amp;quot;stroom/export/|stroom/remoting/clustercall.rpc&amp;quot; &amp;gt;
+ Require all denied
+ Require ip 127.0.0.1 192.168.2
+&amp;lt;/Location&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is, the following&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#            and %{TIME_WDAY} &amp;gt;= 1 and %{TIME_WDAY} &amp;lt;= 5 \
+#            and %{TIME_HOUR} &amp;gt;= 8 and %{TIME_HOUR} &amp;lt;= 20       ) \
+#           or %{REMOTE_ADDR} =~ m/^192\.76\.162\.[0-9]+$/
+#&amp;lt;/Location&amp;gt;
+
+#   SSL Engine Options:
+#   Set various options for the SSL engine.
+#   o FakeBasicAuth:
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;changes to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#            and %{TIME_WDAY} &amp;gt;= 1 and %{TIME_WDAY} &amp;lt;= 5 \
+#            and %{TIME_HOUR} &amp;gt;= 8 and %{TIME_HOUR} &amp;lt;= 20       ) \
+#           or %{REMOTE_ADDR} =~ m/^192\.76\.162\.[0-9]+$/
+#&amp;lt;/Location&amp;gt;
+
+# Stroom Change: Start - Lock access to certain servlets
+&amp;lt;Location ~ &amp;quot;stroom/(status|echo|sessionList|debug)&amp;quot; &amp;gt;
+ Require all denied
+ Require ip 127.0.0.1 192.168.2
+&amp;lt;/Location&amp;gt;
+# Lock these Servlets more securely - to just localhost and processing node(s)
+&amp;lt;Location ~ &amp;quot;stroom/export/|stroom/remoting/clustercall.rpc&amp;quot; &amp;gt;
+ Require all denied
+ Require ip 127.0.0.1 192.168.2
+&amp;lt;/Location&amp;gt;
+# Stroom Change: End
+
+#   SSL Engine Options:
+#   Set various options for the SSL engine.
+#   o FakeBasicAuth:
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;sslconf-log-formats---all-scenarios&#34;&gt;ssl.conf: Log formats - All scenarios&lt;/h4&gt;
+&lt;p&gt;Finally, as we make use of the Black Box Apache log format, we replace the standard format&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CustomLog logs/ssl_request_log \
+        &amp;quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&amp;quot;%r\&amp;quot; %b&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;with&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CustomLog logs/ssl_request_log blackboxSSLUser
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is, change&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#   Per-Server Logging:
+#   The home of a custom SSL log file. Use this when you want a
+#   compact non-error SSL logfile on a virtual host basis.
+CustomLog logs/ssl_request_log \
+          &amp;quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&amp;quot;%r\&amp;quot; %b&amp;quot;
+
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+#   Per-Server Logging:
+#   The home of a custom SSL log file. Use this when you want a
+#   compact non-error SSL logfile on a virtual host basis.
+# Stroom Change: Start - Change ssl_request log to use our BlackBox format
+# CustomLog logs/ssl_request_log \
+#           &amp;quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&amp;quot;%r\&amp;quot; %b&amp;quot;
+CustomLog logs/ssl_request_log blackboxSSLUser
+# Stroom Change: End
+
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Remember, in the case of Multi node stroom Application servers, deploy this file on all servers.&lt;/p&gt;
+&lt;h3 id=&#34;apache-mod_jk-configuration&#34;&gt;Apache Mod_JK configuration&lt;/h3&gt;
+&lt;p&gt;Apache Mod_JK has two configuration files&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/etc/httpd/conf.d/mod_jk.conf - for the http server configuration&lt;/li&gt;
+&lt;li&gt;/etc/httpd/conf/workers.properties - to configure the Tomcat workers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In multi node scenarios, &lt;code&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/code&gt; is the same on all servers, but the &lt;code&gt;/etc/httpd/conf/workers.properties&lt;/code&gt; file is different.
+The contents of these two configuration files differ depending on the Stroom deployment. The following provide the various deployment scenarios.&lt;/p&gt;
+&lt;h4 id=&#34;mod_jk-multi-node-application-and-proxy-deployment&#34;&gt;Mod_JK Multi Node Application and Proxy Deployment&lt;/h4&gt;
+&lt;p&gt;For a Stroom Multi node Application and Proxy server,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we configure &lt;code&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/code&gt; as per&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/etc/httpd/conf.d/mod_jk.conf
+printf &#39;LoadModule jk_module modules/mod_jk.so\n&#39; &amp;gt; ${F}
+printf &#39;JkWorkersFile conf/workers.properties\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogFile logs/mod_jk.log\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogLevel info\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogStampFormat  &amp;quot;[%%a %%b %%d %%H:%%M:%%S %%Y]&amp;quot;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkRequestLogFormat &amp;quot;%%w %%V %%T&amp;quot;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom* loadbalancer\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/remoting/cluster* local\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/datafeed* loadbalancer_proxy\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/remoting* loadbalancer_proxy\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/datafeed/direct* loadbalancer\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# The following makes use of the existing /run/httpd directory\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkShmFile run/jk.shm\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;Location /jkstatus/&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  JkMount status\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Order deny,allow\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Deny from all\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Allow from 127.0.0.1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;/Location&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 640 ${F}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;we configure &lt;code&gt;/etc/httpd/conf/workers.properties&lt;/code&gt; as per&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since we are deploying for a cluster with load balancing, we need a &lt;em&gt;workers.properties&lt;/em&gt; file per node. Executing the following will result in two files (&lt;em&gt;workers.properties.stroomp00&lt;/em&gt; and &lt;em&gt;workers.properties.stroomp01&lt;/em&gt;) which should be deployed to their respective servers.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /tmp
+# Set the list of nodes
+Nodes=&amp;quot;stroomp00.strmdev00.org stroomp01.strmdev00.org&amp;quot;
+for oN in ${Nodes}; do
+  _n=`echo ${oN} | cut -f1 -d\.`
+  (
+  printf &#39;# Workers.properties for Stroom Cluster member: %s %s\n&#39; ${oN}
+  printf &#39;worker.list=loadbalancer,loadbalancer_proxy,local,local_proxy,status\n&#39;
+  L_t=&amp;quot;&amp;quot;
+  Lp_t=&amp;quot;&amp;quot;
+  for FQDN in ${Nodes}; do
+    N=`echo ${FQDN} | cut -f1 -d\.`
+    printf &#39;worker.%s.port=8009\n&#39; ${N}
+    printf &#39;worker.%s.host=%s\n&#39; ${N} ${FQDN}
+    printf &#39;worker.%s.type=ajp13\n&#39; ${N}
+    printf &#39;worker.%s.lbfactor=1\n&#39; ${N}
+    printf &#39;worker.%s.max_packet_size=65536\n&#39; ${N}
+    printf &#39;worker.%s_proxy.port=9009\n&#39; ${N}
+    printf &#39;worker.%s_proxy.host=%s\n&#39; ${N} ${FQDN}
+    printf &#39;worker.%s_proxy.type=ajp13\n&#39; ${N}
+    printf &#39;worker.%s_proxy.lbfactor=1\n&#39; ${N}
+    printf &#39;worker.%s_proxy.max_packet_size=65536\n&#39; ${N}
+    L_t=&amp;quot;${L_t}${N},&amp;quot;
+    Lp_t=&amp;quot;${Lp_t}${N}_proxy,&amp;quot;
+  done
+  L=`echo $L_t | sed -e &#39;s/.$//&#39;`
+  Lp=`echo $Lp_t | sed -e &#39;s/.$//&#39;`
+  printf &#39;worker.loadbalancer.type=lb\n&#39;
+  printf &#39;worker.loadbalancer.balance_workers=%s\n&#39; $L
+  printf &#39;worker.loadbalancer.sticky_session=1\n&#39;
+  printf &#39;worker.loadbalancer_proxy.type=lb\n&#39;
+  printf &#39;worker.loadbalancer_proxy.balance_workers=%s\n&#39; $Lp
+  printf &#39;worker.loadbalancer_proxy.sticky_session=1\n&#39;
+  printf &#39;worker.local.type=lb\n&#39;
+  printf &#39;worker.local.balance_workers=%s\n&#39; ${_n}
+  printf &#39;worker.local.sticky_session=1\n&#39;
+  printf &#39;worker.local_proxy.type=lb\n&#39;
+  printf &#39;worker.local_proxy.balance_workers=%s_proxy\n&#39; ${_n}
+  printf &#39;worker.local_proxy.sticky_session=1\n&#39;
+  printf &#39;worker.status.type=status\n&#39;
+  ) &amp;gt; workers.properties.${_n}
+  chmod 640 workers.properties.${_n}
+done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now depending in the node you are on, copy the relevant workers.properties.nodename file to /etc/httpd/conf/workers.properties. The following command makes this simple.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you were to add an additional node to a multi node cluster, say the node &lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;, then you would re-run the above script with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Nodes=&amp;quot;stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then redeploy all three files to the respective servers. Also note, that for the newly created workers.properties files for the existing nodes to
+take effect you will need to restart the Apache Httpd service on both nodes.&lt;/p&gt;
+&lt;p&gt;Remember, in multi node cluster deployments, the following files are the same and hence can be created on one node, but copied to the
+others not forgetting to backup the other node&amp;rsquo;s original files. That is, the files&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/var/www/html/index.html&lt;/li&gt;
+&lt;li&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/li&gt;
+&lt;li&gt;/etc/httpd/conf/httpd.conf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;are to be the same on all nodes. Only the /etc/httpd/conf.d/ssl.conf and /etc/httpd/conf/workers.properties files change.&lt;/p&gt;
+&lt;h4 id=&#34;mod_jk-standalone-or-forwarding-stroom-proxy-deployment&#34;&gt;Mod_JK Standalone or Forwarding Stroom Proxy Deployment&lt;/h4&gt;
+&lt;p&gt;For a Stroom Standalone or Forwarding proxy,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we configure &lt;code&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/code&gt; as per&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/etc/httpd/conf.d/mod_jk.conf
+printf &#39;LoadModule jk_module modules/mod_jk.so\n&#39; &amp;gt; ${F}
+printf &#39;JkWorkersFile conf/workers.properties\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogFile logs/mod_jk.log\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogLevel info\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogStampFormat  &amp;quot;[%%a %%b %%d %%H:%%M:%%S %%Y]&amp;quot;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkRequestLogFormat &amp;quot;%%w %%V %%T&amp;quot;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/datafeed* local_proxy\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# The following makes use of the existing /run/httpd directory\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkShmFile run/jk.shm\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;Location /jkstatus/&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  JkMount status\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Order deny,allow\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Deny from all\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Allow from 127.0.0.1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;/Location&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 640 ${F}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;we configure &lt;code&gt;/etc/httpd/conf/workers.properties&lt;/code&gt; as per&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The variable &lt;strong&gt;N&lt;/strong&gt; in the script below is to be the node name (not FQDN) of your sever (i.e. stroomfp0).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;N=stroomfp0
+FQDN=`hostname -f`
+F=/etc/httpd/conf/workers.properties
+printf &#39;worker.list=local_proxy,status\n&#39; &amp;gt; ${F}
+printf &#39;worker.%s_proxy.port=9009\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.host=%s\n&#39; ${N} ${FQDN} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.type=ajp13\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.lbfactor=1\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local_proxy.type=lb\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local_proxy.balance_workers=%s_proxy\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local_proxy.sticky_session=1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;worker.status.type=status\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 640 ${F}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;mod_jk-single-node-application-and-proxy-deployment&#34;&gt;Mod_JK Single Node Application and Proxy Deployment&lt;/h4&gt;
+&lt;p&gt;For a Stroom Single node Application and Proxy server,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we configure &lt;code&gt;/etc/httpd/conf.d/mod_jk.conf&lt;/code&gt; as per&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;F=/etc/httpd/conf.d/mod_jk.conf
+printf &#39;LoadModule jk_module modules/mod_jk.so\n&#39; &amp;gt; ${F}
+printf &#39;JkWorkersFile conf/workers.properties\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogFile logs/mod_jk.log\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogLevel info\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkLogStampFormat  &amp;quot;[%%a %%b %%d %%H:%%M:%%S %%Y]&amp;quot;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkRequestLogFormat &amp;quot;%%w %%V %%T&amp;quot;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom* local\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/remoting/cluster* local\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/datafeed* local_proxy\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/remoting* local_proxy\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkMount /stroom/datafeed/direct* local\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# The following makes use of the existing /run/httpd directory\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;JkShmFile run/jk.shm\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;Location /jkstatus/&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  JkMount status\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Order deny,allow\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Deny from all\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;  Allow from 127.0.0.1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;&amp;lt;/Location&amp;gt;\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 640 ${F}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;we configure &lt;code&gt;/etc/httpd/conf/workers.properties&lt;/code&gt; as per&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The variable &lt;strong&gt;N&lt;/strong&gt; in the script below is to be the node name (not FQDN) of your sever (i.e. stroomp00).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;N=stroomp00
+FQDN=`hostname -f`
+F=/etc/httpd/conf/workers.properties
+printf &#39;worker.list=local,local_proxy,status\n&#39; &amp;gt; ${F}
+printf &#39;worker.%s.port=8009\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s.host=%s\n&#39; ${N} ${FQDN} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s.type=ajp13\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s.lbfactor=1\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s.max_packet_size=65536\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.port=9009\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.host=%s\n&#39; ${N} ${FQDN} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.type=ajp13\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.lbfactor=1\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.%s_proxy.max_packet_size=65536\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local.type=lb\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local.balance_workers=%s\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local.sticky_session=1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local_proxy.type=lb\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local_proxy.balance_workers=%s_proxy\n&#39; ${N} &amp;gt;&amp;gt; ${F}
+printf &#39;worker.local_proxy.sticky_session=1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;worker.status.type=status\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 640 ${F}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;final-host-configuration-and-web-service-enablement&#34;&gt;Final host configuration and web service enablement&lt;/h2&gt;
+&lt;p&gt;Now tidy up the SELinux context for access on all nodes and files via the commands&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;setsebool -P httpd_enable_homedirs on
+setsebool -P httpd_can_network_connect on
+chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
+chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We also enable both http and https services via the firewall on all nodes. If you don&amp;rsquo;t want to present a http access point,
+then don&amp;rsquo;t enable it in the firewall setting. This is done with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --add-service=http --permanent
+firewall-cmd --zone=public --add-service=https --permanent
+firewall-cmd --reload
+firewall-cmd --zone=public --list-all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
+the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in &lt;code&gt;/var/log/httpd/&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;systemctl enable httpd.service
+systemctl start httpd.service
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
     
     <item>
       <title>Docs: Apache HTTPD Event Feed</title>
@@ -141,23 +963,25 @@ HOWTO - Enabling Processors for a Pipeline&lt;/p&gt;
    LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN../../&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D 0/0/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/$p&amp;quot; blackboxSSLUser
 &amp;lt;/IfModule&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A copy of this configuration can be found &lt;a href=&#34;ApacheHTTPDAuditConfig.txt&#34; title=&#34;Apache BlackBox Auditing Configuration&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A copy of this configuration can be found &lt;a href=&#34;ApacheHTTPDAuditConfig.txt&#34; title=&#34;Apache BlackBox Auditing Configuration&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;As Stroom can use PKI for login, you can configure Stroom’s Apache to make use of the blackboxSSLUser log format. A sample set of logs in this format appear below.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;192.168.4.220/61801 - [18/Jan/2020:12:39:04 -0800] - &amp;#34;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 21221 2289/415/14 &amp;#34;https://host01.company4.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; host01.company4.org/443
-192.168.4.220/61854 - [18/Jan/2020:12:40:04 -0800] - &amp;#34;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 7889 2289/415/14 &amp;#34;https://host01.company4.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; host01.company4.org/443
-192.168.4.220/61909 - [18/Jan/2020:12:41:04 -0800] - &amp;#34;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 6901 2389/3796/14 &amp;#34;https://host01.company4.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; host01.company4.org/443
-192.168.4.220/61962 - [18/Jan/2020:12:42:04 -0800] - &amp;#34;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 11219 2289/415/14 &amp;#34;https://host01.company4.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; host01.company4.org/443
-192.168.3.117/62015 - [18/Jan/2020:12:43:04 -1000] - &amp;#34;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 4265 2289/415/14 &amp;#34;https://stroomnode01.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode01.strmdev01.org/443
-192.168.3.117/62092 - [18/Jan/2020:12:44:04 -1000] - &amp;#34;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 9791 2289/415/14 &amp;#34;https://stroomnode01.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode01.strmdev01.org/443
-192.168.3.117/62147 - [18/Jan/2020:12:44:04 -1000] - &amp;#34;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 11509 2289/415/14 &amp;#34;https://stroomnode01.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode01.strmdev01.org/443
-192.168.3.117/62202 - [18/Jan/2020:12:44:04 -1000] - &amp;#34;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 4627 2389/3796/14 &amp;#34;https://stroomnode01.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode01.strmdev01.org/443
-192.168.3.117/62294 - [18/Jan/2020:12:44:04 -1000] - &amp;#34;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 12367 2289/415/14 &amp;#34;https://stroomnode01.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode01.strmdev01.org/443
-192.168.3.117/62349 - [18/Jan/2020:12:44:04 -1000] - &amp;#34;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 12765 2289/415/14 &amp;#34;https://stroomnode01.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode01.strmdev01.org/443
-192.168.2.245/62429 - [18/Jan/2020:12:50:04 +0200] - &amp;#34;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 12245 2289/415/14 &amp;#34;https://stroomnode00.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode00.strmdev01.org/443
-192.168.2.245/62495 - [18/Jan/2020:12:51:04 +0200] - &amp;#34;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 4327 2289/415/14 &amp;#34;https://stroomnode00.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode00.strmdev01.org/443
-192.168.2.245/62549 - [18/Jan/2020:12:52:04 +0200] - &amp;#34;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 7148 2289/415/14 &amp;#34;https://stroomnode00.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode00.strmdev01.org/443
-192.168.2.245/62626 - [18/Jan/2020:12:52:04 +0200] - &amp;#34;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;#34; &amp;#34;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;#34; 200/200 11386 2289/415/14 &amp;#34;https://stroomnode00.strmdev01.org/accounting/&amp;#34; &amp;#34;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;#34; stroomnode00.strmdev01.org/443
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A copy of this sample data source can be found &lt;a href=&#34;sampleApacheBlackBox.log&#34; title=&#34;Apache BlackBox sample log&#34;&gt;here&lt;/a&gt;. Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;192.168.4.220/61801 - [18/Jan/2020:12:39:04 -0800] - &amp;quot;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 21221 2289/415/14 &amp;quot;https://host01.company4.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; host01.company4.org/443
+192.168.4.220/61854 - [18/Jan/2020:12:40:04 -0800] - &amp;quot;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 7889 2289/415/14 &amp;quot;https://host01.company4.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; host01.company4.org/443
+192.168.4.220/61909 - [18/Jan/2020:12:41:04 -0800] - &amp;quot;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 6901 2389/3796/14 &amp;quot;https://host01.company4.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; host01.company4.org/443
+192.168.4.220/61962 - [18/Jan/2020:12:42:04 -0800] - &amp;quot;/C=USA/ST=CA/L=Los Angeles/O=Default Company Ltd/CN=Burn Frank (burn)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 11219 2289/415/14 &amp;quot;https://host01.company4.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; host01.company4.org/443
+192.168.3.117/62015 - [18/Jan/2020:12:43:04 -1000] - &amp;quot;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 4265 2289/415/14 &amp;quot;https://stroomnode01.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode01.strmdev01.org/443
+192.168.3.117/62092 - [18/Jan/2020:12:44:04 -1000] - &amp;quot;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 9791 2289/415/14 &amp;quot;https://stroomnode01.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode01.strmdev01.org/443
+192.168.3.117/62147 - [18/Jan/2020:12:44:04 -1000] - &amp;quot;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 11509 2289/415/14 &amp;quot;https://stroomnode01.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode01.strmdev01.org/443
+192.168.3.117/62202 - [18/Jan/2020:12:44:04 -1000] - &amp;quot;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 4627 2389/3796/14 &amp;quot;https://stroomnode01.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode01.strmdev01.org/443
+192.168.3.117/62294 - [18/Jan/2020:12:44:04 -1000] - &amp;quot;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 12367 2289/415/14 &amp;quot;https://stroomnode01.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode01.strmdev01.org/443
+192.168.3.117/62349 - [18/Jan/2020:12:44:04 -1000] - &amp;quot;/C=AUS/ST=NSW/L=Sydney/O=Default Company Ltd/CN=Max Bergman (maxb)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 12765 2289/415/14 &amp;quot;https://stroomnode01.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode01.strmdev01.org/443
+192.168.2.245/62429 - [18/Jan/2020:12:50:04 +0200] - &amp;quot;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 12245 2289/415/14 &amp;quot;https://stroomnode00.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode00.strmdev01.org/443
+192.168.2.245/62495 - [18/Jan/2020:12:51:04 +0200] - &amp;quot;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 4327 2289/415/14 &amp;quot;https://stroomnode00.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode00.strmdev01.org/443
+192.168.2.245/62549 - [18/Jan/2020:12:52:04 +0200] - &amp;quot;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 7148 2289/415/14 &amp;quot;https://stroomnode00.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode00.strmdev01.org/443
+192.168.2.245/62626 - [18/Jan/2020:12:52:04 +0200] - &amp;quot;/C=GBR/ST=GLOUCESTERSHIRE/L=Bristol/O=Default Company Ltd/CN=Kostas Kosta (kk)&amp;quot; &amp;quot;POST /accounting/ui/dispatch.rpc HTTP/1.1&amp;quot; 200/200 11386 2289/415/14 &amp;quot;https://stroomnode00.strmdev01.org/accounting/&amp;quot; &amp;quot;Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36&amp;quot; stroomnode00.strmdev01.org/443
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A copy of this sample data source can be found &lt;a href=&#34;sampleApacheBlackBox.log&#34; title=&#34;Apache BlackBox sample log&#34;&gt;here&lt;/a&gt;. Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.&lt;/p&gt;
 &lt;h2 id=&#34;create-the-feed-and-its-pipeline&#34;&gt;Create the Feed and its Pipeline&lt;/h2&gt;
 &lt;p&gt;To reflect the source of these Accounting Logs, we will name our feed and its pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group Apache HTTPD under the main system group - &lt;code&gt;Event Sources&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;create-system-group&#34;&gt;Create System Group&lt;/h3&gt;
@@ -338,204 +1162,207 @@ and &lt;em&gt;Data/Meta-data&lt;/em&gt; panes are still blank.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-47.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Error&#34; title=&#34;pipeline Stepping tab - Error&#34;&gt;&lt;/p&gt;
 &lt;p&gt;In essence, this means that we have no text converter to pass the Raw Event data through.&lt;/p&gt;
 &lt;p&gt;To correct this, we will author our text converter using the Data Splitter &lt;em&gt;language&lt;/em&gt;. Normally this is done incrementally to more easily develop the parser. The minimum text converter contains&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#099&#34;&gt;&amp;lt;?xml version=&amp;#34;1.1&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;dataSplitter&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data-splitter:3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data-splitter:3 file://data-splitter-v3.0.1.xsd&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;3.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;split&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;delimiter=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;group&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;regex&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;pattern=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;^(.*)$&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;rest&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/regex&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/group&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/split&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/dataSplitter&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If we now press the Step First &lt;img src=&#34;../resources/icons/stepFirst.png&#34; alt=&#34;stepFirst&#34; title=&#34;Step first&#34;&gt; icon the error will disappear and the stepping window will show.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;dataSplitter xmlns=&amp;quot;data-splitter:3&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:schemaLocation=&amp;quot;data-splitter:3 file://data-splitter-v3.0.1.xsd&amp;quot; version=&amp;quot;3.0&amp;quot;&amp;gt;
+    &amp;lt;split  delimiter=&amp;quot;\n&amp;quot;&amp;gt;
+        &amp;lt;group&amp;gt;
+            &amp;lt;regex pattern=&amp;quot;^(.*)$&amp;quot;&amp;gt;
+                &amp;lt;data name=&amp;quot;rest&amp;quot; value=&amp;quot;$1&amp;quot; /&amp;gt;
+            &amp;lt;/regex&amp;gt;
+        &amp;lt;/group&amp;gt;
+    &amp;lt;/split&amp;gt;
+&amp;lt;/dataSplitter&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we now press the Step First &lt;img src=&#34;../resources/icons/stepFirst.png&#34; alt=&#34;stepFirst&#34; title=&#34;Step first&#34;&gt; icon the error will disappear and the stepping window will show.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-48.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Simple A&#34; title=&#34;pipeline Stepping tab - Text Converter Simple A&#34;&gt;&lt;/p&gt;
 &lt;p&gt;As we can see, the first line of our Raw Event is displayed in the &lt;em&gt;input&lt;/em&gt; pane and the &lt;em&gt;output&lt;/em&gt; window holds the converted XML output where we just have a single &lt;em&gt;data&lt;/em&gt; element with a &lt;em&gt;name&lt;/em&gt; attribute of &lt;em&gt;rest&lt;/em&gt; and a &lt;em&gt;value&lt;/em&gt; attribute of the complete raw event as our regular expression matched the entire line.&lt;/p&gt;
 &lt;p&gt;The next incremental step in the parser, would be to &lt;em&gt;parse out&lt;/em&gt; additional &lt;em&gt;data&lt;/em&gt; elements. For example, in this next iteration we extract the client ip address, the client port and hold the rest of the Event in the rest data element.&lt;/p&gt;
 &lt;p&gt;With the text converter containing&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#099&#34;&gt;&amp;lt;?xml version=&amp;#34;1.1&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;dataSplitter&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data-splitter:3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data-splitter:3 file://data-splitter-v3.0.1.xsd&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;3.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;split&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;delimiter=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;group&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;regex&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;pattern=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;^([^/]+)/([^  ]+) (.*)$&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;clientip&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;clientport&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;rest&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/regex&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/group&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/split&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/dataSplitter&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and a click on the Refresh Current Step &lt;img src=&#34;../resources/icons/stepRefresh.png&#34; alt=&#34;stepRefresh&#34; title=&#34;Step Refresh&#34;&gt; icon we will see the &lt;em&gt;output&lt;/em&gt; pane contain&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;dataSplitter xmlns=&amp;quot;data-splitter:3&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:schemaLocation=&amp;quot;data-splitter:3 file://data-splitter-v3.0.1.xsd&amp;quot; version=&amp;quot;3.0&amp;quot;&amp;gt;
+    &amp;lt;split  delimiter=&amp;quot;\n&amp;quot;&amp;gt;
+        &amp;lt;group&amp;gt;
+            &amp;lt;regex pattern=&amp;quot;^([^/]+)/([^  ]+) (.*)$&amp;quot;&amp;gt;
+                &amp;lt;data name=&amp;quot;clientip&amp;quot;  value=&amp;quot;$1&amp;quot; /&amp;gt;
+                &amp;lt;data name=&amp;quot;clientport&amp;quot;  value=&amp;quot;$2&amp;quot; /&amp;gt;
+                &amp;lt;data name=&amp;quot;rest&amp;quot; value=&amp;quot;$3&amp;quot; /&amp;gt;
+            &amp;lt;/regex&amp;gt;
+        &amp;lt;/group&amp;gt;
+    &amp;lt;/split&amp;gt;
+&amp;lt;/dataSplitter&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and a click on the Refresh Current Step &lt;img src=&#34;../resources/icons/stepRefresh.png&#34; alt=&#34;stepRefresh&#34; title=&#34;Step Refresh&#34;&gt; icon we will see the &lt;em&gt;output&lt;/em&gt; pane contain&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-49.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Simple B&#34; title=&#34;Text Converter Simple B&#34;&gt;&lt;/p&gt;
 &lt;p&gt;We continue this incremental parsing until we have our complete parser.&lt;/p&gt;
 &lt;p&gt;The following is our complete Text Converter which generates xml records as defined by the Stroom &lt;strong&gt;records v3.0&lt;/strong&gt; schema.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#099&#34;&gt;&amp;lt;?xml version=&amp;#34;1.1&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;dataSplitter&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data-splitter:3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data-splitter:3 file://data-splitter-v3.0.1.xsd&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;3.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;dataSplitter xmlns=&amp;quot;data-splitter:3&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:schemaLocation=&amp;quot;data-splitter:3 file://data-splitter-v3.0.1.xsd&amp;quot; version=&amp;quot;3.0&amp;quot;&amp;gt;
 
-&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- CLASSIFICATION: UNCLASSIFIED --&amp;gt;&lt;/span&gt;
+&amp;lt;!-- CLASSIFICATION: UNCLASSIFIED --&amp;gt;
 
-&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Release History:
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;Release 20131001, 1 Oct 2013 - Initial release 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;General Notes: 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;This data splitter takes audit events for the Stroom variant of the Black Box Apache Auditing.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;Event Format: The following is extracted from the Configuration settings for the Stroom variant of the Black Box Apache Auditing format.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  STROOM - Black  Box  Auditing configuration
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %a  - Client  IP address  (not  hostname (%h) to ensure ip address only)
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  When  logging the remote host,  it is important to log the client  IP address, not the
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  hostname. We do   this  with the &amp;#39;%a&amp;#39; directive.  Even  if HostnameLookups  are turned on,
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  using &amp;#39;%a&amp;#39; will  only record the IP address.  For the purposes of BlackBox formats,
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  reversed DNS should not  be trusted
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %{REMOTE_PORT}e  - Client source port
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  Logging the client  source TCP  port  can provide some   useful  network data and can help
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  one associate a single client  with multiple requests.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  If two   clients from the  same IP address  make   simultaneous connections, the &amp;#39;common  log&amp;#39;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  file format cannot distinguish  between those  clients. Otherwise, if  the client uses
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  keep-alives, then every hit  made   from a single  TCP  session will  be associated  by   the  same
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  client  port number.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  The   port information can indicate  how  many   connections our server is  handling at  once,
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  which may  help in tuning server TCP/OP   settings. It will also identify which client ports
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  are legitimate requests if  the administrator is examining a possible  SYN-attack against  a
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  server.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  Note we  are using the REMOTE_PORT  environment variable. Environment variables  only come
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  into play when   mod_cgi or  mod_cgid is  handling the request.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %X   - Connection status  (use %c  for  Apache 1.3)
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  The   connection status  directive  tells us detailed  information about the client  connection.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  It returns  one of three flags:
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  x  if the client aborted the connection before completion,
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  +  if  the client has indicated that it will  use keep-alives (and request additional  URLS),
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  - if the connection will  be closed after  the event
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  Keep-Alive is a HTTP 1.1.  directive  that  informs a web  server that  a client  can request multiple
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  files during the  same connection.  This way  a client  doesn&amp;#39;t need to go   through the  overhead
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  of re-establishing  a TCP  connection to retrieve  a new  file.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %t  - time - or  [%{%d/%b/%Y:%T}t.%{msec_frac}t %{%z}t] for  Apache 2.4
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  The   %t  directive  records the time that  the request started.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  NOTE:  When  deployed on   an  Apache 2.4, or better,  environment, you   should use
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  strftime  format in  order  to  get  microsecond resolution.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %l  - remote logname
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %u - username [in quotes]
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  The   remote user  (from auth;  This may  be bogus if the return status  (%s) is  401
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  for non-ssl services)
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  For SSL  services,  user names need to  be delivered  as DNs  to deliver PKI   user details
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  in full.  To  pass through PKI   certificate  properties in the correct form you   need to
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  add the following directives  to your  Apache configuration:
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  SSLUserName   SSL_CLIENT_S_DN
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  SSLOptions +StdEnvVars
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  If you   cannot,  then use %{SSL_CLIENT_S_DN}x   in place of %u and use  blackboxSSLUser
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  LogFormat nickname
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %r  - first  line of text sent by   web  client [in quotes]
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is the first  line of text send by   the web  client, which includes the request
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  method, the  full URL,  and the  HTTP protocol.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %s  - status  code before any redirection
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is  the status  code of the original request.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %&amp;gt;s  - status  code after  any redirection  has taken place
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is  the final  status  code of the request, after  any internal  redirections  may
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  have taken  place.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %D   - time in  microseconds to handle the request
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is the  number of microseconds the  server  took to  handle the  request  in  microseconds
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %I  - incoming bytes
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is  the bytes received, include request and headers. It  cannot, by   definition be zero.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %O   - outgoing bytes
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is  the size in bytes of the outgoing data,  including HTTP headers. It  cannot,  by
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  definition be zero.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %B  - outgoing content bytes
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is  the size in bytes of the outgoing data,  EXCLUDING  HTTP headers.  Unlike %b,   which
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  records &amp;#39;-&amp;#39; for zero bytes transferred,  %B  will record &amp;#39;0&amp;#39;.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %{Referer}i - Referrer HTTP Request  Header [in quotes]
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is  typically the URL of the page that  made   the request.  If  linked from
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  e-mail or direct  entry this  value will be empty. Note, this  can be spoofed
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  or turned off
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %{User-Agent}i - User agent HTTP Request  Header [in quotes]
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This is  the identifying information the client  (browser) reports about itself.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  It can be spoofed or  turned  off
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %V   - the server name   according to the UseCannonicalName setting
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  This identifies  the virtual  host in a multi host webservice
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  %p - the canonical port of the server servicing the request
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  Define a variation  of the Black Box  logs
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  Note, you   only need to  use the  &amp;#39;blackboxSSLUser&amp;#39; nickname if you cannot set  the
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  following directives  for any SSL  configurations
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  SSLUserName   SSL_CLIENT_S_DN
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  SSLOptions +StdEnvVars
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  You  will also note the variation for no   logio  module. The   logio  module supports
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#  the %I  and %O   formatting directive
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;#
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;IfModule mod_logio.c&amp;gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;LogFormat &amp;#34;%a/%{REMOTE_PORT}e %X %t %l \&amp;#34;%u\&amp;#34; \&amp;#34;%r\&amp;#34; %s/%&amp;gt;s %D I/%O/%B \&amp;#34;%{Referer}i\&amp;#34; \&amp;#34;%{User-Agent}i\&amp;#34; %V/%p&amp;#34; blackboxUser 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;LogFormat &amp;#34;%a/%{REMOTE_PORT}e %X %t %l \&amp;#34;%{SSL_CLIENT_S_DN}x\&amp;#34; \&amp;#34;%r\&amp;#34; %s/%&amp;gt;s %D %I/%O/%B \&amp;#34;%{Referer}i\&amp;#34; \&amp;#34;%{User-Agent}i\&amp;#34; %V/%p&amp;#34; blackboxSSLUser 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;/IfModule&amp;gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;IfModule !mod_logio.c&amp;gt; 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;LogFormat &amp;#34;%a/%{REMOTE_PORT}e %X %t %l \&amp;#34;%u\&amp;#34; \&amp;#34;%r\&amp;#34; %s/%&amp;gt;s %D 0/0/%B \&amp;#34;%{Referer}i\&amp;#34; \&amp;#34;%{User-Agent}i\&amp;#34; %V/$p&amp;#34; blackboxUser 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;LogFormat &amp;#34;%a/%{REMOTE_PORT}e %X %t %l \&amp;#34;%{SSL_CLIENT_S_DN}x\&amp;#34; \&amp;#34;%r\&amp;#34; %s/%&amp;gt;s %D 0/0/%B \&amp;#34;%{Referer}i\&amp;#34; \&amp;#34;%{User-Agent}i\&amp;#34; %V/$p&amp;#34; blackboxSSLUser 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;/IfModule&amp;gt; --&amp;gt;&lt;/span&gt;
+&amp;lt;!-- Release History:
+Release 20131001, 1 Oct 2013 - Initial release 
 
-&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!--  Match line --&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;split&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;delimiter=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;group&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;regex&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;pattern=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;^([^/]+)/([^ ]+) ([^ ]+) \[([^\]]+)] ([^ ]+) &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; (\d+)/(\d+) (\d+) ([^/]+)/([^/]+)/(\d+) &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; ([^/]+)/([^ ]+)&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;clientip&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;clientport&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;constatus&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$4&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;remotelname&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$5&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;user&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$6&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$7&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;group&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$7&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;ignoreErrors=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- 
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;                Special case the &amp;#34;GET  /&amp;#34; url string as opposed to  the  more standard  &amp;#34;method url protocol/protocol_version&amp;#34;.
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;                Also special  case a url  of &amp;#34;-&amp;#34;  which occurs  on   some   errors  (eg 408)
-&lt;/span&gt;&lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;                --&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;regex&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;pattern=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;^-$&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;error&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/regex&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;regex&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;pattern=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;^([^ ]+) (/)$&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;httpMethod&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$1&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/regex&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;regex&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;pattern=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;^([^ ]+) ([^  ]+) ([^ /]*)/([^  ]*)&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;httpMethod&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$1&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;url&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;protocol&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$4&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/regex&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/group&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/data&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;responseB&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$8&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;response&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$9&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;timeM&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$10&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;bytesIn&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$11&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;bytesOut&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$12&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;bytesOutContent&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$13&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;referer&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$14&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;userAgent&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$15&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;vserver&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$16&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;vserverport&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;value=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;$17&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/regex&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/group&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/split&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/dataSplitter&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A copy of this Data Splitter can be found &lt;a href=&#34;ApacheHTTPDBlackBox-DataSplitter.txt&#34; title=&#34;ApacheHTTPD BlackBox - Data Splitter&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+General Notes: 
+This data splitter takes audit events for the Stroom variant of the Black Box Apache Auditing.
+
+Event Format: The following is extracted from the Configuration settings for the Stroom variant of the Black Box Apache Auditing format.
+
+#  STROOM - Black  Box  Auditing configuration
+#
+#  %a  - Client  IP address  (not  hostname (%h) to ensure ip address only)
+#  When  logging the remote host,  it is important to log the client  IP address, not the
+#  hostname. We do   this  with the &#39;%a&#39; directive.  Even  if HostnameLookups  are turned on,
+#  using &#39;%a&#39; will  only record the IP address.  For the purposes of BlackBox formats,
+#  reversed DNS should not  be trusted
+
+#  %{REMOTE_PORT}e  - Client source port
+#  Logging the client  source TCP  port  can provide some   useful  network data and can help
+#  one associate a single client  with multiple requests.
+#  If two   clients from the  same IP address  make   simultaneous connections, the &#39;common  log&#39;
+#  file format cannot distinguish  between those  clients. Otherwise, if  the client uses
+#  keep-alives, then every hit  made   from a single  TCP  session will  be associated  by   the  same
+#  client  port number.
+#  The   port information can indicate  how  many   connections our server is  handling at  once,
+#  which may  help in tuning server TCP/OP   settings. It will also identify which client ports
+#  are legitimate requests if  the administrator is examining a possible  SYN-attack against  a
+#  server.
+#  Note we  are using the REMOTE_PORT  environment variable. Environment variables  only come
+#  into play when   mod_cgi or  mod_cgid is  handling the request.
+
+#  %X   - Connection status  (use %c  for  Apache 1.3)
+#  The   connection status  directive  tells us detailed  information about the client  connection.
+#  It returns  one of three flags:
+#  x  if the client aborted the connection before completion,
+#  +  if  the client has indicated that it will  use keep-alives (and request additional  URLS),
+#  - if the connection will  be closed after  the event
+#  Keep-Alive is a HTTP 1.1.  directive  that  informs a web  server that  a client  can request multiple
+#  files during the  same connection.  This way  a client  doesn&#39;t need to go   through the  overhead
+#  of re-establishing  a TCP  connection to retrieve  a new  file.
+
+#  %t  - time - or  [%{%d/%b/%Y:%T}t.%{msec_frac}t %{%z}t] for  Apache 2.4
+#  The   %t  directive  records the time that  the request started.
+#  NOTE:  When  deployed on   an  Apache 2.4, or better,  environment, you   should use
+#  strftime  format in  order  to  get  microsecond resolution.
+
+#  %l  - remote logname
+#
+
+#  %u - username [in quotes]
+#  The   remote user  (from auth;  This may  be bogus if the return status  (%s) is  401
+#  for non-ssl services)
+#  For SSL  services,  user names need to  be delivered  as DNs  to deliver PKI   user details
+#  in full.  To  pass through PKI   certificate  properties in the correct form you   need to
+#  add the following directives  to your  Apache configuration:
+#  SSLUserName   SSL_CLIENT_S_DN
+#  SSLOptions +StdEnvVars
+#  If you   cannot,  then use %{SSL_CLIENT_S_DN}x   in place of %u and use  blackboxSSLUser
+#  LogFormat nickname
+
+#  %r  - first  line of text sent by   web  client [in quotes]
+#  This is the first  line of text send by   the web  client, which includes the request
+#  method, the  full URL,  and the  HTTP protocol.
+
+#  %s  - status  code before any redirection
+#  This is  the status  code of the original request.
+
+#  %&amp;gt;s  - status  code after  any redirection  has taken place
+#  This is  the final  status  code of the request, after  any internal  redirections  may
+#  have taken  place.
+
+#  %D   - time in  microseconds to handle the request
+#  This is the  number of microseconds the  server  took to  handle the  request  in  microseconds
+
+#  %I  - incoming bytes
+#  This is  the bytes received, include request and headers. It  cannot, by   definition be zero.
+
+#  %O   - outgoing bytes
+#  This is  the size in bytes of the outgoing data,  including HTTP headers. It  cannot,  by
+#  definition be zero.
+
+#  %B  - outgoing content bytes
+#  This is  the size in bytes of the outgoing data,  EXCLUDING  HTTP headers.  Unlike %b,   which
+#  records &#39;-&#39; for zero bytes transferred,  %B  will record &#39;0&#39;.
+
+#  %{Referer}i - Referrer HTTP Request  Header [in quotes]
+#  This is  typically the URL of the page that  made   the request.  If  linked from
+#  e-mail or direct  entry this  value will be empty. Note, this  can be spoofed
+#  or turned off
+
+#  %{User-Agent}i - User agent HTTP Request  Header [in quotes]
+#  This is  the identifying information the client  (browser) reports about itself.
+#  It can be spoofed or  turned  off
+ 
+#  %V   - the server name   according to the UseCannonicalName setting
+#  This identifies  the virtual  host in a multi host webservice
+
+#  %p - the canonical port of the server servicing the request
+
+#  Define a variation  of the Black Box  logs
+#
+#  Note, you   only need to  use the  &#39;blackboxSSLUser&#39; nickname if you cannot set  the
+#  following directives  for any SSL  configurations
+#  SSLUserName   SSL_CLIENT_S_DN
+#  SSLOptions +StdEnvVars
+#  You  will also note the variation for no   logio  module. The   logio  module supports
+#  the %I  and %O   formatting directive
+#
+&amp;lt;IfModule mod_logio.c&amp;gt; 
+LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%u\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxUser 
+LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D %I/%O/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/%p&amp;quot; blackboxSSLUser 
+&amp;lt;/IfModule&amp;gt; 
+&amp;lt;IfModule !mod_logio.c&amp;gt; 
+LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%u\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D 0/0/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/$p&amp;quot; blackboxUser 
+LogFormat &amp;quot;%a/%{REMOTE_PORT}e %X %t %l \&amp;quot;%{SSL_CLIENT_S_DN}x\&amp;quot; \&amp;quot;%r\&amp;quot; %s/%&amp;gt;s %D 0/0/%B \&amp;quot;%{Referer}i\&amp;quot; \&amp;quot;%{User-Agent}i\&amp;quot; %V/$p&amp;quot; blackboxSSLUser 
+&amp;lt;/IfModule&amp;gt; --&amp;gt;
+
+&amp;lt;!--  Match line --&amp;gt;
+&amp;lt;split  delimiter=&amp;quot;\n&amp;quot;&amp;gt;
+    &amp;lt;group&amp;gt;
+        &amp;lt;regex pattern=&amp;quot;^([^/]+)/([^ ]+) ([^ ]+) \[([^\]]+)] ([^ ]+) &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; (\d+)/(\d+) (\d+) ([^/]+)/([^/]+)/(\d+) &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; &amp;amp;#34;([^&amp;amp;#34;]+)&amp;amp;#34; ([^/]+)/([^ ]+)&amp;quot;&amp;gt;
+            &amp;lt;data name=&amp;quot;clientip&amp;quot;  value=&amp;quot;$1&amp;quot; /&amp;gt;
+            &amp;lt;data name=&amp;quot;clientport&amp;quot;  value=&amp;quot;$2&amp;quot; /&amp;gt;
+            &amp;lt;data name=&amp;quot;constatus&amp;quot; value=&amp;quot;$3&amp;quot; /&amp;gt;
+            &amp;lt;data  name=&amp;quot;time&amp;quot; value=&amp;quot;$4&amp;quot;  /&amp;gt;
+            &amp;lt;data  name=&amp;quot;remotelname&amp;quot; value=&amp;quot;$5&amp;quot;  /&amp;gt;
+            &amp;lt;data  name=&amp;quot;user&amp;quot; value=&amp;quot;$6&amp;quot; /&amp;gt;
+            &amp;lt;data  name=&amp;quot;url&amp;quot; value=&amp;quot;$7&amp;quot;&amp;gt;
+                &amp;lt;group value=&amp;quot;$7&amp;quot; ignoreErrors=&amp;quot;true&amp;quot;&amp;gt;
+                &amp;lt;!-- 
+                Special case the &amp;quot;GET  /&amp;quot; url string as opposed to  the  more standard  &amp;quot;method url protocol/protocol_version&amp;quot;.
+                Also special  case a url  of &amp;quot;-&amp;quot;  which occurs  on   some   errors  (eg 408)
+                --&amp;gt;
+                    &amp;lt;regex pattern=&amp;quot;^-$&amp;quot;&amp;gt;
+                        &amp;lt;data  name=&amp;quot;url&amp;quot; value=&amp;quot;error&amp;quot; /&amp;gt;
+                    &amp;lt;/regex&amp;gt;
+                    &amp;lt;regex pattern=&amp;quot;^([^ ]+) (/)$&amp;quot;&amp;gt;
+                        &amp;lt;data  name=&amp;quot;httpMethod&amp;quot; value=&amp;quot;$1&amp;quot;  /&amp;gt;
+                        &amp;lt;data  name=&amp;quot;url&amp;quot; value=&amp;quot;$2&amp;quot; /&amp;gt;
+                    &amp;lt;/regex&amp;gt;
+                    &amp;lt;regex pattern=&amp;quot;^([^ ]+) ([^  ]+) ([^ /]*)/([^  ]*)&amp;quot;&amp;gt;
+                        &amp;lt;data  name=&amp;quot;httpMethod&amp;quot; value=&amp;quot;$1&amp;quot;  /&amp;gt;
+                        &amp;lt;data  name=&amp;quot;url&amp;quot; value=&amp;quot;$2&amp;quot; /&amp;gt;
+                        &amp;lt;data  name=&amp;quot;protocol&amp;quot; value=&amp;quot;$3&amp;quot; /&amp;gt;
+                        &amp;lt;data  name=&amp;quot;version&amp;quot; value=&amp;quot;$4&amp;quot; /&amp;gt;
+                    &amp;lt;/regex&amp;gt;
+                &amp;lt;/group&amp;gt;
+            &amp;lt;/data&amp;gt;
+            &amp;lt;data  name=&amp;quot;responseB&amp;quot; value=&amp;quot;$8&amp;quot;  /&amp;gt;
+            &amp;lt;data  name=&amp;quot;response&amp;quot; value=&amp;quot;$9&amp;quot; /&amp;gt;
+            &amp;lt;data  name=&amp;quot;timeM&amp;quot; value=&amp;quot;$10&amp;quot; /&amp;gt;
+            &amp;lt;data  name=&amp;quot;bytesIn&amp;quot; value=&amp;quot;$11&amp;quot; /&amp;gt;
+            &amp;lt;data  name=&amp;quot;bytesOut&amp;quot; value=&amp;quot;$12&amp;quot;  /&amp;gt;
+            &amp;lt;data  name=&amp;quot;bytesOutContent&amp;quot; value=&amp;quot;$13&amp;quot; /&amp;gt;
+            &amp;lt;data name=&amp;quot;referer&amp;quot;  value=&amp;quot;$14&amp;quot; /&amp;gt;
+            &amp;lt;data  name=&amp;quot;userAgent&amp;quot; value=&amp;quot;$15&amp;quot;  /&amp;gt;
+            &amp;lt;data  name=&amp;quot;vserver&amp;quot; value=&amp;quot;$16&amp;quot; /&amp;gt;
+            &amp;lt;data name=&amp;quot;vserverport&amp;quot;  value=&amp;quot;$17&amp;quot; /&amp;gt;
+        &amp;lt;/regex&amp;gt;
+    &amp;lt;/group&amp;gt;
+&amp;lt;/split&amp;gt;
+&amp;lt;/dataSplitter&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A copy of this Data Splitter can be found &lt;a href=&#34;ApacheHTTPDBlackBox-DataSplitter.txt&#34; title=&#34;ApacheHTTPD BlackBox - Data Splitter&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;If we now press the Step First &lt;img src=&#34;../resources/icons/stepFirst.png&#34; alt=&#34;stepFirst&#34; title=&#34;Step first&#34;&gt; icon we will see the complete parsed record&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-50.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Complete&#34; title=&#34;pipeline Stepping tab - Text Converter Complete&#34;&gt;&lt;/p&gt;
 &lt;p&gt;If we click on the Step Forward &lt;img src=&#34;../resources/icons/stepForward.png&#34; alt=&#34;stepForward&#34; title=&#34;Step Forward&#34;&gt; icon we will see the next event displayed in both the &lt;em&gt;input&lt;/em&gt; and &lt;em&gt;output&lt;/em&gt; panes.&lt;/p&gt;
@@ -559,257 +1386,261 @@ and &lt;em&gt;Data/Meta-data&lt;/em&gt; panes are still blank.&lt;/p&gt;
 &lt;p&gt;As for the &lt;em&gt;Text Converter&lt;/em&gt; stepping tab, this tab is divided into three sub-panes. The top one is the xslt translation editor and it will allow you to edit the xslt translation. The bottom left window displays the &lt;em&gt;input&lt;/em&gt; to the xslt translation (which is the output from the &lt;em&gt;Text Converter&lt;/em&gt;). The bottom right window displays the &lt;em&gt;output&lt;/em&gt; from the xslt Translation filter for the given input.&lt;/p&gt;
 &lt;p&gt;We now click on the pipeline Step Forward button &lt;img src=&#34;../resources/icons/stepForward.png&#34; alt=&#34;stepForward&#34; title=&#34;Step Forward&#34;&gt; to single step the Text Converter &lt;em&gt;records&lt;/em&gt; element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.&lt;/p&gt;
 &lt;p&gt;To correct this, we will author our xslt translation. Like the Data Splitter this is also authored incrementally. A minimum xslt translation might contain&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#099&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:stylesheet&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xpath-default-namespace=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;records:2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;event-logging:3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:stroom=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xsl=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/1999/XSL/Transform&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xs=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;3.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&amp;lt;xsl:stylesheet xpath-default-namespace=&amp;quot;records:2&amp;quot; xmlns=&amp;quot;event-logging:3&amp;quot; xmlns:stroom=&amp;quot;stroom&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; version=&amp;quot;3.0&amp;quot;&amp;gt;
 
-  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Ingest the records tree --&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;records&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Events&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;event-logging:3 file://event-logging-v3.2.3.xsd&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;Version=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;3.2.3&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Events&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+  &amp;lt;!-- Ingest the records tree --&amp;gt;
+  &amp;lt;xsl:template match=&amp;quot;records&amp;quot;&amp;gt;
+    &amp;lt;Events xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.2.3.xsd&amp;quot; Version=&amp;quot;3.2.3&amp;quot;&amp;gt;
+        &amp;lt;xsl:apply-templates /&amp;gt;
+    &amp;lt;/Events&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-    &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Only generate events if we have an url on input --&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;record[data[@name = &amp;#39;url&amp;#39;]]&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Event&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventTime&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventSource&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventDetail&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Event&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+    &amp;lt;!-- Only generate events if we have an url on input --&amp;gt;
+    &amp;lt;xsl:template match=&amp;quot;record[data[@name = &#39;url&#39;]]&amp;quot;&amp;gt;
+        &amp;lt;Event&amp;gt;
+            &amp;lt;xsl:apply-templates select=&amp;quot;.&amp;quot; mode=&amp;quot;eventTime&amp;quot; /&amp;gt;
+            &amp;lt;xsl:apply-templates select=&amp;quot;.&amp;quot; mode=&amp;quot;eventSource&amp;quot; /&amp;gt;
+            &amp;lt;xsl:apply-templates select=&amp;quot;.&amp;quot; mode=&amp;quot;eventDetail&amp;quot; /&amp;gt;
+        &amp;lt;/Event&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
 
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventTime&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventTime&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;TimeCreated/&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventTime&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot;  mode=&amp;quot;eventTime&amp;quot;&amp;gt;
+        &amp;lt;EventTime&amp;gt;
+            &amp;lt;TimeCreated/&amp;gt;
+        &amp;lt;/EventTime&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
 
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventSource&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventSource&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;System&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Name&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Environment&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/System&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Generator&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Device&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Client&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Server&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;User&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Id&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/User&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventSource&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot;  mode=&amp;quot;eventSource&amp;quot;&amp;gt;
+        &amp;lt;EventSource&amp;gt;
+            &amp;lt;System&amp;gt;
+            &amp;lt;Name  /&amp;gt;
+            &amp;lt;Environment /&amp;gt;
+            &amp;lt;/System&amp;gt;
+            &amp;lt;Generator /&amp;gt;
+            &amp;lt;Device /&amp;gt;
+            &amp;lt;Client /&amp;gt;
+            &amp;lt;Server /&amp;gt;
+            &amp;lt;User&amp;gt;
+            &amp;lt;Id /&amp;gt;
+            &amp;lt;/User&amp;gt;
+        &amp;lt;/EventSource&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
 
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventDetail&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventDetail&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;View&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;WebPage&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Type&amp;gt;&lt;/span&gt;WebPage&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Type&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/WebPage&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/View&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventDetail&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:stylesheet&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-55.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal&#34; title=&#34;Translation Minimal&#34;&gt;&lt;/p&gt;
+    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot;  mode=&amp;quot;eventDetail&amp;quot;&amp;gt;
+        &amp;lt;EventDetail&amp;gt;
+            &amp;lt;View&amp;gt;
+                &amp;lt;WebPage&amp;gt;
+                    &amp;lt;Type&amp;gt;WebPage&amp;lt;/Type&amp;gt;
+                &amp;lt;/WebPage&amp;gt;
+            &amp;lt;/View&amp;gt;
+        &amp;lt;/EventDetail&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-55.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal&#34; title=&#34;Translation Minimal&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Clearly this doesn’t generate useful events. Our first iterative change might be to generate the TimeCreated element value. The change would be&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventTime&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventTime&amp;gt;&lt;/span&gt;
-          &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;TimeCreated&amp;gt;&lt;/span&gt;
-             &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:format-date(data[@name = &amp;#39;time&amp;#39;]/@value, &amp;#39;dd/MMM/yyyy:HH:mm:ss XX&amp;#39;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt; 
-          &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/TimeCreated&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventTime&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-56.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal+&#34; title=&#34;Translation Minimal+&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot; mode=&amp;quot;eventTime&amp;quot;&amp;gt;
+        &amp;lt;EventTime&amp;gt;
+          &amp;lt;TimeCreated&amp;gt;
+             &amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(data[@name = &#39;time&#39;]/@value, &#39;dd/MMM/yyyy:HH:mm:ss XX&#39;)&amp;quot; /&amp;gt; 
+          &amp;lt;/TimeCreated&amp;gt;
+        &amp;lt;/EventTime&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-56.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal+&#34; title=&#34;Translation Minimal+&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Adding in the EventSource elements (without ANY error checking!) as per&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventSource&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventSource&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;System&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Name&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;System&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Name&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Environment&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;Environment&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Environment&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/System&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Generator&amp;gt;&lt;/span&gt;Apache  HTTPD&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Generator&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Device&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;HostName&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;MyHost&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/HostName&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;IPAddress&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;MyIPAddress&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/IPAddress&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Device&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Client&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;IPAddress&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;clientip&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/IPAddress&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Port&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;clientport&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Port&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Client&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Server&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;HostName&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;vserver&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/HostName&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Port&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;vserverport&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Port&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Server&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;User&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Id&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name=&amp;#39;user&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Id&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/User&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventSource&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And after a Refresh Current Step &lt;img src=&#34;../resources/icons/stepRefresh.png&#34; alt=&#34;stepRefresh&#34; title=&#34;Step Refresh&#34;&gt; we see our output event ‘grow’ to&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot;  mode=&amp;quot;eventSource&amp;quot;&amp;gt;
+        &amp;lt;EventSource&amp;gt;
+            &amp;lt;System&amp;gt;
+              &amp;lt;Name&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;System&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/Name&amp;gt;
+              &amp;lt;Environment&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;Environment&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/Environment&amp;gt;
+            &amp;lt;/System&amp;gt;
+            &amp;lt;Generator&amp;gt;Apache  HTTPD&amp;lt;/Generator&amp;gt;
+            &amp;lt;Device&amp;gt;
+              &amp;lt;HostName&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;MyHost&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/HostName&amp;gt;
+              &amp;lt;IPAddress&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;MyIPAddress&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/IPAddress&amp;gt;
+            &amp;lt;/Device&amp;gt;
+            &amp;lt;Client&amp;gt;
+              &amp;lt;IPAddress&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;clientip&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/IPAddress&amp;gt;
+              &amp;lt;Port&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;clientport&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/Port&amp;gt;
+            &amp;lt;/Client&amp;gt;
+            &amp;lt;Server&amp;gt;
+              &amp;lt;HostName&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;vserver&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/HostName&amp;gt;
+              &amp;lt;Port&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;vserverport&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/Port&amp;gt;
+            &amp;lt;/Server&amp;gt;
+            &amp;lt;User&amp;gt;
+              &amp;lt;Id&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name=&#39;user&#39;]/@value&amp;quot; /&amp;gt;
+              &amp;lt;/Id&amp;gt;
+            &amp;lt;/User&amp;gt;
+        &amp;lt;/EventSource&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And after a Refresh Current Step &lt;img src=&#34;../resources/icons/stepRefresh.png&#34; alt=&#34;stepRefresh&#34; title=&#34;Step Refresh&#34;&gt; we see our output event ‘grow’ to&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-57.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal++&#34; title=&#34;Translation Minimal++&#34;&gt;&lt;/p&gt;
 &lt;p&gt;We now complete our translation by expanding the &lt;em&gt;EventDetail&lt;/em&gt; elements to have the completed translation of (again with limited error checking and non-existent documentation!)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#099&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:stylesheet&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xpath-default-namespace=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;records:2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;event-logging:3&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:stroom=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xsl=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/1999/XSL/Transform&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xmlns:xs=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;version=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;3.0&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&amp;lt;xsl:stylesheet xpath-default-namespace=&amp;quot;records:2&amp;quot; xmlns=&amp;quot;event-logging:3&amp;quot; xmlns:stroom=&amp;quot;stroom&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xmlns:xs=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; version=&amp;quot;3.0&amp;quot;&amp;gt;
 
-  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Ingest the records tree --&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;records&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Events&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;event-logging:3 file://event-logging-v3.2.3.xsd&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;Version=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;3.2.3&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Events&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+  &amp;lt;!-- Ingest the records tree --&amp;gt;
+  &amp;lt;xsl:template match=&amp;quot;records&amp;quot;&amp;gt;
+    &amp;lt;Events xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.2.3.xsd&amp;quot; Version=&amp;quot;3.2.3&amp;quot;&amp;gt;
+        &amp;lt;xsl:apply-templates /&amp;gt;
+    &amp;lt;/Events&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
 
-    &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Only generate events if we have an url on input --&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;record[data[@name = &amp;#39;url&amp;#39;]]&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Event&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventTime&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventSource&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:apply-templates&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventDetail&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Event&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+    &amp;lt;!-- Only generate events if we have an url on input --&amp;gt;
+    &amp;lt;xsl:template match=&amp;quot;record[data[@name = &#39;url&#39;]]&amp;quot;&amp;gt;
+        &amp;lt;Event&amp;gt;
+            &amp;lt;xsl:apply-templates select=&amp;quot;.&amp;quot; mode=&amp;quot;eventTime&amp;quot; /&amp;gt;
+            &amp;lt;xsl:apply-templates select=&amp;quot;.&amp;quot; mode=&amp;quot;eventSource&amp;quot; /&amp;gt;
+            &amp;lt;xsl:apply-templates select=&amp;quot;.&amp;quot; mode=&amp;quot;eventDetail&amp;quot; /&amp;gt;
+        &amp;lt;/Event&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
 
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventTime&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventTime&amp;gt;&lt;/span&gt;
-          &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;TimeCreated&amp;gt;&lt;/span&gt;
-             &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:format-date(data[@name = &amp;#39;time&amp;#39;]/@value, &amp;#39;dd/MMM/yyyy:HH:mm:ss XX&amp;#39;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt; 
-          &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/TimeCreated&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventTime&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot; mode=&amp;quot;eventTime&amp;quot;&amp;gt;
+        &amp;lt;EventTime&amp;gt;
+          &amp;lt;TimeCreated&amp;gt;
+             &amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(data[@name = &#39;time&#39;]/@value, &#39;dd/MMM/yyyy:HH:mm:ss XX&#39;)&amp;quot; /&amp;gt; 
+          &amp;lt;/TimeCreated&amp;gt;
+        &amp;lt;/EventTime&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
 
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventSource&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventSource&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;System&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Name&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;System&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Name&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Environment&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;Environment&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Environment&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/System&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Generator&amp;gt;&lt;/span&gt;Apache  HTTPD&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Generator&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Device&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;HostName&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;MyHost&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/HostName&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;IPAddress&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;stroom:feed-attribute(&amp;#39;MyIPAddress&amp;#39;)&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/IPAddress&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Device&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Client&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;IPAddress&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;clientip&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/IPAddress&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Port&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;clientport&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Port&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Client&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Server&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;HostName&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;vserver&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/HostName&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Port&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;vserverport&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Port&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Server&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;User&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Id&amp;gt;&lt;/span&gt;
-                &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name=&amp;#39;user&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Id&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/User&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventSource&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
+    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot;  mode=&amp;quot;eventSource&amp;quot;&amp;gt;
+        &amp;lt;EventSource&amp;gt;
+            &amp;lt;System&amp;gt;
+              &amp;lt;Name&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;System&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/Name&amp;gt;
+              &amp;lt;Environment&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;Environment&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/Environment&amp;gt;
+            &amp;lt;/System&amp;gt;
+            &amp;lt;Generator&amp;gt;Apache  HTTPD&amp;lt;/Generator&amp;gt;
+            &amp;lt;Device&amp;gt;
+              &amp;lt;HostName&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;MyHost&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/HostName&amp;gt;
+              &amp;lt;IPAddress&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;stroom:feed-attribute(&#39;MyIPAddress&#39;)&amp;quot;  /&amp;gt;
+              &amp;lt;/IPAddress&amp;gt;
+            &amp;lt;/Device&amp;gt;
+            &amp;lt;Client&amp;gt;
+              &amp;lt;IPAddress&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;clientip&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/IPAddress&amp;gt;
+              &amp;lt;Port&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;clientport&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/Port&amp;gt;
+            &amp;lt;/Client&amp;gt;
+            &amp;lt;Server&amp;gt;
+              &amp;lt;HostName&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;vserver&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/HostName&amp;gt;
+              &amp;lt;Port&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;vserverport&#39;]/@value&amp;quot;  /&amp;gt;
+              &amp;lt;/Port&amp;gt;
+            &amp;lt;/Server&amp;gt;
+            &amp;lt;User&amp;gt;
+              &amp;lt;Id&amp;gt;
+                &amp;lt;xsl:value-of select=&amp;quot;data[@name=&#39;user&#39;]/@value&amp;quot; /&amp;gt;
+              &amp;lt;/Id&amp;gt;
+            &amp;lt;/User&amp;gt;
+        &amp;lt;/EventSource&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
 
 
-    &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- --&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;match=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;node()&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;mode=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;eventDetail&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;EventDetail&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;View&amp;gt;&lt;/span&gt;
-              &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;WebPage&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Type&amp;gt;&lt;/span&gt;WebPage&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Type&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;URL&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;url&amp;#39;]/data[@name =  &amp;#39;url&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/URL&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:if&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;test=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;referer&amp;#39;]/@value  != &amp;#39;-&amp;#39;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Referrer&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;referer&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Referrer&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:if&amp;gt;&lt;/span&gt;
-                    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;HTTPMethod&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;url&amp;#39;]/data[@name =  &amp;#39;httpMethod&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                     &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/HTTPMethod&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;UserAgent&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;userAgent&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/UserAgent&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;ResponseCode&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:value-of&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;response&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/ResponseCode&amp;gt;&lt;/span&gt;
+    &amp;lt;!-- --&amp;gt;
+    &amp;lt;xsl:template match=&amp;quot;node()&amp;quot;  mode=&amp;quot;eventDetail&amp;quot;&amp;gt;
+        &amp;lt;EventDetail&amp;gt;
+            &amp;lt;View&amp;gt;
+              &amp;lt;WebPage&amp;gt;
+                  &amp;lt;Type&amp;gt;WebPage&amp;lt;/Type&amp;gt;
+                    &amp;lt;URL&amp;gt;
+                      &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;url&#39;]/data[@name =  &#39;url&#39;]/@value&amp;quot;  /&amp;gt;
+                    &amp;lt;/URL&amp;gt;
+                  &amp;lt;xsl:if test=&amp;quot;data[@name =  &#39;referer&#39;]/@value  != &#39;-&#39;&amp;quot;&amp;gt;
+                    &amp;lt;Referrer&amp;gt;
+                      &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;referer&#39;]/@value&amp;quot;  /&amp;gt;
+                    &amp;lt;/Referrer&amp;gt;
+                  &amp;lt;/xsl:if&amp;gt;
+                    &amp;lt;HTTPMethod&amp;gt;
+                      &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;url&#39;]/data[@name =  &#39;httpMethod&#39;]/@value&amp;quot; /&amp;gt;
+                     &amp;lt;/HTTPMethod&amp;gt;
+                  &amp;lt;UserAgent&amp;gt;
+                      &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;userAgent&#39;]/@value&amp;quot; /&amp;gt;
+                  &amp;lt;/UserAgent&amp;gt;
+                  &amp;lt;ResponseCode&amp;gt;
+                      &amp;lt;xsl:value-of select=&amp;quot;data[@name =  &#39;response&#39;]/@value&amp;quot; /&amp;gt;
+                  &amp;lt;/ResponseCode&amp;gt;
 
-                  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Protocol --&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Protocol&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;url&amp;#39;]/data[@name =  &amp;#39;protocol&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+                  &amp;lt;!-- Protocol --&amp;gt;
+                  &amp;lt;Data Name=&amp;quot;Protocol&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;url&#39;]/data[@name =  &#39;protocol&#39;]/@value&amp;quot;  /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
 
-                  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Protocol Version --&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Version&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;url&amp;#39;]/data[@name =  &amp;#39;version&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+                  &amp;lt;!-- Protocol Version --&amp;gt;
+                  &amp;lt;Data  Name=&amp;quot;Version&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;url&#39;]/data[@name =  &#39;version&#39;]/@value&amp;quot;  /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
 
-                  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!--  Response Code   Before --&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;ResponseCodeBefore&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;responseB&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+                  &amp;lt;!--  Response Code   Before --&amp;gt;
+                  &amp;lt;Data  Name=&amp;quot;ResponseCodeBefore&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;responseB&#39;]/@value&amp;quot; /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
 
-                  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!--  Connection Status --&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;ConnectionStatus&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;constatus&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+                  &amp;lt;!--  Connection Status --&amp;gt;
+                  &amp;lt;Data Name=&amp;quot;ConnectionStatus&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;constatus&#39;]/@value&amp;quot;  /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
 
-                  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Bytes transferred  --&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:if&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;test=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;bytesIn&amp;#39;]/@value  != &amp;#39;0&amp;#39; and  data[@name =  &amp;#39;bytesIn&amp;#39;]/@value  != &amp;#39;-&amp;#39;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;BytesIn&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;bytesIn&amp;#39;]/@value&amp;#34;&lt;/span&gt;  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:if&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:if&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;test=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;bytesOut&amp;#39;]/@value  != &amp;#39;0&amp;#39; and  data[@name =  &amp;#39;bytesOut&amp;#39;]/@value  != &amp;#39;-&amp;#39;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt;  &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;BytesOut&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;bytesOut&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:if&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:if&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;test=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;bytesOutContent&amp;#39;]/@value  != &amp;#39;0&amp;#39;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;BytesOutContentOnly&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;bytesOutContent&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:if&amp;gt;&lt;/span&gt;
+                  &amp;lt;!-- Bytes transferred  --&amp;gt;
+                  &amp;lt;xsl:if test=&amp;quot;data[@name =  &#39;bytesIn&#39;]/@value  != &#39;0&#39; and  data[@name =  &#39;bytesIn&#39;]/@value  != &#39;-&#39;&amp;quot;&amp;gt;
+                  &amp;lt;Data  Name=&amp;quot;BytesIn&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;bytesIn&#39;]/@value&amp;quot;  /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
+                  &amp;lt;/xsl:if&amp;gt;
+                  &amp;lt;xsl:if test=&amp;quot;data[@name =  &#39;bytesOut&#39;]/@value  != &#39;0&#39; and  data[@name =  &#39;bytesOut&#39;]/@value  != &#39;-&#39;&amp;quot;&amp;gt;
+                  &amp;lt;Data  Name=&amp;quot;BytesOut&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;bytesOut&#39;]/@value&amp;quot; /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
+                  &amp;lt;/xsl:if&amp;gt;
+                  &amp;lt;xsl:if test=&amp;quot;data[@name =  &#39;bytesOutContent&#39;]/@value  != &#39;0&#39;&amp;quot;&amp;gt;
+                  &amp;lt;Data Name=&amp;quot;BytesOutContentOnly&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;bytesOutContent&#39;]/@value&amp;quot; /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
+                  &amp;lt;/xsl:if&amp;gt;
 
-                  &lt;span style=&#34;color:#09f;font-style:italic&#34;&gt;&amp;lt;!-- Time   to serve Request --&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:if&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;test=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name =  &amp;#39;timeM&amp;#39;]/@value != &amp;#39;0&amp;#39;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;Data&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;Name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;TotalRequestTimeMicroseconds&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-                      &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;xsl:attribute&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;name=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;Value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;select=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;data[@name  =  &amp;#39;timeM&amp;#39;]/@value&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;/&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
-                  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:if&amp;gt;&lt;/span&gt;
-            &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/WebPage&amp;gt;&lt;/span&gt;
-          &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/View&amp;gt;&lt;/span&gt;
-        &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/EventDetail&amp;gt;&lt;/span&gt;
-    &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/xsl:stylesheet&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And after a Refresh Current Step Refresh &lt;img src=&#34;../resources/icons/stepRefresh.png&#34; alt=&#34;stepRefresh&#34; title=&#34;Step Refresh&#34;&gt; we see our complete output event&lt;/p&gt;
+                  &amp;lt;!-- Time   to serve Request --&amp;gt;
+                  &amp;lt;xsl:if test=&amp;quot;data[@name =  &#39;timeM&#39;]/@value != &#39;0&#39;&amp;quot;&amp;gt;
+                  &amp;lt;Data Name=&amp;quot;TotalRequestTimeMicroseconds&amp;quot;&amp;gt;
+                      &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;data[@name  =  &#39;timeM&#39;]/@value&amp;quot; /&amp;gt;
+                  &amp;lt;/Data&amp;gt;
+                  &amp;lt;/xsl:if&amp;gt;
+            &amp;lt;/WebPage&amp;gt;
+          &amp;lt;/View&amp;gt;
+        &amp;lt;/EventDetail&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And after a Refresh Current Step Refresh &lt;img src=&#34;../resources/icons/stepRefresh.png&#34; alt=&#34;stepRefresh&#34; title=&#34;Step Refresh&#34;&gt; we see our complete output event&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../resources/v6/UI-ApacheHttpEventFeed-58.png&#34; alt=&#34;Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Complete&#34; title=&#34;Translation Complete&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Note, you should now Save &lt;img src=&#34;../resources/icons/save.png&#34; alt=&#34;save&#34; title=&#34;Save&#34;&gt; your edited xslt Translation.&lt;/p&gt;
 &lt;p&gt;A copy of this XSLT Translation can be found  &lt;a href=&#34;ApacheHTTPDBlackBox-TranslationXSLT.txt&#34; title=&#34;Apache BlackBox Translation XSLT&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.84.4" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/docsy-examples/">
+<meta name="generator" content="Hugo 0.85.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/docsy-examples/">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
@@ -49,6 +49,9 @@
   integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
   crossorigin="anonymous"></script>
 
+
+
+<link rel="stylesheet" href="/stroom-docs/hugo-docsy/css/prism.css"/>
 
 
 
@@ -152,7 +155,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -614,7 +617,8 @@ This the multi-page printable view of this section.
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -781,22 +785,25 @@ This the multi-page printable view of this section.
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -889,6 +896,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -907,14 +915,15 @@ bar := &quot;foo&quot;;
     <div class="lead">A test for stroom</div>
 	<h2 id="puml">PUML</h2>
 <h3 id="inline-puml">Inline PUML</h3>
-<pre><code class="language-plantuml" data-lang="plantuml">@startuml
+<pre><code class="language-plantuml">@startuml
 Alice -&gt; Bob: Authentication Request
 Bob --&gt; Alice: Authentication Response
 
 Alice -&gt; Bob: Another authentication Request
 Alice &lt;-- Bob: Another authentication Response
 @enduml
-</code></pre><h3 id="svg-local">SVG Local</h3>
+</code></pre>
+<h3 id="svg-local">SVG Local</h3>
 <p><img src="./puml2.svg" alt="PUML local SVG"></p>
 <h3 id="svg-static">SVG Static</h3>
 <p><img src="/images/subdir/puml.svg" alt="PUML static SVG"></p>
@@ -974,16 +983,19 @@ And so is this
 
 <h2 id="code-highlighting">Code highlighting</h2>
 <p><strong>YAML</strong></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#0cf;font-weight:bold">---</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#309;font-weight:bold">root</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#309;font-weight:bold">someKey</span>:<span style="color:#bbb"> </span><span style="color:#c30">&#34;value&#34;</span><span style="color:#bbb">
-</span></code></pre></div><p><strong>Bash</strong></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">echo</span> <span style="color:#c30">&#34;</span><span style="color:#a00">${</span><span style="color:#033">VAR</span><span style="color:#a00">}</span><span style="color:#c30">&#34;</span>
-</code></pre></div><p><strong>XML</strong></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;root&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;child</span> <span style="color:#309">attr=</span><span style="color:#c30">&#34;xxx&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>some val<span style="color:#309;font-weight:bold">&lt;/child&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/root&gt;</span>
-</code></pre></div><h2 id="links">Links</h2>
+<pre><code class="language-yaml">---
+root:
+  someKey: &quot;value&quot;
+</code></pre>
+<p><strong>Bash</strong></p>
+<pre><code class="language-bash">echo &quot;${VAR}&quot;
+</code></pre>
+<p><strong>XML</strong></p>
+<pre><code class="language-xml">&lt;root&gt;
+  &lt;child attr=&quot;xxx&quot;&gt;some val&lt;/child&gt;
+&lt;/root&gt;
+</code></pre>
+<h2 id="links">Links</h2>
 <ul>
 <li>
 <p><a href="#inline-puml">PUML</a></p>
@@ -1222,7 +1234,8 @@ And so is this
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -1389,22 +1402,25 @@ And so is this
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -1497,6 +1513,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -1539,7 +1556,8 @@ bar := &quot;foo&quot;;
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -1706,22 +1724,25 @@ bar := &quot;foo&quot;;
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -1814,6 +1835,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -1856,7 +1878,8 @@ bar := &quot;foo&quot;;
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -2023,22 +2046,25 @@ bar := &quot;foo&quot;;
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -2131,6 +2157,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -2206,7 +2233,8 @@ bar := &quot;foo&quot;;
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -2373,22 +2401,25 @@ bar := &quot;foo&quot;;
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -2481,6 +2512,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -2523,7 +2555,8 @@ bar := &quot;foo&quot;;
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -2690,22 +2723,25 @@ bar := &quot;foo&quot;;
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -2798,6 +2834,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -2881,7 +2918,8 @@ bar := &quot;foo&quot;;
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -3048,22 +3086,25 @@ bar := &quot;foo&quot;;
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -3156,6 +3197,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -3198,7 +3240,8 @@ bar := &quot;foo&quot;;
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -3365,22 +3408,25 @@ bar := &quot;foo&quot;;
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -3473,6 +3519,7 @@ bar := &quot;foo&quot;;
 <p>Stumptown PBR&amp;B keytar plaid street art, forage XOXO pitchfork selvage affogato green juice listicle pickled everyday carry hashtag. Organic sustainable letterpress sartorial scenester intelligentsia swag bushwick. Put a bird on it stumptown neutra locavore. IPhone typewriter messenger bag narwhal. Ennui cold-pressed seitan flannel keytar, single-origin coffee adaptogen occupy yuccie williamsburg chillwave shoreditch forage waistcoat.</p>
 <pre><code>This is the final element on the page and there should be no margin below this.
 </code></pre>
+
 </div>
 
 
@@ -3553,7 +3600,8 @@ Javadoc, or other doc generation tools by putting them in your <code>static/</co
 </blockquote>
 <h3 id="header-3">Header 3</h3>
 <pre><code>This is a code block following a header.
-</code></pre><p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
+</code></pre>
+<p>Next level leggings before they sold out, PBR&amp;B church-key shaman echo park. Kale chips occupy godard whatever pop-up freegan pork belly selfies. Gastropub Belinda subway tile woke post-ironic seitan. Shabby chic man bun semiotics vape, chia messenger bag plaid cardigan.</p>
 <h4 id="header-4">Header 4</h4>
 <ul>
 <li>This is an unordered list following a header.</li>
@@ -3720,22 +3768,25 @@ Javadoc, or other doc generation tools by putting them in your <code>static/</co
 <p>Code can also be shown in a block element.</p>
 <pre><code>foo := &quot;bar&quot;;
 bar := &quot;foo&quot;;
-</code></pre><p>Code can also use syntax highlighting.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
-  input <span style="color:#555">:=</span> <span style="color:#c30">`var foo = &#34;bar&#34;;`</span>
+</code></pre>
+<p>Code can also use syntax highlighting.</p>
+<pre><code class="language-go">func main() {
+  input := `var foo = &quot;bar&quot;;`
 
-  lexer <span style="color:#555">:=</span> lexers.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;javascript&#34;</span>)
-  iterator, _ <span style="color:#555">:=</span> lexer.<span style="color:#c0f">Tokenise</span>(<span style="color:#069;font-weight:bold">nil</span>, input)
-  style <span style="color:#555">:=</span> styles.<span style="color:#c0f">Get</span>(<span style="color:#c30">&#34;github&#34;</span>)
-  formatter <span style="color:#555">:=</span> html.<span style="color:#c0f">New</span>(html.<span style="color:#c0f">WithLineNumbers</span>())
+  lexer := lexers.Get(&quot;javascript&quot;)
+  iterator, _ := lexer.Tokenise(nil, input)
+  style := styles.Get(&quot;github&quot;)
+  formatter := html.New(html.WithLineNumbers())
 
-  <span style="color:#069;font-weight:bold">var</span> buff bytes.Buffer
-  formatter.<span style="color:#c0f">Format</span>(<span style="color:#555">&amp;</span>buff, style, iterator)
+  var buff bytes.Buffer
+  formatter.Format(&amp;buff, style, iterator)
 
-  fmt.<span style="color:#c0f">Println</span>(buff.<span style="color:#c0f">String</span>())
+  fmt.Println(buff.String())
 }
-</code></pre></div><pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre><p>Inline code inside table cells should still be distinguishable.</p>
+</code></pre>
+<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre>
+<p>Inline code inside table cells should still be distinguishable.</p>
 <table>
 <thead>
 <tr>
@@ -3892,7 +3943,8 @@ the content.</li>
 <li>
 <p>Fork the <a href="https://github.com/google/docsy-example">Goldydocs repo</a> repo into your own project, then create a local copy using <code>git clone</code>. Don’t forget to use <code>--recurse-submodules</code> or you won’t pull down some of the code you need to generate a working site.</p>
 <pre><code>git clone --recurse-submodules --depth 1 https://github.com/google/docsy-example.git
-</code></pre></li>
+</code></pre>
+</li>
 <li>
 <p>Run <code>hugo server</code> in the site root directory. By default your site will be available at http://localhost:1313/. Now that you&rsquo;re serving your site locally, Hugo will watch for changes to the content and automatically refresh your site.</p>
 </li>
@@ -3996,6 +4048,9 @@ changes up to your fork, and create a pull request.</p>
 
 <script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
 
+
+
+<script src='/stroom-docs/hugo-docsy/js/prism.js'></script>
 
 
 

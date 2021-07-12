@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.84.4" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<meta name="generator" content="Hugo 0.85.0" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
 <link rel="shortcut icon" href="/stroom-docs/hugo-docsy/favicons/favicon.ico" >
@@ -17,27 +17,24 @@
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
 
-<title>Stroom</title>
-<meta name="description" content="A Stroom example site"><meta property="og:title" content="" />
-<meta property="og:description" content="Stroom HOWTO - NFS Installation and Configuration The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) the user is or has deployed the example two node Stroom cluster storage hierarchy described here the configuration of this NFS is NOT secure." />
+<title>NFS Installation and Configuration | Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="NFS Installation and Configuration" />
+<meta property="og:description" content="The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-12T11:18:54+01:00" /><meta property="og:site_name" content="Stroom" />
 
-<meta property="article:modified_time" content="2021-07-09T16:24:55+01:00" /><meta property="og:site_name" content="Stroom" />
-
-<meta itemprop="name" content="">
-<meta itemprop="description" content="Stroom HOWTO - NFS Installation and Configuration The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) the user is or has deployed the example two node Stroom cluster storage hierarchy described here the configuration of this NFS is NOT secure.">
-<meta itemprop="dateModified" content="2021-07-09T16:24:55+01:00" />
-<meta itemprop="wordCount" content="664">
-<meta itemprop="keywords" content="howto," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Stroom HOWTO - NFS Installation and Configuration The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) the user is or has deployed the example two node Stroom cluster storage hierarchy described here the configuration of this NFS is NOT secure."/>
+<meta itemprop="name" content="NFS Installation and Configuration">
+<meta itemprop="description" content="The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.
+"><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-12T11:18:54+01:00" />
+<meta itemprop="wordCount" content="620">
+<meta itemprop="keywords" content="NFS,installation," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="NFS Installation and Configuration"/>
+<meta name="twitter:description" content="The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.
+"/>
 
 
 
@@ -56,6 +53,9 @@ Assumptions The following assumptions are used in this document.
   integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
   crossorigin="anonymous"></script>
 
+
+
+<link rel="stylesheet" href="/stroom-docs/hugo-docsy/css/prism.css"/>
 
 
 
@@ -159,7 +159,7 @@ Assumptions The following assumptions are used in this document.
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -194,7 +194,7 @@ Assumptions The following assumptions are used in this document.
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -428,6 +428,507 @@ Assumptions The following assumptions are used in this document.
     
       
       <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocshowtosinstall-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosinstall"><span class="">Installation</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" title="Apache Httpd/Mod_JK configuration for Stroom" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class="">Apache Httpd/Mod_JK</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class="">Database Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class="">Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" title="Installation of Stroom Application" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class="">Installation of Stroom</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class="">Installation of Stroom Proxy</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" title="NFS Installation and Configuration" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class="td-sidebar-nav-active-item">NFS</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" title="Node Cluster URL Setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class="">Node Cluster</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" title="Processing User setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class="">Processing User</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class="">SSL Certificate Generation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class="">Testing Stroom Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class="">Volume Maintenance</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosreferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosreferencefeeds"><span class="">Reference Feeds</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeeds/" title="Create a Simple Reference Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds"><span class="">Create a Reference Feed</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtossearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtossearch"><span class="">Search</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class="">Elasticsearch integration</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class="">Search API</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class="">Solr integration</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
         
           
             
@@ -795,411 +1296,6 @@ Assumptions The following assumptions are used in this document.
           
         
       </ul>
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class="td-sidebar-nav-active-item"></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class=""></span></a>
-    
     
   </li>
 
@@ -2015,7 +2111,7 @@ Assumptions The following assumptions are used in this document.
 
     <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/HOWTOs/Install/InstallNFSHowTo.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
     <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/HOWTOs/Install/InstallNFSHowTo.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
-    <a href="https://github.com/gchq/stroom-docs/issues/new?title=" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    <a href="https://github.com/gchq/stroom-docs/issues/new?title=NFS%20Installation%20and%20Configuration" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
     
       
       <a href="https://github.com/gchq/stroom/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -2023,7 +2119,7 @@ Assumptions The following assumptions are used in this document.
 
   
   
-    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
   
   </div>
 
@@ -2068,29 +2164,45 @@ Assumptions The following assumptions are used in this document.
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/certificates/" data-taxonomy-term="certificates"><span class="taxonomy-label">certificates</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/cluster/" data-taxonomy-term="cluster"><span class="taxonomy-label">cluster</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span><span class="taxonomy-count">15</span></a></li>
-        
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/jobs/" data-taxonomy-term="jobs"><span class="taxonomy-label">jobs</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/" data-taxonomy-term="properties"><span class="taxonomy-label">properties</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
         
@@ -2098,9 +2210,13 @@ Assumptions The following assumptions are used in this document.
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/tasks/" data-taxonomy-term="tasks"><span class="taxonomy-label">tasks</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/users/" data-taxonomy-term="users"><span class="taxonomy-label">users</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/volumes/" data-taxonomy-term="volumes"><span class="taxonomy-label">volumes</span><span class="taxonomy-count">1</span></a></li>
         
       </ul>
     </div>
@@ -2126,6 +2242,9 @@ Assumptions The following assumptions are used in this document.
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/">Documentation</a>
 </li>
@@ -2140,8 +2259,15 @@ Assumptions The following assumptions are used in this document.
 
 
 
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/">Installation</a>
+</li>
+
+
+
+
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/"></a>
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/">NFS</a>
 </li>
 
 	</ol>
@@ -2149,8 +2275,8 @@ Assumptions The following assumptions are used in this document.
 
             
 <div class="td-content">
-	<h1></h1>
-	
+	<h1>NFS Installation and Configuration</h1>
+	<div class="lead">The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.</div>
 	<header class="article-meta">
 		
 		
@@ -2166,7 +2292,9 @@ Assumptions The following assumptions are used in this document.
   <h5 class="taxonomy-title">Tags:</h5>
   <ul class="taxonomy-terms">
     
-      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span></a></li>
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span></a></li>
+    
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span></a></li>
     
   </ul>
 </div>
@@ -2175,10 +2303,7 @@ Assumptions The following assumptions are used in this document.
 		
 		
 	</header>    
-	<h1 id="stroom-howto---nfs-installation-and-configuration">Stroom HOWTO - NFS Installation and Configuration</h1>
-<p>The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or
-add a new node to an existing cluster.</p>
-<h2 id="assumptions">Assumptions</h2>
+	<h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
 <li>the user has reasonable RHEL/Centos System administration skills</li>
@@ -2188,9 +2313,10 @@ add a new node to an existing cluster.</p>
 </ul>
 <h2 id="installation-of-nfs-software">Installation of NFS software</h2>
 <p>We install NFS on each node, via</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo yum -y install nfs-utils
-</code></pre></div><p>and enable the relevant services, via</p>
-<pre><code class="language-base" data-lang="base">sudo systemctl enable rpcbind
+<pre><code class="language-bash">sudo yum -y install nfs-utils
+</code></pre>
+<p>and enable the relevant services, via</p>
+<pre><code class="language-base">sudo systemctl enable rpcbind
 sudo systemctl enable nfs-server
 sudo systemctl enable nfs-lock
 sudo systemctl enable nfs-idmap
@@ -2198,44 +2324,55 @@ sudo systemctl start rpcbind
 sudo systemctl start nfs-server
 sudo systemctl start nfs-lock
 sudo systemctl start nfs-idmap
-</code></pre><h2 id="configuration-of-nfs-exports">Configuration of NFS exports</h2>
+</code></pre>
+<h2 id="configuration-of-nfs-exports">Configuration of NFS exports</h2>
 <p>We now export the node&rsquo;s /stroomdata directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of stroomp*.strmdev00.org to mount the <code>/stroomdata</code> directory. This means the same configuration applies to all nodes.</p>
 <pre><code># Share Stroom data directory
 /stroomdata	stroomp*.strmdev00.org(rw,sync,no_root_squash)
-</code></pre><p>This can be achieved with the following on both nodes</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su -c <span style="color:#c30">&#34;printf &#39;# Share Stroom data directory\n&#39; &gt;&gt; /etc/exports&#34;</span>
-sudo su -c <span style="color:#c30">&#34;printf &#39;/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n&#39; &gt;&gt; /etc/exports&#34;</span>
-</code></pre></div><p>On both nodes restart the NFS service to ensure the above export takes effect via</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart nfs-server
-</code></pre></div><p>So that our nodes can offer their filesystems, we need to enable NFS access on the firewall.
+</code></pre>
+<p>This can be achieved with the following on both nodes</p>
+<pre><code class="language-bash">sudo su -c &quot;printf '# Share Stroom data directory\n' &gt;&gt; /etc/exports&quot;
+sudo su -c &quot;printf '/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n' &gt;&gt; /etc/exports&quot;
+</code></pre>
+<p>On both nodes restart the NFS service to ensure the above export takes effect via</p>
+<pre><code class="language-bash">sudo systemctl restart nfs-server
+</code></pre>
+<p>So that our nodes can offer their filesystems, we need to enable NFS access on the firewall.
 This is done via</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo firewall-cmd --zone<span style="color:#555">=</span>public --add-service<span style="color:#555">=</span>nfs --permanent
+<pre><code class="language-bash">sudo firewall-cmd --zone=public --add-service=nfs --permanent
 sudo firewall-cmd --reload
-sudo firewall-cmd --zone<span style="color:#555">=</span>public --list-all
-</code></pre></div><h2 id="test-mounting">Test Mounting</h2>
+sudo firewall-cmd --zone=public --list-all
+</code></pre>
+<h2 id="test-mounting">Test Mounting</h2>
 <p>You should do test mounts on each node.</p>
 <ul>
 <li>Node: <code>stroomp00.strmdev00.org</code></li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
-</code></pre></div><ul>
+<pre><code class="language-bash">sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
+</code></pre>
+<ul>
 <li>Node: <code>stroomp01.strmdev00.org</code></li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
-</code></pre></div><p>If you are concerned you can&rsquo;t see the mount with a <code>df</code> try a <code>df --type=nfs4 -a</code> or a <code>sudo df</code>. Irrespective, once the mounting works, make the mounts permanent by adding the following to each node&rsquo;s /etc/fstab file.</p>
+<pre><code class="language-bash">sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
+</code></pre>
+<p>If you are concerned you can&rsquo;t see the mount with a <code>df</code> try a <code>df --type=nfs4 -a</code> or a <code>sudo df</code>. Irrespective, once the mounting works, make the mounts permanent by adding the following to each node&rsquo;s /etc/fstab file.</p>
 <ul>
 <li>Node: <code>stroomp00.strmdev00.org</code></li>
 </ul>
 <pre><code>stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
-</code></pre><p>achieved with</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su -c <span style="color:#c30">&#34;printf &#39;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n&#39; &gt;&gt; /etc/fstab&#34;</span>
-</code></pre></div><ul>
+</code></pre>
+<p>achieved with</p>
+<pre><code class="language-bash">sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
+</code></pre>
+<ul>
 <li>Node: <code>stroomp01.strmdev00.org</code></li>
 </ul>
 <pre><code>stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
-</code></pre><p>achieved with</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su -c <span style="color:#c30">&#34;printf &#39;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n&#39; &gt;&gt; /etc/fstab&#34;</span>
-</code></pre></div><p>At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.</p>
+</code></pre>
+<p>achieved with</p>
+<pre><code class="language-bash">sudo su -c &quot;printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
+</code></pre>
+<p>At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.</p>
 <h2 id="addition-of-another-node">Addition of another Node</h2>
 <p>If one needs to add another node to the cluster, lets say, <code>stroomp02.strmdev00.org</code>, on which <code>/stroomdata</code> follows the same storage hierarchy
 as the existing nodes and all nodes have added mount points (directories) for this new node, you would take the following steps <em>in order</em>.</p>
@@ -2248,29 +2385,34 @@ as the existing nodes and all nodes have added mount points (directories) for th
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su -c <span style="color:#c30">&#34;printf &#39;# Share Stroom data directory\n&#39; &gt;&gt; /etc/exports&#34;</span>
-sudo su -c <span style="color:#c30">&#34;printf &#39;/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n&#39; &gt;&gt; /etc/exports&#34;</span>
-</code></pre></div><ul>
+<pre><code class="language-bash">sudo su -c &quot;printf '# Share Stroom data directory\n' &gt;&gt; /etc/exports&quot;
+sudo su -c &quot;printf '/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n' &gt;&gt; /etc/exports&quot;
+</code></pre>
+<ul>
 <li>Restart the NFS service and make the firewall enable NFS access as per</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart nfs-server
-sudo firewall-cmd --zone<span style="color:#555">=</span>public --add-service<span style="color:#555">=</span>nfs --permanent
+<pre><code class="language-bash">sudo systemctl restart nfs-server
+sudo firewall-cmd --zone=public --add-service=nfs --permanent
 sudo firewall-cmd --reload
-sudo firewall-cmd --zone<span style="color:#555">=</span>public --list-all
-</code></pre></div><ul>
+sudo firewall-cmd --zone=public --list-all
+</code></pre>
+<ul>
 <li>Test mount the existing node file systems</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
+<pre><code class="language-bash">sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
 sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
-</code></pre></div><ul>
+</code></pre>
+<ul>
 <li>Once the test mounts work, we make them permanent by adding the following to the /etc/fstab file.</li>
 </ul>
 <pre><code>stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
 stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom-data-p01 nfs4 soft,bg
-</code></pre><p>achieved with</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su -c <span style="color:#c30">&#34;printf &#39;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n&#39; &gt;&gt; /etc/fstab&#34;</span>
-sudo su -c <span style="color:#c30">&#34;printf &#39;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n&#39; &gt;&gt; /etc/fstab&#34;</span>
-</code></pre></div><ul>
+</code></pre>
+<p>achieved with</p>
+<pre><code class="language-bash">sudo su -c &quot;printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
+sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
+</code></pre>
+<ul>
 <li>
 <p>Node: <code>stroomp00.strmdev00.org</code> <strong>and</strong> <code>stroomp01.strmdev00.org</code></p>
 <ul>
@@ -2278,21 +2420,24 @@ sudo su -c <span style="color:#c30">&#34;printf &#39;stroomp01.strmdev00.org:/st
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02
-</code></pre></div><ul>
+<pre><code class="language-bash">sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02
+</code></pre>
+<ul>
 <li>Once the test mount works, make the mount permanent by adding the following to the /etc/fstab file</li>
 </ul>
 <pre><code>stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
-</code></pre><p>achieved with</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su -c <span style="color:#c30">&#34;printf &#39;stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n&#39; &gt;&gt; /etc/fstab&#34;</span>
-</code></pre></div>
+</code></pre>
+<p>achieved with</p>
+<pre><code class="language-bash">sudo su -c &quot;printf 'stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
+</code></pre>
+
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
 
     Last modified
-    July 9, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/d3aa4421684510eef91c5062737207b88f72fd01">Migrate HOWTOs (WIP) (d3aa442)</a>
+    July 12, 2021
+    : <a  href="https://github.com/gchq/stroom-docs/commit/5e0c3ffbe3d69862274c7942a93840d6102a1624">Fix HOW TOs section, improve style guide (5e0c3ff)</a>
 
 </div>
 
@@ -2363,6 +2508,9 @@ sudo su -c <span style="color:#c30">&#34;printf &#39;stroomp01.strmdev00.org:/st
 
 <script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
 
+
+
+<script src='/stroom-docs/hugo-docsy/js/prism.js'></script>
 
 
 

@@ -1,0 +1,104 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – cluster</title>
+    <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/cluster/</link>
+    <description>Recent content in cluster on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/cluster/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Node Cluster URL Setup</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/</guid>
+      <description>
+        
+        
+        &lt;h1 id=&#34;stroom-howto---node-cluster-url-setup&#34;&gt;Stroom HOWTO - Node Cluster URL Setup&lt;/h1&gt;
+&lt;p&gt;In a Stroom cluster, &lt;a href=&#34;../../user-guide/nodes.md&#34; title=&#34;Stroom Nodes&#34;&gt;Nodes&lt;/a&gt; are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node&amp;rsquo;s Cluster URL and the following demonstrates this process.&lt;/p&gt;
+&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;an account with the &lt;code&gt;Administrator&lt;/code&gt; Application &lt;a href=&#34;../../user-guide/roles.md&#34; title=&#34;Stroom Application Permissions&#34;&gt;Permission&lt;/a&gt; is currently logged in.&lt;/li&gt;
+&lt;li&gt;we have a multi node Stroom cluster with two nodes, &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp01&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;appropriate firewall configurations have been made&lt;/li&gt;
+&lt;li&gt;in the scenario of adding a new node to our multi node deployment, the node added will be &lt;code&gt;stroomp02&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;configure-two-nodes&#34;&gt;Configure Two Nodes&lt;/h2&gt;
+&lt;p&gt;To configure the nodes, move to the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-MonitoringSubmenu-00.png&#34; alt=&#34;Stroom UI Node Management - Monitoring Menu&#34; title=&#34;Stroom UI Monitoring sub-menu&#34;&gt;&lt;/p&gt;
+&lt;p&gt;then move down and select the &lt;code&gt;Nodes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Nodes&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-01.png&#34; alt=&#34;Stroom UI Node Management - Management Tab&#34; title=&#34;Stroom UI Node Management - management tab&#34;&gt;&lt;/p&gt;
+&lt;p&gt;To set &lt;code&gt;stroomp00&lt;/code&gt;&amp;rsquo;s Cluster URL, move the it&amp;rsquo;s line in the display and select it. It will be highlighted.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-02.png&#34; alt=&#34;Stroom UI Node Management - Management Tab - Select first node&#34; title=&#34;Stroom UI Node Management - select first node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/edit.png&#34; alt=&#34;EditNode&#34; title=&#34;Edit Node&#34;&gt; in the top left of
+the &lt;code&gt;Nodes&lt;/code&gt; tab and select it. On selection the &lt;code&gt;Edit Node&lt;/code&gt; configuration window will be displayed and into
+the &lt;strong&gt;Cluster URL:&lt;/strong&gt; entry box, enter the first node&amp;rsquo;s URL of &lt;code&gt;http://stroomp00.strmdev00.org:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-03.png&#34; alt=&#34;Stroom UI Node Management - First Node setup&#34; title=&#34;Stroom UI Node Management - set clustercall url for first node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;then press the
+&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;
+at which we see the &lt;em&gt;Cluster URL&lt;/em&gt; has been set for the first node as per&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-04.png&#34; alt=&#34;Stroom UI Node Management - First Node set&#34; title=&#34;Stroom UI Node Management - set clustercall url on first node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We next select the second node&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-05.png&#34; alt=&#34;Stroom UI Node Management - Management Tab - Select second node&#34; title=&#34;Stroom UI Node Management - select second node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/edit.png&#34; alt=&#34;EditNode&#34; title=&#34;Edit Node&#34;&gt; in the top left of
+the &lt;code&gt;Nodes&lt;/code&gt; tab and select it. On selection the &lt;code&gt;Edit Node&lt;/code&gt; configuration window will be displayed and into
+the &lt;strong&gt;Cluster URL:&lt;/strong&gt; entry box, enter the second node&amp;rsquo;s URL of &lt;code&gt;http://stroomp01.strmdev00.org:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-06.png&#34; alt=&#34;Stroom UI Node Management - Second Node setup&#34; title=&#34;Stroom UI Node Management - set clustercall url for second node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;then press the
+&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;&lt;/p&gt;
+&lt;p&gt;At this we will see both nodes have the &lt;strong&gt;Cluster URLs&lt;/strong&gt; set.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-07.png&#34; alt=&#34;Stroom UI Node Management - Both Nodes setup&#34; title=&#34;Stroom UI Node Management - both nodes setup&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;You may need to press the &lt;em&gt;Refresh&lt;/em&gt; icon
+&lt;img src=&#34;../resources/icons/refresh.png&#34; alt=&#34;Stroom UI Refresh&#34; title=&#34;Stroom UI RefreshButton&#34;&gt;
+found at top left of &lt;code&gt;Nodes&lt;/code&gt; configuration tab, until both nodes show healthy pings.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-08.png&#34; alt=&#34;Stroom UI Node Management - Both Nodes ping&#34; title=&#34;Stroom UI Node Management - both nodes ping&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;If you do not get ping results for each node, then they are not configured correctly. In that situation,
+review all log files and processes that you have performed.&lt;/p&gt;
+&lt;p&gt;Once you have set the Cluster URLs of each node you should also set the &lt;em&gt;master assignment priority&lt;/em&gt; for each node to
+be different to all of the others. In the image above both have been assigned equal priority - &lt;code&gt;1&lt;/code&gt;. We will
+change &lt;code&gt;stroomp00&lt;/code&gt; to have a different priority - &lt;code&gt;3&lt;/code&gt;. You should note that the node with the highest
+priority gains the &lt;code&gt;Master&lt;/code&gt; node status.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-09.png&#34; alt=&#34;Stroom UI Node Management - Node priority&#34; title=&#34;Stroom UI Node Management - set node priorities&#34;&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;configure-new-node&#34;&gt;Configure New Node&lt;/h2&gt;
+&lt;p&gt;When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and services on
+the new node, one has to configure the new node&amp;rsquo;s Cluster URL.&lt;/p&gt;
+&lt;p&gt;To configure the new node, move to the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-MonitoringSubmenu-00.png&#34; alt=&#34;Stroom UI Node Management - Monitoring Menu&#34; title=&#34;Stroom UI Monitoring sub-menu&#34;&gt;&lt;/p&gt;
+&lt;p&gt;then move down and select the &lt;code&gt;Nodes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Nodes&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-00.png&#34; alt=&#34;Stroom UI New Node Management - Management Tab&#34; title=&#34;Stroom UI New Node Management - management tab&#34;&gt;&lt;/p&gt;
+&lt;p&gt;To set &lt;code&gt;stroomp02&lt;/code&gt;&amp;rsquo;s Cluster URL, move the it&amp;rsquo;s line in the display and select it. It will be highlighted.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-01.png&#34; alt=&#34;Stroom UI Node Management - Management Tab - Select new node&#34; title=&#34;Stroom UI Node Management - select new node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/edit.png&#34; alt=&#34;EditNode&#34; title=&#34;Edit Node&#34;&gt; in the top left
+of the &lt;code&gt;Nodes&lt;/code&gt; tab and select it. On selection the &lt;code&gt;Edit Node&lt;/code&gt; configuration window will be displayed
+and into the &lt;strong&gt;Cluster URL:&lt;/strong&gt; entry box, enter the first node&amp;rsquo;s URL of &lt;code&gt;http://stroomp02.strmdev00.org:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-02.png&#34; alt=&#34;Stroom UI New Node Management - Node setup&#34; title=&#34;Stroom UI New Node Management - set clustercall url for new node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;then press the
+&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;
+button at which we see the &lt;em&gt;Cluster URL&lt;/em&gt; has been set for the first node as per&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-03.png&#34; alt=&#34;Stroom UI New Node Management - New Node set&#34; title=&#34;Stroom UI New Node Management - set clustercall url on new node&#34;&gt;&lt;/p&gt;
+&lt;p&gt;You need to press the &lt;em&gt;Refresh&lt;/em&gt; icon
+&lt;img src=&#34;../resources/icons/refresh.png&#34; alt=&#34;Stroom UI Refresh&#34; title=&#34;Stroom UI RefreshButton&#34;&gt;
+found at top left of &lt;code&gt;Nodes&lt;/code&gt; configuration tab, until the new node shows a healthy ping.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-04.png&#34; alt=&#34;Stroom UI New Node Management - All Nodes ping&#34; title=&#34;Stroom UI New Node Management - all nodes ping&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;If you do not get a ping results for the new node, then it is not configured correctly. In that situation, review all log files
+and processes that you have performed.&lt;/p&gt;
+&lt;p&gt;Once you have set the Cluster URL you should also set the &lt;em&gt;master assignment priority&lt;/em&gt; for each node to
+be different to all of the others. In the image above both &lt;code&gt;stroomp01&lt;/code&gt; and the new node, &lt;code&gt;stroomp02&lt;/code&gt;, have been
+assigned equal priority - &lt;code&gt;1&lt;/code&gt;. We will change &lt;code&gt;stroomp01&lt;/code&gt; to have a different priority - &lt;code&gt;2&lt;/code&gt;. You should note that the node
+with the highest priority maintains the &lt;code&gt;Master&lt;/code&gt; node status.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-05.png&#34; alt=&#34;Stroom UI New Node Management - Node priority&#34; title=&#34;Stroom UI New Node Management - set node priorities&#34;&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

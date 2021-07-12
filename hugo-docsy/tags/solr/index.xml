@@ -1,0 +1,70 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – solr</title>
+    <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/solr/</link>
+    <description>Recent content in solr on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/solr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Solr integration</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/search/solr/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/search/solr/</guid>
+      <description>
+        
+        
+        &lt;p&gt;This document will show how to use Solr from within Stroom.
+A single Solr node will be used running in a docker container.&lt;/p&gt;
+&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;You are familiar with Lucene indexing within Stroom&lt;/li&gt;
+&lt;li&gt;You have some data to index&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;points-to-note&#34;&gt;Points to note&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;A Solr core is the home for exactly one Stroom index.&lt;/li&gt;
+&lt;li&gt;Cores must initially be created in Solr.&lt;/li&gt;
+&lt;li&gt;It is good practice to name your Solr core the same as your Stroom Index.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;method&#34;&gt;Method&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Start a docker container for a single solr node.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker run -d -p 8983:8983 --name my_solr solr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;Check your Solr node. Point your browser at http://yourSolrHost:8983&lt;/li&gt;
+&lt;li&gt;Create a core in Solr using the CLI.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;docker exec -it my_solr solr create_core -c test_index
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;Create a SolrIndex in Stroom
+&lt;img src=&#34;../resources/v7/HT_SimpleSolr_NewSolrIndex.png&#34; alt=&#34;&amp;ldquo;New Solr Index&amp;rdquo;&#34; title=&#34;New Solr Index&#34;&gt;&lt;/li&gt;
+&lt;li&gt;Update settings for your new Solr Index in Stroom then press &amp;ldquo;Test Connection&amp;rdquo;.
+If successful then press Save
+Note the &amp;ldquo;Solr URL&amp;rdquo; field is a reference to the newly created Solr core.
+&lt;img src=&#34;../resources/v7/HT_SimpleSolr_Settings.png&#34; alt=&#34;&amp;ldquo;Solr Index Settings&amp;rdquo;&#34; title=&#34;Solr Index Settings&#34;&gt;&lt;/li&gt;
+&lt;li&gt;Add some Index fields.
+e.g.EventTime, UserId&lt;/li&gt;
+&lt;li&gt;Retention is different in Solr, you must specify an expression that matches data that can be deleted.
+&lt;img src=&#34;../resources/v7/HT_SimpleSolr_Retention.png&#34; alt=&#34;&amp;ldquo;Solr Retention&amp;rdquo;&#34; title=&#34;Solr Retention&#34;&gt;&lt;/li&gt;
+&lt;li&gt;Your Solr Index can now be used as per a Stroom Lucene Index.
+However, your Indexing pipeline must use a SolrIndexingFilter instead of an IndexingFilter.&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

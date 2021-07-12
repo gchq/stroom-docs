@@ -43,70 +43,160 @@
       <description>
         
         
-        &lt;h2 id=&#34;heading-a-level-2&#34;&gt;Heading A (level 2)&lt;/h2&gt;
-&lt;p&gt;The page title uses heading level one (&lt;code&gt;# &lt;/code&gt; in markdown) so all markdown headings should be &amp;gt;= 2 (&lt;code&gt;## &lt;/code&gt;, &lt;code&gt;### &lt;/code&gt;, &lt;code&gt;#### &lt;/code&gt;, etc.).
-Headings should have two blank lines above them for clarity in the raw markdown, e.g.:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;The text of the previous heading.
+        &lt;h2 id=&#34;markdown-style-conventions&#34;&gt;Markdown style conventions&lt;/h2&gt;
+&lt;h3 id=&#34;sentence-per-line&#34;&gt;Sentence per line&lt;/h3&gt;
+&lt;p&gt;Each sentence should start on a new line, even in numbered/bulleted lists.
+This makes it easier to move sentences around or to remove them.
+e.g.:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;This is the first sentence of the paragraph.
+This is the second.
+This it the third and final one.
+
+This is the start of a new paragraph.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;no-hard-line-breaks&#34;&gt;No hard line breaks.&lt;/h3&gt;
+&lt;p&gt;Long lines should not be hard wrapped by adding line breaks.
+You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
+The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.&lt;/p&gt;
+&lt;h3 id=&#34;blank-lines-and-spacing&#34;&gt;Blank lines and spacing&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A heading line should be preceded by two blank lines and followed by one blank line.
+This makes the headings clearer in the markdown source.&lt;/li&gt;
+&lt;li&gt;A fenced code block should be surrounded by one blank line.&lt;/li&gt;
+&lt;li&gt;Paragraphs should be separated by one blank line.&lt;/li&gt;
+&lt;li&gt;Bulleted and numbered lists should be surrounded by one blank line.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;e.g:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;The text belonging to the previous heading.
 
 
-&lt;span style=&#34;color:#030;font-weight:bold&#34;&gt;## A Heading
-&lt;/span&gt;&lt;span style=&#34;color:#030;font-weight:bold&#34;&gt;&lt;/span&gt;
+## A Heading
+
 The text of this heading.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Page table of contents (right hand pane) is controlled by this in &lt;code&gt;config.toml&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;[markup]
+Another line.
+
+A new paragraph.
+Another line.
+
+Here are some bullets:
+
+* Bullet 1
+* Bullet 2
+* Bullet 3
+
+Here are some numbered steps:
+
+1. Step 1
+1. Step 2
+1. Step 3
+
+Another random line.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;headings&#34;&gt;Headings&lt;/h2&gt;
+&lt;p&gt;The page title uses heading level one (&lt;code&gt;# &lt;/code&gt; in markdown) so all markdown headings should be &amp;gt;= 2 (&lt;code&gt;## &lt;/code&gt;, &lt;code&gt;### &lt;/code&gt;, &lt;code&gt;#### &lt;/code&gt;, etc.).
+Headings should have two blank lines above them for clarity in the raw markdown.
+The &lt;code&gt;#&lt;/code&gt; characters should &lt;strong&gt;always&lt;/strong&gt; be followed by one space character&lt;/p&gt;
+&lt;p&gt;The following is an exmaple of the heading levels.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;
+# Heading level 1
+
+
+## Heading level 2
+
+
+### Heading level 3
+
+
+#### Heading level 4
+
+
+##### Heading level 5
+
+
+###### Heading level 6
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Markdown supports an alternate style for headings, as shown below.
+&lt;strong&gt;Don&amp;rsquo;t&lt;/strong&gt; use this style as it is not clear from the symbols what the heading level is.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markddown&#34;&gt;
+Heading level 1
+===============
+
+Don&#39;t use this style.
+
+
+Heading level 2
+---------------
+
+Don&#39;t use this style.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;table-of-contents&#34;&gt;Table of contents&lt;/h3&gt;
+&lt;p&gt;The page table of contents (right hand pane) is controlled by this in &lt;code&gt;config.toml&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;[markup]
   [markup.tableOfContents]
-    endLevel = &lt;span style=&#34;color:#f60&#34;&gt;4&lt;/span&gt;
-    ordered = &lt;span style=&#34;color:#069;font-weight:bold&#34;&gt;false&lt;/span&gt;
-    startLevel = &lt;span style=&#34;color:#f60&#34;&gt;2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;heading-aa-level-3&#34;&gt;Heading AA (level 3)&lt;/h3&gt;
-&lt;p&gt;Some text at level 3&lt;/p&gt;
-&lt;h3 id=&#34;heading-ab-level-3&#34;&gt;Heading AB (level 3)&lt;/h3&gt;
-&lt;p&gt;Some text at level 3&lt;/p&gt;
-&lt;h2 id=&#34;heading-b-level-2&#34;&gt;Heading B (level 2)&lt;/h2&gt;
-&lt;p&gt;Some text at level 2&lt;/p&gt;
-&lt;h3 id=&#34;heading-ba-level-3&#34;&gt;Heading BA (level 3)&lt;/h3&gt;
-&lt;p&gt;Some text at level 3&lt;/p&gt;
-&lt;h3 id=&#34;heading-bb-level-3&#34;&gt;Heading BB (level 3)&lt;/h3&gt;
-&lt;p&gt;Some text at level 3&lt;/p&gt;
+    endLevel = 4
+    ordered = false
+    startLevel = 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The maximum depth of the table of contents can be controlled with &lt;code&gt;endLevel&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;heading-example-level-2&#34;&gt;Heading example (level 2)&lt;/h2&gt;
+&lt;p&gt;This is an example of a level 2 heading.&lt;/p&gt;
+&lt;h3 id=&#34;heading-example-level-3&#34;&gt;Heading example (level 3)&lt;/h3&gt;
+&lt;p&gt;This is an example of a level 3 heading.&lt;/p&gt;
+&lt;h4 id=&#34;heading-example-level-4&#34;&gt;Heading example (level 4)&lt;/h4&gt;
+&lt;p&gt;This is an example of a level 4 heading.&lt;/p&gt;
+&lt;h5 id=&#34;heading-example-level-5&#34;&gt;Heading example (level 5)&lt;/h5&gt;
+&lt;p&gt;This is an example of a level 5 heading.&lt;/p&gt;
+&lt;h6 id=&#34;heading-example-level-6&#34;&gt;Heading example (level 6)&lt;/h6&gt;
+&lt;p&gt;This is an example of a level 6 heading.&lt;/p&gt;
 &lt;h2 id=&#34;block-quotes&#34;&gt;Block quotes&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;This is a multi line block quote.&lt;br&gt;
+&lt;p&gt;This is a single line block quote.
 This is the second line.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;bulleted-list&#34;&gt;Bulleted list&lt;/h2&gt;
+&lt;p&gt;A pair of spaces at the end of a line can be used to force line breaks, e.g.:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is a multi line block quote.&lt;br&gt;
+This is the second line.&lt;br&gt;
+This is the third line.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;lists&#34;&gt;Lists&lt;/h2&gt;
+&lt;h3 id=&#34;bulleted-list&#34;&gt;Bulleted list&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Item 1&lt;/li&gt;
-&lt;li&gt;Item 2
+&lt;li&gt;Item 1.
+This is some extra content for item 1.&lt;/li&gt;
+&lt;li&gt;Item 2.
 &lt;ul&gt;
-&lt;li&gt;Item 2a&lt;/li&gt;
-&lt;li&gt;Item 2b&lt;/li&gt;
+&lt;li&gt;Item 2a.&lt;/li&gt;
+&lt;li&gt;Item 2b.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;Item 3&lt;/li&gt;
+&lt;li&gt;Item 3.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;numbered-list&#34;&gt;Numbered List&lt;/h2&gt;
+&lt;h3 id=&#34;numbered-list&#34;&gt;Numbered List&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;Item 1&lt;/li&gt;
-&lt;li&gt;Item 2
+&lt;li&gt;Item 1.
+This is some extra content for step 1.&lt;/li&gt;
+&lt;li&gt;Item 2.
 &lt;ol&gt;
-&lt;li&gt;Item 2a&lt;/li&gt;
-&lt;li&gt;Item 2b&lt;/li&gt;
+&lt;li&gt;Item 2a.&lt;/li&gt;
+&lt;li&gt;Item 2b.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;Item 3&lt;/li&gt;
+&lt;li&gt;Item 3.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;check-list&#34;&gt;Check List&lt;/h2&gt;
+&lt;h3 id=&#34;check-list&#34;&gt;Check List&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 1&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 1.
+This is some extra content for item 1.&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2.
 &lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2a&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2b&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2a.&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2b.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 3&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 3.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;definition-list&#34;&gt;Definition list&lt;/h2&gt;
+&lt;h3 id=&#34;definition-list&#34;&gt;Definition list&lt;/h3&gt;
 &lt;dl&gt;
 &lt;dt&gt;Name&lt;/dt&gt;
 &lt;dd&gt;Godzilla&lt;/dd&gt;
@@ -116,6 +206,34 @@ This is the second line.&lt;/p&gt;
 &lt;dd&gt;Green&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
+&lt;p&gt;Tables should ideally have its columns aligned in the markdown for clarity in the source.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Artist&lt;/th&gt;
+&lt;th&gt;Album&lt;/th&gt;
+&lt;th&gt;Year&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Michael Jackson&lt;/td&gt;
+&lt;td&gt;Thriller&lt;/td&gt;
+&lt;td&gt;1982&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Prince&lt;/td&gt;
+&lt;td&gt;Purple Rain&lt;/td&gt;
+&lt;td&gt;1984&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Beastie Boys&lt;/td&gt;
+&lt;td&gt;License to Ill&lt;/td&gt;
+&lt;td&gt;1986&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;However this will produce the same result.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -149,26 +267,34 @@ This is the second line.&lt;/p&gt;
 &lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites&#34;&gt;link&lt;/a&gt; link to an anchor on page above this one, using an absolute path, that will be converted to a relative one.&lt;/p&gt;
 &lt;h2 id=&#34;code-highlighting&#34;&gt;Code highlighting&lt;/h2&gt;
 &lt;h3 id=&#34;inline-code&#34;&gt;Inline code&lt;/h3&gt;
-&lt;p&gt;Inline code &lt;code&gt;looks like this&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Inline code &lt;code&gt;looks like this&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;code-blocks&#34;&gt;Code blocks&lt;/h3&gt;
-&lt;p&gt;Code blocks should be surrounded with fences and the code type specified to ensure correct syntax highlighting (if applicable).
-The following are some example of code blocks:&lt;/p&gt;
+&lt;p&gt;Code blocks should be surrounded with fences and the language type &lt;strong&gt;always&lt;/strong&gt; specified to ensure correct syntax highlighting.
+If the language type is not supplied then styling will be different to fenced blocks with a language.
+The list of supported languages can be found &lt;a href=&#34;https://prismjs.com/index.html#supported-languages&#34;&gt;here (external)&lt;/a&gt;.
+If the content of the fenced block has no supported language or is just plain text then use language &lt;code&gt;none&lt;/code&gt; or &lt;code&gt;text&lt;/code&gt;.
+This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.&lt;/p&gt;
+&lt;p&gt;The following are some example of code blocks:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Plain text&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;id,date,time,guid,from_ip,to_ip,application
+&lt;pre&gt;&lt;code class=&#34;language-none&#34;&gt;id,date,time,guid,from_ip,to_ip,application
 1,6/2/2018,10:18,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
 2,12/6/2017,5:58,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
 3,6/7/2018,11:58,fabdeb8a-936f-4e1e-a410-3ca5f2ac3ed6,153.216.143.195,152.3.51.83,Otcom
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;YAML&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#0cf;font-weight:bold&#34;&gt;---&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;root&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;someKey&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Bash&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#366&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#a00&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#033&#34;&gt;VAR&lt;/span&gt;&lt;span style=&#34;color:#a00&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;root&amp;gt;&lt;/span&gt;
-  &lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;child&lt;/span&gt; &lt;span style=&#34;color:#309&#34;&gt;attr=&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;xxx&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;some val&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/child&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#309;font-weight:bold&#34;&gt;&amp;lt;/root&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;alerts&#34;&gt;Alerts&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;YAML&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+root:
+  someKey: &amp;quot;value&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Bash&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;echo &amp;quot;${VAR}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alerts&#34;&gt;Alerts&lt;/h2&gt;
 &lt;h3 id=&#34;warning-block-quote&#34;&gt;Warning block Quote&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
@@ -215,6 +341,67 @@ The following are some example of code blocks:&lt;/p&gt;
 
 &lt;/div&gt;
 
+&lt;h2 id=&#34;cards&#34;&gt;Cards&lt;/h2&gt;
+&lt;p&gt;Cards can be used to display related conent side by side.
+Each card can contain markdown and/or Hugo short codes.
+The cards will be displayed horizopntally across the page.&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        YAML
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+root:
+  someKey: &amp;quot;value&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        XML
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+&lt;/div&gt;
 
       </description>
     </item>
@@ -235,7 +422,8 @@ For the short code to work the page must be a leaf bundle (&lt;code&gt;index.md&
    /MyPage
       index.md - #image shortcode used in here
       example.svg
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;/docs
    /MySection
       /Page1
@@ -245,6 +433,7 @@ For the short code to work the page must be a leaf bundle (&lt;code&gt;index.md&
       _index.md - #image shortcode used in here
       example.svg
 &lt;/code&gt;&lt;/pre&gt;
+
 
 
 
@@ -367,6 +556,7 @@ The image path is relative to &lt;code&gt;/assets/images/&lt;/code&gt;, e.g. fil
 
 
 
+
   
   
   
@@ -403,20 +593,22 @@ And this is another line.
 The diagrams are written in plain text which makes them easy to version control.
 The plantUML syntax can then be converted into image files, e.g. .svg files.&lt;/p&gt;
 &lt;p&gt;A plantUML diagram looks like this in plain text form:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-plantuml&#34; data-lang=&#34;plantuml&#34;&gt;@startuml
+&lt;pre&gt;&lt;code class=&#34;language-plantuml&#34;&gt;@startuml
 Alice -&amp;gt; Bob: Authentication Request
 Bob --&amp;gt; Alice: Authentication Response
 
 Alice -&amp;gt; Bob: Another authentication Request
 Alice &amp;lt;-- Bob: Another authentication Response
 @enduml
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;PlantUML diagrams should be saved in a dedicated &lt;code&gt;.puml&lt;/code&gt; file in the same folder as the page that will display it.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;PlantUML diagrams should be saved in a dedicated &lt;code&gt;.puml&lt;/code&gt; file in the same folder as the page that will display it.
 If it is needed by multiple pages then it should be saved in &lt;code&gt;/assets/images/&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The build process will convert all &lt;code&gt;.puml&lt;/code&gt; files to a corresponding &lt;code&gt;.puml.svg&lt;/code&gt; file.
 These generated &lt;code&gt;.puml.svg&lt;/code&gt; files are ignored by git so need to be regenerated at build time or when you change a &lt;code&gt;.puml&lt;/code&gt; file.
 The images can be generated by doing:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./container_build/runInPumlDocker.sh SVG
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You should embed an PlantUML image like this, using the &lt;code&gt;.puml.svg&lt;/code&gt; file (that may not yet exist, but will have to exist before the site is built):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInPumlDocker.sh SVG
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You should embed an PlantUML image like this, using the &lt;code&gt;.puml.svg&lt;/code&gt; file (that may not yet exist, but will have to exist before the site is built):&lt;/p&gt;
 
 
 

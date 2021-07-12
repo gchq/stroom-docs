@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.84.4" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<meta name="generator" content="Hugo 0.85.0" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
 <link rel="shortcut icon" href="/stroom-docs/hugo-docsy/favicons/favicon.ico" >
@@ -17,27 +17,24 @@
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
 
-<title>Stroom</title>
-<meta name="description" content="A Stroom example site"><meta property="og:title" content="" />
-<meta property="og:description" content="Stroom HOWTO - Apache Httpd/Mod_JK configuration for Stroom The following is a HOWTO to assist users in configuring Apache&rsquo;s HTTPD with Mod_JK for Stroom.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) the security of the HTTPD deployment should be reviewed for a production environment.  Installation of Apache httpd and Mod_JK Software To deploy Stroom using Apache&rsquo;s httpd web service as a front end (https) and Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications, we also need" />
+<title>Apache Httpd/Mod_JK configuration for Stroom | Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="Apache Httpd/Mod_JK configuration for Stroom" />
+<meta property="og:description" content="The following is a HOWTO to assist users in configuring Apache&#39;s HTTPD with Mod_JK for Stroom.
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-12T11:18:54+01:00" /><meta property="og:site_name" content="Stroom" />
 
-<meta property="article:modified_time" content="2021-07-09T16:24:55+01:00" /><meta property="og:site_name" content="Stroom" />
-
-<meta itemprop="name" content="">
-<meta itemprop="description" content="Stroom HOWTO - Apache Httpd/Mod_JK configuration for Stroom The following is a HOWTO to assist users in configuring Apache&rsquo;s HTTPD with Mod_JK for Stroom.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) the security of the HTTPD deployment should be reviewed for a production environment.  Installation of Apache httpd and Mod_JK Software To deploy Stroom using Apache&rsquo;s httpd web service as a front end (https) and Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications, we also need">
-<meta itemprop="dateModified" content="2021-07-09T16:24:55+01:00" />
-<meta itemprop="wordCount" content="4064">
-<meta itemprop="keywords" content="howto," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Stroom HOWTO - Apache Httpd/Mod_JK configuration for Stroom The following is a HOWTO to assist users in configuring Apache&rsquo;s HTTPD with Mod_JK for Stroom.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) the security of the HTTPD deployment should be reviewed for a production environment.  Installation of Apache httpd and Mod_JK Software To deploy Stroom using Apache&rsquo;s httpd web service as a front end (https) and Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications, we also need"/>
+<meta itemprop="name" content="Apache Httpd/Mod_JK configuration for Stroom">
+<meta itemprop="description" content="The following is a HOWTO to assist users in configuring Apache&#39;s HTTPD with Mod_JK for Stroom.
+"><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-12T11:18:54+01:00" />
+<meta itemprop="wordCount" content="4040">
+<meta itemprop="keywords" content="httpd,installation," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Apache Httpd/Mod_JK configuration for Stroom"/>
+<meta name="twitter:description" content="The following is a HOWTO to assist users in configuring Apache&#39;s HTTPD with Mod_JK for Stroom.
+"/>
 
 
 
@@ -56,6 +53,9 @@ Assumptions The following assumptions are used in this document.
   integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
   crossorigin="anonymous"></script>
 
+
+
+<link rel="stylesheet" href="/stroom-docs/hugo-docsy/css/prism.css"/>
 
 
 
@@ -159,7 +159,7 @@ Assumptions The following assumptions are used in this document.
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -194,7 +194,7 @@ Assumptions The following assumptions are used in this document.
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -428,6 +428,507 @@ Assumptions The following assumptions are used in this document.
     
       
       <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocshowtosinstall-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosinstall"><span class="">Installation</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" title="Apache Httpd/Mod_JK configuration for Stroom" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class="td-sidebar-nav-active-item">Apache Httpd/Mod_JK</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class="">Database Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class="">Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" title="Installation of Stroom Application" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class="">Installation of Stroom</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class="">Installation of Stroom Proxy</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" title="NFS Installation and Configuration" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class="">NFS</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" title="Node Cluster URL Setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class="">Node Cluster</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" title="Processing User setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class="">Processing User</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class="">SSL Certificate Generation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class="">Testing Stroom Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class="">Volume Maintenance</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosreferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosreferencefeeds"><span class="">Reference Feeds</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeeds/" title="Create a Simple Reference Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds"><span class="">Create a Reference Feed</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtossearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtossearch"><span class="">Search</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class="">Elasticsearch integration</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class="">Search API</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class="">Solr integration</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
         
           
             
@@ -795,411 +1296,6 @@ Assumptions The following assumptions are used in this document.
           
         
       </ul>
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class="td-sidebar-nav-active-item"></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class=""></span></a>
-    
     
   </li>
 
@@ -2015,7 +2111,7 @@ Assumptions The following assumptions are used in this document.
 
     <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/HOWTOs/Install/InstallHttpdHowTo.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
     <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/HOWTOs/Install/InstallHttpdHowTo.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
-    <a href="https://github.com/gchq/stroom-docs/issues/new?title=" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    <a href="https://github.com/gchq/stroom-docs/issues/new?title=Apache%20Httpd/Mod_JK%20configuration%20for%20Stroom" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
     
       
       <a href="https://github.com/gchq/stroom/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -2023,7 +2119,7 @@ Assumptions The following assumptions are used in this document.
 
   
   
-    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
   
   </div>
 
@@ -2091,29 +2187,45 @@ Assumptions The following assumptions are used in this document.
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/certificates/" data-taxonomy-term="certificates"><span class="taxonomy-label">certificates</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/cluster/" data-taxonomy-term="cluster"><span class="taxonomy-label">cluster</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span><span class="taxonomy-count">15</span></a></li>
-        
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/jobs/" data-taxonomy-term="jobs"><span class="taxonomy-label">jobs</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/" data-taxonomy-term="properties"><span class="taxonomy-label">properties</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
         
@@ -2121,9 +2233,13 @@ Assumptions The following assumptions are used in this document.
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/tasks/" data-taxonomy-term="tasks"><span class="taxonomy-label">tasks</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/users/" data-taxonomy-term="users"><span class="taxonomy-label">users</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/volumes/" data-taxonomy-term="volumes"><span class="taxonomy-label">volumes</span><span class="taxonomy-count">1</span></a></li>
         
       </ul>
     </div>
@@ -2149,6 +2265,9 @@ Assumptions The following assumptions are used in this document.
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/">Documentation</a>
 </li>
@@ -2163,8 +2282,15 @@ Assumptions The following assumptions are used in this document.
 
 
 
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/">Installation</a>
+</li>
+
+
+
+
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/"></a>
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/">Apache Httpd/Mod_JK</a>
 </li>
 
 	</ol>
@@ -2172,8 +2298,8 @@ Assumptions The following assumptions are used in this document.
 
             
 <div class="td-content">
-	<h1></h1>
-	
+	<h1>Apache Httpd/Mod_JK configuration for Stroom</h1>
+	<div class="lead">The following is a HOWTO to assist users in configuring Apache&rsquo;s HTTPD with Mod_JK for Stroom.</div>
 	<header class="article-meta">
 		
 		
@@ -2189,7 +2315,9 @@ Assumptions The following assumptions are used in this document.
   <h5 class="taxonomy-title">Tags:</h5>
   <ul class="taxonomy-terms">
     
-      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span></a></li>
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span></a></li>
+    
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span></a></li>
     
   </ul>
 </div>
@@ -2198,9 +2326,7 @@ Assumptions The following assumptions are used in this document.
 		
 		
 	</header>    
-	<h1 id="stroom-howto---apache-httpdmod_jk-configuration-for-stroom">Stroom HOWTO - Apache Httpd/Mod_JK configuration for Stroom</h1>
-<p>The following is a HOWTO to assist users in configuring Apache&rsquo;s HTTPD with Mod_JK for Stroom.</p>
-<h2 id="assumptions">Assumptions</h2>
+	<h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
 <li>the user has reasonable RHEL/Centos System administration skills</li>
@@ -2222,44 +2348,48 @@ Assumptions The following assumptions are used in this document.
 <li>apache&rsquo;s mod_jk tomcat connector plugin</li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
+<pre><code class="language-bash">sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
 sudo yum -y install tomcat-native
-</code></pre></div><p>The reason for the distinct <code>tomcat-native</code> installation is that this package is from the <a href="https://fedoraproject.org/wiki/EPEL" title="Extra Packages for Enterprise Linux (EPEL)">EPEL (external link)</a> repository so it must be installed first.</p>
+</code></pre>
+<p>The reason for the distinct <code>tomcat-native</code> installation is that this package is from the <a href="https://fedoraproject.org/wiki/EPEL" title="Extra Packages for Enterprise Linux (EPEL)">EPEL (external link)</a> repository so it must be installed first.</p>
 <p>For the Apache mod_jk Tomcat connector we need to acquire a recent
 <a href="http://tomcat.apache.org/connectors-doc/" title="The Apache Tomcat Connectors: mod_jk, ISAPI redirector, NSAPI redirector">release (external link)</a> and install it.
 The following commands achieve this for the 1.2.42 release.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo bash
-<span style="color:#366">cd</span> /tmp
-<span style="color:#033">V</span><span style="color:#555">=</span>1.2.42
-wget https://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-<span style="color:#a00">${</span><span style="color:#033">V</span><span style="color:#a00">}</span>-src.tar.gz
-tar xf tomcat-connectors-<span style="color:#a00">${</span><span style="color:#033">V</span><span style="color:#a00">}</span>-src.tar.gz
-<span style="color:#366">cd</span> tomcat-connectors-*-src/native
-./configure --with-apxs<span style="color:#555">=</span>/bin/apxs
-make <span style="color:#555">&amp;&amp;</span> make install
-<span style="color:#366">cd</span> /tmp
+<pre><code class="language-bash">sudo bash
+cd /tmp
+V=1.2.42
+wget https://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-${V}-src.tar.gz
+tar xf tomcat-connectors-${V}-src.tar.gz
+cd tomcat-connectors-*-src/native
+./configure --with-apxs=/bin/apxs
+make &amp;&amp; make install
+cd /tmp
 rm -rf tomcat-connectors-*-src
-</code></pre></div><p>Although you could remove the gcc compiler at this point, we leave it installed as one <em>should</em> continue to upgrade the Tomcat Connectors to later releases.</p>
+</code></pre>
+<p>Although you could remove the gcc compiler at this point, we leave it installed as one <em>should</em> continue to upgrade the Tomcat Connectors to later releases.</p>
 <h2 id="configure-apache-httpd">Configure Apache httpd</h2>
 <p>We need to configure Apache as the <code>root</code> user.</p>
 <p>If the Apache httpd service is &lsquo;fronting&rsquo; a Stroom user interface, we should create an index file (/var/www/html/index.html) on all nodes so browsing to
 the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.</p>
 <h3 id="forwarding-file-for-stroom-user-interface-deployments">Forwarding file for Stroom User Interface deployments</h3>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">F</span><span style="color:#555">=</span>/var/www/html/index.html
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;html&gt;\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;head&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  &lt;meta http-equiv=&#34;Refresh&#34; content=&#34;0; URL=stroom&#34;/&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;/head&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;/html&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-chmod <span style="color:#f60">644</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-</code></pre></div><p>Remember, deploy this file on all nodes running the Stroom Application.</p>
+<pre><code class="language-bash">F=/var/www/html/index.html
+printf '&lt;html&gt;\n' &gt; ${F}
+printf '&lt;head&gt;\n' &gt;&gt; ${F}
+printf '  &lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;/&gt;\n' &gt;&gt; ${F}
+printf '&lt;/head&gt;\n' &gt;&gt; ${F}
+printf '&lt;/html&gt;\n' &gt;&gt; ${F}
+chmod 644 ${F}
+</code></pre>
+<p>Remember, deploy this file on all nodes running the Stroom Application.</p>
 <h3 id="httpdconf-configuration">Httpd.conf Configuration</h3>
 <p>We modify <code>/etc/httpd/conf/httpd.conf</code> on all nodes, but backup the file first with</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
-</code></pre></div><p>Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
+<pre><code class="language-bash">cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
+</code></pre>
+<p>Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
 Stroom Proxy, the configuration of the <code>/etc/httpd/conf/httpd.conf</code> file is the same.</p>
 <p>We start by modify the configuration file by,
 add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.</p>
-<pre><code># Stroom Change: Start - Apply generic security directives
+<pre><code class="language-text"># Stroom Change: Start - Apply generic security directives
 ServerTokens Prod
 ServerSignature Off
 FileETag None
@@ -2268,7 +2398,8 @@ RewriteCond %{THE_REQUEST} !HTTP/1.1$
 RewriteRule .* - [F]
 Header set X-XSS-Protection &quot;1; mode=block&quot;
 # Stroom Change: End
-</code></pre><p>That is,</p>
+</code></pre>
+<p>That is,</p>
 <pre><code>...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
@@ -2281,7 +2412,8 @@ ServerRoot &quot;/etc/httpd&quot;
 #
 # Listen: Allows you to bind Apache to specific IP addresses and/or
 ...
-</code></pre><p>becomes</p>
+</code></pre>
+<p>becomes</p>
 <pre><code>...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
@@ -2303,13 +2435,15 @@ ServerRoot &quot;/etc/httpd&quot;
 #
 # Listen: Allows you to bind Apache to specific IP addresses and/or
 ...
-</code></pre><p>We now block access to the /var/www directory by commenting out</p>
+</code></pre>
+<p>We now block access to the /var/www directory by commenting out</p>
 <pre><code>&lt;Directory &quot;/var/www&quot;&gt;
   AllowOverride None
   # Allow open access:
   Require all granted
 &lt;/Directory&gt;
-</code></pre><p>that is</p>
+</code></pre>
+<p>that is</p>
 <pre><code>...
 #
 # Relax access to content within /var/www.
@@ -2322,7 +2456,8 @@ ServerRoot &quot;/etc/httpd&quot;
 
 # Further relax access to the default document root:
 ...
-</code></pre><p>becomes</p>
+</code></pre>
+<p>becomes</p>
 <pre><code>...
 #
 # Relax access to content within /var/www.
@@ -2337,9 +2472,11 @@ ServerRoot &quot;/etc/httpd&quot;
 
 # Further relax access to the default document root:
 ...
-</code></pre><p>then within the /var/www/html directory turn off Indexes FollowSymLinks by commenting out the line</p>
+</code></pre>
+<p>then within the /var/www/html directory turn off Indexes FollowSymLinks by commenting out the line</p>
 <pre><code>Options Indexes FollowSymLinks
-</code></pre><p>That is</p>
+</code></pre>
+<p>That is</p>
 <pre><code>...
     # The Options directive is both complicated and important.  Please see
     # http://httpd.apache.org/docs/2.4/mod/core.html#options
@@ -2351,7 +2488,8 @@ ServerRoot &quot;/etc/httpd&quot;
     # AllowOverride controls what directives may be placed in .htaccess files.
     # It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:
 ...
-</code></pre><p>becomes</p>
+</code></pre>
+<p>becomes</p>
 <pre><code>...
     # The Options directive is both complicated and important.  Please see
     # http://httpd.apache.org/docs/2.4/mod/core.html#options
@@ -2365,14 +2503,18 @@ ServerRoot &quot;/etc/httpd&quot;
     # AllowOverride controls what directives may be placed in .htaccess files.
     # It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:
 ...
-</code></pre><p>Then finally we add two new log formats and configure the access log to use the new format. This is done within the <code>&lt;IfModule logio_module&gt;</code> by adding the two new LogFormat directives</p>
+</code></pre>
+<p>Then finally we add two new log formats and configure the access log to use the new format. This is done within the <code>&lt;IfModule logio_module&gt;</code> by adding the two new LogFormat directives</p>
 <pre><code>LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%u\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxUser
 LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxSSLUser
-</code></pre><p>and replacing the CustomLog directive</p>
+</code></pre>
+<p>and replacing the CustomLog directive</p>
 <pre><code>CustomLog &quot;logs/access_log&quot; combined
-</code></pre><p>with</p>
+</code></pre>
+<p>with</p>
 <pre><code>CustomLog logs/access_log blackboxSSLUser
-</code></pre><p>That is</p>
+</code></pre>
+<p>That is</p>
 <pre><code>...
     LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
 
@@ -2397,7 +2539,8 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
     CustomLog &quot;logs/access_log&quot; combined
 &lt;/IfModule&gt;
 ...
-</code></pre><p>becomes</p>
+</code></pre>
+<p>becomes</p>
 <pre><code>...
     LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
 
@@ -2435,11 +2578,13 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
     # Stroom Change: End
 &lt;/IfModule&gt;
 ...
-</code></pre><p>Remember, deploy this file on all nodes.</p>
+</code></pre>
+<p>Remember, deploy this file on all nodes.</p>
 <h3 id="configuration-of-sslconf">Configuration of ssl.conf</h3>
 <p>We modify <code>/etc/httpd/conf.d/ssl.conf</code> on all nodes, backing up first,</p>
-<pre><code class="language-base" data-lang="base">cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG
-</code></pre><p>The configuration of the <code>/etc/httpd/conf.d/ssl.conf</code> <strong>does</strong> change depending on the Stroom scenario deployed. In the following we will indicate
+<pre><code class="language-base">cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG
+</code></pre>
+<p>The configuration of the <code>/etc/httpd/conf.d/ssl.conf</code> <strong>does</strong> change depending on the Stroom scenario deployed. In the following we will indicate
 differences by tagged sub-headings. If the configuration applies irrespective of scenario, then <strong>All scenarios</strong> is the tag, else the tag indicated the
 type of Stroom deployment.</p>
 <h4 id="sslconf-http-to-https-redirection---all-scenarios">ssl.conf: HTTP to HTTPS Redirection - All scenarios</h4>
@@ -2448,14 +2593,16 @@ type of Stroom deployment.</p>
   ServerName stroomp00.strmdev00.org
   Redirect permanent &quot;/&quot; &quot;https://stroomp00.strmdev00.org/&quot;
 &lt;/VirtualHost&gt;
-</code></pre><p>That is, we change</p>
+</code></pre>
+<p>That is, we change</p>
 <pre><code>...
 ## SSL Virtual Host Context
 ##
 
 &lt;VirtualHost _default_:443&gt;
 ...
-</code></pre><p>to</p>
+</code></pre>
+<p>to</p>
 <pre><code>...
 ## SSL Virtual Host Context
 ##
@@ -2468,7 +2615,8 @@ type of Stroom deployment.</p>
 # Stroom Change: End
 
 &lt;VirtualHost _default_:443&gt;
-</code></pre><h4 id="sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</h4>
+</code></pre>
+<h4 id="sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</h4>
 <p>Within the <VirtualHost _default_:443> context we set the directives, in this case, we use the CNAME <code>stroomp.strmdev00.org</code></p>
 <pre><code>ServerName stroomp.strmdev00.org
 JkMount /stroom* loadbalancer
@@ -2477,7 +2625,8 @@ JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom/remoting* loadbalancer_proxy
 JkMount /stroom/datafeed/direct* loadbalancer
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
-</code></pre><p>That is, we change</p>
+</code></pre>
+<p>That is, we change</p>
 <pre><code>...
 &lt;VirtualHost _default_:443&gt;
 
@@ -2488,7 +2637,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # Use separate log files for the SSL virtual host; note that LogLevel
 # is not inherited from httpd.conf.
 ...
-</code></pre><p>to</p>
+</code></pre>
+<p>to</p>
 <pre><code>...
 &lt;VirtualHost _default_:443&gt;
 
@@ -2508,12 +2658,14 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # Use separate log files for the SSL virtual host; note that LogLevel
 # is not inherited from httpd.conf.
 ...
-</code></pre><h4 id="sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment">ssl.conf: VirtualHost directives - Standalone or Forwarding Proxy deployment</h4>
+</code></pre>
+<h4 id="sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment">ssl.conf: VirtualHost directives - Standalone or Forwarding Proxy deployment</h4>
 <p>Within the <VirtualHost _default_:443> context set the directives, in this case, for a node named say <code>stroomfp0.strmdev00.org</code></p>
 <pre><code>ServerName stroomfp0.strmdev00.org
 JkMount /stroom/datafeed* local_proxy
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
-</code></pre><p>That is, we change</p>
+</code></pre>
+<p>That is, we change</p>
 <pre><code>...
 &lt;VirtualHost _default_:443&gt;
 
@@ -2524,7 +2676,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # Use separate log files for the SSL virtual host; note that LogLevel
 # is not inherited from httpd.conf.
 ...
-</code></pre><p>to</p>
+</code></pre>
+<p>to</p>
 <pre><code>...
 &lt;VirtualHost _default_:443&gt;
 
@@ -2540,7 +2693,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # Use separate log files for the SSL virtual host; note that LogLevel
 # is not inherited from httpd.conf.
 ...
-</code></pre><h4 id="sslconf-virtualhost-directives---single-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</h4>
+</code></pre>
+<h4 id="sslconf-virtualhost-directives---single-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</h4>
 <p>Within the <VirtualHost _default_:443> context set the directives, in this case, for a node name <code>stroomp00.strmdev00.org</code></p>
 <pre><code>ServerName stroomp00.strmdev00.org
 JkMount /stroom* local
@@ -2549,7 +2703,8 @@ JkMount /stroom/datafeed* local_proxy
 JkMount /stroom/remoting* local_proxy
 JkMount /stroom/datafeed/direct* local
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
-</code></pre><p>That is, we change</p>
+</code></pre>
+<p>That is, we change</p>
 <pre><code>...
 &lt;VirtualHost _default_:443&gt;
 
@@ -2560,7 +2715,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # Use separate log files for the SSL virtual host; note that LogLevel
 # is not inherited from httpd.conf.
 ...
-</code></pre><p>to</p>
+</code></pre>
+<p>to</p>
 <pre><code>...
 &lt;VirtualHost _default_:443&gt;
 
@@ -2580,17 +2736,22 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # Use separate log files for the SSL virtual host; note that LogLevel
 # is not inherited from httpd.conf.
 ...
-</code></pre><h4 id="sslconf-certificate-file-changes---all-scenarios">ssl.conf: Certificate file changes - All scenarios</h4>
+</code></pre>
+<h4 id="sslconf-certificate-file-changes---all-scenarios">ssl.conf: Certificate file changes - All scenarios</h4>
 <p>We replace the standard certificate files with the generated certificates. In the example below, we are using the multi node scenario, in
 that the key file names are <code>stroomp.crt</code> and <code>stroomp.key</code>. For other scenarios, use the appropriate file names generated. We replace</p>
 <pre><code>SSLCertificateFile /etc/pki/tls/certs/localhost.crt
-</code></pre><p>with</p>
+</code></pre>
+<p>with</p>
 <pre><code>SSLCertificateFile /home/stroomuser/stroom-jks/public/stroomp.crt
-</code></pre><p>and</p>
+</code></pre>
+<p>and</p>
 <pre><code>SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
-</code></pre><p>with</p>
+</code></pre>
+<p>with</p>
 <pre><code>SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
-</code></pre><p>That is, change</p>
+</code></pre>
+<p>That is, change</p>
 <pre><code>...
 # pass phrase.  Note that a kill -HUP will prompt again.  A new
 # certificate can be generated using the genkey(1) command.
@@ -2606,7 +2767,8 @@ SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 #   Server Certificate Chain:
 #   Point SSLCertificateChainFile at a file containing the
 ...
-</code></pre><p>to</p>
+</code></pre>
+<p>to</p>
 <pre><code>...
 # pass phrase.  Note that a kill -HUP will prompt again.  A new
 # certificate can be generated using the genkey(1) command.
@@ -2628,13 +2790,16 @@ SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 #   Server Certificate Chain:
 #   Point SSLCertificateChainFile at a file containing the
 ...
-</code></pre><h4 id="sslconf-certificate-bundleno-ca-verification---all-scenarios">ssl.conf: Certificate Bundle/NO-CA Verification - All scenarios</h4>
+</code></pre>
+<h4 id="sslconf-certificate-bundleno-ca-verification---all-scenarios">ssl.conf: Certificate Bundle/NO-CA Verification - All scenarios</h4>
 <p>If you have signed your Stroom server certificate with a Certificate Authority, then change</p>
 <pre><code>SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
-</code></pre><p>to be your own certificate bundle which you should probably store as <code>~stroomuser/stroom-jks/public/stroomp-ca-bundle.crt</code>.</p>
+</code></pre>
+<p>to be your own certificate bundle which you should probably store as <code>~stroomuser/stroom-jks/public/stroomp-ca-bundle.crt</code>.</p>
 <p>Now if you are using a self signed certificate, you will need to set the Client Authentication to have a value of</p>
 <pre><code>SSLVerifyClient optional_no_ca
-</code></pre><p>noting that this may change if you actually use a CA.
+</code></pre>
+<p>noting that this may change if you actually use a CA.
 That is, changing</p>
 <pre><code>...
 #   Client Authentication (Type):
@@ -2648,7 +2813,8 @@ That is, changing</p>
 #   Access Control:
 #   With SSLRequire you can do per-directory access control based
 ...
-</code></pre><p>to</p>
+</code></pre>
+<p>to</p>
 <pre><code>...
 #   Client Authentication (Type):
 #   Client certificate verification type and depth.  Types are
@@ -2664,19 +2830,22 @@ SSLVerifyClient optional_no_ca
 #   Access Control:
 #   With SSLRequire you can do per-directory access control based
 ...
-</code></pre><h4 id="sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy">ssl.conf: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</h4>
+</code></pre>
+<h4 id="sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy">ssl.conf: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</h4>
 <p>We now need to secure certain Stroom Application servlets, to ensure they are only accessed under appropriate control.</p>
 <p>This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost). We achieve this by adding after the example Location directives</p>
 <pre><code>&lt;Location ~ &quot;stroom/(status|echo|sessionList|debug)&quot; &gt;
  Require all denied
  Require ip 127.0.0.1 192.168.2
 &lt;/Location&gt;
-</code></pre><p>We further restrict the clustercall and export servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.</p>
+</code></pre>
+<p>We further restrict the clustercall and export servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.</p>
 <pre><code>&lt;Location ~ &quot;stroom/export/|stroom/remoting/clustercall.rpc&quot; &gt;
  Require all denied
  Require ip 127.0.0.1 192.168.2
 &lt;/Location&gt;
-</code></pre><p>That is, the following</p>
+</code></pre>
+<p>That is, the following</p>
 <pre><code>...
 #            and %{TIME_WDAY} &gt;= 1 and %{TIME_WDAY} &lt;= 5 \
 #            and %{TIME_HOUR} &gt;= 8 and %{TIME_HOUR} &lt;= 20       ) \
@@ -2687,7 +2856,8 @@ SSLVerifyClient optional_no_ca
 #   Set various options for the SSL engine.
 #   o FakeBasicAuth:
 ...
-</code></pre><p>changes to</p>
+</code></pre>
+<p>changes to</p>
 <pre><code>...
 #            and %{TIME_WDAY} &gt;= 1 and %{TIME_WDAY} &lt;= 5 \
 #            and %{TIME_HOUR} &gt;= 8 and %{TIME_HOUR} &lt;= 20       ) \
@@ -2710,13 +2880,16 @@ SSLVerifyClient optional_no_ca
 #   Set various options for the SSL engine.
 #   o FakeBasicAuth:
 ...
-</code></pre><h4 id="sslconf-log-formats---all-scenarios">ssl.conf: Log formats - All scenarios</h4>
+</code></pre>
+<h4 id="sslconf-log-formats---all-scenarios">ssl.conf: Log formats - All scenarios</h4>
 <p>Finally, as we make use of the Black Box Apache log format, we replace the standard format</p>
 <pre><code>CustomLog logs/ssl_request_log \
         &quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&quot;%r\&quot; %b&quot;
-</code></pre><p>with</p>
+</code></pre>
+<p>with</p>
 <pre><code>CustomLog logs/ssl_request_log blackboxSSLUser
-</code></pre><p>That is, change</p>
+</code></pre>
+<p>That is, change</p>
 <pre><code>...
 #   Per-Server Logging:
 #   The home of a custom SSL log file. Use this when you want a
@@ -2725,7 +2898,8 @@ CustomLog logs/ssl_request_log \
           &quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&quot;%r\&quot; %b&quot;
 
 &lt;/VirtualHost&gt;
-</code></pre><p>to</p>
+</code></pre>
+<p>to</p>
 <pre><code>...
 #   Per-Server Logging:
 #   The home of a custom SSL log file. Use this when you want a
@@ -2737,7 +2911,8 @@ CustomLog logs/ssl_request_log blackboxSSLUser
 # Stroom Change: End
 
 &lt;/VirtualHost&gt;
-</code></pre><p>Remember, in the case of Multi node stroom Application servers, deploy this file on all servers.</p>
+</code></pre>
+<p>Remember, in the case of Multi node stroom Application servers, deploy this file on all servers.</p>
 <h3 id="apache-mod_jk-configuration">Apache Mod_JK configuration</h3>
 <p>Apache Mod_JK has two configuration files</p>
 <ul>
@@ -2751,82 +2926,86 @@ The contents of these two configuration files differ depending on the Stroom dep
 <ul>
 <li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">F</span><span style="color:#555">=</span>/etc/httpd/conf.d/mod_jk.conf
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;LoadModule jk_module modules/mod_jk.so\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkWorkersFile conf/workers.properties\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogFile logs/mod_jk.log\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogLevel info\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogStampFormat  &#34;[%%a %%b %%d %%H:%%M:%%S %%Y]&#34;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkRequestLogFormat &#34;%%w %%V %%T&#34;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom* loadbalancer\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/remoting/cluster* local\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/datafeed* loadbalancer_proxy\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/remoting* loadbalancer_proxy\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/datafeed/direct* loadbalancer\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# The following makes use of the existing /run/httpd directory\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkShmFile run/jk.shm\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;Location /jkstatus/&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  JkMount status\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Order deny,allow\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Deny from all\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Allow from 127.0.0.1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;/Location&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-chmod <span style="color:#f60">640</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-</code></pre></div><ul>
+<pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
+printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
+printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
+printf 'JkLogFile logs/mod_jk.log\n' &gt;&gt; ${F}
+printf 'JkLogLevel info\n' &gt;&gt; ${F}
+printf 'JkLogStampFormat  &quot;[%%a %%b %%d %%H:%%M:%%S %%Y]&quot;\n' &gt;&gt; ${F}
+printf 'JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n' &gt;&gt; ${F}
+printf 'JkRequestLogFormat &quot;%%w %%V %%T&quot;\n' &gt;&gt; ${F}
+printf 'JkMount /stroom* loadbalancer\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/remoting/cluster* local\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/datafeed* loadbalancer_proxy\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/remoting* loadbalancer_proxy\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/datafeed/direct* loadbalancer\n' &gt;&gt; ${F}
+printf '# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n' &gt;&gt; ${F}
+printf '# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n' &gt;&gt; ${F}
+printf '# The following makes use of the existing /run/httpd directory\n' &gt;&gt; ${F}
+printf 'JkShmFile run/jk.shm\n' &gt;&gt; ${F}
+printf '&lt;Location /jkstatus/&gt;\n' &gt;&gt; ${F}
+printf '  JkMount status\n' &gt;&gt; ${F}
+printf '  Order deny,allow\n' &gt;&gt; ${F}
+printf '  Deny from all\n' &gt;&gt; ${F}
+printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
+printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
+chmod 640 ${F}
+</code></pre>
+<ul>
 <li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
 </ul>
 <p>Since we are deploying for a cluster with load balancing, we need a <em>workers.properties</em> file per node. Executing the following will result in two files (<em>workers.properties.stroomp00</em> and <em>workers.properties.stroomp01</em>) which should be deployed to their respective servers.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">cd</span> /tmp
-<span style="color:#09f;font-style:italic"># Set the list of nodes</span>
-<span style="color:#033">Nodes</span><span style="color:#555">=</span><span style="color:#c30">&#34;stroomp00.strmdev00.org stroomp01.strmdev00.org&#34;</span>
-<span style="color:#069;font-weight:bold">for</span> oN in <span style="color:#a00">${</span><span style="color:#033">Nodes</span><span style="color:#a00">}</span>; <span style="color:#069;font-weight:bold">do</span>
-  <span style="color:#033">_n</span><span style="color:#555">=</span><span style="color:#c30">`</span><span style="color:#366">echo</span> <span style="color:#a00">${</span><span style="color:#033">oN</span><span style="color:#a00">}</span> | cut -f1 -d<span style="color:#c30;font-weight:bold">\.</span><span style="color:#c30">`</span>
-  <span style="color:#555">(</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;# Workers.properties for Stroom Cluster member: %s %s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">oN</span><span style="color:#a00">}</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.list=loadbalancer,loadbalancer_proxy,local,local_proxy,status\n&#39;</span>
-  <span style="color:#033">L_t</span><span style="color:#555">=</span><span style="color:#c30">&#34;&#34;</span>
-  <span style="color:#033">Lp_t</span><span style="color:#555">=</span><span style="color:#c30">&#34;&#34;</span>
-  <span style="color:#069;font-weight:bold">for</span> FQDN in <span style="color:#a00">${</span><span style="color:#033">Nodes</span><span style="color:#a00">}</span>; <span style="color:#069;font-weight:bold">do</span>
-    <span style="color:#033">N</span><span style="color:#555">=</span><span style="color:#c30">`</span><span style="color:#366">echo</span> <span style="color:#a00">${</span><span style="color:#033">FQDN</span><span style="color:#a00">}</span> | cut -f1 -d<span style="color:#c30;font-weight:bold">\.</span><span style="color:#c30">`</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.port=8009\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.host=%s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> <span style="color:#a00">${</span><span style="color:#033">FQDN</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.type=ajp13\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.lbfactor=1\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.max_packet_size=65536\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.port=9009\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.host=%s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> <span style="color:#a00">${</span><span style="color:#033">FQDN</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.type=ajp13\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.lbfactor=1\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.max_packet_size=65536\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span>
-    <span style="color:#033">L_t</span><span style="color:#555">=</span><span style="color:#c30">&#34;</span><span style="color:#a00">${</span><span style="color:#033">L_t</span><span style="color:#a00">}${</span><span style="color:#033">N</span><span style="color:#a00">}</span><span style="color:#c30">,&#34;</span>
-    <span style="color:#033">Lp_t</span><span style="color:#555">=</span><span style="color:#c30">&#34;</span><span style="color:#a00">${</span><span style="color:#033">Lp_t</span><span style="color:#a00">}${</span><span style="color:#033">N</span><span style="color:#a00">}</span><span style="color:#c30">_proxy,&#34;</span>
-  <span style="color:#069;font-weight:bold">done</span>
-  <span style="color:#033">L</span><span style="color:#555">=</span><span style="color:#c30">`</span><span style="color:#366">echo</span> <span style="color:#033">$L_t</span> | sed -e <span style="color:#c30">&#39;s/.$//&#39;</span><span style="color:#c30">`</span>
-  <span style="color:#033">Lp</span><span style="color:#555">=</span><span style="color:#c30">`</span><span style="color:#366">echo</span> <span style="color:#033">$Lp_t</span> | sed -e <span style="color:#c30">&#39;s/.$//&#39;</span><span style="color:#c30">`</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.loadbalancer.type=lb\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.loadbalancer.balance_workers=%s\n&#39;</span> <span style="color:#033">$L</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.loadbalancer.sticky_session=1\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.loadbalancer_proxy.type=lb\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.loadbalancer_proxy.balance_workers=%s\n&#39;</span> <span style="color:#033">$Lp</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.loadbalancer_proxy.sticky_session=1\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local.type=lb\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local.balance_workers=%s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">_n</span><span style="color:#a00">}</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local.sticky_session=1\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.type=lb\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.balance_workers=%s_proxy\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">_n</span><span style="color:#a00">}</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.sticky_session=1\n&#39;</span>
-  <span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.status.type=status\n&#39;</span>
-  <span style="color:#555">)</span> &gt; workers.properties.<span style="color:#a00">${</span><span style="color:#033">_n</span><span style="color:#a00">}</span>
-  chmod <span style="color:#f60">640</span> workers.properties.<span style="color:#a00">${</span><span style="color:#033">_n</span><span style="color:#a00">}</span>
-<span style="color:#069;font-weight:bold">done</span>
-</code></pre></div><p>Now depending in the node you are on, copy the relevant workers.properties.nodename file to /etc/httpd/conf/workers.properties. The following command makes this simple.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cp workers.properties.<span style="color:#c30">`</span>hostname -s<span style="color:#c30">`</span> /etc/httpd/conf/workers.properties
-</code></pre></div><p>If you were to add an additional node to a multi node cluster, say the node <code>stroomp02.strmdev00.org</code>, then you would re-run the above script with</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">Nodes</span><span style="color:#555">=</span><span style="color:#c30">&#34;stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org&#34;</span>
-</code></pre></div><p>then redeploy all three files to the respective servers. Also note, that for the newly created workers.properties files for the existing nodes to
+<pre><code class="language-bash">cd /tmp
+# Set the list of nodes
+Nodes=&quot;stroomp00.strmdev00.org stroomp01.strmdev00.org&quot;
+for oN in ${Nodes}; do
+  _n=`echo ${oN} | cut -f1 -d\.`
+  (
+  printf '# Workers.properties for Stroom Cluster member: %s %s\n' ${oN}
+  printf 'worker.list=loadbalancer,loadbalancer_proxy,local,local_proxy,status\n'
+  L_t=&quot;&quot;
+  Lp_t=&quot;&quot;
+  for FQDN in ${Nodes}; do
+    N=`echo ${FQDN} | cut -f1 -d\.`
+    printf 'worker.%s.port=8009\n' ${N}
+    printf 'worker.%s.host=%s\n' ${N} ${FQDN}
+    printf 'worker.%s.type=ajp13\n' ${N}
+    printf 'worker.%s.lbfactor=1\n' ${N}
+    printf 'worker.%s.max_packet_size=65536\n' ${N}
+    printf 'worker.%s_proxy.port=9009\n' ${N}
+    printf 'worker.%s_proxy.host=%s\n' ${N} ${FQDN}
+    printf 'worker.%s_proxy.type=ajp13\n' ${N}
+    printf 'worker.%s_proxy.lbfactor=1\n' ${N}
+    printf 'worker.%s_proxy.max_packet_size=65536\n' ${N}
+    L_t=&quot;${L_t}${N},&quot;
+    Lp_t=&quot;${Lp_t}${N}_proxy,&quot;
+  done
+  L=`echo $L_t | sed -e 's/.$//'`
+  Lp=`echo $Lp_t | sed -e 's/.$//'`
+  printf 'worker.loadbalancer.type=lb\n'
+  printf 'worker.loadbalancer.balance_workers=%s\n' $L
+  printf 'worker.loadbalancer.sticky_session=1\n'
+  printf 'worker.loadbalancer_proxy.type=lb\n'
+  printf 'worker.loadbalancer_proxy.balance_workers=%s\n' $Lp
+  printf 'worker.loadbalancer_proxy.sticky_session=1\n'
+  printf 'worker.local.type=lb\n'
+  printf 'worker.local.balance_workers=%s\n' ${_n}
+  printf 'worker.local.sticky_session=1\n'
+  printf 'worker.local_proxy.type=lb\n'
+  printf 'worker.local_proxy.balance_workers=%s_proxy\n' ${_n}
+  printf 'worker.local_proxy.sticky_session=1\n'
+  printf 'worker.status.type=status\n'
+  ) &gt; workers.properties.${_n}
+  chmod 640 workers.properties.${_n}
+done
+</code></pre>
+<p>Now depending in the node you are on, copy the relevant workers.properties.nodename file to /etc/httpd/conf/workers.properties. The following command makes this simple.</p>
+<pre><code class="language-bash">cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
+</code></pre>
+<p>If you were to add an additional node to a multi node cluster, say the node <code>stroomp02.strmdev00.org</code>, then you would re-run the above script with</p>
+<pre><code class="language-bash">Nodes=&quot;stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org&quot;
+</code></pre>
+<p>then redeploy all three files to the respective servers. Also note, that for the newly created workers.properties files for the existing nodes to
 take effect you will need to restart the Apache Httpd service on both nodes.</p>
 <p>Remember, in multi node cluster deployments, the following files are the same and hence can be created on one node, but copied to the
 others not forgetting to backup the other node&rsquo;s original files. That is, the files</p>
@@ -2841,122 +3020,129 @@ others not forgetting to backup the other node&rsquo;s original files. That is, 
 <ul>
 <li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">F</span><span style="color:#555">=</span>/etc/httpd/conf.d/mod_jk.conf
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;LoadModule jk_module modules/mod_jk.so\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkWorkersFile conf/workers.properties\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogFile logs/mod_jk.log\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogLevel info\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogStampFormat  &#34;[%%a %%b %%d %%H:%%M:%%S %%Y]&#34;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkRequestLogFormat &#34;%%w %%V %%T&#34;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/datafeed* local_proxy\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# The following makes use of the existing /run/httpd directory\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkShmFile run/jk.shm\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;Location /jkstatus/&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  JkMount status\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Order deny,allow\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Deny from all\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Allow from 127.0.0.1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;/Location&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-chmod <span style="color:#f60">640</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-</code></pre></div><ul>
+<pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
+printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
+printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
+printf 'JkLogFile logs/mod_jk.log\n' &gt;&gt; ${F}
+printf 'JkLogLevel info\n' &gt;&gt; ${F}
+printf 'JkLogStampFormat  &quot;[%%a %%b %%d %%H:%%M:%%S %%Y]&quot;\n' &gt;&gt; ${F}
+printf 'JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n' &gt;&gt; ${F}
+printf 'JkRequestLogFormat &quot;%%w %%V %%T&quot;\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/datafeed* local_proxy\n' &gt;&gt; ${F}
+printf '# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n' &gt;&gt; ${F}
+printf '# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n' &gt;&gt; ${F}
+printf '# The following makes use of the existing /run/httpd directory\n' &gt;&gt; ${F}
+printf 'JkShmFile run/jk.shm\n' &gt;&gt; ${F}
+printf '&lt;Location /jkstatus/&gt;\n' &gt;&gt; ${F}
+printf '  JkMount status\n' &gt;&gt; ${F}
+printf '  Order deny,allow\n' &gt;&gt; ${F}
+printf '  Deny from all\n' &gt;&gt; ${F}
+printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
+printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
+chmod 640 ${F}
+</code></pre>
+<ul>
 <li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
 </ul>
 <p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. stroomfp0).</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">N</span><span style="color:#555">=</span>stroomfp0
-<span style="color:#033">FQDN</span><span style="color:#555">=</span><span style="color:#c30">`</span>hostname -f<span style="color:#c30">`</span>
-<span style="color:#033">F</span><span style="color:#555">=</span>/etc/httpd/conf/workers.properties
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.list=local_proxy,status\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.port=9009\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.host=%s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> <span style="color:#a00">${</span><span style="color:#033">FQDN</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.type=ajp13\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.lbfactor=1\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.type=lb\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.balance_workers=%s_proxy\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.sticky_session=1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.status.type=status\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-chmod <span style="color:#f60">640</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-</code></pre></div><h4 id="mod_jk-single-node-application-and-proxy-deployment">Mod_JK Single Node Application and Proxy Deployment</h4>
+<pre><code class="language-bash">N=stroomfp0
+FQDN=`hostname -f`
+F=/etc/httpd/conf/workers.properties
+printf 'worker.list=local_proxy,status\n' &gt; ${F}
+printf 'worker.%s_proxy.port=9009\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s_proxy.host=%s\n' ${N} ${FQDN} &gt;&gt; ${F}
+printf 'worker.%s_proxy.type=ajp13\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s_proxy.lbfactor=1\n' ${N} &gt;&gt; ${F}
+printf 'worker.local_proxy.type=lb\n' &gt;&gt; ${F}
+printf 'worker.local_proxy.balance_workers=%s_proxy\n' ${N} &gt;&gt; ${F}
+printf 'worker.local_proxy.sticky_session=1\n' &gt;&gt; ${F}
+printf 'worker.status.type=status\n' &gt;&gt; ${F}
+chmod 640 ${F}
+</code></pre>
+<h4 id="mod_jk-single-node-application-and-proxy-deployment">Mod_JK Single Node Application and Proxy Deployment</h4>
 <p>For a Stroom Single node Application and Proxy server,</p>
 <ul>
 <li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">F</span><span style="color:#555">=</span>/etc/httpd/conf.d/mod_jk.conf
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;LoadModule jk_module modules/mod_jk.so\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkWorkersFile conf/workers.properties\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogFile logs/mod_jk.log\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogLevel info\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkLogStampFormat  &#34;[%%a %%b %%d %%H:%%M:%%S %%Y]&#34;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkRequestLogFormat &#34;%%w %%V %%T&#34;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom* local\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/remoting/cluster* local\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/datafeed* local_proxy\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/remoting* local_proxy\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkMount /stroom/datafeed/direct* local\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;# The following makes use of the existing /run/httpd directory\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;JkShmFile run/jk.shm\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;Location /jkstatus/&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  JkMount status\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Order deny,allow\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Deny from all\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;  Allow from 127.0.0.1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;&lt;/Location&gt;\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-chmod <span style="color:#f60">640</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-</code></pre></div><ul>
+<pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
+printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
+printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
+printf 'JkLogFile logs/mod_jk.log\n' &gt;&gt; ${F}
+printf 'JkLogLevel info\n' &gt;&gt; ${F}
+printf 'JkLogStampFormat  &quot;[%%a %%b %%d %%H:%%M:%%S %%Y]&quot;\n' &gt;&gt; ${F}
+printf 'JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories\n' &gt;&gt; ${F}
+printf 'JkRequestLogFormat &quot;%%w %%V %%T&quot;\n' &gt;&gt; ${F}
+printf 'JkMount /stroom* local\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/remoting/cluster* local\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/datafeed* local_proxy\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/remoting* local_proxy\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/datafeed/direct* local\n' &gt;&gt; ${F}
+printf '# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n' &gt;&gt; ${F}
+printf '# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n' &gt;&gt; ${F}
+printf '# The following makes use of the existing /run/httpd directory\n' &gt;&gt; ${F}
+printf 'JkShmFile run/jk.shm\n' &gt;&gt; ${F}
+printf '&lt;Location /jkstatus/&gt;\n' &gt;&gt; ${F}
+printf '  JkMount status\n' &gt;&gt; ${F}
+printf '  Order deny,allow\n' &gt;&gt; ${F}
+printf '  Deny from all\n' &gt;&gt; ${F}
+printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
+printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
+chmod 640 ${F}
+</code></pre>
+<ul>
 <li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
 </ul>
 <p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. stroomp00).</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">N</span><span style="color:#555">=</span>stroomp00
-<span style="color:#033">FQDN</span><span style="color:#555">=</span><span style="color:#c30">`</span>hostname -f<span style="color:#c30">`</span>
-<span style="color:#033">F</span><span style="color:#555">=</span>/etc/httpd/conf/workers.properties
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.list=local,local_proxy,status\n&#39;</span> &gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.port=8009\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.host=%s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> <span style="color:#a00">${</span><span style="color:#033">FQDN</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.type=ajp13\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.lbfactor=1\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s.max_packet_size=65536\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.port=9009\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.host=%s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> <span style="color:#a00">${</span><span style="color:#033">FQDN</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.type=ajp13\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.lbfactor=1\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.%s_proxy.max_packet_size=65536\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local.type=lb\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local.balance_workers=%s\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local.sticky_session=1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.type=lb\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.balance_workers=%s_proxy\n&#39;</span> <span style="color:#a00">${</span><span style="color:#033">N</span><span style="color:#a00">}</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.local_proxy.sticky_session=1\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-<span style="color:#366">printf</span> <span style="color:#c30">&#39;worker.status.type=status\n&#39;</span> &gt;&gt; <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-chmod <span style="color:#f60">640</span> <span style="color:#a00">${</span><span style="color:#033">F</span><span style="color:#a00">}</span>
-</code></pre></div><h2 id="final-host-configuration-and-web-service-enablement">Final host configuration and web service enablement</h2>
+<pre><code class="language-bash">N=stroomp00
+FQDN=`hostname -f`
+F=/etc/httpd/conf/workers.properties
+printf 'worker.list=local,local_proxy,status\n' &gt; ${F}
+printf 'worker.%s.port=8009\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s.host=%s\n' ${N} ${FQDN} &gt;&gt; ${F}
+printf 'worker.%s.type=ajp13\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s.lbfactor=1\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s.max_packet_size=65536\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s_proxy.port=9009\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s_proxy.host=%s\n' ${N} ${FQDN} &gt;&gt; ${F}
+printf 'worker.%s_proxy.type=ajp13\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s_proxy.lbfactor=1\n' ${N} &gt;&gt; ${F}
+printf 'worker.%s_proxy.max_packet_size=65536\n' ${N} &gt;&gt; ${F}
+printf 'worker.local.type=lb\n' &gt;&gt; ${F}
+printf 'worker.local.balance_workers=%s\n' ${N} &gt;&gt; ${F}
+printf 'worker.local.sticky_session=1\n' &gt;&gt; ${F}
+printf 'worker.local_proxy.type=lb\n' &gt;&gt; ${F}
+printf 'worker.local_proxy.balance_workers=%s_proxy\n' ${N} &gt;&gt; ${F}
+printf 'worker.local_proxy.sticky_session=1\n' &gt;&gt; ${F}
+printf 'worker.status.type=status\n' &gt;&gt; ${F}
+chmod 640 ${F}
+</code></pre>
+<h2 id="final-host-configuration-and-web-service-enablement">Final host configuration and web service enablement</h2>
 <p>Now tidy up the SELinux context for access on all nodes and files via the commands</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">setsebool -P httpd_enable_homedirs on
+<pre><code class="language-bash">setsebool -P httpd_enable_homedirs on
 setsebool -P httpd_can_network_connect on
 chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
 chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties
-</code></pre></div><p>We also enable both http and https services via the firewall on all nodes. If you don&rsquo;t want to present a http access point,
+</code></pre>
+<p>We also enable both http and https services via the firewall on all nodes. If you don&rsquo;t want to present a http access point,
 then don&rsquo;t enable it in the firewall setting. This is done with</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">firewall-cmd --zone<span style="color:#555">=</span>public --add-service<span style="color:#555">=</span>http --permanent
-firewall-cmd --zone<span style="color:#555">=</span>public --add-service<span style="color:#555">=</span>https --permanent
+<pre><code class="language-bash">firewall-cmd --zone=public --add-service=http --permanent
+firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
-firewall-cmd --zone<span style="color:#555">=</span>public --list-all
-</code></pre></div><p>Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
+firewall-cmd --zone=public --list-all
+</code></pre>
+<p>Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
 the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in <code>/var/log/httpd/</code>.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">systemctl <span style="color:#366">enable</span> httpd.service
+<pre><code class="language-bash">systemctl enable httpd.service
 systemctl start httpd.service
-</code></pre></div>
+</code></pre>
+
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
 
     Last modified
-    July 9, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/d3aa4421684510eef91c5062737207b88f72fd01">Migrate HOWTOs (WIP) (d3aa442)</a>
+    July 12, 2021
+    : <a  href="https://github.com/gchq/stroom-docs/commit/5e0c3ffbe3d69862274c7942a93840d6102a1624">Fix HOW TOs section, improve style guide (5e0c3ff)</a>
 
 </div>
 
@@ -3027,6 +3213,9 @@ systemctl start httpd.service
 
 <script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
 
+
+
+<script src='/stroom-docs/hugo-docsy/js/prism.js'></script>
 
 
 

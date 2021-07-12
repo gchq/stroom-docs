@@ -41,8 +41,9 @@
 &lt;h2 id=&#34;installing-stroom-proxy&#34;&gt;Installing Stroom Proxy&lt;/h2&gt;
 &lt;p&gt;As the processing user unpack the stroom-proxy-X-Y-Z-distribution.zip installation files
 in the processing users home directory.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;unzip stroom-proxy-X-Y-Z-distribution.zip
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Stroom Proxy can be setup as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;unzip stroom-proxy-X-Y-Z-distribution.zip
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Stroom Proxy can be setup as follows:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;forward - as an aggregation point to store and forwarding onto another Stroom or Stroom / Proxy&lt;/li&gt;
 &lt;li&gt;store - to front Stroom for data ingest&lt;/li&gt;
@@ -55,46 +56,50 @@ Run the setup script to capture the basic settings required to run Stroom Proxy 
 &lt;strong&gt;This name needs match the name used in your worker.properties (e.g. &amp;lsquo;node1&amp;rsquo; in the case &amp;lsquo;node1.my.org&amp;rsquo;)&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;@@ PORT PREFIX @@ - By default Stroom Proxy will run on port 9080&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;stroomuser@node1 ~&lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt;$ ./stroom-proxy/bin/setup.sh forward
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node1 ~]$ ./stroom-proxy/bin/setup.sh forward
 
-&lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;stroomuser@dev1 ~&lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt;$ ./stroom-proxy/bin/setup.sh forward
-
-
+[stroomuser@dev1 ~]$ ./stroom-proxy/bin/setup.sh forward
 
 
 
-...
 
-&lt;span style=&#34;color:#033&#34;&gt;Parameters&lt;/span&gt;
-&lt;span style=&#34;color:#555&#34;&gt;==========&lt;/span&gt;
-
-@@NODE@@           : Unique node name &lt;span style=&#34;color:#069;font-weight:bold&#34;&gt;for&lt;/span&gt; install &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;node1                                                     &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; : node1
-@@PORT_PREFIX@@    : HTTP prefix to use           &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#f60&#34;&gt;90&lt;/span&gt;                                                        &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; : &lt;span style=&#34;color:#f60&#34;&gt;90&lt;/span&gt;
-@@REPO_DIR@@       : Stroom Proxy Repository Dir     &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;/stroomdata/stroom-proxy                                        &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; : /home/stroomuser/stroom-proxy-repo
-@@FORWARD_SERVER@@ : Server to forward data on to &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;hostname                                                  &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; : audit.my.org
-@@JAVA_OPTS@@      : Optional tomcat JVM settings &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;-Xms512m -Xmx1g&amp;#34;&lt;/span&gt;                                         &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; :
 
 ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;stroom-proxy---store&#34;&gt;Stroom Proxy - store&lt;/h3&gt;
+
+Parameters
+==========
+
+@@NODE@@           : Unique node name for install [node1                                                     ] : node1
+@@PORT_PREFIX@@    : HTTP prefix to use           [90                                                        ] : 90
+@@REPO_DIR@@       : Stroom Proxy Repository Dir     [/stroomdata/stroom-proxy                                        ] : /home/stroomuser/stroom-proxy-repo
+@@FORWARD_SERVER@@ : Server to forward data on to [hostname                                                  ] : audit.my.org
+@@JAVA_OPTS@@      : Optional tomcat JVM settings [&amp;quot;-Xms512m -Xmx1g&amp;quot;                                         ] :
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;stroom-proxy---store&#34;&gt;Stroom Proxy - store&lt;/h3&gt;
 &lt;p&gt;In store mode you need to know the mysql details to validate incoming data with.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;stroomuser@node1 ~&lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt;$ ./stroom-proxy-app/bin/setup.sh store
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node1 ~]$ ./stroom-proxy-app/bin/setup.sh store
 
 ...
 
-@@NODE@@           : Unique node name &lt;span style=&#34;color:#069;font-weight:bold&#34;&gt;for&lt;/span&gt; install            &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;node                                                      &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; :
-@@PORT_PREFIX@@    : HTTP prefix to use                      &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#f60&#34;&gt;90&lt;/span&gt;                                                        &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; : &lt;span style=&#34;color:#f60&#34;&gt;72&lt;/span&gt;
-@@REPO_DIR@@       : Stroom Proxy Repository Dir                &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;/stroomdata/stroom-proxy                                        &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; : /home/stroomuser/stroom-proxy-repo-2
-@@JDBC_CLASSNAME@@ : JDBC class name                         &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;com.mysql.jdbc.Driver                                     &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; :
-@@JDBC_URL@@       : JDBC URL &lt;span style=&#34;color:#555&#34;&gt;(&lt;/span&gt;jdbc:mysql://&lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;HOST&lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt;/&lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;DBNAME&lt;span style=&#34;color:#555&#34;&gt;])&lt;/span&gt; &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;jdbc:mysql://localhost/stroom                                &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; :
-@@DB_USERNAME@@    : Database username                       &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;                                                          &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; : stroomuser
-@@DB_PASSWORD@@    : Database password                       &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;                                                          &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; :
-@@JAVA_OPTS@@      : Optional tomcat JVM settings            &lt;span style=&#34;color:#555&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#c30&#34;&gt;&amp;#34;-Xms512m -Xmx1g&amp;#34;&lt;/span&gt;                                         &lt;span style=&#34;color:#555&#34;&gt;]&lt;/span&gt; :
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;install-check&#34;&gt;Install Check&lt;/h3&gt;
+@@NODE@@           : Unique node name for install            [node                                                      ] :
+@@PORT_PREFIX@@    : HTTP prefix to use                      [90                                                        ] : 72
+@@REPO_DIR@@       : Stroom Proxy Repository Dir                [/stroomdata/stroom-proxy                                        ] : /home/stroomuser/stroom-proxy-repo-2
+@@JDBC_CLASSNAME@@ : JDBC class name                         [com.mysql.jdbc.Driver                                     ] :
+@@JDBC_URL@@       : JDBC URL (jdbc:mysql://[HOST]/[DBNAME]) [jdbc:mysql://localhost/stroom                                ] :
+@@DB_USERNAME@@    : Database username                       [                                                          ] : stroomuser
+@@DB_PASSWORD@@    : Database password                       [                                                          ] :
+@@JAVA_OPTS@@      : Optional tomcat JVM settings            [&amp;quot;-Xms512m -Xmx1g&amp;quot;                                         ] :
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;install-check&#34;&gt;Install Check&lt;/h3&gt;
 &lt;p&gt;Start the installed instance:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./stroom-deploy/start.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Inspect the logs:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;tail -f stroom-proxy-app/instance/logs/stroom.log
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;stroom-proxy-properties&#34;&gt;Stroom Proxy Properties&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./stroom-deploy/start.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Inspect the logs:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tail -f stroom-proxy-app/instance/logs/stroom.log
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;stroom-proxy-properties&#34;&gt;Stroom Proxy Properties&lt;/h3&gt;
 &lt;p&gt;The following properties can be configured in the stroom.properties file.&lt;/p&gt;
 &lt;p&gt;TODO - Could do with a column indicating which proxy mode these properties apply to, e.g. store/forward&lt;/p&gt;
 &lt;table&gt;

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.84.4" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/general/">
+<meta name="generator" content="Hugo 0.85.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/general/">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
@@ -49,6 +49,9 @@
   integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
   crossorigin="anonymous"></script>
 
+
+
+<link rel="stylesheet" href="/stroom-docs/hugo-docsy/css/prism.css"/>
 
 
 
@@ -152,7 +155,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -344,76 +347,78 @@ Using the positional information it is possible to tag Events with sufficient de
 <ol>
 <li>Create a new XSLT called Source Decoration containing the following:</li>
 </ol>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;xsl:stylesheet</span> <span style="color:#309">xpath-default-namespace=</span><span style="color:#c30">&#34;event-logging:3&#34;</span> <span style="color:#309">xmlns:sm=</span><span style="color:#c30">&#34;stroom-meta&#34;</span> <span style="color:#309">xmlns=</span><span style="color:#c30">&#34;event-logging:3&#34;</span> <span style="color:#309">xmlns:rec=</span><span style="color:#c30">&#34;records:2&#34;</span> <span style="color:#309">xmlns:stroom=</span><span style="color:#c30">&#34;stroom&#34;</span>  <span style="color:#309">version=</span><span style="color:#c30">&#34;3.0&#34;</span> <span style="color:#309">xmlns:xsl=</span><span style="color:#c30">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;@*|node()&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:copy&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:apply-templates</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;@*|node()&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/xsl:copy&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;Event/Meta[not(sm:source)]&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:copy&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:apply-templates</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:copy-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;stroom:source()&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/xsl:copy&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;Event[not(Meta)]&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:copy&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;Meta&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:copy-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;stroom:source()&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:apply-templates</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/xsl:copy&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:stylesheet&gt;</span>
-</code></pre></div><p>This XSLT will add or augment the Meta section of the Event with the source details.</p>
+<pre><code class="language-xml">&lt;xsl:stylesheet xpath-default-namespace=&quot;event-logging:3&quot; xmlns:sm=&quot;stroom-meta&quot; xmlns=&quot;event-logging:3&quot; xmlns:rec=&quot;records:2&quot; xmlns:stroom=&quot;stroom&quot;  version=&quot;3.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+  &lt;xsl:template match=&quot;@*|node()&quot;&gt;
+    &lt;xsl:copy&gt;
+      &lt;xsl:apply-templates select=&quot;@*|node()&quot; /&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+  &lt;xsl:template match=&quot;Event/Meta[not(sm:source)]&quot;&gt;
+    &lt;xsl:copy&gt;
+      &lt;xsl:apply-templates /&gt;
+      &lt;xsl:copy-of select=&quot;stroom:source()&quot; /&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+  &lt;xsl:template match=&quot;Event[not(Meta)]&quot;&gt;
+    &lt;xsl:copy&gt;
+      &lt;xsl:element name=&quot;Meta&quot;&gt;
+        &lt;xsl:copy-of select=&quot;stroom:source()&quot; /&gt;
+      &lt;/xsl:element&gt;
+      &lt;xsl:apply-templates /&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>This XSLT will add or augment the Meta section of the Event with the source details.</p>
 <ol>
 <li>Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.</li>
 <li>Reprocess the Events through the modified pipeline, also ensure your Events are indexed.</li>
 <li>Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data. Add the following to the XSLT:</li>
 </ol>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;data&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;name&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:text&gt;</span>src-id<span style="color:#309;font-weight:bold">&lt;/xsl:text&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:attribute&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;value&#34;</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;Meta/sm:source/sm:id&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;data&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;name&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:text&gt;</span>src-partNo<span style="color:#309;font-weight:bold">&lt;/xsl:text&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:attribute&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;value&#34;</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;Meta/sm:source/sm:partNo&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;data&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;name&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:text&gt;</span>src-recordNo<span style="color:#309;font-weight:bold">&lt;/xsl:text&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:attribute&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;value&#34;</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;Meta/sm:source/sm:recordNo&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;data&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;name&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:text&gt;</span>src-lineFrom<span style="color:#309;font-weight:bold">&lt;/xsl:text&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:attribute&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;value&#34;</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;Meta/sm:source/sm:lineFrom&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;data&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;name&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:text&gt;</span>src-colFrom<span style="color:#309;font-weight:bold">&lt;/xsl:text&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:attribute&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;value&#34;</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;Meta/sm:source/sm:colFrom&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;data&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;name&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:text&gt;</span>src-lineTo<span style="color:#309;font-weight:bold">&lt;/xsl:text&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:attribute&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;value&#34;</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;Meta/sm:source/sm:lineTo&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:element</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;data&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;name&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;xsl:text&gt;</span>src-colTo<span style="color:#309;font-weight:bold">&lt;/xsl:text&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:attribute&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:attribute</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;value&#34;</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;Meta/sm:source/sm:colTo&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:element&gt;</span>
-</code></pre></div><ol>
+<pre><code class="language-xml">&lt;xsl:element name=&quot;data&quot;&gt;
+  &lt;xsl:attribute name=&quot;name&quot;&gt;
+    &lt;xsl:text&gt;src-id&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name=&quot;value&quot; select=&quot;Meta/sm:source/sm:id&quot; /&gt;
+&lt;/xsl:element&gt;
+&lt;xsl:element name=&quot;data&quot;&gt;
+  &lt;xsl:attribute name=&quot;name&quot;&gt;
+    &lt;xsl:text&gt;src-partNo&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name=&quot;value&quot; select=&quot;Meta/sm:source/sm:partNo&quot; /&gt;
+&lt;/xsl:element&gt;
+&lt;xsl:element name=&quot;data&quot;&gt;
+  &lt;xsl:attribute name=&quot;name&quot;&gt;
+    &lt;xsl:text&gt;src-recordNo&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name=&quot;value&quot; select=&quot;Meta/sm:source/sm:recordNo&quot; /&gt;
+&lt;/xsl:element&gt;
+&lt;xsl:element name=&quot;data&quot;&gt;
+  &lt;xsl:attribute name=&quot;name&quot;&gt;
+    &lt;xsl:text&gt;src-lineFrom&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name=&quot;value&quot; select=&quot;Meta/sm:source/sm:lineFrom&quot; /&gt;
+&lt;/xsl:element&gt;
+&lt;xsl:element name=&quot;data&quot;&gt;
+  &lt;xsl:attribute name=&quot;name&quot;&gt;
+    &lt;xsl:text&gt;src-colFrom&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name=&quot;value&quot; select=&quot;Meta/sm:source/sm:colFrom&quot; /&gt;
+&lt;/xsl:element&gt;
+&lt;xsl:element name=&quot;data&quot;&gt;
+  &lt;xsl:attribute name=&quot;name&quot;&gt;
+    &lt;xsl:text&gt;src-lineTo&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name=&quot;value&quot; select=&quot;Meta/sm:source/sm:lineTo&quot; /&gt;
+&lt;/xsl:element&gt;
+&lt;xsl:element name=&quot;data&quot;&gt;
+  &lt;xsl:attribute name=&quot;name&quot;&gt;
+    &lt;xsl:text&gt;src-colTo&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name=&quot;value&quot; select=&quot;Meta/sm:source/sm:colTo&quot; /&gt;
+&lt;/xsl:element&gt;
+</code></pre>
+<ol>
 <li>Open your dashboard, now add the following custom fields to your table : <code>${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}</code></li>
 <li>Now add a New Text Window to your Dashboard, and configure it as below:
 <img src="../resources/HT-RawSourceTextWindow.png" alt="&ldquo;TextWindow Config&rdquo;" title="TextWindow Config"></li>
@@ -422,6 +427,7 @@ Add a custom column with the following expression:</li>
 </ol>
 <pre><code>data('Raw Log',${src-id},${src-partNo},'',${src-lineFrom},${src-colFrom},${src-lineTo},${src-colTo})
 </code></pre>
+
 </div>
 
 
@@ -572,6 +578,9 @@ services on the new node, we need to enable it&rsquo;s <code>Stream Processors</
 
 <script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
 
+
+
+<script src='/stroom-docs/hugo-docsy/js/prism.js'></script>
 
 
 

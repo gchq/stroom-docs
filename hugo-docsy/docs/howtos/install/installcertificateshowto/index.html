@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.84.4" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<meta name="generator" content="Hugo 0.85.0" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
 <link rel="shortcut icon" href="/stroom-docs/hugo-docsy/favicons/favicon.ico" >
@@ -17,27 +17,24 @@
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
 
-<title>Stroom</title>
-<meta name="description" content="A Stroom example site"><meta property="og:title" content="" />
-<meta property="og:description" content="Stroom HOWTO - SSL Certificate Generation The following is a HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) either a Stroom Proxy or Stroom Application has already been deployed processing node names are &lsquo;stroomp00.strmdev00.org&rsquo; and &lsquo;stroomp01." />
+<title>SSL Certificate Generation | Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="SSL Certificate Generation" />
+<meta property="og:description" content="A HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-12T11:18:54+01:00" /><meta property="og:site_name" content="Stroom" />
 
-<meta property="article:modified_time" content="2021-07-09T16:24:55+01:00" /><meta property="og:site_name" content="Stroom" />
-
-<meta itemprop="name" content="">
-<meta itemprop="description" content="Stroom HOWTO - SSL Certificate Generation The following is a HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) either a Stroom Proxy or Stroom Application has already been deployed processing node names are &lsquo;stroomp00.strmdev00.org&rsquo; and &lsquo;stroomp01.">
-<meta itemprop="dateModified" content="2021-07-09T16:24:55+01:00" />
-<meta itemprop="wordCount" content="1402">
-<meta itemprop="keywords" content="howto," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Stroom HOWTO - SSL Certificate Generation The following is a HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
-Assumptions The following assumptions are used in this document.
- the user has reasonable RHEL/Centos System administration skills installations are on Centos 7.3 minimal systems (fully patched) either a Stroom Proxy or Stroom Application has already been deployed processing node names are &lsquo;stroomp00.strmdev00.org&rsquo; and &lsquo;stroomp01."/>
+<meta itemprop="name" content="SSL Certificate Generation">
+<meta itemprop="description" content="A HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
+"><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-12T11:18:54+01:00" />
+<meta itemprop="wordCount" content="1377">
+<meta itemprop="keywords" content="certificates,installation," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SSL Certificate Generation"/>
+<meta name="twitter:description" content="A HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.
+"/>
 
 
 
@@ -56,6 +53,9 @@ Assumptions The following assumptions are used in this document.
   integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
   crossorigin="anonymous"></script>
 
+
+
+<link rel="stylesheet" href="/stroom-docs/hugo-docsy/css/prism.css"/>
 
 
 
@@ -159,7 +159,7 @@ Assumptions The following assumptions are used in this document.
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -194,7 +194,7 @@ Assumptions The following assumptions are used in this document.
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -428,6 +428,507 @@ Assumptions The following assumptions are used in this document.
     
       
       <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocshowtosinstall-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosinstall"><span class="">Installation</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" title="Apache Httpd/Mod_JK configuration for Stroom" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class="">Apache Httpd/Mod_JK</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class="">Database Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class="">Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" title="Installation of Stroom Application" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class="">Installation of Stroom</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class="">Installation of Stroom Proxy</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" title="NFS Installation and Configuration" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class="">NFS</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" title="Node Cluster URL Setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class="">Node Cluster</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" title="Processing User setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class="">Processing User</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class="td-sidebar-nav-active-item">SSL Certificate Generation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class="">Testing Stroom Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class="">Volume Maintenance</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosreferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosreferencefeeds"><span class="">Reference Feeds</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeeds/" title="Create a Simple Reference Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds"><span class="">Create a Reference Feed</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtossearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtossearch"><span class="">Search</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class="">Elasticsearch integration</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class="">Search API</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class="">Solr integration</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
         
           
             
@@ -795,411 +1296,6 @@ Assumptions The following assumptions are used in this document.
           
         
       </ul>
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class="td-sidebar-nav-active-item"></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class=""></span></a>
-    
     
   </li>
 
@@ -2015,7 +2111,7 @@ Assumptions The following assumptions are used in this document.
 
     <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/HOWTOs/Install/InstallCertificatesHowTo.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
     <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/HOWTOs/Install/InstallCertificatesHowTo.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
-    <a href="https://github.com/gchq/stroom-docs/issues/new?title=" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    <a href="https://github.com/gchq/stroom-docs/issues/new?title=SSL%20Certificate%20Generation" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
     
       
       <a href="https://github.com/gchq/stroom/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -2023,7 +2119,7 @@ Assumptions The following assumptions are used in this document.
 
   
   
-    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
   
   </div>
 
@@ -2072,29 +2168,45 @@ Assumptions The following assumptions are used in this document.
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/certificates/" data-taxonomy-term="certificates"><span class="taxonomy-label">certificates</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/cluster/" data-taxonomy-term="cluster"><span class="taxonomy-label">cluster</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span><span class="taxonomy-count">15</span></a></li>
-        
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/jobs/" data-taxonomy-term="jobs"><span class="taxonomy-label">jobs</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/" data-taxonomy-term="properties"><span class="taxonomy-label">properties</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
         
@@ -2102,9 +2214,13 @@ Assumptions The following assumptions are used in this document.
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/tasks/" data-taxonomy-term="tasks"><span class="taxonomy-label">tasks</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/users/" data-taxonomy-term="users"><span class="taxonomy-label">users</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/volumes/" data-taxonomy-term="volumes"><span class="taxonomy-label">volumes</span><span class="taxonomy-count">1</span></a></li>
         
       </ul>
     </div>
@@ -2130,6 +2246,9 @@ Assumptions The following assumptions are used in this document.
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/">Documentation</a>
 </li>
@@ -2144,8 +2263,15 @@ Assumptions The following assumptions are used in this document.
 
 
 
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/">Installation</a>
+</li>
+
+
+
+
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/"></a>
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/">SSL Certificate Generation</a>
 </li>
 
 	</ol>
@@ -2153,8 +2279,8 @@ Assumptions The following assumptions are used in this document.
 
             
 <div class="td-content">
-	<h1></h1>
-	
+	<h1>SSL Certificate Generation</h1>
+	<div class="lead">A HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.</div>
 	<header class="article-meta">
 		
 		
@@ -2170,7 +2296,9 @@ Assumptions The following assumptions are used in this document.
   <h5 class="taxonomy-title">Tags:</h5>
   <ul class="taxonomy-terms">
     
-      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span></a></li>
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/certificates/" data-taxonomy-term="certificates"><span class="taxonomy-label">certificates</span></a></li>
+    
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span></a></li>
     
   </ul>
 </div>
@@ -2179,9 +2307,7 @@ Assumptions The following assumptions are used in this document.
 		
 		
 	</header>    
-	<h1 id="stroom-howto---ssl-certificate-generation">Stroom HOWTO - SSL Certificate Generation</h1>
-<p>The following is a HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.</p>
-<h2 id="assumptions">Assumptions</h2>
+	<h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
 <li>the user has reasonable RHEL/Centos System administration skills</li>
@@ -2203,21 +2329,25 @@ alias for the first node in the cluster and then use that alias for addressing t
 CNAME, <code>stroomp.strmdev00.org</code> for <code>stroomp00.strmdev00.org</code>. This means within the web service we deploy, the ServerName will be <code>stroomp.strmdev00.org</code>
 on each node. Since it&rsquo;s one certificate we only need to set it up on one node then deploy the certificate key files to other nodes.</p>
 <p>As the certificates will be stored in the <code>stroomuser's</code> home directory, we become the stroom user</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo -i -u stroomuser
-</code></pre></div><h3 id="use-host-variable">Use host variable</h3>
+<pre><code class="language-bash">sudo -i -u stroomuser
+</code></pre>
+<h3 id="use-host-variable">Use host variable</h3>
 <p>To make things simpler in the following bash extracts, we establish the bash variable <code>H</code> to be used in filename generation. The variable name
 is set to the name of the host (or cluster alias) your are deploying the certificates on. In our multi node HOWTO example we are using, we
 would use the host CNAME <code>stroomp</code>.  Thus we execute</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">export</span> <span style="color:#033">H</span><span style="color:#555">=</span>stroomp
-</code></pre></div><p>Note in our the Stroom Forwarding Proxy HOWTO we would use the name <code>stroomfp0</code>. In the case of our Standalone Proxy we would use <code>stroomsap0</code>.</p>
+<pre><code class="language-bash">export H=stroomp
+</code></pre>
+<p>Note in our the Stroom Forwarding Proxy HOWTO we would use the name <code>stroomfp0</code>. In the case of our Standalone Proxy we would use <code>stroomsap0</code>.</p>
 <p>We set up a directory to house our certificates via</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">cd</span> ~stroomuser
+<pre><code class="language-bash">cd ~stroomuser
 rm -rf stroom-jks
 mkdir -p stroom-jks stroom-jks/public stroom-jks/private
-<span style="color:#366">cd</span> stroom-jks
-</code></pre></div><p>Create a server key for Stroom service (enter a password when prompted for both initial and verification prompts)</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl genrsa -des3 -out private/<span style="color:#033">$H</span>.key <span style="color:#f60">2048</span>
-</code></pre></div><p>as per</p>
+cd stroom-jks
+</code></pre>
+<p>Create a server key for Stroom service (enter a password when prompted for both initial and verification prompts)</p>
+<pre><code class="language-bash">openssl genrsa -des3 -out private/$H.key 2048
+</code></pre>
+<p>as per</p>
 <pre><code>Generating RSA private key, 2048 bit long modulus
 .................................................................+++
 ...............................................+++
@@ -2225,11 +2355,13 @@ e is 65537 (0x10001)
 Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 Verifying - Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 
-</code></pre><p>Create a signing request. The two important prompts are the password and Common Name. All the rest can use the defaults offered.
+</code></pre>
+<p>Create a signing request. The two important prompts are the password and Common Name. All the rest can use the defaults offered.
 The requested password is for the server key and you should use the host (or cluster alias) your are deploying the certificates on for
 the Common Name. In the output below we will assume a multi node cluster certificate is being generated, so will use <code>stroomp.strmdev00.org</code>.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl req -sha256 -new -key private/<span style="color:#033">$H</span>.key -out <span style="color:#033">$H</span>.csr
-</code></pre></div><p>as per</p>
+<pre><code class="language-bash">openssl req -sha256 -new -key private/$H.key -out $H.csr
+</code></pre>
+<p>as per</p>
 <pre><code>Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -2250,97 +2382,118 @@ Please enter the following 'extra' attributes
 to be sent with your certificate request
 A challenge password []:
 An optional company name []:
-</code></pre><p>We now self sign the certificate (again enter the server key password)</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl x509 -req -sha256 -days <span style="color:#f60">720</span> -in <span style="color:#033">$H</span>.csr -signkey private/<span style="color:#033">$H</span>.key -out public/<span style="color:#033">$H</span>.crt
-</code></pre></div><p>as per</p>
+</code></pre>
+<p>We now self sign the certificate (again enter the server key password)</p>
+<pre><code class="language-bash">openssl x509 -req -sha256 -days 720 -in $H.csr -signkey private/$H.key -out public/$H.crt
+</code></pre>
+<p>as per</p>
 <pre><code>Signature ok
 subject=/C=XX/L=Default City/O=Default Company Ltd/CN=stroomp.strmdev00.org
 Getting Private key
 Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
-</code></pre><p>and noting the <code>subject</code> will change depending on the host name used when generating the signing request.</p>
+</code></pre>
+<p>and noting the <code>subject</code> will change depending on the host name used when generating the signing request.</p>
 <p>Create insecure version of private key for Apache autoboot (you will again need to enter the server key password)</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl rsa -in private/<span style="color:#033">$H</span>.key -out private/<span style="color:#033">$H</span>.key.insecure
-</code></pre></div><p>as per</p>
+<pre><code class="language-bash">openssl rsa -in private/$H.key -out private/$H.key.insecure
+</code></pre>
+<p>as per</p>
 <pre><code>Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 writing RSA key
-</code></pre><p>and then move the insecure keys as appropriate</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mv private/<span style="color:#033">$H</span>.key private/<span style="color:#033">$H</span>.key.secure
-chmod <span style="color:#f60">600</span> private/<span style="color:#033">$H</span>.key.secure
-mv private/<span style="color:#033">$H</span>.key.insecure private/<span style="color:#033">$H</span>.key
-</code></pre></div><p>We have now completed the creation of our certificates and keys.</p>
+</code></pre>
+<p>and then move the insecure keys as appropriate</p>
+<pre><code class="language-bash">mv private/$H.key private/$H.key.secure
+chmod 600 private/$H.key.secure
+mv private/$H.key.insecure private/$H.key
+</code></pre>
+<p>We have now completed the creation of our certificates and keys.</p>
 <h3 id="replication-of-keys-directory-to-other-nodes">Replication of Keys Directory to other nodes</h3>
 <p>If you are deploying a multi node Stroom cluster, then you would replicate the directory ~stroomuser/stroom-jks to each node in the cluster. That is,
 tar it up, copy the tar file to the other node(s) then untar it. We can make use of the other node&rsquo;s mounted file system for this process.
 That is one could execute the commands on the first node, where we created the certificates</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">cd</span> ~stroomuser
+<pre><code class="language-bash">cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
 mv stroom-jks.tar /stroomdata/stroom-data-p01
-</code></pre></div><p>then on the another node, say <code>stroomp01.strmdev00.org</code>, as the stroomuser we extract the data.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo -i -u stroomuser
-<span style="color:#366">cd</span> ~stroomuser
-tar xf /stroomdata/stroom-data-p01/stroom-jks.tar <span style="color:#555">&amp;&amp;</span> rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
-</code></pre></div><h3 id="protection-ownership-and-selinux-context">Protection, Ownership and SELinux Context</h3>
+</code></pre>
+<p>then on the another node, say <code>stroomp01.strmdev00.org</code>, as the stroomuser we extract the data.</p>
+<pre><code class="language-bash">sudo -i -u stroomuser
+cd ~stroomuser
+tar xf /stroomdata/stroom-data-p01/stroom-jks.tar &amp;&amp; rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
+</code></pre>
+<h3 id="protection-ownership-and-selinux-context">Protection, Ownership and SELinux Context</h3>
 <p>Now ensure protection, ownership and SELinux context for these key files on <strong>ALL</strong> nodes via</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod <span style="color:#f60">700</span> ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
+<pre><code class="language-bash">chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
 chcon -R --reference /etc/pki ~stroomuser/stroom-jks
-</code></pre></div><h2 id="stroom-proxy-to-proxy-key-and-trust-stores">Stroom Proxy to Proxy Key and Trust Stores</h2>
+</code></pre>
+<h2 id="stroom-proxy-to-proxy-key-and-trust-stores">Stroom Proxy to Proxy Key and Trust Stores</h2>
 <p>In order for a Stroom Forwarding Proxy to communicate to a central Stroom proxy over https, the JVM running the forwarding proxy needs
 relevant keystores set up.</p>
 <p>One would set up a Stroom&rsquo;s forwarding proxy SSL certificate as per <a href="#create-certificates">above</a>, with the change that the
 hostname would be different. That is, in the initial setup, we would set the hostname variable <code>H</code> to be the hostname of the forwarding
 proxy. Lets say it is <code>stroomfp0</code> thus we would set</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">export</span> <span style="color:#033">H</span><span style="color:#555">=</span>stroomfp0
-</code></pre></div><p>and then proceed as <a href="#use-host-variable">above</a>.</p>
+<pre><code class="language-bash">export H=stroomfp0
+</code></pre>
+<p>and then proceed as <a href="#use-host-variable">above</a>.</p>
 <p>Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
 the central Stroom proxy is the <em>stroomp.strmdev00.org</em> server and it&rsquo;s public key is stored in the file <code>stroomp.crt</code>. We will store
 this file on the forwarding proxy in <code>~stroomuser/stroom-jks/public/stroomp.crt</code>.</p>
 <p>So once you have created the forwarding proxy server&rsquo;s SSL keys and have deployed the central proxy&rsquo;s public key, we next
 need to convert the proxy server&rsquo;s SSL keys into DER format. This is done by executing the following.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">cd</span> ~stroomuser/stroom-jks
-<span style="color:#366">export</span> <span style="color:#033">H</span><span style="color:#555">=</span>stroomfp0
-<span style="color:#366">export</span> <span style="color:#033">S</span><span style="color:#555">=</span>stroomp
-rm -f <span style="color:#a00">${</span><span style="color:#033">H</span><span style="color:#a00">}</span>_k.jks <span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span>_t.jks
-<span style="color:#033">H_k</span><span style="color:#555">=</span><span style="color:#a00">${</span><span style="color:#033">H</span><span style="color:#a00">}</span>
-<span style="color:#033">S_k</span><span style="color:#555">=</span><span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span>
-<span style="color:#09f;font-style:italic"># Convert public key</span>
-openssl x509 -in public/<span style="color:#033">$H</span>.crt -inform PERM -out public/<span style="color:#033">$H</span>.crt.der -outform DER
-</code></pre></div><p>When you convert the local server&rsquo;s private key, you will be prompted for the server key password.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#09f;font-style:italic"># Convert the local server&#39;s Private key</span>
-openssl pkcs8 -topk8 -nocrypt -in private/<span style="color:#033">$H</span>.key.secure -inform PEM -out private/<span style="color:#033">$H</span>.key.der -outform DER
-</code></pre></div><p>as per</p>
+<pre><code class="language-bash">cd ~stroomuser/stroom-jks
+export H=stroomfp0
+export S=stroomp
+rm -f ${H}_k.jks ${S}_t.jks
+H_k=${H}
+S_k=${S}
+# Convert public key
+openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER
+</code></pre>
+<p>When you convert the local server&rsquo;s private key, you will be prompted for the server key password.</p>
+<pre><code class="language-bash"># Convert the local server's Private key
+openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER
+</code></pre>
+<p>as per</p>
 <pre><code>Enter pass phrase for private/stroomfp0.key.secure: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
-</code></pre><p>We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it&rsquo;s found with the command</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find ~stroomuser/*proxy -name <span style="color:#c30">&#39;stroom*util*.jar&#39;</span> -print | head -1
-</code></pre></div><p>which should return <em>/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar</em> or similar depending on the release version.
+</code></pre>
+<p>We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it&rsquo;s found with the command</p>
+<pre><code class="language-bash">find ~stroomuser/*proxy -name 'stroom*util*.jar' -print | head -1
+</code></pre>
+<p>which should return <em>/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar</em> or similar depending on the release version.
 To make execution simpler, we set this as a shell variable as per</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">Stroom_UTIL_JAR</span><span style="color:#555">=</span><span style="color:#c30">`</span>find ~/*proxy -name <span style="color:#c30">&#39;stroom*util*.jar&#39;</span> -print | head -1<span style="color:#c30">`</span>
-</code></pre></div><p>We now create the keystore and import the proxy&rsquo;s server key</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">java -cp <span style="color:#a00">${</span><span style="color:#033">Stroom_UTIL_JAR</span><span style="color:#a00">}</span> stroom.util.cert.ImportKey <span style="color:#033">keystore</span><span style="color:#555">=</span><span style="color:#a00">${</span><span style="color:#033">H</span><span style="color:#a00">}</span>_k.jks <span style="color:#033">keypass</span><span style="color:#555">=</span><span style="color:#033">$H</span> <span style="color:#033">alias</span><span style="color:#555">=</span><span style="color:#033">$H</span> <span style="color:#033">keyfile</span><span style="color:#555">=</span>private/<span style="color:#033">$H</span>.key.der <span style="color:#033">certfile</span><span style="color:#555">=</span>public/<span style="color:#033">$H</span>.crt.der
-</code></pre></div><p>as per</p>
+<pre><code class="language-bash">Stroom_UTIL_JAR=`find ~/*proxy -name 'stroom*util*.jar' -print | head -1`
+</code></pre>
+<p>We now create the keystore and import the proxy&rsquo;s server key</p>
+<pre><code class="language-bash">java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der
+</code></pre>
+<p>as per</p>
 <pre><code>One certificate, no chain
-</code></pre><p>We now import the destination server&rsquo;s public key</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">keytool -import -noprompt -alias <span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span> -file public/<span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span>.crt -keystore <span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span>_k.jks -storepass <span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span>
-</code></pre></div><p>as per</p>
+</code></pre>
+<p>We now import the destination server&rsquo;s public key</p>
+<pre><code class="language-bash">keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}
+</code></pre>
+<p>as per</p>
 <pre><code>Certificate was added to keystore
-</code></pre><p>We now add the key and trust store location and password arguments to our Stroom proxy environment files.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#033">PWD</span><span style="color:#555">=</span><span style="color:#c30">`</span><span style="color:#366">pwd</span><span style="color:#c30">`</span>
-<span style="color:#366">echo</span> <span style="color:#c30">&#34;export JAVA_OPTS=\&#34;-Djavax.net.ssl.trustStore=</span><span style="color:#a00">${</span><span style="color:#033">PWD</span><span style="color:#a00">}</span><span style="color:#c30">/</span><span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span><span style="color:#c30">_k.jks -Djavax.net.ssl.trustStorePassword=</span><span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span><span style="color:#c30"> -Djavax.net.ssl.keyStore=</span><span style="color:#a00">${</span><span style="color:#033">PWD</span><span style="color:#a00">}</span><span style="color:#c30">/</span><span style="color:#a00">${</span><span style="color:#033">H</span><span style="color:#a00">}</span><span style="color:#c30">_k.jks -Djavax.net.ssl.keyStorePassword=</span><span style="color:#a00">${</span><span style="color:#033">H</span><span style="color:#a00">}</span><span style="color:#c30">\&#34;&#34;</span> &gt;&gt; ~/env.sh
-<span style="color:#366">echo</span> <span style="color:#c30">&#34;JAVA_OPTS=\&#34;-Djavax.net.ssl.trustStore=</span><span style="color:#a00">${</span><span style="color:#033">PWD</span><span style="color:#a00">}</span><span style="color:#c30">/</span><span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span><span style="color:#c30">_k.jks -Djavax.net.ssl.trustStorePassword=</span><span style="color:#a00">${</span><span style="color:#033">S</span><span style="color:#a00">}</span><span style="color:#c30"> -Djavax.net.ssl.keyStore=</span><span style="color:#a00">${</span><span style="color:#033">PWD</span><span style="color:#a00">}</span><span style="color:#c30">/</span><span style="color:#a00">${</span><span style="color:#033">H</span><span style="color:#a00">}</span><span style="color:#c30">_k.jks -Djavax.net.ssl.keyStorePassword=</span><span style="color:#a00">${</span><span style="color:#033">H</span><span style="color:#a00">}</span><span style="color:#c30">\&#34;&#34;</span> &gt;&gt; ~/env_service.sh
-</code></pre></div><p>At this point you should restart the proxy service. Using the commands</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#366">cd</span> ~stroomuser
-<span style="color:#366">source</span> ./env.sh
+</code></pre>
+<p>We now add the key and trust store location and password arguments to our Stroom proxy environment files.</p>
+<pre><code class="language-bash">PWD=`pwd`
+echo &quot;export JAVA_OPTS=\&quot;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&quot;&quot; &gt;&gt; ~/env.sh
+echo &quot;JAVA_OPTS=\&quot;-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\&quot;&quot; &gt;&gt; ~/env_service.sh
+</code></pre>
+<p>At this point you should restart the proxy service. Using the commands</p>
+<pre><code class="language-bash">cd ~stroomuser
+source ./env.sh
 stroom-proxy/bin/stop.sh
 stroom-proxy/bin/start.sh
-</code></pre></div><p>then check the logs to ensure it started correctly.</p>
+</code></pre>
+<p>then check the logs to ensure it started correctly.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
 
     Last modified
-    July 9, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/d3aa4421684510eef91c5062737207b88f72fd01">Migrate HOWTOs (WIP) (d3aa442)</a>
+    July 12, 2021
+    : <a  href="https://github.com/gchq/stroom-docs/commit/5e0c3ffbe3d69862274c7942a93840d6102a1624">Fix HOW TOs section, improve style guide (5e0c3ff)</a>
 
 </div>
 
@@ -2411,6 +2564,9 @@ stroom-proxy/bin/start.sh
 
 <script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
 
+
+
+<script src='/stroom-docs/hugo-docsy/js/prism.js'></script>
 
 
 

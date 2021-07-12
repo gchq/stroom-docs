@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.84.4" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<meta name="generator" content="Hugo 0.85.0" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
 <link rel="shortcut icon" href="/stroom-docs/hugo-docsy/favicons/favicon.ico" >
@@ -17,24 +17,24 @@
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
 
-<title>Stroom</title>
-<meta name="description" content="A Stroom example site"><meta property="og:title" content="" />
-<meta property="og:description" content="Stroom HOWTO - Create a Simple Reference Feed A Reference Feed is a temporal set of data that a pipeline&rsquo;s translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.
-A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded. Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed." />
+<title>Create a Simple Reference Feed | Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="Create a Simple Reference Feed" />
+<meta property="og:description" content="How to create a reference feed for decorating event data using reference data lookups.
+" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/" /><meta property="article:section" content="docs" />
+<meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeeds/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-12T11:18:54+01:00" /><meta property="og:site_name" content="Stroom" />
 
-<meta property="article:modified_time" content="2021-07-09T16:24:55+01:00" /><meta property="og:site_name" content="Stroom" />
-
-<meta itemprop="name" content="">
-<meta itemprop="description" content="Stroom HOWTO - Create a Simple Reference Feed A Reference Feed is a temporal set of data that a pipeline&rsquo;s translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.
-A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded. Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.">
-<meta itemprop="dateModified" content="2021-07-09T16:24:55+01:00" />
-<meta itemprop="wordCount" content="4727">
-<meta itemprop="keywords" content="howto," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Stroom HOWTO - Create a Simple Reference Feed A Reference Feed is a temporal set of data that a pipeline&rsquo;s translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.
-A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded. Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed."/>
+<meta itemprop="name" content="Create a Simple Reference Feed">
+<meta itemprop="description" content="How to create a reference feed for decorating event data using reference data lookups.
+"><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-12T11:18:54+01:00" />
+<meta itemprop="wordCount" content="4719">
+<meta itemprop="keywords" content="reference-data," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Create a Simple Reference Feed"/>
+<meta name="twitter:description" content="How to create a reference feed for decorating event data using reference data lookups.
+"/>
 
 
 
@@ -53,6 +53,9 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
   integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
   crossorigin="anonymous"></script>
 
+
+
+<link rel="stylesheet" href="/stroom-docs/hugo-docsy/css/prism.css"/>
 
 
 
@@ -156,7 +159,7 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -191,7 +194,7 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.d35a372ed0d4223f1bbdd6cc334b5ce8.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.db05a8306bf7d56629c51d9d3b8a7c18.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -425,6 +428,507 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
     
       
       <ul class="ul-2 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtosinstall-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosinstall"><span class="">Installation</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" title="Apache Httpd/Mod_JK configuration for Stroom" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class="">Apache Httpd/Mod_JK</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class="">Database Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class="">Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" title="Installation of Stroom Application" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class="">Installation of Stroom</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class="">Installation of Stroom Proxy</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" title="NFS Installation and Configuration" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class="">NFS</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" title="Node Cluster URL Setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class="">Node Cluster</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" title="Processing User setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class="">Processing User</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class="">SSL Certificate Generation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class="">Testing Stroom Installation</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class="">Volume Maintenance</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-stroom-docshugo-docsydocshowtosreferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtosreferencefeeds"><span class="">Reference Feeds</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeeds/" title="Create a Simple Reference Feed" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeeds"><span class="td-sidebar-nav-active-item">Create a Reference Feed</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocshowtossearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocshowtossearch"><span class="">Search</span></a>
+    
+    
+      
+      <ul class="ul-3 foldable">
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class="">Elasticsearch integration</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class="">Search API</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
+    
+      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class="">Solr integration</span></a>
+    
+    
+  </li>
+
+          
+        
+      </ul>
+    
+  </li>
+
+          
         
           
             
@@ -792,411 +1296,6 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
           
         
       </ul>
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallapplicationhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallcertificateshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalldatabasehowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallhttpdhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnfshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallnodeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallprocessingusersetuphowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallproxyhowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstalltestinghowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosinstallinstallvolumeshowto"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtosreferencefeedscreatesimplereferencefeed"><span class="td-sidebar-nav-active-item"></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchelasticsearch"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsearchfrombash"><span class=""></span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocshowtossearchsolr-li">
-    
-      <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocshowtossearchsolr"><span class=""></span></a>
-    
     
   </li>
 
@@ -2010,9 +2109,9 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
     
     
 
-    <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-    <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
-    <a href="https://github.com/gchq/stroom-docs/issues/new?title=" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+    <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeeds/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+    <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeeds/index.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/gchq/stroom-docs/issues/new?title=Create%20a%20Simple%20Reference%20Feed" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
     
       
       <a href="https://github.com/gchq/stroom/issues/new" target="_blank"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
@@ -2020,7 +2119,7 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 
   
   
-    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+    <a id="print" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
   
   </div>
 
@@ -2074,29 +2173,45 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/certificates/" data-taxonomy-term="certificates"><span class="taxonomy-label">certificates</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/cluster/" data-taxonomy-term="cluster"><span class="taxonomy-label">cluster</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">4</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span><span class="taxonomy-count">15</span></a></li>
-        
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/jobs/" data-taxonomy-term="jobs"><span class="taxonomy-label">jobs</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/" data-taxonomy-term="properties"><span class="taxonomy-label">properties</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
         
@@ -2104,9 +2219,13 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/tasks/" data-taxonomy-term="tasks"><span class="taxonomy-label">tasks</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/users/" data-taxonomy-term="users"><span class="taxonomy-label">users</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/volumes/" data-taxonomy-term="volumes"><span class="taxonomy-label">volumes</span><span class="taxonomy-count">1</span></a></li>
         
       </ul>
     </div>
@@ -2132,6 +2251,9 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/">Documentation</a>
 </li>
@@ -2146,8 +2268,15 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 
 
 
+<li class="breadcrumb-item" >
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/">Reference Feeds</a>
+</li>
+
+
+
+
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeed/"></a>
+	<a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/referencefeeds/createsimplereferencefeeds/">Create a Reference Feed</a>
 </li>
 
 	</ol>
@@ -2155,8 +2284,8 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 
             
 <div class="td-content">
-	<h1></h1>
-	
+	<h1>Create a Simple Reference Feed</h1>
+	<div class="lead">How to create a reference feed for decorating event data using reference data lookups.</div>
 	<header class="article-meta">
 		
 		
@@ -2172,7 +2301,7 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
   <h5 class="taxonomy-title">Tags:</h5>
   <ul class="taxonomy-terms">
     
-      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/howto/" data-taxonomy-term="howto"><span class="taxonomy-label">howto</span></a></li>
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span></a></li>
     
   </ul>
 </div>
@@ -2181,8 +2310,7 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 		
 		
 	</header>    
-	<h1 id="stroom-howto---create-a-simple-reference-feed">Stroom HOWTO - Create a Simple Reference Feed</h1>
-<p>A <strong>Reference Feed</strong> is a temporal set of data that a pipeline&rsquo;s translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.</p>
+	<p>A <strong>Reference Feed</strong> is a temporal set of data that a pipeline&rsquo;s translation can look up to gain additional information to decorate the subject data of the translation. For example, an XML Event.</p>
 <p>A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded. Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.</p>
 <p>A typical reference data set to support the Stroom XML Event schema might be on that relates to devices. Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and timezone.</p>
 <p>The following example will describe how to create a reference feed for such device data. we will call the reference feed <code>GeoHost-V1.0-REFERENCE</code>.</p>
@@ -2201,7 +2329,8 @@ A Reference Feed is temporal, in that, each time a new set of reference data is 
 stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
 stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
 host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
-</code></pre><p>A copy of this sample data source can be found <a href="GeoHostReference.log" title="GeoHost REFERENCE  sample logs">here</a>. Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.</p>
+</code></pre>
+<p>A copy of this sample data source can be found <a href="GeoHostReference.log" title="GeoHost REFERENCE  sample logs">here</a>. Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.</p>
 <h2 id="creation">Creation</h2>
 <p>To create our Reference Event stream we need to create:</p>
 <ul>
@@ -2243,7 +2372,8 @@ To get the calendar selection window to disappear, click anywhere outside of the
 stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
 stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
 host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
-</code></pre><p>When we construct the pipeline for this reference feed, we will see how to make use of the header line.</p>
+</code></pre>
+<p>When we construct the pipeline for this reference feed, we will see how to make use of the header line.</p>
 <p>So, click on the <strong>Choose File</strong> button to bring up a file selector window. Navigate within the selector window to the location on your location machine where you have saved the GeoHostReference.log file. On clicking <strong>Open</strong> we return to the <strong>Upload</strong> window with the file selected.</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-12.png" alt="Stroom UI CreateReferenceFeed - Upload Reference Data - File chosen" title="Upload Reference Data - File chosen"></p>
 <p>On clicking <strong>OK</strong> we get an Alert dialog window to advise a file has been uploaded.</p>
@@ -2284,62 +2414,64 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 <p><img src="../resources/v6/UI-CreateReferenceFeed-25.png" alt="Stroom UI CreateReferenceFeed - New TextConverter Settings" title="New TextConverter Settings"></p>
 <p>Enter an appropriate description into the <strong>Description:</strong> text entry box, for instance</p>
 <pre><code>Text converter for device Logical and Geographic reference feed holding FQDN, IPAddress, Country, Site, Building, Room and Time Zones. Feed has a header and is tab separated.
-</code></pre><p>Set the <strong>Converter Type:</strong> to be <code>Data Splitter</code> from the drop-down menu.</p>
+</code></pre>
+<p>Set the <strong>Converter Type:</strong> to be <code>Data Splitter</code> from the drop-down menu.</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-26.png" alt="Stroom UI CreateReferenceFeed - New TextConverter Settings configured" title="New TextConverter Settings configured"></p>
 <p>We next press the <strong>Conversion</strong> sub-item on the TextConverter tab to bring up the <em>Data Splitter</em> editing window.</p>
 <p>The following is our Data Splitter code (see <strong>Data Splitter</strong> documentation for more complete details)</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#099">&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;dataSplitter</span> <span style="color:#309">xmlns=</span><span style="color:#c30">&#34;data-splitter:3&#34;</span> <span style="color:#309">xmlns:xsi=</span><span style="color:#c30">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> <span style="color:#309">xsi:schemaLocation=</span><span style="color:#c30">&#34;data-splitter:3 file://data-splitter-v3.0.1.xsd&#34;</span> <span style="color:#309">version=</span><span style="color:#c30">&#34;3.0&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#09f;font-style:italic">&lt;!-- 
-</span><span style="color:#09f;font-style:italic">  GEOHOST REFERENCE FEED:
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  CHANGE HISTORY
-</span><span style="color:#09f;font-style:italic">  v1.0.0 - 2020-02-09 John Doe
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  This is a reference feed for device Logical and Geographic data.
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  The feed provides for each device
-</span><span style="color:#09f;font-style:italic">  * the device FQDN
-</span><span style="color:#09f;font-style:italic">  * the device IP Address
-</span><span style="color:#09f;font-style:italic">  * the device Country location (using ISO 3166-1 alpha-3 codes)
-</span><span style="color:#09f;font-style:italic">  * the device Site location
-</span><span style="color:#09f;font-style:italic">  * the device Building location
-</span><span style="color:#09f;font-style:italic">  * the device Room location
-</span><span style="color:#09f;font-style:italic">  *the device TimeZone location (both standard then daylight timezone offsets from UTC)
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  The data is a TAB delimited file with the first line providing headings.
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  Example data:
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  FQDN	IPAddress	Country	Site	Building	Room	TimeZones
-</span><span style="color:#09f;font-style:italic">stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
-</span><span style="color:#09f;font-style:italic">stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
-</span><span style="color:#09f;font-style:italic">host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">   --&gt;</span>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.1.xsd&quot; version=&quot;3.0&quot;&gt;
+  &lt;!-- 
+  GEOHOST REFERENCE FEED:
+  
+  CHANGE HISTORY
+  v1.0.0 - 2020-02-09 John Doe
+  
+  This is a reference feed for device Logical and Geographic data.
+  
+  The feed provides for each device
+  * the device FQDN
+  * the device IP Address
+  * the device Country location (using ISO 3166-1 alpha-3 codes)
+  * the device Site location
+  * the device Building location
+  * the device Room location
+  *the device TimeZone location (both standard then daylight timezone offsets from UTC)
+  
+  The data is a TAB delimited file with the first line providing headings.
+  
+  Example data:
+  
+  FQDN	IPAddress	Country	Site	Building	Room	TimeZones
+stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
+stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
+host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
+  
+   --&gt;
    
-   <span style="color:#09f;font-style:italic">&lt;!-- Match the heading line - split on newline and match a maximum of one line  --&gt;</span>
-   <span style="color:#309;font-weight:bold">&lt;split</span> <span style="color:#309">delimiter=</span><span style="color:#c30">&#34;\n&#34;</span> <span style="color:#309">maxMatch=</span><span style="color:#c30">&#34;1&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
+   &lt;!-- Match the heading line - split on newline and match a maximum of one line  --&gt;
+   &lt;split delimiter=&quot;\n&quot; maxMatch=&quot;1&quot;&gt;
     
-    <span style="color:#09f;font-style:italic">&lt;!-- Store each heading and note we split fields on the TAB (&amp;#9;) character --&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;group&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;split</span> <span style="color:#309">delimiter=</span><span style="color:#c30">&#34;&amp;#9;&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-          <span style="color:#309;font-weight:bold">&lt;var</span> <span style="color:#309">id=</span><span style="color:#c30">&#34;heading&#34;</span><span style="color:#309;font-weight:bold">/&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;/split&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/group&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/split&gt;</span>
+    &lt;!-- Store each heading and note we split fields on the TAB (&amp;#9;) character --&gt;
+      &lt;group&gt;
+        &lt;split delimiter=&quot;&amp;#9;&quot;&gt;
+          &lt;var id=&quot;heading&quot;/&gt;
+        &lt;/split&gt;
+      &lt;/group&gt;
+    &lt;/split&gt;
     
-  <span style="color:#09f;font-style:italic">&lt;!-- Match all other data lines - splitting on newline --&gt;</span>
-   <span style="color:#309;font-weight:bold">&lt;split</span> <span style="color:#309">delimiter=</span><span style="color:#c30">&#34;\n&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-     <span style="color:#309;font-weight:bold">&lt;group&gt;</span>
-       <span style="color:#09f;font-style:italic">&lt;!-- Store each field using the column heading number for each column ($heading$1) and note we split fields on the TAB (&amp;#9;) character --&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;split</span> <span style="color:#309">delimiter=</span><span style="color:#c30">&#34;&amp;#9;&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-          <span style="color:#309;font-weight:bold">&lt;data</span> <span style="color:#309">name=</span><span style="color:#c30">&#34;$heading$1&#34;</span> <span style="color:#309">value=</span><span style="color:#c30">&#34;$1&#34;</span><span style="color:#309;font-weight:bold">/&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;/split&gt;</span>
-     <span style="color:#309;font-weight:bold">&lt;/group&gt;</span>
-   <span style="color:#309;font-weight:bold">&lt;/split&gt;</span>
-   <span style="color:#309;font-weight:bold">&lt;/dataSplitter&gt;</span>
-</code></pre></div><p>At this point we want to save our Text Converter, so click on the <img src="../resources/icons/save.png" alt="save" title="Save"> icon.</p>
+  &lt;!-- Match all other data lines - splitting on newline --&gt;
+   &lt;split delimiter=&quot;\n&quot;&gt;
+     &lt;group&gt;
+       &lt;!-- Store each field using the column heading number for each column ($heading$1) and note we split fields on the TAB (&amp;#9;) character --&gt;
+        &lt;split delimiter=&quot;&amp;#9;&quot;&gt;
+          &lt;data name=&quot;$heading$1&quot; value=&quot;$1&quot;/&gt;
+        &lt;/split&gt;
+     &lt;/group&gt;
+   &lt;/split&gt;
+   &lt;/dataSplitter&gt;
+</code></pre>
+<p>At this point we want to save our Text Converter, so click on the <img src="../resources/icons/save.png" alt="save" title="Save"> icon.</p>
 <p>A copy of this data splitter can be found <a href="GeoHost-data-splitter.txt" title="GEOHOST Data Splitter">here</a>.</p>
 <h3 id="assign-text-converter-to-pipeline">Assign Text Converter to Pipeline</h3>
 <p>To test our Text Converter, we need to modify our <code>GeoHost-V1.0-REFERENCE</code> pipeline to use it. Select the <code>GeoHost-V1.0-REFERENCE</code> pipeline tab and then select the <strong>Structure</strong> sub-item</p>
@@ -2417,210 +2549,213 @@ To do this, position the cursor over the menu selection icon <img src="../resour
 <p>In essence, since the <em>translation</em> has done nothing, and the data is simple <em>records</em> XML, the system is indicating that it expects the <em>output</em> data to be in the <em>reference-data v2.0.1</em> format.</p>
 <p>We can correct this by adding the skeleton xslt translation for reference data into our translationFilter. Move back to the <img src="../resources/icons/translationFilter.png" alt="translationFilter" title="translationFilter"> icon on the pipeline structure and add the following to the xsl
 window</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#099">&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:stylesheet</span> <span style="color:#309">xpath-default-namespace=</span><span style="color:#c30">&#34;records:2&#34;</span>
-<span style="color:#309">xmlns=</span><span style="color:#c30">&#34;reference-data:2&#34;</span>
-<span style="color:#309">xmlns:xsl=</span><span style="color:#c30">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-<span style="color:#309">xmlns:xsi=</span><span style="color:#c30">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> <span style="color:#309">xmlns:stroom=</span><span style="color:#c30">&#34;stroom&#34;</span> 
-<span style="color:#309">xmlns:evt=</span><span style="color:#c30">&#34;event-logging:3&#34;</span>
-<span style="color:#309">version=</span><span style="color:#c30">&#34;2.0&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot;
+xmlns=&quot;reference-data:2&quot;
+xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:stroom=&quot;stroom&quot; 
+xmlns:evt=&quot;event-logging:3&quot;
+version=&quot;2.0&quot;&gt;
 
- <span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;records&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;referenceData</span> <span style="color:#309">xmlns=</span><span style="color:#c30">&#34;reference-data:2&#34;</span>
-  <span style="color:#309">xsi:schemaLocation=</span><span style="color:#c30">&#34;reference-data:2 file://reference-data-v2.0.xsd&#34;</span> <span style="color:#309">version=</span><span style="color:#c30">&#34;2.0.1&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
-  <span style="color:#309;font-weight:bold">&lt;xsl:apply-templates/&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/referenceData&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
+ &lt;xsl:template match=&quot;records&quot;&gt;
+  &lt;referenceData xmlns=&quot;reference-data:2&quot;
+  xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.xsd&quot; version=&quot;2.0.1&quot;&gt;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  &lt;xsl:apply-templates/&gt;
+  &lt;/referenceData&gt;
+  &lt;/xsl:template&gt;
   
-<span style="color:#09f;font-style:italic">&lt;!-- MAIN TEMPLATE --&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;record&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:stylesheet&gt;</span>
-</code></pre></div><p>And on pressing the refresh button <img src="../resources/icons/stepRefresh.png" alt="stepRefresh" title="Step Refresh Button"> we see that the <em>output</em> window is an empty ReferenceData element.</p>
+&lt;!-- MAIN TEMPLATE --&gt;
+&lt;xsl:template match=&quot;record&quot;&gt;
+  &lt;reference&gt;
+    &lt;map&gt;&lt;/map&gt;
+    &lt;key&gt;&lt;/key&gt;
+    &lt;value&gt;&lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>And on pressing the refresh button <img src="../resources/icons/stepRefresh.png" alt="stepRefresh" title="Step Refresh Button"> we see that the <em>output</em> window is an empty ReferenceData element.</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-54.png" alt="Stroom UI CreateReferenceFeed - xslt Translation - null translation" title="xslt Translation - null translation"></p>
 <p>Also note that if we move to the <img src="../resources/icons/schemaFilter.png" alt="schemaFilter" title="schemaFilter"> icon on the pipeline structure, we no longer have an &ldquo;Invalid Schema Location&rdquo; error.</p>
 <p>We next extend the translation to actually generate reference data. The translation will now look like</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#099">&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:stylesheet</span> <span style="color:#309">xpath-default-namespace=</span><span style="color:#c30">&#34;records:2&#34;</span>
-<span style="color:#309">xmlns=</span><span style="color:#c30">&#34;reference-data:2&#34;</span>
-<span style="color:#309">xmlns:xsl=</span><span style="color:#c30">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-<span style="color:#309">xmlns:xsi=</span><span style="color:#c30">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
-<span style="color:#309">xmlns:stroom=</span><span style="color:#c30">&#34;stroom&#34;</span> 
-<span style="color:#309">xmlns:evt=</span><span style="color:#c30">&#34;event-logging:3&#34;</span>
-<span style="color:#309">version=</span><span style="color:#c30">&#34;2.0&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot;
+xmlns=&quot;reference-data:2&quot;
+xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xmlns:stroom=&quot;stroom&quot; 
+xmlns:evt=&quot;event-logging:3&quot;
+version=&quot;2.0&quot;&gt;
 
- <span style="color:#09f;font-style:italic">&lt;!--
-</span><span style="color:#09f;font-style:italic">  GEOHOST REFERENCE FEED:
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  CHANGE HISTORY
-</span><span style="color:#09f;font-style:italic">  v1.0.0 - 2020-02-09 John Doe
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  This is a reference feed for device Logical and Geographic data.
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  The feed provides for each device
-</span><span style="color:#09f;font-style:italic">  * the device FQDN
-</span><span style="color:#09f;font-style:italic">  * the device IP Address
-</span><span style="color:#09f;font-style:italic">  * the device Country location (using ISO 3166-1 alpha-3 codes)
-</span><span style="color:#09f;font-style:italic">  * the device Site location
-</span><span style="color:#09f;font-style:italic">  * the device Building location
-</span><span style="color:#09f;font-style:italic">  * the device Room location
-</span><span style="color:#09f;font-style:italic">  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  The reference maps are
-</span><span style="color:#09f;font-style:italic">  FQDN_TO_IP - Fully Qualified Domain Name to IP Address
-</span><span style="color:#09f;font-style:italic">  IP_TO_FQDN - IP Address to FQDN (HostName)
-</span><span style="color:#09f;font-style:italic">  FQDN_TO_LOC - Fully Qualified Domain Name to Location element
-</span><span style="color:#09f;font-style:italic">  --&gt;</span>
+ &lt;!--
+  GEOHOST REFERENCE FEED:
+  
+  CHANGE HISTORY
+  v1.0.0 - 2020-02-09 John Doe
+  
+  This is a reference feed for device Logical and Geographic data.
+  
+  The feed provides for each device
+  * the device FQDN
+  * the device IP Address
+  * the device Country location (using ISO 3166-1 alpha-3 codes)
+  * the device Site location
+  * the device Building location
+  * the device Room location
+  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
+  
+  The reference maps are
+  FQDN_TO_IP - Fully Qualified Domain Name to IP Address
+  IP_TO_FQDN - IP Address to FQDN (HostName)
+  FQDN_TO_LOC - Fully Qualified Domain Name to Location element
+  --&gt;
 
- <span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;records&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;referenceData</span> <span style="color:#309">xmlns=</span><span style="color:#c30">&#34;reference-data:2&#34;</span>
-  <span style="color:#309">xsi:schemaLocation=</span><span style="color:#c30">&#34;reference-data:2 file://reference-data-v2.0.xsd&#34;</span> <span style="color:#309">version=</span><span style="color:#c30">&#34;2.0.1&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:apply-templates/&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/referenceData&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
+ &lt;xsl:template match=&quot;records&quot;&gt;
+  &lt;referenceData xmlns=&quot;reference-data:2&quot;
+  xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.xsd&quot; version=&quot;2.0.1&quot;&gt;
+  &lt;xsl:apply-templates/&gt;
+  &lt;/referenceData&gt;
+  &lt;/xsl:template&gt;
   
-<span style="color:#09f;font-style:italic">&lt;!-- MAIN TEMPLATE --&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;record&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#09f;font-style:italic">&lt;!-- FQDN_TO_IP map --&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_IP<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;lower-case(data[@name=&#39;FQDN&#39;]/@value)&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;IPAddress&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;IPAddress&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/IPAddress&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
+&lt;!-- MAIN TEMPLATE --&gt;
+&lt;xsl:template match=&quot;record&quot;&gt;
+  &lt;!-- FQDN_TO_IP map --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_IP&lt;/map&gt;
+    &lt;key&gt;
+      &lt;xsl:value-of select=&quot;lower-case(data[@name='FQDN']/@value)&quot; /&gt;
+    &lt;/key&gt;
+    &lt;value&gt;
+      &lt;IPAddress&gt;
+        &lt;xsl:value-of select=&quot;data[@name='IPAddress']/@value&quot; /&gt;
+      &lt;/IPAddress&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
   
-  <span style="color:#09f;font-style:italic">&lt;!-- IP_TO_FQDN map --&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>IP_TO_FQDN<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;lower-case(data[@name=&#39;IPAddress&#39;]/@value)&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;HostName&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;FQDN&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/HostName&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:stylesheet&gt;</span>
-</code></pre></div><p>and when we refresh, by pressing the <em>Refresh Current Step</em> button <img src="../resources/icons/stepRefresh.png" alt="stepRefresh" title="Step Refresh Button"> we see that the <em>output</em> window now has <em>Reference</em> elements within the parent <em>ReferenceData</em> element</p>
+  &lt;!-- IP_TO_FQDN map --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;IP_TO_FQDN&lt;/map&gt;
+    &lt;key&gt;
+      &lt;xsl:value-of select=&quot;lower-case(data[@name='IPAddress']/@value)&quot; /&gt;
+    &lt;/key&gt;
+    &lt;value&gt;
+      &lt;HostName&gt;
+        &lt;xsl:value-of select=&quot;data[@name='FQDN']/@value&quot; /&gt;
+      &lt;/HostName&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+&lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>and when we refresh, by pressing the <em>Refresh Current Step</em> button <img src="../resources/icons/stepRefresh.png" alt="stepRefresh" title="Step Refresh Button"> we see that the <em>output</em> window now has <em>Reference</em> elements within the parent <em>ReferenceData</em> element</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-55.png" alt="Stroom UI CreateReferenceFeed - xslt Translation - basic translation" title="xslt Translation - basic translation"></p>
 <p>If we press the Step Forward button <img src="../resources/icons/stepForward.png" alt="stepForward" title="Step Forward"> we see the second <em>record</em> of our raw reference data in the <em>input</em> sub-pane and the resultant <em>Reference</em> elements</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-56.png" alt="Stroom UI CreateReferenceFeed - xslt Translation - basic translation next record" title="xslt Translation - basic translation next record"></p>
 <p>At this point it would be wise to save our translation. This is done by clicking on the highlighted <img src="../resources/icons/save.png" alt="save" title="save"> icon in the top left-hand area of the window under the tabs.</p>
 <p>We can now further our Reference by adding a Fully Qualified Domain Name to Location reference - FQDN_TO_LOC and so now the translation looks like</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#099">&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:stylesheet</span> <span style="color:#309">xpath-default-namespace=</span><span style="color:#c30">&#34;records:2&#34;</span>
-<span style="color:#309">xmlns=</span><span style="color:#c30">&#34;reference-data:2&#34;</span>
-<span style="color:#309">xmlns:xsl=</span><span style="color:#c30">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
-<span style="color:#309">xmlns:xsi=</span><span style="color:#c30">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
-<span style="color:#309">xmlns:stroom=</span><span style="color:#c30">&#34;stroom&#34;</span> 
-<span style="color:#309">xmlns:evt=</span><span style="color:#c30">&#34;event-logging:3&#34;</span>
-<span style="color:#309">version=</span><span style="color:#c30">&#34;2.0&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot;
+xmlns=&quot;reference-data:2&quot;
+xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xmlns:stroom=&quot;stroom&quot; 
+xmlns:evt=&quot;event-logging:3&quot;
+version=&quot;2.0&quot;&gt;
 
- <span style="color:#09f;font-style:italic">&lt;!--
-</span><span style="color:#09f;font-style:italic">  GEOHOST REFERENCE FEED:
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  CHANGE HISTORY
-</span><span style="color:#09f;font-style:italic">  v1.0.0 - 2020-02-09 John Doe
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  This is a reference feed for device Logical and Geographic data.
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  The feed provides for each device
-</span><span style="color:#09f;font-style:italic">  * the device FQDN
-</span><span style="color:#09f;font-style:italic">  * the device IP Address
-</span><span style="color:#09f;font-style:italic">  * the device Country location (using ISO 3166-1 alpha-3 codes)
-</span><span style="color:#09f;font-style:italic">  * the device Site location
-</span><span style="color:#09f;font-style:italic">  * the device Building location
-</span><span style="color:#09f;font-style:italic">  * the device Room location
-</span><span style="color:#09f;font-style:italic">  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
-</span><span style="color:#09f;font-style:italic">  
-</span><span style="color:#09f;font-style:italic">  The reference maps are
-</span><span style="color:#09f;font-style:italic">  FQDN_TO_IP - Fully Qualified Domain Name to IP Address
-</span><span style="color:#09f;font-style:italic">  IP_TO_FQDN - IP Address to FQDN (HostName)
-</span><span style="color:#09f;font-style:italic">  FQDN_TO_LOC - Fully Qualified Domain Name to Location element
-</span><span style="color:#09f;font-style:italic">  --&gt;</span>
+ &lt;!--
+  GEOHOST REFERENCE FEED:
+  
+  CHANGE HISTORY
+  v1.0.0 - 2020-02-09 John Doe
+  
+  This is a reference feed for device Logical and Geographic data.
+  
+  The feed provides for each device
+  * the device FQDN
+  * the device IP Address
+  * the device Country location (using ISO 3166-1 alpha-3 codes)
+  * the device Site location
+  * the device Building location
+  * the device Room location
+  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
+  
+  The reference maps are
+  FQDN_TO_IP - Fully Qualified Domain Name to IP Address
+  IP_TO_FQDN - IP Address to FQDN (HostName)
+  FQDN_TO_LOC - Fully Qualified Domain Name to Location element
+  --&gt;
 
- <span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;records&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;referenceData</span> <span style="color:#309">xmlns=</span><span style="color:#c30">&#34;reference-data:2&#34;</span>
-  <span style="color:#309">xsi:schemaLocation=</span><span style="color:#c30">&#34;reference-data:2 file://reference-data-v2.0.xsd&#34;</span> <span style="color:#309">version=</span><span style="color:#c30">&#34;2.0.1&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;xsl:apply-templates/&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/referenceData&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
+ &lt;xsl:template match=&quot;records&quot;&gt;
+  &lt;referenceData xmlns=&quot;reference-data:2&quot;
+  xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.xsd&quot; version=&quot;2.0.1&quot;&gt;
+  &lt;xsl:apply-templates/&gt;
+  &lt;/referenceData&gt;
+  &lt;/xsl:template&gt;
   
-<span style="color:#09f;font-style:italic">&lt;!-- MAIN TEMPLATE --&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;xsl:template</span> <span style="color:#309">match=</span><span style="color:#c30">&#34;record&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#09f;font-style:italic">&lt;!-- FQDN_TO_IP map --&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_IP<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;lower-case(data[@name=&#39;FQDN&#39;]/@value)&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;IPAddress&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;IPAddress&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/IPAddress&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
+&lt;!-- MAIN TEMPLATE --&gt;
+&lt;xsl:template match=&quot;record&quot;&gt;
+  &lt;!-- FQDN_TO_IP map --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_IP&lt;/map&gt;
+    &lt;key&gt;
+      &lt;xsl:value-of select=&quot;lower-case(data[@name='FQDN']/@value)&quot; /&gt;
+    &lt;/key&gt;
+    &lt;value&gt;
+      &lt;IPAddress&gt;
+        &lt;xsl:value-of select=&quot;data[@name='IPAddress']/@value&quot; /&gt;
+      &lt;/IPAddress&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
   
-  <span style="color:#09f;font-style:italic">&lt;!-- IP_TO_FQDN map --&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>IP_TO_FQDN<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;lower-case(data[@name=&#39;IPAddress&#39;]/@value)&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;HostName&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;FQDN&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/HostName&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
+  &lt;!-- IP_TO_FQDN map --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;IP_TO_FQDN&lt;/map&gt;
+    &lt;key&gt;
+      &lt;xsl:value-of select=&quot;lower-case(data[@name='IPAddress']/@value)&quot; /&gt;
+    &lt;/key&gt;
+    &lt;value&gt;
+      &lt;HostName&gt;
+        &lt;xsl:value-of select=&quot;data[@name='FQDN']/@value&quot; /&gt;
+      &lt;/HostName&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
   
-   <span style="color:#09f;font-style:italic">&lt;!-- FQDN_TO_LOC map --&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_LOC<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;lower-case(data[@name=&#39;FQDN&#39;]/@value)&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-    <span style="color:#09f;font-style:italic">&lt;!--
-</span><span style="color:#09f;font-style:italic">    Note, when mapping to a XML node set, we make use of the Event namespace - i.e. evt: 
-</span><span style="color:#09f;font-style:italic">    defined on our stylesheet element. This is done, so that, when the node set is returned,
-</span><span style="color:#09f;font-style:italic">    it is within the correct namespace.
-</span><span style="color:#09f;font-style:italic">    --&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;evt:Location&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Country&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;Country&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;/evt:Country&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Site&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;Site&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;/evt:Site&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Building&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;Building&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;/evt:Building&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Room&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;Room&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;/evt:Room&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:TimeZone&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;xsl:value-of</span> <span style="color:#309">select=</span><span style="color:#c30">&#34;data[@name=&#39;TimeZones&#39;]/@value&#34;</span> <span style="color:#309;font-weight:bold">/&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;/evt:TimeZone&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/evt:Location&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:template&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/xsl:stylesheet&gt;</span>
-</code></pre></div><p>and our second ReferenceData element would now look like</p>
+   &lt;!-- FQDN_TO_LOC map --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_LOC&lt;/map&gt;
+    &lt;key&gt;
+      &lt;xsl:value-of select=&quot;lower-case(data[@name='FQDN']/@value)&quot; /&gt;
+    &lt;/key&gt;
+    &lt;value&gt;
+    &lt;!--
+    Note, when mapping to a XML node set, we make use of the Event namespace - i.e. evt: 
+    defined on our stylesheet element. This is done, so that, when the node set is returned,
+    it is within the correct namespace.
+    --&gt;
+      &lt;evt:Location&gt;
+        &lt;evt:Country&gt;
+        &lt;xsl:value-of select=&quot;data[@name='Country']/@value&quot; /&gt;
+        &lt;/evt:Country&gt;
+        &lt;evt:Site&gt;
+        &lt;xsl:value-of select=&quot;data[@name='Site']/@value&quot; /&gt;
+        &lt;/evt:Site&gt;
+        &lt;evt:Building&gt;
+        &lt;xsl:value-of select=&quot;data[@name='Building']/@value&quot; /&gt;
+        &lt;/evt:Building&gt;
+        &lt;evt:Room&gt;
+        &lt;xsl:value-of select=&quot;data[@name='Room']/@value&quot; /&gt;
+        &lt;/evt:Room&gt;
+        &lt;evt:TimeZone&gt;
+        &lt;xsl:value-of select=&quot;data[@name='TimeZones']/@value&quot; /&gt;
+        &lt;/evt:TimeZone&gt;
+      &lt;/evt:Location&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+&lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>and our second ReferenceData element would now look like</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-57.png" alt="Stroom UI CreateReferenceFeed - xslt Translation - complete translation 2nd record" title="xslt Translation - complete translation 2nd record"></p>
 <p>We have completed the translation and have hence completed the development of our GeoHost-V1.0-REFERENCE reference feed.</p>
 <p>At this point, the reference feed is set up to accept Raw Reference data, but it will not automatically process the raw data and hence it will not place reference data into the reference data store. To have Stroom automatically process Raw Reference streams, you will need to enable <em>Processors</em> for this pipeline.</p>
@@ -2651,91 +2786,92 @@ Check the status of the Stream Processor job and enable if required. If you need
 <p><img src="../resources/v6/UI-CreateReferenceFeed-67.png" alt="Stroom UI CreateReferenceFeed - pipeline Display Data" title="pipeline Display Data"></p>
 <p>In the top pane, we see the <em>Streams table</em> as per normal, but in the <em>Specific stream</em> table we see that we have both a <strong>Raw Reference</strong> stream and its child <strong>Reference</strong> stream. By clicking on and highlighting the <strong>Reference</strong> stream we see its content in the bottom pane.</p>
 <p>The complete ReferenceData for this stream is</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#099">&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;referenceData</span> <span style="color:#309">xmlns=</span><span style="color:#c30">&#34;reference-data:2&#34;</span> <span style="color:#309">xmlns:xsi=</span><span style="color:#c30">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span> <span style="color:#309">xmlns:stroom=</span><span style="color:#c30">&#34;stroom&#34;</span> <span style="color:#309">xmlns:evt=</span><span style="color:#c30">&#34;event-logging:3&#34;</span> <span style="color:#309">xsi:schemaLocation=</span><span style="color:#c30">&#34;reference-data:2 file://reference-data-v2.0.xsd&#34;</span> <span style="color:#309">version=</span><span style="color:#c30">&#34;2.0.1&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_IP<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>stroomnode00.strmdev00.org<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;IPAddress&gt;</span>192.168.2.245<span style="color:#309;font-weight:bold">&lt;/IPAddress&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>IP_TO_FQDN<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>192.168.2.245<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;HostName&gt;</span>stroomnode00.strmdev00.org<span style="color:#309;font-weight:bold">&lt;/HostName&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_LOC<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>stroomnode00.strmdev00.org<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;evt:Location&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Country&gt;</span>GBR<span style="color:#309;font-weight:bold">&lt;/evt:Country&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Site&gt;</span>Bristol-S00<span style="color:#309;font-weight:bold">&lt;/evt:Site&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Building&gt;</span>GZero<span style="color:#309;font-weight:bold">&lt;/evt:Building&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Room&gt;</span>R00<span style="color:#309;font-weight:bold">&lt;/evt:Room&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:TimeZone&gt;</span>+00:00/+01:00<span style="color:#309;font-weight:bold">&lt;/evt:TimeZone&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/evt:Location&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_IP<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>stroomnode01.strmdev01.org<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;IPAddress&gt;</span>192.168.3.117<span style="color:#309;font-weight:bold">&lt;/IPAddress&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>IP_TO_FQDN<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>192.168.3.117<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;HostName&gt;</span>stroomnode01.strmdev01.org<span style="color:#309;font-weight:bold">&lt;/HostName&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_LOC<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>stroomnode01.strmdev01.org<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;evt:Location&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Country&gt;</span>AUS<span style="color:#309;font-weight:bold">&lt;/evt:Country&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Site&gt;</span>Sydeny-S04<span style="color:#309;font-weight:bold">&lt;/evt:Site&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Building&gt;</span>R6<span style="color:#309;font-weight:bold">&lt;/evt:Building&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Room&gt;</span>5-134<span style="color:#309;font-weight:bold">&lt;/evt:Room&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:TimeZone&gt;</span>+10:00/+11:00<span style="color:#309;font-weight:bold">&lt;/evt:TimeZone&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/evt:Location&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_IP<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>host01.company4.org<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;IPAddress&gt;</span>192.168.4.220<span style="color:#309;font-weight:bold">&lt;/IPAddress&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>IP_TO_FQDN<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>192.168.4.220<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;HostName&gt;</span>host01.company4.org<span style="color:#309;font-weight:bold">&lt;/HostName&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;reference&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;map&gt;</span>FQDN_TO_LOC<span style="color:#309;font-weight:bold">&lt;/map&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;key&gt;</span>host01.company4.org<span style="color:#309;font-weight:bold">&lt;/key&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;value&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;evt:Location&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Country&gt;</span>USA<span style="color:#309;font-weight:bold">&lt;/evt:Country&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Site&gt;</span>LosAngeles-S19<span style="color:#309;font-weight:bold">&lt;/evt:Site&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Building&gt;</span>ILM<span style="color:#309;font-weight:bold">&lt;/evt:Building&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:Room&gt;</span>C5-54-2<span style="color:#309;font-weight:bold">&lt;/evt:Room&gt;</span>
-        <span style="color:#309;font-weight:bold">&lt;evt:TimeZone&gt;</span>-08:00/-07:00<span style="color:#309;font-weight:bold">&lt;/evt:TimeZone&gt;</span>
-      <span style="color:#309;font-weight:bold">&lt;/evt:Location&gt;</span>
-    <span style="color:#309;font-weight:bold">&lt;/value&gt;</span>
-  <span style="color:#309;font-weight:bold">&lt;/reference&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/referenceData&gt;</span>
-</code></pre></div><p>If we go back to the reference feed itself (and click on the <img src="../resources/icons/refresh.png" alt="refresh" title="Refresh"> button on the far right of the top and middle panes), we now see both the <em>Reference</em> and <em>Raw Reference</em> streams in the <em>Streams Table</em> pane.</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;referenceData xmlns=&quot;reference-data:2&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:stroom=&quot;stroom&quot; xmlns:evt=&quot;event-logging:3&quot; xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.xsd&quot; version=&quot;2.0.1&quot;&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_IP&lt;/map&gt;
+    &lt;key&gt;stroomnode00.strmdev00.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;IPAddress&gt;192.168.2.245&lt;/IPAddress&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;IP_TO_FQDN&lt;/map&gt;
+    &lt;key&gt;192.168.2.245&lt;/key&gt;
+    &lt;value&gt;
+      &lt;HostName&gt;stroomnode00.strmdev00.org&lt;/HostName&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_LOC&lt;/map&gt;
+    &lt;key&gt;stroomnode00.strmdev00.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;evt:Location&gt;
+        &lt;evt:Country&gt;GBR&lt;/evt:Country&gt;
+        &lt;evt:Site&gt;Bristol-S00&lt;/evt:Site&gt;
+        &lt;evt:Building&gt;GZero&lt;/evt:Building&gt;
+        &lt;evt:Room&gt;R00&lt;/evt:Room&gt;
+        &lt;evt:TimeZone&gt;+00:00/+01:00&lt;/evt:TimeZone&gt;
+      &lt;/evt:Location&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_IP&lt;/map&gt;
+    &lt;key&gt;stroomnode01.strmdev01.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;IPAddress&gt;192.168.3.117&lt;/IPAddress&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;IP_TO_FQDN&lt;/map&gt;
+    &lt;key&gt;192.168.3.117&lt;/key&gt;
+    &lt;value&gt;
+      &lt;HostName&gt;stroomnode01.strmdev01.org&lt;/HostName&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_LOC&lt;/map&gt;
+    &lt;key&gt;stroomnode01.strmdev01.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;evt:Location&gt;
+        &lt;evt:Country&gt;AUS&lt;/evt:Country&gt;
+        &lt;evt:Site&gt;Sydeny-S04&lt;/evt:Site&gt;
+        &lt;evt:Building&gt;R6&lt;/evt:Building&gt;
+        &lt;evt:Room&gt;5-134&lt;/evt:Room&gt;
+        &lt;evt:TimeZone&gt;+10:00/+11:00&lt;/evt:TimeZone&gt;
+      &lt;/evt:Location&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_IP&lt;/map&gt;
+    &lt;key&gt;host01.company4.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;IPAddress&gt;192.168.4.220&lt;/IPAddress&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;IP_TO_FQDN&lt;/map&gt;
+    &lt;key&gt;192.168.4.220&lt;/key&gt;
+    &lt;value&gt;
+      &lt;HostName&gt;host01.company4.org&lt;/HostName&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_LOC&lt;/map&gt;
+    &lt;key&gt;host01.company4.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;evt:Location&gt;
+        &lt;evt:Country&gt;USA&lt;/evt:Country&gt;
+        &lt;evt:Site&gt;LosAngeles-S19&lt;/evt:Site&gt;
+        &lt;evt:Building&gt;ILM&lt;/evt:Building&gt;
+        &lt;evt:Room&gt;C5-54-2&lt;/evt:Room&gt;
+        &lt;evt:TimeZone&gt;-08:00/-07:00&lt;/evt:TimeZone&gt;
+      &lt;/evt:Location&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+&lt;/referenceData&gt;
+</code></pre>
+<p>If we go back to the reference feed itself (and click on the <img src="../resources/icons/refresh.png" alt="refresh" title="Refresh"> button on the far right of the top and middle panes), we now see both the <em>Reference</em> and <em>Raw Reference</em> streams in the <em>Streams Table</em> pane.</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-68.png" alt="Stroom UI CreateReferenceFeed - reference feed - Data tab" title="reference feed - Data tab"></p>
 <p>Selecting the <em>Reference</em> stream in the <em>Stream Table</em> will result in the <em>Specific stream</em> pane displaying the <em>Raw Reference</em> and its child <em>Reference</em> stream (highlighted) and the actual ReferenceData output in the <em>Data</em> pane at the bottom.</p>
 <p><img src="../resources/v6/UI-CreateReferenceFeed-69.png" alt="Stroom UI CreateReferenceFeed - reference feed - Select reference" title="reference feed - Select reference"></p>
@@ -2757,8 +2893,8 @@ Select all four resources by using the mouse right-click button while holding do
 	<div class="text-muted mt-5 pt-3 border-top">
 
     Last modified
-    July 9, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/d3aa4421684510eef91c5062737207b88f72fd01">Migrate HOWTOs (WIP) (d3aa442)</a>
+    July 12, 2021
+    : <a  href="https://github.com/gchq/stroom-docs/commit/5e0c3ffbe3d69862274c7942a93840d6102a1624">Fix HOW TOs section, improve style guide (5e0c3ff)</a>
 
 </div>
 
@@ -2829,6 +2965,9 @@ Select all four resources by using the mouse right-click button while holding do
 
 <script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
 
+
+
+<script src='/stroom-docs/hugo-docsy/js/prism.js'></script>
 
 
 
