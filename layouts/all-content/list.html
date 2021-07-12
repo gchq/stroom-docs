@@ -25,7 +25,10 @@
 
   <ul>
     {{ range where .Site.Pages "Section" "docs" }}
+      {{ if not (eq .Params.draft true) }}
+
       <li><a href="#{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</a></li>
+      {{ end }}
     {{ end }}
   </ul>
 
@@ -33,10 +36,12 @@
 
   {{ range where .Site.Pages "Section" "docs" }}
 
+    {{ if not (eq .Params.draft true) }}
     <h1 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h1>
     <!--<p style=""><a href="{{ .Permalink }}">{{ .Permalink }}</a> - {{ .Params.sdate }}</p>-->
     {{ .Content }}
 
+    {{ end }}
   {{ end }}
 
 </body>
