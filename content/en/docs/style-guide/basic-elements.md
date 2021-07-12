@@ -1,7 +1,7 @@
-
 ---
 title: "Basic Page Elements"
 linkTitle: "Basic Page Elements"
+weight: 10
 description: >
 tags:
   - style
@@ -233,7 +233,7 @@ However this will produce the same result.
 
 A [link](#alerts) to an anchor on this page.
 
-A [link]({{< ref "using-images#captions" >}}) link to an anchor on page below this one.
+A [link]({{< ref "using-images#captions" >}}) link to an anchor on page that is a sibling of this one.
 
 A [link]({{< ref "../proxy/install.md#prerequisites" >}}) link to an anchor on page above this one, using a relative path.
 

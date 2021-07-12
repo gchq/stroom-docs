@@ -2,6 +2,7 @@
 ---
 title: "Images"
 linkTitle: "Images"
+weight: 20
 description: >
 # Set draft: true to stop the page appearing in the published/released version.
 tags:
@@ -112,9 +113,10 @@ You should embed an PlantUML image like this, using the `.puml.svg` file (that m
 Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
 The filename is relative to `/assets/images/stroom-ui/`.
 
+Stroom pipeline elements can be added in line like this {{< stroom-icon "pipeline/split.svg" "Split" >}}.
 
-### Icon Gallery
+Stroom document elements can be added in line like this {{< stroom-icon "document/Visualisation.svg" "Visualisation" >}}.
 
-The following are all the icons available in Stroom for reference.
+For a full list of all available icons see the [Icon Gallery]({{< ref "../icon-gallery.md" >}})
 
-{{< stroom-icons-gallery >}}
+
