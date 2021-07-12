@@ -11,6 +11,12 @@ cascade:
     - howto
 ---
 
+
+{{% todo %}}
+Add the resources dir to /assets and fix all the img links
+{{% /todo %}}
+
+
 The *HOWTOs* are broken down into different functional concepts or areas of Stroom.
 
 **NOTE:** These *HOWTOs* will match the development of Stroom and as a result, various elements will be updated over time, including screen captures.
