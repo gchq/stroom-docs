@@ -3,7 +3,7 @@
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-23  
 > **See Also:** [Stroom Application Configuration](configuring-stroom.md)  
-> **See Also:** [Properties](../../../user-guide/properties.md).  
+> **See Also:** [Properties](../../user-guide/properties.md).  
 > **TODO:** This needs updating for v7.1  
 
 The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the `config.yml` file.
@@ -26,7 +26,7 @@ As with stroom, the `config.yml` file is split into three sections using these k
 * `logging` - Configuration of application logging
 * `proxyConfig` - Configuration of stroom-proxy
 
-See also [Properties](../../../user-guide/properties.md) for more details on structure of the config.yml file and supported data types.
+See also [Properties](../../user-guide/properties.md) for more details on structure of the config.yml file and supported data types.
 
 Stroom-proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
 As a result `config.yml` only contains a minimal set of properties.

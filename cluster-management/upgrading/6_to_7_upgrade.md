@@ -17,7 +17,7 @@ Stroom v7 has significant differences to v6 which make the upgrade process a lit
 * v6 handled authentication using a separate application, _stroom-auth-service_, with its own database.
   In v7 authentication is handled either internally in stroom (the default) or by an external identity provider such as google or AWS Cognito.
 * v6 used a stroom.conf file or environment variables for configuration.
-  In v7 stroom uses a config.yml file for its configuration (see [Properties](../../../user-guide/properties.md))
+  In v7 stroom uses a config.yml file for its configuration (see [Properties](../../user-guide/properties.md))
 * v6 used upper case and heavily abbreviated names for its tables.
   In v7 clearer and lower case table names are used.
   As a result ALL v6 tables get renamed with the prefix `OLD_`, the new tables created and any content copied over.
