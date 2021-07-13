@@ -12,6 +12,8 @@ recent at the top.
 
 * Add example v7 architecture diagram.
 
+* Update developer IDE docs to be in line with v7.
+
 * Add mention of `OLD_AUTH_schema_version` in `6_to_7_upgrade.md`.
 
 * Fix issues in `6_to_7_upgrade.md`.
