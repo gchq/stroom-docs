@@ -3,7 +3,7 @@
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-23
 
-Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+Stroom and its associated services can be deployed in various ways (single node docker stack, non-docker cluster, kubernetes, etc).
 This document will cover two types of deployment:
 
 * Single node stroom_core docker stack.
@@ -16,15 +16,15 @@ This document will explain how each application/service is configured and where 
 
 The following sections provide links to how to configure each application.
 
-* [Stroom Configuration](./configuring-stroom.md)
+* [Stroom Configuration](configuring-stroom.md)
 
-* [Stroom Proxy Configuration](./configuring-stroom-proxy.md)
+* [Stroom Proxy Configuration](configuring-stroom-proxy.md)
 
-* [MySQL Configuration](./configuring-mysql.md)
+* [MySQL Configuration](configuring-mysql.md)
 
-* [Nginx Configuration](./configuring-nginx.md)
+* [Nginx Configuration](configuring-nginx.md)
 
-* [Stroom log sender Configuration](./configuring-stroom-log-sender.md)
+* [Stroom log sender Configuration](configuring-stroom-log-sender.md)
 
 
 ## General configuration of docker stacks

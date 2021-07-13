@@ -7,8 +7,8 @@ They do require Docker and Docker Compose, so make sure you've installed those f
 At the risk of sowing confusion you should know that there are different ways of running Stroom. Here are the full options:
 
 * [Run using Docker Hub images (recommended)](../../dev-guide/docker-running.md)
-* [Install a stroom v5.x release](../../install-guide/stroom-app-install.md)
-* [Install a stroom v6.x release](../../install-guide/stroom-6-installation.md)
+* [Install a stroom v5.x release](../../install-guide/installation/version-5/stroom-app-install.md)
+* [Install a stroom v6.x release](../../install-guide/installation/version-6/stroom-6-installation.md)
 * From source you can:
   * [Build and run from IntelliJ](../../dev-guide/stroom-in-an-ide.md)
 

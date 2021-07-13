@@ -5,6 +5,9 @@
 * [Introduction](README.md)
 * [Release Notes](release-notes.md)
 * [Screenshots](screenshots.md)
+* [Architecture]
+  * [Stroom v7](architecture/stroom-7-architecture.md)
+  * [Stroom v6](architecture/stroom-6-architecture.md)
 * [Quick-start guide](quick-start-guide/quick-start.md)
   * [Running](quick-start-guide/running/running.md)
   * [Getting data in](quick-start-guide/feed/feed.md)
@@ -14,24 +17,24 @@
 
 ### 2. Installation
 
-* [Architecture & Deployment](install-guide/stroom-6-architecture.md)
-* [Installing Stroom](install-guide/stroom-app-install.md)
-* [Installing Stroom Proxy v7](install-guide/Stroom-7-Proxy-Installation.md)
-* [Configuration](install-guide/configuration/configuration.md)
-  * [Stroom](install-guide/configuration/configuring-stroom.md)
-  * [Stroom-proxy](install-guide/configuration/configuring-stroom-proxy.md)
-  * [MySQL](install-guide/configuration/configuring-mysql.md)
-  * [Nginx](install-guide/configuration/configuring-nginx.md)
-  * [Stroom-log-sender](install-guide/configuration/configuring-stroom-log-sender.md)
-* Setup
-  * [Apache forwarding](install-guide/setup/apache-forwarding.md)
-  * [Java key store setup](install-guide/setup/java-key-store-setup.md)
-  * [MySQL server setup](install-guide/setup/mysql-server-setup.md)
-  * [Processing user setup](install-guide/setup/processing-user-setup.md)
-  * [Securing Stroom](install-guide/setup/securing-stroom.md)
-* [Upgrading and patching](install-guide/upgrade-patch.md)
-  * [v6 to v7 Upgrade](install-guide/upgrades/6_to_7_upgrade.md)
-* [Stroom 6 installation guide (DRAFT)](install-guide/stroom-6-installation.md)
+* [Stroom v7](install-guide/installation/version-7/configuration.md)
+  * [Stroom](install-guide/installation/version-7/configuring-stroom.md)
+  * [Stroom Proxy](install-guide/installation/version-7/configuring-stroom-proxy.md)
+  * [MySQL](install-guide/installation/version-7/configuring-mysql.md)
+  * [Nginx](install-guide/installation/version-7/configuring-nginx.md)
+  * [Stroom log sender](install-guide/installation/version-7/configuring-stroom-log-sender.md)
+* [Stroom v7 in Kubernetes]
+  * TODO
+* [Stroom Proxy v7](install-guide/installation/version-7/proxy.md)
+* [Upgrading and patching](install-guide/installation/version-7/upgrade-patch.md)
+  * [v6 to v7 Upgrade](install-guide/installation/upgrading/6_to_7_upgrade.md)
+* Previous versions
+  * [Stroom v6](install-guide/installation/version-6/stroom-6-installation.md)
+  * [Stroom v5](install-guide/installation/version-5/stroom-app-install.md)
+  * Stroom Proxy v5
+    * [Installing Stroom proxy](install-guide/installation/version-5/proxy/install.md)
+    * [Docker](install-guide/installation/version-5/proxy/docker.md)
+    * [Apache forwarding](install-guide/installation/version-5/proxy/apache-forwarding.md)
 
 ### 3. User Guide
 
@@ -113,7 +116,7 @@
   * [User Logout](HOWTOs/Authentication/UserLogoutHowTo.md)
   * [User Login](HOWTOs/Authentication/UserLoginHowTo.md)
   * [Create User](HOWTOs/Authentication/CreateUserHowTo.md)
-* Install
+* Install (legacy)
   * [Nodes](HOWTOs/Install/InstallNodesHowTo.md)
   * [Database](HOWTOs/Install/InstallDatabaseHowTo.md)
   * [Install](HOWTOs/Install/InstallHowTo.md)
@@ -136,13 +139,6 @@
   * [Search API using bash](HOWTOs/Search/SearchFromBash.md)
   * [Elasticsearch integration](HOWTOs/Search/Elasticsearch.md)
   * [Solr integration](HOWTOs/Search/Solr.md)
-
-
-### 5. Stroom Proxy
-
-* [Installing Stroom proxy](proxy/install.md)
-* [Docker](proxy/docker.md)
-* [Apache forwarding](proxy/apache-forwarding.md)
 
 ### 6. Developer Guide
 

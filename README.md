@@ -42,7 +42,7 @@ An organisation can ask their employees to configure Stroom whenever they introd
 
 The following is a high level overview of how Stroom and its proxies ingest data.
 
-![System Overview Diagram](resources/overview.puml.svg)
+![System Overview Diagram](/diagrams/overview.puml.svg)
 
 ## Processing Overview
 
@@ -51,7 +51,7 @@ Raw data can be processed to "cook" it into a normalised form, meaning data orig
 Central to the normalisation process is the _event-logging_ [_event-logging_ XML Schema](https://github.com/gchq/event-logging-schema) that serves as the common form for all cooked data.
 Cooked data can be further processed to transform/index/aggregate/analyse it, e.g. for storage in another form or for sending it to external systems.
 
-![Processing Overview Diagram](resources/processing_overview.puml.svg)
+![Processing Overview Diagram](/diagrams/processing_overview.puml.svg)
 
 The main processing stages are:
 

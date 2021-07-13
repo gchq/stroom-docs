@@ -104,7 +104,7 @@ Nodes 8-10 will serve all datafeed(direct) requests.
 
 The stack comes with a default server certificate/key and CA certificate for demo/test purposes.
 The files are located in `volumes/nginx/certs/`.
-For a production deployment these will need to be changed, see [Certificates](./configuration.md#certificates)
+For a production deployment these will need to be changed, see [Certificates](configuration.md#certificates)
 
 
 ### Log rotation

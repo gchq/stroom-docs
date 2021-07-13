@@ -57,8 +57,8 @@ tail -f instance/logs/stroom.log
 
 You might want to configure some of the following:
 
-* [Processing User Setup](setup/processing-user-setup.md)
-* [MySQL Server Setup](setup/mysql-server-setup.md)
-* [Java Key Store Setup](setup/java-key-store-setup.md)
-* [Apache Forwarding](setup/apache-forwarding.md)
-* [Securing Stroom](setup/securing-stroom.md)
+* [Processing User Setup](processing-user-setup.md)
+* [MySQL Server Setup](mysql-server-setup.md)
+* [Java Key Store Setup](java-key-store-setup.md)
+* [Apache Forwarding](apache-forwarding.md)
+* [Securing Stroom](securing-stroom.md)
