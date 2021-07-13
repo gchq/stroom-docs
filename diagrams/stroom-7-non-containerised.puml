@@ -28,7 +28,7 @@ storage "Stroom Node #1" {
 
     'Reverse proxy connections
     nginx -[#Green]-> stroom_node_1 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Reverse-proxied traffic</color>
-    nginx -[#Green]-> stroom_proxy_local_1 : <color:Green>HTTP:stroom_port</color>\n<color:Green>/datafeeddirect</color>
+    nginx -[#Green]-> stroom_proxy_local_1 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Datafeed</color>
 
     'Effective connections (i.e. ignoring ngix gateway)
     stroom_proxy_local_1 -[#Grey]-> stroom_node_1 : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Feed status</color>
@@ -44,7 +44,7 @@ storage "Stroom Node #2" {
 
     'Reverse proxy connections
     nginx -[#Green]-> stroom_node_2 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Reverse-proxied traffic</color>
-    nginx -[#Green]-> stroom_proxy_local_2 : <color:Green>HTTP:stroom_port</color>\n<color:Green>/datafeeddirect</color>
+    nginx -[#Green]-> stroom_proxy_local_2 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Datafeed</color>
 
     'Effective connections (i.e. ignoring ngix gateway)
     stroom_proxy_local_2 -[#Grey]-> stroom_node_2 : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Feed status</color>
@@ -52,7 +52,7 @@ storage "Stroom Node #2" {
 }
 
 'Intra-cluster communication
-stroom_node_1 <-[#Grey]-> stroom_node_2 : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>/clustercall.rpc</color>
+stroom_node_1 <-[#Grey]-> stroom_node_2 : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Inter-node communication</color>
 
 storage "MySQL Server" as stroom_all_dbs {
     database "stroom" as stroom_db
