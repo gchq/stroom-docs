@@ -5,7 +5,7 @@
 * [Introduction](README.md)
 * [Release Notes](release-notes.md)
 * [Screenshots](screenshots.md)
-* [Architecture]
+* Architecture
   * [Stroom v7](architecture/stroom-7-architecture.md)
   * [Stroom v6](architecture/stroom-6-architecture.md)
 * [Quick-start guide](quick-start-guide/quick-start.md)
@@ -15,26 +15,36 @@
   * [Indexing the data](quick-start-guide/index/index.md)
   * [Visualising the data](quick-start-guide/dashboard/dashboard.md)
 
-### 2. Installation
+### 2. Cluster Management
 
-* [Stroom v7](install-guide/installation/version-7/configuration.md)
-  * [Stroom](install-guide/installation/version-7/configuring-stroom.md)
-  * [Stroom Proxy](install-guide/installation/version-7/configuring-stroom-proxy.md)
-  * [MySQL](install-guide/installation/version-7/configuring-mysql.md)
-  * [Nginx](install-guide/installation/version-7/configuring-nginx.md)
-  * [Stroom log sender](install-guide/installation/version-7/configuring-stroom-log-sender.md)
-* [Stroom v7 in Kubernetes]
-  * TODO
-* [Stroom Proxy v7](install-guide/installation/version-7/proxy.md)
-* [Upgrading and patching](install-guide/installation/version-7/upgrade-patch.md)
-  * [v6 to v7 Upgrade](install-guide/installation/upgrading/6_to_7_upgrade.md)
+* [Installing Stroom v7](cluster-management/version-7/configuration.md)
+  * [Stroom](cluster-management/version-7/configuring-stroom.md)
+  * [Stroom Proxy](cluster-management/version-7/configuring-stroom-proxy.md)
+  * [MySQL](cluster-management/version-7/configuring-mysql.md)
+  * [Nginx](cluster-management/version-7/configuring-nginx.md)
+  * [Stroom log sender](cluster-management/version-7/configuring-stroom-log-sender.md)
+* [Installing Stroom Proxy v7](cluster-management/version-7/proxy.md)
+* [Stroom v7 on Kubernetes](cluster-management/version-7/k8s/introduction.md)
+  * Stroom K8s Operator
+    * [Installation](cluster-management/version-7/k8s/install-operator.md)
+    * [Upgrade](cluster-management/version-7/k8s/upgrade-operator.md)
+    * [Removal](cluster-management/version-7/k8s/remove-operator.md)
+  * Database server
+    * [Configuration](cluster-management/version-7/k8s/configure-database-server.md)
+  * Stroom cluster
+    * [Configuration](cluster-management/version-7/k8s/configure-stroom-cluster.md)
+    * [Enabling task autoscaling](cluster-management/version-7/k8s/configure-stroomtaskautoscaler.md)
+    * [Stopping](cluster-management/version-7/k8s/stop-stroom-cluster.md)
+    * [Node restart](cluster-management/version-7/k8s/restart-node.md)
+* [Upgrading and patching](cluster-management/version-7/upgrade-patch.md)
+  * [v6 to v7 Upgrade](cluster-management/upgrading/6_to_7_upgrade.md)
 * Previous versions
-  * [Stroom v6](install-guide/installation/version-6/stroom-6-installation.md)
-  * [Stroom v5](install-guide/installation/version-5/stroom-app-install.md)
+  * [Installing Stroom v6](cluster-management/version-6/stroom-6-installation.md)
+  * [Installing Stroom v5](cluster-management/version-5/stroom-app-install.md)
   * Stroom Proxy v5
-    * [Installing Stroom proxy](install-guide/installation/version-5/proxy/install.md)
-    * [Docker](install-guide/installation/version-5/proxy/docker.md)
-    * [Apache forwarding](install-guide/installation/version-5/proxy/apache-forwarding.md)
+    * [Installing Stroom proxy](cluster-management/version-5/proxy/install.md)
+    * [Docker](cluster-management/version-5/proxy/docker.md)
+    * [Apache forwarding](cluster-management/version-5/proxy/apache-forwarding.md)
 
 ### 3. User Guide
 
