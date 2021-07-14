@@ -10,13 +10,36 @@ tags:
 
 ## Markdown style conventions
 
+### Line breaks
 
-### Sentence per line
+#### Sentence per line
 
 Each sentence should start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them.
-e.g.:
+When the mrkdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.
 
+See this [link (external linnk)](https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line) for more of the reasons behind sentence per line.
+Though this link relates to Asciidoc, the same applies to markdown.
+
+For example:
+
+{{< cardpane >}}
+
+  {{< card header="Don't do this" >}}
+```markdown
+This is the first sentence of the paragraph. This is the second. This it the third and final one.
+
+This is the start of a new paragraph.
+```
+
+**Which renders as:**
+
+This is the first sentence of the paragraph. This is the second. This it the third and final one.
+
+This is the start of a new paragraph.
+  {{< /card >}}
+
+  {{< card header="Do this" >}}
 ```markdown
 This is the first sentence of the paragraph.
 This is the second.
@@ -25,21 +48,107 @@ This it the third and final one.
 This is the start of a new paragraph.
 ```
 
-### No hard line breaks.
+**Which renders as:**
 
-Long lines should not be hard wrapped by adding line breaks.
+This is the first sentence of the paragraph.
+This is the second.
+This it the third and final one.
+
+This is the start of a new paragraph.
+  {{< /card >}}
+
+{{< /cardpane >}}
+
+
+#### No hard line breaks.
+
+Long lines should **not** be hard wrapped by adding line breaks.
 You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
 The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.
+It also relies on each person's editor being configured to the same wrap column.
+Adding hard wraps also means a slight change at the start of a paragraph will potentially cause all subsequent lines to be re-wrapped and thus appear as a substantial difference in the commit.
 
 ```markdown
 ## Don't do this
 
-This is a very long
-line that has had
-hard breaks added
-to it.
-Don't do it.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+
+## Do this instead
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ```
+
+**Which both render as:**
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+#### Forced line breaks
+
+In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjecent lines when rendered.
+You can force a line break by adding two spaces `  ` at the end of a line.
+
+{{< cardpane >}}
+
+  {{< card header="Don't do this" >}}
+```markdown
+Paragraph 1.
+
+One
+Two
+Three
+
+Paragraph 2.
+```
+
+**Which renders as:**
+
+Paragraph 1.
+
+One
+Two
+Three
+
+Paragraph 2.
+
+  {{< /card >}}
+
+  {{< card header="Do this (highlight the text to see the spaces)" >}}
+```markdown
+Paragraph 1.
+
+One  
+Two  
+Three
+
+Paragraph 2.
+```
+
+**Which renders as:**
+
+Paragraph 1.
+
+One  
+Two  
+Three
+
+Paragraph 2.
+  {{< /card >}}
+
+{{< /cardpane >}}
+
 
 
 ### Blank lines and spacing
@@ -49,6 +158,7 @@ Don't do it.
 * A fenced code block should be surrounded by one blank line.
 * Paragraphs should be separated by one blank line.
 * Bulleted and numbered lists should be surrounded by one blank line.
+* Additional sentences in bulleted/numbered lists should be indented for clarity in the raw markdown.
 
 e.g:
 
@@ -58,26 +168,35 @@ The text belonging to the previous heading.
 
 ## A Heading
 
+
+## A sub heading
+
 The text of this heading.
-Another line.
+A second sentence in this paragraph.
 
 A new paragraph.
-Another line.
+A second sentence in this paragraph.
 
 Here are some bullets:
 
-* Bullet 1
-* Bullet 2
-* Bullet 3
+* Bullet Z.
+* Bullet A.
+  This is an additional sentence for this bullet point.
+  And so is this.
+  * Sub-bullet AX.
+    This is an additional sentence for this bullet point.
+    And so is this.
+* Bullet F.
 
 Here are some numbered steps:
 
-1. Step 1
-1. Step 2
-1. Step 3
+1. Step 1.
+1. Step 2.
+1. Step 3.
 
 Another random line.
 ```
+
 
 ## Headings
 
@@ -225,21 +344,33 @@ Color
 
 ## Tables
 
-Tables should ideally have its columns aligned in the markdown for clarity in the source.
+Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.
 
-| Artist          | Album          | Year |
-|-----------------|----------------|------|
-| Michael Jackson | Thriller       | 1982 |
-| Prince          | Purple Rain    | 1984 |
-| Beastie Boys    | License to Ill | 1986 |
-
-However this will produce the same result.
+```markdown
+## Don't do this
 
 | Artist | Album | Year |
 |-|-|-|
 | Michael Jackson | Thriller | 1982 |
 | Prince | Purple Rain | 1984 |
 | Beastie Boys | License to Ill | 1986 |
+
+## Do this
+
+| Artist          | Album          | Year |
+|-----------------|----------------|------|
+| Michael Jackson | Thriller       | 1982 |
+| Prince          | Purple Rain    | 1984 |
+| Beastie Boys    | License to Ill | 1986 |
+```
+
+However both will produce the same result.
+
+| Artist          | Album          | Year |
+|-----------------|----------------|------|
+| Michael Jackson | Thriller       | 1982 |
+| Prince          | Purple Rain    | 1984 |
+| Beastie Boys    | License to Ill | 1986 |
 
 
 ## Links
@@ -265,22 +396,23 @@ Inline code `looks like this`.
 
 Code blocks should be surrounded with fences and the language type **always** specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.
+
 The list of supported languages can be found [here (external)](https://prismjs.com/index.html#supported-languages).
-If the content of the fenced block has no supported language or is just plain text then use language `none` or `text`.
+If the content of the fenced block has no supported language or is just plain text then use language `text`.
 This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.
 
 The following are some example of code blocks:
 
-**Plain text**
+#### Plain text
 
-```none
+```text
 id,date,time,guid,from_ip,to_ip,application
 1,6/2/2018,10:18,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
 2,12/6/2017,5:58,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
 3,6/7/2018,11:58,fabdeb8a-936f-4e1e-a410-3ca5f2ac3ed6,153.216.143.195,152.3.51.83,Otcom
 ```
 
-**YAML**
+#### YAML
 
 ```yaml
 ---
@@ -288,13 +420,13 @@ root:
   someKey: "value"
 ```
 
-**Bash**
+#### Bash
 
 ```bash
 echo "${VAR}"
 ```
 
-**XML**
+#### XML
 
 ```xml
 <root>
