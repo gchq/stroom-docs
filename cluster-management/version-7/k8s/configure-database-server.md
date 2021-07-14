@@ -10,7 +10,23 @@ A Database server can be created and managed by the Operator. This is the recomm
 
 ### 1.1. Create a `DatabaseServer` resource manifest like the example [database-server.yaml](https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml)
 
-See the `DatabaseServer` Custom Resource Definition (CRD) [API documentation](https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1) for an explanation of the various CRD fields
+See the `DatabaseServer` Custom Resource Definition (CRD) [API documentation](https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1) for an explanation of the various CRD fields.
+
+By default, MySQL imposes a limit of 151 concurrent connections. If your Stroom cluster is larger than a few nodes, it is likely you will exceed this limit. Therefore, it is recommended to set the MySQL property `max_connections` to a suitable value.
+
+Bear in mind the Operator generally consumes one connection per `StroomCluster` it manages, so be sure to include some headroom in your allocation.
+
+You can specify this value via the `spec.additionalConfig` property as in the example below:
+
+```
+apiVersion: stroom.gchq.github.io/v1
+kind: DatabaseServer
+...
+spec:
+  additionalConfig:
+    - max_connections=1000
+...
+```
 
 ### 1.2. Provision a `PersistentVolume` for the `DatabaseServer`
 
