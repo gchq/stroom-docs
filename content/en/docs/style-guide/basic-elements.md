@@ -394,45 +394,70 @@ Inline code `looks like this`.
 
 ### Code blocks
 
-Code blocks should be surrounded with fences and the language type **always** specified to ensure correct syntax highlighting.
+Code blocks should be surrounded with fences `` ```language-type `` and `` ``` `` with the language type **always** specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.
 
-The list of supported languages can be found [here (external)](https://prismjs.com/index.html#supported-languages).
-If the content of the fenced block has no supported language or is just plain text then use language `text`.
-This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.
+This is a markdown example of a fenced code block containing XML content.
 
-The following are some example of code blocks:
-
-#### Plain text
-
-```text
-id,date,time,guid,from_ip,to_ip,application
-1,6/2/2018,10:18,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
-2,12/6/2017,5:58,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
-3,6/7/2018,11:58,fabdeb8a-936f-4e1e-a410-3ca5f2ac3ed6,153.216.143.195,152.3.51.83,Otcom
-```
-
-#### YAML
-
-```yaml
----
-root:
-  someKey: "value"
-```
-
-#### Bash
-
-```bash
-echo "${VAR}"
-```
-
-#### XML
-
+````markdown
 ```xml
 <root>
   <child attr="xxx">some val</child>
 </root>
 ```
+````
+
+Some language types commonly used in this documentation are:
+
+* `bash`
+* `java`
+* `json`
+* `text`
+* `xml`
+* `yaml`
+
+The list of supported languages can be found [here (external)](https://prismjs.com/index.html#supported-languages).
+If the content of the fenced block has no supported language or is just plain text then use language `text`.
+This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.
+
+The following are some example of rendered code blocks:
+
+{{< cardpane >}}
+
+  {{< card header="Plain Text" >}}
+```text
+id,date,time
+1,6/2/2018,10:18
+2,12/6/2017,5:58
+3,6/7/2018,11:58
+```
+  {{< /card >}}
+
+  {{< card header="YAML" >}}
+```yaml
+---
+root:
+  someKey: "value"
+```
+  {{< /card >}}
+
+  {{< card header="XML" >}}
+```xml
+<root>
+  <child attr="xxx">
+    some val
+  </child>
+</root>
+```
+  {{< /card >}}
+
+  {{< card header="bash" >}}
+```bash
+echo "${VAR}"
+```
+  {{< /card >}}
+
+{{< /cardpane >}}
 
 
 ## Alerts
