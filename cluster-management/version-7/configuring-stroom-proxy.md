@@ -2,13 +2,13 @@
 
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-23  
-> **See Also:** [Stroom Application Configuration](./configuring-stroom.md)  
+> **See Also:** [Stroom Application Configuration](configuring-stroom.md)  
 > **See Also:** [Properties](../../user-guide/properties.md).  
 > **TODO:** This needs updating for v7.1  
 
 The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the `config.yml` file.
 Stroom-proxy has a `proxyConfig` key in the YAML while Stroom has `appConfig`.
-It is recommended to first read [Stroom Application Configuration](./configuring-stroom.md) to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.
+It is recommended to first read [Stroom Application Configuration](configuring-stroom.md) to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.
 
 
 ## General configuration
@@ -109,7 +109,7 @@ volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 ```
 
-For a production deployment these will need to be changed, see [Certificates](./configuration.md#certificates)
+For a production deployment these will need to be changed, see [Certificates](configuration.md#certificates)
 
 
 #### Feed status certificate configuration

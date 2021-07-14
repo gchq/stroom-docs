@@ -18,7 +18,7 @@ Stroom is designed to detect the version of the database schema present and to r
 
 The following notes are specific for these major version upgrades
 
-* [v6 => v7](./upgrades/6_to_7_upgrade.md)
+* [v6 => v7](../upgrading/6_to_7_upgrade.md)
 
 
 ## Stroom v5

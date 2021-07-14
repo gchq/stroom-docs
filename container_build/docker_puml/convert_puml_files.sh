@@ -91,7 +91,7 @@ main() {
     echo -e "${RED}ERROR: Invalid arguments.${NC}"
     echo -e "Usage: $0 dir_to_scan|file_to_convert"
     echo -e "e.g:   $0 /builder/shared"
-    echo -e "e.g:   $0 /builder/shared/sequence.puml"
+    echo -e "e.g:   $0 /diagrams/sequence.puml"
     exit 1
   fi
 

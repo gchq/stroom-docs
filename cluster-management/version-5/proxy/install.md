@@ -8,7 +8,7 @@
 
 ## Processing User Setup
 
-See [Processing User Setup](../install-guide/setup/processing-user-setup.md).
+See [Processing User Setup](../processing-user-setup.md).
 
 ## Installing Stroom Proxy
 
@@ -126,17 +126,17 @@ cacheTimeToLiveSeconds      | Time to live settings to used for validating feed 
 
 ## Apache Forwarding
 
-See [Apache Forwarding](../install-guide/setup/apache-forwarding.md).
+See [Apache Forwarding](../apache-forwarding.md).
 
 ## Java Key Store Setup
 
 If you require that Stroom Proxy communicates over 2-way https you will need to set up Java Key Stores.
 
-See [Java Key Store Setup](../install-guide/setup/java-key-store-setup.md).
+See [Java Key Store Setup](../java-key-store-setup.md).
 
 ## Securing Stroom
 
-See [Securing Stroom](../install-guide/setup/securing-stroom.md).
+See [Securing Stroom](../securing-stroom.md).
 
 
    

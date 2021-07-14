@@ -106,7 +106,7 @@ Stroom's `config.yml` file is found in the stack in `./volumes/stroom/config/` a
 The stack also ships with a default `config.yml` file baked into the docker image.
 This minimal fallback file (located in `/stroom/config-fallback/` inside the container) will be used in the absence of one provided in the docker stack configuration (`./volumes/stroom/config/`).
 
-The default `config.yml` file uses [environment variable substitution](./configuration.md#environment-variables) so some configuration items will be set by environment variables set into the container by the stack _env_ file and the docker-compose YAML.
+The default `config.yml` file uses [environment variable substitution](configuration.md#environment-variables) so some configuration items will be set by environment variables set into the container by the stack _env_ file and the docker-compose YAML.
 This approach is useful for configuration values that need to be used by multiple containers, e.g. the public FQDN of Nginx, so it can be configured in one place.
 
 If you need to further customise the stroom configuration then it is recommended to edit the `./volumes/stroom/config/config.yml` file.
