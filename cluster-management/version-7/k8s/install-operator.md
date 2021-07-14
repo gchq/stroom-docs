@@ -18,18 +18,19 @@ Stage the following images in a locally-accessible container registry:
 ## Install the Stroom K8s Operator
 
 1. Clone the repository
+
 ```
 git clone https://github.com/p-kimberley/stroom-k8s-operator.git
 ```
-1. Edit `./deploy/all-in-one.yaml`, prefixing any referenced images with your private registry URL.
-   For example, if your private registry is `my-registry.example.com`, the image `gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0` will become: `my-registry.example.com:5000/gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0`.
+
+1. Edit `./deploy/all-in-one.yaml`, prefixing any referenced images with your private registry URL. For example, if your private registry is `my-registry.example.com`, the image `gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0` will become: `my-registry.example.com:5000/gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0`.
 1. Deploy the Operator
+
 ```
 kubectl apply -f ./deploy/all-in-one.yaml
 ```
 
-The Stroom K8s Operator is now deployed to namespace `stroom-operator-system`.
-You can monitor its progress by watching the Pod named `stroom-operator-controller-manager`. Once it reaches `Ready` state, you can deploy a Stroom cluster.
+The Stroom K8s Operator is now deployed to namespace `stroom-operator-system`. You can monitor its progress by watching the Pod named `stroom-operator-controller-manager`. Once it reaches `Ready` state, you can deploy a Stroom cluster.
 
 ## Allocating more resources
 
