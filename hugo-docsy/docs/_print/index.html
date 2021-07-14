@@ -156,7 +156,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.6ddd8a252e60dfd184a486582309c6fe.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.47c32756bbc4996cc8ca02b2e54db3bf.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -9407,28 +9407,189 @@ Parameters
 	<h1 id="pg-c9f1b1317b759f1758d4a99090063406">4.1 - Basic Page Elements</h1>
     
 	<h2 id="markdown-style-conventions">Markdown style conventions</h2>
-<h3 id="sentence-per-line">Sentence per line</h3>
+<h3 id="line-breaks">Line breaks</h3>
+<h4 id="sentence-per-line">Sentence per line</h4>
 <p>Each sentence should start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them.
-e.g.:</p>
-<pre><code class="language-markdown">This is the first sentence of the paragraph.
+When the mrkdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.</p>
+<p>See this <a href="https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line">link (external linnk)</a> for more of the reasons behind sentence per line.
+Though this link relates to Asciidoc, the same applies to markdown.</p>
+<p>For example:</p>
+<div class="card-deck mb-4">
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Don&rsquo;t do this
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">This is the first sentence of the paragraph. This is the second. This it the third and final one.
+
+This is the start of a new paragraph.
+</code></pre>
+<p><strong>Which renders as:</strong></p>
+<p>This is the first sentence of the paragraph. This is the second. This it the third and final one.</p>
+<p>This is the start of a new paragraph.</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Do this
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">This is the first sentence of the paragraph.
 This is the second.
 This it the third and final one.
 
 This is the start of a new paragraph.
 </code></pre>
-<h3 id="no-hard-line-breaks">No hard line breaks.</h3>
-<p>Long lines should not be hard wrapped by adding line breaks.
+<p><strong>Which renders as:</strong></p>
+<p>This is the first sentence of the paragraph.
+This is the second.
+This it the third and final one.</p>
+<p>This is the start of a new paragraph.</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+</div>
+<h4 id="no-hard-line-breaks">No hard line breaks.</h4>
+<p>Long lines should <strong>not</strong> be hard wrapped by adding line breaks.
 You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
-The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.</p>
+The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.
+It also relies on each person&rsquo;s editor being configured to the same wrap column.
+Adding hard wraps also means a slight change at the start of a paragraph will potentially cause all subsequent lines to be re-wrapped and thus appear as a substantial difference in the commit.</p>
 <pre><code class="language-markdown">## Don't do this
 
-This is a very long
-line that has had
-hard breaks added
-to it.
-Don't do it.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+
+## Do this instead
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </code></pre>
+<p><strong>Which both render as:</strong></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<h4 id="forced-line-breaks">Forced line breaks</h4>
+<p>In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjecent lines when rendered.
+You can force a line break by adding two spaces <code>  </code> at the end of a line.</p>
+<div class="card-deck mb-4">
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Don&rsquo;t do this
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">Paragraph 1.
+
+One
+Two
+Three
+
+Paragraph 2.
+</code></pre>
+<p><strong>Which renders as:</strong></p>
+<p>Paragraph 1.</p>
+<p>One
+Two
+Three</p>
+<p>Paragraph 2.</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Do this (highlight the text to see the spaces)
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">Paragraph 1.
+
+One  
+Two  
+Three
+
+Paragraph 2.
+</code></pre>
+<p><strong>Which renders as:</strong></p>
+<p>Paragraph 1.</p>
+<p>One<br>
+Two<br>
+Three</p>
+<p>Paragraph 2.</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+</div>
 <h3 id="blank-lines-and-spacing">Blank lines and spacing</h3>
 <ul>
 <li>A heading line should be preceded by two blank lines and followed by one blank line.
@@ -9436,6 +9597,7 @@ This makes the headings clearer in the markdown source.</li>
 <li>A fenced code block should be surrounded by one blank line.</li>
 <li>Paragraphs should be separated by one blank line.</li>
 <li>Bulleted and numbered lists should be surrounded by one blank line.</li>
+<li>Additional sentences in bulleted/numbered lists should be indented for clarity in the raw markdown.</li>
 </ul>
 <p>e.g:</p>
 <pre><code class="language-markdown">The text belonging to the previous heading.
@@ -9443,23 +9605,31 @@ This makes the headings clearer in the markdown source.</li>
 
 ## A Heading
 
+
+## A sub heading
+
 The text of this heading.
-Another line.
+A second sentence in this paragraph.
 
 A new paragraph.
-Another line.
+A second sentence in this paragraph.
 
 Here are some bullets:
 
-* Bullet 1
-* Bullet 2
-* Bullet 3
+* Bullet Z.
+* Bullet A.
+  This is an additional sentence for this bullet point.
+  And so is this.
+  * Sub-bullet AX.
+    This is an additional sentence for this bullet point.
+    And so is this.
+* Bullet F.
 
 Here are some numbered steps:
 
-1. Step 1
-1. Step 2
-1. Step 3
+1. Step 1.
+1. Step 2.
+1. Step 3.
 
 Another random line.
 </code></pre>
@@ -9578,34 +9748,24 @@ This is some extra content for item 1.</li>
 <dd>Green</dd>
 </dl>
 <h2 id="tables">Tables</h2>
-<p>Tables should ideally have its columns aligned in the markdown for clarity in the source.</p>
-<table>
-<thead>
-<tr>
-<th>Artist</th>
-<th>Album</th>
-<th>Year</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Michael Jackson</td>
-<td>Thriller</td>
-<td>1982</td>
-</tr>
-<tr>
-<td>Prince</td>
-<td>Purple Rain</td>
-<td>1984</td>
-</tr>
-<tr>
-<td>Beastie Boys</td>
-<td>License to Ill</td>
-<td>1986</td>
-</tr>
-</tbody>
-</table>
-<p>However this will produce the same result.</p>
+<p>Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.</p>
+<pre><code class="language-markdown">## Don't do this
+
+| Artist | Album | Year |
+|-|-|-|
+| Michael Jackson | Thriller | 1982 |
+| Prince | Purple Rain | 1984 |
+| Beastie Boys | License to Ill | 1986 |
+
+## Do this
+
+| Artist          | Album          | Year |
+|-----------------|----------------|------|
+| Michael Jackson | Thriller       | 1982 |
+| Prince          | Purple Rain    | 1984 |
+| Beastie Boys    | License to Ill | 1986 |
+</code></pre>
+<p>However both will produce the same result.</p>
 <table>
 <thead>
 <tr>
@@ -9642,26 +9802,26 @@ This is some extra content for item 1.</li>
 <p>Inline code <code>looks like this</code>.</p>
 <h3 id="code-blocks">Code blocks</h3>
 <p>Code blocks should be surrounded with fences and the language type <strong>always</strong> specified to ensure correct syntax highlighting.
-If the language type is not supplied then styling will be different to fenced blocks with a language.
-The list of supported languages can be found <a href="https://prismjs.com/index.html#supported-languages">here (external)</a>.
-If the content of the fenced block has no supported language or is just plain text then use language <code>none</code> or <code>text</code>.
+If the language type is not supplied then styling will be different to fenced blocks with a language.</p>
+<p>The list of supported languages can be found <a href="https://prismjs.com/index.html#supported-languages">here (external)</a>.
+If the content of the fenced block has no supported language or is just plain text then use language <code>text</code>.
 This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.</p>
 <p>The following are some example of code blocks:</p>
-<p><strong>Plain text</strong></p>
-<pre><code class="language-none">id,date,time,guid,from_ip,to_ip,application
+<h4 id="plain-text">Plain text</h4>
+<pre><code class="language-text">id,date,time,guid,from_ip,to_ip,application
 1,6/2/2018,10:18,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
 2,12/6/2017,5:58,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
 3,6/7/2018,11:58,fabdeb8a-936f-4e1e-a410-3ca5f2ac3ed6,153.216.143.195,152.3.51.83,Otcom
 </code></pre>
-<p><strong>YAML</strong></p>
+<h4 id="yaml">YAML</h4>
 <pre><code class="language-yaml">---
 root:
   someKey: &quot;value&quot;
 </code></pre>
-<p><strong>Bash</strong></p>
+<h4 id="bash">Bash</h4>
 <pre><code class="language-bash">echo &quot;${VAR}&quot;
 </code></pre>
-<p><strong>XML</strong></p>
+<h4 id="xml">XML</h4>
 <pre><code class="language-xml">&lt;root&gt;
   &lt;child attr=&quot;xxx&quot;&gt;some val&lt;/child&gt;
 &lt;/root&gt;

@@ -23,28 +23,189 @@
         
         
         &lt;h2 id=&#34;markdown-style-conventions&#34;&gt;Markdown style conventions&lt;/h2&gt;
-&lt;h3 id=&#34;sentence-per-line&#34;&gt;Sentence per line&lt;/h3&gt;
+&lt;h3 id=&#34;line-breaks&#34;&gt;Line breaks&lt;/h3&gt;
+&lt;h4 id=&#34;sentence-per-line&#34;&gt;Sentence per line&lt;/h4&gt;
 &lt;p&gt;Each sentence should start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them.
-e.g.:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;This is the first sentence of the paragraph.
+When the mrkdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.&lt;/p&gt;
+&lt;p&gt;See this &lt;a href=&#34;https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line&#34;&gt;link (external linnk)&lt;/a&gt; for more of the reasons behind sentence per line.
+Though this link relates to Asciidoc, the same applies to markdown.&lt;/p&gt;
+&lt;p&gt;For example:&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Don&amp;rsquo;t do this
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;This is the first sentence of the paragraph. This is the second. This it the third and final one.
+
+This is the start of a new paragraph.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is the first sentence of the paragraph. This is the second. This it the third and final one.&lt;/p&gt;
+&lt;p&gt;This is the start of a new paragraph.&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Do this
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;This is the first sentence of the paragraph.
 This is the second.
 This it the third and final one.
 
 This is the start of a new paragraph.
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;no-hard-line-breaks&#34;&gt;No hard line breaks.&lt;/h3&gt;
-&lt;p&gt;Long lines should not be hard wrapped by adding line breaks.
+&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This is the first sentence of the paragraph.
+This is the second.
+This it the third and final one.&lt;/p&gt;
+&lt;p&gt;This is the start of a new paragraph.&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+&lt;/div&gt;
+&lt;h4 id=&#34;no-hard-line-breaks&#34;&gt;No hard line breaks.&lt;/h4&gt;
+&lt;p&gt;Long lines should &lt;strong&gt;not&lt;/strong&gt; be hard wrapped by adding line breaks.
 You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
-The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.&lt;/p&gt;
+The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.
+It also relies on each person&amp;rsquo;s editor being configured to the same wrap column.
+Adding hard wraps also means a slight change at the start of a paragraph will potentially cause all subsequent lines to be re-wrapped and thus appear as a substantial difference in the commit.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Don&#39;t do this
 
-This is a very long
-line that has had
-hard breaks added
-to it.
-Don&#39;t do it.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+
+## Do this instead
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Which both render as:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+&lt;h4 id=&#34;forced-line-breaks&#34;&gt;Forced line breaks&lt;/h4&gt;
+&lt;p&gt;In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjecent lines when rendered.
+You can force a line break by adding two spaces &lt;code&gt;  &lt;/code&gt; at the end of a line.&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Don&amp;rsquo;t do this
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Paragraph 1.
+
+One
+Two
+Three
+
+Paragraph 2.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Paragraph 1.&lt;/p&gt;
+&lt;p&gt;One
+Two
+Three&lt;/p&gt;
+&lt;p&gt;Paragraph 2.&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Do this (highlight the text to see the spaces)
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Paragraph 1.
+
+One  
+Two  
+Three
+
+Paragraph 2.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Paragraph 1.&lt;/p&gt;
+&lt;p&gt;One&lt;br&gt;
+Two&lt;br&gt;
+Three&lt;/p&gt;
+&lt;p&gt;Paragraph 2.&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+&lt;/div&gt;
 &lt;h3 id=&#34;blank-lines-and-spacing&#34;&gt;Blank lines and spacing&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;A heading line should be preceded by two blank lines and followed by one blank line.
@@ -52,6 +213,7 @@ This makes the headings clearer in the markdown source.&lt;/li&gt;
 &lt;li&gt;A fenced code block should be surrounded by one blank line.&lt;/li&gt;
 &lt;li&gt;Paragraphs should be separated by one blank line.&lt;/li&gt;
 &lt;li&gt;Bulleted and numbered lists should be surrounded by one blank line.&lt;/li&gt;
+&lt;li&gt;Additional sentences in bulleted/numbered lists should be indented for clarity in the raw markdown.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;e.g:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;The text belonging to the previous heading.
@@ -59,23 +221,31 @@ This makes the headings clearer in the markdown source.&lt;/li&gt;
 
 ## A Heading
 
+
+## A sub heading
+
 The text of this heading.
-Another line.
+A second sentence in this paragraph.
 
 A new paragraph.
-Another line.
+A second sentence in this paragraph.
 
 Here are some bullets:
 
-* Bullet 1
-* Bullet 2
-* Bullet 3
+* Bullet Z.
+* Bullet A.
+  This is an additional sentence for this bullet point.
+  And so is this.
+  * Sub-bullet AX.
+    This is an additional sentence for this bullet point.
+    And so is this.
+* Bullet F.
 
 Here are some numbered steps:
 
-1. Step 1
-1. Step 2
-1. Step 3
+1. Step 1.
+1. Step 2.
+1. Step 3.
 
 Another random line.
 &lt;/code&gt;&lt;/pre&gt;
@@ -194,34 +364,24 @@ This is some extra content for item 1.&lt;/li&gt;
 &lt;dd&gt;Green&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
-&lt;p&gt;Tables should ideally have its columns aligned in the markdown for clarity in the source.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Artist&lt;/th&gt;
-&lt;th&gt;Album&lt;/th&gt;
-&lt;th&gt;Year&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Michael Jackson&lt;/td&gt;
-&lt;td&gt;Thriller&lt;/td&gt;
-&lt;td&gt;1982&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Prince&lt;/td&gt;
-&lt;td&gt;Purple Rain&lt;/td&gt;
-&lt;td&gt;1984&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Beastie Boys&lt;/td&gt;
-&lt;td&gt;License to Ill&lt;/td&gt;
-&lt;td&gt;1986&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;However this will produce the same result.&lt;/p&gt;
+&lt;p&gt;Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Don&#39;t do this
+
+| Artist | Album | Year |
+|-|-|-|
+| Michael Jackson | Thriller | 1982 |
+| Prince | Purple Rain | 1984 |
+| Beastie Boys | License to Ill | 1986 |
+
+## Do this
+
+| Artist          | Album          | Year |
+|-----------------|----------------|------|
+| Michael Jackson | Thriller       | 1982 |
+| Prince          | Purple Rain    | 1984 |
+| Beastie Boys    | License to Ill | 1986 |
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However both will produce the same result.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -258,26 +418,26 @@ This is some extra content for item 1.&lt;/li&gt;
 &lt;p&gt;Inline code &lt;code&gt;looks like this&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;code-blocks&#34;&gt;Code blocks&lt;/h3&gt;
 &lt;p&gt;Code blocks should be surrounded with fences and the language type &lt;strong&gt;always&lt;/strong&gt; specified to ensure correct syntax highlighting.
-If the language type is not supplied then styling will be different to fenced blocks with a language.
-The list of supported languages can be found &lt;a href=&#34;https://prismjs.com/index.html#supported-languages&#34;&gt;here (external)&lt;/a&gt;.
-If the content of the fenced block has no supported language or is just plain text then use language &lt;code&gt;none&lt;/code&gt; or &lt;code&gt;text&lt;/code&gt;.
+If the language type is not supplied then styling will be different to fenced blocks with a language.&lt;/p&gt;
+&lt;p&gt;The list of supported languages can be found &lt;a href=&#34;https://prismjs.com/index.html#supported-languages&#34;&gt;here (external)&lt;/a&gt;.
+If the content of the fenced block has no supported language or is just plain text then use language &lt;code&gt;text&lt;/code&gt;.
 This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.&lt;/p&gt;
 &lt;p&gt;The following are some example of code blocks:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Plain text&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-none&#34;&gt;id,date,time,guid,from_ip,to_ip,application
+&lt;h4 id=&#34;plain-text&#34;&gt;Plain text&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;id,date,time,guid,from_ip,to_ip,application
 1,6/2/2018,10:18,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
 2,12/6/2017,5:58,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
 3,6/7/2018,11:58,fabdeb8a-936f-4e1e-a410-3ca5f2ac3ed6,153.216.143.195,152.3.51.83,Otcom
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;YAML&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;yaml&#34;&gt;YAML&lt;/h4&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 root:
   someKey: &amp;quot;value&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Bash&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;bash&#34;&gt;Bash&lt;/h4&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;echo &amp;quot;${VAR}&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;xml&#34;&gt;XML&lt;/h4&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
   &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
 &amp;lt;/root&amp;gt;
