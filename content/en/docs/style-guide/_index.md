@@ -11,9 +11,9 @@ title: "Style Guide (DRAFT)"
 linkTitle: "Style Guide (DRAFT)"
 
 # Priority in the main (top) menu bar, lower numbers to left
-menu:
-  main:
-    weight: 100
+# menu:
+#   main:
+#     weight: 100
 
 # Optional priority in the left menu bar, lower number = higher position
 # Use this if you want to control over the positions

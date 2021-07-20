@@ -23,6 +23,7 @@ Page resources
 {{ if not $image }}
   {{/* Image not in the page resources, so get from global assets/images */}}
   {{ $path := printf "/images/%s" (.Get 0) }}
+  {{ printf "path: [%s]" $path }}
   {{ $image = resources.Get (printf "%s" $path) }}
   {{/*
   {{ printf "Asset RelPermalink: [%s]" $image.RelPermalink }}
