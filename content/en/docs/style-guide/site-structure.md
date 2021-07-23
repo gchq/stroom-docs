@@ -46,6 +46,30 @@ This section provides information for people wanting to contribute to the develo
 This can include developer documentation for building and developing Stroom.
 
 
+## Front matter
+
+{{% note %}}
+See [Hugo Front Matter (external link)](https://gohugo.io/content-management/front-matter/) for the full list of metadata keys that can be set.
+{{% /note %}}
+
+Front matter in Hugo is a set of meta data at the top of each page, e.g.
+
+```yaml
+---
+title: "Site Structure"
+linkTitle: "Site Structure"
+#weight:
+date: 2021-07-20
+tags:
+description: >
+  Describes the file and directory structure for the site.
+---
+```
+
+
+
+
+
 ## Versioning
 
 {{% note %}}
