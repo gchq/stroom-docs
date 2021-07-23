@@ -144,7 +144,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.5ec6e680f3d7644da0baa93d9311e55f.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.a650dfc4a78c4dd0ba6fc3f641779d77.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -12088,19 +12088,44 @@ The filename is relative to <code>/assets/images/stroom-ui/</code>.</p>
 <h2 id="directory-structure">Directory structure</h2>
 <p>All page content, i.e. markdown, is located underneath <code>content/en</code>.
 This directory has one sub-directory for each of the top nav bar items.</p>
-<h3 id="landing-page">Landing Page</h3>
+<h3 id="stroom-docs-top-level-sections">Stroom-Docs top level sections</h3>
+<p>Each of the following sections can have a different styling that is appropriate to its content, e.g. documentation vs blog.</p>
+<h4 id="landing-page">Landing Page</h4>
 <p>The landing page is located at <code>content/en/_index.html</code>.
 This is the page that users will initially see, unless visiting via a direct link.</p>
-<h3 id="about-about">About (<code>about</code>)</h3>
+<h4 id="about-about">About (<code>about</code>)</h4>
 <p>A single page describing what stroom is</p>
-<h3 id="documentation-docs">Documentation (<code>docs</code>)</h3>
+<h4 id="documentation-docs">Documentation (<code>docs</code>)</h4>
 <p>This is where all the documentation for installing, administering and using stroom is located.</p>
-<h3 id="newsreleases-news">News/Releases (<code>news</code>)</h3>
+<h4 id="newsreleases-news">News/Releases (<code>news</code>)</h4>
 <p>This is a <code>blog</code> type section that contains a page for each new Stroom release and a set of blog posts for Stroom news items.
 The pages in the two sub-sections (<code>news</code> and <code>releases</code>) are displayed in chronalogical order based on the <code>date</code> key in the page&rsquo;s front matter.</p>
-<h3 id="community-community">Community (<code>community</code>)</h3>
+<h5 id="news-newsnews">News (<code>news/news</code>)</h5>
+<p>This sub section has one <code>.md</code> file per news item.
+Each file should be named in the form <code>YYYYMMDD-&lt;name&gt;.md</code>.
+The <code>date</code> key should be set in the front matter to match the date of the file.
+Hugo will use this <code>date</code> key to order the files in the menu.
+The date should be set in ISO 8601 date format, i.e.</p>
+<pre><code class="language-yaml">date: 2021-07-09
+</code></pre>
+<h5 id="releases-newsreleases">Releases (<code>news/releases</code>)</h5>
+<p>Each new minor version release of Stroom should have a file in this directory.
+They should be named in the form <code>vXX.YY.md</code> where <code>XX</code> is the zero padded major version and <code>YY</code> is the zero padded minor version, e.g. <code>v07.01</code>.
+The zero padding is to ensure correct ordering by default withouth having to resort to using <code>weight</code> in the front matter.</p>
+<p>The front matter should be set along these lines:</p>
+<pre><code class="language-yaml">---
+title: &quot;Version 7.0&quot;
+linkTitle: &quot;7.0&quot;
+date: 2021-07-07
+description: &gt;
+  Key new features and changes present in v7.0 of Stroom and Stroom-Proxy.
+---
+</code></pre>
+<h4 id="community-community">Community (<code>community</code>)</h4>
 <p>This section provides information for people wanting to contribute to the development of Stroom and its peripheral repositories.
 This can include developer documentation for building and developing Stroom.</p>
+<h3 id="content-files">Content files</h3>
+<p>The <code>docs</code> and <code>news</code> top level sections have a tree structure for the co</p>
 <h2 id="front-matter">Front matter</h2>
 
 <div class="alert alert-primary" role="alert">
@@ -12111,13 +12136,14 @@ This can include developer documentation for building and developing Stroom.</p>
 </div>
 
 
-<p>Front matter in Hugo is a set of meta data at the top of each page, e.g.</p>
+<p>Front matter in Hugo is a set of meta data at the top of each page that controls which menus include the page as well as providing iformation about the page, e.g.</p>
 <pre><code class="language-yaml">---
 title: &quot;Site Structure&quot;
 linkTitle: &quot;Site Structure&quot;
 #weight:
 date: 2021-07-20
 tags:
+  - style
 description: &gt;
   Describes the file and directory structure for the site.
 ---
