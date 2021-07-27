@@ -303,22 +303,34 @@ A pair of spaces at the end of a line can be used to force line breaks, e.g.:
 
 ### Bulleted list
 
-* Item 1.
-  This is some extra content for item 1.
-* Item 2.
-    * Item 2a.
-    * Item 2b.
-* Item 3.
+* Fruit -
+  Make sure you get your five-a-day.
+* Meat
+    * Beef
+    * Chicken
+* Vegetables.
 
 
 ### Numbered List
 
-1. Item 1.
+Numbered list items should all be numbered with number `1` so that the markdown render handles the consecutive numbering.
+This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:
+
+```markdown
+1. Item one.
    This is some extra content for step 1.
-1. Item 2.
-    1. Item 2a.
-    1. Item 2b.
-1. Item 3.
+1. Item two.
+    1. Sub-item A.
+    1. Sub-item B.
+1. Item three.
+```
+
+1. Item one.
+   This is some extra content for step 1.
+1. Item two.
+    1. Sub-item A.
+    1. Sub-item B.
+1. Item three.
 
 
 ### Check List
@@ -376,13 +388,107 @@ However both will produce the same result.
 
 ## Links
 
-A [link](#alerts) to an anchor on this page.
+Links can be added using either standard markdown link syntax or using a Hugo shortcode.
+The advantage of the shortcode is that hugo will check for broken links when building the site.
 
-A [link]({{< ref "using-images#captions" >}}) link to an anchor on page that is a sibling of this one.
+Links should not contain the `.md` extension as this will be stripped when the site is generated, e.g. for the following content:
 
-A [link]({{< ref "../proxy/install.md#prerequisites" >}}) link to an anchor on page above this one, using a relative path.
+```text
+/content
+   /en
+      /docs
+         /section-x
+            /sub-section-a
+               _index.md
+               page1.md
+               page2.md
+            /sub-section-b
+               _index.md
+               page1.md
+               page2.md
+```
 
-A [link]({{< relref "/docs/proxy/install.md#prerequisites" >}}) link to an anchor on page above this one, using an absolute path, that will be converted to a relative one.
+This will become:
+
+```text
+/docs
+   /section-x
+      /sub-section-a
+         /page1
+         /page2
+      /sub-section-b
+         /page1
+         /page2
+```
+
+in the rendered site.
+
+### Anchors
+
+You can link to headings on a page using its anchor.
+The anchor for a heading is the heading text with:
+
+* All non-alphanumeric characters removed
+* Spaces replaced with a `-`
+* All characters made lower case
+* Multiple consequtive `-` characters, e.g. `---` are replaced with a single `-`
+
+For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor `#mr-oneils-1st-event-something`.
+
+
+### Shortcode link examples
+
+* A [link]({{< ref "#alerts" >}}) to a heading anchor on this page.
+
+  ```markdown
+  [link]({{</* ref "#alerts" */>}})
+  ```
+
+* A [link]({{< ref "docs/style-guide/using-images#captions" >}}) to a heading anchor on another page.
+
+  ```markdown
+  [link]({{</* ref "docs/style-guide/using-images#captions" */>}})
+  ```
+
+* A [link]({{< ref "running#basic-configuration" >}}) to a heading anchor on another page, using only the page name.
+  This will only work if the page name is unique
+
+  ```markdown
+  [link]({{</* ref "docs/style-guide/using-images#captions" */>}})
+  ```
+
+* A [link]({{< ref "../proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using a relative path.
+
+  ```markdown
+  [link]({{</* ref "../proxy/install.md#prerequisites" */>}})
+  ```
+
+* A [link]({{< relref "docs/proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using an absolute path, that will be converted to a relative one.
+
+  ```markdown
+  [link]({{</* relref "/docs/proxy/install.md#prerequisites" */>}})
+  ```
+
+
+### Markdown link examples
+
+* A [link](#alerts) to a heading anchor on this page.
+
+  ```markdown
+  [link](#alerts)
+  ```
+
+* A [link](../using-images#captions) to a heading anchor on another page, using a relative link.
+
+  ```markdown
+  [link](../using-images#captions)
+  ```
+
+* A [link](/docs/style-guide/using-images#captions) to a heading anchor on another page, using an absolute link.
+
+  ```markdown
+  [link](/docs/style-guide/using-images#captions)
+  ```
 
 
 ## Code highlighting

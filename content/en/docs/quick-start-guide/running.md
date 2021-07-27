@@ -28,7 +28,7 @@ At the risk of sowing confusion you should know that there are different ways of
 
 Automatic processing isn't enabled by default: you might first want to check other settings (for example  nodes, properties, and volumes). So we need to enable Stream Processing. 
 This is in Tools -> Jobs menu::
-{{< image "quick-start-guide/running/go-jobs.png" >}}Opening the jobs ment{{< /image >}}
+{{< image "quick-start-guide/running/go-jobs.png" >}}Opening the jobs menu{{< /image >}}
 
 Next we need to enable Stream Processor jobs:
 
@@ -38,4 +38,4 @@ Below the list of jobs is the properties pane. The Stream Processor's properties
 
 {{< image "quick-start-guide/running/configure-jobs-stream.png" >}}Enabling the nodes for the stream processor{{< /image >}}
 
-So now we've done that lets [get data into stroom](../feed/feed.md).
+So now we've done that lets [get data into stroom](../feed).

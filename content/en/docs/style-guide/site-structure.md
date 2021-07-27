@@ -1,7 +1,7 @@
 ---
 title: "Site Structure"
 linkTitle: "Site Structure"
-#weight:
+weight: 30
 date: 2021-07-20
 tags:
 description: >
