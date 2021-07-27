@@ -24,13 +24,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/using-images/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2021-07-27T09:42:18+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2021-07-27T09:59:19+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Images">
 <meta itemprop="description" content="Examples of how to include images in documents.
 ">
-<meta itemprop="dateModified" content="2021-07-27T09:42:18+01:00" />
-<meta itemprop="wordCount" content="699">
+<meta itemprop="dateModified" content="2021-07-27T09:59:19+01:00" />
+<meta itemprop="wordCount" content="769">
 <meta itemprop="keywords" content="style," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Images"/>
 <meta name="twitter:description" content="Examples of how to include images in documents.
@@ -151,7 +151,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.895da905db5896b209f71d63ca298e9e.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.4b90280206106c07344690c6a05c096d.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -178,7 +178,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.895da905db5896b209f71d63ca298e9e.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.4b90280206106c07344690c6a05c096d.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -433,9 +433,9 @@
         <li><a href="#png-files">.png files</a></li>
       </ul>
     </li>
-    <li><a href="#using-page-resources">Using page resources</a></li>
     <li><a href="#using-global-assets-resources">Using global <code>/assets/</code> resources</a></li>
     <li><a href="#plantuml">PlantUML</a></li>
+    <li><a href="#using-page-resources">Using page resources</a></li>
     <li><a href="#stroom-icons">Stroom icons</a></li>
   </ul>
 </nav></div>
@@ -614,14 +614,19 @@ This ensures a consistent look for all images and allows control of the size of 
 <pre><code class="language-text">
 /assets
    /images
-      /some_directory
-         /example.svg
+      /section-x
+         /sub-section-y
+            /page1
+               /image.svg
 /content
    /en
       /docs
-         /MyPage
-            index.md - #image shortcode used in here
+         /section-x
+            /sub-section-y
+               page1.md - #image shortcode used in here
 </code></pre>
+<p>Where images are only used by one page then the directory structure in <code>/assets</code> ought to mirror that of the page the images are used in, as shown above.
+If images are used by multiple pages then some other sensible organisation of the images should be used, e.g. <code>/assets/images/section-x</code> if they are limited to pages in one section, or <code>/aaets/images/common</code> if they are used in multiple sections.</p>
 <h3 id="captions">Captions</h3>
 <p>The image can be displayed with a caption:</p>
 
@@ -768,73 +773,6 @@ By W3C SVG Logo, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=1
     
 </div>
 
-<h2 id="using-page-resources">Using page resources</h2>
-<p>Images can be located in a <a href="https://gohugo.io/content-management/page-bundles/">page bundle (external link)</a>.
-This is where the page is defined as a named directory (rather than a <code>.md</code> file) with an associated <code>index.md</code> file for the markdown contnet.
-All other items in the directory are page resources that can be used by the page, i.e. image files.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
-This keeps all the images in one place and means pages can have a named markdown file rather than all being called <code>index.md</code>.
-
-</div>
-
-
-<p>Use the <code>image</code> short code to display an image file that is located in the same directory as the page.
-For the short code to work the page must be a leaf bundle (<code>index.md</code>) or a branch bundle (<code>_index.md</code>), i.e:</p>
-<pre><code>/docs
-   /MyPage
-      index.md - #image shortcode used in here
-      example.svg
-</code></pre>
-<p>or</p>
-<pre><code>/docs
-   /MySection
-      /Page1
-         index.md
-      /Page2
-         index.md
-      _index.md - #image shortcode used in here
-      example.svg
-</code></pre>
-<p>In the above example, the shortcode would look like:</p>
-<pre><code class="language-markdown">{{&lt; image &quot;example.svg&quot; &quot;200x&quot; &gt;}}
-</code></pre>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-  
-
-
-
-<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
-
-  <figure style="margin-block-end: 0px" >
-    
-    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/stroom-oo.svg" width="200" alt="images/style-guide/stroom-oo.svg">
-    
-    
-</div>
-
 <h2 id="using-global-assets-resources">Using global <code>/assets/</code> resources</h2>
 <p>For images that are shared by multiple page bundles, e.g. stroom icons, place them in <code>/assets/images/</code>.
 The image path is relative to <code>/assets/images/</code>, e.g. file  <code>/assets/images/style-guide/svg-example.svg</code> becomes:</p>
@@ -936,6 +874,73 @@ The images can be generated by doing:</p>
     
 </div>
 
+<h2 id="using-page-resources">Using page resources</h2>
+<p>Images can be located in a <a href="https://gohugo.io/content-management/page-bundles/">page bundle (external link)</a>.
+This is where the page is defined as a named directory (rather than a <code>.md</code> file) with an associated <code>index.md</code> file for the markdown contnet.
+All other items in the directory are page resources that can be used by the page, i.e. image files.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
+This keeps all the images in one place and means pages can have a named markdown file rather than all being called <code>index.md</code>.
+
+</div>
+
+
+<p>Use the <code>image</code> short code to display an image file that is located in the same directory as the page.
+For the short code to work the page must be a leaf bundle (<code>index.md</code>) or a branch bundle (<code>_index.md</code>), i.e:</p>
+<pre><code>/docs
+   /MyPage
+      index.md - #image shortcode used in here
+      example.svg
+</code></pre>
+<p>or</p>
+<pre><code>/docs
+   /MySection
+      /Page1
+         index.md
+      /Page2
+         index.md
+      _index.md - #image shortcode used in here
+      example.svg
+</code></pre>
+<p>In the above example, the shortcode would look like:</p>
+<pre><code class="language-markdown">{{&lt; image &quot;example.svg&quot; &quot;200x&quot; &gt;}}
+</code></pre>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/stroom-oo.svg" width="200" alt="images/style-guide/stroom-oo.svg">
+    
+    
+</div>
+
 <h2 id="stroom-icons">Stroom icons</h2>
 <p>Stroom UI icons such as 
 
@@ -996,7 +1001,7 @@ E.g:</p>
 
     Last modified
     July 27, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/49bc354f7748817df2f59d2db463ba7fb4efba3a">Move quick-start-guide images (49bc354)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/afb0f25fa393bbb894b1f3eef7de95b1dcfb19e8">Fix links in quick-start-guide/running (afb0f25)</a>
 
 </div>
 
