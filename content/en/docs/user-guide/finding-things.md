@@ -32,7 +32,7 @@ Clicking _All/None_ toggles between all types selected and no types selected.
 Filtering by type can also be achieved using the Quick Filter by entering the type name (or a partial form of the type name), prefixed with `type:`.
 I.e:
 
-```
+```text
 type:feed
 ```
 
@@ -100,7 +100,7 @@ The field to match on is specified by prefixing the match term with the name of 
 Multiple field matches can be used, each separate by a space.
 E.g:
 
-```
+```text
 name:^xml name:events$ type:feed
 ```
 In the above example the filter will match on items with a name beginning `xml`, a name ending `events` and a type partially matching `feed`.
@@ -115,7 +115,7 @@ Sometimes all fields may be considered _default_ which means a match term will b
 
 For example if the Quick Filter has fields `Name`, `Type` and `Status`, of which `Name` and `Type` are _default_:
 
-```
+```text
 feed status:ok
 ```
 
@@ -129,7 +129,7 @@ This is also described in [Common Fuzzy Matching](#common-fuzzy-matching).
 The prefix is applied **after** the field qualifier.
 E.g:
 
-```
+```text
 name:xml source:!/default
 ```
 In the above example it would match on items where the Name field matched `xml` and the Source field does NOT match the regex pattern `default`.
@@ -141,7 +141,7 @@ If your match term contains a space then you can surround the match term with do
 Also if your match term contains a double quote you can escape it with a `\` character.
 The following would be valid for example.
 
-```
+```text
 "name:csv splitter" "default field match" "symbol:\""
 ```
 
@@ -157,7 +157,7 @@ For example:
 
 **Will match**:
 
-```
+```text
 The rain in spain stays mainly in the plain
     ^^^^    ^^^^^                     ^^^^^
 rainspainplain
@@ -180,7 +180,7 @@ For example
 **User input**: `status:/(disabled|locked)`
 
 **Will match**: 
-```
+```text
 Locked
 ^^^^^^
 Disabled
@@ -225,7 +225,7 @@ The matching is case insensitive.
 
 **Will match**:
 
-```
+```text
 bad angry dog
 ^^^          
 BAD
@@ -248,7 +248,7 @@ The matching is case insensitive.
 
 **Will match**:
 
-```
+```text
 Big Angry Dog
 ^   ^     ^  
 bad angry dog
@@ -280,7 +280,7 @@ An upper case letter in the input denotes the beginning of a _word_ and any subs
 
 **Will match**: 
 
-```
+```text
 the cat sat on their mat
             ^  ^^^^  ^^                                                                  
 ON THEIR MAT
@@ -302,7 +302,7 @@ OnTheirMat
 
 **Will match**: 
 
-```
+```text
 MY_FEED_NAME
 ^  ^    ^   
 MY FEED NAME
@@ -336,7 +336,7 @@ For more details on the syntax of java regular expressions see this internet lin
 **User input**: `/(^|wo)man`
 
 **Will match**: 
-```
+```text
 MAN
 ^^^
 A WOMAN
@@ -359,7 +359,7 @@ E.g:
 
 **Will match**: 
 
-```
+```text
 xml-events
 ^^^^^^^^^^
 XML-EVENTS
@@ -380,7 +380,7 @@ E.g:
 
 **Will match**: 
 
-```
+```text
 events
 ^^^^^^
 EVENTS_FEED
@@ -403,7 +403,7 @@ E.g:
 
 **Will match**:
 
-```
+```text
 events
 ^^^^^^
 xslt-events
@@ -430,7 +430,7 @@ To give an indication of what it would match on if the list of feeds remains the
 
 **Will match**:
 
-```
+```text
 XML_
 ^^^^
 XML_EVENTS
@@ -443,7 +443,7 @@ XML_EVENTS
 
 **Will match**:
 
-```
+```text
 XML_EVENTS
 ^^^^^^^^^^
 XML_SEC_EVENTS
@@ -461,7 +461,7 @@ A match can be negated, ie. the NOT operator using the prefix `!`.
 This prefix can be applied *before* all the match prefixes listed above.
 E.g:
 
-```
+```text
 !/(error|warn)
 ```
 In the above example it will match everything except those matched by the regex pattern `(error|warn)`.
