@@ -18,10 +18,14 @@ All Images should be placed in `/assets/images/` or within a descendent director
 Images should be added to the markdown using the `image` shortcode.
 This ensures a consistent look for all images and allows control of the size of the image.
 
-The short code can be added like this:
+The short code can be added in the following ways.
 
 ```markdown
 {{</* image "style-guide/stroom-oo.svg" "200x" */>}}
+
+{{</* image "style-guide/stroom-oo.png" */>}}
+
+{{</* image "style-guide/stroom-oo.svg" "200x" */>}}Image caption{{</* /image */>}}
 ```
 
 All paths used in the `image` shortcode are relative to `/assets/images`.
@@ -42,14 +46,42 @@ The following shows an example of the directory structure.
 ```
 
 
+### Captions
+
+The image can be displayed with a caption:
+
+{{< image "style-guide/svg-logo.svg" "200x" >}}
+By W3C SVG Logo, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=105996438
+{{< /image >}}
+
+
+### Size
+
+The image can be defined with a maximum width (e.g. `"300x"`) or a maximum height (`"x200"`).
+
+{{< image "style-guide/svg-logo.svg" "120x" />}}
+
+### .png files
+
+`.png` files can be rendered in their original size by omitting the size argument.
+
+{{< image "style-guide/stroom-amber.png" />}}
+
+Or they can be rendered with a set size.
+
+{{< image "style-guide/stroom-amber.png" "50x"/>}}
+
+
 ## Using page resources
 
 Images can be located in a [page bundle (external link)](https://gohugo.io/content-management/page-bundles/).
 This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown contnet.
 All other items in the directory are page resources that can be used by the page, i.e. image files.
 
+{{% warning %}}
 Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
 This keeps all the images in one place and means pages can have a named markdown file rather than all being called `index.md`.
+{{% /warning %}}
 
 Use the `image` short code to display an image file that is located in the same directory as the page.
 For the short code to work the page must be a leaf bundle (`index.md`) or a branch bundle (`_index.md`), i.e:
@@ -81,27 +113,6 @@ In the above example, the shortcode would look like:
 ```
 
 {{< image "style-guide/stroom-oo.svg" "200x" />}}
-
-
-### Captions
-
-The image can be displayed with a caption:
-
-{{< image "style-guide/svg-logo.svg" "200x" >}}
-By W3C SVG Logo, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=105996438
-{{< /image >}}
-
-
-### Size
-
-The image can be defined with a maximum width (`nnnx`) or a maximum height (`xnnn`).
-
-{{< image "style-guide/svg-logo.svg" "120x" />}}
-
-
-### .png files
-
-{{< image "style-guide/stroom-amber.png" "100x" />}}
 
 
 ## Using global `/assets/` resources
