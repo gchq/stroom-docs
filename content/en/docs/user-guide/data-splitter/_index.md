@@ -1,4 +1,12 @@
-# Introduction
+---
+title: "Data Splitter"
+linkTitle: "Data Splitter"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 Data Splitter was created to transform text into XML. The XML produced is basic but can be processed further with XSLT to form any desired XML output.
 

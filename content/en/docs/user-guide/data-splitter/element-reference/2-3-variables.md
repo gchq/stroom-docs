@@ -1,4 +1,12 @@
-# Variables
+---
+title: "Variables"
+linkTitle: "Variables"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 A variable is added to Data Splitter using the `<var>` element. A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see [variable reference](3-2-variable-reference.md#variable-reference).
 

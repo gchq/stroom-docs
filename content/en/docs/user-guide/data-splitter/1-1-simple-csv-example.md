@@ -1,8 +1,16 @@
-# Simple CSV example
+---
+title: "Simple CSV Example"
+linkTitle: "Simple CSV Example"
+weight: 10
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 The following CSV data will be split up into separate fields using Data Splitter.
 
-```
+```csv
 01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
 01/01/2010,00:01:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,create,c:\test.txt
 01/01/2010,00:02:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logoff,

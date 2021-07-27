@@ -1,4 +1,12 @@
-# Use of fixed strings
+---
+title: "Use of fixed strings"
+linkTitle: "Use of fixed strings"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 Any `<group>` value or `<data>` name and value can use references to matched content, but in addition to this it is possible just to output a known string, e.g.
 
@@ -10,7 +18,7 @@ The above example would output `somename` as the `<data>` name attribute. This c
 
 Given the following data:
 
-```
+```csv
 01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
 ```
 

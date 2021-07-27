@@ -1,10 +1,18 @@
-# Multi Line Example
+---
+title: "Multi Line Example"
+linkTitle: "Multi Line Example"
+weight: 40
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 Example multi line file where records are split over may lines. There are various ways this data could be treated but this example forms a record from data created when some fictitious query starts plus the subsequent query results.
 
 ## <a name="sec_1_4_1"></a>Input
 
-```
+```text
 09/07/2016    14:49:36    User = user1
 09/07/2016    14:49:36    Query = some query
 

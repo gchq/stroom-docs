@@ -1,4 +1,12 @@
-# Complex example with regex and user defined names
+---
+title: "Complex example with regex and user defined names"
+linkTitle: "Complex example with regex and user defined names"
+weight: 30
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 The following example uses a real world Apache log and demonstrates the use of regular expressions rather than simple 'split' tokenizers. The usage and structure of regular expressions is outside of the scope of this document but Data Splitter uses Java's standard regular expression library that is POSIX compliant and documented in numerous places.
 
@@ -6,7 +14,7 @@ This example also demonstrates that the names and values that are output can be 
 
 ## <a name="sec_1_3_1"></a>Input
 
-```
+```text
 192.168.1.100 - "-" [12/Jul/2012:11:57:07 +0000] "GET /doc.htm HTTP/1.1" 200 4235 "-" "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"
 192.168.1.100 - "-" [12/Jul/2012:11:57:07 +0000] "GET /default.css HTTP/1.1" 200 3494 "http://some.server:8080/doc.htm" "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"
 ```

@@ -1,4 +1,12 @@
-# Expression match references
+---
+title: "Expression match references"
+linkTitle: "Expression match references"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 Referencing matches in expressions is done using `$`. In addition to this a match group number may be added to just retrieve part of the expression match. The applicability and effect that this has depends on the type of expression used.
 
@@ -16,7 +24,7 @@ A `<split>` element matches content up to and including the specified [delimiter
 
 To illustrate the content provided by each match group, take the following example:
 
-```
+```text
 "This is some text\, that we wish to match", "This is the next text"
 ```
 
@@ -72,7 +80,7 @@ Like the `<split>` element various match groups can be referenced in a `<regex>`
 
 Given the following input:
 
-```
+```text
 ip=1.1.1.1 user=user1
 ```
 

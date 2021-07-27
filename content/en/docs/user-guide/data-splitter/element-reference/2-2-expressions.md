@@ -1,4 +1,12 @@
-# Expressions
+---
+title: "Expressions"
+linkTitle: "Expressions"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 Expressions match some data supplied by a parent content provider. The content matched by an expression depends on the type of expression and how it is configured.
 

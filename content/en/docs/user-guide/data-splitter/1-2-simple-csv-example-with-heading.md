@@ -1,4 +1,12 @@
-# Simple CSV example with heading
+---
+title: "Simple CSV example with heading"
+linkTitle: "Simple CSV example with heading"
+weight: 20
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 In addition to referencing content produced by a parent element it is often desirable to store content and reference it later. The following example of a CSV with a heading demonstrates how content can be stored in a variable and then referenced later on.
 

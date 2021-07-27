@@ -1,4 +1,12 @@
-# Variable reference
+---
+title: "Variable reference"
+linkTitle: "Variable reference"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 Variables are added to Data Splitter configuration using the `<var>` element, see [variables](2-3-variables.md). Each variable must have a unique id so that it can be referenced. References to variables have the form `$VARIABLE_ID$`, e.g.
 
@@ -96,7 +104,7 @@ In some cases there may be a mismatch between the position where a value is stor
 
 Take the following input:
 
-```
+```csv
 BAD,Date,Time,IPAddress,HostName,User,EventType,Detail
 01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
 ```

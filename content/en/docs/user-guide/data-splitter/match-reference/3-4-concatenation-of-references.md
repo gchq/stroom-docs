@@ -1,10 +1,18 @@
-# Concatenation of references
+---
+title: "Concatenation of references"
+linkTitle: "Concatenation of references"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 It is possible to concatenate multiple fixed strings and match group references using the `+` character. As with all references and fixed strings this can be done in `<group>` value and `<data>` name and value attributes. However concatenation does have some performance overhead as new buffers have to be created to store concatenated content.
 
 A good example of concatenation is the production of ISO8601 date format from data in the previous example:
 
-```
+```csv
 01/01/2010,00:00:00
 ```
 
@@ -30,12 +38,12 @@ Note that the value output pattern wraps all fixed strings in single quotes. Thi
 
 As single quotes are used for this purpose, a single quote needs to be escaped with another single quote if one is desired in a fixed string, e.g.
 
-```
+```text
 ‘this ‘’is quoted text’’’
 ```
 
 will result in:
 
-```
+```text
 this ‘is quoted text’
 ```

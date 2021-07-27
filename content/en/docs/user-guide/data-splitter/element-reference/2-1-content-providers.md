@@ -1,4 +1,12 @@
-# Content Providers
+---
+title: "Content Providers"
+linkTitle: "Content Providers"
+#weight:
+date: 2021-07-27
+tags: 
+description: >
+  
+---
 
 Content providers take some content from the input source or elsewhere (see [fixed strings](3-3-use-of-fixed-strings.md) and provide it to one or more expressions. Both the root element `<dataSplitter>` and `<group>` elements are content providers.
 
