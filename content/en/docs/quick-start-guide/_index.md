@@ -10,7 +10,7 @@ description: >
 
 In this quick-start guide you will learn how to use Stroom to get from [this CSV](resources/mock_stroom_data.csv), which looks like this:
 
-```
+```csv
 id,guid,from_ip,to_ip,application
 1,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
 2,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
