@@ -24,12 +24,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/finding-things/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-07-27T16:37:20+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2021-07-27T16:58:21+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Finding Things">
 <meta itemprop="description" content="How to find things in Stroom, for example content, simple string values, etc.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-07-27T16:37:20+01:00" />
+<meta itemprop="dateModified" content="2021-07-27T16:58:21+01:00" />
 <meta itemprop="wordCount" content="2051">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Finding Things"/>
@@ -151,7 +151,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.be875af1245c83f6b2c793785804242d.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.574aca341946517b6135375800b85533.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -178,7 +178,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.be875af1245c83f6b2c793785804242d.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.574aca341946517b6135375800b85533.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -886,7 +886,7 @@ The following is an example of filtering by <em>Feeds</em> and <em>XSLTs</em>.</
 <p>Clicking <em>All/None</em> toggles between all types selected and no types selected.</p>
 <p>Filtering by type can also be achieved using the Quick Filter by entering the type name (or a partial form of the type name), prefixed with <code>type:</code>.
 I.e:</p>
-<pre><code>type:feed
+<pre><code class="language-text">type:feed
 </code></pre>
 <p>For example:</p>
 
@@ -1041,7 +1041,7 @@ Each Quick Filter will have a number of named fields that it can filter on.
 The field to match on is specified by prefixing the match term with the name of the field followed by a <code>:</code>, i.e. <code>type:</code>.
 Multiple field matches can be used, each separate by a space.
 E.g:</p>
-<pre><code>name:^xml name:events$ type:feed
+<pre><code class="language-text">name:^xml name:events$ type:feed
 </code></pre>
 <p>In the above example the filter will match on items with a name beginning <code>xml</code>, a name ending <code>events</code> and a type partially matching <code>feed</code>.</p>
 <p>All the match terms are combined together with an AND operator.
@@ -1060,7 +1060,7 @@ The list of filterable fields and their qualifier names (sometimes a shortened f
 This means the if no qualifier is entered the match will be applied to all <em>default</em> fields using an OR operator.
 Sometimes all fields may be considered <em>default</em> which means a match term will be tested against all fields and an item will be included in the results if one or more of those fields match.</p>
 <p>For example if the Quick Filter has fields <code>Name</code>, <code>Type</code> and <code>Status</code>, of which <code>Name</code> and <code>Type</code> are <em>default</em>:</p>
-<pre><code>feed status:ok
+<pre><code class="language-text">feed status:ok
 </code></pre>
 <p>The above would match items where the Name OR Type fields match <code>feed</code> AND the Status field matches <code>ok</code>.</p>
 <h3 id="match-negation">Match Negation</h3>
@@ -1068,14 +1068,14 @@ Sometimes all fields may be considered <em>default</em> which means a match term
 This is also described in <a href="#common-fuzzy-matching">Common Fuzzy Matching</a>.
 The prefix is applied <strong>after</strong> the field qualifier.
 E.g:</p>
-<pre><code>name:xml source:!/default
+<pre><code class="language-text">name:xml source:!/default
 </code></pre>
 <p>In the above example it would match on items where the Name field matched <code>xml</code> and the Source field does NOT match the regex pattern <code>default</code>.</p>
 <h3 id="spaces-and-quotes">Spaces and Quotes</h3>
 <p>If your match term contains a space then you can surround the match term with double quotes.
 Also if your match term contains a double quote you can escape it with a <code>\</code> character.
 The following would be valid for example.</p>
-<pre><code>&quot;name:csv splitter&quot; &quot;default field match&quot; &quot;symbol:\&quot;&quot;
+<pre><code class="language-text">&quot;name:csv splitter&quot; &quot;default field match&quot; &quot;symbol:\&quot;&quot;
 </code></pre>
 <h3 id="multiple-terms">Multiple Terms</h3>
 <p>If multiple terms are provided for the same field then an AND is used to combine them.
@@ -1083,7 +1083,7 @@ This can be useful where you are not sure of the order of <em>words</em> within 
 <p>For example:</p>
 <p><strong>User input</strong>: <code>spain plain rain</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>The rain in spain stays mainly in the plain
+<pre><code class="language-text">The rain in spain stays mainly in the plain
     ^^^^    ^^^^^                     ^^^^^
 rainspainplain
 ^^^^^^^^^^^^^^
@@ -1099,7 +1099,7 @@ However you can acheive this using a sinlge regular expression term.
 For example</p>
 <p><strong>User input</strong>: <code>status:/(disabled|locked)</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>Locked
+<pre><code class="language-text">Locked
 ^^^^^^
 Disabled
 ^^^^^^^^
@@ -1161,7 +1161,7 @@ It is used for partially matching the user input to a list of a list of possible
 The matching is case insensitive.</p>
 <p><strong>User input</strong>: <code>bad</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>bad angry dog
+<pre><code class="language-text">bad angry dog
 ^^^          
 BAD
 ^^^
@@ -1176,7 +1176,7 @@ Very bad
 The matching is case insensitive.</p>
 <p><strong>User input</strong>: <code>bad</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>Big Angry Dog
+<pre><code class="language-text">Big Angry Dog
 ^   ^     ^  
 bad angry dog
 ^^^          
@@ -1200,7 +1200,7 @@ Words can either be separated by characters like <code>_- ()[].</code>, or be di
 An upper case letter in the input denotes the beginning of a <em>word</em> and any subsequent lower case characters are treated as contiguously following the character at the start of the word.</p>
 <p><strong>User input</strong>: <code>?OTheiMa</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>the cat sat on their mat
+<pre><code class="language-text">the cat sat on their mat
             ^  ^^^^  ^^                                                                  
 ON THEIR MAT
 ^  ^^^^  ^^ 
@@ -1216,7 +1216,7 @@ OnTheirMat
 <p><strong>Won&rsquo;t match</strong>: <code>On the mat</code>, <code>the cat sat on there mat</code>, <code>On their moat</code></p>
 <p><strong>User input</strong>: <code>?MFN</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>MY_FEED_NAME
+<pre><code class="language-text">MY_FEED_NAME
 ^  ^    ^   
 MY FEED NAME
 ^  ^    ^   
@@ -1243,7 +1243,7 @@ The regular expression operates in case insensitive mode.
 For more details on the syntax of java regular expressions see this internet link <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/regex/Pattern.html">https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/regex/Pattern.html</a>.</p>
 <p><strong>User input</strong>: <code>/(^|wo)man</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>MAN
+<pre><code class="language-text">MAN
 ^^^
 A WOMAN
   ^^^^^
@@ -1258,7 +1258,7 @@ Womanly
 E.g:</p>
 <p><strong>User input</strong>: <code>^xml-events$</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>xml-events
+<pre><code class="language-text">xml-events
 ^^^^^^^^^^
 XML-EVENTS
 ^^^^^^^^^^
@@ -1270,7 +1270,7 @@ XML-EVENTS
 E.g:</p>
 <p><strong>User input</strong>: <code>^events</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>events
+<pre><code class="language-text">events
 ^^^^^^
 EVENTS_FEED
 ^^^^^^     
@@ -1284,7 +1284,7 @@ events-xslt
 E.g:</p>
 <p><strong>User input</strong>: <code>events$</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>events
+<pre><code class="language-text">events
 ^^^^^^
 xslt-events
      ^^^^^^
@@ -1301,7 +1301,7 @@ The user may want an expression term that matches on all feeds starting with <co
 To give an indication of what it would match on if the list of feeds remains the same, the list of suggested items will reflect the wild-carded input.</p>
 <p><strong>User input</strong>: <code>XML_*</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>XML_
+<pre><code class="language-text">XML_
 ^^^^
 XML_EVENTS
 ^^^^
@@ -1309,7 +1309,7 @@ XML_EVENTS
 <p><strong>Won&rsquo;t match</strong>: <code>BAD_XML_EVENTS</code>, <code>XML-EVENTS</code>, <code>xml_events</code></p>
 <p><strong>User input</strong>: <code>XML_*EVENTS*</code></p>
 <p><strong>Will match</strong>:</p>
-<pre><code>XML_EVENTS
+<pre><code class="language-text">XML_EVENTS
 ^^^^^^^^^^
 XML_SEC_EVENTS
 ^^^^    ^^^^^^
@@ -1321,7 +1321,7 @@ XML_SEC_EVENTS_FEED
 <p>A match can be negated, ie. the NOT operator using the prefix <code>!</code>.
 This prefix can be applied <em>before</em> all the match prefixes listed above.
 E.g:</p>
-<pre><code>!/(error|warn)
+<pre><code class="language-text">!/(error|warn)
 </code></pre>
 <p>In the above example it will match everything except those matched by the regex pattern <code>(error|warn)</code>.</p>
 
@@ -1331,7 +1331,7 @@ E.g:</p>
 
     Last modified
     July 27, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/dbe159057c1105b31aca9dfec4cd2db0ae441484">Migrate user-guide (dbe1590)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/c81027e6179e6c7a47dabc19a9a91cfd71871f41">Replace TOC with cards (c81027e)</a>
 
 </div>
 
