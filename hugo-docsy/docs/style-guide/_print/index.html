@@ -147,7 +147,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.4b90280206106c07344690c6a05c096d.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.3eebede46ab1b50b9ce73333b21a7293.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -214,7 +214,7 @@ This the multi-page printable view of this section.
     
     
 	
-<li>3: <a href="#pg-db6fcb2fed0a230f8c0329411244f5d1">Icon Gallery</a></li>
+<li>3: <a href="#pg-b72395b1641bc197d46cef431fb29836">Site Structure</a></li>
 
 
     
@@ -222,7 +222,7 @@ This the multi-page printable view of this section.
     
     
 	
-<li>4: <a href="#pg-b72395b1641bc197d46cef431fb29836">Site Structure</a></li>
+<li>4: <a href="#pg-db6fcb2fed0a230f8c0329411244f5d1">Icon Gallery</a></li>
 
 
     
@@ -232,7 +232,13 @@ This the multi-page printable view of this section.
 
 
 <div class="content">
-      
+      <p><em>Stroom-Docs</em> is created using the static site generator <a href="https://gohugo.io/">Hugo (external link)</a>.
+The full documentation for <em>Hugo</em> can be found <a href="https://gohugo.io/documentation/">here (external link)</a>.</p>
+<p>The site also uses the <a href="https://www.docsy.dev">Docsy (external link)</a> theme for Hugo.
+The documentation for <em>Docsy</em> can be found <a href="https://www.docsy.dev/docs/">here (external link</a>.
+The <em>Docsy</em> theme provides a lot of the styling but also adds other features and shortcodes.
+You should consult the <em>Docsy</em> documentation in the first instance.</p>
+
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
 
@@ -259,7 +265,7 @@ This the multi-page printable view of this section.
 	
     
 
-<div class="td-content" style="">
+<div class="td-content" style="page-break-before: always">
     
 	<h1 id="pg-c9f1b1317b759f1758d4a99090063406">1 - Basic Page Elements</h1>
     <div class="lead">Examples of various markdown and Hugo page elements.</div>
@@ -561,27 +567,36 @@ This is the third line.</p>
 <h2 id="lists">Lists</h2>
 <h3 id="bulleted-list">Bulleted list</h3>
 <ul>
-<li>Item 1.
-This is some extra content for item 1.</li>
-<li>Item 2.
+<li>Fruit -
+Make sure you get your five-a-day.</li>
+<li>Meat
 <ul>
-<li>Item 2a.</li>
-<li>Item 2b.</li>
+<li>Beef</li>
+<li>Chicken</li>
 </ul>
 </li>
-<li>Item 3.</li>
+<li>Vegetables.</li>
 </ul>
 <h3 id="numbered-list">Numbered List</h3>
+<p>Numbered list items should all be numbered with number <code>1</code> so that the markdown render handles the consecutive numbering.
+This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:</p>
+<pre><code class="language-markdown">1. Item one.
+   This is some extra content for step 1.
+1. Item two.
+    1. Sub-item A.
+    1. Sub-item B.
+1. Item three.
+</code></pre>
 <ol>
-<li>Item 1.
+<li>Item one.
 This is some extra content for step 1.</li>
-<li>Item 2.
+<li>Item two.
 <ol>
-<li>Item 2a.</li>
-<li>Item 2b.</li>
+<li>Sub-item A.</li>
+<li>Sub-item B.</li>
 </ol>
 </li>
-<li>Item 3.</li>
+<li>Item three.</li>
 </ol>
 <h3 id="check-list">Check List</h3>
 <ul>
@@ -650,10 +665,90 @@ This is some extra content for item 1.</li>
 </tbody>
 </table>
 <h2 id="links">Links</h2>
-<p>A <a href="#alerts">link</a> to an anchor on this page.</p>
-<p>A <a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/using-images/#captions">link</a> link to an anchor on page that is a sibling of this one.</p>
-<p>A <a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites">link</a> link to an anchor on page above this one, using a relative path.</p>
-<p>A <a href="/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites">link</a> link to an anchor on page above this one, using an absolute path, that will be converted to a relative one.</p>
+<p>Links can be added using either standard markdown link syntax or using a Hugo shortcode.
+The advantage of the shortcode is that hugo will check for broken links when building the site.</p>
+<p>Links should not contain the <code>.md</code> extension as this will be stripped when the site is generated, e.g. for the following content:</p>
+<pre><code class="language-text">/content
+   /en
+      /docs
+         /section-x
+            /sub-section-a
+               _index.md
+               page1.md
+               page2.md
+            /sub-section-b
+               _index.md
+               page1.md
+               page2.md
+</code></pre>
+<p>This will become:</p>
+<pre><code class="language-text">/docs
+   /section-x
+      /sub-section-a
+         /page1
+         /page2
+      /sub-section-b
+         /page1
+         /page2
+</code></pre>
+<p>in the rendered site.</p>
+<h3 id="anchors">Anchors</h3>
+<p>You can link to headings on a page using its anchor.
+The anchor for a heading is the heading text with:</p>
+<ul>
+<li>All non-alphanumeric characters removed</li>
+<li>Spaces replaced with a <code>-</code></li>
+<li>All characters made lower case</li>
+<li>Multiple consequtive <code>-</code> characters, e.g. <code>---</code> are replaced with a single <code>-</code></li>
+</ul>
+<p>For example the heading <code>Mr O'Neil's 1st Event (something)</code> becomes as an anchor <code>#mr-oneils-1st-event-something</code>.</p>
+<h3 id="shortcode-link-examples">Shortcode link examples</h3>
+<ul>
+<li>
+<p>A <a href="#alerts">link</a> to a heading anchor on this page.</p>
+<pre><code class="language-markdown">[link]({{&lt; ref &quot;#alerts&quot; &gt;}})
+</code></pre>
+</li>
+<li>
+<p>A <a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/using-images/#captions">link</a> to a heading anchor on another page.</p>
+<pre><code class="language-markdown">[link]({{&lt; ref &quot;docs/style-guide/using-images#captions&quot; &gt;}})
+</code></pre>
+</li>
+<li>
+<p>A <a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/quick-start-guide/running/#basic-configuration">link</a> to a heading anchor on another page, using only the page name.
+This will only work if the page name is unique</p>
+<pre><code class="language-markdown">[link]({{&lt; ref &quot;docs/style-guide/using-images#captions&quot; &gt;}})
+</code></pre>
+</li>
+<li>
+<p>A <a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites">link</a> to a heading anchor on page above this one, using a relative path.</p>
+<pre><code class="language-markdown">[link]({{&lt; ref &quot;../proxy/install.md#prerequisites&quot; &gt;}})
+</code></pre>
+</li>
+<li>
+<p>A <a href="/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites">link</a> to a heading anchor on page above this one, using an absolute path, that will be converted to a relative one.</p>
+<pre><code class="language-markdown">[link]({{&lt; relref &quot;/docs/proxy/install.md#prerequisites&quot; &gt;}})
+</code></pre>
+</li>
+</ul>
+<h3 id="markdown-link-examples">Markdown link examples</h3>
+<ul>
+<li>
+<p>A <a href="#alerts">link</a> to a heading anchor on this page.</p>
+<pre><code class="language-markdown">[link](#alerts)
+</code></pre>
+</li>
+<li>
+<p>A <a href="../using-images#captions">link</a> to a heading anchor on another page, using a relative link.</p>
+<pre><code class="language-markdown">[link](../using-images#captions)
+</code></pre>
+</li>
+<li>
+<p>A <a href="/docs/style-guide/using-images#captions">link</a> to a heading anchor on another page, using an absolute link.</p>
+<pre><code class="language-markdown">[link](/docs/style-guide/using-images#captions)
+</code></pre>
+</li>
+</ul>
 <h2 id="code-highlighting">Code highlighting</h2>
 <h3 id="inline-code">Inline code</h3>
 <p>Inline code <code>looks like this</code>.</p>
@@ -1328,7 +1423,114 @@ E.g:</p>
 
 <div class="td-content" style="page-break-before: always">
     
-	<h1 id="pg-db6fcb2fed0a230f8c0329411244f5d1">3 - Icon Gallery</h1>
+	<h1 id="pg-b72395b1641bc197d46cef431fb29836">3 - Site Structure</h1>
+    <div class="lead">Describes the file and directory structure for the site.</div>
+	<h2 id="file-names">File names</h2>
+<p>Ideally files and directories should be named using <em>lower-kebab-case</em>, e.g. <code>site-structure.md</code>.</p>
+<h2 id="directory-structure">Directory structure</h2>
+<p>All page content, i.e. markdown, is located underneath <code>content/en</code>.
+This directory has one sub-directory for each of the top nav bar items.</p>
+<h3 id="stroom-docs-top-level-sections">Stroom-Docs top level sections</h3>
+<p>Each of the following sections can have a different styling that is appropriate to its content, e.g. documentation vs blog.</p>
+<h4 id="landing-page">Landing Page</h4>
+<p>The landing page is located at <code>content/en/_index.html</code>.
+This is the page that users will initially see, unless visiting via a direct link.</p>
+<h4 id="about-about">About (<code>about</code>)</h4>
+<p>A single page describing what stroom is</p>
+<h4 id="documentation-docs">Documentation (<code>docs</code>)</h4>
+<p>This is where all the documentation for installing, administering and using stroom is located.</p>
+<h4 id="newsreleases-news">News/Releases (<code>news</code>)</h4>
+<p>This is a <code>blog</code> type section that contains a page for each new Stroom release and a set of blog posts for Stroom news items.
+The pages in the two sub-sections (<code>news</code> and <code>releases</code>) are displayed in chronalogical order based on the <code>date</code> key in the page&rsquo;s front matter.</p>
+<h5 id="news-newsnews">News (<code>news/news</code>)</h5>
+<p>This sub section has one <code>.md</code> file per news item.
+Each file should be named in the form <code>YYYYMMDD-&lt;name&gt;.md</code>.
+The <code>date</code> key should be set in the front matter to match the date of the file.
+Hugo will use this <code>date</code> key to order the files in the menu.
+The date should be set in ISO 8601 date format, i.e.</p>
+<pre><code class="language-yaml">date: 2021-07-09
+</code></pre>
+<h5 id="releases-newsreleases">Releases (<code>news/releases</code>)</h5>
+<p>Each new minor version release of Stroom should have a file in this directory.
+They should be named in the form <code>vXX.YY.md</code> where <code>XX</code> is the zero padded major version and <code>YY</code> is the zero padded minor version, e.g. <code>v07.01</code>.
+The zero padding is to ensure correct ordering by default withouth having to resort to using <code>weight</code> in the front matter.</p>
+<p>The front matter should be set along these lines:</p>
+<pre><code class="language-yaml">---
+title: &quot;Version 7.0&quot;
+linkTitle: &quot;7.0&quot;
+date: 2021-07-07
+description: &gt;
+  Key new features and changes present in v7.0 of Stroom and Stroom-Proxy.
+---
+</code></pre>
+<h4 id="community-community">Community (<code>community</code>)</h4>
+<p>This section provides information for people wanting to contribute to the development of Stroom and its peripheral repositories.
+This can include developer documentation for building and developing Stroom.</p>
+<h3 id="content-files">Content files</h3>
+<p>The <code>docs</code> and <code>news</code> top level sections have a tree structure for the co</p>
+<h2 id="front-matter">Front matter</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    See <a href="https://gohugo.io/content-management/front-matter/">Hugo Front Matter (external link)</a> for the full list of metadata keys that can be set.
+
+</div>
+
+
+<p>Front matter in Hugo is a set of meta data at the top of each page that controls which menus include the page as well as providing iformation about the page, e.g.</p>
+<pre><code class="language-yaml">---
+title: &quot;Site Structure&quot;
+linkTitle: &quot;Site Structure&quot;
+#weight:
+date: 2021-07-20
+tags:
+  - style
+description: &gt;
+  Describes the file and directory structure for the site.
+---
+</code></pre>
+<h2 id="versioning">Versioning</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    See <a href="https://www.docsy.dev/docs/adding-content/versioning/">Docsy Versioning (external link)</a> for details on how to configure versioning.
+
+</div>
+
+
+<p>The site will be versioned and the versions will be tied to each minor release of Stroom, e.g 7.0, 7.1, 8.0 etc.
+Each version will live in its own git branch, e.g. <code>7.0</code>, <code>7.1</code>, <code>8.0</code>, etc.</p>
+<p>The site will also have a <em>Legacy</em> version which will live on the branch <code>legacy</code>.
+This will contain the documentation as it was when it was migrated to Hugo.
+The legacy documentation contains content relevant to multiple versions of Stroom.
+All subsequent versions will only contain content relevant to that minor version of Stroom, or will be clearly marked as being out of date, e.g.:</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    This section is out of date.
+
+</div>
+
+
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-db6fcb2fed0a230f8c0329411244f5d1">4 - Icon Gallery</h1>
     <div class="lead">A gallery of all the icons in use in stroom for reference.</div>
 	<p>This page can be used as a reference for finding icons and their filenames to use them in the documentation.</p>
 <h2 id="general-icons">General icons</h2>
@@ -3126,113 +3328,6 @@ E.g:</p>
   
   </div>
 
-
-
-
-</div>
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-<div class="td-content" style="page-break-before: always">
-    
-	<h1 id="pg-b72395b1641bc197d46cef431fb29836">4 - Site Structure</h1>
-    <div class="lead">Describes the file and directory structure for the site.</div>
-	<h2 id="file-names">File names</h2>
-<p>Ideally files and directories should be named using <em>lower-kebab-case</em>, e.g. <code>site-structure.md</code>.</p>
-<h2 id="directory-structure">Directory structure</h2>
-<p>All page content, i.e. markdown, is located underneath <code>content/en</code>.
-This directory has one sub-directory for each of the top nav bar items.</p>
-<h3 id="stroom-docs-top-level-sections">Stroom-Docs top level sections</h3>
-<p>Each of the following sections can have a different styling that is appropriate to its content, e.g. documentation vs blog.</p>
-<h4 id="landing-page">Landing Page</h4>
-<p>The landing page is located at <code>content/en/_index.html</code>.
-This is the page that users will initially see, unless visiting via a direct link.</p>
-<h4 id="about-about">About (<code>about</code>)</h4>
-<p>A single page describing what stroom is</p>
-<h4 id="documentation-docs">Documentation (<code>docs</code>)</h4>
-<p>This is where all the documentation for installing, administering and using stroom is located.</p>
-<h4 id="newsreleases-news">News/Releases (<code>news</code>)</h4>
-<p>This is a <code>blog</code> type section that contains a page for each new Stroom release and a set of blog posts for Stroom news items.
-The pages in the two sub-sections (<code>news</code> and <code>releases</code>) are displayed in chronalogical order based on the <code>date</code> key in the page&rsquo;s front matter.</p>
-<h5 id="news-newsnews">News (<code>news/news</code>)</h5>
-<p>This sub section has one <code>.md</code> file per news item.
-Each file should be named in the form <code>YYYYMMDD-&lt;name&gt;.md</code>.
-The <code>date</code> key should be set in the front matter to match the date of the file.
-Hugo will use this <code>date</code> key to order the files in the menu.
-The date should be set in ISO 8601 date format, i.e.</p>
-<pre><code class="language-yaml">date: 2021-07-09
-</code></pre>
-<h5 id="releases-newsreleases">Releases (<code>news/releases</code>)</h5>
-<p>Each new minor version release of Stroom should have a file in this directory.
-They should be named in the form <code>vXX.YY.md</code> where <code>XX</code> is the zero padded major version and <code>YY</code> is the zero padded minor version, e.g. <code>v07.01</code>.
-The zero padding is to ensure correct ordering by default withouth having to resort to using <code>weight</code> in the front matter.</p>
-<p>The front matter should be set along these lines:</p>
-<pre><code class="language-yaml">---
-title: &quot;Version 7.0&quot;
-linkTitle: &quot;7.0&quot;
-date: 2021-07-07
-description: &gt;
-  Key new features and changes present in v7.0 of Stroom and Stroom-Proxy.
----
-</code></pre>
-<h4 id="community-community">Community (<code>community</code>)</h4>
-<p>This section provides information for people wanting to contribute to the development of Stroom and its peripheral repositories.
-This can include developer documentation for building and developing Stroom.</p>
-<h3 id="content-files">Content files</h3>
-<p>The <code>docs</code> and <code>news</code> top level sections have a tree structure for the co</p>
-<h2 id="front-matter">Front matter</h2>
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-    See <a href="https://gohugo.io/content-management/front-matter/">Hugo Front Matter (external link)</a> for the full list of metadata keys that can be set.
-
-</div>
-
-
-<p>Front matter in Hugo is a set of meta data at the top of each page that controls which menus include the page as well as providing iformation about the page, e.g.</p>
-<pre><code class="language-yaml">---
-title: &quot;Site Structure&quot;
-linkTitle: &quot;Site Structure&quot;
-#weight:
-date: 2021-07-20
-tags:
-  - style
-description: &gt;
-  Describes the file and directory structure for the site.
----
-</code></pre>
-<h2 id="versioning">Versioning</h2>
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-    See <a href="https://www.docsy.dev/docs/adding-content/versioning/">Docsy Versioning (external link)</a> for details on how to configure versioning.
-
-</div>
-
-
-<p>The site will be versioned and the versions will be tied to each minor release of Stroom, e.g 7.0, 7.1, 8.0 etc.
-Each version will live in its own git branch, e.g. <code>7.0</code>, <code>7.1</code>, <code>8.0</code>, etc.</p>
-<p>The site will also have a <em>Legacy</em> version which will live on the branch <code>legacy</code>.
-This will contain the documentation as it was when it was migrated to Hugo.
-The legacy documentation contains content relevant to multiple versions of Stroom.
-All subsequent versions will only contain content relevant to that minor version of Stroom, or will be clearly marked as being out of date, e.g.:</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    This section is out of date.
-
-</div>
 
 
 

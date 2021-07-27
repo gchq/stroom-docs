@@ -321,27 +321,36 @@ This is the third line.&lt;/p&gt;
 &lt;h2 id=&#34;lists&#34;&gt;Lists&lt;/h2&gt;
 &lt;h3 id=&#34;bulleted-list&#34;&gt;Bulleted list&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Item 1.
-This is some extra content for item 1.&lt;/li&gt;
-&lt;li&gt;Item 2.
+&lt;li&gt;Fruit -
+Make sure you get your five-a-day.&lt;/li&gt;
+&lt;li&gt;Meat
 &lt;ul&gt;
-&lt;li&gt;Item 2a.&lt;/li&gt;
-&lt;li&gt;Item 2b.&lt;/li&gt;
+&lt;li&gt;Beef&lt;/li&gt;
+&lt;li&gt;Chicken&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;Item 3.&lt;/li&gt;
+&lt;li&gt;Vegetables.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;numbered-list&#34;&gt;Numbered List&lt;/h3&gt;
+&lt;p&gt;Numbered list items should all be numbered with number &lt;code&gt;1&lt;/code&gt; so that the markdown render handles the consecutive numbering.
+This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;1. Item one.
+   This is some extra content for step 1.
+1. Item two.
+    1. Sub-item A.
+    1. Sub-item B.
+1. Item three.
+&lt;/code&gt;&lt;/pre&gt;
 &lt;ol&gt;
-&lt;li&gt;Item 1.
+&lt;li&gt;Item one.
 This is some extra content for step 1.&lt;/li&gt;
-&lt;li&gt;Item 2.
+&lt;li&gt;Item two.
 &lt;ol&gt;
-&lt;li&gt;Item 2a.&lt;/li&gt;
-&lt;li&gt;Item 2b.&lt;/li&gt;
+&lt;li&gt;Sub-item A.&lt;/li&gt;
+&lt;li&gt;Sub-item B.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
-&lt;li&gt;Item 3.&lt;/li&gt;
+&lt;li&gt;Item three.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;check-list&#34;&gt;Check List&lt;/h3&gt;
 &lt;ul&gt;
@@ -410,10 +419,90 @@ This is some extra content for item 1.&lt;/li&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-&lt;p&gt;A &lt;a href=&#34;#alerts&#34;&gt;link&lt;/a&gt; to an anchor on this page.&lt;/p&gt;
-&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/using-images/#captions&#34;&gt;link&lt;/a&gt; link to an anchor on page that is a sibling of this one.&lt;/p&gt;
-&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites&#34;&gt;link&lt;/a&gt; link to an anchor on page above this one, using a relative path.&lt;/p&gt;
-&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites&#34;&gt;link&lt;/a&gt; link to an anchor on page above this one, using an absolute path, that will be converted to a relative one.&lt;/p&gt;
+&lt;p&gt;Links can be added using either standard markdown link syntax or using a Hugo shortcode.
+The advantage of the shortcode is that hugo will check for broken links when building the site.&lt;/p&gt;
+&lt;p&gt;Links should not contain the &lt;code&gt;.md&lt;/code&gt; extension as this will be stripped when the site is generated, e.g. for the following content:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;/content
+   /en
+      /docs
+         /section-x
+            /sub-section-a
+               _index.md
+               page1.md
+               page2.md
+            /sub-section-b
+               _index.md
+               page1.md
+               page2.md
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will become:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;/docs
+   /section-x
+      /sub-section-a
+         /page1
+         /page2
+      /sub-section-b
+         /page1
+         /page2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;in the rendered site.&lt;/p&gt;
+&lt;h3 id=&#34;anchors&#34;&gt;Anchors&lt;/h3&gt;
+&lt;p&gt;You can link to headings on a page using its anchor.
+The anchor for a heading is the heading text with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All non-alphanumeric characters removed&lt;/li&gt;
+&lt;li&gt;Spaces replaced with a &lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;All characters made lower case&lt;/li&gt;
+&lt;li&gt;Multiple consequtive &lt;code&gt;-&lt;/code&gt; characters, e.g. &lt;code&gt;---&lt;/code&gt; are replaced with a single &lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For example the heading &lt;code&gt;Mr O&#39;Neil&#39;s 1st Event (something)&lt;/code&gt; becomes as an anchor &lt;code&gt;#mr-oneils-1st-event-something&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;shortcode-link-examples&#34;&gt;Shortcode link examples&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;#alerts&#34;&gt;link&lt;/a&gt; to a heading anchor on this page.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;#alerts&amp;quot; &amp;gt;}})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/using-images/#captions&#34;&gt;link&lt;/a&gt; to a heading anchor on another page.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;docs/style-guide/using-images#captions&amp;quot; &amp;gt;}})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/docs/quick-start-guide/running/#basic-configuration&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using only the page name.
+This will only work if the page name is unique&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;docs/style-guide/using-images#captions&amp;quot; &amp;gt;}})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites&#34;&gt;link&lt;/a&gt; to a heading anchor on page above this one, using a relative path.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;../proxy/install.md#prerequisites&amp;quot; &amp;gt;}})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/proxy/install/#prerequisites&#34;&gt;link&lt;/a&gt; to a heading anchor on page above this one, using an absolute path, that will be converted to a relative one.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; relref &amp;quot;/docs/proxy/install.md#prerequisites&amp;quot; &amp;gt;}})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;markdown-link-examples&#34;&gt;Markdown link examples&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;#alerts&#34;&gt;link&lt;/a&gt; to a heading anchor on this page.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link](#alerts)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;../using-images#captions&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using a relative link.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link](../using-images#captions)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/using-images#captions&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using an absolute link.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link](/docs/style-guide/using-images#captions)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;code-highlighting&#34;&gt;Code highlighting&lt;/h2&gt;
 &lt;h3 id=&#34;inline-code&#34;&gt;Inline code&lt;/h3&gt;
 &lt;p&gt;Inline code &lt;code&gt;looks like this&lt;/code&gt;.&lt;/p&gt;
@@ -1082,7 +1171,13 @@ E.g:&lt;/p&gt;
       <description>
         
         
-        
+        &lt;p&gt;&lt;em&gt;Stroom-Docs&lt;/em&gt; is created using the static site generator &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo (external link)&lt;/a&gt;.
+The full documentation for &lt;em&gt;Hugo&lt;/em&gt; can be found &lt;a href=&#34;https://gohugo.io/documentation/&#34;&gt;here (external link)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The site also uses the &lt;a href=&#34;https://www.docsy.dev&#34;&gt;Docsy (external link)&lt;/a&gt; theme for Hugo.
+The documentation for &lt;em&gt;Docsy&lt;/em&gt; can be found &lt;a href=&#34;https://www.docsy.dev/docs/&#34;&gt;here (external link&lt;/a&gt;.
+The &lt;em&gt;Docsy&lt;/em&gt; theme provides a lot of the styling but also adds other features and shortcodes.
+You should consult the &lt;em&gt;Docsy&lt;/em&gt; documentation in the first instance.&lt;/p&gt;
+
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
 

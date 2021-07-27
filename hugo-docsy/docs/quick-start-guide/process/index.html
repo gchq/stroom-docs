@@ -19,19 +19,22 @@
 
 <title>Pipeline Processing | Stroom</title>
 <meta name="description" content="A Stroom example site"><meta property="og:title" content="Pipeline Processing" />
-<meta property="og:description" content="Create a pipeline Pipelines control how data is processed in Stroom. Typically you&rsquo;re going to want to do a lot of the same stuff for every pipeline, i.e. similar transformations, indexing, writing out data. You can actually create a template pipeline and inherit from it, tweaking what you need to for this or that feed. We&rsquo;re not doing that now because we want to show how to create one from scratch." />
+<meta property="og:description" content="Creating pipelines to process and transform data.
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/quick-start-guide/process/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-09T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-07-27T09:59:19+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2021-07-27T13:07:56+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Pipeline Processing">
-<meta itemprop="description" content="Create a pipeline Pipelines control how data is processed in Stroom. Typically you&rsquo;re going to want to do a lot of the same stuff for every pipeline, i.e. similar transformations, indexing, writing out data. You can actually create a template pipeline and inherit from it, tweaking what you need to for this or that feed. We&rsquo;re not doing that now because we want to show how to create one from scratch."><meta itemprop="datePublished" content="2021-07-09T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-07-27T09:59:19+01:00" />
-<meta itemprop="wordCount" content="1610">
-<meta itemprop="keywords" content="processing," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="description" content="Creating pipelines to process and transform data.
+"><meta itemprop="datePublished" content="2021-07-09T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-27T13:07:56+01:00" />
+<meta itemprop="wordCount" content="1725">
+<meta itemprop="keywords" content="processing,pipeline,data-splitter," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Pipeline Processing"/>
-<meta name="twitter:description" content="Create a pipeline Pipelines control how data is processed in Stroom. Typically you&rsquo;re going to want to do a lot of the same stuff for every pipeline, i.e. similar transformations, indexing, writing out data. You can actually create a template pipeline and inherit from it, tweaking what you need to for this or that feed. We&rsquo;re not doing that now because we want to show how to create one from scratch."/>
+<meta name="twitter:description" content="Creating pipelines to process and transform data.
+"/>
 
 
 
@@ -148,7 +151,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.4b90280206106c07344690c6a05c096d.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.3eebede46ab1b50b9ce73333b21a7293.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -175,7 +178,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.4b90280206106c07344690c6a05c096d.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.3eebede46ab1b50b9ce73333b21a7293.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -198,8 +201,8 @@
   <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/feed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guidefeed"><span class="">Feeds</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-stroom-docshugo-docsydocsquick-start-guideprocess-li">
   <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/process/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guideprocess"><span class="td-sidebar-nav-active-item">Pipeline Processing</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocsquick-start-guideindex-li">
-  <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/index/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guideindex"><span class="">Indexing</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocsquick-start-guideindexing-li">
+  <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/indexing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guideindexing"><span class="">Indexing</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-stroom-docshugo-docsydocsquick-start-guidedashboard-li">
   <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/dashboard/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsquick-start-guidedashboard"><span class="">Dashboards</span></a>
 </li>
@@ -310,10 +313,10 @@
   <a href="/stroom-docs/hugo-docsy/docs/style-guide/basic-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guidebasic-elements"><span class="">Basic Page Elements</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guideusing-images-li">
   <a href="/stroom-docs/hugo-docsy/docs/style-guide/using-images/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guideusing-images"><span class="">Images</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guideicon-gallery-li">
-  <a href="/stroom-docs/hugo-docsy/docs/style-guide/icon-gallery/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guideicon-gallery"><span class="">Icon Gallery</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guidesite-structure-li">
   <a href="/stroom-docs/hugo-docsy/docs/style-guide/site-structure/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guidesite-structure"><span class="">Site Structure</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guideicon-gallery-li">
+  <a href="/stroom-docs/hugo-docsy/docs/style-guide/icon-gallery/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guideicon-gallery"><span class="">Icon Gallery</span></a>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsdocsy-examples-li">
@@ -403,8 +406,8 @@
     
     
 
-    <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/quick-start-guide/process/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-    <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/quick-start-guide/process/index.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+    <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/quick-start-guide/process.md" target="_blank"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+    <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/quick-start-guide/process.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a>
     <a href="https://github.com/gchq/stroom-docs/issues/new?title=Pipeline%20Processing" target="_blank"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
     
       
@@ -493,6 +496,8 @@
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/data-splitter/" data-taxonomy-term="data-splitter"><span class="taxonomy-label">data-splitter</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
@@ -510,6 +515,8 @@
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/jobs/" data-taxonomy-term="jobs"><span class="taxonomy-label">jobs</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">3</span></a></li>
         
@@ -591,7 +598,7 @@
             
 <div class="td-content">
 	<h1>Pipeline Processing</h1>
-	
+	<div class="lead">Creating pipelines to process and transform data.</div>
 	<header class="article-meta">
 		
 		
@@ -609,6 +616,10 @@
     
       <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span></a></li>
     
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span></a></li>
+    
+      <li><a class="taxonomy-term" href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/data-splitter/" data-taxonomy-term="data-splitter"><span class="taxonomy-label">data-splitter</span></a></li>
+    
   </ul>
 </div>
 
@@ -617,28 +628,179 @@
 		
 	</header>    
 	<h2 id="create-a-pipeline">Create a pipeline</h2>
-<p>Pipelines control how data is processed in Stroom. Typically you&rsquo;re going to want to do a lot of the same stuff for every pipeline, i.e. similar transformations, indexing, writing out data. You can actually create a template pipeline and inherit from it, tweaking what you need to for this or that feed. We&rsquo;re not doing that now because we want to show how to create one from scratch.</p>
-<p><img src="images/create-pipeline.png" alt="Creating a pipeline"></p>
+<p>Pipelines control how data is processed in Stroom.
+Typically you&rsquo;re going to want to do a lot of the same stuff for every pipeline, i.e. similar transformations, indexing, writing out data.
+You can actually create a template pipeline and inherit from it, tweaking what you need to for this or that feed.
+We&rsquo;re not doing that now because we want to show how to create one from scratch.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/create-pipeline.png" alt="images/quick-start-guide/process/create-pipeline.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Creating a pipeline</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <ol>
 <li>Create a pipeline by right-clicking our <code>Stroom 101</code> folder. Call it something like <code>CSV to XML pipeline</code>.</li>
 <li>Select <em>Structure</em> from the top of the new tab. This is the most important view for the pipeline because it shows what will actually happen on the pipeline.</li>
 <li>Check <em>Advanced Mode</em> so that we can actually edit things.</li>
 </ol>
-<p><img src="images/configure-pipeline-advanced.png" alt="Turn on &lsquo;Advanced Mode&rsquo;"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-pipeline-advanced.png" alt="images/quick-start-guide/process/configure-pipeline-advanced.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Turn on 'Advanced Mode'</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>We already have a <code>Source</code> element. Unlike most other pipeline elements this isn&rsquo;t something we need to configure. It&rsquo;s just there to show the starting point. Data gets into the pipeline via other means - we&rsquo;ll describe this in detail later.</p>
 <h3 id="add-a-data-splitter">Add a data splitter</h3>
-<p>Data splitters are powerful, and <a href="../../datasplitter/1-0-introduction.md">a lot we can say</a> about them. Here we&rsquo;re just going to make a basic one.</p>
+<p>Data splitters are powerful, and there is <a href="../../datasplitter/1-0-introduction.md">a lot we can say</a> about them. Here we&rsquo;re just going to make a basic one.</p>
 <h4 id="create-a-csv-splitter">Create a CSV splitter</h4>
 <p>We have CSV in the following form:</p>
-<pre><code>id,guid,from_ip,to_ip,application
+<pre><code class="language-text">id,guid,from_ip,to_ip,application
 1,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
 2,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
 </code></pre>
 <p>To process this we need to know if there&rsquo;s a header row, and what the delimiters are. This is a job for a <em>Data Splitter</em>.</p>
 <p>The splitter is actually a type of <em>Text Converter</em>, so lets create one of those:</p>
-<p><img src="images/create-textConverter.png" alt="Create the CSV splitter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/create-textConverter.png" alt="images/quick-start-guide/process/create-textConverter.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Create the CSV splitter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Call it something like <code>CSV splitter</code>. In the new tab you need to tell the <em>Text Converter</em> that it&rsquo;ll be a <em>Data Splitter</em>:</p>
-<p><img src="images/configure-csvSplitter-type.png" alt="Configuring the data splitter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-csvSplitter-type.png" alt="images/quick-start-guide/process/configure-csvSplitter-type.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Configuring the data splitter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Now go to the <em>Conversion</em> tab. What you need to put in here is specific to the built-in <em>Data Splitter</em> functionality, so I&rsquo;m just going to tell you what you&rsquo;re going to need:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.1.xsd&quot; version=&quot;3.0&quot;&gt;
@@ -661,27 +823,341 @@
   &lt;/split&gt;
 &lt;/dataSplitter&gt;
 </code></pre>
-<p>You can see that it uses the <code>data-splitter-v3.0.1.xsd</code> that we imported earlier. Save it by clicking the save icon (<img src="../../resources/icons/save.png" alt="The save icon">).</p>
+<p>You can see that it uses the <code>data-splitter-v3.0.1.xsd</code> that we imported earlier. Save it by clicking the save icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
+.</p>
 <p>So we now have a configured, re-usable data splitter for CSV files that have headers. We need to add this to our pipeline as a filter, so head back to the pipeline&rsquo;s Structure section and add a DSParser, as below. Call it something like <code>CSV splitter filter</code>:
-<img src="images/add-dsParser.png" alt="Adding a dsParser"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/add-dsParser.png" alt="images/quick-start-guide/process/add-dsParser.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Adding a dsParser</figcaption>
+    </div>
+  </figure>
+	
+</div>
+</p>
 <p>Now we have a pipeline that looks like this:</p>
-<p><img src="images/pipeline-01.png" alt="Pipeline with a CSV splitter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/pipeline-01.png" alt="images/quick-start-guide/process/pipeline-01.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline with a CSV splitter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Click on the <code>CSV splitter filter</code> element and the pane below will show it&rsquo;s properties. We need to tell it to use our newly created <code>CSV splitter</code>. Double click the <code>textConverter</code> property and change <code>Value</code> to the actual CSV splitter:</p>
-<p><img src="images/configuring-dsSplitter.png" alt="Configuring the CSV splitter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configuring-dsSplitter.png" alt="images/quick-start-guide/process/configuring-dsSplitter.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Configuring the CSV splitter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <h4 id="test-the-csv-splitter">Test the csv splitter</h4>
 <p>So now we have CSV data in Stroom and a pipeline that is configured to process CSV data. We&rsquo;ve done a fair few things so far and are we sure the pipeline is correctly configured? We can do some debugging and find out.</p>
 <p>In Stroom you can step through you records and see what the output is at each stage. It&rsquo;s easy to start doing this. The first thing to do is to open your <code>CSV_FEED</code> feed, then click the big blue <em>stepping</em> button at the bottom right:</p>
-<p><img src="images/run-debug.png" alt="Starting pipeline stepping"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/run-debug.png" alt="images/quick-start-guide/process/run-debug.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Starting pipeline stepping</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>You&rsquo;ll be asked to select a pipeline:</p>
-<p><img src="images/configure-debug.png" alt="Selecting a pipeline to step through"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-debug.png" alt="images/quick-start-guide/process/configure-debug.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Selecting a pipeline to step through</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Now you get a view that&rsquo;s similar to your feed view, except it also shows the pipeline:</p>
-<p><img src="images/debug-source.png" alt="Debugging - source data"></p>
-<p>It also has stepping controls. Click the green step forward icon (<img src="../../resources/icons/stepForward.png" alt="Step forward button">). You should see something like this:</p>
-<p><img src="images/stepping-01.png" alt="Stepping through the CSV data"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/debug-source.png" alt="images/quick-start-guide/process/debug-source.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Debugging - source data</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
+<p>It also has stepping controls. Click the green step forward icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/step-forward.svg" width="16px" title="Step Forward" alt="step-forward.svg">
+. You should see something like this:</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/stepping-01.png" alt="images/quick-start-guide/process/stepping-01.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stepping through the CSV data</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Great! If you don&rsquo;t see this then there&rsquo;s something wrong. Click on <code>CSV splitter filter</code>. You&rsquo;ll see the conversion code and hopefully some errors. Some issues might be: did you remember to import the data splitter schema into Stroom? Did you remember to confgure the <em>Text Converter</em> to be a <em>Data Splitter</em>?</p>
 <p>If everything went fine then click the step forward button a few more times and you&rsquo;ll see the yellow selection move down as you process each row.</p>
 <p>What we actually want to see is the output from the <em>Text Converter</em>, so click on <code>CSV splitter filter</code>. You&rsquo;ll see the conversion code we entered earlier and below two panes, one containing the CSV and one containing the split-up text, in XML form:</p>
-<p><img src="images/stepping-02.png" alt="The output from a working data splitter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/stepping-02.png" alt="images/quick-start-guide/process/stepping-02.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">The output from a working data splitter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>So here we have some XML in a basic format we call the <em>records</em> format. You can see the schema for <em>records</em> in the <code>XML schemas</code> folder.</p>
 <h3 id="add-xslt-to-transform-records-format-xml-into-something-else">Add XSLT to transform records format XML into something else</h3>
 <h4 id="create-the-xslt-filter">Create the XSLT filter</h4>
@@ -692,7 +1168,44 @@
 <li>Step through to make sure it&rsquo;s doing what we expect</li>
 </ol>
 <p>Create the XSLT filter, calling it something like <code>XSLT</code>:</p>
-<p><img src="images/create-xslt.png" alt="Create the XSLT filter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/create-xslt.png" alt="images/quick-start-guide/process/create-xslt.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Create the XSLT filter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>On the new tab click on <code>XSLT</code>. This is another big text field but this one accepts XSLT. This one will be very basic and just takes the split up data and puts it into fields. The XSLT for this is below but if you&rsquo;d like to tinker then go ahead.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot; xmlns:stroom=&quot;stroom&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; version=&quot;2.0&quot;&gt;
@@ -720,52 +1233,588 @@
 </code></pre>
 <p>Make sure you save it.</p>
 <p>Go back to the Structure section of the pipeline and add an <em>XSLTFilter</em> element. Call it something like <code>XSLT filter</code>.</p>
-<p><img src="images/add-xsltFilter.png" alt="Add the XSLT filter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/add-xsltFilter.png" alt="images/quick-start-guide/process/add-xsltFilter.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Add the XSLT filter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Select the <code>XSLT filter</code> and configure it to use the actual XSLT you just created by double-clicking <code>xslt</code> in the properties:</p>
-<p><img src="images/configure-xslt.png" alt="Configuring the XSLT filter"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-xslt.png" alt="images/quick-start-guide/process/configure-xslt.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Configuring the XSLT filter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>In the dialog make sure the value is the <code>XSLT</code> filter. Save the pipeline.</p>
 <h4 id="test-the-xslt-filter">Test the XSLT filter</h4>
-<p>We&rsquo;re going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed. Click the step forward button (<img src="../../resources/icons/stepForward.png" alt="Step forward button">) a few times to make sure it&rsquo;s working then click on the XSLT element. This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:</p>
-<p><img src="images/stepping-03.png" alt="Debugging the XSLT filter"></p>
+<p>We&rsquo;re going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed. Click the step forward button 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/step-forward.svg" width="16px" title="Step Forward" alt="step-forward.svg">
+ a few times to make sure it&rsquo;s working then click on the XSLT element. This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/stepping-03.png" alt="images/quick-start-guide/process/stepping-03.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Debugging the XSLT filter</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Fantastic! Data converted! Well done if you&rsquo;ve got this far. Really, there are lots of steps and things that could go wrong and you&rsquo;ve persevered. There&rsquo;s a few more things to get this pipeline ready for doing this <a href="../../user-guide/jobs.md">task</a> for real. We need to get this data to a destination.</p>
 <h3 id="outputting-the-transformed-data">Outputting the transformed data</h3>
 <h4 id="create-the-xml-writer">Create the XML writer</h4>
 <p>What&rsquo;s an XML Writer and why do you need one? The XSLT filter doesn&rsquo;t actually write XML but instead just passes XML events from one filter to another. In order to write XML out you need an XML writer. You don&rsquo;t need to create one outside the pipeline (in the way you did with the <code>CSV splitter</code> and the <code>XSLT</code> filter). An XML writer is just added to the pipeline like this:</p>
-<p><img src="images/add-xmlWriter.png" alt="Addnig an XML Writer"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/add-xmlWriter.png" alt="images/quick-start-guide/process/add-xmlWriter.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Addnig an XML Writer</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>That&rsquo;s it, no other configuration necessary.</p>
 <h4 id="create-the-destination">Create the destination</h4>
 <p>We need to do something with the serialised XML. We&rsquo;ll write it to a stream. To do this we create a stream appender:</p>
-<p><img src="images/add-streamAppender.png" alt="Creating a stream appender"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/add-streamAppender.png" alt="images/quick-start-guide/process/add-streamAppender.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Creating a stream appender</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Unlike the <code>Source</code> element this element needs to be configured. We need to configure two things: the <em>streamType</em> and the <em>destination feed</em>.</p>
 <h5 id="setting-the-feed">Setting the feed</h5>
 <p>We&rsquo;ll send the output to the <code>CSV_FEED</code> - all data associated with this feed will be in the same place. To do that we edit the <code>feed</code> property and set it to <code>CSV_FEED</code>:</p>
-<p><img src="images/configure-streamAppender-feed.png" alt="Change the feed property"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-streamAppender-feed.png" alt="images/quick-start-guide/process/configure-streamAppender-feed.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Change the feed property</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>We also need to edit the <code>streamType</code> property:We set the streamType to Events:</p>
-<p><img src="images/configure-streamAppender-streamType.png" alt="Change the streamType property"></p>
-<p><img src="images/configure-destination-streamType.png" alt="Setting the streamType"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-streamAppender-streamType.png" alt="images/quick-start-guide/process/configure-streamAppender-streamType.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Change the streamType property</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-destination-streamType.png" alt="images/quick-start-guide/process/configure-destination-streamType.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Setting the streamType</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>That&rsquo;s it! Our pipeline is configured!</p>
 <h4 id="test-the-destination">Test the destination</h4>
 <p>We can test the XML writer and the streamAppender using the same stepping feature. Make sure you&rsquo;ve saved the pipeline and set a <strong>new</strong> stepping session running. If you click on the <code>stream appender</code> you&rsquo;ll see something like this:</p>
-<p><img src="images/stepping-05.png" alt="The final output from the pipeline"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/stepping-05.png" alt="images/quick-start-guide/process/stepping-05.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">The final output from the pipeline</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <h2 id="set-the-pipeline-running">Set the pipeline running</h2>
 <p>Obviously you don&rsquo;t want to step through your data one by one. This all needs automation, and this is what Processors are for. The processor works in the background to take any unprocessed data from a feed and put it through a pipeline. So far everything on our EXAMPLE_IN feed is unprocessed.</p>
 <h3 id="create-a-processor">Create a processor</h3>
 <p>Processors are created from the <em>Processors</em> section of the pipeline:</p>
-<p><img src="images/go-processors.png" alt="The processors section of the pipeline"></p>
-<p>Click the add button <img src="../../resources/icons/add.png" alt="Add icon"> and configure the huge dialog. You only need to set the incoming feed and the stream types:</p>
-<p>(<img src="images/configure-processor.png" alt="Configure the new processor"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/go-processors.png" alt="images/quick-start-guide/process/go-processors.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">The processors section of the pipeline</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
+<p>Click the add button 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
+ and configure the huge dialog. You only need to set the incoming feed and the stream types:</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/configure-processor.png" alt="images/quick-start-guide/process/configure-processor.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Configure the new processor</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Now you&rsquo;ll see a very wide table looking something like this:</p>
-<p><img src="images/show-processors.png" alt="The new processor"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/show-processors.png" alt="images/quick-start-guide/process/show-processors.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">The new processor</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>This shows two things:</p>
 <ul>
 <li>The processor for the pipeline</li>
 <li>The filter that determines what data is passed to the processor</li>
 </ul>
 <p>If you scroll all the way over to the right you&rsquo;ll see the <em>Enabled</em> checkbox:</p>
-<p><img src="images/show-processors-enabled.png" alt="The enabled checkbox"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/show-processors-enabled.png" alt="images/quick-start-guide/process/show-processors-enabled.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">The enabled checkbox</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>Check <em>enabled</em> for the processor and the filter you&rsquo;ve just created. This is it, everything we&rsquo;ve done is about to start working on its own, just like it would in a real configuration.</p>
 <p>If you keep refreshing this table it will show you the processing status which should change after a few seconds to show that the data you have uploaded is being or has been processed. Once this has happened you should be able to open the destination feed and see the output data (or errors if there were any).</p>
-<p><img src="images/show-output.png" alt="The output of the pipeline"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/quick-start-guide/process/show-output.png" alt="images/quick-start-guide/process/show-output.png">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">The output of the pipeline</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
 <p>You can see that there are the <code>Raw Events</code> and the processed <code>Events</code>. If you click on the <code>Events</code> then you can see all the XML that we&rsquo;ve produced.</p>
 <h4 id="troubleshooting">Troubleshooting</h4>
 <p>If nothing happens you might need to enable stream processing. This was explained <a href="../running/running.md#enable-processing-of-data-streams">earlier</a>.</p>
@@ -777,7 +1826,7 @@
 
     Last modified
     July 27, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/afb0f25fa393bbb894b1f3eef7de95b1dcfb19e8">Fix links in quick-start-guide/running (afb0f25)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/1e075b8e5e046fe012a2c7602be109b1635f6493">Fix remaining quick start images, improve style-guide (1e075b8)</a>
 
 </div>
 
