@@ -1,0 +1,1472 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.86.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/pipelines/">
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="shortcut icon" href="/stroom-docs/hugo-docsy/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/stroom-docs/hugo-docsy/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
+
+<title>Pipelines | Stroom</title>
+<meta name="description" content="A Stroom example site"><meta property="og:title" content="Pipelines" />
+<meta property="og:description" content="Pipelines are the mechanism for processin and transforming ingested data.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/pipelines/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Pipelines">
+<meta itemprop="description" content="Pipelines are the mechanism for processin and transforming ingested data.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pipelines"/>
+<meta name="twitter:description" content="Pipelines are the mechanism for processin and transforming ingested data.
+"/>
+
+
+
+
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/stroom-docs/hugo-docsy/css/prism.css"/>
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/stroom-docs/hugo-docsy/">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="text-uppercase font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/stroom-docs/hugo-docsy/docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/news/" ><span>News / Releases</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/stroom-docs/hugo-docsy/community/" ><span>Community</span></a>
+			</li>
+			
+			
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Versions
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="https://gchq.github.io/stroom-docs/hugo-docsy/">7.1</a>
+	
+	<a class="dropdown-item" href="https://gchq.github.io/stroom-docs/hugo-docsy/">7.0</a>
+	
+	<a class="dropdown-item" href="https://gchq.github.io/stroom-docs/">Legacy</a>
+	
+</div>
+
+			</li>
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.be875af1245c83f6b2c793785804242d.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="50"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          </div>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/stroom-docs/hugo-docsy/docs/user-guide/pipelines/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Pipelines</h1>
+<div class="lead">Pipelines are the mechanism for processin and transforming ingested data.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-b02a3d3f350b1b05feec5352bf2f0e77">File Output</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-abb89cd998f89dc653cebf1da2271a55">Parser</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>2.1: <a href="#pg-850da8228403d37fae63cefb4607865a">Context Data</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2.2: <a href="#pg-59f866a6d2114dc2ea44119af58eff26">XML Fragments</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-0d3ac18ea787cffda6272f82e6bae0a5">Reference Data</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-50b1aef8645c34dbbce8b9fff3d3ba23">XSLT Conversion</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>4.1: <a href="#pg-00fcef074a5fb84079d17e4049c5a7f8">XSLT Functions</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4.2: <a href="#pg-3f52cd945d5eabe8bb9a84799caa130e">XSLT Includes</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <h1 id="pipelines">Pipelines</h1>
+<p>Every feed has an associated translation. The translation is used to convert the input text or XML into event logging XML format.</p>
+<p>XSLT is used to translate from XML to event logging XML.</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="">
+    
+	<h1 id="pg-b02a3d3f350b1b05feec5352bf2f0e77">1 - File Output</h1>
+    
+	<p>When outputting files with Stroom, the output file names and paths can include various substitution variables to form the file and path names.</p>
+<h2 id="context-variables">Context Variables</h2>
+<p>The following replacement variables are specific to the current processing context.</p>
+<ul>
+<li><code>${feed}</code> - The name of the feed that the stream being processed belongs to</li>
+<li><code>${pipeline}</code> - The name of the pipeline that is producing output</li>
+<li><code>${sourceId}</code> - The id of the input data being processed</li>
+<li><code>${partNo}</code> - The part number of the input data being processed where data is in aggregated batches</li>
+<li><code>${searchId}</code> - The id of the batch search being performed. This is only available during a batch search</li>
+<li><code>${node}</code> - The name of the node producing the output</li>
+</ul>
+<h2 id="time-variables">Time Variables</h2>
+<p>The following replacement variables can be used to include aspects of the current time in UTC.</p>
+<ul>
+<li><code>${year}</code> - Year in 4 digit form, e.g. 2000</li>
+<li><code>${month}</code> - Month of the year padded to 2 digits</li>
+<li><code>${day}</code> - Day of the month padded to 2 digits</li>
+<li><code>${hour}</code> - Hour padded to 2 digits using 24 hour clock, e.g. 22</li>
+<li><code>${minute}</code> - Minute padded to 2 digits</li>
+<li><code>${second}</code> - Second padded to 2 digits</li>
+<li><code>${millis}</code> - Milliseconds padded to 3 digits</li>
+<li><code>${ms}</code> - Milliseconds since the epoch</li>
+</ul>
+<h2 id="system-environment-variables">System (Environment) Variables</h2>
+<p>System variables (environment variables) can also be used, e.g. <code>${TMP}</code>.</p>
+<h2 id="file-name-references">File Name References</h2>
+<p>rolledFileName in RollingFileAppender can use references to the fileName to incorporate parts of the non rolled file name.</p>
+<ul>
+<li><code>${fileName}</code> - The complete file name</li>
+<li><code>${fileStem}</code> - Part of the file name before the file extension, i.e. everything before the last &lsquo;.&rsquo;</li>
+<li><code>${fileExtension}</code> - The extension part of the file name, i.e. everything after the last &lsquo;.&rsquo;</li>
+</ul>
+<h2 id="other-variables">Other Variables</h2>
+<ul>
+<li><code>${uuid}</code> - A randomly generated UUID to guarantee unique file names</li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-abb89cd998f89dc653cebf1da2271a55">2 - Parser</h1>
+    <div class="lead">Parsing input data.</div>
+	<p>The following capabilities are available to parse input data:</p>
+<ul>
+<li>XML - XML input can be parsed with the XML parser.</li>
+<li><a href="xml-fragments.md">XML Fragment</a> - Treat input data as an XML fragment, i.e. XML that does not have an XML declaration or root elements.</li>
+<li><a href="../../../datasplitter/1-0-introduction.md">Data Splitter</a> - Delimiter and regular expression based language for turning non XML data into XML (e.g. CSV)</li>
+</ul>
+
+</div>
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-850da8228403d37fae63cefb4607865a">2.1 - Context Data</h1>
+    
+	<p>##Context File</p>
+<p>###Input File:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SomeData&gt;
+	&lt;SomeEvent&gt;
+			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
+			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
+			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
+			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
+	&lt;/SomeEvent&gt;
+&lt;/SomeData&gt;
+</code></pre>
+<p>###Context File:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SomeContext&gt;
+	&lt;Machine&gt;MyMachine&lt;/Machine&gt;
+&lt;/SomeContext&gt;
+</code></pre>
+<p>###Context XSLT:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+	xmlns=&quot;reference-data:2&quot;
+	xmlns:evt=&quot;event-logging:3&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+	version=&quot;2.0&quot;&gt;
+		
+		&lt;xsl:template match=&quot;SomeContext&quot;&gt;
+			&lt;referenceData 
+					xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
+					version=&quot;2.0.1&quot;&gt;
+							
+					&lt;xsl:apply-templates/&gt;
+			&lt;/referenceData&gt;
+		&lt;/xsl:template&gt;
+
+		&lt;xsl:template match=&quot;Machine&quot;&gt;
+			&lt;reference&gt;
+					&lt;map&gt;CONTEXT&lt;/map&gt;
+					&lt;key&gt;Machine&lt;/key&gt;
+					&lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt;
+			&lt;/reference&gt;
+		&lt;/xsl:template&gt;
+		
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>###Context XML Translation:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;referenceData xmlns:evt=&quot;event-logging:3&quot;
+								xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+								xmlns=&quot;reference-data:2&quot;
+								xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
+								version=&quot;2.0.1&quot;&gt;
+		&lt;reference&gt;
+			&lt;map&gt;CONTEXT&lt;/map&gt;
+			&lt;key&gt;Machine&lt;/key&gt;
+			&lt;value&gt;MyMachine&lt;/value&gt;
+		&lt;/reference&gt;
+&lt;/referenceData&gt;
+</code></pre>
+<p>###Input File:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SomeData&gt;
+	&lt;SomeEvent&gt;
+			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
+			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
+			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
+			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
+	&lt;/SomeEvent&gt;
+&lt;/SomeData&gt;
+</code></pre>
+<p>###Main XSLT (Note the use of the context lookup):</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+	xmlns=&quot;event-logging:3&quot;
+	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+	version=&quot;2.0&quot;&gt;
+	
+    &lt;xsl:template match=&quot;SomeData&quot;&gt;
+        &lt;Events xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot; Version=&quot;3.0.0&quot;&gt;
+            &lt;xsl:apply-templates/&gt;
+        &lt;/Events&gt;
+    &lt;/xsl:template&gt;
+    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
+        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
+            &lt;Event&gt;
+                &lt;EventTime&gt;
+                        &lt;TimeCreated&gt;
+                            &lt;xsl:value-of select=&quot;s:format-date(SomeTime, 'dd/MM/yyyy:hh:mm:ss')&quot;/&gt;
+                        &lt;/TimeCreated&gt;
+                &lt;/EventTime&gt;
+				&lt;EventSource&gt;
+					&lt;System&gt;Example&lt;/System&gt;
+					&lt;Environment&gt;Example&lt;/Environment&gt;
+					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
+					&lt;Device&gt;
+						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
+						&lt;Location&gt;
+							&lt;Country&gt;UK&lt;/Country&gt;
+							&lt;Site&gt;&lt;xsl:value-of select=&quot;s:lookup('CONTEXT', 'Machine')&quot;/&gt;&lt;/Site&gt;
+							&lt;Building&gt;Main&lt;/Building&gt;
+							&lt;Floor&gt;1&lt;/Floor&gt;              
+							&lt;Room&gt;1aaa&lt;/Room&gt;
+						&lt;/Location&gt;           
+					&lt;/Device&gt;
+					&lt;User&gt;&lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;&lt;/User&gt;
+				&lt;/EventSource&gt;
+				&lt;EventDetail&gt;
+					&lt;View&gt;
+						&lt;Document&gt;
+							&lt;Title&gt;UNKNOWN&lt;/Title&gt;
+							&lt;File&gt;
+								&lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
+							&lt;/File&gt;
+						&lt;/Document&gt;
+					&lt;/View&gt;
+				&lt;/EventDetail&gt;
+            &lt;/Event&gt;
+        &lt;/xsl:if&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>###Main Output XML:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+				xmlns=&quot;event-logging:3&quot;
+				xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
+				Version=&quot;3.0.0&quot;&gt;
+		&lt;Event Id=&quot;6:1&quot;&gt;
+			&lt;EventTime&gt;
+					&lt;TimeCreated&gt;2009-01-01T00:00:01.000Z&lt;/TimeCreated&gt;
+			&lt;/EventTime&gt;
+			&lt;EventSource&gt;
+					&lt;System&gt;Example&lt;/System&gt;
+					&lt;Environment&gt;Example&lt;/Environment&gt;
+					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
+					&lt;Device&gt;
+						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
+						&lt;Location&gt;
+								&lt;Country&gt;UK&lt;/Country&gt;
+								&lt;Site&gt;MyMachine&lt;/Site&gt;
+								&lt;Building&gt;Main&lt;/Building&gt;
+								&lt;Floor&gt;1&lt;/Floor&gt;
+								&lt;Room&gt;1aaa&lt;/Room&gt;
+						&lt;/Location&gt;
+					&lt;/Device&gt;
+					&lt;User&gt;
+						&lt;Id&gt;userone&lt;/Id&gt;
+					&lt;/User&gt;
+			&lt;/EventSource&gt;
+			&lt;EventDetail&gt;
+					&lt;View&gt;
+						&lt;Document&gt;
+								&lt;Title&gt;UNKNOWN&lt;/Title&gt;
+								&lt;File&gt;
+									&lt;Path&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/Path&gt;
+								&lt;/File&gt;
+						&lt;/Document&gt;
+					&lt;/View&gt;
+			&lt;/EventDetail&gt;
+		&lt;/Event&gt;
+&lt;/Events&gt;
+</code></pre>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-59f866a6d2114dc2ea44119af58eff26">2.2 - XML Fragments</h1>
+    <div class="lead">Handling XML data without root level elements.</div>
+	<p>Some input XML data may be missing an XML declaration and root level enclosing elements.
+This data is not a valid XML document and must be treated as an XML fragment.
+To use XML fragments the input type for a translation must be set to &lsquo;XML Fragment&rsquo;.
+A fragment wrapper must be defined in the XML conversion that tells Stroom what declaration and root elements to place around the XML fragment data.</p>
+<p>Here is an example:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE records [
+&lt;!ENTITY fragment SYSTEM &quot;fragment&quot;&gt;
+]&gt;
+&lt;records
+  xmlns=&quot;records:2&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+  version=&quot;2.0&quot;&gt;
+  &amp;fragment;
+&lt;/records&gt;
+</code></pre>
+<p>During conversion Stroom replaces the fragment text entity with the input XML fragment data.
+Note that XML fragments must still be well formed so that they can be parsed correctly.</p>
+
+</div>
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-0d3ac18ea787cffda6272f82e6bae0a5">3 - Reference Data</h1>
+    <div class="lead">Performing temporal reference data lookups to decorate event data.</div>
+	<blockquote>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
+<strong>Last Updated:</strong> 15 September 2020<br>
+<strong>See Also:</strong></p>
+<ul>
+<li><a href="../../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md">HOWTO - Creating a Simple Reference Feed</a></li>
+<li><a href="./xslt/xslt-functions.md">XSLT Functions</a></li>
+</ul>
+</blockquote>
+<p>In Stroom reference data is primarily used to decorate events using <code>stroom:lookup()</code> calls in XSLTs.
+For example you may have reference data feed that associates the FQDN of a device to the physical location.
+You can then perform a <code>stroom:lookup()</code> in the XSLT to decorate an event with the physical location of a device by looking up the FQDN found in the event.</p>
+<p>Reference data is time sensitive and each stream of reference data has an Effective Date set against it.
+This allows reference data lookups to be performed using the date of the event to ensure the reference data that was actually effective at the time of the event is used.</p>
+<p>Using reference data involves the following steps/processes:</p>
+<ul>
+<li>Ingesting the raw reference data into Stroom.</li>
+<li>Creating (and processing) a pipeline to transform the raw reference into <code>reference-data:2</code> format XML.</li>
+<li>Creating a reference loader pipeline with a Reference Data Filter element to load <em>cooked</em> reference data into the reference data store.</li>
+<li>Adding reference pipeline/feeds to an XSLT Filter in your event pipeline.</li>
+<li>Adding the lookup call to the XSLT.</li>
+<li>Processing the raw events through the event pipeline.</li>
+</ul>
+<p>The process of creating a reference data pipeline is described in the HOWTO linked at the top of this document.</p>
+<h2 id="reference-data-structure">Reference Data Structure</h2>
+<p>A reference data entry essentially consists of the following:</p>
+<ul>
+<li><strong>Effective time</strong> - The data/time that the entry was effective from, i.e the time the raw reference data was received.</li>
+<li><strong>Map name</strong> - A unique name for the key/value map that the entry will be stored in.
+The name only needs to be unique within all map names that may be loaded within an XSLT Filter.
+In practice it makes sense to keep map names globally unique.</li>
+<li><strong>Key</strong> - The text that will be used to lookup the value in the reference data map.
+Mutually exclusive with <strong>Range</strong>.</li>
+<li><strong>Range</strong> - The inclusive range of integer keys that the entry applies to.
+Mutually exclusive with <strong>Key</strong>.</li>
+<li><strong>Value</strong> - The value can either be simple text, e.g. an IP address, or an XML fragment that can be inserted into another XML document.
+XML values must be correctly namespaced.</li>
+</ul>
+<p>The following is an example of some reference data that has been converted from its raw form into <code>reference-data:2</code> XML.
+In this example the reference data contains three entries that each belong to a different map.
+Two of the entries are simple text values and the last has an XML value.</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;referenceData 
+    xmlns=&quot;reference-data:2&quot; 
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    xmlns:stroom=&quot;stroom&quot; 
+    xmlns:evt=&quot;event-logging:3&quot; 
+    xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.xsd&quot; 
+    version=&quot;2.0.1&quot;&gt;
+
+  &lt;!-- A simple string value --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_IP&lt;/map&gt;
+    &lt;key&gt;stroomnode00.strmdev00.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;IPAddress&gt;192.168.2.245&lt;/IPAddress&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+
+  &lt;!-- A simple string value --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;IP_TO_FQDN&lt;/map&gt;
+    &lt;key&gt;192.168.2.245&lt;/key&gt;
+    &lt;value&gt;
+      &lt;HostName&gt;stroomnode00.strmdev00.org&lt;/HostName&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+
+  &lt;!-- A key range --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;USER_ID_TO_COUNTRY_CODE&lt;/map&gt;
+    &lt;range&gt;
+      &lt;from&gt;1&lt;/from&gt;
+      &lt;to&gt;1000&lt;/to&gt;
+    &lt;/range&gt;
+    &lt;value&gt;GBR&lt;/value&gt;
+  &lt;/reference&gt;
+
+  &lt;!-- An XML fragment value --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_LOC&lt;/map&gt;
+    &lt;key&gt;stroomnode00.strmdev00.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;evt:Location&gt;
+        &lt;evt:Country&gt;GBR&lt;/evt:Country&gt;
+        &lt;evt:Site&gt;Bristol-S00&lt;/evt:Site&gt;
+        &lt;evt:Building&gt;GZero&lt;/evt:Building&gt;
+        &lt;evt:Room&gt;R00&lt;/evt:Room&gt;
+        &lt;evt:TimeZone&gt;+00:00/+01:00&lt;/evt:TimeZone&gt;
+      &lt;/evt:Location&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+&lt;/referenceData&gt;
+</code></pre>
+<h3 id="reference-data-namespaces">Reference Data Namespaces</h3>
+<p>When XML reference data values are created, as in the example XML above, the XML values must be qualified with a namespace to distinguish them from the <code>reference-data:2</code> XML that surrounds them.
+In the above example the XML fragment will become as follows when injected into an event:</p>
+<pre><code class="language-xml">      &lt;evt:Location xmlns:evt=&quot;event-logging:3&quot; &gt;
+        &lt;evt:Country&gt;GBR&lt;/evt:Country&gt;
+        &lt;evt:Site&gt;Bristol-S00&lt;/evt:Site&gt;
+        &lt;evt:Building&gt;GZero&lt;/evt:Building&gt;
+        &lt;evt:Room&gt;R00&lt;/evt:Room&gt;
+        &lt;evt:TimeZone&gt;+00:00/+01:00&lt;/evt:TimeZone&gt;
+      &lt;/evt:Location&gt;
+</code></pre>
+<p>Even if <code>evt</code> is already declared in the XML being injected into it, if it has been declared for the reference fragment then it will be explicitly declared in the destination.
+While duplicate namespacing may appear odd it is valid XML.</p>
+<p>The namespacing can also be achieved like this:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;referenceData 
+    xmlns=&quot;reference-data:2&quot; 
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    xmlns:stroom=&quot;stroom&quot; 
+    xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.xsd&quot; 
+    version=&quot;2.0.1&quot;&gt;
+
+  &lt;!-- An XML value --&gt;
+  &lt;reference&gt;
+    &lt;map&gt;FQDN_TO_LOC&lt;/map&gt;
+    &lt;key&gt;stroomnode00.strmdev00.org&lt;/key&gt;
+    &lt;value&gt;
+      &lt;Location xmlns=&quot;event-logging:3&quot;&gt;
+        &lt;Country&gt;GBR&lt;/Country&gt;
+        &lt;Site&gt;Bristol-S00&lt;/Site&gt;
+        &lt;Building&gt;GZero&lt;/Building&gt;
+        &lt;Room&gt;R00&lt;/Room&gt;
+        &lt;TimeZone&gt;+00:00/+01:00&lt;/TimeZone&gt;
+      &lt;/Location&gt;
+    &lt;/value&gt;
+  &lt;/reference&gt;
+&lt;/referenceData&gt;
+</code></pre>
+<p>This reference data will be injected into event XML exactly as it, i.e.:</p>
+<pre><code class="language-xml">      &lt;Location xmlns=&quot;event-logging:3&quot;&gt;
+        &lt;Country&gt;GBR&lt;/Country&gt;
+        &lt;Site&gt;Bristol-S00&lt;/Site&gt;
+        &lt;Building&gt;GZero&lt;/Building&gt;
+        &lt;Room&gt;R00&lt;/Room&gt;
+        &lt;TimeZone&gt;+00:00/+01:00&lt;/TimeZone&gt;
+      &lt;/Location&gt;
+</code></pre>
+<h2 id="reference-data-storage">Reference Data Storage</h2>
+<p>Reference data is stored in two different places on a Stroom node.
+All reference data is only visible to the node where it is located.
+Each node that is performing reference data lookups will need to load and store its own reference data.
+While this will result in duplicate data being held by nodes it makes the storage of reference data and its subsequent lookup very performant.</p>
+<h3 id="on-heap-store">On-Heap Store</h3>
+<p>The On-Heap store is the reference data store that is held in memory in the Java Heap.
+This store is volatile and will be lost on shut down of the node.
+The On-Heap store is only used for storage of context data.</p>
+<h3 id="off-heap-store">Off-Heap Store</h3>
+<p>The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to to local disk.
+As the store is also persisted to local disk it means the reference data will survive the shutdown of the stroom instance.
+Storing the data off-heap means Stroom can run with a much smaller Java Heap size.</p>
+<p>The Off-Heap store is based on the Lightning Memory-Mapped Database (LMDB).
+LMDB makes use of the Linux page cache to ensure that hot portions of the reference data are held in the page cache (making use of all available free memory).
+Infrequently used portions of the reference data will be evicted from the page cache by the Operating System.
+Given that LMDB utilises the page cache for holding reference data in memory the more free memory the host has the better as there will be less shifting of pages in/out of the OS page cache.
+When storing large amounts of data you may experience the OS reporting very little free memory as a large amount will be in use by the page cache.
+This is not an issue as the OS will evict pages when memory is needed for other applications, e.g. the Java Heap.</p>
+<h4 id="local-disk">Local Disk</h4>
+<p>The Off-Heap store is intended to be located on local disk on the Stroom node.
+The location of the store is set using the property <code>stroom.pipeline.referenceData.localDir</code>.
+Using LMDB on remote storage is NOT advised, see <a href="http://www.lmdb.tech/doc">http://www.lmdb.tech/doc</a>.</p>
+<p>If you are running stroom on AWS EC2 instances then you will need to attach some local instance storage to the host, e.g. SSD, to use for the reference data store.
+In tests EBS storage was found to be VERY slow.
+It should be noted that AWS instance storage is not persistent between instance stops, terminations and hardware failure.
+However any loss of the reference data store will mean that the next time Stroom boots a new store will be created and reference data will be loaded on demand as normal.</p>
+<h4 id="transactions">Transactions</h4>
+<p>LMDB is a transactional database with ACID semantics.
+All interaction with LMDB is done within a read or write transaction.
+There can only be one write transaction at a time so if there are a number of concurrent reference data loads then they will have to wait in line.
+Read transactions, i.e. lookups, are not blocked by each other or by write transactions so once the data is loaded and is in memory lookups can be performed very quickly.</p>
+<h4 id="read-ahead-mode">Read-Ahead Mode</h4>
+<p>When data is read from the store, if the data is not already in the page cache then it will be read from disk and added to the page cache by the OS.
+Read-ahead is the process of speculatively reading ahead to load more pages into the page cache then were requested.
+This is on the basis that future requests for data may need the pages speculatively read into memory.
+If the reference data store is very large or is larger than the available memory then it is recommended to turn read-ahead off as the result will be to evict hot reference data from the page cache to make room for speculative pages that may not be needed.
+It can be tuned off with the system property <code>stroom.pipeline.referenceData.readAheadEnabled</code>.</p>
+<h4 id="key-size">Key Size</h4>
+<p>When reference data is created care must be taken to ensure that the <em>Key</em> used for each entry is less than 507 bytes.
+For simple ASCII characters then this means less than 507 characters.
+If non-ASCII characters are in the key then these will take up more than one byte per character so the length of the key in characters will be less.
+This is a limitation inherent to LMDB.</p>
+<h4 id="commit-intervals">Commit intervals</h4>
+<p>The property <code>stroom.pipeline.referenceData.maxPutsBeforeCommit</code> controls the number of entries that are put into the store between each commit.
+As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
+There is a trade off though as reducing the number of entries put between each commit can seriously affect performance.
+For the fastest single process performance a value of zero should be used which means it will not commit mid-load.
+This however means all other processes wanting to write to the store will need to wait.</p>
+<h4 id="cloning-the-off-heap-store">Cloning The Off Heap Store</h4>
+<p>If you are provisioning a new stroom node it is possible to copy the off heap store from another node.
+Stroom should not be running on the node being copied from.
+Simply copy the contents of <code>stroom.pipeline.referenceData.localDir</code> into the same configured location on the other node.
+The new node will use the copied store and have access to its reference data.</p>
+<h4 id="store-size--compaction">Store Size &amp; Compaction</h4>
+<p>Due to the way LMDB works the store can only grow in size, it will never shrink, even if data is deleted.
+Deleted data frees up space for new writes to the store so will be reused but never freed.
+If there is a regular process of purging old data and adding new reference data then this should not be an issue as the new reference data will use the space made available by the purged data.</p>
+<p>If store size becomes an issue then it is possible to compact the store.
+<code>lmdb-utils</code> is available on some package managers and this has an <code>mdb_copy</code> command that can be used with the <code>-c</code> switch to copy the LMDB environment to a new one, compacting it in the process.
+This should be done when Stroom is down to avoid writes happening to the store while the copy is happening.</p>
+<p>Given that the store is essentially a cache and all data can be re-loaded another option is to delete the contents of <code>stroom.pipeline.referenceData.localDir</code> when Stroom is not running.
+On boot Stroom will create a brand new store and reference data will be re-loaded as required.</p>
+<h2 id="the-loading-process">The Loading Process</h2>
+<p>Reference data is loaded into the store on demand during the processing of a <code>stroom:lookup()</code> method call.
+Reference data will only be loaded if it does not already exist in the store, however it is always loaded as a complete stream, rather than entry by entry.</p>
+<p>The test for existence in the store is based on the following criteria:</p>
+<ul>
+<li>The UUID of the reference loader pipeline.</li>
+<li>The version of the reference loader pipeline.</li>
+<li>The Stream ID for the stream of reference data that has been deemed effective for the lookup.</li>
+<li>The Stream Number (in the case of multi part streams).</li>
+</ul>
+<p>If a reference stream has already been loaded matching the above criteria then no additional load is required.</p>
+<p><strong>IMPORTANT</strong>: It should be noted that as the version of the reference data pipeline forms part of the criteria, if the reference loader pipeline is changed, for whatever reason, then this will invalidate ALL existing reference data associated with that reference loader pipeline.</p>
+<p>Typically the reference loader pipeline is very static so this should not be an issue.</p>
+<p>Standard practice is to convert raw reference data into <code>reference:2</code> XML on receipt using a pipeline separate to the reference loader.
+The reference loader is then only concerned with reading cooked <code>reference:2</code> into the Reference Data Filter.</p>
+<p>In instances where reference data streams are infrequently used it may be preferable to not convert the raw reference on receipt but instead to do it in the reference loader pipeline.</p>
+<h3 id="duplicate-keys">Duplicate Keys</h3>
+<p>The Reference Data Filter pipeline element has a property <code>overrideExistingValues</code> which if set to <em>true</em> means if an entry is found in an effective stream with the same key as an entry already loaded then it will overwrite the existing one.
+Entries are loaded in the order they are found in the <code>reference:2</code> XML document.
+If set to <em>false</em> then the existing entry will be kept.
+If <code>warnOnDuplicateKeys</code> is set to <em>true</em> then a warning will be logged for any duplicate keys, whether an overwrite happens or not.</p>
+<h3 id="value-de-duplication">Value De-Duplication</h3>
+<p>Only unique values are held in the store to reduce the storage footprint.
+This is useful given that typically, reference data updates may be received daily and each one is a full snapshot of the whole reference data.
+As a result this can mean many copies of the same value being loaded into the store.
+The store will only hold the first instance of duplicate values.</p>
+<h2 id="querying-the-reference-data-store">Querying the Reference Data Store</h2>
+<p>The reference data store can be queried within a Dashboard in Stroom by selecting <code>Reference Data Store</code> in the data source selection pop-up.
+Querying the store is currently an experimental feature and is mostly intended for use in fault finding.
+Given the localised nature of the reference data store the dashboard can currently only query the store on the node that the user interface is being served from.
+In a multi-node environment where some nodes are UI only and most are processing only, the UI nodes will have no reference data in their store.</p>
+<h2 id="purging-old-reference-data">Purging Old Reference Data</h2>
+<p>Reference data loading and purging is done at the level of a reference stream.
+Whenever a reference lookup is performed the last accessed time of the reference stream in the store is checked.
+If it is older than one hour then it will be updated to the current time.
+This last access time is used to determine reference streams that are no longer in active use and thus can be purged.</p>
+<p>The Stroom job <em>Ref Data Off-heap Store Purge</em> is used to perform the purge operation on the Off-Heap reference data store.
+No purge is required for the On-Heap store as that only holds transient data.
+When the purge job is run it checks the time since each reference stream was accessed against the purge cut-off age.
+The purge age is configured via the property <code>stroom.pipeline.referenceData.purgeAge</code>.
+It is advised to schedule this job for quiet times when it is unlikely to conflict with reference loading operations as they will fight for access to the single write transaction.</p>
+<h2 id="lookups">Lookups</h2>
+<p>Lookups are performed in XSLT Filters using the XSLT functions.
+In order to perform a lookup one or more reference feeds must be specified on the XSLT Filter pipeline element.
+Each reference feed is specified along with a reference loader pipeline that will ingest the specified feed (optional convert it into <code>reference:2</code> XML if it is not already) and pass it into a Reference Data Filter pipeline element.</p>
+<h3 id="reference-feeds--loaders">Reference Feeds &amp; Loaders</h3>
+<p>In the XSLT Filter pipeline element multiple combinations of feed and reference loader pipeline can be specified.
+There must be at least one in order to perform lookups.
+If there are multiple then when a lookup is called for a given time, the effective stream for each feed/loader combination is determined.
+The effective stream for each feed/loader combination will be loaded into the store, unless it is already present.</p>
+<p>When the actual lookup is performed Stroom will try to find the key in each of the effective streams that have been loaded and that contain the map in the lookup call.
+If the lookup is unsuccessful in the effective stream for the first feed/loader combination then it will try the next, and so on until it has tried all of them.
+For this reason if you have multiple feed/loader combinations then order is important.
+It is possible for multiple effective streams to contain the same map/key so a feed/loader combination higher up the list will trump one lower down with the same map/key.
+Also if you have some lookups that may not return a value and others that should always return a value then the feed/loader for the latter should be higher up the list so it is searched first.</p>
+<h3 id="standard-keyvalue-lookups">Standard Key/Value Lookups</h3>
+<p>Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
+Standard lookups are performed using the various forms of the <a href="./xslt/xslt-functions.md#lookup"><code>stroom:lookup()</code></a> XSLT function.</p>
+<h3 id="range-lookups">Range Lookups</h3>
+<p>Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
+For more detail on range lookups see the XSLT function <a href="./xslt/xslt-functions.md#range-lookups"><code>stroom:lookup()</code></a>.</p>
+<h3 id="nested-map-lookups">Nested Map Lookups</h3>
+<p>Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
+For more detail on nested lookups see the XSLT function <a href="./xslt/xslt-functions.md#nested-maps"><code>stroom:lookup()</code></a>.</p>
+<h3 id="bitmap-lookups">Bitmap Lookups</h3>
+<p>A bitmap lookup is a special kind of lookup that actually performs a lookup for each enabled bit position of the passed bitmap value.
+For more detail on bitmap lookups see the XSLT function <a href="./xslt/xslt-functions.md#bitmap-lookup"><code>stroom:bitmap-lookup()</code></a>.</p>
+<p>Values can either be a simple string or an XML fragment.</p>
+<h3 id="context-data-lookups">Context data lookups</h3>
+<p>Some event streams have a Context stream associated with them.
+Context streams allow the system sending the events to Stroom to supply an additional stream of data that provides context to the raw event stream.
+This can be useful when the system sending the events has no control over the event content but needs to supply additional information.
+The context stream can be used in lookups as a reference source to decorate events on receipt.
+Context reference data is specific to a single event stream so is transient in nature, therefore the On Heap Store is used to hold it for the duration of the event stream processing only.</p>
+<p>Typically the reference loader for a context stream will include a translation step to convert the raw context data into <code>reference:2</code> XML.</p>
+<h2 id="reference-data-api">Reference Data API</h2>
+<p>The reference data store has an API to allow other systems to access the reference data store.
+The <code>lookup</code> endpoint requires the caller to provide details of the reference feed and loader pipeline so if the effective stream is not in the store it can be loaded prior to performing the lookup.</p>
+<p>Below is an example of a lookup request.</p>
+<pre><code class="language-json">{
+  &quot;mapName&quot;: &quot;USER_ID_TO_LOCATION&quot;,
+  &quot;effectiveTime&quot;: &quot;2020-12-02T08:37:02.772Z&quot;,
+  &quot;key&quot;: &quot;jbloggs&quot;,
+  &quot;referenceLoaders&quot;: [
+    {
+      &quot;loaderPipeline&quot; : {
+        &quot;name&quot; : &quot;Reference Loader&quot;,
+        &quot;uuid&quot; : &quot;da1c7351-086f-493b-866a-b42dbe990700&quot;,
+        &quot;type&quot; : &quot;Pipeline&quot;
+      },
+      &quot;referenceFeed&quot; : {
+        &quot;name&quot;: &quot;USER_ID_TOLOCATION-REFERENCE&quot;,
+        &quot;uuid&quot;: &quot;60f9f51d-e5d6-41f5-86b9-ae866b8c9fa3&quot;,
+        &quot;type&quot; : &quot;Feed&quot;
+      }
+    }
+  ]
+}
+</code></pre>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-50b1aef8645c34dbbce8b9fff3d3ba23">4 - XSLT Conversion</h1>
+    <div class="lead">Using Extensible Stylesheet Language Transformations (XSLT) to transform data.</div>
+	<p>Once the text file has been converted into Intermediary XML (or the feed is already XML), XSLT is used to
+translate the XML into event logging XML format.</p>
+<p>Event Feeds must be translated into the events schema and Reference
+into the reference schema. You can browse documentation relating to the
+schemas within the application.</p>
+<p>Here is an example XSLT:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+    xmlns=&quot;event-logging:3&quot;
+    xmlns:s=&quot;stroom&quot;
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    version=&quot;2.0&quot;&gt;
+
+    &lt;xsl:template match=&quot;SomeData&quot;&gt;
+        &lt;Events
+        xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
+        Version=&quot;3.0.0&quot;&gt;
+            &lt;xsl:apply-templates/&gt;
+        &lt;/Events&gt;
+    &lt;/xsl:template&gt;
+    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
+        &lt;xsl:variable name=&quot;dateTime&quot; select=&quot;SomeTime&quot;/&gt;
+        &lt;xsl:variable name=&quot;formattedDateTime&quot; select=&quot;s:format-date($dateTime, 'dd/MM/yyyyhh:mm:ss')&quot;/&gt;
+
+        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
+            &lt;Event&gt;
+            &lt;EventTime&gt;
+                &lt;TimeCreated&gt;
+                    &lt;xsl:value-of select=&quot;$formattedDateTime&quot;/&gt;
+                &lt;/TimeCreated&gt;
+            &lt;/EventTime&gt;
+            &lt;EventSource&gt;
+                &lt;System&gt;Example&lt;/System&gt;
+                &lt;Environment&gt;Example&lt;/Environment&gt;
+                &lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
+                &lt;Device&gt;
+                    &lt;IPAddress&gt;3.3.3.3&lt;/IPAddress&gt;
+                &lt;/Device&gt;
+                &lt;User&gt;
+                    &lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;
+                &lt;/User&gt;
+            &lt;/EventSource&gt;
+            &lt;EventDetail&gt;
+                &lt;View&gt;
+                    &lt;Document&gt;
+                        &lt;Title&gt;UNKNOWN&lt;/Title&gt;
+                        &lt;File&gt;
+                        &lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
+                        &lt;File&gt;
+                    &lt;/Document&gt;
+                &lt;/View&gt;
+            &lt;/EventDetail&gt;
+            &lt;/Event&gt;
+        &lt;/xsl:if&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+
+</div>
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-00fcef074a5fb84079d17e4049c5a7f8">4.1 - XSLT Functions</h1>
+    <div class="lead">Custom XSLT functions available in Stroom.</div>
+	<p>By including the following namespace:</p>
+<pre><code class="language-xml">xmlns:s=&quot;stroom&quot;
+</code></pre>
+<p>E.g.</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+    xmlns=&quot;event-logging:3&quot;
+    xmlns:s=&quot;stroom&quot;
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    version=&quot;2.0&quot;&gt;
+</code></pre>
+<p>The following functions are available to aid your translation:</p>
+<ul>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key)</code></a> - Bitmap based look up against reference data map using the period start time</li>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key, String time)</code></a> - Bitmap based look up against reference data map using a specified time, e.g. the event time</li>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)</code></a> - Bitmap based look up against reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup</li>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)</code></a> - Bitmap based look up against reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup and get trace information for the path taken to resolve the lookup.</li>
+<li><code>classification()</code> - The classification of the feed for the data being processed</li>
+<li><code>col-from()</code> - The column in the input that the current record begins on (can be 0).</li>
+<li><code>col-to()</code> - The column in the input that the current record ends at.</li>
+<li><code>current-time()</code> - The current system time</li>
+<li><code>current-user()</code> - The current user logged into Stroom (only relevant for interactive use, e.g. search)</li>
+<li><code>decode-url(String encodedUrl)</code> - Decode the provided url.</li>
+<li><a href="#dictionary"><code>dictionary(String name)</code></a> - Loads the contents of the named dictionary for use within the translation</li>
+<li><code>encode-url(String url)</code> - Encode the provided url.</li>
+<li><code>feed-name()</code> - Name of the feed for the data being processed</li>
+<li><a href="#format-date"><code>format-date(String date, String pattern)</code></a> - Format a date that uses the specified pattern using the default time zone</li>
+<li><a href="#format-date"><code>format-date(String date, String pattern, String timeZone)</code></a> - Format a date that uses the specified pattern with the specified time zone</li>
+<li><a href="#format-date"><code>format-date(String date, String patternIn, String timeZoneIn, String patternOut, String timeZoneOut)</code></a> - Parse a date with the specified input pattern and time zone and format the output with the specified output pattern and time zone</li>
+<li><a href="#format-date"><code>format-date(String milliseconds)</code></a> - Format a date that is specified as a number of milliseconds since a standard base time known as &ldquo;the epoch&rdquo;, namely January 1, 1970, 00:00:00 GMT</li>
+<li><a href="#put-and-get"><code>get(String key)</code></a> - Returns the value associated with a key that has been stored using put()</li>
+<li><code>hash(String value)</code> - Hash a string value using the default <code>SHA-256</code> algorithm and no salt</li>
+<li><code>hash(String value, String algorithm, String salt)</code> - Hash a string value using the specified hashing algorithm and supplied salt value. Supported hashing algorithms include <code>SHA-256</code>, <code>SHA-512</code>, <code>MD5</code>.</li>
+<li><code>hex-to-dec(String hex)</code> - Convert hex to dec representation</li>
+<li><code>hex-to-oct(String hex)</code> - Convert hex to oct representation</li>
+<li><code>json-to-xml(String json)</code> - Returns an XML representation of the supplied JSON value for use in XPath expressions</li>
+<li><code>line-from()</code> - The line in the input that the current record begins on (1 based).</li>
+<li><code>line-to()</code> - The line in the input that the current record ends at.</li>
+<li><a href="#link"><code>link(String url)</code></a> - Creates a stroom dashboard table link.</li>
+<li><a href="#link"><code>link(String title, String url)</code></a> - Creates a stroom dashboard table link.</li>
+<li><a href="#link"><code>link(String title, String url, String type)</code></a> - Creates a stroom dashboard table link.</li>
+<li><a href="#log"><code>log(String severity, String message)</code></a> - Logs a message to the processing log with the specified severity</li>
+<li><a href="#lookup"><code>lookup(String map, String key)</code></a> - Look up a reference data map using the period start time</li>
+<li><a href="#lookup"><code>lookup(String map, String key, String time)</code></a> - Look up a reference data map using a specified time, e.g. the event time</li>
+<li><a href="#lookup"><code>lookup(String map, String key, String time, Boolean ignoreWarnings)</code></a> - Look up a reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup</li>
+<li><a href="#lookup"><code>lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)</code></a> - Look up a reference data map using a specified time, e.g. the event time, ignore any warnings generated by a failed lookup and get trace information for the path taken to resolve the lookup.</li>
+<li><code>meta(String key)</code> - Lookup a meta data value for the current stream using the specified key. The key can be <code>Feed</code>, <code>StreamType</code>, <code>CreatedTime</code>, <code>EffectiveTime</code>, <code>Pipeline</code> or any other attribute supplied when the stream was sent to Stroom, e.g. meta(&lsquo;System&rsquo;).</li>
+<li><code>numeric-ip(String ipAddress)</code> - Convert an IP address to a numeric representation for range comparison</li>
+<li><code>part-no()</code> - The current part within a multi part aggregated input stream (AKA the substream number) (1 based)</li>
+<li><a href="#parse-uri"><code>parse-uri(String URI)</code></a> - Returns an XML structure of the URI providing <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code>, and <code>userInfo</code> components if present.</li>
+<li><code>random()</code> - Get a system generated random number between 0 and 1.</li>
+<li><code>record-no()</code> - The current record number within the current part (substream) (1 based).</li>
+<li><code>search-id()</code> - Get the id of the batch search when a pipeline is processing as part of a batch search</li>
+<li><code>source()</code> - Returns an XML structure with the <code>stroom-meta</code> namespace detailing the current source location.</li>
+<li><code>source-id()</code> - Get the id of the current input stream that is being processed</li>
+<li><code>stream-id()</code> - An alias for <code>source-id</code> included for backward compatibility.</li>
+<li><code>pipeline-name()</code> - Name of the current processing pipeline using the XSLT</li>
+<li><a href="#put-and-get"><code>put(String key, String value)</code></a> - Store a value for use later on in the translation</li>
+</ul>
+<h2 id="bitmap-lookup">bitmap-lookup()</h2>
+<p>The bitmap-lookup() function looks up a bitmap key from reference or context data a value (which can be an XML node set) for each set bit position and adds it to the resultant XML.</p>
+<pre><code>bitmap-lookup(String map, String key)
+bitmap-lookup(String map, String key, String time)
+bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)
+bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+</code></pre>
+<ul>
+<li><code>map</code> - The name of the reference data map to perform the lookup against.</li>
+<li><code>key</code> - The bitmap value to lookup.
+This can either be represented as a decimal integer (e.g. <code>14</code>) or as hexadecimal by prefixing with <code>0x</code> (e.g <code>0xE</code>).</li>
+<li><code>time</code> - Determines which set of reference data was effective at the requested time.
+If no reference data exists with an effective time before the requested time then the lookup will fail.
+Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-01-01T00:00:00.000Z</code>.</li>
+<li><code>ignoreWarnings</code> - If true, any lookup failures will be ignored, else they will be reported as warnings.</li>
+<li><code>trace</code> - If true, additional trace information is output as INFO messages.</li>
+</ul>
+<p>If the look up fails no result will be returned.</p>
+<p>The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. <code>14</code>/<code>0xE</code> is <code>1110</code> as a binary bitmap.
+For each bit position that is set, (i.e. has a binary value of <code>1</code>)  a lookup will be performed using that bit position as the key.
+In this example, positions <code>1</code>, <code>2</code> &amp; <code>3</code> are set so a lookup would be performed for these bit positions.
+The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.</p>
+<p>If <code>ignoreWarnings</code> is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.</p>
+<p>This function can be useful when you have a set of values that can be represented as a bitmap and you need them to be converted back to individual values.
+For example if you have a set of additive account permissions (e.g Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&rsquo;s permissions could be defined as a single decimal/hex bitmap value.
+Thus a bitmap lookup with this value would return all the permissions held by the user.</p>
+<p>For example the reference data store may contain:</p>
+<table>
+<thead>
+<tr>
+<th>Key (Bit position)</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Administrator</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Manage_Users</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Perform_Export</td>
+</tr>
+<tr>
+<td>3</td>
+<td>View_Data</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Manage_Jobs</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Delete_Data</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Manage_Volumes</td>
+</tr>
+</tbody>
+</table>
+<p>The following are example lookups using the above reference data:</p>
+<table>
+<thead>
+<tr>
+<th>Lookup Key (decimal)</th>
+<th>Lookup Key (Hex)</th>
+<th>Bitmap</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>0x0</code></td>
+<td><code>0000000</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td><code>0x1</code></td>
+<td><code>0000001</code></td>
+<td><code>Administrator</code></td>
+</tr>
+<tr>
+<td><code>74</code></td>
+<td><code>0x4A</code></td>
+<td><code>1001010</code></td>
+<td><code>Manage_Users View_Data Manage_Volumes</code></td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><code>0x2</code></td>
+<td><code>0000010</code></td>
+<td><code>Manage_Users</code></td>
+</tr>
+<tr>
+<td><code>96</code></td>
+<td><code>0x60</code></td>
+<td><code>1100000</code></td>
+<td><code>Delete_Data ManageUsers</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="dictionary">dictionary()</h2>
+<p>The dictionary() function gets the contents of the specified dictionary for use during translation.
+The main use for this function is to allow users to abstract the management of a set of keywords from the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used by some XSLT, without the need for the user to understand the complexities of XSLT.</p>
+<h2 id="format-date">format-date()</h2>
+<p>The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
+contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.  If the
+optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
+A special time zone value of &ldquo;GMT/BST&rdquo; can be used to guess the time based on the date (BST during
+British Summer Time).</p>
+<p>E.g. Convert a GMT date time &ldquo;2009/12/01 12:34:11&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')&quot;/&gt;
+</code></pre>
+<p>E.g. Convert a GMT or BST date time &ldquo;2009/08/01 12:34:11&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')&quot;/&gt;
+</code></pre>
+<p>E.g. Convert a GMT+1:00 date time &ldquo;2009/08/01 12:34:11&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')&quot;/&gt;
+</code></pre>
+<p>E.g. Convert a date time specified as milliseconds since the epoch &ldquo;1269270011640&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('1269270011640')&quot;/&gt;
+</code></pre>
+<p>Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.</p>
+<h2 id="link">link()</h2>
+<p>Create a string that represents a hyperlink for display in a dashboard table.</p>
+<pre><code>link(url)
+link(title, url)
+link(title, url, type)
+</code></pre>
+<p>Example</p>
+<pre><code>link('http://www.somehost.com/somepath')
+&gt; [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
+link('Click Here','http://www.somehost.com/somepath')
+&gt; [Click Here](http://www.somehost.com/somepath)
+link('Click Here','http://www.somehost.com/somepath', 'dialog')
+&gt; [Click Here](http://www.somehost.com/somepath){dialog}
+link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
+&gt; [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
+</code></pre>
+<p>Type can be one of:</p>
+<ul>
+<li><code>dialog</code> : Display the content of the link URL within a stroom popup dialog.</li>
+<li><code>tab</code> : Display the content of the link URL within a stroom tab.</li>
+<li><code>browser</code> : Display the content of the link URL within a new browser tab.</li>
+<li><code>dashboard</code> : Used to launch a stroom dashboard internally with parameters in the URL.</li>
+</ul>
+<p>If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both <code>dialog</code> and <code>tab</code> types allow titles to be specified after a <code>|</code>, e.g. <code>dialog|My Title</code>.</p>
+<h2 id="log">log()</h2>
+<p>The log() function writes a message to the processing log with the specified severity.
+Severities of INFO, WARN, ERROR and FATAL can be used.
+Severities of ERROR and FATAL will result in records being omitted from the output if a RecordOutputFilter is used in the pipeline.
+The counts for RecWarn, RecError will be affected by warnings or errors generated in this way therefore this function is useful for adding business rules to XML output.</p>
+<p>E.g. Warn if a SID is not the correct length.</p>
+<pre><code class="language-xml">&lt;xsl:if test=&quot;string-length($sid) != 7&quot;&gt;
+  &lt;xsl:value-of select=&quot;s:log('WARN', concat($sid, ' is not the correct length'))&quot;/&gt;
+&lt;/xsl:if&gt;
+</code></pre>
+<h2 id="lookup">lookup()</h2>
+<p>The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.</p>
+<pre><code>lookup(String map, String key)
+lookup(String map, String key, String time)
+lookup(String map, String key, String time, Boolean ignoreWarnings)
+lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+</code></pre>
+<ul>
+<li><code>map</code> - The name of the reference data map to perform the lookup against.</li>
+<li><code>key</code> - The key to lookup. The key can be a simple string, an integer value in a numeric range or a nested lookup key.</li>
+<li><code>time</code> - Determines which set of reference data was effective at the requested time.
+If no reference data exists with an effective time before the requested time then the lookup will fail.
+Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-01-01T00:00:00.000Z</code>.</li>
+<li><code>ignoreWarnings</code> - If true, any lookup failures will be ignored, else they will be reported as warnings.</li>
+<li><code>trace</code> - If true, additional trace information is output as INFO messages.</li>
+</ul>
+<p>If the look up fails no result will be returned.
+By testing the result a default value may be output if no result is returned.</p>
+<p>E.g. Look up a SID given a PF</p>
+<pre><code class="language-xml">&lt;xsl:variable name=&quot;pf&quot; select=&quot;PFNumber&quot;/&gt;
+&lt;xsl:if test=&quot;$pf&quot;&gt;
+   &lt;xsl:variable name=&quot;sid&quot; select=&quot;s:lookup('PF_TO_SID', $pf, $formattedDateTime)&quot;/&gt;
+
+   &lt;xsl:choose&gt;
+      &lt;xsl:when test=&quot;$sid&quot;&gt;
+         &lt;User&gt;
+             &lt;Id&gt;&lt;xsl:value-of select=&quot;$sid&quot;/&gt;&lt;/Id&gt;
+         &lt;/User&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;
+         &lt;data name=&quot;PFNumber&quot;&gt;
+            &lt;xsl:attribute name=&quot;Value&quot;&gt;&lt;xsl:value-of select=&quot;$pf&quot;/&gt;&lt;/xsl:attribute&gt;
+         &lt;/data&gt;
+      &lt;/xsl:otherwise&gt;
+   &lt;/xsl:choose&gt;
+&lt;/xsl:if&gt;
+</code></pre>
+<h3 id="range-lookups">Range lookups</h3>
+<p>Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g 1-100.
+When a lookup is preformed the passed key is looked up as if it were a normal string key.
+If that lookup fails Stroom will try to convert the key to an integer (long) value.
+If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.</p>
+<p>Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
+In this use case, the IP address must first be converted into a numeric value using <code>numeric-ip()</code>, e.g:</p>
+<pre><code class="language-xslt">stroom:lookup('IP_TO_LOCATION', numeric-ip($ipAddress))
+</code></pre>
+<p>Similarly the reference data must be stored with key ranges whose bounds were created using this function.</p>
+<h3 id="nested-maps">Nested Maps</h3>
+<p>The lookup function allows you to perform chained lookups using nested maps.
+For example you may have a reference data map called <em>USER_ID_TO_LOCATION</em> that maps user IDs to some location information for that user and a map called <em>USER_ID_TO_MANAGER</em> that maps user IDs to the user ID of their manager.
+If you wanted to decorate a user&rsquo;s event with the location of their manager you could use a nested map to achieve the lookup chain.
+To perform the lookup set the <code>map</code> argument to the list of maps in the lookup chain, separated by a <code>/</code>, e.g. <code>USER_ID_TO_MANAGER/USER_ID_TO_LOCATION</code>.</p>
+<p>This will perform a lookup against the first map in the list using the requested key.
+If a value is found the value will be used as the key in a lookup against the next map.
+The value from each map lookup is used as the key in the next map all the way down the chain.
+The value from the last lookup is then returned as the result of the <code>lookup()</code> call.
+If no value is found at any point in the chain then that results in no value being returned from the function.</p>
+<p>In order to use nested map lookups each intermediate map must contain simple string values.
+The last map in the chain can either contain string values or XML fragment values.</p>
+<h2 id="put-and-get">put() and get()</h2>
+<p>You can put values into a map using the put() function. These values can then be retrieved
+later using the get() function. Values are stored against a key name so that multiple values
+can be stored. These functions can be used for many purposes but are most commonly used to
+count a number of records that meet certain criteria.</p>
+<p>An example of how to count records is shown below:</p>
+<pre><code class="language-xml">&lt;!-- Get the current record count --&gt;
+&lt;xsl:variable name=&quot;currentCount&quot; select=&quot;number(s:get('count'))&quot; /&gt;
+
+&lt;!-- Increment the record count --&gt;
+&lt;xsl:variable name=&quot;count&quot;&gt;
+  &lt;xsl:choose&gt;
+    &lt;xsl:when test=&quot;$currentCount&quot;&gt;
+      &lt;xsl:value-of select=&quot;$currentCount + 1&quot; /&gt;
+    &lt;/xsl:when&gt;
+    &lt;xsl:otherwise&gt;
+      &lt;xsl:value-of select=&quot;1&quot; /&gt;
+    &lt;/xsl:otherwise&gt;
+  &lt;/xsl:choose&gt;
+&lt;/xsl:variable&gt;
+
+&lt;!-- Store the count for future retrieval --&gt;
+&lt;xsl:value-of select=&quot;s:put('count', $count)&quot; /&gt;
+
+&lt;!-- Output the new count --&gt;
+&lt;data name=&quot;Count&quot;&gt;
+  &lt;xsl:attribute name=&quot;Value&quot; select=&quot;$count&quot; /&gt;
+&lt;/data&gt;
+</code></pre>
+<h2 id="parse-uri">parse-uri()</h2>
+<p>The parse-uri() function takes a Uniform Resource Identifier (URI) in string form and returns an XML node with a namespace of <code>uri</code> containing the URI&rsquo;s individual components of <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code> and <code>userInfo</code>. See either <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax</a> or Java&rsquo;s java.net.URI Class for details regarding the components.</p>
+<p>The following xml</p>
+<pre><code class="language-xml">&lt;!-- Display and parse the URI contained within the text of the rURI element --&gt;
+&lt;xsl:variable name=&quot;u&quot; select=&quot;s:parseUri(rURI)&quot; /&gt;
+
+&lt;URI&gt;
+  &lt;xsl:value-of select=&quot;rURI&quot; /&gt;
+&lt;/URI&gt;
+&lt;URIDetail&gt;
+  &lt;xsl:copy-of select=&quot;$v&quot;/&gt;
+&lt;/URIDetail&gt;
+</code></pre>
+<p>given the rURI text contains</p>
+<pre><code>   http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;p2=v2#more-details
+</code></pre>
+<p>would provide</p>
+<pre><code class="language-xml">&lt;URL&gt;http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;p2=v2#more-details&lt;/URL&gt;
+&lt;URIDetail&gt;
+  &lt;authority xmlns=&quot;uri&quot;&gt;foo:bar@w1.superman.com:8080&lt;/authority&gt;
+  &lt;fragment xmlns=&quot;uri&quot;&gt;more-details&lt;/fragment&gt;
+  &lt;host xmlns=&quot;uri&quot;&gt;w1.superman.com&lt;/host&gt;
+  &lt;path xmlns=&quot;uri&quot;&gt;/very/long/path.html&lt;/path&gt;
+  &lt;port xmlns=&quot;uri&quot;&gt;8080&lt;/port&gt;
+  &lt;query xmlns=&quot;uri&quot;&gt;p1=v1&amp;amp;p2=v2&lt;/query&gt;
+  &lt;scheme xmlns=&quot;uri&quot;&gt;http&lt;/scheme&gt;
+  &lt;schemeSpecificPart xmlns=&quot;uri&quot;&gt;//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;p2=v2&lt;/schemeSpecificPart&gt;
+  &lt;userInfo xmlns=&quot;uri&quot;&gt;foo:bar&lt;/userInfo&gt;
+&lt;/URIDetail&gt;
+</code></pre>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-3f52cd945d5eabe8bb9a84799caa130e">4.2 - XSLT Includes</h1>
+    <div class="lead">Using an XSLT import to include XSLT from another translation.</div>
+	<p>You can use an XSLT import to include XSLT from another translation.  E.g.</p>
+<pre><code class="language-xml">&lt;xsl:import href=&quot;ApacheAccessCommon&quot; /&gt;
+</code></pre>
+<p>This would include the XSLT from the ApacheAccessCommon translation.</p>
+
+</div>
+
+
+
+    
+	
+  
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2021 Crown Copyright 2021 All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/stroom-docs/hugo-docsy/js/main.min.3b172c13b62c2bea8b1c9d2599cddc8cf89718a92d792c680871c81ba43d8c85.js" integrity="sha256-OxcsE7YsK&#43;qLHJ0lmc3cjPiXGKkteSxoCHHIG6Q9jIU=" crossorigin="anonymous"></script>
+
+
+
+<script src='/stroom-docs/hugo-docsy/js/prism.js'></script>
+
+
+
+  </body>
+</html>

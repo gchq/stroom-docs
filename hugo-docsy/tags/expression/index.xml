@@ -1,0 +1,183 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – expression</title>
+    <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/expression/</link>
+    <description>Recent content in expression on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/expression/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Dashboard Expressions</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/dashboards/expressions/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/dashboards/expressions/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Expressions can be used to manipulate data on Stroom Dashboards.&lt;/p&gt;
+&lt;p&gt;Each function has a name, and some have additional aliases.&lt;/p&gt;
+&lt;p&gt;In some cases, functions can be nested. The return value for some functions being used
+as the arguments for other functions.&lt;/p&gt;
+&lt;p&gt;The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the field reference &lt;code&gt;${val}&lt;/code&gt; syntax.&lt;/p&gt;
+&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md&#34;&gt;Aggregate Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#average&#34;&gt;Average&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#count&#34;&gt;Count&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#count-groups&#34;&gt;Count Groups&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#count-unique&#34;&gt;Count Unique&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#joining&#34;&gt;Joining&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#max&#34;&gt;Max&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#min&#34;&gt;Min&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#standard-deviation&#34;&gt;Standard Deviation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#sum&#34;&gt;Sum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate.md#variance&#34;&gt;Variance&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast.md&#34;&gt;Cast Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;cast.md#to-boolean&#34;&gt;To Boolean&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast.md#to-double&#34;&gt;To Double&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast.md#to-integer&#34;&gt;To Integer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast.md#to-long&#34;&gt;To Long&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast.md#to-string&#34;&gt;To String&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date.md&#34;&gt;Date Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;date.md#format-date&#34;&gt;Format Date&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date.md#parse-date&#34;&gt;Parse Date&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date.md#ceiling-yearmonthdayhourminutesecond&#34;&gt;Ceiling Year/Month/Day/Hour/Minute/Second&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date.md#floor-yearmonthdayhourminutesecond&#34;&gt;Floor Year/Month/Day/Hour/Minute/Second&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date.md#round-yearmonthdayhourminutesecond&#34;&gt;Round Year/Month/Day/Hour/Minute/Second&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link.md&#34;&gt;Link Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;link.md#annotation&#34;&gt;Annotation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link.md#dashboard&#34;&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link.md#data&#34;&gt;Data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link.md#link&#34;&gt;Link&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link.md#stepping&#34;&gt;Stepping&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md&#34;&gt;Logic Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md#equals&#34;&gt;Equals&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md#greater-than&#34;&gt;Greater Than&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md#greater-than-or-equal-to&#34;&gt;Greater Than or Equal To&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md#if&#34;&gt;If&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md#less-than&#34;&gt;Less Than&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md#less-than-or-equal-to&#34;&gt;Less Than or Equal To&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic.md#not&#34;&gt;Not&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md&#34;&gt;Mathematics Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#add&#34;&gt;Add&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#average&#34;&gt;Average&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#divide&#34;&gt;Divide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#max&#34;&gt;Max&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#min&#34;&gt;Min&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#modulo&#34;&gt;Modulo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#multiply&#34;&gt;Multiply&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#negate&#34;&gt;Negate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#power&#34;&gt;Power&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#random&#34;&gt;Random&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#subtract&#34;&gt;Subtract&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics.md#sum&#34;&gt;Sum&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;rounding.md&#34;&gt;Rounding Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;rounding.md#ceiling&#34;&gt;Ceiling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;rounding.md#floor&#34;&gt;Floor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;rounding.md#round&#34;&gt;Round&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection.md&#34;&gt;Selection Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;selection.md#any&#34;&gt;Any&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection.md#bottom&#34;&gt;Bottom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection.md#first&#34;&gt;First&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection.md#last&#34;&gt;Last&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection.md#nth&#34;&gt;Nth&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection.md#top&#34;&gt;Top&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md&#34;&gt;String Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#concat&#34;&gt;Concat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#current-user&#34;&gt;Current User&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#decode&#34;&gt;Decode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#decodeurl&#34;&gt;DecodeUrl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#encodeurl&#34;&gt;EncodeUrl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#exclude&#34;&gt;Exclude&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#hash&#34;&gt;Hash&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#include&#34;&gt;Include&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#index-of&#34;&gt;Index Of&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#last-index-of&#34;&gt;Last Index Of&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#lower-case&#34;&gt;Lower Case&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#match&#34;&gt;Match&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#query-param&#34;&gt;Query Param&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#query-params&#34;&gt;Query Params&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#replace&#34;&gt;Replace&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#string-length&#34;&gt;String Length&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#substring&#34;&gt;Substring&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#substring-after&#34;&gt;Substring After&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#substring-before&#34;&gt;Substring Before&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string.md#upper-case&#34;&gt;Upper Case&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md&#34;&gt;Type Checking Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-boolean&#34;&gt;Is Boolean&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-double&#34;&gt;Is Double&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-error&#34;&gt;Is Error&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-integer&#34;&gt;Is Integer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-long&#34;&gt;Is Long&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-null&#34;&gt;Is Null&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-number&#34;&gt;Is Number&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-string&#34;&gt;Is String&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#is-value&#34;&gt;Is Value&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking.md#type-of&#34;&gt;Type Of&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md&#34;&gt;URI Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractauthorityfromuri&#34;&gt;extractAuthorityFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractfragmentfromuri&#34;&gt;extractFragmentFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extracthostfromuri&#34;&gt;extractHostFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractpathfromuri&#34;&gt;extractPathFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractportfromuri&#34;&gt;extractPortFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractqueryfromuri&#34;&gt;extractQueryFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractschemefromuri&#34;&gt;extractSchemeFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractschemespecificpartfromuri&#34;&gt;extractSchemeSpecificPartFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri.md#extractuserinfofromuri&#34;&gt;extractUserInfoFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value.md&#34;&gt;Value Functions&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;value.md#err&#34;&gt;Err&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value.md#false&#34;&gt;False&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value.md#null&#34;&gt;Null&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value.md#true&#34;&gt;True&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

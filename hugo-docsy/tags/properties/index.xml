@@ -4,7 +4,7 @@
     <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/</link>
     <description>Recent content in properties on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/properties/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,367 @@
         
       
     
+    
+    <item>
+      <title>Docs: Properties</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/properties/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/properties/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;This documentation applies to Stroom 7.0 or higher&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Properties are the means of configuring the Stroom application and are typically maintained by the Stroom system administrator.
+The value of some properties are required in order for Stroom to function, e.g. database connection details, and thus need to be set prior to running Stroom.
+Some properties can be changed at runtime to alter the behaviour of Stroom.&lt;/p&gt;
+&lt;h2 id=&#34;sources&#34;&gt;Sources&lt;/h2&gt;
+&lt;p&gt;Property values can be defined in the following locations.&lt;/p&gt;
+&lt;h3 id=&#34;system-default&#34;&gt;System Default&lt;/h3&gt;
+&lt;p&gt;The system defaults are hard-coded into the Stroom application code by the developers and can&amp;rsquo;t be changed.
+These represent reasonable defaults, where applicable, but may need to be changed, e.g. to reflect the scale of the Stroom system or the specific environment.&lt;/p&gt;
+&lt;p&gt;The default property values can either be viewed in the Stroom user interface (&lt;em&gt;Tools&lt;/em&gt; -&amp;gt; &lt;em&gt;Properties&lt;/em&gt;) or in the file &lt;code&gt;config/config-defaults.yml&lt;/code&gt; in the Stroom distribution.&lt;/p&gt;
+&lt;h3 id=&#34;global-database-value&#34;&gt;Global Database Value&lt;/h3&gt;
+&lt;p&gt;Global database values are property values stored in the database that are global across the whole cluster.&lt;/p&gt;
+&lt;p&gt;The global database value is defined as a record in the &lt;code&gt;config&lt;/code&gt; table in the database.
+The database record will only exist if a database value has explicitly been set.
+The database value will apply to all nodes in the cluster, overriding the default value, unless a node also has a value set in its YAML configuration.&lt;/p&gt;
+&lt;p&gt;Database values can be set from the Stroom user interface using &lt;em&gt;Tools&lt;/em&gt; -&amp;gt; &lt;em&gt;Properties&lt;/em&gt;.
+Some properties are marked &lt;em&gt;Read Only&lt;/em&gt; which means they cannot have a database value set for them.
+These properties can only be altered via the YAML configuration file on each node.
+Such properties are typically used to configure values required for Stroom to be able to boot, so it does not make sense for them to be configurable from the User Interface.&lt;/p&gt;
+&lt;h3 id=&#34;yaml-configuration-file&#34;&gt;YAML Configuration file&lt;/h3&gt;
+&lt;p&gt;Stroom is built on top of a framework called Drop Wizard.
+Drop Wizard uses a YAML configuration file on each node to configure the application.
+This is typically &lt;code&gt;config.yml&lt;/code&gt; and is located in the &lt;code&gt;config&lt;/code&gt; directory.&lt;/p&gt;
+&lt;p&gt;This file contains both the Drop Wizard configuration settings (settings for ports, paths and application logging) and the Stroom specific properties configuration.
+The file is in YAML format and the Stroom properties are located under the &lt;code&gt;appConfig&lt;/code&gt; key.
+For details of the Drop Wizard configuration structure, see &lt;a href=&#34;https://www.dropwizard.io/en/latest/manual/configuration.html&#34;&gt;here (external link)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The file is split into three sections using these keys:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;server&lt;/code&gt; - Configuration of the web server, e.g. ports, paths, request logging.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;logging&lt;/code&gt; - Configuration of application logging&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;appConfig&lt;/code&gt; - The stroom configuration properties&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The following is an example of the YAML configuration file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;# Drop Wizard configuration section
+server:
+  # e.g. ports and paths
+logging:
+  # e.g. logging levels/appenders
+
+# Stroom properties configuration section
+appConfig:
+  commonDbDetails:
+    connection:
+      jdbcDriverClassName: ${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}
+      jdbcDriverUrl: ${STROOM_JDBC_DRIVER_URL:-jdbc:mysql://localhost:3307/stroom?useUnicode=yes&amp;amp;characterEncoding=UTF-8}
+      jdbcDriverUsername: ${STROOM_JDBC_DRIVER_USERNAME:-stroomuser}
+      jdbcDriverPassword: ${STROOM_JDBC_DRIVER_PASSWORD:-stroompassword1}
+  contentPackImport:
+    enabled: true
+  ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the Stroom user interface properties are named with a dot notation key, e.g. &lt;em&gt;stroom.contentPackImport.enabled&lt;/em&gt;.
+Each part of the dot notation property name represents a key in the YAML file, e.g. for this example, the location in the YAML would be:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;appConfig:
+  contentPackImport:
+    enabled: true   # stroom.contentPackImport.enabled
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;em&gt;stroom&lt;/em&gt; part of the dot notation name is replaced with &lt;em&gt;appConfig&lt;/em&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;variable-substitution&#34;&gt;Variable Substitution&lt;/h4&gt;
+&lt;p&gt;The YAML configuration file supports Bash style variable substitution in the form of:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;${ENV_VAR_NAME:-value_if_not_set}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This allows values to be set either directly in the file or via an environment variable, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;      jdbcDriverClassName: ${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above example, if the &lt;em&gt;STROOM_JDBC_DRIVER_CLASS_NAME&lt;/em&gt; environment variable is not set then the value &lt;em&gt;com.mysql.cj.jdbc.Driver&lt;/em&gt; will be used instead.&lt;/p&gt;
+&lt;h4 id=&#34;typed-values&#34;&gt;Typed Values&lt;/h4&gt;
+&lt;p&gt;YAML supports typed values rather than just strings, see &lt;a href=&#34;https://yaml.org/refcard.html&#34;&gt;https://yaml.org/refcard.html&lt;/a&gt;.
+YAML understands booleans, strings, integers, floating point numbers, as well as sequences/lists and maps.
+Some properties will be represented differently in the user interface to the YAML file.
+This is due to how values are stored in the database and how the current user interface works.
+This will likely be improved in future versions.
+For details of how different types are represented in the YAML and the UI, see &lt;a href=&#34;#data-types&#34;&gt;Data Types&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;source-precedence&#34;&gt;Source Precedence&lt;/h2&gt;
+&lt;p&gt;The three sources (&lt;em&gt;Default&lt;/em&gt;, &lt;em&gt;Database&lt;/em&gt; &amp;amp; &lt;em&gt;YAML&lt;/em&gt;) are listed in increasing priority, i.e &lt;em&gt;YAML&lt;/em&gt; trumps &lt;em&gt;Database&lt;/em&gt;, which trumps &lt;em&gt;Default&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For example, in a two node cluster, this table shows the effective value of a property on each node.
+A &lt;code&gt;-&lt;/code&gt; indicates the value has not been set in that source.
+&lt;code&gt;NULL&lt;/code&gt; indicates that the value has been explicitly set to NULL.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Source&lt;/th&gt;
+&lt;th&gt;Node1&lt;/th&gt;
+&lt;th&gt;Node2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Default&lt;/td&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Database&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;YAML&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Effective&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;red&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;blue&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Or where a Database value is set.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Source&lt;/th&gt;
+&lt;th&gt;Node1&lt;/th&gt;
+&lt;th&gt;Node2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Default&lt;/td&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Database&lt;/td&gt;
+&lt;td&gt;green&lt;/td&gt;
+&lt;td&gt;green&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;YAML&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;blue&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Effective&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;green&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;blue&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Or where a YAML value is explicitly set to &lt;code&gt;NULL&lt;/code&gt;.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Source&lt;/th&gt;
+&lt;th&gt;Node1&lt;/th&gt;
+&lt;th&gt;Node2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Default&lt;/td&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;td&gt;red&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Database&lt;/td&gt;
+&lt;td&gt;green&lt;/td&gt;
+&lt;td&gt;green&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;YAML&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;NULL&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Effective&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;green&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;NULL&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;data-types&#34;&gt;Data Types&lt;/h2&gt;
+&lt;p&gt;Stroom property values can be set using a number of different data types.
+Database property values are currently set in the user interface using the string form of the value.
+For each of the data types defined below, there will be an example of how the data type is recorded in its string form.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Data Type&lt;/th&gt;
+&lt;th&gt;Example UI String Forms&lt;/th&gt;
+&lt;th&gt;Example YAML form&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Boolean&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;true&lt;/code&gt; &lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;true&lt;/code&gt; &lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;This is a string&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;This is a string&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Integer/Long&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;123&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;123&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Float&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;1.23&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;1.23&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Stroom Duration&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;P30D&lt;/code&gt; &lt;code&gt;P1DT12H&lt;/code&gt; &lt;code&gt;PT30S&lt;/code&gt; &lt;code&gt;30d&lt;/code&gt; &lt;code&gt;30s&lt;/code&gt; &lt;code&gt;30000&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;P30D&amp;quot;&lt;/code&gt; &lt;code&gt;&amp;quot;P1DT12H&amp;quot;&lt;/code&gt; &lt;code&gt;&amp;quot;PT30S&amp;quot;&lt;/code&gt; &lt;code&gt;&amp;quot;30d&amp;quot;&lt;/code&gt; &lt;code&gt;&amp;quot;30s&amp;quot;&lt;/code&gt; &lt;code&gt;&amp;quot;30000&amp;quot;&lt;/code&gt; See &lt;a href=&#34;#stroom-duration-data-type&#34;&gt;Stroom Duration Data Type&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;List&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;#red#Green#Blue&lt;/code&gt; &lt;code&gt;,1,2,3&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;See &lt;a href=&#34;#list-data-type&#34;&gt;List Data Type&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Map&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;,=red=FF0000,Green=00FF00,Blue=0000FF&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;See &lt;a href=&#34;#map-data-type&#34;&gt;Map Data Type&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DocRef&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;,docRef(MyType,a56ff805-b214-4674-a7a7-a8fac288be60,My DocRef name)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;See &lt;a href=&#34;#docref-data-type&#34;&gt;DocRef Data Type&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Enum&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;HIGH&lt;/code&gt; &lt;code&gt;LOW&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;HIGH&amp;quot;&lt;/code&gt; &lt;code&gt;&amp;quot;LOW&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Path&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/some/path/to/a/file&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;/some/path/to/a/file&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ByteSize&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;32&lt;/code&gt;, &lt;code&gt;512Kib&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;32&lt;/code&gt;, &lt;code&gt;512Kib&lt;/code&gt; See &lt;a href=&#34;#byte-size-data-type&#34;&gt;Byte Size Data Type&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;stroom-duration-data-type&#34;&gt;Stroom Duration Data Type&lt;/h3&gt;
+&lt;p&gt;The &lt;em&gt;Stroom Duration&lt;/em&gt; data type is used to specify time durations, for example the time to live of a cache or the time to keep data before it is purged.
+&lt;em&gt;Stroom Duration&lt;/em&gt; uses a number of string forms to support legacy property values.&lt;/p&gt;
+&lt;h4 id=&#34;iso-8601-durations&#34;&gt;ISO 8601 Durations&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;Stroom Duration&lt;/em&gt; can be expressed using &lt;a href=&#34;https://en.wikipedia.org/wiki/ISO_8601&#34;&gt;&lt;em&gt;ISO 8601&lt;/em&gt; (external link)&lt;/a&gt; duration strings.
+It does NOT support the full &lt;em&gt;ISO 8601&lt;/em&gt; format, only &lt;code&gt;D&lt;/code&gt;, &lt;code&gt;H&lt;/code&gt;, &lt;code&gt;M&lt;/code&gt; and &lt;code&gt;S&lt;/code&gt;.
+For details of how the string is parsed to a Stroom Duration, see &lt;a href=&#34;https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence)&#34;&gt;Duration (external link)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The following are examples of &lt;em&gt;ISO 8601&lt;/em&gt; duration strings:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;P30D&lt;/code&gt; - 30 days&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;P1DT12H&lt;/code&gt; - 1 day 12 hours (36 hours)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PT30S&lt;/code&gt; - 30 seconds&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PT0.5S&lt;/code&gt; - 500 milliseconds&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;legacy-stroom-durations&#34;&gt;Legacy Stroom Durations&lt;/h4&gt;
+&lt;p&gt;This format was used in versions of Stroom older than v7 and is included to support legacy property values.&lt;/p&gt;
+&lt;p&gt;The following are examples of legacy duration strings:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;30d&lt;/code&gt; - 30 days&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;12h&lt;/code&gt; - 12 hours&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;10m&lt;/code&gt; - 10 minutes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;30s&lt;/code&gt; - 30 seconds&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;500&lt;/code&gt; - 500 milliseconds&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Combinations such as &lt;code&gt;1m30s&lt;/code&gt; are not supported.&lt;/p&gt;
+&lt;h3 id=&#34;list-data-type&#34;&gt;List Data Type&lt;/h3&gt;
+&lt;p&gt;This type supports ordered lists of items, where an item can be of any supported data type, e.g. a list of strings or list of integers.&lt;/p&gt;
+&lt;p&gt;The following is an example of how a property (&lt;code&gt;statusValues&lt;/code&gt;) that is is List of strings is represented in the YAML:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  annotation:
+    statusValues:
+    - &amp;quot;New&amp;quot;
+    - &amp;quot;Assigned&amp;quot;
+    - &amp;quot;Closed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would be represented as a string in the User Interface as:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;|New|Assigned|Closed&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;#delimiters-in-string-conversion&#34;&gt;Delimiters in String Conversion&lt;/a&gt; for details of how the items are delimited in the string.&lt;/p&gt;
+&lt;p&gt;The following is an example of how a property (&lt;code&gt;cpu&lt;/code&gt;) that is is List of DocRefs is represented in the YAML:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  statistics:
+    internal:
+      cpu:
+      - type: &amp;quot;StatisticStore&amp;quot;
+        uuid: &amp;quot;af08c4a7-ee7c-44e4-8f5e-e9c6be280434&amp;quot;
+        name: &amp;quot;CPU&amp;quot;
+      - type: &amp;quot;StroomStatsStore&amp;quot;
+        uuid: &amp;quot;1edfd582-5e60-413a-b91c-151bd544da47&amp;quot;
+        name: &amp;quot;CPU&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would be represented as a string in the User Interface as:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;|,docRef(StatisticStore,af08c4a7-ee7c-44e4-8f5e-e9c6be280434,CPU)|,docRef(StroomStatsStore,1edfd582-5e60-413a-b91c-151bd544da47,CPU)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;#delimiters-in-string-conversion&#34;&gt;Delimiters in String Conversion&lt;/a&gt; for details of how the items are delimited in the string.&lt;/p&gt;
+&lt;h3 id=&#34;map-data-type&#34;&gt;Map Data Type&lt;/h3&gt;
+&lt;p&gt;This type supports a collection of key/value pairs where the key is unique within the collection.
+The type of the key must be string, but the type of the value can be any supported type.&lt;/p&gt;
+&lt;p&gt;The following is an example of how a property (&lt;code&gt;mapProperty&lt;/code&gt;) that is a map of string =&amp;gt; string would be represented in the YAML:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;mapProperty:
+  red: &amp;quot;FF0000&amp;quot;
+  green: &amp;quot;00FF00&amp;quot;
+  blue: &amp;quot;0000FF&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would be represented as a string in the User Interface as:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;,=red=FF0000,Green=00FF00,Blue=0000FF&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The delimiter between pairs is defined first, then the delimiter for the key and value.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;#delimiters-in-string-conversion&#34;&gt;Delimiters in String Conversion&lt;/a&gt; for details of how the items are delimited in the string.&lt;/p&gt;
+&lt;h3 id=&#34;docref-data-type&#34;&gt;DocRef Data Type&lt;/h3&gt;
+&lt;p&gt;A DocRef (or Document Reference) is a type specific to Stroom that defines a reference to an instance of a Document within Stroom, e.g. an XLST, Pipeline, Dictionary, etc.
+A DocRef consists of three parts, the type, the &lt;a href=&#34;https://en.wikipedia.org/wiki/Universally_unique_identifier&#34;&gt;UUID (external link)&lt;/a&gt; and the name of the Document.&lt;/p&gt;
+&lt;p&gt;The following is an example of how a property (&lt;code&gt;aDocRefProperty&lt;/code&gt;) that is a DocRef would be represented in the YAML:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;aDocRefProperty:
+  type: &amp;quot;MyType&amp;quot;
+  uuid: &amp;quot;a56ff805-b214-4674-a7a7-a8fac288be60&amp;quot;
+  name: &amp;quot;My DocRef name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would be represented as a string in the User Interface as:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;,docRef(MyType,a56ff805-b214-4674-a7a7-a8fac288be60,My DocRef name)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;#delimiters-in-string-conversion&#34;&gt;Delimiters in String Conversion&lt;/a&gt; for details of how the items are delimited in the string.&lt;/p&gt;
+&lt;h3 id=&#34;byte-size-data-type&#34;&gt;Byte Size Data Type&lt;/h3&gt;
+&lt;p&gt;The Byte Size data type is used to represent a quantity of bytes using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Binary_prefix&#34;&gt;IEC (external link)&lt;/a&gt; standard.
+Quantities are represented as powers of 1024, i.e. a Kib (Kibibyte) means 1024 bytes.&lt;/p&gt;
+&lt;p&gt;Examples of Byte Size values in string form are (a YAML value would optionally be surrounded with double quotes):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;32&lt;/code&gt;, &lt;code&gt;32b&lt;/code&gt;, &lt;code&gt;32B&lt;/code&gt;, &lt;code&gt;32bytes&lt;/code&gt; - 32 bytes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;32K&lt;/code&gt;, &lt;code&gt;32KB&lt;/code&gt;, &lt;code&gt;32KiB&lt;/code&gt; - 32 kibibytes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;32M&lt;/code&gt;, &lt;code&gt;32MB&lt;/code&gt;, &lt;code&gt;32MiB&lt;/code&gt; - 32 mebibytes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;32G&lt;/code&gt;, &lt;code&gt;32GB&lt;/code&gt;, &lt;code&gt;32GiB&lt;/code&gt; - 32 gibibytes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;32T&lt;/code&gt;, &lt;code&gt;32TB&lt;/code&gt;, &lt;code&gt;32TiB&lt;/code&gt; - 32 tebibytes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;32P&lt;/code&gt;, &lt;code&gt;32PB&lt;/code&gt;, &lt;code&gt;32PiB&lt;/code&gt; - 32 pebibytes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;*iB&lt;/code&gt; form is preferred as it is more explicit and avoids confusion with SI units.&lt;/p&gt;
+&lt;h3 id=&#34;delimiters-in-string-conversion&#34;&gt;Delimiters in String Conversion&lt;/h3&gt;
+&lt;p&gt;The string conversion used for collection types like &lt;em&gt;List&lt;/em&gt;, &lt;em&gt;Map&lt;/em&gt; etc. relies on the string form defining the delimiter(s) to use for the collection.
+The delimiter(s) are added as the first n characters of the string form, e.g. &lt;code&gt;|red|green|blue&lt;/code&gt; or &lt;code&gt;|=red=FF0000|Green=00FF00|Blue=0000FF&lt;/code&gt;.
+It is possible to use a number of different delimiters to allow for delimiter characters appearing in the actual value, e.g. &lt;code&gt;#some text#some text with a | in it&lt;/code&gt;
+The following are the delimiter characters that can be used.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;|&lt;/code&gt;, &lt;code&gt;:&lt;/code&gt;, &lt;code&gt;;&lt;/code&gt;, &lt;code&gt;,&lt;/code&gt;, &lt;code&gt;!&lt;/code&gt;, &lt;code&gt;/&lt;/code&gt;, &lt;code&gt;\&lt;/code&gt;, &lt;code&gt;#&lt;/code&gt;, &lt;code&gt;@&lt;/code&gt;, &lt;code&gt;~&lt;/code&gt;, &lt;code&gt;-&lt;/code&gt;, &lt;code&gt;_&lt;/code&gt;, &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;+&lt;/code&gt;, &lt;code&gt;?&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;When Stroom records a property value to the database it may use a delimiter of its own choosing, ensuring that it picks a delimiter that is not used in the property value.&lt;/p&gt;
+&lt;h2 id=&#34;restart-required&#34;&gt;Restart Required&lt;/h2&gt;
+&lt;p&gt;Some properties are marked as requiring a restart.
+There are two scopes for this:&lt;/p&gt;
+&lt;h3 id=&#34;requires-ui-refresh&#34;&gt;Requires UI Refresh&lt;/h3&gt;
+&lt;p&gt;If a property is marked in UI as requiring a UI refresh then this means that a change to the property requires that the Stroom nodes serving the UI are restarted for the new value to take effect.&lt;/p&gt;
+&lt;h3 id=&#34;requires-restart&#34;&gt;Requires Restart&lt;/h3&gt;
+&lt;p&gt;If a property is marked in UI as requiring a restart then this means that a change to the property requires that all Stroom nodes are restarted for the new value to take effect.&lt;/p&gt;
+
+      </description>
+    </item>
     
     <item>
       <title>Docs: System Properties</title>

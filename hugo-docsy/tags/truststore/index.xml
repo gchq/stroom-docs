@@ -1,0 +1,51 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – truststore</title>
+    <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/truststore/</link>
+    <description>Recent content in truststore on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/truststore/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Java Keystores</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/sending-data/java-keystores/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/sending-data/java-keystores/</guid>
+      <description>
+        
+        
+        &lt;p&gt;There are many times when you may wish to create a Java keystore from certificates and keys and vice versa. This guide aims to explain how this can be done.&lt;/p&gt;
+&lt;h2 id=&#34;import&#34;&gt;Import&lt;/h2&gt;
+&lt;p&gt;If you need to create a Java keystore from a .crt and .key then this is how to do it.&lt;/p&gt;
+&lt;h3 id=&#34;convert-your-keys-to-der-format&#34;&gt;Convert your keys to der format&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl x509 -in &amp;lt;YOUR KEY&amp;gt;.crt -inform PEM -out &amp;lt;YOUR KEY&amp;gt;.crt.der -outform DER
+openssl pkcs8 -topk8 -nocrypt -in &amp;lt;YOUR KEY&amp;gt;.key -inform PEM -out &amp;lt;YOUR KEY&amp;gt;.key.der -outform DER
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;importkey&#34;&gt;ImportKey&lt;/h3&gt;
+&lt;p&gt;Use the &lt;code&gt;ImportKey&lt;/code&gt; class in the &lt;code&gt;stroom-java-client&lt;/code&gt; library to import keys.&lt;/p&gt;
+&lt;p&gt;For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;java ImportKey keystore=&amp;lt;YOUR KEY&amp;gt;.jks keypass=&amp;lt;YOUR PASSWORD&amp;gt; alias=&amp;lt;YOUR KEY&amp;gt; keyfile=&amp;lt;YOUR KEY&amp;gt;.key.der certfile=&amp;lt;YOUR KEY&amp;gt;.crt.der
+keytool -import -noprompt -alias CA -file &amp;lt;CA CERT&amp;gt;.crt -keystore ca.jks -storepass ca
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;export&#34;&gt;Export&lt;/h2&gt;
+&lt;h3 id=&#34;exportkey&#34;&gt;ExportKey&lt;/h3&gt;
+&lt;p&gt;Use the &lt;code&gt;ExportKey&lt;/code&gt; class in the &lt;code&gt;stroom-java-client&lt;/code&gt; library to export keys. If you would like to use curl or similar application but only have keys contained within a Java keystore then they can be exported.&lt;/p&gt;
+&lt;p&gt;For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;java ExportKey keystore=&amp;lt;YOUR KEY&amp;gt;.jks keypass=&amp;lt;YOUR PASSWORD&amp;gt; alias=&amp;lt;YOUR KEY&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will print both the key and certificate to standard out. This can then be copied into a PEM file for use with cURL or other similar application.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

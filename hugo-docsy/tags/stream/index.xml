@@ -1,0 +1,196 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – stream</title>
+    <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/stream/</link>
+    <description>Recent content in stream on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/stream/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Streams</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/concepts/streams/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/concepts/streams/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Streams can either be created when data is directly POSTed in to Stroom or during the proxy aggregation process.
+When data is directly POSTed to Stroom the content of the POST will be stored as one Stream.
+With proxy aggregation multiple files in the proxy repository will/can be aggregated together into a single Stream.&lt;/p&gt;
+&lt;h2 id=&#34;anatomy-of-a-stream&#34;&gt;Anatomy of a Stream&lt;/h2&gt;
+&lt;p&gt;A Stream is made up of a number of parts of which the raw or cooked data is just one.
+In addition to the data the Stream can contain a number of other child stream types, e.g. Context and Meta Data.&lt;/p&gt;
+&lt;p&gt;The hierarchy of a stream is as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Stream nnn
+&lt;ul&gt;
+&lt;li&gt;Part [1 to *]
+&lt;ul&gt;
+&lt;li&gt;Data [1-1]&lt;/li&gt;
+&lt;li&gt;Context [0-1]&lt;/li&gt;
+&lt;li&gt;Meta Data [0-1]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Although all streams conform to the above hierarchy there are three main types of Stream that are used in Stroom:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Non-segmented Stream - Raw events, Raw Reference&lt;/li&gt;
+&lt;li&gt;Segmented Stream - Events, Reference&lt;/li&gt;
+&lt;li&gt;Segmented Error Stream - Error&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Segmented means that the data has been demarcated into segments or records.&lt;/p&gt;
+&lt;h3 id=&#34;child-stream-types&#34;&gt;Child Stream Types&lt;/h3&gt;
+&lt;h4 id=&#34;data&#34;&gt;Data&lt;/h4&gt;
+&lt;p&gt;This is the actual data of the stream, e.g. the XML events, raw CSV, JSON, etc.&lt;/p&gt;
+&lt;h4 id=&#34;context&#34;&gt;Context&lt;/h4&gt;
+&lt;p&gt;This is additional contextual data that can be sent with the data.
+Context data can be used for reference data lookups.&lt;/p&gt;
+&lt;h4 id=&#34;meta-data&#34;&gt;Meta Data&lt;/h4&gt;
+&lt;p&gt;This is the data about the Stream (e.g. the feed name, receipt time, user agent, etc.).
+This meta data either comes from the HTTP headers when the data was POSTed to Stroom or is added by Stroom or Stroom-Proxy on receipt/processing.&lt;/p&gt;
+&lt;h3 id=&#34;non-segmented-stream&#34;&gt;Non-Segmented Stream&lt;/h3&gt;
+&lt;p&gt;The following is a representation of a non-segmented stream with three parts, each with Meta Data and Context child streams.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/user-guide/concepts/streams/non-segmented-stream.puml.svg&#34; alt=&#34;images/user-guide/concepts/streams/non-segmented-stream.puml.svg&#34;&gt;
+    
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Non-Segmented Stream&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/figure&gt;
+	
+&lt;/div&gt;
+
+&lt;p&gt;Raw Events and Raw Reference streams contain non-segmented data, e.g. a large batch of CSV, JSON, XML, etc. data.
+There is no notion of a record/event/segment in the data, it is simply data in any form (including malformed data) that is yet to be processed and demarcated into records/events, for example using a Data Splitter or an XML parser.&lt;/p&gt;
+&lt;p&gt;The Stream may be single-part or multi-part depending on how it is received.
+If it is the product of proxy aggregation then it is likely to be multi-part.
+Each part will have its own context and meta data child streams, if applicable.&lt;/p&gt;
+&lt;h3 id=&#34;segmented-stream&#34;&gt;Segmented Stream&lt;/h3&gt;
+&lt;p&gt;The following is a representation of a segmented stream that contains three records (i.e events) and has Meta Data and Context child streams.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/user-guide/concepts/streams/segmented-stream.puml.svg&#34; alt=&#34;images/user-guide/concepts/streams/segmented-stream.puml.svg&#34;&gt;
+    
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Segmented Stream&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/figure&gt;
+	
+&lt;/div&gt;
+
+&lt;p&gt;Cooked Events and Reference data are forms of segmented data.
+The raw data has been parsed and split into records/events and the resulting data is stored in a way that allows Stroom to know where each record/event starts/ends.
+These streams only have a single part.&lt;/p&gt;
+&lt;h3 id=&#34;error-stream&#34;&gt;Error Stream&lt;/h3&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/user-guide/concepts/streams/error-stream.puml.svg&#34; alt=&#34;images/user-guide/concepts/streams/error-stream.puml.svg&#34;&gt;
+    
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Error Stream&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/figure&gt;
+	
+&lt;/div&gt;
+
+&lt;p&gt;Error streams are similar to segmented Event/Reference streams in that they are single-part and have demarcated records (where each error/warning/info message is a record).
+Error streams do not have any Meta Data or Context child streams.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
