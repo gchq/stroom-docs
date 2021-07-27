@@ -24,13 +24,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/using-images/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2021-07-27T09:10:45+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2021-07-27T09:42:18+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Images">
 <meta itemprop="description" content="Examples of how to include images in documents.
 ">
-<meta itemprop="dateModified" content="2021-07-27T09:10:45+01:00" />
-<meta itemprop="wordCount" content="660">
+<meta itemprop="dateModified" content="2021-07-27T09:42:18+01:00" />
+<meta itemprop="wordCount" content="699">
 <meta itemprop="keywords" content="style," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Images"/>
 <meta name="twitter:description" content="Examples of how to include images in documents.
@@ -426,14 +426,14 @@
 
 <div class="td-toc"><nav id="TableOfContents">
   <ul>
-    <li><a href="#image-assets">Image assets</a></li>
-    <li><a href="#using-page-resources">Using page resources</a>
+    <li><a href="#image-assets">Image assets</a>
       <ul>
         <li><a href="#captions">Captions</a></li>
         <li><a href="#size">Size</a></li>
         <li><a href="#png-files">.png files</a></li>
       </ul>
     </li>
+    <li><a href="#using-page-resources">Using page resources</a></li>
     <li><a href="#using-global-assets-resources">Using global <code>/assets/</code> resources</a></li>
     <li><a href="#plantuml">PlantUML</a></li>
     <li><a href="#stroom-icons">Stroom icons</a></li>
@@ -602,8 +602,12 @@
 <p>All Images should be placed in <code>/assets/images/</code> or within a descendent directory of it.
 Images should be added to the markdown using the <code>image</code> shortcode.
 This ensures a consistent look for all images and allows control of the size of the image.</p>
-<p>The short code can be added like this:</p>
+<p>The short code can be added in the following ways.</p>
 <pre><code class="language-markdown">{{&lt; image &quot;style-guide/stroom-oo.svg&quot; &quot;200x&quot; &gt;}}
+
+{{&lt; image &quot;style-guide/stroom-oo.png&quot; &gt;}}
+
+{{&lt; image &quot;style-guide/stroom-oo.svg&quot; &quot;200x&quot; &gt;}}Image caption{{&lt; /image &gt;}}
 </code></pre>
 <p>All paths used in the <code>image</code> shortcode are relative to <code>/assets/images</code>.</p>
 <p>The following shows an example of the directory structure.</p>
@@ -618,12 +622,166 @@ This ensures a consistent look for all images and allows control of the size of 
          /MyPage
             index.md - #image shortcode used in here
 </code></pre>
+<h3 id="captions">Captions</h3>
+<p>The image can be displayed with a caption:</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/svg-logo.svg" width="200" alt="images/style-guide/svg-logo.svg">
+    
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">
+By W3C SVG Logo, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=105996438
+</figcaption>
+    </div>
+  </figure>
+	
+</div>
+
+<h3 id="size">Size</h3>
+<p>The image can be defined with a maximum width (e.g. <code>&quot;300x&quot;</code>) or a maximum height (<code>&quot;x200&quot;</code>).</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 130px">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/svg-logo.svg" width="120" alt="images/style-guide/svg-logo.svg">
+    
+    
+</div>
+
+<h3 id="png-files">.png files</h3>
+<p><code>.png</code> files can be rendered in their original size by omitting the size argument.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/stroom-amber.png" alt="images/style-guide/stroom-amber.png">
+    
+    
+</div>
+
+<p>Or they can be rendered with a set size.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 60px">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/stroom-amber.png" width="50" alt="images/style-guide/stroom-amber.png">
+    
+    
+</div>
+
 <h2 id="using-page-resources">Using page resources</h2>
 <p>Images can be located in a <a href="https://gohugo.io/content-management/page-bundles/">page bundle (external link)</a>.
 This is where the page is defined as a named directory (rather than a <code>.md</code> file) with an associated <code>index.md</code> file for the markdown contnet.
 All other items in the directory are page resources that can be used by the page, i.e. image files.</p>
-<p>Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
-This keeps all the images in one place and means pages can have a named markdown file rather than all being called <code>index.md</code>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
+This keeps all the images in one place and means pages can have a named markdown file rather than all being called <code>index.md</code>.
+
+</div>
+
+
 <p>Use the <code>image</code> short code to display an image file that is located in the same directory as the page.
 For the short code to work the page must be a leaf bundle (<code>index.md</code>) or a branch bundle (<code>_index.md</code>), i.e:</p>
 <pre><code>/docs
@@ -673,118 +831,6 @@ For the short code to work the page must be a leaf bundle (<code>index.md</code>
   <figure style="margin-block-end: 0px" >
     
     <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/stroom-oo.svg" width="200" alt="images/style-guide/stroom-oo.svg">
-    
-    
-</div>
-
-<h3 id="captions">Captions</h3>
-<p>The image can be displayed with a caption:</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-  
-
-
-
-<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
-
-  <figure style="margin-block-end: 0px" >
-    
-    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/svg-logo.svg" width="200" alt="images/style-guide/svg-logo.svg">
-    
-    
-    <div class="card-body px-0 pt-2 pb-0">
-      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-      <figcaption class="card-text" style="font-size: smaller; text-align: center;">
-By W3C SVG Logo, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=105996438
-</figcaption>
-    </div>
-  </figure>
-	
-</div>
-
-<h3 id="size">Size</h3>
-<p>The image can be defined with a maximum width (<code>nnnx</code>) or a maximum height (<code>xnnn</code>).</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-  
-
-
-
-<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 130px">
-
-  <figure style="margin-block-end: 0px" >
-    
-    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/svg-logo.svg" width="120" alt="images/style-guide/svg-logo.svg">
-    
-    
-</div>
-
-<h3 id="png-files">.png files</h3>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-  
-
-
-
-<div class="card rounded shadow p-2 td-post-card mb-4 mt-4" style="max-width: 110px">
-
-  <figure style="margin-block-end: 0px" >
-    
-    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/style-guide/stroom-amber.png" width="100" alt="images/style-guide/stroom-amber.png">
     
     
 </div>
@@ -950,7 +996,7 @@ E.g:</p>
 
     Last modified
     July 27, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/868fcb4dfe28dac69e4e61ad1b96e7def09b5c4a">Fix images for quick-start-quide/dasboard (868fcb4)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/49bc354f7748817df2f59d2db463ba7fb4efba3a">Move quick-start-guide images (49bc354)</a>
 
 </div>
 
