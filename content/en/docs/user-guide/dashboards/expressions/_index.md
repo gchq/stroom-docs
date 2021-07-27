@@ -22,113 +22,144 @@ as the arguments for other functions.
 
 The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the field reference `${val}` syntax.
 
-# Table of Contents
+{{< cardpane >}}
+  {{< card header="Aggregate Functions" >}}
+  * [Average](aggregate#average)
+  * [Count](aggregate#count)
+  * [Count Groups](aggregate#count-groups)
+  * [Count Unique](aggregate#count-unique)
+  * [Joining](aggregate#joining)
+  * [Max](aggregate#max)
+  * [Min](aggregate#min)
+  * [Standard Deviation](aggregate#standard-deviation)
+  * [Sum](aggregate#sum)
+  * [Variance](aggregate#variance)
+  {{< /card >}}
 
-* [Aggregate Functions](aggregate.md)
-  * [Average](aggregate.md#average)
-  * [Count](aggregate.md#count)
-  * [Count Groups](aggregate.md#count-groups)
-  * [Count Unique](aggregate.md#count-unique)
-  * [Joining](aggregate.md#joining)
-  * [Max](aggregate.md#max)
-  * [Min](aggregate.md#min)
-  * [Standard Deviation](aggregate.md#standard-deviation)
-  * [Sum](aggregate.md#sum)
-  * [Variance](aggregate.md#variance)
-* [Cast Functions](cast.md)
-  * [To Boolean](cast.md#to-boolean)
-  * [To Double](cast.md#to-double)
-  * [To Integer](cast.md#to-integer)
-  * [To Long](cast.md#to-long)
-  * [To String](cast.md#to-string)
-* [Date Functions](date.md)
-  * [Format Date](date.md#format-date)
-  * [Parse Date](date.md#parse-date)
-  * [Ceiling Year/Month/Day/Hour/Minute/Second](date.md#ceiling-yearmonthdayhourminutesecond)
-  * [Floor Year/Month/Day/Hour/Minute/Second](date.md#floor-yearmonthdayhourminutesecond)
-  * [Round Year/Month/Day/Hour/Minute/Second](date.md#round-yearmonthdayhourminutesecond)
-* [Link Functions](link.md)
-  * [Annotation](link.md#annotation)
-  * [Dashboard](link.md#dashboard)
-  * [Data](link.md#data)
-  * [Link](link.md#link)
-  * [Stepping](link.md#stepping)
-* [Logic Functions](logic.md)
-  * [Equals](logic.md#equals)
-  * [Greater Than](logic.md#greater-than)
-  * [Greater Than or Equal To](logic.md#greater-than-or-equal-to)
-  * [If](logic.md#if)
-  * [Less Than](logic.md#less-than)
-  * [Less Than or Equal To](logic.md#less-than-or-equal-to)
-  * [Not](logic.md#not)
-* [Mathematics Functions](mathematics.md)
-  * [Add](mathematics.md#add)
-  * [Average](mathematics.md#average)
-  * [Divide](mathematics.md#divide)
-  * [Max](mathematics.md#max)
-  * [Min](mathematics.md#min)
-  * [Modulo](mathematics.md#modulo)
-  * [Multiply](mathematics.md#multiply)
-  * [Negate](mathematics.md#negate)
-  * [Power](mathematics.md#power)
-  * [Random](mathematics.md#random)
-  * [Subtract](mathematics.md#subtract)
-  * [Sum](mathematics.md#sum)
-* [Rounding Functions](rounding.md)
-  * [Ceiling](rounding.md#ceiling)
-  * [Floor](rounding.md#floor)
-  * [Round](rounding.md#round)
-* [Selection Functions](selection.md)
-  * [Any](selection.md#any)
-  * [Bottom](selection.md#bottom)
-  * [First](selection.md#first)
-  * [Last](selection.md#last)
-  * [Nth](selection.md#nth)
-  * [Top](selection.md#top)
-* [String Functions](string.md)
-  * [Concat](string.md#concat)
-  * [Current User](string.md#current-user)
-  * [Decode](string.md#decode)
-  * [DecodeUrl](string.md#decodeurl)
-  * [EncodeUrl](string.md#encodeurl)
-  * [Exclude](string.md#exclude)
-  * [Hash](string.md#hash)
-  * [Include](string.md#include)
-  * [Index Of](string.md#index-of)
-  * [Last Index Of](string.md#last-index-of)
-  * [Lower Case](string.md#lower-case)
-  * [Match](string.md#match)
-  * [Query Param](string.md#query-param)
-  * [Query Params](string.md#query-params)
-  * [Replace](string.md#replace)
-  * [String Length](string.md#string-length)
-  * [Substring](string.md#substring)
-  * [Substring After](string.md#substring-after)
-  * [Substring Before](string.md#substring-before)
-  * [Upper Case](string.md#upper-case)
-* [Type Checking Functions](type-checking.md)
-  * [Is Boolean](type-checking.md#is-boolean)
-  * [Is Double](type-checking.md#is-double)
-  * [Is Error](type-checking.md#is-error)
-  * [Is Integer](type-checking.md#is-integer)
-  * [Is Long](type-checking.md#is-long)
-  * [Is Null](type-checking.md#is-null)
-  * [Is Number](type-checking.md#is-number)
-  * [Is String](type-checking.md#is-string)
-  * [Is Value](type-checking.md#is-value)
-  * [Type Of](type-checking.md#type-of)
-* [URI Functions](uri.md)
-  * [extractAuthorityFromUri](uri.md#extractauthorityfromuri)
-  * [extractFragmentFromUri](uri.md#extractfragmentfromuri)
-  * [extractHostFromUri](uri.md#extracthostfromuri)
-  * [extractPathFromUri](uri.md#extractpathfromuri)
-  * [extractPortFromUri](uri.md#extractportfromuri)
-  * [extractQueryFromUri](uri.md#extractqueryfromuri)
-  * [extractSchemeFromUri](uri.md#extractschemefromuri)
-  * [extractSchemeSpecificPartFromUri](uri.md#extractschemespecificpartfromuri)
-  * [extractUserInfoFromUri](uri.md#extractuserinfofromuri)
-* [Value Functions](value.md)
-  * [Err](value.md#err)
-  * [False](value.md#false)
-  * [Null](value.md#null)
-  * [True](value.md#true)
+  {{< card header="String Functions" >}}
+  * [Concat](string#concat)
+  * [Current User](string#current-user)
+  * [Decode](string#decode)
+  * [DecodeUrl](string#decodeurl)
+  * [EncodeUrl](string#encodeurl)
+  * [Exclude](string#exclude)
+  * [Hash](string#hash)
+  * [Include](string#include)
+  * [Index Of](string#index-of)
+  * [Last Index Of](string#last-index-of)
+  * [Lower Case](string#lower-case)
+  * [Match](string#match)
+  * [Query Param](string#query-param)
+  * [Query Params](string#query-params)
+  * [Replace](string#replace)
+  * [String Length](string#string-length)
+  * [Substring](string#substring)
+  * [Substring After](string#substring-after)
+  * [Substring Before](string#substring-before)
+  * [Upper Case](string#upper-case)
+  {{< /card >}}
+
+  {{< card header="Mathematics Functions" >}}
+  * [Add](mathematics#add)
+  * [Average](mathematics#average)
+  * [Divide](mathematics#divide)
+  * [Max](mathematics#max)
+  * [Min](mathematics#min)
+  * [Modulo](mathematics#modulo)
+  * [Multiply](mathematics#multiply)
+  * [Negate](mathematics#negate)
+  * [Power](mathematics#power)
+  * [Random](mathematics#random)
+  * [Subtract](mathematics#subtract)
+  * [Sum](mathematics#sum)
+  {{< /card >}}
+
+  {{< card header="Type Checking Functions" >}}
+  * [Is Boolean](type-checking#is-boolean)
+  * [Is Double](type-checking#is-double)
+  * [Is Error](type-checking#is-error)
+  * [Is Integer](type-checking#is-integer)
+  * [Is Long](type-checking#is-long)
+  * [Is Null](type-checking#is-null)
+  * [Is Number](type-checking#is-number)
+  * [Is String](type-checking#is-string)
+  * [Is Value](type-checking#is-value)
+  * [Type Of](type-checking#type-of)
+  {{< /card >}}
+
+{{< /cardpane >}}
+
+{{< cardpane >}}
+  {{< card header="Link Functions" >}}
+  * [Annotation](link#annotation)
+  * [Dashboard](link#dashboard)
+  * [Data](link#data)
+  * [Link](link#link)
+  * [Stepping](link#stepping)
+  {{< /card >}}
+
+  {{< card header="Cast Functions" >}}
+  * [To Boolean](cast#to-boolean)
+  * [To Double](cast#to-double)
+  * [To Integer](cast#to-integer)
+  * [To Long](cast#to-long)
+  * [To String](cast#to-string)
+  {{< /card >}}
+
+  {{< card header="Date Functions" >}}
+  * [Format Date](date#format-date)
+  * [Parse Date](date#parse-date)
+  * [Ceiling Functions](date#ceiling-yearmonthdayhourminutesecond)
+  * [Floor Functions](date#floor-yearmonthdayhourminutesecond)
+  * [Round Functions](date#round-yearmonthdayhourminutesecond)
+  {{< /card >}}
+
+  {{< card header="Logic Functions" >}}
+  * [Equals](logic#equals)
+  * [Greater Than](logic#greater-than)
+  * [Greater Than or Equal To](logic#greater-than-or-equal-to)
+  * [If](logic#if)
+  * [Less Than](logic#less-than)
+  * [Less Than or Equal To](logic#less-than-or-equal-to)
+  * [Not](logic#not)
+  {{< /card >}}
+
+{{< /cardpane >}}
+
+{{< cardpane >}}
+
+  {{< card header="Rounding Functions" >}}
+  * [Ceiling](rounding#ceiling)
+  * [Floor](rounding#floor)
+  * [Round](rounding#round)
+  {{< /card >}}
+
+  {{< card header="Selection Functions" >}}
+  * [Any](selection#any)
+  * [Bottom](selection#bottom)
+  * [First](selection#first)
+  * [Last](selection#last)
+  * [Nth](selection#nth)
+  * [Top](selection#top)
+  {{< /card >}}
+
+  {{< card header="URI Functions" >}}
+  * [extractAuthorityFromUri](uri#extractauthorityfromuri)
+  * [extractFragmentFromUri](uri#extractfragmentfromuri)
+  * [extractHostFromUri](uri#extracthostfromuri)
+  * [extractPathFromUri](uri#extractpathfromuri)
+  * [extractPortFromUri](uri#extractportfromuri)
+  * [extractQueryFromUri](uri#extractqueryfromuri)
+  * [extractSchemeFromUri](uri#extractschemefromuri)
+  * [extractSchemeSpecificPartFromUri](uri#extractschemespecificpartfromuri)
+  * [extractUserInfoFromUri](uri#extractuserinfofromuri)
+  {{< /card >}}
+
+  {{< card header="Value Functions" >}}
+  * [Err](value#err)
+  * [False](value#false)
+  * [Null](value#null)
+  * [True](value#true)
+  {{< /card >}}
+{{< /cardpane >}}
+
