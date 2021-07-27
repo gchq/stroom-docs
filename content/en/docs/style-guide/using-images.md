@@ -21,7 +21,7 @@ This ensures a consistent look for all images and allows control of the size of 
 The short code can be added like this:
 
 ```markdown
-{{</* image "style-guide/stroom-oo.svg" "200x" />}}
+{{</* image "style-guide/stroom-oo.svg" "200x" */>}}
 ```
 
 All paths used in the `image` shortcode are relative to `/assets/images`.
@@ -77,7 +77,7 @@ or
 In the above example, the shortcode would look like:
 
 ```markdown
-{{</* image "example.svg" "200x" />}}
+{{</* image "example.svg" "200x" */>}}
 ```
 
 {{< image "style-guide/stroom-oo.svg" "200x" />}}
@@ -156,12 +156,27 @@ You should embed an PlantUML image like this, using the `.puml.svg` file (that m
 ## Stroom icons
 
 Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
+The first argument is the filename (and path) of the icon file.
 The filename is relative to `/assets/images/stroom-ui/`.
+The second argument is the hover tip title that will be given to the icon.
+E.g:
+
+```markdown
+or {{</* stroom-icon "explorer.svg" "Explorer Tree" */>}} can be added in line like this.
+```
 
 Stroom pipeline elements can be added in line like this {{< stroom-icon "pipeline/split.svg" "Split" >}}.
+E.g:
+
+```markdown
+like this {{</* stroom-icon "pipeline/split.svg" "Split" */>}}.
+```
 
 Stroom document elements can be added in line like this {{< stroom-icon "document/Visualisation.svg" "Visualisation" >}}.
+E.g:
+
+```markdown
+like this {{</* stroom-icon "document/Visualisation.svg" "Visualisation" */>}}.
+```
 
 For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery.md" >}})
-
-
