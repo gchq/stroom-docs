@@ -23,6 +23,7 @@ as the arguments for other functions.
 The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the field reference `${val}` syntax.
 
 {{< cardpane >}}
+
   {{< card header="Aggregate Functions" >}}
   * [Average](aggregate#average)
   * [Count](aggregate#count)
@@ -161,5 +162,6 @@ The arguments to functions can either be other functions, literal values, or the
   * [Null](value#null)
   * [True](value#true)
   {{< /card >}}
+
 {{< /cardpane >}}
 
