@@ -1,13 +1,12 @@
 # Stroom HOWTO - Feed Management
-
-## 1. Introduction
 This HOWTO demonstrates how to manage
 [Feeds](../../user-guide/feeds.md "Stroom Feeds")
 
-### 1.1 Assumptions
-1. An account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
+## Assumptions
+- All Sections
+ - an account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
 
-## 2. Creation of an Event Feed
+## Creation of an Event Feed
 We will be creating an Event Feed with the name `TEST-FEED-V1_0`.
 
 Once you have logged in, move the cursor to the **System** folder within the `Explorer` tab and select it.

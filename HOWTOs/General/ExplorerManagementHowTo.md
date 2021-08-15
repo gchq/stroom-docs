@@ -20,11 +20,11 @@ Now right click to bring up the object context menu
 
 ![Stroom UI ExplorerManagement - Menu in Explorer](../resources/v6/UI-ExplorerMgmt-01.png "Menu in Explorer")
 
-Next move the mouse over the ![NewItemv6](../resources/icons/newItemv6.PNG "NewItemv6")  New icon to reveal the New sub-context menu.
+Next move the mouse over the ![NewItemv6](../resources/icons/newItemv6.png "NewItemv6")  New icon to reveal the New sub-context menu.
 
 ![Stroom UI ExplorerManagement - Sub-Menu in Explorer](../resources/v6/UI-ExplorerMgmt-02.png "Sub-Menu in Explorer")
 
-Click on the ![Folder](../resources/icons/folderItem.PNG "NewItemv6") icon, at which point the _New Folder_ selection window will be presented
+Click on the ![Folder](../resources/icons/folderItem.png "NewItemv6") icon, at which point the _New Folder_ selection window will be presented
 
 ![Stroom UI ExplorerManagement - New folder selection](../resources/v6/UI-ExplorerMgmt-03.png "New folder selection")
 
