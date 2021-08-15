@@ -1,18 +1,23 @@
 # Stroom HOWTO - Use a Reference Feed
 
+## Contents
+1. [Introduction](#1-introduction)
+1. [Using a Reference Feed](#2-using-a-reference-feed)    
+1. [Modifying an Event Feed to use a Reference Feed](#3-modifying-an-event-feed-to-use-a-reference-feed)
+1. [Troubleshooting lookup issues](#4-troubleshooting-lookup-issues)
+
+## 1. Introduction
 Reference feeds are temporal stores of reference data that a translation can look up to enhance an Event with additional data. For example, rather than storing a person’s full name and phone number in every event, we can just store their user id and, based on this value, look up the associated user data and decorate the event.
 In the description below, we will make use of the `GeoHost-V1.0-REFERENCE` reference feed defined in separate HOWTO document. 
 
 ### Document Properties
 
-* Author: John Doe 
-* Last Updated: 8 May 2020
-* Recommended Additional Documentation:
-HOWTO - Creating a Simple Reference Feed
-* Version Information: Created with Stroom v6
+* Version Information: Created with Stroom v6.1-beta.16  
+* Last Updated: 15 August 2021  
+* See also: [HOWTO - Creating a Simple Reference Feed](../ReferenceFeeds/CreateSimpleReferenceFeed.md)
 
 
-## Using a Reference Feed
+## 2. Using a Reference Feed
 
 To use a Reference Feed, one uses the Stroom xslt function stroom:lookup(). This function is found within the xml namespace xmlns:stroom="stroom".
 
@@ -73,7 +78,7 @@ In practice, one would also pass the time element as well as setting ignoreWarni
 <xsl:variable name="sipaddr" select="stroom:lookup('FQDN_TO_IP',  data[@name = 'vserver']/@value, $formattedDate, true())"  />
 ```
 
-## Modifying an Event feed to use a Reference Feed
+## 3. Modifying an Event Feed to use a Reference Feed
 
 We will now modify an Event feed to have it lookup our `GeoHost-V1.0-REFERENCE` reference maps to add additional information to the event. The feed for this exercise is the `Apache-SSL-BlackBox-V2.0-EVENTS` event feed which processes Apache HTTPD SSL logs which make use of a variation on the BlackBox log format. We will step through a Raw Event stream and modify the translation directly. This way, we see the changes directly.
 
@@ -305,7 +310,7 @@ and the fragment from the output pane for our last event of this stream shows
 
 A copy of this XSLT Translation can be found  [here](ApacheHPPTDwithLookups-TranslationXSLT.txt "Apache BlackBox with Lookups Translation XSLT").
 
-## Troubleshooting lookups issues
+## 4. Troubleshooting lookup issues
 
 If your lookup is not working as expected you can use the 5th argument of the lookup function to help investigate the issue.
 

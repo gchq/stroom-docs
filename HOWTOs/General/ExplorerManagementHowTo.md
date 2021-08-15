@@ -2,9 +2,8 @@
 
 ### Document Properties
 
-* Author: John Doe 
-* Last Updated: 25 Mar 2020
-* Version Information: Created with Stroom v6
+* Version Information: Created with Stroom v6.1-beta.16   
+* Last Updated: 15 August 2021  
 
 ## Moving a set of Objects
 

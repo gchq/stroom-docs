@@ -1,13 +1,13 @@
 # Stroom HOWTO - Feed Management
+
+## 1. Introduction
 This HOWTO demonstrates how to manage
 [Feeds](../../user-guide/feeds.md "Stroom Feeds")
 
-## Assumptions
-- All Sections
- - an account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
+### 1.1 Assumptions
+1. An account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
 
-
-### Creation of an Event Feed
+## 2. Creation of an Event Feed
 We will be creating an Event Feed with the name `TEST-FEED-V1_0`.
 
 Once you have logged in, move the cursor to the **System** folder within the `Explorer` tab and select it.
@@ -50,7 +50,7 @@ has disappeared from the `Feed` tab and the _Save_ icon ![Save](../resources/ico
 ![Stroom UI Create Feed - New Feed Tab with Description saved](../resources/UI-CreateFeed-06.png "Stroom UI Create Feed - New feed tab with description saved").
 
 
-### Folder Structure for Event Sources
+## 3. Folder Structure for Event Sources
 In order to simplify the management of multiple event sources being processed by Stroom, it is suggested that an Event Source folder is created at the root of the **System** folder in the `Explorer` tab.
 
 This can be achived by moving the cursor to the **System** folder within the `Explorer` tabe and select it. Once selected, _right click_ to bring up the `New Item` selection sub-menu.

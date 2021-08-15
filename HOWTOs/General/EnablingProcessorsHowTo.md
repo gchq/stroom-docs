@@ -1,14 +1,18 @@
 # Stroom HOWTO - Enabling Processors for a Pipeline
 
+## Contents
+1. [Introduction](#1-introduction)
+1. [Pipeline](#2-pipeline)
+    1. [Add a processor](#21-add-a-processor)
+    1. [Processor errors](#22-processor-errors)
+
 ### Document Properties
 
-* Author: John Doe 
-* Last Updated: 8 May 2020
-* Recommended Additional Documentation:
-HOWTO - Creating a Simple Reference Feed
-* Version Information: Created with Stroom v6
+* Version Information: Created with Stroom v6.1-beta.16  
+* Last Updated: 15 August 2021  
+* See also: [HOWTO - Creating a Simple Reference Feed](../ReferenceFeeds/CreateSimpleReferenceFeed.md)
 
-## Introduction
+## 1. Introduction
 
 A pipeline is a structure that allows for the processing of streams of data.
 Once you have defined a pipeline, built its structure, and tested it via 'Stepping' the pipeline, you will want to enable the automatic processing of raw event data streams.
@@ -16,7 +20,7 @@ In this example we will build on our `Apache-SSLBlackBox-V2.0-EVENTS` event feed
 If this is the first time you have set up pipeline processing on your Stroom instance you may need to check that the **Stream Processor** job is enabled on your Stroom instance. Refer to the Stream Processor Tasks section of the Stroom HOWTO - Task Maintenance
 documentation for detailed instruction on this.
 
-## Pipeline
+## 2. Pipeline
 
 Initially we need to open the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline. Within the Explorer pane, navigate to the Apache HTTPD folder, then double click on the ![Apache HTTPD pipeline](../resources/v6/UI-EnableProcessors-00.png "Apache HTTPD pipeline") object to bring up the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline configuration tab
 
@@ -28,7 +32,7 @@ Next, select the **Processors** sub-item to show
 
 This configuration tab is divided into two panes. The top pane shows the current enabled Processors and any recently processed streams and the bottom pane provides meta-data about each Processor or recently processed streams.
 
-### Add a Processor
+### 2.1 Add a Processor
 
 We now want to add A Processor for the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline.
 
@@ -96,7 +100,7 @@ As you can see, the processed stream has an associated _Raw Events_ stream. If w
 
 ![Stroom UI EnableProcessors - pipeline Data Tab Raw Selected](../resources/v6/UI-EnableProcessors-17.png "pipeline Data Tab Raw Selected")
 
-### Processor Errors
+### 2.2 Processor Errors
 
 Occasionally you may need to reprocess a stream.
 This is most likely required as a result of correcting translation issues during the development phase, or it can occur from the data source having an unexpected change (unnotified application upgrade for example).

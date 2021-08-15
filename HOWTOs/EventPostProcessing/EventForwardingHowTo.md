@@ -1,23 +1,32 @@
 # Stroom HOWTO - Event Forwarding
 
+## Contents
+1. [Introduction](#1-introduction)
+1. [Example Event Forwarding - Multipe destinations](#2-example-event-forwarding---multiple-destinations)  
+1. [Create Translations](#3-create-translations)
+1. [Create Pipeline](#4-create-pipeline)
+1. [Test Pipeline](#5-test-pipeline)
+    1. [Enabling Processors for Multi Forwarding Pipeline](#51-enabling-processors-for-multi-forwarding-pipeline)
+    1. [Examine Output Files on Destination Node](#52-examine-output-files-on-destination-node)
+
 ### Document Properties
 
-* Author: John Doe 
-* Last Updated: 8 May 2020
-* Recommended Additional Documentation: HOWTO - Apache HTTPD Event Feed
-* Version Information: Created with Stroom v6
+* Version Information: Created with Stroom v6.1-beta.16  
+* Last Updated: 15 August 2021  
+* See also: [HOWTO - Apache HTTPD Event Feed](../EventFeeds/CreateApacheHTTPDEventFeed.md)
 
-## Introduction
+
+## 1. Introduction
 
 In some situations, you will want to automatically extract stored Events in their XML format to forward to the file system. This is achieved via a Pipeline with an appropriate XSLT translation that is used to decide what events are forwarded. Once the Events have been chosen, the Pipeline would need to validate the Events (via a schemaFilter) and then the Events would be passed to an xmlWriter and then onto a file system writer (fileSystemOutputStreamProvider or RollingFileAppender).
 
-## Example Event Forwarding - Multiple destinations
+## 2. Example Event Forwarding - Multiple destinations
 
 In this example, we will create a pipeline that writes Events to the file system, but to multiple destinations based on the location of the Event Client element.
 
 We will use the EventSource/Client/Location/Country element to decided where to store the events. Specifically, we store events from clients in AUS in one location, and events from clients in GBR to another. All other client locations will be ignored.
 
-## Create translations
+## 3. Create translations
 
 First, we will create two translations - one for each country location Australia (AUS) and Great Britain (GBR). The AUS selection translation is
 
@@ -93,7 +102,7 @@ We will store this capability in the Explorer Folder **MultiGeoForwarding**. Cre
 
 ![Stroom UI MultiGeoFwd - MultiGeoFwd Folder](../resources/v6/UI-MultiGeoFwd-00.png "MultiGeoFwd Folder")
 
-## Create Pipeline
+## 4. Create Pipeline
 
 We now create a Pipeline called **MultiGeoFwd** in the Explorer tree. Within the _MultiGeoForwarding_ folder right click to bring up the object context menu and sub-menu then create a New
 Pipeline called **MultiGeoFwd**. The Explorer should now look like
@@ -240,7 +249,7 @@ as appropriate.
 
 Save the pipeline by pressing the Save ![save](../resources/icons/save.png "Save") icon.
 
-## Test Pipeline
+## 5. Test Pipeline
 
 We first select a stream of Events which we know to have both AUS and GBR Client locations. We have such a stream from our Apache-SSLBlackBox-V2.0-EVENTS Feed.
 
@@ -281,7 +290,7 @@ If you now step forward 1 event using the ![stepForward](../resources/icons/step
 
 We have thus tested the ‘splitting’ effect of our pipeline. We now need to turn it on and produce files.
 
-### Enabling Processors for Multi Forwarding Pipeline
+### 5.1. Enabling Processors for Multi Forwarding Pipeline
 
 To enable the Processors for the pipeline, select the _MultiGeoFwd_ pipeline tab and then select the Processors sub-item.
 
@@ -312,7 +321,7 @@ APACHE-SSLBlackBox-V2.0-EVENTS feed to completion. If we select the MultiGeoFwd 
 
 Take note that all streams have processed on Node node1a. 
 
-### Examine Output Files on Destination Node
+### 5.2. Examine Output Files on Destination Node
 
 If we navigate to the /stroom/volumes/defaultStreamVolume/forwarding directory on the processing node we should be able to view the expected output files.
 

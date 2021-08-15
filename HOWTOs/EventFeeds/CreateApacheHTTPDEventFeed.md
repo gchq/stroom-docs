@@ -1,25 +1,41 @@
 # Stroom HOWTO - Apache HTTPD Event Feed
 
+## Contents
+1. [Introduction](#1-introduction)
+1. [Event Log Source](#2-event-log-source)    
+1. [Create the Feed and its Pipeline](#3-create-the-feed-and-its-pipeline)
+    1. [Create System Group](#31-create-system-group)
+    1. [Create Feed](#32-create-feed)
+    1. [Create Text Converter](#33-create-text-converter)
+    1. [Create XSLT Translation](#34-create-xslt-translation)
+    1. [Create Pipeline](#35-create-pipeline)
+    1. [Manually load Raw Event test data](#36-manually-load-raw-event-test-data)
+    1. [Step data through Pipeline - Source](#37-step-data-through-pipeline---source)
+    1. [Step data through Pipeline - Text Converter](#38-step-data-through-pipeline---text-converter)
+    1. [Step data through Pipeline - Translation](#39-step-data-through-pipeline---translation)
+
+
+### Document Properties
+
+* Version Information: Created with Stroom v6.1-beta.16  
+* Last Updated: 15 August 2021  
+* See also: [HOWTO - Enabling Processors for a Pipeline](../General/EnablingProcessorsHowTo.md)
+
+## 1. Introduction
+
 The following will take you through the process of creating an Event Feed in Stroom.
 
 In this example, the logs are in a well-defined, line based, text format so we will use a Data Splitter parser to transform the logs into simple record-based XML and then a XSLT translation to normalise them into the Event schema.
 
 A separate document will describe the method of automating the storage of normalised events for this feed. Further, we will not Decorate these events. Again, Event Decoration is described in another document.
 
-### Document Properties
-
-Author: John Doe <br/>
-Last Updated: 7 Mar 2020 <br/>
-Recommended Additional Documentation: 
-HOWTO - Enabling Processors for a Pipeline
-
-## Event Log Source
+## 2. Event Log Source
 
 For this example, we will use logs from an Apache HTTPD Web server. In fact, the web server in front of Stroom v5 and earlier.
 
 To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension of the BlackBox format. The format is described and defined below. This is an extract from a httpd configuration file (/etc/httpd/conf/httpd.conf)
 
-``` 
+```
 #  Stroom - Black  Box  Auditing configuration
 #
 #  %a  - Client  IP address  (not  hostname (%h) to ensure ip address only)
@@ -52,7 +68,7 @@ To get the optimal information from the Apache HTTPD access logs, we define our 
 #  files during the  same connection.  This way  a client  doesn't need to go   through the  overhead
 #  of re-establishing  a TCP  connection to retrieve  a new  file.
 
-#  %t  - time - or  [%{%d/%b/%Y:%T}t.%{msec_frac}t %{%z}t] for  Apache 2.4
+# %t - time - or [%{%d/%b/%Y:%T}t.%{msec_frac}t %{%z}t] for Apache 2.4
 #  The   %t  directive  records the time that  the request started.
 #  NOTE:  When  deployed on   an  Apache 2.4, or better,  environment, you   should use
 #  strftime  format in  order  to  get  microsecond resolution.
@@ -128,8 +144,8 @@ To get the optimal information from the Apache HTTPD access logs, we define our 
    LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"../../"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxUser
    LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN../../"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxSSLUser
 </IfModule>
-
 ```
+
 
 A copy of this configuration can be found [here](ApacheHTTPDAuditConfig.txt "Apache BlackBox Auditing Configuration"). 
 
@@ -157,11 +173,11 @@ As Stroom can use PKI for login, you can configure Stroom’s Apache to make use
 
 A copy of this sample data source can be found [here](sampleApacheBlackBox.log "Apache BlackBox sample log"). Save a copy of this data to your local environment for use later in this HOWTO. Save this file as a text document with ANSI encoding.
 
-## Create the Feed and its Pipeline
+## 3. Create the Feed and its Pipeline
 
 To reflect the source of these Accounting Logs, we will name our feed and its pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group Apache HTTPD under the main system group - `Event Sources`.
 
-### Create System Group
+### 3.1. Create System Group
 
 To create the system group Apache  HTTPD, navigate to the _Event Sources/Infrastructure/WebServer_ system group within the Explorer pane (if this system group structure does not already exist in your Stroom instance then refer to the **HOWTO Stroom Explorer Management** for guidance). Left click to highlight the
 _WebServer_ system group then right click to bring up the object context menu. Navigate to the _New_ icon, then the _Folder_ icon to reveal the _New Folder_ selection window.
@@ -182,7 +198,7 @@ Close the Apache HTTPD system group configuration tab by clicking on the close i
 * the Translation and finally,
 * the Pipeline.
 
-### Create Feed
+### 3.2. Create Feed
 
 Within the Explorer pane, and having selected the Apache HTTPD group, right click to bring up object context menu. Navigate to New, Feed
 
@@ -221,7 +237,7 @@ This results in
 
 Save the feed by clicking on the ![save](../resources/icons/save.png "Save") icon.
 
-### Create Text Converter
+### 3.3. Create Text Converter
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the ![new-v6](../resources/icons/newItemv6.png "New") icon to reveal the New sub-context menu. Next, navigate to the ![textConverterItem](../resources/icons/save.png "Text Converter Item")  Text Converter item
 
@@ -245,7 +261,7 @@ Set the **Converter Type:** to be Data Splitter from drop down menu.
 
 Save the text converter by clicking on the ![save](../resources/icons/save.png "Save") icon.
 
-### Create XSLT Translation
+### 3.4. Create XSLT Translation
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the 	New icon to reveal the New sub-context menu. Next, navigate to the ![xsltItem](../resources/icons/xsltItem.png "xsltItem") item and left click to select.
 
@@ -267,7 +283,7 @@ When the **New XSLT** selection window comes up,
 
 Save the XSLT by clicking on the ![save](../resources/icons/save.png "Save") icon.
 
-### Create Pipeline
+### 3.5. Create Pipeline
 
 In the process of creating this pipeline we have assumed that the  **Template Pipeline** content pack has been loaded, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
@@ -353,7 +369,7 @@ For the moment, we will not associate a decoration filter.
 
 Save the pipeline by clicking on its ![save](../resources/icons/save.png "Save") icon.
 
-### Manually load Raw Event test data
+### 3.6. Manually load Raw Event test data
 
 Having established the pipeline, we can now start authoring our text converter and translation. The first step is to load some Raw Event test data. Previously in the **Event Log Source** of this HOWTO you saved a copy of the file _sampleApacheBlackBox.log_ to your local environment. It contains only a few events as the content is consistently formatted. We could feed the test data by posting the file to Stroom’s accounting/datafeed url, but for this example we will manually load the file. Once developed, raw data is posted to the web service.
 
@@ -435,7 +451,7 @@ Note that, in addition to the feed attributes we set, the upload process added a
 
 We now have data that will allow us to develop our text converter and translation.
 
-### Step data through Pipeline - Source
+### 3.7. Step data through Pipeline - Source
 
  We now need to step our data through the pipeline.
 
@@ -457,7 +473,7 @@ At this point, we enter the pipeline Stepping tab
 
 which, initially displays the Raw Event data from our stream. This is the Source display for the Event Pipeline.
 
-### Step data through Pipeline - Text Converter
+### 3.8. Step data through Pipeline - Text Converter
 
 We click on the ![dsParserv6](../resources/icons/dsParserv6.png "dsParser") icon to enter the Text Converter stepping window.
 
@@ -565,7 +581,7 @@ Event Format: The following is extracted from the Configuration settings for the
 #  files during the  same connection.  This way  a client  doesn't need to go   through the  overhead
 #  of re-establishing  a TCP  connection to retrieve  a new  file.
 
-#  %t  - time - or  [%{%d/%b/%Y:%T}t.%{msec_frac}t %{%z}t] for  Apache 2.4
+# %t - time - or [%{%d/%b/%Y:%T}t.%{msec_frac}t %{%z}t] for Apache 2.4
 #  The   %t  directive  records the time that  the request started.
 #  NOTE:  When  deployed on   an  Apache 2.4, or better,  environment, you   should use
 #  strftime  format in  order  to  get  microsecond resolution.
@@ -717,7 +733,7 @@ One can double click on either the **subStreamId** or **recordNo** numbers and e
 
 Note, you should now Save ![save](../resources/icons/save.png "Save") your edited Text Converter.
 
-### Step data through Pipeline - Translation
+### 3.9. Step data through Pipeline - Translation
 
 To start authoring the xslt Translation Filter, press the ![translationFilter](../resources/icons/translationFilter.png "Translation Filter")  icon which steps us to the xsl Translation Filter pane.
 
