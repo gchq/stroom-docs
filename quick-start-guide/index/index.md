@@ -101,7 +101,7 @@ The dialogue pops up where you can set the values
 
 ![Pipeline edit element property](images/014_pipeline_edit_element_property.png)
 
-Save the pipeline, using the top left icon (![The save icon](/resources/icons/save.png)), then close the pipeline tab.
+Save the pipeline, using the top left icon (![The save icon](../../resources/icons/save.png)), then close the pipeline tab.
 
 Now create a new pipeline
 
@@ -209,7 +209,7 @@ Go back to your pipeline and go to the processors tab.
 
 ![Processors](images/024_processors_list.png)
 
-Add a filter using (![The add icon](/resources/icons/add.png)) and tell it to process all `Events` data when the filter dialogue opens so it looks like this
+Add a filter using (![The add icon](../../resources/icons/add.png)) and tell it to process all `Events` data when the filter dialogue opens so it looks like this
 
 ![Edit stream filter](images/025_stream_filter_edit.png)
 

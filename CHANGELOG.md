@@ -6,6 +6,72 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add mention of `OLD_AUTH_schema_version` in `6_to_7_upgrade.md`.
+
+* Fix issues in `6_to_7_upgrade.md`.
+
+* Improve configuration section.
+
+* Add links to migration scripts in `6_to_7_upgrade.md`.
+
+* Fix typos.
+
+* Add `configuration.md` for v7 configuration guide.
+
+* Change `finding-things.md` to reflect the change of default match mode to contains.
+
+* Add `6_to_7_upgrade.md`.
+
+* Add note about the use of `manage_users` command.
+
+* Complete section on `annotation` expression function.
+
+* Add missing exppression functions.
+
+* Re-arrange the location of some of the expression functions.
+
+* Minor tweaks to `finding-things.md`.
+
+* Fix icon sizes.
+
+* Fix icon links in `data-retention` and `editing-and-viewing.md`.
+
+* Add `data-retention.md`.
+
+* Add `editing-and-viewing.md`.
+
+* Add overview sections and diagrams to root README, also update some of the README wording.
+
+* Update `tasks.md` for version 7.
+
+* Add v7 new features.
+
+* Add new section on rreference data `reference-data.md`.
+
+* Add details of time format to XSLT lookup functions.
+
+* Minor improvements to `reference-data.md` and `xslt-functions.md`.
+
+* Add new section on streams `streams.md`.
+
+* Add new section on reference data `reference-data.md`.
+
+* Add `command-line.md`.
+
+* Update `finding-things.md` to reflect changes to UUID matching.
+
+* Add field matching and negation to `finding-things.md`.
+
+* Update `finding-things.md` to reflect support of wild-carded strings, e.g. `XML_*`.
+
+* Update `finding-things.md` to reflect use of `?` prefix for word boundary matching.
+
+* Add more examples to `finding-things.md`.
+
+* Add `finding-things.md`.
+
+* Fix typo.
+
 * Complete `properties.md` for Stroom v7.
 
 * Add `properties.md` place holder.

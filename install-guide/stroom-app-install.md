@@ -1,8 +1,10 @@
+> *NOTE* This document was written for stroom v4/5. It is not applicable for v6+.
+
 # Stroom Install
 
 ## Prerequisites
 
-* Install file 'stroom-app-distribution-X-Y-Z-bin.zip'. All the pre-built binaries are [available on GitHub](https://github.com/gchq/stroom/releases)
+* Install file 'stroom-app-distribution-X-Y-Z-bin.zip'. All the pre-built binaries are [available on GitHub (external link)](https://github.com/gchq/stroom/releases)
 * MySQL Server 5.5
 * JDK8
 * Temporarily allow port 8080, if not relying on Apache Forwarding. 

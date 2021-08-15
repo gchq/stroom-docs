@@ -1,25 +1,28 @@
 # String Functions
 
 <!-- vim-markdown-toc GFM -->
+
 * [Concat](#concat)
-* [Dashboard](#dashboard)
+* [Current User](#current-user)
 * [Decode](#decode)
-* [DecodeUrl](#decodeUrl)
-* [EncodeUrl](#encodeUrl)
+* [DecodeUrl](#decodeurl)
+* [EncodeUrl](#encodeurl)
 * [Exclude](#exclude)
 * [Hash](#hash)
 * [Include](#include)
 * [Index Of](#index-of)
 * [Last Index Of](#last-index-of)
-* [Link](#link)
 * [Lower Case](#lower-case)
 * [Match](#match)
+* [Query Param](#query-param)
+* [Query Params](#query-params)
 * [Replace](#replace)
 * [String Length](#string-length)
 * [Substring](#substring)
 * [Substring After](#substring-after)
 * [Substring Before](#substring-before)
 * [Upper Case](#upper-case)
+
 <!-- vim-markdown-toc -->
 
 ## Concat
@@ -34,19 +37,17 @@ concat('this ', 'is ', 'how ', 'it ', 'works')
 > 'this is how it works'
 ```
 
-## Dashboard
-A helper function to make forming links to dashboards easier than using [Link](#link).
+
+## Current User
+Returns the username of the user running the query.
 ```
-dashboard(text, uuid)
-dashboard(text, uuid, params)
+currentUser()
 ```
 
 Example
 ```
-dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da')
-> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da){dashboard)
-dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
-> [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&params=userId%3Duser1){dashboard)
+currentUser()
+> 'jbloggs'
 ```
 
 ## Decode
@@ -183,34 +184,6 @@ lastIndexOf('aa-bb-cc', '-')
 > 5
 ```
 
-## Link
-Create a string that represents a hyperlink for display in a dashboard table.
-```
-link(url)
-link(text, url)
-link(text, url, type)
-```
-
-Example
-```
-link('http://www.somehost.com/somepath')
-> [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath')
-> [Click Here](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath', 'dialog')
-> [Click Here](http://www.somehost.com/somepath){dialog}
-link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
-> [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
-```
-
-Type can be one of:
-* `dialog` : Display the content of the link URL within a stroom popup dialog.
-* `tab` : Display the content of the link URL within a stroom tab.
-* `browser` : Display the content of the link URL within a new browser tab.
-* `dashboard` : Used to launch a stroom dashboard internally with parameters in the URL.
-
-If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both `dialog` and `tab` types allow titles to be specified after a `|`, e.g. `dialog|My Title`.
-
 ## Lower Case
 Converts the string to lower case
 ```
@@ -236,6 +209,32 @@ match('this', 'this')
 match('this', 'that')
 > false
 ```
+
+## Query Param
+Returns the value of the requested query parameter.
+```
+queryParam(paramKey)
+```
+
+Examples
+```
+queryParam('user')
+> 'jbloggs'
+```
+
+
+## Query Params
+Returns all query parameters as a space delimited string.
+```
+queryParams()
+```
+
+Examples
+```
+queryParams()
+> 'user=jbloggs site=HQ'
+```
+
 
 ## Replace
 Perform text replacement on an input string using a regular expression to match part (or all) of the input string and a replacement string to insert in place of the matched part

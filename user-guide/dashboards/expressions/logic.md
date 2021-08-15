@@ -1,6 +1,7 @@
 # Logic Functions
 
 <!-- vim-markdown-toc GFM -->
+
 * [Equals](#equals)
 * [Greater Than](#greater-than)
 * [Greater Than or Equal To](#greater-than-or-equal-to)
@@ -8,6 +9,7 @@
 * [Less Than](#less-than)
 * [Less Than or Equal To](#less-than-or-equal-to)
 * [Not](#not)
+
 <!-- vim-markdown-toc -->
 
 ## Equals
@@ -38,7 +40,7 @@ equals(50, 50)
 > true
 ```
 
-Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`](#is-null) and [`isError()`](#is-error) functions must be used instead.
+Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`](./type-checking.md#is-null) and [`isError()`](./type-checking.md#is-error) functions must be used instead.
 
 ## Greater Than
 Evaluates if arg1 is greater than to arg2

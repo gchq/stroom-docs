@@ -6,7 +6,7 @@ We would welcome feedback on this documentation.
 
 ### Running a release
 
-Download a [release](https://github.com/gchq/stroom-resources/releases), for example [Stroom Core v6.0 Beta 3](https://github.com/gchq/stroom-resources/releases/download/stroom_core-v6.0-beta.3/stroom_core_v6.0-beta.3.tar.gz), unpack it, and run the `start.sh` script. When you've given it some time to start up go to `http://localhost/stroom`. There's a `README.md` file inside the tar.gz with more information.
+Download a [release (external link)](https://github.com/gchq/stroom-resources/releases), for example [Stroom Core v6.0 Beta 3 (external link)](https://github.com/gchq/stroom-resources/releases/download/stroom_core-v6.0-beta.3/stroom_core_v6.0-beta.3.tar.gz), unpack it, and run the `start.sh` script. When you've given it some time to start up go to `http://localhost/stroom`. There's a `README.md` file inside the tar.gz with more information.
 
 ## Post-install hardening
 

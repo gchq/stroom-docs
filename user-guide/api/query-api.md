@@ -1,11 +1,11 @@
 # Query API
 
-The Query API uses common request/response models and end points for querying each type of data source held in _Stroom_. The request/response models are defined in [_stroom-query_](https://github.com/gchq/stroom-query).
+The Query API uses common request/response models and end points for querying each type of data source held in _Stroom_. The request/response models are defined in [_stroom-query_ (external link)](https://github.com/gchq/stroom-query).
 
 Currently _Stroom_ exposes a set of query endpoints for the following data source types. Each data source type will have its own endpoint due to differences in the way the data is queried and the restrictions imposed on the query terms.  However they all share the same API definition.
 
-* [_stroom-index_](https://gchq.github.io/stroom/#/stroom-index%20query%20-%20v2) (the Lucene based event index) 
-* [_sqlstatistics_](https://gchq.github.io/stroom/#/sqlstatistics%20query%20-%20v2) (Stroom's own statistics store)
+* [_stroom-index_ (external link)](https://gchq.github.io/stroom/#/stroom-index%20query%20-%20v2) (the Lucene based event index) 
+* [_sqlstatistics_ (external link)](https://gchq.github.io/stroom/#/sqlstatistics%20query%20-%20v2) (Stroom's own statistics store)
 
 The detailed documentation for the request/responses is contained in the _Swagger_ definition linked to above.
 
