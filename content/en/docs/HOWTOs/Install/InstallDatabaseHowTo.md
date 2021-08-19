@@ -59,7 +59,7 @@ sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.r
 
 Then edit the file to change
 
-```
+```toml
 ...
 # Enable to use MySQL 5.6
 [mysql56-community]
@@ -80,7 +80,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 
 to become
 
-```
+```toml
 ...
 # Enable to use MySQL 5.6
 [mysql56-community]
@@ -105,8 +105,11 @@ sudo yum -y install policycoreutils-python mysql-community-server
 ```
 
 ## Preparing the Database Deployment
+
 ### MariaDB Variant
+
 #### Create and instantiate both database instances
+
 To set up two MariaDB database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an `@` character before the `.service` suffix.
 
 To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MariaDB configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance. We will name our instances, `mysqld0` and `mysqld1`. We will also create specific log files for each instance.
@@ -114,6 +117,7 @@ To use this multiple-instance capability, we need to create two data directories
 We will use the directories, `/var/lib/mysql-mysqld0` and `/var/lib/mysql-mysqld1` for the data directories and `/var/log/mariadb/mysql-mysqld0.log` and `/var/log/mariadb/mysql-mysqld1.log` for the log files. Note you should modify /etc/logrotate.d/mariadb to manage these log files. Note also, we need to set the appropriate SELinux file contexts on the created directories and any files.
 
 We create the data directories and log files and set their respective SELinux contexts via
+
 ```bash
 sudo mkdir /var/lib/mysql-mysqld0
 sudo chown mysql:mysql /var/lib/mysql-mysqld0
@@ -135,12 +139,14 @@ sudo chcon --reference=/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysql
 ```
 
 We now initialise the our two database data directories via
+
 ```bash
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
 ```
 
 We now replace the  MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively. First backup the existing configuration file with
+
 ```bash
 sudo cp /etc/my.cnf /etc/my.cnf.ORIG
 ```
@@ -232,7 +238,8 @@ sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
 sudo mysql_secure_installation
 ```
 to see
-```
+
+```text
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
@@ -293,7 +300,9 @@ installation should now be secure.
 
 Thanks for using MariaDB!
 ```
+
 then we execute
+
 ```bash
 sudo rm /var/lib/mysql/mysql.sock
 sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
@@ -303,6 +312,7 @@ sudo rm /var/lib/mysql/mysql.sock
 and process as before (for when running mysql_secure_installation). At this both database instances should be secure.
 
 ### MySQL Community Variant
+
 #### Create and instantiate both database instances
 
 To set up two MySQL database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an `@` character before the `.service` suffix.
@@ -332,21 +342,25 @@ sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld1.log
 ```
 
 We now initialise the our two database data directories via
+
 ```bash
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
 ```
 
 Disable the default database via
+
 ```bash
 sudo systemctl disable mysqld
 ```
 
 We now modify the  MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively.  First backup the existing configuration file with
+
 ```bash
 sudo cp /etc/my.cnf /etc/my.cnf.ORIG
 ```
 then setup `/etc/my.cnf` as per
+
 ```bash
 sudo bash
 F=/etc/my.cnf
@@ -379,12 +393,16 @@ printf '# Disabling symbolic-links is recommended to prevent assorted security r
 printf 'symbolic-links=0\n' >> ${F}
 exit # To exit the root shell
 ```
+
 We also need to associate the ports with the `mysqld_port_t` SELinux context as per
+
 ```bash
 sudo semanage port -a -t mysqld_port_t -p tcp 3307
 sudo semanage port -a -t mysqld_port_t -p tcp 3308
 ```
+
 We next create the systemd service template as per
+
 ```bash
 sudo bash
 F=/etc/systemd/system/mysqld@.service
@@ -411,8 +429,8 @@ chmod 644 ${F}
 exit; # to exit the root shell
 ```
 
-
 We next enable and start both instances via
+
 ```bash
 sudo systemctl enable mysqld@0
 sudo systemctl enable mysqld@1
@@ -423,6 +441,7 @@ sudo systemctl start mysqld@1
 At this we should have both instances running. One should check each instance's log file for any errors.
 
 #### Secure each database instance
+
 We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
 only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
 we will use `Stroom5User@`.
@@ -434,8 +453,10 @@ utility. Thus we execute
 sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
 sudo mysql_secure_installation
 ```
+
 to see
-```
+
+```text
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
@@ -501,7 +522,9 @@ Thanks for using MySQL!
 
 Cleaning up...
 ```
+
 then we execute
+
 ```bash
 sudo rm /var/lib/mysql/mysql.sock
 sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
@@ -511,6 +534,7 @@ sudo rm /var/lib/mysql/mysql.sock
 and process as before (for when running mysql_secure_installation). At this both database instances should be secure.
 
 ## Create the Databases and Enable access by the Stroom processing users
+
 We now create the `stroom` database within the first instance, `mysqld0` and the `statistics` database within the second
 instance `mysqld1`. It does not matter which database variant used as all commands are the same for both.
 
@@ -519,6 +543,7 @@ that the Stroom processing nodes will use to access each database.
 For the `stroom` database, we will use the database user `stroomuser` with a password of `Stroompassword1@` and for the `statistics` database, we will use the database user `stroomstats` with a password of `Stroompassword2@`. One identifies a processing user as `<user>@<host>` on a `grant` SQL command.
 
 In the `stroom` database instance, we will grant access for
+
 - stroomuser@localhost for local access for maintenance etc.
 - stroomuser@stroomp00.strmdev00.org for access by processing node stroomp00.strmdev00.org
 - stroomuser@stroomp01.strmdev00.org for access by processing node stroomp01.strmdev00.org
@@ -530,66 +555,87 @@ and in the `statistics` database instance, we will grant access for
 - stroomstats@stroomp01.strmdev00.org for access by processing node stroomp01.strmdev00.org
 
 Thus for the `stroom` database we execute
+
 ```bash
 mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
 ```
 and on entering the administrator's password, we arrive at the `MariaDB [(none)]>` or `mysql>` prompt. At this we create the database with
+
 ```sql
 create database stroom;
 ```
+
 and then to establish the users, we execute
+
 ```sql
 grant all privileges on stroom.* to stroomuser@localhost identified by 'Stroompassword1@';
 grant all privileges on stroom.* to stroomuser@stroomp00.strmdev00.org identified by 'Stroompassword1@';
 grant all privileges on stroom.* to stroomuser@stroomp01.strmdev00.org identified by 'Stroompassword1@';
 ```
 then
+
 ```sql
 quit;
 ```
+
 to exit.
 
 And for the `statistics` database 
+
 ```bash
 mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
 ```
+
 with
+
 ```sql
 create database statistics;
 ```
+
 and then to establish the users, we execute
+
 ```sql
 grant all privileges on statistics.* to stroomstats@localhost identified by 'Stroompassword2@';
 grant all privileges on statistics.* to stroomstats@stroomp00.strmdev00.org identified by 'Stroompassword2@';
 grant all privileges on statistics.* to stroomstats@stroomp01.strmdev00.org identified by 'Stroompassword2@';
 ```
 then
+
 ```sql
 quit;
 ```
+
 to exit.
 
 Clearly if we need to add more processing nodes, additional `grant` commands would be used. Further, if we were installing the databases in a single node Stroom environment, we would just have the first two pairs of `grants`.
 
 ## Configure Firewall
+
 Next we need to modify our firewall to allow remote access to our databases which listens on ports 3307 and 3308.
 The simplest way to achieve this is with the commands
+
 ```bash
 sudo firewall-cmd --zone=public --add-port=3307/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=3308/tcp --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 ```
-__Note__ that this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.
+
+{{% note %}}
+That this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.
+{{% /note %}}
 
 ### Debugging of Mariadb for Stroom
+
 If there is a need to debug the Mariadb database and Stroom interaction, one can turn on auditing for the Mariadb service.
 To do so, log onto the relevant database as the administrative user as per
+
 ```bash
 mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
 or
 mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
 ```
+
 and at the `MariaDB [(none)]> ` prompt enter
 
 ```bash
@@ -604,17 +650,21 @@ quit;
 ```
 
 The above will generate two log files, 
+
 - `/var/log/mariadb/mysqld-mysqld0_server_audit.log` or `/var/log/mariadb/mysqld-mysqld1_server_audit.log` which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.
 - `/var/lib/mysql-mysqld0/sql_errors.log` or `/var/lib/mysql-mysqld1/sql_errors.log` which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.
+
 All files will, by default, generate up to 9 rotated files.
 
 If you wish to rotate a log file manually, log into the database as the administrative user and execute either
+
 - `set global server_audit_file_rotate_now=1;` to rotate the audit log file
 - `set global sql_error_log_rotate=1;` to rotate the sql_errlog log file
 
 ### Initial Database Access
 
 It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, it's initial access to the `stroom` database will result in the following attempted sql statements.
+
 ```sql
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.STROOM_VER' doesn't exist : SELECT VER_MAJ, VER_MIN, VER_PAT FROM STROOM_VER ORDER BY VER_MAJ DESC, VER_MIN DESC, VER_PAT DESC LIMIT 1
@@ -625,6 +675,7 @@ It should be noted that if you monitor the sql_errors.log log file on a new Stoo
 After this access the application will realise the database does not exist and it will initialise the database.
 
 In the case of the `statistics` database you may note the following attempted access
+
 ```sql
 2017-04-16 16:25:09 stroomstats[stroomstats] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'statistics.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC 
 ```

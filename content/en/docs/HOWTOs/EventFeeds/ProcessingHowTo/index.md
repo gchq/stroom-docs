@@ -30,13 +30,15 @@ The sample BlueCoat Proxy log will be transformed into an intermediate simple XM
 As mentioned, we will use BlueCoat Proxy logs as a sample event source. Although BlueCoat logs can be customised, the default is to use the W2C Extended Log File Format (ELF). Our sample data set looks like
 
 
-    #Software: SGOS 3.2.4.28
-    #Version: 1.0
-    #Date: 2005-04-27 20:57:09
-    #Fields: date time time-taken c-ip sc-status s-action sc-bytes cs-bytes cs-method cs-uri-scheme cs-host cs-uri-path cs-uri-query cs-username s-hierarchy s-supplier-name rs(Content-Type) cs(User-Agent) sc-filter-result sc-filter-category x-virus-id s-ip s-sitename x-virus-details x-icap-error-code x-icap-error-details
-    2005-05-04 17:16:12 1 45.110.2.82 200 TCP_HIT 941 729 GET http www.inmobus.com /wcm/assets/images/imagefileicon.gif - george DIRECT 38.112.92.20 image/gif "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)" PROXIED none - 192.16.170.42 SG-HTTP-Service - none -
-    2005-05-04 17:16:12 2 45.110.2.82 200 TCP_HIT 941 729 GET http www.inmobus.com /wcm/assets/images/imagefileicon.gif - george DIRECT 38.112.92.20 image/gif "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)" PROXIED none - 192.16.170.42 SG-HTTP-Service - none -
-    ...
+```text
+#Software: SGOS 3.2.4.28
+#Version: 1.0
+#Date: 2005-04-27 20:57:09
+#Fields: date time time-taken c-ip sc-status s-action sc-bytes cs-bytes cs-method cs-uri-scheme cs-host cs-uri-path cs-uri-query cs-username s-hierarchy s-supplier-name rs(Content-Type) cs(User-Agent) sc-filter-result sc-filter-category x-virus-id s-ip s-sitename x-virus-details x-icap-error-code x-icap-error-details
+2005-05-04 17:16:12 1 45.110.2.82 200 TCP_HIT 941 729 GET http www.inmobus.com /wcm/assets/images/imagefileicon.gif - george DIRECT 38.112.92.20 image/gif "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)" PROXIED none - 192.16.170.42 SG-HTTP-Service - none -
+2005-05-04 17:16:12 2 45.110.2.82 200 TCP_HIT 941 729 GET http www.inmobus.com /wcm/assets/images/imagefileicon.gif - george DIRECT 38.112.92.20 image/gif "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)" PROXIED none - 192.16.170.42 SG-HTTP-Service - none -
+...
+```
 
 A copy of this sample data source can be found [here](sampleBluecoat.log "Sample BlueCoat logs").
 Later in this HOWTO, one will be required to upload this file. If you save this file now, ensure the file is saved
@@ -59,15 +61,15 @@ All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**. It should
 
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ to bring up the `New Item` selection sub-menu.
 
-![Stroom New Item](../resources/UI-CreateFeed-01.png)
+{{< screenshot "HOWTOs/UI-CreateFeed-01.png" >}}Stroom New Item{{< /screenshot >}}
 
-As we are creating an Event Feed, select the ![Stroom UI FeedItem](../resources/icons/feedItem.png "Stroom UI FeedItem") item to have the `New Feed` configuration window into which we enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box
+As we are creating an Event Feed, select the {{< screenshot "HOWTOs/icons/feedItem.png" >}}Stroom UI FeedItem{{< /screenshot >}} item to have the `New Feed` configuration window into which we enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box
 
-![Stroom UI Create Feed - New Feed Configuration name](../resources/UI-FeedProcessing-00.png "Stroom UI Create Feed - New feed configuration window enter name")
+{{< screenshot "HOWTOs/UI-FeedProcessing-00.png" >}}Stroom UI Create Feed - New feed configuration window enter name{{< /screenshot >}}
 
-and press ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") to see the new Event Feed tab
+and press {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} to see the new Event Feed tab
 
-![Stroom UI Create Feed - New Feed Tab](../resources/UI-FeedProcessing-01.png "Stroom UI Create Feed - New feed tab")
+{{< screenshot "HOWTOs/UI-FeedProcessing-01.png" >}}Stroom UI Create Feed - New feed tab{{< /screenshot >}}
 
 and it's corresponding reference in the `Explorer` display.
 
@@ -93,24 +95,24 @@ In our example, we will set the above to
  * Context Encoding - We leave at the default of *UTF-8* as there are no Context Events for this Feed
  * Retention Period - We leave at *Forever* was we do not want to delete any collected BlueCoat event data.
 
-![Stroom UI Create Feed - New Feed Tab Configuration](../resources/UI-FeedProcessing-02.png "Stroom UI Create Feed - New feed tab configuration")
+{{< screenshot "HOWTOs/UI-FeedProcessing-02.png" >}}Stroom UI Create Feed - New feed tab configuration{{< /screenshot >}}
 
 One should note that the `Feed` tab as been marked as having unsaved changes. This is indicated by the asterisk
-character `*` between the _Feed_ icon ![Feed](../resources/icons/feed.png "Feed") and the name of the feed **BlueCoat-Proxy-V1.0-EVENTS**.
-We can save the changes to our feed by pressing the _Save_ icon ![Save](../resources/icons/save.png "Save") in
+character `*` between the _Feed_ icon {{< screenshot "HOWTOs/icons/feed.png" >}}Feed{{< /screenshot >}} and the name of the feed **BlueCoat-Proxy-V1.0-EVENTS**.
+We can save the changes to our feed by pressing the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} in
 the top left of the **BlueCoat-Proxy-V1.0-EVENTS** tab. At this point one should notice two things, the first is that the asterisk
-has disappeared from the `Feed` tab and the the second is that the _Save_ icon ![Save](../resources/icons/save.png "Save") is now _ghosted_ - ![ghostedSave](../resources/icons/ghostedSave.png "Ghosted Save").
+has disappeared from the `Feed` tab and the the second is that the _Save_ icon {{< screenshot "HOWTOs/icons/ghostedSave.png" >}}Ghosted Save{{< /screenshot >}}.
 
-![Stroom UI Create Feed - New Feed Tab Saved](../resources/UI-FeedProcessing-03.png "Stroom UI Create Feed - New feed tab saved")
+{{< screenshot "HOWTOs/UI-FeedProcessing-03.png" >}}Stroom UI Create Feed - New feed tab saved{{< /screenshot >}}
 
 ### Create the Text Converter
 
 We now create the Text Converter for this `Feed` in a similar fashion to the `Event Feed`.
-We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ to bring up the `New Item` selection sub-menu. As we are creating a Text Converter, select the ![Stroom UI textConverterItem](../resources/icons/textConverterItem.png "Stroom UI TextConverterItem") item to have the `New Text Converter` configuration window.
+We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ to bring up the `New Item` selection sub-menu. As we are creating a Text Converter, select the {{< screenshot "HOWTOs/icons/textConverterItem.png" >}}Stroom UI TextConverterItem{{< /screenshot >}} item to have the `New Text Converter` configuration window.
 
-Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") which results in the creation of the Text Converter tab
+Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} which results in the creation of the Text Converter tab
 
-![Stroom UI Create Feed - New TextConverter Tab](../resources/UI-FeedProcessing-04.png "Stroom UI Create Feed - New TextConverter tab")
+{{< screenshot "HOWTOs/UI-FeedProcessing-04.png" >}}Stroom UI Create Feed - New TextConverter tab{{< /screenshot >}}
 
 and it's corresponding reference in the `Explorer` display.
 
@@ -119,16 +121,16 @@ We set the configuration for this `Text Converter` to be
  * Description - *Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format (ELFF)*
  * Converter Type - We set to *Data Splitter* was we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
  
-Again, press the _Save_ icon ![Save](../resources/icons/save.png "Save") to save the configuration items.
+Again, press the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} to save the configuration items.
 
 ### Create the XSLT Translation
 
 We now create the XSLT translation for this `Feed` in a similar fashion to the `Event Feed` or `Text Converter`.
-We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ to bring up the `New Item` selection sub-menu. As we are creating a XSLT Translation, select the ![Stroom UI xsltItem](../resources/icons/xsltItem.png "Stroom UI xsltItem") item to have the `New XSLT` configuration window.
+We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ to bring up the `New Item` selection sub-menu. As we are creating a XSLT Translation, select the {{< screenshot "HOWTOs/icons/xsltItem.png" >}}Stroom UI xsltItem{{< /screenshot >}} item to have the `New XSLT` configuration window.
 
-Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") which results in the creation of the XSLT Translation tab
+Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} which results in the creation of the XSLT Translation tab
 
-![Stroom UI Create Feed - New Translation Tab](../resources/UI-FeedProcessing-05.png "Stroom UI Create Feed - New Translation tab")
+{{< screenshot "HOWTOs/UI-FeedProcessing-05.png" >}}Stroom UI Create Feed - New Translation tab{{< /screenshot >}}
 
 and it's corresponding reference in the `Explorer` display.
 
@@ -136,16 +138,16 @@ We set the configuration for this `XSLT Translation` to be
 
  * Description - *Transform simple XML of BlueCoat Proxy log data into Stroom Event Logging XML form*
 
-Again, press the _Save_ icon ![Save](../resources/icons/save.png "Save") to save the configuration items.
+Again, press the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} to save the configuration items.
 
 ### Create the Pipeline
 
 We now create the Pipeline for this `Feed` in a similar fashion to the `Event Feed`, `Text Converter` or `XSLT Translation`.
-We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ to bring up the `New Item` selection sub-menu. As we are creating a Pipeline, select the ![Stroom UI pipeLineItem](../resources/icons/pipeLineItem.png "Stroom UI pipeLineItem") item to have the `New Pipeline` configuration window.
+We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ to bring up the `New Item` selection sub-menu. As we are creating a Pipeline, select the {{< screenshot "HOWTOs/icons/pipeLineItem.png" >}}Stroom UI pipeLineItem{{< /screenshot >}} item to have the `New Pipeline` configuration window.
 
-Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") which results in the creation of the Pipeline tab
+Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} which results in the creation of the Pipeline tab
 
-![Stroom UI Create Feed - New Pipeline Tab](../resources/UI-FeedProcessing-06.png "Stroom UI Create Feed - New Pipeline tab")
+{{< screenshot "HOWTOs/UI-FeedProcessing-06.png" >}}Stroom UI Create Feed - New Pipeline tab{{< /screenshot >}}
 
 and it's corresponding reference in the `Explorer` display.
 
@@ -161,26 +163,26 @@ We do this by selecting the `Structure` hyper-link of the **BlueCoat-Proxy-V1.0-
 
 At this we see the `Pipeline Structure` configuration tab
 
-![Stroom UI Create Feed - Pipeline Structure](../resources/UI-FeedProcessing-07.png "Stroom UI Create Feed - Pipeline Structure tab")
+{{< screenshot "HOWTOs/UI-FeedProcessing-07.png" >}}Stroom UI Create Feed - Pipeline Structure tab{{< /screenshot >}}
 
 As noted in the Assumptions at the start, we have loaded the **Template Pipeline** content pack, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
-We find a template by selecting the **Inherit From:** entry box labeled ![Stroom UI noneEntryBox](../resources/icons/noneEntryBox.png "Stroom UI NoneEntryBox") to reveal a **Choose Item** configuration item window.
+We find a template by selecting the **Inherit From:** entry box labeled {{< screenshot "HOWTOs/icons/noneEntryBox.png" >}}Stroom UI NoneEntryBox{{< /screenshot >}} to reveal a **Choose Item** configuration item window.
 
-![Stroom UI Create Feed - Pipeline Structure - Inherit](../resources/UI-FeedProcessing-08.png "Stroom UI Create Feed - Pipeline Structure tab - Inherit")
+{{< screenshot "HOWTOs/UI-FeedProcessing-08.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Inherit{{< /screenshot >}}
 
-Select the **Template Pipelines** folder by pressing the ![Stroom UI openFolder](../resources/icons/openFolder.png "Stroom UI Open Folder") icon to the left of the folder to reveal the choice of available templates.
+Select the **Template Pipelines** folder by pressing the {{< screenshot "HOWTOs/icons/openFolder.png" >}}Stroom UI Open Folder{{< /screenshot >}} icon to the left of the folder to reveal the choice of available templates.
 
 
-![Stroom UI Create Feed - Pipeline Structure - Templates](../resources/UI-FeedProcessing-09.png "Stroom UI Create Feed - Pipeline Structure tab - Templates")
+{{< screenshot "HOWTOs/UI-FeedProcessing-09.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Templates{{< /screenshot >}}
 
 For our BlueCoat feed we will select the `Event Data (Text)` template. This is done by moving the cursor to the relevant line and select via a _left click_
 
-![Stroom UI Create Feed - Pipeline Structure - Template Selection](../resources/UI-FeedProcessing-10.png "Stroom UI Create Feed - Pipeline Structure tab - Template Selection")
+{{< screenshot "HOWTOs/UI-FeedProcessing-10.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Template Selection{{< /screenshot >}}
 
-then pressing ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") to see the inherited pipeline structure
+then pressing {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} to see the inherited pipeline structure
 
-![Stroom UI Create Feed - Pipeline Structure - Template Selected](../resources/UI-FeedProcessing-11.png "Stroom UI Create Feed - Pipeline Structure tab - Template Selected")
+{{< screenshot "HOWTOs/UI-FeedProcessing-11.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Template Selected{{< /screenshot >}}
 
 #### Configure Pipeline Elements
 
@@ -195,48 +197,48 @@ We need to assign our BlueCoat-Proxy-V1.0-EVENTS Text Converter and XSLT Transla
 
 We do this by first selecting (_left click_) the *dsParser* element at which we see the _Property_ sub-window displayed
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser](../resources/UI-FeedProcessing-12.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser")
+{{< screenshot "HOWTOs/UI-FeedProcessing-12.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser{{< /screenshot >}}
 
 We then select (_left click_) the _textConverter_ **Property Name**
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser selected Property](../resources/UI-FeedProcessing-13.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser selected Property")
+{{< screenshot "HOWTOs/UI-FeedProcessing-13.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser selected Property{{< /screenshot >}}
 
-then press the `Edit Property` button ![Stroom UI EditProperty](../resources/icons/edit.png "Stroom UI EditButton").  At this, the `Edit Property` configuration window is displayed.
+then press the `Edit Property` button {{< screenshot "HOWTOs/icons/edit.png" >}}Stroom UI EditButton{{< /screenshot >}}.  At this, the `Edit Property` configuration window is displayed.
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser edit Property](../resources/UI-FeedProcessing-14.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property")
+{{< screenshot "HOWTOs/UI-FeedProcessing-14.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property{{< /screenshot >}}
 
-We select the **Value:** entry box labeled ![Stroom UI noneEntryBox](../resources/icons/noneEntryBox.png "Stroom UI NoneEntryBox") to reveal a **Choose Item** configuration item window.
+We select the **Value:** entry box labeled {{< screenshot "HOWTOs/icons/noneEntryBox.png" >}}Stroom UI NoneEntryBox{{< /screenshot >}} to reveal a **Choose Item** configuration item window.
 
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser edit Property choose item](../resources/UI-FeedProcessing-15.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item")
+{{< screenshot "HOWTOs/UI-FeedProcessing-15.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item{{< /screenshot >}}
 
 We traverse the folder structure until we can select the **BlueCoat-Proxy-V1.0-EVENTS** `Text Converter` as per
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser edit Property chosen item](../resources/UI-FeedProcessing-16.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property chosen item")
+{{< screenshot "HOWTOs/UI-FeedProcessing-16.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property chosen item{{< /screenshot >}}
 
-and then press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") to see that the Property **Value:** has been selected.
+and then press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} to see that the Property **Value:** has been selected.
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser set Property chosen item](../resources/UI-FeedProcessing-17.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property chosen item")
+{{< screenshot "HOWTOs/UI-FeedProcessing-17.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property chosen item{{< /screenshot >}}
 
-and pressing the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button of the `Edit Property` configuration window results in the pipelines `dsParser` property being set. 
+and pressing the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button of the `Edit Property` configuration window results in the pipelines `dsParser` property being set. 
 
-![Stroom UI Create Feed - Pipeline Structure - dsParser set Property](../resources/UI-FeedProcessing-18.png "Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property")
+{{< screenshot "HOWTOs/UI-FeedProcessing-18.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property{{< /screenshot >}}
 
 ##### XSLT Translation Configuration
 
 We do this by first selecting (_left click_) the *translationFilter* element at which we see the _Property_ sub-window displayed
 
-![Stroom UI Create Feed - Pipeline Structure - translationFilter](../resources/UI-FeedProcessing-19.png "Stroom UI Create Feed - Pipeline Structure tab - translationFilter")
+{{< screenshot "HOWTOs/UI-FeedProcessing-19.png" >}}Stroom UI Create Feed - Pipeline Structure tab - translationFilter{{< /screenshot >}}
 
 We then select (_left click_) the _xslt_ **Property Name**
 
-![Stroom UI Create Feed - Pipeline Structure - xslt selected Property](../resources/UI-FeedProcessing-20.png "Stroom UI Create Feed - Pipeline Structure tab - xslt selected Property")
+{{< screenshot "HOWTOs/UI-FeedProcessing-20.png" >}}Stroom UI Create Feed - Pipeline Structure tab - xslt selected Property{{< /screenshot >}}
 
 and following the same steps as for the Text Converter property selection, we assign the **BlueCoat-Proxy-V1.0-EVENTS** `XSLT Translation` to the `xslt` property.
 
-![Stroom UI Create Feed - Pipeline Structure - xslt selected Property](../resources/UI-FeedProcessing-21.png "Stroom UI Create Feed - Pipeline Structure tab - xslt selected Property")
+{{< screenshot "HOWTOs/UI-FeedProcessing-21.png" >}}Stroom UI Create Feed - Pipeline Structure tab - xslt selected Property{{< /screenshot >}}
 
-At this point, we save these changes by pressing the _Save_ icon ![Save](../resources/icons/save.png "Save").
+At this point, we save these changes by pressing the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}}.
 
 ## Authoring the Translation
 
@@ -244,32 +246,34 @@ We are now ready to author the translation. Close all tabs except for the **Welc
 
 On the **BlueCoat-Proxy-V1.0-EVENTS** `Feed` tab, select the **Data** hyper-link to be presented with the **Data** pane of our tab.
 
-![Stroom UI Create Feed - Translation - Data Pane](../resources/UI-FeedProcessing-22.png "Stroom UI Create Feed - Translation - Data Pane")
+{{< screenshot "HOWTOs/UI-FeedProcessing-22.png" >}}Stroom UI Create Feed - Translation - Data Pane{{< /screenshot >}}
 
-Although we can post our test data set to this feed, we will manually upload it via the **Data** pane. To do this we press the Upload button ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") in the top **Data** pane to display the `Upload` configuration window
+Although we can post our test data set to this feed, we will manually upload it via the **Data** pane. To do this we press the Upload button {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} in the top **Data** pane to display the `Upload` configuration window
 
 
-![Stroom UI Create Feed - Translation - Data Pane Upload](../resources/UI-FeedProcessing-23.png "Stroom UI Create Feed - Translation - Data Pane Upload")
+{{< screenshot "HOWTOs/UI-FeedProcessing-23.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload{{< /screenshot >}}
 
 In a _Production_ situation, where we would post log files to Stroom, we would include certain HTTP Header variables that, as we shall see, will be used
 as part of the translation. These header variables typically provide situational awareness of the source system sending the events.
 
 For our purposes we set the following HTTP Header variables
 
-    Environment:Development
-    LogFileName:sampleBluecoat.log
-    MyHost:"somenode.strmdev00.org"
-    MyIPaddress:"192.168.2.220 192.168.122.1"
-    MyMeta:"FQDN:somenode.strmdev00.org\nipaddress:192.168.2.220\nipaddress_eth0:192.168.2.220\nipaddress_lo:127.0.0.1\nipaddress_virbr0:192.168.122.1\n"
-    MyNameServer:"gateway.strmdev00.org."
-    MyTZ:+1000
-    Shar256:056f0d196ffb4bc6c5f3898962f1708886bb48e2f20a81fb93f561f4d16cb2aa
-    System:Site http://log-sharing.dreamhosters.com/ Bluecoat Logs
-    Version:V1.0
+```text
+Environment:Development
+LogFileName:sampleBluecoat.log
+MyHost:"somenode.strmdev00.org"
+MyIPaddress:"192.168.2.220 192.168.122.1"
+MyMeta:"FQDN:somenode.strmdev00.org\nipaddress:192.168.2.220\nipaddress_eth0:192.168.2.220\nipaddress_lo:127.0.0.1\nipaddress_virbr0:192.168.122.1\n"
+MyNameServer:"gateway.strmdev00.org."
+MyTZ:+1000
+Shar256:056f0d196ffb4bc6c5f3898962f1708886bb48e2f20a81fb93f561f4d16cb2aa
+System:Site http://log-sharing.dreamhosters.com/ Bluecoat Logs
+Version:V1.0
+```
 
 These are set by entering them into the **Meta Data:** entry box.
 
-![Stroom UI Create Feed - Translation - Data Pane Upload Metadata](../resources/UI-FeedProcessing-24b.png "Stroom UI Create Feed - Translation - Data Pane Upload Metadata")
+{{< screenshot "HOWTOs/UI-FeedProcessing-24b.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload Metadata{{< /screenshot >}}
 
 Having done this we select a **Stream Type:** of `Raw Events`
 
@@ -277,23 +281,23 @@ We leave the **Effective:** entry box empty as this stream of raw event logs doe
 
 And we choose our file `sampleBluecoat.log`, by clicking on the `Browse` button in the **File:** entry box, which brings up the brower's standard file upload selection window. Having selected our file, we see
 
-![Stroom UI Create Feed - Translation - Data Pane Upload Complete](../resources/UI-FeedProcessing-24.png "Stroom UI Create Feed - Translation - Data Pane Upload Complete")
+{{< screenshot "HOWTOs/UI-FeedProcessing-24.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload Complete{{< /screenshot >}}
 
-On pressing ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") and `Alert` pop-up window is presented indicating the file was uploaded
+On pressing {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} and `Alert` pop-up window is presented indicating the file was uploaded
 
-![Stroom UI Create Feed - Translation - Data Pane Upload Complete Verify](../resources/UI-FeedProcessing-25.png "Stroom UI Create Feed - Translation - Data Pane Upload Complete Verify")
+{{< screenshot "HOWTOs/UI-FeedProcessing-25.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload Complete Verify{{< /screenshot >}}
 
-Again press ![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton") to show that the data has been uploaded as a Stream into the **BlueCoat-Proxy-V1.0-EVENTS** Event Feed.
+Again press {{< screenshot "HOWTOs/icons/buttonClose.png" >}}Stroom UI CloseButton{{< /screenshot >}} to show that the data has been uploaded as a Stream into the **BlueCoat-Proxy-V1.0-EVENTS** Event Feed.
 
-![Stroom UI Create Feed - Translation - Data Pane Show Batch](../resources/UI-FeedProcessing-26.png "Stroom UI Create Feed - Translation - Data Pane Show Batch")
+{{< screenshot "HOWTOs/UI-FeedProcessing-26.png" >}}Stroom UI Create Feed - Translation - Data Pane Show Batch{{< /screenshot >}}
 
 The top pane holds a table of the latest streams that pertain to the feed. We see the one item which is the stream we uploaded. If we select it, we see that a stream summary is also displayed in the centre pane (which shows details of the _specific_ selected feed and associated streams. We also see that the bottom pane displays the data associated with the selected item. In this case, the first lines of content from the BlueCoat sample log file.
 
-![Stroom UI Create Feed - Translation - Data Pane Show Data](../resources/UI-FeedProcessing-27.png "Stroom UI Create Feed - Translation - Data Pane Show Data")
+{{< screenshot "HOWTOs/UI-FeedProcessing-27.png" >}}Stroom UI Create Feed - Translation - Data Pane Show Data{{< /screenshot >}}
 
 If we were to select the **Meta** hyper-link of the lower pane, one would see the metadata Stroom records for this Stream of data.
 
-![Stroom UI Create Feed - Translation - MetaData Pane Show Data](../resources/UI-FeedProcessing-28.png "Stroom UI Create Feed - Translation - MetaData Pane Show Data")
+{{< screenshot "HOWTOs/UI-FeedProcessing-28.png" >}}Stroom UI Create Feed - Translation - MetaData Pane Show Data{{< /screenshot >}}
 
 You should see all the HTTP variables we set as part of the Upload step as well as some that Stroom has automatically set.
 
@@ -303,20 +307,20 @@ We now switch back to the **Data** hyper-link before we start to develop the act
 
 We will now author the two translation components of the pipeline, the data splitter that will transform our lines of BlueCoat data into a simple xml format and then the XSLT translation that will take this simple xml format and translate it into appropriate Stroom Event Logging XML form.
 
-We start by ensuring our `Raw Events` Data stream is selected and we press the `Enter Stepping Mode` ![Stroom UI enterStepping Mode](../resources/icons/enterStepping.png "Stroom UI Enter Stepping") button on the lower right hand side of the bottom `Stream Data` pane.
+We start by ensuring our `Raw Events` Data stream is selected and we press the `Enter Stepping Mode` {{< screenshot "HOWTOs/icons/enterStepping.png" >}}Stroom UI Enter Stepping{{< /screenshot >}} button on the lower right hand side of the bottom `Stream Data` pane.
 
 You will be prompted to select a pipeline to step with. Choose the `BlueCoat-Proxy-V1.0-EVENTS` pipeline
 
-![Stroom UI Create Feed - Translation - Stepping Choose Pipeline](../resources/UI-FeedProcessing-29.png "Stroom UI Create Feed - Translation - Stepping Choose Pipeline")
+{{< screenshot "HOWTOs/UI-FeedProcessing-29.png" >}}Stroom UI Create Feed - Translation - Stepping Choose Pipeline{{< /screenshot >}}
 
-then press ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton").
+then press {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}.
 
 
 ### Stepping the Pipeline - Source
 
 You will be presented with the `Source` element of the pipeline that shows our selected stream's raw data.
 
-![Stroom UI Create Feed - Translation - Stepping Source Element](../resources/UI-FeedProcessing-30.png "Stroom UI Create Feed - Translation - Stepping Source Element")
+{{< screenshot "HOWTOs/UI-FeedProcessing-30.png" >}}Stroom UI Create Feed - Translation - Stepping Source Element{{< /screenshot >}}
 
 We see two panes here.
 
@@ -328,7 +332,7 @@ The bottom pane displays the first page (up to 100 lines) of data along with a s
 
 We now select the `dsParser` pipeline element that results in the window below
 
-![Stroom UI Create Feed - Translation - Stepping dsParser Element](../resources/UI-FeedProcessing-31.png "Stroom UI Create Feed - Translation - Stepping dsParser Element")
+{{< screenshot "HOWTOs/UI-FeedProcessing-31.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser Element{{< /screenshot >}}
 
 This window is made up of four panes.
 
@@ -402,7 +406,7 @@ For the purpose of this HOWTO, the Datasplitter appears below. The author believ
 
 It should be entered into the Text Converter's editing pane as per
 
-![Stroom UI Create Feed - Translation - Stepping dsParser textConverter code](../resources/UI-FeedProcessing-32.png "Stroom UI Create Feed - Translation - Stepping dsParser textConverter code")
+{{< screenshot "HOWTOs/UI-FeedProcessing-32.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter code{{< /screenshot >}}
 
 A copy of this DataSplitter can be found [here](BlueCoat.ds "BlueCoat dataspliter").
 
@@ -410,15 +414,15 @@ As mentioned earlier, to _step_ the translation, one uses the green  _Stepping A
 
 The actions are
 
-   * ![stepFirst](../resources/icons/stepFirst.png "Step First") - progress the transformation to the first line of the translation input
-   * ![stepBack](../resources/icons/stepBack.png "Step Back") - progress the transformation one step backward
-   * ![stepForward](../resources/icons/stepForward.png "Step Forward") - progress the transformation one step forward
-   * ![stepLast](../resources/icons/stepLast.png "Step Last") - progress the transformation to the end of the translation input
-   * ![stepRefresh](../resources/icons/stepRefresh.png "Refresh Current Step") - refresh the transformation based on the current translation input
+   * {{< screenshot "HOWTOs/icons/stepFirst.png" >}}Step First{{< /screenshot >}} - progress the transformation to the first line of the translation input
+   * {{< screenshot "HOWTOs/icons/stepBack.png" >}}Step Back{{< /screenshot >}} - progress the transformation one step backward
+   * {{< screenshot "HOWTOs/icons/stepForward.png" >}}Step Forward{{< /screenshot >}} - progress the transformation one step forward
+   * {{< screenshot "HOWTOs/icons/stepLast.png" >}}Step Last{{< /screenshot >}} - progress the transformation to the end of the translation input
+   * {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Refresh Current Step{{< /screenshot >}} - refresh the transformation based on the current translation input
 
-So, if one was to press the ![stepForward](../resources/icons/stepForward.png "Step Forward") _stepping action_ we would be presented with
+So, if one was to press the {{< screenshot "HOWTOs/icons/stepForward.png" >}}Step Forward{{< /screenshot >}} _stepping action_ we would be presented with
 
-![Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1](../resources/UI-FeedProcessing-33.png "Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1")
+{{< screenshot "HOWTOs/UI-FeedProcessing-33.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1{{< /screenshot >}}
 
 
 We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and it's _value_ attribute of _SGOS 3.2.4.28_. The definition of the **record** structure can be found in the **System/XML Schemas/records** folder.
@@ -432,14 +436,14 @@ This is the result of the code in our editor
 </regex>
 ```
 
-If one presses the ![stepForward](../resources/icons/stepForward.png "Step Forward") _stepping action_ again, we see that we have moved to the second line of the input file with the resultant output of a **data** element with the _name_ attribute of _bc_version_ and it's _value_ attribute of _1.0_.
+If one presses the {{< screenshot "HOWTOs/icons/stepForward.png" >}}Step Forward{{< /screenshot >}} _stepping action_ again, we see that we have moved to the second line of the input file with the resultant output of a **data** element with the _name_ attribute of _bc_version_ and it's _value_ attribute of _1.0_.
 
-![Stroom UI Create Feed - Translation - Stepping dsParser textConverter 2](../resources/UI-FeedProcessing-34.png "Stroom UI Create Feed - Translation - Stepping dsParser textConverter 2")
+{{< screenshot "HOWTOs/UI-FeedProcessing-34.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 2{{< /screenshot >}}
 
 Stepping forward once more causes the translation to ignore the Date comment line, define a Data Splitter $headings variable from the Fields comment line and transform the first line of actual event data.
 
 
-![Stroom UI Create Feed - Translation - Stepping dsParser textConverter 3](../resources/UI-FeedProcessing-35.png "Stroom UI Create Feed - Translation - Stepping dsParser textConverter 3")
+{{< screenshot "HOWTOs/UI-FeedProcessing-35.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 3{{< /screenshot >}}
 
 We see that a `<record>` element has been formed with multiple key value pair `<data>` elements where the _name_ attribute is the key and the _value_ attribute the value. You will note that the keys have been taken from the Fields comment line which where placed in the $headings variable.
 
@@ -449,7 +453,9 @@ You should also take note that the _stepping indicator_ has been incrementing th
 
 The general form of this _indicator_ is 
 
-    '[' streamId ':' subStreamId ':' recordNo ']'
+```text
+'[' streamId ':' subStreamId ':' recordNo ']'
+```
 
 where
 
@@ -461,28 +467,28 @@ One can double click on either the **subStreamId** or **recordNo** entry and ent
 
 Hovering the mouse over the _stepping indicator_ will change the cursor to a `hand pointer`. Selecting (by a left click) the `recordNo` will allow you to edit it's value (and the other values for that matter). You will see the display change from
 
-![Stroom UI Create Feed - Translation - Stepping Indicator 1](../resources/UI-FeedProcessing-36.png "Stroom UI Create Feed - Translation - Stepping Indicator 1")
+{{< screenshot "HOWTOs/UI-FeedProcessing-36.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 1{{< /screenshot >}}
 to
-![Stroom UI Create Feed - Translation - Stepping Indicator 2](../resources/UI-FeedProcessing-37.png "Stroom UI Create Feed - Translation - Stepping Indicator 2")
+{{< screenshot "HOWTOs/UI-FeedProcessing-37.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 2{{< /screenshot >}}
 
-If we change the record number from __3__ to __12__ then either press Enter or press the ![stepRefresh](../resources/icons/stepRefresh.png "Refresh Current Step") action we see
+If we change the record number from __3__ to __12__ then either press Enter or press the {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Refresh Current Step{{< /screenshot >}} action we see
 
 
-![Stroom UI Create Feed - Translation - Stepping Indicator 3](../resources/UI-FeedProcessing-38.png "Stroom UI Create Feed - Translation - Stepping Indicator 3")
+{{< screenshot "HOWTOs/UI-FeedProcessing-38.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 3{{< /screenshot >}}
 
 and note that a new record has been processed in the _input_ and _output_ panes. Further, if one steps back to the `Source` element of the pipeline to view the raw source file, we see that the highlighted __current__ line is the 12th line of processed data. It is the 10th actual bluecoat event, but remember the #Software, #Version lines are considered as processed data  (2+10 = 12). Also noted that the #Date and #Fields lines are not considered processed data, and hence do not contribute to the **recordNo** value.
 
-![Stroom UI Create Feed - Translation - Stepping Indicator 4](../resources/UI-FeedProcessing-39.png "Stroom UI Create Feed - Translation - Stepping Indicator 4")
+{{< screenshot "HOWTOs/UI-FeedProcessing-39.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 4{{< /screenshot >}}
 
-If we select the `dsParser` pipeline element then press the ![stepLast](../resources/icons/stepLast.png "Step Last") action we see the `recordNo` jump to 31 which is the last processed line of our sample log file.
+If we select the `dsParser` pipeline element then press the {{< screenshot "HOWTOs/icons/stepLast.png" >}}Step Last{{< /screenshot >}} action we see the `recordNo` jump to 31 which is the last processed line of our sample log file.
 
-![Stroom UI Create Feed - Translation - Stepping Indicator 5](../resources/UI-FeedProcessing-40.png "Stroom UI Create Feed - Translation - Stepping Indicator 5")
+{{< screenshot "HOWTOs/UI-FeedProcessing-40.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 5{{< /screenshot >}}
 
 ### Stepping the Pipeline - translationFilter
 
 We now select the `translationFilter` pipeline element that results in 
 
-![Stroom UI Create Feed - Translation - Stepping translationFilter Element](../resources/UI-FeedProcessing-41.png "Stroom UI Create Feed - Translation - Stepping translationFilter Element")
+{{< screenshot "HOWTOs/UI-FeedProcessing-41.png" >}}Stroom UI Create Feed - Translation - Stepping translationFilter Element{{< /screenshot >}}
 
 As for the `dsParser`, this window is made up of four panes.
 
@@ -544,24 +550,24 @@ We will build the translation in steps. We enter an initial portion of our xslt 
 </xsl:stylesheet>
 ```
 
-After entering this translation and pressing the ![stepRefresh](../resources/icons/stepRefresh.png "Refresh Current Step") action shows the display
+After entering this translation and pressing the {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Refresh Current Step{{< /screenshot >}} action shows the display
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 1](../resources/UI-FeedProcessing-42.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 1")
+{{< screenshot "HOWTOs/UI-FeedProcessing-42.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 1{{< /screenshot >}}
 
-Note that this is the 31st record, so if we were to jump to the first record using the ![stepFirst](../resources/icons/stepFirst.png "Step First") action, we see that the _input_ and _output_ change appropriately.
+Note that this is the 31st record, so if we were to jump to the first record using the {{< screenshot "HOWTOs/icons/stepFirst.png" >}}Step First{{< /screenshot >}} action, we see that the _input_ and _output_ change appropriately.
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 2](../resources/UI-FeedProcessing-43.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 2")
+{{< screenshot "HOWTOs/UI-FeedProcessing-43.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 2{{< /screenshot >}}
 
 You will note that there is no `Event` element in the _output_ pane as the _record_ template in our xslt translation above is only storing the input's key value (_bc_software's value).
 
-Further note that the **BlueCoat_Proxy-V1.0-EVENTS** tab has a _star_ in front of it and also the _Save_ icon ![Save](../resources/icons/save.png "Save") is highlighted. This indicates that a component of the pipeline needs to be saved. In this case, the XSLT translation.
+Further note that the **BlueCoat_Proxy-V1.0-EVENTS** tab has a _star_ in front of it and also the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} is highlighted. This indicates that a component of the pipeline needs to be saved. In this case, the XSLT translation.
 
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 3](../resources/UI-FeedProcessing-44.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 3")
+{{< screenshot "HOWTOs/UI-FeedProcessing-44.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 3{{< /screenshot >}}
 
 By pressing the _Save_ icon, you will save the XSLT translation as it currently stands and both the _star_ will be removed from the tab and the _Save_ icon will no longer be highlighted.
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 4](../resources/UI-FeedProcessing-45.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 4")
+{{< screenshot "HOWTOs/UI-FeedProcessing-45.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 4{{< /screenshot >}}
 
 We next extend out translation by authoring a **event_source** template to form an appropriate Stroom Event Logging `EventSource` element structure. Thus our translation now is
 
@@ -703,9 +709,9 @@ We next extend out translation by authoring a **event_source** template to form 
 
 Stepping to the 3 record (the first real data record in our sample log) will reveal that our _output_ pane has gained an `EventSource` element.
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 5](../resources/UI-FeedProcessing-46.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 5")
+{{< screenshot "HOWTOs/UI-FeedProcessing-46.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 5{{< /screenshot >}}
 
-Note also, that our _Save_ icon ![Save](../resources/icons/save.png "Save") is also highlighted, so we should at some point save the extensions to our translation.
+Note also, that our _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} is also highlighted, so we should at some point save the extensions to our translation.
 
 The complete translation now follows. A copy of the XSLT translation can be found [here](BlueCoat.xslt "BlueCoat XSLT Translation").
 
@@ -1246,94 +1252,95 @@ for the given input
 </records>
 ```
 
-Do not forget to Save ![Save](../resources/icons/save.png "Save") the translation as we are complete.
+Do not forget to Save {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} the translation as we are complete.
 
 #### Schema Validation
-One last point, validating the use of the Stroom Event Logging Schema is performed in the `schemaFilter` component of the pipeline. Had our translation resulted in a malformed Event, this pipeline component displays any errors. In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd`. If one selects the `schemaFilter` component and then Refresh ![stepRefresh](../resources/icons/stepRefresh.png "Refresh Current Step") the current step, we will see that
 
-   * there is an error as indicated by a square **Red** box ![errorIndicator](../resources/icons/errorIndicator.png "Error Indicator") in the top right hand corner
-   * there is a **Red** rectangle line indicator mark ![errorLine](../resources/icons/errorLine.png "Error Line Indicator") on the right hand side in the display slide bar
-   * there is a **Red** error marker ![errorMarker](../resources/icons/errorMarker.png "Error Marker") on the left hand side
+One last point, validating the use of the Stroom Event Logging Schema is performed in the `schemaFilter` component of the pipeline. Had our translation resulted in a malformed Event, this pipeline component displays any errors. In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd`. If one selects the `schemaFilter` component and then Refresh {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Refresh Current Step{{< /screenshot >}} the current step, we will see that
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 6](../resources/UI-FeedProcessing-47.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 6")
+   * there is an error as indicated by a square **Red** box {{< screenshot "HOWTOs/icons/errorIndicator.png" >}}Error Indicator{{< /screenshot >}} in the top right hand corner
+   * there is a **Red** rectangle line indicator mark {{< screenshot "HOWTOs/icons/errorLine.png" >}}Error Line Indicator{{< /screenshot >}} on the right hand side in the display slide bar
+   * there is a **Red** error marker {{< screenshot "HOWTOs/icons/errorMarker.png" >}}Error Marker{{< /screenshot >}} on the left hand side
 
-Hovering over the error marker ![errorMarker](../resources/icons/errorMarker.png "Error Marker") on the left hand side will bring a pop-up describing the error.
+{{< screenshot "HOWTOs/UI-FeedProcessing-47.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 6{{< /screenshot >}}
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 7](../resources/UI-FeedProcessing-48.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 7")
+Hovering over the error marker {{< screenshot "HOWTOs/icons/errorMarker.png" >}}Error Marker{{< /screenshot >}} on the left hand side will bring a pop-up describing the error.
+
+{{< screenshot "HOWTOs/UI-FeedProcessing-48.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 7{{< /screenshot >}}
 
 At this point, close the **BlueCoat-Proxy-V1.0-EVENTS** stepping tab, acknowledging you do not want to save your errant changes
 
-![Stroom UI Create Feed - Translation - Stepping XSLT Translation 8](../resources/UI-FeedProcessing-49.png "Stroom UI Create Feed - Translation - Stepping XSLT Translation 8")
+{{< screenshot "HOWTOs/UI-FeedProcessing-49.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 8{{< /screenshot >}}
 
-by pressing the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button.
+by pressing the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button.
 
-# Automated Processing
+## Automated Processing
 
 Now that we have authored our translation, we want to enable Stroom to automatically process streams of raw event log data as it arrives. We do this by configuring a `Processor` in the **BlueCoat-Proxy-V1.0-EVENTS** `pipeline`.
 
-## Adding a Pipeline Processor
+### Adding a Pipeline Processor
 
 Open the **BlueCoat-Proxy-V1.0-EVENTS** `pipeline` by selecting it (_double left click_) in the `Explorer` display to show
 
-![Stroom UI Enable Processing](../resources/UI-FeedProcessing-50.png "Stroom UI Enable Processing")
+{{< screenshot "HOWTOs/UI-FeedProcessing-50.png" >}}Stroom UI Enable Processing{{< /screenshot >}}
 
 To configure a Processor we select the `Processors` hyper-link of the **BlueCoat-Proxy-V1.0-EVENTS* `Pipeline` tab to reveal
 
-![Stroom UI Enable Processing - Processors table](../resources/UI-FeedProcessing-51.png "Stroom UI Enable Processing - Processors table")
+{{< screenshot "HOWTOs/UI-FeedProcessing-51.png" >}}Stroom UI Enable Processing - Processors table{{< /screenshot >}}
 
-We add a Processor by pressing the add processor button ![Add Processor](../resources/icons/add.png "Add Processor") in the top left hand corner. At this you will be presented with an `Add Filter` configuration window.
+We add a Processor by pressing the add processor button {{< screenshot "HOWTOs/icons/add.png" >}}Add Processor{{< /screenshot >}} in the top left hand corner. At this you will be presented with an `Add Filter` configuration window.
 
-![Stroom UI Enable Processing - Add filter 1](../resources/UI-FeedProcessing-52.png "Stroom UI Enable Processing - Add Filter 1")
+{{< screenshot "HOWTOs/UI-FeedProcessing-52.png" >}}Stroom UI Enable Processing - Add Filter 1{{< /screenshot >}}
 
 As we wish to create a Processor that will automatically process all **BlueCoat-Proxy-V1.0-EVENTS** feed `Raw Events` we will select the BlueCoat-Proxy-V1.0-EVENTS `Feed` and Raw Event `Stream Type`.
 
-To select the feed, we press the `Edit` button ![Stroom UI Edit Feed Filter](../resources/icons/edit.png "Stroom UI EditButton").  At this, the `Choose Feeds To Include And Exclude` configuration window is displayed.
+To select the feed, we press the `Edit` button {{< screenshot "HOWTOs/icons/edit.png" >}}Stroom UI EditButton{{< /screenshot >}}.  At this, the `Choose Feeds To Include And Exclude` configuration window is displayed.
 
-![Stroom UI Enable Processing - Add filter 2](../resources/UI-FeedProcessing-53.png "Stroom UI Enable Processing - Add Filter 2")
+{{< screenshot "HOWTOs/UI-FeedProcessing-53.png" >}}Stroom UI Enable Processing - Add Filter 2{{< /screenshot >}}
 
-As we need to `Include` the BlueCoat-Proxy-V1.0-EVENTS `Feed` in our selection, press the ![Add](../resources/icons/add.png "Add") button in the `Include:` pane of the window to be presented with a `Choose Item` configuration window.
+As we need to `Include` the BlueCoat-Proxy-V1.0-EVENTS `Feed` in our selection, press the {{< screenshot "HOWTOs/icons/add.png" >}}Add{{< /screenshot >}} button in the `Include:` pane of the window to be presented with a `Choose Item` configuration window.
 
-![Stroom UI Enable Processing - Add filter 3](../resources/UI-FeedProcessing-54.png "Stroom UI Enable Processing - Add Filter 3")
+{{< screenshot "HOWTOs/UI-FeedProcessing-54.png" >}}Stroom UI Enable Processing - Add Filter 3{{< /screenshot >}}
 
 Navigate to the **Event Sources/Proxy/BlueCoat** folder and select the **BlueCoat-Proxy-V1.0-EVENTS** `Feed`
 
-![Stroom UI Enable Processing - Add filter 4](../resources/UI-FeedProcessing-55.png "Stroom UI Enable Processing - Add Filter 4")
+{{< screenshot "HOWTOs/UI-FeedProcessing-55.png" >}}Stroom UI Enable Processing - Add Filter 4{{< /screenshot >}}
 
-then press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button to select and see that the feed is included.
+then press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button to select and see that the feed is included.
 
-![Stroom UI Enable Processing - Add filter 5](../resources/UI-FeedProcessing-56.png "Stroom UI Enable Processing - Add Filter 5")
+{{< screenshot "HOWTOs/UI-FeedProcessing-56.png" >}}Stroom UI Enable Processing - Add Filter 5{{< /screenshot >}}
 
-Again press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button to close the `Choose Feeds To Include And Exclude` window to show that we have selected our feed in the `Feeds:` selection pane of the `Add Filter` configuration window.
+Again press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button to close the `Choose Feeds To Include And Exclude` window to show that we have selected our feed in the `Feeds:` selection pane of the `Add Filter` configuration window.
 
-![Stroom UI Enable Processing - Add filter 6](../resources/UI-FeedProcessing-57.png "Stroom UI Enable Processing - Add Filter 6")
+{{< screenshot "HOWTOs/UI-FeedProcessing-57.png" >}}Stroom UI Enable Processing - Add Filter 6{{< /screenshot >}}
 
-We now need to select our `Stream Type`. Press the ![Add](../resources/icons/add.png "Add") button in the `Stream Types:` pane of the window to be presented with a `Add Stream Type` window with a `Stream Type:` selection drop down.
+We now need to select our `Stream Type`. Press the {{< screenshot "HOWTOs/icons/add.png" >}}Add{{< /screenshot >}} button in the `Stream Types:` pane of the window to be presented with a `Add Stream Type` window with a `Stream Type:` selection drop down.
 
-![Stroom UI Enable Processing - Add filter 7](../resources/UI-FeedProcessing-58.png "Stroom UI Enable Processing - Add Filter 7")
+{{< screenshot "HOWTOs/UI-FeedProcessing-58.png" >}}Stroom UI Enable Processing - Add Filter 7{{< /screenshot >}}
 
 We select (_left click_) the drop down selection to display the types of Stream we can choose
 
-![Stroom UI Enable Processing - Add filter 8](../resources/UI-FeedProcessing-59.png "Stroom UI Enable Processing - Add Filter 8")
+{{< screenshot "HOWTOs/UI-FeedProcessing-59.png" >}}Stroom UI Enable Processing - Add Filter 8{{< /screenshot >}}
 
-and as we are selecting `Raw Events` we select that item then press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button at which we see that our `Add Filter` configuration window displays
+and as we are selecting `Raw Events` we select that item then press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button at which we see that our `Add Filter` configuration window displays
 
-![Stroom UI Enable Processing - Add filter 9](../resources/UI-FeedProcessing-60.png "Stroom UI Enable Processing - Add Filter 9").
+{{< screenshot "HOWTOs/UI-FeedProcessing-60.png" >}}Stroom UI Enable Processing - Add Filter 9{{< /screenshot >}}.
 
-As we have selected our filter items, press the ![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton") button to display our configured Processors.
+As we have selected our filter items, press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button to display our configured Processors.
 
-![Stroom UI Enable Processing - Configured Processors](../resources/UI-FeedProcessing-61.png "Stroom UI Enable Processing - Configured Processors").
+{{< screenshot "HOWTOs/UI-FeedProcessing-61.png" >}}Stroom UI Enable Processing - Configured Processors{{< /screenshot >}}.
 
 We now see our display is divided into two panes. The Processors table pane at the top and the specific Processor pane below. In our case, our filter selection has left the **BlueCoat-Proxy-V1.0-EVENTS** `Filter` selected in the Processors table
 
-![Stroom UI Enable Processing - Configured Processors - Selected Processor](../resources/UI-FeedProcessing-62.png "Stroom UI Enable Processing - Configured Processors - Selected Processor").
+{{< screenshot "HOWTOs/UI-FeedProcessing-62.png" >}}Stroom UI Enable Processing - Configured Processors - Selected Processor{{< /screenshot >}}.
 
 and the specific filter's details in the bottom pane.
 
-![Stroom UI Enable Processing - Configured Processors - Selected Processor Detail](../resources/UI-FeedProcessing-63.png "Stroom UI Enable Processing - Configured Processors - Selected Processor Detail").
+{{< screenshot "HOWTOs/UI-FeedProcessing-63.png" >}}Stroom UI Enable Processing - Configured Processors - Selected Processor Detail{{< /screenshot >}}.
 
 The column entries in the Processors Table pane describe
 
- * Pipeline - the name of the Processor pipeline (![Pipeline](../resources/icons/pipeline.png "Pipeline")) or Processor filter (![Filter](../resources/icons/filter.png "Filter"))
+ * Pipeline - the name of the Processor pipeline ({{< screenshot "HOWTOs/icons/filter.png" >}}Filter{{< /screenshot >}})
  * Tracker Ms - the last time the tracker updated
  * Tracker % - the percentage of available streams completed
  * Last Poll Age - the last time the processor found new streams to process
@@ -1346,17 +1353,17 @@ The column entries in the Processors Table pane describe
 
 We now need only `Enable` both the pipeline Processor and the pipeline Filter for automatic processing to occur. We do this by selecting both check boxes in the `Enabled` column.
 
-![Stroom UI Enable Processing - Configured Processors - Enable Processor](../resources/UI-FeedProcessing-64.png "Stroom UI Enable Processing - Configured Processors - Enable Processor")
+{{< screenshot "HOWTOs/UI-FeedProcessing-64.png" >}}Stroom UI Enable Processing - Configured Processors - Enable Processor{{< /screenshot >}}
 
-If we refresh our Processor table by pressing the ![Stroom UI Refresh](../resources/icons/refresh.png "Stroom UI RefreshButton") button in the top right hand corner, we will see that more table entries have been filled in.
+If we refresh our Processor table by pressing the {{< screenshot "HOWTOs/icons/refresh.png" >}}Stroom UI RefreshButton{{< /screenshot >}} button in the top right hand corner, we will see that more table entries have been filled in.
 
-![Stroom UI Enable Processing - Configured Processors - Enable Processor Result](../resources/UI-FeedProcessing-65.png "Stroom UI Enable Processing - Configured Processors - Enable Processor Result")
+{{< screenshot "HOWTOs/UI-FeedProcessing-65.png" >}}Stroom UI Enable Processing - Configured Processors - Enable Processor Result{{< /screenshot >}}
 
 We see that the tracker last updated at _2018-07-14T04:00:35.289Z_, the percentage complete is _100_ (we only had one stream after all), the last time active streams were checked for was _2.3_ minutes ago, there are no tasks running and that _1_ stream has completed. Note that the `Status` column is blank as we have an _open ended_ filter in that the processor will continue to select and process any new stream of `Raw Events` coming into the **BlueCoat-Proxy-V1.0-EVENTS** feed.
 
-If we return to the *BlueCoat-Proxy-V1.0-EVENTS** `Feed` tab, ensuring the **Data** hyper-link is selected and then refresh (![Refresh](../resources/icons/refresh.png "Refresh")) the top pane that holds the summary of the latest Feed streams
+If we return to the *BlueCoat-Proxy-V1.0-EVENTS** `Feed` tab, ensuring the **Data** hyper-link is selected and then refresh ({{< screenshot "HOWTOs/icons/refresh.png" >}}Refresh{{< /screenshot >}}) the top pane that holds the summary of the latest Feed streams
 
-![Stroom UI Enable Processing - Configured Processors - Feed Display](../resources/UI-FeedProcessing-66.png "Stroom UI Enable Processing - Configured Processors - Feed Display")
+{{< screenshot "HOWTOs/UI-FeedProcessing-66.png" >}}Stroom UI Enable Processing - Configured Processors - Feed Display{{< /screenshot >}}
 
 We see a new entry in the table. The columns display
 
@@ -1375,13 +1382,13 @@ We see a new entry in the table. The columns display
  * Retention - The retention period for this stream of data
 
 
-If we also refresh (![Refresh](../resources/icons/refresh.png "Refresh")) the specific feed pane (middle) we again see a new entry of the `Events` _Type_
+If we also refresh ({{< screenshot "HOWTOs/icons/refresh.png" >}}Refresh{{< /screenshot >}}) the specific feed pane (middle) we again see a new entry of the `Events` _Type_
 
-![Stroom UI Enable Processing - Configured Processors - Specific Feed Display](../resources/UI-FeedProcessing-67.png "Stroom UI Enable Processing - Configured Processors - Specific Feed Display")
+{{< screenshot "HOWTOs/UI-FeedProcessing-67.png" >}}Stroom UI Enable Processing - Configured Processors - Specific Feed Display{{< /screenshot >}}
 
 If we select (_left click_) on the `Events` _Type_ in either pane, we will see that the data pane displays the first event in the _GCHQ Stroom Event Logging XML Schema_ form.
 
-![Stroom UI Enable Processing - Configured Processors - Event Display](../resources/UI-FeedProcessing-68.png "Stroom UI Enable Processing - Configured Processors - Event Display")
+{{< screenshot "HOWTOs/UI-FeedProcessing-68.png" >}}Stroom UI Enable Processing - Configured Processors - Event Display{{< /screenshot >}}
 
 We can now send a file of BlueCoat Proxy logs to our Stroom instance from a Linux host using _curl_ command and see how Stroom will automatically processes the file. Use the command
 
@@ -1391,14 +1398,14 @@ curl -k --data-binary @sampleBluecoat.log https://stroomp.strmdev00.org/stroom/d
 
 After Stroom's Proxy aggregation has occurred, we will see that the new file posted via _curl_ has been loaded into Stroom as per
 
-![Stroom UI Enable Processing - Configured Processors - New Posted Stream](../resources/UI-FeedProcessing-69.png "Stroom UI Enable Processing - Configured Processors - New Posted Stream")
+{{< screenshot "HOWTOs/UI-FeedProcessing-69.png" >}}Stroom UI Enable Processing - Configured Processors - New Posted Stream{{< /screenshot >}}
 
 and this new _Raw Event_ stream is automatically processed a few seconds later as per
 
-![Stroom UI Enable Processing - Configured Processors - New Posted Stream Processed](../resources/UI-FeedProcessing-70.png "Stroom UI Enable Processing - Configured Processors - New Posted Stream Processed")
+{{< screenshot "HOWTOs/UI-FeedProcessing-70.png" >}}Stroom UI Enable Processing - Configured Processors - New Posted Stream Processed{{< /screenshot >}}
 
 We note that since we have used the same sample file again, the Stream sizes and record counts are the same.
 
 If we switch to the `Processors` tab of the pipeline we see that the Tracker timestamp has changed and the number of Streams processed has increased.
 
-![Stroom UI Enable Processing - Configured Processors - New Posted Stream Processors](../resources/UI-FeedProcessing-71.png "Stroom UI Enable Processing - Configured Processors - New Posted Stream Processors")
+{{< screenshot "HOWTOs/UI-FeedProcessing-71.png" >}}Stroom UI Enable Processing - Configured Processors - New Posted Stream Processors{{< /screenshot >}}

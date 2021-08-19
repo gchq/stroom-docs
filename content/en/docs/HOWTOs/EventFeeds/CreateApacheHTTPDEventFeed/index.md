@@ -26,7 +26,7 @@ For this example, we will use logs from an Apache HTTPD Web server. In fact, the
 
 To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension of the BlackBox format. The format is described and defined below. This is an extract from a httpd configuration file (/etc/httpd/conf/httpd.conf)
 
-``` 
+``` text
 #  Stroom - Black  Box  Auditing configuration
 #
 #  %a  - Client  IP address  (not  hostname (%h) to ensure ip address only)
@@ -170,17 +170,17 @@ To reflect the source of these Accounting Logs, we will name our feed and its pi
 To create the system group Apache  HTTPD, navigate to the _Event Sources/Infrastructure/WebServer_ system group within the Explorer pane (if this system group structure does not already exist in your Stroom instance then refer to the **HOWTO Stroom Explorer Management** for guidance). Left click to highlight the
 _WebServer_ system group then right click to bring up the object context menu. Navigate to the _New_ icon, then the _Folder_ icon to reveal the _New Folder_ selection window.
 
-![Stroom UI ApacheHTTPDEventFeed - Navigate Explorer](../resources/v6/UI-ApacheHttpEventFeed-00.png "Navigate Explorer")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-00.png" >}}Navigate Explorer{{< /screenshot >}}
 
 In the New Folder window enter Apache HTTPD into the **Name:** text entry box.
 
-![Stroom UI ApacheHTTPDEventFeed - Create System Group](../resources/v6/UI-ApacheHttpEventFeed-01.png "Create System Group")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-01.png" >}}Create System Group{{< /screenshot >}}
 
 The click on **OK** at which point you will be presented with the Apache HTTPD system group configuration tab. Also note, the _WebServer_ system group within the Explorer pane has automatically expanded to display the `Apache HTTPD` system group.
 
-![Stroom UI ApacheHTTPDEventFeed - Apache System Group tab](../resources/v6/UI-ApacheHttpEventFeed-02.png "Create System Group tab")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-02.png" >}}Create System Group tab{{< /screenshot >}}
 
-Close the Apache HTTPD system group configuration tab by clicking on the close item icon on the right-hand side of the tab ![close](../resources/icons/closeItem.png "closeItem"). We now need to create, in order
+Close the Apache HTTPD system group configuration tab by clicking on the close item icon on the right-hand side of the tab {{< screenshot "HOWTOs/icons/closeItem.png" >}}closeItem{{< /screenshot >}}. We now need to create, in order
 * the Feed,
 * the Text Parser,
 * the Translation and finally,
@@ -190,13 +190,13 @@ Close the Apache HTTPD system group configuration tab by clicking on the close i
 
 Within the Explorer pane, and having selected the Apache HTTPD group, right click to bring up object context menu. Navigate to New, Feed
 
-![Stroom UI ApacheHTTPDEventFeed - Apache Create Feed](../resources/v6/UI-ApacheHttpEventFeed-03.png "Apache Create Feed")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-03.png" >}}Apache Create Feed{{< /screenshot >}}
 
-Select the Feed icon ![feed](../resources/icons/feedItem.png "feedItem"), when the **New Feed** selection window comes up, ensure the `Apache HTTPD` system group is selected or navigate to it. Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box the press **OK**. 
+Select the Feed icon {{< screenshot "HOWTOs/icons/feedItem.png" >}}feedItem{{< /screenshot >}}, when the **New Feed** selection window comes up, ensure the `Apache HTTPD` system group is selected or navigate to it. Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box the press **OK**. 
 
-It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{4,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties.md "System Properties") document to see how to make this change.
+It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{4,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties "System Properties") document to see how to make this change.
 
-![Stroom UI ApacheHTTPDEventFeed - New Feed dialog](../resources/v6/UI-ApacheHttpEventFeed-04.png "New Feed dialog")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-04.png" >}}New Feed dialog{{< /screenshot >}}
 
 At this point you will be presented with the new feed's configuration tab and the feed's Explorer object will automatically appear in the Explorer pane within the `Apache HTTPD` system group.
 
@@ -221,23 +221,23 @@ We leave the **Retention Period:** at _Forever_ as we do not want to delete the 
 
 This results in
 
-![Stroom UI ApacheHTTPDEventFeed - New Feed tab](../resources/v6/UI-ApacheHttpEventFeed-05.png "New Feed tab")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-05.png" >}}New Feed tab{{< /screenshot >}}
 
-Save the feed by clicking on the ![save](../resources/icons/save.png "Save") icon.
+Save the feed by clicking on the {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} icon.
 
 ### Create Text Converter
 
-Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the ![new-v6](../resources/icons/newItemv6.png "New") icon to reveal the New sub-context menu. Next, navigate to the ![textConverterItem](../resources/icons/save.png "Text Converter Item")  Text Converter item
+Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the {{< screenshot "HOWTOs/icons/save.png" >}}Text Converter Item{{< /screenshot >}}  Text Converter item
 
-![Stroom UI ApacheHTTPDEventFeed - Select Text Converter](../resources/v6/UI-ApacheHttpEventFeed-06.png "Select Text Converter")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-06.png" >}}Select Text Converter{{< /screenshot >}}
 
 and left click to select. When the **New Text Converter** 
 
-![Stroom UI ApacheHTTPDEventFeed - New Text Converter](../resources/v6/UI-ApacheHttpEventFeed-07.png "New Text Converter")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-07.png" >}}New Text Converter{{< /screenshot >}}
 
 selection window comes up enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box then press **OK**. At this point you will be presented with the new text converter's configuration tab.
 
-![Stroom UI ApacheHTTPDEventFeed - Text Converter configuration tab](../resources/v6/UI-ApacheHttpEventFeed-08.png "Text Converter configuration tab")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-08.png" >}}Text Converter configuration tab{{< /screenshot >}}
 
 Enter an appropriate description into the **Description:** text entry box, for instance
 
@@ -245,72 +245,72 @@ Enter an appropriate description into the **Description:** text entry box, for i
 
 Set the **Converter Type:** to be Data Splitter from drop down menu.
 
-![Stroom UI ApacheHTTPDEventFeed - Text Converter settings](../resources/v6/UI-ApacheHttpEventFeed-09.png "Text Converter configuration settings")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-09.png" >}}Text Converter configuration settings{{< /screenshot >}}
 
-Save the text converter by clicking on the ![save](../resources/icons/save.png "Save") icon.
+Save the text converter by clicking on the {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} icon.
 
 ### Create XSLT Translation
 
-Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the 	New icon to reveal the New sub-context menu. Next, navigate to the ![xsltItem](../resources/icons/xsltItem.png "xsltItem") item and left click to select.
+Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then navigate to the 	New icon to reveal the New sub-context menu. Next, navigate to the {{< screenshot "HOWTOs/icons/xsltItem.png" >}}xsltItem{{< /screenshot >}} item and left click to select.
 
-![Stroom UI ApacheHTTPDEventFeed - New XSLT](../resources/v6/UI-ApacheHttpEventFeed-10.png "New XSLT")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-10.png" >}}New XSLT{{< /screenshot >}}
 
 When the **New XSLT** selection window comes up,
 
-![Stroom UI ApacheHTTPDEventFeed - New XSLT](../resources/v6/UI-ApacheHttpEventFeed-11.png "New XSLT")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-11.png" >}}New XSLT{{< /screenshot >}}
 
  enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box then press **OK**. At this point you will be presented with the new XSLT's configuration tab.
 
- ![Stroom UI ApacheHTTPDEventFeed - New XSLT tab](../resources/v6/UI-ApacheHttpEventFeed-12.png "New XSLT tab")
+ {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-12.png" >}}New XSLT tab{{< /screenshot >}}
 
  Enter an appropriate description into the **Description:** text entry box, for instance
 
 "Apache HTTPD events for  BlackBox Version 2.0  - translation. See Translation for complete documentation."
 
-![Stroom UI ApacheHTTPDEventFeed - New XSLT settings](../resources/v6/UI-ApacheHttpEventFeed-13.png "New XSLT settings")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-13.png" >}}New XSLT settings{{< /screenshot >}}
 
-Save the XSLT by clicking on the ![save](../resources/icons/save.png "Save") icon.
+Save the XSLT by clicking on the {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} icon.
 
 ### Create Pipeline
 
 In the process of creating this pipeline we have assumed that the  **Template Pipeline** content pack has been loaded, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
-Within the Explorer pane, and having selected the Apache HTTPD system group, right click to bring up object context menu, then the New sub-context menu. Navigate to the ![pipeline](../resources/icons/pipeline.png "Pipeline")  Pipeline and left click to select. When the **New Pipeline**
+Within the Explorer pane, and having selected the Apache HTTPD system group, right click to bring up object context menu, then the New sub-context menu. Navigate to the {{< screenshot "HOWTOs/icons/pipeline.png" >}}Pipeline{{< /screenshot >}}  Pipeline and left click to select. When the **New Pipeline**
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline](../resources/v6/UI-ApacheHttpEventFeed-14.png "New Pipeline")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-14.png" >}}New Pipeline{{< /screenshot >}}
 
 selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS
 into the **Name:** text entry box then press **OK**. At this you will be presented with the new pipeline’s configuration tab
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline tab](../resources/v6/UI-ApacheHttpEventFeed-15.png "New Pipeline tab")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-15.png" >}}New Pipeline tab{{< /screenshot >}}
 
 As usual, enter an appropriate **Description:**
 
 "Apache HTTPD events for BlackBox Version 2.0  - pipeline. This pipeline uses the standard event pipeline to store the events in the Event Store."
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline settings](../resources/v6/UI-ApacheHttpEventFeed-16.png "New Pipeline settings")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-16.png" >}}New Pipeline settings{{< /screenshot >}}
 
-Save the pipeline by clicking on the ![save](../resources/icons/save.png "Save") icon.
+Save the pipeline by clicking on the {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} icon.
 
 We now need to select the structure this pipeline will use. We need to move from the **Settings** sub-item on the pipeline configuration tab to the **Structure** sub-item. This is done by clicking on the **Structure** link, at which we see
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline Structure](../resources/v6/UI-ApacheHttpEventFeed-17.png "New Pipeline Structure")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-17.png" >}}New Pipeline Structure{{< /screenshot >}}
 
 Next we will choose an Event Data pipeline. This is done by inheriting it from a defined set of Template Pipelines. To do this, click on the menu selection icon  to the right of the Inherit From: text display box.
 
 When the **Choose item**
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline inherited from](../resources/v6/UI-ApacheHttpEventFeed-18.png "New Pipeline inherited from")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-18.png" >}}New Pipeline inherited from{{< /screenshot >}}
 
 selection window appears, select from the `Template Pipelines` system group. In this instance, as our input data is text, we select (left click) the 
 
-![pipeline](../resources/icons/pipeline.png "Pipeline") Event Data (Text) pipeline
+{{< screenshot "HOWTOs/icons/pipeline.png" >}}Pipeline{{< /screenshot >}} Event Data (Text) pipeline
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline inherited selection](../resources/v6/UI-ApacheHttpEventFeed-19.png "New Pipeline inherited selection")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-19.png" >}}New Pipeline inherited selection{{< /screenshot >}}
 
 then press **OK**. At this we see the inherited pipeline structure of
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline inherited structure](../resources/v6/UI-ApacheHttpEventFeed-20.png "New Pipeline inherited structure")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-20.png" >}}New Pipeline inherited structure{{< /screenshot >}}
 
 For the purpose of this HOWTO, we are only interested in two of the eleven (11) elements in this pipeline
 
@@ -321,69 +321,69 @@ We now need to associate our Text Converter and Translation with the pipeline so
 
 To associate the Text Converter, select the Text Converter icon, to display.
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline associate textconverter](../resources/v6/UI-ApacheHttpEventFeed-21.png "New Pipeline associate textconverter")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-21.png" >}}New Pipeline associate textconverter{{< /screenshot >}}
 
 Now identify to the **Property** pane (the middle pane of the pipeline configuration tab), then and double click on the _textConverter_ Property Name to display the **Edit
 Property** selection window that allows you to edit the given property
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline textconverter association](../resources/v6/UI-ApacheHttpEventFeed-22.png "New Pipeline textconverter association")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-22.png" >}}New Pipeline textconverter association{{< /screenshot >}}
 
 We leave the Property **Source:** as Inherit but we need to change the Property **Value:** from _None_ to be our newly created Apache-SSLBlackBox-V2.0-EVENTS Text Converter.
 
-To do this, position the cursor over the menu selection ![menu](../resources/icons/menu-selection-horizontal.png "Menu") icon to the right of the **Value:** text display box and click to select. Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V2.0-EVENTS text Converter
+To do this, position the cursor over the menu selection {{< screenshot "HOWTOs/icons/menu-selection-horizontal.png" >}}Menu{{< /screenshot >}} icon to the right of the **Value:** text display box and click to select. Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V2.0-EVENTS text Converter
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline textconverter association](../resources/v6/UI-ApacheHttpEventFeed-23.png "New Pipeline textconverter association")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-23.png" >}}New Pipeline textconverter association{{< /screenshot >}}
 
 then press **OK**. At this we will see the Property _Value_ set
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline textconverter association](../resources/v6/UI-ApacheHttpEventFeed-24.png "New Pipeline textconverter association")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-24.png" >}}New Pipeline textconverter association{{< /screenshot >}}
 
 Again press _OK_ to finish editing this property and we see that the _textConverter_ Property has been set to **Apache-SSLBlackBox-V2.0-EVENTS**
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline textconverter association](../resources/v6/UI-ApacheHttpEventFeed-25.png "New Pipeline textconverter association")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-25.png" >}}New Pipeline textconverter association{{< /screenshot >}}
 
 We perform the same actions to associate the translation.
 
-First, we select the translation Filter’s ![translationFilter](../resources/icons/translationFilter.png "Translation Filter") icon and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**. As before, bring up the **Choose item** selection window, navigate to the `Apache HTTPD` system group and select the
+First, we select the translation Filter’s {{< screenshot "HOWTOs/icons/translationFilter.png" >}}Translation Filter{{< /screenshot >}} icon and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**. As before, bring up the **Choose item** selection window, navigate to the `Apache HTTPD` system group and select the
 Apache-SSLBlackBox-V2.0-EVENTS xslt Translation.
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline Translation association](../resources/v6/UI-ApacheHttpEventFeed-26.png "New Pipeline Translation association")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-26.png" >}}New Pipeline Translation association{{< /screenshot >}}
 
 We leave the remaining properties in the translation Filter’s **Property** pane at their default values. The result is the assignment of our translation to the _xslt_ Property.
 
-![Stroom UI ApacheHTTPDEventFeed - New Pipeline Translation association](../resources/v6/UI-ApacheHttpEventFeed-27.png "New Pipeline Translation association")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-27.png" >}}New Pipeline Translation association{{< /screenshot >}}
 
 For the moment, we will not associate a decoration filter. 
 
-Save the pipeline by clicking on its ![save](../resources/icons/save.png "Save") icon.
+Save the pipeline by clicking on its {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} icon.
 
 ### Manually load Raw Event test data
 
 Having established the pipeline, we can now start authoring our text converter and translation. The first step is to load some Raw Event test data. Previously in the **Event Log Source** of this HOWTO you saved a copy of the file _sampleApacheBlackBox.log_ to your local environment. It contains only a few events as the content is consistently formatted. We could feed the test data by posting the file to Stroom’s accounting/datafeed url, but for this example we will manually load the file. Once developed, raw data is posted to the web service.
 
-Select the ![Stroom UI ApacheHTTPDEventFeed - ApacheHHTPDFeed](../resources/v6/UI-ApacheHttpEventFeed-28.png "ApacheHHTPDFeed") configuration tab and select the **Data** sub-item to display
+Select the {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-28.png" >}}ApacheHHTPDFeed{{< /screenshot >}} configuration tab and select the **Data** sub-item to display
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading](../resources/v6/UI-ApacheHttpEventFeed-29.png "Data Loading")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-29.png" >}}Data Loading{{< /screenshot >}}
 
 This window is divided into three panes.
 
 The top pane displays the _Stream Table_, which is a table of the latest streams that belong to the feed (clearly it’s empty).
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading - Stream Table](../resources/v6/UI-ApacheHttpEventFeed-30.png "Data Loading - Stream Table")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-30.png" >}}Data Loading - Stream Table{{< /screenshot >}}
 
 Note that a Raw Event _stream_ is made up of data from a single file of data or aggregation of multiple data files and also meta-data associated with the data file(s). For example, file names, file size, etc.
 
 The middle pane displays a _Specific_ feed and any linked streams. To display a _Specific_ feed, you select it from the _Stream Table_ above.
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading - Specific Stream](../resources/v6/UI-ApacheHttpEventFeed-31.png "Data Loading - Specific Stream")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-31.png" >}}Data Loading - Specific Stream{{< /screenshot >}}
 
 The bottom pane displays the selected stream’s data or meta-data.
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading - Data/Metadata](../resources/v6/UI-ApacheHttpEventFeed-32.png "Data Loading - Data/Metadata")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-32.png" >}}Data Loading - Data/Metadata{{< /screenshot >}}
 
-Note the Upload icon ![upload](../resources/icons/upload.png "Upload") in the top left of the Stream table pane. On clicking the Upload icon, we are presented with the data **Upload** selection window.
+Note the Upload icon {{< screenshot "HOWTOs/icons/upload.png" >}}Upload{{< /screenshot >}} in the top left of the Stream table pane. On clicking the Upload icon, we are presented with the data **Upload** selection window.
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading - Upload Data](../resources/v6/UI-ApacheHttpEventFeed-33.png "Data Loading - Upload Data")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-33.png" >}}Data Loading - Upload Data{{< /screenshot >}}
 
 As stated earlier, raw event data is normally posted as a file to the Stroom web server. As part of this posting action, a set of well-defined HTTP _extra headers_ are sent as part of the post. These headers, in the form of key value pairs, provide additional context associated with the system sending the logs. These standard headers become Stroom _feed attributes_ available to the Stroom translation. Common attributes are
 
@@ -404,30 +404,30 @@ Since our translation will want these feed attributes, we will set them in the M
 
 We select a **Stream Type:** of _Raw Events_ as this data is for an _Event Feed_. As this is not a _Reference Feed_ we ignore the **Effective:** entry box (a date/time selector).
 
-![Stroom UI ApacheHTTPDEventFeed - Upload Data](../resources/v6/UI-ApacheHttpEventFeed-34.png "Upload Data")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-34.png" >}}Upload Data{{< /screenshot >}}
 
 We now click the **Choose File** button, then navigate to the location of the raw log file you downloaded earlier, _sampleApacheBlackBox.log_
 
-![Stroom UI ApacheHTTPDEventFeed - Upload Data](../resources/v6/UI-ApacheHttpEventFeed-35.png "Upload Data")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-35.png" >}}Upload Data{{< /screenshot >}}
 
 then click **Open** to return to the **Upload** selection window where we can then press **OK** to perform the upload.
 
-![Stroom UI ApacheHTTPDEventFeed - Upload Data](../resources/v6/UI-ApacheHttpEventFeed-36.png "Upload Data")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-36.png" >}}Upload Data{{< /screenshot >}}
 
-An Alert dialog window is presented ![Stroom UI ApacheHTTPDEventFeed - Alert](../resources/v6/UI-ApacheHttpEventFeed-37.png "Alert")  which should be **closed**.
+An Alert dialog window is presented {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-37.png" >}}Alert{{< /screenshot >}}  which should be **closed**.
 
 The stream we have just loaded will now be displayed in the  _Streams Table_ pane. Note that the _Specific Stream_
 and _Data/Meta-data_ panes are still blank.
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading - Streams Table](../resources/v6/UI-ApacheHttpEventFeed-38.png "Data Loading - Streams Table")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-38.png" >}}Data Loading - Streams Table{{< /screenshot >}}
 
 If we select the stream by clicking anywhere along its line, the stream is highlighted and the _Specific Stream_ and Data/Meta-data_ panes now display data.
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading - Streams Table](../resources/v6/UI-ApacheHttpEventFeed-39.png "Data Loading - Streams Table")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-39.png" >}}Data Loading - Streams Table{{< /screenshot >}}
 
 The _Specific Stream_ pane only displays the Raw Event stream and the _Data/Meta-data_ pane displays the content of the log file just uploaded (the **Data** link). If we were to click on the **Meta** link at the top of the _Data/Meta-data_ pane, the log data is replaced by this stream’s meta-data.
 
-![Stroom UI ApacheHTTPDEventFeed - Data Loading - Meta-data](../resources/v6/UI-ApacheHttpEventFeed-40.png "Data Loading - Meta-data")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-40.png" >}}Data Loading - Meta-data{{< /screenshot >}}
 
 Note that, in addition to the feed attributes we set, the upload process added additional feed attributes of
 
@@ -443,35 +443,35 @@ We now have data that will allow us to develop our text converter and translatio
 
  We now need to step our data through the pipeline.
 
-To do this, set the check-box on the _Specific Stream_ pane and we note that the previously grayed out action icons ![Stroom UI ApacheHTTPDEventFeed - SpecificStreamActionIcons](../resources/v6/UI-ApacheHttpEventFeed-41.png "Specific Stream Action Icons") are activated ![Stroom UI ApacheHTTPDEventFeed - SpecificStreamActionIconsActivated](../resources/v6/UI-ApacheHttpEventFeed-42.png "Specific Stream Action Icons activated")
+To do this, set the check-box on the _Specific Stream_ pane and we note that the previously grayed out action icons {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-42.png" >}}Specific Stream Action Icons activated{{< /screenshot >}}
 
-![Stroom UI ApacheHTTPDEventFeed - Select Stream to Step](../resources/v6/UI-ApacheHttpEventFeed-43.png "Select Stream to Step")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-43.png" >}}Select Stream to Step{{< /screenshot >}}
 
-We now want to step our data through the first element of the pipeline, the Text Converter. We enter Stepping Mode by pressing the stepping button ![enterStep](../resources/icons/enterStepping.png "Enter Stepping Mode") found at the bottom right corner of the _Data/Meta-data_ pane.
+We now want to step our data through the first element of the pipeline, the Text Converter. We enter Stepping Mode by pressing the stepping button {{< screenshot "HOWTOs/icons/enterStepping.png" >}}Enter Stepping Mode{{< /screenshot >}} found at the bottom right corner of the _Data/Meta-data_ pane.
 
 We will then be requested to choose a pipeline to step with, at which, you should navigate to the Apache-SSLBlackBox-V2.0-EVENTS pipeline as per
 
-![Stroom UI ApacheHTTPDEventFeed - Select pipeline to Step](../resources/v6/UI-ApacheHttpEventFeed-44.png "Select pipeline to Step")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-44.png" >}}Select pipeline to Step{{< /screenshot >}}
 
 then press **OK**.
 
 At this point, we enter the pipeline Stepping tab
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Source](../resources/v6/UI-ApacheHttpEventFeed-45.png "pipeline Stepping tab - Source")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-45.png" >}}pipeline Stepping tab - Source{{< /screenshot >}}
 
 which, initially displays the Raw Event data from our stream. This is the Source display for the Event Pipeline.
 
 ### Step data through Pipeline - Text Converter
 
-We click on the ![dsParserv6](../resources/icons/dsParserv6.png "dsParser") icon to enter the Text Converter stepping window.
+We click on the {{< screenshot "HOWTOs/icons/dsParserv6.png" >}}dsParser{{< /screenshot >}} icon to enter the Text Converter stepping window.
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter](../resources/v6/UI-ApacheHttpEventFeed-46.png "pipeline Stepping tab - Text Converter")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-46.png" >}}pipeline Stepping tab - Text Converter{{< /screenshot >}}
 
 This _stepping_ tab is divided into three sub-panes. The top one is the Text Converter editor and it will allow you to edit the text conversion. The bottom left window displays the _input_ to the Text Converter. The bottom right window displays the _output_ from the Text Converter for the given input.
 
 We also note an error indicator - that of an error in the editor pane as indicated by the black back-grounded x and rectangular black boxes to the right of the editor’s scroll bar.
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Error](../resources/v6/UI-ApacheHttpEventFeed-47.png "pipeline Stepping tab - Error") 
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-47.png" >}}pipeline Stepping tab - Error{{< /screenshot >}} 
 
 In essence, this means that we have no text converter to pass the Raw Event data through.
 
@@ -490,9 +490,9 @@ To correct this, we will author our text converter using the Data Splitter _lang
 </dataSplitter>
 ```
 
-If we now press the Step First ![stepFirst](../resources/icons/stepFirst.png "Step first") icon the error will disappear and the stepping window will show.
+If we now press the Step First {{< screenshot "HOWTOs/icons/stepFirst.png" >}}Step first{{< /screenshot >}} icon the error will disappear and the stepping window will show.
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Simple A](../resources/v6/UI-ApacheHttpEventFeed-48.png "pipeline Stepping tab - Text Converter Simple A")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-48.png" >}}pipeline Stepping tab - Text Converter Simple A{{< /screenshot >}}
 
 As we can see, the first line of our Raw Event is displayed in the _input_ pane and the _output_ window holds the converted XML output where we just have a single _data_ element with a _name_ attribute of _rest_ and a _value_ attribute of the complete raw event as our regular expression matched the entire line.
 
@@ -515,9 +515,9 @@ With the text converter containing
 </dataSplitter>
 ```
 
-and a click on the Refresh Current Step ![stepRefresh](../resources/icons/stepRefresh.png "Step Refresh") icon we will see the _output_ pane contain
+and a click on the Refresh Current Step {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Step Refresh{{< /screenshot >}} icon we will see the _output_ pane contain
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Simple B](../resources/v6/UI-ApacheHttpEventFeed-49.png "Text Converter Simple B")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-49.png" >}}Text Converter Simple B{{< /screenshot >}}
 
 We continue this incremental parsing until we have our complete parser.
 
@@ -693,21 +693,21 @@ LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN}x\" \"%r\" %s/%>s %D 
 ```
 A copy of this Data Splitter can be found [here](ApacheHTTPDBlackBox-DataSplitter.txt "ApacheHTTPD BlackBox - Data Splitter").
 
-If we now press the Step First ![stepFirst](../resources/icons/stepFirst.png "Step first") icon we will see the complete parsed record
+If we now press the Step First {{< screenshot "HOWTOs/icons/stepFirst.png" >}}Step first{{< /screenshot >}} icon we will see the complete parsed record
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Complete](../resources/v6/UI-ApacheHttpEventFeed-50.png "pipeline Stepping tab - Text Converter Complete")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-50.png" >}}pipeline Stepping tab - Text Converter Complete{{< /screenshot >}}
 
-If we click on the Step Forward ![stepForward](../resources/icons/stepForward.png "Step Forward") icon we will see the next event displayed in both the _input_ and _output_ panes.
+If we click on the Step Forward {{< screenshot "HOWTOs/icons/stepForward.png" >}}Step Forward{{< /screenshot >}} icon we will see the next event displayed in both the _input_ and _output_ panes.
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Complete second event](../resources/v6/UI-ApacheHttpEventFeed-51.png "pipeline Stepping tab - Text Converter Complete second event")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-51.png" >}}pipeline Stepping tab - Text Converter Complete second event{{< /screenshot >}}
 
-we click on the Step Last ![stepLast](../resources/icons/stepLast.png "Step Last") icon we will see the last event displayed in both the _input_ and _output_ panes.
+we click on the Step Last {{< screenshot "HOWTOs/icons/stepLast.png" >}}Step Last{{< /screenshot >}} icon we will see the last event displayed in both the _input_ and _output_ panes.
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Text Converter Complete last event](../resources/v6/UI-ApacheHttpEventFeed-52.png "pipeline Stepping tab - Text Converter Complete last event")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-52.png" >}}pipeline Stepping tab - Text Converter Complete last event{{< /screenshot >}}
 
 You should take note of the stepping key that has been displayed in each stepping window. The stepping key are the numbers enclosed in square brackets e.g. [146271:1:14] found in the top right-hand side of the stepping window next to the stepping icons
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Stepping Key](../resources/v6/UI-ApacheHttpEventFeed-53.png "pipeline Stepping tab - Stepping Key")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-53.png" >}}pipeline Stepping tab - Stepping Key{{< /screenshot >}}
 
 The form of these keys is [ streamId ':' subStreamId ':' recordNo]
 
@@ -719,17 +719,17 @@ where
 
 One can double click on either the **subStreamId** or **recordNo** numbers and enter a new number. This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.
 
-Note, you should now Save ![save](../resources/icons/save.png "Save") your edited Text Converter.
+Note, you should now Save {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} your edited Text Converter.
 
 ### Step data through Pipeline - Translation
 
-To start authoring the xslt Translation Filter, press the ![translationFilter](../resources/icons/translationFilter.png "Translation Filter")  icon which steps us to the xsl Translation Filter pane.
+To start authoring the xslt Translation Filter, press the {{< screenshot "HOWTOs/icons/translationFilter.png" >}}Translation Filter{{< /screenshot >}}  icon which steps us to the xsl Translation Filter pane.
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Initial](../resources/v6/UI-ApacheHttpEventFeed-54.png "pipeline Stepping tab - Translation Initial")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-54.png" >}}pipeline Stepping tab - Translation Initial{{< /screenshot >}}
 
 As for the _Text Converter_ stepping tab, this tab is divided into three sub-panes. The top one is the xslt translation editor and it will allow you to edit the xslt translation. The bottom left window displays the _input_ to the xslt translation (which is the output from the _Text Converter_). The bottom right window displays the _output_ from the xslt Translation filter for the given input.
 
-We now click on the pipeline Step Forward button ![stepForward](../resources/icons/stepForward.png "Step Forward") to single step the Text Converter _records_ element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.
+We now click on the pipeline Step Forward button {{< screenshot "HOWTOs/icons/stepForward.png" >}}Step Forward{{< /screenshot >}} to single step the Text Converter _records_ element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.
 
 To correct this, we will author our xslt translation. Like the Data Splitter this is also authored incrementally. A minimum xslt translation might contain
 
@@ -787,7 +787,7 @@ To correct this, we will author our xslt translation. Like the Data Splitter thi
 </xsl:stylesheet>
 ```
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal](../resources/v6/UI-ApacheHttpEventFeed-55.png "Translation Minimal")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-55.png" >}}Translation Minimal{{< /screenshot >}}
 
 Clearly this doesn’t generate useful events. Our first iterative change might be to generate the TimeCreated element value. The change would be
 
@@ -801,7 +801,7 @@ Clearly this doesn’t generate useful events. Our first iterative change might 
     </xsl:template>
 ```
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal+](../resources/v6/UI-ApacheHttpEventFeed-56.png "Translation Minimal+")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-56.png" >}}Translation Minimal+{{< /screenshot >}}
 
 Adding in the EventSource elements (without ANY error checking!) as per
 
@@ -850,9 +850,9 @@ Adding in the EventSource elements (without ANY error checking!) as per
     </xsl:template>
 ```
 
-And after a Refresh Current Step ![stepRefresh](../resources/icons/stepRefresh.png "Step Refresh") we see our output event ‘grow’ to
+And after a Refresh Current Step {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Step Refresh{{< /screenshot >}} we see our output event ‘grow’ to
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Minimal++](../resources/v6/UI-ApacheHttpEventFeed-57.png "Translation Minimal++")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-57.png" >}}Translation Minimal++{{< /screenshot >}}
 
 We now complete our translation by expanding the _EventDetail_ elements to have the completed translation of (again with limited error checking and non-existent documentation!)
 
@@ -1001,11 +1001,11 @@ We now complete our translation by expanding the _EventDetail_ elements to have 
     </xsl:template>
 </xsl:stylesheet>
 ```
-And after a Refresh Current Step Refresh ![stepRefresh](../resources/icons/stepRefresh.png "Step Refresh") we see our complete output event
+And after a Refresh Current Step Refresh {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Step Refresh{{< /screenshot >}} we see our complete output event
 
-![Stroom UI ApacheHTTPDEventFeed - pipeline Stepping tab - Translation Complete](../resources/v6/UI-ApacheHttpEventFeed-58.png "Translation Complete")
+{{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-58.png" >}}Translation Complete{{< /screenshot >}}
 
-Note, you should now Save ![save](../resources/icons/save.png "Save") your edited xslt Translation.
+Note, you should now Save {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} your edited xslt Translation.
 
 A copy of this XSLT Translation can be found  [here](ApacheHTTPDBlackBox-TranslationXSLT.txt "Apache BlackBox Translation XSLT").
 

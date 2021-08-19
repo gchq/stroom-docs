@@ -19,31 +19,31 @@ The following assumptions are used in this document.
 
 Within the **Login** panel, enter `admin` into the *User Name:* entry box and `admin` into the *Password:* entry box as per
 
-![Stroom UI Login Panel - Enter user](../resources/UI-Login-01.png "Stroom UI Login - logging in as admin")
+{{< screenshot "HOWTOs/UI-Login-01.png" >}}Stroom UI Login - logging in as admin{{< /screenshot >}}
 
 When you press the
-![Stroom UI LoginButton](../resources/icons/buttonLogin.png "Stroom UI LoginButton")
+{{< screenshot "HOWTOs/icons/buttonLogin.png" >}}Stroom UI LoginButton{{< /screenshot >}}
 button, you are advised that your user's password has expired and you need to change it.
 
-![Stroom UI Login Panel - Password Expiry](../resources/UI-Login-02.png "Stroom UI Login - password expiry")
+{{< screenshot "HOWTOs/UI-Login-02.png" >}}Stroom UI Login - password expiry{{< /screenshot >}}
 
 Press the
-![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
+{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
 button and enter the old password `admin` and a new password with confirmation in the appropriate entry boxes.
 
-![Stroom UI Login Panel - Password Change](../resources/UI-Login-03.png "Stroom UI Login - password change")
+{{< screenshot "HOWTOs/UI-Login-03.png" >}}Stroom UI Login - password change{{< /screenshot >}}
 
 Again press the
-![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
+{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
 button to see the confirmation that the password has changed.
 
-![Stroom UI Login Panel - Password Change Confirmation](../resources/UI-Login-04.png "Stroom UI Login - password change confirmation").
+{{< screenshot "HOWTOs/UI-Login-04.png" >}}Stroom UI Login - password change confirmation{{< /screenshot >}}.
 
 On pressing
-![Stroom UI CloseButton](../resources/icons/buttonClose.png "Stroom UI CloseButton")
+{{< screenshot "HOWTOs/icons/buttonClose.png" >}}Stroom UI CloseButton{{< /screenshot >}}
 you will be logged in as the `admin` user and you will be presented with the __Main Menu__ (`Item Tools Monitoring User Help`), and the `Explorer` and `Welcome` panels (or tabs).
 
-![Stroom UI Login Panel - Logged in](../resources/UI-Login-06.png "Stroom UI Login - user logged in").
+{{< screenshot "HOWTOs/UI-Login-06.png" >}}Stroom UI Login - user logged in{{< /screenshot >}}.
 
 We have now successfully logged on as the `admin` user.
 

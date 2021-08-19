@@ -18,14 +18,14 @@ The following assumptions are used in this document.
 ## Log out of UI
 To log out of the UI, select the `User` item of the __Main Menu__ and to bring up the `User` sub-menu.
 
-![Stroom UI New User - User Sub-menu](../resources/UI-UserSubmenu-00.png "Stroom UI - User Sub-menu")
+{{< screenshot "HOWTOs/UI-UserSubmenu-00.png" >}}Stroom UI - User Sub-menu{{< /screenshot >}}
 
 and select the `Logout` sub-item and confirm you wish to log out by selecting the
-![Stroom UI OkButton](../resources/icons/buttonOk.png "Stroom UI OkButton")
+{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
 button.
 
-![Stroom UI New User - User Logout confirmation](../resources/UI-UserLogout-00.png "Stroom UI - User Logout")
+{{< screenshot "HOWTOs/UI-UserLogout-00.png" >}}Stroom UI - User Logout{{< /screenshot >}}
 
 This will return you to the Login page
-![Stroom User Interface login page](../resources/UI-Login-00.png "Stroom UI Login Page")
+{{< screenshot "HOWTOs/UI-Login-00.png" >}}Stroom UI Login Page{{< /screenshot >}}
 

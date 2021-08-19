@@ -9,6 +9,7 @@ description: >
 ---
 
 ## Assumptions
+
 The following assumptions are used in this document.
 - the user has reasonable RHEL/Centos System administration skills.
 - installations are on Centos 7.3 minimal systems (fully patched).
@@ -22,7 +23,7 @@ The following assumptions are used in this document.
 - the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments
 - the user has access to a [Chrome (external link)](https://www.google.com/chrome "Google Chrome Web Browser") web browser as Stroom is optimised for this browser.
 
-# Introduction
+## Introduction
 This HOWTO provides guidance on a variety of simple Stroom deployments.
 - [__Multi Node Stroom Cluster (Proxy and Application)__](#multi-node-stroom-cluster-proxy-and-application-deployment)
 
@@ -48,6 +49,7 @@ In the case of the Proxy only deployments,
 - the standalone nodename will be `stroomp00.strmdev00.org`
 
 ## Storage
+
 Both the Stroom Proxy and Application store data. The typical requirement is
 
 - directory for Stroom proxy to store __inbound data__ files
@@ -81,7 +83,7 @@ will be explained later.
 
 All data should be owned by the Stroom processing user. In this HOWTO, we will use `stroomuser`
 
-# Multi Node Stroom Cluster (Proxy and Application) Deployment
+## Multi Node Stroom Cluster (Proxy and Application) Deployment
 
 In this deployment we will install the database on a given node then deploy both the Stroom Proxy and Stroom Application software
 to both our processing nodes. At this point we will then integrate a web service to run 'in-front' of our Stroom software and
@@ -298,15 +300,15 @@ to `stroomp.strmdev00.org:443`. As Stroom has not been configured to use user ce
 and continue.
 
 Additionally, if you are using  self-signed certificates, your browser will generate an alert as per
-![Chrome SelfSigned Certificate Issue - Initial](../resources/UI-Chrome-NoCa-00.png "Self Signed Certificate Initial Warning")
+{{< screenshot "HOWTOs/UI-Chrome-NoCa-00.png" >}}Self Signed Certificate Initial Warning{{< /screenshot >}}
 
 To proceed you need to select the __ADVANCED__ hyperlink to see
 
-![Chrome SelfSigned Certificate Issue - Advanced](../resources/UI-Chrome-NoCa-01.png "Self Signed Certificate Advanced Warning")
+{{< screenshot "HOWTOs/UI-Chrome-NoCa-01.png" >}}Self Signed Certificate Advanced Warning{{< /screenshot >}}
 
 If you select the __Proceed to stroomp.strmdev00.org (unsafe)__ hyper-link you will be presented with the standard Stroom UI login page.
 
-![Stroom User Interface login page](../resources/UI-Login-00.png "Stroom UI Login Page")
+{{< screenshot "HOWTOs/UI-Login-00.png" >}}Stroom UI Login Page{{< /screenshot >}}
 
 This page has two panels - **About Stroom** and **Login**.
 
@@ -407,7 +409,7 @@ perform our tests noting that proxy aggregation occurs every 10 minutes by defau
 We can now perform out tests. Follow the steps in the [Data Posting Tests](InstallTestingHowTo.md#data-post-tests "Data Post Tests") section
 of the [Testing Stroom Installation HOWTO](InstallTestingHowTo.md "Stroom Installation Testing")
 
-# Forwarding Stroom Proxy Deployment
+## Forwarding Stroom Proxy Deployment
 In this deployment will install a Stroom __Forwarding Proxy__ which is designed to aggregate data posted to it for managed forwarding to 
 a central Stroom processing system. This scenario is assuming we are installing on the fully patch Centos 7.3 host, `stroomfp0.strmdev00.org`.
 Further it assumes we have installed, configured and tested the destination Stroom system we will be forwarding to.
@@ -503,7 +505,7 @@ Before testing, it is recommended you set up to monitor the Stroom proxy logs on
 Follow the steps in the [Forwarding Proxy Data Posting Tests](InstallTestingHowTo.md#stroom-forwarding-proxy-testing "Stroom Proxy Data Post Tests") section
 of the [Testing Stroom Installation HOWTO](InstallTestingHowTo.md "Stroom Installation Testing")
 
-# Standalone Stroom Proxy Deployment
+## Standalone Stroom Proxy Deployment
 In this deployment will install a Stroom __Standalone Proxy__ which is designed to accept and store data posted to it for __manual__ forwarding to 
 a central Stroom processing system. This scenario is assuming we are installing on the fully patch Centos 7.3 host, `stroomsap0.strmdev00.org`.
 
@@ -579,9 +581,11 @@ configuration item is different to that of a Stroom Application processing node.
 Other Web service capability can be used, for example, [NGINX (external link)](https://nginx.org "NGINX Web Service Capability").
 
 ## Testing our Standalone Proxy Installation
+
 To complete the installation process we will test that we can send data to the standalone proxy and it stores it.
 
 ### Sending Test Data
+
 For this test, we will send the contents of /etc/group to our test feed - `TEST-FEED-V1_0`. It doesn't matter from which host we send the file from.
 The command to send file is
 
@@ -593,7 +597,7 @@ Before testing, it is recommended you set up to monitor the Standalone Proxy log
 Follow the steps in the [Standalone Proxy Data Posting Tests](InstallTestingHowTo.md#stroom-standalone-proxy-testing "Stroom Proxy Data Post Tests")
 section of the [Testing Stroom Installation HOWTO](InstallTestingHowTo.md "Stroom Installation Testing")
 
-# Addition of a Node to a Stroom Cluster Deployment
+## Addition of a Node to a Stroom Cluster Deployment
 
 In this deployment we will deploy both the Stroom Proxy and Stroom Application software
 to a new processing node we wish to add to our cluster. Once we have deploy and configured the Stroom software, we will then integrate a web
@@ -601,6 +605,7 @@ service to run 'in-front' of our Stroom software, and then perform the initial c
 node we will add is `stroomp02.strmdev00.org`.
 
 ## Grant access to the database for this node
+
 Connect to the Stroom database as the administrative (root) user, via the command
 
 ```bash
@@ -761,13 +766,17 @@ We will now check that the installation and web services integration has worked.
 and [later](#testing-our-new-node-installation "Integration Tests") perform complete integration tests.
 
 ### Sanity firewall check
+
 To ensure you have the firewall correctly set up, the following command
+
 ```bash
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 ```
+
 should result in
-```
+
+```text
 public (active)
   target: default
   icmp-block-inversion: no
