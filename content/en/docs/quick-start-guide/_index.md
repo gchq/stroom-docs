@@ -5,7 +5,7 @@ weight: 10
 date: 2021-07-09
 tags: 
 description: >
-  
+  How to setup an instance of Stroom and get started processing data.
 ---
 
 In this quick-start guide you will learn how to use Stroom to get from [this CSV](resources/mock_stroom_data.csv), which looks like this:
