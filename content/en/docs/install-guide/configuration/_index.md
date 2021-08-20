@@ -1,5 +1,15 @@
-# Configuration
-
+---
+title: "Configuration"
+linkTitle: "Configuration"
+#weight:
+date: 2021-06-23
+tags: 
+description: >
+  
+cascade:
+  tags:
+    - configuration
+---
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-23
 

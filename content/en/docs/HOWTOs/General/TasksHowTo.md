@@ -11,12 +11,12 @@ description: >
 ---
 
 Various
-[Tasks](../../user-guide/jobs.md "Stroom Jobs")
+[Tasks]({{< relref "../../user-guide/jobs.md" >}})
 run in the background within Stroom. This HOWTO demonstrates how to manage these tasks
 
 ## Assumptions
 - All Sections
- - an account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
+ - an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
 - Proxy Aggregation Tasks
  - we have a multi node Stroom cluster with two nodes, `stroomp00` and `stroomp01`.
 - Stream Processor Tasks

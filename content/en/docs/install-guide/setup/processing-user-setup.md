@@ -1,3 +1,13 @@
+---
+title: "Processing Users"
+linkTitle: "Processing Users"
+#weight:
+date: 2021-08-20
+tags: 
+description: >
+  
+---
+
 ## Processing User Setup
 
 Stroom / Stroom Proxy should be run under a processing user (we assume stroomuser below).

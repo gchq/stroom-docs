@@ -20,7 +20,7 @@ In the following example a line matched by a parent `<split>` expression is refe
 </split>
 ```
 
-A `<split>` element matches content up to and including the specified [delimiter](2-2-expressions.md#sec-2-2-1-1-2), so the above reference would output the entire line plus the delimiter. However there are various match groups that can be used by child `<group>` and `<data>` elements to reference sections of the matched content.
+A `<split>` element matches content up to and including the specified [delimiter]({{< relref "2-2-expressions.md#sec-2-2-1-1-2" >}}), so the above reference would output the entire line plus the delimiter. However there are various match groups that can be used by child `<group>` and `<data>` elements to reference sections of the matched content.
 
 To illustrate the content provided by each match group, take the following example:
 

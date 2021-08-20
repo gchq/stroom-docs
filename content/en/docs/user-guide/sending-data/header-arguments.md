@@ -30,4 +30,4 @@ Environment:OPS
 Feed:MY_SYSTEM-EVENTS
 ```
 
-The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found [here](payloads.md).
+The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found [here]({{< relref "payloads.md" >}}).

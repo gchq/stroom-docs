@@ -1,4 +1,12 @@
-# Stroom Application Configuration
+---
+title: "Stroom Configuration"
+linkTitle: "Stroom Configuration"
+#weight:
+date: 2021-06-23
+tags:
+description: >
+  
+---
 
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-23  

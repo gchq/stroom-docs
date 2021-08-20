@@ -13,7 +13,7 @@ description: >
 
 The following assumptions are used in this document.
 
-- An account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
+- An account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
 - We will be adding the user `burn`
 - We will make this user an `Administrator` 
 

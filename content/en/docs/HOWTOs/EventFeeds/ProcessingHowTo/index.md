@@ -47,7 +47,7 @@ as a text document with ANSI encoding.
 ## Establish the Processing Pipeline
 
 We will create the components that make up the processing pipeline for transforming these raw logs into the Stroom Event Logging XML Schema.
-They will be placed a folder appropriately named **BlueCoat** in the path **System/Event Sources/Proxy**. See [Folder Creation](../General/FeedManagementHowTo.md#create-folder-for-specific-event-source "Folder creation") for details on creating such a folder.
+They will be placed a folder appropriately named **BlueCoat** in the path **System/Event Sources/Proxy**. See [Folder Creation]({{< relref "../../General/FeedManagementHowTo.md#create-folder-for-specific-event-source" >}}) for details on creating such a folder.
 
 There will be four components
 - the Event Feed to group the BlueCoat log files
@@ -55,7 +55,7 @@ There will be four components
 - the XSLT Translation to translate the simple XML formed by the Text Converter into the Stroom Event Logging XML form, and
 - the Processing pipeline which manages how the processing is performed.
 
-All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**. It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{3,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties.md "System Properties") docment to see how to make this change.
+All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**. It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{3,}$`. See the [HOWTO on System Properties]({{< relref "../../Administration/SystemProperties.md" >}}) docment to see how to make this change.
 
 ### Create the Event Feed
 
@@ -338,11 +338,11 @@ This window is made up of four panes.
 
 The top pane remains the same - a display of the pipeline structure and the _step indicator_ and green _Stepping Actions_.
 
-The next pane down is the editing pane for the Text Converter. This pane is used to edit the text converter that converts our _line based_ BlueCoat Proxy logs into a XML format. We make use of the Stroom Data Splitter facility to perform this transformation. See [here](../../datasplitter/1-0-introduction.md) for complete details on the data splitter.
+The next pane down is the editing pane for the Text Converter. This pane is used to edit the text converter that converts our _line based_ BlueCoat Proxy logs into a XML format. We make use of the Stroom Data Splitter facility to perform this transformation. See [here]({{< relref "../../../user-guide/data-splitter" >}}) for complete details on the data splitter.
 
 The lower two panes are the _input_ and _output_ displays for the text converter.
 
-The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the [Data Splitter](../../datasplitter/1-0-introduction.md) and review the various samples found in the Stroom Context packs published, or the Pull Requests of https://github.com/gchq/stroom-content.
+The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the [Data Splitter]({{< relref "../../../user-guide/data-splitter" >}}) and review the various samples found in the Stroom Context packs published, or the Pull Requests of https://github.com/gchq/stroom-content.
 
 For the purpose of this HOWTO, the Datasplitter appears below. The author believes the comments should support the understanding of the transformation.
 
@@ -500,7 +500,7 @@ The lower two panes are the _input_ and _output_ displays for the xslt translati
 
 In this HOWTO we will transform the `<records>` XML structure into the _GCHQ Stroom Event Logging XML Schema_ form which is documented [here](https://github.com/gchq/event-logging-schema).
 
-The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on [XSLT Conversion](../../user-guide/pipelines/xslt/README.md) and the [Stroom Event Logging XML Schema](https://github.com/gchq/event-logging-schema) and review the various samples found in the Stroom Context packs published, or the Pull Requests of https://github.com/gchq/stroom-content.
+The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on [XSLT Conversion]({{< relref "../../../user-guide/pipelines/xslt" >}}) and the [Stroom Event Logging XML Schema](https://github.com/gchq/event-logging-schema) and review the various samples found in the Stroom Context packs published, or the Pull Requests of https://github.com/gchq/stroom-content.
 
 We will build the translation in steps. We enter an initial portion of our xslt transformation that just consumes the `Software` and `Version` key values and converts the `date` and `time` values (which are in UTC) into the `EventTime/TimeCreated` element. This code segment is
 

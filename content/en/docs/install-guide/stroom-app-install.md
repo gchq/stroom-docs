@@ -1,6 +1,17 @@
-> *NOTE* This document was written for stroom v4/5. It is not applicable for v6+.
+---
+title: "Stroom 5 Installation"
+linkTitle: "Stroom 5 Installation"
+#weight:
+date: 2021-08-20
+tags: 
+description: >
+  
+---
 
-# Stroom Install
+{{% page-warning %}}
+This document was written for stroom v4/5.
+It is not applicable for v6+.
+{{% /page-warning %}}
 
 ## Prerequisites
 

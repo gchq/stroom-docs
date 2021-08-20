@@ -1,14 +1,16 @@
-> * Last Updated: 10 Mar 2021  
+---
+title: "v6 to v7 Upgrade"
+linkTitle: "v6 to v7 Upgrade"
+#weight:
+date: 2021-03-10
+tags: 
+description: >
+  This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.
+---
 
-
-# Upgrading From v6 to v7
-
-This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.
-
-*IMPORTANT* - Before comencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.
-
-This document has been written 
-
+{{% page-warning %}}
+Before comencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.
+{{% /page-warning %}}
 
 ## Differences between v6 and v7
 

@@ -38,7 +38,7 @@ It may show streams that are 'ancestors' of the selected stream, e.g. showing th
 
 This pane shows the contents of the stream selected in the Related Streams List.
 The content of a stream will differ depending on the type of stream selected and the child stream types in that stream.
-For more information on the anatomy of streams, see [Streams](./concepts/streams.md).
+For more information on the anatomy of streams, see [Streams]({{< relref "./concepts/streams.md" >}}).
 This pane is split into multiple sub tabs depending on the different types of content available. 
 
 #### Info Tab
@@ -57,7 +57,7 @@ It will only show a limited amount of data so if the data child stream is large 
 If the stream is multi-part then you will see Part navigation controls to switch between parts.
 For each part you will be shown the first n character of that part (formatted if applicable).
 
-If the stream is a [Segmented stream](./concepts/streams.md#segmented-stream) stream then you will see the Record navigation controls to switch between records.
+If the stream is a [Segmented stream]({{< relref "./concepts/streams.md#segmented-stream" >}}) stream then you will see the Record navigation controls to switch between records.
 Only one record is shown at once.
 If a record is very large then only the first n characters of the record will be shown.
 
@@ -69,13 +69,13 @@ The Data Preview tab shows a '[progress](#data-progress-bar)' bar to indicate wh
 #### Context Tab
 
 This sub-tab is only shown for non-segmented streams, e.g. _Raw Events_ and _Raw_Reference_ that have an associated context data child stream.
-For more details of context streams, see [Context](./concepts/streams.md#context)
+For more details of context streams, see [Context]({{< relref "./concepts/streams.md#context" >}})
 This sub-tab works in exactly the same way as the Data Preview sub-tab except that it shows a different child stream.
 
 #### Meta Tab
 
 This sub-tab is only shown for non-segmented streams, e.g. _Raw Events_ and _Raw_Reference_ that have an associated meta data child stream.
-For more details of meta streams, see [Meta](./concepts/streams.md#meta-data)
+For more details of meta streams, see [Meta]({{< relref "./concepts/streams.md#meta-data" >}})
 This sub-tab works in exactly the same way as the Data Preview sub-tab except that it shows a different child stream.
 
 ### Source View

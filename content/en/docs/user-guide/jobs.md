@@ -129,7 +129,7 @@ Any that are older than this threshold are deleted.
 
 Stroom's configuration properties can each be configured globally in the database.
 This job controls the frequency that each node refreshes the values of its properties cache from the global database values.
-See also [Properties](./properties.md).
+See also [Properties]({{< relref "./properties.md" >}}).
 
 ## Proxy Aggregation
 
@@ -143,7 +143,7 @@ How frequently items in the query history are removed from the history if their 
 ## Ref Data Off-heap Store Purge
 
 Purges all data older than the purge age defined by property `stroom.pipeline.purgeAge`.
-See also [Reference Data](./pipelines/reference-data.md#purging-old-reference-data).
+See also [Reference Data]({{< relref "./pipelines/reference-data.md#purging-old-reference-data" >}}).
 
 ## Solr Index Optimise
 

@@ -47,7 +47,7 @@ The following is an example of using _send_to_stroom.sh_ to send all logs in a d
 
 ## UNIX (using curl)
 
-Curl is a standard unix tool to send data to or from a server. In the following examples -H is used to specify the header arguments required by Stroom, see [Header Arguments](header-arguments.md).
+Curl is a standard unix tool to send data to or from a server. In the following examples -H is used to specify the header arguments required by Stroom, see [Header Arguments]({{< relref "header-arguments.md" >}}).
 
 Notes:
 
@@ -76,7 +76,7 @@ curl --cacert root_ca.crt --data-binary @file.dat "https://<Stroom_HOST>/stroom/
 
 The above example verifies that the certificate presented by Stroom is signed by the CA. The CA is provided to curl using the '--cacert root_ca.crt' parameter.
 
-For step by step instructions for creating, configuring and testing the PKI authentication, see the [SSL Guide](ssl.md)
+For step by step instructions for creating, configuring and testing the PKI authentication, see the [SSL Guide]({{< relref "ssl.md" >}})
 
 ### Example HTTPS With 2 way SSL authentication:
 

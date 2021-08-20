@@ -8,7 +8,7 @@ description: >
   
 ---
 
-Variables are added to Data Splitter configuration using the `<var>` element, see [variables](2-3-variables.md). Each variable must have a unique id so that it can be referenced. References to variables have the form `$VARIABLE_ID$`, e.g.
+Variables are added to Data Splitter configuration using the `<var>` element, see [variables]({{< relref "2-3-variables.md" >}}). Each variable must have a unique id so that it can be referenced. References to variables have the form `$VARIABLE_ID$`, e.g.
 
 ```xml
 <data name="$heading$" value="$" />
@@ -52,7 +52,7 @@ Because the variable is referenced locally only the most recent parent match is 
 
 ### <a name="sec-3-2-2-2"></a>Remote Scope
 
-The [CSV example with a heading](1-2-simple-csv-example-with-heading.md) is an example of a variable being referenced from a remote scope.
+The [CSV example with a heading]({{< relref "1-2-simple-csv-example-with-heading.md" >}}) is an example of a variable being referenced from a remote scope.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

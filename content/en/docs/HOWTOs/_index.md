@@ -24,26 +24,26 @@ In some instances, screen captures will contain timestamps and so you may note i
 although if a sequence of captures is contained within a section of a document, they all will be replaced.
 
 ## Installation
-The [Installation Scenarios](Install/InstallHowTo.md "Stroom Installation Deployments") HOWTO is provided to assist users in setting up a number
+The [Installation Scenarios]({{< relref "Install/InstallHowTo.md" >}}) HOWTO is provided to assist users in setting up a number
 of different Stroom deployments.
 
 ## Event Feed Processing
-The [Event Feed Processing](EventFeeds/ProcessingHowTo.md "Event Feed Processing") HOWTO is provided to assist users in setting up Stroom to process inbound event logs and transform them into the Stroom Event Logging XML Schema.
+The [Event Feed Processing]({{< relref "EventFeeds/ProcessingHowTo.md" >}}) HOWTO is provided to assist users in setting up Stroom to process inbound event logs and transform them into the Stroom Event Logging XML Schema.
 
-The [Apache HTTPD Event Feed](EventFeeds/CreateApacheHTTPDEventFeed.md "Apache HTTPD Event Feed") is interwoven into other HOWTOs that utilise this feed as a datasource.
+The [Apache HTTPD Event Feed]({{< relref "EventFeeds/CreateApacheHTTPDEventFeed.md" >}}) is interwoven into other HOWTOs that utilise this feed as a datasource.
 
 ## Reference Feeds
 Reference Feeds are used to provide look up data for a translation. The reference feed HOWTOs illustrate how to create reference feeds and how to use look up reference data maps to enrich the data you are processing.
 
 ## Searches and Indexing
 This section covers Indexing and Searching for data in Stroom
- * [Search using bash](Search/SearchFromBash.md "Search using Bash")
- * [Elasticsearch integration](Search/Elasticsearch.md "Elasticsearch integration")
- * [Solr integration](Search/Solr.md "Solr integration")
+ * [Search using bash]({{< relref "Search/SearchFromBash.md" >}})
+ * [Elasticsearch integration]({{< relref "Search/Elasticsearch.md" >}})
+ * [Solr integration]({{< relref "Search/Solr.md" >}})
 
 ## General
-[Raw Source Tracking](General/RawSourceTracking.md "Raw Source Tracking") show how to associate a processed Event with the source line that generated it
+[Raw Source Tracking]({{< relref "General/RawSourceTracking.md" >}}) show how to associate a processed Event with the source line that generated it
 
 Other topics in this section are
-1. [Feed Management](General/TasksHowTo.md "Feed Management").
-1. [Tasks](General/TasksHowTo.md "Tasks")
+1. [Feed Management]({{< relref "General/TasksHowTo.md" >}}).
+1. [Tasks]({{< relref "General/TasksHowTo.md" >}})

@@ -1,6 +1,13 @@
-> * Last Updated: 10 Mar 2021  
-
-# Stroom Upgrades and Patches
+---
+title: "Stroom Upgrades"
+linkTitle: "Stroom Upgrades"
+#weight:
+date: 2021-08-20
+tags: 
+  - upgrade
+description: >
+  
+---
 
 ## Stroom v6+
 

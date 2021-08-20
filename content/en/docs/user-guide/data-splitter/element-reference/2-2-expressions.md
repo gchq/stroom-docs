@@ -31,7 +31,7 @@ The `<split>` element has the following attributes:
 
 #### <a name="sec-2-2-1-1-1"></a>id
 
-Optional attribute used to debug the location of expressions causing errors, see [id](2-1-content-providers.md#sec-2-1-2-1-1).
+Optional attribute used to debug the location of expressions causing errors, see [id]({{< relref "2-1-content-providers.md#sec-2-1-2-1-1" >}}).
 
 #### <a name="sec-2-2-1-1-2"></a>delimiter
 
@@ -57,7 +57,7 @@ If used `containerStart` must also be specified. If the container characters are
 
 An optional attribute used to specify the maximum number of times this expression is allowed to match the supplied content. If you do not supply this attribute then the Data Splitter will keep matching the supplied content until it reaches the end. If specified Data Splitter will stop matching the supplied content when it has matched it the specified number of times.
 
-This attribute is used in the ['CSV with header line'](1-2-simple-csv-example-with-heading.md) example to ensure that only the first line is treated as a header line.
+This attribute is used in the ['CSV with header line']({{< relref "1-2-simple-csv-example-with-heading.md" >}}) example to ensure that only the first line is treated as a header line.
 
 #### <a name="sec-2-2-1-1-7"></a>minMatch
 
@@ -88,7 +88,7 @@ The `<regex>` element has the following attributes:
 
 #### <a name="sec-2-2-2-1-1"></a>id
 
-Optional attribute used to debug the location of expressions causing errors, see [id](2-1-content-providers.md#sec-2-1-2-1-1).
+Optional attribute used to debug the location of expressions causing errors, see [id]({{< relref "2-1-content-providers.md#sec-2-1-2-1-1" >}}).
 
 #### <a name="sec-2-2-2-1-2"></a>pattern
 
@@ -160,7 +160,7 @@ name2=some value 2 name3=some value 3
 
 Therefore `name2` will still be available in the content buffer.
 
-It is likely that the advance feature will only be useful in cases where a reluctant match is performed. Reluctant matches are discouraged for performance reasons so this feature should rarely be used. A better way to tackle the above example would be to present the content in [reverse](2-1-content-providers.md#sec-2-1-2-1-5), however this is only possible if the expression is within a group, i.e. is not a root expression. There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.
+It is likely that the advance feature will only be useful in cases where a reluctant match is performed. Reluctant matches are discouraged for performance reasons so this feature should rarely be used. A better way to tackle the above example would be to present the content in [reverse]({{< relref "2-1-content-providers.md#sec-2-1-2-1-5" >}}), however this is only possible if the expression is within a group, i.e. is not a root expression. There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.
 
 ## <a name="sec_2_2_3"></a>The &lt;all&gt; element
 
@@ -189,4 +189,4 @@ The `<all>` element has the following attributes:
 
 #### <a name="sec-2-2-3-1-1"></a>id
 
-Optional attribute used to debug the location of expressions causing errors, see [id](2-1-content-providers.md#sec-2-1-2-1-1).
+Optional attribute used to debug the location of expressions causing errors, see [id]({{< relref "2-1-content-providers.md#sec-2-1-2-1-1" >}}).

@@ -25,13 +25,13 @@ This guide will take you through creating an Elasticsearch index, setting up an 
 
 1. You have created an Elasticsearch cluster.
    For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the [Elasticsearch Docs (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode).
-1. The Elasticsearch cluster is reachable via HTTP/S from all Stroom nodes participating in [stream processing](../../quick-start-guide/running/running.md).
+1. The Elasticsearch cluster is reachable via HTTP/S from all Stroom nodes participating in [stream processing]({{< relref "../../quick-start-guide/running.md" >}}).
 1. Elasticsearch security is disabled.
 1. You have a feed containing `Event` data.
 
 ### Key differences
 
-1. Unlike with [Solr indexing](Solr.md), Elasticsearch field mappings are managed outside of Stroom, usually via the [REST API (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings).
+1. Unlike with [Solr indexing]({{< relref "Solr.md" >}}), Elasticsearch field mappings are managed outside of Stroom, usually via the [REST API (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings).
 1. Aside from creating the mandatory `StreamId` and `EventId` field mappings, explicitly defining mappings for other fields is optional.
    It is however, considered good practice to define these mappings, to ensure each field's data type is correctly parsed and represented.
    For text fields, it also pays to ensure that the [appropriate mapping parameters are used (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html),
@@ -144,7 +144,7 @@ of each `<data>` element exactly matches the mapping property of the Elasticsear
 #### Steps
 
 1. Create a pipeline inheriting from the built-in `Indexing` template.
-1. Modify the `xsltFilter` pipeline stage to output the correct `<records>` XML (see the [Quick-Start Guide](../../quick-start-guide/index/index.md).
+1. Modify the `xsltFilter` pipeline stage to output the correct `<records>` XML (see the [Quick-Start Guide]({{< relref "../../quick-start-guide/indexing.md" >}}).
 1. Delete the default `indexingFilter` and in its place, create an `ElasticIndexingFilter` (see screenshot below).
 1. Review and set the following properties:
     1. `batchSize` (default: `10,000`). Number of documents to send in a single request to the Elasticsearch [Bulk API (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html).
@@ -160,7 +160,7 @@ of each `<data>` element exactly matches the mapping property of the Elasticsear
 
 ### Creating and activating a stream processor
 
-Follow the steps as in [this guide](../../quick-start-guide/index/index.md).
+Follow the steps as in [this guide]({{< relref "../../quick-start-guide/indexing.md" >}}).
 
 ### Checking data has been indexed
 
@@ -221,7 +221,7 @@ used to generate reports and discover patterns and anomalies. It can also be rea
 
 ### Stroom
 
-See the [Dashboard](../../quick-start-guide/dashboard/dashboard.md) page in the Quick-Start Guide.
+See the [Dashboard]({{< relref "../../quick-start-guide/dashboard.md" >}}) page in the Quick-Start Guide.
 
 Instead of selecting a Lucene index, set the target _data source_ to the desired Elasticsearch index in the Stroom _Explorer Tree_.
 

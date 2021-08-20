@@ -1,1 +1,0 @@
-This section is intended for developers. It describes how to do some common tasks, such as releasing and building documentation.

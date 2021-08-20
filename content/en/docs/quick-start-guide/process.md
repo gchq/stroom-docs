@@ -30,7 +30,7 @@ We already have a `Source` element. Unlike most other pipeline elements this isn
 
 ### Add a data splitter
 
-Data splitters are powerful, and there is [a lot we can say](../../datasplitter/1-0-introduction.md) about them. Here we're just going to make a basic one.
+Data splitters are powerful, and there is [a lot we can say]({{< relref "../user-guide/data-splitter" >}}) about them. Here we're just going to make a basic one.
 
 #### Create a CSV splitter
 
@@ -125,7 +125,7 @@ So here we have some XML in a basic format we call the _records_ format. You can
 
 This process is very similar to creating the `CSV splitter`: 
 
-1. Create the [XSLT](../../user-guide/pipelines/xslt/README.md) filter
+1. Create the [XSLT]({{< relref "../user-guide/pipelines/xslt" >}}) filter
 1. Add it to the pipeline 
 1. Step through to make sure it's doing what we expect
 
@@ -180,7 +180,7 @@ We're going to test this in the same way we tested the CSV splitter, by clicking
 
 {{< image "quick-start-guide/process/stepping-03.png" >}}Debugging the XSLT filter{{< /image >}}
 
-Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task](../../user-guide/jobs.md) for real. We need to get this data to a destination.
+Fantastic! Data converted! Well done if you've got this far. Really, there are lots of steps and things that could go wrong and you've persevered. There's a few more things to get this pipeline ready for doing this [task]({{< relref "../user-guide/jobs.md" >}}) for real. We need to get this data to a destination.
 
 ### Outputting the transformed data
 
@@ -259,7 +259,7 @@ You can see that there are the `Raw Events` and the processed `Events`. If you c
 
 #### Troubleshooting
 
-If nothing happens you might need to enable stream processing. This was explained [earlier](../running/running.md#enable-processing-of-data-streams).
+If nothing happens you might need to enable stream processing. This was explained [earlier]({{< relref "running.md#enable-processing-of-data-streams" >}}).
 
-Now you've processed your data you can go ahead and [index](../index/index.md) it.
+Now you've processed your data you can go ahead and [index]({{< relref "indexing.md" >}}) it.
 

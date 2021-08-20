@@ -1,4 +1,14 @@
-# Installation of Stroom Proxy
+---
+title: "Stroom Proxy Installation"
+linkTitle: "Stroom Proxy Installation"
+#weight:
+date: 2021-08-20
+tags: 
+  - proxy
+description: >
+  
+---
+
 There are 2 versions of the stroom software availble for building a proxy server.  
 There is an 'app' version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.  
 The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database.  
@@ -7,6 +17,7 @@ The document will cover the installation and configuration of the stroom proxy s
 
 
 ## Assumptions
+
 The following assumptions are used in this document.
 - the user has reasonable RHEL/CentOS System administration skills.
 - installation is on a fully patched minimal CentOS 7 instance.

@@ -1,4 +1,13 @@
-# MySQL Configuration
+---
+title: "MySQL Configuration"
+linkTitle: "MySQL Configuration"
+#weight:
+date: 2021-06-07
+tags:
+  - mysql
+description: >
+  
+---
 
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-07  

@@ -16,8 +16,8 @@ description: >
 - the Stroom `statistics` database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3308.
 - the Stroom `statistics` database user is `stroomuser` with a password of `Stroompassword2@`.
 - the application user `stroomuser` has been created
-- the user is or has deployed the two node Stroom cluster described [here](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario")
-- the user has set up the Stroom processing user as described [here](InstallProcessingUserSetupHowTo.md "Processing User Setup")
+- the user is or has deployed the two node Stroom cluster described [here]({{< relref "InstallHowTo.md#storage-scenario" >}})
+- the user has set up the Stroom processing user as described [here]({{< relref "InstallProcessingUserSetupHowTo.md" >}})
 - the prerequisite software has been installed
 - when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
 

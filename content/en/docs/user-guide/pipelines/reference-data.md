@@ -11,8 +11,8 @@ description: >
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 15 September 2020  
 > **See Also:**  
-> * [HOWTO - Creating a Simple Reference Feed](../../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeed.md)  
-> * [XSLT Functions](./xslt/xslt-functions.md)
+> * [HOWTO - Creating a Simple Reference Feed]({{< relref "../../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeeds" >}})  
+> * [XSLT Functions]({{< relref "./xslt/xslt-functions.md" >}})
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the physical location.
@@ -330,22 +330,22 @@ Also if you have some lookups that may not return a value and others that should
 ### Standard Key/Value Lookups
 
 Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
-Standard lookups are performed using the various forms of the [`stroom:lookup()`](./xslt/xslt-functions.md#lookup) XSLT function.
+Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#lookup" >}}) XSLT function.
 
 ### Range Lookups
 
 Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
-For more detail on range lookups see the XSLT function [`stroom:lookup()`](./xslt/xslt-functions.md#range-lookups).
+For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#range-lookups" >}}).
 
 ### Nested Map Lookups
 
 Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
-For more detail on nested lookups see the XSLT function [`stroom:lookup()`](./xslt/xslt-functions.md#nested-maps).
+For more detail on nested lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#nested-maps" >}}).
 
 ### Bitmap Lookups
 
 A bitmap lookup is a special kind of lookup that actually performs a lookup for each enabled bit position of the passed bitmap value.
-For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`](./xslt/xslt-functions.md#bitmap-lookup).
+For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`]({{< relref "./xslt/xslt-functions.md#bitmap-lookup" >}}).
 
 Values can either be a simple string or an XML fragment.
 

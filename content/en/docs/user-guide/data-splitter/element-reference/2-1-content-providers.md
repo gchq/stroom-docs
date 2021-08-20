@@ -8,7 +8,7 @@ description: >
   
 ---
 
-Content providers take some content from the input source or elsewhere (see [fixed strings](3-3-use-of-fixed-strings.md) and provide it to one or more expressions. Both the root element `<dataSplitter>` and `<group>` elements are content providers.
+Content providers take some content from the input source or elsewhere (see [fixed strings]({{< relref "3-3-use-of-fixed-strings.md" >}}) and provide it to one or more expressions. Both the root element `<dataSplitter>` and `<group>` elements are content providers.
 
 ## <a name="sec_2_1_1"></a>Root element &lt;dataSplitter&gt;
 
@@ -117,7 +117,7 @@ DSParser [2:1] ERROR: Expressions failed to match all of the content provided by
 
 #### <a name="sec-2-1-2-1-2"></a>value
 
-This attribute determines what content to present to child expressions. By default the entire content matched by a group’s parent expression is passed on by the group to child expressions. If required, content from a specific match group in the parent expression can be passed to child expressions using the value attribute, e.g. `value="$1"`. In addition to this content can be composed in the same way as it is for data names and values. see [match references](3-0-match-references.md) for a full description of match references.
+This attribute determines what content to present to child expressions. By default the entire content matched by a group’s parent expression is passed on by the group to child expressions. If required, content from a specific match group in the parent expression can be passed to child expressions using the value attribute, e.g. `value="$1"`. In addition to this content can be composed in the same way as it is for data names and values. see [match references]({{< relref "../match-reference" >}}) for a full description of match references.
 
 #### <a name="sec-2-1-2-1-3"></a>ignoreErrors
 
@@ -217,4 +217,4 @@ Content is only presented to child regular expressions in reverse. When referenc
 
 The reverse feature isn't needed very often but there are a few cases where it really helps produce the desired output without the complexity and performance overhead of a reluctant match.
 
-An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the [advance attribute](2-2-expressions.md#sec-2-2-2-1-5) on the `<regex>`. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.
+An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the [advance attribute]({{< relref "2-2-expressions.md#sec-2-2-2-1-5" >}}) on the `<regex>`. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.

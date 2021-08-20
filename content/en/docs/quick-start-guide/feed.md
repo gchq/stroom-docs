@@ -41,4 +41,4 @@ That's it, there's now data in Stroom. You should be able to see it in the data 
 
 {{< image "quick-start-guide/feed/show-feed-data.png" >}}The data on a feed{{< /image >}}
 
-Now you can do all sorts of things with the data: transform it, visualise it, index it. It's [Pipelines](../process/process.md) that allow all these things to happen.
+Now you can do all sorts of things with the data: transform it, visualise it, index it. It's [Pipelines]({{< relref "process.md" >}}) that allow all these things to happen.

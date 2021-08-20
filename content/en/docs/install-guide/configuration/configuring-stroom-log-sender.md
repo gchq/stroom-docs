@@ -1,5 +1,13 @@
-# Stroom log sender Configuration
-
+---
+title: "Stroom Log Sender Configuration"
+linkTitle: "Stroom Log Sender Configuration"
+#weight:
+date: 2021-06-14
+tags: 
+  - log-sender
+description: >
+  
+---
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-14
 

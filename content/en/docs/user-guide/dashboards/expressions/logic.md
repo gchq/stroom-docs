@@ -39,7 +39,7 @@ equals(50, 50)
 > true
 ```
 
-Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`](./type-checking.md#is-null) and [`isError()`](./type-checking.md#is-error) functions must be used instead.
+Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`]({{< relref "./type-checking.md#is-null" >}}) and [`isError()`]({{< relref "./type-checking.md#is-error" >}}) functions must be used instead.
 
 ## Greater Than
 

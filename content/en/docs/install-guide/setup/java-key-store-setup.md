@@ -1,4 +1,12 @@
-# Java Key Store Setup
+---
+title: "Java Key Store Setup"
+linkTitle: "Java Key Store Setup"
+#weight:
+date: 2021-08-20
+tags: 
+description: >
+  
+---
 
 In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore's setting up.
 

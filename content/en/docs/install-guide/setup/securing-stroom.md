@@ -1,3 +1,13 @@
+---
+title: "Securing Stroom"
+linkTitle: "Securing Stroom"
+#weight:
+date: 2021-08-20
+tags: 
+description: >
+  
+---
+
 > *NOTE* This document was written for stroom v4/5. Some parts may not be applicable for v6+.
 
 ## Securing Stroom

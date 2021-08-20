@@ -389,39 +389,11 @@ However both will produce the same result.
 ## Links
 
 Links can be added using either standard markdown link syntax or using a Hugo shortcode.
-The advantage of the shortcode is that hugo will check for broken links when building the site.
+The advantage of the shortcode is that hugo will check for broken links when building the site so there are preferred.
 
-Links should not contain the `.md` extension as this will be stripped when the site is generated, e.g. for the following content:
+Links to external sites, i.e. on the internet, should have ` (external link)` appended to the link title.
+This makes it clear to readers which links are local and which are external and therefore possibly not available if there is no access to the internet.
 
-```text
-/content
-   /en
-      /docs
-         /section-x
-            /sub-section-a
-               _index.md
-               page1.md
-               page2.md
-            /sub-section-b
-               _index.md
-               page1.md
-               page2.md
-```
-
-This will become:
-
-```text
-/docs
-   /section-x
-      /sub-section-a
-         /page1
-         /page2
-      /sub-section-b
-         /page1
-         /page2
-```
-
-in the rendered site.
 
 ### Anchors
 
@@ -469,8 +441,50 @@ For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor
   [link]({{</* relref "/docs/proxy/install.md#prerequisites" */>}})
   ```
 
+* A [link]({{< relref "docs/HOWTOs" >}}) to a branch in the document tree, i.e. to the \_index.md.
+
+  ```markdown
+  [link]({{</* relref "docs/HOWTOs" */>}})
+  ```
+
 
 ### Markdown link examples
+
+{{% warning %}}
+Avoid using markdown style links as they can't be verified at site build time like the short code links can.
+{{% /warning %}}
+
+Markdown style links should not contain the `.md` extension as this will be stripped when the site is generated, e.g. for the following content:
+
+```text
+/content
+   /en
+      /docs
+         /section-x
+            /sub-section-a
+               _index.md
+               page1.md
+               page2.md
+            /sub-section-b
+               _index.md
+               page1.md
+               page2.md
+```
+
+This will become:
+
+```text
+/docs
+   /section-x
+      /sub-section-a
+         /page1
+         /page2
+      /sub-section-b
+         /page1
+         /page2
+```
+
+in the rendered site.
 
 * A [link](#alerts) to a heading anchor on this page.
 
@@ -524,8 +538,12 @@ Some language types commonly used in this documentation are:
 * `yaml`
 
 The list of supported languages can be found [here (external)](https://prismjs.com/index.html#supported-languages).
-If the content of the fenced block has no supported language or is just plain text then use language `text`.
+
+{{% note %}}
+The fenced code block **MUST** have a language specified.
 This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.
+If the content of the fenced block has no supported language or is just plain text then use language `text`.
+{{% /note %}}
 
 The following are some example of rendered code blocks:
 

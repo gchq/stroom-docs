@@ -1,14 +1,20 @@
-# Nginx Configuration
+---
+title: "Nginx Configuration"
+linkTitle: "Nginx Configuration"
+#weight:
+date: 2021-08-20
+tags: 
+  - nginx
+description: >
+  Nginx is the standard web server used by stroom.
+  Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
+  It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance.
+  Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.
+---
 
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-07  
 > **See Also:** [Nginx documentation (external link)](https://nginx.org/en/docs/).
-
-Nginx is the standard web server used by stroom.
-Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
-It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance.
-Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.
-
 
 ## Without Docker
 

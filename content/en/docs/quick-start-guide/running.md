@@ -11,16 +11,16 @@ description: >
 ## Getting and Running Stroom
 
 For this quick start you want a simple single-node Stroom. 
-You will want to follow [these instructions](../../dev-guide/docker-running.md). 
+You will want to follow [these instructions]({{< relref "../dev-guide/docker-running.md" >}}). 
 They do require Docker and Docker Compose, so make sure you've installed those first.
 
 At the risk of sowing confusion you should know that there are different ways of running Stroom. Here are the full options:
 
-* [Run using Docker Hub images (recommended)](../../dev-guide/docker-running.md)
-* [Install a stroom v5.x release](../../install-guide/stroom-app-install.md)
-* [Install a stroom v6.x release](../../install-guide/stroom-6-installation.md)
+* [Run using Docker Hub images (recommended)]({{< relref "../dev-guide/docker-running.md" >}})
+* [Install a stroom v5.x release]({{< relref "../install-guide/stroom-app-install.md" >}})
+* [Install a stroom v6.x release]({{< relref "../install-guide/stroom-6-installation.md" >}})
 * From source you can:
-  * [Build and run from IntelliJ](../../dev-guide/stroom-in-an-ide.md)
+  * [Build and run from IntelliJ]({{< relref "../dev-guide/stroom-in-an-ide.md" >}})
 
 ## Basic configuration
 

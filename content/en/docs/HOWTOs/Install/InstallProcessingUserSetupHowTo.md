@@ -13,7 +13,7 @@ description: >
 - installation is on a fully patched minimal Centos 7.3 instance.
 - the application user `stroomuser` has been created
 - the user is deploying for either
- - the example two node Stroom cluster whose storage is described [here](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario")
+ - the example two node Stroom cluster whose storage is described [here]({{< relref "InstallHowTo.md#storage-scenario" >}})
  - a simple Forwarding or Standalone Proxy
  - adding a node to an existing Stroom cluster
 
@@ -36,7 +36,7 @@ The STROOM_TMP variable is set to a working area for the Stroom Application to u
 via the ${stroom_tmp} context variable. Note that we only need the STROOM_TMP variable for Stroom Application deployments, so one
 could remove it from the files for a Forwarding or Standalone proxy deployment.
 
-With respect to the working area, we will make use of the [Storage Scenario](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario") we have defined and hence use the directory `/stroomdata/stroom-working-p_nn_` where _nn_ is the hostname node number (i.e 00 for host stroomp00, 01 for host stroomp01, etc).
+With respect to the working area, we will make use of the [Storage Scenario]({{< relref "InstallHowTo.md#storage-scenario" >}}) we have defined and hence use the directory `/stroomdata/stroom-working-p_nn_` where _nn_ is the hostname node number (i.e 00 for host stroomp00, 01 for host stroomp01, etc).
 
 So, for the first node, _00_, we run
 ```bash

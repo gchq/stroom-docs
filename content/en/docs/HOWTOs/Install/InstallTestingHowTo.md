@@ -12,17 +12,17 @@ description: >
 
 ## Assumptions
 - Stroom Single or Multi Node Cluster Testing
- - the [Multi Node Stroom Cluster (Proxy and Application)](InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment "Multi Node Stroom Cluster (Proxy and Application") has been deployed
- - a [Test Feed](InstallHowTo.md#add-a-test-feed "Add a Test Feed"), `TEST-FEED-V1_0` has been added
+ - the [Multi Node Stroom Cluster (Proxy and Application)]({{< relref "InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment" >}}) has been deployed
+ - a [Test Feed]({{< relref "InstallHowTo.md#add-a-test-feed" >}}), `TEST-FEED-V1_0` has been added
  - Proxy aggregation has been turned off on all Stroom _Store_ Proxies
  - the Stroom Proxy Repository Format (`REPO_FORMAT`) chosen was the default - `${pathId}/${id`
 - Stroom Forwarding Proxy Testing
- - the [Multi Node Stroom Cluster (Proxy and Application)](InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment "Multi Node Stroom Cluster (Proxy and Application") has been deployed
- - the [Stroom Forwarding Proxy](InstallHowTo.md#forwarding-stroom-proxy-deployment "Stroom Forwarding Proxy") has been deployed
- - a [Test Feed](InstallHowTo.md#add-a-test-feed "Add a Test Feed"), `TEST-FEED-V1_0` has been added
+ - the [Multi Node Stroom Cluster (Proxy and Application)]({{< relref "InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment" >}}) has been deployed
+ - the [Stroom Forwarding Proxy]({{< relref "InstallHowTo.md#forwarding-stroom-proxy-deployment" >}}) has been deployed
+ - a [Test Feed]({{< relref "InstallHowTo.md#add-a-test-feed" >}}), `TEST-FEED-V1_0` has been added
  - the Stroom Proxy Repository Format (`REPO_FORMAT`) chosen was the default - `${pathId}/${id`
 - Stroom Standalone Proxy Testing
- - the [Stroom Standalone Proxy](InstallHowTo.md#standalone-stroom-proxy-deployment "Stroom Standalone Proxy") has been deployed
+ - the [Stroom Standalone Proxy]({{< relref "InstallHowTo.md#standalone-stroom-proxy-deployment" >}}) has been deployed
  - the Stroom Proxy Repository Format (`REPO_FORMAT`) chosen was the default - `${pathId}/${id`
 
 ## Stroom Single or Multi Node Cluster Testing
@@ -302,7 +302,7 @@ We have successfully tested direct posting to a Stroom feed and that the Apache 
 #### Test Proxy Aggregation is Working
 
 To test that the Proxy Aggregation is working,
-we need to [enable](../General/TasksHowTo.md#turn-on-proxy-aggregation "Enable Proxy Aggregation") on each node.
+we need to [enable]({{< relref "../General/TasksHowTo.md#turn-on-proxy-aggregation" >}}) on each node.
 
 By enabling the Proxy Aggregation process, both nodes immediately performed the task as indicated by each node's Stroom application logs as per
 `stroomp00:`

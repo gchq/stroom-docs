@@ -39,16 +39,16 @@ To this XML:
   ...
 ```
 
-You will go from a clean vanilla Stroom to having a simple [pipeline](../user-guide/pipelines/README.md) that takes in CSV data and outputs that data transformed into XML.
+You will go from a clean vanilla Stroom to having a simple [pipeline]({{< relref "../user-guide/pipelines" >}}) that takes in CSV data and outputs that data transformed into XML.
 Stroom is a generic and powerful tool for ingesting and processing data: it's flexible because it's generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you'll find yourself struggling.
 
 We're going to do the following:
 
-1. [Get, configure, and run Stroom](running/running.md)
-3. [Get some data into Stroom](feed/feed.md)
-4. [Set up a pipeline to process the data](process/process.md)
-5. [Index the data](index/index.md)
-6. [Show the data on a dashboard](dashboard/dashboard.md)
+1. [Get, configure, and run Stroom]({{< relref "running.md" >}})
+3. [Get some data into Stroom]({{< relref "feed.md" >}})
+4. [Set up a pipeline to process the data]({{< relref "process.md" >}})
+5. [Index the data]({{< relref "indexing.md" >}})
+6. [Show the data on a dashboard]({{< relref "dashboard.md" >}})
 
 All the things we create here are available as a [content pack (external link)](https://github.com/gchq/stroom-content/releases/tag/stroom-101-v1.0), so if you just wanted to see it running you could get there quite easily.
 

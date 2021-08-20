@@ -24,15 +24,15 @@ The `<data>` element has the following attributes:
 
 #### <a name="sec-2-4-1-1-1"></a>id
 
-Optional attribute used to debug the location of expressions causing errors, see [id](2-1-content-providers.md#sec-2-1-2-1-1).
+Optional attribute used to debug the location of expressions causing errors, see [id]({{< relref "2-1-content-providers.md#sec-2-1-2-1-1" >}}).
 
 #### <a name="sec-2-4-1-1-2"></a>name
 
-Both the name and value attributes of the `<data>` element can be specified using [match references](3-0-match-references.md).
+Both the name and value attributes of the `<data>` element can be specified using [match references]({{< relref "../match-reference" >}}).
 
 #### <a name="sec-2-4-1-1-3"></a>value
 
-Both the name and value attributes of the `<data>` element can be specified using [match references](3-0-match-references.md).
+Both the name and value attributes of the `<data>` element can be specified using [match references]({{< relref "../match-reference" >}}).
 
 #### <a name="sec_2_4_1_2"></a>Single &lt;data&gt; element example
 

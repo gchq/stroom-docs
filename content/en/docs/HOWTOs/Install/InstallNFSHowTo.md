@@ -14,7 +14,7 @@ description: >
 The following assumptions are used in this document.
  - the user has reasonable RHEL/Centos System administration skills
  - installations are on Centos 7.3 minimal systems (fully patched)
- - the user is or has deployed the example two node Stroom cluster storage hierarchy described [here](InstallHowTo.md#storage-scenario "HOWTO Storage Scenario")
+ - the user is or has deployed the example two node Stroom cluster storage hierarchy described [here]({{< relref "InstallHowTo.md#storage-scenario" >}})
  - the configuration of this NFS is NOT secure. It is highly recommended to improve it's security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.
 
 ## Installation of NFS software
@@ -104,7 +104,7 @@ as the existing nodes and all nodes have added mount points (directories) for th
 
 - Node: `stroomp02.strmdev00.org`
 
-  * Install NFS software as [above](InstallNFSHowTo.md#installation-of-nfs-software "Installation of NFS Software")
+  * Install NFS software as [above]({{< relref "InstallNFSHowTo.md#installation-of-nfs-software" >}})
   * Configure the exports file as per
 
 ```bash

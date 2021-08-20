@@ -1,4 +1,12 @@
-# Stroom 6 Installation Guide
+---
+title: "Stroom 6 Installation"
+linkTitle: "Stroom 6 Installation"
+#weight:
+date: 2021-08-20
+tags: 
+description: >
+  
+---
 
 We would welcome feedback on this documentation.
 

@@ -10,11 +10,11 @@ description: >
 ---
 
 This HOWTO demonstrates how to manage
-[Feeds](../../user-guide/feeds.md "Stroom Feeds")
+[Feeds]({{< relref "../../user-guide/feeds.md" >}})
 
 ## Assumptions
 - All Sections
- - an account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
+ - an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
 
 
 ### Creation of an Event Feed

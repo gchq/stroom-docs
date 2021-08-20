@@ -10,12 +10,12 @@ description: >
   How to maintain Stroom's data and index volumes.
 ---
 
-Stroom stores data in [volumes](../../user-guide/volumes.md "Stroom Volumes").
+Stroom stores data in [volumes]({{< relref "../../user-guide/volumes.md" >}}).
 These are the logical link to the Storage hierarchy we setup on the operating system.
 This HOWTO will demonstrate how one first sets up volumes and also how to add additional volumes if one expanded an existing Stroom cluster.
 
 ## Assumptions
-- an account with the `Administrator` Application [Permission](../../user-guide/roles.md "Stroom Application Permissions") is currently logged in.
+- an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
 - we will add volumes as per the Multi Node Stroom deployment Storage hierarchy
 
 ## Configure the Volumes

@@ -237,4 +237,4 @@ If it all goes to plan you'll see index shards appear if you open the index you 
 
 The document count doesn't update immediately so don't worry if the count is 0. The count is updated on shard flush and happens in the background.
 
-Now that we have finished indexing we can display data on a [dashboard](../dashboard/dashboard.md).
+Now that we have finished indexing we can display data on a [dashboard]({{< relref "dashboard.md" >}}).

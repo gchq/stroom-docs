@@ -1,4 +1,13 @@
-# Stroom 6 Architecture & Deployment
+---
+title: "Stroom 6 Architecture & Depployment"
+linkTitle: "Stroom 6 Architecture"
+#weight:
+date: 2021-08-20
+tags: 
+  - architecture
+description: >
+  
+---
 
 The diagram below shows the logical architecture of Stroom v6.
 It is not concerned with how/where the various services are deployed.
