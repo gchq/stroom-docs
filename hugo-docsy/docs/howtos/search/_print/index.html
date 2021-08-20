@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.86.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/search/">
+<meta name="generator" content="Hugo 0.87.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/search/">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" as="style">
-<link href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.01ab5e5887b9a2d36219d8f3971a6908f681a1955a7df1f518190d0701f51d9b.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.01ab5e5887b9a2d36219d8f3971a6908f681a1955a7df1f518190d0701f51d9b.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -144,7 +144,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.7bd92cc9cde58ee2843ae3abbf3c87d5.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.287e97f143b0ebbde99ecdb07aa8a1c7.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -244,46 +244,24 @@ This the multi-page printable view of this section.
     
 	<h1 id="pg-8b7048c9a87146a09d8583a0c24e6139">1 - Elasticsearch integration</h1>
     <div class="lead">How to integrate Stroom with Elastic Search</div>
-	<h2 id="contents">Contents</h2>
-<ol>
-<li><a href="#1-introduction">Introduction</a></li>
-<li><a href="#2-indexing-data">Indexing data</a>
-<ol>
-<li><a href="#21-creating-an-index-in-elasticsearch">Creating an index in Elasticsearch</a></li>
-<li><a href="#22-registering-the-index-in-stroom">Registering the index in Stroom</a></li>
-<li><a href="#23-setting-index-retention">Setting index retention</a></li>
-<li><a href="#24-creating-an-indexing-pipeline">Creating an indexing pipeline</a></li>
-<li><a href="#25-creating-and-activating-a-stream-processor">Creating and activating a stream processor</a></li>
-<li><a href="#26-checking-data-has-been-indexed">Checking data has been indexed</a></li>
-<li><a href="#27-reindexing-data">Reindexing data</a></li>
-</ol>
-</li>
-<li><a href="#3-searching">Searching</a>
-<ol>
-<li><a href="#31-stroom">Stroom</a></li>
-<li><a href="#32-elasticsearch">Elasticsearch</a></li>
-</ol>
-</li>
-<li><a href="#4-security">Security</a></li>
-</ol>
-<h2 id="1-introduction">1. Introduction</h2>
+	<h2 id="introduction">Introduction</h2>
 <p>Stroom v6.1 can pass data to Elasticsearch for indexing.
 Indices created using this process (i.e. those containing a <code>StreamId</code> and <code>EventId</code> corresponding to a particular Stroom instance)
 are searchable via a Stroom <em>dashboard</em>, much like a Stroom Lucene index.</p>
 <p>This integration provides operators with the flexibility to utilise the additional capabilities of Elasticsearch,
 (like clustering and replication) and expose indexed data for consumption by external analytic or processing tools.</p>
 <p>This guide will take you through creating an Elasticsearch index, setting up an indexing pipeline, activating a stream processor and searching the indexed data in both Stroom and Elasticsearch.</p>
-<h3 id="11-assumptions">1.1. Assumptions</h3>
+<h3 id="assumptions">Assumptions</h3>
 <ol>
 <li>You have created an Elasticsearch cluster.
 For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode">Elasticsearch Docs (external link)</a>.</li>
-<li>The Elasticsearch cluster is reachable via HTTP/S from all Stroom nodes participating in <a href="../../quick-start-guide/running/running.md">stream processing</a>.</li>
+<li>The Elasticsearch cluster is reachable via HTTP/S from all Stroom nodes participating in <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/running/">stream processing</a>.</li>
 <li>Elasticsearch security is disabled.</li>
 <li>You have a feed containing <code>Event</code> data.</li>
 </ol>
-<h3 id="12-key-differences">1.2. Key differences</h3>
+<h3 id="key-differences">Key differences</h3>
 <ol>
-<li>Unlike with <a href="Solr.md">Solr indexing</a>, Elasticsearch field mappings are managed outside of Stroom, usually via the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings">REST API (external link)</a>.</li>
+<li>Unlike with <a href="/stroom-docs/hugo-docsy/docs/howtos/search/solr/">Solr indexing</a>, Elasticsearch field mappings are managed outside of Stroom, usually via the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings">REST API (external link)</a>.</li>
 <li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional.
 It is however, considered good practice to define these mappings, to ensure each field&rsquo;s data type is correctly parsed and represented.
 For text fields, it also pays to ensure that the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html">appropriate mapping parameters are used (external link)</a>,
@@ -293,8 +271,8 @@ This is because Elasticsearch stores the content of the original document in the
 which is retrieved when populating search results.
 Provided the <code>_source</code> field is enabled (as it is by default), a field is treated as <code>stored</code> in Stroom and its value doesn&rsquo;t need to be retrieved via an <em>extraction pipeline</em>.</li>
 </ol>
-<h2 id="2-indexing-data">2. Indexing data</h2>
-<h3 id="21-creating-an-index-in-elasticsearch">2.1. Creating an index in Elasticsearch</h3>
+<h2 id="indexing-data">Indexing data</h2>
+<h3 id="creating-an-index-in-elasticsearch">Creating an index in Elasticsearch</h3>
 <p>The following cURL command creates an index named <code>stroom_test</code> in Elasticsearch cluster <code>http://localhost:9200</code> consisting of the following fields:</p>
 <ol>
 <li><code>StreamId</code> (mandatory, must be of data type <code>long</code>)</li>
@@ -335,7 +313,7 @@ See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/siz
 <p>After creating the index, you can add additional field mappings.
 Note the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html#updating-field-mappings">limitations (external link)</a> in doing so, particularly the fact that it will not cause existing documents to be re-indexed.
 It is worthwhile to test index mappings on a subset of data before committing to indexing a large event feed, to ensure the resulting search experience meets your requirements.</p>
-<h3 id="22-registering-the-index-in-stroom">2.2. Registering the index in Stroom</h3>
+<h3 id="registering-the-index-in-stroom">Registering the index in Stroom</h3>
 <p>This step creates an <em>Elasticsearch Index</em> in the <em>Stroom Tree</em> and tells Stroom how to connect to your Elasticsearch cluster
 and index. Note that this process needs to be repeated for each index you create.</p>
 <h4 id="steps">Steps</h4>
@@ -358,9 +336,17 @@ the Elasticsearch index.</li>
 </ol>
 </li>
 </ol>
-<p><em>Note: The field mappings list is only updated when index settings are changed, or a Stroom indexing or search task begins.
-The refresh button in the <code>Fields</code> tab does not have any effect.</em></p>
-<h3 id="23-setting-index-retention">2.3. Setting index retention</h3>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    The field mappings list is only updated when index settings are changed, or a Stroom indexing or search task begins.
+The refresh button in the <code>Fields</code> tab does not have any effect.
+
+</div>
+
+
+<h3 id="setting-index-retention">Setting index retention</h3>
 <p>As with Solr indexing, index document retention is determined by defining a Stroom query.</p>
 <p>Setting a retention query is optional and by default, documents will be retained in an index indefinitely.</p>
 <p>It is recommended for indices containing events spanning long periods of time, that <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html">Elasticsearch Index Lifecycle Management (external link)</a>
@@ -373,7 +359,7 @@ and to a search client such as Stroom, appears and is searchable like a normal E
 <li>Use of <em>data streams</em> requires that a <code>@timestamp</code> field of type <code>date</code> be defined for each document (instead of say, <code>EventTime</code>).</li>
 <li>Implementing ILM policies requires careful capacity planning, including anticipating search and retention requirements.</li>
 </ol>
-<h3 id="24-creating-an-indexing-pipeline">2.4. Creating an indexing pipeline</h3>
+<h3 id="creating-an-indexing-pipeline">Creating an indexing pipeline</h3>
 <p>As with Lucene and Solr indexing pipelines, indexing data using Elasticsearch uses a pipeline filter.
 This filter accepts <code>&lt;record&gt;</code> elements and for each, sends a document to Elasticsearch for indexing.</p>
 <p>Each <code>&lt;data&gt;</code> element contained within a <code>&lt;record&gt;</code> sets the document field name and value. You should ensure the <code>name</code> attribute
@@ -381,7 +367,7 @@ of each <code>&lt;data&gt;</code> element exactly matches the mapping property o
 <h4 id="steps-1">Steps</h4>
 <ol>
 <li>Create a pipeline inheriting from the built-in <code>Indexing</code> template.</li>
-<li>Modify the <code>xsltFilter</code> pipeline stage to output the correct <code>&lt;records&gt;</code> XML (see the <a href="../../quick-start-guide/index/index.md">Quick-Start Guide</a>.</li>
+<li>Modify the <code>xsltFilter</code> pipeline stage to output the correct <code>&lt;records&gt;</code> XML (see the <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/indexing/">Quick-Start Guide</a>.</li>
 <li>Delete the default <code>indexingFilter</code> and in its place, create an <code>ElasticIndexingFilter</code> (see screenshot below).</li>
 <li>Review and set the following properties:
 <ol>
@@ -396,10 +382,48 @@ See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tun
 </ol>
 </li>
 </ol>
-<p><img src="../resources/Elastic-Add-Pipeline-Filter.png" alt="" title="Elasticsearch indexing filter"></p>
-<h3 id="25-creating-and-activating-a-stream-processor">2.5. Creating and activating a stream processor</h3>
-<p>Follow the steps as in <a href="../../quick-start-guide/index/index.md">this guide</a>.</p>
-<h3 id="26-checking-data-has-been-indexed">2.6. Checking data has been indexed</h3>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/Elastic-Add-Pipeline-Filter.png" alt="images/HOWTOs/Elastic-Add-Pipeline-Filter.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Elasticsearch indexing filter</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+<h3 id="creating-and-activating-a-stream-processor">Creating and activating a stream processor</h3>
+<p>Follow the steps as in <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/indexing/">this guide</a>.</p>
+<h3 id="checking-data-has-been-indexed">Checking data has been indexed</h3>
 <p>Query Elasticsearch, checking the fields you expect are there, and of the correct data type:</p>
 <p>The following query displays five results:</p>
 <pre><code class="language-bash">curl -X GET &quot;http://localhost:9200/stroom_test/_search?size=5&quot; 
@@ -408,7 +432,7 @@ See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tun
 <pre><code class="language-bash">curl -X GET &quot;http://localhost:9200/stroom_test/_count&quot;
 </code></pre>
 <p>For more information, see the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search API documentation (external link)</a>.</p>
-<h3 id="27-reindexing-data">2.7. Reindexing data</h3>
+<h3 id="reindexing-data">Reindexing data</h3>
 <p>By default, the original document values are stored in an Elasticsearch index and may be used later on to re-index data (such as when a change is made to field mappings).
 This is done via the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html">Reindex API (external link)</a>.
 Provided these values have not changed, it would likely be more efficient to use this API to perform a re-index,
@@ -426,15 +450,14 @@ occupied by that field.</p>
 <h4 id="reindexing-using-a-pipeline-processor">Reindexing using a pipeline processor</h4>
 <ol>
 <li>Delete the index. While it is possible to <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html">delete by query (external link)</a>, it is more efficient to drop the index.
-Additionally, deleting by query doesn&rsquo;t actually remove data from disk, until segments are merged.</li>
-</ol>
+Additionally, deleting by query doesn&rsquo;t actually remove data from disk, until segments are merged.
 <pre><code class="language-bash">curl -X DELETE &quot;http://localhost:9200/stroom_test&quot;
 </code></pre>
-<ol>
+</li>
 <li>Re-create the index (as shown earlier)</li>
 <li>Create a new pipeline processor to index the documents</li>
 </ol>
-<h2 id="3-searching">3. Searching</h2>
+<h2 id="searching">Searching</h2>
 <p>Once indexed in Elasticsearch, you can search either using the <em>Stroom Dashboard</em> user interface, or directly against
 the Elasticsearch cluster.</p>
 <p>The advantage of using Stroom to search is that it allows access to the raw source data (i.e. it is not limited to what&rsquo;s stored in the index).
@@ -442,14 +465,14 @@ It can also use <em>extraction pipelines</em> to enrich search results for expor
 <p>Elasticsearch on the other hand, provides a rich <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search REST API (external link)</a>
 with powerful <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html">aggregations</a> that can be
 used to generate reports and discover patterns and anomalies. It can also be readily queried using third-party tools.</p>
-<h3 id="31-stroom">3.1. Stroom</h3>
-<p>See the <a href="../../quick-start-guide/dashboard/dashboard.md">Dashboard</a> page in the Quick-Start Guide.</p>
+<h3 id="stroom">Stroom</h3>
+<p>See the <a href="/stroom-docs/hugo-docsy/docs/quick-start-guide/dashboard/">Dashboard</a> page in the Quick-Start Guide.</p>
 <p>Instead of selecting a Lucene index, set the target <em>data source</em> to the desired Elasticsearch index in the Stroom <em>Explorer Tree</em>.</p>
 <p>Once the target <em>data source</em> has been set, the Dashboard can be used as with a Lucene or Solr index <em>data source</em>.</p>
-<h3 id="32-elasticsearch">3.2. Elasticsearch</h3>
+<h3 id="elasticsearch">Elasticsearch</h3>
 <p>Elasticsearch queries can be performed directly against the cluster using the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search API (external link)</a>.</p>
 <p>Alternatively, there are tools that make search and discovery easier and more intuitive, like <a href="https://www.elastic.co/kibana">Kibana (external link)</a>.</p>
-<h2 id="4-security">4. Security</h2>
+<h2 id="security">Security</h2>
 <p>It is important to note that Elasticsearch data is not encrypted at rest, unless this feature is enabled and the relevant <a href="https://www.elastic.co/subscriptions">licensing tier (external link)</a> is purchased.
 Therefore, appropriate measures should be taken to control access to Elasticsearch user data at the file level.</p>
 <p>For production clusters, the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-security.html">security guidelines (external link)</a> should be followed, in order to control access and ensure requests are audited.</p>
@@ -471,13 +494,10 @@ to prevent unauthorised users of the native Elasticsearch API or tools like Kiba
 <div class="td-content" style="page-break-before: always">
     
 	<h1 id="pg-1903af404d4813cef8da382cea0f650d">2 - Search API</h1>
-    <div class="lead">How to search Stroom via its API.</div>
-	<p>Stroom v6 introduced an API that allows a user to perform queries against Stroom resources such as indices and statistics.
-This is a guide to show how to perform a Stroom Query directly from bash using Stroom v7.</p>
-<ol>
+    <div class="lead">Stroom v6 introduced an API that allows a user to perform queries against Stroom resources such as indices and statistics. This is a guide to show how to perform a Stroom Query directly from bash using Stroom v7.</div>
+	<ol>
 <li>
-<p>Create an API Key for yourself, this will allow the API to authenticate as
-you and run the query with your privileges.</p>
+<p>Create an API Key for yourself, this will allow the API to authenticate as you and run the query with your privileges.</p>
 </li>
 <li>
 <p>Create a Dashboard that extracts the data you are interested in. You should create a Query and Table.</p>
@@ -489,18 +509,20 @@ Save the JSON to a file named <em>query.json</em>.</p>
 </li>
 <li>
 <p>Use curl to send the query to Stroom.</p>
-</li>
-</ol>
 <pre><code class="language-bash">API_KEY='&lt;put your API Key here'
 URI=stroom.host/api/searchable/v2/search
 curl -s --request POST ${URL} -o response.out -H &quot;Authorization:Bearer ${API_KEY}&quot; -H &quot;Content-Type: application/json&quot; --data-binary @query.json
 </code></pre>
-<ol>
-<li>The query response should be in a file named response.out.</li>
-<li>Optional step: reformat the response to csv using <code>jq</code>.</li>
-</ol>
+</li>
+<li>
+<p>The query response should be in a file named response.out.</p>
+</li>
+<li>
+<p>Optional step: reformat the response to csv using <code>jq</code>.</p>
 <pre><code class="language-bash">cat response.out | jq '.results[0].rows[].values | @csv'
 </code></pre>
+</li>
+</ol>
 
 </div>
 
@@ -517,10 +539,8 @@ curl -s --request POST ${URL} -o response.out -H &quot;Authorization:Bearer ${AP
 <div class="td-content" style="page-break-before: always">
     
 	<h1 id="pg-afe3aae761f55c7bc015a6134f44f6d5">3 - Solr integration</h1>
-    <div class="lead">How to integrate Stroom with Solr.</div>
-	<p>This document will show how to use Solr from within Stroom.
-A single Solr node will be used running in a docker container.</p>
-<h2 id="assumptions">Assumptions</h2>
+    <div class="lead">This document will show how to use Solr from within Stroom. A single Solr node will be used running in a docker container.</div>
+	<h2 id="assumptions">Assumptions</h2>
 <ol>
 <li>You are familiar with Lucene indexing within Stroom</li>
 <li>You have some data to index</li>
@@ -533,29 +553,155 @@ A single Solr node will be used running in a docker container.</p>
 </ol>
 <h2 id="method">Method</h2>
 <ol>
-<li>Start a docker container for a single solr node.</li>
-</ol>
+<li>
+<p>Start a docker container for a single solr node.</p>
 <pre><code class="language-bash">docker run -d -p 8983:8983 --name my_solr solr
 </code></pre>
-<ol>
-<li>Check your Solr node. Point your browser at http://yourSolrHost:8983</li>
-<li>Create a core in Solr using the CLI.</li>
-</ol>
+</li>
+<li>
+<p>Check your Solr node. Point your browser at http://yourSolrHost:8983</p>
+</li>
+<li>
+<p>Create a core in Solr using the CLI.</p>
 <pre><code class="language-bash">docker exec -it my_solr solr create_core -c test_index
 </code></pre>
-<ol>
-<li>Create a SolrIndex in Stroom
-<img src="../resources/v7/HT_SimpleSolr_NewSolrIndex.png" alt="&ldquo;New Solr Index&rdquo;" title="New Solr Index"></li>
-<li>Update settings for your new Solr Index in Stroom then press &ldquo;Test Connection&rdquo;.
-If successful then press Save
+</li>
+<li>
+<p>Create a SolrIndex in Stroom
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png" alt="images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">New Solr Index</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
+</li>
+<li>
+<p>Update settings for your new Solr Index in Stroom then press &ldquo;Test Connection&rdquo;.
+If successful then press Save.
 Note the &ldquo;Solr URL&rdquo; field is a reference to the newly created Solr core.
-<img src="../resources/v7/HT_SimpleSolr_Settings.png" alt="&ldquo;Solr Index Settings&rdquo;" title="Solr Index Settings"></li>
-<li>Add some Index fields.
-e.g.EventTime, UserId</li>
-<li>Retention is different in Solr, you must specify an expression that matches data that can be deleted.
-<img src="../resources/v7/HT_SimpleSolr_Retention.png" alt="&ldquo;Solr Retention&rdquo;" title="Solr Retention"></li>
-<li>Your Solr Index can now be used as per a Stroom Lucene Index.
-However, your Indexing pipeline must use a SolrIndexingFilter instead of an IndexingFilter.</li>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/v7/HT_SimpleSolr_Settings.png" alt="images/HOWTOs/v7/HT_SimpleSolr_Settings.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Solr Index Settings</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
+</li>
+<li>
+<p>Add some Index fields.
+e.g.EventTime, UserId</p>
+</li>
+<li>
+<p>Retention is different in Solr, you must specify an expression that matches data that can be deleted.
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/v7/HT_SimpleSolr_Retention.png" alt="images/HOWTOs/v7/HT_SimpleSolr_Retention.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Solr Retention</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
+</li>
+<li>
+<p>Your Solr Index can now be used as per a Stroom Lucene Index.
+However, your Indexing pipeline must use a SolrIndexingFilter instead of an IndexingFilter.</p>
+</li>
 </ol>
 
 </div>

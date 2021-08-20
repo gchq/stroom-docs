@@ -1,0 +1,89 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – mysql</title>
+    <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/mysql/</link>
+    <description>Recent content in mysql on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: MySQL Configuration</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/install-guide/configuration/configuring-mysql/</link>
+      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/install-guide/configuration/configuring-mysql/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Version Information:&lt;/strong&gt; Created with Stroom v7.0&lt;br&gt;
+&lt;strong&gt;Last Updated:&lt;/strong&gt; 2021-06-07&lt;br&gt;
+&lt;strong&gt;See Also:&lt;/strong&gt; &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/install-guide/setup/mysql-server-setup/&#34;&gt;MySQL Server Setup&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;See Also:&lt;/strong&gt; &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/server-administration.html&#34;&gt;MySQL Server Administration (external link)&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;general-configuration&#34;&gt;General configuration&lt;/h2&gt;
+&lt;p&gt;MySQL is configured via the &lt;code&gt;.cnf&lt;/code&gt; file which is typically located in one of these locations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/etc/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/etc/mysql/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$MYSQL_HOME/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;data dir&amp;gt;/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;~/.my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;key-configuration-properties&#34;&gt;Key configuration properties&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;lower_case_table_names&lt;/code&gt; - This proerty controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
+A value of &lt;code&gt;0&lt;/code&gt; means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
+This is the default in linux and is the preferred value for deployments of stroom of v7+.
+A value of &lt;code&gt;1&lt;/code&gt; means tables are stored on the filesystem in lowercase but sql is case insensitive.
+&lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html&#34;&gt;See also (external link)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;max_connections&lt;/code&gt; - The maximum permitted number of simultaneous client connections.
+For a clustered deployment of stroom, the default value of 151 will typically be too low.
+Each stroom node will hold a pool of open database connections for its use, therefore with a large number of stroom nodes and a big connection pool the total number of connections can be very large.
+This property should be set taking into account the values of the stroom properties of the form &lt;code&gt;*.db.connectionPool.maxPoolSize&lt;/code&gt;.
+&lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html&#34;&gt;See also (external link)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;innodb_buffer_pool_size&lt;/code&gt;/&lt;code&gt;innodb_buffer_pool_instances&lt;/code&gt; - Controls the amount of memory availble to MySQL for caching table/index data.
+Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
+&lt;em&gt;Note&lt;/em&gt;: &lt;code&gt;innodb_buffer_pool_size&lt;/code&gt; must be set to a value that is equal to or a multiple of &lt;code&gt;innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances&lt;/code&gt;.
+&lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html&#34;&gt;See also (external link)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;TODO&lt;/strong&gt; - Add additional key configuration items&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;deploying-without-docker&#34;&gt;Deploying without Docker&lt;/h2&gt;
+&lt;p&gt;When MySQL is deployed without a docker stack then MySQL should be installed and configured according to the MySQL documentation.
+How MySQL is deployed and configured will depend on the requirements of the environment, e.g. clustered, primary/standby, etc.&lt;/p&gt;
+&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/h2&gt;
+&lt;p&gt;Where a stroom docker stack includes stroom-all-dbs (MySQL) the MySQL instance is configured via the &lt;code&gt;.cnf&lt;/code&gt; file.
+The &lt;code&gt;.cnf&lt;/code&gt; file is located in &lt;code&gt;volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf&lt;/code&gt;.
+This file is read-only to the container and will be read on container start.&lt;/p&gt;
+&lt;h3 id=&#34;database-initialisation&#34;&gt;Database initialisation&lt;/h3&gt;
+&lt;p&gt;When the container is started for the first time the database be initialised with the root user account.
+It will also then run any scripts found in &lt;code&gt;volumes/stroom-all-dbs/init/stroom&lt;/code&gt;.
+The scripts in here will be run in alpabetical order.
+Scripts of the form &lt;code&gt;.sh&lt;/code&gt;, &lt;code&gt;.sql&lt;/code&gt;, &lt;code&gt;.sql.gz&lt;/code&gt; and &lt;code&gt;.sql.template&lt;/code&gt; are supported.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.sql.template&lt;/code&gt; files are proprietry to stroom stacks and are just templated &lt;code&gt;.sql&lt;/code&gt; files.
+They can contain tags of the form &lt;code&gt;&amp;lt;&amp;lt;&amp;lt;ENV_VAR_NAME&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; which will be replaced with the value of the named environment variable that has been set in the container.&lt;/p&gt;
+&lt;p&gt;If you need to add additional database users then either add them to &lt;code&gt;volumes/stroom-all-dbs/init/stroom/001_create_databases.sql.template&lt;/code&gt; or create additional scripts/templates in that directory.&lt;/p&gt;
+&lt;p&gt;The script that controls this templating is &lt;code&gt;volumes/stroom-all-dbs/init/000_stroom_init.sh&lt;/code&gt;.
+This script MUST not have its executable bit set else it will be executed rather than being sourced by the MySQL entry point scripts and will then not work.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

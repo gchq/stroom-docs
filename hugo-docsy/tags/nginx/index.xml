@@ -1,0 +1,120 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – nginx</title>
+    <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/nginx/</link>
+    <description>Recent content in nginx on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 20 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Nginx Configuration</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/install-guide/configuration/configuring-nginx/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/install-guide/configuration/configuring-nginx/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Version Information:&lt;/strong&gt; Created with Stroom v7.0&lt;br&gt;
+&lt;strong&gt;Last Updated:&lt;/strong&gt; 2021-06-07&lt;br&gt;
+&lt;strong&gt;See Also:&lt;/strong&gt; &lt;a href=&#34;https://nginx.org/en/docs/&#34;&gt;Nginx documentation (external link)&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;without-docker&#34;&gt;Without Docker&lt;/h2&gt;
+&lt;p&gt;The standard way of deploying Nginx with stroom running without docker involves running Nginx as part of the &lt;em&gt;services&lt;/em&gt; stack.
+See below for details of how to configure it.
+If you want to deploy Nginx without docker then you can but that is outside the scope of the this documentation.&lt;/p&gt;
+&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/h2&gt;
+&lt;p&gt;Nginx is included in all the stroom docker stacks.
+Nginx is configured using multiple configuration files to aid clarity and allow reuse of sections of configuration.
+The main file for configuring Nginx is &lt;code&gt;nginx.conf.template&lt;/code&gt; and this makes use of other files via &lt;code&gt;include&lt;/code&gt; statements.&lt;/p&gt;
+&lt;p&gt;The purpose of the various files is as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nginx.conf.template&lt;/code&gt; - Top level configuration file that orchestrate the other files.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;logging.conf.template&lt;/code&gt; - Configures the logging output, its content and format.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;server.conf.template&lt;/code&gt; - Configures things like SSL settings, timeouts, ports, buffering, etc.&lt;/li&gt;
+&lt;li&gt;Upstream configuration
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;upstreams.stroom.ui.conf.template&lt;/code&gt; - Defines the upstream host(s) for stroom node(s) that are dedicated to serving the user interface.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;upstreams.stroom.processing.conf.template&lt;/code&gt; - Defines the upstream host(s) for stroom node(s) that are dedicated to stream processing and direct data receipt.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;upstreams.proxy.conf.template&lt;/code&gt; - Defines the upstream host(s) for local stroom-proxy node(s).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Location configuration
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;locations_defaults.conf.template&lt;/code&gt; - Defines some default directives (e.g. headers) for configuring stroom paths.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;proxy_location_defaults.conf.template&lt;/code&gt; - Defines some default directives (e.g. headers) for configuring stroom-proxy paths.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;locations.proxy.conf.template&lt;/code&gt; - Defines the various paths (e.g/ &lt;code&gt;/datafeed&lt;/code&gt;) that will be reverse proxied to stroom-proxy hosts.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;locations.stroom.conf.template&lt;/code&gt; - Defines the various paths (e.g/ &lt;code&gt;/datafeeddirect&lt;/code&gt;) that will be reverse proxied to stroom hosts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;templating&#34;&gt;Templating&lt;/h3&gt;
+&lt;p&gt;The nginx container has been configured to support using environment variables passed into it to set values in the Nginx configuration files.
+It should be noted that recent versions of Nginx have templating support built in.
+The templating mechanism used in stroom&amp;rsquo;s Nginx container was set up before this existed but achieves the same result.&lt;/p&gt;
+&lt;p&gt;All non-default configuration files for Nginx should be placed in &lt;code&gt;volumes/nginx/conf/&lt;/code&gt; and named with the suffix &lt;code&gt;.template&lt;/code&gt; (even if no templating is needed).
+When the container starts any variables in these templates will be substituted and the resulting files will be copied into &lt;code&gt;/etc/nginx&lt;/code&gt;.
+The result of the template substitution is logged to help with debugging.&lt;/p&gt;
+&lt;p&gt;The files can contain templating of the form:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ssl_certificate             /stroom-nginx/certs/&amp;lt;&amp;lt;&amp;lt;NGINX_SSL_CERTIFICATE&amp;gt;&amp;gt;&amp;gt;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this example &lt;code&gt;&amp;lt;&amp;lt;&amp;lt;NGINX_SSL_CERTIFICATE&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; will be replaced with the value of environment variable &lt;code&gt;NGINX_SSL_CERTIFICATE&lt;/code&gt; when the container starts.&lt;/p&gt;
+&lt;h3 id=&#34;upstreams&#34;&gt;Upstreams&lt;/h3&gt;
+&lt;p&gt;When configuring a multi node cluster you will need to configure the upstream hosts.
+Nginx acts as a reverse proxy for the applications behind it so the lists of hosts for each application need to be configured.&lt;/p&gt;
+&lt;p&gt;For example if you have a 10 node cluster and 2 of those nodes are dedicated for user interface use then the configuration would look like:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;upstreams.stroom.ui.conf.template&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-conf&#34;&gt;server node1.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node2.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;upstreams.stroom.processing.conf.template&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-conf&#34;&gt;server node3.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node4.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node5.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node6.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node7.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node8.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node9.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node10.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;upstreams.proxy.conf.template&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-conf&#34;&gt;server node3.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node4.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node5.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node6.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node7.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node8.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node9.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+server node10.stroomhosts:&amp;lt;&amp;lt;&amp;lt;STROOM_PORT&amp;gt;&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the above example the port is set using templating as it is the same for all nodes.
+Nodes 1 and 2 will receive all UI and REST API traffic.
+Nodes 8-10 will serve all datafeed(direct) requests.&lt;/p&gt;
+&lt;h3 id=&#34;certificates&#34;&gt;Certificates&lt;/h3&gt;
+&lt;p&gt;The stack comes with a default server certificate/key and CA certificate for demo/test purposes.
+The files are located in &lt;code&gt;volumes/nginx/certs/&lt;/code&gt;.
+For a production deployment these will need to be changed, see &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/install-guide/configuration/#certificates&#34;&gt;Certificates&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;log-rotation&#34;&gt;Log rotation&lt;/h3&gt;
+&lt;p&gt;The Nginx container makes use of logrotate to rotate Nginx&amp;rsquo;s log files after a period of time so that rotated logs can be sent to stroom.
+Logrotate is configured using the file &lt;code&gt;volumes/stroom-log-sender/logrotate.conf.template&lt;/code&gt;.
+This file is templated in the same way as the Nginx configuration files, see &lt;a href=&#34;#templating&#34;&gt;above&lt;/a&gt;.
+The number of rotated files that should be kept before deleting them can be controlled using the line.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;rotate 100
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This should be set in conjunction with the frequency that logrotate is called, which is controlled by &lt;code&gt;volumes/stroom-log-sender/crontab.txt&lt;/code&gt;.
+This crontab file drives the lograte process and by default is set to run every minute.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+@startuml
+
+package "api" {
+[API]
+}
+
+package "impl" {
+[REST Endpoint]
+[GWT Action Handler]
+[Service]
+[DAO Interface]
+}
+
+package "impl-db" {
+[DAO Implementation]
+}
+
+package "impl-db-jooq" {
+[JOOQ Generated Code]
+}
+
+package "mock" {
+[Mock Service]
+}
+
+[Service] ..> [API]
+[REST Endpoint] --> [Service]
+[GWT Action Handler] --> [Service]
+[Service] --> [DAO Interface]
+[DAO Implementation] ..> [DAO Interface]
+[DAO Implementation] ..> [JOOQ Generated Code]
+[Mock Service] ..> [API]
+
+@enduml

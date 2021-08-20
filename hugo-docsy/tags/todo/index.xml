@@ -4,7 +4,7 @@
     <link>https://gchq.github.io/stroom-docs/hugo-docsy/tags/todo/</link>
     <description>Recent content in TODO on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="https://gchq.github.io/stroom-docs/hugo-docsy/tags/todo/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,42 @@
         
       
     
+    
+    <item>
+      <title>Docs: Building the documentation</title>
+      <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/dev-guide/documentation-dev/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://gchq.github.io/stroom-docs/hugo-docsy/docs/dev-guide/documentation-dev/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom&amp;rsquo;s documentation is built using &lt;a href=&#34;https://www.gitbook.com&#34;&gt;GitBook (external link)&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;h3 id=&#34;npm&#34;&gt;NPM&lt;/h3&gt;
+&lt;p&gt;You need NPM to install the GitBook command line toolchain. To get NPM install &lt;a href=&#34;https://nodejs.org/en/&#34;&gt;node (external link)&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;gitbook-command-line-tools&#34;&gt;GitBook command line tools&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npm install -g gitbook-cli
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;build-the-book&#34;&gt;Build the book&lt;/h2&gt;
+&lt;p&gt;GitBook uses plugins, e.g. anchorjs allows us to create links to headings within a file. You need to install these plugins first. The below commands should be run in the project root.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gitbook install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can build the documentation like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gitbook build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or you can run the GitBook server which will watch your files as you work and server them on &lt;code&gt;localhost:4000&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gitbook serve
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+&lt;h3 id=&#34;i-get-an-error-when-trying-to-run-gitbook-serve&#34;&gt;I get an error when trying to run &lt;code&gt;gitbook serve&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;If you see &lt;code&gt;Errpr: watch /path/to/stroom ENOSPC&lt;/code&gt; then run the following:
+&lt;code&gt;echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;amp;&amp;amp; sudo sysctl -p&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;links-dont-work-when-i-load-_bookindexhtml&#34;&gt;Links don&amp;rsquo;t work when I load &lt;code&gt;_book/index.html&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;It won&amp;rsquo;t, because &lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-origin_resource_sharing&#34;&gt;CORS&lt;/a&gt; is not and cannot be enabled when viewing local files. You need to run &lt;code&gt;gitbook serve&lt;/code&gt; or if you really don&amp;rsquo;t want to do that try &lt;code&gt;cd _book &amp;amp;&amp;amp; python -m SimpleHTTPServer&lt;/code&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
     
     <item>
       <title>Docs: Dictionaries</title>

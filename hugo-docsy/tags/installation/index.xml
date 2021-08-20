@@ -885,7 +885,7 @@ disable the &lt;code&gt;mysql57-community&lt;/code&gt; channel and enable the &l
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Then edit the file to change&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;...
 # Enable to use MySQL 5.6
 [mysql56-community]
 name=MySQL 5.6 Community Server
@@ -903,7 +903,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to become&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;...
 # Enable to use MySQL 5.6
 [mysql56-community]
 name=MySQL 5.6 Community Server
@@ -1034,7 +1034,7 @@ utility. Thus we execute&lt;/p&gt;
 sudo mysql_secure_installation
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to see&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
 In order to log into MariaDB to secure it, we&#39;ll need the current
@@ -1213,7 +1213,7 @@ utility. Thus we execute&lt;/p&gt;
 sudo mysql_secure_installation
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to see&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
 In order to log into MySQL to secure it, we&#39;ll need the current
@@ -1342,7 +1342,15 @@ sudo firewall-cmd --zone=public --add-port=3308/tcp --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; that this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+    That this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.
+
+&lt;/div&gt;
+
+
 &lt;h3 id=&#34;debugging-of-mariadb-for-stroom&#34;&gt;Debugging of Mariadb for Stroom&lt;/h3&gt;
 &lt;p&gt;If there is a need to debug the Mariadb database and Stroom interaction, one can turn on auditing for the Mariadb service.
 To do so, log onto the relevant database as the administrative user as per&lt;/p&gt;
@@ -1363,9 +1371,9 @@ quit;
 &lt;p&gt;The above will generate two log files,&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;/var/log/mariadb/mysqld-mysqld0_server_audit.log&lt;/code&gt; or &lt;code&gt;/var/log/mariadb/mysqld-mysqld1_server_audit.log&lt;/code&gt; which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/var/lib/mysql-mysqld0/sql_errors.log&lt;/code&gt; or &lt;code&gt;/var/lib/mysql-mysqld1/sql_errors.log&lt;/code&gt; which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.
-All files will, by default, generate up to 9 rotated files.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/var/lib/mysql-mysqld0/sql_errors.log&lt;/code&gt; or &lt;code&gt;/var/lib/mysql-mysqld1/sql_errors.log&lt;/code&gt; which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;All files will, by default, generate up to 9 rotated files.&lt;/p&gt;
 &lt;p&gt;If you wish to rotate a log file manually, log into the database as the administrative user and execute either&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;set global server_audit_file_rotate_now=1;&lt;/code&gt; to rotate the audit log file&lt;/li&gt;
@@ -1424,7 +1432,7 @@ All files will, by default, generate up to 9 rotated files.&lt;/li&gt;
 &lt;li&gt;the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments&lt;/li&gt;
 &lt;li&gt;the user has access to a &lt;a href=&#34;https://www.google.com/chrome&#34; title=&#34;Google Chrome Web Browser&#34;&gt;Chrome (external link)&lt;/a&gt; web browser as Stroom is optimised for this browser.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;This HOWTO provides guidance on a variety of simple Stroom deployments.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#multi-node-stroom-cluster-proxy-and-application-deployment&#34;&gt;&lt;strong&gt;Multi Node Stroom Cluster (Proxy and Application)&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
@@ -1487,13 +1495,13 @@ Standalone proxy deployments. This is to simplify the documentation. Thus, the a
 &lt;p&gt;where &lt;em&gt;nn&lt;/em&gt; is a two digit node number. The reason for placing the proxy directory within the &lt;em&gt;Application&lt;/em&gt; working area
 will be explained later.&lt;/p&gt;
 &lt;p&gt;All data should be owned by the Stroom processing user. In this HOWTO, we will use &lt;code&gt;stroomuser&lt;/code&gt;&lt;/p&gt;
-&lt;h1 id=&#34;multi-node-stroom-cluster-proxy-and-application-deployment&#34;&gt;Multi Node Stroom Cluster (Proxy and Application) Deployment&lt;/h1&gt;
+&lt;h2 id=&#34;multi-node-stroom-cluster-proxy-and-application-deployment&#34;&gt;Multi Node Stroom Cluster (Proxy and Application) Deployment&lt;/h2&gt;
 &lt;p&gt;In this deployment we will install the database on a given node then deploy both the Stroom Proxy and Stroom Application software
 to both our processing nodes. At this point we will then integrate a web service to run &amp;lsquo;in-front&amp;rsquo; of our Stroom software and
 then perform the initial configuration of Stroom via the user interface.&lt;/p&gt;
 &lt;h2 id=&#34;database-installation&#34;&gt;Database Installation&lt;/h2&gt;
 &lt;p&gt;The Stroom capability requires access to two MySQL/MariaDB databases. The first is for persisting application configuration and metadata information, and the second is for the Stroom Statistics capability.
-Instructions for installation of the Stroom databases can be found &lt;a href=&#34;InstallDatabaseHowTo.md&#34; title=&#34;Database Installation&#34;&gt;here&lt;/a&gt;.
+Instructions for installation of the Stroom databases can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/&#34;&gt;here&lt;/a&gt;.
 Although these instructions describe the deployment of the databases to their own node, there is no reason why one can&amp;rsquo;t
 just install them both on the first (or only) Stroom node.&lt;/p&gt;
 &lt;h2 id=&#34;prerequisite-software-installation&#34;&gt;Prerequisite Software Installation&lt;/h2&gt;
@@ -1516,7 +1524,7 @@ just install them both on the first (or only) Stroom node.&lt;/p&gt;
 &lt;p&gt;One could deploy the MySQL database software as the alternative.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&#34;mysqlclientinstall&#34;&gt;&lt;/a&gt;To do this you need to install the MySQL Community repository files then install the client.
 Instructions for installation of the MySQL Community repository files can be
-found &lt;a href=&#34;InstallDatabaseHowTo.md#mysql-community-server-installation&#34; title=&#34;MySQL Community Repository Installation&#34;&gt;here&lt;/a&gt; or on
+found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/#mysql-community-server-installation&#34;&gt;here&lt;/a&gt; or on
 the &lt;a href=&#34;https://dev.mysql.com/downloads/repo/yum&#34; title=&#34;Download MySQL Yum Repository&#34;&gt;MySQL Site (external link)&lt;/a&gt;.
 Once you have installed the MySQL repository files, install the client via&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install mysql-community-client
@@ -1587,24 +1595,24 @@ sudo chmod -R 750 /stroomdata
 &lt;li&gt;node &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; will mount &lt;code&gt;stroomp01.strmdev00.org:/stroomdata/stroom-data-p01&lt;/code&gt; and,&lt;/li&gt;
 &lt;li&gt;node &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt; will mount &lt;code&gt;stroomp00.strmdev00.org:/stroomdata/stroom-data-p00&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The HOWTO guide to deploy and configure NFS for our Scenario is &lt;a href=&#34;InstallNFSHowTo.md&#34; title=&#34;NFS Installation and Configuration&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The HOWTO guide to deploy and configure NFS for our Scenario is &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;stroom-installation&#34;&gt;Stroom Installation&lt;/h2&gt;
 &lt;h3 id=&#34;pre-installation-setup&#34;&gt;Pre-installation setup&lt;/h3&gt;
 &lt;p&gt;Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user&amp;rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-&lt;a href=&#34;InstallProcessingUserSetupHowTo.md&#34; title=&#34;Processing User Setup&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;stroom-proxy-installation&#34;&gt;Stroom Proxy Installation&lt;/h3&gt;
-&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;InstallProxyHowTo.md&#34; title=&#34;Installation of Stroom Proxy&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;stroom-application-installation&#34;&gt;Stroom Application Installation&lt;/h3&gt;
-&lt;p&gt;Instructions for installation of the Stroom application can be found &lt;a href=&#34;InstallApplicationHowTo.md&#34; title=&#34;Installation of Stroom Application&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Instructions for installation of the Stroom application can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;web-service-integration&#34;&gt;Web Service Integration&lt;/h2&gt;
 &lt;p&gt;One typically &amp;lsquo;fronts&amp;rsquo; either a Stroom Proxy or Stroom Application with a secure web service such as Apache&amp;rsquo;s Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache&amp;rsquo;s Httpd.&lt;/p&gt;
-&lt;p&gt;We first need to create certificates for use by the web service. The &lt;a href=&#34;InstallCertificatesHowTo.md&#34; title=&#34;SSL Certificate Generation&#34;&gt;following&lt;/a&gt;
+&lt;p&gt;We first need to create certificates for use by the web service. The &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/&#34;&gt;following&lt;/a&gt;
 provides instructions for this. The created certificates can then be used when configuration the web service.&lt;/p&gt;
 &lt;p&gt;This HOWTO is designed to deploy Apache&amp;rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&amp;rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found &lt;a href=&#34;InstallHttpdHowTo.md&#34; title=&#34;Apache Httpd/Mod_JK Installation&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+to configure this can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Other Web service capability can be used, for example, &lt;a href=&#34;https://nginx.org&#34; title=&#34;NGINX Web Service Capability&#34;&gt;NGINX (external link)&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;installation-validation&#34;&gt;Installation Validation&lt;/h2&gt;
 &lt;p&gt;We will now check that the installation and web services integration has worked.&lt;/p&gt;
@@ -1658,11 +1666,125 @@ should automatically direct you to the last URL.&lt;/p&gt;
 to &lt;code&gt;stroomp.strmdev00.org:443&lt;/code&gt;. As Stroom has not been configured to use user certificates, the choice is not relevant, just choose one
 and continue.&lt;/p&gt;
 &lt;p&gt;Additionally, if you are using  self-signed certificates, your browser will generate an alert as per
-&lt;img src=&#34;../resources/UI-Chrome-NoCa-00.png&#34; alt=&#34;Chrome SelfSigned Certificate Issue - Initial&#34; title=&#34;Self Signed Certificate Initial Warning&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-Chrome-NoCa-00.png&#34; alt=&#34;images/HOWTOs/UI-Chrome-NoCa-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Self Signed Certificate Initial Warning&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;To proceed you need to select the &lt;strong&gt;ADVANCED&lt;/strong&gt; hyperlink to see&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-Chrome-NoCa-01.png&#34; alt=&#34;Chrome SelfSigned Certificate Issue - Advanced&#34; title=&#34;Self Signed Certificate Advanced Warning&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-Chrome-NoCa-01.png&#34; alt=&#34;images/HOWTOs/UI-Chrome-NoCa-01.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Self Signed Certificate Advanced Warning&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;If you select the &lt;strong&gt;Proceed to stroomp.strmdev00.org (unsafe)&lt;/strong&gt; hyper-link you will be presented with the standard Stroom UI login page.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-Login-00.png&#34; alt=&#34;Stroom User Interface login page&#34; title=&#34;Stroom UI Login Page&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-Login-00.png&#34; alt=&#34;images/HOWTOs/UI-Login-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Login Page&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;This page has two panels - &lt;strong&gt;About Stroom&lt;/strong&gt; and &lt;strong&gt;Login&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;In the &lt;strong&gt;About Stroom&lt;/strong&gt; panel we see an introductory description of Stroom in the top left and deployment details in the bottom left of the panel. The deployment details provide&lt;/p&gt;
 &lt;ul&gt;
@@ -1674,45 +1796,45 @@ and continue.&lt;/p&gt;
 &lt;h3 id=&#34;login-with-stroom-default-administrative-user&#34;&gt;Login with Stroom default Administrative User&lt;/h3&gt;
 &lt;p&gt;Each new Stroom deployment automatically creates the administrative user &lt;code&gt;admin&lt;/code&gt; and this user&amp;rsquo;s password is initially set to &lt;code&gt;admin&lt;/code&gt;.
 We will
-&lt;a href=&#34;../Authentication/UserLoginHowTo.md&#34; title=&#34;Admin first login&#34;&gt;login as this user&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/authentication/userloginhowto/&#34;&gt;login as this user&lt;/a&gt;
 which also validates that the database and UI is working correctly in that you can login and the password is &lt;code&gt;admin&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;create-an-attributed-user-to-perform-configuration&#34;&gt;Create an Attributed User to perform configuration&lt;/h3&gt;
 &lt;p&gt;We should configure Stroom using an &lt;em&gt;attributed user&lt;/em&gt; account.
 That is, we should
-&lt;a href=&#34;../Authentication/CreateUserHowTo.md&#34; title=&#34;Create Stroom User&#34;&gt;create&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/authentication/createuserhowto/&#34;&gt;create&lt;/a&gt;
 a user, in our case it will be &lt;code&gt;burn&lt;/code&gt; (the author) and once created, we login with that account then perform the initial configuration activities.
 You don&amp;rsquo;t have to do this, but it is sound security practice.&lt;/p&gt;
 &lt;p&gt;Once you have created the user you should
-&lt;a href=&#34;../Authentication/UserLogoutHowTo.md&#34; title=&#34;User Logout&#34;&gt;log out&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/authentication/userlogouthowto/&#34;&gt;log out&lt;/a&gt;
 of the &lt;code&gt;admin&lt;/code&gt; account and log back in as our user &lt;code&gt;burn&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;configure-the-volumes-for-our-stroom-deployment&#34;&gt;Configure the Volumes for our Stroom deployment&lt;/h3&gt;
 &lt;p&gt;Before we can store data within Stroom we need to configure the
-&lt;a href=&#34;../../user-guide/volumes.md&#34; title=&#34;Stroom Volumes&#34;&gt;volumes&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/volumes/&#34;&gt;volumes&lt;/a&gt;
 we have allocated in our Storage hierarchy. The
-&lt;a href=&#34;InstallVolumesHowTo.md&#34; title=&#34;Initial Volume set-up&#34;&gt;Volume Maintenance HOWTO&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/&#34;&gt;Volume Maintenance HOWTO&lt;/a&gt;
 shows how to do this.&lt;/p&gt;
 &lt;h3 id=&#34;configure-the-nodes-for-our-stroom-deployment&#34;&gt;Configure the Nodes for our Stroom deployment&lt;/h3&gt;
 &lt;p&gt;In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the nodes. This is achieved via the Stroom UI where we set a Cluster URL for each node.
-The following &lt;a href=&#34;InstallNodesHowTo.md&#34; title=&#34;Initial Node configuration&#34;&gt;Node Configuration HOWTO&lt;/a&gt; demonstrates how do
+The following &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/&#34;&gt;Node Configuration HOWTO&lt;/a&gt; demonstrates how do
 set the Cluster URL.&lt;/p&gt;
 &lt;h3 id=&#34;data-stream-processing&#34;&gt;Data Stream Processing&lt;/h3&gt;
 &lt;p&gt;To enable Stroom to process data, it&amp;rsquo;s
-&lt;a href=&#34;../../user-guide/jobs.md#data-processor&#34; title=&#34;Data Processor&#34;&gt;Data Processors&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/jobs/#data-processor&#34;&gt;Data Processors&lt;/a&gt;
 need to be enabled. There are NOT enabled by default on installation. The following
-&lt;a href=&#34;../General/TasksHowTo.md#enable-stream-processors&#34; title=&#34;Enable Stream Processors&#34;&gt;section&lt;/a&gt;
-in our &lt;a href=&#34;../General/TasksHowTo.md&#34; title=&#34;Stroom Task HOWTO&#34;&gt;Stroom Tasks HowTo&lt;/a&gt; shows how to do this.&lt;/p&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#enable-stream-processors&#34;&gt;section&lt;/a&gt;
+in our &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/&#34;&gt;Stroom Tasks HowTo&lt;/a&gt; shows how to do this.&lt;/p&gt;
 &lt;h2 id=&#34;testing-our-stroom-application-and-proxy-installation&#34;&gt;Testing our Stroom Application and Proxy Installation&lt;/h2&gt;
 &lt;p&gt;To complete the installation process we will test that we can send and ingest data.&lt;/p&gt;
 &lt;h3 id=&#34;add-a-test-feed&#34;&gt;Add a Test Feed&lt;/h3&gt;
 &lt;p&gt;In order for Stroom to be able to handle various data sources, be they Apache HTTPD web access logs,
 MicroSoft Windows Event logs or Squid Proxy logs, Stroom must be told what the data is when it is received.
 This is achieved using
-&lt;a href=&#34;../../user-guide/feeds.md&#34; title=&#34;Stroom Feeds&#34;&gt;Event Feeds&lt;/a&gt;.
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/feeds/&#34;&gt;Event Feeds&lt;/a&gt;.
 Each feed has a unique name within the system.&lt;/p&gt;
 &lt;p&gt;To test our installation can accept and ingest data, we will
-&lt;a href=&#34;../General/FeedManagementHowTo.md#creation-of-an-event-feed&#34; title=&#34;Creation of an Event Feed&#34;&gt;create a test Event feed&lt;/a&gt;. The &amp;lsquo;name&amp;rsquo; of the feed will be
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed&#34;&gt;create a test Event feed&lt;/a&gt;. The &amp;lsquo;name&amp;rsquo; of the feed will be
 &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt;. Note that in a production environment is is best that a well defined nomenclature is used for feed &amp;lsquo;names&amp;rsquo;. For our
 testing purposes &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; is sufficient.&lt;/p&gt;
 &lt;h3 id=&#34;sending-test-data&#34;&gt;Sending Test Data&lt;/h3&gt;
@@ -1739,13 +1861,13 @@ machine. The command to send this file is&lt;/p&gt;
 &lt;p&gt;As part of our testing will check the presence of the inbound data, as files, within the proxy storage area.
 Now as the proxy storage area is also the location from which the Stroom application
 automatically aggregates then ingests the data stored by the proxy, we can either turn off the
-&lt;a href=&#34;../../user-guide/jobs.md#proxy-aggregation&#34; title=&#34;Stream Processor&#34;&gt;Proxy Aggregation&lt;/a&gt; task,
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/jobs/#proxy-aggregation&#34;&gt;Proxy Aggregation&lt;/a&gt; task,
 or attempt to
 perform our tests noting that proxy aggregation occurs every 10 minutes by default. For simplicity, we will
-&lt;a href=&#34;../General/TasksHowTo.md#turn-off-proxy-aggregation&#34; title=&#34;Turn off Proxy Aggregation&#34;&gt;turn off the &lt;code&gt;Proxy Aggregation&lt;/code&gt; task&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;We can now perform out tests. Follow the steps in the &lt;a href=&#34;InstallTestingHowTo.md#data-post-tests&#34; title=&#34;Data Post Tests&#34;&gt;Data Posting Tests&lt;/a&gt; section
-of the &lt;a href=&#34;InstallTestingHowTo.md&#34; title=&#34;Stroom Installation Testing&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&#34;forwarding-stroom-proxy-deployment&#34;&gt;Forwarding Stroom Proxy Deployment&lt;/h1&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#turn-off-proxy-aggregation&#34;&gt;turn off the &lt;code&gt;Proxy Aggregation&lt;/code&gt; task&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We can now perform out tests. Follow the steps in the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/#data-post-tests&#34;&gt;Data Posting Tests&lt;/a&gt; section
+of the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;forwarding-stroom-proxy-deployment&#34;&gt;Forwarding Stroom Proxy Deployment&lt;/h2&gt;
 &lt;p&gt;In this deployment will install a Stroom &lt;strong&gt;Forwarding Proxy&lt;/strong&gt; which is designed to aggregate data posted to it for managed forwarding to
 a central Stroom processing system. This scenario is assuming we are installing on the fully patch Centos 7.3 host, &lt;code&gt;stroomfp0.strmdev00.org&lt;/code&gt;.
 Further it assumes we have installed, configured and tested the destination Stroom system we will be forwarding to.&lt;/p&gt;
@@ -1787,28 +1909,28 @@ sudo chmod -R 750 /stroomdata
 &lt;h3 id=&#34;pre-installation-setup-1&#34;&gt;Pre-installation setup&lt;/h3&gt;
 &lt;p&gt;Before installing the Stroom Forwarding Proxy, we need establish various files and scripts within
 the Stroom Processing user&amp;rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-&lt;a href=&#34;InstallProcessingUserSetupHowTo.md&#34; title=&#34;Processing User Setup&#34;&gt;here&lt;/a&gt;. Although this setup HOWTO is orientated towards a complete Stroom Proxy
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;. Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.&lt;/p&gt;
 &lt;h3 id=&#34;stroom-forwarding-proxy-installation-1&#34;&gt;Stroom Forwarding Proxy Installation&lt;/h3&gt;
-&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;InstallProxyHowTo.md&#34; title=&#34;Installation of Stroom Proxy&#34;&gt;here&lt;/a&gt;, noting you
+&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/&#34;&gt;here&lt;/a&gt;, noting you
 should follow the steps for configuring the proxy as a &lt;em&gt;Forwarding&lt;/em&gt; proxy.&lt;/p&gt;
 &lt;h2 id=&#34;web-service-integration-for-forwarding-proxy&#34;&gt;Web Service Integration for Forwarding Proxy&lt;/h2&gt;
 &lt;p&gt;One typically &amp;lsquo;fronts&amp;rsquo; a Stroom Proxy with a secure web service such as Apache&amp;rsquo;s Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache&amp;rsquo;s Httpd.&lt;/p&gt;
 &lt;p&gt;We first need to create certificates for use by the web service. The
-&lt;a href=&#34;InstallCertificatesHowTo.md&#34; title=&#34;SSL Certificate Generation&#34;&gt;SSL Certificate Generation HOWTO&lt;/a&gt; provides instructions for this.
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/&#34;&gt;SSL Certificate Generation HOWTO&lt;/a&gt; provides instructions for this.
 The created certificates can then be used when configuration the web service. NOTE also, that for a forwarding
 proxy we will need to establish Key and Trust stores as well. This is also documented in the SSL Certificate Generation HOWTO
-&lt;a href=&#34;InstallCertificatesHowTo.md#stroom-proxy-to-proxy-key-and-trust-stores&#34; title=&#34;Key and Trust Store Generation&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/#stroom-proxy-to-proxy-key-and-trust-stores&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This HOWTO is designed to deploy Apache&amp;rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&amp;rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found &lt;a href=&#34;InstallHttpdHowTo.md&#34; title=&#34;Apache Httpd/Mod_JK Installation&#34;&gt;here&lt;/a&gt;. Please take note of where a Stroom Proxy
+to configure this can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/&#34;&gt;here&lt;/a&gt;. Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.&lt;/p&gt;
 &lt;p&gt;Other Web service capability can be used, for example, &lt;a href=&#34;https://nginx.org&#34; title=&#34;NGINX Web Service Capability&#34;&gt;NGINX (external link)&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;testing-our-forwarding-proxy-installation&#34;&gt;Testing our Forwarding Proxy Installation&lt;/h2&gt;
 &lt;p&gt;To complete the installation process we will test that we can send data to the forwarding proxy and that it forwards the files
 it receives to the central Stroom processing system. As stated earlier, it is assumed we have installed, configured and tested the destination
-central Stroom processing system and thus we will have a test &lt;a href=&#34;../../user-guide/feeds.md&#34; title=&#34;Stroom Feeds&#34;&gt;Feed&lt;/a&gt;
+central Stroom processing system and thus we will have a test &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/feeds/&#34;&gt;Feed&lt;/a&gt;
 already established - &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;sending-test-data-1&#34;&gt;Sending Test Data&lt;/h3&gt;
 &lt;p&gt;For this test, we will send the contents of /etc/group to our test feed - &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt;. It doesn&amp;rsquo;t matter from which host we send the file from.
@@ -1816,9 +1938,9 @@ The command to send file is&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomfp0.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Before testing, it is recommended you set up to monitor the Stroom proxy logs on the central server as well as on the Forwarding Proxy server.&lt;/p&gt;
-&lt;p&gt;Follow the steps in the &lt;a href=&#34;InstallTestingHowTo.md#stroom-forwarding-proxy-testing&#34; title=&#34;Stroom Proxy Data Post Tests&#34;&gt;Forwarding Proxy Data Posting Tests&lt;/a&gt; section
-of the &lt;a href=&#34;InstallTestingHowTo.md&#34; title=&#34;Stroom Installation Testing&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&#34;standalone-stroom-proxy-deployment&#34;&gt;Standalone Stroom Proxy Deployment&lt;/h1&gt;
+&lt;p&gt;Follow the steps in the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/#stroom-forwarding-proxy-testing&#34;&gt;Forwarding Proxy Data Posting Tests&lt;/a&gt; section
+of the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;standalone-stroom-proxy-deployment&#34;&gt;Standalone Stroom Proxy Deployment&lt;/h2&gt;
 &lt;p&gt;In this deployment will install a Stroom &lt;strong&gt;Standalone Proxy&lt;/strong&gt; which is designed to accept and store data posted to it for &lt;strong&gt;manual&lt;/strong&gt; forwarding to
 a central Stroom processing system. This scenario is assuming we are installing on the fully patch Centos 7.3 host, &lt;code&gt;stroomsap0.strmdev00.org&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;We will first deploy the Stroom Proxy then configure it as a &lt;strong&gt;Standalone Proxy&lt;/strong&gt; then integrate a web service to run &amp;lsquo;in-front&amp;rsquo; of
@@ -1859,20 +1981,20 @@ sudo chmod -R 750 /stroomdata
 &lt;h3 id=&#34;pre-installation-setup-2&#34;&gt;Pre-installation setup&lt;/h3&gt;
 &lt;p&gt;Before installing the Stroom Standalone Proxy, we need establish various files and scripts within
 the Stroom Processing user&amp;rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-&lt;a href=&#34;InstallProcessingUserSetupHowTo.md&#34; title=&#34;Processing User Setup&#34;&gt;here&lt;/a&gt;. Although this setup HOWTO is orientated towards a complete Stroom Proxy
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;. Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.&lt;/p&gt;
 &lt;h3 id=&#34;stroom-standalone-proxy-installation-1&#34;&gt;Stroom Standalone Proxy Installation&lt;/h3&gt;
-&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;InstallProxyHowTo.md&#34; title=&#34;Installation of Stroom Proxy&#34;&gt;here&lt;/a&gt;, noting you
+&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/&#34;&gt;here&lt;/a&gt;, noting you
 should follow the steps for configuring the proxy as a  &lt;em&gt;Store_NoDB&lt;/em&gt; proxy.&lt;/p&gt;
 &lt;h2 id=&#34;web-service-integration-for-standalone-proxy&#34;&gt;Web Service Integration for Standalone Proxy&lt;/h2&gt;
 &lt;p&gt;One typically &amp;lsquo;fronts&amp;rsquo; a Stroom Proxy with a secure web service such as Apache&amp;rsquo;s Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache&amp;rsquo;s Httpd.&lt;/p&gt;
 &lt;p&gt;We first need to create certificates for use by the web service. The
-&lt;a href=&#34;InstallCertificatesHowTo.md&#34; title=&#34;SSL Certificate Generation&#34;&gt;SSL Certificate Generation HOWTO&lt;/a&gt; provides instructions for this.
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/&#34;&gt;SSL Certificate Generation HOWTO&lt;/a&gt; provides instructions for this.
 The created certificates can then be used when configuration the web service. There is no need for Trust or Key stores.&lt;/p&gt;
 &lt;p&gt;This HOWTO is designed to deploy Apache&amp;rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&amp;rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found &lt;a href=&#34;InstallHttpdHowTo.md&#34; title=&#34;Apache Httpd/Mod_JK Installation&#34;&gt;here&lt;/a&gt;. Please take note of where a Stroom Proxy
+to configure this can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/&#34;&gt;here&lt;/a&gt;. Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.&lt;/p&gt;
 &lt;p&gt;Other Web service capability can be used, for example, &lt;a href=&#34;https://nginx.org&#34; title=&#34;NGINX Web Service Capability&#34;&gt;NGINX (external link)&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;testing-our-standalone-proxy-installation&#34;&gt;Testing our Standalone Proxy Installation&lt;/h2&gt;
@@ -1883,9 +2005,9 @@ The command to send file is&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomsap0.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Before testing, it is recommended you set up to monitor the Standalone Proxy logs.&lt;/p&gt;
-&lt;p&gt;Follow the steps in the &lt;a href=&#34;InstallTestingHowTo.md#stroom-standalone-proxy-testing&#34; title=&#34;Stroom Proxy Data Post Tests&#34;&gt;Standalone Proxy Data Posting Tests&lt;/a&gt;
-section of the &lt;a href=&#34;InstallTestingHowTo.md&#34; title=&#34;Stroom Installation Testing&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&#34;addition-of-a-node-to-a-stroom-cluster-deployment&#34;&gt;Addition of a Node to a Stroom Cluster Deployment&lt;/h1&gt;
+&lt;p&gt;Follow the steps in the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/#stroom-standalone-proxy-testing&#34;&gt;Standalone Proxy Data Posting Tests&lt;/a&gt;
+section of the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/&#34;&gt;Testing Stroom Installation HOWTO&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;addition-of-a-node-to-a-stroom-cluster-deployment&#34;&gt;Addition of a Node to a Stroom Cluster Deployment&lt;/h2&gt;
 &lt;p&gt;In this deployment we will deploy both the Stroom Proxy and Stroom Application software
 to a new processing node we wish to add to our cluster. Once we have deploy and configured the Stroom software, we will then integrate a web
 service to run &amp;lsquo;in-front&amp;rsquo; of our Stroom software, and then perform the initial configuration of to add this node via the user interface. The
@@ -1978,19 +2100,19 @@ sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The HOWTO guide to deploy and configure NFS for our Scenario is &lt;a href=&#34;InstallNFSHowTo.md#addition-of-another-node&#34; title=&#34;NFS Installation and Configuration&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The HOWTO guide to deploy and configure NFS for our Scenario is &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/#addition-of-another-node&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;stroom-installation-1&#34;&gt;Stroom Installation&lt;/h2&gt;
 &lt;h3 id=&#34;pre-installation-setup-3&#34;&gt;Pre-installation setup&lt;/h3&gt;
 &lt;p&gt;Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user&amp;rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-&lt;a href=&#34;InstallProcessingUserSetupHowTo.md&#34; title=&#34;Processing User Setup&#34;&gt;here&lt;/a&gt;. Note you should remember to set the &lt;strong&gt;N&lt;/strong&gt; bash variable
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;. Note you should remember to set the &lt;strong&gt;N&lt;/strong&gt; bash variable
 when generating the Environment Variable files to &lt;em&gt;02&lt;/em&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;stroom-proxy-installation-1&#34;&gt;Stroom Proxy Installation&lt;/h3&gt;
-&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;InstallProxyHowTo.md&#34; title=&#34;Installation of Stroom Proxy&#34;&gt;here&lt;/a&gt;. Note you
+&lt;p&gt;Instructions for installation of the Stroom Proxy can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/&#34;&gt;here&lt;/a&gt;. Note you
 will be deploying a &lt;em&gt;Store&lt;/em&gt; proxy and during the setup execution ensure you enter the appropriate values for NODE (&amp;lsquo;stroomp02&amp;rsquo;)
 and REPO_DIR (&#39;/stroomdata/stroom-working-p02/proxy&#39;). All other values will be the same.&lt;/p&gt;
 &lt;h3 id=&#34;stroom-application-installation-1&#34;&gt;Stroom Application Installation&lt;/h3&gt;
-&lt;p&gt;Instructions for installation of the Stroom application can be found &lt;a href=&#34;InstallApplicationHowTo.md&#34; title=&#34;Installation of Stroom Application&#34;&gt;here&lt;/a&gt;.
+&lt;p&gt;Instructions for installation of the Stroom application can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/&#34;&gt;here&lt;/a&gt;.
 When executing the setup script ensure you enter the appropriate values for TEMP_DIR (&#39;/stroomdata/stroom-working-p02&#39;) and NODE (&amp;lsquo;stroomp02&amp;rsquo;).
 All other values will be the same. Note also that you will not have to wait for the &amp;lsquo;first&amp;rsquo; node to initialise the Stroom database as
 this would have already been done when you first deployed your Stroom Cluster.&lt;/p&gt;
@@ -2017,9 +2139,9 @@ chcon -R --reference /etc/pki ~stroomuser/stroom-jks
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This HOWTO is designed to deploy Apache&amp;rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&amp;rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found &lt;a href=&#34;InstallHttpdHowTo.md&#34; title=&#34;Apache Httpd/Mod_JK Installation&#34;&gt;here&lt;/a&gt;.
+to configure this can be found &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/&#34;&gt;here&lt;/a&gt;.
 You should pay particular attention to the section on the
-&lt;a href=&#34;InstallHttpdHowTo.md#apache-modjk-configuration&#34; title=&#34;Apache Mod_JK Configuration&#34;&gt;Apache Mod_JK configuration&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/#apache-modjk-configuration&#34;&gt;Apache Mod_JK configuration&lt;/a&gt;
 as you &lt;strong&gt;MUST&lt;/strong&gt; regenerate the Mod_JK workers.properties file on the existing cluster nodes as well as generating it on our new node.&lt;/p&gt;
 &lt;p&gt;Other Web service capability can be used, for example, &lt;a href=&#34;https://nginx.org&#34; title=&#34;NGINX Web Service Capability&#34;&gt;NGINX (external link)&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Note that once you have integrated the web services for our new node, you will need to restart the Apache systemd process on the existing
@@ -2033,7 +2155,7 @@ and &lt;a href=&#34;#testing-our-new-node-installation&#34; title=&#34;Integrati
 sudo firewall-cmd --zone=public --list-all
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;should result in&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public (active)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;public (active)
   target: default
   icmp-block-inversion: no
   interfaces: enp0s3
@@ -2054,23 +2176,23 @@ is recommended you use a attributed user for this activity. Once you have logged
 new node.&lt;/p&gt;
 &lt;h3 id=&#34;configure-the-volumes-for-our-stroom-deployment-1&#34;&gt;Configure the Volumes for our Stroom deployment&lt;/h3&gt;
 &lt;p&gt;Before we can store data on this new Stroom node we need to configure it&amp;rsquo;s
-&lt;a href=&#34;../../user-guide/volumes.md&#34; title=&#34;Stroom Volumes&#34;&gt;volumes&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/volumes/&#34;&gt;volumes&lt;/a&gt;
 we have allocated in our Storage hierarchy. The section on adding new volumes in the
-&lt;a href=&#34;InstallVolumesHowTo.md#adding-new-volumes&#34; title=&#34;Add new volumes to a Cluster&#34;&gt;Volume Maintenance HOWTO&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/#adding-new-volumes&#34;&gt;Volume Maintenance HOWTO&lt;/a&gt;
 shows how to do this.&lt;/p&gt;
 &lt;h3 id=&#34;configure-the-nodes-for-our-stroom-deployment-1&#34;&gt;Configure the Nodes for our Stroom deployment&lt;/h3&gt;
 &lt;p&gt;In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the new node. This is achieved via the Stroom UI where we set a Cluster URL for our node.
 The section on Configuring a new node in the
-&lt;a href=&#34;InstallNodesHowTo.md#configure-new-node&#34; title=&#34;Configure a new Node&#34;&gt;Node Configuration HOWTO&lt;/a&gt; demonstrates how do
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/#configure-new-node&#34;&gt;Node Configuration HOWTO&lt;/a&gt; demonstrates how do
 set the Cluster URL.&lt;/p&gt;
 &lt;h3 id=&#34;data-stream-processing-1&#34;&gt;Data Stream Processing&lt;/h3&gt;
 &lt;p&gt;To enable Stroom to process data, it&amp;rsquo;s
-&lt;a href=&#34;../../user-guide/jobs.md#data-processor&#34; title=&#34;Data Processor&#34;&gt;Data Processors&lt;/a&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/jobs/#data-processor&#34;&gt;Data Processors&lt;/a&gt;
 need to be enabled. There are NOT enabled by default on installation. The following
-&lt;a href=&#34;../General/TasksHowTo.md#enable-stream-processors-on-new-node&#34; title=&#34;Enable Stream Processors&#34;&gt;section&lt;/a&gt;
-in our &lt;a href=&#34;../General/TasksHowTo.md&#34; title=&#34;Stroom Task HOWTO&#34;&gt;Stroom Tasks HowTo&lt;/a&gt; shows how to do this.&lt;/p&gt;
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#enable-stream-processors-on-new-node&#34;&gt;section&lt;/a&gt;
+in our &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/&#34;&gt;Stroom Tasks HowTo&lt;/a&gt; shows how to do this.&lt;/p&gt;
 &lt;h2 id=&#34;testing-our-new-node-installation&#34;&gt;Testing our New Node Installation&lt;/h2&gt;
 &lt;p&gt;To complete the installation process we will test that our new node has successfully integrated into our cluster.&lt;/p&gt;
 &lt;p&gt;First we need to ensure we have restarted the Apache Httpd service (httpd.service) on the original nodes so that the new workers.properties
@@ -2101,8 +2223,8 @@ load balancing for the &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; cluster.&l
 &lt;li&gt;the Stroom &lt;code&gt;statistics&lt;/code&gt; database has been created and resides on the host &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt; listening on port 3308.&lt;/li&gt;
 &lt;li&gt;the Stroom &lt;code&gt;statistics&lt;/code&gt; database user is &lt;code&gt;stroomuser&lt;/code&gt; with a password of &lt;code&gt;Stroompassword2@&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;the application user &lt;code&gt;stroomuser&lt;/code&gt; has been created&lt;/li&gt;
-&lt;li&gt;the user is or has deployed the two node Stroom cluster described &lt;a href=&#34;InstallHowTo.md#storage-scenario&#34; title=&#34;HOWTO Storage Scenario&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;the user has set up the Stroom processing user as described &lt;a href=&#34;InstallProcessingUserSetupHowTo.md&#34; title=&#34;Processing User Setup&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;the user is or has deployed the two node Stroom cluster described &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;the user has set up the Stroom processing user as described &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;the prerequisite software has been installed&lt;/li&gt;
 &lt;li&gt;when a screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
 &lt;/ul&gt;
@@ -2287,8 +2409,8 @@ sudo firewall-cmd --zone=public --list-all
 &lt;li&gt;the Stroom database has been created and resides on the host &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt; listening on port 3307.&lt;/li&gt;
 &lt;li&gt;the Stroom database user is &lt;code&gt;stroomuser&lt;/code&gt; with a password of &lt;code&gt;Stroompassword1@&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;the application user &lt;code&gt;stroomuser&lt;/code&gt; has been created.&lt;/li&gt;
-&lt;li&gt;the user is or has deployed the two node Stroom cluster described &lt;a href=&#34;InstallHowTo.md#storage-scenario&#34; title=&#34;HOWTO Storage Scenario&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;the user has set up the Stroom processing user as described &lt;a href=&#34;InstallProcessingUserSetupHowTo.md&#34; title=&#34;Processing User Setup&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;the user is or has deployed the two node Stroom cluster described &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;the user has set up the Stroom processing user as described &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;the prerequisite software has been installed.&lt;/li&gt;
 &lt;li&gt;when a screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
 &lt;/ul&gt;
@@ -2323,7 +2445,7 @@ unzip stroom-proxy-distribution-${Prx}.zip
 &lt;p&gt;A &lt;em&gt;forwarding&lt;/em&gt; proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.&lt;/p&gt;
 &lt;p&gt;We will demonstrate the installation of each.&lt;/p&gt;
 &lt;h3 id=&#34;store-proxy-configuration&#34;&gt;Store Proxy Configuration&lt;/h3&gt;
-&lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario. That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (stroomp00, stroomp01) and we have configured our storage as per the &lt;a href=&#34;InstallHowTo.md#storage-scenario&#34; title=&#34;HOWTO Storage Scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
+&lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario. That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (stroomp00, stroomp01) and we have configured our storage as per the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store&lt;/em&gt; proxy, we run&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store
 &lt;/code&gt;&lt;/pre&gt;
@@ -2340,7 +2462,7 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.
 If you make a mistake in the above, just re-run the script.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The selection of the &lt;code&gt;REPO_DIR&lt;/code&gt; above and the setting of the &lt;code&gt;STROOM_TMP&lt;/code&gt; environment variable &lt;a href=&#34;InstallProcessingUserSetupHowTo.md&#34; title=&#34;Processing User Setup&#34;&gt;earlier&lt;/a&gt; ensure that not only inbound files are placed in the &lt;code&gt;REPO_DIR&lt;/code&gt; location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in it&amp;rsquo;s proxy aggregation threads.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The selection of the &lt;code&gt;REPO_DIR&lt;/code&gt; above and the setting of the &lt;code&gt;STROOM_TMP&lt;/code&gt; environment variable &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;earlier&lt;/a&gt; ensure that not only inbound files are placed in the &lt;code&gt;REPO_DIR&lt;/code&gt; location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in it&amp;rsquo;s proxy aggregation threads.&lt;/p&gt;
 &lt;h3 id=&#34;forwarding-proxy-configuration&#34;&gt;Forwarding Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Forwarding&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomfp0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-fp0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; (the CNAME for &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Forwarding&lt;/em&gt; proxy, we run&lt;/p&gt;
@@ -2392,7 +2514,7 @@ The proxy will have completely started when you see the messages&lt;/p&gt;
 &lt;p&gt;If you leave it for a while you will eventually see cyclic (10 minute cycle) messages of the form&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;INFO  [Repository Reader Thread 1] repo.ProxyRepositoryReader (ProxyRepositoryReader.java:170) - run() - Cron Match at YYYY-MM-DD ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If a proxy takes too long to start, you should read the section on &lt;a href=&#34;InstallHowTo.md#entropy-issues-in-virtual-environments&#34; title=&#34;Entropy Issues in Virtual environments&#34;&gt;Entropy Issues&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If a proxy takes too long to start, you should read the section on &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#entropy-issues-in-virtual-environments&#34;&gt;Entropy Issues&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;proxy-repository-format&#34;&gt;Proxy Repository Format&lt;/h2&gt;
 &lt;p&gt;A Stroom Proxy stores inbound files in a hierarchical file system whose root is supplied during the proxy setup (&lt;code&gt;REPO_DIR&lt;/code&gt;) and as files arrive they are given a &lt;em&gt;repository id&lt;/em&gt; that is a one-up number starting at one (1). The files are stored in a specific &lt;em&gt;repository format&lt;/em&gt;.
 The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this pattern will produce the following output files under &lt;code&gt;REPO_DIR&lt;/code&gt; for the given repository id&lt;/p&gt;
@@ -2556,7 +2678,7 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 &lt;ul&gt;
 &lt;li&gt;the user has reasonable RHEL/Centos System administration skills&lt;/li&gt;
 &lt;li&gt;installations are on Centos 7.3 minimal systems (fully patched)&lt;/li&gt;
-&lt;li&gt;the user is or has deployed the example two node Stroom cluster storage hierarchy described &lt;a href=&#34;InstallHowTo.md#storage-scenario&#34; title=&#34;HOWTO Storage Scenario&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;the user is or has deployed the example two node Stroom cluster storage hierarchy described &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;the configuration of this NFS is NOT secure. It is highly recommended to improve it&amp;rsquo;s security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;installation-of-nfs-software&#34;&gt;Installation of NFS software&lt;/h2&gt;
@@ -2628,7 +2750,7 @@ as the existing nodes and all nodes have added mount points (directories) for th
 &lt;li&gt;
 &lt;p&gt;Node: &lt;code&gt;stroomp02.strmdev00.org&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Install NFS software as &lt;a href=&#34;InstallNFSHowTo.md#installation-of-nfs-software&#34; title=&#34;Installation of NFS Software&#34;&gt;above&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Install NFS software as &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/#installation-of-nfs-software&#34;&gt;above&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Configure the exports file as per&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -2691,79 +2813,879 @@ sudo su -c &amp;quot;printf &#39;stroomp01.strmdev00.org:/stroomdata/stroom-data
       <description>
         
         
-        &lt;h1 id=&#34;stroom-howto---node-cluster-url-setup&#34;&gt;Stroom HOWTO - Node Cluster URL Setup&lt;/h1&gt;
-&lt;p&gt;In a Stroom cluster, &lt;a href=&#34;../../user-guide/nodes.md&#34; title=&#34;Stroom Nodes&#34;&gt;Nodes&lt;/a&gt; are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node&amp;rsquo;s Cluster URL and the following demonstrates this process.&lt;/p&gt;
+        &lt;p&gt;In a Stroom cluster, &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/nodes/&#34;&gt;Nodes&lt;/a&gt; are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node&amp;rsquo;s Cluster URL and the following demonstrates this process.&lt;/p&gt;
 &lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;an account with the &lt;code&gt;Administrator&lt;/code&gt; Application &lt;a href=&#34;../../user-guide/roles.md&#34; title=&#34;Stroom Application Permissions&#34;&gt;Permission&lt;/a&gt; is currently logged in.&lt;/li&gt;
+&lt;li&gt;an account with the &lt;code&gt;Administrator&lt;/code&gt; Application &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/roles/&#34;&gt;Permission&lt;/a&gt; is currently logged in.&lt;/li&gt;
 &lt;li&gt;we have a multi node Stroom cluster with two nodes, &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp01&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;appropriate firewall configurations have been made&lt;/li&gt;
 &lt;li&gt;in the scenario of adding a new node to our multi node deployment, the node added will be &lt;code&gt;stroomp02&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;configure-two-nodes&#34;&gt;Configure Two Nodes&lt;/h2&gt;
 &lt;p&gt;To configure the nodes, move to the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-MonitoringSubmenu-00.png&#34; alt=&#34;Stroom UI Node Management - Monitoring Menu&#34; title=&#34;Stroom UI Monitoring sub-menu&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; alt=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Monitoring sub-menu&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;then move down and select the &lt;code&gt;Nodes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Nodes&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-01.png&#34; alt=&#34;Stroom UI Node Management - Management Tab&#34; title=&#34;Stroom UI Node Management - management tab&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-01.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-01.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - management tab&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;To set &lt;code&gt;stroomp00&lt;/code&gt;&amp;rsquo;s Cluster URL, move the it&amp;rsquo;s line in the display and select it. It will be highlighted.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-02.png&#34; alt=&#34;Stroom UI Node Management - Management Tab - Select first node&#34; title=&#34;Stroom UI Node Management - select first node&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/edit.png&#34; alt=&#34;EditNode&#34; title=&#34;Edit Node&#34;&gt; in the top left of
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-02.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-02.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - select first node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/edit.svg&#34; width=&#34;16px&#34; title=&#34;Edit&#34; alt=&#34;edit.svg&#34;&gt;
+ in the top left of
 the &lt;code&gt;Nodes&lt;/code&gt; tab and select it. On selection the &lt;code&gt;Edit Node&lt;/code&gt; configuration window will be displayed and into
 the &lt;strong&gt;Cluster URL:&lt;/strong&gt; entry box, enter the first node&amp;rsquo;s URL of &lt;code&gt;http://stroomp00.strmdev00.org:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-03.png&#34; alt=&#34;Stroom UI Node Management - First Node setup&#34; title=&#34;Stroom UI Node Management - set clustercall url for first node&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-03.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-03.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - set clustercall url for first node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;then press the
-&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png&#34; alt=&#34;images/HOWTOs/icons/buttonOk.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI OkButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 at which we see the &lt;em&gt;Cluster URL&lt;/em&gt; has been set for the first node as per&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-04.png&#34; alt=&#34;Stroom UI Node Management - First Node set&#34; title=&#34;Stroom UI Node Management - set clustercall url on first node&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-04.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-04.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - set clustercall url on first node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We next select the second node&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-05.png&#34; alt=&#34;Stroom UI Node Management - Management Tab - Select second node&#34; title=&#34;Stroom UI Node Management - select second node&#34;&gt;&lt;/p&gt;
-&lt;p&gt;then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/edit.png&#34; alt=&#34;EditNode&#34; title=&#34;Edit Node&#34;&gt; in the top left of
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-05.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-05.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - select second node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/edit.svg&#34; width=&#34;16px&#34; title=&#34;Edit&#34; alt=&#34;edit.svg&#34;&gt;
+ in the top left of
 the &lt;code&gt;Nodes&lt;/code&gt; tab and select it. On selection the &lt;code&gt;Edit Node&lt;/code&gt; configuration window will be displayed and into
 the &lt;strong&gt;Cluster URL:&lt;/strong&gt; entry box, enter the second node&amp;rsquo;s URL of &lt;code&gt;http://stroomp01.strmdev00.org:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-06.png&#34; alt=&#34;Stroom UI Node Management - Second Node setup&#34; title=&#34;Stroom UI Node Management - set clustercall url for second node&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-06.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-06.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - set clustercall url for second node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;then press the
-&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png&#34; alt=&#34;images/HOWTOs/icons/buttonOk.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI OkButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;At this we will see both nodes have the &lt;strong&gt;Cluster URLs&lt;/strong&gt; set.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-07.png&#34; alt=&#34;Stroom UI Node Management - Both Nodes setup&#34; title=&#34;Stroom UI Node Management - both nodes setup&#34;&gt;.&lt;/p&gt;
-&lt;p&gt;You may need to press the &lt;em&gt;Refresh&lt;/em&gt; icon
-&lt;img src=&#34;../resources/icons/refresh.png&#34; alt=&#34;Stroom UI Refresh&#34; title=&#34;Stroom UI RefreshButton&#34;&gt;
-found at top left of &lt;code&gt;Nodes&lt;/code&gt; configuration tab, until both nodes show healthy pings.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-08.png&#34; alt=&#34;Stroom UI Node Management - Both Nodes ping&#34; title=&#34;Stroom UI Node Management - both nodes ping&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-07.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-07.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - both nodes setup&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+.&lt;/p&gt;
+&lt;p&gt;You may need to press the &lt;em&gt;Refresh&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/refresh.svg&#34; width=&#34;16px&#34; title=&#34;Refresh&#34; alt=&#34;refresh.svg&#34;&gt;
+ found at top left of &lt;code&gt;Nodes&lt;/code&gt; configuration tab, until both nodes show healthy pings.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-08.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-08.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - both nodes ping&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+.&lt;/p&gt;
 &lt;p&gt;If you do not get ping results for each node, then they are not configured correctly. In that situation,
 review all log files and processes that you have performed.&lt;/p&gt;
 &lt;p&gt;Once you have set the Cluster URLs of each node you should also set the &lt;em&gt;master assignment priority&lt;/em&gt; for each node to
 be different to all of the others. In the image above both have been assigned equal priority - &lt;code&gt;1&lt;/code&gt;. We will
 change &lt;code&gt;stroomp00&lt;/code&gt; to have a different priority - &lt;code&gt;3&lt;/code&gt;. You should note that the node with the highest
 priority gains the &lt;code&gt;Master&lt;/code&gt; node status.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-NodeClusterSetup-09.png&#34; alt=&#34;Stroom UI Node Management - Node priority&#34; title=&#34;Stroom UI Node Management - set node priorities&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-09.png&#34; alt=&#34;images/HOWTOs/UI-NodeClusterSetup-09.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - set node priorities&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+.&lt;/p&gt;
 &lt;h2 id=&#34;configure-new-node&#34;&gt;Configure New Node&lt;/h2&gt;
 &lt;p&gt;When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and services on
 the new node, one has to configure the new node&amp;rsquo;s Cluster URL.&lt;/p&gt;
 &lt;p&gt;To configure the new node, move to the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-MonitoringSubmenu-00.png&#34; alt=&#34;Stroom UI Node Management - Monitoring Menu&#34; title=&#34;Stroom UI Monitoring sub-menu&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; alt=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Monitoring sub-menu&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;then move down and select the &lt;code&gt;Nodes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Nodes&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-00.png&#34; alt=&#34;Stroom UI New Node Management - Management Tab&#34; title=&#34;Stroom UI New Node Management - management tab&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-00.png&#34; alt=&#34;images/HOWTOs/UI-AddNewNode-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI New Node Management - management tab&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;To set &lt;code&gt;stroomp02&lt;/code&gt;&amp;rsquo;s Cluster URL, move the it&amp;rsquo;s line in the display and select it. It will be highlighted.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-01.png&#34; alt=&#34;Stroom UI Node Management - Management Tab - Select new node&#34; title=&#34;Stroom UI Node Management - select new node&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/edit.png&#34; alt=&#34;EditNode&#34; title=&#34;Edit Node&#34;&gt; in the top left
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-01.png&#34; alt=&#34;images/HOWTOs/UI-AddNewNode-01.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Node Management - select new node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then move the cursor to the &lt;em&gt;Edit Node&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/edit.svg&#34; width=&#34;16px&#34; title=&#34;Edit&#34; alt=&#34;edit.svg&#34;&gt;
+ in the top left
 of the &lt;code&gt;Nodes&lt;/code&gt; tab and select it. On selection the &lt;code&gt;Edit Node&lt;/code&gt; configuration window will be displayed
 and into the &lt;strong&gt;Cluster URL:&lt;/strong&gt; entry box, enter the first node&amp;rsquo;s URL of &lt;code&gt;http://stroomp02.strmdev00.org:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-02.png&#34; alt=&#34;Stroom UI New Node Management - Node setup&#34; title=&#34;Stroom UI New Node Management - set clustercall url for new node&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-02.png&#34; alt=&#34;images/HOWTOs/UI-AddNewNode-02.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI New Node Management - set clustercall url for new node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;then press the
-&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png&#34; alt=&#34;images/HOWTOs/icons/buttonOk.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI OkButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 button at which we see the &lt;em&gt;Cluster URL&lt;/em&gt; has been set for the first node as per&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-03.png&#34; alt=&#34;Stroom UI New Node Management - New Node set&#34; title=&#34;Stroom UI New Node Management - set clustercall url on new node&#34;&gt;&lt;/p&gt;
-&lt;p&gt;You need to press the &lt;em&gt;Refresh&lt;/em&gt; icon
-&lt;img src=&#34;../resources/icons/refresh.png&#34; alt=&#34;Stroom UI Refresh&#34; title=&#34;Stroom UI RefreshButton&#34;&gt;
-found at top left of &lt;code&gt;Nodes&lt;/code&gt; configuration tab, until the new node shows a healthy ping.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-04.png&#34; alt=&#34;Stroom UI New Node Management - All Nodes ping&#34; title=&#34;Stroom UI New Node Management - all nodes ping&#34;&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-03.png&#34; alt=&#34;images/HOWTOs/UI-AddNewNode-03.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI New Node Management - set clustercall url on new node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You need to press the &lt;em&gt;Refresh&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/refresh.svg&#34; width=&#34;16px&#34; title=&#34;Refresh&#34; alt=&#34;refresh.svg&#34;&gt;
+ found at top left of &lt;code&gt;Nodes&lt;/code&gt; configuration tab, until the new node shows a healthy ping.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-04.png&#34; alt=&#34;images/HOWTOs/UI-AddNewNode-04.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI New Node Management - all nodes ping&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+.&lt;/p&gt;
 &lt;p&gt;If you do not get a ping results for the new node, then it is not configured correctly. In that situation, review all log files
 and processes that you have performed.&lt;/p&gt;
 &lt;p&gt;Once you have set the Cluster URL you should also set the &lt;em&gt;master assignment priority&lt;/em&gt; for each node to
 be different to all of the others. In the image above both &lt;code&gt;stroomp01&lt;/code&gt; and the new node, &lt;code&gt;stroomp02&lt;/code&gt;, have been
 assigned equal priority - &lt;code&gt;1&lt;/code&gt;. We will change &lt;code&gt;stroomp01&lt;/code&gt; to have a different priority - &lt;code&gt;2&lt;/code&gt;. You should note that the node
 with the highest priority maintains the &lt;code&gt;Master&lt;/code&gt; node status.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-AddNewNode-05.png&#34; alt=&#34;Stroom UI New Node Management - Node priority&#34; title=&#34;Stroom UI New Node Management - set node priorities&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-05.png&#34; alt=&#34;images/HOWTOs/UI-AddNewNode-05.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI New Node Management - set node priorities&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+.&lt;/p&gt;
 
       </description>
     </item>
@@ -2783,7 +3705,7 @@ with the highest priority maintains the &lt;code&gt;Master&lt;/code&gt; node sta
 &lt;li&gt;installation is on a fully patched minimal Centos 7.3 instance.&lt;/li&gt;
 &lt;li&gt;the application user &lt;code&gt;stroomuser&lt;/code&gt; has been created&lt;/li&gt;
 &lt;li&gt;the user is deploying for either&lt;/li&gt;
-&lt;li&gt;the example two node Stroom cluster whose storage is described &lt;a href=&#34;InstallHowTo.md#storage-scenario&#34; title=&#34;HOWTO Storage Scenario&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;the example two node Stroom cluster whose storage is described &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;a simple Forwarding or Standalone Proxy&lt;/li&gt;
 &lt;li&gt;adding a node to an existing Stroom cluster&lt;/li&gt;
 &lt;/ul&gt;
@@ -2800,7 +3722,7 @@ difference is that for the Stroom processes, we need to &lt;code&gt;export&lt;/c
 The STROOM_TMP variable is set to a working area for the Stroom Application to use. The application accesses this environment variable internally
 via the ${stroom_tmp} context variable. Note that we only need the STROOM_TMP variable for Stroom Application deployments, so one
 could remove it from the files for a Forwarding or Standalone proxy deployment.&lt;/p&gt;
-&lt;p&gt;With respect to the working area, we will make use of the &lt;a href=&#34;InstallHowTo.md#storage-scenario&#34; title=&#34;HOWTO Storage Scenario&#34;&gt;Storage Scenario&lt;/a&gt; we have defined and hence use the directory &lt;code&gt;/stroomdata/stroom-working-p_nn_&lt;/code&gt; where &lt;em&gt;nn&lt;/em&gt; is the hostname node number (i.e 00 for host stroomp00, 01 for host stroomp01, etc).&lt;/p&gt;
+&lt;p&gt;With respect to the working area, we will make use of the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; we have defined and hence use the directory &lt;code&gt;/stroomdata/stroom-working-p_nn_&lt;/code&gt; where &lt;em&gt;nn&lt;/em&gt; is the hostname node number (i.e 00 for host stroomp00, 01 for host stroomp01, etc).&lt;/p&gt;
 &lt;p&gt;So, for the first node, &lt;em&gt;00&lt;/em&gt;, we run&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;N=00
 F=~/env.sh
@@ -3140,17 +4062,17 @@ stroom-proxy/bin/start.sh
         &lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Stroom Single or Multi Node Cluster Testing&lt;/li&gt;
-&lt;li&gt;the &lt;a href=&#34;InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment&#34; title=&#34;Multi Node Stroom Cluster (Proxy and Application&#34;&gt;Multi Node Stroom Cluster (Proxy and Application)&lt;/a&gt; has been deployed&lt;/li&gt;
-&lt;li&gt;a &lt;a href=&#34;InstallHowTo.md#add-a-test-feed&#34; title=&#34;Add a Test Feed&#34;&gt;Test Feed&lt;/a&gt;, &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; has been added&lt;/li&gt;
+&lt;li&gt;the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#multi-node-stroom-cluster-proxy-and-application-deployment&#34;&gt;Multi Node Stroom Cluster (Proxy and Application)&lt;/a&gt; has been deployed&lt;/li&gt;
+&lt;li&gt;a &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#add-a-test-feed&#34;&gt;Test Feed&lt;/a&gt;, &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; has been added&lt;/li&gt;
 &lt;li&gt;Proxy aggregation has been turned off on all Stroom &lt;em&gt;Store&lt;/em&gt; Proxies&lt;/li&gt;
 &lt;li&gt;the Stroom Proxy Repository Format (&lt;code&gt;REPO_FORMAT&lt;/code&gt;) chosen was the default - &lt;code&gt;${pathId}/${id&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Stroom Forwarding Proxy Testing&lt;/li&gt;
-&lt;li&gt;the &lt;a href=&#34;InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment&#34; title=&#34;Multi Node Stroom Cluster (Proxy and Application&#34;&gt;Multi Node Stroom Cluster (Proxy and Application)&lt;/a&gt; has been deployed&lt;/li&gt;
-&lt;li&gt;the &lt;a href=&#34;InstallHowTo.md#forwarding-stroom-proxy-deployment&#34; title=&#34;Stroom Forwarding Proxy&#34;&gt;Stroom Forwarding Proxy&lt;/a&gt; has been deployed&lt;/li&gt;
-&lt;li&gt;a &lt;a href=&#34;InstallHowTo.md#add-a-test-feed&#34; title=&#34;Add a Test Feed&#34;&gt;Test Feed&lt;/a&gt;, &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; has been added&lt;/li&gt;
+&lt;li&gt;the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#multi-node-stroom-cluster-proxy-and-application-deployment&#34;&gt;Multi Node Stroom Cluster (Proxy and Application)&lt;/a&gt; has been deployed&lt;/li&gt;
+&lt;li&gt;the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#forwarding-stroom-proxy-deployment&#34;&gt;Stroom Forwarding Proxy&lt;/a&gt; has been deployed&lt;/li&gt;
+&lt;li&gt;a &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#add-a-test-feed&#34;&gt;Test Feed&lt;/a&gt;, &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; has been added&lt;/li&gt;
 &lt;li&gt;the Stroom Proxy Repository Format (&lt;code&gt;REPO_FORMAT&lt;/code&gt;) chosen was the default - &lt;code&gt;${pathId}/${id&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Stroom Standalone Proxy Testing&lt;/li&gt;
-&lt;li&gt;the &lt;a href=&#34;InstallHowTo.md#standalone-stroom-proxy-deployment&#34; title=&#34;Stroom Standalone Proxy&#34;&gt;Stroom Standalone Proxy&lt;/a&gt; has been deployed&lt;/li&gt;
+&lt;li&gt;the &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#standalone-stroom-proxy-deployment&#34;&gt;Stroom Standalone Proxy&lt;/a&gt; has been deployed&lt;/li&gt;
 &lt;li&gt;the Stroom Proxy Repository Format (&lt;code&gt;REPO_FORMAT&lt;/code&gt;) chosen was the default - &lt;code&gt;${pathId}/${id&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;stroom-single-or-multi-node-cluster-testing&#34;&gt;Stroom Single or Multi Node Cluster Testing&lt;/h2&gt;
@@ -3170,13 +4092,13 @@ Tp
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You will note events of the form from
 &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
 2017-01-14T06:22:26.672Z INFO  [ProxyProperties refresh thread 0] datafeed.ProxyHandlerFactory$1 (ProxyHandlerFactory.java:96) - refreshThread() - Started
 2017-01-14T06:30:00.993Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:30:00.993Z
 2017-01-14T06:40:00.245Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:40:00.245Z
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and from &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
 2017-01-14T06:22:26.828Z INFO  [ProxyProperties refresh thread 0] datafeed.ProxyHandlerFactory$1 (ProxyHandlerFactory.java:96) - refreshThread() - Started
 2017-01-14T06:30:00.066Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:30:00.066Z
 2017-01-14T06:40:00.318Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:40:00.318Z
@@ -3187,7 +4109,7 @@ Tp
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomp.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If you are monitoring the proxy log of &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; you would see two new logs indicating the successful arrival of the file&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T06:46:06.411Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=54dc0da2-f35c-4dc2-8a98-448415ffc76b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:46:06.411Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=54dc0da2-f35c-4dc2-8a98-448415ffc76b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:46:06.449Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 571 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=54dc0da2-f35c-4dc2-8a98-448415ffc76b&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:46:05.883Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
@@ -3197,32 +4119,32 @@ Tp
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If you are monitoring the proxy log of &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt; you should see a new log. As foreshadowed, we didn&amp;rsquo;t as the time delay resulted
 in the first node getting the file. That is &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; log file gained the two entries&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:47:26.645Z INFO  [ajp-apr-9009-exec-2] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 174 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=941d2904-734f-4764-9ccf-4124b94a56f6&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:47:26.470Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;Again on the database node, execute the command and this time we see that node &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt; received the file as per&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T06:47:30.782Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=2cef6e23-b0e6-4d75-8374-cca7caf66e15,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:47:30.782Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=2cef6e23-b0e6-4d75-8374-cca7caf66e15,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:47:30.816Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 593 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=2cef6e23-b0e6-4d75-8374-cca7caf66e15&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:47:30.238Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;Running the curl post command in quick succession shows the loadbalancer working &amp;hellip; four executions result in seeing our pair of logs appearing on alternate proxies.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;code&gt;stroomp00&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T06:52:09.815Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=bf0bc38c-3533-4d5c-9ddf-5d30c0302787,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:52:09.815Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=bf0bc38c-3533-4d5c-9ddf-5d30c0302787,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:09.817Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 262 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=bf0bc38c-3533-4d5c-9ddf-5d30c0302787&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:52:09.555Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;stroomp01&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T06:52:11.139Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=1088fdd8-6869-489f-8baf-948891363734,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:52:11.139Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=1088fdd8-6869-489f-8baf-948891363734,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:11.150Z INFO  [ajp-apr-9009-exec-2] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 289 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=1088fdd8-6869-489f-8baf-948891363734&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:52:10.861Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;stroomp00&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T06:52:12.284Z INFO  [ajp-apr-9009-exec-4] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=def94a4a-cf78-4c4d-9261-343663f7f79a,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:52:12.284Z INFO  [ajp-apr-9009-exec-4] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=def94a4a-cf78-4c4d-9261-343663f7f79a,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:12.289Z INFO  [ajp-apr-9009-exec-4] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 5.0 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=def94a4a-cf78-4c4d-9261-343663f7f79a&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:52:12.284Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;stroomp01&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T06:52:13.374Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T06:52:13.374Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:13.378Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 3.0 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b&amp;quot;,&amp;quot;ReceivedTime=2017-01-14T06:52:13.374Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.144&amp;quot;,&amp;quot;RemoteHost=192.168.2.144&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=527&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.29.0&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At this point we will see what the proxies have received.&lt;/p&gt;
@@ -3232,7 +4154,7 @@ in the first node getting the file. That is &lt;code&gt;stroomp00.strmdev00.org&
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l /stroomdata/stroom-working*/proxy
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;On &lt;code&gt;stroomp00&lt;/code&gt; we see&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[stroomuser@stroomp00 ~]$ ls -l /stroomdata/stroom-working*/proxy
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomp00 ~]$ ls -l /stroomdata/stroom-working*/proxy
 total 16
 -rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:46 001.zip
 -rw-rw-r--. 1 stroomuser stroomuser 783 Jan 14 17:47 002.zip
@@ -3241,7 +4163,7 @@ total 16
 [stroomuser@stroomp00 ~]$
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and on &lt;code&gt;stroomp01&lt;/code&gt; we see&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[stroomuser@stroomp01 ~]$ ls -l /stroomdata/stroom-working*/proxy
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomp01 ~]$ ls -l /stroomdata/stroom-working*/proxy
 total 12
 -rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:47 001.zip
 -rw-rw-r--. 1 stroomuser stroomuser 783 Jan 14 17:52 002.zip
@@ -3252,7 +4174,7 @@ total 12
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;unzip -c /stroomdata/stroom-working*/proxy/001.zip
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;to see&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Archive:  /stroomdata/stroom-working-p00/proxy/001.zip
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Archive:  /stroomdata/stroom-working-p00/proxy/001.zip
   inflating: 001.dat
 root:x:0:
 bin:x:1:
@@ -3316,7 +4238,7 @@ the metadata file present in the zip archive.&lt;/p&gt;
 &lt;p&gt;If you execute the same command on the other files, all that changes is the value of the &lt;em&gt;ReceivedTime:&lt;/em&gt; attribute in the &lt;code&gt;.meta&lt;/code&gt; file.&lt;/p&gt;
 &lt;p&gt;For those curious about the file size differences, this is a function of the compression process within the proxy.
 Using &lt;code&gt;stroomp01&lt;/code&gt;&amp;rsquo;s files and extracting them manually and renaming them results in the six files&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[stroomuser@stroomp01 xx]$ ls -l
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomp01 xx]$ ls -l
 total 24
 -rw-rw-r--. 1 stroomuser stroomuser 527 Jan 14 17:47 A_001.dat
 -rw-rw-r--. 1 stroomuser stroomuser 321 Jan 14 17:47 A_001.meta
@@ -3340,7 +4262,7 @@ the Stroom application to collect it. In this situation we use the command&lt;/p
 T
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;On each node you should see &lt;em&gt;LifecyleTask&lt;/em&gt; events, for example,&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #2 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing SQLStatisticEventStore.evict
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #10 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing activeQueriesManager.evictExpiredElements
 2017-01-14T07:42:18.285Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing distributedTaskFetcher.execute
@@ -3350,45 +4272,192 @@ in  &lt;em&gt;server.DataFeedServiceImpl&lt;/em&gt; events in both log files. Th
 &lt;p&gt;In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
 &lt;code&gt;strooomp00:&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and on &lt;code&gt;stroomp01:&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T07:43:05.614Z INFO  [ajp-apr-8009-exec-1] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:43:05.614Z INFO  [ajp-apr-8009-exec-1] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 2017-01-14T07:43:06.821Z INFO  [ajp-apr-8009-exec-2] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To confirm this data arrived, we need to view the &lt;strong&gt;Data&lt;/strong&gt; pane of our &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; tab. To do this, log onto the Stroom UI then
 move the cursor to the &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; entry in the &lt;code&gt;Explorer&lt;/code&gt; tab and select the item with a left click&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-TestDirectFeed-00.png&#34; alt=&#34;Stroom UI Test Feed - Open Feed&#34; title=&#34;Stroom UI Test Feed - Open Feed&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestDirectFeed-00.png&#34; alt=&#34;images/HOWTOs/UI-TestDirectFeed-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Test Feed - Open Feed&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;and double click on the entry to see our &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; tab.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-TestDirectFeed-01.png&#34; alt=&#34;Stroom UI Test Feed - Opened Feed&#34; title=&#34;Stroom UI Test Feed - Opened Feed&#34;&gt;
-and it is noted that we are viewing the Feed&amp;rsquo;s attributes as we can see the &lt;strong&gt;Setting&lt;/strong&gt; hyper-link highlighted. As we want to see the Data we have received for this feed, move the cursor to the &lt;strong&gt;Data&lt;/strong&gt; hyper-link and select it to see
-&lt;img src=&#34;../resources/UI-TestDirectFeed-02.png&#34; alt=&#34;Stroom UI Test Feed - Opened Feed Data&#34; title=&#34;Stroom UI Test Feed - Opened Feed view Data&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestDirectFeed-01.png&#34; alt=&#34;images/HOWTOs/UI-TestDirectFeed-01.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Test Feed - Opened Feed&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+and it is noted that we are viewing the Feed&amp;rsquo;s attributes as we can see the &lt;strong&gt;Setting&lt;/strong&gt; hyper-link highlighted.
+As we want to see the Data we have received for this feed, move the cursor to the &lt;strong&gt;Data&lt;/strong&gt; hyper-link and select it to see
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestDirectFeed-02.png&#34; alt=&#34;images/HOWTOs/UI-TestDirectFeed-02.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Test Feed - Opened Feed view Data&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+.&lt;/p&gt;
 &lt;p&gt;These three entries correspond to the three posts we performed.&lt;/p&gt;
 &lt;p&gt;We have successfully tested direct posting to a Stroom feed and that the Apache mod_jk loadbalancer also works for this posting method.&lt;/p&gt;
 &lt;h4 id=&#34;test-proxy-aggregation-is-working&#34;&gt;Test Proxy Aggregation is Working&lt;/h4&gt;
 &lt;p&gt;To test that the Proxy Aggregation is working,
-we need to &lt;a href=&#34;../General/TasksHowTo.md#turn-on-proxy-aggregation&#34; title=&#34;Enable Proxy Aggregation&#34;&gt;enable&lt;/a&gt; on each node.&lt;/p&gt;
+we need to &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#turn-on-proxy-aggregation&#34;&gt;enable&lt;/a&gt; on each node.&lt;/p&gt;
 &lt;p&gt;By enabling the Proxy Aggregation process, both nodes immediately performed the task as indicated by each node&amp;rsquo;s Stroom application logs as per
 &lt;code&gt;stroomp00:&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T07:58:58.752Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
-2017-01-14T07:58:58.937Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedF
-iles() - Started TEST-FEED-V1_0 (4 Files)
-2017-01-14T07:58:59.045Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedF
-iles() - Completed TEST-FEED-V1_0 in 108 ms
-2017-01-14T07:58:59.101Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - completed
- in 349 ms
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:58:58.752Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
+2017-01-14T07:58:58.937Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedFiles() - Started TEST-FEED-V1_0 (4 Files)
+2017-01-14T07:58:59.045Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedFiles() - Completed TEST-FEED-V1_0 in 108 ms
+2017-01-14T07:58:59.101Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - completedin 349 ms
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and &lt;code&gt;stroomp01:&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-14T07:59:16.687Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
-2017-01-14T07:59:16.799Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedF
-iles() - Started TEST-FEED-V1_0 (3 Files)
-2017-01-14T07:59:16.909Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedF
-iles() - Completed TEST-FEED-V1_0 in 110 ms
-2017-01-14T07:59:16.997Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - complete
-d in 310 ms
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-14T07:59:16.687Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
+2017-01-14T07:59:16.799Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedFiles() - Started TEST-FEED-V1_0 (3 Files)
+2017-01-14T07:59:16.909Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedFiles() - Completed TEST-FEED-V1_0 in 110 ms
+2017-01-14T07:59:16.997Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - completed in 310 ms
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And on refreshing the top pane of the &lt;code&gt;TEST-FEED-V1_0&lt;/code&gt; tab we see that two more &lt;em&gt;batches&lt;/em&gt; of data have arrived.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-TestProxyAggregation-01.png&#34; alt=&#34;Stroom UI Test Feed - Proxy Aggregated Data Arrival&#34; title=&#34;Stroom UI Test Feed - Proxy Aggregated data arrival&#34;&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestProxyAggregation-01.png&#34; alt=&#34;images/HOWTOs/UI-TestProxyAggregation-01.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Test Feed - Proxy Aggregated data arrival&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+.&lt;/p&gt;
 &lt;p&gt;This demonstrates that Proxy Aggregation is working.&lt;/p&gt;
 &lt;h2 id=&#34;stroom-forwarding-proxy-testing&#34;&gt;Stroom Forwarding Proxy Testing&lt;/h2&gt;
 &lt;h3 id=&#34;data-post-tests-1&#34;&gt;Data Post Tests&lt;/h3&gt;
@@ -3414,7 +4483,7 @@ Tp
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the Stroom Forwarding proxy log, &lt;code&gt;~/stroom-proxy/instance/logs/stroom.log&lt;/code&gt;, you will see the arrival of the
 file as per the &lt;em&gt;datafeed.DataFeedRequestHandler$1&lt;/em&gt; event running under, in this case, the &lt;em&gt;ajp-apr-9009-exec-1&lt;/em&gt; thread.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
 2017-01-01T23:17:00.240Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:17:00.240Z
 2017-01-01T23:18:00.275Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:18:00.275Z
 2017-01-01T23:18:12.367Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 782 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Expect=100-continue&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=9601198e-98db-4cae-8b71-9404722ef1f9&amp;quot;,&amp;quot;ReceivedTime=2017-01-01T23:18:11.588Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.220&amp;quot;,&amp;quot;RemoteHost=192.168.2.220&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=1051&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomfp0.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&amp;quot;
@@ -3422,7 +4491,7 @@ file as per the &lt;em&gt;datafeed.DataFeedRequestHandler$1&lt;/em&gt; event run
 &lt;p&gt;And then at the next
 periodic interval (60 second intervals) this file will be forwarded to the main stroom proxy
 server &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; as shown by the &lt;em&gt;handler.ForwardRequestHandler&lt;/em&gt; events running under the &lt;em&gt;pool-10-thread-2&lt;/em&gt; thread.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;2017-01-01T23:19:00.304Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:19:00.304Z
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;2017-01-01T23:19:00.304Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:19:00.304Z
 2017-01-01T23:19:00.586Z INFO  [pool-10-thread-2] handler.ForwardRequestHandler (ForwardRequestHandler.java:109) - handleHeader() - https://stroomp00.strmdev00.org/stroom/datafeed Sending request {ReceivedPath=stroomfp0.strmdev00.org, Feed=TEST-FEED-V1_0, Compression=ZIP}
 2017-01-01T23:19:00.990Z INFO  [pool-10-thread-2] handler.ForwardRequestHandler (ForwardRequestHandler.java:89) - handleFooter() - b5722ead-714b-411b-a09f-901fb8b20389 took 403 ms to forward 1.4 kB response 200 - {ReceivedPath=stroomfp0.strmdev00.org, Feed=TEST-FEED-V1_0, GUID=b5722ead-714b-411b-a09f-901fb8b20389, Compression=ZIP}
 2017-01-01T23:20:00.064Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:20:00.064Z
@@ -3430,7 +4499,7 @@ server &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; as shown by the &lt;em&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;On one of the central processing nodes, when the file is send by the Forwarding Proxy, you will see the file&amp;rsquo;s arrival as per
 the &lt;em&gt;datafeed.DataFeedRequestHandler$1&lt;/em&gt; event in the &lt;em&gt;ajp-apr-9009-exec-3&lt;/em&gt; thread.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
 2017-01-01T23:00:00.236Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:00:00.236Z
 2017-01-01T23:10:00.473Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:10:00.473Z
 2017-01-01T23:19:00.787Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=b5722ead-714b-411b-a09f-901fb8b20389,feed=TEST-FEED-V1_0,system=null,environment=null,remotehost=null,remoteaddress=null
@@ -3458,7 +4527,7 @@ Tp
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @/etc/group &amp;quot;https://stroomsap0.strmdev00.org/stroom/datafeed&amp;quot; -H &amp;quot;Feed:TEST-FEED-V1_0&amp;quot; -H &amp;quot;System:EXAMPLE_SYSTEM&amp;quot; -H &amp;quot;Environment:EXAMPLE_ENVIRONMENT&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the stroom proxy log, &lt;code&gt;~/stroom-proxy/instance/logs/stroom.log&lt;/code&gt;, you will see the arrival of the file via both the &lt;em&gt;handler.LogRequestHandler&lt;/em&gt; and  &lt;em&gt;datafeed.DataFeedRequestHandler$1&lt;/em&gt; events running under, in this case, the &lt;em&gt;ajp-apr-9009-exec-1&lt;/em&gt; thread.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
 2017-01-02T02:10:00.325Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-02T02:10:00.325Z
 2017-01-02T02:11:34.501Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=ebd11215-7d4c-4be6-a524-358015e2ac38,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.220,remoteaddress=192.168.2.220
 2017-01-02T02:11:34.528Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 33 ms to process (concurrentRequestCount=1) 200&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Expect=100-continue&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=ebd11215-7d4c-4be6-a524-358015e2ac38&amp;quot;,&amp;quot;ReceivedTime=2017-01-02T02:11:34.501Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.220&amp;quot;,&amp;quot;RemoteHost=192.168.2.220&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=1051&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomsap0.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&amp;quot;
@@ -3468,20 +4537,20 @@ Tp
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls -l /stroomdata/stroom-working-sap0/proxy
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;shows&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy
 total 4
 -rw-rw-r--. 1 stroomuser stroomuser 1107 Jan  2 13:11 001.zip
 [stroomuser@stroomsap0 ~]$ 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;On viewing the contents of this file we see both a &lt;code&gt;.dat&lt;/code&gt; and &lt;code&gt;.meta&lt;/code&gt; file.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; unzip 001.zip)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; unzip 001.zip)
 Archive:  001.zip
   inflating: 001.dat                 
   inflating: 001.meta                
 [stroomuser@stroomsap0 ~]$
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The &lt;code&gt;.dat&lt;/code&gt; file holds the content of the file we posted - &lt;code&gt;/etc/group&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; head -5 001.dat)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; head -5 001.dat)
 root:x:0:
 bin:x:1:bin,daemon
 daemon:x:2:bin,daemon
@@ -3490,7 +4559,7 @@ adm:x:4:adm,daemon
 [stroomuser@stroomsap0 ~]$ 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The &lt;code&gt;.meta&lt;/code&gt; file is generated by the proxy and holds information about the posted file&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; cat 001.meta)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; cat 001.meta)
 content-type:application/x-www-form-urlencoded
 Environment:EXAMPLE_ENVIRONMENT
 Feed:TEST-FEED-V1_0
@@ -3518,21 +4587,97 @@ user-agent:curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic E
       <description>
         
         
-        &lt;p&gt;Stroom stores data in &lt;a href=&#34;../../user-guide/volumes.md&#34; title=&#34;Stroom Volumes&#34;&gt;volumes&lt;/a&gt;.
+        &lt;p&gt;Stroom stores data in &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/volumes/&#34;&gt;volumes&lt;/a&gt;.
 These are the logical link to the Storage hierarchy we setup on the operating system.
 This HOWTO will demonstrate how one first sets up volumes and also how to add additional volumes if one expanded an existing Stroom cluster.&lt;/p&gt;
 &lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;an account with the &lt;code&gt;Administrator&lt;/code&gt; Application &lt;a href=&#34;../../user-guide/roles.md&#34; title=&#34;Stroom Application Permissions&#34;&gt;Permission&lt;/a&gt; is currently logged in.&lt;/li&gt;
+&lt;li&gt;an account with the &lt;code&gt;Administrator&lt;/code&gt; Application &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/user-guide/roles/&#34;&gt;Permission&lt;/a&gt; is currently logged in.&lt;/li&gt;
 &lt;li&gt;we will add volumes as per the Multi Node Stroom deployment Storage hierarchy&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;configure-the-volumes&#34;&gt;Configure the Volumes&lt;/h2&gt;
 &lt;p&gt;We need to configure the volumes for Stroom. The follow demonstrates adding the volumes for two nodes, but demonstrates the process for a single node
 deployment as well the volume maintenance needed when expanding a Multi Node Cluster when adding in a new node.&lt;/p&gt;
 &lt;p&gt;To configure the volumes, move to the &lt;code&gt;Tools&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Tools&lt;/code&gt; sub-menu.
-&lt;img src=&#34;../resources/UI-ToolsSubmenu-00.png&#34; alt=&#34;Stroom UI Volume Management - Tools Menu&#34; title=&#34;Stroom UI Tools sub-menu&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ToolsSubmenu-00.png&#34; alt=&#34;images/HOWTOs/UI-ToolsSubmenu-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Tools sub-menu&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;then move down and select the &lt;code&gt;Volumes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Volumes&lt;/code&gt; configuration window as seen below.
-&lt;img src=&#34;../resources/UI-ManageVolumes-01.png&#34; alt=&#34;Stroom UI Volume Management - Configuration&#34; title=&#34;Stroom UI Volumes - configuration window&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-01.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-01.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Volumes - configuration window&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;The attributes we see for each volume are&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Node - the processing node the volume resides on (this is just the node name entered when configuration the Stroom application)&lt;/li&gt;
@@ -3580,9 +4725,56 @@ configuring the Stroom service application, you will see two default volumes hav
 &lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p01&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p01&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;So the first step to configure a volume is to move the cursor to the &lt;em&gt;New&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/add.png&#34; alt=&#34;New&#34; title=&#34;New&#34;&gt; in the top left of
+&lt;p&gt;So the first step to configure a volume is to move the cursor to the &lt;em&gt;New&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/add.svg&#34; width=&#34;16px&#34; title=&#34;Add&#34; alt=&#34;add.svg&#34;&gt;
+ in the top left of
 the &lt;code&gt;Volumes&lt;/code&gt; window and select it. This will bring up the &lt;code&gt;Add Volume&lt;/code&gt; configuration window&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-02.png&#34; alt=&#34;Stroom UI Volume Management - Add Volume&#34; title=&#34;Stroom UI Add Volume - Volume configuration window&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-02.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-02.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Add Volume - Volume configuration window&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;As you can see, the entry box titles reflect the attributes of a volume. So we will add the first
 nodes &lt;em&gt;data&lt;/em&gt; volume&lt;/p&gt;
 &lt;ul&gt;
@@ -3591,9 +4783,85 @@ for node &lt;code&gt;stroomp00&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;If you move the the &lt;em&gt;Node&lt;/em&gt; drop down entry box and select it you will be presented with a choice of available
 nodes - in this case &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp01&lt;/code&gt; as we have a two node cluster with these node names.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-03.png&#34; alt=&#34;Stroom UI Volume Management - Add Volume - Select node&#34; title=&#34;Stroom UI Add Volume - select node&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-03.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-03.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Add Volume - select node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;By selecting the node &lt;code&gt;stroomp00&lt;/code&gt; we see&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-04.png&#34; alt=&#34;Stroom UI Volume Management - Add Volume - Selected node&#34; title=&#34;Stroom UI Add Volume - selected node&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-04.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-04.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Add Volume - selected node&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;To configure the rest of the attributes for this volume, we:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;enter the &lt;em&gt;Path&lt;/em&gt; to our first node&amp;rsquo;s &lt;em&gt;data&lt;/em&gt; volume&lt;/li&gt;
@@ -3602,28 +4870,455 @@ nodes - in this case &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp0
 &lt;li&gt;select an &lt;em&gt;Index Status&lt;/em&gt; of &lt;em&gt;Inactive&lt;/em&gt; as we do &lt;strong&gt;NOT&lt;/strong&gt; want index data stored on it&lt;/li&gt;
 &lt;li&gt;set a &lt;em&gt;Limit&lt;/em&gt; of 12GB for allowed storage&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-05.png&#34; alt=&#34;Stroom UI Volume Management - Add Volume - Adding First Data Volume&#34; title=&#34;Stroom UI Add Volume - adding first data volume&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-05.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-05.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Add Volume - adding first data volume&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;and on selection of the
-&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png&#34; alt=&#34;images/HOWTOs/icons/buttonOk.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI OkButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 we see the changes in the &lt;code&gt;Volumes&lt;/code&gt; configuration window&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-06.png&#34; alt=&#34;Stroom UI Volume Management - Add Volume - Added First Data Volume&#34; title=&#34;Stroom UI Add Volume - added first data volume&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-06.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-06.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Add Volume - added first data volume&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We next add the first node&amp;rsquo;s index volume, as per&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-07.png&#34; alt=&#34;Stroom UI Volume Management - Add Volume - Adding First Index Volume&#34; title=&#34;Stroom UI Add Volume - adding first index volume&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-07.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-07.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Add Volume - adding first index volume&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;And after adding the second node&amp;rsquo;s volumes we are finally presented with our configured volumes&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-08.png&#34; alt=&#34;Stroom UI Volume Management - Add Volume - All Volumes Added&#34; title=&#34;Stroom UI Add Volume - all volumes added&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-08.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-08.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Add Volume - all volumes added&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;h4 id=&#34;delete-default-volumes&#34;&gt;Delete Default Volumes&lt;/h4&gt;
 &lt;p&gt;We now need to deal with our default volumes. We want to delete them.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-09.png&#34; alt=&#34;Stroom UI Volume Management - Delete Default Volumes&#34; title=&#34;Stroom UI Delete Default - display default&#34;&gt;&lt;/p&gt;
-&lt;p&gt;So we move the cursor to the first volume&amp;rsquo;s line (&lt;em&gt;stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume&lt;/em&gt; &amp;hellip;) and select the line then move the cursor to the  &lt;em&gt;Delete&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/delete.png&#34; alt=&#34;Delete&#34; title=&#34;Delete&#34;&gt; in the top left of the &lt;code&gt;Volumes&lt;/code&gt; window and select it. On selection you will be given a confirmation request&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-10.png&#34; alt=&#34;Stroom UI Volume Management - Delete Default Volumes Confirm&#34; title=&#34;Stroom UI Delete Default - confirm deletion&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-09.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-09.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Delete Default - display default&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So we move the cursor to the first volume&amp;rsquo;s line (&lt;em&gt;stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume&lt;/em&gt; &amp;hellip;) and select the line then move the cursor to the  &lt;em&gt;Delete&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/delete.svg&#34; width=&#34;16px&#34; title=&#34;Delete&#34; alt=&#34;delete.svg&#34;&gt;
+ in the top left of the &lt;code&gt;Volumes&lt;/code&gt; window and select it. On selection you will be given a confirmation request&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-10.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-10.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Delete Default - confirm deletion&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;at which we press the
-&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png&#34; alt=&#34;images/HOWTOs/icons/buttonOk.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI OkButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 button to see the first default volume has been deleted&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-11.png&#34; alt=&#34;Stroom UI Volume Management - Delete Default Volumes First Complete&#34; title=&#34;Stroom UI Delete Default - first volume deleted&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-11.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-11.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Delete Default - first volume deleted&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;and after we select then delete the second default volume( &lt;em&gt;stroomp00 /home/stroomuser/stroom-app/volumes/defaultStreamVolume&lt;/em&gt; &amp;hellip;), we are left with&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageVolumes-12.png&#34; alt=&#34;Stroom UI Volume Management - Delete Default Volumes All Deleted&#34; title=&#34;Stroom UI Delete Default - all deleted&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-12.png&#34; alt=&#34;images/HOWTOs/UI-ManageVolumes-12.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Delete Default - all deleted&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;At this one can close the &lt;code&gt;Volumes&lt;/code&gt; configuration window by pressing the
-&lt;img src=&#34;../resources/icons/buttonClose.png&#34; alt=&#34;Stroom UI CloseButton&#34; title=&#34;Stroom UI CloseButton&#34;&gt; button.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonClose.png&#34; alt=&#34;images/HOWTOs/icons/buttonClose.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI CloseButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+ button.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: At the time of writing there is an issue regarding volumes&lt;/p&gt;
 &lt;h5 id=&#34;stroom-github-issue-84----httpsgithubcomgchqstroomissues84&#34;&gt;Stroom Github Issue 84  - &lt;a href=&#34;https://github.com/gchq/stroom/issues/84&#34;&gt;https://github.com/gchq/stroom/issues/84&lt;/a&gt;&lt;/h5&gt;
 &lt;p&gt;Due to Issue 84, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster. Thus if we attempted to use the volumes we would get a database error.
@@ -3645,20 +5340,335 @@ one has to configure the new volumes that are on the new node. The following dem
 &lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p02&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To configure the volumes, move to the &lt;code&gt;Tools&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Tools&lt;/code&gt; sub-menu.
-&lt;img src=&#34;../resources/UI-ToolsSubmenu-00.png&#34; alt=&#34;Stroom UI Volume Management - Tools Menu&#34; title=&#34;Stroom UI Tools sub-menu&#34;&gt;&lt;/p&gt;
-&lt;p&gt;then move down and select the &lt;code&gt;Volumes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Volumes&lt;/code&gt; configuration window as. We then move the cursor to
-the &lt;em&gt;New&lt;/em&gt; icon &lt;img src=&#34;../resources/icons/add.png&#34; alt=&#34;New&#34; title=&#34;New&#34;&gt; in the top left of the &lt;code&gt;Volumes&lt;/code&gt; window and select it. This will bring up the &lt;code&gt;Add Volume&lt;/code&gt; configuration window where we select our volume&amp;rsquo;s node &lt;code&gt;stroomp02&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageNewVolume-00.png&#34; alt=&#34;Stroom UI Volume Management - Configuration - New Node Data Start&#34; title=&#34;Stroom UI Volumes - New Node configuration window start data volume&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ToolsSubmenu-00.png&#34; alt=&#34;images/HOWTOs/UI-ToolsSubmenu-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Tools sub-menu&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;then move down and select the &lt;code&gt;Volumes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Volumes&lt;/code&gt; configuration window as.
+We then move the cursor to the &lt;em&gt;New&lt;/em&gt; icon 
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/stroom-ui/add.svg&#34; width=&#34;16px&#34; title=&#34;Add&#34; alt=&#34;add.svg&#34;&gt;
+
+in the top left of the &lt;code&gt;Volumes&lt;/code&gt; window and select it.
+This will bring up the &lt;code&gt;Add Volume&lt;/code&gt; configuration window where we select our volume&amp;rsquo;s node &lt;code&gt;stroomp02&lt;/code&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-00.png&#34; alt=&#34;images/HOWTOs/UI-ManageNewVolume-00.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Volumes - New Node configuration window start data volume&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;We select this node and then configure the rest of the attributes for this &lt;em&gt;data&lt;/em&gt; volume&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageNewVolume-01.png&#34; alt=&#34;Stroom UI Volume Management - Configuration - New Node Data&#34; title=&#34;Stroom UI Volumes - New Node configuration window data volume&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-01.png&#34; alt=&#34;images/HOWTOs/UI-ManageNewVolume-01.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Volumes - New Node configuration window data volume&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;then press the
-&lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt; button.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png&#34; alt=&#34;images/HOWTOs/icons/buttonOk.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI OkButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+ button.&lt;/p&gt;
 &lt;p&gt;We then add another volume for the &lt;em&gt;index&lt;/em&gt; volume for this node with attributes as per&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageNewVolume-02.png&#34; alt=&#34;Stroom UI Volume Management - Configuration - New Index Added&#34; title=&#34;Stroom UI Volumes - New Node configuration window index volume added&#34;&gt;&lt;/p&gt;
-&lt;p&gt;And on pressing the &lt;img src=&#34;../resources/icons/buttonOk.png&#34; alt=&#34;Stroom UI OkButton&#34; title=&#34;Stroom UI OkButton&#34;&gt; button we see our two new volumes for this node have been added.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../resources/UI-ManageNewVolume-03.png&#34; alt=&#34;Stroom UI Volume Management - Configuration - New Node Added&#34; title=&#34;Stroom UI Volumes - New Node configuration window volumes added&#34;&gt;&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-02.png&#34; alt=&#34;images/HOWTOs/UI-ManageNewVolume-02.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Volumes - New Node configuration window index volume added&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And on pressing the 
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png&#34; alt=&#34;images/HOWTOs/icons/buttonOk.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI OkButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+ button we see our two new volumes for this node have been added.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-03.png&#34; alt=&#34;images/HOWTOs/UI-ManageNewVolume-03.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Volumes - New Node configuration window volumes added&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+
 &lt;p&gt;At this one can close the &lt;code&gt;Volumes&lt;/code&gt; configuration window by pressing the
-&lt;img src=&#34;../resources/icons/buttonClose.png&#34; alt=&#34;Stroom UI CloseButton&#34; title=&#34;Stroom UI CloseButton&#34;&gt; button.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonClose.png&#34; alt=&#34;images/HOWTOs/icons/buttonClose.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI CloseButton&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+ button.&lt;/p&gt;
 
       </description>
     </item>

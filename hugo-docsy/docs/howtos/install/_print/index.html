@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.86.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/">
+<meta name="generator" content="Hugo 0.87.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/install/">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
@@ -35,8 +35,8 @@
 
 
 
-<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" as="style">
-<link href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.01ab5e5887b9a2d36219d8f3971a6908f681a1955a7df1f518190d0701f51d9b.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.01ab5e5887b9a2d36219d8f3971a6908f681a1955a7df1f518190d0701f51d9b.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -147,7 +147,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.7bd92cc9cde58ee2843ae3abbf3c87d5.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.287e97f143b0ebbde99ecdb07aa8a1c7.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -1177,7 +1177,7 @@ disable the <code>mysql57-community</code> channel and enable the <code>mysql56-
 <pre><code class="language-bash">sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG
 </code></pre>
 <p>Then edit the file to change</p>
-<pre><code>...
+<pre><code class="language-toml">...
 # Enable to use MySQL 5.6
 [mysql56-community]
 name=MySQL 5.6 Community Server
@@ -1195,7 +1195,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ...
 </code></pre>
 <p>to become</p>
-<pre><code>...
+<pre><code class="language-toml">...
 # Enable to use MySQL 5.6
 [mysql56-community]
 name=MySQL 5.6 Community Server
@@ -1326,7 +1326,7 @@ utility. Thus we execute</p>
 sudo mysql_secure_installation
 </code></pre>
 <p>to see</p>
-<pre><code>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+<pre><code class="language-text">NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
 In order to log into MariaDB to secure it, we'll need the current
@@ -1505,7 +1505,7 @@ utility. Thus we execute</p>
 sudo mysql_secure_installation
 </code></pre>
 <p>to see</p>
-<pre><code>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+<pre><code class="language-text">NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
 In order to log into MySQL to secure it, we'll need the current
@@ -1634,7 +1634,15 @@ sudo firewall-cmd --zone=public --add-port=3308/tcp --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 </code></pre>
-<p><strong>Note</strong> that this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+    That this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.
+
+</div>
+
+
 <h3 id="debugging-of-mariadb-for-stroom">Debugging of Mariadb for Stroom</h3>
 <p>If there is a need to debug the Mariadb database and Stroom interaction, one can turn on auditing for the Mariadb service.
 To do so, log onto the relevant database as the administrative user as per</p>
@@ -1655,9 +1663,9 @@ quit;
 <p>The above will generate two log files,</p>
 <ul>
 <li><code>/var/log/mariadb/mysqld-mysqld0_server_audit.log</code> or <code>/var/log/mariadb/mysqld-mysqld1_server_audit.log</code> which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.</li>
-<li><code>/var/lib/mysql-mysqld0/sql_errors.log</code> or <code>/var/lib/mysql-mysqld1/sql_errors.log</code> which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.
-All files will, by default, generate up to 9 rotated files.</li>
+<li><code>/var/lib/mysql-mysqld0/sql_errors.log</code> or <code>/var/lib/mysql-mysqld1/sql_errors.log</code> which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.</li>
 </ul>
+<p>All files will, by default, generate up to 9 rotated files.</p>
 <p>If you wish to rotate a log file manually, log into the database as the administrative user and execute either</p>
 <ul>
 <li><code>set global server_audit_file_rotate_now=1;</code> to rotate the audit log file</li>
@@ -1707,7 +1715,7 @@ All files will, by default, generate up to 9 rotated files.</li>
 <li>the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments</li>
 <li>the user has access to a <a href="https://www.google.com/chrome" title="Google Chrome Web Browser">Chrome (external link)</a> web browser as Stroom is optimised for this browser.</li>
 </ul>
-<h1 id="introduction">Introduction</h1>
+<h2 id="introduction">Introduction</h2>
 <p>This HOWTO provides guidance on a variety of simple Stroom deployments.</p>
 <ul>
 <li><a href="#multi-node-stroom-cluster-proxy-and-application-deployment"><strong>Multi Node Stroom Cluster (Proxy and Application)</strong></a></li>
@@ -1770,13 +1778,13 @@ Standalone proxy deployments. This is to simplify the documentation. Thus, the a
 <p>where <em>nn</em> is a two digit node number. The reason for placing the proxy directory within the <em>Application</em> working area
 will be explained later.</p>
 <p>All data should be owned by the Stroom processing user. In this HOWTO, we will use <code>stroomuser</code></p>
-<h1 id="multi-node-stroom-cluster-proxy-and-application-deployment">Multi Node Stroom Cluster (Proxy and Application) Deployment</h1>
+<h2 id="multi-node-stroom-cluster-proxy-and-application-deployment">Multi Node Stroom Cluster (Proxy and Application) Deployment</h2>
 <p>In this deployment we will install the database on a given node then deploy both the Stroom Proxy and Stroom Application software
 to both our processing nodes. At this point we will then integrate a web service to run &lsquo;in-front&rsquo; of our Stroom software and
 then perform the initial configuration of Stroom via the user interface.</p>
 <h2 id="database-installation">Database Installation</h2>
 <p>The Stroom capability requires access to two MySQL/MariaDB databases. The first is for persisting application configuration and metadata information, and the second is for the Stroom Statistics capability.
-Instructions for installation of the Stroom databases can be found <a href="InstallDatabaseHowTo.md" title="Database Installation">here</a>.
+Instructions for installation of the Stroom databases can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/">here</a>.
 Although these instructions describe the deployment of the databases to their own node, there is no reason why one can&rsquo;t
 just install them both on the first (or only) Stroom node.</p>
 <h2 id="prerequisite-software-installation">Prerequisite Software Installation</h2>
@@ -1799,7 +1807,7 @@ just install them both on the first (or only) Stroom node.</p>
 <p>One could deploy the MySQL database software as the alternative.</p>
 <p><a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client.
 Instructions for installation of the MySQL Community repository files can be
-found <a href="InstallDatabaseHowTo.md#mysql-community-server-installation" title="MySQL Community Repository Installation">here</a> or on
+found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installdatabasehowto/#mysql-community-server-installation">here</a> or on
 the <a href="https://dev.mysql.com/downloads/repo/yum" title="Download MySQL Yum Repository">MySQL Site (external link)</a>.
 Once you have installed the MySQL repository files, install the client via</p>
 <pre><code class="language-bash">sudo yum -y install mysql-community-client
@@ -1870,24 +1878,24 @@ sudo chmod -R 750 /stroomdata
 <li>node <code>stroomp00.strmdev00.org</code> will mount <code>stroomp01.strmdev00.org:/stroomdata/stroom-data-p01</code> and,</li>
 <li>node <code>stroomp01.strmdev00.org</code> will mount <code>stroomp00.strmdev00.org:/stroomdata/stroom-data-p00</code>.</li>
 </ul>
-<p>The HOWTO guide to deploy and configure NFS for our Scenario is <a href="InstallNFSHowTo.md" title="NFS Installation and Configuration">here</a></p>
+<p>The HOWTO guide to deploy and configure NFS for our Scenario is <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/">here</a></p>
 <h2 id="stroom-installation">Stroom Installation</h2>
 <h3 id="pre-installation-setup">Pre-installation setup</h3>
 <p>Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user&rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-<a href="InstallProcessingUserSetupHowTo.md" title="Processing User Setup">here</a>.</p>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/">here</a>.</p>
 <h3 id="stroom-proxy-installation">Stroom Proxy Installation</h3>
-<p>Instructions for installation of the Stroom Proxy can be found <a href="InstallProxyHowTo.md" title="Installation of Stroom Proxy">here</a>.</p>
+<p>Instructions for installation of the Stroom Proxy can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/">here</a>.</p>
 <h3 id="stroom-application-installation">Stroom Application Installation</h3>
-<p>Instructions for installation of the Stroom application can be found <a href="InstallApplicationHowTo.md" title="Installation of Stroom Application">here</a>.</p>
+<p>Instructions for installation of the Stroom application can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/">here</a>.</p>
 <h2 id="web-service-integration">Web Service Integration</h2>
 <p>One typically &lsquo;fronts&rsquo; either a Stroom Proxy or Stroom Application with a secure web service such as Apache&rsquo;s Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache&rsquo;s Httpd.</p>
-<p>We first need to create certificates for use by the web service. The <a href="InstallCertificatesHowTo.md" title="SSL Certificate Generation">following</a>
+<p>We first need to create certificates for use by the web service. The <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/">following</a>
 provides instructions for this. The created certificates can then be used when configuration the web service.</p>
 <p>This HOWTO is designed to deploy Apache&rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found <a href="InstallHttpdHowTo.md" title="Apache Httpd/Mod_JK Installation">here</a>.</p>
+to configure this can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/">here</a>.</p>
 <p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
 <h2 id="installation-validation">Installation Validation</h2>
 <p>We will now check that the installation and web services integration has worked.</p>
@@ -1941,11 +1949,125 @@ should automatically direct you to the last URL.</p>
 to <code>stroomp.strmdev00.org:443</code>. As Stroom has not been configured to use user certificates, the choice is not relevant, just choose one
 and continue.</p>
 <p>Additionally, if you are using  self-signed certificates, your browser will generate an alert as per
-<img src="../resources/UI-Chrome-NoCa-00.png" alt="Chrome SelfSigned Certificate Issue - Initial" title="Self Signed Certificate Initial Warning"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-Chrome-NoCa-00.png" alt="images/HOWTOs/UI-Chrome-NoCa-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Self Signed Certificate Initial Warning</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
 <p>To proceed you need to select the <strong>ADVANCED</strong> hyperlink to see</p>
-<p><img src="../resources/UI-Chrome-NoCa-01.png" alt="Chrome SelfSigned Certificate Issue - Advanced" title="Self Signed Certificate Advanced Warning"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-Chrome-NoCa-01.png" alt="images/HOWTOs/UI-Chrome-NoCa-01.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Self Signed Certificate Advanced Warning</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>If you select the <strong>Proceed to stroomp.strmdev00.org (unsafe)</strong> hyper-link you will be presented with the standard Stroom UI login page.</p>
-<p><img src="../resources/UI-Login-00.png" alt="Stroom User Interface login page" title="Stroom UI Login Page"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-Login-00.png" alt="images/HOWTOs/UI-Login-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Login Page</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>This page has two panels - <strong>About Stroom</strong> and <strong>Login</strong>.</p>
 <p>In the <strong>About Stroom</strong> panel we see an introductory description of Stroom in the top left and deployment details in the bottom left of the panel. The deployment details provide</p>
 <ul>
@@ -1957,45 +2079,45 @@ and continue.</p>
 <h3 id="login-with-stroom-default-administrative-user">Login with Stroom default Administrative User</h3>
 <p>Each new Stroom deployment automatically creates the administrative user <code>admin</code> and this user&rsquo;s password is initially set to <code>admin</code>.
 We will
-<a href="../Authentication/UserLoginHowTo.md" title="Admin first login">login as this user</a>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/userloginhowto/">login as this user</a>
 which also validates that the database and UI is working correctly in that you can login and the password is <code>admin</code>.</p>
 <h3 id="create-an-attributed-user-to-perform-configuration">Create an Attributed User to perform configuration</h3>
 <p>We should configure Stroom using an <em>attributed user</em> account.
 That is, we should
-<a href="../Authentication/CreateUserHowTo.md" title="Create Stroom User">create</a>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/createuserhowto/">create</a>
 a user, in our case it will be <code>burn</code> (the author) and once created, we login with that account then perform the initial configuration activities.
 You don&rsquo;t have to do this, but it is sound security practice.</p>
 <p>Once you have created the user you should
-<a href="../Authentication/UserLogoutHowTo.md" title="User Logout">log out</a>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/authentication/userlogouthowto/">log out</a>
 of the <code>admin</code> account and log back in as our user <code>burn</code>.</p>
 <h3 id="configure-the-volumes-for-our-stroom-deployment">Configure the Volumes for our Stroom deployment</h3>
 <p>Before we can store data within Stroom we need to configure the
-<a href="../../user-guide/volumes.md" title="Stroom Volumes">volumes</a>
+<a href="/stroom-docs/hugo-docsy/docs/user-guide/volumes/">volumes</a>
 we have allocated in our Storage hierarchy. The
-<a href="InstallVolumesHowTo.md" title="Initial Volume set-up">Volume Maintenance HOWTO</a>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/">Volume Maintenance HOWTO</a>
 shows how to do this.</p>
 <h3 id="configure-the-nodes-for-our-stroom-deployment">Configure the Nodes for our Stroom deployment</h3>
 <p>In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the nodes. This is achieved via the Stroom UI where we set a Cluster URL for each node.
-The following <a href="InstallNodesHowTo.md" title="Initial Node configuration">Node Configuration HOWTO</a> demonstrates how do
+The following <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/">Node Configuration HOWTO</a> demonstrates how do
 set the Cluster URL.</p>
 <h3 id="data-stream-processing">Data Stream Processing</h3>
 <p>To enable Stroom to process data, it&rsquo;s
-<a href="../../user-guide/jobs.md#data-processor" title="Data Processor">Data Processors</a>
+<a href="/stroom-docs/hugo-docsy/docs/user-guide/jobs/#data-processor">Data Processors</a>
 need to be enabled. There are NOT enabled by default on installation. The following
-<a href="../General/TasksHowTo.md#enable-stream-processors" title="Enable Stream Processors">section</a>
-in our <a href="../General/TasksHowTo.md" title="Stroom Task HOWTO">Stroom Tasks HowTo</a> shows how to do this.</p>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#enable-stream-processors">section</a>
+in our <a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/">Stroom Tasks HowTo</a> shows how to do this.</p>
 <h2 id="testing-our-stroom-application-and-proxy-installation">Testing our Stroom Application and Proxy Installation</h2>
 <p>To complete the installation process we will test that we can send and ingest data.</p>
 <h3 id="add-a-test-feed">Add a Test Feed</h3>
 <p>In order for Stroom to be able to handle various data sources, be they Apache HTTPD web access logs,
 MicroSoft Windows Event logs or Squid Proxy logs, Stroom must be told what the data is when it is received.
 This is achieved using
-<a href="../../user-guide/feeds.md" title="Stroom Feeds">Event Feeds</a>.
+<a href="/stroom-docs/hugo-docsy/docs/user-guide/feeds/">Event Feeds</a>.
 Each feed has a unique name within the system.</p>
 <p>To test our installation can accept and ingest data, we will
-<a href="../General/FeedManagementHowTo.md#creation-of-an-event-feed" title="Creation of an Event Feed">create a test Event feed</a>. The &lsquo;name&rsquo; of the feed will be
+<a href="/stroom-docs/hugo-docsy/docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed">create a test Event feed</a>. The &lsquo;name&rsquo; of the feed will be
 <code>TEST-FEED-V1_0</code>. Note that in a production environment is is best that a well defined nomenclature is used for feed &lsquo;names&rsquo;. For our
 testing purposes <code>TEST-FEED-V1_0</code> is sufficient.</p>
 <h3 id="sending-test-data">Sending Test Data</h3>
@@ -2022,13 +2144,13 @@ machine. The command to send this file is</p>
 <p>As part of our testing will check the presence of the inbound data, as files, within the proxy storage area.
 Now as the proxy storage area is also the location from which the Stroom application
 automatically aggregates then ingests the data stored by the proxy, we can either turn off the
-<a href="../../user-guide/jobs.md#proxy-aggregation" title="Stream Processor">Proxy Aggregation</a> task,
+<a href="/stroom-docs/hugo-docsy/docs/user-guide/jobs/#proxy-aggregation">Proxy Aggregation</a> task,
 or attempt to
 perform our tests noting that proxy aggregation occurs every 10 minutes by default. For simplicity, we will
-<a href="../General/TasksHowTo.md#turn-off-proxy-aggregation" title="Turn off Proxy Aggregation">turn off the <code>Proxy Aggregation</code> task</a>.</p>
-<p>We can now perform out tests. Follow the steps in the <a href="InstallTestingHowTo.md#data-post-tests" title="Data Post Tests">Data Posting Tests</a> section
-of the <a href="InstallTestingHowTo.md" title="Stroom Installation Testing">Testing Stroom Installation HOWTO</a></p>
-<h1 id="forwarding-stroom-proxy-deployment">Forwarding Stroom Proxy Deployment</h1>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#turn-off-proxy-aggregation">turn off the <code>Proxy Aggregation</code> task</a>.</p>
+<p>We can now perform out tests. Follow the steps in the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/#data-post-tests">Data Posting Tests</a> section
+of the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/">Testing Stroom Installation HOWTO</a></p>
+<h2 id="forwarding-stroom-proxy-deployment">Forwarding Stroom Proxy Deployment</h2>
 <p>In this deployment will install a Stroom <strong>Forwarding Proxy</strong> which is designed to aggregate data posted to it for managed forwarding to
 a central Stroom processing system. This scenario is assuming we are installing on the fully patch Centos 7.3 host, <code>stroomfp0.strmdev00.org</code>.
 Further it assumes we have installed, configured and tested the destination Stroom system we will be forwarding to.</p>
@@ -2070,28 +2192,28 @@ sudo chmod -R 750 /stroomdata
 <h3 id="pre-installation-setup-1">Pre-installation setup</h3>
 <p>Before installing the Stroom Forwarding Proxy, we need establish various files and scripts within
 the Stroom Processing user&rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-<a href="InstallProcessingUserSetupHowTo.md" title="Processing User Setup">here</a>. Although this setup HOWTO is orientated towards a complete Stroom Proxy
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/">here</a>. Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.</p>
 <h3 id="stroom-forwarding-proxy-installation-1">Stroom Forwarding Proxy Installation</h3>
-<p>Instructions for installation of the Stroom Proxy can be found <a href="InstallProxyHowTo.md" title="Installation of Stroom Proxy">here</a>, noting you
+<p>Instructions for installation of the Stroom Proxy can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/">here</a>, noting you
 should follow the steps for configuring the proxy as a <em>Forwarding</em> proxy.</p>
 <h2 id="web-service-integration-for-forwarding-proxy">Web Service Integration for Forwarding Proxy</h2>
 <p>One typically &lsquo;fronts&rsquo; a Stroom Proxy with a secure web service such as Apache&rsquo;s Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache&rsquo;s Httpd.</p>
 <p>We first need to create certificates for use by the web service. The
-<a href="InstallCertificatesHowTo.md" title="SSL Certificate Generation">SSL Certificate Generation HOWTO</a> provides instructions for this.
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/">SSL Certificate Generation HOWTO</a> provides instructions for this.
 The created certificates can then be used when configuration the web service. NOTE also, that for a forwarding
 proxy we will need to establish Key and Trust stores as well. This is also documented in the SSL Certificate Generation HOWTO
-<a href="InstallCertificatesHowTo.md#stroom-proxy-to-proxy-key-and-trust-stores" title="Key and Trust Store Generation">here</a></p>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/#stroom-proxy-to-proxy-key-and-trust-stores">here</a></p>
 <p>This HOWTO is designed to deploy Apache&rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found <a href="InstallHttpdHowTo.md" title="Apache Httpd/Mod_JK Installation">here</a>. Please take note of where a Stroom Proxy
+to configure this can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/">here</a>. Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.</p>
 <p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
 <h2 id="testing-our-forwarding-proxy-installation">Testing our Forwarding Proxy Installation</h2>
 <p>To complete the installation process we will test that we can send data to the forwarding proxy and that it forwards the files
 it receives to the central Stroom processing system. As stated earlier, it is assumed we have installed, configured and tested the destination
-central Stroom processing system and thus we will have a test <a href="../../user-guide/feeds.md" title="Stroom Feeds">Feed</a>
+central Stroom processing system and thus we will have a test <a href="/stroom-docs/hugo-docsy/docs/user-guide/feeds/">Feed</a>
 already established - <code>TEST-FEED-V1_0</code>.</p>
 <h3 id="sending-test-data-1">Sending Test Data</h3>
 <p>For this test, we will send the contents of /etc/group to our test feed - <code>TEST-FEED-V1_0</code>. It doesn&rsquo;t matter from which host we send the file from.
@@ -2099,9 +2221,9 @@ The command to send file is</p>
 <pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomfp0.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
 <p>Before testing, it is recommended you set up to monitor the Stroom proxy logs on the central server as well as on the Forwarding Proxy server.</p>
-<p>Follow the steps in the <a href="InstallTestingHowTo.md#stroom-forwarding-proxy-testing" title="Stroom Proxy Data Post Tests">Forwarding Proxy Data Posting Tests</a> section
-of the <a href="InstallTestingHowTo.md" title="Stroom Installation Testing">Testing Stroom Installation HOWTO</a></p>
-<h1 id="standalone-stroom-proxy-deployment">Standalone Stroom Proxy Deployment</h1>
+<p>Follow the steps in the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/#stroom-forwarding-proxy-testing">Forwarding Proxy Data Posting Tests</a> section
+of the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/">Testing Stroom Installation HOWTO</a></p>
+<h2 id="standalone-stroom-proxy-deployment">Standalone Stroom Proxy Deployment</h2>
 <p>In this deployment will install a Stroom <strong>Standalone Proxy</strong> which is designed to accept and store data posted to it for <strong>manual</strong> forwarding to
 a central Stroom processing system. This scenario is assuming we are installing on the fully patch Centos 7.3 host, <code>stroomsap0.strmdev00.org</code>.</p>
 <p>We will first deploy the Stroom Proxy then configure it as a <strong>Standalone Proxy</strong> then integrate a web service to run &lsquo;in-front&rsquo; of
@@ -2142,20 +2264,20 @@ sudo chmod -R 750 /stroomdata
 <h3 id="pre-installation-setup-2">Pre-installation setup</h3>
 <p>Before installing the Stroom Standalone Proxy, we need establish various files and scripts within
 the Stroom Processing user&rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-<a href="InstallProcessingUserSetupHowTo.md" title="Processing User Setup">here</a>. Although this setup HOWTO is orientated towards a complete Stroom Proxy
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/">here</a>. Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.</p>
 <h3 id="stroom-standalone-proxy-installation-1">Stroom Standalone Proxy Installation</h3>
-<p>Instructions for installation of the Stroom Proxy can be found <a href="InstallProxyHowTo.md" title="Installation of Stroom Proxy">here</a>, noting you
+<p>Instructions for installation of the Stroom Proxy can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/">here</a>, noting you
 should follow the steps for configuring the proxy as a  <em>Store_NoDB</em> proxy.</p>
 <h2 id="web-service-integration-for-standalone-proxy">Web Service Integration for Standalone Proxy</h2>
 <p>One typically &lsquo;fronts&rsquo; a Stroom Proxy with a secure web service such as Apache&rsquo;s Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache&rsquo;s Httpd.</p>
 <p>We first need to create certificates for use by the web service. The
-<a href="InstallCertificatesHowTo.md" title="SSL Certificate Generation">SSL Certificate Generation HOWTO</a> provides instructions for this.
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installcertificateshowto/">SSL Certificate Generation HOWTO</a> provides instructions for this.
 The created certificates can then be used when configuration the web service. There is no need for Trust or Key stores.</p>
 <p>This HOWTO is designed to deploy Apache&rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found <a href="InstallHttpdHowTo.md" title="Apache Httpd/Mod_JK Installation">here</a>. Please take note of where a Stroom Proxy
+to configure this can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/">here</a>. Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.</p>
 <p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
 <h2 id="testing-our-standalone-proxy-installation">Testing our Standalone Proxy Installation</h2>
@@ -2166,9 +2288,9 @@ The command to send file is</p>
 <pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomsap0.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
 <p>Before testing, it is recommended you set up to monitor the Standalone Proxy logs.</p>
-<p>Follow the steps in the <a href="InstallTestingHowTo.md#stroom-standalone-proxy-testing" title="Stroom Proxy Data Post Tests">Standalone Proxy Data Posting Tests</a>
-section of the <a href="InstallTestingHowTo.md" title="Stroom Installation Testing">Testing Stroom Installation HOWTO</a></p>
-<h1 id="addition-of-a-node-to-a-stroom-cluster-deployment">Addition of a Node to a Stroom Cluster Deployment</h1>
+<p>Follow the steps in the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/#stroom-standalone-proxy-testing">Standalone Proxy Data Posting Tests</a>
+section of the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installtestinghowto/">Testing Stroom Installation HOWTO</a></p>
+<h2 id="addition-of-a-node-to-a-stroom-cluster-deployment">Addition of a Node to a Stroom Cluster Deployment</h2>
 <p>In this deployment we will deploy both the Stroom Proxy and Stroom Application software
 to a new processing node we wish to add to our cluster. Once we have deploy and configured the Stroom software, we will then integrate a web
 service to run &lsquo;in-front&rsquo; of our Stroom software, and then perform the initial configuration of to add this node via the user interface. The
@@ -2261,19 +2383,19 @@ sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
 </ul>
 </li>
 </ul>
-<p>The HOWTO guide to deploy and configure NFS for our Scenario is <a href="InstallNFSHowTo.md#addition-of-another-node" title="NFS Installation and Configuration">here</a>.</p>
+<p>The HOWTO guide to deploy and configure NFS for our Scenario is <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/#addition-of-another-node">here</a>.</p>
 <h2 id="stroom-installation-1">Stroom Installation</h2>
 <h3 id="pre-installation-setup-3">Pre-installation setup</h3>
 <p>Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user&rsquo;s home directory to support the Stroom services and their persistence. This is setup is described
-<a href="InstallProcessingUserSetupHowTo.md" title="Processing User Setup">here</a>. Note you should remember to set the <strong>N</strong> bash variable
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/">here</a>. Note you should remember to set the <strong>N</strong> bash variable
 when generating the Environment Variable files to <em>02</em>.</p>
 <h3 id="stroom-proxy-installation-1">Stroom Proxy Installation</h3>
-<p>Instructions for installation of the Stroom Proxy can be found <a href="InstallProxyHowTo.md" title="Installation of Stroom Proxy">here</a>. Note you
+<p>Instructions for installation of the Stroom Proxy can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installproxyhowto/">here</a>. Note you
 will be deploying a <em>Store</em> proxy and during the setup execution ensure you enter the appropriate values for NODE (&lsquo;stroomp02&rsquo;)
 and REPO_DIR ('/stroomdata/stroom-working-p02/proxy'). All other values will be the same.</p>
 <h3 id="stroom-application-installation-1">Stroom Application Installation</h3>
-<p>Instructions for installation of the Stroom application can be found <a href="InstallApplicationHowTo.md" title="Installation of Stroom Application">here</a>.
+<p>Instructions for installation of the Stroom application can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installapplicationhowto/">here</a>.
 When executing the setup script ensure you enter the appropriate values for TEMP_DIR ('/stroomdata/stroom-working-p02') and NODE (&lsquo;stroomp02&rsquo;).
 All other values will be the same. Note also that you will not have to wait for the &lsquo;first&rsquo; node to initialise the Stroom database as
 this would have already been done when you first deployed your Stroom Cluster.</p>
@@ -2300,9 +2422,9 @@ chcon -R --reference /etc/pki ~stroomuser/stroom-jks
 </code></pre>
 <p>This HOWTO is designed to deploy Apache&rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found <a href="InstallHttpdHowTo.md" title="Apache Httpd/Mod_JK Installation">here</a>.
+to configure this can be found <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/">here</a>.
 You should pay particular attention to the section on the
-<a href="InstallHttpdHowTo.md#apache-modjk-configuration" title="Apache Mod_JK Configuration">Apache Mod_JK configuration</a>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhttpdhowto/#apache-modjk-configuration">Apache Mod_JK configuration</a>
 as you <strong>MUST</strong> regenerate the Mod_JK workers.properties file on the existing cluster nodes as well as generating it on our new node.</p>
 <p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
 <p>Note that once you have integrated the web services for our new node, you will need to restart the Apache systemd process on the existing
@@ -2316,7 +2438,7 @@ and <a href="#testing-our-new-node-installation" title="Integration Tests">later
 sudo firewall-cmd --zone=public --list-all
 </code></pre>
 <p>should result in</p>
-<pre><code>public (active)
+<pre><code class="language-text">public (active)
   target: default
   icmp-block-inversion: no
   interfaces: enp0s3
@@ -2337,23 +2459,23 @@ is recommended you use a attributed user for this activity. Once you have logged
 new node.</p>
 <h3 id="configure-the-volumes-for-our-stroom-deployment-1">Configure the Volumes for our Stroom deployment</h3>
 <p>Before we can store data on this new Stroom node we need to configure it&rsquo;s
-<a href="../../user-guide/volumes.md" title="Stroom Volumes">volumes</a>
+<a href="/stroom-docs/hugo-docsy/docs/user-guide/volumes/">volumes</a>
 we have allocated in our Storage hierarchy. The section on adding new volumes in the
-<a href="InstallVolumesHowTo.md#adding-new-volumes" title="Add new volumes to a Cluster">Volume Maintenance HOWTO</a>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/#adding-new-volumes">Volume Maintenance HOWTO</a>
 shows how to do this.</p>
 <h3 id="configure-the-nodes-for-our-stroom-deployment-1">Configure the Nodes for our Stroom deployment</h3>
 <p>In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the new node. This is achieved via the Stroom UI where we set a Cluster URL for our node.
 The section on Configuring a new node in the
-<a href="InstallNodesHowTo.md#configure-new-node" title="Configure a new Node">Node Configuration HOWTO</a> demonstrates how do
+<a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnodeshowto/#configure-new-node">Node Configuration HOWTO</a> demonstrates how do
 set the Cluster URL.</p>
 <h3 id="data-stream-processing-1">Data Stream Processing</h3>
 <p>To enable Stroom to process data, it&rsquo;s
-<a href="../../user-guide/jobs.md#data-processor" title="Data Processor">Data Processors</a>
+<a href="/stroom-docs/hugo-docsy/docs/user-guide/jobs/#data-processor">Data Processors</a>
 need to be enabled. There are NOT enabled by default on installation. The following
-<a href="../General/TasksHowTo.md#enable-stream-processors-on-new-node" title="Enable Stream Processors">section</a>
-in our <a href="../General/TasksHowTo.md" title="Stroom Task HOWTO">Stroom Tasks HowTo</a> shows how to do this.</p>
+<a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#enable-stream-processors-on-new-node">section</a>
+in our <a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/">Stroom Tasks HowTo</a> shows how to do this.</p>
 <h2 id="testing-our-new-node-installation">Testing our New Node Installation</h2>
 <p>To complete the installation process we will test that our new node has successfully integrated into our cluster.</p>
 <p>First we need to ensure we have restarted the Apache Httpd service (httpd.service) on the original nodes so that the new workers.properties
@@ -2388,8 +2510,8 @@ load balancing for the <code>stroomp.strmdev00.org</code> cluster.</p>
 <li>the Stroom <code>statistics</code> database has been created and resides on the host <code>stroomdb0.strmdev00.org</code> listening on port 3308.</li>
 <li>the Stroom <code>statistics</code> database user is <code>stroomuser</code> with a password of <code>Stroompassword2@</code>.</li>
 <li>the application user <code>stroomuser</code> has been created</li>
-<li>the user is or has deployed the two node Stroom cluster described <a href="InstallHowTo.md#storage-scenario" title="HOWTO Storage Scenario">here</a></li>
-<li>the user has set up the Stroom processing user as described <a href="InstallProcessingUserSetupHowTo.md" title="Processing User Setup">here</a></li>
+<li>the user is or has deployed the two node Stroom cluster described <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario">here</a></li>
+<li>the user has set up the Stroom processing user as described <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/">here</a></li>
 <li>the prerequisite software has been installed</li>
 <li>when a screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
 </ul>
@@ -2578,8 +2700,8 @@ sudo firewall-cmd --zone=public --list-all
 <li>the Stroom database has been created and resides on the host <code>stroomdb0.strmdev00.org</code> listening on port 3307.</li>
 <li>the Stroom database user is <code>stroomuser</code> with a password of <code>Stroompassword1@</code>.</li>
 <li>the application user <code>stroomuser</code> has been created.</li>
-<li>the user is or has deployed the two node Stroom cluster described <a href="InstallHowTo.md#storage-scenario" title="HOWTO Storage Scenario">here</a>.</li>
-<li>the user has set up the Stroom processing user as described <a href="InstallProcessingUserSetupHowTo.md" title="Processing User Setup">here</a>.</li>
+<li>the user is or has deployed the two node Stroom cluster described <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario">here</a>.</li>
+<li>the user has set up the Stroom processing user as described <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/">here</a>.</li>
 <li>the prerequisite software has been installed.</li>
 <li>when a screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
 </ul>
@@ -2614,7 +2736,7 @@ unzip stroom-proxy-distribution-${Prx}.zip
 <p>A <em>forwarding</em> proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.</p>
 <p>We will demonstrate the installation of each.</p>
 <h3 id="store-proxy-configuration">Store Proxy Configuration</h3>
-<p>In our <em>Store</em> Proxy description below, we will use the multi node deployment scenario. That is we are deploying the <em>Store</em> proxy on multiple Stroom nodes (stroomp00, stroomp01) and we have configured our storage as per the <a href="InstallHowTo.md#storage-scenario" title="HOWTO Storage Scenario">Storage Scenario</a> which means the directories to install the inbound batches of data are <code>/stroomdata/stroom-working-p00/proxy</code> and <code>/stroomdata/stroom-working-p01/proxy</code> depending on the node.</p>
+<p>In our <em>Store</em> Proxy description below, we will use the multi node deployment scenario. That is we are deploying the <em>Store</em> proxy on multiple Stroom nodes (stroomp00, stroomp01) and we have configured our storage as per the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario">Storage Scenario</a> which means the directories to install the inbound batches of data are <code>/stroomdata/stroom-working-p00/proxy</code> and <code>/stroomdata/stroom-working-p01/proxy</code> depending on the node.</p>
 <p>To install a <em>Store</em> proxy, we run</p>
 <pre><code class="language-bash">stroom-proxy/bin/setup.sh store
 </code></pre>
@@ -2631,7 +2753,7 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 </code></pre>
 <p>At this point, the script will configure the proxy. There should be no errors, but review the output.
 If you make a mistake in the above, just re-run the script.</p>
-<p><strong>NOTE:</strong> The selection of the <code>REPO_DIR</code> above and the setting of the <code>STROOM_TMP</code> environment variable <a href="InstallProcessingUserSetupHowTo.md" title="Processing User Setup">earlier</a> ensure that not only inbound files are placed in the <code>REPO_DIR</code> location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in it&rsquo;s proxy aggregation threads.</p>
+<p><strong>NOTE:</strong> The selection of the <code>REPO_DIR</code> above and the setting of the <code>STROOM_TMP</code> environment variable <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installprocessingusersetuphowto/">earlier</a> ensure that not only inbound files are placed in the <code>REPO_DIR</code> location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in it&rsquo;s proxy aggregation threads.</p>
 <h3 id="forwarding-proxy-configuration">Forwarding Proxy Configuration</h3>
 <p>In our <em>Forwarding</em> Proxy description below, we will deploy on a host named <code>stroomfp0</code> and it will store the files in <code>/stroomdata/stroom-working-fp0/proxy</code>. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be <code>stroomp.strmdev00.org</code> (the CNAME for <code>stroomp00.strmdev00.org</code>).</p>
 <p>To install a <em>Forwarding</em> proxy, we run</p>
@@ -2683,7 +2805,7 @@ The proxy will have completely started when you see the messages</p>
 <p>If you leave it for a while you will eventually see cyclic (10 minute cycle) messages of the form</p>
 <pre><code>INFO  [Repository Reader Thread 1] repo.ProxyRepositoryReader (ProxyRepositoryReader.java:170) - run() - Cron Match at YYYY-MM-DD ...
 </code></pre>
-<p>If a proxy takes too long to start, you should read the section on <a href="InstallHowTo.md#entropy-issues-in-virtual-environments" title="Entropy Issues in Virtual environments">Entropy Issues</a>.</p>
+<p>If a proxy takes too long to start, you should read the section on <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#entropy-issues-in-virtual-environments">Entropy Issues</a>.</p>
 <h2 id="proxy-repository-format">Proxy Repository Format</h2>
 <p>A Stroom Proxy stores inbound files in a hierarchical file system whose root is supplied during the proxy setup (<code>REPO_DIR</code>) and as files arrive they are given a <em>repository id</em> that is a one-up number starting at one (1). The files are stored in a specific <em>repository format</em>.
 The default template is <code>${pathId}/${id}</code> and this pattern will produce the following output files under <code>REPO_DIR</code> for the given repository id</p>
@@ -2851,7 +2973,7 @@ The default template is <code>${pathId}/${id}</code> and this pattern will produ
 <ul>
 <li>the user has reasonable RHEL/Centos System administration skills</li>
 <li>installations are on Centos 7.3 minimal systems (fully patched)</li>
-<li>the user is or has deployed the example two node Stroom cluster storage hierarchy described <a href="InstallHowTo.md#storage-scenario" title="HOWTO Storage Scenario">here</a></li>
+<li>the user is or has deployed the example two node Stroom cluster storage hierarchy described <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario">here</a></li>
 <li>the configuration of this NFS is NOT secure. It is highly recommended to improve it&rsquo;s security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.</li>
 </ul>
 <h2 id="installation-of-nfs-software">Installation of NFS software</h2>
@@ -2923,7 +3045,7 @@ as the existing nodes and all nodes have added mount points (directories) for th
 <li>
 <p>Node: <code>stroomp02.strmdev00.org</code></p>
 <ul>
-<li>Install NFS software as <a href="InstallNFSHowTo.md#installation-of-nfs-software" title="Installation of NFS Software">above</a></li>
+<li>Install NFS software as <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installnfshowto/#installation-of-nfs-software">above</a></li>
 <li>Configure the exports file as per</li>
 </ul>
 </li>
@@ -2990,79 +3112,879 @@ sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /st
     
 	<h1 id="pg-e1902c7f9911560579e1b0418879914b">7 - Node Cluster URL Setup</h1>
     <div class="lead">Configuring Stroom cluster URLs</div>
-	<h1 id="stroom-howto---node-cluster-url-setup">Stroom HOWTO - Node Cluster URL Setup</h1>
-<p>In a Stroom cluster, <a href="../../user-guide/nodes.md" title="Stroom Nodes">Nodes</a> are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node&rsquo;s Cluster URL and the following demonstrates this process.</p>
+	<p>In a Stroom cluster, <a href="/stroom-docs/hugo-docsy/docs/user-guide/nodes/">Nodes</a> are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node&rsquo;s Cluster URL and the following demonstrates this process.</p>
 <h2 id="assumptions">Assumptions</h2>
 <ul>
-<li>an account with the <code>Administrator</code> Application <a href="../../user-guide/roles.md" title="Stroom Application Permissions">Permission</a> is currently logged in.</li>
+<li>an account with the <code>Administrator</code> Application <a href="/stroom-docs/hugo-docsy/docs/user-guide/roles/">Permission</a> is currently logged in.</li>
 <li>we have a multi node Stroom cluster with two nodes, <code>stroomp00</code> and <code>stroomp01</code></li>
 <li>appropriate firewall configurations have been made</li>
 <li>in the scenario of adding a new node to our multi node deployment, the node added will be <code>stroomp02</code></li>
 </ul>
 <h2 id="configure-two-nodes">Configure Two Nodes</h2>
 <p>To configure the nodes, move to the <code>Monitoring</code> item of the <strong>Main Menu</strong> and select it to bring up the <code>Monitoring</code> sub-menu.</p>
-<p><img src="../resources/UI-MonitoringSubmenu-00.png" alt="Stroom UI Node Management - Monitoring Menu" title="Stroom UI Monitoring sub-menu"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-MonitoringSubmenu-00.png" alt="images/HOWTOs/UI-MonitoringSubmenu-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Monitoring sub-menu</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>then move down and select the <code>Nodes</code> sub-item to be presented with the <code>Nodes</code> configuration tab as seen below.</p>
-<p><img src="../resources/UI-NodeClusterSetup-01.png" alt="Stroom UI Node Management - Management Tab" title="Stroom UI Node Management - management tab"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-01.png" alt="images/HOWTOs/UI-NodeClusterSetup-01.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - management tab</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>To set <code>stroomp00</code>&rsquo;s Cluster URL, move the it&rsquo;s line in the display and select it. It will be highlighted.</p>
-<p><img src="../resources/UI-NodeClusterSetup-02.png" alt="Stroom UI Node Management - Management Tab - Select first node" title="Stroom UI Node Management - select first node"></p>
-<p>Then move the cursor to the <em>Edit Node</em> icon <img src="../resources/icons/edit.png" alt="EditNode" title="Edit Node"> in the top left of
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-02.png" alt="images/HOWTOs/UI-NodeClusterSetup-02.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - select first node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+<p>Then move the cursor to the <em>Edit Node</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/edit.svg" width="16px" title="Edit" alt="edit.svg">
+ in the top left of
 the <code>Nodes</code> tab and select it. On selection the <code>Edit Node</code> configuration window will be displayed and into
 the <strong>Cluster URL:</strong> entry box, enter the first node&rsquo;s URL of <code>http://stroomp00.strmdev00.org:8080/stroom/clustercall.rpc</code></p>
-<p><img src="../resources/UI-NodeClusterSetup-03.png" alt="Stroom UI Node Management - First Node setup" title="Stroom UI Node Management - set clustercall url for first node"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-03.png" alt="images/HOWTOs/UI-NodeClusterSetup-03.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - set clustercall url for first node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>then press the
-<img src="../resources/icons/buttonOk.png" alt="Stroom UI OkButton" title="Stroom UI OkButton">
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png" alt="images/HOWTOs/icons/buttonOk.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI OkButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 at which we see the <em>Cluster URL</em> has been set for the first node as per</p>
-<p><img src="../resources/UI-NodeClusterSetup-04.png" alt="Stroom UI Node Management - First Node set" title="Stroom UI Node Management - set clustercall url on first node"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-04.png" alt="images/HOWTOs/UI-NodeClusterSetup-04.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - set clustercall url on first node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>We next select the second node</p>
-<p><img src="../resources/UI-NodeClusterSetup-05.png" alt="Stroom UI Node Management - Management Tab - Select second node" title="Stroom UI Node Management - select second node"></p>
-<p>then move the cursor to the <em>Edit Node</em> icon <img src="../resources/icons/edit.png" alt="EditNode" title="Edit Node"> in the top left of
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-05.png" alt="images/HOWTOs/UI-NodeClusterSetup-05.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - select second node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+<p>then move the cursor to the <em>Edit Node</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/edit.svg" width="16px" title="Edit" alt="edit.svg">
+ in the top left of
 the <code>Nodes</code> tab and select it. On selection the <code>Edit Node</code> configuration window will be displayed and into
 the <strong>Cluster URL:</strong> entry box, enter the second node&rsquo;s URL of <code>http://stroomp01.strmdev00.org:8080/stroom/clustercall.rpc</code></p>
-<p><img src="../resources/UI-NodeClusterSetup-06.png" alt="Stroom UI Node Management - Second Node setup" title="Stroom UI Node Management - set clustercall url for second node"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-06.png" alt="images/HOWTOs/UI-NodeClusterSetup-06.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - set clustercall url for second node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>then press the
-<img src="../resources/icons/buttonOk.png" alt="Stroom UI OkButton" title="Stroom UI OkButton"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png" alt="images/HOWTOs/icons/buttonOk.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI OkButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
 <p>At this we will see both nodes have the <strong>Cluster URLs</strong> set.</p>
-<p><img src="../resources/UI-NodeClusterSetup-07.png" alt="Stroom UI Node Management - Both Nodes setup" title="Stroom UI Node Management - both nodes setup">.</p>
-<p>You may need to press the <em>Refresh</em> icon
-<img src="../resources/icons/refresh.png" alt="Stroom UI Refresh" title="Stroom UI RefreshButton">
-found at top left of <code>Nodes</code> configuration tab, until both nodes show healthy pings.</p>
-<p><img src="../resources/UI-NodeClusterSetup-08.png" alt="Stroom UI Node Management - Both Nodes ping" title="Stroom UI Node Management - both nodes ping">.</p>
+<p>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-07.png" alt="images/HOWTOs/UI-NodeClusterSetup-07.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - both nodes setup</figcaption>
+    </div>
+    
+  </figure>
+</div>
+.</p>
+<p>You may need to press the <em>Refresh</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/refresh.svg" width="16px" title="Refresh" alt="refresh.svg">
+ found at top left of <code>Nodes</code> configuration tab, until both nodes show healthy pings.</p>
+<p>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-08.png" alt="images/HOWTOs/UI-NodeClusterSetup-08.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - both nodes ping</figcaption>
+    </div>
+    
+  </figure>
+</div>
+.</p>
 <p>If you do not get ping results for each node, then they are not configured correctly. In that situation,
 review all log files and processes that you have performed.</p>
 <p>Once you have set the Cluster URLs of each node you should also set the <em>master assignment priority</em> for each node to
 be different to all of the others. In the image above both have been assigned equal priority - <code>1</code>. We will
 change <code>stroomp00</code> to have a different priority - <code>3</code>. You should note that the node with the highest
 priority gains the <code>Master</code> node status.</p>
-<p><img src="../resources/UI-NodeClusterSetup-09.png" alt="Stroom UI Node Management - Node priority" title="Stroom UI Node Management - set node priorities">.</p>
+<p>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-NodeClusterSetup-09.png" alt="images/HOWTOs/UI-NodeClusterSetup-09.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - set node priorities</figcaption>
+    </div>
+    
+  </figure>
+</div>
+.</p>
 <h2 id="configure-new-node">Configure New Node</h2>
 <p>When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and services on
 the new node, one has to configure the new node&rsquo;s Cluster URL.</p>
 <p>To configure the new node, move to the <code>Monitoring</code> item of the <strong>Main Menu</strong> and select it to bring up the <code>Monitoring</code> sub-menu.</p>
-<p><img src="../resources/UI-MonitoringSubmenu-00.png" alt="Stroom UI Node Management - Monitoring Menu" title="Stroom UI Monitoring sub-menu"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-MonitoringSubmenu-00.png" alt="images/HOWTOs/UI-MonitoringSubmenu-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Monitoring sub-menu</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>then move down and select the <code>Nodes</code> sub-item to be presented with the <code>Nodes</code> configuration tab as seen below.</p>
-<p><img src="../resources/UI-AddNewNode-00.png" alt="Stroom UI New Node Management - Management Tab" title="Stroom UI New Node Management - management tab"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-00.png" alt="images/HOWTOs/UI-AddNewNode-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI New Node Management - management tab</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>To set <code>stroomp02</code>&rsquo;s Cluster URL, move the it&rsquo;s line in the display and select it. It will be highlighted.</p>
-<p><img src="../resources/UI-AddNewNode-01.png" alt="Stroom UI Node Management - Management Tab - Select new node" title="Stroom UI Node Management - select new node"></p>
-<p>Then move the cursor to the <em>Edit Node</em> icon <img src="../resources/icons/edit.png" alt="EditNode" title="Edit Node"> in the top left
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-01.png" alt="images/HOWTOs/UI-AddNewNode-01.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Node Management - select new node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+<p>Then move the cursor to the <em>Edit Node</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/edit.svg" width="16px" title="Edit" alt="edit.svg">
+ in the top left
 of the <code>Nodes</code> tab and select it. On selection the <code>Edit Node</code> configuration window will be displayed
 and into the <strong>Cluster URL:</strong> entry box, enter the first node&rsquo;s URL of <code>http://stroomp02.strmdev00.org:8080/stroom/clustercall.rpc</code></p>
-<p><img src="../resources/UI-AddNewNode-02.png" alt="Stroom UI New Node Management - Node setup" title="Stroom UI New Node Management - set clustercall url for new node"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-02.png" alt="images/HOWTOs/UI-AddNewNode-02.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI New Node Management - set clustercall url for new node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>then press the
-<img src="../resources/icons/buttonOk.png" alt="Stroom UI OkButton" title="Stroom UI OkButton">
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png" alt="images/HOWTOs/icons/buttonOk.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI OkButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 button at which we see the <em>Cluster URL</em> has been set for the first node as per</p>
-<p><img src="../resources/UI-AddNewNode-03.png" alt="Stroom UI New Node Management - New Node set" title="Stroom UI New Node Management - set clustercall url on new node"></p>
-<p>You need to press the <em>Refresh</em> icon
-<img src="../resources/icons/refresh.png" alt="Stroom UI Refresh" title="Stroom UI RefreshButton">
-found at top left of <code>Nodes</code> configuration tab, until the new node shows a healthy ping.</p>
-<p><img src="../resources/UI-AddNewNode-04.png" alt="Stroom UI New Node Management - All Nodes ping" title="Stroom UI New Node Management - all nodes ping">.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-03.png" alt="images/HOWTOs/UI-AddNewNode-03.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI New Node Management - set clustercall url on new node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+<p>You need to press the <em>Refresh</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/refresh.svg" width="16px" title="Refresh" alt="refresh.svg">
+ found at top left of <code>Nodes</code> configuration tab, until the new node shows a healthy ping.</p>
+<p>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-04.png" alt="images/HOWTOs/UI-AddNewNode-04.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI New Node Management - all nodes ping</figcaption>
+    </div>
+    
+  </figure>
+</div>
+.</p>
 <p>If you do not get a ping results for the new node, then it is not configured correctly. In that situation, review all log files
 and processes that you have performed.</p>
 <p>Once you have set the Cluster URL you should also set the <em>master assignment priority</em> for each node to
 be different to all of the others. In the image above both <code>stroomp01</code> and the new node, <code>stroomp02</code>, have been
 assigned equal priority - <code>1</code>. We will change <code>stroomp01</code> to have a different priority - <code>2</code>. You should note that the node
 with the highest priority maintains the <code>Master</code> node status.</p>
-<p><img src="../resources/UI-AddNewNode-05.png" alt="Stroom UI New Node Management - Node priority" title="Stroom UI New Node Management - set node priorities">.</p>
+<p>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-AddNewNode-05.png" alt="images/HOWTOs/UI-AddNewNode-05.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI New Node Management - set node priorities</figcaption>
+    </div>
+    
+  </figure>
+</div>
+.</p>
 
 </div>
 
@@ -3086,7 +4008,7 @@ with the highest priority maintains the <code>Master</code> node status.</p>
 <li>installation is on a fully patched minimal Centos 7.3 instance.</li>
 <li>the application user <code>stroomuser</code> has been created</li>
 <li>the user is deploying for either</li>
-<li>the example two node Stroom cluster whose storage is described <a href="InstallHowTo.md#storage-scenario" title="HOWTO Storage Scenario">here</a></li>
+<li>the example two node Stroom cluster whose storage is described <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario">here</a></li>
 <li>a simple Forwarding or Standalone Proxy</li>
 <li>adding a node to an existing Stroom cluster</li>
 </ul>
@@ -3103,7 +4025,7 @@ difference is that for the Stroom processes, we need to <code>export</code> the 
 The STROOM_TMP variable is set to a working area for the Stroom Application to use. The application accesses this environment variable internally
 via the ${stroom_tmp} context variable. Note that we only need the STROOM_TMP variable for Stroom Application deployments, so one
 could remove it from the files for a Forwarding or Standalone proxy deployment.</p>
-<p>With respect to the working area, we will make use of the <a href="InstallHowTo.md#storage-scenario" title="HOWTO Storage Scenario">Storage Scenario</a> we have defined and hence use the directory <code>/stroomdata/stroom-working-p_nn_</code> where <em>nn</em> is the hostname node number (i.e 00 for host stroomp00, 01 for host stroomp01, etc).</p>
+<p>With respect to the working area, we will make use of the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#storage-scenario">Storage Scenario</a> we have defined and hence use the directory <code>/stroomdata/stroom-working-p_nn_</code> where <em>nn</em> is the hostname node number (i.e 00 for host stroomp00, 01 for host stroomp01, etc).</p>
 <p>So, for the first node, <em>00</em>, we run</p>
 <pre><code class="language-bash">N=00
 F=~/env.sh
@@ -3451,17 +4373,17 @@ stroom-proxy/bin/start.sh
 	<h2 id="assumptions">Assumptions</h2>
 <ul>
 <li>Stroom Single or Multi Node Cluster Testing</li>
-<li>the <a href="InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment" title="Multi Node Stroom Cluster (Proxy and Application">Multi Node Stroom Cluster (Proxy and Application)</a> has been deployed</li>
-<li>a <a href="InstallHowTo.md#add-a-test-feed" title="Add a Test Feed">Test Feed</a>, <code>TEST-FEED-V1_0</code> has been added</li>
+<li>the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#multi-node-stroom-cluster-proxy-and-application-deployment">Multi Node Stroom Cluster (Proxy and Application)</a> has been deployed</li>
+<li>a <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#add-a-test-feed">Test Feed</a>, <code>TEST-FEED-V1_0</code> has been added</li>
 <li>Proxy aggregation has been turned off on all Stroom <em>Store</em> Proxies</li>
 <li>the Stroom Proxy Repository Format (<code>REPO_FORMAT</code>) chosen was the default - <code>${pathId}/${id</code></li>
 <li>Stroom Forwarding Proxy Testing</li>
-<li>the <a href="InstallHowTo.md#multi-node-stroom-cluster-proxy-and-application-deployment" title="Multi Node Stroom Cluster (Proxy and Application">Multi Node Stroom Cluster (Proxy and Application)</a> has been deployed</li>
-<li>the <a href="InstallHowTo.md#forwarding-stroom-proxy-deployment" title="Stroom Forwarding Proxy">Stroom Forwarding Proxy</a> has been deployed</li>
-<li>a <a href="InstallHowTo.md#add-a-test-feed" title="Add a Test Feed">Test Feed</a>, <code>TEST-FEED-V1_0</code> has been added</li>
+<li>the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#multi-node-stroom-cluster-proxy-and-application-deployment">Multi Node Stroom Cluster (Proxy and Application)</a> has been deployed</li>
+<li>the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#forwarding-stroom-proxy-deployment">Stroom Forwarding Proxy</a> has been deployed</li>
+<li>a <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#add-a-test-feed">Test Feed</a>, <code>TEST-FEED-V1_0</code> has been added</li>
 <li>the Stroom Proxy Repository Format (<code>REPO_FORMAT</code>) chosen was the default - <code>${pathId}/${id</code></li>
 <li>Stroom Standalone Proxy Testing</li>
-<li>the <a href="InstallHowTo.md#standalone-stroom-proxy-deployment" title="Stroom Standalone Proxy">Stroom Standalone Proxy</a> has been deployed</li>
+<li>the <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installhowto/#standalone-stroom-proxy-deployment">Stroom Standalone Proxy</a> has been deployed</li>
 <li>the Stroom Proxy Repository Format (<code>REPO_FORMAT</code>) chosen was the default - <code>${pathId}/${id</code></li>
 </ul>
 <h2 id="stroom-single-or-multi-node-cluster-testing">Stroom Single or Multi Node Cluster Testing</h2>
@@ -3481,13 +4403,13 @@ Tp
 </code></pre>
 <p>You will note events of the form from
 <code>stroomp00.strmdev00.org</code>:</p>
-<pre><code>...
+<pre><code class="language-text">...
 2017-01-14T06:22:26.672Z INFO  [ProxyProperties refresh thread 0] datafeed.ProxyHandlerFactory$1 (ProxyHandlerFactory.java:96) - refreshThread() - Started
 2017-01-14T06:30:00.993Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:30:00.993Z
 2017-01-14T06:40:00.245Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:40:00.245Z
 </code></pre>
 <p>and from <code>stroomp01.strmdev00.org</code>:</p>
-<pre><code>...
+<pre><code class="language-text">...
 2017-01-14T06:22:26.828Z INFO  [ProxyProperties refresh thread 0] datafeed.ProxyHandlerFactory$1 (ProxyHandlerFactory.java:96) - refreshThread() - Started
 2017-01-14T06:30:00.066Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:30:00.066Z
 2017-01-14T06:40:00.318Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-14T06:40:00.318Z
@@ -3498,7 +4420,7 @@ Tp
 <pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomp.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
 <p>If you are monitoring the proxy log of <code>stroomp00.strmdev00.org</code> you would see two new logs indicating the successful arrival of the file</p>
-<pre><code>2017-01-14T06:46:06.411Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=54dc0da2-f35c-4dc2-8a98-448415ffc76b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+<pre><code class="language-text">2017-01-14T06:46:06.411Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=54dc0da2-f35c-4dc2-8a98-448415ffc76b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:46:06.449Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 571 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=54dc0da2-f35c-4dc2-8a98-448415ffc76b&quot;,&quot;ReceivedTime=2017-01-14T06:46:05.883Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
 </code></pre>
 <ul>
@@ -3508,32 +4430,32 @@ Tp
 </code></pre>
 <p>If you are monitoring the proxy log of <code>stroomp01.strmdev00.org</code> you should see a new log. As foreshadowed, we didn&rsquo;t as the time delay resulted
 in the first node getting the file. That is <code>stroomp00.strmdev00.org</code> log file gained the two entries</p>
-<pre><code>2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+<pre><code class="language-text">2017-01-14T06:47:26.642Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=941d2904-734f-4764-9ccf-4124b94a56f6,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:47:26.645Z INFO  [ajp-apr-9009-exec-2] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 174 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=941d2904-734f-4764-9ccf-4124b94a56f6&quot;,&quot;ReceivedTime=2017-01-14T06:47:26.470Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
 </code></pre>
 <ul>
 <li>Again on the database node, execute the command and this time we see that node <code>stroomp01.strmdev00.org</code> received the file as per</li>
 </ul>
-<pre><code>2017-01-14T06:47:30.782Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=2cef6e23-b0e6-4d75-8374-cca7caf66e15,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+<pre><code class="language-text">2017-01-14T06:47:30.782Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=2cef6e23-b0e6-4d75-8374-cca7caf66e15,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:47:30.816Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 593 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=2cef6e23-b0e6-4d75-8374-cca7caf66e15&quot;,&quot;ReceivedTime=2017-01-14T06:47:30.238Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
 </code></pre>
 <ul>
 <li>Running the curl post command in quick succession shows the loadbalancer working &hellip; four executions result in seeing our pair of logs appearing on alternate proxies.</li>
 </ul>
 <p><code>stroomp00</code>:</p>
-<pre><code>2017-01-14T06:52:09.815Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=bf0bc38c-3533-4d5c-9ddf-5d30c0302787,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+<pre><code class="language-text">2017-01-14T06:52:09.815Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=bf0bc38c-3533-4d5c-9ddf-5d30c0302787,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:09.817Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 262 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=bf0bc38c-3533-4d5c-9ddf-5d30c0302787&quot;,&quot;ReceivedTime=2017-01-14T06:52:09.555Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
 </code></pre>
 <p><code>stroomp01</code>:</p>
-<pre><code>2017-01-14T06:52:11.139Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=1088fdd8-6869-489f-8baf-948891363734,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+<pre><code class="language-text">2017-01-14T06:52:11.139Z INFO  [ajp-apr-9009-exec-2] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=1088fdd8-6869-489f-8baf-948891363734,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:11.150Z INFO  [ajp-apr-9009-exec-2] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 289 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=1088fdd8-6869-489f-8baf-948891363734&quot;,&quot;ReceivedTime=2017-01-14T06:52:10.861Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
 </code></pre>
 <p><code>stroomp00</code>:</p>
-<pre><code>2017-01-14T06:52:12.284Z INFO  [ajp-apr-9009-exec-4] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=def94a4a-cf78-4c4d-9261-343663f7f79a,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+<pre><code class="language-text">2017-01-14T06:52:12.284Z INFO  [ajp-apr-9009-exec-4] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=def94a4a-cf78-4c4d-9261-343663f7f79a,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:12.289Z INFO  [ajp-apr-9009-exec-4] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 5.0 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=def94a4a-cf78-4c4d-9261-343663f7f79a&quot;,&quot;ReceivedTime=2017-01-14T06:52:12.284Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
 </code></pre>
 <p><code>stroomp01</code>:</p>
-<pre><code>2017-01-14T06:52:13.374Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
+<pre><code class="language-text">2017-01-14T06:52:13.374Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.144,remoteaddress=192.168.2.144
 2017-01-14T06:52:13.378Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 3.0 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b&quot;,&quot;ReceivedTime=2017-01-14T06:52:13.374Z&quot;,&quot;RemoteAddress=192.168.2.144&quot;,&quot;RemoteHost=192.168.2.144&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=527&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.29.0&quot;
 </code></pre>
 <p>At this point we will see what the proxies have received.</p>
@@ -3543,7 +4465,7 @@ in the first node getting the file. That is <code>stroomp00.strmdev00.org</code>
 <pre><code class="language-bash">ls -l /stroomdata/stroom-working*/proxy
 </code></pre>
 <p>On <code>stroomp00</code> we see</p>
-<pre><code>[stroomuser@stroomp00 ~]$ ls -l /stroomdata/stroom-working*/proxy
+<pre><code class="language-text">[stroomuser@stroomp00 ~]$ ls -l /stroomdata/stroom-working*/proxy
 total 16
 -rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:46 001.zip
 -rw-rw-r--. 1 stroomuser stroomuser 783 Jan 14 17:47 002.zip
@@ -3552,7 +4474,7 @@ total 16
 [stroomuser@stroomp00 ~]$
 </code></pre>
 <p>and on <code>stroomp01</code> we see</p>
-<pre><code>[stroomuser@stroomp01 ~]$ ls -l /stroomdata/stroom-working*/proxy
+<pre><code class="language-text">[stroomuser@stroomp01 ~]$ ls -l /stroomdata/stroom-working*/proxy
 total 12
 -rw-rw-r--. 1 stroomuser stroomuser 785 Jan 14 17:47 001.zip
 -rw-rw-r--. 1 stroomuser stroomuser 783 Jan 14 17:52 002.zip
@@ -3563,7 +4485,7 @@ total 12
 <pre><code class="language-bash">unzip -c /stroomdata/stroom-working*/proxy/001.zip
 </code></pre>
 <p>to see</p>
-<pre><code>Archive:  /stroomdata/stroom-working-p00/proxy/001.zip
+<pre><code class="language-text">Archive:  /stroomdata/stroom-working-p00/proxy/001.zip
   inflating: 001.dat
 root:x:0:
 bin:x:1:
@@ -3627,7 +4549,7 @@ the metadata file present in the zip archive.</p>
 <p>If you execute the same command on the other files, all that changes is the value of the <em>ReceivedTime:</em> attribute in the <code>.meta</code> file.</p>
 <p>For those curious about the file size differences, this is a function of the compression process within the proxy.
 Using <code>stroomp01</code>&rsquo;s files and extracting them manually and renaming them results in the six files</p>
-<pre><code>[stroomuser@stroomp01 xx]$ ls -l
+<pre><code class="language-text">[stroomuser@stroomp01 xx]$ ls -l
 total 24
 -rw-rw-r--. 1 stroomuser stroomuser 527 Jan 14 17:47 A_001.dat
 -rw-rw-r--. 1 stroomuser stroomuser 321 Jan 14 17:47 A_001.meta
@@ -3651,7 +4573,7 @@ the Stroom application to collect it. In this situation we use the command</p>
 T
 </code></pre>
 <p>On each node you should see <em>LifecyleTask</em> events, for example,</p>
-<pre><code>2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
+<pre><code class="language-text">2017-01-14T07:42:08.281Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing nodeStatusExecutor.exec
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #2 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing SQLStatisticEventStore.evict
 2017-01-14T07:42:18.284Z INFO  [Stroom P2 #10 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing activeQueriesManager.evictExpiredElements
 2017-01-14T07:42:18.285Z INFO  [Stroom P2 #7 - LifecycleTask] spring.StroomBeanMethodExecutable (StroomBeanMethodExecutable.java:47) - Executing distributedTaskFetcher.execute
@@ -3661,45 +4583,192 @@ in  <em>server.DataFeedServiceImpl</em> events in both log files. The Stroom app
 <p>In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
 <code>strooomp00:</code></p>
-<pre><code>2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
+<pre><code class="language-text">2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 </code></pre>
 <p>and on <code>stroomp01:</code></p>
-<pre><code>2017-01-14T07:43:05.614Z INFO  [ajp-apr-8009-exec-1] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
+<pre><code class="language-text">2017-01-14T07:43:05.614Z INFO  [ajp-apr-8009-exec-1] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 2017-01-14T07:43:06.821Z INFO  [ajp-apr-8009-exec-2] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 </code></pre>
 <p>To confirm this data arrived, we need to view the <strong>Data</strong> pane of our <code>TEST-FEED-V1_0</code> tab. To do this, log onto the Stroom UI then
 move the cursor to the <code>TEST-FEED-V1_0</code> entry in the <code>Explorer</code> tab and select the item with a left click</p>
-<p><img src="../resources/UI-TestDirectFeed-00.png" alt="Stroom UI Test Feed - Open Feed" title="Stroom UI Test Feed - Open Feed"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestDirectFeed-00.png" alt="images/HOWTOs/UI-TestDirectFeed-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Test Feed - Open Feed</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>and double click on the entry to see our <code>TEST-FEED-V1_0</code> tab.</p>
-<p><img src="../resources/UI-TestDirectFeed-01.png" alt="Stroom UI Test Feed - Opened Feed" title="Stroom UI Test Feed - Opened Feed">
-and it is noted that we are viewing the Feed&rsquo;s attributes as we can see the <strong>Setting</strong> hyper-link highlighted. As we want to see the Data we have received for this feed, move the cursor to the <strong>Data</strong> hyper-link and select it to see
-<img src="../resources/UI-TestDirectFeed-02.png" alt="Stroom UI Test Feed - Opened Feed Data" title="Stroom UI Test Feed - Opened Feed view Data">.</p>
+<p>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestDirectFeed-01.png" alt="images/HOWTOs/UI-TestDirectFeed-01.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Test Feed - Opened Feed</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+and it is noted that we are viewing the Feed&rsquo;s attributes as we can see the <strong>Setting</strong> hyper-link highlighted.
+As we want to see the Data we have received for this feed, move the cursor to the <strong>Data</strong> hyper-link and select it to see
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestDirectFeed-02.png" alt="images/HOWTOs/UI-TestDirectFeed-02.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Test Feed - Opened Feed view Data</figcaption>
+    </div>
+    
+  </figure>
+</div>
+.</p>
 <p>These three entries correspond to the three posts we performed.</p>
 <p>We have successfully tested direct posting to a Stroom feed and that the Apache mod_jk loadbalancer also works for this posting method.</p>
 <h4 id="test-proxy-aggregation-is-working">Test Proxy Aggregation is Working</h4>
 <p>To test that the Proxy Aggregation is working,
-we need to <a href="../General/TasksHowTo.md#turn-on-proxy-aggregation" title="Enable Proxy Aggregation">enable</a> on each node.</p>
+we need to <a href="/stroom-docs/hugo-docsy/docs/howtos/general/taskshowto/#turn-on-proxy-aggregation">enable</a> on each node.</p>
 <p>By enabling the Proxy Aggregation process, both nodes immediately performed the task as indicated by each node&rsquo;s Stroom application logs as per
 <code>stroomp00:</code></p>
-<pre><code>2017-01-14T07:58:58.752Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
-2017-01-14T07:58:58.937Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedF
-iles() - Started TEST-FEED-V1_0 (4 Files)
-2017-01-14T07:58:59.045Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedF
-iles() - Completed TEST-FEED-V1_0 in 108 ms
-2017-01-14T07:58:59.101Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - completed
- in 349 ms
+<pre><code class="language-text">2017-01-14T07:58:58.752Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
+2017-01-14T07:58:58.937Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedFiles() - Started TEST-FEED-V1_0 (4 Files)
+2017-01-14T07:58:59.045Z INFO  [Stroom P2 #2 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedFiles() - Completed TEST-FEED-V1_0 in 108 ms
+2017-01-14T07:58:59.101Z INFO  [Stroom P2 #3 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - completedin 349 ms
 </code></pre>
 <p>and <code>stroomp01:</code></p>
-<pre><code>2017-01-14T07:59:16.687Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
-2017-01-14T07:59:16.799Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedF
-iles() - Started TEST-FEED-V1_0 (3 Files)
-2017-01-14T07:59:16.909Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedF
-iles() - Completed TEST-FEED-V1_0 in 110 ms
-2017-01-14T07:59:16.997Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - complete
-d in 310 ms
+<pre><code class="language-text">2017-01-14T07:59:16.687Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:138) - exec() - started
+2017-01-14T07:59:16.799Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:203) - processFeedFiles() - Started TEST-FEED-V1_0 (3 Files)
+2017-01-14T07:59:16.909Z INFO  [Stroom P2 #5 - GenericServerTask] server.ProxyAggregationExecutor$2 (ProxyAggregationExecutor.java:265) - processFeedFiles() - Completed TEST-FEED-V1_0 in 110 ms
+2017-01-14T07:59:16.997Z INFO  [Stroom P2 #10 - LifecycleTask] server.ProxyAggregationExecutor (ProxyAggregationExecutor.java:152) - exec() - completed in 310 ms
 </code></pre>
 <p>And on refreshing the top pane of the <code>TEST-FEED-V1_0</code> tab we see that two more <em>batches</em> of data have arrived.</p>
-<p><img src="../resources/UI-TestProxyAggregation-01.png" alt="Stroom UI Test Feed - Proxy Aggregated Data Arrival" title="Stroom UI Test Feed - Proxy Aggregated data arrival">.</p>
+<p>
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-TestProxyAggregation-01.png" alt="images/HOWTOs/UI-TestProxyAggregation-01.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Test Feed - Proxy Aggregated data arrival</figcaption>
+    </div>
+    
+  </figure>
+</div>
+.</p>
 <p>This demonstrates that Proxy Aggregation is working.</p>
 <h2 id="stroom-forwarding-proxy-testing">Stroom Forwarding Proxy Testing</h2>
 <h3 id="data-post-tests-1">Data Post Tests</h3>
@@ -3725,7 +4794,7 @@ Tp
 </code></pre>
 <p>In the Stroom Forwarding proxy log, <code>~/stroom-proxy/instance/logs/stroom.log</code>, you will see the arrival of the
 file as per the <em>datafeed.DataFeedRequestHandler$1</em> event running under, in this case, the <em>ajp-apr-9009-exec-1</em> thread.</p>
-<pre><code>...
+<pre><code class="language-text">...
 2017-01-01T23:17:00.240Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:17:00.240Z
 2017-01-01T23:18:00.275Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:18:00.275Z
 2017-01-01T23:18:12.367Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 782 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Expect=100-continue&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=9601198e-98db-4cae-8b71-9404722ef1f9&quot;,&quot;ReceivedTime=2017-01-01T23:18:11.588Z&quot;,&quot;RemoteAddress=192.168.2.220&quot;,&quot;RemoteHost=192.168.2.220&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=1051&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomfp0.strmdev00.org&quot;,&quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&quot;
@@ -3733,7 +4802,7 @@ file as per the <em>datafeed.DataFeedRequestHandler$1</em> event running under, 
 <p>And then at the next
 periodic interval (60 second intervals) this file will be forwarded to the main stroom proxy
 server <code>stroomp.strmdev00.org</code> as shown by the <em>handler.ForwardRequestHandler</em> events running under the <em>pool-10-thread-2</em> thread.</p>
-<pre><code>2017-01-01T23:19:00.304Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:19:00.304Z
+<pre><code class="language-text">2017-01-01T23:19:00.304Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:19:00.304Z
 2017-01-01T23:19:00.586Z INFO  [pool-10-thread-2] handler.ForwardRequestHandler (ForwardRequestHandler.java:109) - handleHeader() - https://stroomp00.strmdev00.org/stroom/datafeed Sending request {ReceivedPath=stroomfp0.strmdev00.org, Feed=TEST-FEED-V1_0, Compression=ZIP}
 2017-01-01T23:19:00.990Z INFO  [pool-10-thread-2] handler.ForwardRequestHandler (ForwardRequestHandler.java:89) - handleFooter() - b5722ead-714b-411b-a09f-901fb8b20389 took 403 ms to forward 1.4 kB response 200 - {ReceivedPath=stroomfp0.strmdev00.org, Feed=TEST-FEED-V1_0, GUID=b5722ead-714b-411b-a09f-901fb8b20389, Compression=ZIP}
 2017-01-01T23:20:00.064Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:20:00.064Z
@@ -3741,7 +4810,7 @@ server <code>stroomp.strmdev00.org</code> as shown by the <em>handler.ForwardReq
 </code></pre>
 <p>On one of the central processing nodes, when the file is send by the Forwarding Proxy, you will see the file&rsquo;s arrival as per
 the <em>datafeed.DataFeedRequestHandler$1</em> event in the <em>ajp-apr-9009-exec-3</em> thread.</p>
-<pre><code>...
+<pre><code class="language-text">...
 2017-01-01T23:00:00.236Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:00:00.236Z
 2017-01-01T23:10:00.473Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-01T23:10:00.473Z
 2017-01-01T23:19:00.787Z INFO  [ajp-apr-9009-exec-3] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=b5722ead-714b-411b-a09f-901fb8b20389,feed=TEST-FEED-V1_0,system=null,environment=null,remotehost=null,remoteaddress=null
@@ -3769,7 +4838,7 @@ Tp
 <pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomsap0.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
 <p>In the stroom proxy log, <code>~/stroom-proxy/instance/logs/stroom.log</code>, you will see the arrival of the file via both the <em>handler.LogRequestHandler</em> and  <em>datafeed.DataFeedRequestHandler$1</em> events running under, in this case, the <em>ajp-apr-9009-exec-1</em> thread.</p>
-<pre><code>...
+<pre><code class="language-text">...
 2017-01-02T02:10:00.325Z INFO  [Repository Reader Thread 1] handler.ProxyRepositoryReader (ProxyRepositoryReader.java:143) - run() - Cron Match at 2017-01-02T02:10:00.325Z
 2017-01-02T02:11:34.501Z INFO  [ajp-apr-9009-exec-1] handler.LogRequestHandler (LogRequestHandler.java:37) - log() - guid=ebd11215-7d4c-4be6-a524-358015e2ac38,feed=TEST-FEED-V1_0,system=EXAMPLE_SYSTEM,environment=EXAMPLE_ENVIRONMENT,remotehost=192.168.2.220,remoteaddress=192.168.2.220
 2017-01-02T02:11:34.528Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 33 ms to process (concurrentRequestCount=1) 200&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Expect=100-continue&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=ebd11215-7d4c-4be6-a524-358015e2ac38&quot;,&quot;ReceivedTime=2017-01-02T02:11:34.501Z&quot;,&quot;RemoteAddress=192.168.2.220&quot;,&quot;RemoteHost=192.168.2.220&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=1051&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomsap0.strmdev00.org&quot;,&quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&quot;
@@ -3779,20 +4848,20 @@ Tp
 <pre><code class="language-bash">ls -l /stroomdata/stroom-working-sap0/proxy
 </code></pre>
 <p>shows</p>
-<pre><code>[stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy
+<pre><code class="language-text">[stroomuser@stroomsap0 ~]$ ls -l /stroomdata/stroom-working-sap0/proxy
 total 4
 -rw-rw-r--. 1 stroomuser stroomuser 1107 Jan  2 13:11 001.zip
 [stroomuser@stroomsap0 ~]$ 
 </code></pre>
 <p>On viewing the contents of this file we see both a <code>.dat</code> and <code>.meta</code> file.</p>
-<pre><code>[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; unzip 001.zip)
+<pre><code class="language-text">[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; unzip 001.zip)
 Archive:  001.zip
   inflating: 001.dat                 
   inflating: 001.meta                
 [stroomuser@stroomsap0 ~]$
 </code></pre>
 <p>The <code>.dat</code> file holds the content of the file we posted - <code>/etc/group</code>.</p>
-<pre><code>[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; head -5 001.dat)
+<pre><code class="language-text">[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; head -5 001.dat)
 root:x:0:
 bin:x:1:bin,daemon
 daemon:x:2:bin,daemon
@@ -3801,7 +4870,7 @@ adm:x:4:adm,daemon
 [stroomuser@stroomsap0 ~]$ 
 </code></pre>
 <p>The <code>.meta</code> file is generated by the proxy and holds information about the posted file</p>
-<pre><code>[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; cat 001.meta)
+<pre><code class="language-text">[stroomuser@stroomsap0 ~]$ (cd /stroomdata/stroom-working-sap0/proxy; cat 001.meta)
 content-type:application/x-www-form-urlencoded
 Environment:EXAMPLE_ENVIRONMENT
 Feed:TEST-FEED-V1_0
@@ -3833,21 +4902,97 @@ user-agent:curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic E
     
 	<h1 id="pg-2ef6500b50bd5b10b788f5f28d20bfbe">11 - Volume Maintenance</h1>
     <div class="lead">How to maintain Stroom&rsquo;s data and index volumes.</div>
-	<p>Stroom stores data in <a href="../../user-guide/volumes.md" title="Stroom Volumes">volumes</a>.
+	<p>Stroom stores data in <a href="/stroom-docs/hugo-docsy/docs/user-guide/volumes/">volumes</a>.
 These are the logical link to the Storage hierarchy we setup on the operating system.
 This HOWTO will demonstrate how one first sets up volumes and also how to add additional volumes if one expanded an existing Stroom cluster.</p>
 <h2 id="assumptions">Assumptions</h2>
 <ul>
-<li>an account with the <code>Administrator</code> Application <a href="../../user-guide/roles.md" title="Stroom Application Permissions">Permission</a> is currently logged in.</li>
+<li>an account with the <code>Administrator</code> Application <a href="/stroom-docs/hugo-docsy/docs/user-guide/roles/">Permission</a> is currently logged in.</li>
 <li>we will add volumes as per the Multi Node Stroom deployment Storage hierarchy</li>
 </ul>
 <h2 id="configure-the-volumes">Configure the Volumes</h2>
 <p>We need to configure the volumes for Stroom. The follow demonstrates adding the volumes for two nodes, but demonstrates the process for a single node
 deployment as well the volume maintenance needed when expanding a Multi Node Cluster when adding in a new node.</p>
 <p>To configure the volumes, move to the <code>Tools</code> item of the <strong>Main Menu</strong> and select it to bring up the <code>Tools</code> sub-menu.
-<img src="../resources/UI-ToolsSubmenu-00.png" alt="Stroom UI Volume Management - Tools Menu" title="Stroom UI Tools sub-menu"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ToolsSubmenu-00.png" alt="images/HOWTOs/UI-ToolsSubmenu-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Tools sub-menu</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
 <p>then move down and select the <code>Volumes</code> sub-item to be presented with the <code>Volumes</code> configuration window as seen below.
-<img src="../resources/UI-ManageVolumes-01.png" alt="Stroom UI Volume Management - Configuration" title="Stroom UI Volumes - configuration window"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-01.png" alt="images/HOWTOs/UI-ManageVolumes-01.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Volumes - configuration window</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
 <p>The attributes we see for each volume are</p>
 <ul>
 <li>Node - the processing node the volume resides on (this is just the node name entered when configuration the Stroom application)</li>
@@ -3895,9 +5040,56 @@ configuring the Stroom service application, you will see two default volumes hav
 <li><code>/stroomdata/stroom-data-p01</code>        - location to store Stroom application data files (events, etc.) for this node</li>
 <li><code>/stroomdata/stroom-index-p01</code>       - location to store Stroom application index files</li>
 </ul>
-<p>So the first step to configure a volume is to move the cursor to the <em>New</em> icon <img src="../resources/icons/add.png" alt="New" title="New"> in the top left of
+<p>So the first step to configure a volume is to move the cursor to the <em>New</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
+ in the top left of
 the <code>Volumes</code> window and select it. This will bring up the <code>Add Volume</code> configuration window</p>
-<p><img src="../resources/UI-ManageVolumes-02.png" alt="Stroom UI Volume Management - Add Volume" title="Stroom UI Add Volume - Volume configuration window"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-02.png" alt="images/HOWTOs/UI-ManageVolumes-02.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Add Volume - Volume configuration window</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>As you can see, the entry box titles reflect the attributes of a volume. So we will add the first
 nodes <em>data</em> volume</p>
 <ul>
@@ -3906,9 +5098,85 @@ for node <code>stroomp00</code>.</li>
 </ul>
 <p>If you move the the <em>Node</em> drop down entry box and select it you will be presented with a choice of available
 nodes - in this case <code>stroomp00</code> and <code>stroomp01</code> as we have a two node cluster with these node names.</p>
-<p><img src="../resources/UI-ManageVolumes-03.png" alt="Stroom UI Volume Management - Add Volume - Select node" title="Stroom UI Add Volume - select node"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-03.png" alt="images/HOWTOs/UI-ManageVolumes-03.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Add Volume - select node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>By selecting the node <code>stroomp00</code> we see</p>
-<p><img src="../resources/UI-ManageVolumes-04.png" alt="Stroom UI Volume Management - Add Volume - Selected node" title="Stroom UI Add Volume - selected node"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-04.png" alt="images/HOWTOs/UI-ManageVolumes-04.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Add Volume - selected node</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>To configure the rest of the attributes for this volume, we:</p>
 <ul>
 <li>enter the <em>Path</em> to our first node&rsquo;s <em>data</em> volume</li>
@@ -3917,28 +5185,455 @@ nodes - in this case <code>stroomp00</code> and <code>stroomp01</code> as we hav
 <li>select an <em>Index Status</em> of <em>Inactive</em> as we do <strong>NOT</strong> want index data stored on it</li>
 <li>set a <em>Limit</em> of 12GB for allowed storage</li>
 </ul>
-<p><img src="../resources/UI-ManageVolumes-05.png" alt="Stroom UI Volume Management - Add Volume - Adding First Data Volume" title="Stroom UI Add Volume - adding first data volume"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-05.png" alt="images/HOWTOs/UI-ManageVolumes-05.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Add Volume - adding first data volume</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>and on selection of the
-<img src="../resources/icons/buttonOk.png" alt="Stroom UI OkButton" title="Stroom UI OkButton">
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png" alt="images/HOWTOs/icons/buttonOk.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI OkButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 we see the changes in the <code>Volumes</code> configuration window</p>
-<p><img src="../resources/UI-ManageVolumes-06.png" alt="Stroom UI Volume Management - Add Volume - Added First Data Volume" title="Stroom UI Add Volume - added first data volume"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-06.png" alt="images/HOWTOs/UI-ManageVolumes-06.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Add Volume - added first data volume</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>We next add the first node&rsquo;s index volume, as per</p>
-<p><img src="../resources/UI-ManageVolumes-07.png" alt="Stroom UI Volume Management - Add Volume - Adding First Index Volume" title="Stroom UI Add Volume - adding first index volume"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-07.png" alt="images/HOWTOs/UI-ManageVolumes-07.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Add Volume - adding first index volume</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>And after adding the second node&rsquo;s volumes we are finally presented with our configured volumes</p>
-<p><img src="../resources/UI-ManageVolumes-08.png" alt="Stroom UI Volume Management - Add Volume - All Volumes Added" title="Stroom UI Add Volume - all volumes added"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-08.png" alt="images/HOWTOs/UI-ManageVolumes-08.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Add Volume - all volumes added</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <h4 id="delete-default-volumes">Delete Default Volumes</h4>
 <p>We now need to deal with our default volumes. We want to delete them.</p>
-<p><img src="../resources/UI-ManageVolumes-09.png" alt="Stroom UI Volume Management - Delete Default Volumes" title="Stroom UI Delete Default - display default"></p>
-<p>So we move the cursor to the first volume&rsquo;s line (<em>stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume</em> &hellip;) and select the line then move the cursor to the  <em>Delete</em> icon <img src="../resources/icons/delete.png" alt="Delete" title="Delete"> in the top left of the <code>Volumes</code> window and select it. On selection you will be given a confirmation request</p>
-<p><img src="../resources/UI-ManageVolumes-10.png" alt="Stroom UI Volume Management - Delete Default Volumes Confirm" title="Stroom UI Delete Default - confirm deletion"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-09.png" alt="images/HOWTOs/UI-ManageVolumes-09.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Delete Default - display default</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+<p>So we move the cursor to the first volume&rsquo;s line (<em>stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume</em> &hellip;) and select the line then move the cursor to the  <em>Delete</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/delete.svg" width="16px" title="Delete" alt="delete.svg">
+ in the top left of the <code>Volumes</code> window and select it. On selection you will be given a confirmation request</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-10.png" alt="images/HOWTOs/UI-ManageVolumes-10.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Delete Default - confirm deletion</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>at which we press the
-<img src="../resources/icons/buttonOk.png" alt="Stroom UI OkButton" title="Stroom UI OkButton">
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png" alt="images/HOWTOs/icons/buttonOk.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI OkButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 button to see the first default volume has been deleted</p>
-<p><img src="../resources/UI-ManageVolumes-11.png" alt="Stroom UI Volume Management - Delete Default Volumes First Complete" title="Stroom UI Delete Default - first volume deleted"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-11.png" alt="images/HOWTOs/UI-ManageVolumes-11.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Delete Default - first volume deleted</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>and after we select then delete the second default volume( <em>stroomp00 /home/stroomuser/stroom-app/volumes/defaultStreamVolume</em> &hellip;), we are left with</p>
-<p><img src="../resources/UI-ManageVolumes-12.png" alt="Stroom UI Volume Management - Delete Default Volumes All Deleted" title="Stroom UI Delete Default - all deleted"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageVolumes-12.png" alt="images/HOWTOs/UI-ManageVolumes-12.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Delete Default - all deleted</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>At this one can close the <code>Volumes</code> configuration window by pressing the
-<img src="../resources/icons/buttonClose.png" alt="Stroom UI CloseButton" title="Stroom UI CloseButton"> button.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonClose.png" alt="images/HOWTOs/icons/buttonClose.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI CloseButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+ button.</p>
 <p><strong>NOTE</strong>: At the time of writing there is an issue regarding volumes</p>
 <h5 id="stroom-github-issue-84----httpsgithubcomgchqstroomissues84">Stroom Github Issue 84  - <a href="https://github.com/gchq/stroom/issues/84">https://github.com/gchq/stroom/issues/84</a></h5>
 <p>Due to Issue 84, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster. Thus if we attempted to use the volumes we would get a database error.
@@ -3960,20 +5655,335 @@ one has to configure the new volumes that are on the new node. The following dem
 <li><code>/stroomdata/stroom-index-p02</code>       - location to store Stroom application index files</li>
 </ul>
 <p>To configure the volumes, move to the <code>Tools</code> item of the <strong>Main Menu</strong> and select it to bring up the <code>Tools</code> sub-menu.
-<img src="../resources/UI-ToolsSubmenu-00.png" alt="Stroom UI Volume Management - Tools Menu" title="Stroom UI Tools sub-menu"></p>
-<p>then move down and select the <code>Volumes</code> sub-item to be presented with the <code>Volumes</code> configuration window as. We then move the cursor to
-the <em>New</em> icon <img src="../resources/icons/add.png" alt="New" title="New"> in the top left of the <code>Volumes</code> window and select it. This will bring up the <code>Add Volume</code> configuration window where we select our volume&rsquo;s node <code>stroomp02</code>.</p>
-<p><img src="../resources/UI-ManageNewVolume-00.png" alt="Stroom UI Volume Management - Configuration - New Node Data Start" title="Stroom UI Volumes - New Node configuration window start data volume"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ToolsSubmenu-00.png" alt="images/HOWTOs/UI-ToolsSubmenu-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Tools sub-menu</figcaption>
+    </div>
+    
+  </figure>
+</div>
+</p>
+<p>then move down and select the <code>Volumes</code> sub-item to be presented with the <code>Volumes</code> configuration window as.
+We then move the cursor to the <em>New</em> icon 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="/stroom-docs/hugo-docsy/images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
+
+in the top left of the <code>Volumes</code> window and select it.
+This will bring up the <code>Add Volume</code> configuration window where we select our volume&rsquo;s node <code>stroomp02</code>.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-00.png" alt="images/HOWTOs/UI-ManageNewVolume-00.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Volumes - New Node configuration window start data volume</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>We select this node and then configure the rest of the attributes for this <em>data</em> volume</p>
-<p><img src="../resources/UI-ManageNewVolume-01.png" alt="Stroom UI Volume Management - Configuration - New Node Data" title="Stroom UI Volumes - New Node configuration window data volume"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-01.png" alt="images/HOWTOs/UI-ManageNewVolume-01.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Volumes - New Node configuration window data volume</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>then press the
-<img src="../resources/icons/buttonOk.png" alt="Stroom UI OkButton" title="Stroom UI OkButton"> button.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png" alt="images/HOWTOs/icons/buttonOk.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI OkButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+ button.</p>
 <p>We then add another volume for the <em>index</em> volume for this node with attributes as per</p>
-<p><img src="../resources/UI-ManageNewVolume-02.png" alt="Stroom UI Volume Management - Configuration - New Index Added" title="Stroom UI Volumes - New Node configuration window index volume added"></p>
-<p>And on pressing the <img src="../resources/icons/buttonOk.png" alt="Stroom UI OkButton" title="Stroom UI OkButton"> button we see our two new volumes for this node have been added.</p>
-<p><img src="../resources/UI-ManageNewVolume-03.png" alt="Stroom UI Volume Management - Configuration - New Node Added" title="Stroom UI Volumes - New Node configuration window volumes added"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-02.png" alt="images/HOWTOs/UI-ManageNewVolume-02.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Volumes - New Node configuration window index volume added</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
+<p>And on pressing the 
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonOk.png" alt="images/HOWTOs/icons/buttonOk.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI OkButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+ button we see our two new volumes for this node have been added.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/UI-ManageNewVolume-03.png" alt="images/HOWTOs/UI-ManageNewVolume-03.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI Volumes - New Node configuration window volumes added</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <p>At this one can close the <code>Volumes</code> configuration window by pressing the
-<img src="../resources/icons/buttonClose.png" alt="Stroom UI CloseButton" title="Stroom UI CloseButton"> button.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/HOWTOs/icons/buttonClose.png" alt="images/HOWTOs/icons/buttonClose.png">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI CloseButton</figcaption>
+    </div>
+    
+  </figure>
+</div>
+ button.</p>
 
 </div>
 

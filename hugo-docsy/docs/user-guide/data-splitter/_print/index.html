@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.86.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">
+<meta name="generator" content="Hugo 0.87.0" /><link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
@@ -32,8 +32,8 @@
 
 
 
-<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" as="style">
-<link href="/stroom-docs/hugo-docsy/scss/main.min.c8dc854e8995873c14a92d491085e920db121ca55be59dc47d6e43a3dd403c68.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.01ab5e5887b9a2d36219d8f3971a6908f681a1955a7df1f518190d0701f51d9b.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.01ab5e5887b9a2d36219d8f3971a6908f681a1955a7df1f518190d0701f51d9b.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -144,7 +144,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.7bd92cc9cde58ee2843ae3abbf3c87d5.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.287e97f143b0ebbde99ecdb07aa8a1c7.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -334,7 +334,7 @@ This the multi-page printable view of this section.
       <p>Data Splitter was created to transform text into XML. The XML produced is basic but can be processed further with XSLT to form any desired XML output.</p>
 <p>Data Splitter works by using regular expressions to match a region of content or tokenizers to split content. The whole match or match group can then be output or passed to other expressions to further divide the matched data.</p>
 <p>The root <code>&lt;dataSplitter&gt;</code> element controls the way content is read and buffered from the source. It then passes this content on to one or more child expressions that attempt to match the content. The child expressions attempt to match content one at a time in the order they are specified until one matches. The matching expression then passes the content that it has matched to other elements that either emit XML or apply other expressions to the content matched by the parent.</p>
-<p>This process of content supply, match, (supply, match)*, emit is best illustrated in a simple CSV example. Note that the elements and attributes used in all examples are explained in detail in the <a href="2-0-element-reference.md">element reference</a>.</p>
+<p>This process of content supply, match, (supply, match)*, emit is best illustrated in a simple CSV example. Note that the elements and attributes used in all examples are explained in detail in the <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/">element reference</a>.</p>
 
 </div>
 </div>
@@ -388,7 +388,7 @@ This the multi-page printable view of this section.
   &lt;/split&gt;
 &lt;/dataSplitter&gt;
 </code></pre>
-<p>The <code>&lt;group&gt;</code> within the <code>&lt;split&gt;</code> chooses to take the content from the <code>&lt;split&gt;</code> without including the new line &lsquo;\n&rsquo; delimiter by using match group 1, see <a href="3-1-expression-match-references.md#sec-3-1-1">expression match references</a> for details.</p>
+<p>The <code>&lt;group&gt;</code> within the <code>&lt;split&gt;</code> chooses to take the content from the <code>&lt;split&gt;</code> without including the new line &lsquo;\n&rsquo; delimiter by using match group 1, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/3-1-expression-match-references/#sec-3-1-1">expression match references</a> for details.</p>
 <pre><code>01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
 </code></pre>
 <p>The content selected by the <code>&lt;group&gt;</code> from its parent match can then be passed onto sub expressions for further matching:</p>
@@ -434,7 +434,7 @@ This the multi-page printable view of this section.
   &lt;/split&gt;
 &lt;/dataSplitter&gt;
 </code></pre>
-<p>In the above example each match from the inner <code>&lt;split&gt;</code> is made available to the inner <code>&lt;data&gt;</code> element that chooses to output content from match group 1, see <a href="3-1-expression-match-references.md#sec-3-1-1">expression match references</a> for details.</p>
+<p>In the above example each match from the inner <code>&lt;split&gt;</code> is made available to the inner <code>&lt;data&gt;</code> element that chooses to output content from match group 1, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/3-1-expression-match-references/#sec-3-1-1">expression match references</a> for details.</p>
 <p>The above configuration results in the following XML output for the whole input:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;records xmlns=&quot;records:2&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot; version=&quot;3.0&quot;&gt;
@@ -836,7 +836,7 @@ This the multi-page printable view of this section.
     
 	<h1 id="pg-433f7e66c8f749c136edf8dd77485021">5.1 - Content Providers</h1>
     
-	<p>Content providers take some content from the input source or elsewhere (see <a href="3-3-use-of-fixed-strings.md">fixed strings</a> and provide it to one or more expressions. Both the root element <code>&lt;dataSplitter&gt;</code> and <code>&lt;group&gt;</code> elements are content providers.</p>
+	<p>Content providers take some content from the input source or elsewhere (see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/3-3-use-of-fixed-strings/">fixed strings</a> and provide it to one or more expressions. Both the root element <code>&lt;dataSplitter&gt;</code> and <code>&lt;group&gt;</code> elements are content providers.</p>
 <h2 id="a-namesec_2_1_1aroot-element-ltdatasplittergt"><a name="sec_2_1_1"></a>Root element &lt;dataSplitter&gt;</h2>
 <p>The root element of a Data Splitter configuration is <code>&lt;dataSplitter&gt;</code>. It supplies content from the input source to one or more expressions defined within it. The way that content is buffered is controlled by the root element and the way that errors are handled as a result of child expressions not matching all of the content it supplies.</p>
 <h3 id="a-namesec_2_1_1_1aattributes"><a name="sec_2_1_1_1"></a>Attributes</h3>
@@ -909,7 +909,7 @@ value1,value2,value3 # a useless comment
 <pre><code>DSParser [2:1] ERROR: Expressions failed to match all of the content provided by group: regex[0]/group[0]/regex[3]/group[1] : &lt;group id=&quot;myGroupId&quot;&gt;
 </code></pre>
 <h4 id="a-namesec-2-1-2-1-2avalue"><a name="sec-2-1-2-1-2"></a>value</h4>
-<p>This attribute determines what content to present to child expressions. By default the entire content matched by a group’s parent expression is passed on by the group to child expressions. If required, content from a specific match group in the parent expression can be passed to child expressions using the value attribute, e.g. <code>value=&quot;$1&quot;</code>. In addition to this content can be composed in the same way as it is for data names and values. see <a href="3-0-match-references.md">match references</a> for a full description of match references.</p>
+<p>This attribute determines what content to present to child expressions. By default the entire content matched by a group’s parent expression is passed on by the group to child expressions. If required, content from a specific match group in the parent expression can be passed to child expressions using the value attribute, e.g. <code>value=&quot;$1&quot;</code>. In addition to this content can be composed in the same way as it is for data names and values. see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/">match references</a> for a full description of match references.</p>
 <h4 id="a-namesec-2-1-2-1-3aignoreerrors"><a name="sec-2-1-2-1-3"></a>ignoreErrors</h4>
 <p>This behaves in the same way as for the root element.</p>
 <h4 id="a-namesec-2-1-2-1-4amatchorder"><a name="sec-2-1-2-1-4"></a>matchOrder</h4>
@@ -967,7 +967,7 @@ value1,value2,value3 # a useless comment
 &lt;data name=&quot;serverName&quot; value=&quot;bigserver&quot; /&gt;
 </code></pre>
 <p>The reverse feature isn&rsquo;t needed very often but there are a few cases where it really helps produce the desired output without the complexity and performance overhead of a reluctant match.</p>
-<p>An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the <a href="2-2-expressions.md#sec-2-2-2-1-5">advance attribute</a> on the <code>&lt;regex&gt;</code>. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.</p>
+<p>An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-2-expressions/#sec-2-2-2-1-5">advance attribute</a> on the <code>&lt;regex&gt;</code>. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.</p>
 
 </div>
 
@@ -1002,7 +1002,7 @@ value1,value2,value3 # a useless comment
 <li><a href="#sec-2-2-1-1-8">onlyMatch</a></li>
 </ul>
 <h4 id="a-namesec-2-2-1-1-1aid"><a name="sec-2-2-1-1-1"></a>id</h4>
-<p>Optional attribute used to debug the location of expressions causing errors, see <a href="2-1-content-providers.md#sec-2-1-2-1-1">id</a>.</p>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-1-content-providers/#sec-2-1-2-1-1">id</a>.</p>
 <h4 id="a-namesec-2-2-1-1-2adelimiter"><a name="sec-2-2-1-1-2"></a>delimiter</h4>
 <p>A required attribute used to specify the character string that will be used as a delimiter to split the supplied content unless it is preceded by an escape character or within a container if specified. Several of the previous examples use this attribute.</p>
 <h4 id="a-namesec-2-2-1-1-3aescape"><a name="sec-2-2-1-1-3"></a>escape</h4>
@@ -1015,7 +1015,7 @@ value1,value2,value3 # a useless comment
 <p>If used <code>containerStart</code> must also be specified. If the container characters are to be ignored from the match then match group 1 must be used instead of 0.</p>
 <h4 id="a-namesec-2-2-1-1-6amaxmatch"><a name="sec-2-2-1-1-6"></a>maxMatch</h4>
 <p>An optional attribute used to specify the maximum number of times this expression is allowed to match the supplied content. If you do not supply this attribute then the Data Splitter will keep matching the supplied content until it reaches the end. If specified Data Splitter will stop matching the supplied content when it has matched it the specified number of times.</p>
-<p>This attribute is used in the <a href="1-2-simple-csv-example-with-heading.md">&lsquo;CSV with header line&rsquo;</a> example to ensure that only the first line is treated as a header line.</p>
+<p>This attribute is used in the <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/1-2-simple-csv-example-with-heading/">&lsquo;CSV with header line&rsquo;</a> example to ensure that only the first line is treated as a header line.</p>
 <h4 id="a-namesec-2-2-1-1-7aminmatch"><a name="sec-2-2-1-1-7"></a>minMatch</h4>
 <p>An optional attribute used to specify the minimum number of times this expression should match the supplied content. If you do not supply this attribute then Data Splitter will not enforce that the expression matches the supplied content. If specified Data Splitter will generate an error if the expression does not match the supplied content at least as many times as specified.</p>
 <p>Unlike <code>maxMatch</code>, <code>minMatch</code> does not control the matching process but instead controls the production of error messages generated if the parser is not seeing the expected input.</p>
@@ -1036,7 +1036,7 @@ value1,value2,value3 # a useless comment
 <li><a href="#sec-2-2-2-1-8">advance</a></li>
 </ul>
 <h4 id="a-namesec-2-2-2-1-1aid"><a name="sec-2-2-2-1-1"></a>id</h4>
-<p>Optional attribute used to debug the location of expressions causing errors, see <a href="2-1-content-providers.md#sec-2-1-2-1-1">id</a>.</p>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-1-content-providers/#sec-2-1-2-1-1">id</a>.</p>
 <h4 id="a-namesec-2-2-2-1-2apattern"><a name="sec-2-2-2-1-2"></a>pattern</h4>
 <p>This is a required attribute used to specify a regular expression to use to match on the supplied content. The pattern is used to match the content multiple times until the end of the content is reached while the maxMatch and onlyMatch conditions are satisfied.</p>
 <h4 id="a-namesec-2-2-2-1-3adotall"><a name="sec-2-2-2-1-3"></a>dotAll</h4>
@@ -1072,7 +1072,7 @@ value1,value2,value3 # a useless comment
 <pre><code>name2=some value 2 name3=some value 3
 </code></pre>
 <p>Therefore <code>name2</code> will still be available in the content buffer.</p>
-<p>It is likely that the advance feature will only be useful in cases where a reluctant match is performed. Reluctant matches are discouraged for performance reasons so this feature should rarely be used. A better way to tackle the above example would be to present the content in <a href="2-1-content-providers.md#sec-2-1-2-1-5">reverse</a>, however this is only possible if the expression is within a group, i.e. is not a root expression. There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.</p>
+<p>It is likely that the advance feature will only be useful in cases where a reluctant match is performed. Reluctant matches are discouraged for performance reasons so this feature should rarely be used. A better way to tackle the above example would be to present the content in <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-1-content-providers/#sec-2-1-2-1-5">reverse</a>, however this is only possible if the expression is within a group, i.e. is not a root expression. There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.</p>
 <h2 id="a-namesec_2_2_3athe-ltallgt-element"><a name="sec_2_2_3"></a>The &lt;all&gt; element</h2>
 <p>The <code>&lt;all&gt;</code> element matches the entire content of the parent group and makes it available to child groups or <code>&lt;data&gt;</code> elements. The purpose of <code>&lt;all&gt;</code> is to act as a catch all expression to deal with content that is not handled by a more specific expression, e.g. to output some other unknown, unrecognised or unexpected data.</p>
 <pre><code class="language-xml">&lt;group&gt;
@@ -1093,7 +1093,7 @@ value1,value2,value3 # a useless comment
 <li><a href="#sec-2-2-3-1-1">id</a></li>
 </ul>
 <h4 id="a-namesec-2-2-3-1-1aid"><a name="sec-2-2-3-1-1"></a>id</h4>
-<p>Optional attribute used to debug the location of expressions causing errors, see <a href="2-1-content-providers.md#sec-2-1-2-1-1">id</a>.</p>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-1-content-providers/#sec-2-1-2-1-1">id</a>.</p>
 
 </div>
 
@@ -1122,11 +1122,11 @@ value1,value2,value3 # a useless comment
 <li><a href="#sec-2-4-1-1-3">value</a></li>
 </ul>
 <h4 id="a-namesec-2-4-1-1-1aid"><a name="sec-2-4-1-1-1"></a>id</h4>
-<p>Optional attribute used to debug the location of expressions causing errors, see <a href="2-1-content-providers.md#sec-2-1-2-1-1">id</a>.</p>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-1-content-providers/#sec-2-1-2-1-1">id</a>.</p>
 <h4 id="a-namesec-2-4-1-1-2aname"><a name="sec-2-4-1-1-2"></a>name</h4>
-<p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="3-0-match-references.md">match references</a>.</p>
+<p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/">match references</a>.</p>
 <h4 id="a-namesec-2-4-1-1-3avalue"><a name="sec-2-4-1-1-3"></a>value</h4>
-<p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="3-0-match-references.md">match references</a>.</p>
+<p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/">match references</a>.</p>
 <h4 id="a-namesec_2_4_1_2asingle-ltdatagt-element-example"><a name="sec_2_4_1_2"></a>Single &lt;data&gt; element example</h4>
 <p>The simplest example that can be provided uses a single <code>&lt;data&gt;</code> element within a <code>&lt;split&gt;</code> expression.</p>
 <p>Given the following input:</p>
@@ -1335,8 +1335,8 @@ ip=3.3.3.3 user=user3
     
 	<h1 id="pg-51f3f0c126598dfdbe243f6ba10324b0">5.4 - Variables</h1>
     
-	<p>A variable is added to Data Splitter using the <code>&lt;var&gt;</code> element. A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see <a href="3-2-variable-reference.md#variable-reference">variable reference</a>.</p>
-<p>The most recent matches are stored for use in local references, i.e. references that are in the same match scope as the variable. Multiple matches are stored for use in references that are in a separate match scope. The concept of different variable scopes is described in <a href="3-2-variable-reference.md#sec-3-2-2">scopes</a>.</p>
+	<p>A variable is added to Data Splitter using the <code>&lt;var&gt;</code> element. A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/3-2-variable-reference/#variable-reference">variable reference</a>.</p>
+<p>The most recent matches are stored for use in local references, i.e. references that are in the same match scope as the variable. Multiple matches are stored for use in references that are in a separate match scope. The concept of different variable scopes is described in <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/match-reference/3-2-variable-reference/#sec-3-2-2">scopes</a>.</p>
 <h2 id="a-namesec-2-3-1athe-ltvargt-element"><a name="sec-2-3-1"></a>The &lt;var&gt; element</h2>
 <p>The <code>&lt;var&gt;</code> element is used to tell Data Splitter to store matches from a parent expression for use in a reference.</p>
 <h3 id="a-namesec-2-3-1-1aattributes"><a name="sec-2-3-1-1"></a>Attributes</h3>
@@ -1345,7 +1345,7 @@ ip=3.3.3.3 user=user3
 <li><a href="#sec-2-3-1-1-1">id</a></li>
 </ul>
 <h4 id="a-namesec-2-3-1-1-1aid"><a name="sec-2-3-1-1-1"></a>id</h4>
-<p>Mandatory attribute used to uniquely identify it within the configuration (see <a href="2-1-content-providers.md#sec-2-1-2-1-1">id</a>) and is the means by which a variable is referenced, e.g. <code>$VAR_ID$</code>.</p>
+<p>Mandatory attribute used to uniquely identify it within the configuration (see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-1-content-providers/#sec-2-1-2-1-1">id</a>) and is the means by which a variable is referenced, e.g. <code>$VAR_ID$</code>.</p>
 
 </div>
 
@@ -1437,7 +1437,7 @@ ip=3.3.3.3 user=user3
   &lt;data name=&quot;line&quot; value=&quot;$&quot;/&gt;
 &lt;/split&gt;
 </code></pre>
-<p>A <code>&lt;split&gt;</code> element matches content up to and including the specified <a href="2-2-expressions.md#sec-2-2-1-1-2">delimiter</a>, so the above reference would output the entire line plus the delimiter. However there are various match groups that can be used by child <code>&lt;group&gt;</code> and <code>&lt;data&gt;</code> elements to reference sections of the matched content.</p>
+<p>A <code>&lt;split&gt;</code> element matches content up to and including the specified <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-2-expressions/#sec-2-2-1-1-2">delimiter</a>, so the above reference would output the entire line plus the delimiter. However there are various match groups that can be used by child <code>&lt;group&gt;</code> and <code>&lt;data&gt;</code> elements to reference sections of the matched content.</p>
 <p>To illustrate the content provided by each match group, take the following example:</p>
 <pre><code class="language-text">&quot;This is some text\, that we wish to match&quot;, &quot;This is the next text&quot;
 </code></pre>
@@ -1551,7 +1551,7 @@ ip=3.3.3.3 user=user3
     
 	<h1 id="pg-ad6ae2faaa3721b740dceefffaf34916">6.4 - Variable reference</h1>
     
-	<p>Variables are added to Data Splitter configuration using the <code>&lt;var&gt;</code> element, see <a href="2-3-variables.md">variables</a>. Each variable must have a unique id so that it can be referenced. References to variables have the form <code>$VARIABLE_ID$</code>, e.g.</p>
+	<p>Variables are added to Data Splitter configuration using the <code>&lt;var&gt;</code> element, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-3-variables/">variables</a>. Each variable must have a unique id so that it can be referenced. References to variables have the form <code>$VARIABLE_ID$</code>, e.g.</p>
 <pre><code class="language-xml">&lt;data name=&quot;$heading$&quot; value=&quot;$&quot; /&gt;
 </code></pre>
 <h2 id="a-namesec-3-2-1aidentification"><a name="sec-3-2-1"></a>Identification</h2>
@@ -1581,7 +1581,7 @@ ip=3.3.3.3 user=user3
 <p>Because the variable is referenced locally only the most recent parent match is relevant, i.e. no retrieval of values by
 <a href="#sec-3-2-2-2-1">iteration</a>, <a href="#sec-3-2-2-2-2">iteration offset</a> or <a href="#sec-3-2-2-2-3">fixed position</a> is applicable. These features only apply to remote variables that store multiple values.</p>
 <h3 id="a-namesec-3-2-2-2aremote-scope"><a name="sec-3-2-2-2"></a>Remote Scope</h3>
-<p>The <a href="1-2-simple-csv-example-with-heading.md">CSV example with a heading</a> is an example of a variable being referenced from a remote scope.</p>
+<p>The <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/1-2-simple-csv-example-with-heading/">CSV example with a heading</a> is an example of a variable being referenced from a remote scope.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot; version=&quot;3.0&quot;&gt;
 

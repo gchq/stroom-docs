@@ -33,9 +33,15 @@ Using the positional information it is possible to tag Events with sufficient de
 &lt;/ol&gt;
 &lt;h2 id=&#34;steps&#34;&gt;Steps&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;Create a new XSLT called Source Decoration containing the following:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:stylesheet xpath-default-namespace=&amp;quot;event-logging:3&amp;quot; xmlns:sm=&amp;quot;stroom-meta&amp;quot; xmlns=&amp;quot;event-logging:3&amp;quot; xmlns:rec=&amp;quot;records:2&amp;quot; xmlns:stroom=&amp;quot;stroom&amp;quot;  version=&amp;quot;3.0&amp;quot; xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;&amp;gt;
+&lt;li&gt;
+&lt;p&gt;Create a new XSLT called Source Decoration containing the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:stylesheet 
+    xpath-default-namespace=&amp;quot;event-logging:3&amp;quot; 
+    xmlns:sm=&amp;quot;stroom-meta&amp;quot; xmlns=&amp;quot;event-logging:3&amp;quot; 
+    xmlns:rec=&amp;quot;records:2&amp;quot; 
+    xmlns:stroom=&amp;quot;stroom&amp;quot;  
+    version=&amp;quot;3.0&amp;quot; 
+    xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;&amp;gt;
   &amp;lt;xsl:template match=&amp;quot;@*|node()&amp;quot;&amp;gt;
     &amp;lt;xsl:copy&amp;gt;
       &amp;lt;xsl:apply-templates select=&amp;quot;@*|node()&amp;quot; /&amp;gt;
@@ -58,11 +64,15 @@ Using the positional information it is possible to tag Events with sufficient de
 &amp;lt;/xsl:stylesheet&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This XSLT will add or augment the Meta section of the Event with the source details.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.&lt;/li&gt;
-&lt;li&gt;Reprocess the Events through the modified pipeline, also ensure your Events are indexed.&lt;/li&gt;
-&lt;li&gt;Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data. Add the following to the XSLT:&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Insert a new XSLT filter into your translation pipeline after your translation filter and set it to the XSLT created above.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reprocess the Events through the modified pipeline, also ensure your Events are indexed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Amend the translation performed by the Extraction pipeline to include the new data items that represent the source position data. Add the following to the XSLT:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:element name=&amp;quot;data&amp;quot;&amp;gt;
   &amp;lt;xsl:attribute name=&amp;quot;name&amp;quot;&amp;gt;
     &amp;lt;xsl:text&amp;gt;src-id&amp;lt;/xsl:text&amp;gt;
@@ -106,15 +116,61 @@ Using the positional information it is possible to tag Events with sufficient de
   &amp;lt;xsl:attribute name=&amp;quot;value&amp;quot; select=&amp;quot;Meta/sm:source/sm:colTo&amp;quot; /&amp;gt;
 &amp;lt;/xsl:element&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ol&gt;
-&lt;li&gt;Open your dashboard, now add the following custom fields to your table : &lt;code&gt;${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Now add a New Text Window to your Dashboard, and configure it as below:
-&lt;img src=&#34;../resources/HT-RawSourceTextWindow.png&#34; alt=&#34;&amp;ldquo;TextWindow Config&amp;rdquo;&#34; title=&#34;TextWindow Config&#34;&gt;&lt;/li&gt;
-&lt;li&gt;You can also add a column to the table that will open a data window showing the source.
-Add a custom column with the following expression:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;data(&#39;Raw Log&#39;,${src-id},${src-partNo},&#39;&#39;,${src-lineFrom},${src-colFrom},${src-lineTo},${src-colTo})
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open your dashboard, now add the following custom fields to your table:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now add a New Text Window to your Dashboard, and configure it as below:
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+    
+    &lt;img class=&#34;card-img-top&#34; src=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/images/HOWTOs/HT-RawSourceTextWindow.png&#34; alt=&#34;images/HOWTOs/HT-RawSourceTextWindow.png&#34;&gt;
+    
+
+    
+    &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+      &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+      &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;TextWindow Config&lt;/figcaption&gt;
+    &lt;/div&gt;
+    
+  &lt;/figure&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can also add a column to the table that will open a data window showing the source.
+Add a custom column with the following expression:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;data(&#39;Raw Log&#39;,${src-id},${src-partNo},&#39;&#39;,${src-lineFrom},${src-colFrom},${src-lineTo},${src-colTo})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 
       </description>
     </item>
