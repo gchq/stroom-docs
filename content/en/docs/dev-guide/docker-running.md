@@ -1,7 +1,14 @@
-# Running Stroom in Docker Containers
-
-This is how to run Stroom and its peripheral services using _Docker_. 
-Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running. 
+---
+title: "Running in Docker"
+linkTitle: "Running in Docker"
+#weight:
+date: 2021-08-20
+tags: 
+  - docker
+description: >
+  This is how to run Stroom and its peripheral services using _Docker_. 
+  Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running. 
+---
 
 > _NOTE_: The published docker images are intended for small scale testing or evaluation purposes and are currently un-tested in a production environment.
 

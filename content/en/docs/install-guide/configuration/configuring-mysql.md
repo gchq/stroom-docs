@@ -11,7 +11,7 @@ description: >
 
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-07  
-> **See Also:** [MySQL Server Setup](../setup/mysql-server-setup.md)  
+> **See Also:** [MySQL Server Setup]({{< relref "../setup/mysql-server-setup.md" >}})  
 > **See Also:** [MySQL Server Administration (external link)](https://dev.mysql.com/doc/refman/8.0/en/server-administration.html)
 
 ## General configuration

@@ -10,7 +10,7 @@ description: >
 
 > **Version Information:** Created with Stroom v7.0  
 > **Last Updated:** 2021-06-23  
-> **See Also:** [Properties](../../user-guide/properties.md).  
+> **See Also:** [Properties]({{< relref "../../user-guide/properties.md" >}}).  
 
 ## General configuration
 
@@ -24,7 +24,7 @@ As a minimum this file should be used to configure anything that needs to be set
 If you are using some form of scripted deployment, e.g. ansible then it can be used to set all stroom properties for the environment that stroom runs in.
 If you are not using scripted deployments then you can maintain stroom's node agnostic configuration properties via the user interface.
 
-For more details on the structure of the file, data types and property precedence see [Properties](../../user-guide/properties.md).
+For more details on the structure of the file, data types and property precedence see [Properties]({{< relref "../../user-guide/properties.md" >}}).
 
 Stroom operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
 As a result `config.yml` only contains a minimal set of properties.
@@ -114,7 +114,7 @@ Stroom's `config.yml` file is found in the stack in `./volumes/stroom/config/` a
 The stack also ships with a default `config.yml` file baked into the docker image.
 This minimal fallback file (located in `/stroom/config-fallback/` inside the container) will be used in the absence of one provided in the docker stack configuration (`./volumes/stroom/config/`).
 
-The default `config.yml` file uses [environment variable substitution](./configuration.md#environment-variables) so some configuration items will be set by environment variables set into the container by the stack _env_ file and the docker-compose YAML.
+The default `config.yml` file uses [environment variable substitution]({{< relref "./#environment-variables" >}}) so some configuration items will be set by environment variables set into the container by the stack _env_ file and the docker-compose YAML.
 This approach is useful for configuration values that need to be used by multiple containers, e.g. the public FQDN of Nginx, so it can be configured in one place.
 
 If you need to further customise the stroom configuration then it is recommended to edit the `./volumes/stroom/config/config.yml` file.

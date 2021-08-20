@@ -26,15 +26,15 @@ This document will explain how each application/service is configured and where 
 
 The following sections provide links to how to configure each application.
 
-* [Stroom Configuration](./configuring-stroom.md)
+* [Stroom Configuration]({{< relref "./configuring-stroom.md" >}})
 
-* [Stroom Proxy Configuration](./configuring-stroom-proxy.md)
+* [Stroom Proxy Configuration]({{< relref "./configuring-stroom-proxy.md" >}})
 
-* [MySQL Configuration](./configuring-mysql.md)
+* [MySQL Configuration]({{< relref "./configuring-mysql.md" >}})
 
-* [Nginx Configuration](./configuring-nginx.md)
+* [Nginx Configuration]({{< relref "./configuring-nginx.md" >}})
 
-* [Stroom log sender Configuration](./configuring-stroom-log-sender.md)
+* [Stroom log sender Configuration]({{< relref "./configuring-stroom-log-sender.md" >}})
 
 
 ## General configuration of docker stacks

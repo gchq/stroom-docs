@@ -1,4 +1,14 @@
-# Building the documentation
+---
+title: "Building the documentation"
+linkTitle: "Building the documentation"
+#weight:
+date: 2021-08-20
+tags: 
+  - TODO
+description: >
+  
+---
+
 Stroom's documentation is built using [GitBook (external link)](https://www.gitbook.com). 
 
 ## Prerequisites

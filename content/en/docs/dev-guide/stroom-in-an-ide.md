@@ -1,4 +1,12 @@
-# Running Stroom v6.x onwards in an IDE (IntelliJ)
+---
+title: "Running Stroom in an IDE"
+linkTitle: "Running Stroom in an IDE"
+#weight:
+date: 2021-08-20
+tags: 
+description: >
+  
+---
 
 We tend to use IntelliJ as our Java IDE of choice. This is a guide for running Stroom in IntelliJ for the purposes of developing/debugging Stroom.
 

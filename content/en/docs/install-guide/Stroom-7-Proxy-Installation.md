@@ -24,8 +24,8 @@ The following assumptions are used in this document.
 - the Stroom database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3307.
 - the Stroom database user is `stroomuser` with a password of `Stroompassword1@`.
 - the application user `stroomuser` has been created.
-- the user is or has deployed the two node Stroom cluster described [here](../HOWTOs/Install/InstallHowTo.md#storage-scenario "HOWTO Storage Scenario").
-- the user has set up the Stroom processing user as described [here](../HOWTOs/Install/InstallProcessingUserSetupHowTo.md "Processing User Setup").
+- the user is or has deployed the two node Stroom cluster described [here]({{< relref "../HOWTOs/Install/InstallHowTo.md#storage-scenario" >}}).
+- the user has set up the Stroom processing user as described [here]({{< relref "../HOWTOs/Install/InstallProcessingUserSetupHowTo.md" >}}).
 - the prerequisite software has been installed.
 - when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.  
 

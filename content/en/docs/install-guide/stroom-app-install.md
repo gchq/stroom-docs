@@ -68,8 +68,8 @@ tail -f instance/logs/stroom.log
 
 You might want to configure some of the following:
 
-* [Processing User Setup](setup/processing-user-setup.md)
-* [MySQL Server Setup](setup/mysql-server-setup.md)
-* [Java Key Store Setup](setup/java-key-store-setup.md)
-* [Apache Forwarding](setup/apache-forwarding.md)
-* [Securing Stroom](setup/securing-stroom.md)
+* [Processing User Setup]({{< relref "setup/processing-user-setup.md" >}})
+* [MySQL Server Setup]({{< relref "setup/mysql-server-setup.md" >}})
+* [Java Key Store Setup]({{< relref "setup/java-key-store-setup.md" >}})
+* [Apache Forwarding]({{< relref "setup/apache-forwarding.md" >}})
+* [Securing Stroom]({{< relref "setup/securing-stroom.md" >}})

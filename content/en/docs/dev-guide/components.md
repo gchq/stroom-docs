@@ -1,6 +1,14 @@
-# Stroom Components
-
-Stroom is broken down into separate components. Each component encapsulates a specific area of Stroom functionality and aids development by providing a single area of focus for new features and ensures separate components remain as loosely coupled as possible. Components can be tested in isolation and their interaction with other components easily understood by only allowing dependencies via minimal APIs.
+---
+title: "Components"
+linkTitle: "Components"
+#weight:
+date: 2021-08-20
+tags: 
+description: >
+  Stroom is broken down into separate components.
+  Each component encapsulates a specific area of Stroom functionality and aids development by providing a single area of focus for new features and ensures separate components remain as loosely coupled as possible.
+  Components can be tested in isolation and their interaction with other components easily understood by only allowing dependencies via minimal APIs.
+---
 
 Some examples of components in Stroom include
 * stroom-activity - Component for recording a users actions against a current activity

@@ -51,7 +51,7 @@ Any client certificate details will be passed on to the service that is being re
 ### Single Node Docker Deployment
 
 The simplest deployment of stroom is where all services are on a single host and each service runs in its own docker container.
-Such a deployment can be achieved by following [these instructions](../dev-guide/docker-running.md).
+Such a deployment can be achieved by following [these instructions]({{< relref "../dev-guide/docker-running.md" >}}).
 
 The following diagram shows how a single node deployment would look.
 
