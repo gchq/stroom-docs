@@ -47,7 +47,7 @@ _Stroom-Docs_ is created using the static site generator [Hugo (external link)](
 The full documentation for _Hugo_ can be found [here (external link)](https://gohugo.io/documentation/).
 
 The site also uses the [Docsy (external link)](https://www.docsy.dev) theme for Hugo.
-The documentation for _Docsy_ can be found [here (external link](https://www.docsy.dev/docs/).
+The documentation for _Docsy_ can be found [here (external link)](https://www.docsy.dev/docs/).
 The _Docsy_ theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the _Docsy_ documentation in the first instance.
 
