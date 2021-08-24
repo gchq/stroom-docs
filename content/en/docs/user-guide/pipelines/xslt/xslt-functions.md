@@ -127,7 +127,7 @@ The following are example lookups using the above reference data:
 | `1`                  | `0x1`            | `0000001` | `Administrator`                         |
 | `74`                 | `0x4A`           | `1001010` | `Manage_Users View_Data Manage_Volumes` |
 | `2`                  | `0x2`            | `0000010` | `Manage_Users`                          |
-| `96`                 | `0x60`           | `1100000` | `Delete_Data ManageUsers`               |
+| `96`                 | `0x60`           | `1100000` | `Delete_Data Manage_Volumes`            |
 
 ## dictionary()
 The dictionary() function gets the contents of the specified dictionary for use during translation.
