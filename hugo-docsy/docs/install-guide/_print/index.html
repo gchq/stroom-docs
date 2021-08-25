@@ -147,7 +147,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.9c41b5a917809ea4b279564fa68521f5.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.01040425a1950f0cbbdf016a4e4c7755.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -1093,7 +1093,45 @@ It is not applicable for v6+.</p>
 	<p>The diagram below shows the logical architecture of Stroom v6.
 It is not concerned with how/where the various services are deployed.
 This page describes represents a reference architecture and deployment for stroom but it is possible to deploy the various services in many different ways, e.g. using a different web server to Nginx or introducing load balancers.</p>
-<p><img src="stroom-6-architecture.puml.svg" alt="Logical Architecture Diagram"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/install-guide/stroom-6-architecture.puml.svg" alt="images/install-guide/stroom-6-architecture.puml.svg">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Logical Architecture Diagram</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <h2 id="nginx">Nginx</h2>
 <p>In stroom v6, a central Nginx is key to the whole architecture.
 It acts in the following capacities:</p>
@@ -1122,13 +1160,89 @@ Any client certificate details will be passed on to the service that is being re
 <p>The simplest deployment of stroom is where all services are on a single host and each service runs in its own docker container.
 Such a deployment can be achieved by following <a href="/stroom-docs/hugo-docsy/docs/dev-guide/docker-running/">these instructions</a>.</p>
 <p>The following diagram shows how a single node deployment would look.</p>
-<p><img src="stroom-6-deployment-docker-single.puml.svg" alt="Logical Architecture Diagram"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/install-guide/stroom-6-deployment-docker-single.puml.svg" alt="images/install-guide/stroom-6-deployment-docker-single.puml.svg">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Logical Architecture Diagram</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <h3 id="multi-node-mixed-deployment">Multi Node Mixed Deployment</h3>
 <p>The typical deployment for a large scale stroom is where stroom is run on multiple hosts to scale out the processing.
 In this deployment stroom and MySQL are run directly on the host OS, i.e. without docker.
 This approach was taken to gradually introduce docker into the stroom deployment strategies.</p>
 <p>The following diagram shows how a multi node deployment would look.</p>
-<p><img src="stroom-6-deployment-mixed-multi.puml.svg" alt="Logical Architecture Diagram"></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <figure style="margin-block-end: 0px" >
+    
+    <img class="card-img-top" src="/stroom-docs/hugo-docsy/images/install-guide/stroom-6-deployment-mixed-multi.puml.svg" alt="images/install-guide/stroom-6-deployment-mixed-multi.puml.svg">
+    
+
+    
+    <div class="card-body px-0 pt-2 pb-0">
+      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+      <figcaption class="card-text" style="font-size: smaller; text-align: center;">Logical Architecture Diagram</figcaption>
+    </div>
+    
+  </figure>
+</div>
+
 <h3 id="multi-node-all-docker-deployment">Multi Node All docker Deployment</h3>
 <p>The aim in future is to run all services in docker in a multi node deployment.
 Such a deployment is still under development and will likely involve kubernetes for container orchestration.</p>
