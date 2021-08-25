@@ -13,7 +13,8 @@ The diagram below shows the logical architecture of Stroom v6.
 It is not concerned with how/where the various services are deployed.
 This page describes represents a reference architecture and deployment for stroom but it is possible to deploy the various services in many different ways, e.g. using a different web server to Nginx or introducing load balancers.
 
-![Logical Architecture Diagram](stroom-6-architecture.puml.svg)
+{{< image "install-guide/stroom-6-architecture.puml.svg">}}Logical Architecture Diagram{{< /image >}}
+
 
 ## Nginx
 
@@ -55,7 +56,7 @@ Such a deployment can be achieved by following [these instructions]({{< relref "
 
 The following diagram shows how a single node deployment would look.
 
-![Logical Architecture Diagram](stroom-6-deployment-docker-single.puml.svg)
+{{< image "install-guide/stroom-6-deployment-docker-single.puml.svg" >}}Logical Architecture Diagram{{< /image >}}
 
 ### Multi Node Mixed Deployment
 
@@ -65,7 +66,7 @@ This approach was taken to gradually introduce docker into the stroom deployment
 
 The following diagram shows how a multi node deployment would look.
 
-![Logical Architecture Diagram](stroom-6-deployment-mixed-multi.puml.svg)
+{{< image "install-guide/stroom-6-deployment-mixed-multi.puml.svg" >}}Logical Architecture Diagram{{< /image >}}
 
 ### Multi Node All docker Deployment
 
