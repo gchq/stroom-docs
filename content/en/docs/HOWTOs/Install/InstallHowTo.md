@@ -240,12 +240,15 @@ We will now check that the installation and web services integration has worked.
 
 ### Sanity firewall check
 To ensure you have the firewall correctly set up, the following command
+
 ```bash
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 ```
+
 should result in
-```
+
+```text
 public (active)
   target: default
   icmp-block-inversion: no
@@ -263,17 +266,21 @@ public (active)
 
 ### Test Posting of data to the Stroom service
 You can test the data posting service with the command
+
 ```bash
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
 ```
+
 which **WILL** result in an error as we have not configured the Stroom Application as yet. The error should look like
+
 ```html
 <html><head><title>Apache Tomcat/7.0.53 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 406 - Stroom Status 110 - Feed is not set to receive data - </h1><HR size="1" noshade="noshade"><p><b>type</b> Status report</p><p><b>message</b> <u>Stroom Status 110 - Feed is not set to receive data - </u></p><p><b>description</b> <u>The resource identified by this request is only capable of generating responses with characteristics not acceptable according to the request "accept" headers.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/7.0.53</h3></body></html>
 ```
 
 If you view the Stroom proxy log, `~/stroom-proxy/instance/logs/stroom.log`, on both processing nodes, you will see on one node,
 the _datafeed.DataFeedRequestHandler_ events running under, in this case, the _ajp-apr-9009-exec-1_ thread indicating the failure
-```
+
+```text
 ...
 2017-01-03T03:35:47.366Z WARN  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler (DataFeedRequestHandler.java:131) - "handleException()","Environment=EXAMPLE_ENVIRONMENT","Expect=100-continue","Feed=TEST-FEED-V1_0","GUID=39960cf9-e50b-4ae8-a5f2-449ee670d2eb","ReceivedTime=2017-01-03T03:35:46.915Z","RemoteAddress=192.168.2.220","RemoteHost=192.168.2.220","System=EXAMPLE_SYSTEM","accept=*/*","content-length=1051","content-type=application/x-www-form-urlencoded","host=stroomp.strmdev00.org","user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2","Stroom Status 110 - Feed is not set to receive data"
 2017-01-03T03:35:47.367Z ERROR [ajp-apr-9009-exec-1] zip.StroomStreamException (StroomStreamException.java:131) - sendErrorResponse() - 406 Stroom Status 110 - Feed is not set to receive data - 
@@ -290,6 +297,7 @@ Although we have installed our multi node Stroom cluster, we now need to configu
 We do this via the user interface (UI).
 
 ### Logging into the Stroom UI for the first time
+
 To log into the UI of your newly installed Stroom instance, present the base URL to your 
 [Chrome (external link)](https://www.google.com/chrome "Google Chrome Web Browser") browser. In this deployment, you should enter the URLS
 `http://stroomp.strmdev00.org`, or `https://stroomp.strmdev00.org` or `https://stroomp.strmdev00.org/stroom`, noting the first URLs
