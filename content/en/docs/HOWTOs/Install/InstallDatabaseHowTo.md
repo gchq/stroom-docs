@@ -544,15 +544,15 @@ For the `stroom` database, we will use the database user `stroomuser` with a pas
 
 In the `stroom` database instance, we will grant access for
 
-- stroomuser@localhost for local access for maintenance etc.
-- stroomuser@stroomp00.strmdev00.org for access by processing node stroomp00.strmdev00.org
-- stroomuser@stroomp01.strmdev00.org for access by processing node stroomp01.strmdev00.org
+- `stroomuser@localhost` for local access for maintenance etc.
+- `stroomuser@stroomp00.strmdev00.org` for access by processing node `stroomp00.strmdev00.org`
+- `stroomuser@stroomp01.strmdev00.org` for access by processing node `stroomp01.strmdev00.org`
 
 and in the `statistics` database instance, we will grant access for
 
-- stroomstats@localhost for local access for maintenance etc.
-- stroomstats@stroomp00.strmdev00.org for access by processing node stroomp00.strmdev00.org
-- stroomstats@stroomp01.strmdev00.org for access by processing node stroomp01.strmdev00.org
+- `stroomstats@localhost` for local access for maintenance etc.
+- `stroomstats@stroomp00.strmdev00.org` for access by processing node `stroomp00.strmdev00.org`
+- `stroomstats@stroomp01.strmdev00.org` for access by processing node `stroomp01.strmdev00.org`
 
 Thus for the `stroom` database we execute
 
