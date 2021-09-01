@@ -8,7 +8,9 @@ description: >
   How to setup an instance of Stroom and get started processing data.
 ---
 
-In this quick-start guide you will learn how to use Stroom to get from [this CSV](/data/quick-start-guide/mock_stroom_data.csv), which looks like this:
+In this quick-start guide you will learn how to use Stroom to get from a file that looks like this:
+
+{{< textfile "quick-start-guide/mock_stroom_data.csv" "csv">}}Quick start test data{{< /textfile >}}
 
 ```csv
 id,guid,from_ip,to_ip,application

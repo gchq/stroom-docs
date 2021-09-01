@@ -5,12 +5,12 @@
 
 # The top of page title.
 # Each word capitalised.
-title: "Style Guide (DRAFT)"
+title: "Style Guide"
 
 # The link title in the left menu. Often the same as the title but if the title
 # is long then it is better to shorten/abbreviate the link title
 # Each word capitalised.
-linkTitle: "Style Guide (DRAFT)"
+linkTitle: "Style Guide"
 
 # Priority in the main (top) menu bar, lower numbers to left
 # menu:
@@ -27,12 +27,10 @@ tags:
   - style
 
 # Cascade properties to all sub pages
-# Set draft: true to stop the page appearing in the published/released version, unless --buildDrafts arg is used.
-cascade:
-  draft: true
+# cascade:
 
 # Prevent this page from being included in 'Search this site...'
-exclude_search: true
+#exclude_search: true
 
 # Description section that goes between the page title and the list of tags for the page
 # It is also shown on the parent page, beneath the link, so it is useful for eah page to have at least a sentence summarising the page.
@@ -40,7 +38,6 @@ exclude_search: true
 description: >
   A guide on the house style, structure and content for this site.
   It should be viewed both in its rendered form and as source to understand how the page elements are formed.
-  This section is draft so won't be visible in the published site.
 ---
 
 _Stroom-Docs_ is created using the static site generator [Hugo (external link)](https://gohugo.io/).

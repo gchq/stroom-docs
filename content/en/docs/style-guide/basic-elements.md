@@ -558,6 +558,7 @@ id,date,time
 ```
   {{< /card >}}
 
+
   {{< card header="YAML" >}}
 ```yaml
 ---
@@ -565,6 +566,7 @@ root:
   someKey: "value"
 ```
   {{< /card >}}
+
 
   {{< card header="XML" >}}
 ```xml
@@ -576,6 +578,7 @@ root:
 ```
   {{< /card >}}
 
+
   {{< card header="bash" >}}
 ```bash
 echo "${VAR}"
@@ -583,6 +586,23 @@ echo "${VAR}"
   {{< /card >}}
 
 {{< /cardpane >}}
+
+
+### Inline files
+
+Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.
+
+{{< textfile "style-guide/in_line_file_example.xml" "xml">}}Example in-line XML file{{< /textfile >}}
+
+The card has a maximum height and will show scrollbars as required.
+
+Examples of how to use in-line files are:
+
+```markdown
+{{</* textfile "style-guide/in_line_file_example.xml" "xml" */>}}My caption{{</* /textfile */>}}
+{{</* textfile "style-guide/in_line_file_example.xml" */>}}My caption{{</* /textfile */>}}
+{{</* textfile "style-guide/in_line_file_example.xml" /*/>}}
+  ```
 
 
 ## Alerts

@@ -1,3 +1,35 @@
+<!-- 
+{{/*
+Short code to add the content of a text file to the page inside a card with an optional caption. The card has a max-height set in css.
+Usage:
+textfile filepath language
+filepath - The path of the file relative to /assets/files/
+language - The syntax language or "text" if not supplied
+e.g.:
+{{< textfile "quick-start-guide/mock_stroom_data.csv" "text" >}}My caption{{< /textfile >}}
+{{< textfile "quick-start-guide/mock_stroom_data.csv" />}}
 
-{{ $path := printf "/data/%s" (.Get 0) }}
-<object 
+Caption is taken from the short code content
+*/}}
+-->
+
+{{ $path := printf "assets/files/%s" (.Get 0) }}
+{{ $url := printf "/files/%s" (.Get 0) }}
+{{ $lang := .Get 1 | default "text"}}
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="">
+
+  <div class="text-file card-body px-0 pt-2 pb-0">
+
+    {{ $fileContent := ($path | readFile) }}
+    {{ (print "```" $lang "\n" $fileContent "\n```") | markdownify }}
+
+    <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+    <div class="card-text" style="font-size: smaller; text-align: center;">
+      {{ with (.Inner | default "" )}}
+      <span class="" style="font-size: smaller">{{ ( . | default "" ) | html }}</span>
+      {{ end }}
+      (<a href="{{ $url }}" class="" style="font-size: smaller">Download {{ path.Base $url }}</a>)
+    </div>
+  </div>
+</div>
