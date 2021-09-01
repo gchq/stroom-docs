@@ -8,7 +8,9 @@ description: >
   
 ---
 
-> *NOTE* This document was written for stroom v4/5. It is not applicable for v6+.
+{{% page-warning %}}
+This document refers to v4/5.
+{{% /page-warning %}}
 
 Stroom defaults to listening for HTTP on port 8080.
 It is recommended that Apache is used to listen on the standard HTTP port 80 and forward requests on via the Apache mod_jk module and the AJP protocol (on 8009).

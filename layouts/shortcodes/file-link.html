@@ -1,0 +1,21 @@
+<!-- 
+{{/*
+Short code to add the content of a text file to the page inside a card with an optional caption. The card has a max-height set in css.
+Usage:
+textfile filepath language
+filepath - The path of the file relative to /assets/files/
+language - The syntax language or "text" if not supplied
+e.g.:
+{{< textfile "quick-start-guide/mock_stroom_data.csv" "text" >}}My caption{{< /textfile >}}
+{{< textfile "quick-start-guide/mock_stroom_data.csv" />}}
+
+Caption is taken from the short code content
+*/}}
+-->
+
+{{ $path := printf "assets/files/%s" (.Get 0) }}
+{{ $url := printf "/files/%s" (.Get 0) }}
+
+{{ with (.Inner | default "" )}}
+<a href="{{ $url }}" class="" style="">{{ ( . | default "" ) | html }}</a>
+{{ end }}

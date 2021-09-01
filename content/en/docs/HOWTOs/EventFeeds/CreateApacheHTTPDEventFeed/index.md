@@ -194,7 +194,7 @@ Within the Explorer pane, and having selected the Apache HTTPD group, right clic
 
 Select the Feed icon {{< screenshot "HOWTOs/icons/feedItem.png" >}}feedItem{{< /screenshot >}}, when the **New Feed** selection window comes up, ensure the `Apache HTTPD` system group is selected or navigate to it. Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box the press **OK**. 
 
-It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{4,}$`. See the [HOWTO on System Properties](../Administration/SystemProperties "System Properties") document to see how to make this change.
+It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{4,}$`. See the [HOWTO on System Properties]({{< relref "../../Administration/SystemProperties.md" >}}) document to see how to make this change.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-04.png" >}}New Feed dialog{{< /screenshot >}}
 

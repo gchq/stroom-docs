@@ -801,7 +801,7 @@ public (active)
 ```
 
 ## Stroom Application Configuration - New Node
-We will need to configure this new node's Volumes, set it's Cluster URL and enable it's Stream Processors.
+We will need to configure this new node's [volumes]({{< relref "../../user-guide/volumes.md" >}}), set it's Cluster URL and enable it's Stream Processors.
 We do this by logging into the Stroom User Interface (UI) with an account with Administrator privileges. It
 is recommended you use a attributed user for this activity. Once you have logged in you can configure this
 new node.
@@ -809,7 +809,7 @@ new node.
 ### Configure the Volumes for our Stroom deployment
 Before we can store data on this new Stroom node we need to configure it's
 [volumes]({{< relref "../../user-guide/volumes.md" >}})
-we have allocated in our Storage hierarchy. The section on adding new volumes in the
+we have allocated in our Storage hierarchy. The section on adding new [volumes]({{< relref "../../user-guide/volumes.md" >}}) in the
 [Volume Maintenance HOWTO]({{< relref "InstallVolumesHowTo.md#adding-new-volumes" >}})
 shows how to do this.
 

@@ -19,7 +19,7 @@ Each sentence should start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them.
 When the mrkdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.
 
-See this [link (external linnk)](https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line) for more of the reasons behind sentence per line.
+See this [link (external link)](https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line) for more of the reasons behind sentence per line.
 Though this link relates to Asciidoc, the same applies to markdown.
 
 For example:
@@ -408,7 +408,7 @@ The anchor for a heading is the heading text with:
 For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor `#mr-oneils-1st-event-something`.
 
 
-### Shortcode link examples
+### Shortcode page link examples
 
 * A [link]({{< ref "#alerts" >}}) to a heading anchor on this page.
 
@@ -448,7 +448,7 @@ For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor
   ```
 
 
-### Markdown link examples
+### Markdown page link examples
 
 {{% warning %}}
 Avoid using markdown style links as they can't be verified at site build time like the short code links can.
@@ -503,6 +503,16 @@ in the rendered site.
   ```markdown
   [link](/docs/style-guide/using-images#captions)
   ```
+
+### Download file links
+
+To create a link to download a file, {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}like this{{< /file-link >}}, that is served by this site you need to do:
+
+```markdown
+{{</* file-link "quick-start-guide/mock_stroom_data.csv" */>}}Link Title{{</* /file-link */>}}
+```
+
+Paths are relative to `/assets/files/`.
 
 
 ## Code highlighting

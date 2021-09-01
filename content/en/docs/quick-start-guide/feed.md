@@ -34,7 +34,9 @@ In real life you might configure Stroom to watch for new files in a directory. I
 
    {{< image "quick-start-guide/feed/upload-dialog.png" >}}Setting the Stream Type{{< /image >}}
 
-1. Download [this file](/data/quick-start-guide/mock_stroom_data.csv), then click _choose file_ from the dialog, select the file, and then _ok_ everything until you're back at the feed.
+1. Download {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}this file{{< /file-link >}}, then click _choose file_ from the dialog, select the file, and then _ok_ everything until you're back at the feed.
+
+
 
 That's it, there's now data in Stroom. You should be able to see it in the data table (you might need to click the refresh {{< stroom-icon "refresh.svg" "Refresh" >}}
  button:

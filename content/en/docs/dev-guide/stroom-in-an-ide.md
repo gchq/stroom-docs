@@ -137,7 +137,7 @@ Now run _Startup_
 
 You should eventually see the GWT Dev Mode window appear.
 
-![GWT Dev Mode Window](./resources/devMode.png)
+{{< screenshot "dev-guide/devMode.png" >}}GWT Dev Mode Window{{< /screenshot >}}
 
 Initially, some of the buttons shown above will not be visible as it is in the process of starting up. As soon as the _Launch Default Browser_ button appears you are ready to open Stroom in a browser. You have two options:
 
