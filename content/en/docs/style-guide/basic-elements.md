@@ -614,12 +614,24 @@ Examples of how to use in-line files are:
 This is a warning that can contain _markdown_.
 {{% /warning %}}
 
+```markdown
+{{%/* warning */%}}
+This is a warning that can contain _markdown_.
+{{%/* /warning */%}}
+```
+
 
 ### Page level warning
 
 {{% page-warning %}}
 This is a warning that can contain _markdown_.
 {{% /page-warning %}}
+
+```markdown
+{{%/* page-warning */%}}
+This is a warning that can contain _markdown_.
+{{%/* /page-warning */%}}
+```
 
 
 ### Note block Quote
@@ -628,6 +640,12 @@ This is a warning that can contain _markdown_.
 This is a note that can contain **markdown**.
 {{% /note %}}
 
+```markdown
+{{%/* note */%}}
+This is a note that can contain **markdown**.
+{{%/* /note */%}}
+```
+
 
 ### Page level info
 
@@ -635,12 +653,25 @@ This is a note that can contain **markdown**.
 This is some info that can contain **markdown**.
 {{% /pageinfo %}}
 
+```markdown
+{{%/* pageinfo */%}}
+This is some info that can contain **markdown**.
+{{%/* /pageinfo */%}}
+```
+
 
 ### TODO block Quote
 
 {{% todo %}}
 This is a TODO that can contain `markdown`.
 {{% /todo %}}
+
+```markdown
+{{%/* todo */%}}
+This is a TODO that can contain `markdown`.
+{{%/* /todo */%}}
+```
+
 
 ## Cards
 
