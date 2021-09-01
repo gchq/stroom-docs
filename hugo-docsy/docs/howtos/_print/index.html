@@ -35,8 +35,8 @@
 
 
 
-<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.2b3d954cdde576bbdec9d68061a187b1be64066e94b13e358f026ae835a3600f.css" as="style">
-<link href="/stroom-docs/hugo-docsy/scss/main.min.2b3d954cdde576bbdec9d68061a187b1be64066e94b13e358f026ae835a3600f.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.82d2c435d17354d9ade59330a88c9172c736bb53e2db8d403480dd025818162a.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.82d2c435d17354d9ade59330a88c9172c736bb53e2db8d403480dd025818162a.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -147,7 +147,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.01040425a1950f0cbbdf016a4e4c7755.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.9aa4da0383cd944bb669de983a027b86.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -2749,14 +2749,14 @@ sudo firewall-cmd --zone=public --list-all
   rich rules: 
 </code></pre>
 <h2 id="stroom-application-configuration---new-node">Stroom Application Configuration - New Node</h2>
-<p>We will need to configure this new node&rsquo;s Volumes, set it&rsquo;s Cluster URL and enable it&rsquo;s Stream Processors.
+<p>We will need to configure this new node&rsquo;s <a href="/stroom-docs/hugo-docsy/docs/user-guide/volumes/">volumes</a>, set it&rsquo;s Cluster URL and enable it&rsquo;s Stream Processors.
 We do this by logging into the Stroom User Interface (UI) with an account with Administrator privileges. It
 is recommended you use a attributed user for this activity. Once you have logged in you can configure this
 new node.</p>
 <h3 id="configure-the-volumes-for-our-stroom-deployment-1">Configure the Volumes for our Stroom deployment</h3>
 <p>Before we can store data on this new Stroom node we need to configure it&rsquo;s
 <a href="/stroom-docs/hugo-docsy/docs/user-guide/volumes/">volumes</a>
-we have allocated in our Storage hierarchy. The section on adding new volumes in the
+we have allocated in our Storage hierarchy. The section on adding new <a href="/stroom-docs/hugo-docsy/docs/user-guide/volumes/">volumes</a> in the
 <a href="/stroom-docs/hugo-docsy/docs/howtos/install/installvolumeshowto/#adding-new-volumes">Volume Maintenance HOWTO</a>
 shows how to do this.</p>
 <h3 id="configure-the-nodes-for-our-stroom-deployment-1">Configure the Nodes for our Stroom deployment</h3>
@@ -5931,9 +5931,11 @@ button to see the first default volume has been deleted</p>
 </div>
  button.</p>
 <p><strong>NOTE</strong>: At the time of writing there is an issue regarding volumes</p>
-<h5 id="stroom-github-issue-84----httpsgithubcomgchqstroomissues84">Stroom Github Issue 84  - <a href="https://github.com/gchq/stroom/issues/84">https://github.com/gchq/stroom/issues/84</a></h5>
-<p>Due to Issue 84, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster. Thus if we attempted to use the volumes we would get a database error.
-The current <em>workaround</em> is to restart all the Stroom applications which will cause a reload of all volume information. This <strong>MUST</strong> be done before sending any data to your multi-node Stroom cluster.</p>
+<h5 id="stroom-github-issue-84---">Stroom Github Issue 84  -</h5>
+<p>Due to <a href="https://github.com/gchq/stroom/issues/84">Issue 84 (external link)</a>, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster.
+Thus if we attempted to use the volumes we would get a database error.
+The current <em>workaround</em> is to restart all the Stroom applications which will cause a reload of all volume information.
+This <strong>MUST</strong> be done before sending any data to your multi-node Stroom cluster.</p>
 <h2 id="adding-new-volumes">Adding new Volumes</h2>
 <p>When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and services on the new node,
 one has to configure the new volumes that are on the new node. The following demonstrates this assuming we are adding</p>
@@ -13749,7 +13751,7 @@ HOWTO - Enabling Processors for a Pipeline</p>
   </figure>
 </div>
 , when the <strong>New Feed</strong> selection window comes up, ensure the <code>Apache HTTPD</code> system group is selected or navigate to it. Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the <strong>Name:</strong> text entry box the press <strong>OK</strong>.</p>
-<p>It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the <code>stroom.feedNamePattern</code> stroom property to change the default pattern to <code>^[a-zA-Z0-9_-\.]{4,}$</code>. See the <a href="../Administration/SystemProperties" title="System Properties">HOWTO on System Properties</a> document to see how to make this change.</p>
+<p>It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the <code>stroom.feedNamePattern</code> stroom property to change the default pattern to <code>^[a-zA-Z0-9_-\.]{4,}$</code>. See the <a href="/stroom-docs/hugo-docsy/docs/howtos/administration/systemproperties/">HOWTO on System Properties</a> document to see how to make this change.</p>
 
 
 
@@ -17424,7 +17426,7 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
 </ul>
 <h2 id="introduction">Introduction</h2>
 <p>This HOWTO will demonstrate the process by which an Event Processing pipeline for a given Event Source is developed and deployed.</p>
-<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from <a href="http://log-sharing.dreamhosters.com">http://log-sharing.dreamhosters.com</a> (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
+<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from <a href="http://log-sharing.dreamhosters.com">log-sharing.dreamhosters.com (external link)</a> (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
 <p>Template pipelines are being used to simplify the establishment of this processing pipeline.</p>
 <p>The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> format.</p>
 <h2 id="event-source">Event Source</h2>
@@ -19901,7 +19903,7 @@ Version:V1.0
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Text Converter. This pane is used to edit the text converter that converts our <em>line based</em> BlueCoat Proxy logs into a XML format. We make use of the Stroom Data Splitter facility to perform this transformation. See <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">here</a> for complete details on the data splitter.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the text converter.</p>
-<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content</a>.</p>
+<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">github.com/gchq/stroom-content (external link)</a>.</p>
 <p>For the purpose of this HOWTO, the Datasplitter appears below. The author believes the comments should support the understanding of the transformation.</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter bufferSize=&quot;5000000&quot; xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot; version=&quot;3.0&quot; ignoreErrors=&quot;true&quot;&gt;
@@ -20737,8 +20739,8 @@ to
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Translation Filter. This pane is used to edit an <em>xslt</em> translation that converts our simple key value pair <code>&lt;records&gt;</code> XML structure into another XML form.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the xslt translation. You will note that the <em>input</em> and <em>output</em> displays are identical for a null xslt translation is effectively a direct copy.</p>
-<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented <a href="https://github.com/gchq/event-logging-schema">here</a>.</p>
-<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="/stroom-docs/hugo-docsy/docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content</a>.</p>
+<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented <a href="https://github.com/gchq/event-logging-schema">here (external link)</a>.</p>
+<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="/stroom-docs/hugo-docsy/docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content (external link)</a>.</p>
 <p>We will build the translation in steps. We enter an initial portion of our xslt transformation that just consumes the <code>Software</code> and <code>Version</code> key values and converts the <code>date</code> and <code>time</code> values (which are in UTC) into the <code>EventTime/TimeCreated</code> element. This code segment is</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot; xmlns=&quot;event-logging:3&quot; xmlns:stroom=&quot;stroom&quot; 

@@ -29,7 +29,7 @@
 &lt;p&gt;Each sentence should start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them.
 When the mrkdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.&lt;/p&gt;
-&lt;p&gt;See this &lt;a href=&#34;https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line&#34;&gt;link (external linnk)&lt;/a&gt; for more of the reasons behind sentence per line.
+&lt;p&gt;See this &lt;a href=&#34;https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line&#34;&gt;link (external link)&lt;/a&gt; for more of the reasons behind sentence per line.
 Though this link relates to Asciidoc, the same applies to markdown.&lt;/p&gt;
 &lt;p&gt;For example:&lt;/p&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
@@ -433,7 +433,7 @@ The anchor for a heading is the heading text with:&lt;/p&gt;
 &lt;li&gt;Multiple consequtive &lt;code&gt;-&lt;/code&gt; characters, e.g. &lt;code&gt;---&lt;/code&gt; are replaced with a single &lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;For example the heading &lt;code&gt;Mr O&#39;Neil&#39;s 1st Event (something)&lt;/code&gt; becomes as an anchor &lt;code&gt;#mr-oneils-1st-event-something&lt;/code&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;shortcode-link-examples&#34;&gt;Shortcode link examples&lt;/h3&gt;
+&lt;h3 id=&#34;shortcode-page-link-examples&#34;&gt;Shortcode page link examples&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;A &lt;a href=&#34;#alerts&#34;&gt;link&lt;/a&gt; to a heading anchor on this page.&lt;/p&gt;
@@ -467,7 +467,7 @@ This will only work if the page name is unique&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;markdown-link-examples&#34;&gt;Markdown link examples&lt;/h3&gt;
+&lt;h3 id=&#34;markdown-page-link-examples&#34;&gt;Markdown page link examples&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
@@ -519,6 +519,19 @@ This will only work if the page name is unique&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;download-file-links&#34;&gt;Download file links&lt;/h3&gt;
+&lt;p&gt;To create a link to download a file, 
+
+
+
+
+
+&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/files/quick-start-guide/mock_stroom_data.csv&#34; class=&#34;&#34; style=&#34;&#34;&gt;like this&lt;/a&gt;
+
+, that is served by this site you need to do:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; file-link &amp;quot;quick-start-guide/mock_stroom_data.csv&amp;quot; &amp;gt;}}Link Title{{&amp;lt; /file-link &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Paths are relative to &lt;code&gt;/assets/files/&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;code-highlighting&#34;&gt;Code highlighting&lt;/h2&gt;
 &lt;h3 id=&#34;inline-code&#34;&gt;Inline code&lt;/h3&gt;
 &lt;p&gt;Inline code &lt;code&gt;looks like this&lt;/code&gt;.&lt;/p&gt;
@@ -584,6 +597,7 @@ If the content of the fenced block has no supported language or is just plain te
 &lt;/div&gt;
 
 
+
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -609,6 +623,7 @@ root:
   &lt;/div&gt;
   
 &lt;/div&gt;
+
 
 
   &lt;div class=&#34;card mb-4&#34;&gt;
@@ -640,6 +655,7 @@ root:
 &lt;/div&gt;
 
 
+
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -666,6 +682,95 @@ root:
 
 
 &lt;/div&gt;
+&lt;h3 id=&#34;inline-files&#34;&gt;Inline files&lt;/h3&gt;
+&lt;p&gt;Some code or text examples may be too large for a fenced block so you can put the content in a separate file and include it in-line like so.&lt;/p&gt;
+
+
+
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;&#34;&gt;
+
+  &lt;div class=&#34;text-file card-body px-0 pt-2 pb-0&#34;&gt;
+
+    
+    &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;dataSplitter
+    xmlns=&amp;quot;data-splitter:3&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;data-splitter:3 file://data-splitter-v3.0.1.xsd&amp;quot;
+    version=&amp;quot;3.0&amp;quot;&amp;gt;
+  &amp;lt;!-- 
+  GEOHOST REFERENCE FEED:
+  
+  CHANGE HISTORY
+  v1.0.0 - 2020-02-09 John Doe
+  
+  This is a reference feed for device Logical and Geographic data.
+  
+  The feed provides for each device
+  * the device FQDN
+  * the device IP Address
+  * the device Country location (using ISO 3166-1 alpha-3 codes)
+  * the device Site location
+  * the device Building location
+  * the device Room location
+  *the device TimeZone location (both standard then daylight timezone offsets from UTC)
+  
+  The data is a TAB delimited file with the first line providing headings.
+  
+  Example data:
+  
+  FQDN	IPAddress	Country	Site	Building	Room	TimeZones
+stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
+stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
+host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
+  
+  --&amp;gt;
+  
+  &amp;lt;!-- Match the heading line - split on newline and match a maximum of one line  --&amp;gt;
+  &amp;lt;split delimiter=&amp;quot;\n&amp;quot; maxMatch=&amp;quot;1&amp;quot;&amp;gt;
+   
+   &amp;lt;!-- Store each heading and note we split fields on the TAB (&amp;amp;#9;) character --&amp;gt;
+     &amp;lt;group&amp;gt;
+       &amp;lt;split delimiter=&amp;quot;&amp;amp;#9;&amp;quot;&amp;gt;
+         &amp;lt;var id=&amp;quot;heading&amp;quot;/&amp;gt;
+       &amp;lt;/split&amp;gt;
+     &amp;lt;/group&amp;gt;
+   &amp;lt;/split&amp;gt;
+   
+  !-- Match all other data lines - splitting on newline --&amp;gt;
+  &amp;lt;split delimiter=&amp;quot;\n&amp;quot;&amp;gt;
+    &amp;lt;group&amp;gt;
+      &amp;lt;!-- Store each field using the column heading number for each column ($heading$1) and note we split fields on the TAB (&amp;amp;#9;) character --&amp;gt;
+       &amp;lt;split delimiter=&amp;quot;&amp;amp;#9;&amp;quot;&amp;gt;
+         &amp;lt;data name=&amp;quot;$heading$1&amp;quot; value=&amp;quot;$1&amp;quot;/&amp;gt;
+       &amp;lt;/split&amp;gt;
+    &amp;lt;/group&amp;gt;
+  &amp;lt;/split&amp;gt;
+&amp;lt;/dataSplitter&amp;gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;
+
+
+    &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+    &lt;div class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;
+      
+      &lt;span class=&#34;&#34; style=&#34;font-size: smaller&#34;&gt;Example in-line XML file&lt;/span&gt;
+      
+      (&lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/files/style-guide/in_line_file_example.xml&#34; class=&#34;&#34; style=&#34;font-size: smaller&#34;&gt;Download in_line_file_example.xml&lt;/a&gt;)
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The card has a maximum height and will show scrollbars as required.&lt;/p&gt;
+&lt;p&gt;Examples of how to use in-line files are:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; textfile &amp;quot;style-guide/in_line_file_example.xml&amp;quot; &amp;quot;xml&amp;quot; &amp;gt;}}My caption{{&amp;lt; /textfile &amp;gt;}}
+{{&amp;lt; textfile &amp;quot;style-guide/in_line_file_example.xml&amp;quot; &amp;gt;}}My caption{{&amp;lt; /textfile &amp;gt;}}
+{{&amp;lt; textfile &amp;quot;style-guide/in_line_file_example.xml&amp;quot; /&amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;alerts&#34;&gt;Alerts&lt;/h2&gt;
 &lt;h3 id=&#34;warning-block-quote&#34;&gt;Warning block Quote&lt;/h3&gt;
 
@@ -677,6 +782,10 @@ root:
 &lt;/div&gt;
 
 
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% warning %}}
+This is a warning that can contain _markdown_.
+{{% /warning %}}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;page-level-warning&#34;&gt;Page level warning&lt;/h3&gt;
 
 &lt;div class=&#34;pageinfo pageinfo-danger&#34;&gt;
@@ -686,6 +795,10 @@ root:
 &lt;/div&gt;
 
 
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% page-warning %}}
+This is a warning that can contain _markdown_.
+{{% /page-warning %}}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;note-block-quote&#34;&gt;Note block Quote&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
@@ -696,6 +809,10 @@ root:
 &lt;/div&gt;
 
 
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% note %}}
+This is a note that can contain **markdown**.
+{{% /note %}}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;page-level-info&#34;&gt;Page level info&lt;/h3&gt;
 
 
@@ -704,6 +821,10 @@ root:
 
 &lt;/div&gt;
 
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% pageinfo %}}
+This is some info that can contain **markdown**.
+{{% /pageinfo %}}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;todo-block-quote&#34;&gt;TODO block Quote&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
@@ -713,6 +834,10 @@ root:
 
 &lt;/div&gt;
 
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% todo %}}
+This is a TODO that can contain `markdown`.
+{{% /todo %}}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;cards&#34;&gt;Cards&lt;/h2&gt;
 &lt;p&gt;Cards can be used to display related conent side by side.
 Each card can contain markdown and/or Hugo short codes.
@@ -1200,7 +1325,7 @@ E.g:&lt;/p&gt;
     </item>
     
     <item>
-      <title>Docs: Style Guide (DRAFT)</title>
+      <title>Docs: Style Guide</title>
       <link>https://gchq.github.io/stroom-docs/hugo-docsy/docs/style-guide/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

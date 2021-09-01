@@ -24,13 +24,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/howtos/eventfeeds/processinghowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-09T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-09-01T09:00:51+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2021-09-01T19:24:00+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Event Processing">
 <meta itemprop="description" content="This HOWTO is provided to assist users in setting up Stroom to process inbound raw event logs and transform them into the Stroom Event Logging XML Schema.
 "><meta itemprop="datePublished" content="2021-07-09T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-09-01T09:00:51+01:00" />
-<meta itemprop="wordCount" content="7801">
+<meta itemprop="dateModified" content="2021-09-01T19:24:00+01:00" />
+<meta itemprop="wordCount" content="7811">
 <meta itemprop="keywords" content="processing," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Event Processing"/>
 <meta name="twitter:description" content="This HOWTO is provided to assist users in setting up Stroom to process inbound raw event logs and transform them into the Stroom Event Logging XML Schema.
@@ -39,8 +39,8 @@
 
 
 
-<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.2b3d954cdde576bbdec9d68061a187b1be64066e94b13e358f026ae835a3600f.css" as="style">
-<link href="/stroom-docs/hugo-docsy/scss/main.min.2b3d954cdde576bbdec9d68061a187b1be64066e94b13e358f026ae835a3600f.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/stroom-docs/hugo-docsy/scss/main.min.82d2c435d17354d9ade59330a88c9172c736bb53e2db8d403480dd025818162a.css" as="style">
+<link href="/stroom-docs/hugo-docsy/scss/main.min.82d2c435d17354d9ade59330a88c9172c736bb53e2db8d403480dd025818162a.css" rel="stylesheet" integrity="">
 
 
 <script
@@ -151,7 +151,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.01040425a1950f0cbbdf016a4e4c7755.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.9aa4da0383cd944bb669de983a027b86.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -178,7 +178,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.01040425a1950f0cbbdf016a4e4c7755.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.9aa4da0383cd944bb669de983a027b86.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -545,7 +545,7 @@
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-stroom-docshugo-docsydocsstyle-guide-li">
-  <a href="/stroom-docs/hugo-docsy/docs/style-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsstyle-guide"><span class="">Style Guide (DRAFT)</span></a>
+  <a href="/stroom-docs/hugo-docsy/docs/style-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-stroom-docshugo-docsydocsstyle-guide"><span class="">Style Guide</span></a>
   <ul class="ul-2 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-stroom-docshugo-docsydocsstyle-guidebasic-elements-li">
   <a href="/stroom-docs/hugo-docsy/docs/style-guide/basic-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-stroom-docshugo-docsydocsstyle-guidebasic-elements"><span class="">Basic Page Elements</span></a>
@@ -875,7 +875,7 @@
 </ul>
 <h2 id="introduction">Introduction</h2>
 <p>This HOWTO will demonstrate the process by which an Event Processing pipeline for a given Event Source is developed and deployed.</p>
-<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from <a href="http://log-sharing.dreamhosters.com">http://log-sharing.dreamhosters.com</a> (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
+<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from <a href="http://log-sharing.dreamhosters.com">log-sharing.dreamhosters.com (external link)</a> (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
 <p>Template pipelines are being used to simplify the establishment of this processing pipeline.</p>
 <p>The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> format.</p>
 <h2 id="event-source">Event Source</h2>
@@ -3352,7 +3352,7 @@ Version:V1.0
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Text Converter. This pane is used to edit the text converter that converts our <em>line based</em> BlueCoat Proxy logs into a XML format. We make use of the Stroom Data Splitter facility to perform this transformation. See <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">here</a> for complete details on the data splitter.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the text converter.</p>
-<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content</a>.</p>
+<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">github.com/gchq/stroom-content (external link)</a>.</p>
 <p>For the purpose of this HOWTO, the Datasplitter appears below. The author believes the comments should support the understanding of the transformation.</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter bufferSize=&quot;5000000&quot; xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot; version=&quot;3.0&quot; ignoreErrors=&quot;true&quot;&gt;
@@ -4188,8 +4188,8 @@ to
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Translation Filter. This pane is used to edit an <em>xslt</em> translation that converts our simple key value pair <code>&lt;records&gt;</code> XML structure into another XML form.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the xslt translation. You will note that the <em>input</em> and <em>output</em> displays are identical for a null xslt translation is effectively a direct copy.</p>
-<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented <a href="https://github.com/gchq/event-logging-schema">here</a>.</p>
-<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="/stroom-docs/hugo-docsy/docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content</a>.</p>
+<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented <a href="https://github.com/gchq/event-logging-schema">here (external link)</a>.</p>
+<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="/stroom-docs/hugo-docsy/docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content (external link)</a>.</p>
 <p>We will build the translation in steps. We enter an initial portion of our xslt transformation that just consumes the <code>Software</code> and <code>Version</code> key values and converts the <code>date</code> and <code>time</code> values (which are in UTC) into the <code>EventTime/TimeCreated</code> element. This code segment is</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot; xmlns=&quot;event-logging:3&quot; xmlns:stroom=&quot;stroom&quot; 
@@ -7029,7 +7029,7 @@ to
 
     Last modified
     September 1, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/82d9fabe9d40baa9bae40799164053073bfbd2e9">Fix link to csv file, add textfile shortcode (WIP) (82d9fab)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/5c72219d9041923c4f8f47e49c75eefb91f4cc92">Fix links, add file-link shortcode (5c72219)</a>
 
 </div>
 
