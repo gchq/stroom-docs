@@ -1293,15 +1293,15 @@ that the Stroom processing nodes will use to access each database.
 For the &lt;code&gt;stroom&lt;/code&gt; database, we will use the database user &lt;code&gt;stroomuser&lt;/code&gt; with a password of &lt;code&gt;Stroompassword1@&lt;/code&gt; and for the &lt;code&gt;statistics&lt;/code&gt; database, we will use the database user &lt;code&gt;stroomstats&lt;/code&gt; with a password of &lt;code&gt;Stroompassword2@&lt;/code&gt;. One identifies a processing user as &lt;code&gt;&amp;lt;user&amp;gt;@&amp;lt;host&amp;gt;&lt;/code&gt; on a &lt;code&gt;grant&lt;/code&gt; SQL command.&lt;/p&gt;
 &lt;p&gt;In the &lt;code&gt;stroom&lt;/code&gt; database instance, we will grant access for&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;stroomuser@localhost for local access for maintenance etc.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:stroomuser@stroomp00.strmdev00.org&#34;&gt;stroomuser@stroomp00.strmdev00.org&lt;/a&gt; for access by processing node stroomp00.strmdev00.org&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:stroomuser@stroomp01.strmdev00.org&#34;&gt;stroomuser@stroomp01.strmdev00.org&lt;/a&gt; for access by processing node stroomp01.strmdev00.org&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomuser@localhost&lt;/code&gt; for local access for maintenance etc.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomuser@stroomp00.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomuser@stroomp01.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;and in the &lt;code&gt;statistics&lt;/code&gt; database instance, we will grant access for&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;stroomstats@localhost for local access for maintenance etc.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:stroomstats@stroomp00.strmdev00.org&#34;&gt;stroomstats@stroomp00.strmdev00.org&lt;/a&gt; for access by processing node stroomp00.strmdev00.org&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:stroomstats@stroomp01.strmdev00.org&#34;&gt;stroomstats@stroomp01.strmdev00.org&lt;/a&gt; for access by processing node stroomp01.strmdev00.org&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomstats@localhost&lt;/code&gt; for local access for maintenance etc.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomstats@stroomp00.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomstats@stroomp01.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Thus for the &lt;code&gt;stroom&lt;/code&gt; database we execute&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
@@ -1622,7 +1622,7 @@ to configure this can be found &lt;a href=&#34;https://gchq.github.io/stroom-doc
 sudo firewall-cmd --zone=public --list-all
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;should result in&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public (active)
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;public (active)
   target: default
   icmp-block-inversion: no
   interfaces: enp0s3
@@ -1645,7 +1645,7 @@ sudo firewall-cmd --zone=public --list-all
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If you view the Stroom proxy log, &lt;code&gt;~/stroom-proxy/instance/logs/stroom.log&lt;/code&gt;, on both processing nodes, you will see on one node,
 the &lt;em&gt;datafeed.DataFeedRequestHandler&lt;/em&gt; events running under, in this case, the &lt;em&gt;ajp-apr-9009-exec-1&lt;/em&gt; thread indicating the failure&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;...
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;...
 2017-01-03T03:35:47.366Z WARN  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler (DataFeedRequestHandler.java:131) - &amp;quot;handleException()&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Expect=100-continue&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=39960cf9-e50b-4ae8-a5f2-449ee670d2eb&amp;quot;,&amp;quot;ReceivedTime=2017-01-03T03:35:46.915Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.220&amp;quot;,&amp;quot;RemoteHost=192.168.2.220&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=1051&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&amp;quot;,&amp;quot;Stroom Status 110 - Feed is not set to receive data&amp;quot;
 2017-01-03T03:35:47.367Z ERROR [ajp-apr-9009-exec-1] zip.StroomStreamException (StroomStreamException.java:131) - sendErrorResponse() - 406 Stroom Status 110 - Feed is not set to receive data - 
 2017-01-03T03:35:47.368Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &amp;quot;doPost() - Took 478 ms to process (concurrentRequestCount=1) 406&amp;quot;,&amp;quot;Environment=EXAMPLE_ENVIRONMENT&amp;quot;,&amp;quot;Expect=100-continue&amp;quot;,&amp;quot;Feed=TEST-FEED-V1_0&amp;quot;,&amp;quot;GUID=39960cf9-e50b-4ae8-a5f2-449ee670d2eb&amp;quot;,&amp;quot;ReceivedTime=2017-01-03T03:35:46.915Z&amp;quot;,&amp;quot;RemoteAddress=192.168.2.220&amp;quot;,&amp;quot;RemoteHost=192.168.2.220&amp;quot;,&amp;quot;System=EXAMPLE_SYSTEM&amp;quot;,&amp;quot;accept=*/*&amp;quot;,&amp;quot;content-length=1051&amp;quot;,&amp;quot;content-type=application/x-www-form-urlencoded&amp;quot;,&amp;quot;host=stroomp.strmdev00.org&amp;quot;,&amp;quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&amp;quot;
