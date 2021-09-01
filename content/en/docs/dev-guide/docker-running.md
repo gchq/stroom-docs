@@ -19,10 +19,10 @@ description: >
 In order to run Stroom v6.x using Docker you will need the following installed on the machine you intend to run Stroom on:
 
 * A Linux-like shell environment.
-* docker CE (v17.12.0+) - e.g https://docs.docker.com/install/linux/docker-ce/centos/ for Centos
-* docker-compose (v1.21.0+) - https://docs.docker.com/compose/install/ 
+* docker CE (v17.12.0+) - e.g [docs.docker.com/install/linux/docker-ce/centos/ (external link)](https://docs.docker.com/install/linux/docker-ce/centos/) for Centos
+* docker-compose (v1.21.0+) - [docs.docker.com/compose/install/ (external link)](https://docs.docker.com/compose/install/) 
 * bash (v4+)
-* jq - https://stedolan.github.io/jq/, e.g. `sudo yum install jq`
+* jq - [stedolan.github.io/jq/ (external link)](https://stedolan.github.io/jq/) e.g. `sudo yum install jq`
 * curl
 
 ### Install steps
@@ -104,9 +104,7 @@ Open a browser (preferably Chrome) at [http://localhost:8080/stroom](http://loca
 * password: _admin_
 
 
-## Docker Hub links (external)
-[The Stroom image](https://hub.docker.com/r/gchq/stroom/)
+## Docker Hub links
+[The Stroom image (external link)](https://hub.docker.com/r/gchq/stroom/)
 
-[The Stroom Authentication image](https://hub.docker.com/r/gchq/stroom-auth/)
-
-[The GCHQ organisation](https://hub.docker.com/r/gchq/)
+[The GCHQ organisation (external link)](https://hub.docker.com/r/gchq/)
