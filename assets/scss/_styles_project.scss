@@ -59,6 +59,7 @@ html {
 .code-toolbar {
   box-shadow: $box-shadow-stroom;
   margin-bottom: 1.5rem;
+  max-width: 80%; // Bring the width in line with the paragraph text
 }
 
 // Restyle the content of the fenced code blocks
@@ -69,6 +70,31 @@ html {
 // Fenced blocks of in-line files
 .text-file pre {
   max-height:400px;
+}
+
+// Not sure if we want card decks to have the same width as the paragraphs
+// as it limits them a bit when there are two or more across.
+//.card-deck {
+  //max-width: 80%; // Bring the width in line with the paragraph text
+//}
+
+// It is open for debate whether we want the fenced blocks and in line files
+// to match the para width of fill the main content column. The former looks better
+// but only if you don't have code that is wide and then is forced to horizontal
+// scroll more often.
+.text-file {
+  max-width: 80%; // Bring the width in line with the paragraph text
+
+  .code-toolbar {
+    // The code box is normally 80% but as it is inside a card that is also
+    // 80% width we need to bring it back up to 100% so it fills the card.
+    max-width: 100%; 
+  }
+}
+
+// Reduce the page level alerts down to roughly the width of the paragraph text.
+.pageinfo {
+  max-width: 78%;
 }
 
 // Restyle the cards
