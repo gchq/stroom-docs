@@ -118,7 +118,8 @@ main() {
   if [ "${bash_cmd}" = "bash" ]; then
     run_cmd=( "bash" )
   elif [ "${bash_cmd}" = "PDF" ]; then
-    run_cmd=( "node" "../generate-pdf.js" "http://site:1313/all-content/" )
+    #run_cmd=( "node" "../generate-pdf.js" "http://site:1313/all-content/" )
+    run_cmd=( "node" "../generate-pdf.js" "http://site:1313/docs/_print/" )
   else
     run_cmd=( "bash" "-c" "${bash_cmd[*]}" )
   fi
