@@ -18,7 +18,7 @@ This will require an existing user approved for the group to approve you on the 
 
 You can use the following commands for setting up a GPG2 key for signing.
 
-```sh
+```bash
 # Generate the GPG2 key
 gpg2 --gen-key
 
@@ -66,7 +66,7 @@ For each one create a secret with the `ORG_GRADLE_...` bit as the name.
 So that the action can create the Github release you will also need to set up an SSH key pair and provide it with the public and private key.
 To generate the key pair do:
 
-```sh
+```bash
 ssh-keygen -t rsa -b 4096 -f <repo>_deploy_key
 ```
 
