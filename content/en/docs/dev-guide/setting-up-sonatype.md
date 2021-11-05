@@ -37,7 +37,7 @@ gpg2 --keyserver hkp://pgp.mit.edu --send-keys <key id>
 key="$(gpg2 --armor --export-secret-keys <key id> | base64 -w0)"; echo -e "-------\n$key\n-------"; key=""
 ```
 
-# Setting up the gradle build
+## Setting up the gradle build
 
 The signing and release to Sonatype is done by various gradle plugins.
 
