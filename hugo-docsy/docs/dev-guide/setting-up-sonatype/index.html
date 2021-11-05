@@ -24,12 +24,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/dev-guide/setting-up-sonatype/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-11-05T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-11-05T19:09:34+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2021-11-05T19:40:13+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Setting up releases to Sonatype &amp; Maven Central">
 <meta itemprop="description" content="This is a rough guide to what was done to set it up.  Some bits may be missing.
 "><meta itemprop="datePublished" content="2021-11-05T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-11-05T19:09:34+00:00" />
+<meta itemprop="dateModified" content="2021-11-05T19:40:13+00:00" />
 <meta itemprop="wordCount" content="377">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Setting up releases to Sonatype &amp; Maven Central"/>
@@ -610,9 +610,7 @@
   <ul>
     <li><a href="#create-a-sonatype-account">Create a Sonatype account</a></li>
     <li><a href="#setting-up-a-gpg-key">Setting up a GPG key</a></li>
-  </ul>
-
-  <ul>
+    <li><a href="#setting-up-the-gradle-build">Setting up the gradle build</a></li>
     <li><a href="#setting-up-github-actions">Setting up Github Actions</a></li>
   </ul>
 </nav></div>
@@ -840,7 +838,7 @@ gpg2 --keyserver hkp://pgp.mit.edu --send-keys &lt;key id&gt;
 # To display the secret key in base64 form, for use in GH actions
 key=&quot;$(gpg2 --armor --export-secret-keys &lt;key id&gt; | base64 -w0)&quot;; echo -e &quot;-------\n$key\n-------&quot;; key=&quot;&quot;
 </code></pre>
-<h1 id="setting-up-the-gradle-build">Setting up the gradle build</h1>
+<h2 id="setting-up-the-gradle-build">Setting up the gradle build</h2>
 <p>The signing and release to Sonatype is done by various gradle plugins.</p>
 <pre><code class="language-groovy">id &quot;io.github.gradle-nexus.publish-plugin&quot; version &quot;1.0.0&quot;
 id &quot;signing&quot;
@@ -872,7 +870,7 @@ Create a repo secret with the private key, named &lsquo;SSH_DEPLOY_KEY&rsquo; at
 
     Last modified
     November 5, 2021
-    : <a  href="https://github.com/gchq/stroom-docs/commit/a252a9ab75a64f3a05e278a2cdd3f148c744b5d1">Add setting-up-sonatype.md (a252a9a)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/db32c070bc7353063ee335778607ba38bae8bd7e">Fix heading levels (db32c07)</a>
 
 </div>
 
