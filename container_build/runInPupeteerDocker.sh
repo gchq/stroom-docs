@@ -19,6 +19,9 @@ IFS=$'\n\t'
   NC='\033[0m' # No Colour
 }
 
+HUGO_PORT="1313"
+PRINT_PATH="/docs/_print/"
+
 docker_login() {
   # The username and password are configured in the travis gui
   if [[ -n "${DOCKER_USERNAME}" ]] && [[ -n "${DOCKER_PASSWORD}" ]]; then
@@ -79,7 +82,8 @@ run_hugo_server() {
     docker container ls -q --filter "name=hugo-stroom*" | wc -l)"
 
   if [[ "${container_count}" -lt 1 ]]; then
-    echo -e "${GREEN}Run Hugo server in the background on port 1313${NC}"
+    echo -e "${GREEN}Run Hugo server in the background on port" \
+      "${BLUE}${HUGO_PORT}${NC}"
     docker-compose \
       --project-name hugo-stroom \
       -f "${local_repo_root}/container_build/docker_hugo/docker-compose.yaml" \
@@ -119,9 +123,17 @@ main() {
     run_cmd=( "bash" )
   elif [ "${bash_cmd}" = "PDF" ]; then
     #run_cmd=( "node" "../generate-pdf.js" "http://site:1313/all-content/" )
-    run_cmd=( "node" "../generate-pdf.js" "http://site:1313/docs/_print/" )
+    # Hugo is running in another container so use the service name 'site' as
+    # the host
+    run_cmd=( \
+      "node" \
+      "../generate-pdf.js" \
+      "http://site:${HUGO_PORT}${PRINT_PATH}" )
   else
-    run_cmd=( "bash" "-c" "${bash_cmd[*]}" )
+    run_cmd=( \
+      "bash" \
+      "-c" \
+      "${bash_cmd[*]}" )
   fi
 
   user_id=
@@ -180,6 +192,12 @@ main() {
     tty_args=()
   fi
 
+  # We are outside the containers here so use localhost instead of site
+  hugo_url="http://localhost:${HUGO_PORT}${PRINT_PATH}" 
+  wait_for_200_response \
+    "${hugo_url}" \
+    "Waiting for Hugo server to start (${hugo_url})"
+
   # Mount the whole repo into the container so we can run the build
   # The mount src is on the host file system
   # "${tty_args[@]+"${tty_args[@]}"}" The + thing is so it does complain
@@ -206,6 +224,66 @@ main() {
     "${run_cmd[@]}"
 
   clean_up
+}
+
+wait_for_200_response() {
+  if [[ $# -eq 0 ]]; then
+    echo -e "${RED}Invalid arguments to wait_for_200_response(), expecting a URL to wait for${NC}"
+    exit 1
+  fi
+
+  local url=$1; shift
+  if [ "$#" -gt 0 ]; then
+    local msg="$1"; shift
+  fi
+  if [ "$#" -gt 0 ]; then
+    local sub_msg="$1"; shift
+  fi
+
+  local maxWaitSecs=240
+
+  local n=0
+  local were_dots_shown=false
+  # Keep retrying for maxWaitSecs
+  until [ "$n" -ge "${maxWaitSecs}" ]
+  do
+    # OR with true to prevent the non-zero exit code from curl from stopping our script
+    responseCode=$(curl -sL -w "%{http_code}\\n" "${url}" -o /dev/null || true)
+    #echo "Response code: ${responseCode}"
+    if [[ "${responseCode}" = "200" ]]; then
+      break
+    fi
+
+    # Only display the wait msg if the service isn't already up
+    if [ "$n" -eq 0 ]; then
+      if [ -n "${msg}" ]; then
+        echo
+        echo -e "${GREEN}${msg}${NC}"
+      fi
+      if [ -n "${sub_msg}" ]; then
+        echo -e "${DGREY}${sub_msg}${NC}"
+      fi
+    fi
+
+    # print a simple unbounded progress bar, increasing every 2s
+    mod=$(( n  % 2 ))
+    if [[ ${mod} -eq 0 ]]; then
+      printf '.'
+      were_dots_shown=true
+    fi
+
+    n=$(( n + 1 ))
+    # sleep for one secs
+    sleep 0.5s
+  done
+
+  if [ "${were_dots_shown}" = true ]; then
+    printf "\n"
+  fi
+
+  if [[ $n -ge ${maxWaitSecs} ]]; then
+    echo -e "${RED}Gave up wating for stroom to start up, check the logs (${BLUE}docker logs stroom${NC}${RED})${NC}"
+  fi
 }
 
 main "$@"
