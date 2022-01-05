@@ -17,8 +17,7 @@ console.log('Generating pdf for: ', url);
     ]
   });
   const page = await browser.newPage();
-  // TODO craft a docker compose to spin up hugo and this then the host
-  // will just be the docer service
+
   await page.goto(url, {
     waitUntil: 'networkidle2',
   });
