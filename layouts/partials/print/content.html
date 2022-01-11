@@ -1,0 +1,20 @@
+<!--
+  This is a copy of themes/docsy/layouts/partials/print/content.html
+  that just adds the base-section-num style variable which allows us
+  to use it as a prefix for h2+ heading numbering on each page.
+-->
+
+{{ $tpl := printf "print/content-%s.html" .Page.Type }}
+
+{{ if templates.Exists (printf "partials/%s" $tpl) }}
+  {{ partial $tpl . }}
+{{ else -}}
+{{ $break := cond .DoPageBreak "page-break-before: always" "" -}}
+<div class="td-content" style="--base-section-num: '{{ .PageNum }}.'; {{ $break }}">
+    {{ $break := cond .DoPageBreak "page-break-before: always" "" }}
+  <h1 id="pg-{{ .Page.File.UniqueID }}">{{ .PageNum }} - {{ .Page.Title }}</h1>
+    {{ with .Page.Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+	{{ .Page.Content }}
+</div>
+{{ end }}
+

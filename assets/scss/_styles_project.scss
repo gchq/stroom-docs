@@ -57,9 +57,19 @@ html {
 
 // Restyle the fenced code blocks
 .code-toolbar {
-  box-shadow: $box-shadow-stroom;
   margin-bottom: 1.5rem;
-  max-width: 80%; // Bring the width in line with the paragraph text
+
+  @media screen {
+    box-shadow: $box-shadow-stroom;
+    max-width: 80%; // Bring the width in line with the paragraph text
+  }
+
+  @media print {
+    .toolbar {
+      // No need for the copy button in print
+      visibility: hidden;
+    }
+  }
 }
 
 // Restyle the content of the fenced code blocks
@@ -83,24 +93,56 @@ html {
 // but only if you don't have code that is wide and then is forced to horizontal
 // scroll more often.
 .text-file {
-  max-width: 80%; // Bring the width in line with the paragraph text
+  @media screen {
+    max-width: 80%; // Bring the width in line with the paragraph text
+    .code-toolbar {
+      // The code box is normally 80% but as it is inside a card that is also
+      // 80% width we need to bring it back up to 100% so it fills the card.
+      max-width: 100%; 
+    }
+  }
+}
 
-  .code-toolbar {
-    // The code box is normally 80% but as it is inside a card that is also
-    // 80% width we need to bring it back up to 100% so it fills the card.
-    max-width: 100%; 
+// When we print we want everything full width of the printed page
+@media print {
+  .col-xl-8 {
+    flex: unset !important;
+    max-width: unset !important;
+  }
+  .col-md-9 {
+      flex: unset !important;
+      max-width: unset !important;
+  }
+  .col-12 {
+      flex: unset !important;
+      max-width: unset !important;
   }
 }
 
 // Reduce the page level alerts down to roughly the width of the paragraph text.
-.pageinfo {
-  max-width: 78%;
+@media screen {
+  .pageinfo {
+    max-width: 78%;
+  }
 }
 
 // Restyle the cards
 .card {
   box-shadow: $box-shadow-stroom;
 }
+
+// Fixes operators having a different background colour in syntax highlighted code blocks
+// when using prism.js.
+// See https://github.com/PrismJS/prism/issues/3274
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+    background: unset !important;
+}
+
+//@media print {
+  //.noPrint {
+      //display:none;
+  //}
+//}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,8 +151,17 @@ Adapted from https://codingnconcepts.com/hugo/auto-number-headings-hugo/
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+:root {
+  --base-section-num: "";
+}
+
+//@media screen {
+  //--base-section-num: "";
+//}
+
 // reset counter for a heading level when its parent level is encountered */
 body {counter-reset: h2}
+h1 {counter-reset: h2}
 h2 {counter-reset: h3}
 h3 {counter-reset: h4}
 h4 {counter-reset: h5}
@@ -121,35 +172,35 @@ h2[id]::before {
   display: inline;
   visibility: visible;
   counter-increment: h2; 
-  content: counter(h2) " ";
+  content: var(--base-section-num,"") counter(h2) " ";
 }
 
 h3[id]::before {
   display: inline;
   visibility: visible;
   counter-increment: h3; 
-  content: counter(h2) "." counter(h3) " ";
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) " ";
 }
 
 h4[id]::before {
   display: inline;
   visibility: visible;
   counter-increment: h4; 
-  content: counter(h2) "." counter(h3) "." counter(h4) " ";
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) " ";
 }
 
 h5[id]::before {
   display: inline;
   visibility: visible;
   counter-increment: h5; 
-  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
 }
 
 h6[id]::before {
   display: inline;
   visibility: visible;
   counter-increment: h6; 
-  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " ";
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " ";
 }
 
 // Reset the counter for the right hand TOC items
@@ -162,8 +213,70 @@ h6[id]::before {
   counter-increment: item ;
 }
 
+@media print {
+  // Due to the fact that each .md page is given a h1 heading it means when we print a section with nested
+  // pages we get h1s at multiple levels which means we can't do the counter numbering that we do above.
+  // themes/docsy/layouts/partials/print/content.html adds in nested numbering for all the h1s so that will have
+  // to do for now.
+  // We can however do it for the TOC as that just uses li levels so doesn't care about nested pages.
+
+  // reset counter for a heading level when its parent level is encountered */
+  //h1 {counter-reset: h2}
+  //h2 {counter-reset: h3}
+  //h3 {counter-reset: h4}
+  //h4 {counter-reset: h5}
+  //h5 {counter-reset: h6}
+
+  //// prepend the counter value before the heading
+  //h2[id]::before {
+    //display: inline;
+    //visibility: visible;
+    //counter-increment: h2; 
+    //content: "xxxx" var(--base-number) "." counter(h2) " ";
+  //}
+
+  //h3[id]::before {
+    //display: inline;
+    //visibility: visible;
+    //counter-increment: h3; 
+    //content: var(--base-number) "." counter(h2) "." counter(h3) " ";
+  //}
+
+  //h4[id]::before {
+    //display: inline;
+    //visibility: visible;
+    //counter-increment: h4; 
+    //content: var(--base-number) "." counter(h2) "." counter(h3) "." counter(h4) " ";
+  //}
+
+  //h5[id]::before {
+    //display: inline;
+    //visibility: visible;
+    //counter-increment: h5; 
+    //content: var(--base-number) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
+  //}
+
+  //h6[id]::before {
+    //display: inline;
+    //visibility: visible;
+    //counter-increment: h6; 
+    //content: var(--base-number) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " ";
+  //}
+
+  // Reset the counter for the right hand TOC items
+  //.td-toc ul { 
+    //counter-reset: item ;
+  //}
+
+  //.td-toc li a:before { 
+    //content: counters(item, ".") " "; 
+    //counter-increment: item ;
+  //}
+}
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Auto numbering end
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
