@@ -147,7 +147,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -480,10 +480,10 @@ cd
 <ul>
 <li>Make changes to /etc/http/conf.d/ssl.conf as per below</li>
 </ul>
-<pre><code>JkMount /stroom* local
+<pre><code class="language-text">JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 </code></pre>
-<pre><code>JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+<pre><code class="language-text">JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 
 SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
 SSLCertificateKeyFile /etc/httpd/conf/[YOUR SERVER].key
@@ -491,7 +491,6 @@ SSLCertificateChainFile /etc/httpd/conf/[YOUR CA].crt
 SSLCACertificateFile /etc/httpd/conf/[YOUR CA APPENDED LIST].crt
 
 SSLOptions +ExportCertData
-
 </code></pre>
 <ul>
 <li>Remove /etc/httpd/conf.d/nss.conf to avoid a 8443 port clash</li>
@@ -501,7 +500,7 @@ SSLOptions +ExportCertData
 <ul>
 <li>Create a /etc/httpd/conf.d/mod_jk.conf configuration</li>
 </ul>
-<pre><code>LoadModule jk_module modules/mod_jk.so
+<pre><code class="language-text">LoadModule jk_module modules/mod_jk.so
 JkWorkersFile conf/workers.properties
 JkLogFile logs/mod_jk.log
 JkLogLevel info
@@ -509,10 +508,10 @@ JkLogStampFormat  &quot;[%a %b %d %H:%M:%S %Y]&quot;
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 JkRequestLogFormat &quot;%w %V %T&quot;
 </code></pre>
-<pre><code>JkMount /stroom* local
+<pre><code class="language-text">JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 </code></pre>
-<pre><code>JkShmFile logs/jk.shm
+<pre><code class="language-text">JkShmFile logs/jk.shm
 &lt;Location /jkstatus/&gt;
     JkMount status
     Order deny,allow
@@ -528,7 +527,7 @@ JkMount /stroom/remoting/cluster* local
 <ul>
 <li>Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster</li>
 </ul>
-<pre><code>worker.list=loadbalancer,local,status
+<pre><code class="language-text">worker.list=loadbalancer,local,status
 worker.stroom_1.port=8009
 worker.stroom_1.host=localhost
 worker.stroom_1.type=ajp13
@@ -547,7 +546,7 @@ worker.status.type=status
 <ul>
 <li>Create a simple redirect page to the stroom web app for the root URL (e.g. DocumentRoot &ldquo;/var/www/html&rdquo;, index.html)</li>
 </ul>
-<pre><code>&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
+<pre><code class="language-text">&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
 </code></pre>
 <ul>
 <li>Restart Apache and then test default http / https access.</li>
@@ -557,7 +556,7 @@ worker.status.type=status
 <h2 id="advanced-forwarding">Advanced Forwarding</h2>
 <p>Typically Stroom is setup so that traffic sent to /stroom* is routed to Stroom and /stroom/datafeed to Stroom Proxy.  It is possible to setup an extra 1 level of datafeed routing so that based on the URL this traffic can be routed differently.</p>
 <p>For example to route traffic directly to Stroom under the URL /stroom/datafeed/direct (avoiding any aggregation) the following mod_jk setting could be used.</p>
-<pre><code>JkMount /stroom/datafeed/direct* loadbalancer
+<pre><code class="language-text">JkMount /stroom/datafeed/direct* loadbalancer
 </code></pre>
 
 </div>
@@ -933,14 +932,14 @@ scripts in the processing users home directory.</li>
 <li>Setup env.sh to include JAVA_HOME to point to the installed directory of the JDK
 (this will be platform specific).  vi ~/env.sh</li>
 </ul>
-<pre><code># User specific aliases and functions
+<pre><code class="language-bash"># User specific aliases and functions
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 </code></pre>
 <ul>
 <li>Setup users profile to include the same.  vi ~/.bashrc</li>
 </ul>
-<pre><code># User specific aliases and functions
+<pre><code class="language-bash"># User specific aliases and functions
 . ~/env.sh
 </code></pre>
 <ul>
@@ -1440,7 +1439,7 @@ Currently these ports are:</p>
 <li>80</li>
 </ul>
 <p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
-<pre><code>firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+<pre><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=3307/tcp  
 firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
@@ -1545,7 +1544,7 @@ Currently these ports are:</p>
 <li>80</li>
 </ul>
 <p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
-<pre><code>firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+<pre><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=3307/tcp  
 firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
@@ -1562,7 +1561,7 @@ firewall-cmd --reload
 <h3 id="download-and-install-stroom-v7-app-version">Download and install Stroom v7 (app version)</h3>
 <p>The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.<br>
 As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.</p>
-<pre><code>wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
+<pre><code class="language-bash">wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
 unzip stroom-proxy-app..............
 </code></pre>
 <p> </p>
@@ -1575,7 +1574,7 @@ unzip stroom-proxy-app..............
  </li>
 </ul>
 <p>The log file locations are changed to be relative to where stroom is started i.e. <code>~stroomuser/stroom-proxy/logs/…</code>..</p>
-<pre><code>currentLogFilename: logs/events/event.log		
+<pre><code class="language-text">currentLogFilename: logs/events/event.log		
 archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd'T'HH:mm}.log
 currentLogFilename: logs/events/event.log
 archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd'T'HH:mm}.log
@@ -1587,7 +1586,7 @@ archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
 <p> </p>
 <p>An API key created on the stroom server for a special proxy user is added to the configuration file.
 The API key is used to validate access to the application</p>
-<pre><code>proxyConfig:
+<pre><code class="language-yaml">proxyConfig:
   useDefaultOpenIdCredentials: **false**
   proxyContentDir: &quot;/stroom-proxy/content&quot;
 
@@ -1605,13 +1604,13 @@ The API key is used to validate access to the application</p>
 <p>The location of the jks files has to be set, or comment all of the lines that have <strong>sslConfig: &amp; tls:</strong> sections out to not use jks checking.</p>
 <p>Stroom also needs the client &amp; ca ‘jks’ files and by default are located in - <strong>/stroom-proxy/certs/ca.jks &amp; client.jks</strong>
 Their location can be changed in the <code>config.yml</code></p>
-<pre><code>keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;  
+<pre><code class="language-yaml">keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;  
 keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;  
 </code></pre>
 <p>Could be changed to……………….</p>
-<pre><code>keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;  
+<pre><code class="language-yaml">keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;  
 keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
@@ -1619,7 +1618,7 @@ trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
 <p> </p>
 <p>Create a directory - <strong>/stroom-proxy</strong> – and ensure that stroom can write to it<br>
 This is where the proxy data files are stored - <strong>/stroom-proxy/repo</strong></p>
-<pre><code>proxyRepositoryConfig:
+<pre><code class="language-yaml">proxyRepositoryConfig:
     storingEnabled: true
     repoDir: **&quot;/stroom-proxy/repo&quot;**
     format: &quot;${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}&quot;
@@ -1813,7 +1812,7 @@ You can use the v7 stack scripts to do this.</p>
 <pre><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz
 </code></pre>
 <p>You should now see the following tables in the <code>stroom</code> database:</p>
-<pre><code>OLD_AUTH_json_web_key
+<pre><code class="language-text">OLD_AUTH_json_web_key
 OLD_AUTH_schema_version
 OLD_AUTH_token_types
 OLD_AUTH_tokens
@@ -1826,7 +1825,6 @@ OLD_AUTH_users
 <p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
 <pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --force -u&quot;root&quot; -p&quot;my-secret-pw&quot; &lt; v7_drop_unused_databases.sql
-
 </code></pre>
 <p>Verify it worked with:</p>
 <pre><code class="language-bash">echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u&quot;root&quot; -p&quot;my-secret-pw&quot;
@@ -1916,7 +1914,7 @@ For example, stroom&rsquo;s <code>config.yml</code> file also uses variable subs
 </code></pre>
 <p>In this example <code>jdbcDriverUrl</code> will be set to the value of environment variable <code>STROOM_JDBC_DRIVER_CLASS_NAME</code> or <code>com.mysql.cj.jdbc.Driver</code> if that is not set.</p>
 <p>The following example shows how setting <code>MY_ENV_VAR=123</code> means <code>myProperty</code> will ultimately get a value of <code>123</code> and not its default of <code>789</code>.</p>
-<pre><code>env file (stroom&lt;stack name&gt;.env) - MY_ENV_VAR=123
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env) - MY_ENV_VAR=123
                 |
                 |
                 | environment variable substitution
@@ -1934,7 +1932,7 @@ Stroom configuration file (config.yml) - myProperty: &quot;${STROOM_ENV_VAR:-789
 Any changes to the env file will not take effect until the container is (re)started.</p>
 <h3 id="configuration-files">Configuration files</h3>
 <p>The following shows the basic structure of a stack with respect to the location of the configuration files:</p>
-<pre><code>── stroom_core_test-vX.Y.Z
+<pre><code class="language-text">── stroom_core_test-vX.Y.Z
    ├── config                [stack env file and docker compose YAML files]
    └── volumes
        └── &lt;service&gt;
@@ -2005,7 +2003,7 @@ The certificate/key files are typically found in the directories <code>volumes/&
 For production deployments these should be replaced with the actual certificates/keys for your environment.</p>
 <p>In general the best approach to configuring the certificates/keys is to replace the existing files with symlinks to the actual files.
 For example in the case of the server certificates for nginx (found in <code>volumes/nginx/certs/</code>) the directory would look like:</p>
-<pre><code>ca.pem.crt -&gt; /some/path/to/certificate_authority.pem.crt
+<pre><code class="language-text">ca.pem.crt -&gt; /some/path/to/certificate_authority.pem.crt
 server.pem.crt -&gt; /some/path/to/host123.pem.crt
 server.unencrypted.key -&gt; /some/path/to/host123.key
 </code></pre>
@@ -2081,7 +2079,7 @@ The templating mechanism used in stroom&rsquo;s Nginx container was set up befor
 When the container starts any variables in these templates will be substituted and the resulting files will be copied into <code>/etc/nginx</code>.
 The result of the template substitution is logged to help with debugging.</p>
 <p>The files can contain templating of the form:</p>
-<pre><code>ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
+<pre><code class="language-text">ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
 </code></pre>
 <p>In this example <code>&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;</code> will be replaced with the value of environment variable <code>NGINX_SSL_CERTIFICATE</code> when the container starts.</p>
 <h3 id="upstreams">Upstreams</h3>
@@ -2124,7 +2122,7 @@ For a production deployment these will need to be changed, see <a href="/stroom-
 Logrotate is configured using the file <code>volumes/stroom-log-sender/logrotate.conf.template</code>.
 This file is templated in the same way as the Nginx configuration files, see <a href="#templating">above</a>.
 The number of rotated files that should be kept before deleting them can be controlled using the line.</p>
-<pre><code>rotate 100
+<pre><code class="language-text">rotate 100
 </code></pre>
 <p>This should be set in conjunction with the frequency that logrotate is called, which is controlled by <code>volumes/stroom-log-sender/crontab.txt</code>.
 This crontab file drives the lograte process and by default is set to run every minute.</p>
@@ -2230,7 +2228,7 @@ This approach is useful for configuration values that need to be used by multipl
 This can either be a simple file with hard coded values or one that uses environment variables for some of its
 configuration items.</p>
 <p>The configuration works as follows:</p>
-<pre><code>env file (stroom&lt;stack name&gt;.env)
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env)
                 |
                 |
                 | environment variable substitution
@@ -2342,7 +2340,7 @@ Also as with stroom, the <code>config.yml</code> file supports environment varia
 <li>When forwarding data to a downstream stroom/stroom-proxy</li>
 </ul>
 <p>The stack comes with the following files that can be used for demo/test purposes.</p>
-<pre><code>volumes/stroom-proxy-*/certs/ca.jks
+<pre><code class="language-text">volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 </code></pre>
 <p>For a production deployment these will need to be changed, see <a href="/stroom-docs/hugo-docsy/docs/install-guide/configuration/#certificates">Certificates</a></p>
@@ -2464,7 +2462,7 @@ These common values can be set in the <code>config/&lt;stack name&gt;.env</code>
 <p>The directory <code>volumes/stroom-log-sender/certs</code> contains the default client certificates used for the stack.
 These allow stroom-log-sender to send the log files over SSL which also provides stroom with details of the sender.
 These will need to be replaced in a production environment.</p>
-<pre><code>volumes/stroom-log-sender/certs/ca.pem.crt
+<pre><code class="language-text">volumes/stroom-log-sender/certs/ca.pem.crt
 volumes/stroom-log-sender/certs/client.pem.crt
 volumes/stroom-log-sender/certs/client.unencrypted.key
 </code></pre>

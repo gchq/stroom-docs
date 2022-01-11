@@ -147,7 +147,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -387,7 +387,7 @@ Header set X-XSS-Protection &quot;1; mode=block&quot;
 # Stroom Change: End
 </code></pre>
 <p>That is,</p>
-<pre><code>...
+<pre><code class="language-text">...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
 # Mutex directive, if file-based mutexes are used.  If you wish to share the
@@ -401,7 +401,7 @@ ServerRoot &quot;/etc/httpd&quot;
 ...
 </code></pre>
 <p>becomes</p>
-<pre><code>...
+<pre><code class="language-text">...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
 # Mutex directive, if file-based mutexes are used.  If you wish to share the
@@ -3041,7 +3041,7 @@ sudo firewall-cmd --zone=public --list-all
 <ul>
 <li>Node: <code>stroomp00.strmdev00.org</code></li>
 </ul>
-<pre><code>stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
+<pre><code class="language-text">stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
 <pre><code class="language-bash">sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
@@ -3049,7 +3049,7 @@ sudo firewall-cmd --zone=public --list-all
 <ul>
 <li>Node: <code>stroomp01.strmdev00.org</code></li>
 </ul>
-<pre><code>stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
+<pre><code class="language-text">stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
 <pre><code class="language-bash">sudo su -c &quot;printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
@@ -3087,7 +3087,7 @@ sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomda
 <ul>
 <li>Once the test mounts work, we make them permanent by adding the following to the /etc/fstab file.</li>
 </ul>
-<pre><code>stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
+<pre><code class="language-text">stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
 stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom-data-p01 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
@@ -3107,7 +3107,7 @@ sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /st
 <ul>
 <li>Once the test mount works, make the mount permanent by adding the following to the /etc/fstab file</li>
 </ul>
-<pre><code>stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
+<pre><code class="language-text">stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
 <pre><code class="language-bash">sudo su -c &quot;printf 'stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
@@ -4121,7 +4121,6 @@ printf '    bash ${service}/bin/stop.sh\n' &gt;&gt; ${F}
 printf '  fi\n' &gt;&gt; ${F}
 printf 'done\n' &gt;&gt; ${F}
 chmod 750 ${F}
-
 </code></pre>
 <p>Although one can modify the above for Stroom Forwarding or Standalone Proxy deployments, there is no issue if you use the same scripts.</p>
 <h2 id="establish-and-deploy-systemd-services">Establish and Deploy Systemd services</h2>
@@ -4247,7 +4246,6 @@ cd stroom-jks
 e is 65537 (0x10001)
 Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 Verifying - Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
-
 </code></pre>
 <p>Create a signing request. The two important prompts are the password and Common Name. All the rest can use the defaults offered.
 The requested password is for the server key and you should use the host (or cluster alias) your are deploying the certificates on for

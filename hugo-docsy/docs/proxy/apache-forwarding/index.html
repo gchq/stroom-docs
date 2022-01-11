@@ -25,14 +25,14 @@ It is additionally recommended that Stroom Proxy is used to front data ingest an
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/proxy/apache-forwarding/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2022-01-11T12:58:34+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-11T13:23:05+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Apache Forwarding">
 <meta itemprop="description" content="Warning This document refers to v5.
  Stroom Proxy defaults to listening for HTTP on port 9080. It is recommended that Apache is used to listen on the standard HTTP port 80 and forward requests on via the Apache mod_jk module and the AJP protocol (on 9009). Apache can also perform HTTPS on port 443 and pass over requests to Tomcat using the same AJP protocol.
 It is additionally recommended that Stroom Proxy is used to front data ingest and so Apache is configured to route traffic to http(s)://server/stroom/datafeed to Stroom Proxy.">
-<meta itemprop="dateModified" content="2022-01-11T12:58:34+00:00" />
-<meta itemprop="wordCount" content="342">
+<meta itemprop="dateModified" content="2022-01-11T13:23:05+00:00" />
+<meta itemprop="wordCount" content="343">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Apache Forwarding"/>
 <meta name="twitter:description" content="Warning This document refers to v5.
@@ -154,7 +154,7 @@ It is additionally recommended that Stroom Proxy is used to front data ingest an
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -181,7 +181,7 @@ It is additionally recommended that Stroom Proxy is used to front data ingest an
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -852,10 +852,10 @@ cd
 <ul>
 <li>Make changes to /etc/http/conf.d/ssl.conf as per below</li>
 </ul>
-<pre><code>JkMount /stroom/datafeed* loadbalancer_proxy
+<pre><code class="language-text">JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom* loadbalancer_proxy
 </code></pre>
-<pre><code>JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+<pre><code class="language-text">JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 
 SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
 SSLCertificateKeyFile /etc/httpd/conf/[YOUR SERVER].key
@@ -870,7 +870,7 @@ SSLCACertificateFile /etc/httpd/conf/[YOUR CA APPENDED LIST].crt
 <ul>
 <li>Create a /etc/httpd/conf.d/mod_jk.conf configuration</li>
 </ul>
-<pre><code>LoadModule jk_module modules/mod_jk.so
+<pre><code class="language-text">LoadModule jk_module modules/mod_jk.so
 JkWorkersFile conf/workers.properties
 JkLogFile logs/mod_jk.log
 JkLogLevel info
@@ -878,10 +878,10 @@ JkLogStampFormat  &quot;[%a %b %d %H:%M:%S %Y]&quot;
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 JkRequestLogFormat &quot;%w %V %T&quot;
 </code></pre>
-<pre><code>JkMount /stroom/datafeed* loadbalancer_proxy
+<pre><code class="language-text">JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom* loadbalancer_proxy
 </code></pre>
-<pre><code>JkShmFile logs/jk.shm
+<pre><code class="language-text">JkShmFile logs/jk.shm
 &lt;Location /jkstatus/&gt;
     JkMount status
     Order deny,allow
@@ -895,7 +895,8 @@ JkMount /stroom* loadbalancer_proxy
 <pre><code class="language-bash">/home/stroomuser/stroom-setup/workers.properties.sh --cluster=/home/stroomuser/cluster.txt &gt; /etc/httpd/conf/workers.properties
 </code></pre>
 <ul>
-<li>Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster</li>
+<li>Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster
+text</li>
 </ul>
 <pre><code>worker.list=loadbalancer_proxy,local_proxy
 worker.stroom_1_proxy.port=9009
@@ -915,7 +916,7 @@ worker.local_proxy.sticky_session=1
 <ul>
 <li>Create a simple redirect page to the stroom web app for the root URL (e.g. DocumentRoot &ldquo;/var/www/html&rdquo;, index.html)</li>
 </ul>
-<pre><code>&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
+<pre><code class="language-text">&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
 </code></pre>
 <ul>
 <li>Restart Apache and then test default http / https access.</li>
@@ -929,7 +930,7 @@ worker.local_proxy.sticky_session=1
 
     Last modified
     January 11, 2022
-    : <a  href="https://github.com/gchq/stroom-docs/commit/059464e7a725ade0199cc1aea6b21ed617dd9ca5">Fix heading numbering and styling when printing (059464e)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/1c5d36f286a27d80ac5b50d7d45f52d3aa69e438">Add missing syntax types to fenced blocks (1c5d36f)</a>
 
 </div>
 

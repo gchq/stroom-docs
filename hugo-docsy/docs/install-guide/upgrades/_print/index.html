@@ -144,7 +144,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -324,7 +324,7 @@ You can use the v7 stack scripts to do this.</p>
 <pre><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz
 </code></pre>
 <p>You should now see the following tables in the <code>stroom</code> database:</p>
-<pre><code>OLD_AUTH_json_web_key
+<pre><code class="language-text">OLD_AUTH_json_web_key
 OLD_AUTH_schema_version
 OLD_AUTH_token_types
 OLD_AUTH_tokens
@@ -337,7 +337,6 @@ OLD_AUTH_users
 <p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
 <pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --force -u&quot;root&quot; -p&quot;my-secret-pw&quot; &lt; v7_drop_unused_databases.sql
-
 </code></pre>
 <p>Verify it worked with:</p>
 <pre><code class="language-bash">echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u&quot;root&quot; -p&quot;my-secret-pw&quot;

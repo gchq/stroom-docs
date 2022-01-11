@@ -345,7 +345,7 @@ Currently these ports are:&lt;/p&gt;
 &lt;li&gt;80&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;For example on a RHEL/CentOS server using &lt;code&gt;firewalld&lt;/code&gt; the commands would be as &lt;em&gt;root&lt;/em&gt; user:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --permanent --add-port=3307/tcp  
 firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
@@ -450,7 +450,7 @@ Currently these ports are:&lt;/p&gt;
 &lt;li&gt;80&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;For example on a RHEL/CentOS server using &lt;code&gt;firewalld&lt;/code&gt; the commands would be as &lt;em&gt;root&lt;/em&gt; user:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --permanent --add-port=3307/tcp  
 firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
@@ -467,7 +467,7 @@ firewall-cmd --reload
 &lt;h3 id=&#34;download-and-install-stroom-v7-app-version&#34;&gt;Download and install Stroom v7 (app version)&lt;/h3&gt;
 &lt;p&gt;The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.&lt;br&gt;
 As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
 unzip stroom-proxy-app..............
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt; &lt;/p&gt;
@@ -480,7 +480,7 @@ unzip stroom-proxy-app..............
  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The log file locations are changed to be relative to where stroom is started i.e. &lt;code&gt;~stroomuser/stroom-proxy/logs/…&lt;/code&gt;..&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;currentLogFilename: logs/events/event.log		
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;currentLogFilename: logs/events/event.log		
 archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd&#39;T&#39;HH:mm}.log
 currentLogFilename: logs/events/event.log
 archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd&#39;T&#39;HH:mm}.log
@@ -492,7 +492,7 @@ archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd&#39;T&#39;HH:mm}.log.gz
 &lt;p&gt; &lt;/p&gt;
 &lt;p&gt;An API key created on the stroom server for a special proxy user is added to the configuration file.
 The API key is used to validate access to the application&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;proxyConfig:
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyConfig:
   useDefaultOpenIdCredentials: **false**
   proxyContentDir: &amp;quot;/stroom-proxy/content&amp;quot;
 
@@ -510,13 +510,13 @@ The API key is used to validate access to the application&lt;/p&gt;
 &lt;p&gt;The location of the jks files has to be set, or comment all of the lines that have &lt;strong&gt;sslConfig: &amp;amp; tls:&lt;/strong&gt; sections out to not use jks checking.&lt;/p&gt;
 &lt;p&gt;Stroom also needs the client &amp;amp; ca ‘jks’ files and by default are located in - &lt;strong&gt;/stroom-proxy/certs/ca.jks &amp;amp; client.jks&lt;/strong&gt;
 Their location can be changed in the &lt;code&gt;config.yml&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;  
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;  
 trustStorePath: &amp;quot;/stroom-proxy/certs/ca.jks&amp;quot;  
 keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;  
 trustStorePath: &amp;quot;/stroom-proxy/certs/ca.jks&amp;quot;  
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Could be changed to……………….&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;keyStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/client.jks&amp;quot;  
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;keyStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/client.jks&amp;quot;  
 trustStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/ca.jks&amp;quot;  
 keyStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/client.jks&amp;quot;  
 trustStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/ca.jks&amp;quot;
@@ -524,7 +524,7 @@ trustStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/ca.jks&amp;quot;
 &lt;p&gt; &lt;/p&gt;
 &lt;p&gt;Create a directory - &lt;strong&gt;/stroom-proxy&lt;/strong&gt; – and ensure that stroom can write to it&lt;br&gt;
 This is where the proxy data files are stored - &lt;strong&gt;/stroom-proxy/repo&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;proxyRepositoryConfig:
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyRepositoryConfig:
     storingEnabled: true
     repoDir: **&amp;quot;/stroom-proxy/repo&amp;quot;**
     format: &amp;quot;${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}&amp;quot;
@@ -888,7 +888,7 @@ Also as with stroom, the &lt;code&gt;config.yml&lt;/code&gt; file supports envir
 &lt;li&gt;When forwarding data to a downstream stroom/stroom-proxy&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The stack comes with the following files that can be used for demo/test purposes.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;volumes/stroom-proxy-*/certs/ca.jks
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For a production deployment these will need to be changed, see &lt;a href=&#34;https://gchq.github.io/stroom-docs/hugo-docsy/stroom-docs/hugo-docsy/docs/install-guide/configuration/#certificates&#34;&gt;Certificates&lt;/a&gt;&lt;/p&gt;

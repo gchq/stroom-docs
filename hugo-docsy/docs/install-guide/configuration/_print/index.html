@@ -144,7 +144,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -290,7 +290,7 @@ For example, stroom&rsquo;s <code>config.yml</code> file also uses variable subs
 </code></pre>
 <p>In this example <code>jdbcDriverUrl</code> will be set to the value of environment variable <code>STROOM_JDBC_DRIVER_CLASS_NAME</code> or <code>com.mysql.cj.jdbc.Driver</code> if that is not set.</p>
 <p>The following example shows how setting <code>MY_ENV_VAR=123</code> means <code>myProperty</code> will ultimately get a value of <code>123</code> and not its default of <code>789</code>.</p>
-<pre><code>env file (stroom&lt;stack name&gt;.env) - MY_ENV_VAR=123
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env) - MY_ENV_VAR=123
                 |
                 |
                 | environment variable substitution
@@ -308,7 +308,7 @@ Stroom configuration file (config.yml) - myProperty: &quot;${STROOM_ENV_VAR:-789
 Any changes to the env file will not take effect until the container is (re)started.</p>
 <h3 id="configuration-files">Configuration files</h3>
 <p>The following shows the basic structure of a stack with respect to the location of the configuration files:</p>
-<pre><code>── stroom_core_test-vX.Y.Z
+<pre><code class="language-text">── stroom_core_test-vX.Y.Z
    ├── config                [stack env file and docker compose YAML files]
    └── volumes
        └── &lt;service&gt;
@@ -379,7 +379,7 @@ The certificate/key files are typically found in the directories <code>volumes/&
 For production deployments these should be replaced with the actual certificates/keys for your environment.</p>
 <p>In general the best approach to configuring the certificates/keys is to replace the existing files with symlinks to the actual files.
 For example in the case of the server certificates for nginx (found in <code>volumes/nginx/certs/</code>) the directory would look like:</p>
-<pre><code>ca.pem.crt -&gt; /some/path/to/certificate_authority.pem.crt
+<pre><code class="language-text">ca.pem.crt -&gt; /some/path/to/certificate_authority.pem.crt
 server.pem.crt -&gt; /some/path/to/host123.pem.crt
 server.unencrypted.key -&gt; /some/path/to/host123.key
 </code></pre>
@@ -452,7 +452,7 @@ The templating mechanism used in stroom&rsquo;s Nginx container was set up befor
 When the container starts any variables in these templates will be substituted and the resulting files will be copied into <code>/etc/nginx</code>.
 The result of the template substitution is logged to help with debugging.</p>
 <p>The files can contain templating of the form:</p>
-<pre><code>ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
+<pre><code class="language-text">ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
 </code></pre>
 <p>In this example <code>&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;</code> will be replaced with the value of environment variable <code>NGINX_SSL_CERTIFICATE</code> when the container starts.</p>
 <h3 id="upstreams">Upstreams</h3>
@@ -495,7 +495,7 @@ For a production deployment these will need to be changed, see <a href="/stroom-
 Logrotate is configured using the file <code>volumes/stroom-log-sender/logrotate.conf.template</code>.
 This file is templated in the same way as the Nginx configuration files, see <a href="#templating">above</a>.
 The number of rotated files that should be kept before deleting them can be controlled using the line.</p>
-<pre><code>rotate 100
+<pre><code class="language-text">rotate 100
 </code></pre>
 <p>This should be set in conjunction with the frequency that logrotate is called, which is controlled by <code>volumes/stroom-log-sender/crontab.txt</code>.
 This crontab file drives the lograte process and by default is set to run every minute.</p>
@@ -601,7 +601,7 @@ This approach is useful for configuration values that need to be used by multipl
 This can either be a simple file with hard coded values or one that uses environment variables for some of its
 configuration items.</p>
 <p>The configuration works as follows:</p>
-<pre><code>env file (stroom&lt;stack name&gt;.env)
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env)
                 |
                 |
                 | environment variable substitution
@@ -713,7 +713,7 @@ Also as with stroom, the <code>config.yml</code> file supports environment varia
 <li>When forwarding data to a downstream stroom/stroom-proxy</li>
 </ul>
 <p>The stack comes with the following files that can be used for demo/test purposes.</p>
-<pre><code>volumes/stroom-proxy-*/certs/ca.jks
+<pre><code class="language-text">volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 </code></pre>
 <p>For a production deployment these will need to be changed, see <a href="/stroom-docs/hugo-docsy/docs/install-guide/configuration/#certificates">Certificates</a></p>
@@ -835,7 +835,7 @@ These common values can be set in the <code>config/&lt;stack name&gt;.env</code>
 <p>The directory <code>volumes/stroom-log-sender/certs</code> contains the default client certificates used for the stack.
 These allow stroom-log-sender to send the log files over SSL which also provides stroom with details of the sender.
 These will need to be replaced in a production environment.</p>
-<pre><code>volumes/stroom-log-sender/certs/ca.pem.crt
+<pre><code class="language-text">volumes/stroom-log-sender/certs/ca.pem.crt
 volumes/stroom-log-sender/certs/client.pem.crt
 volumes/stroom-log-sender/certs/client.unencrypted.key
 </code></pre>

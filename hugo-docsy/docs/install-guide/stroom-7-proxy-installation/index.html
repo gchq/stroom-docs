@@ -25,13 +25,13 @@ The other version runs stroom proxy within docker containers and also has a sett
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/install-guide/stroom-7-proxy-installation/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-08-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-11T12:58:34+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-11T13:23:05+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Stroom Proxy Installation">
 <meta itemprop="description" content="There are 2 versions of the stroom software availble for building a proxy server.
 There is an &lsquo;app&rsquo; version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.
 The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database."><meta itemprop="datePublished" content="2021-08-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-11T12:58:34+00:00" />
+<meta itemprop="dateModified" content="2022-01-11T13:23:05+00:00" />
 <meta itemprop="wordCount" content="1275">
 <meta itemprop="keywords" content="proxy," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Stroom Proxy Installation"/>
@@ -154,7 +154,7 @@ The other version runs stroom proxy within docker containers and also has a sett
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -181,7 +181,7 @@ The other version runs stroom proxy within docker containers and also has a sett
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -898,7 +898,7 @@ Currently these ports are:</p>
 <li>80</li>
 </ul>
 <p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
-<pre><code>firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+<pre><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=3307/tcp  
 firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
@@ -1003,7 +1003,7 @@ Currently these ports are:</p>
 <li>80</li>
 </ul>
 <p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
-<pre><code>firewall-cmd --zone=public --permanent --add-port=3307/tcp  
+<pre><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=3307/tcp  
 firewall-cmd --zone=public --permanent --add-port=8080/tcp  
 firewall-cmd --zone=public --permanent --add-port=8081/tcp  
 firewall-cmd --zone=public --permanent --add-port=8090/tcp  
@@ -1020,7 +1020,7 @@ firewall-cmd --reload
 <h3 id="download-and-install-stroom-v7-app-version">Download and install Stroom v7 (app version)</h3>
 <p>The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.<br>
 As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.</p>
-<pre><code>wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
+<pre><code class="language-bash">wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
 unzip stroom-proxy-app..............
 </code></pre>
 <p> </p>
@@ -1033,7 +1033,7 @@ unzip stroom-proxy-app..............
  </li>
 </ul>
 <p>The log file locations are changed to be relative to where stroom is started i.e. <code>~stroomuser/stroom-proxy/logs/…</code>..</p>
-<pre><code>currentLogFilename: logs/events/event.log		
+<pre><code class="language-text">currentLogFilename: logs/events/event.log		
 archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd'T'HH:mm}.log
 currentLogFilename: logs/events/event.log
 archivedLogFilenamePattern: logs/events/event-%d{yyyy-MM-dd'T'HH:mm}.log
@@ -1045,7 +1045,7 @@ archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
 <p> </p>
 <p>An API key created on the stroom server for a special proxy user is added to the configuration file.
 The API key is used to validate access to the application</p>
-<pre><code>proxyConfig:
+<pre><code class="language-yaml">proxyConfig:
   useDefaultOpenIdCredentials: **false**
   proxyContentDir: &quot;/stroom-proxy/content&quot;
 
@@ -1063,13 +1063,13 @@ The API key is used to validate access to the application</p>
 <p>The location of the jks files has to be set, or comment all of the lines that have <strong>sslConfig: &amp; tls:</strong> sections out to not use jks checking.</p>
 <p>Stroom also needs the client &amp; ca ‘jks’ files and by default are located in - <strong>/stroom-proxy/certs/ca.jks &amp; client.jks</strong>
 Their location can be changed in the <code>config.yml</code></p>
-<pre><code>keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;  
+<pre><code class="language-yaml">keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;  
 keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;  
 </code></pre>
 <p>Could be changed to……………….</p>
-<pre><code>keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;  
+<pre><code class="language-yaml">keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;  
 keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;  
 trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
@@ -1077,7 +1077,7 @@ trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
 <p> </p>
 <p>Create a directory - <strong>/stroom-proxy</strong> – and ensure that stroom can write to it<br>
 This is where the proxy data files are stored - <strong>/stroom-proxy/repo</strong></p>
-<pre><code>proxyRepositoryConfig:
+<pre><code class="language-yaml">proxyRepositoryConfig:
     storingEnabled: true
     repoDir: **&quot;/stroom-proxy/repo&quot;**
     format: &quot;${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}&quot;
@@ -1090,7 +1090,7 @@ This is where the proxy data files are stored - <strong>/stroom-proxy/repo</stro
 
     Last modified
     January 11, 2022
-    : <a  href="https://github.com/gchq/stroom-docs/commit/059464e7a725ade0199cc1aea6b21ed617dd9ca5">Fix heading numbering and styling when printing (059464e)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/1c5d36f286a27d80ac5b50d7d45f52d3aa69e438">Add missing syntax types to fenced blocks (1c5d36f)</a>
 
 </div>
 

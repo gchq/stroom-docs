@@ -25,13 +25,13 @@ The &lt;split&gt; element The &lt;split&gt; element directs Data Splitter to bre
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-2-expressions/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-11T12:58:34+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-11T13:23:05+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Expressions">
 <meta itemprop="description" content="Expressions match some data supplied by a parent content provider. The content matched by an expression depends on the type of expression and how it is configured.
 The &lt;split&gt;, &lt;regex&gt; and &lt;all&gt; elements are all expressions and match content as described below.
 The &lt;split&gt; element The &lt;split&gt; element directs Data Splitter to break up content using a specified character sequence as a delimiter. In addition to this it is possible to specify characters that are used to escape the delimiter as well as characters that contain or &ldquo;quote&rdquo; a value that may include the delimiter sequence but allow it to be ignored."><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-11T12:58:34+00:00" />
+<meta itemprop="dateModified" content="2022-01-11T13:23:05+00:00" />
 <meta itemprop="wordCount" content="1513">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Expressions"/>
@@ -154,7 +154,7 @@ The &lt;split&gt; element The &lt;split&gt; element directs Data Splitter to bre
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -181,7 +181,7 @@ The &lt;split&gt; element The &lt;split&gt; element directs Data Splitter to bre
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -943,24 +943,24 @@ The &lt;split&gt; element The &lt;split&gt; element directs Data Splitter to bre
 <p>This is used in the same way it is on the <code>&lt;split&gt;</code> element, see <a href="#sec-2-2-1-1-8">onlyMatch</a>.</p>
 <h4 id="a-namesec-2-2-2-1-8aadvance"><a name="sec-2-2-2-1-8"></a>advance</h4>
 <p>After an expression has matched content in the buffer, the buffer start position is advanced so that it moves to the end of the entire match. This means that subsequent expressions operating on the content buffer will not see the previously matched content again. This is normally required behaviour, but in some cases some of the content from a match is still required for subsequent matches. Take the following example of name value pairs:</p>
-<pre><code>name1=some value 1 name2=some value 2 name3=some value 3
+<pre><code class="language-text">name1=some value 1 name2=some value 2 name3=some value 3
 </code></pre>
 <p>The first name value pair could be matched with the following expression:</p>
 <pre><code class="language-xml">&lt;regex pattern=&quot;([^=]+)=(.+?) [^= ]+=&quot;&gt;
 </code></pre>
 <p>The above expression would match as follows:</p>
-<pre><code>name1=some value 1 name2=some value 2 name3=some value 3
+<pre><code class="language-text">name1=some value 1 name2=some value 2 name3=some value 3
 </code></pre>
 <p>In this example we have had to do a reluctant match to extract the value in group 2 and not include the subsequent name. Because the reluctant match requires us to specify what we are reluctantly matching up to, we have had to include an expression after it that matches the next name.</p>
 <p>By default the parser will move the character buffer to the end of the entire match so the next expression will be presented with the following:</p>
-<pre><code>some value 2 name3=some value 3
+<pre><code class="language-text">some value 2 name3=some value 3
 </code></pre>
 <p>Therefore <code>name2</code> will have been lost from the content buffer and will not be available for matching.</p>
 <p>This behaviour can be altered by telling the expression how far to advance the character buffer after matching. This is done with the advance attribute and is used to specify the match group whose end position should be treated as the point the content buffer should advance to, e.g.</p>
 <pre><code class="language-xml">&lt;regex pattern=&quot;([^=]+)=(.+?) [^= ]+=&quot; advance=&quot;2&quot;&gt;
 </code></pre>
 <p>In this example the content buffer will only advance to the end of match group 2 and subsequent expressions will be presented with the following content:</p>
-<pre><code>name2=some value 2 name3=some value 3
+<pre><code class="language-text">name2=some value 2 name3=some value 3
 </code></pre>
 <p>Therefore <code>name2</code> will still be available in the content buffer.</p>
 <p>It is likely that the advance feature will only be useful in cases where a reluctant match is performed. Reluctant matches are discouraged for performance reasons so this feature should rarely be used. A better way to tackle the above example would be to present the content in <a href="/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-1-content-providers/#sec-2-1-2-1-5">reverse</a>, however this is only possible if the expression is within a group, i.e. is not a root expression. There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.</p>
@@ -992,7 +992,7 @@ The &lt;split&gt; element The &lt;split&gt; element directs Data Splitter to bre
 
     Last modified
     January 11, 2022
-    : <a  href="https://github.com/gchq/stroom-docs/commit/059464e7a725ade0199cc1aea6b21ed617dd9ca5">Fix heading numbering and styling when printing (059464e)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/1c5d36f286a27d80ac5b50d7d45f52d3aa69e438">Add missing syntax types to fenced blocks (1c5d36f)</a>
 
 </div>
 

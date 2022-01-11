@@ -144,7 +144,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -304,10 +304,10 @@ cd
 <ul>
 <li>Make changes to /etc/http/conf.d/ssl.conf as per below</li>
 </ul>
-<pre><code>JkMount /stroom* local
+<pre><code class="language-text">JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 </code></pre>
-<pre><code>JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
+<pre><code class="language-text">JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 
 SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
 SSLCertificateKeyFile /etc/httpd/conf/[YOUR SERVER].key
@@ -315,7 +315,6 @@ SSLCertificateChainFile /etc/httpd/conf/[YOUR CA].crt
 SSLCACertificateFile /etc/httpd/conf/[YOUR CA APPENDED LIST].crt
 
 SSLOptions +ExportCertData
-
 </code></pre>
 <ul>
 <li>Remove /etc/httpd/conf.d/nss.conf to avoid a 8443 port clash</li>
@@ -325,7 +324,7 @@ SSLOptions +ExportCertData
 <ul>
 <li>Create a /etc/httpd/conf.d/mod_jk.conf configuration</li>
 </ul>
-<pre><code>LoadModule jk_module modules/mod_jk.so
+<pre><code class="language-text">LoadModule jk_module modules/mod_jk.so
 JkWorkersFile conf/workers.properties
 JkLogFile logs/mod_jk.log
 JkLogLevel info
@@ -333,10 +332,10 @@ JkLogStampFormat  &quot;[%a %b %d %H:%M:%S %Y]&quot;
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 JkRequestLogFormat &quot;%w %V %T&quot;
 </code></pre>
-<pre><code>JkMount /stroom* local
+<pre><code class="language-text">JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 </code></pre>
-<pre><code>JkShmFile logs/jk.shm
+<pre><code class="language-text">JkShmFile logs/jk.shm
 &lt;Location /jkstatus/&gt;
     JkMount status
     Order deny,allow
@@ -352,7 +351,7 @@ JkMount /stroom/remoting/cluster* local
 <ul>
 <li>Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster</li>
 </ul>
-<pre><code>worker.list=loadbalancer,local,status
+<pre><code class="language-text">worker.list=loadbalancer,local,status
 worker.stroom_1.port=8009
 worker.stroom_1.host=localhost
 worker.stroom_1.type=ajp13
@@ -371,7 +370,7 @@ worker.status.type=status
 <ul>
 <li>Create a simple redirect page to the stroom web app for the root URL (e.g. DocumentRoot &ldquo;/var/www/html&rdquo;, index.html)</li>
 </ul>
-<pre><code>&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
+<pre><code class="language-text">&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
 </code></pre>
 <ul>
 <li>Restart Apache and then test default http / https access.</li>
@@ -381,7 +380,7 @@ worker.status.type=status
 <h2 id="advanced-forwarding">Advanced Forwarding</h2>
 <p>Typically Stroom is setup so that traffic sent to /stroom* is routed to Stroom and /stroom/datafeed to Stroom Proxy.  It is possible to setup an extra 1 level of datafeed routing so that based on the URL this traffic can be routed differently.</p>
 <p>For example to route traffic directly to Stroom under the URL /stroom/datafeed/direct (avoiding any aggregation) the following mod_jk setting could be used.</p>
-<pre><code>JkMount /stroom/datafeed/direct* loadbalancer
+<pre><code class="language-text">JkMount /stroom/datafeed/direct* loadbalancer
 </code></pre>
 
 </div>
@@ -757,14 +756,14 @@ scripts in the processing users home directory.</li>
 <li>Setup env.sh to include JAVA_HOME to point to the installed directory of the JDK
 (this will be platform specific).  vi ~/env.sh</li>
 </ul>
-<pre><code># User specific aliases and functions
+<pre><code class="language-bash"># User specific aliases and functions
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 </code></pre>
 <ul>
 <li>Setup users profile to include the same.  vi ~/.bashrc</li>
 </ul>
-<pre><code># User specific aliases and functions
+<pre><code class="language-bash"># User specific aliases and functions
 . ~/env.sh
 </code></pre>
 <ul>

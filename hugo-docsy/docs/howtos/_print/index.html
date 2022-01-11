@@ -147,7 +147,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -686,7 +686,7 @@ Header set X-XSS-Protection &quot;1; mode=block&quot;
 # Stroom Change: End
 </code></pre>
 <p>That is,</p>
-<pre><code>...
+<pre><code class="language-text">...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
 # Mutex directive, if file-based mutexes are used.  If you wish to share the
@@ -700,7 +700,7 @@ ServerRoot &quot;/etc/httpd&quot;
 ...
 </code></pre>
 <p>becomes</p>
-<pre><code>...
+<pre><code class="language-text">...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
 # Mutex directive, if file-based mutexes are used.  If you wish to share the
@@ -3340,7 +3340,7 @@ sudo firewall-cmd --zone=public --list-all
 <ul>
 <li>Node: <code>stroomp00.strmdev00.org</code></li>
 </ul>
-<pre><code>stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
+<pre><code class="language-text">stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
 <pre><code class="language-bash">sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
@@ -3348,7 +3348,7 @@ sudo firewall-cmd --zone=public --list-all
 <ul>
 <li>Node: <code>stroomp01.strmdev00.org</code></li>
 </ul>
-<pre><code>stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
+<pre><code class="language-text">stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
 <pre><code class="language-bash">sudo su -c &quot;printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
@@ -3386,7 +3386,7 @@ sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomda
 <ul>
 <li>Once the test mounts work, we make them permanent by adding the following to the /etc/fstab file.</li>
 </ul>
-<pre><code>stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
+<pre><code class="language-text">stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
 stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom-data-p01 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
@@ -3406,7 +3406,7 @@ sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /st
 <ul>
 <li>Once the test mount works, make the mount permanent by adding the following to the /etc/fstab file</li>
 </ul>
-<pre><code>stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
+<pre><code class="language-text">stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
 </code></pre>
 <p>achieved with</p>
 <pre><code class="language-bash">sudo su -c &quot;printf 'stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n' &gt;&gt; /etc/fstab&quot;
@@ -4420,7 +4420,6 @@ printf '    bash ${service}/bin/stop.sh\n' &gt;&gt; ${F}
 printf '  fi\n' &gt;&gt; ${F}
 printf 'done\n' &gt;&gt; ${F}
 chmod 750 ${F}
-
 </code></pre>
 <p>Although one can modify the above for Stroom Forwarding or Standalone Proxy deployments, there is no issue if you use the same scripts.</p>
 <h2 id="establish-and-deploy-systemd-services">Establish and Deploy Systemd services</h2>
@@ -4546,7 +4545,6 @@ cd stroom-jks
 e is 65537 (0x10001)
 Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 Verifying - Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
-
 </code></pre>
 <p>Create a signing request. The two important prompts are the password and Common Name. All the rest can use the defaults offered.
 The requested password is for the server key and you should use the host (or cluster alias) your are deploying the certificates on for
@@ -6384,7 +6382,7 @@ This will bring up the <code>Add Volume</code> configuration window where we sel
 <li>the device TimeZone location (both standard then daylight timezone offsets from UTC)</li>
 </ul>
 <p>For simplicity, our example will use a file with just 3 entries</p>
-<pre><code>FQDN	IPAddress	Country	Site	Building	Room	TimeZones
+<pre><code class="language-text">FQDN	IPAddress	Country	Site	Building	Room	TimeZones
 stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
 stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
 host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
@@ -6997,7 +6995,7 @@ To get the calendar selection window to disappear, click anywhere outside of the
 </div>
 
 <p>We don&rsquo;t need to set <strong>Meta Data</strong> for this stream of reference data, but we (obviously) need to select the file. For the purposes of this example, we will utilise the file <strong>GeoHostReference.log</strong> you downloaded earlier in the <strong>Reference Data</strong> section of this document. This file contains a header and three lines of reference data as per</p>
-<pre><code>FQDN	IPAddress	Country	Site	Building	Room	TimeZones
+<pre><code class="language-text">FQDN	IPAddress	Country	Site	Building	Room	TimeZones
 stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
 stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
 host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
@@ -7764,7 +7762,7 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 </div>
 
 <p>Enter an appropriate description into the <strong>Description:</strong> text entry box, for instance</p>
-<pre><code>Text converter for device Logical and Geographic reference feed holding FQDN, IPAddress, Country, Site, Building, Room and Time Zones. Feed has a header and is tab separated.
+<pre><code class="language-text">Text converter for device Logical and Geographic reference feed holding FQDN, IPAddress, Country, Site, Building, Room and Time Zones. Feed has a header and is tab separated.
 </code></pre>
 <p>Set the <strong>Converter Type:</strong> to be <code>Data Splitter</code> from the drop-down menu.</p>
 
@@ -13559,7 +13557,6 @@ HOWTO - Enabling Processors for a Pipeline</p>
    LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;../../&quot;%r\&quot; %s/%&gt;s %D 0/0/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/$p&quot; blackboxUser
    LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN../../&quot;%r\&quot; %s/%&gt;s %D 0/0/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/$p&quot; blackboxSSLUser
 &lt;/IfModule&gt;
-
 </code></pre>
 <p>A copy of this configuration can be found <a href="ApacheHTTPDAuditConfig.txt" title="Apache BlackBox Auditing Configuration">here</a>.</p>
 <p>As Stroom can use PKI for login, you can configure Stroom’s Apache to make use of the blackboxSSLUser log format. A sample set of logs in this format appear below.</p>

@@ -24,12 +24,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/install-guide/upgrades/6_to_7_upgrade/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-03-10T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-11T12:58:34+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-11T13:23:05+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="v6 to v7 Upgrade">
 <meta itemprop="description" content="This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.
 "><meta itemprop="datePublished" content="2021-03-10T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-11T12:58:34+00:00" />
+<meta itemprop="dateModified" content="2022-01-11T13:23:05+00:00" />
 <meta itemprop="wordCount" content="808">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="v6 to v7 Upgrade"/>
@@ -151,7 +151,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -178,7 +178,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -934,7 +934,7 @@ You can use the v7 stack scripts to do this.</p>
 <pre><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz
 </code></pre>
 <p>You should now see the following tables in the <code>stroom</code> database:</p>
-<pre><code>OLD_AUTH_json_web_key
+<pre><code class="language-text">OLD_AUTH_json_web_key
 OLD_AUTH_schema_version
 OLD_AUTH_token_types
 OLD_AUTH_tokens
@@ -947,7 +947,6 @@ OLD_AUTH_users
 <p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
 <pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --force -u&quot;root&quot; -p&quot;my-secret-pw&quot; &lt; v7_drop_unused_databases.sql
-
 </code></pre>
 <p>Verify it worked with:</p>
 <pre><code class="language-bash">echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u&quot;root&quot; -p&quot;my-secret-pw&quot;
@@ -967,7 +966,7 @@ Running migrate ensures all parts of the migration are completed when the comman
 
     Last modified
     January 11, 2022
-    : <a  href="https://github.com/gchq/stroom-docs/commit/059464e7a725ade0199cc1aea6b21ed617dd9ca5">Fix heading numbering and styling when printing (059464e)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/1c5d36f286a27d80ac5b50d7d45f52d3aa69e438">Add missing syntax types to fenced blocks (1c5d36f)</a>
 
 </div>
 

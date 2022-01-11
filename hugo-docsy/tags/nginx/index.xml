@@ -65,7 +65,7 @@ The templating mechanism used in stroom&amp;rsquo;s Nginx container was set up b
 When the container starts any variables in these templates will be substituted and the resulting files will be copied into &lt;code&gt;/etc/nginx&lt;/code&gt;.
 The result of the template substitution is logged to help with debugging.&lt;/p&gt;
 &lt;p&gt;The files can contain templating of the form:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;ssl_certificate             /stroom-nginx/certs/&amp;lt;&amp;lt;&amp;lt;NGINX_SSL_CERTIFICATE&amp;gt;&amp;gt;&amp;gt;;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;ssl_certificate             /stroom-nginx/certs/&amp;lt;&amp;lt;&amp;lt;NGINX_SSL_CERTIFICATE&amp;gt;&amp;gt;&amp;gt;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In this example &lt;code&gt;&amp;lt;&amp;lt;&amp;lt;NGINX_SSL_CERTIFICATE&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; will be replaced with the value of environment variable &lt;code&gt;NGINX_SSL_CERTIFICATE&lt;/code&gt; when the container starts.&lt;/p&gt;
 &lt;h3 id=&#34;upstreams&#34;&gt;Upstreams&lt;/h3&gt;
@@ -108,7 +108,7 @@ For a production deployment these will need to be changed, see &lt;a href=&#34;h
 Logrotate is configured using the file &lt;code&gt;volumes/stroom-log-sender/logrotate.conf.template&lt;/code&gt;.
 This file is templated in the same way as the Nginx configuration files, see &lt;a href=&#34;#templating&#34;&gt;above&lt;/a&gt;.
 The number of rotated files that should be kept before deleting them can be controlled using the line.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;rotate 100
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;rotate 100
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This should be set in conjunction with the frequency that logrotate is called, which is controlled by &lt;code&gt;volumes/stroom-log-sender/crontab.txt&lt;/code&gt;.
 This crontab file drives the lograte process and by default is set to run every minute.&lt;/p&gt;

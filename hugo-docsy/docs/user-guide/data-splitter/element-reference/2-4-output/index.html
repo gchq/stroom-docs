@@ -26,14 +26,14 @@ Attributes The &lt;data&gt; element has the following attributes:
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/data-splitter/element-reference/2-4-output/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-11T12:58:34+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-11T13:23:05+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Output">
 <meta itemprop="description" content="As with all other aspects of Data Splitter, output XML is determined by adding certain elements to the Data Splitter configuration.
 The &lt;data&gt; element Output is created by Data Splitter using one or more &lt;data&gt; elements in the configuration. The first &lt;data&gt; element that is encountered within a matched expression will result in parent &lt;record&gt; elements being produced in the output.
 Attributes The &lt;data&gt; element has the following attributes:
  id name value  id Optional attribute used to debug the location of expressions causing errors, see id."><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-11T12:58:34+00:00" />
+<meta itemprop="dateModified" content="2022-01-11T13:23:05+00:00" />
 <meta itemprop="wordCount" content="747">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Output"/>
@@ -157,7 +157,7 @@ Attributes The &lt;data&gt; element has the following attributes:
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -184,7 +184,7 @@ Attributes The &lt;data&gt; element has the following attributes:
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -877,7 +877,7 @@ Attributes The &lt;data&gt; element has the following attributes:
 <h4 id="a-namesec_2_4_1_2asingle-ltdatagt-element-example"><a name="sec_2_4_1_2"></a>Single &lt;data&gt; element example</h4>
 <p>The simplest example that can be provided uses a single <code>&lt;data&gt;</code> element within a <code>&lt;split&gt;</code> expression.</p>
 <p>Given the following input:</p>
-<pre><code>This is line 1
+<pre><code class="language-text">This is line 1
 This is line 2
 This is line 3
 </code></pre>
@@ -906,7 +906,7 @@ This is line 3
 <h4 id="a-namesec_2_4_1_3amultiple-ltdatagt-element-example"><a name="sec_2_4_1_3"></a>Multiple &lt;data&gt; element example</h4>
 <p>You could also output multiple <code>&lt;data&gt;</code> elements for the same <code>&lt;record&gt;</code> by adding multiple elements within the same expression:</p>
 <p>Given the following input:</p>
-<pre><code>ip=1.1.1.1 user=user1
+<pre><code class="language-text">ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3
 </code></pre>
@@ -939,7 +939,7 @@ ip=3.3.3.3 user=user3
 <h3 id="a-namesec_2_4_1_4amulti-level-ltdatagt-elements"><a name="sec_2_4_1_4"></a>Multi level &lt;data&gt; elements</h3>
 <p>As long as all data elements occur within the same parent/ancestor expression, all data elements will be output within the same record.</p>
 <p>Given the following input:</p>
-<pre><code>ip=1.1.1.1 user=user1
+<pre><code class="language-text">ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3
 </code></pre>
@@ -959,7 +959,7 @@ ip=3.3.3.3 user=user3
 &lt;/dataSplitter&gt;
 </code></pre>
 <p>… you would get the following output:</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;records xmlns=&quot;records:2&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot; version=&quot;3.0&quot;&gt;
   &lt;record&gt;
     &lt;data name=&quot;line&quot; value=&quot;ip=1.1.1.1 user=user1&quot; /&gt;
@@ -982,7 +982,7 @@ ip=3.3.3.3 user=user3
 <p>Rather than having <code>&lt;data&gt;</code> elements all appear as children of <code>&lt;record&gt;</code> it is possible to nest them either as direct children or within child groups.</p>
 <h4 id="a-namesec-2-4-1-5-1adirect-children"><a name="sec-2-4-1-5-1"></a>Direct children</h4>
 <p>Given the following input:</p>
-<pre><code>ip=1.1.1.1 user=user1
+<pre><code class="language-text">ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3
 </code></pre>
@@ -1022,7 +1022,7 @@ ip=3.3.3.3 user=user3
 </code></pre>
 <h4 id="a-namesec-2-4-1-5-2awithin-child-groups"><a name="sec-2-4-1-5-2"></a>Within child groups</h4>
 <p>Given the following input:</p>
-<pre><code>ip=1.1.1.1 user=user1
+<pre><code class="language-text">ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3
 </code></pre>
@@ -1072,7 +1072,7 @@ ip=3.3.3.3 user=user3
 
     Last modified
     January 11, 2022
-    : <a  href="https://github.com/gchq/stroom-docs/commit/059464e7a725ade0199cc1aea6b21ed617dd9ca5">Fix heading numbering and styling when printing (059464e)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/1c5d36f286a27d80ac5b50d7d45f52d3aa69e438">Add missing syntax types to fenced blocks (1c5d36f)</a>
 
 </div>
 

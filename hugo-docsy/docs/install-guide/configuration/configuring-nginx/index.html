@@ -24,12 +24,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/install-guide/configuration/configuring-nginx/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-08-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-11T12:58:34+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-11T13:23:05+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Nginx Configuration">
 <meta itemprop="description" content="Nginx is the standard web server used by stroom. Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it. It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance. Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.
 "><meta itemprop="datePublished" content="2021-08-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-11T12:58:34+00:00" />
+<meta itemprop="dateModified" content="2022-01-11T13:23:05+00:00" />
 <meta itemprop="wordCount" content="681">
 <meta itemprop="keywords" content="nginx," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Nginx Configuration"/>
@@ -151,7 +151,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -178,7 +178,7 @@
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.2cd4d86b751b12ba440327423651f2a9.json"
+  data-offline-search-index-json-src="/stroom-docs/hugo-docsy/offline-search-index.168b2b0f81a36ec1d295f1ada2f34ab0.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="50"
 >
@@ -882,7 +882,7 @@ The templating mechanism used in stroom&rsquo;s Nginx container was set up befor
 When the container starts any variables in these templates will be substituted and the resulting files will be copied into <code>/etc/nginx</code>.
 The result of the template substitution is logged to help with debugging.</p>
 <p>The files can contain templating of the form:</p>
-<pre><code>ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
+<pre><code class="language-text">ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
 </code></pre>
 <p>In this example <code>&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;</code> will be replaced with the value of environment variable <code>NGINX_SSL_CERTIFICATE</code> when the container starts.</p>
 <h3 id="upstreams">Upstreams</h3>
@@ -925,7 +925,7 @@ For a production deployment these will need to be changed, see <a href="/stroom-
 Logrotate is configured using the file <code>volumes/stroom-log-sender/logrotate.conf.template</code>.
 This file is templated in the same way as the Nginx configuration files, see <a href="#templating">above</a>.
 The number of rotated files that should be kept before deleting them can be controlled using the line.</p>
-<pre><code>rotate 100
+<pre><code class="language-text">rotate 100
 </code></pre>
 <p>This should be set in conjunction with the frequency that logrotate is called, which is controlled by <code>volumes/stroom-log-sender/crontab.txt</code>.
 This crontab file drives the lograte process and by default is set to run every minute.</p>
@@ -936,7 +936,7 @@ This crontab file drives the lograte process and by default is set to run every 
 
     Last modified
     January 11, 2022
-    : <a  href="https://github.com/gchq/stroom-docs/commit/059464e7a725ade0199cc1aea6b21ed617dd9ca5">Fix heading numbering and styling when printing (059464e)</a>
+    : <a  href="https://github.com/gchq/stroom-docs/commit/1c5d36f286a27d80ac5b50d7d45f52d3aa69e438">Add missing syntax types to fenced blocks (1c5d36f)</a>
 
 </div>
 
