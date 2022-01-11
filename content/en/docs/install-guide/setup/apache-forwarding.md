@@ -53,12 +53,12 @@ cd
 - Make changes to /etc/http/conf.d/ssl.conf as per below
 
 
-```
+```text
 JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 ```
 
-```
+```text
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 
 SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
@@ -67,7 +67,6 @@ SSLCertificateChainFile /etc/httpd/conf/[YOUR CA].crt
 SSLCACertificateFile /etc/httpd/conf/[YOUR CA APPENDED LIST].crt
 
 SSLOptions +ExportCertData
-
 ```
 
 - Remove /etc/httpd/conf.d/nss.conf to avoid a 8443 port clash
@@ -78,7 +77,7 @@ rm /etc/httpd/conf.d/nss.conf
 
 - Create a /etc/httpd/conf.d/mod_jk.conf configuration
 
-```
+```text
 LoadModule jk_module modules/mod_jk.so
 JkWorkersFile conf/workers.properties
 JkLogFile logs/mod_jk.log
@@ -88,12 +87,12 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 JkRequestLogFormat "%w %V %T"
 ```
 
-```
+```text
 JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 ```
 
-```
+```text
 JkShmFile logs/jk.shm
 <Location /jkstatus/>
     JkMount status
@@ -111,7 +110,7 @@ JkShmFile logs/jk.shm
 
 - Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster
 
-```
+```text
 worker.list=loadbalancer,local,status
 worker.stroom_1.port=8009
 worker.stroom_1.host=localhost
@@ -131,7 +130,7 @@ worker.status.type=status
 
 - Create a simple redirect page to the stroom web app for the root URL (e.g. DocumentRoot "/var/www/html", index.html)
 
-```
+```text
 &lt;html&gt;&lt;head&gt;&lt;meta http-equiv="Refresh" content="0; URL=stroom"&gt;&lt;/head&gt;&lt;/html&gt;
 ```   
 
@@ -148,6 +147,6 @@ Typically Stroom is setup so that traffic sent to /stroom* is routed to Stroom a
 
 For example to route traffic directly to Stroom under the URL /stroom/datafeed/direct (avoiding any aggregation) the following mod_jk setting could be used.
 
-```
+```text
 JkMount /stroom/datafeed/direct* loadbalancer
 ```

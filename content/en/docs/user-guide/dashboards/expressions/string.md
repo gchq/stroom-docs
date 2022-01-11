@@ -85,7 +85,6 @@ String decode(value) {
 ```clike
 decode('red')
 > 'rgb(255, 0, 0)'
-
 ```
 
 ## DecodeUrl

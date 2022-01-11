@@ -67,7 +67,6 @@ Generating RSA private key, 2048 bit long modulus
 e is 65537 (0x10001)
 Enter pass phrase for private/stroomp.key: <__ENTER_SERVER_KEY_PASSWORD__>
 Verifying - Enter pass phrase for private/stroomp.key: <__ENTER_SERVER_KEY_PASSWORD__>
-
 ```
 
 Create a signing request. The two important prompts are the password and Common Name. All the rest can use the defaults offered.

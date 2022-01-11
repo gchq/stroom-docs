@@ -78,7 +78,7 @@ The following functions are available to aid your translation:
 ## bitmap-lookup()
 The bitmap-lookup() function looks up a bitmap key from reference or context data a value (which can be an XML node set) for each set bit position and adds it to the resultant XML.
 
-```
+```text
 bitmap-lookup(String map, String key)
 bitmap-lookup(String map, String key, String time)
 bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)
@@ -211,7 +211,7 @@ E.g. Warn if a SID is not the correct length.
 ## lookup()
 The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.
 
-```
+```text
 lookup(String map, String key)
 lookup(String map, String key, String time)
 lookup(String map, String key, String time, Boolean ignoreWarnings)

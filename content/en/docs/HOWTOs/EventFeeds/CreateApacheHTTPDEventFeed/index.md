@@ -135,7 +135,6 @@ To get the optimal information from the Apache HTTPD access logs, we define our 
    LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"../../"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxUser
    LogFormat "%a/%{REMOTE_PORT}e %X %t %l \"%{SSL_CLIENT_S_DN../../"%r\" %s/%>s %D 0/0/%B \"%{Referer}i\" \"%{User-Agent}i\" %V/$p" blackboxSSLUser
 </IfModule>
-
 ```
 
 A copy of this configuration can be found [here](ApacheHTTPDAuditConfig.txt "Apache BlackBox Auditing Configuration"). 

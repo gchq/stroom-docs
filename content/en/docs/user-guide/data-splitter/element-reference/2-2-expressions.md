@@ -120,7 +120,7 @@ This is used in the same way it is on the `<split>` element, see [onlyMatch](#se
 
 After an expression has matched content in the buffer, the buffer start position is advanced so that it moves to the end of the entire match. This means that subsequent expressions operating on the content buffer will not see the previously matched content again. This is normally required behaviour, but in some cases some of the content from a match is still required for subsequent matches. Take the following example of name value pairs:
 
-```
+```text
 name1=some value 1 name2=some value 2 name3=some value 3
 ```
 
@@ -132,7 +132,7 @@ The first name value pair could be matched with the following expression:
 
 The above expression would match as follows:
 
-```
+```text
 name1=some value 1 name2=some value 2 name3=some value 3
 ```
 
@@ -140,7 +140,7 @@ In this example we have had to do a reluctant match to extract the value in grou
 
 By default the parser will move the character buffer to the end of the entire match so the next expression will be presented with the following:
 
-```
+```text
 some value 2 name3=some value 3
 ```
 
@@ -154,7 +154,7 @@ This behaviour can be altered by telling the expression how far to advance the c
 
 In this example the content buffer will only advance to the end of match group 2 and subsequent expressions will be presented with the following content:
 
-```
+```text
 name2=some value 2 name3=some value 3
 ```
 

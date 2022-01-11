@@ -50,7 +50,7 @@ The match groups are as follows:
 
 In addition to this behaviour match groups 1 and 2 will omit outermost whitespace and container characters if specified, e.g. with the following content:
 
-```
+```text
 "  This is some text\, that we wish to match  "  , "This is the next text"
 ```
 

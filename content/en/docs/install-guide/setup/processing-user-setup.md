@@ -76,15 +76,15 @@ unzip stroom-deploy-5.0.beta1-bin.zip
 - Setup env.sh to include JAVA_HOME to point to the installed directory of the JDK 
 (this will be platform specific).  vi ~/env.sh
 
-```
+```bash
 # User specific aliases and functions
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 ```
-    
+
 - Setup users profile to include the same.  vi ~/.bashrc
  
-``` 
+``` bash
 # User specific aliases and functions
 . ~/env.sh
 ```	 
@@ -104,7 +104,7 @@ openjdk version "1.8.0_65"
 OpenJDK Runtime Environment (build 1.8.0_65-b17)
 OpenJDK 64-Bit Server VM (build 25.65-b01, mixed mode)
 ```
-   
+
 - Setup auto deployment crontab script as below (crontab -e)
 
 ```bash

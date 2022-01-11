@@ -16,8 +16,3 @@ Stroom will return a response code indicating the success or failure status of t
 
 Data can be sent from may operating systems or applications. Some examples to aid in sending data can be found [here]({{< relref "example-clients.md" >}})
 
-## SSL
-
-[General notes on Java Keystores]({{< relref "java-keystores.md" >}})
-
-[Configuring and testing SSL]({{< relref "ssl.md" >}})

@@ -57,7 +57,7 @@ The result of the template substitution is logged to help with debugging.
 
 The files can contain templating of the form:
 
-```
+```text
 ssl_certificate             /stroom-nginx/certs/<<<NGINX_SSL_CERTIFICATE>>>;
 ```
 
@@ -120,7 +120,7 @@ Logrotate is configured using the file `volumes/stroom-log-sender/logrotate.conf
 This file is templated in the same way as the Nginx configuration files, see [above](#templating).
 The number of rotated files that should be kept before deleting them can be controlled using the line.
 
-```
+```text
 rotate 100
 ```
 

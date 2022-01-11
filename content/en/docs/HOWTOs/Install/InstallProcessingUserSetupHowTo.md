@@ -123,7 +123,6 @@ printf '    bash ${service}/bin/stop.sh\n' >> ${F}
 printf '  fi\n' >> ${F}
 printf 'done\n' >> ${F}
 chmod 750 ${F}
-
 ```
 
 Although one can modify the above for Stroom Forwarding or Standalone Proxy deployments, there is no issue if you use the same scripts. 

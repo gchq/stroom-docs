@@ -27,7 +27,7 @@ Data Splitter generates errors if not all of the content is matched by the regul
 
 Take the following example input:
 
-```
+```text
 Name1,Name2,Name3
 value1,value2,value3 # a useless comment
 value1,value2,value3 # a useless comment 
@@ -49,7 +49,7 @@ This could be matched with the following configuration:
 
 The above configuration would only match up to a comment for each record line, e.g.
 
-```
+```text
 Name1,Name2,Name3
 value1,value2,value3 # a useless comment
 value1,value2,value3 # a useless comment
@@ -105,13 +105,13 @@ As the `<group>` element is a content provider it also includes the same 'ignore
 
 When Data Splitter reports errors it outputs an XPath to describe the part of the configuration that generated the error, e.g.
 
-```
+```text
 DSParser [2:1] ERROR: Expressions failed to match all of the content provided by group: regex[0]/group[0]/regex[3]/group[1] : <group>
 ```
 
 It is often a little difficult to identify the configuration element that generated the error by looking at the path and the element description, particularly when multiple elements are the same, e.g. many `<group>` elements without attributes. To make identification easier you can add an 'id' attribute to any element in the configuration resulting in error descriptions as follows:
 
-```
+```text
 DSParser [2:1] ERROR: Expressions failed to match all of the content provided by group: regex[0]/group[0]/regex[3]/group[1] : <group id="myGroupId">
 ```
 
@@ -129,13 +129,13 @@ This is an optional attribute used to control how content is consumed by express
 
 When matching in sequence, each match consumes some content and the content position is moved beyond the match ready for the subsequent match. However, in some cases the order of these constructs is not predictable, e.g. we may sometimes be presented with:
 
-```
+```text
 Value1=1 Value2=2
 ```
 
 … or sometimes with:
 
-```
+```text
 Value2=2 Value1=1
 ```
 
@@ -171,19 +171,19 @@ Occasionally it is desirable to reverse the content presented by a group to chil
 
 Take the following example content of name, value pairs delimited by `=` but with no spaces between names, multiple spaces between values and only a space between subsequent pairs:
 
-```
+```text
 ipAddress=123.123.123.123 zones=Zone 1, Zone 2, Zone 3 location=loc1 A user=An end user serverName=bigserver
 ```
 
 We could write a pattern that matches each name value pair by matching up to the start of the next name, e.g.
 
-```
+```xml
 <regex pattern="([^=]+)=(.+?)( [^=]+=)">
 ```
 
 This would match the following:
 
-```
+```text
 ipAddress=123.123.123.123 zones=
 ```
 

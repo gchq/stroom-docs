@@ -77,7 +77,7 @@ sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomda
 If you are concerned you can't see the mount with a `df` try a `df --type=nfs4 -a` or a `sudo df`. Irrespective, once the mounting works, make the mounts permanent by adding the following to each node's /etc/fstab file.
 - Node: `stroomp00.strmdev00.org`
 
-```
+```text
 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg
 ```
 achieved with
@@ -88,7 +88,7 @@ sudo su -c "printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomd
 
 - Node: `stroomp01.strmdev00.org`
 
-```
+```text
 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg
 ```
 achieved with
@@ -130,7 +130,7 @@ sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomda
 
   * Once the test mounts work, we make them permanent by adding the following to the /etc/fstab file.
 
-```
+```text
 stroomp00.strmdev00.org:/home/stroomdata/stroom-data-p00 /home/stroomdata/stroom-data-p00 nfs4 soft,bg
 stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom-data-p01 nfs4 soft,bg
 ```
@@ -151,7 +151,7 @@ sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomda
 
   * Once the test mount works, make the mount permanent by adding the following to the /etc/fstab file
 
-```
+```text
 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg
 ```
 achieved with
@@ -159,4 +159,3 @@ achieved with
 ```bash
 sudo su -c "printf 'stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n' >> /etc/fstab"
 ```
-

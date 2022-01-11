@@ -155,7 +155,7 @@ You can use the v7 stack scripts to do this.
 
 You should now see the following tables in the `stroom` database:
 
-```
+```text
 OLD_AUTH_json_web_key
 OLD_AUTH_schema_version
 OLD_AUTH_token_types
@@ -176,7 +176,6 @@ Note the use of the `--force` argument so it copes with users that are not there
 
 ```bash
 docker exec -i stroom-all-dbs mysql --force -u"root" -p"my-secret-pw" < v7_drop_unused_databases.sql
-
 ```
 
 Verify it worked with:

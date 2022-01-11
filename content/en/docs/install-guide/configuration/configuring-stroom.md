@@ -123,7 +123,7 @@ configuration items.
 
 The configuration works as follows:
 
-```
+```text
 env file (stroom<stack name>.env)
                 |
                 |

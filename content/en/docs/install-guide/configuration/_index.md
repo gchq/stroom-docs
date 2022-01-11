@@ -73,7 +73,7 @@ In this example `jdbcDriverUrl` will be set to the value of environment variable
 
 The following example shows how setting `MY_ENV_VAR=123` means `myProperty` will ultimately get a value of `123` and not its default of `789`.
 
-```
+```text
 env file (stroom<stack name>.env) - MY_ENV_VAR=123
                 |
                 |
@@ -97,7 +97,7 @@ Any changes to the env file will not take effect until the container is (re)star
 
 The following shows the basic structure of a stack with respect to the location of the configuration files:
 
-```
+```text
 ── stroom_core_test-vX.Y.Z
    ├── config                [stack env file and docker compose YAML files]
    └── volumes
@@ -188,7 +188,7 @@ For production deployments these should be replaced with the actual certificates
 In general the best approach to configuring the certificates/keys is to replace the existing files with symlinks to the actual files.
 For example in the case of the server certificates for nginx (found in `volumes/nginx/certs/`) the directory would look like:
 
-```
+```text
 ca.pem.crt -> /some/path/to/certificate_authority.pem.crt
 server.pem.crt -> /some/path/to/host123.pem.crt
 server.unencrypted.key -> /some/path/to/host123.key

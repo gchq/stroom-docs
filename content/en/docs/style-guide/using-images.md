@@ -83,7 +83,7 @@ Or they can be rendered with a set size.
 For images that are shared by multiple page bundles, e.g. stroom icons, place them in `/assets/images/`.
 The image path is relative to `/assets/images/`, e.g. file  `/assets/images/style-guide/svg-example.svg` becomes:
 
-```
+```markdown
 {{</* image "style-guide/svg-example.svg" "200x" */>}}
 ```
 
@@ -141,7 +141,7 @@ This keeps all the images in one place and means pages can have a named markdown
 Use the `image` short code to display an image file that is located in the same directory as the page.
 For the short code to work the page must be a leaf bundle (`index.md`) or a branch bundle (`_index.md`), i.e:
 
-```
+```text
 /docs
    /MyPage
       index.md - #image shortcode used in here
@@ -150,7 +150,7 @@ For the short code to work the page must be a leaf bundle (`index.md`) or a bran
 
 or 
 
-```
+```text
 /docs
    /MySection
       /Page1

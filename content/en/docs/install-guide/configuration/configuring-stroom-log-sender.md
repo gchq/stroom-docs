@@ -77,7 +77,7 @@ The directory `volumes/stroom-log-sender/certs` contains the default client cert
 These allow stroom-log-sender to send the log files over SSL which also provides stroom with details of the sender.
 These will need to be replaced in a production environment.
 
-```
+```text
 volumes/stroom-log-sender/certs/ca.pem.crt
 volumes/stroom-log-sender/certs/client.pem.crt
 volumes/stroom-log-sender/certs/client.unencrypted.key

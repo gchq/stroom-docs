@@ -50,7 +50,7 @@ We can now add a `<group>` element within `<split>` to take content matched by t
 
 The `<group>` within the `<split>` chooses to take the content from the `<split>` without including the new line '\n' delimiter by using match group 1, see [expression match references]({{< relref "3-1-expression-match-references.md#sec-3-1-1" >}}) for details.
 
-```
+```text
 01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
 ```
 

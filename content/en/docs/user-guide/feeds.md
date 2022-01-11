@@ -33,7 +33,7 @@ information.
 Feed identifiers must be unique within the system. Identifiers
 should be in the following format
 
-```
+```text
 <SYSTEM>-<ENVIRONMENT>-<TYPE>-<EVENTS/REFERENCE>-<VERSION>
 ```
 

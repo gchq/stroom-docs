@@ -51,12 +51,12 @@ cd
 
 - Make changes to /etc/http/conf.d/ssl.conf as per below
 
-```
+```text
 JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom* loadbalancer_proxy
 ```    
 
-```
+```text
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 
 SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
@@ -73,7 +73,7 @@ rm /etc/httpd/conf.d/nss.conf
 
 - Create a /etc/httpd/conf.d/mod_jk.conf configuration
 
-```
+```text
 LoadModule jk_module modules/mod_jk.so
 JkWorkersFile conf/workers.properties
 JkLogFile logs/mod_jk.log
@@ -83,12 +83,12 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 JkRequestLogFormat "%w %V %T"
 ```
 
-```
+```text
 JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom* loadbalancer_proxy
 ```
 
-```
+```text
 JkShmFile logs/jk.shm
 <Location /jkstatus/>
     JkMount status
@@ -105,7 +105,7 @@ JkShmFile logs/jk.shm
 ```
 
 - Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster
-
+text
 ```
 worker.list=loadbalancer_proxy,local_proxy
 worker.stroom_1_proxy.port=9009
@@ -125,7 +125,7 @@ worker.local_proxy.sticky_session=1
 
 - Create a simple redirect page to the stroom web app for the root URL (e.g. DocumentRoot "/var/www/html", index.html)
 
-```
+```text
 &lt;html&gt;&lt;head&gt;&lt;meta http-equiv="Refresh" content="0; URL=stroom"&gt;&lt;/head&gt;&lt;/html&gt;
 ```   
 

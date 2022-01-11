@@ -35,7 +35,7 @@ The UUID for the dashboard that you want to link to can be found by right clicki
 
 The Info dialog will display something like this and the UUID can be copied from it:
 
-```
+```text
 DB ID: 4
 UUID: c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09
 Type: Dashboard

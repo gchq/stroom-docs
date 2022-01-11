@@ -28,7 +28,7 @@ Our reference data will be supplied in a <TAB> separated file containing the fie
 
 For simplicity, our example will use a file with just 3 entries
 
-```
+```text
 FQDN	IPAddress	Country	Site	Building	Room	TimeZones
 stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
 stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
@@ -104,7 +104,7 @@ Note, if you happen to click on the **OK** button before selecting the **File** 
 
 We don't need to set **Meta Data** for this stream of reference data, but we (obviously) need to select the file. For the purposes of this example, we will utilise the file **GeoHostReference.log** you downloaded earlier in the **Reference Data** section of this document. This file contains a header and three lines of reference data as per
 
-```
+```text
 FQDN	IPAddress	Country	Site	Building	Room	TimeZones
 stroomnode00.strmdev00.org	192.168.2.245	GBR	Bristol-S00	GZero	R00	+00:00/+01:00
 stroomnode01.strmdev01.org	192.168.3.117	AUS	Sydney-S04	R6	5-134	+10:00/+11:00
@@ -190,7 +190,7 @@ On pressing the **OK** button we see the next text converter's configuration tab
 
 Enter an appropriate description into the **Description:** text entry box, for instance
 
-```
+```text
 Text converter for device Logical and Geographic reference feed holding FQDN, IPAddress, Country, Site, Building, Room and Time Zones. Feed has a header and is tab separated.
 ```
 

@@ -102,7 +102,7 @@ Header set X-XSS-Protection "1; mode=block"
 
 That is,
 
-```
+```text
 ...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
@@ -116,8 +116,10 @@ ServerRoot "/etc/httpd"
 # Listen: Allows you to bind Apache to specific IP addresses and/or
 ...
 ```
+
 becomes
-```
+
+```text
 ...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the

@@ -40,7 +40,7 @@ The simplest example that can be provided uses a single `<data>` element within 
 
 Given the following input:
 
-```
+```text
 This is line 1
 This is line 2
 This is line 3
@@ -80,7 +80,7 @@ You could also output multiple `<data>` elements for the same `<record>` by addi
 
 Given the following input:
 
-```
+```text
 ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3
@@ -124,7 +124,7 @@ As long as all data elements occur within the same parent/ancestor expression, a
 
 Given the following input:
 
-```
+```text
 ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3
@@ -150,7 +150,7 @@ ip=3.3.3.3 user=user3
 
 … you would get the following output:
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <records xmlns="records:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="records:2 file://records-v2.0.xsd" version="3.0">
   <record>
@@ -179,7 +179,7 @@ Rather than having `<data>` elements all appear as children of `<record>` it is 
 
 Given the following input:
 
-```
+```text
 ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3
@@ -229,7 +229,7 @@ ip=3.3.3.3 user=user3
 
 Given the following input:
 
-```
+```text
 ip=1.1.1.1 user=user1
 ip=2.2.2.2 user=user2
 ip=3.3.3.3 user=user3

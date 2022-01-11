@@ -113,7 +113,7 @@ Stroom-proxy makes use of client certificates for two purposes:
 
 The stack comes with the following files that can be used for demo/test purposes.
 
-```
+```text
 volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 ```
