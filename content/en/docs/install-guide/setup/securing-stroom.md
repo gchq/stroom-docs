@@ -10,9 +10,7 @@ description: >
 
 > *NOTE* This document was written for stroom v4/5. Some parts may not be applicable for v6+.
 
-## Securing Stroom
-
-### Firewall
+## Firewall
 
 The following firewall configuration is recommended:
 
@@ -25,7 +23,7 @@ This will enable nodes within the cluster to communicate on:
 - Tomcat AJP 8009, 9009
 - MySQL 3006
 
-### MySQL
+## MySQL
 
 - It is recommended that you run mysql_secure_installation to set a root password and remove test database:
 
