@@ -18,7 +18,7 @@
   padding-bottom: 0.3em;
 
   // As we want a 'stroom' logo on the left of the bar, we need to hide the title text
-  .text-uppercase {
+  .font-weight-bold {
     visibility: hidden;
   }
 }
@@ -138,12 +138,6 @@ html {
     background: unset !important;
 }
 
-//@media print {
-  //.noPrint {
-      //display:none;
-  //}
-//}
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Auto numbering start
@@ -152,12 +146,13 @@ Adapted from https://codingnconcepts.com/hugo/auto-number-headings-hugo/
 */
 
 :root {
+  // When printing a whole section that contains multiple pages, each page has a h1
+  // so you end up with multiple nested h1s each with h2+ under them.
+  // layout/partials/print/content.html adds numbering for all the h1s but also
+  // sets the base number for the h1 into this variable so we can use it to
+  // number all the h2+ headings.
   --base-section-num: "";
 }
-
-//@media screen {
-  //--base-section-num: "";
-//}
 
 // reset counter for a heading level when its parent level is encountered */
 body {counter-reset: h2}
@@ -213,70 +208,8 @@ h6[id]::before {
   counter-increment: item ;
 }
 
-@media print {
-  // Due to the fact that each .md page is given a h1 heading it means when we print a section with nested
-  // pages we get h1s at multiple levels which means we can't do the counter numbering that we do above.
-  // themes/docsy/layouts/partials/print/content.html adds in nested numbering for all the h1s so that will have
-  // to do for now.
-  // We can however do it for the TOC as that just uses li levels so doesn't care about nested pages.
-
-  // reset counter for a heading level when its parent level is encountered */
-  //h1 {counter-reset: h2}
-  //h2 {counter-reset: h3}
-  //h3 {counter-reset: h4}
-  //h4 {counter-reset: h5}
-  //h5 {counter-reset: h6}
-
-  //// prepend the counter value before the heading
-  //h2[id]::before {
-    //display: inline;
-    //visibility: visible;
-    //counter-increment: h2; 
-    //content: "xxxx" var(--base-number) "." counter(h2) " ";
-  //}
-
-  //h3[id]::before {
-    //display: inline;
-    //visibility: visible;
-    //counter-increment: h3; 
-    //content: var(--base-number) "." counter(h2) "." counter(h3) " ";
-  //}
-
-  //h4[id]::before {
-    //display: inline;
-    //visibility: visible;
-    //counter-increment: h4; 
-    //content: var(--base-number) "." counter(h2) "." counter(h3) "." counter(h4) " ";
-  //}
-
-  //h5[id]::before {
-    //display: inline;
-    //visibility: visible;
-    //counter-increment: h5; 
-    //content: var(--base-number) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
-  //}
-
-  //h6[id]::before {
-    //display: inline;
-    //visibility: visible;
-    //counter-increment: h6; 
-    //content: var(--base-number) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " ";
-  //}
-
-  // Reset the counter for the right hand TOC items
-  //.td-toc ul { 
-    //counter-reset: item ;
-  //}
-
-  //.td-toc li a:before { 
-    //content: counters(item, ".") " "; 
-    //counter-increment: item ;
-  //}
-}
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Auto numbering end
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
