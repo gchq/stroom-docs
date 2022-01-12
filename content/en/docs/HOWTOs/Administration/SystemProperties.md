@@ -4,7 +4,7 @@ linkTitle: "System Properties"
 #weight:
 date: 2021-07-09
 tags: 
-  - properties
+  - property
   - configuration
 description: >
   This HOWTO is provided to assist users in managing Stroom **System Properties** via the User Interface.

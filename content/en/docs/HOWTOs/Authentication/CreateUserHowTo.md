@@ -4,7 +4,7 @@ linkTitle: "Create a user"
 #weight:
 date: 2021-07-09
 tags:
-  - users
+  - user
 description: >
   This HOWTO provides the steps to create a user via the Stroom User Interface.
 ---

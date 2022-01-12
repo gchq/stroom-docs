@@ -4,7 +4,7 @@ linkTitle: "Volume Maintenance"
 #weight:
 date: 2021-07-12
 tags: 
-  - volumes
+  - volume
   - installation
 description: >
   How to maintain Stroom's data and index volumes.

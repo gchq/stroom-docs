@@ -1,7 +1,7 @@
 ---
 title: "Site Structure"
 linkTitle: "Site Structure"
-weight: 30
+weight: 10
 date: 2021-07-20
 tags:
 description: >
@@ -95,7 +95,7 @@ The `docs` and `news` top level sections have a tree structure for the co
 See [Hugo Front Matter (external link)](https://gohugo.io/content-management/front-matter/) for the full list of metadata keys that can be set.
 {{% /note %}}
 
-Front matter in Hugo is a set of meta data at the top of each page that controls which menus include the page as well as providing iformation about the page, e.g.
+Front matter in Hugo is a set of meta data at the top of each page that controls which menus include the page as well as providing information about the page, e.g.
 
 ```yaml
 ---
@@ -109,6 +109,22 @@ description: >
   Describes the file and directory structure for the site.
 ---
 ```
+
+### Tags
+
+In the front matter, `tags` is a list of tags that are applicable to the document and allow documents to be searched for by tag.
+Tag names should conform to the following conventions:
+
+* Lower kebab case, i.e. `reference-data`, even for abbreviations.
+* The only exception to the case rule is `TODO`, which is always upper case.
+* Singular, i.e. `pipeline` rather than `pipelines`.
+
+Avoid using too many unique tag names as it will make the list of tags in the sidebar to large to be useful.
+When setting a tag on a document consult the list of existing tags to ensure consistency and to see if a more applicable tag already exists.
+
+Add the `TODO` tag to a page when the page is incomplete.
+This makes it easy to find areas of the documentation that are in need of attention.
+
 
 ## Versioning
 

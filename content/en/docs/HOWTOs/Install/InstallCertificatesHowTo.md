@@ -4,7 +4,7 @@ linkTitle: "SSL Certificate Generation"
 #weight:
 date: 2021-07-12
 tags: 
-  - certificates
+  - certificate
   - installation
 description: >
   A HOWTO to assist users in setting up various SSL Certificates to support a Web interface to Stroom.

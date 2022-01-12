@@ -2,7 +2,7 @@
 ---
 title: "Images"
 linkTitle: "Images"
-weight: 20
+weight: 30
 description: >
   Examples of how to include images in documents.
 # Set draft: true to stop the page appearing in the published/released version.

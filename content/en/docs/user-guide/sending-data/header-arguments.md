@@ -4,7 +4,7 @@ linkTitle: "Header Arguments"
 #weight:
 date: 2021-07-27
 tags:
-  - headers
+  - header
   - http
 description: >
   The various HTTP headers that can be sent with data.

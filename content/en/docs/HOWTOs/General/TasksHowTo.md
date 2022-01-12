@@ -4,8 +4,8 @@ linkTitle: "Task Management"
 #weight:
 date: 2021-07-09
 tags:
-  - tasks
-  - jobs
+  - task
+  - job
 description: >
   This HOWTO demonstrates how to manage background tasks.
 ---

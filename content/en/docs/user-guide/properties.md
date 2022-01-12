@@ -4,7 +4,7 @@ linkTitle: "Properties"
 #weight:
 date: 2021-07-27
 tags:
-  - properties
+  - property
   - configuration
 description: >
   Configuration of Stroom's application properties.
