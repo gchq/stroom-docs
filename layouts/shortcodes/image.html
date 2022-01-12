@@ -51,20 +51,22 @@ Page resources
 {{ else }}
 <div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" >
 {{ end }}
-  <figure style="margin-block-end: 0px" >
-    {{ if not $hasSize }}
-    <img class="card-img-top" src="{{ $image.RelPermalink }}" alt="{{ $image.Name }}">
-    {{ else if $width }}
-    <img class="card-img-top" src="{{ $image.RelPermalink }}" width="{{ $width }}" alt="{{ $image.Name }}">
-    {{ else }}
-    <img class="card-img-top" src="{{ $image.RelPermalink }}" height="{{ $height }}" alt="{{ $image.Name }}">
-    {{ end }}
+  <a title="{{ $image.Name }}" href="{{ $image.RelPermalink }}">
+    <figure style="margin-block-end: 0px" >
+      {{ if not $hasSize }}
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" alt="{{ $image.Name }}">
+      {{ else if $width }}
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" width="{{ $width }}" alt="{{ $image.Name }}">
+      {{ else }}
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" height="{{ $height }}" alt="{{ $image.Name }}">
+      {{ end }}
 
-    {{ with .Inner }}
-    <div class="card-body px-0 pt-2 pb-0">
-      <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-      <figcaption class="card-text" style="font-size: smaller; text-align: center;">{{ . }}{{ with $image.Params.byline }}<span class="text-muted" style="font-size: smaller"><br/>{{ . | html }}</span>{{ end }}</figcaption>
-    </div>
-    {{ end }}
-  </figure>
+      {{ with .Inner }}
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">{{ . }}{{ with $image.Params.byline }}<span class="text-muted" style="font-size: smaller"><br/>{{ . | html }}</span>{{ end }}</figcaption>
+      </div>
+      {{ end }}
+    </figure>
+  </a>
 </div>
