@@ -416,23 +416,23 @@ For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor
   [link]({{</* ref "#alerts" */>}})
   ```
 
-* A [link]({{< ref "docs/style-guide/using-images#captions" >}}) to a heading anchor on another page.
+* A [link]({{< ref "community/documentation/style-guide/using-images#captions" >}}) to a heading anchor on another page.
 
   ```markdown
-  [link]({{</* ref "docs/style-guide/using-images#captions" */>}})
+  [link]({{</* ref "community/documentation/style-guide/using-images#captions" */>}})
   ```
 
 * A [link]({{< ref "running#basic-configuration" >}}) to a heading anchor on another page, using only the page name.
   This will only work if the page name is unique
 
   ```markdown
-  [link]({{</* ref "docs/style-guide/using-images#captions" */>}})
+  [link]({{</* ref "community/documentation/style-guide/using-images#captions" */>}})
   ```
 
-* A [link]({{< ref "../proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using a relative path.
+* A [link]({{< ref "../../../docs/proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using a relative path.
 
   ```markdown
-  [link]({{</* ref "../proxy/install.md#prerequisites" */>}})
+  [link]({{</* ref "../../../docs/proxy/install.md#prerequisites" */>}})
   ```
 
 * A [link]({{< relref "docs/proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using an absolute path, that will be converted to a relative one.

@@ -1,4 +1,3 @@
-
 ---
 # This section is the hugo front matter containing the meta data for the page
 # See https://gohugo.io/content-management/front-matter/

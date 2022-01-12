@@ -1,0 +1,35 @@
+<!-- This was copied/modified from themes/docsy/layouts/docs/baseof.html -->
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" class="no-js">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
+    <header>
+      {{ partial "navbar.html" . }}
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <!--<div class="row flex-xl-nowrap justify-content-center">-->
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            {{ partial "page-meta-links.html" . }}
+            {{ partial "toc.html" . }}
+            {{ partial "taxonomy_terms_clouds.html" . }}
+          </aside>
+          <!--<main class="about-page col-6" role="main">-->
+          <main class="about-page col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            <p>
+              <img class="landing-page-logo mx-auto d-block" src="../../stroom-amber.svg" alt="Stoom logo" width="400px">
+            </p>
+            {{ .Render "content" }}
+          </main>
+        </div>
+      </div>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partial "scripts.html" . }}
+  </body>
+</html>

@@ -7,5 +7,5 @@ menu:
   main:
     weight: 20
 description: >
-  This documentation covers installing, configuring, using and developing Stroom and its related applications.
+  This documentation covers the installation, configuration, administration and use of Stroom and its related applications.
 ---
