@@ -44,6 +44,20 @@ setup_ssh_agent() {
   ssh-add - <<< "${SSH_DEPLOY_KEY}"
 }
 
+# Returns 0 if $1 is in the array of elements passed as subsequent args
+# e.g. 
+# arr=( "one" "two" "three" )
+# element_in "two" "${arr[@]}" # returns 0
+element_in() {
+  local element 
+  local match="$1"
+  shift
+  for element; do 
+    [[ "${element}" == "${match}" ]] && return 0
+  done
+  return 1
+}
+
 build_version() {
   local version="${1:-SNAPSHOT}"; shift
   local repo_root="$1"; shift
@@ -83,11 +97,16 @@ build_version() {
   ./container_build/runInPupeteerDocker.sh PDF
   mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
 
-  local site_branch_dir="${COMBINED_SITE_DIR}/${version}/"
-  mkdir -p "${site_branch_dir}"
-  echo -e "${GREEN}Copying site HTML (${BLUE}${site_dir}${GREEN}) to combined" \
-    "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
-  cp -r "${site_dir}"/* "${site_branch_dir}"
+  if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
+    local site_branch_dir="${COMBINED_SITE_DIR}/${version}/"
+    mkdir -p "${site_branch_dir}"
+    echo -e "${GREEN}Copying site HTML (${BLUE}${site_dir}${GREEN}) to combined" \
+      "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
+    cp -r "${site_dir}"/* "${site_branch_dir}"
+  else
+    echo -e "${GREEN}Not a release branch so won't add it to" \
+      "${BLUE}${COMBINED_SITE_DIR}${NC}"
+  fi
   
   popd
 }
@@ -135,7 +154,7 @@ main() {
 
   # Build the commit/tag/pr that triggered this script to run
   # to ensure the site and PDF build ok.
-  build_version "${BUILD_TAG}" "${BUILD_DIR}"
+  build_version "${BUILD_BRANCH}" "${BUILD_DIR}"
 
   #echo -e "Replacing ${GREEN}VERSION${NC} and ${GREEN}BUILD_DATE${NC}" \
     #"tags in ${BLUE}VERSION.md${NC}"
