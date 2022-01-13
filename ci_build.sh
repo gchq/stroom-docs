@@ -59,8 +59,10 @@ build_version() {
   fi
 
   echo -e "${GREEN}-----------------------------------------------------${NC}"
-  echo -e "${GREEN}Building ver: ${version}," \
-    "repo_root: ${repo_root}${NC}, base_url: ${hugo_base_url}"
+  echo -e "${GREEN}Building" \
+    "ver: ${BLUE}${version}${GREEN}," \
+    "repo_root: ${BLUE}${repo_root}${GREEN}," \
+    "base_url: ${BLUE}${hugo_base_url}${NC}"
 
   pushd "${repo_root}"
 
@@ -81,9 +83,11 @@ build_version() {
   ./container_build/runInPupeteerDocker.sh PDF
   mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
 
+  local site_branch_dir="${COMBINED_SITE_DIR}/${version}/"
+  mkdir -p "${site_branch_dir}"
   echo -e "${GREEN}Copying site HTML (${BLUE}${site_dir}${GREEN}) to combined" \
-    "site (${BLUE}${COMBINED_SITE_DIR}/${version}${GREEN})${NC}"
-  cp -r "${site_dir}"/* "${COMBINED_SITE_DIR}/${version}/"
+    "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
+  cp -r "${site_dir}"/* "${site_branch_dir}"
   
   popd
 }
@@ -114,18 +118,20 @@ main() {
   BASE_URL_BASE="https://gchq.github.io/stroom-docs"
   GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
 
-  echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
   echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
+  echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
   echo -e "BUILD_IS_PULL_REQUEST: [${GREEN}${BUILD_IS_PULL_REQUEST}${NC}]"
   echo -e "BUILD_IS_RELEASE:      [${GREEN}${BUILD_IS_RELEASE}${NC}]"
   echo -e "BUILD_NUMBER:          [${GREEN}${BUILD_NUMBER}${NC}]"
   echo -e "BUILD_TAG:             [${GREEN}${BUILD_TAG}${NC}]"
   echo -e "PDF_FILENAME:          [${GREEN}${PDF_FILENAME}${NC}]"
+  echo -e "PWD:                   [${GREEN}$(pwd)${NC}]"
   echo -e "RELEASE_BRANCHES:      [${GREEN}${RELEASE_BRANCHES[*]}${NC}]"
   echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
   mkdir -p "${COMBINED_SITE_DIR}"
+  mkdir -p "${GIT_WORK_DIR}"
 
   # Build the commit/tag/pr that triggered this script to run
   # to ensure the site and PDF build ok.
