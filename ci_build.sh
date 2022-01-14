@@ -59,12 +59,12 @@ element_in() {
 }
 
 build_version() {
-  local version="${1:-SNAPSHOT}"; shift
+  local branch_name="${1:-SNAPSHOT}"; shift
   local repo_root="$1"; shift
   
   local hugo_base_url
   local site_dir="${repo_root}/public"
-  local pdf_filename="${version}.pdf"
+  local pdf_filename="${branch_name}.pdf"
 
   if [[ "${BUILD_BRANCH}" = "master" ]]; then
     hugo_base_url="${BASE_URL_BASE}/"
@@ -74,9 +74,10 @@ build_version() {
 
   echo -e "${GREEN}-----------------------------------------------------${NC}"
   echo -e "${GREEN}Building" \
-    "ver: ${BLUE}${version}${GREEN}," \
-    "repo_root: ${BLUE}${repo_root}${GREEN}," \
-    "base_url: ${BLUE}${hugo_base_url}${NC}"
+    "\nbranch_name: ${BLUE}${branch_name}${GREEN}," \
+    "\nrepo_root:   ${BLUE}${repo_root}${GREEN}," \
+    "\nbase_url:    ${BLUE}${hugo_base_url}${NC}"
+  echo -e "${GREEN}-----------------------------------------------------${NC}"
 
   pushd "${repo_root}"
 
@@ -98,14 +99,14 @@ build_version() {
   mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
 
   if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
-    local site_branch_dir="${COMBINED_SITE_DIR}/${version}/"
+    local site_branch_dir="${COMBINED_SITE_DIR}/${branch_name}/"
     mkdir -p "${site_branch_dir}"
     echo -e "${GREEN}Copying site HTML (${BLUE}${site_dir}${GREEN}) to combined" \
       "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
     cp -r "${site_dir}"/* "${site_branch_dir}"
   else
-    echo -e "${GREEN}Not a release branch so won't add it to" \
-      "${BLUE}${COMBINED_SITE_DIR}${NC}"
+    echo -e "${BLUE}${branch_name}${GREEN} is not a release branch so won't" \
+      "add it to ${BLUE}${COMBINED_SITE_DIR}${NC}"
   fi
   
   popd
@@ -125,17 +126,17 @@ main() {
     #"legacy"
   #)
 
-  PDF_FILENAME="${BUILD_TAG:-SNAPSHOT}.pdf"
-  ZIP_FILENAME="${BUILD_TAG:-SNAPSHOT}.zip"
-  RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
-  RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
-  RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
-  COMBINED_SITE_DIR="${BUILD_DIR}/combined_site"
-  GIT_WORK_DIR="${BUILD_DIR}/git_work"
-  SITE_DIR="${BUILD_DIR}/public"
-  GITHUB_PAGES_DIR="${BUILD_DIR}/gh-pages"
-  BASE_URL_BASE="https://gchq.github.io/stroom-docs"
-  GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
+  local PDF_FILENAME="${BUILD_TAG:-SNAPSHOT}.pdf"
+  local ZIP_FILENAME="${BUILD_TAG:-SNAPSHOT}.zip"
+  local RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
+  local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
+  local RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
+  local COMBINED_SITE_DIR="${BUILD_DIR}/combined_site"
+  local GIT_WORK_DIR="${BUILD_DIR}/git_work"
+  #local SITE_DIR="${BUILD_DIR}/public"
+  local GITHUB_PAGES_DIR="${BUILD_DIR}/gh-pages"
+  local BASE_URL_BASE="https://gchq.github.io/stroom-docs"
+  local GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
 
   echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
   echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
@@ -151,6 +152,9 @@ main() {
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
   mkdir -p "${COMBINED_SITE_DIR}"
   mkdir -p "${GIT_WORK_DIR}"
+  mkdir -p "${GITHUB_PAGES_DIR}"
+
+  # TODO Need to check for broken simple markdown links
 
   # Build the commit/tag/pr that triggered this script to run
   # to ensure the site and PDF build ok.
@@ -199,68 +203,30 @@ main() {
 
   popd
 
-  # TODO: <13-01-22, AT> # Need to loop over all known release branches,
-  # i.e legacy, 7.0, 7.1, master and for each one:
-  #   check it out 
-  #   run the site build with the appropriate base url
-  #   run the pdf generation
-  # Then we will have a site/pdf for each version.
-  # Would only need to do this for any commits to master, maybe only
-  # tagged commits on master once we have merged everything up.
-
-  # build the static site
-  # TODO, remove --buildDrafts arg once we merge to master
-  #echo -e "${GREEN}Installing and building gitbook${NC}"
-  #docker-compose \
-    #-f ./container_build/docker_hugo/docker-compose.yaml \
-    #run \
-    #site \
-    #--buildDrafts \
-    #--baseUrl "${hugo_base_url}"
-
-  # TODO do we need any kind of similr check for hugo?
-
-  # For a markdown file to be included in the gitbook conversion to html/pdf
-  # it must be linked to in SUMMARY.md
-  #missingFileCount=$(find "${SITE_DIR}/" -name "*.md" | wc -l)
-  #if [ "${missingFileCount}" -gt 0 ]; then
-    #echo -e "${missingFileCount} markdown file(s) have not been converted," \
-      #"ensure they are linked to in ${BLUE}SUMMARY.md${NC}"
-    ## shellcheck disable=SC2044
-    #for file in $(find "${SITE_DIR}/" -name "*.md"); do
-        #echo -e "  ${RED}${file}${NC}"
-    #done
-    #echo "Failing the build"
-    #exit 1
-  #fi
-
-
-  # TODO get this working in gh actions
-
-  # generate a pdf of the gitbook
-  #./container_build/runInPupeteerDocker.sh PDF
-  #mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${PDF_FILENAME}"
-
   #echo -e "${GREEN}Removing unwanted files${NC}"
   #rm -v "${SITE_DIR}"/*.yml
   #rm -v "${SITE_DIR}"/*.sh
   #rm -v -rf "${SITE_DIR}/.github"
 
-  echo -e "${GREEN}Making a zip of the combined site html content${NC}"
-  pushd "${COMBINED_SITE_DIR}"
-  zip -r -9 "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
-  popd
+  if element_in "${BUILD_BRANCH}" "${RELEASE_BRANCHES[@]}"; then
+    echo -e "${GREEN}Making a zip of the combined site html content${NC}"
+    pushd "${COMBINED_SITE_DIR}"
+    zip -r -9 "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
+    popd
+
+    echo -e "${GREEN}Copying from ${BLUE}${COMBINED_SITE_DIR}/${GREEN}" \
+      "to ${BLUE}${GITHUB_PAGES_DIR}/${GREEN}${NC}"
+    cp -r "${COMBINED_SITE_DIR}"/* "${GITHUB_PAGES_DIR}/"
+
+  else
+    echo -e "${GREEN}${BLUE}${BUILD_BRANCH}${GREEN} is not a release branch" \
+    "so skip zip creation${NC}"
+  fi
 
   echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
   ls -1 "${RELEASE_ARTEFACTS_DIR}/"
 
-  mkdir -p "${GITHUB_PAGES_DIR}"
-
-  echo -e "${GREEN}Copying from ${SITE_DIR}/ to ${GITHUB_PAGES_DIR}/${NC}"
-  cp -r "${COMBINED_SITE_DIR}"/* "${GITHUB_PAGES_DIR}/"
-
-  # We release on every commit to master
-  # TODO remove this temporary hugo-docsy condition
+  # TODO do we want to release on each commit or only on tagged commits
   if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]] ; then
 
     setup_ssh_agent
