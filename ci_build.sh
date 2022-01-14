@@ -138,12 +138,14 @@ main() {
   local BASE_URL_BASE="https://gchq.github.io/stroom-docs"
   local GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
 
-  echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
   echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
+  echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
+  echo -e "BUILD_DIR:             [${GREEN}${BUILD_DIR}${NC}]"
   echo -e "BUILD_IS_PULL_REQUEST: [${GREEN}${BUILD_IS_PULL_REQUEST}${NC}]"
   echo -e "BUILD_IS_RELEASE:      [${GREEN}${BUILD_IS_RELEASE}${NC}]"
   echo -e "BUILD_NUMBER:          [${GREEN}${BUILD_NUMBER}${NC}]"
   echo -e "BUILD_TAG:             [${GREEN}${BUILD_TAG}${NC}]"
+  echo -e "LOCAL_BUILD:           [${GREEN}${LOCAL_BUILD}${NC}]"
   echo -e "PDF_FILENAME:          [${GREEN}${PDF_FILENAME}${NC}]"
   echo -e "PWD:                   [${GREEN}$(pwd)${NC}]"
   echo -e "RELEASE_BRANCHES:      [${GREEN}${RELEASE_BRANCHES[*]}${NC}]"
@@ -183,7 +185,9 @@ main() {
       git \
         clone \
         --depth 1 \
-        -b "${branch_name}" \
+        --branch "${branch_name}" \
+        --single-branch \
+        --recurse-submodules \
         "${GIT_REPO_URL}" \
         "./${branch_name}"
 
@@ -227,7 +231,9 @@ main() {
   ls -1 "${RELEASE_ARTEFACTS_DIR}/"
 
   # TODO do we want to release on each commit or only on tagged commits
-  if [[ -n "$BUILD_TAG" && "${BUILD_IS_PULL_REQUEST}" != "true" ]] ; then
+  if [[ "${LOCAL_BUILD}" != "true" \
+    && -n "$BUILD_TAG" \
+    && "${BUILD_IS_PULL_REQUEST}" != "true" ]] ; then
 
     setup_ssh_agent
 
