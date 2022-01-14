@@ -129,7 +129,7 @@ main() {
     --archive \
     --delete \
     --exclude='.git/' \
-    "${gh_pages_source_dir}/${BUILD_BRANCH}" \
+    "${gh_pages_source_dir}/${BUILD_BRANCH}/" \
     "${gh_pages_versioned_dir}/"
 
   #echo -e "${GREEN}Writing version ${BLUE}${BUILD_TAG}${GREEN} to" \
