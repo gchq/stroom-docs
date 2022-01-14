@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.91.2" />
-<link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/sending-data/">
+<link rel="canonical" type="text/html" href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/sending-data/">
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -19,20 +19,20 @@
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/stroom-docs/hugo-docsy/favicons/android-192x192.png" sizes="192x192">
 
-<title>Sending Data | Stroom</title>
-<meta name="description" content="How to send data into Stroom.
+<title>Sending Data to Stroom | Stroom</title>
+<meta name="description" content="How to send data (event logs) into Stroom or one of its proxies.
 ">
-<meta property="og:title" content="Sending Data" />
-<meta property="og:description" content="How to send data into Stroom.
+<meta property="og:title" content="Sending Data to Stroom" />
+<meta property="og:description" content="How to send data (event logs) into Stroom or one of its proxies.
 " />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/user-guide/sending-data/" /><meta property="og:site_name" content="Stroom" />
+<meta property="og:url" content="https://gchq.github.io/stroom-docs/hugo-docsy/docs/sending-data/" /><meta property="og:site_name" content="Stroom" />
 
-<meta itemprop="name" content="Sending Data">
-<meta itemprop="description" content="How to send data into Stroom.
+<meta itemprop="name" content="Sending Data to Stroom">
+<meta itemprop="description" content="How to send data (event logs) into Stroom or one of its proxies.
 "><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Sending Data"/>
-<meta name="twitter:description" content="How to send data into Stroom.
+<meta name="twitter:title" content="Sending Data to Stroom"/>
+<meta name="twitter:description" content="How to send data (event logs) into Stroom or one of its proxies.
 "/>
 
 
@@ -161,14 +161,14 @@
 This is the multi-page printable view of this section.
 <a href="#" onclick="print();return false;">Click here to print</a>.
 </p><p>
-<a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/">Return to the regular view of this page</a>.
+<a href="/stroom-docs/hugo-docsy/docs/sending-data/">Return to the regular view of this page</a>.
 </p>
 </div>
 
 
 
-<h1 class="title">Sending Data</h1>
-<div class="lead">How to send data into Stroom.</div>
+<h1 class="title">Sending Data to Stroom</h1>
+<div class="lead">How to send data (event logs) into Stroom or one of its proxies.</div>
 
 
 
@@ -184,7 +184,22 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-17de3e3f45c7c8258ad0b1fbdaf79ac5">Example Clients</a></li>
+<li>1: <a href="#pg-e821565def705859aee784ad096c387f">Example Clients</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1.1: <a href="#pg-f8a034cc20afebf36e739b2f5b101c66">curl (Linux)</a></li>
 
 
     
@@ -192,7 +207,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-024991f412288c5759a2f39085fa42b8">Header Arguments</a></li>
+<li>1.2: <a href="#pg-63790e65a84e97fcd55409e23aa7964b">curl (Windows)</a></li>
 
 
     
@@ -200,7 +215,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3: <a href="#pg-2350fab056816d8e23468bde99f55a5b">Java Keystores</a></li>
+<li>1.3: <a href="#pg-166a5e5a02228e4ece5fed9278250e81">event-logging (Java library)</a></li>
 
 
     
@@ -208,7 +223,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>4: <a href="#pg-089fcf7c39db9bc1d68c34be0a10d8fc">Payloads</a></li>
+<li>1.4: <a href="#pg-295b677760e8a81324ed677a90fafcb1">send_to_stroom.sh (Linux)</a></li>
 
 
     
@@ -216,7 +231,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>5: <a href="#pg-66afc7930c4755ff203bc7d5959bc805">Response Codes</a></li>
+<li>1.5: <a href="#pg-12691c821995ef3fad858d48ad731b0c">Simple C# Client</a></li>
 
 
     
@@ -224,7 +239,75 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>6: <a href="#pg-100b6bcd253aed8a0767220ea9bd05b2">SSL Configuration</a></li>
+<li>1.6: <a href="#pg-1e4e762a6a08dea73db4452a6a130840">Simple Java Client</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.7: <a href="#pg-5816a31f40b44194fbd5c9e1249594ad">stroom-log-sender (Docker)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.8: <a href="#pg-c8c3de6aa6d5f3bfe0f2cc34d6e7e5c9">VBScript (Windows)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.9: <a href="#pg-859ebc81ca735b3aef6548c958a0a8a4">wget (Windows)</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-ea050b499963f2ad2cc8153ae264aabe">Header Arguments</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-175e47591d90f91548b80141b6d7c4d2">Java Keystores</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-e3736768753160c52bfec0fc2cdcae40">Payloads</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-2fd6390e6e6756f84779583c181fdbd4">Response Codes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-3531374684773e7f54ae3921e8c9c4fe">SSL Configuration</a></li>
 
 
     
@@ -234,10 +317,11 @@ This is the multi-page printable view of this section.
 
 
 <div class="content">
-      <p>Stroom has a simple HTTP POST interface that requires HTTP header arguments to be supplied as described <a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/header-arguments/">here</a>.</p>
-<p>Files are posted to Stroom as described <a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/payloads/">here</a>.</p>
-<p>Stroom will return a response code indicating the success or failure status of the post as described <a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/response-codes/">here</a></p>
-<p>Data can be sent from may operating systems or applications. Some examples to aid in sending data can be found <a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/example-clients/">here</a></p>
+      <p>Stroom and Stroom Proxy have a simple HTTP POST interface that requires HTTP header arguments to be supplied as described <a href="/stroom-docs/hugo-docsy/docs/sending-data/header-arguments/">here</a>.</p>
+<p>Files are posted to Stroom and Stroom Proxy as described <a href="/stroom-docs/hugo-docsy/docs/sending-data/payloads/">here</a>.</p>
+<p>Stroom will return a response code indicating the success or failure status of the post as described <a href="/stroom-docs/hugo-docsy/docs/sending-data/response-codes/">here</a></p>
+<p>Data can be sent from may operating systems or applications.
+Some examples to aid in sending data can be found <a href="/stroom-docs/hugo-docsy/docs/sending-data/example-clients/">here</a></p>
 
 </div>
 </div>
@@ -261,65 +345,71 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
-  <h1 id="pg-17de3e3f45c7c8258ad0b1fbdaf79ac5">1 - Example Clients</h1>
+  <h1 id="pg-e821565def705859aee784ad096c387f">1 - Example Clients</h1>
+    <div class="lead">A collection of example client applications for sending data to Stroom or one of its proxies.</div>
+	<p>The following article provides examples to help data providers send data to Stroom via the HTTPS interface.
+The code for the clients is in the <em>stroom-clients</em> repository <a href="https://github.com/gchq/stroom-clients">stroom-clients (external link)</a>.</p>
+
+</div>
+
+
+
+
     
-	<p>The following article provides examples to help data providers send data to Stroom via the HTTPS interface. The code for the clients is in the <em>stroom-clients</em> repository <a href="https://github.com/gchq/stroom-clients">stroom-clients (external link)</a>.</p>
-<h2 id="using-docker">Using Docker</h2>
-<p><a href="https://hub.docker.com/r/gchq/stroom-log-sender/">stroom-log-sender (external link)</a> is a small Docker image for sending data to <em>stroom</em>.
-This is the simplest way to get data into stroom if the data provider is itself running in docker.
-It can also be used for sending data to <em>stroom</em> from data providers that are not running in Docker.
-<em>stroom-log-sender</em> makes use of the <em>send_to_stroom.sh</em> bash script that is described below.
-For details on how to use <em>stroom-log-sender</em>, see the Dockerhub link above.</p>
-<h2 id="unix-using-send_to_stroomsh">UNIX (using send_to_stroom.sh)</h2>
-<p><a href="https://github.com/gchq/stroom-clients/releases">send_to_stroom.sh (external link)</a> is a small bash script to make it easier to send data to <em>stroom</em>. To use it download the following files using wget or similar, replacing <code>SEND_TO_STROOM_VER</code> with the latest released version from <a href="https://github.com/gchq/stroom-clients/releases">here (external link)</a>:</p>
-<pre><code class="language-bash">SEND_TO_STROOM_VER=&quot;send-to-stroom-v2.0&quot; &amp;&amp; \
-    wget &quot;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom.sh&quot; &amp;&amp; \
-    wget &quot;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom_args.sh&quot; &amp;&amp; \
-    chmod u+x send_to_stroom*.sh
-</code></pre>
-<p>To see the help for <em>send_to_stroom.sh</em>, enter <code>./send_to_stroom.sh --help</code></p>
-<p>The following is an example of using <em>send_to_stroom.sh</em> to send all logs in a directory:</p>
-<pre><code class="language-bash">./send_to_stroom.sh \
-    --delete-after-sending \
-    --file-regex &quot;.*/access-[0-9]+.*\.log(\.gz)?$&quot; \
-    --key ./client..key \
-    --cert ./client.pem.crt \
-    --cacert ./ca.pem.crt \
-    /some_directory/logs \
-    MY_FEED \
-    MY_SYSTEM \
-    DEV \
-    https://stroom-host/stroom/datafeed
-</code></pre>
-<h2 id="unix-using-curl">UNIX (using curl)</h2>
-<p>Curl is a standard unix tool to send data to or from a server. In the following examples -H is used to specify the header arguments required by Stroom, see <a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/header-arguments/">Header Arguments</a>.</p>
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.1.'; ">
+    
+  <h1 id="pg-f8a034cc20afebf36e739b2f5b101c66">1.1 - curl (Linux)</h1>
+    <div class="lead">How to use the <code>curl</code> command to send data to Stroom.</div>
+	<p>Curl is a standard unix tool to send data to or from a server.
+In the following examples -H is used to specify the header arguments required by Stroom, see <a href="/stroom-docs/hugo-docsy/docs/sending-data/header-arguments/">Header Arguments</a>.</p>
 <p>Notes:</p>
 <ul>
-<li>The @ character must be used in front of the file being posted. If it is not then curl will post the file name instead of it&rsquo;s contents.</li>
+<li>The @ character must be used in front of the file being posted.
+If it is not then curl will post the file name instead of it&rsquo;s contents.</li>
 <li>The &ndash;data-binary argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.</li>
 </ul>
-<h3 id="example-https-post-without-authentication">Example HTTPS post without authentication:</h3>
+<h2 id="example-https-post-without-authentication">Example HTTPS post without authentication:</h2>
 <pre><code class="language-bash">curl -k --data-binary @file.dat &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
         -H &quot;Feed:EXAMPLE_FEED&quot;
         -H &quot;System:EXAMPLE_SYSTEM&quot;
         -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
-<p>In the above example -k is required to stop curl from authenticating the server. The next example must be used to supply the necessary CA to authenticate the server if this is required.</p>
-<h3 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h3>
+<p>In the above example -k is required to stop curl from authenticating the server.
+The next example must be used to supply the necessary CA to authenticate the server if this is required.</p>
+<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
 <pre><code class="language-bash">curl --cacert root_ca.crt --data-binary @file.dat &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
         -H &quot;Feed:EXAMPLE_FEED&quot;
         -H &quot;System:EXAMPLE_SYSTEM&quot;
         -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
-<p>The above example verifies that the certificate presented by Stroom is signed by the CA. The CA is provided to curl using the &lsquo;&ndash;cacert root_ca.crt&rsquo; parameter.</p>
-<p>For step by step instructions for creating, configuring and testing the PKI authentication, see the <a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/ssl/">SSL Guide</a></p>
-<h3 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h3>
+<p>The above example verifies that the certificate presented by Stroom is signed by the CA.
+The CA is provided to curl using the &lsquo;&ndash;cacert root_ca.crt&rsquo; parameter.</p>
+<p>For step by step instructions for creating, configuring and testing the PKI authentication, see the <a href="/stroom-docs/hugo-docsy/docs/sending-data/ssl/">SSL Guide</a></p>
+<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
 <pre><code class="language-bash">curl --cert example.pem --cacert root_ca.crt --data-binary @file.dat &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
         -H &quot;Feed:EXAMPLE_FEED&quot;
         -H &quot;System:EXAMPLE_SYSTEM&quot;
         -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
-<p>The above example both verifies that the certificate presented by Stroom is signed by the CA and also provides a certificate to authenticate itself with Stroom. The data provider provides a certificate using the &lsquo;&ndash;cert example.pem&rsquo; parameter.</p>
+<p>The above example both verifies that the certificate presented by Stroom is signed by the CA and also provides a certificate to authenticate itself with Stroom.
+The data provider provides a certificate using the &lsquo;&ndash;cert example.pem&rsquo; parameter.</p>
 <p>If your input file is not compressed you should compress it as follows:</p>
 <pre><code class="language-bash">gzip -c uncompressedfile.dat | curl --cert example.pem --cacert root_ca.crt --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
 	        -H &quot;Feed:EXAMPLE_FEED&quot;
@@ -330,8 +420,8 @@ For details on how to use <em>stroom-log-sender</em>, see the Dockerhub link abo
 <p>When delivering data from a RHEL4 host, an additional header argument must be added to specify the FQDN of the host:</p>
 <pre><code class="language-bash">-H &quot;Hostname:host.being.audited&quot;
 </code></pre>
-<p>The hostname being sent as a header argument may be resolved upon execution using the command <strong>hostname -f</strong>.</p>
-<h3 id="ssl-notes">SSL Notes</h3>
+<p>The hostname being sent as a header argument may be resolved upon execution using the command <code>hostname -f</code>.</p>
+<h2 id="ssl-notes">SSL Notes</h2>
 <p>To create a .pem format key simply append the private key and certifcate.</p>
 <pre><code class="language-bash">cat &lt;NAME&gt;.key &gt;&gt; &lt;NAME&gt;.pem
 cat &lt;NAME&gt;.crt &gt;&gt; &lt;NAME&gt;.pem
@@ -339,17 +429,29 @@ cat &lt;NAME&gt;.crt &gt;&gt; &lt;NAME&gt;.pem
 <p>To remove the pass phrase from a openssl private key use.</p>
 <pre><code class="language-bash">openssl rsa -in server.key -out server-clear.key
 </code></pre>
-<p>The <code>send-logs.sh</code> script assumes the period start and end times are embedded in the file name (e.g. log_2010-01-01T12:00:00.000Z_2010-01-02T12:00:00.000Z.log).  The certificates will need to be added to the script as above.</p>
-<h2 id="windows">Windows</h2>
-<h3 id="using-wget">Using wget</h3>
-<p>There is a version of wget for windows</p>
-<ul>
-<li>Use &ndash;post-file argument to supply the data</li>
-<li>Use &ndash;certificate and &ndash;certificate-type arguments to specify your client certificate</li>
-<li>Use &ndash;header argument to inform Stroom which feed and environment your data relates to</li>
-</ul>
-<h3 id="using-curl">Using curl</h3>
-<p>There is a version of curl for Windows</p>
+<p>The <code>send-logs.sh</code> script assumes the period start and end times are embedded in the file name (e.g. log_2010-01-01T12:00:00.000Z_2010-01-02T12:00:00.000Z.log).
+The certificates will need to be added to the script as above.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.2.'; page-break-before: always">
+    
+  <h1 id="pg-63790e65a84e97fcd55409e23aa7964b">1.2 - curl (Windows)</h1>
+    <div class="lead">Using Curl on Windows to send data to Stroom.</div>
+	<p>There is a version of curl for Windows</p>
 <p>Windows 10 is the latest desktop OS offering from Microsoft.
 From Windows 10 build 17063 and later, curl is now natively included - you can execute it directly from Cmd.exe or PowerShell.exe.
 Curl.exe is located at c:\windows\system32 (which is included in the standard PATH environment variable) - all you need to do is run Command Prompt with administrative rights and you can use Curl. You can execute it directly from Cmd.exe or PowerShell.exe.
@@ -397,42 +499,6 @@ For older versions of Windows, the cURL project has Windows binaries.</p>
   </a>
 </div>
 
-<h3 id="using-vbscript">Using VBScript</h3>
-<p><code>extract-data.vbs</code> uses wevtutil.exe to extract <strong>Security</strong> event information from the windows event log.  This script has been tested on Windows 2008.</p>
-<p>This script is designed to run periodically (say every 10 minutes).  The first time the script is run it stores the current time in UTC format in the registry.  Subsequent calls then extract event information from the last run time to the new current time.  The events are stored in a zip file with the period dates embedded.</p>
-<p>The script requires a working directory used as a buffer for the zip files.  This can be set at the start of the script otherwise it will default to the working directory.</p>
-<p>The <code>send-data.vbs</code> script is designed to run periodically (say every 10 minutes). The script will scan for zip files and send them to Stroom.</p>
-<p>The script details several parameters that require setting per environment. Among these are the working directory that the zip files are stored in, the feed name and the URL of Stroom.</p>
-<h4 id="ssl">SSL</h4>
-<p>To send data over SSL (https) you must import a client certificate in p12 format into windows.<br>
-To convert a certificate (.crt) and private key (.key) into a p12 format use the following command:</p>
-<pre><code class="language-bash">openssl pkcs12 -export -in &lt;NAME&gt;.crt -inkey &lt;NAME&gt;.key -out &lt;NAME&gt;.p12 -name &quot;&lt;NAME&gt;&quot;
-</code></pre>
-<p>Once in p12 format use the windows certificate wizard to import the public private key.</p>
-<p>The <code>send-data-tree.vbs</code> script works through a directory for different feed types.</p>
-<h3 id="using-java">Using Java</h3>
-<p>The <code>stroom-java-client</code> provides an example Java client that can:</p>
-<ul>
-<li>Read a zip, gzip or uncompressed an input file.</li>
-<li>Perform a HTTP post of data with zip, gzip or uncompressed compression.</li>
-<li>Pass down arguments on the command line as HTTP request arguments.</li>
-<li>Supports HTTP and HTTPS with 1 or 2 way authentication.</li>
-</ul>
-<p><em>(N.B. arguments must be in lower case).</em></p>
-<p>To use the example client first compile the Java code:</p>
-<pre><code class="language-bash">javac DataFeedClient.java
-</code></pre>
-<h4 id="example-http-post">Example HTTP Post:</h4>
-<pre><code class="language-bash">java -classpath . DataFeedClient inputfile=datafeed url=http://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-</code></pre>
-<h4 id="example-https-with-1-way-ssl-authentication-1">Example HTTPS With 1 way SSL authentication:</h4>
-<pre><code class="language-bash">java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass DataFeedClient inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-</code></pre>
-<h4 id="example-https-with-2-way-ssl-authentication-1">Example HTTPS With 2 way SSL authentication:</h4>
-<pre><code class="language-bash">java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass -Djavax.net.ssl.keyStore=example.jks -Djavax.net.ssl.keyStorePassword=&lt;PASSWORD&gt; DataFeedClient inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-</code></pre>
-<h3 id="using-c">Using C*#*</h3>
-<p>The <code>StroomCSharpClient</code> is a C# port of the Java client and behaves in the same way. Note that this is just an example, not a fully functional client.</p>
 
 </div>
 
@@ -449,9 +515,230 @@ To convert a certificate (.crt) and private key (.key) into a p12 format use the
 
 
 
+<div class="td-content" style="--base-section-num: '1.3.'; page-break-before: always">
+    
+  <h1 id="pg-166a5e5a02228e4ece5fed9278250e81">1.3 - event-logging (Java library)</h1>
+    <div class="lead">A Java library for logging events in Java applications.</div>
+	<p><a href="https://github.com/gchq/event-logging">event-logging (external link)</a> is a Java API for logging audit events conforming to the <a href="https://github.com/gchq/event-logging-schema">Event Logging XML Schema (external link)</a>.
+The API uses a generated Java JAXB model of the <em>Event Logging XML Schema</em>.
+<em>Event Logging</em> can be incorporated into your Java application to provide a means of recording and outputting audit events or user actions for compliance, security or monitoring.</p>
+<p>This library only generates the events.
+By default XML events are written to a file using a logging appender.
+In order to send the events to Stroom either the logged files will need to be sent to stroom using one of the other <a href="https://gchq.github.io/stroom-docs/hugo-docsy/docs/sending-data/example-clients/">clients</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.4.'; page-break-before: always">
+    
+  <h1 id="pg-295b677760e8a81324ed677a90fafcb1">1.4 - send_to_stroom.sh (Linux)</h1>
+    <div class="lead">A shell script for sending logs to Stroom or one of its proxies</div>
+	<p><a href="https://github.com/gchq/stroom-clients/releases">send_to_stroom.sh (external link)</a> is a small bash script to make it easier to send data to <em>stroom</em>.
+To use it download the following files using wget or similar, replacing <code>SEND_TO_STROOM_VER</code> with the latest released version from <a href="https://github.com/gchq/stroom-clients/releases">here (external link)</a>:</p>
+<pre><code class="language-bash">SEND_TO_STROOM_VER=&quot;send-to-stroom-v2.0&quot; &amp;&amp; \
+    wget &quot;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom.sh&quot; &amp;&amp; \
+    wget &quot;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom_args.sh&quot; &amp;&amp; \
+    chmod u+x send_to_stroom*.sh
+</code></pre>
+<p>To see the help for <em>send_to_stroom.sh</em>, enter <code>./send_to_stroom.sh --help</code></p>
+<p>The following is an example of using <em>send_to_stroom.sh</em> to send all logs in a directory:</p>
+<pre><code class="language-bash">./send_to_stroom.sh \
+    --delete-after-sending \
+    --file-regex &quot;.*/access-[0-9]+.*\.log(\.gz)?$&quot; \
+    --key ./client..key \
+    --cert ./client.pem.crt \
+    --cacert ./ca.pem.crt \
+    /some_directory/logs \
+    MY_FEED \
+    MY_SYSTEM \
+    DEV \
+    https://stroom-host/stroom/datafeed
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.5.'; page-break-before: always">
+    
+  <h1 id="pg-12691c821995ef3fad858d48ad731b0c">1.5 - Simple C# Client</h1>
+    <div class="lead">A simple C# client for sending data files to Stroom.</div>
+	<p>The <code>StroomCSharpClient</code> is a C# port of the Java client and behaves in the same way. Note that this is just an example, not a fully functional client.
+See <a href="https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClient">StroomCSharpClient (external link)</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.6.'; page-break-before: always">
+    
+  <h1 id="pg-1e4e762a6a08dea73db4452a6a130840">1.6 - Simple Java Client</h1>
+    <div class="lead">A simple Java client for sending data files to Stroom.</div>
+	<p>The <code>stroom-java-client</code> provides an example Java client that can:</p>
+<ul>
+<li>Read a zip, gzip or uncompressed an input file.</li>
+<li>Perform a HTTP post of data with zip, gzip or uncompressed compression.</li>
+<li>Pass down arguments on the command line as HTTP request arguments.</li>
+<li>Supports HTTP and HTTPS with 1 or 2 way authentication.</li>
+</ul>
+<p><em>(N.B. arguments must be in lower case).</em></p>
+<p>To use the example client first compile the Java code:</p>
+<pre><code class="language-bash">javac DataFeedClient.java
+</code></pre>
+<h2 id="example-http-post">Example HTTP Post:</h2>
+<pre><code class="language-bash">java -classpath . DataFeedClient inputfile=datafeed url=http://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
+</code></pre>
+<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
+<pre><code class="language-bash">java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass DataFeedClient inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
+</code></pre>
+<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
+<pre><code class="language-bash">java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass -Djavax.net.ssl.keyStore=example.jks -Djavax.net.ssl.keyStorePassword=&lt;PASSWORD&gt; DataFeedClient inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.7.'; page-break-before: always">
+    
+  <h1 id="pg-5816a31f40b44194fbd5c9e1249594ad">1.7 - stroom-log-sender (Docker)</h1>
+    <div class="lead">A Docker image for peridoically sending log files generated by an application to Stroom.</div>
+	<p><a href="https://hub.docker.com/r/gchq/stroom-log-sender/">stroom-log-sender (external link)</a> is a small Docker image for sending data to <em>Stroom</em>.</p>
+<p>This is the simplest way to get data into stroom if the data provider is itself running in docker.
+It can also be used for sending data to <em>Stroom</em> from data providers that are not running in Docker.
+<em>stroom-log-sender</em> makes use of the <em>send_to_stroom.sh</em> bash script that is described below.
+For details on how to use <em>stroom-log-sender</em>, see the Dockerhub link above.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.8.'; page-break-before: always">
+    
+  <h1 id="pg-c8c3de6aa6d5f3bfe0f2cc34d6e7e5c9">1.8 - VBScript (Windows)</h1>
+    <div class="lead">Using VBScript to send data to Stroom.</div>
+	<p><code>extract-data.vbs</code> uses wevtutil.exe to extract <strong>Security</strong> event information from the windows event log.
+This script has been tested on Windows 2008.</p>
+<p>This script is designed to run periodically (say every 10 minutes).
+The first time the script is run it stores the current time in UTC format in the registry.
+Subsequent calls then extract event information from the last run time to the new current time.
+The events are stored in a zip file with the period dates embedded.</p>
+<p>The script requires a working directory used as a buffer for the zip files.
+This can be set at the start of the script otherwise it will default to the working directory.</p>
+<p>The <code>send-data.vbs</code> script is designed to run periodically (say every 10 minutes). The script will scan for zip files and send them to Stroom.</p>
+<p>The script details several parameters that require setting per environment. Among these are the working directory that the zip files are stored in, the feed name and the URL of Stroom.</p>
+<h2 id="ssl">SSL</h2>
+<p>To send data over SSL (https) you must import a client certificate in p12 format into windows.
+To convert a certificate (.crt) and private key (.key) into a p12 format use the following command:</p>
+<pre><code class="language-text">openssl pkcs12 -export -in &lt;NAME&gt;.crt -inkey &lt;NAME&gt;.key -out &lt;NAME&gt;.p12 -name &quot;&lt;NAME&gt;&quot;
+</code></pre>
+<p>Once in p12 format use the windows certificate wizard to import the public private key.</p>
+<p>The <code>send-data-tree.vbs</code> script works through a directory for different feed types.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.9.'; page-break-before: always">
+    
+  <h1 id="pg-859ebc81ca735b3aef6548c958a0a8a4">1.9 - wget (Windows)</h1>
+    <div class="lead">Using <code>wget</code> on Windows to send data to Stroom.</div>
+	<p>There is a version of <code>wget</code> for windows</p>
+<ul>
+<li>Use <code>--post-file</code> argument to supply the data</li>
+<li>Use <code>--certificate</code> and <code>--certificate-type</code> arguments to specify your client certificate</li>
+<li>Use <code>--header</code> argument to inform Stroom which feed and environment your data relates to</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
 <div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
     
-  <h1 id="pg-024991f412288c5759a2f39085fa42b8">2 - Header Arguments</h1>
+  <h1 id="pg-ea050b499963f2ad2cc8153ae264aabe">2 - Header Arguments</h1>
     <div class="lead">The various HTTP headers that can be sent with data.</div>
 	<p>The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST. These arguments are case insensitive.</p>
 <ul>
@@ -476,7 +763,7 @@ To convert a certificate (.crt) and private key (.key) into a p12 format use the
 Environment:OPS
 Feed:MY_SYSTEM-EVENTS
 </code></pre>
-<p>The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found <a href="/stroom-docs/hugo-docsy/docs/user-guide/sending-data/payloads/">here</a>.</p>
+<p>The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found <a href="/stroom-docs/hugo-docsy/docs/sending-data/payloads/">here</a>.</p>
 
 </div>
 
@@ -495,7 +782,7 @@ Feed:MY_SYSTEM-EVENTS
 
 <div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
     
-  <h1 id="pg-2350fab056816d8e23468bde99f55a5b">3 - Java Keystores</h1>
+  <h1 id="pg-175e47591d90f91548b80141b6d7c4d2">3 - Java Keystores</h1>
     <div class="lead">How to create java key/trust stores for use with Java client applications.</div>
 	<p>There are many times when you may wish to create a Java keystore from certificates and keys and vice versa. This guide aims to explain how this can be done.</p>
 <h2 id="import">Import</h2>
@@ -535,7 +822,7 @@ keytool -import -noprompt -alias CA -file &lt;CA CERT&gt;.crt -keystore ca.jks -
 
 <div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
     
-  <h1 id="pg-089fcf7c39db9bc1d68c34be0a10d8fc">4 - Payloads</h1>
+  <h1 id="pg-e3736768753160c52bfec0fc2cdcae40">4 - Payloads</h1>
     <div class="lead">Description of the data formats for sending data into a Stroom instance.</div>
 	<p>Stroom can support multiple payload formats with different compression applied. However all data once uncompressed must be text and not binary.</p>
 <p>Stroom can receive data in the following formats:</p>
@@ -577,7 +864,7 @@ keytool -import -noprompt -alias CA -file &lt;CA CERT&gt;.crt -keystore ca.jks -
 
 <div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
     
-  <h1 id="pg-66afc7930c4755ff203bc7d5959bc805">5 - Response Codes</h1>
+  <h1 id="pg-2fd6390e6e6756f84779583c181fdbd4">5 - Response Codes</h1>
     <div class="lead">The HTTP response codes returned by stroom.</div>
 	<p>Stroom will return a HTTP response code to indicate success or failure.
 An additional response Header &ldquo;Stroom-Status&rdquo; will indicate a more precise error message code.
@@ -662,7 +949,7 @@ Data should only be removed from the client system when it has been sent success
 
 <div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
     
-  <h1 id="pg-100b6bcd253aed8a0767220ea9bd05b2">6 - SSL Configuration</h1>
+  <h1 id="pg-3531374684773e7f54ae3921e8c9c4fe">6 - SSL Configuration</h1>
     <div class="lead">Configuring SSL with cURL.</div>
 	<p>This page provides a step by step guide to getting PKI authentication working correctly for Unix hosts so as to be able to sign deliveries from cURL.</p>
 <p>First make sure you have a copy of your organisations CA certificate.</p>
