@@ -281,7 +281,7 @@ main() {
     --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
     --workdir "${dest_dir}" \
     --name "docsy-pdf-build-env" \
-    --network hugo-stroom_default \
+    --network "hugo-stroom" \
     --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
     --env "DOCKER_PASSWORD=${DOCKER_PASSWORD}" \

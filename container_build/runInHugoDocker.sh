@@ -210,13 +210,15 @@ main() {
     --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
     --read-only \
     --name "hugo-build-env" \
-    --network hugo-stroom_default \
+    --network "hugo-stroom" \
     --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
     --env "DOCKER_PASSWORD=${DOCKER_PASSWORD}" \
     "${extra_docker_args[@]}" \
     "${image_tag}" \
     "${run_cmd[@]}"
+
+  remove_network
 }
 
 main "$@"
