@@ -1,7 +1,7 @@
 ---
 title: "Building the Documentation"
 linkTitle: "Building the Documentation"
-#weight:
+weight: 10
 date: 2022-01-12
 tags: 
 description: >

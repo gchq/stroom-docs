@@ -18,7 +18,7 @@ linkTitle: "Style Guide"
 
 # Optional priority in the left menu bar, lower number = higher position
 # Use this if you want to control over the positions
-weight: 200
+weight: 20
 
 # An optional  list of tags applicable to this page. Allows searching by tags.
 # Style names in lower-kebab-case.

@@ -2,19 +2,21 @@ FROM buildkite/puppeteer:10.0.0
 
 WORKDIR /builder
 
+# Run separately so docker can cache the layer to speed up image re-creation
+RUN apt-get update && apt-get install -y \
+    curl \
+    wait-for-it \
+  && echo "installing npm packages" \
+  && npm install html2canvas jspdf \
+  && mkdir -p /builder/repo
+
 # Pass in the uid/gid of the running user so we can use the same user id
 # in the container so that any files created can be read outside the 
 # container.
 ARG USER_ID
 ARG GROUP_ID    
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    wait-for-it \
-  && echo "installing npm packages" \
-  && npm install html2canvas jspdf \
-  && mkdir -p /builder/repo \
-  && echo "USER_ID: [$USER_ID]" \
+RUN echo "USER_ID: [$USER_ID]" \
   && echo "GROUP_ID: [$GROUP_ID]" \
   && echo \
   && echo "Ensuring group exists for group id [${GROUP_ID}]" \
