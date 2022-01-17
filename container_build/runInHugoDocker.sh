@@ -189,8 +189,6 @@ main() {
 
   create_network
 
-  docker network ls
-
   # Mount the whole repo into the container so we can run the build
   # The mount src is on the host file system
   # group-add gives the permission to interact with the docker cli
@@ -218,7 +216,7 @@ main() {
     "${image_tag}" \
     "${run_cmd[@]}"
 
-  remove_network
+  #remove_network
 }
 
 main "$@"
