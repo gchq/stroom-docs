@@ -66,11 +66,12 @@ build_version() {
   local site_dir="${repo_root}/public"
   local pdf_filename="${branch_name}.pdf"
 
-  if [[ "${BUILD_BRANCH}" = "master" ]]; then
-    hugo_base_url="${BASE_URL_BASE}/"
-  else
-    hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
-  fi
+  #if [[ "${BUILD_BRANCH}" = "master" ]]; then
+    #hugo_base_url="${BASE_URL_BASE}/"
+  #else
+    #hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
+  #fi
+  hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
 
   echo -e "${GREEN}-----------------------------------------------------${NC}"
   echo -e "${GREEN}Building" \
@@ -130,7 +131,7 @@ main() {
   local GIT_WORK_DIR="${BUILD_DIR}/git_work"
   #local SITE_DIR="${BUILD_DIR}/public"
   local GITHUB_PAGES_DIR="${BUILD_DIR}/gh-pages"
-  local BASE_URL_BASE="https://gchq.github.io/stroom-docs"
+  local BASE_URL_BASE="/stroom-docs"
   local GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
 
   echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
@@ -189,12 +190,14 @@ main() {
       # Run the build for this branch in the self named dir
       build_version "${branch_name}" "${branch_name}"
 
-    # TODO: AT # Do we want the docs for unreleased code to be on / or /master?
-      if [[ "${BUILD_BRANCH}" = "master" ]]; then
-        hugo_base_url="${BASE_URL_BASE}/"
-      else
-        hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
-      fi
+      # TODO: AT # Do we want the docs for unreleased code to be on / or /master?
+      #if [[ "${BUILD_BRANCH}" = "master" ]]; then
+        #hugo_base_url="${BASE_URL_BASE}/"
+      #else
+        #hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
+      #fi
+
+      hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
     else
       echo -e "${GREEN}Skipping build for ${BLUE}${branch_name}${NC}"
     fi

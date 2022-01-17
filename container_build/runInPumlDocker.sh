@@ -114,9 +114,6 @@ echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
 echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
 echo -e "${GREEN}Docker group id ${BLUE}${docker_group_id}${NC}"
 
-# Create a persistent vol for the home dir, idempotent
-docker volume create builder-home-dir-vol
-
 # So we are not rate limited, login before doing the build as this
 # will pull images
 docker_login

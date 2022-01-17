@@ -58,17 +58,6 @@ clean_up() {
     --filter "name=hugo-build-env*" \
     | xargs -r docker container stop
 
-  #docker \
-    #container \
-    #stop \
-    #"$( \
-      #docker \
-      #container \
-      #ls \
-      #-q \
-      #--filter "name=hugo-build-env*"\
-    #)"
-
   echo -e "${GREEN}Deleting hugo-build-env* containers${NC}"
   docker container \
     ls -a \
@@ -76,16 +65,7 @@ clean_up() {
     --filter "name=hugo-build-env*" \
     | xargs --no-run-if-empty docker container rm
 
-  #docker \
-    #container \
-    #rm \
-    #"$( \
-      #docker \
-      #container \
-      #ls -a \
-      #-q \
-      #--filter "name=hugo-build-env*"\
-    #)"
+  remove_network
 }
 
 create_network() {
@@ -98,7 +78,21 @@ create_network() {
     docker \
       network \
       create \
-      hugo-stroom
+      "hugo-stroom"
+  fi
+}
+
+remove_network() {
+  local network_count
+  network_count="$( \
+    docker network ls -q --filter "name=hugo-stroom*" | wc -l )"
+
+  if [[ "${network_count}" -gt 0 ]]; then
+    echo -e "${GREEN}Delete docker network hugo-stroom${NC}"
+    docker \
+      network \
+      rm \
+      "hugo-stroom"
   fi
 }
 
@@ -112,14 +106,6 @@ run_hugo_server() {
       "${BLUE}${HUGO_PORT}${NC}"
 
     "${local_repo_root}/container_build/runInHugoDocker.sh" server detach 
-
-    # TODO fix shared network between the two containers
-
-    #docker-compose \
-      #--project-name hugo-stroom \
-      #-f "${local_repo_root}/container_build/docker_hugo/docker-compose.yaml" \
-      #up \
-      #--detach
   fi
 
   create_network
@@ -240,9 +226,6 @@ main() {
   echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
   echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
   echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
-
-  # Create a persistent vol for the home dir, idempotent
-  #docker volume create builder-home-dir-vol
 
   # So we are not rate limited, login before doing the build as this
   # will pull images

@@ -59,7 +59,21 @@ create_network() {
     docker \
       network \
       create \
-      hugo-stroom
+      "hugo-stroom"
+  fi
+}
+
+remove_network() {
+  local network_count
+  network_count="$( \
+    docker network ls -q --filter "name=hugo-stroom*" | wc -l )"
+
+  if [[ "${network_count}" -gt 0 ]]; then
+    echo -e "${GREEN}Delete docker network hugo-stroom${NC}"
+    docker \
+      network \
+      rm \
+      "hugo-stroom"
   fi
 }
 
@@ -174,6 +188,8 @@ main() {
   fi
 
   create_network
+
+  docker network ls
 
   # Mount the whole repo into the container so we can run the build
   # The mount src is on the host file system
