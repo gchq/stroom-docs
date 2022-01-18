@@ -64,7 +64,7 @@ build_version() {
   
   local hugo_base_url
   local site_dir="${repo_root}/public"
-  local pdf_filename="${branch_name}.pdf"
+  local pdf_filename="${PDF_FILENAME_BASE}_stroom-${branch_name}.pdf"
 
   #if [[ "${BUILD_BRANCH}" = "master" ]]; then
     #hugo_base_url="${BASE_URL_BASE}/"
@@ -75,14 +75,14 @@ build_version() {
 
   echo -e "${GREEN}-----------------------------------------------------${NC}"
   echo -e "${GREEN}Building" \
-    "\nbranch_name: ${BLUE}${branch_name}${GREEN}," \
-    "\nrepo_root:   ${BLUE}${repo_root}${GREEN}," \
-    "\nbase_url:    ${BLUE}${hugo_base_url}${NC}"
+    "\n  branch_name: ${BLUE}${branch_name}${GREEN}," \
+    "\n  repo_root:   ${BLUE}${repo_root}${GREEN}," \
+    "\n  base_url:    ${BLUE}${hugo_base_url}${NC}"
   echo -e "${GREEN}-----------------------------------------------------${NC}"
 
   pushd "${repo_root}"
 
-  echo -e "${GREEN}Converting .puml files to .puml.svg${NC}"
+  echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
 
   # Build the Hugo site html
@@ -91,19 +91,23 @@ build_version() {
   #./container_build/runInHugoDocker.sh build "${hugo_base_url}"
   ./container_build/runInHugoDocker.sh build
 
-  echo -e "${GREEN}Building site PDF with pupeteer${NC}"
+  echo -e "${GREEN}Building whole site PDF for this branch${NC}"
   ./container_build/runInPupeteerDocker.sh PDF
-  mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
 
-  if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
-    local site_branch_dir="${COMBINED_SITE_DIR}/${branch_name}/"
-    mkdir -p "${site_branch_dir}"
-    echo -e "${GREEN}Copying site HTML (${BLUE}${site_dir}${GREEN}) to combined" \
-      "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
-    cp -r "${site_dir}"/* "${site_branch_dir}"
-  else
-    echo -e "${BLUE}${branch_name}${GREEN} is not a release branch so won't" \
-      "add it to ${BLUE}${COMBINED_SITE_DIR}${NC}"
+  # Don't want to release a PDF for master or include it in the zip
+  if [[ "${branch_name}" != "master" ]]; then
+    mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
+
+    if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
+      local site_branch_dir="${COMBINED_SITE_DIR}/${branch_name}/"
+      mkdir -p "${site_branch_dir}"
+      echo -e "${GREEN}Copying site HTML (${BLUE}${site_dir}${GREEN}) to combined" \
+        "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
+      cp -r "${site_dir}"/* "${site_branch_dir}"
+    else
+      echo -e "${BLUE}${branch_name}${GREEN} is not a release branch so won't" \
+        "add it to ${BLUE}${COMBINED_SITE_DIR}${NC}"
+    fi
   fi
   
   popd
@@ -114,6 +118,18 @@ main() {
 
   # Array of branch names that contain a version of the site,
   # e.g. master, 7.1, 7.0, legacy
+  # A site will be built for each one to create one big combined site
+  # that will be rsync'd into gh-pages and zipped up.
+  # A PDF will be generated for each one.
+
+  # gh-pages will look roughly like:
+  # /
+  # /index.html # redirects to the latest branch
+  # /legacy
+  # /7.0
+  # /7.1
+  # ...
+  # /master
   RELEASE_BRANCHES=(
     "hugo-docsy"
   )
@@ -123,7 +139,7 @@ main() {
     #"legacy"
   #)
 
-  local PDF_FILENAME="${BUILD_TAG:-SNAPSHOT}.pdf"
+  local PDF_FILENAME_BASE="${BUILD_TAG:-SNAPSHOT}"
   local ZIP_FILENAME="${BUILD_TAG:-SNAPSHOT}.zip"
   local RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
   local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
@@ -143,7 +159,7 @@ main() {
   echo -e "BUILD_NUMBER:          [${GREEN}${BUILD_NUMBER}${NC}]"
   echo -e "BUILD_TAG:             [${GREEN}${BUILD_TAG}${NC}]"
   echo -e "LOCAL_BUILD:           [${GREEN}${LOCAL_BUILD}${NC}]"
-  echo -e "PDF_FILENAME:          [${GREEN}${PDF_FILENAME}${NC}]"
+  echo -e "PDF_FILENAME_BASE:     [${GREEN}${PDF_FILENAME_BASE}${NC}]"
   echo -e "PWD:                   [${GREEN}$(pwd)${NC}]"
   echo -e "RELEASE_BRANCHES:      [${GREEN}${RELEASE_BRANCHES[*]}${NC}]"
   echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
@@ -179,6 +195,7 @@ main() {
       echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
         "${BLUE}${GIT_REPO_URL}${GREEN} into ${BLUE}./${branch_name}${NC}"
 
+      # Clone the branch into a dir with the name of the branch
       git \
         clone \
         --depth 1 \
@@ -189,7 +206,7 @@ main() {
         "./${branch_name}"
 
       # Run the build for this branch in the self named dir
-      build_version "${branch_name}" "${branch_name}"
+      build_version "${branch_name}" "${GIT_WORK_DIR}/${branch_name}"
 
       # TODO: AT # Do we want the docs for unreleased code to be on / or /master?
       #if [[ "${BUILD_BRANCH}" = "master" ]]; then

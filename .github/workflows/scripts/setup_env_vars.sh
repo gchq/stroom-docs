@@ -30,6 +30,8 @@
   fi
 
   # Every commit to master is a new release, at least at the moment
+  # This means any changes on a relase branch need to get merged up
+  # to master before a release will happen
   if [[ ${build_branch} = "master" ]]; then
     echo "BUILD_IS_RELEASE=true"
     echo "BUILD_TAG=stroom-docs-v${build_number}"
