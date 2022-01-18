@@ -10,7 +10,5 @@ description: >
 
 ---
 
-{{% pageinfo %}}
 This documentation is applicable to Stroom {{< param "version" >}}.
 To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.
-{{% /pageinfo %}}

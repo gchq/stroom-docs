@@ -11,13 +11,15 @@ tags:
 
 ## Markdown style conventions
 
+
 ### Line breaks
+
 
 #### Sentence per line
 
 Each sentence should start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them.
-When the mrkdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.
+When the markdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.
 
 See this [link (external link)](https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line) for more of the reasons behind sentence per line.
 Though this link relates to Asciidoc, the same applies to markdown.
@@ -99,7 +101,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 #### Forced line breaks
 
 In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjecent lines when rendered.
-You can force a line break by adding two spaces `  ` at the end of a line.
+You can force a line break by adding two spaces `␣␣` at the end of a line.
 
 {{< cardpane >}}
 
@@ -126,12 +128,12 @@ Paragraph 2.
 
   {{< /card >}}
 
-  {{< card header="Do this (highlight the text to see the spaces)" >}}
+  {{< card header="Do this" >}}
 ```markdown
 Paragraph 1.
 
-One  
-Two  
+One␣␣
+Two␣␣
 Three
 
 Paragraph 2.
@@ -149,7 +151,6 @@ Paragraph 2.
   {{< /card >}}
 
 {{< /cardpane >}}
-
 
 
 ### Blank lines and spacing
@@ -208,8 +209,10 @@ The `#` characters should **always** be followed by one space character
 The following is an exmaple of the heading levels.
 
 ```markdown
-
 # Heading level 1
+
+DON'T use this level in your documents.
+Level one headings will be generated from the `title` in the document's front matter.
 
 
 ## Heading level 2
@@ -287,28 +290,58 @@ This is an example of a level 6 heading.
 
 ## Block quotes
 
+### Single line
+
 A simple paragraph block quote.
 
+```markdown
 > This is a simple block quote.
-> This is the second sentence.
+> This is the second sentence on the same line.
+```
+
+> This is a simple block quote.
+> This is the second sentence on the same line.
+
+### Multi line
 
 A pair of spaces at the end of a line can be used to force line breaks, e.g.:
+
+```markdown
+> This is a multi line block quote.␣␣
+> This is the second line.␣␣
+> This is the third line.
+```
 
 > This is a multi line block quote.  
 > This is the second line.  
 > This is the third line.
+
 
 ## Lists
 
 
 ### Bulleted list
 
+{{< cardpane >}}
+  {{< card header="Markdown" >}}
+```markdown
 * Fruit -
   Make sure you get your five-a-day.
 * Meat
     * Beef
     * Chicken
 * Vegetables.
+```
+  {{< /card >}}
+  {{< card header="Rendered" >}}
+* Fruit -
+  Make sure you get your five-a-day.
+* Meat
+    * Beef
+    * Chicken
+* Vegetables.
+  {{< /card >}}
+{{< /cardpane >}}
 
 
 ### Numbered List
@@ -316,6 +349,8 @@ A pair of spaces at the end of a line can be used to force line breaks, e.g.:
 Numbered list items should all be numbered with number `1` so that the markdown render handles the consecutive numbering.
 This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:
 
+{{< cardpane >}}
+  {{< card header="Markdown" >}}
 ```markdown
 1. Item one.
    This is some extra content for step 1.
@@ -324,27 +359,48 @@ This makes the file easier to edit and means the addition of one item in the mid
     1. Sub-item B.
 1. Item three.
 ```
-
+  {{< /card >}}
+  {{< card header="Rendered" >}}
 1. Item one.
    This is some extra content for step 1.
 1. Item two.
     1. Sub-item A.
     1. Sub-item B.
 1. Item three.
+  {{< /card >}}
+{{< /cardpane >}}
+
 
 
 ### Check List
 
+{{< cardpane >}}
+  {{< card header="Markdown" >}}
+```markdown
 * [ ] Item 1.
       This is some extra content for item 1.
 * [ ] Item 2.
     * [x] Item 2a.
     * [ ] Item 2b.
 * [x] Item 3.
+```
+  {{< /card >}}
+  {{< card header="Rendered" >}}
+* [ ] Item 1.
+      This is some extra content for item 1.
+* [ ] Item 2.
+    * [x] Item 2a.
+    * [ ] Item 2b.
+* [x] Item 3.
+  {{< /card >}}
+{{< /cardpane >}}
 
 
 ### Definition list
 
+{{< cardpane >}}
+  {{< card header="Markdown" >}}
+```markdown
 Name
 : Godzilla
 
@@ -353,6 +409,19 @@ Birthplace
 
 Color
 : Green
+```
+  {{< /card >}}
+  {{< card header="Rendered" >}}
+Name
+: Godzilla
+
+Birthplace
+: Japan
+
+Color
+: Green
+  {{< /card >}}
+{{< /cardpane >}}
 
 
 ## Tables
@@ -360,24 +429,24 @@ Color
 Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.
 
 ```markdown
-## Don't do this
-
-| Artist | Album | Year |
-|-|-|-|
-| Michael Jackson | Thriller | 1982 |
-| Prince | Purple Rain | 1984 |
-| Beastie Boys | License to Ill | 1986 |
-
-## Do this
+## Ideally do this
 
 | Artist          | Album          | Year |
 |-----------------|----------------|------|
 | Michael Jackson | Thriller       | 1982 |
 | Prince          | Purple Rain    | 1984 |
 | Beastie Boys    | License to Ill | 1986 |
+
+## But this is acceptable
+
+| Artist | Album | Year |
+|-|-|-|
+| Michael Jackson | Thriller | 1982 |
+| Prince | Purple Rain | 1984 |
+| Beastie Boys | License to Ill | 1986 |
 ```
 
-However both will produce the same result.
+Both will produce the same result but the latter can be harder to read in markdown form.
 
 | Artist          | Album          | Year |
 |-----------------|----------------|------|
@@ -403,7 +472,7 @@ The anchor for a heading is the heading text with:
 * All non-alphanumeric characters removed
 * Spaces replaced with a `-`
 * All characters made lower case
-* Multiple consequtive `-` characters, e.g. `---` are replaced with a single `-`
+* Multiple consecutive `-` characters, e.g. `---` are replaced with a single `-`
 
 For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor `#mr-oneils-1st-event-something`.
 
@@ -520,7 +589,17 @@ Paths are relative to `/assets/files/`.
 
 ### Inline code
 
+{{< cardpane >}}
+  {{< card header="Markdown" >}}
+```markdown
 Inline code `looks like this`.
+```
+  {{< /card >}}
+  {{< card header="Rendered" >}}
+Inline code `looks like this`.
+  {{< /card >}}
+{{< /cardpane >}}
+
 
 
 ### Code blocks
@@ -530,6 +609,8 @@ If the language type is not supplied then styling will be different to fenced bl
 
 This is a markdown example of a fenced code block containing XML content.
 
+{{< cardpane >}}
+  {{< card header="Markdown" >}}
 ````markdown
 ```xml
 <root>
@@ -537,6 +618,16 @@ This is a markdown example of a fenced code block containing XML content.
 </root>
 ```
 ````
+  {{< /card >}}
+  {{< card header="Rendered" >}}
+```xml
+<root>
+  <child attr="xxx">some val</child>
+</root>
+```
+  {{< /card >}}
+{{< /cardpane >}}
+
 
 Some language types commonly used in this documentation are:
 
@@ -620,22 +711,18 @@ Examples of how to use in-line files are:
 
 ### Warning block Quote
 
-{{% warning %}}
-This is a warning that can contain _markdown_.
-{{% /warning %}}
-
 ```markdown
 {{%/* warning */%}}
 This is a warning that can contain _markdown_.
 {{%/* /warning */%}}
 ```
 
+{{% warning %}}
+This is a warning that can contain _markdown_.
+{{% /warning %}}
+
 
 ### Page level warning
-
-{{% page-warning %}}
-This is a warning that can contain _markdown_.
-{{% /page-warning %}}
 
 ```markdown
 {{%/* page-warning */%}}
@@ -643,12 +730,12 @@ This is a warning that can contain _markdown_.
 {{%/* /page-warning */%}}
 ```
 
+{{% page-warning %}}
+This is a warning that can contain _markdown_.
+{{% /page-warning %}}
+
 
 ### Note block Quote
-
-{{% note %}}
-This is a note that can contain **markdown**.
-{{% /note %}}
 
 ```markdown
 {{%/* note */%}}
@@ -656,12 +743,12 @@ This is a note that can contain **markdown**.
 {{%/* /note */%}}
 ```
 
+{{% note %}}
+This is a note that can contain **markdown**.
+{{% /note %}}
+
 
 ### Page level info
-
-{{% pageinfo %}}
-This is some info that can contain **markdown**.
-{{% /pageinfo %}}
 
 ```markdown
 {{%/* pageinfo */%}}
@@ -669,12 +756,12 @@ This is some info that can contain **markdown**.
 {{%/* /pageinfo */%}}
 ```
 
+{{% pageinfo %}}
+This is some info that can contain **markdown**.
+{{% /pageinfo %}}
+
 
 ### TODO block Quote
-
-{{% todo %}}
-This is a TODO that can contain `markdown`.
-{{% /todo %}}
 
 ```markdown
 {{%/* todo */%}}
@@ -682,12 +769,39 @@ This is a TODO that can contain `markdown`.
 {{%/* /todo */%}}
 ```
 
+{{% todo %}}
+This is a TODO that can contain `markdown`.
+{{% /todo %}}
+
 
 ## Cards
 
 Cards can be used to display related conent side by side.
 Each card can contain markdown and/or Hugo short codes.
 The cards will be displayed horizopntally across the page.
+
+````marckdown
+{{</* cardpane */>}}
+
+  {{</* card header="YAML" */>}}
+```yaml
+---
+root:
+  someKey: "value"
+```
+  {{</* /card */>}}
+
+  {{</* card header="XML" */>}}
+```xml
+<root>
+  <child attr="xxx">some val</child>
+</root>
+```
+  {{</* /card */>}}
+
+{{</* /cardpane */>}}
+````
+
 
 {{< cardpane >}}
 

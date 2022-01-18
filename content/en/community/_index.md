@@ -7,6 +7,7 @@ menu:
 cascade:
 - type: "docs"
 description: >
-  This section is for the community of developers and users that contirubte to the development of Stroom, its replated applications and its shared content.
+  Stroom is an open source application whose evolution is enhanced by the community of users and developers that contribute content and development effort. This section provides the resources for this community, to help with producing content, making changes to Stroom and enhancing this documentation.
+
 ---
 

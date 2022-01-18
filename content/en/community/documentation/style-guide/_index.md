@@ -37,6 +37,8 @@ tags:
 description: >
   A guide on the house style, structure and content for this site.
   It should be viewed both in its rendered form and as source to understand how the page elements are formed.
+  You should read this section before contributing to the documentation.
+
 ---
 
 _Stroom-Docs_ is created using the static site generator [Hugo (external link)](https://gohugo.io/).
