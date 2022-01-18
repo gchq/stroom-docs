@@ -88,7 +88,8 @@ build_version() {
   # Build the Hugo site html
   # TODO, remove --buildDrafts arg once we merge to master
   echo -e "${GREEN}Building site HTML with Hugo${NC}"
-  ./container_build/runInHugoDocker.sh build "${hugo_base_url}"
+  #./container_build/runInHugoDocker.sh build "${hugo_base_url}"
+  ./container_build/runInHugoDocker.sh build
 
   echo -e "${GREEN}Building site PDF with pupeteer${NC}"
   ./container_build/runInPupeteerDocker.sh PDF
