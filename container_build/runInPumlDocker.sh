@@ -69,7 +69,7 @@ else
     run_cmd=( \
       "bash" \
       "-c"  \
-      "/builder/convert_puml_files.sh /builder/shared/content/en /builder/shared/assets" \
+      "/builder/convert_puml_files.sh /builder/shared/content /builder/shared/assets" \
     )
   elif [[ $# -gt 1 ]] && [[ "$1" = "SVG" ]]; then
     # convert all .puml files to .puml.svg

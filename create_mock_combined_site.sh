@@ -56,11 +56,13 @@ debug() {
 
 build_branch() {
   echo -e "${GREEN}----------------------------------------${NC}"
+  echo -e "${GREEN}Branch ${branch_name}${NC}"
+  echo -e "${GREEN}----------------------------------------${NC}"
 
   rm -rf "${TEMP_BUILD_DIR}"
   mkdir -p "${TEMP_BUILD_DIR}"
 
-  echo -e "${GREEN}Copying repo${NC}"
+  echo -e "${GREEN}Copying repo to ${BLUE}${TEMP_BUILD_DIR}${NC}"
   rsync \
     --human-readable \
     --archive \
@@ -96,19 +98,18 @@ build_branch() {
       "${config_file}"
   fi
 
+  echo -e "${GREEN}Diffing config.toml${NC}"
+  diff "${SCRIPT_DIR}/config.toml" "${config_file}" || true
+
   pushd "${TEMP_BUILD_DIR}"
 
   echo -e "${GREEN}Running the Hugo build for ${branch_name}${NC}"
-  ./container_build/runInHugoDocker.sh build "${BASE_URL}/${branch_name}"
+  #./container_build/runInHugoDocker.sh \
+    #build \
+    #"${BASE_URL}/${branch_name}"
 
-  #docker-compose \
-    #-f "./container_build/docker_hugo/docker-compose.yaml" \
-    #run \
-    #--rm \
-    #site \
-    #--buildDrafts \
-    #--baseUrl "${BASE_URL}/${branch_name}"
-    ##--buildDrafts
+  ./container_build/runInHugoDocker.sh \
+    build
 
   echo -e "${GREEN}Copying site${NC}"
   dest_dir="${COMBINED_SITE_DIR}/${branch_name}"
@@ -124,7 +125,8 @@ main() {
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
   # TODO could scrape this from config.yaml maybe
   local LATEST_VERSION="7.1"
-  local BASE_URL="/stroom-docs"
+  #local BASE_URL="/stroom-docs"
+  local BASE_URL=""
 
   #local SITE_SOURCE="${SCRIPT_DIR}/public"
   local TEMP_BUILD_DIR="/tmp/stroom-docs_build_dir"

@@ -46,6 +46,11 @@ debug() {
 
 convert_file() {
   local puml_file="$1"; shift
+
+  # TODO AT: It may be worth generating a .puml.sha1 for each .puml file.
+  #   Then we can see if the .puml has changed and only regen it if there is
+  #   no .puml.svg or the sha1 is different. This would speed up the process
+  #   when we have lots more images in the site.
   
   local puml_filename
   puml_filename="$(basename "${puml_file}")"
