@@ -28,7 +28,7 @@
 &lt;h4 id=&#34;sentence-per-line&#34;&gt;Sentence per line&lt;/h4&gt;
 &lt;p&gt;Each sentence should start on a new line, even in numbered/bulleted lists.
 This makes it easier to move sentences around or to remove them.
-When the mrkdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.&lt;/p&gt;
+When the markdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.&lt;/p&gt;
 &lt;p&gt;See this &lt;a href=&#34;https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line&#34;&gt;link (external link)&lt;/a&gt; for more of the reasons behind sentence per line.
 Though this link relates to Asciidoc, the same applies to markdown.&lt;/p&gt;
 &lt;p&gt;For example:&lt;/p&gt;
@@ -129,7 +129,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
 &lt;h4 id=&#34;forced-line-breaks&#34;&gt;Forced line breaks&lt;/h4&gt;
 &lt;p&gt;In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjecent lines when rendered.
-You can force a line break by adding two spaces &lt;code&gt;  &lt;/code&gt; at the end of a line.&lt;/p&gt;
+You can force a line break by adding two spaces &lt;code&gt;␣␣&lt;/code&gt; at the end of a line.&lt;/p&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
 
   &lt;div class=&#34;card mb-4&#34;&gt;
@@ -173,7 +173,7 @@ Three&lt;/p&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
       
-        Do this (highlight the text to see the spaces)
+        Do this
       
     &lt;/div&gt;
   
@@ -185,8 +185,8 @@ Three&lt;/p&gt;
         
           &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Paragraph 1.
 
-One  
-Two  
+One␣␣
+Two␣␣
 Three
 
 Paragraph 2.
@@ -255,8 +255,10 @@ Another random line.
 Headings should have two blank lines above them for clarity in the raw markdown.
 The &lt;code&gt;#&lt;/code&gt; characters should &lt;strong&gt;always&lt;/strong&gt; be followed by one space character&lt;/p&gt;
 &lt;p&gt;The following is an exmaple of the heading levels.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;
-# Heading level 1
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;# Heading level 1
+
+DON&#39;T use this level in your documents.
+Level one headings will be generated from the `title` in the document&#39;s front matter.
 
 
 ## Heading level 2
@@ -307,12 +309,21 @@ Don&#39;t use this style.
 &lt;h6 id=&#34;heading-example-level-6&#34;&gt;Heading example (level 6)&lt;/h6&gt;
 &lt;p&gt;This is an example of a level 6 heading.&lt;/p&gt;
 &lt;h2 id=&#34;block-quotes&#34;&gt;Block quotes&lt;/h2&gt;
+&lt;h3 id=&#34;single-line&#34;&gt;Single line&lt;/h3&gt;
 &lt;p&gt;A simple paragraph block quote.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;gt; This is a simple block quote.
+&amp;gt; This is the second sentence on the same line.
+&lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
 &lt;p&gt;This is a simple block quote.
-This is the second sentence.&lt;/p&gt;
+This is the second sentence on the same line.&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;h3 id=&#34;multi-line&#34;&gt;Multi line&lt;/h3&gt;
 &lt;p&gt;A pair of spaces at the end of a line can be used to force line breaks, e.g.:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;gt; This is a multi line block quote.␣␣
+&amp;gt; This is the second line.␣␣
+&amp;gt; This is the third line.
+&lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
 &lt;p&gt;This is a multi line block quote.&lt;br&gt;
 This is the second line.&lt;br&gt;
@@ -320,7 +331,51 @@ This is the third line.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;lists&#34;&gt;Lists&lt;/h2&gt;
 &lt;h3 id=&#34;bulleted-list&#34;&gt;Bulleted list&lt;/h3&gt;
-&lt;ul&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;* Fruit -
+  Make sure you get your five-a-day.
+* Meat
+    * Beef
+    * Chicken
+* Vegetables.
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
 &lt;li&gt;Fruit -
 Make sure you get your five-a-day.&lt;/li&gt;
 &lt;li&gt;Meat
@@ -331,17 +386,63 @@ Make sure you get your five-a-day.&lt;/li&gt;
 &lt;/li&gt;
 &lt;li&gt;Vegetables.&lt;/li&gt;
 &lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;h3 id=&#34;numbered-list&#34;&gt;Numbered List&lt;/h3&gt;
 &lt;p&gt;Numbered list items should all be numbered with number &lt;code&gt;1&lt;/code&gt; so that the markdown render handles the consecutive numbering.
 This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;1. Item one.
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;1. Item one.
    This is some extra content for step 1.
 1. Item two.
     1. Sub-item A.
     1. Sub-item B.
 1. Item three.
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ol&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ol&gt;
 &lt;li&gt;Item one.
 This is some extra content for step 1.&lt;/li&gt;
 &lt;li&gt;Item two.
@@ -352,8 +453,61 @@ This is some extra content for step 1.&lt;/li&gt;
 &lt;/li&gt;
 &lt;li&gt;Item three.&lt;/li&gt;
 &lt;/ol&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;h3 id=&#34;check-list&#34;&gt;Check List&lt;/h3&gt;
-&lt;ul&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;* [ ] Item 1.
+      This is some extra content for item 1.
+* [ ] Item 2.
+    * [x] Item 2a.
+    * [ ] Item 2b.
+* [x] Item 3.
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 1.
 This is some extra content for item 1.&lt;/li&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2.
@@ -364,8 +518,63 @@ This is some extra content for item 1.&lt;/li&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 3.&lt;/li&gt;
 &lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;h3 id=&#34;definition-list&#34;&gt;Definition list&lt;/h3&gt;
-&lt;dl&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Name
+: Godzilla
+
+Birthplace
+: Japan
+
+Color
+: Green
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;dl&gt;
 &lt;dt&gt;Name&lt;/dt&gt;
 &lt;dd&gt;Godzilla&lt;/dd&gt;
 &lt;dt&gt;Birthplace&lt;/dt&gt;
@@ -373,25 +582,34 @@ This is some extra content for item 1.&lt;/li&gt;
 &lt;dt&gt;Color&lt;/dt&gt;
 &lt;dd&gt;Green&lt;/dd&gt;
 &lt;/dl&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
 &lt;p&gt;Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Don&#39;t do this
-
-| Artist | Album | Year |
-|-|-|-|
-| Michael Jackson | Thriller | 1982 |
-| Prince | Purple Rain | 1984 |
-| Beastie Boys | License to Ill | 1986 |
-
-## Do this
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Ideally do this
 
 | Artist          | Album          | Year |
 |-----------------|----------------|------|
 | Michael Jackson | Thriller       | 1982 |
 | Prince          | Purple Rain    | 1984 |
 | Beastie Boys    | License to Ill | 1986 |
+
+## But this is acceptable
+
+| Artist | Album | Year |
+|-|-|-|
+| Michael Jackson | Thriller | 1982 |
+| Prince | Purple Rain | 1984 |
+| Beastie Boys | License to Ill | 1986 |
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;However both will produce the same result.&lt;/p&gt;
+&lt;p&gt;Both will produce the same result but the latter can be harder to read in markdown form.&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -430,7 +648,7 @@ The anchor for a heading is the heading text with:&lt;/p&gt;
 &lt;li&gt;All non-alphanumeric characters removed&lt;/li&gt;
 &lt;li&gt;Spaces replaced with a &lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;All characters made lower case&lt;/li&gt;
-&lt;li&gt;Multiple consequtive &lt;code&gt;-&lt;/code&gt; characters, e.g. &lt;code&gt;---&lt;/code&gt; are replaced with a single &lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Multiple consecutive &lt;code&gt;-&lt;/code&gt; characters, e.g. &lt;code&gt;---&lt;/code&gt; are replaced with a single &lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;For example the heading &lt;code&gt;Mr O&#39;Neil&#39;s 1st Event (something)&lt;/code&gt; becomes as an anchor &lt;code&gt;#mr-oneils-1st-event-something&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;shortcode-page-link-examples&#34;&gt;Shortcode page link examples&lt;/h3&gt;
@@ -534,17 +752,114 @@ This will only work if the page name is unique&lt;/p&gt;
 &lt;p&gt;Paths are relative to &lt;code&gt;/assets/files/&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;code-highlighting&#34;&gt;Code highlighting&lt;/h2&gt;
 &lt;h3 id=&#34;inline-code&#34;&gt;Inline code&lt;/h3&gt;
-&lt;p&gt;Inline code &lt;code&gt;looks like this&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Inline code `looks like this`.
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          Inline code &lt;code&gt;looks like this&lt;/code&gt;.
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;h3 id=&#34;code-blocks&#34;&gt;Code blocks&lt;/h3&gt;
 &lt;p&gt;Code blocks should be surrounded with fences &lt;code&gt;```language-type&lt;/code&gt; and &lt;code&gt;```&lt;/code&gt; with the language type &lt;strong&gt;always&lt;/strong&gt; specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.&lt;/p&gt;
 &lt;p&gt;This is a markdown example of a fenced code block containing XML content.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;```xml
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;```xml
 &amp;lt;root&amp;gt;
   &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
 &amp;lt;/root&amp;gt;
 ```
 &lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 &lt;p&gt;Some language types commonly used in this documentation are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;bash&lt;/code&gt;&lt;/li&gt;
@@ -773,6 +1088,10 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;alerts&#34;&gt;Alerts&lt;/h2&gt;
 &lt;h3 id=&#34;warning-block-quote&#34;&gt;Warning block Quote&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% warning %}}
+This is a warning that can contain _markdown_.
+{{% /warning %}}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
@@ -782,11 +1101,11 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 &lt;/div&gt;
 
 
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% warning %}}
-This is a warning that can contain _markdown_.
-{{% /warning %}}
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;page-level-warning&#34;&gt;Page level warning&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% page-warning %}}
+This is a warning that can contain _markdown_.
+{{% /page-warning %}}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;pageinfo pageinfo-danger&#34;&gt;
 &lt;h4 class=&#34;text-danger alert-heading&#34;&gt;Warning&lt;/h4&gt;
@@ -795,11 +1114,11 @@ This is a warning that can contain _markdown_.
 &lt;/div&gt;
 
 
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% page-warning %}}
-This is a warning that can contain _markdown_.
-{{% /page-warning %}}
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;note-block-quote&#34;&gt;Note block Quote&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% note %}}
+This is a note that can contain **markdown**.
+{{% /note %}}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
@@ -809,11 +1128,11 @@ This is a warning that can contain _markdown_.
 &lt;/div&gt;
 
 
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% note %}}
-This is a note that can contain **markdown**.
-{{% /note %}}
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;page-level-info&#34;&gt;Page level info&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% pageinfo %}}
+This is some info that can contain **markdown**.
+{{% /pageinfo %}}
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
@@ -821,11 +1140,11 @@ This is a note that can contain **markdown**.
 
 &lt;/div&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% pageinfo %}}
-This is some info that can contain **markdown**.
-{{% /pageinfo %}}
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;todo-block-quote&#34;&gt;TODO block Quote&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% todo %}}
+This is a TODO that can contain `markdown`.
+{{% /todo %}}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
@@ -834,14 +1153,30 @@ This is some info that can contain **markdown**.
 
 &lt;/div&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% todo %}}
-This is a TODO that can contain `markdown`.
-{{% /todo %}}
-&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;cards&#34;&gt;Cards&lt;/h2&gt;
 &lt;p&gt;Cards can be used to display related conent side by side.
 Each card can contain markdown and/or Hugo short codes.
 The cards will be displayed horizopntally across the page.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-marckdown&#34;&gt;{{&amp;lt; cardpane &amp;gt;}}
+
+  {{&amp;lt; card header=&amp;quot;YAML&amp;quot; &amp;gt;}}
+```yaml
+---
+root:
+  someKey: &amp;quot;value&amp;quot;
+```
+  {{&amp;lt; /card &amp;gt;}}
+
+  {{&amp;lt; card header=&amp;quot;XML&amp;quot; &amp;gt;}}
+```xml
+&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;
+```
+  {{&amp;lt; /card &amp;gt;}}
+
+{{&amp;lt; /cardpane &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
 
   &lt;div class=&#34;card mb-4&#34;&gt;
