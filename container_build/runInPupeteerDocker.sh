@@ -168,6 +168,8 @@ wait_for_200_response() {
 
   if [[ $n -ge ${maxWaitSecs} ]]; then
     echo -e "${RED}Gave up wating for hugo server to start up, quitting!"
+    docker ps -a
+    exit 1
   fi
 }
 
