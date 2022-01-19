@@ -10,5 +10,6 @@ description: >
 
 ---
 
-This documentation is applicable to Stroom {{< param "version" >}}.
-To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.
+> This documentation is applicable to Stroom version "{{< param "version" >}}" and was generated on {{< build-date >}}.  
+>  
+> To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.
