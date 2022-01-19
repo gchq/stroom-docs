@@ -20,7 +20,7 @@ IFS=$'\n\t'
 }
 
 HUGO_PORT="1313"
-PRING_PAGE_PATH="/docs/_print/"
+PRINT_PAGE_PATH="/docs/_print/"
 
 docker_login() {
   # The username and password are configured in the travis gui
@@ -113,18 +113,14 @@ run_hugo_server() {
 
 wait_for_200_response() {
   if [[ $# -eq 0 ]]; then
-    echo -e "${RED}Invalid arguments to wait_for_200_response(), expecting a URL to wait for${NC}"
+    echo -e "${RED}Invalid arguments to wait_for_200_response()," \
+      "expecting a URL to wait for${NC}"
     exit 1
   fi
 
   local url=$1; shift
-  if [ "$#" -gt 0 ]; then
-    local msg="$1"; shift
-  fi
-  if [ "$#" -gt 0 ]; then
-    local sub_msg="$1"; shift
-  fi
-
+  local msg="${GREEN}Waiting for Hugo server to start" \
+    "(${BLUE}${url}${GREEN})${NC}"
   local maxWaitSecs=10
 
   local n=0
@@ -167,7 +163,7 @@ wait_for_200_response() {
   fi
 
   if [[ $n -ge ${maxWaitSecs} ]]; then
-    echo -e "${RED}Gave up wating for hugo server to start up, quitting!"
+    echo -e "${RED}Gave up wating for hugo server to start up, quitting!${NC}"
     # Dump the docker info so we can see what containers are up
     docker ps -a
     exit 1
@@ -198,7 +194,7 @@ main() {
     run_cmd=( \
       "node" \
       "../generate-pdf.js" \
-      "http://hugo-build-env:${HUGO_PORT}${PRING_PAGE_PATH}" )
+      "http://hugo-build-env:${HUGO_PORT}${PRINT_PAGE_PATH}" )
   else
     run_cmd=( \
       "bash" \
@@ -260,10 +256,7 @@ main() {
   fi
 
   # We are outside the containers here so use localhost instead of site
-  hugo_url="http://localhost:${HUGO_PORT}${PRING_PAGE_PATH}" 
-  wait_for_200_response \
-    "${hugo_url}" \
-    "Waiting for Hugo server to start (${hugo_url})"
+  wait_for_200_response "http://localhost:${HUGO_PORT}${PRINT_PAGE_PATH}" 
 
   # Mount the whole repo into the container so we can run the build
   # The mount src is on the host file system
