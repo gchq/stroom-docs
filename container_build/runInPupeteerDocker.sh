@@ -125,7 +125,7 @@ wait_for_200_response() {
     local sub_msg="$1"; shift
   fi
 
-  local maxWaitSecs=240
+  local maxWaitSecs=10
 
   local n=0
   local were_dots_shown=false
@@ -167,8 +167,7 @@ wait_for_200_response() {
   fi
 
   if [[ $n -ge ${maxWaitSecs} ]]; then
-    echo -e "${RED}Gave up wating for hugo server to start up, check the" \
-      "logs (${BLUE}docker logs stroom${NC}${RED})${NC}"
+    echo -e "${RED}Gave up wating for hugo server to start up, quitting!"
   fi
 }
 
