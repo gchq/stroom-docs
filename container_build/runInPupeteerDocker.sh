@@ -20,7 +20,7 @@ IFS=$'\n\t'
 }
 
 HUGO_PORT="1313"
-PRINT_PATH="/stroom-docs/docs/_print/"
+PRING_PAGE_PATH="/docs/_print/"
 
 docker_login() {
   # The username and password are configured in the travis gui
@@ -168,6 +168,7 @@ wait_for_200_response() {
 
   if [[ $n -ge ${maxWaitSecs} ]]; then
     echo -e "${RED}Gave up wating for hugo server to start up, quitting!"
+    # Dump the docker info so we can see what containers are up
     docker ps -a
     exit 1
   fi
@@ -197,7 +198,7 @@ main() {
     run_cmd=( \
       "node" \
       "../generate-pdf.js" \
-      "http://hugo-build-env:${HUGO_PORT}${PRINT_PATH}" )
+      "http://hugo-build-env:${HUGO_PORT}${PRING_PAGE_PATH}" )
   else
     run_cmd=( \
       "bash" \
@@ -259,7 +260,7 @@ main() {
   fi
 
   # We are outside the containers here so use localhost instead of site
-  hugo_url="http://localhost:${HUGO_PORT}${PRINT_PATH}" 
+  hugo_url="http://localhost:${HUGO_PORT}${PRING_PAGE_PATH}" 
   wait_for_200_response \
     "${hugo_url}" \
     "Waiting for Hugo server to start (${hugo_url})"
