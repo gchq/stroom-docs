@@ -119,6 +119,22 @@ build_branch() {
   popd
 }
 
+create_redirect_page() {
+  local latest_version
+  latest_version="$( \
+    grep  -e "^\s*url_latest_version" "${SCRIPT_DIR}/config.toml" \
+    | sed -r 's|[^"]*".*/([^"]+)"|\1|' \
+  )"
+
+  echo -e "${GREEN}Creating root redirect page with latest version" \
+    "${BLUE}${latest_version}${NC}"
+  sed \
+    --regexp-extended \
+    --expression "s/<<<LATEST_VERSION>>>/${latest_version}/g" \
+    "${SCRIPT_DIR}/index.html.template" \
+    > "${COMBINED_SITE_DIR}/index.html"
+}
+
 main() {
   IS_DEBUG=false
   local SCRIPT_DIR
@@ -159,13 +175,7 @@ main() {
     build_branch
   done
 
-  echo -e "${GREEN}Creating root redirect page${NC}"
-  cp "${SCRIPT_DIR}/index.html" "${COMBINED_SITE_DIR}/"
-  sed \
-    --in-place'' \
-    --regexp-extended \
-    --expression "s/<<<LATEST_VERSION>>>/${LATEST_VERSION}/g" \
-    "${COMBINED_SITE_DIR}/index.html"
+  create_redirect_page
 
   echo -e "${GREEN}Done. Site is available in ${BLUE}${COMBINED_SITE_DIR}${NC}"
 }

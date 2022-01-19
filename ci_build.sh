@@ -113,6 +113,22 @@ build_version() {
   popd
 }
 
+create_redirect_page() {
+  local latest_version
+  latest_version="$( \
+    grep  -e "^\s*url_latest_version" "${BUILD_DIR}/config.toml" \
+    | sed -r 's|[^"]*".*/([^"]+)"|\1|' \
+  )"
+
+  echo -e "${GREEN}Creating root redirect page with latest version" \
+    "${BLUE}${latest_version}${NC}"
+  sed \
+    --regexp-extended \
+    --expression "s/<<<LATEST_VERSION>>>/${latest_version}/g" \
+    "${BUILD_DIR}/index.html.template" \
+    > "${COMBINED_SITE_DIR}/index.html"
+}
+
 main() {
   setup_echo_colours
 
@@ -228,10 +244,16 @@ main() {
   #rm -v "${SITE_DIR}"/*.sh
   #rm -v -rf "${SITE_DIR}/.github"
 
+  create_redirect_page
+
   if element_in "${BUILD_BRANCH}" "${RELEASE_BRANCHES[@]}"; then
     echo -e "${GREEN}Making a zip of the combined site html content${NC}"
     pushd "${COMBINED_SITE_DIR}"
-    zip -r -9 "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
+    zip \
+      --recurse-paths \
+      --quiet \
+      -9 \
+      "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" ./*
     popd
 
     echo -e "${GREEN}Copying from ${BLUE}${COMBINED_SITE_DIR}/${GREEN}" \
