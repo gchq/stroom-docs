@@ -119,8 +119,6 @@ wait_for_200_response() {
   fi
 
   local url=$1; shift
-  local msg="${GREEN}Waiting for Hugo server to start" \
-    "(${BLUE}${url}${GREEN})${NC}"
   local maxWaitSecs=10
 
   local n=0
@@ -137,13 +135,9 @@ wait_for_200_response() {
 
     # Only display the wait msg if the service isn't already up
     if [ "$n" -eq 0 ]; then
-      if [ -n "${msg}" ]; then
-        echo
-        echo -e "${GREEN}${msg}${NC}"
-      fi
-      if [ -n "${sub_msg}" ]; then
-        echo -e "${DGREY}${sub_msg}${NC}"
-      fi
+      echo
+      echo -e "${GREEN}Waiting for Hugo server to start" \
+        "(${BLUE}${url}${GREEN})${NC}"
     fi
 
     # print a simple unbounded progress bar, increasing every 2s
