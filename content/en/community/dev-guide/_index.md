@@ -1,7 +1,7 @@
 ---
 title: "Developer Guide"
 linkTitle: "Developer Guide"
-weight: 60
+weight: 20
 date: 2021-08-20
 tags: 
 description: >

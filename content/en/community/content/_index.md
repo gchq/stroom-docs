@@ -1,7 +1,7 @@
 ---
 title: "Content"
 linkTitle: "Content"
-#weight:
+weight: 30
 date: 2022-01-12
 tags:
   - content
