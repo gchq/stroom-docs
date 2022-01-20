@@ -112,11 +112,13 @@ latexDashes = true
   # current doc set.
   # Must match the value in brackets in "version_menu" above
   version = "Legacy"
-  
+
   # A link to latest version of the docs. Used in the "version-banner" partial to
   # point people to the main doc site.
-  #url_latest_version = "https://gchq.github.io/stroom-docs/7.1"
+  # IMPORTANT - This variable is parsed by various shell scripts to establish what the latest version is
+  #             so the bit after last '/' should match a branch name.
   url_latest_version = "/../7.0"
+  #url_latest_version = "https://gchq.github.io/stroom-docs/7.1"
   #url_latest_version = "/stroom-docs/7.1"
   
   # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
@@ -157,6 +159,8 @@ latexDashes = true
   #   /content
   #   etc.
 
+  # <<<VERSIONS_BLOCK_START>>> Used by ci_build.sh
+
   # This block would need to be deleted on all release branches so it doesn't appear.
   #[[params.versions]]
     #version = "Unreleased"
@@ -178,6 +182,8 @@ latexDashes = true
     version = "Legacy"
     #url = "/stroom-docs/legacy"
     url = "/../legacy"
+
+  # <<<VERSIONS_BLOCK_END>>> Used by ci_build.sh
   
   # User interface configuration
   [params.ui]

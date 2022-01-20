@@ -9,6 +9,9 @@ on:
     tags-ignore:
       - 'stroom-docs-v*'
   pull_request:
+  schedule:
+    # Nightly release run using last commit on default branch, i.e. 'master'
+    - cron: '00 23 * * *'
 
 jobs:
   build-project:
@@ -34,6 +37,10 @@ jobs:
 
       - name: Set Environment Variables
         id: set_env_var
+        env:
+          # Needed for authenticated api calls to avoid rate limit
+          # Github provides this temporary token automatically
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ${GITHUB_WORKSPACE}/.github/workflows/scripts/setup_env_vars.sh
 

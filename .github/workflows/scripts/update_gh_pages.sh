@@ -118,19 +118,18 @@ main() {
 
   mkdir -p "${gh_pages_versioned_dir}"
 
-  # TODO Debatable if we want to copy the whole combined site
-  # i.e. all brances or just this one?
+  # Update the whole of gh-pages
   echo -e "${GREEN}Rsyncing gh-pages content from" \
     "${BLUE}${gh_pages_source_dir}${GREEN} to" \
-    "${BLUE}${gh_pages_versioned_dir}${NC}"
+    "${BLUE}${gh_pages_clone_dir}${NC}"
   rsync \
     --verbose \
     --human-readable \
     --archive \
     --delete \
     --exclude='.git/' \
-    "${gh_pages_source_dir}/${BUILD_BRANCH}/" \
-    "${gh_pages_versioned_dir}/"
+    "${gh_pages_source_dir}/" \
+    "${gh_pages_clone_dir}/"
 
   #echo -e "${GREEN}Writing version ${BLUE}${BUILD_TAG}${GREEN} to" \
     #"${BLUE}${version_file}${NC}"
