@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 if [[ ! -n "${ACTIONS_SCRIPTS_DIR}" ]]; then
   echo "ACTIONS_SCRIPTS_DIR not set"
   exit 1

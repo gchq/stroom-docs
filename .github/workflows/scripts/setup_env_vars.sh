@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 # Set variables in github's special env file which are then automatically 
 # read into env vars in each subsequent step
 
@@ -7,7 +9,7 @@ GIT_API_URL="https://api.github.com/repos/gchq/stroom-docs"
 
 if [[ ${GITHUB_REF} =~ ^refs/heads/ ]]; then
   # strip off the 'ref/heads/' bit
-  local build_branch="${GITHUB_REF#refs/heads/}"
+  build_branch="${GITHUB_REF#refs/heads/}"
 fi
 
 # If releases are only done nighly this allows us to force one for testing
