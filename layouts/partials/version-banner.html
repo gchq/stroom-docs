@@ -1,0 +1,23 @@
+<!-- 
+  This is a modified copy of themes/docsy/layouts/partials/version-banner.html
+  to tweak the banner msg and change it from primary colour to secondary
+-->
+<!-- Check the variable that indicates whether this is an archived doc set.
+  If yes, display a banner. -->
+  {{ if .Site.Params.archived_version }}
+  {{ $color := "secondary" }}
+  {{ $latest_version_url := .Site.Params.url_latest_version }}
+  {{ $current_version := .Site.Params.version }}
+  <div class="pageinfo pageinfo-{{ $color }}">
+    {{ with $current_version }}
+    <p>
+    The page that you are currently viewing is for an old version of Stroom ({{ . | markdownify }}).
+      {{ with $latest_version_url }}
+      The documentation for the latest version of Stroom ({{ (path.Split $latest_version_url).File }})
+      can be found using the version drop-down at the top of the screen or by clicking
+        <a href="{{ $latest_version_url | safeURL }}" target="_blank">here</a>.
+    </p>
+      {{ end }}
+    {{ end }}
+  </div>
+{{ end }}

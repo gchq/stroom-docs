@@ -1,0 +1,263 @@
+# For production builds this will be set with hugo --buildDir
+baseURL = "/"
+title = "Stroom"
+# relativeURLs = false
+# Convert all urls to be relative so we can deploy the site tto any path on a server.
+relativeURLs = true
+
+enableRobotsTXT = true
+
+# Hugo allows theme composition (and inheritance). The precedence is from left to right.
+theme = ["docsy"]
+
+# Will give values to .Lastmod etc. and shows Last modified info at the bottom of pages
+enableGitInfo = true
+
+# Language settings
+contentDir = "content/en"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+# Useful when translating.
+enableMissingTranslationPlaceholders = true
+
+#disableKinds = ["taxonomy", "taxonomyTerm"]
+
+# Highlighting config
+# This one is mutually exclusive with prism_syntax_highlighting
+pygmentsCodeFences = false
+pygmentsUseClasses = false
+#pygmentsUseClasses = true
+
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic = false
+#pygmentsOptions = "linenos=table"
+# See https://help.farbox.com/pygments.html
+pygmentsStyle = "tango"
+
+# Configure how URLs look like per section.
+[permalinks]
+blog = "/:section/:year/:month/:day/:slug/"
+
+## Configuration for BlackFriday markdown parser: https://github.com/russross/blackfriday
+[blackfriday]
+plainIDAnchors = true
+hrefTargetBlank = true
+angledQuotes = false
+latexDashes = true
+
+# Image processing configuration.
+[imaging]
+  resampleFilter = "CatmullRom"
+  quality = 75
+  anchor = "smart"
+
+[services]
+[services.googleAnalytics]
+# Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
+  id = "UA-00000000-0"
+
+# Language configuration
+
+[languages]
+  [languages.en]
+    title = "Stroom"
+    description = "Stroom documentation, release notes, news and open source community information"
+    languageName ="English"
+    # Weight used for sorting.
+    weight = 1
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+      # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
+      #style = "drakula"
+      style = "manni"
+      #style = "monokai"
+      # Uncomment if you want your chosen highlight style used for code blocks without a specified language
+      # guessSyntax = "true"
+  # Control the depth of the right hand TOC
+  [markup.tableOfContents]
+    endLevel = 4
+    ordered = false
+    startLevel = 2
+
+# Everything below this are Site Params
+
+# Comment out if you don't want the "print entire section" link enabled.
+[outputs]
+  section = ["HTML", "print"]
+
+[params]
+  copyright = "Crown Copyright 2022"
+  #privacy_policy = "https://policies.google.com/privacy"
+  
+  # First one is picked as the Twitter card image if not set on page.
+  # images = ["images/project-illustration.png"]
+  
+  # Menu title if your navbar has a versions selector to access old versions of your site.
+  # This menu appears only if you have at least one [params.versions] set.
+  version_menu = "Stroom Version (Legacy)"
+  
+  # Flag used in the "version-banner" partial to decide whether to display a 
+  # banner on every page indicating that this is an archived version of the docs.
+  # Set this flag to "true" if you want to display the banner.
+  # Set this to true on each git branch of stroom-docs that is not master, i.e. 6.1, 7.0, etc.
+  archived_version = true
+  
+  # The version number for the version of the docs represented in this doc set.
+  # Used in the "version-banner" partial to display a version number for the 
+  # current doc set.
+  # Must match the value in brackets in "version_menu" above
+  version = "Legacy"
+
+  # A link to latest version of the docs. Used in the "version-banner" partial to
+  # point people to the main doc site.
+  # IMPORTANT - This variable is parsed by various shell scripts to establish what the latest version is
+  #             so the bit after last '/' should match a branch name.
+  url_latest_version = "/../7.0"
+  #url_latest_version = "https://gchq.github.io/stroom-docs/7.1"
+  #url_latest_version = "/stroom-docs/7.1"
+  
+  # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
+  github_repo = "https://github.com/gchq/stroom-docs"
+  
+  # An optional link to a related project repo. For example, the sibling repository where your product code lives.
+  github_project_repo = "https://github.com/gchq/stroom"
+  
+  # Specify a value here if your content directory is not in your repo's root directory
+  # github_subdir = ""
+  
+  # Uncomment this if you have a newer GitHub repo with "main" as the default branch,
+  # or specify a new value if you want to reference another branch in your GitHub links
+  # github_branch= "main"
+  
+  # Google Custom Search Engine ID. Remove or comment out to disable search.
+  #gcs_engine_id = "d72aa9b2712488cc3"
+  
+  # Enable Algolia DocSearch
+  algolia_docsearch = false
+  
+  # Enable Lunr.js offline search
+  offlineSearch = true
+  offlineSearchMaxResults = 50
+  
+  # Enable syntax highlighting and copy buttons on code blocks with Prism
+  # This one is mutually exclusive with pygmentsCodeFences
+  prism_syntax_highlighting = true
+
+  # The version urls assume we have a structure like:
+  # /master  # The latest version of the docs that are not yet linked to a stroom minor release
+  #   /content
+  #   etc.
+  # /7.1  # A release branch tied to the stroom 7.1 minor release
+  #   /content
+  #   etc.
+  # /7.0  # A release branch tied to a stroom 7.0 minor release
+  #   /content
+  #   etc.
+
+  # <<<VERSIONS_BLOCK_START>>> Used by ci_build.sh
+
+  # This block would need to be deleted on all release branches so it doesn't appear.
+  #[[params.versions]]
+    #version = "Unreleased"
+    #url = "/stroom-docs/master"
+
+  #[[params.versions]]
+    #version = "7.1"
+    ##url = "/stroom-docs/7.1"
+    #url = "/../7.1"
+  
+  [[params.versions]]
+    version = "7.0"
+    #url = "/stroom-docs/7.0"
+    url = "/../7.0"
+  
+  # A branch of the docs covering all versions prior to 7.0. Essentially a jumbled mess
+  # of historic documentation.
+  [[params.versions]]
+    version = "Legacy"
+    #url = "/stroom-docs/legacy"
+    url = "/../legacy"
+
+  # <<<VERSIONS_BLOCK_END>>> Used by ci_build.sh
+  
+  # User interface configuration
+  [params.ui]
+  
+  # Enable to show the side bar menu in its compact state.
+  sidebar_menu_compact = true
+  
+  #  Set to true to disable breadcrumb navigation.
+  breadcrumb_disable = false
+  
+  #  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+  sidebar_search_disable = false
+  
+  #  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+  navbar_logo = true
+  
+  # Set to true to disable the About link in the site footer
+  footer_about_disable = true
+  
+  # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
+  # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
+  # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
+  # add "hide_feedback: true" to the page's front matter.
+  [params.ui.feedback]
+    enable = false
+    # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
+    yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+    no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+  
+  # Adds a reading time to the top of each doc.
+  # If you want this feature, but occasionally need to remove the Reading time from a single page, 
+  # add "hide_readingtime: true" to the page's front matter
+  [params.ui.readingtime]
+    enable = false
+  
+  [params.links]
+    # End user relevant links. These will show up on left side of footer and in the community page if you have one.
+    #[[params.links.user]]
+    	#name = "User mailing list"
+    	#url = "https://example.org/mail"
+    	#icon = "fa fa-envelope"
+            #desc = "Discussion and help from your fellow users"
+    #[[params.links.user]]
+    	#name ="Twitter"
+    	#url = "https://example.org/twitter"
+    	#icon = "fab fa-twitter"
+            #desc = "Follow us on Twitter to get the latest news!"
+    #[[params.links.user]]
+    	#name = "Stack Overflow"
+    	#url = "https://example.org/stack"
+    	#icon = "fab fa-stack-overflow"
+            #desc = "Practical questions and curated answers"
+  
+    # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+    [[params.links.developer]]
+    	name = "GitHub"
+    	url = "https://github.com/gchq/stroom"
+    	icon = "fab fa-github"
+            desc = "Stroom on GitHub"
+    #[[params.links.developer]]
+    	#name = "Slack"
+    	#url = "https://example.org/slack"
+    	#icon = "fab fa-slack"
+            #desc = "Chat with other project developers"
+    #[[params.links.developer]]
+    	#name = "Developer mailing list"
+    	#url = "https://example.org/mail"
+    	#icon = "fa fa-envelope"
+            #desc = "Discuss development issues around the project"
+  
+  
+  # On the fly rendering of inline puml conent, no good for offline use
+  #[params.plantuml]
+  #enable = true
+  #theme = "default"
+  #svg_image_url = "https://www.plantuml.com/plantuml/svg/"
+  

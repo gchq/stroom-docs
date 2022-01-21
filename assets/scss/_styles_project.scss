@@ -1,0 +1,328 @@
+////////////////////
+//  Landing Page  //
+////////////////////
+
+// The stroom logo on the landing page
+.landing-page-logo {
+  padding-top: 0px;
+  padding-bottom: 60px;
+}
+
+.landing-page-bullets li {
+  padding-top: 1.2em;
+}
+
+.landing-page-head-text {
+  line-height: 1.7em;
+}
+
+
+//////////////////
+//  Top Navbar  //
+//////////////////
+
+// The 't' in stroom makes it appear off center vertically so move it a bit
+.navbar-brand {
+  padding-top: 0em;
+  padding-bottom: 0.3em;
+
+  // As we want a 'stroom' logo on the left of the bar, we need to hide the title text
+  .font-weight-bold {
+    visibility: hidden;
+  }
+}
+
+// Make the top nav bar a bit thinner
+.navbar {
+  padding: 0rem 1rem;
+
+  // Make the search input more visible in the top nav bar
+  .form-control {
+    border:1px solid #ffffff8c; 
+  }
+}
+
+// Make the top nav bar a bit thinner
+.td-navbar {
+  min-height: 3em;
+}
+
+.stroom-icon {
+  vertical-align: -0.08em;
+}
+
+
+///////////////////
+//  Left Navbar  //
+///////////////////
+
+// Reduce some of the space between left sidebar items
+.td-sidebar-link {
+  padding-bottom: 0.15rem !important;
+}
+
+// Docsy makes pages with no children appear lighter.
+// Now we have + icons you can distinguish brances from leaves so unset
+// the styling
+.td-sidebar-link__page {
+  color: unset !important;
+  font-weight: unset !important;
+}
+
+// Override the unsetting above for the selected nav item so we
+// can see what is selected
+.td-sidebar-link.active {
+  font-weight: 600 !important;
+}
+
+// TODO Hide the scrollbar until we can figure out a better way of dealing
+// with left nav items that go over width
+.td-sidebar-nav {
+  overflow: hidden;
+}
+
+// Reduce indent of nested items from 1.5em so we have more space
+// for deep nesting
+.td-sidebar-nav {
+
+  &__section {
+    @include media-breakpoint-up(md) {
+      & .ul-1 ul {
+        padding-left: 1.0em;
+      }
+    }
+  }
+}
+
+// Add + icons to the left nav sidebar
+// 
+li.td-sidebar-nav__section-title {
+  span {
+    // With deep nesting we need a bit more room
+    font-size: 95%;
+
+    // No wrapping as the indent is all wrong when it wraps
+    // See overflow:hidden above.
+    white-space: nowrap;
+  }
+  span:before {
+    font-size: 90%; // Make the + a bit smaller than the text it is with
+    content: "✚ ";
+    color: $primary;
+    visibility: hidden;
+  }
+  li.with-child span:before {
+    opacity: 90%;
+    visibility: visible;
+  }
+  li.active-path > a > span:before {
+    visibility: hidden;
+  }
+  li.without-child span:before {
+    visibility: hidden;
+  }
+}
+
+
+////////////////////
+//  Right Navbar  //
+////////////////////
+
+.td-sidebar-toc {
+  // As we use a 3em navbar height, adjust right hand TOC sidebar to suit.
+  top: 3rem;
+  // Make the sidebar go all the way to the bottom
+  height: calc(100vh - 3rem);
+}
+
+
+///////////////////
+//  Breadcrumbs  //
+///////////////////
+
+// Hide nav breadcrumbs at the top level (i.e. single breadcrumb)
+.td-breadcrumbs__single { display: none !important; }
+
+
+////////////////////
+//  Page Content  //
+////////////////////
+
+// When clicking an heading link and jumping to the anchor the heading is
+// hidden by the top bar so add this padding to ensure the heading anchor is
+// visible
+// This doesn't seem to be an issue in the docsy eample site. Not sure why.
+html {
+  scroll-padding-top: 60px; /* height of header */
+}
+
+// Our own custom box shadow class
+.shadow-stroom {
+  box-shadow: $box-shadow-stroom;
+}
+
+// Restyle the fenced code blocks
+.code-toolbar {
+  margin-bottom: 1.5rem;
+
+  @media screen {
+    box-shadow: $box-shadow-stroom;
+    max-width: 80%; // Bring the width in line with the paragraph text
+  }
+
+  @media print {
+    .toolbar {
+      // No need for the copy button in print
+      visibility: hidden;
+    }
+  }
+}
+
+// Restyle the content of the fenced code blocks
+.td-content pre > code {
+  font-size: 85%;
+}
+
+// Fenced blocks of in-line files
+.text-file pre {
+  max-height:400px;
+}
+
+// Not sure if we want card decks to have the same width as the paragraphs
+// as it limits them a bit when there are two or more across.
+//.card-deck {
+  //max-width: 80%; // Bring the width in line with the paragraph text
+//}
+
+// It is open for debate whether we want the fenced blocks and in line files
+// to match the para width of fill the main content column. The former looks better
+// but only if you don't have code that is wide and then is forced to horizontal
+// scroll more often.
+.text-file {
+  @media screen {
+    max-width: 80%; // Bring the width in line with the paragraph text
+    .code-toolbar {
+      // The code box is normally 80% but as it is inside a card that is also
+      // 80% width we need to bring it back up to 100% so it fills the card.
+      max-width: 100%; 
+    }
+  }
+}
+
+// When we print we want everything full width of the printed page
+@media print {
+  .col-xl-8 {
+    flex: unset !important;
+    max-width: unset !important;
+  }
+  .col-md-9 {
+      flex: unset !important;
+      max-width: unset !important;
+  }
+  .col-12 {
+      flex: unset !important;
+      max-width: unset !important;
+  }
+}
+
+// Reduce the page level alerts down to roughly the width of the paragraph text.
+@media screen {
+  .pageinfo {
+    max-width: 78%;
+  }
+}
+
+// Restyle the cards
+.card {
+  box-shadow: $box-shadow-stroom;
+}
+
+// Fixes operators having a different background colour in syntax highlighted code blocks
+// when using prism.js.
+// See https://github.com/PrismJS/prism/issues/3274
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+    background: unset !important;
+}
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Auto numbering start
+Adapted from https://codingnconcepts.com/hugo/auto-number-headings-hugo/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+:root {
+  // When printing a whole section that contains multiple pages, each page has a h1
+  // so you end up with multiple nested h1s each with h2+ under them.
+  // layout/partials/print/content.html adds numbering for all the h1s but also
+  // sets the base number for the h1 into this variable so we can use it to
+  // number all the h2+ headings.
+  --base-section-num: "";
+}
+
+// reset counter for a heading level when its parent level is encountered */
+body {counter-reset: h2}
+h1 {counter-reset: h2}
+h2 {counter-reset: h3}
+h3 {counter-reset: h4}
+h4 {counter-reset: h5}
+h5 {counter-reset: h6}
+
+h2[id]::before, 
+h3[id]::before, 
+h4[id]::before, 
+h5[id]::before, 
+h6[id]::before {
+  display: inline;
+  visibility: visible;
+
+  // Make the heading number more subdued than the heading
+  color: $primary;
+  opacity: 90%;
+}
+
+// prepend the counter value before the heading
+h2[id]::before {
+  counter-increment: h2; 
+  content: var(--base-section-num,"") counter(h2) " ";
+}
+
+h3[id]::before {
+  counter-increment: h3; 
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) " ";
+}
+
+h4[id]::before {
+  counter-increment: h4; 
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) " ";
+}
+
+h5[id]::before {
+  counter-increment: h5; 
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
+}
+
+h6[id]::before {
+  counter-increment: h6; 
+  content: var(--base-section-num,"") counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " ";
+}
+
+// Reset the counter for the right hand TOC items
+.td-toc ul { 
+  counter-reset: item ;
+}
+
+.td-toc li a:before { 
+  content: counters(item, ".") " "; 
+  counter-increment: item ;
+
+  // Make the heading number more subdued than the heading
+  color: $primary;
+  opacity: 90%;
+}
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Auto numbering end
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/

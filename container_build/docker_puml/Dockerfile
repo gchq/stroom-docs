@@ -19,30 +19,7 @@ FROM adoptopenjdk/openjdk15:jdk-15.0.2_7-alpine
 # Work from the shared git repo dir
 WORKDIR /builder/shared
 
-# Pass in the uid/gid of the running user so we can use the same user id
-# in the container so that any files created can be read outside the 
-# container.
-ARG USER_ID
-ARG GROUP_ID    
-
-ARG PLANTUML_VERSION=1.2021.5
-
-# Set the user ID into an env var so the entrypoint can see it
-ENV CONTAINER_USER_ID=$USER_ID \
-    LANG=en_GB.UTF-8
-
-# Set tini as entrypoint
-ENTRYPOINT ["/sbin/tini", "--", "/builder/docker-entrypoint.sh"]
-
-CMD id
-
 # graphviz, ttf-* for plantuml
-# As this container will be trying to use the docker cli to run/interact with other
-# containers we need to add our non-root user to the docker group i.e. the same gid as
-# on the host, but may have a different name or that gid in the container or none at all.
-# If we have the gid then find its name and add the user to it, if not create a group
-# with that gid then add the user.
-# We need this membership to have access to docker.sock.
 RUN apk add --no-cache \
       bash \
       curl \
@@ -53,12 +30,34 @@ RUN apk add --no-cache \
       ttf-droid-nonlatin \
     && curl \
       -Ls \
-      https://sourceforge.net/projects/plantuml/files/plantuml.$PLANTUML_VERSION.jar/download \
+      https://sourceforge.net/projects/plantuml/files/plantuml.1.2021.5.jar/download \
       -o /builder/plantuml.jar \
-    && apk del curl \
-    && echo "USER_ID: [$USER_ID]" \
+    && apk del curl
+
+# Set the user ID into an env var so the entrypoint can see it
+ENV CONTAINER_USER_ID=$USER_ID \
+    LANG=en_GB.UTF-8
+
+# Set tini as entrypoint
+ENTRYPOINT ["/sbin/tini", "--", "/builder/docker-entrypoint.sh"]
+
+CMD id
+
+# Pass in the uid/gid of the running user so we can use the same user id
+# in the container so that any files created can be read outside the 
+# container.
+ARG USER_ID
+ARG GROUP_ID    
+
+# graphviz, ttf-* for plantuml
+# As this container will be trying to use the docker cli to run/interact with other
+# containers we need to add our non-root user to the docker group i.e. the same gid as
+# on the host, but may have a different name or that gid in the container or none at all.
+# If we have the gid then find its name and add the user to it, if not create a group
+# with that gid then add the user.
+# We need this membership to have access to docker.sock.
+RUN echo "USER_ID: [$USER_ID]" \
     && echo "GROUP_ID: [$GROUP_ID]" \
-    && echo "PLANTUML_VERSION: [$PLANTUML_VERSION]" \
     && echo \
     && echo "Ensuring group exists for group id [${GROUP_ID}]" \
     && group_name="$(cat /etc/group | grep ":${GROUP_ID}:" | awk -F ":" '{ print $1 }')" \

@@ -9,6 +9,9 @@ on:
     tags-ignore:
       - 'stroom-docs-v*'
   pull_request:
+  schedule:
+    # Nightly release run using last commit on default branch, i.e. 'master'
+    - cron: '00 23 * * *'
 
 jobs:
   build-project:
@@ -24,6 +27,8 @@ jobs:
       - name: Checkout code
         id: checkout_code
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
         #with:
           ## Set this so it gets the annotated commit, not the commit being tagged.
           ## Which means we can get the release msg
@@ -32,6 +37,10 @@ jobs:
 
       - name: Set Environment Variables
         id: set_env_var
+        env:
+          # Needed for authenticated api calls to avoid rate limit
+          # Github provides this temporary token automatically
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ${GITHUB_WORKSPACE}/.github/workflows/scripts/setup_env_vars.sh
 
@@ -69,7 +78,8 @@ jobs:
 
       - name: Update gh-pages
         id: update_gh-pages
-        if: ${{ env.BUILD_IS_RELEASE == 'true' }}
+        # TODO remove huo-docsy condition once we are merged to master
+        if: ${{ env.BUILD_IS_RELEASE == 'true' || env.BUILD_BRANCH == 'hugo-docsy' }}
         env:
           # ssh private key (corresponding to the public key in github deploy keys
           # for the stroom repo), manually added to secrets

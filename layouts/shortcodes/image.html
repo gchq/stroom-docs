@@ -1,0 +1,72 @@
+<!-- 
+Short code to add an image to the page inside a card with an optional caption
+Usage:
+image filename dimension
+e.g.:
+image example.svg 200x - Sizes image to width 200
+image example.svg x200 - Sizes image to height 200
+
+Caption is taken from the short code content
+-->
+
+{{/*
+Page resources
+</br>
+{{ range .Page.Resources }}
+{{ printf "%s" .RelPermalink }}
+</br>
+{{ end }}
+*/}}
+
+{{/* First try to get the resource from the page resources */}}
+{{ $image := .Page.Resources.GetMatch (printf "%s" (.Get 0)) }}
+{{ if not $image }}
+  {{/* Image not in the page resources, so get from global assets/images */}}
+  {{ $path := printf "/images/%s" (.Get 0) }}
+  {{/* printf "path: [%s]" $path */}}
+  {{ $image = resources.Get (printf "%s" $path) }}
+  {{/*
+  {{ printf "Asset RelPermalink: [%s]" $image.RelPermalink }}
+  */}}
+{{ end }}
+
+{{ $param1 := .Get 1 }}
+{{ $width := 0 }}
+{{ $height := 0 }}
+{{ $hasSize := false }}
+{{ if not $param1 }}
+  {{ $hasSize = false }}
+{{ else if hasPrefix $param1 "x" }}
+  {{ $height = int (strings.TrimPrefix "x" $param1) }}
+  {{ $hasSize = true }}
+{{ else }}
+  {{ $width = int (strings.TrimSuffix "x" $param1) }}
+  {{ $hasSize = true }}
+{{ end }}
+
+{{ if not $hasSize }}
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+{{ else if gt $width 0 }}
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: {{ add $width 10 }}px">
+{{ else }}
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" >
+{{ end }}
+  <a title="{{ $image.Name }}" href="{{ $image.RelPermalink }}">
+    <figure style="margin-block-end: 0px" >
+      {{ if not $hasSize }}
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" alt="{{ $image.Name }}">
+      {{ else if $width }}
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" width="{{ $width }}" alt="{{ $image.Name }}">
+      {{ else }}
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" height="{{ $height }}" alt="{{ $image.Name }}">
+      {{ end }}
+
+      {{ with .Inner }}
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">{{ . }}{{ with $image.Params.byline }}<span class="text-muted" style="font-size: smaller"><br/>{{ . | html }}</span>{{ end }}</figcaption>
+      </div>
+      {{ end }}
+    </figure>
+  </a>
+</div>

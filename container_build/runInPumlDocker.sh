@@ -64,12 +64,20 @@ else
   if [[ $# -eq 1 ]] && [[ "$1" = "bash" ]]; then
 
     run_cmd=( "bash" )
-  elif [[ $# -ge 1 ]] && [[ "$1" = "SVG" ]]; then
+  elif [[ $# -eq 1 ]] && [[ "$1" = "SVG" ]]; then
     # convert all .puml files to .puml.svg
     run_cmd=( \
       "bash" \
       "-c"  \
-      "/builder/convert_puml_files.sh ${2:-/builder/shared}" \
+      "/builder/convert_puml_files.sh /builder/shared/content /builder/shared/assets" \
+    )
+  elif [[ $# -gt 1 ]] && [[ "$1" = "SVG" ]]; then
+    # convert all .puml files to .puml.svg
+    shift
+    run_cmd=( \
+      "bash" \
+      "-c"  \
+      "/builder/convert_puml_files.sh $*" \
     )
   else
     run_cmd=( \
@@ -105,9 +113,6 @@ echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
 echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
 echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
 echo -e "${GREEN}Docker group id ${BLUE}${docker_group_id}${NC}"
-
-# Create a persistent vol for the home dir, idempotent
-docker volume create builder-home-dir-vol
 
 # So we are not rate limited, login before doing the build as this
 # will pull images
