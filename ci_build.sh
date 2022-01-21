@@ -385,14 +385,13 @@ main() {
   #   /7.1/
   #   ...
   # Master should not be published to ghpages or released.
-  RELEASE_BRANCHES=(
-    "hugo-docsy"
-  )
   #RELEASE_BRANCHES=(
-    #"master"
-    #"7.0"
-    #"legacy"
+    #"hugo-docsy"
   #)
+  RELEASE_BRANCHES=(
+    "7.0"
+    "legacy"
+  )
 
   local PDF_FILENAME_BASE="${BUILD_TAG:-SNAPSHOT}"
   local ZIP_FILENAME="${BUILD_TAG:-SNAPSHOT}.zip"
