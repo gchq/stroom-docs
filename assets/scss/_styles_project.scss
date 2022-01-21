@@ -1,13 +1,6 @@
-
-//.about-page {
-  //.td-content > .lead, 
-  //.td-content > p, 
-  //.td-content > ul,
-  //{
-    //// Use full width for the about page content
-    //max-width: unset !important;
-  //}
-//}
+////////////////////
+//  Landing Page  //
+////////////////////
 
 // The stroom logo on the landing page
 .landing-page-logo {
@@ -22,6 +15,11 @@
 .landing-page-head-text {
   line-height: 1.7em;
 }
+
+
+//////////////////
+//  Top Navbar  //
+//////////////////
 
 // The 't' in stroom makes it appear off center vertically so move it a bit
 .navbar-brand {
@@ -49,6 +47,49 @@
   min-height: 3em;
 }
 
+.stroom-icon {
+  vertical-align: -0.08em;
+}
+
+
+///////////////////
+//  Left Navbar  //
+///////////////////
+
+// Reduce some of the space between left sidebar items
+.td-sidebar-link {
+  padding-bottom: 0.15rem !important;
+}
+
+// Add + icons to the left nav sidebar
+// 
+li.td-sidebar-nav__section-title {
+  span {
+    font-size: 95%; // With deep nesting we need a bit more room
+  }
+  span:before {
+    font-size: 90%; // Make the + a bit smaller than the text it is with
+    content: "✚ ";
+    color: $primary;
+    visibility: hidden;
+  }
+  li.with-child span:before {
+    opacity: 90%;
+    visibility: visible;
+  }
+  li.active-path > a > span:before {
+    visibility: hidden;
+  }
+  li.without-child span:before {
+    visibility: hidden;
+  }
+}
+
+
+////////////////////
+//  Right Navbar  //
+////////////////////
+
 .td-sidebar-toc {
   // As we use a 3em navbar height, adjust right hand TOC sidebar to suit.
   top: 3rem;
@@ -56,16 +97,25 @@
   height: calc(100vh - 3rem);
 }
 
+
+///////////////////
+//  Breadcrumbs  //
+///////////////////
+
+// Hide nav breadcrumbs at the top level (i.e. single breadcrumb)
+.td-breadcrumbs__single { display: none !important; }
+
+
+////////////////////
+//  Page Content  //
+////////////////////
+
 // When clicking an heading link and jumping to the anchor the heading is
 // hidden by the top bar so add this padding to ensure the heading anchor is
 // visible
 // This doesn't seem to be an issue in the docsy eample site. Not sure why.
 html {
   scroll-padding-top: 60px; /* height of header */
-}
-
-.stroom-icon {
-  vertical-align: -0.08em;
 }
 
 // Our own custom box shadow class

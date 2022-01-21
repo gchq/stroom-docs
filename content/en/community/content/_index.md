@@ -1,6 +1,6 @@
 ---
-title: "Content"
-linkTitle: "Content"
+title: "Developing Content"
+linkTitle: "Developing Content"
 weight: 30
 date: 2022-01-12
 tags:
