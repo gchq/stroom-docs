@@ -114,14 +114,14 @@ build_version_from_source() {
     mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
     cp \
       "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}" \
-      "${NEW_GH_PAGES_DIR}/${branch_name}"
+      "${branch_gh_pages_dir}/"
 
     make_single_version_zip "${branch_name}" "${repo_root}"
 
     # Might be some random feature branch
     if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
 
-      local site_branch_dir="${NEW_GH_PAGES_DIR}/${branch_name}/"
+      local site_branch_dir="${branch_gh_pages_dir}/"
       mkdir -p "${site_branch_dir}"
       echo -e "${GREEN}Copying site HTML (${BLUE}${generated_site_dir}${GREEN}) to combined" \
         "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
@@ -288,7 +288,7 @@ has_release_branch_changed() {
   local branch_name="$1"; shift
   local repo_root="$1"; shift
 
-  # Get the latest commit on this branch
+  # Get the latest commit sha on this branch
   # DO NOT echo the token
   latest_commit_sha=
   latest_commit_sha="$( \
@@ -304,6 +304,8 @@ has_release_branch_changed() {
   echo -e "${GREEN}latest_commit_sha: ${BLUE}${latest_commit_sha}${NC}"
   echo -e "${GREEN}gh_pages_commit_sha: ${BLUE}${gh_pages_commit_sha}${NC}"
   
+  # When we build gh-pages from source we write the commit sha to a file
+  # so we know which commit it came from
   if [[ -f "${gh_pages_commit_sha_file}" ]]; then
     local gh_pages_commit_sha
     gh_pages_commit_sha=$(<config.txt)
