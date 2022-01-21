@@ -75,9 +75,16 @@
   font-weight: 600 !important;
 }
 
+// TODO Hide the scrollbar until we can figure out a better way of dealing
+// with left nav items that go over width
+.td-sidebar-nav {
+  overflow: hidden;
+}
+
 // Reduce indent of nested items from 1.5em so we have more space
 // for deep nesting
 .td-sidebar-nav {
+
   &__section {
     @include media-breakpoint-up(md) {
       & .ul-1 ul {
@@ -87,13 +94,16 @@
   }
 }
 
-
-
 // Add + icons to the left nav sidebar
 // 
 li.td-sidebar-nav__section-title {
   span {
-    font-size: 95%; // With deep nesting we need a bit more room
+    // With deep nesting we need a bit more room
+    font-size: 95%;
+
+    // No wrapping as the indent is all wrong when it wraps
+    // See overflow:hidden above.
+    white-space: nowrap;
   }
   span:before {
     font-size: 90%; // Make the + a bit smaller than the text it is with
