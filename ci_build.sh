@@ -58,20 +58,18 @@ element_in() {
   return 1
 }
 
-build_version() {
+build_version_from_source() {
   local branch_name="${1:-SNAPSHOT}"; shift
   local repo_root="$1"; shift
+
+  pushd "${repo_root}"
   
   #local hugo_base_url
-  local site_dir="${repo_root}/public"
+  local generated_site_dir="${repo_root}/public"
   local pdf_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.pdf"
 
-  #if [[ "${BUILD_BRANCH}" = "master" ]]; then
-    #hugo_base_url="${BASE_URL_BASE}/"
-  #else
-    #hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
-  #fi
-  #hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
+  local branch_head_commit_sha
+  branch_head_commit_sha="$(git rev-parse HEAD)"
 
   # Scrape the Hugo config to find out what the latest version is
   local latest_version
@@ -80,59 +78,124 @@ build_version() {
     | sed -r 's|[^"]*".*/([^"]+)"|\1|' \
   )"
 
+  local branch_gh_pages_dir="${NEW_GH_PAGES_DIR}/${branch_name}"
+  mkdir -p "${branch_gh_pages_dir}"
+  # Write the commit sha to gh-pages so in future builds we can query it
+  echo "${branch_head_commit_sha}" \
+    > "${branch_gh_pages_dir}/${COMMIT_SHA_FILENAME}"
+
   echo -e "${GREEN}-----------------------------------------------------${NC}"
   echo -e "${GREEN}Building" \
-    "\n  branch_name:     ${BLUE}${branch_name}${GREEN}," \
-    "\n  repo_root:       ${BLUE}${repo_root}${GREEN}," \
-    "\n  latest_version:  ${BLUE}${latest_version}${GREEN},"
+    "\n  branch_name:            ${BLUE}${branch_name}${GREEN}," \
+    "\n  branch_head_commit_sha: ${BLUE}${branch_head_commit_sha}${GREEN}," \
+    "\n  repo_root:              ${BLUE}${repo_root}${GREEN}," \
+    "\n  latest_version:         ${BLUE}${latest_version}${GREEN},"
     #"\n  base_url:        ${BLUE}${hugo_base_url}${NC}"
   echo -e "${GREEN}-----------------------------------------------------${NC}"
-
-  pushd "${repo_root}"
 
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
 
-  # Build the Hugo site html
+
+  # Build the Hugo site html (into ./public/)
   # TODO, remove --buildDrafts arg once we merge to master
-  echo -e "${GREEN}Building site HTML with Hugo${NC}"
+  echo -e "${GREEN}Building combined site HTML with Hugo${NC}"
   #./container_build/runInHugoDocker.sh build "${hugo_base_url}"
   ./container_build/runInHugoDocker.sh build
 
-  echo -e "${GREEN}Building whole site PDF for this branch${NC}"
+  echo -e "${GREEN}Building whole site docs PDF for this branch${NC}"
   ./container_build/runInPupeteerDocker.sh PDF
 
   # Don't want to release anything for master
   if [[ "${branch_name}" != "master" ]]; then
-    # Renamed the gennerated PDF
+
+    # Rename/move the gennerated PDF and also copy to gh-pages so we
+    # can easily get it in a future build
     mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
+    cp \
+      "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}" \
+      "${NEW_GH_PAGES_DIR}/${branch_name}"
 
-    make_single_version_zip
+    make_single_version_zip "${branch_name}" "${repo_root}"
 
+    # Might be some random feature branch
     if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
-      local site_branch_dir="${COMBINED_SITE_DIR}/${branch_name}/"
+
+      local site_branch_dir="${NEW_GH_PAGES_DIR}/${branch_name}/"
       mkdir -p "${site_branch_dir}"
-      echo -e "${GREEN}Copying site HTML (${BLUE}${site_dir}${GREEN}) to combined" \
+      echo -e "${GREEN}Copying site HTML (${BLUE}${generated_site_dir}${GREEN}) to combined" \
         "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
-      cp -r "${site_dir}"/* "${site_branch_dir}"
+      cp -r "${generated_site_dir}"/* "${site_branch_dir}"
     else
       echo -e "${BLUE}${branch_name}${GREEN} is not a release branch so won't" \
-        "add it to ${BLUE}${COMBINED_SITE_DIR}${NC}"
+        "add it to ${BLUE}${NEW_GH_PAGES_DIR}${NC}"
     fi
   fi
   
   popd
 }
 
+copy_version_from_current() {
+  local branch_name="${1:-SNAPSHOT}"; shift
+
+  # If there have been no commits on this branch then we can just copy
+  # everything from the current gh-pages clone. This will include the site
+  # html, pdf and single branch zip.
+  echo -e "${GREEN}Copying current gh-pages site${NC}"
+  cp -r "${CURRENT_GH_PAGES_DIR}/${branch_name}" "${NEW_GH_PAGES_DIR}/"
+
+  # Now copy the zip and pdf to be release artefacts
+  cp \
+    "${CURRENT_GH_PAGES_DIR}/${branch_name}/stroom-docs-v"*.{pdf,zip} \
+    "${NEW_GH_PAGES_DIR}/${branch_name}"
+}
+
+assemble_version() {
+  local branch_name="${1:-SNAPSHOT}"; shift
+
+  # See if there have been any commits on this branch since the last
+  # release.
+  if has_release_branch_changed "${branch_name}"; then
+    # Has new commits, so build the site and pdf from source for this version
+
+    local branch_clone_dir="${GIT_WORK_DIR}/${branch_name}"
+
+    echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
+      "${BLUE}${GIT_REPO_URL}${GREEN} into ${BLUE}${branch_clone_dir}${NC}"
+
+    # Clone the required branch into a dir with the name of the branch
+    git \
+      clone \
+      --depth 1 \
+      --branch "${branch_name}" \
+      --single-branch \
+      --recurse-submodules \
+      "${GIT_REPO_URL}" \
+      "${branch_clone_dir}"
+
+    build_version_from_source "${branch_name}" "${branch_clone_dir}"
+
+  else
+    # No new commits so copy the existing site from gh-pages and the
+    # pdf from gh releases
+    copy_version_from_current "${branch_name}"
+  fi
+}
+
 # We want a site for a single version that doesn't know about any of the
 # others.
 make_single_version_zip() {
-  local single_site_version_dir="${SINGLE_SITE_DIR}/${branch_name}"
-  local single_ver_zip_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.pdf"
-  mkdir -p "${single_site_version_dir}"
-  cp -r "${site_dir}"/* "${single_site_version_dir}/"
+  local branch_name="${1:-SNAPSHOT}"; shift
+  local repo_root="$1"; shift
 
-  pushd "${single_site_version_dir}"
+  local generated_site_dir="${repo_root}/public"
+  #local single_site_version_dir="${SINGLE_SITE_DIR}/${branch_name}"
+  local single_ver_zip_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.zip"
+
+  #echo -e "${GREEN}Creating ${BLUE}${single_site_version_dir}/${NC}"
+  #mkdir -p "${single_site_version_dir}"
+  #cp -r "${generated_site_dir}"/* "${single_site_version_dir}/"
+
 
   # No point having the warning banner for it being an old version if it is
   # the only one
@@ -141,7 +204,7 @@ make_single_version_zip() {
     --in-place'' \
     --regexp-extended \
     --expression "s/^  archived_version = .*/  archived_version = false/" \
-    "${CONFIG_FILENAME}"
+    "${repo_root}/${CONFIG_FILENAME}"
 
   # This is a single version site so remove all the version blocks i.e.
   # everything inside these tags, including the tags
@@ -154,8 +217,20 @@ make_single_version_zip() {
   sed \
     --in-place'' \
     '/<<<VERSION_BLOCK_START>>>/,/<<<VERSION_BLOCK_END>>>/d' \
-    "${CONFIG_FILENAME}"
+    "${repo_root}/${CONFIG_FILENAME}"
 
+  # Clear out the generated site dir from the last run
+  rm -rf "${generated_site_dir:?}"/*
+
+  # Now re-build the site with the modified config
+  echo -e "${GREEN}Building single site HTML with Hugo${NC}"
+  ./container_build/runInHugoDocker.sh build
+
+  # go into the dir so all paths in the zip are relative to generated_site_dir
+  pushd "${generated_site_dir}"
+
+  echo -e "${GREEN}Creating single site zip" \
+    "${BLUE}${single_ver_zip_filename}${NC}"
   zip \
     --recurse-paths \
     --quiet \
@@ -163,17 +238,23 @@ make_single_version_zip() {
     "${RELEASE_ARTEFACTS_DIR}/${single_ver_zip_filename}" \
     ./*
 
+  # Also copy the zip into gh-pages so it is easier for us to get on future
+  # builds
+  cp \
+    "${RELEASE_ARTEFACTS_DIR}/${single_ver_zip_filename}" \
+    "${NEW_GH_PAGES_DIR}/${branch_name}/"
+
   popd
 }
 
-create_redirect_page() {
+create_root_redirect_page() {
   echo -e "${GREEN}Creating root redirect page with latest version" \
     "${BLUE}${latest_version}${NC}"
   sed \
     --regexp-extended \
     --expression "s/<<<LATEST_VERSION>>>/${latest_version}/g" \
     "${BUILD_DIR}/index.html.template" \
-    > "${COMBINED_SITE_DIR}/index.html"
+    > "${NEW_GH_PAGES_DIR}/index.html"
 }
 
 create_release_tag() {
@@ -196,6 +277,94 @@ create_release_tag() {
     -q \
     origin \
     "${BUILD_TAG}"
+}
+
+#have_release_branches_changed() {
+  #echo TODO
+#}
+
+# Return: 0 if changed, 1 if not
+has_release_branch_changed() {
+  local branch_name="$1"; shift
+  local repo_root="$1"; shift
+
+  # Get the latest commit on this branch
+  # DO NOT echo the token
+  latest_commit_sha=
+  latest_commit_sha="$( \
+    curl \
+      --silent \
+      --header "authorization: Bearer ${GITHUB_TOKEN}" \
+      "${GIT_API_URL}/commits/${branch_name}" \
+    | jq -r '.sha')"
+
+  local gh_pages_commit_sha_file="${CURRENT_GH_PAGES_DIR}/${branch_name}/${COMMIT_SHA_FILENAME}"
+
+  echo -e "${GREEN}branch_name: ${BLUE}${branch_name}${NC}"
+  echo -e "${GREEN}latest_commit_sha: ${BLUE}${latest_commit_sha}${NC}"
+  echo -e "${GREEN}gh_pages_commit_sha: ${BLUE}${gh_pages_commit_sha}${NC}"
+  
+  if [[ -f "${gh_pages_commit_sha_file}" ]]; then
+    local gh_pages_commit_sha
+    gh_pages_commit_sha=$(<config.txt)
+
+    if [[ "${gh_pages_commit_sha}" = "${latest_commit_sha}" ]]; then
+      return 1
+    else
+      have_any_release_branches_changed=true
+      return 0
+    fi
+  else
+    # No commit sha file so treat as changed
+    have_any_release_branches_changed=true
+    return 0
+  fi
+}
+
+clone_current_gh_pages_branch() {
+  git \
+    clone \
+    --depth 1 \
+    --branch "gh-pages" \
+    --single-branch \
+    "${GIT_REPO_URL}" \
+    "${CURRENT_GH_PAGES_DIR}"
+}
+
+prepare_for_release() {
+  #echo -e "${GREEN}Copying from ${BLUE}${COMBINED_SITE_DIR}/${GREEN}" \
+    #"to ${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
+  #cp -r "${COMBINED_SITE_DIR}"/* "${NEW_GH_PAGES_DIR}/"
+
+  echo -e "${GREEN}Making a zip of the combined site html content${NC}"
+  # Make sure master dir is not in the zipped site. It is ok to have it
+  # in the gh-pages one so we can see docs for an as yet un-released
+  # stroom, though master should not appear in the versions dropdown.
+  rm -rf "${NEW_GH_PAGES_DIR}/master"
+
+  # pushd so all paths in the zip are relative to this dir
+  # Exclude the individual version zips from the combined zip
+  pushd "${NEW_GH_PAGES_DIR}"
+  zip \
+    --recurse-paths \
+    --quiet \
+    -9 \
+    --exclude 'stroom-docs-v*.zip'
+    "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" \
+    ./*
+  popd
+
+  echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
+  ls -1 "${RELEASE_ARTEFACTS_DIR}/"
+
+  if [[ "${LOCAL_BUILD}" != "true" \
+    && -n "$BUILD_TAG" \
+    && "${BUILD_IS_PULL_REQUEST}" != "true" ]] ; then
+
+    create_release_tag
+  else
+    echo -e "${GREEN}Not a release so won't tag the repository${NC}"
+  fi
 }
 
 main() {
@@ -228,14 +397,18 @@ main() {
   local RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
   local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
   local RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
-  local COMBINED_SITE_DIR="${BUILD_DIR}/_combined_site"
+  #local COMBINED_SITE_DIR="${BUILD_DIR}/_combined_site"
   local SINGLE_SITE_DIR="${BUILD_DIR}/_single_site"
   local GIT_WORK_DIR="${BUILD_DIR}/_git_work"
   #local SITE_DIR="${BUILD_DIR}/public"
-  local GITHUB_PAGES_DIR="${BUILD_DIR}/_gh-pages"
+  local NEW_GH_PAGES_DIR="${BUILD_DIR}/_new_gh-pages"
+  local CURRENT_GH_PAGES_DIR="${BUILD_DIR}/_current_gh-pages"
   #local BASE_URL_BASE="/stroom-docs"
   local GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
+  local GIT_API_URL="https://api.github.com/repos/gchq/stroom-docs"
   local CONFIG_FILENAME="config.toml"
+  local COMMIT_SHA_FILENAME="commit.sha1"
+  local have_any_release_branches_changed=false
 
   echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
   echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
@@ -251,16 +424,17 @@ main() {
   echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
-  mkdir -p "${COMBINED_SITE_DIR}"
+  #mkdir -p "${COMBINED_SITE_DIR}"
   mkdir -p "${GIT_WORK_DIR}"
-  mkdir -p "${GITHUB_PAGES_DIR}"
+  mkdir -p "${NEW_GH_PAGES_DIR}"
   mkdir -p "${SINGLE_SITE_DIR}"
 
   # TODO Need to check for broken simple markdown links
 
   # Build the commit/tag/pr that triggered this script to run
-  # to ensure the site and PDF build ok.
-  build_version "${BUILD_BRANCH}" "${BUILD_DIR}"
+  # to ensure the site and PDF build ok. E.g. this might be some feature
+  # branch
+  build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
 
   # TODO get this working for hugo content
   #echo -e "${GREEN}Checking all .md files for broken links${NC}"
@@ -269,6 +443,8 @@ main() {
   pushd "${GIT_WORK_DIR}"
 
   #local hugo_base_url
+
+  # Now build each of the release branches (if they have changed)
   for branch_name in "${RELEASE_BRANCHES[@]}"; do
 
     if ! git show-ref --quiet --verify "refs/heads/${branch_name}"; then
@@ -277,25 +453,11 @@ main() {
       exit 1
     fi
 
-    # We may have already built this branch if it had the commit
-    # that triggered the build, so ignore it
+    # Don't build the branch that we built above
     if [[ "${branch_name}" != "${BUILD_BRANCH}" ]]; then
 
-      echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
-        "${BLUE}${GIT_REPO_URL}${GREEN} into ${BLUE}./${branch_name}${NC}"
-
-      # Clone the required branch into a dir with the name of the branch
-      git \
-        clone \
-        --depth 1 \
-        --branch "${branch_name}" \
-        --single-branch \
-        --recurse-submodules \
-        "${GIT_REPO_URL}" \
-        "./${branch_name}"
-
       # Run the build for this branch in the self named dir
-      build_version "${branch_name}" "${GIT_WORK_DIR}/${branch_name}"
+      assemble_version "${branch_name}" "${branch_clone_dir}"
 
       #hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
     else
@@ -315,52 +477,27 @@ main() {
   #if [[ -d "${COMBINED_SITE_DIR}/${latest_version}" ]]; then
     #echo -e "${GREEN}Copying contents of " \
       #"${BLUE}${COMBINED_SITE_DIR}/${latest_version}/${GREEN} to" \
-      #"${BLUE}${GITHUB_PAGES_DIR}/${NC}"
+      #"${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
     #cp \
       #-r \
       #"${COMBINED_SITE_DIR}/${latest_version}/"*
-      #"${GITHUB_PAGES_DIR}/"
+      #"${NEW_GH_PAGES_DIR}/"
   #fi
 
   # In the absence of url rewriting on github pages create an index.html
   # that does a redirect to the latest version e.g. / => /7.1
-  create_redirect_page
+  create_root_redirect_page
+
+  echo -e "${GREEN}have_any_release_branches_changed:" \
+    "${BLUE}${have_any_release_branches_changed}${NC}"
 
   #if element_in "${BUILD_BRANCH}" "${RELEASE_BRANCHES[@]}"; then
-  if [[ "${BUILD_IS_RELEASE}" = "true" ]]; then
+  if [[ "${BUILD_IS_RELEASE}" = "true" \
+    && "${have_any_release_branches_changed}" = "true" ]]; then
 
-    echo -e "${GREEN}Copying from ${BLUE}${COMBINED_SITE_DIR}/${GREEN}" \
-      "to ${BLUE}${GITHUB_PAGES_DIR}/${NC}"
-    cp -r "${COMBINED_SITE_DIR}"/* "${GITHUB_PAGES_DIR}/"
-
-    echo -e "${GREEN}Making a zip of the combined site html content${NC}"
-    # Make sure master dir is not in the zipped site. It is ok to have it
-    # in the gh-pages one so we can see docs for an as yet un-released
-    # stroom, though master should not appear in the versions dropdown.
-    rm -rf "${COMBINED_SITE_DIR}/master"
-
-    pushd "${COMBINED_SITE_DIR}"
-    zip \
-      --recurse-paths \
-      --quiet \
-      -9 \
-      "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" \
-      ./*
-    popd
+    prepare_for_release
   else
-    echo -e "${GREEN}Not a release so skipping zip creation${NC}"
-  fi
-
-  echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
-  ls -1 "${RELEASE_ARTEFACTS_DIR}/"
-
-  if [[ "${LOCAL_BUILD}" != "true" \
-    && -n "$BUILD_TAG" \
-    && "${BUILD_IS_PULL_REQUEST}" != "true" ]] ; then
-
-    create_release_tag
-  else
-    echo -e "${GREEN}Not a release so won't tag the repository${NC}"
+    echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
   fi
 }
 
