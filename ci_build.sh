@@ -449,7 +449,7 @@ main() {
   # Now build each of the release branches (if they have changed)
   for branch_name in "${RELEASE_BRANCHES[@]}"; do
 
-    if ! git show-ref --quiet --verify "refs/heads/${branch_name}"; then
+    if ! git ls-remote --exit-code --heads origin "refs/heads/${branch_name}"; then
       echo -e "${RED}ERROR: Branch ${BLUE}${branch_name}${RED}" \
         "does not exist. Check contents of RELEASE_BRANCHES array.${NC}"
       exit 1
