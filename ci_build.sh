@@ -111,9 +111,9 @@ build_version_from_source() {
 
     # Rename/move the gennerated PDF and also copy to gh-pages so we
     # can easily get it in a future build
-    mv stroom-docs.pdf "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}"
+    mv stroom-docs.pdf "${RELEASE_ARTEFACTS_DIR}/${pdf_filename}"
     cp \
-      "${RELEASE_ARTEFACTS_REL_DIR}/${pdf_filename}" \
+      "${RELEASE_ARTEFACTS_DIR}/${pdf_filename}" \
       "${branch_gh_pages_dir}/"
 
     make_single_version_zip "${branch_name}" "${repo_root}"
@@ -398,7 +398,7 @@ main() {
   local ZIP_FILENAME="${BUILD_TAG:-SNAPSHOT}.zip"
   local RELEASE_ARTEFACTS_DIR_NAME="release_artefacts"
   local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/${RELEASE_ARTEFACTS_DIR_NAME}"
-  local RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
+  #local RELEASE_ARTEFACTS_REL_DIR="./${RELEASE_ARTEFACTS_DIR_NAME}"
   #local COMBINED_SITE_DIR="${BUILD_DIR}/_combined_site"
   local SINGLE_SITE_DIR="${BUILD_DIR}/_single_site"
   local GIT_WORK_DIR="${BUILD_DIR}/_git_work"
