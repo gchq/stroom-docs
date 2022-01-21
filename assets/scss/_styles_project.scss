@@ -69,6 +69,26 @@
   font-weight: unset !important;
 }
 
+// Override the unsetting above for the selected nav item so we
+// can see what is selected
+.td-sidebar-link.active {
+  font-weight: 600 !important;
+}
+
+// Reduce indent of nested items from 1.5em so we have more space
+// for deep nesting
+.td-sidebar-nav {
+  &__section {
+    @include media-breakpoint-up(md) {
+      & .ul-1 ul {
+        padding-left: 1.0em;
+      }
+    }
+  }
+}
+
+
+
 // Add + icons to the left nav sidebar
 // 
 li.td-sidebar-nav__section-title {
