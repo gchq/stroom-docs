@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.91.2" />
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>URI Functions | Stroom</title>
+<meta name="description" content="Functions for extracting parts from a Uniform Resource Identifier (URI).
+">
+<meta property="og:title" content="URI Functions" />
+<meta property="og:description" content="Functions for extracting parts from a Uniform Resource Identifier (URI).
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/user-guide/dashboards/expressions/uri/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-22T11:24:33+00:00" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="URI Functions">
+<meta itemprop="description" content="Functions for extracting parts from a Uniform Resource Identifier (URI).
+"><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-22T11:24:33+00:00" />
+<meta itemprop="wordCount" content="273">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="URI Functions"/>
+<meta name="twitter:description" content="Functions for extracting parts from a Uniform Resource Identifier (URI).
+"/>
+
+
+
+
+
+<link href="../../../../../scss/main.css" rel="stylesheet">
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+<script
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../../../../../css/prism.css"/>
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="../../../../../">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../about/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="../../../../../docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../news/" ><span>News / Releases</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../community/" ><span>Community</span></a>
+			</li>
+			
+			
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (Legacy)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="../../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../../legacy">Legacy</a>
+	
+</div>
+
+			</li>
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"><input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="../../../../../offline-search-index.json"
+  data-offline-search-base-href="../../../../../"
+  data-offline-search-max-results="50"
+>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="../../../../../offline-search-index.json"
+  data-offline-search-base-href="../../../../../"
+  data-offline-search-max-results="50"
+>
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docs-li">
+  <a href="../../../../../docs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-docs"><span class="">Documentation</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsquick-start-guide-li">
+  <a href="../../../../../docs/quick-start-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsquick-start-guide"><span class="">Quick Start Guide</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsquick-start-guiderunning-li">
+  <a href="../../../../../docs/quick-start-guide/running/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-start-guiderunning"><span class="">Running Stroom</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsquick-start-guidefeed-li">
+  <a href="../../../../../docs/quick-start-guide/feed/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-start-guidefeed"><span class="">Feeds</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsquick-start-guideprocess-li">
+  <a href="../../../../../docs/quick-start-guide/process/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-start-guideprocess"><span class="">Pipeline Processing</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsquick-start-guideindexing-li">
+  <a href="../../../../../docs/quick-start-guide/indexing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-start-guideindexing"><span class="">Indexing</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsquick-start-guidedashboard-li">
+  <a href="../../../../../docs/quick-start-guide/dashboard/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-start-guidedashboard"><span class="">Dashboards</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsinstall-guide-li">
+  <a href="../../../../../docs/install-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guide"><span class="">Installation Guide</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsinstall-guidesetup-li">
+  <a href="../../../../../docs/install-guide/setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guidesetup"><span class="">Setup</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupapache-forwarding-li">
+  <a href="../../../../../docs/install-guide/setup/apache-forwarding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupapache-forwarding"><span class="">Apache Forwarding</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupjava-key-store-setup-li">
+  <a href="../../../../../docs/install-guide/setup/java-key-store-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupjava-key-store-setup"><span class="">Java Key Store Setup</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupmysql-server-setup-li">
+  <a href="../../../../../docs/install-guide/setup/mysql-server-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupmysql-server-setup"><span class="">MySQL Setup</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupprocessing-user-setup-li">
+  <a href="../../../../../docs/install-guide/setup/processing-user-setup/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupprocessing-user-setup"><span class="">Processing Users</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidesetupsecuring-stroom-li">
+  <a href="../../../../../docs/install-guide/setup/securing-stroom/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidesetupsecuring-stroom"><span class="">Securing Stroom</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidestroom-app-install-li">
+  <a href="../../../../../docs/install-guide/stroom-app-install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidestroom-app-install"><span class="">Stroom 5 Installation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidestroom-6-architecture-li">
+  <a href="../../../../../docs/install-guide/stroom-6-architecture/" title="Stroom 6 Architecture &amp; Depployment" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidestroom-6-architecture"><span class="">Stroom 6 Architecture</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidestroom-6-installation-li">
+  <a href="../../../../../docs/install-guide/stroom-6-installation/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidestroom-6-installation"><span class="">Stroom 6 Installation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guidestroom-7-proxy-installation-li">
+  <a href="../../../../../docs/install-guide/stroom-7-proxy-installation/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guidestroom-7-proxy-installation"><span class="">Stroom Proxy Installation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideupgrade-patch-li">
+  <a href="../../../../../docs/install-guide/upgrade-patch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideupgrade-patch"><span class="">Stroom Upgrades</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsinstall-guideupgrades-li">
+  <a href="../../../../../docs/install-guide/upgrades/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guideupgrades"><span class="">Upgrades</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideupgrades6_to_7_upgrade-li">
+  <a href="../../../../../docs/install-guide/upgrades/6_to_7_upgrade/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideupgrades6_to_7_upgrade"><span class="">v6 to v7 Upgrade</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsinstall-guideconfiguration-li">
+  <a href="../../../../../docs/install-guide/configuration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsinstall-guideconfiguration"><span class="">Configuration</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideconfigurationconfiguring-nginx-li">
+  <a href="../../../../../docs/install-guide/configuration/configuring-nginx/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideconfigurationconfiguring-nginx"><span class="">Nginx Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideconfigurationconfiguring-stroom-li">
+  <a href="../../../../../docs/install-guide/configuration/configuring-stroom/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideconfigurationconfiguring-stroom"><span class="">Stroom Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideconfigurationconfiguring-stroom-proxy-li">
+  <a href="../../../../../docs/install-guide/configuration/configuring-stroom-proxy/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideconfigurationconfiguring-stroom-proxy"><span class="">Stroom Proxy Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideconfigurationconfiguring-stroom-log-sender-li">
+  <a href="../../../../../docs/install-guide/configuration/configuring-stroom-log-sender/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideconfigurationconfiguring-stroom-log-sender"><span class="">Stroom Log Sender Configuration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideconfigurationconfiguring-mysql-li">
+  <a href="../../../../../docs/install-guide/configuration/configuring-mysql/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideconfigurationconfiguring-mysql"><span class="">MySQL Configuration</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guide-li">
+  <a href="../../../../../docs/user-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guide"><span class="">User Guide</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guideapi-li">
+  <a href="../../../../../docs/user-guide/api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideapi"><span class="">Application Programming Interfaces (API)</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideapiquery-api-li">
+  <a href="../../../../../docs/user-guide/api/query-api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideapiquery-api"><span class="">Query API</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guideconcepts-li">
+  <a href="../../../../../docs/user-guide/concepts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideconcepts"><span class="">Concepts</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideconceptsstreams-li">
+  <a href="../../../../../docs/user-guide/concepts/streams/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideconceptsstreams"><span class="">Streams</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guidedashboards-li">
+  <a href="../../../../../docs/user-guide/dashboards/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedashboards"><span class="">Dashboards</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guidedashboardsexpressions-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedashboardsexpressions"><span class="">Dashboard Expressions</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionsaggregate-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/aggregate/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsaggregate"><span class="">Aggregate Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionscast-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/cast/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionscast"><span class="">Cast Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionsdate-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/date/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsdate"><span class="">Date Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionslink-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/link/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionslink"><span class="">Link Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionslogic-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/logic/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionslogic"><span class="">Logic Funtions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionsmathematics-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/mathematics/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsmathematics"><span class="">Mathematics Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionsrounding-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/rounding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsrounding"><span class="">Rounding Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionsselection-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/selection/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsselection"><span class="">Selection Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionsstring-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/string/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsstring"><span class="">String Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionstype-checking-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/type-checking/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionstype-checking"><span class="">Type Checking Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsuser-guidedashboardsexpressionsuri-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/uri/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsuri"><span class="td-sidebar-nav-active-item">URI Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsexpressionsvalue-li">
+  <a href="../../../../../docs/user-guide/dashboards/expressions/value/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsvalue"><span class="">Value Functions</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsdictionaries-li">
+  <a href="../../../../../docs/user-guide/dashboards/dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsdictionaries"><span class="">Dictionaries</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsdirect-urls-li">
+  <a href="../../../../../docs/user-guide/dashboards/direct-urls/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsdirect-urls"><span class="">Direct URLs</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsqueries-li">
+  <a href="../../../../../docs/user-guide/dashboards/queries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsqueries"><span class="">Queries</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedata-retention-li">
+  <a href="../../../../../docs/user-guide/data-retention/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-retention"><span class="">Data Retention</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidedata-splitter-li">
+  <a href="../../../../../docs/user-guide/data-splitter/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedata-splitter"><span class="">Data Splitter</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitter1-1-simple-csv-example-li">
+  <a href="../../../../../docs/user-guide/data-splitter/1-1-simple-csv-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitter1-1-simple-csv-example"><span class="">Simple CSV Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitter1-2-simple-csv-example-with-heading-li">
+  <a href="../../../../../docs/user-guide/data-splitter/1-2-simple-csv-example-with-heading/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitter1-2-simple-csv-example-with-heading"><span class="">Simple CSV example with heading</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitter1-3-complex-example-li">
+  <a href="../../../../../docs/user-guide/data-splitter/1-3-complex-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitter1-3-complex-example"><span class="">Complex example with regex and user defined names</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitter1-4-multi-line-example-li">
+  <a href="../../../../../docs/user-guide/data-splitter/1-4-multi-line-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitter1-4-multi-line-example"><span class="">Multi Line Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidedata-splitterelement-reference-li">
+  <a href="../../../../../docs/user-guide/data-splitter/element-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedata-splitterelement-reference"><span class="">Element Reference</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitterelement-reference2-1-content-providers-li">
+  <a href="../../../../../docs/user-guide/data-splitter/element-reference/2-1-content-providers/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitterelement-reference2-1-content-providers"><span class="">Content Providers</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitterelement-reference2-2-expressions-li">
+  <a href="../../../../../docs/user-guide/data-splitter/element-reference/2-2-expressions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitterelement-reference2-2-expressions"><span class="">Expressions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitterelement-reference2-4-output-li">
+  <a href="../../../../../docs/user-guide/data-splitter/element-reference/2-4-output/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitterelement-reference2-4-output"><span class="">Output</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitterelement-reference2-3-variables-li">
+  <a href="../../../../../docs/user-guide/data-splitter/element-reference/2-3-variables/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splitterelement-reference2-3-variables"><span class="">Variables</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidedata-splittermatch-reference-li">
+  <a href="../../../../../docs/user-guide/data-splitter/match-reference/" title="Match References, Variables and Fixed Strings" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedata-splittermatch-reference"><span class="">Match References</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splittermatch-reference3-4-concatenation-of-references-li">
+  <a href="../../../../../docs/user-guide/data-splitter/match-reference/3-4-concatenation-of-references/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splittermatch-reference3-4-concatenation-of-references"><span class="">Concatenation of references</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splittermatch-reference3-1-expression-match-references-li">
+  <a href="../../../../../docs/user-guide/data-splitter/match-reference/3-1-expression-match-references/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splittermatch-reference3-1-expression-match-references"><span class="">Expression match references</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splittermatch-reference3-3-use-of-fixed-strings-li">
+  <a href="../../../../../docs/user-guide/data-splitter/match-reference/3-3-use-of-fixed-strings/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splittermatch-reference3-3-use-of-fixed-strings"><span class="">Use of fixed strings</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splittermatch-reference3-2-variable-reference-li">
+  <a href="../../../../../docs/user-guide/data-splitter/match-reference/3-2-variable-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-splittermatch-reference3-2-variable-reference"><span class="">Variable reference</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideediting-and-viewing-li">
+  <a href="../../../../../docs/user-guide/editing-and-viewing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideediting-and-viewing"><span class="">Editing and Viewing Data</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidefeeds-li">
+  <a href="../../../../../docs/user-guide/feeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidefeeds"><span class="">Event Feeds</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidefinding-things-li">
+  <a href="../../../../../docs/user-guide/finding-things/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidefinding-things"><span class="">Finding Things</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidenodes-li">
+  <a href="../../../../../docs/user-guide/nodes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidenodes"><span class="">Nodes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidepipelines-li">
+  <a href="../../../../../docs/user-guide/pipelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelines"><span class="">Pipelines</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesfile-output-li">
+  <a href="../../../../../docs/user-guide/pipelines/file-output/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesfile-output"><span class="">File Output</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesparser-li">
+  <a href="../../../../../docs/user-guide/pipelines/parser/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesparser"><span class="">Parser</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesparsercontext-data-li">
+  <a href="../../../../../docs/user-guide/pipelines/parser/context-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesparsercontext-data"><span class="">Context Data</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesparserxml-fragments-li">
+  <a href="../../../../../docs/user-guide/pipelines/parser/xml-fragments/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesparserxml-fragments"><span class="">XML Fragments</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesreference-data-li">
+  <a href="../../../../../docs/user-guide/pipelines/reference-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesreference-data"><span class="">Reference Data</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesxslt-li">
+  <a href="../../../../../docs/user-guide/pipelines/xslt/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesxslt"><span class="">XSLT Conversion</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
+  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-includes-li">
+  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-includes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-includes"><span class="">XSLT Includes</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideproperties-li">
+  <a href="../../../../../docs/user-guide/properties/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideproperties"><span class="">Properties</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideroles-li">
+  <a href="../../../../../docs/user-guide/roles/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideroles"><span class="">Roles</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidesecurity-li">
+  <a href="../../../../../docs/user-guide/security/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecurity"><span class="">Security</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidejobs-li">
+  <a href="../../../../../docs/user-guide/jobs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidejobs"><span class="">Stroom Jobs</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidetools-li">
+  <a href="../../../../../docs/user-guide/tools/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidetools"><span class="">Tools</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidetoolscommand-line-li">
+  <a href="../../../../../docs/user-guide/tools/command-line/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidetoolscommand-line"><span class="">Command Line Tools</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidetoolsstream-dump-tool-li">
+  <a href="../../../../../docs/user-guide/tools/stream-dump-tool/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidetoolsstream-dump-tool"><span class="">Stream Dump Tool</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidevolumes-li">
+  <a href="../../../../../docs/user-guide/volumes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidevolumes"><span class="">Volumes</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtos-li">
+  <a href="../../../../../docs/howtos/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtos"><span class="">How Tos</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosinstall-li">
+  <a href="../../../../../docs/howtos/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosinstall"><span class="">Installation</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallhttpdhowto-li">
+  <a href="../../../../../docs/howtos/install/installhttpdhowto/" title="Apache Httpd/Mod_JK configuration for Stroom" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallhttpdhowto"><span class="">Apache Httpd/Mod_JK</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstalldatabasehowto-li">
+  <a href="../../../../../docs/howtos/install/installdatabasehowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstalldatabasehowto"><span class="">Database Installation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallhowto-li">
+  <a href="../../../../../docs/howtos/install/installhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallhowto"><span class="">Installation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallapplicationhowto-li">
+  <a href="../../../../../docs/howtos/install/installapplicationhowto/" title="Installation of Stroom Application" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallapplicationhowto"><span class="">Installation of Stroom</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallproxyhowto-li">
+  <a href="../../../../../docs/howtos/install/installproxyhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallproxyhowto"><span class="">Installation of Stroom Proxy</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallnfshowto-li">
+  <a href="../../../../../docs/howtos/install/installnfshowto/" title="NFS Installation and Configuration" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallnfshowto"><span class="">NFS</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallnodeshowto-li">
+  <a href="../../../../../docs/howtos/install/installnodeshowto/" title="Node Cluster URL Setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallnodeshowto"><span class="">Node Cluster</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallprocessingusersetuphowto-li">
+  <a href="../../../../../docs/howtos/install/installprocessingusersetuphowto/" title="Processing User setup" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallprocessingusersetuphowto"><span class="">Processing User</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallcertificateshowto-li">
+  <a href="../../../../../docs/howtos/install/installcertificateshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallcertificateshowto"><span class="">SSL Certificate Generation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstalltestinghowto-li">
+  <a href="../../../../../docs/howtos/install/installtestinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstalltestinghowto"><span class="">Testing Stroom Installation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallvolumeshowto-li">
+  <a href="../../../../../docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallvolumeshowto"><span class="">Volume Maintenance</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosreferencefeeds-li">
+  <a href="../../../../../docs/howtos/referencefeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosreferencefeeds"><span class="">Reference Feeds</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosreferencefeedscreatesimplereferencefeeds-li">
+  <a href="../../../../../docs/howtos/referencefeeds/createsimplereferencefeeds/" title="Create a Simple Reference Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosreferencefeedscreatesimplereferencefeeds"><span class="">Create a Reference Feed</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtossearch-li">
+  <a href="../../../../../docs/howtos/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtossearch"><span class="">Search</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtossearchelasticsearch-li">
+  <a href="../../../../../docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchelasticsearch"><span class="">Elasticsearch integration</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtossearchsearchfrombash-li">
+  <a href="../../../../../docs/howtos/search/searchfrombash/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchsearchfrombash"><span class="">Search API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtossearchsolr-li">
+  <a href="../../../../../docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchsolr"><span class="">Solr integration</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosadministration-li">
+  <a href="../../../../../docs/howtos/administration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosadministration"><span class="">Administration</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosadministrationsystemproperties-li">
+  <a href="../../../../../docs/howtos/administration/systemproperties/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosadministrationsystemproperties"><span class="">System Properties</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosauthentication-li">
+  <a href="../../../../../docs/howtos/authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosauthentication"><span class="">Authentication</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationcreateuserhowto-li">
+  <a href="../../../../../docs/howtos/authentication/createuserhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationcreateuserhowto"><span class="">Create a user</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationuserloginhowto-li">
+  <a href="../../../../../docs/howtos/authentication/userloginhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationuserloginhowto"><span class="">Login</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationuserlogouthowto-li">
+  <a href="../../../../../docs/howtos/authentication/userlogouthowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationuserlogouthowto"><span class="">Logout</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtoseventfeeds-li">
+  <a href="../../../../../docs/howtos/eventfeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtoseventfeeds"><span class="">Event Feeds</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtoseventfeedscreateapachehttpdeventfeed-li">
+  <a href="../../../../../docs/howtos/eventfeeds/createapachehttpdeventfeed/" title="Apache HTTPD Event Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtoseventfeedscreateapachehttpdeventfeed"><span class="">Apache HTTPD</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtoseventfeedsprocessinghowto-li">
+  <a href="../../../../../docs/howtos/eventfeeds/processinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtoseventfeedsprocessinghowto"><span class="">Event Processing</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosgeneral-li">
+  <a href="../../../../../docs/howtos/general/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosgeneral"><span class="">General</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosgeneralfeedmanagementhowto-li">
+  <a href="../../../../../docs/howtos/general/feedmanagementhowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosgeneralfeedmanagementhowto"><span class="">Feed Management</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosgeneralrawsourcetracking-li">
+  <a href="../../../../../docs/howtos/general/rawsourcetracking/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosgeneralrawsourcetracking"><span class="">Raw Source Tracking</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosgeneraltaskshowto-li">
+  <a href="../../../../../docs/howtos/general/taskshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosgeneraltaskshowto"><span class="">Task Management</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docssending-data-li">
+  <a href="../../../../../docs/sending-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docssending-data"><span class="">Sending Data to Stroom</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docssending-dataexample-clients-li">
+  <a href="../../../../../docs/sending-data/example-clients/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docssending-dataexample-clients"><span class="">Example Clients</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientscurl-linux-li">
+  <a href="../../../../../docs/sending-data/example-clients/curl-linux/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientscurl-linux"><span class="">curl (Linux)</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientscurl-windows-li">
+  <a href="../../../../../docs/sending-data/example-clients/curl-windows/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientscurl-windows"><span class="">curl (Windows)</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientsevent-logging-li">
+  <a href="../../../../../docs/sending-data/example-clients/event-logging/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientsevent-logging"><span class="">event-logging (Java library)</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientssend_to_stroom-li">
+  <a href="../../../../../docs/sending-data/example-clients/send_to_stroom/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientssend_to_stroom"><span class="">send_to_stroom.sh (Linux)</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientsc-sharp-client-li">
+  <a href="../../../../../docs/sending-data/example-clients/c-sharp-client/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientsc-sharp-client"><span class="">Simple C# Client</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientssimple-java-client-li">
+  <a href="../../../../../docs/sending-data/example-clients/simple-java-client/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientssimple-java-client"><span class="">Simple Java Client</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientsstroom-log-sender-li">
+  <a href="../../../../../docs/sending-data/example-clients/stroom-log-sender/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientsstroom-log-sender"><span class="">stroom-log-sender (Docker)</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientsvb-script-li">
+  <a href="../../../../../docs/sending-data/example-clients/vb-script/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientsvb-script"><span class="">VBScript (Windows)</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataexample-clientswget-windows-li">
+  <a href="../../../../../docs/sending-data/example-clients/wget-windows/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataexample-clientswget-windows"><span class="">wget (Windows)</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataheader-arguments-li">
+  <a href="../../../../../docs/sending-data/header-arguments/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataheader-arguments"><span class="">Header Arguments</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-datajava-keystores-li">
+  <a href="../../../../../docs/sending-data/java-keystores/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datajava-keystores"><span class="">Java Keystores</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-datapayloads-li">
+  <a href="../../../../../docs/sending-data/payloads/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datapayloads"><span class="">Payloads</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-dataresponse-codes-li">
+  <a href="../../../../../docs/sending-data/response-codes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-dataresponse-codes"><span class="">Response Codes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docssending-datassl-li">
+  <a href="../../../../../docs/sending-data/ssl/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docssending-datassl"><span class="">SSL Configuration</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsproxy-li">
+  <a href="../../../../../docs/proxy/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsproxy"><span class="">Stroom Proxy</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsproxyapache-forwarding-li">
+  <a href="../../../../../docs/proxy/apache-forwarding/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsproxyapache-forwarding"><span class="">Apache Forwarding</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsproxydocker-li">
+  <a href="../../../../../docs/proxy/docker/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsproxydocker"><span class="">Running with docker</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsproxyinstall-li">
+  <a href="../../../../../docs/proxy/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsproxyinstall"><span class="">Stroom Proxy Installation</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/gchq/stroom-docs/tree/master/content/en/docs/user-guide/dashboards/expressions/uri.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa fa-file-alt fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/master/content/en/docs/user-guide/dashboards/expressions/uri.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/master/content/en/docs/user-guide/dashboards/expressions/uri.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+  <a href="https://github.com/gchq/stroom-docs/issues/new?title=URI%20Functions" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+  <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
+  <a id="print" href="../../../../../docs/user-guide/dashboards/expressions/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+
+</div>
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#extractauthorityfromuri">extractAuthorityFromUri</a></li>
+    <li><a href="#extractfragmentfromuri">extractFragmentFromUri</a></li>
+    <li><a href="#extracthostfromuri">extractHostFromUri</a></li>
+    <li><a href="#extractpathfromuri">extractPathFromUri</a></li>
+    <li><a href="#extractportfromuri">extractPortFromUri</a></li>
+    <li><a href="#extractqueryfromuri">extractQueryFromUri</a></li>
+    <li><a href="#extractschemefromuri">extractSchemeFromUri</a></li>
+    <li><a href="#extractschemespecificpartfromuri">extractSchemeSpecificPartFromUri</a></li>
+    <li><a href="#extractuserinfofromuri">extractUserInfoFromUri</a></li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+    <div class="taxonomy taxonomy-terms-cloud taxo-tags">
+      
+        <h5 class="taxonomy-title">Tags</h5>
+      
+      <ul class="taxonomy-terms">
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/architecture/" data-taxonomy-term="architecture"><span class="taxonomy-label">architecture</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/authorisation/" data-taxonomy-term="authorisation"><span class="taxonomy-label">authorisation</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/certificate/" data-taxonomy-term="certificate"><span class="taxonomy-label">certificate</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/cluster/" data-taxonomy-term="cluster"><span class="taxonomy-label">cluster</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/data-splitter/" data-taxonomy-term="data-splitter"><span class="taxonomy-label">data-splitter</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/dictionary/" data-taxonomy-term="dictionary"><span class="taxonomy-label">dictionary</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/expression/" data-taxonomy-term="expression"><span class="taxonomy-label">expression</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">5</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/file/" data-taxonomy-term="file"><span class="taxonomy-label">file</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/header/" data-taxonomy-term="header"><span class="taxonomy-label">header</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/http/" data-taxonomy-term="http"><span class="taxonomy-label">http</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/java/" data-taxonomy-term="java"><span class="taxonomy-label">java</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/job/" data-taxonomy-term="job"><span class="taxonomy-label">job</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/keystore/" data-taxonomy-term="keystore"><span class="taxonomy-label">keystore</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/log-sender/" data-taxonomy-term="log-sender"><span class="taxonomy-label">log-sender</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/mysql/" data-taxonomy-term="mysql"><span class="taxonomy-label">mysql</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/nginx/" data-taxonomy-term="nginx"><span class="taxonomy-label">nginx</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/property/" data-taxonomy-term="property"><span class="taxonomy-label">property</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">6</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/retention/" data-taxonomy-term="retention"><span class="taxonomy-label">retention</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/role/" data-taxonomy-term="role"><span class="taxonomy-label">role</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/security/" data-taxonomy-term="security"><span class="taxonomy-label">security</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/stream/" data-taxonomy-term="stream"><span class="taxonomy-label">stream</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/style/" data-taxonomy-term="style"><span class="taxonomy-label">style</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/task/" data-taxonomy-term="task"><span class="taxonomy-label">task</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">5</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/upgrade/" data-taxonomy-term="upgrade"><span class="taxonomy-label">upgrade</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/user/" data-taxonomy-term="user"><span class="taxonomy-label">user</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/visualisation/" data-taxonomy-term="visualisation"><span class="taxonomy-label">visualisation</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">2</span></a></li>
+        
+      </ul>
+    </div>
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+  
+
+            <nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="../../../../../docs/">Documentation</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="../../../../../docs/user-guide/">User Guide</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="../../../../../docs/user-guide/dashboards/">Dashboards</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="../../../../../docs/user-guide/dashboards/expressions/">Dashboard Expressions</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="../../../../../docs/user-guide/dashboards/expressions/uri/">URI Functions</a>
+  </li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>URI Functions</h1>
+	<div class="lead">Functions for extracting parts from a Uniform Resource Identifier (URI).</div>
+	<header class="article-meta">
+		
+		
+			
+				
+
+
+			
+				
+
+
+			
+		
+		
+	</header>    
+	<p>Fields containing a Uniform Resource Identifier (URI) in string form can queried to extract the URI&rsquo;s individual components of <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code> and <code>userInfo</code>. See either <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax</a> or Java&rsquo;s java.net.URI Class for details regarding the components. If any component is not present within the passed URI, then an empty string is returned.</p>
+<p>The extraction functions are</p>
+<ul>
+<li>extractAuthorityFromUri() - extract the Authority component</li>
+<li>extractFragmentFromUri() - extract the Fragment component</li>
+<li>extractHostFromUri() - extract the Host component</li>
+<li>extractPathFromUri() - extract the Path component</li>
+<li>extractPortFromUri() - extract the Port component</li>
+<li>extractQueryFromUri() - extract the Query component</li>
+<li>extractSchemeFromUri() - extract the Scheme component</li>
+<li>extractSchemeSpecificPartFromUri() - extract the Scheme specific part component</li>
+<li>extractUserInfoFromUri() - extract the UserInfo component</li>
+</ul>
+<p>If the URI is <code>http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;p2=v2#more-details</code> the table below displays the extracted components</p>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Extraction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>extractAuthorityFromUri(${URI})</td>
+<td>foo:bar@w1.superman.com:8080</td>
+</tr>
+<tr>
+<td>extractFragmentFromUri(${URI})</td>
+<td>more-details</td>
+</tr>
+<tr>
+<td>extractHostFromUri(${URI})</td>
+<td>w1.superman.com</td>
+</tr>
+<tr>
+<td>extractPathFromUri(${URI})</td>
+<td>/very/long/path.html</td>
+</tr>
+<tr>
+<td>extractPortFromUri(${URI})</td>
+<td>8080</td>
+</tr>
+<tr>
+<td>extractQueryFromUri(${URI})</td>
+<td>p1=v1&amp;p2=v2</td>
+</tr>
+<tr>
+<td>extractSchemeFromUri(${URI})</td>
+<td>http</td>
+</tr>
+<tr>
+<td>extractSchemeSpecificPartFromUri(${URI})</td>
+<td>//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2</td>
+</tr>
+<tr>
+<td>extractUserInfoFromUri(${URI})</td>
+<td>foo:bar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="extractauthorityfromuri">extractAuthorityFromUri</h2>
+<p>Extracts the Authority component from a URI</p>
+<p><code>extractAuthorityFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractAuthorityFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; 'foo:bar@w1.superman.com:8080'
+</code></pre>
+<h2 id="extractfragmentfromuri">extractFragmentFromUri</h2>
+<p>Extracts the Fragment component from a URI</p>
+<p><code>extractFragmentFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractFragmentFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; 'more-details'
+</code></pre>
+<h2 id="extracthostfromuri">extractHostFromUri</h2>
+<p>Extracts the Host component from a URI</p>
+<p><code>extractHostFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractHostFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; 'w1.superman.com'
+</code></pre>
+<h2 id="extractpathfromuri">extractPathFromUri</h2>
+<p>Extracts the Path component from a URI</p>
+<p><code>extractPathFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractPathFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; '/very/long/path.html'
+</code></pre>
+<h2 id="extractportfromuri">extractPortFromUri</h2>
+<p>Extracts the Port component from a URI</p>
+<p><code>extractPortFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractPortFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; '8080'
+</code></pre>
+<h2 id="extractqueryfromuri">extractQueryFromUri</h2>
+<p>Extracts the Query component from a URI</p>
+<p><code>extractQueryFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractQueryFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; 'p1=v1&amp;p2=v2'
+</code></pre>
+<h2 id="extractschemefromuri">extractSchemeFromUri</h2>
+<p>Extracts the Scheme component from a URI</p>
+<p><code>extractSchemeFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractSchemeFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; 'http'
+</code></pre>
+<h2 id="extractschemespecificpartfromuri">extractSchemeSpecificPartFromUri</h2>
+<p>Extracts the SchemeSpecificPart component from a URI</p>
+<p><code>extractSchemeSpecificPartFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractSchemeSpecificPartFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; '//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2'
+</code></pre>
+<h2 id="extractuserinfofromuri">extractUserInfoFromUri</h2>
+<p>Extracts the UserInfo component from a URI</p>
+<p><code>extractUserInfoFromUri(uri)</code></p>
+<p>Example</p>
+<pre><code class="language-clike">extractUserInfoFromUri('http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details')
+&gt; 'foo:bar'
+</code></pre>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">
+  Last modified January 22, 2022: <a href="https://github.com/gchq/stroom-docs/commit/8389981053c62a01652843477627dbd84625d57a">Fix zip cmd in ci_build.sh (8389981)</a>
+</div>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Crown Copyright 2022 All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous"></script>
+
+
+
+
+
+<script src='../../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../../js/main.js"></script>
+
+
+
+<script src='../../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

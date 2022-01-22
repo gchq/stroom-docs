@@ -1,0 +1,57 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – upgrade</title>
+    <link>/tags/upgrade/</link>
+    <description>Recent content in upgrade on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 20 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/upgrade/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Stroom Upgrades</title>
+      <link>/docs/install-guide/upgrade-patch/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/upgrade-patch/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;stroom-v6&#34;&gt;Stroom v6+&lt;/h2&gt;
+&lt;p&gt;Stroom is designed to detect the version of the database schema present and to run any migrations necessary to bring it up to the version begin deployed.&lt;/p&gt;
+&lt;h3 id=&#34;docker-stack-deployments&#34;&gt;Docker stack deployments&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;TODO&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;non-docker-deployments&#34;&gt;Non-docker deployments&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;TODO&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;major-version-upgrades&#34;&gt;Major version upgrades&lt;/h3&gt;
+&lt;p&gt;The following notes are specific for these major version upgrades&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/install-guide/upgrades/6_to_7_upgrade/&#34;&gt;v6 =&amp;gt; v7&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;stroom-v5&#34;&gt;Stroom v5&lt;/h2&gt;
+&lt;p&gt;The cleanest way to upgrade or patch is to simply remove the installed content and reinstall.  For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./stroom-deploy/stop.sh
+rm -fr stroom-app*
+
+&amp;lt;unzip new builds as per install instructions&amp;gt;
+&amp;lt;run setup.sh as per install instructions&amp;gt;
+
+./stroom-deploy/start.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;It is extremely important&lt;/strong&gt; that you enter the configuration parameters correctly.  In particular the node name should match the current node name otherwise Stroom will create a new node in the system thinking it is part of a cluster.  It is recommended that you copy the original parameters file values used in the original installation to help with this (e.g. cp stroom-app/bin/~setup.xml /tmp/orig-stroom-app-setup.xml.&lt;/p&gt;
+&lt;p&gt;You should remove and reinstall all components you originally installed i.e. stroom-deploy-X-Y-Z, stroom-app-X-Y-X as required.&lt;/p&gt;
+&lt;p&gt;You should temporary disable the cron auto deploy script if you have it running during the above.&lt;/p&gt;
+&lt;h3 id=&#34;patching&#34;&gt;Patching&lt;/h3&gt;
+&lt;p&gt;You can choose for a minor patch (1-2-X) to simply copy the new WAR file into relevant lib directory and run the deploy.sh script (which you may have running on a cron tab).  However this would not patch any potential script or tomcat setting changes.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
