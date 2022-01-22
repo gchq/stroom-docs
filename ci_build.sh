@@ -123,8 +123,8 @@ build_version_from_source() {
 
       local site_branch_dir="${branch_gh_pages_dir}/"
       mkdir -p "${site_branch_dir}"
-      echo -e "${GREEN}Copying site HTML (${BLUE}${generated_site_dir}${GREEN}) to combined" \
-        "site (${BLUE}${site_branch_dir}${GREEN})${NC}"
+      echo -e "${GREEN}Copying site HTML (${BLUE}${generated_site_dir}${GREEN})" \
+        "to combined gh-pages dir (${BLUE}${site_branch_dir}${GREEN})${NC}"
       cp -r "${generated_site_dir}"/* "${site_branch_dir}"
     else
       echo -e "${BLUE}${branch_name}${GREEN} is not a release branch so won't" \
@@ -302,13 +302,13 @@ has_release_branch_changed() {
 
   echo -e "${GREEN}branch_name: ${BLUE}${branch_name}${NC}"
   echo -e "${GREEN}latest_commit_sha: ${BLUE}${latest_commit_sha}${NC}"
-  echo -e "${GREEN}gh_pages_commit_sha: ${BLUE}${gh_pages_commit_sha}${NC}"
   
   # When we build gh-pages from source we write the commit sha to a file
   # so we know which commit it came from
   if [[ -f "${gh_pages_commit_sha_file}" ]]; then
     local gh_pages_commit_sha
     gh_pages_commit_sha=$(<config.txt)
+    echo -e "${GREEN}gh_pages_commit_sha: ${BLUE}${gh_pages_commit_sha}${NC}"
 
     if [[ "${gh_pages_commit_sha}" = "${latest_commit_sha}" ]]; then
       return 1
@@ -318,6 +318,8 @@ has_release_branch_changed() {
     fi
   else
     # No commit sha file so treat as changed
+    echo -e "${GREEN}Commit file ${BLUE}${gh_pages_commit_sha_file}${GREEN}" \
+      "not found, treat as changed.${NC}"
     have_any_release_branches_changed=true
     return 0
   fi
@@ -344,19 +346,23 @@ prepare_for_release() {
   # stroom, though master should not appear in the versions dropdown.
   rm -rf "${NEW_GH_PAGES_DIR}/master"
 
+  echo -e "${GREEN}Dumping contents of ${BLUE}${NEW_GH_PAGES_DIR}${NC}"
+  ls -1 "${NEW_GH_PAGES_DIR}/"
+
   # pushd so all paths in the zip are relative to this dir
   # Exclude the individual version zips from the combined zip
   pushd "${NEW_GH_PAGES_DIR}"
+  # Exclude arg needs to go after zip filename and target(s)
   zip \
     --recurse-paths \
     --quiet \
     -9 \
-    --exclude 'stroom-docs-v*.zip' \
     "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" \
-    ./*
+    ./* \
+    --exclude 'stroom-docs-v*.zip'
   popd
 
-  echo -e "${GREEN}Dumping contents of ${RELEASE_ARTEFACTS_DIR}${NC}"
+  echo -e "${GREEN}Dumping contents of ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
   ls -1 "${RELEASE_ARTEFACTS_DIR}/"
 
   if [[ "${LOCAL_BUILD}" != "true" \
