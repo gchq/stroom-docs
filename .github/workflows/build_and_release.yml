@@ -63,6 +63,9 @@ jobs:
           # https://github.com/gchq/stroom/settings/secrets/actions
           # https://github.com/gchq/stroom/settings/keys
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          # Needed for authenticated api calls to avoid rate limit
+          # Github provides this temporary token automatically
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pushd "${BUILD_DIR}" > /dev/null
           ./ci_build.sh
