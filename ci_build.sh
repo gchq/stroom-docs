@@ -248,11 +248,19 @@ make_single_version_zip() {
 }
 
 create_root_redirect_page() {
-  echo -e "${GREEN}Creating root redirect page with latest version" \
-    "${BLUE}${latest_version}${NC}"
+  local latest_version
+  latest_version="$( \
+    grep  -e "^\s*url_latest_version" "${BUILD_DIR}/config.toml" \
+    | sed -r 's|[^"]*".*/([^"]+)"|\1|' \
+  )"
+  
+  echo -e "${GREEN}Creating root redirect page with latest version [" \
+    "${BLUE}${latest_version}${GREEN}]${NC}"
+
+  # :? = error if unset
   sed \
     --regexp-extended \
-    --expression "s/<<<LATEST_VERSION>>>/${latest_version}/g" \
+    --expression "s/<<<LATEST_VERSION>>>/${latest_version:?}/g" \
     "${BUILD_DIR}/index.html.template" \
     > "${NEW_GH_PAGES_DIR}/index.html"
 }
