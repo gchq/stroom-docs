@@ -351,7 +351,7 @@ prepare_for_release() {
     --recurse-paths \
     --quiet \
     -9 \
-    --exclude 'stroom-docs-v*.zip'
+    --exclude 'stroom-docs-v*.zip' \
     "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" \
     ./*
   popd
