@@ -1,0 +1,444 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – xslt</title>
+    <link>/tags/xslt/</link>
+    <description>Recent content in xslt on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/xslt/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: XSLT Conversion</title>
+      <link>/docs/user-guide/pipelines/xslt/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/pipelines/xslt/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Once the text file has been converted into Intermediary XML (or the feed is already XML), XSLT is used to
+translate the XML into event logging XML format.&lt;/p&gt;
+&lt;p&gt;Event Feeds must be translated into the events schema and Reference
+into the reference schema. You can browse documentation relating to the
+schemas within the application.&lt;/p&gt;
+&lt;p&gt;Here is an example XSLT:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&amp;lt;xsl:stylesheet
+    xmlns=&amp;quot;event-logging:3&amp;quot;
+    xmlns:s=&amp;quot;stroom&amp;quot;
+    xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    version=&amp;quot;2.0&amp;quot;&amp;gt;
+
+    &amp;lt;xsl:template match=&amp;quot;SomeData&amp;quot;&amp;gt;
+        &amp;lt;Events
+        xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.0.0.xsd&amp;quot;
+        Version=&amp;quot;3.0.0&amp;quot;&amp;gt;
+            &amp;lt;xsl:apply-templates/&amp;gt;
+        &amp;lt;/Events&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+    &amp;lt;xsl:template match=&amp;quot;SomeEvent&amp;quot;&amp;gt;
+        &amp;lt;xsl:variable name=&amp;quot;dateTime&amp;quot; select=&amp;quot;SomeTime&amp;quot;/&amp;gt;
+        &amp;lt;xsl:variable name=&amp;quot;formattedDateTime&amp;quot; select=&amp;quot;s:format-date($dateTime, &#39;dd/MM/yyyyhh:mm:ss&#39;)&amp;quot;/&amp;gt;
+
+        &amp;lt;xsl:if test=&amp;quot;SomeAction = &#39;OPEN&#39;&amp;quot;&amp;gt;
+            &amp;lt;Event&amp;gt;
+            &amp;lt;EventTime&amp;gt;
+                &amp;lt;TimeCreated&amp;gt;
+                    &amp;lt;xsl:value-of select=&amp;quot;$formattedDateTime&amp;quot;/&amp;gt;
+                &amp;lt;/TimeCreated&amp;gt;
+            &amp;lt;/EventTime&amp;gt;
+            &amp;lt;EventSource&amp;gt;
+                &amp;lt;System&amp;gt;Example&amp;lt;/System&amp;gt;
+                &amp;lt;Environment&amp;gt;Example&amp;lt;/Environment&amp;gt;
+                &amp;lt;Generator&amp;gt;Very Simple Provider&amp;lt;/Generator&amp;gt;
+                &amp;lt;Device&amp;gt;
+                    &amp;lt;IPAddress&amp;gt;3.3.3.3&amp;lt;/IPAddress&amp;gt;
+                &amp;lt;/Device&amp;gt;
+                &amp;lt;User&amp;gt;
+                    &amp;lt;Id&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;SomeUser&amp;quot;/&amp;gt;&amp;lt;/Id&amp;gt;
+                &amp;lt;/User&amp;gt;
+            &amp;lt;/EventSource&amp;gt;
+            &amp;lt;EventDetail&amp;gt;
+                &amp;lt;View&amp;gt;
+                    &amp;lt;Document&amp;gt;
+                        &amp;lt;Title&amp;gt;UNKNOWN&amp;lt;/Title&amp;gt;
+                        &amp;lt;File&amp;gt;
+                        &amp;lt;Path&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;SomeFile&amp;quot;/&amp;gt;&amp;lt;/Path&amp;gt;
+                        &amp;lt;File&amp;gt;
+                    &amp;lt;/Document&amp;gt;
+                &amp;lt;/View&amp;gt;
+            &amp;lt;/EventDetail&amp;gt;
+            &amp;lt;/Event&amp;gt;
+        &amp;lt;/xsl:if&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: XSLT Functions</title>
+      <link>/docs/user-guide/pipelines/xslt/xslt-functions/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/pipelines/xslt/xslt-functions/</guid>
+      <description>
+        
+        
+        &lt;p&gt;By including the following namespace:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;xmlns:s=&amp;quot;stroom&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&amp;lt;xsl:stylesheet
+    xmlns=&amp;quot;event-logging:3&amp;quot;
+    xmlns:s=&amp;quot;stroom&amp;quot;
+    xmlns:xsl=&amp;quot;http://www.w3.org/1999/XSL/Transform&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    version=&amp;quot;2.0&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The following functions are available to aid your translation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#bitmap-lookup&#34;&gt;&lt;code&gt;bitmap-lookup(String map, String key)&lt;/code&gt;&lt;/a&gt; - Bitmap based look up against reference data map using the period start time&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#bitmap-lookup&#34;&gt;&lt;code&gt;bitmap-lookup(String map, String key, String time)&lt;/code&gt;&lt;/a&gt; - Bitmap based look up against reference data map using a specified time, e.g. the event time&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#bitmap-lookup&#34;&gt;&lt;code&gt;bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)&lt;/code&gt;&lt;/a&gt; - Bitmap based look up against reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#bitmap-lookup&#34;&gt;&lt;code&gt;bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)&lt;/code&gt;&lt;/a&gt; - Bitmap based look up against reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup and get trace information for the path taken to resolve the lookup.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;classification()&lt;/code&gt; - The classification of the feed for the data being processed&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;col-from()&lt;/code&gt; - The column in the input that the current record begins on (can be 0).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;col-to()&lt;/code&gt; - The column in the input that the current record ends at.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;current-time()&lt;/code&gt; - The current system time&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;current-user()&lt;/code&gt; - The current user logged into Stroom (only relevant for interactive use, e.g. search)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;decode-url(String encodedUrl)&lt;/code&gt; - Decode the provided url.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#dictionary&#34;&gt;&lt;code&gt;dictionary(String name)&lt;/code&gt;&lt;/a&gt; - Loads the contents of the named dictionary for use within the translation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;encode-url(String url)&lt;/code&gt; - Encode the provided url.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;feed-name()&lt;/code&gt; - Name of the feed for the data being processed&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String date, String pattern)&lt;/code&gt;&lt;/a&gt; - Format a date that uses the specified pattern using the default time zone&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String date, String pattern, String timeZone)&lt;/code&gt;&lt;/a&gt; - Format a date that uses the specified pattern with the specified time zone&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String date, String patternIn, String timeZoneIn, String patternOut, String timeZoneOut)&lt;/code&gt;&lt;/a&gt; - Parse a date with the specified input pattern and time zone and format the output with the specified output pattern and time zone&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String milliseconds)&lt;/code&gt;&lt;/a&gt; - Format a date that is specified as a number of milliseconds since a standard base time known as &amp;ldquo;the epoch&amp;rdquo;, namely January 1, 1970, 00:00:00 GMT&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#put-and-get&#34;&gt;&lt;code&gt;get(String key)&lt;/code&gt;&lt;/a&gt; - Returns the value associated with a key that has been stored using put()&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hash(String value)&lt;/code&gt; - Hash a string value using the default &lt;code&gt;SHA-256&lt;/code&gt; algorithm and no salt&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hash(String value, String algorithm, String salt)&lt;/code&gt; - Hash a string value using the specified hashing algorithm and supplied salt value. Supported hashing algorithms include &lt;code&gt;SHA-256&lt;/code&gt;, &lt;code&gt;SHA-512&lt;/code&gt;, &lt;code&gt;MD5&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hex-to-dec(String hex)&lt;/code&gt; - Convert hex to dec representation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hex-to-oct(String hex)&lt;/code&gt; - Convert hex to oct representation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;json-to-xml(String json)&lt;/code&gt; - Returns an XML representation of the supplied JSON value for use in XPath expressions&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;line-from()&lt;/code&gt; - The line in the input that the current record begins on (1 based).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;line-to()&lt;/code&gt; - The line in the input that the current record ends at.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#link&#34;&gt;&lt;code&gt;link(String url)&lt;/code&gt;&lt;/a&gt; - Creates a stroom dashboard table link.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#link&#34;&gt;&lt;code&gt;link(String title, String url)&lt;/code&gt;&lt;/a&gt; - Creates a stroom dashboard table link.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#link&#34;&gt;&lt;code&gt;link(String title, String url, String type)&lt;/code&gt;&lt;/a&gt; - Creates a stroom dashboard table link.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#log&#34;&gt;&lt;code&gt;log(String severity, String message)&lt;/code&gt;&lt;/a&gt; - Logs a message to the processing log with the specified severity&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lookup&#34;&gt;&lt;code&gt;lookup(String map, String key)&lt;/code&gt;&lt;/a&gt; - Look up a reference data map using the period start time&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lookup&#34;&gt;&lt;code&gt;lookup(String map, String key, String time)&lt;/code&gt;&lt;/a&gt; - Look up a reference data map using a specified time, e.g. the event time&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lookup&#34;&gt;&lt;code&gt;lookup(String map, String key, String time, Boolean ignoreWarnings)&lt;/code&gt;&lt;/a&gt; - Look up a reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lookup&#34;&gt;&lt;code&gt;lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)&lt;/code&gt;&lt;/a&gt; - Look up a reference data map using a specified time, e.g. the event time, ignore any warnings generated by a failed lookup and get trace information for the path taken to resolve the lookup.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;meta(String key)&lt;/code&gt; - Lookup a meta data value for the current stream using the specified key. The key can be &lt;code&gt;Feed&lt;/code&gt;, &lt;code&gt;StreamType&lt;/code&gt;, &lt;code&gt;CreatedTime&lt;/code&gt;, &lt;code&gt;EffectiveTime&lt;/code&gt;, &lt;code&gt;Pipeline&lt;/code&gt; or any other attribute supplied when the stream was sent to Stroom, e.g. meta(&amp;lsquo;System&amp;rsquo;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;numeric-ip(String ipAddress)&lt;/code&gt; - Convert an IP address to a numeric representation for range comparison&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;part-no()&lt;/code&gt; - The current part within a multi part aggregated input stream (AKA the substream number) (1 based)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#parse-uri&#34;&gt;&lt;code&gt;parse-uri(String URI)&lt;/code&gt;&lt;/a&gt; - Returns an XML structure of the URI providing &lt;code&gt;authority&lt;/code&gt;, &lt;code&gt;fragment&lt;/code&gt;, &lt;code&gt;host&lt;/code&gt;, &lt;code&gt;path&lt;/code&gt;, &lt;code&gt;port&lt;/code&gt;, &lt;code&gt;query&lt;/code&gt;, &lt;code&gt;scheme&lt;/code&gt;, &lt;code&gt;schemeSpecificPart&lt;/code&gt;, and &lt;code&gt;userInfo&lt;/code&gt; components if present.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;random()&lt;/code&gt; - Get a system generated random number between 0 and 1.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;record-no()&lt;/code&gt; - The current record number within the current part (substream) (1 based).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;search-id()&lt;/code&gt; - Get the id of the batch search when a pipeline is processing as part of a batch search&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source()&lt;/code&gt; - Returns an XML structure with the &lt;code&gt;stroom-meta&lt;/code&gt; namespace detailing the current source location.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source-id()&lt;/code&gt; - Get the id of the current input stream that is being processed&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stream-id()&lt;/code&gt; - An alias for &lt;code&gt;source-id&lt;/code&gt; included for backward compatibility.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pipeline-name()&lt;/code&gt; - Name of the current processing pipeline using the XSLT&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#put-and-get&#34;&gt;&lt;code&gt;put(String key, String value)&lt;/code&gt;&lt;/a&gt; - Store a value for use later on in the translation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bitmap-lookup&#34;&gt;bitmap-lookup()&lt;/h2&gt;
+&lt;p&gt;The bitmap-lookup() function looks up a bitmap key from reference or context data a value (which can be an XML node set) for each set bit position and adds it to the resultant XML.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;bitmap-lookup(String map, String key)
+bitmap-lookup(String map, String key, String time)
+bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)
+bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;map&lt;/code&gt; - The name of the reference data map to perform the lookup against.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;key&lt;/code&gt; - The bitmap value to lookup.
+This can either be represented as a decimal integer (e.g. &lt;code&gt;14&lt;/code&gt;) or as hexadecimal by prefixing with &lt;code&gt;0x&lt;/code&gt; (e.g &lt;code&gt;0xE&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;time&lt;/code&gt; - Determines which set of reference data was effective at the requested time.
+If no reference data exists with an effective time before the requested time then the lookup will fail.
+Time is in the format &lt;code&gt;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSXX&lt;/code&gt;, e.g. &lt;code&gt;2010-01-01T00:00:00.000Z&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ignoreWarnings&lt;/code&gt; - If true, any lookup failures will be ignored, else they will be reported as warnings.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;trace&lt;/code&gt; - If true, additional trace information is output as INFO messages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If the look up fails no result will be returned.&lt;/p&gt;
+&lt;p&gt;The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. &lt;code&gt;14&lt;/code&gt;/&lt;code&gt;0xE&lt;/code&gt; is &lt;code&gt;1110&lt;/code&gt; as a binary bitmap.
+For each bit position that is set, (i.e. has a binary value of &lt;code&gt;1&lt;/code&gt;)  a lookup will be performed using that bit position as the key.
+In this example, positions &lt;code&gt;1&lt;/code&gt;, &lt;code&gt;2&lt;/code&gt; &amp;amp; &lt;code&gt;3&lt;/code&gt; are set so a lookup would be performed for these bit positions.
+The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.&lt;/p&gt;
+&lt;p&gt;If &lt;code&gt;ignoreWarnings&lt;/code&gt; is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.&lt;/p&gt;
+&lt;p&gt;This function can be useful when you have a set of values that can be represented as a bitmap and you need them to be converted back to individual values.
+For example if you have a set of additive account permissions (e.g Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&amp;rsquo;s permissions could be defined as a single decimal/hex bitmap value.
+Thus a bitmap lookup with this value would return all the permissions held by the user.&lt;/p&gt;
+&lt;p&gt;For example the reference data store may contain:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Key (Bit position)&lt;/th&gt;
+&lt;th&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;Administrator&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;Manage_Users&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;Perform_Export&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;View_Data&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;Manage_Jobs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;Delete_Data&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;Manage_Volumes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The following are example lookups using the above reference data:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Lookup Key (decimal)&lt;/th&gt;
+&lt;th&gt;Lookup Key (Hex)&lt;/th&gt;
+&lt;th&gt;Bitmap&lt;/th&gt;
+&lt;th&gt;Result&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0x0&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0000000&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0x1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0000001&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Administrator&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;74&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0x4A&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;1001010&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Manage_Users View_Data Manage_Volumes&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0x2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0000010&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Manage_Users&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;96&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;0x60&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;1100000&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Delete_Data Manage_Volumes&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;dictionary&#34;&gt;dictionary()&lt;/h2&gt;
+&lt;p&gt;The dictionary() function gets the contents of the specified dictionary for use during translation.
+The main use for this function is to allow users to abstract the management of a set of keywords from the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used by some XSLT, without the need for the user to understand the complexities of XSLT.&lt;/p&gt;
+&lt;h2 id=&#34;format-date&#34;&gt;format-date()&lt;/h2&gt;
+&lt;p&gt;The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
+contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.  If the
+optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
+A special time zone value of &amp;ldquo;GMT/BST&amp;rdquo; can be used to guess the time based on the date (BST during
+British Summer Time).&lt;/p&gt;
+&lt;p&gt;E.g. Convert a GMT date time &amp;ldquo;2009/12/01 12:34:11&amp;rdquo;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;s:format-date(&#39;2009/08/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;)&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E.g. Convert a GMT or BST date time &amp;ldquo;2009/08/01 12:34:11&amp;rdquo;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;s:format-date(&#39;2009/08/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E.g. Convert a GMT+1:00 date time &amp;ldquo;2009/08/01 12:34:11&amp;rdquo;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;s:format-date(&#39;2009/08/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT+1:00&#39;)&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E.g. Convert a date time specified as milliseconds since the epoch &amp;ldquo;1269270011640&amp;rdquo;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;s:format-date(&#39;1269270011640&#39;)&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.&lt;/p&gt;
+&lt;h2 id=&#34;link&#34;&gt;link()&lt;/h2&gt;
+&lt;p&gt;Create a string that represents a hyperlink for display in a dashboard table.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;link(url)
+link(title, url)
+link(title, url, type)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Example&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;link(&#39;http://www.somehost.com/somepath&#39;)
+&amp;gt; [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
+link(&#39;Click Here&#39;,&#39;http://www.somehost.com/somepath&#39;)
+&amp;gt; [Click Here](http://www.somehost.com/somepath)
+link(&#39;Click Here&#39;,&#39;http://www.somehost.com/somepath&#39;, &#39;dialog&#39;)
+&amp;gt; [Click Here](http://www.somehost.com/somepath){dialog}
+link(&#39;Click Here&#39;,&#39;http://www.somehost.com/somepath&#39;, &#39;dialog|Dialog Title&#39;)
+&amp;gt; [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Type can be one of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;dialog&lt;/code&gt; : Display the content of the link URL within a stroom popup dialog.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tab&lt;/code&gt; : Display the content of the link URL within a stroom tab.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;browser&lt;/code&gt; : Display the content of the link URL within a new browser tab.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dashboard&lt;/code&gt; : Used to launch a stroom dashboard internally with parameters in the URL.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both &lt;code&gt;dialog&lt;/code&gt; and &lt;code&gt;tab&lt;/code&gt; types allow titles to be specified after a &lt;code&gt;|&lt;/code&gt;, e.g. &lt;code&gt;dialog|My Title&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;log&#34;&gt;log()&lt;/h2&gt;
+&lt;p&gt;The log() function writes a message to the processing log with the specified severity.
+Severities of INFO, WARN, ERROR and FATAL can be used.
+Severities of ERROR and FATAL will result in records being omitted from the output if a RecordOutputFilter is used in the pipeline.
+The counts for RecWarn, RecError will be affected by warnings or errors generated in this way therefore this function is useful for adding business rules to XML output.&lt;/p&gt;
+&lt;p&gt;E.g. Warn if a SID is not the correct length.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:if test=&amp;quot;string-length($sid) != 7&amp;quot;&amp;gt;
+  &amp;lt;xsl:value-of select=&amp;quot;s:log(&#39;WARN&#39;, concat($sid, &#39; is not the correct length&#39;))&amp;quot;/&amp;gt;
+&amp;lt;/xsl:if&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;lookup&#34;&gt;lookup()&lt;/h2&gt;
+&lt;p&gt;The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;lookup(String map, String key)
+lookup(String map, String key, String time)
+lookup(String map, String key, String time, Boolean ignoreWarnings)
+lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;map&lt;/code&gt; - The name of the reference data map to perform the lookup against.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;key&lt;/code&gt; - The key to lookup. The key can be a simple string, an integer value in a numeric range or a nested lookup key.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;time&lt;/code&gt; - Determines which set of reference data was effective at the requested time.
+If no reference data exists with an effective time before the requested time then the lookup will fail.
+Time is in the format &lt;code&gt;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSSXX&lt;/code&gt;, e.g. &lt;code&gt;2010-01-01T00:00:00.000Z&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ignoreWarnings&lt;/code&gt; - If true, any lookup failures will be ignored, else they will be reported as warnings.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;trace&lt;/code&gt; - If true, additional trace information is output as INFO messages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If the look up fails no result will be returned.
+By testing the result a default value may be output if no result is returned.&lt;/p&gt;
+&lt;p&gt;E.g. Look up a SID given a PF&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:variable name=&amp;quot;pf&amp;quot; select=&amp;quot;PFNumber&amp;quot;/&amp;gt;
+&amp;lt;xsl:if test=&amp;quot;$pf&amp;quot;&amp;gt;
+   &amp;lt;xsl:variable name=&amp;quot;sid&amp;quot; select=&amp;quot;s:lookup(&#39;PF_TO_SID&#39;, $pf, $formattedDateTime)&amp;quot;/&amp;gt;
+
+   &amp;lt;xsl:choose&amp;gt;
+      &amp;lt;xsl:when test=&amp;quot;$sid&amp;quot;&amp;gt;
+         &amp;lt;User&amp;gt;
+             &amp;lt;Id&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;$sid&amp;quot;/&amp;gt;&amp;lt;/Id&amp;gt;
+         &amp;lt;/User&amp;gt;
+      &amp;lt;/xsl:when&amp;gt;
+      &amp;lt;xsl:otherwise&amp;gt;
+         &amp;lt;data name=&amp;quot;PFNumber&amp;quot;&amp;gt;
+            &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot;&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;$pf&amp;quot;/&amp;gt;&amp;lt;/xsl:attribute&amp;gt;
+         &amp;lt;/data&amp;gt;
+      &amp;lt;/xsl:otherwise&amp;gt;
+   &amp;lt;/xsl:choose&amp;gt;
+&amp;lt;/xsl:if&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;range-lookups&#34;&gt;Range lookups&lt;/h3&gt;
+&lt;p&gt;Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g 1-100.
+When a lookup is preformed the passed key is looked up as if it were a normal string key.
+If that lookup fails Stroom will try to convert the key to an integer (long) value.
+If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.&lt;/p&gt;
+&lt;p&gt;Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
+In this use case, the IP address must first be converted into a numeric value using &lt;code&gt;numeric-ip()&lt;/code&gt;, e.g:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xslt&#34;&gt;stroom:lookup(&#39;IP_TO_LOCATION&#39;, numeric-ip($ipAddress))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Similarly the reference data must be stored with key ranges whose bounds were created using this function.&lt;/p&gt;
+&lt;h3 id=&#34;nested-maps&#34;&gt;Nested Maps&lt;/h3&gt;
+&lt;p&gt;The lookup function allows you to perform chained lookups using nested maps.
+For example you may have a reference data map called &lt;em&gt;USER_ID_TO_LOCATION&lt;/em&gt; that maps user IDs to some location information for that user and a map called &lt;em&gt;USER_ID_TO_MANAGER&lt;/em&gt; that maps user IDs to the user ID of their manager.
+If you wanted to decorate a user&amp;rsquo;s event with the location of their manager you could use a nested map to achieve the lookup chain.
+To perform the lookup set the &lt;code&gt;map&lt;/code&gt; argument to the list of maps in the lookup chain, separated by a &lt;code&gt;/&lt;/code&gt;, e.g. &lt;code&gt;USER_ID_TO_MANAGER/USER_ID_TO_LOCATION&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This will perform a lookup against the first map in the list using the requested key.
+If a value is found the value will be used as the key in a lookup against the next map.
+The value from each map lookup is used as the key in the next map all the way down the chain.
+The value from the last lookup is then returned as the result of the &lt;code&gt;lookup()&lt;/code&gt; call.
+If no value is found at any point in the chain then that results in no value being returned from the function.&lt;/p&gt;
+&lt;p&gt;In order to use nested map lookups each intermediate map must contain simple string values.
+The last map in the chain can either contain string values or XML fragment values.&lt;/p&gt;
+&lt;h2 id=&#34;put-and-get&#34;&gt;put() and get()&lt;/h2&gt;
+&lt;p&gt;You can put values into a map using the put() function. These values can then be retrieved
+later using the get() function. Values are stored against a key name so that multiple values
+can be stored. These functions can be used for many purposes but are most commonly used to
+count a number of records that meet certain criteria.&lt;/p&gt;
+&lt;p&gt;An example of how to count records is shown below:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Get the current record count --&amp;gt;
+&amp;lt;xsl:variable name=&amp;quot;currentCount&amp;quot; select=&amp;quot;number(s:get(&#39;count&#39;))&amp;quot; /&amp;gt;
+
+&amp;lt;!-- Increment the record count --&amp;gt;
+&amp;lt;xsl:variable name=&amp;quot;count&amp;quot;&amp;gt;
+  &amp;lt;xsl:choose&amp;gt;
+    &amp;lt;xsl:when test=&amp;quot;$currentCount&amp;quot;&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;quot;$currentCount + 1&amp;quot; /&amp;gt;
+    &amp;lt;/xsl:when&amp;gt;
+    &amp;lt;xsl:otherwise&amp;gt;
+      &amp;lt;xsl:value-of select=&amp;quot;1&amp;quot; /&amp;gt;
+    &amp;lt;/xsl:otherwise&amp;gt;
+  &amp;lt;/xsl:choose&amp;gt;
+&amp;lt;/xsl:variable&amp;gt;
+
+&amp;lt;!-- Store the count for future retrieval --&amp;gt;
+&amp;lt;xsl:value-of select=&amp;quot;s:put(&#39;count&#39;, $count)&amp;quot; /&amp;gt;
+
+&amp;lt;!-- Output the new count --&amp;gt;
+&amp;lt;data name=&amp;quot;Count&amp;quot;&amp;gt;
+  &amp;lt;xsl:attribute name=&amp;quot;Value&amp;quot; select=&amp;quot;$count&amp;quot; /&amp;gt;
+&amp;lt;/data&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;parse-uri&#34;&gt;parse-uri()&lt;/h2&gt;
+&lt;p&gt;The parse-uri() function takes a Uniform Resource Identifier (URI) in string form and returns an XML node with a namespace of &lt;code&gt;uri&lt;/code&gt; containing the URI&amp;rsquo;s individual components of &lt;code&gt;authority&lt;/code&gt;, &lt;code&gt;fragment&lt;/code&gt;, &lt;code&gt;host&lt;/code&gt;, &lt;code&gt;path&lt;/code&gt;, &lt;code&gt;port&lt;/code&gt;, &lt;code&gt;query&lt;/code&gt;, &lt;code&gt;scheme&lt;/code&gt;, &lt;code&gt;schemeSpecificPart&lt;/code&gt; and &lt;code&gt;userInfo&lt;/code&gt;. See either &lt;a href=&#34;http://www.ietf.org/rfc/rfc2396.txt&#34;&gt;RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax&lt;/a&gt; or Java&amp;rsquo;s java.net.URI Class for details regarding the components.&lt;/p&gt;
+&lt;p&gt;The following xml&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Display and parse the URI contained within the text of the rURI element --&amp;gt;
+&amp;lt;xsl:variable name=&amp;quot;u&amp;quot; select=&amp;quot;s:parseUri(rURI)&amp;quot; /&amp;gt;
+
+&amp;lt;URI&amp;gt;
+  &amp;lt;xsl:value-of select=&amp;quot;rURI&amp;quot; /&amp;gt;
+&amp;lt;/URI&amp;gt;
+&amp;lt;URIDetail&amp;gt;
+  &amp;lt;xsl:copy-of select=&amp;quot;$v&amp;quot;/&amp;gt;
+&amp;lt;/URIDetail&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;given the rURI text contains&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;amp;p2=v2#more-details
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;would provide&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;URL&amp;gt;http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;amp;p2=v2#more-details&amp;lt;/URL&amp;gt;
+&amp;lt;URIDetail&amp;gt;
+  &amp;lt;authority xmlns=&amp;quot;uri&amp;quot;&amp;gt;foo:bar@w1.superman.com:8080&amp;lt;/authority&amp;gt;
+  &amp;lt;fragment xmlns=&amp;quot;uri&amp;quot;&amp;gt;more-details&amp;lt;/fragment&amp;gt;
+  &amp;lt;host xmlns=&amp;quot;uri&amp;quot;&amp;gt;w1.superman.com&amp;lt;/host&amp;gt;
+  &amp;lt;path xmlns=&amp;quot;uri&amp;quot;&amp;gt;/very/long/path.html&amp;lt;/path&amp;gt;
+  &amp;lt;port xmlns=&amp;quot;uri&amp;quot;&amp;gt;8080&amp;lt;/port&amp;gt;
+  &amp;lt;query xmlns=&amp;quot;uri&amp;quot;&amp;gt;p1=v1&amp;amp;amp;p2=v2&amp;lt;/query&amp;gt;
+  &amp;lt;scheme xmlns=&amp;quot;uri&amp;quot;&amp;gt;http&amp;lt;/scheme&amp;gt;
+  &amp;lt;schemeSpecificPart xmlns=&amp;quot;uri&amp;quot;&amp;gt;//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;amp;p2=v2&amp;lt;/schemeSpecificPart&amp;gt;
+  &amp;lt;userInfo xmlns=&amp;quot;uri&amp;quot;&amp;gt;foo:bar&amp;lt;/userInfo&amp;gt;
+&amp;lt;/URIDetail&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

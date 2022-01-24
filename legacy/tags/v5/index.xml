@@ -1,0 +1,227 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – v5</title>
+    <link>/tags/v5/</link>
+    <description>Recent content in v5 on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="/tags/v5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Stroom Proxy Installation</title>
+      <link>/docs/proxy/install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/proxy/install/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;pageinfo pageinfo-danger&#34;&gt;
+&lt;h4 class=&#34;text-danger alert-heading&#34;&gt;Warning&lt;/h4&gt;
+&lt;p&gt;This document refers to v5.&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux Server&amp;rsquo;s with at least 4GB RAM&lt;/li&gt;
+&lt;li&gt;Install files stroom-proxy-X-Y-Z-distribution.zip, stroom-deploy-X-Y-Z-distribution.zip&lt;/li&gt;
+&lt;li&gt;Temporarily allow port 9080 if not relying on Apache Forwarding (see below)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;processing-user-setup&#34;&gt;Processing User Setup&lt;/h2&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/processing-user-setup/&#34;&gt;Processing User Setup&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;installing-stroom-proxy&#34;&gt;Installing Stroom Proxy&lt;/h2&gt;
+&lt;p&gt;As the processing user unpack the stroom-proxy-X-Y-Z-distribution.zip installation files
+in the processing users home directory.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;unzip stroom-proxy-X-Y-Z-distribution.zip
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Stroom Proxy can be setup as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;forward - as an aggregation point to store and forwarding onto another Stroom or Stroom / Proxy&lt;/li&gt;
+&lt;li&gt;store - to front Stroom for data ingest&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;stroom-proxy---forward&#34;&gt;Stroom Proxy - forward&lt;/h3&gt;
+&lt;p&gt;In forward mode you need to know the server address that data is being sent onto.
+Run the setup script to capture the basic settings required to run Stroom Proxy in forward mode.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;@@ NODE @@ - Each Stroom instance in the cluster needs a unique name, if this is a reinstall ensure you use the previous deployment.
+&lt;strong&gt;This name needs match the name used in your worker.properties (e.g. &amp;lsquo;node1&amp;rsquo; in the case &amp;lsquo;node1.my.org&amp;rsquo;)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;@@ PORT PREFIX @@ - By default Stroom Proxy will run on port 9080&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node1 ~]$ ./stroom-proxy/bin/setup.sh forward
+
+[stroomuser@dev1 ~]$ ./stroom-proxy/bin/setup.sh forward
+
+
+
+
+
+...
+
+Parameters
+==========
+
+@@NODE@@           : Unique node name for install [node1                                                     ] : node1
+@@PORT_PREFIX@@    : HTTP prefix to use           [90                                                        ] : 90
+@@REPO_DIR@@       : Stroom Proxy Repository Dir     [/stroomdata/stroom-proxy                                        ] : /home/stroomuser/stroom-proxy-repo
+@@FORWARD_SERVER@@ : Server to forward data on to [hostname                                                  ] : audit.my.org
+@@JAVA_OPTS@@      : Optional tomcat JVM settings [&amp;quot;-Xms512m -Xmx1g&amp;quot;                                         ] :
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;stroom-proxy---store&#34;&gt;Stroom Proxy - store&lt;/h3&gt;
+&lt;p&gt;In store mode you need to know the mysql details to validate incoming data with.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node1 ~]$ ./stroom-proxy-app/bin/setup.sh store
+
+...
+
+@@NODE@@           : Unique node name for install            [node                                                      ] :
+@@PORT_PREFIX@@    : HTTP prefix to use                      [90                                                        ] : 72
+@@REPO_DIR@@       : Stroom Proxy Repository Dir                [/stroomdata/stroom-proxy                                        ] : /home/stroomuser/stroom-proxy-repo-2
+@@JDBC_CLASSNAME@@ : JDBC class name                         [com.mysql.jdbc.Driver                                     ] :
+@@JDBC_URL@@       : JDBC URL (jdbc:mysql://[HOST]/[DBNAME]) [jdbc:mysql://localhost/stroom                                ] :
+@@DB_USERNAME@@    : Database username                       [                                                          ] : stroomuser
+@@DB_PASSWORD@@    : Database password                       [                                                          ] :
+@@JAVA_OPTS@@      : Optional tomcat JVM settings            [&amp;quot;-Xms512m -Xmx1g&amp;quot;                                         ] :
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;install-check&#34;&gt;Install Check&lt;/h3&gt;
+&lt;p&gt;Start the installed instance:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./stroom-deploy/start.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Inspect the logs:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tail -f stroom-proxy-app/instance/logs/stroom.log
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;stroom-proxy-properties&#34;&gt;Stroom Proxy Properties&lt;/h3&gt;
+&lt;p&gt;The following properties can be configured in the stroom.properties file.&lt;/p&gt;
+&lt;p&gt;TODO - Could do with a column indicating which proxy mode these properties apply to, e.g. store/forward&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;repoDir&lt;/td&gt;
+&lt;td&gt;Optional Repository DIR. If set any incoming request will be written to the file system.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;logRequest&lt;/td&gt;
+&lt;td&gt;Optional log line with header attributes output as defined by this property&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bufferSize&lt;/td&gt;
+&lt;td&gt;Override default (8192) JDK buffer size to use&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forwardUrl&lt;/td&gt;
+&lt;td&gt;Optional The URL&amp;rsquo;s to forward onto This is pass-through mode if repoDir is not set&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forwardThreadCount&lt;/td&gt;
+&lt;td&gt;Number of threads to forward with&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forwardTimeoutMs&lt;/td&gt;
+&lt;td&gt;Time out when forwarding&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forwardChunkSize&lt;/td&gt;
+&lt;td&gt;Chunk size to use over http(s) if not set requires buffer to be fully loaded into memory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rollCron&lt;/td&gt;
+&lt;td&gt;Interval to roll any writing repositories.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;readCron&lt;/td&gt;
+&lt;td&gt;Cron style interval (e.g. every hour &amp;lsquo;0 * *&amp;rsquo;, every half hour &amp;lsquo;0,30 * *&#39;) to read any ready repositories (if not defined we read all the time).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxAggregation&lt;/td&gt;
+&lt;td&gt;Aggregate size to break at when building an aggregate.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zipFilenameDelimiter&lt;/td&gt;
+&lt;td&gt;The delimiter used to separate the id ihe zip filename from the templated part&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zipFilenameTemplate&lt;/td&gt;
+&lt;td&gt;A template for naming the zip files in the repository where files will be named nnn!zipFilenameTemplate.zip where nnn is the id prefix, ! is the configurable delimiter and zipFilenameTemplate will be something like &amp;lsquo;${feed}!${headerMapKey1}!${headerMapKey2}&amp;rsquo;. The naem of each variable must exactly match a key in the meta data else it will resolve to &amp;lsquo;&amp;rsquo;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;requestDelayMs&lt;/td&gt;
+&lt;td&gt;Sleep time used to aid with testing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forwardDelayMs&lt;/td&gt;
+&lt;td&gt;Debug setting to add a delay&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dbRequestValidatorContext&lt;/td&gt;
+&lt;td&gt;Database Feed Validator - Data base JDBC context&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dbRequestValidatorJndiName&lt;/td&gt;
+&lt;td&gt;Database Feed Validator - Data base JDBC JNDI name&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dbRequestValidatorFeedQuery&lt;/td&gt;
+&lt;td&gt;Database Feed Validator - SQL to check feed status&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dbRequestValidatorAuthQuery&lt;/td&gt;
+&lt;td&gt;Database Feed Validator - SQL to check authorisation required&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;remotingUrl&lt;/td&gt;
+&lt;td&gt;Url to use for remoting services&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;remotingReadTimeoutMs&lt;/td&gt;
+&lt;td&gt;Change from the default JVM settings.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;remotingConnectTimeoutMs&lt;/td&gt;
+&lt;td&gt;Change from the default JVM settings.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxStreamSize&lt;/td&gt;
+&lt;td&gt;Stream size to break at when building an aggregate.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxFileScan&lt;/td&gt;
+&lt;td&gt;Max number of files to scan over during forwarding.  Once this limit is it it will wait until next read interval&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cacheTimeToIdleSeconds&lt;/td&gt;
+&lt;td&gt;Time to idle settings to used for validating feed information&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cacheTimeToLiveSeconds&lt;/td&gt;
+&lt;td&gt;Time to live settings to used for validating feed information&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;apache-forwarding&#34;&gt;Apache Forwarding&lt;/h2&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/apache-forwarding/&#34;&gt;Apache Forwarding&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;java-key-store-setup&#34;&gt;Java Key Store Setup&lt;/h2&gt;
+&lt;p&gt;If you require that Stroom Proxy communicates over 2-way https you will need to set up Java Key Stores.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/java-key-store-setup/&#34;&gt;Java Key Store Setup&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;securing-stroom&#34;&gt;Securing Stroom&lt;/h2&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/install-guide/setup/securing-stroom/&#34;&gt;Securing Stroom&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

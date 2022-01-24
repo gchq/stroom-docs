@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.91.2" />
+<link rel="canonical" type="text/html" href="../../../../../docs/user-guide/pipelines/xslt/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>XSLT Conversion | Stroom</title>
+<meta name="description" content="Using Extensible Stylesheet Language Transformations (XSLT) to transform data.
+">
+<meta property="og:title" content="XSLT Conversion" />
+<meta property="og:description" content="Using Extensible Stylesheet Language Transformations (XSLT) to transform data.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/user-guide/pipelines/xslt/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="XSLT Conversion">
+<meta itemprop="description" content="Using Extensible Stylesheet Language Transformations (XSLT) to transform data.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="XSLT Conversion"/>
+<meta name="twitter:description" content="Using Extensible Stylesheet Language Transformations (XSLT) to transform data.
+"/>
+
+
+
+
+
+<link href="../../../../../scss/main.css" rel="stylesheet">
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+<script
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../../../../../css/prism.css"/>
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="../../../../../">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../about/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="../../../../../docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../news/" ><span>News / Releases</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../community/" ><span>Community</span></a>
+			</li>
+			
+			
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.0)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="../../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../../legacy">Legacy</a>
+	
+</div>
+
+			</li>
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"><input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="../../../../../offline-search-index.json"
+  data-offline-search-base-href="../../../../../"
+  data-offline-search-max-results="50"
+>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../../docs/user-guide/pipelines/xslt/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">XSLT Conversion</h1>
+<div class="lead">Using Extensible Stylesheet Language Transformations (XSLT) to transform data.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-00fcef074a5fb84079d17e4049c5a7f8">XSLT Functions</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-3f52cd945d5eabe8bb9a84799caa130e">XSLT Includes</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>Once the text file has been converted into Intermediary XML (or the feed is already XML), XSLT is used to
+translate the XML into event logging XML format.</p>
+<p>Event Feeds must be translated into the events schema and Reference
+into the reference schema. You can browse documentation relating to the
+schemas within the application.</p>
+<p>Here is an example XSLT:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+    xmlns=&quot;event-logging:3&quot;
+    xmlns:s=&quot;stroom&quot;
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    version=&quot;2.0&quot;&gt;
+
+    &lt;xsl:template match=&quot;SomeData&quot;&gt;
+        &lt;Events
+        xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
+        Version=&quot;3.0.0&quot;&gt;
+            &lt;xsl:apply-templates/&gt;
+        &lt;/Events&gt;
+    &lt;/xsl:template&gt;
+    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
+        &lt;xsl:variable name=&quot;dateTime&quot; select=&quot;SomeTime&quot;/&gt;
+        &lt;xsl:variable name=&quot;formattedDateTime&quot; select=&quot;s:format-date($dateTime, 'dd/MM/yyyyhh:mm:ss')&quot;/&gt;
+
+        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
+            &lt;Event&gt;
+            &lt;EventTime&gt;
+                &lt;TimeCreated&gt;
+                    &lt;xsl:value-of select=&quot;$formattedDateTime&quot;/&gt;
+                &lt;/TimeCreated&gt;
+            &lt;/EventTime&gt;
+            &lt;EventSource&gt;
+                &lt;System&gt;Example&lt;/System&gt;
+                &lt;Environment&gt;Example&lt;/Environment&gt;
+                &lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
+                &lt;Device&gt;
+                    &lt;IPAddress&gt;3.3.3.3&lt;/IPAddress&gt;
+                &lt;/Device&gt;
+                &lt;User&gt;
+                    &lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;
+                &lt;/User&gt;
+            &lt;/EventSource&gt;
+            &lt;EventDetail&gt;
+                &lt;View&gt;
+                    &lt;Document&gt;
+                        &lt;Title&gt;UNKNOWN&lt;/Title&gt;
+                        &lt;File&gt;
+                        &lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
+                        &lt;File&gt;
+                    &lt;/Document&gt;
+                &lt;/View&gt;
+            &lt;/EventDetail&gt;
+            &lt;/Event&gt;
+        &lt;/xsl:if&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
+    
+  <h1 id="pg-00fcef074a5fb84079d17e4049c5a7f8">1 - XSLT Functions</h1>
+    <div class="lead">Custom XSLT functions available in Stroom.</div>
+	<p>By including the following namespace:</p>
+<pre><code class="language-xml">xmlns:s=&quot;stroom&quot;
+</code></pre>
+<p>E.g.</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+    xmlns=&quot;event-logging:3&quot;
+    xmlns:s=&quot;stroom&quot;
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    version=&quot;2.0&quot;&gt;
+</code></pre>
+<p>The following functions are available to aid your translation:</p>
+<ul>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key)</code></a> - Bitmap based look up against reference data map using the period start time</li>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key, String time)</code></a> - Bitmap based look up against reference data map using a specified time, e.g. the event time</li>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)</code></a> - Bitmap based look up against reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup</li>
+<li><a href="#bitmap-lookup"><code>bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)</code></a> - Bitmap based look up against reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup and get trace information for the path taken to resolve the lookup.</li>
+<li><code>classification()</code> - The classification of the feed for the data being processed</li>
+<li><code>col-from()</code> - The column in the input that the current record begins on (can be 0).</li>
+<li><code>col-to()</code> - The column in the input that the current record ends at.</li>
+<li><code>current-time()</code> - The current system time</li>
+<li><code>current-user()</code> - The current user logged into Stroom (only relevant for interactive use, e.g. search)</li>
+<li><code>decode-url(String encodedUrl)</code> - Decode the provided url.</li>
+<li><a href="#dictionary"><code>dictionary(String name)</code></a> - Loads the contents of the named dictionary for use within the translation</li>
+<li><code>encode-url(String url)</code> - Encode the provided url.</li>
+<li><code>feed-name()</code> - Name of the feed for the data being processed</li>
+<li><a href="#format-date"><code>format-date(String date, String pattern)</code></a> - Format a date that uses the specified pattern using the default time zone</li>
+<li><a href="#format-date"><code>format-date(String date, String pattern, String timeZone)</code></a> - Format a date that uses the specified pattern with the specified time zone</li>
+<li><a href="#format-date"><code>format-date(String date, String patternIn, String timeZoneIn, String patternOut, String timeZoneOut)</code></a> - Parse a date with the specified input pattern and time zone and format the output with the specified output pattern and time zone</li>
+<li><a href="#format-date"><code>format-date(String milliseconds)</code></a> - Format a date that is specified as a number of milliseconds since a standard base time known as &ldquo;the epoch&rdquo;, namely January 1, 1970, 00:00:00 GMT</li>
+<li><a href="#put-and-get"><code>get(String key)</code></a> - Returns the value associated with a key that has been stored using put()</li>
+<li><code>hash(String value)</code> - Hash a string value using the default <code>SHA-256</code> algorithm and no salt</li>
+<li><code>hash(String value, String algorithm, String salt)</code> - Hash a string value using the specified hashing algorithm and supplied salt value. Supported hashing algorithms include <code>SHA-256</code>, <code>SHA-512</code>, <code>MD5</code>.</li>
+<li><code>hex-to-dec(String hex)</code> - Convert hex to dec representation</li>
+<li><code>hex-to-oct(String hex)</code> - Convert hex to oct representation</li>
+<li><code>json-to-xml(String json)</code> - Returns an XML representation of the supplied JSON value for use in XPath expressions</li>
+<li><code>line-from()</code> - The line in the input that the current record begins on (1 based).</li>
+<li><code>line-to()</code> - The line in the input that the current record ends at.</li>
+<li><a href="#link"><code>link(String url)</code></a> - Creates a stroom dashboard table link.</li>
+<li><a href="#link"><code>link(String title, String url)</code></a> - Creates a stroom dashboard table link.</li>
+<li><a href="#link"><code>link(String title, String url, String type)</code></a> - Creates a stroom dashboard table link.</li>
+<li><a href="#log"><code>log(String severity, String message)</code></a> - Logs a message to the processing log with the specified severity</li>
+<li><a href="#lookup"><code>lookup(String map, String key)</code></a> - Look up a reference data map using the period start time</li>
+<li><a href="#lookup"><code>lookup(String map, String key, String time)</code></a> - Look up a reference data map using a specified time, e.g. the event time</li>
+<li><a href="#lookup"><code>lookup(String map, String key, String time, Boolean ignoreWarnings)</code></a> - Look up a reference data map using a specified time, e.g. the event time, and ignore any warnings generated by a failed lookup</li>
+<li><a href="#lookup"><code>lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)</code></a> - Look up a reference data map using a specified time, e.g. the event time, ignore any warnings generated by a failed lookup and get trace information for the path taken to resolve the lookup.</li>
+<li><code>meta(String key)</code> - Lookup a meta data value for the current stream using the specified key. The key can be <code>Feed</code>, <code>StreamType</code>, <code>CreatedTime</code>, <code>EffectiveTime</code>, <code>Pipeline</code> or any other attribute supplied when the stream was sent to Stroom, e.g. meta(&lsquo;System&rsquo;).</li>
+<li><code>numeric-ip(String ipAddress)</code> - Convert an IP address to a numeric representation for range comparison</li>
+<li><code>part-no()</code> - The current part within a multi part aggregated input stream (AKA the substream number) (1 based)</li>
+<li><a href="#parse-uri"><code>parse-uri(String URI)</code></a> - Returns an XML structure of the URI providing <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code>, and <code>userInfo</code> components if present.</li>
+<li><code>random()</code> - Get a system generated random number between 0 and 1.</li>
+<li><code>record-no()</code> - The current record number within the current part (substream) (1 based).</li>
+<li><code>search-id()</code> - Get the id of the batch search when a pipeline is processing as part of a batch search</li>
+<li><code>source()</code> - Returns an XML structure with the <code>stroom-meta</code> namespace detailing the current source location.</li>
+<li><code>source-id()</code> - Get the id of the current input stream that is being processed</li>
+<li><code>stream-id()</code> - An alias for <code>source-id</code> included for backward compatibility.</li>
+<li><code>pipeline-name()</code> - Name of the current processing pipeline using the XSLT</li>
+<li><a href="#put-and-get"><code>put(String key, String value)</code></a> - Store a value for use later on in the translation</li>
+</ul>
+<h2 id="bitmap-lookup">bitmap-lookup()</h2>
+<p>The bitmap-lookup() function looks up a bitmap key from reference or context data a value (which can be an XML node set) for each set bit position and adds it to the resultant XML.</p>
+<pre><code class="language-text">bitmap-lookup(String map, String key)
+bitmap-lookup(String map, String key, String time)
+bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings)
+bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+</code></pre>
+<ul>
+<li><code>map</code> - The name of the reference data map to perform the lookup against.</li>
+<li><code>key</code> - The bitmap value to lookup.
+This can either be represented as a decimal integer (e.g. <code>14</code>) or as hexadecimal by prefixing with <code>0x</code> (e.g <code>0xE</code>).</li>
+<li><code>time</code> - Determines which set of reference data was effective at the requested time.
+If no reference data exists with an effective time before the requested time then the lookup will fail.
+Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-01-01T00:00:00.000Z</code>.</li>
+<li><code>ignoreWarnings</code> - If true, any lookup failures will be ignored, else they will be reported as warnings.</li>
+<li><code>trace</code> - If true, additional trace information is output as INFO messages.</li>
+</ul>
+<p>If the look up fails no result will be returned.</p>
+<p>The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. <code>14</code>/<code>0xE</code> is <code>1110</code> as a binary bitmap.
+For each bit position that is set, (i.e. has a binary value of <code>1</code>)  a lookup will be performed using that bit position as the key.
+In this example, positions <code>1</code>, <code>2</code> &amp; <code>3</code> are set so a lookup would be performed for these bit positions.
+The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.</p>
+<p>If <code>ignoreWarnings</code> is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.</p>
+<p>This function can be useful when you have a set of values that can be represented as a bitmap and you need them to be converted back to individual values.
+For example if you have a set of additive account permissions (e.g Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&rsquo;s permissions could be defined as a single decimal/hex bitmap value.
+Thus a bitmap lookup with this value would return all the permissions held by the user.</p>
+<p>For example the reference data store may contain:</p>
+<table>
+<thead>
+<tr>
+<th>Key (Bit position)</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Administrator</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Manage_Users</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Perform_Export</td>
+</tr>
+<tr>
+<td>3</td>
+<td>View_Data</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Manage_Jobs</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Delete_Data</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Manage_Volumes</td>
+</tr>
+</tbody>
+</table>
+<p>The following are example lookups using the above reference data:</p>
+<table>
+<thead>
+<tr>
+<th>Lookup Key (decimal)</th>
+<th>Lookup Key (Hex)</th>
+<th>Bitmap</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>0x0</code></td>
+<td><code>0000000</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td><code>0x1</code></td>
+<td><code>0000001</code></td>
+<td><code>Administrator</code></td>
+</tr>
+<tr>
+<td><code>74</code></td>
+<td><code>0x4A</code></td>
+<td><code>1001010</code></td>
+<td><code>Manage_Users View_Data Manage_Volumes</code></td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><code>0x2</code></td>
+<td><code>0000010</code></td>
+<td><code>Manage_Users</code></td>
+</tr>
+<tr>
+<td><code>96</code></td>
+<td><code>0x60</code></td>
+<td><code>1100000</code></td>
+<td><code>Delete_Data Manage_Volumes</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="dictionary">dictionary()</h2>
+<p>The dictionary() function gets the contents of the specified dictionary for use during translation.
+The main use for this function is to allow users to abstract the management of a set of keywords from the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used by some XSLT, without the need for the user to understand the complexities of XSLT.</p>
+<h2 id="format-date">format-date()</h2>
+<p>The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
+contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.  If the
+optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
+A special time zone value of &ldquo;GMT/BST&rdquo; can be used to guess the time based on the date (BST during
+British Summer Time).</p>
+<p>E.g. Convert a GMT date time &ldquo;2009/12/01 12:34:11&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')&quot;/&gt;
+</code></pre>
+<p>E.g. Convert a GMT or BST date time &ldquo;2009/08/01 12:34:11&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')&quot;/&gt;
+</code></pre>
+<p>E.g. Convert a GMT+1:00 date time &ldquo;2009/08/01 12:34:11&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')&quot;/&gt;
+</code></pre>
+<p>E.g. Convert a date time specified as milliseconds since the epoch &ldquo;1269270011640&rdquo;</p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('1269270011640')&quot;/&gt;
+</code></pre>
+<p>Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.</p>
+<h2 id="link">link()</h2>
+<p>Create a string that represents a hyperlink for display in a dashboard table.</p>
+<pre><code>link(url)
+link(title, url)
+link(title, url, type)
+</code></pre>
+<p>Example</p>
+<pre><code>link('http://www.somehost.com/somepath')
+&gt; [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
+link('Click Here','http://www.somehost.com/somepath')
+&gt; [Click Here](http://www.somehost.com/somepath)
+link('Click Here','http://www.somehost.com/somepath', 'dialog')
+&gt; [Click Here](http://www.somehost.com/somepath){dialog}
+link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
+&gt; [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
+</code></pre>
+<p>Type can be one of:</p>
+<ul>
+<li><code>dialog</code> : Display the content of the link URL within a stroom popup dialog.</li>
+<li><code>tab</code> : Display the content of the link URL within a stroom tab.</li>
+<li><code>browser</code> : Display the content of the link URL within a new browser tab.</li>
+<li><code>dashboard</code> : Used to launch a stroom dashboard internally with parameters in the URL.</li>
+</ul>
+<p>If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both <code>dialog</code> and <code>tab</code> types allow titles to be specified after a <code>|</code>, e.g. <code>dialog|My Title</code>.</p>
+<h2 id="log">log()</h2>
+<p>The log() function writes a message to the processing log with the specified severity.
+Severities of INFO, WARN, ERROR and FATAL can be used.
+Severities of ERROR and FATAL will result in records being omitted from the output if a RecordOutputFilter is used in the pipeline.
+The counts for RecWarn, RecError will be affected by warnings or errors generated in this way therefore this function is useful for adding business rules to XML output.</p>
+<p>E.g. Warn if a SID is not the correct length.</p>
+<pre><code class="language-xml">&lt;xsl:if test=&quot;string-length($sid) != 7&quot;&gt;
+  &lt;xsl:value-of select=&quot;s:log('WARN', concat($sid, ' is not the correct length'))&quot;/&gt;
+&lt;/xsl:if&gt;
+</code></pre>
+<h2 id="lookup">lookup()</h2>
+<p>The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.</p>
+<pre><code class="language-text">lookup(String map, String key)
+lookup(String map, String key, String time)
+lookup(String map, String key, String time, Boolean ignoreWarnings)
+lookup(String map, String key, String time, Boolean ignoreWarnings, Boolean trace)
+</code></pre>
+<ul>
+<li><code>map</code> - The name of the reference data map to perform the lookup against.</li>
+<li><code>key</code> - The key to lookup. The key can be a simple string, an integer value in a numeric range or a nested lookup key.</li>
+<li><code>time</code> - Determines which set of reference data was effective at the requested time.
+If no reference data exists with an effective time before the requested time then the lookup will fail.
+Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-01-01T00:00:00.000Z</code>.</li>
+<li><code>ignoreWarnings</code> - If true, any lookup failures will be ignored, else they will be reported as warnings.</li>
+<li><code>trace</code> - If true, additional trace information is output as INFO messages.</li>
+</ul>
+<p>If the look up fails no result will be returned.
+By testing the result a default value may be output if no result is returned.</p>
+<p>E.g. Look up a SID given a PF</p>
+<pre><code class="language-xml">&lt;xsl:variable name=&quot;pf&quot; select=&quot;PFNumber&quot;/&gt;
+&lt;xsl:if test=&quot;$pf&quot;&gt;
+   &lt;xsl:variable name=&quot;sid&quot; select=&quot;s:lookup('PF_TO_SID', $pf, $formattedDateTime)&quot;/&gt;
+
+   &lt;xsl:choose&gt;
+      &lt;xsl:when test=&quot;$sid&quot;&gt;
+         &lt;User&gt;
+             &lt;Id&gt;&lt;xsl:value-of select=&quot;$sid&quot;/&gt;&lt;/Id&gt;
+         &lt;/User&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;
+         &lt;data name=&quot;PFNumber&quot;&gt;
+            &lt;xsl:attribute name=&quot;Value&quot;&gt;&lt;xsl:value-of select=&quot;$pf&quot;/&gt;&lt;/xsl:attribute&gt;
+         &lt;/data&gt;
+      &lt;/xsl:otherwise&gt;
+   &lt;/xsl:choose&gt;
+&lt;/xsl:if&gt;
+</code></pre>
+<h3 id="range-lookups">Range lookups</h3>
+<p>Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g 1-100.
+When a lookup is preformed the passed key is looked up as if it were a normal string key.
+If that lookup fails Stroom will try to convert the key to an integer (long) value.
+If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.</p>
+<p>Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
+In this use case, the IP address must first be converted into a numeric value using <code>numeric-ip()</code>, e.g:</p>
+<pre><code class="language-xslt">stroom:lookup('IP_TO_LOCATION', numeric-ip($ipAddress))
+</code></pre>
+<p>Similarly the reference data must be stored with key ranges whose bounds were created using this function.</p>
+<h3 id="nested-maps">Nested Maps</h3>
+<p>The lookup function allows you to perform chained lookups using nested maps.
+For example you may have a reference data map called <em>USER_ID_TO_LOCATION</em> that maps user IDs to some location information for that user and a map called <em>USER_ID_TO_MANAGER</em> that maps user IDs to the user ID of their manager.
+If you wanted to decorate a user&rsquo;s event with the location of their manager you could use a nested map to achieve the lookup chain.
+To perform the lookup set the <code>map</code> argument to the list of maps in the lookup chain, separated by a <code>/</code>, e.g. <code>USER_ID_TO_MANAGER/USER_ID_TO_LOCATION</code>.</p>
+<p>This will perform a lookup against the first map in the list using the requested key.
+If a value is found the value will be used as the key in a lookup against the next map.
+The value from each map lookup is used as the key in the next map all the way down the chain.
+The value from the last lookup is then returned as the result of the <code>lookup()</code> call.
+If no value is found at any point in the chain then that results in no value being returned from the function.</p>
+<p>In order to use nested map lookups each intermediate map must contain simple string values.
+The last map in the chain can either contain string values or XML fragment values.</p>
+<h2 id="put-and-get">put() and get()</h2>
+<p>You can put values into a map using the put() function. These values can then be retrieved
+later using the get() function. Values are stored against a key name so that multiple values
+can be stored. These functions can be used for many purposes but are most commonly used to
+count a number of records that meet certain criteria.</p>
+<p>An example of how to count records is shown below:</p>
+<pre><code class="language-xml">&lt;!-- Get the current record count --&gt;
+&lt;xsl:variable name=&quot;currentCount&quot; select=&quot;number(s:get('count'))&quot; /&gt;
+
+&lt;!-- Increment the record count --&gt;
+&lt;xsl:variable name=&quot;count&quot;&gt;
+  &lt;xsl:choose&gt;
+    &lt;xsl:when test=&quot;$currentCount&quot;&gt;
+      &lt;xsl:value-of select=&quot;$currentCount + 1&quot; /&gt;
+    &lt;/xsl:when&gt;
+    &lt;xsl:otherwise&gt;
+      &lt;xsl:value-of select=&quot;1&quot; /&gt;
+    &lt;/xsl:otherwise&gt;
+  &lt;/xsl:choose&gt;
+&lt;/xsl:variable&gt;
+
+&lt;!-- Store the count for future retrieval --&gt;
+&lt;xsl:value-of select=&quot;s:put('count', $count)&quot; /&gt;
+
+&lt;!-- Output the new count --&gt;
+&lt;data name=&quot;Count&quot;&gt;
+  &lt;xsl:attribute name=&quot;Value&quot; select=&quot;$count&quot; /&gt;
+&lt;/data&gt;
+</code></pre>
+<h2 id="parse-uri">parse-uri()</h2>
+<p>The parse-uri() function takes a Uniform Resource Identifier (URI) in string form and returns an XML node with a namespace of <code>uri</code> containing the URI&rsquo;s individual components of <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code> and <code>userInfo</code>. See either <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax</a> or Java&rsquo;s java.net.URI Class for details regarding the components.</p>
+<p>The following xml</p>
+<pre><code class="language-xml">&lt;!-- Display and parse the URI contained within the text of the rURI element --&gt;
+&lt;xsl:variable name=&quot;u&quot; select=&quot;s:parseUri(rURI)&quot; /&gt;
+
+&lt;URI&gt;
+  &lt;xsl:value-of select=&quot;rURI&quot; /&gt;
+&lt;/URI&gt;
+&lt;URIDetail&gt;
+  &lt;xsl:copy-of select=&quot;$v&quot;/&gt;
+&lt;/URIDetail&gt;
+</code></pre>
+<p>given the rURI text contains</p>
+<pre><code>   http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;p2=v2#more-details
+</code></pre>
+<p>would provide</p>
+<pre><code class="language-xml">&lt;URL&gt;http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;p2=v2#more-details&lt;/URL&gt;
+&lt;URIDetail&gt;
+  &lt;authority xmlns=&quot;uri&quot;&gt;foo:bar@w1.superman.com:8080&lt;/authority&gt;
+  &lt;fragment xmlns=&quot;uri&quot;&gt;more-details&lt;/fragment&gt;
+  &lt;host xmlns=&quot;uri&quot;&gt;w1.superman.com&lt;/host&gt;
+  &lt;path xmlns=&quot;uri&quot;&gt;/very/long/path.html&lt;/path&gt;
+  &lt;port xmlns=&quot;uri&quot;&gt;8080&lt;/port&gt;
+  &lt;query xmlns=&quot;uri&quot;&gt;p1=v1&amp;amp;p2=v2&lt;/query&gt;
+  &lt;scheme xmlns=&quot;uri&quot;&gt;http&lt;/scheme&gt;
+  &lt;schemeSpecificPart xmlns=&quot;uri&quot;&gt;//foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;amp;p2=v2&lt;/schemeSpecificPart&gt;
+  &lt;userInfo xmlns=&quot;uri&quot;&gt;foo:bar&lt;/userInfo&gt;
+&lt;/URIDetail&gt;
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-3f52cd945d5eabe8bb9a84799caa130e">2 - XSLT Includes</h1>
+    <div class="lead">Using an XSLT import to include XSLT from another translation.</div>
+	<p>You can use an XSLT import to include XSLT from another translation.  E.g.</p>
+<pre><code class="language-xml">&lt;xsl:import href=&quot;ApacheAccessCommon&quot; /&gt;
+</code></pre>
+<p>This would include the XSLT from the ApacheAccessCommon translation.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Crown Copyright 2022 All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous"></script>
+
+
+
+
+
+<script src='../../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../../js/main.js"></script>
+
+
+
+<script src='../../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>
