@@ -190,22 +190,22 @@ make_single_version_zip() {
   local repo_root="$1"; shift
 
   local generated_site_dir="${repo_root}/public"
-  #local single_site_version_dir="${SINGLE_SITE_DIR}/${branch_name}"
   local single_ver_zip_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.zip"
 
-  #echo -e "${GREEN}Creating ${BLUE}${single_site_version_dir}/${NC}"
-  #mkdir -p "${single_site_version_dir}"
-  #cp -r "${generated_site_dir}"/* "${single_site_version_dir}/"
-
+  local config_file="${repo_root}/${CONFIG_FILENAME}"
+  local temp_config_backup_file
+  temp_config_backup_file="$(mktemp)"
+  cp "${config_file}" "${temp_config_backup_file}"
 
   # No point having the warning banner for it being an old version if it is
   # the only one
-  echo -e "${GREEN}Updating config file ${CONFIG_FILENAME} (archived_version=false)${NC}"
+  echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
+    "(archived_version=false)${NC}"
   sed \
     --in-place'' \
     --regexp-extended \
     --expression "s/^  archived_version = .*/  archived_version = false/" \
-    "${repo_root}/${CONFIG_FILENAME}"
+    "${config_file}"
 
   # This is a single version site so remove all the version blocks i.e.
   # everything inside these tags, including the tags
@@ -213,12 +213,18 @@ make_single_version_zip() {
   #   ...
   #   <<<VERSION_BLOCK_END>>>
   # TODO This is a bit hacky so am open to ideas
-  echo -e "${GREEN}Updating config file ${BLUE}${CONFIG_FILENAME}${GREEN}" \
+  echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
     "(remove versions)${NC}"
   sed \
     --in-place'' \
     '/<<<VERSION_BLOCK_START>>>/,/<<<VERSION_BLOCK_END>>>/d' \
-    "${repo_root}/${CONFIG_FILENAME}"
+    "${config_file}"
+
+  echo -e "${GREEN}Diffing config changes${NC}"
+  echo -e "${GREEN}---------------------------------${NC}"
+  diff "${temp_config_backup_file}" "${config_file}" \
+    || true
+  echo -e "${GREEN}---------------------------------${NC}"
 
   # Clear out the generated site dir from the last run
   rm -rf "${generated_site_dir:?}"/*
