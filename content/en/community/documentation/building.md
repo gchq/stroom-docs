@@ -137,7 +137,6 @@ When the combined site is built, each version will exist within a directory as s
 /7.2/
 /8.0/
 /legacy/
-/master/
 ```
 
 ### Versioned Site Configuration
@@ -146,11 +145,11 @@ To configure each version of the site so that it knows what version it is and wh
 This needs to be done on each branch in a way that is appropriate to each branch.
 If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published and then merged the changes up the chain, e.g. legacy => 7.0 => 7.1 => 7.2 => 8.0 => master.
 
-The following config properties needed to be amended on each branch:
+The following config properties needed to be amended on each branch.
+This example is based on there being version legacy, 7.0 and 7.1, with 7.1 being the latest.
 
 ```toml
 [params]
-
   # Menu title if your navbar has a versions selector to access old versions of your site.
   version_menu = "Stroom Version (7.1)"
 
@@ -166,15 +165,18 @@ The following config properties needed to be amended on each branch:
   # point people to the main doc site.
   url_latest_version = "/../7.1"
 
+  # The name of the github branch that this version of the documentation lives on.
+  # Used for the github links in the top of the right hand sidebar.
+  # Should match the last part of url_latest_version.
+  github_branch= "7.1"
+
   # A set of all the versions that are available.
   [[params.versions]]
     version = "7.1"
     url = "/../7.1"
-
   [[params.versions]]
     version = "7.0"
     url = "/../7.0"
-
   [[params.versions]]
     version = "Legacy"
     url = "/../legacy"
