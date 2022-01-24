@@ -212,7 +212,7 @@ make_single_version_site() {
 
   # This is a single version site so remove all the version blocks i.e.
   # everything inside these tags, including the tags
-  #   <<<VERSIONS_BLOCK_END>>>
+  #   <<<VERSIONS_BLOCK_START>>>
   #   ...
   #   <<<VERSIONS_BLOCK_END>>>
   # TODO This is a bit hacky so am open to ideas
@@ -220,7 +220,7 @@ make_single_version_site() {
     "(remove versions)${NC}"
   sed \
     --in-place'' \
-    '/<<<VERSIONS_BLOCK_END>>>/,/<<<VERSIONS_BLOCK_END>>>/d' \
+    '/<<<VERSIONS_BLOCK_START>>>/,/<<<VERSIONS_BLOCK_END>>>/d' \
     "${config_file}"
 
   echo -e "${GREEN}Diffing config changes${NC}"
