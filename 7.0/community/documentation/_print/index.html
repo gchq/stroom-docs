@@ -384,15 +384,14 @@ Documentation changes for an as yet unreleased Stroom version would be performed
 /7.2/
 /8.0/
 /legacy/
-/master/
 </code></pre>
 <h3 id="versioned-site-configuration">Versioned Site Configuration</h3>
 <p>To configure each version of the site so that it knows what version it is and what the other versions are you need to edit <code>config.toml</code>.
 This needs to be done on each branch in a way that is appropriate to each branch.
 If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published and then merged the changes up the chain, e.g. legacy =&gt; 7.0 =&gt; 7.1 =&gt; 7.2 =&gt; 8.0 =&gt; master.</p>
-<p>The following config properties needed to be amended on each branch:</p>
+<p>The following config properties needed to be amended on each branch.
+This example is based on there being version legacy, 7.0 and 7.1, with 7.1 being the latest.</p>
 <pre><code class="language-toml">[params]
-
   # Menu title if your navbar has a versions selector to access old versions of your site.
   version_menu = &quot;Stroom Version (7.1)&quot;
 
@@ -408,15 +407,18 @@ If a change needs to be applied to all branches then it is best to make it in th
   # point people to the main doc site.
   url_latest_version = &quot;/../7.1&quot;
 
+  # The name of the github branch that this version of the documentation lives on.
+  # Used for the github links in the top of the right hand sidebar.
+  # Should match the last part of url_latest_version.
+  github_branch= &quot;7.1&quot;
+
   # A set of all the versions that are available.
   [[params.versions]]
     version = &quot;7.1&quot;
     url = &quot;/../7.1&quot;
-
   [[params.versions]]
     version = &quot;7.0&quot;
     url = &quot;/../7.0&quot;
-
   [[params.versions]]
     version = &quot;Legacy&quot;
     url = &quot;/../legacy&quot;
