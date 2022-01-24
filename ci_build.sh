@@ -189,7 +189,7 @@ make_single_version_site() {
   local branch_name="${1:-SNAPSHOT}"; shift
   local repo_root="$1"; shift
 
-  eche -e "${GREEN}Creating single version site for ${BLUE}${branch_name}" \
+  echo -e "${GREEN}Creating single version site for ${BLUE}${branch_name}" \
     "${repo_root}${NC}"
 
   local generated_site_dir="${repo_root}/public"
