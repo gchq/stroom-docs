@@ -344,6 +344,8 @@ has_release_branch_changed() {
 }
 
 clone_current_gh_pages_branch() {
+  echo -e "${GREEN}Cloning gh-pages branch into" \
+    "${BLUE}${CURRENT_GH_PAGES_DIR}${NC}"
   git \
     clone \
     --depth 1 \
@@ -456,6 +458,9 @@ main() {
   mkdir -p "${SINGLE_SITE_DIR}"
 
   # TODO Need to check for broken simple markdown links
+
+  # Get a local copy of the gh-pages branch as it stands
+  clone_current_gh_pages_branch
 
   # Build the commit/tag/pr that triggered this script to run
   # to ensure the site and PDF build ok. E.g. this might be some feature
