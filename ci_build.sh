@@ -126,7 +126,7 @@ build_version_from_source() {
       # Now make a site that only knows about one version for inclusion with
       # stack/zip deployments. Must do this after the copy above as it will
       # modify the Hugo config
-      make_single_version_zip "${branch_name}" "${repo_root}"
+      make_single_version_site "${branch_name}" "${repo_root}"
     else
       echo -e "${BLUE}${branch_name}${GREEN} is not a release branch so won't" \
         "add it to ${BLUE}${NEW_GH_PAGES_DIR}${NC}"
@@ -185,9 +185,12 @@ assemble_version() {
 
 # We want a site for a single version that doesn't know about any of the
 # others.
-make_single_version_zip() {
+make_single_version_site() {
   local branch_name="${1:-SNAPSHOT}"; shift
   local repo_root="$1"; shift
+
+  eche -e "${GREEN}Creating single version site for ${BLUE}${branch_name}" \
+    "${repo_root}${NC}"
 
   local generated_site_dir="${repo_root}/public"
   local single_ver_zip_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.zip"
@@ -209,15 +212,15 @@ make_single_version_zip() {
 
   # This is a single version site so remove all the version blocks i.e.
   # everything inside these tags, including the tags
-  #   <<<VERSION_BLOCK_START>>>
+  #   <<<VERSIONS_BLOCK_END>>>
   #   ...
-  #   <<<VERSION_BLOCK_END>>>
+  #   <<<VERSIONS_BLOCK_END>>>
   # TODO This is a bit hacky so am open to ideas
   echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
     "(remove versions)${NC}"
   sed \
     --in-place'' \
-    '/<<<VERSION_BLOCK_START>>>/,/<<<VERSION_BLOCK_END>>>/d' \
+    '/<<<VERSIONS_BLOCK_END>>>/,/<<<VERSIONS_BLOCK_END>>>/d' \
     "${config_file}"
 
   echo -e "${GREEN}Diffing config changes${NC}"
