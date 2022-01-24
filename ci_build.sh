@@ -96,7 +96,6 @@ build_version_from_source() {
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
 
-
   # Build the Hugo site html (into ./public/)
   # TODO, remove --buildDrafts arg once we merge to master
   echo -e "${GREEN}Building combined site HTML with Hugo${NC}"
@@ -116,16 +115,18 @@ build_version_from_source() {
       "${RELEASE_ARTEFACTS_DIR}/${pdf_filename}" \
       "${branch_gh_pages_dir}/"
 
-    make_single_version_zip "${branch_name}" "${repo_root}"
-
     # Might be some random feature branch
     if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
 
-      local site_branch_dir="${branch_gh_pages_dir}/"
-      mkdir -p "${site_branch_dir}"
+      mkdir -p "${branch_gh_pages_dir}"
       echo -e "${GREEN}Copying site HTML (${BLUE}${generated_site_dir}${GREEN})" \
-        "to combined gh-pages dir (${BLUE}${site_branch_dir}${GREEN})${NC}"
-      cp -r "${generated_site_dir}"/* "${site_branch_dir}"
+        "to combined gh-pages dir (${BLUE}${branch_gh_pages_dir}${GREEN})${NC}"
+      cp -r "${generated_site_dir}"/* "${branch_gh_pages_dir}"
+
+      # Now make a site that only knows about one version for inclusion with
+      # stack/zip deployments. Must do this after the copy above as it will
+      # modify the Hugo config
+      make_single_version_zip "${branch_name}" "${repo_root}"
     else
       echo -e "${BLUE}${branch_name}${GREEN} is not a release branch so won't" \
         "add it to ${BLUE}${NEW_GH_PAGES_DIR}${NC}"
@@ -358,8 +359,8 @@ prepare_for_release() {
   ls -1 "${NEW_GH_PAGES_DIR}/"
 
   # pushd so all paths in the zip are relative to this dir
-  # Exclude the individual version zips from the combined zip
   pushd "${NEW_GH_PAGES_DIR}"
+  # Exclude the individual version zip/pdfs from the combined zip
   # Exclude arg needs to go after zip filename and target(s)
   zip \
     --recurse-paths \
@@ -367,7 +368,8 @@ prepare_for_release() {
     -9 \
     "${RELEASE_ARTEFACTS_DIR}/${ZIP_FILENAME}" \
     ./* \
-    --exclude 'stroom-docs-v*.zip'
+    --exclude '*/stroom-docs-v*.zip' \
+    --exclude '*/stroom-docs-v*.pdf'
   popd
 
   echo -e "${GREEN}Dumping contents of ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
