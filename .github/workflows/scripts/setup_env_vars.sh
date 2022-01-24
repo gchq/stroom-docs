@@ -15,7 +15,8 @@ fi
 echo -e "${GREEN}Grepping git commit msg for publish keyword${NC}"
 git --no-pager log -1 --pretty=format:"%s" \
   | head -n1 \
-  | grep -i "\[publish\]"
+  | grep -i "\[publish\]" || true
+echo -e "${GREEN}----${NC}"
 
 # If releases are only done nighly this allows us to force one for testing
 # So just include '[publish]' in the commit msg.
