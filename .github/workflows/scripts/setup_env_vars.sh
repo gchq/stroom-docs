@@ -12,11 +12,15 @@ if [[ ${GITHUB_REF} =~ ^refs/heads/ ]]; then
   build_branch="${GITHUB_REF#refs/heads/}"
 fi
 
+echo -e "${GREEN}Grepping git commit msg for publish keyword${NC}"
+git --no-pager log -1 --pretty=format:"%s" \
+  | head -n1 \
+  | grep -i "\[publish\]"
+
 # If releases are only done nighly this allows us to force one for testing
 # So just include '[publish]' in the commit msg.
 # Don't force if scheduled as a scheduled job just builds the latest commit
 # which may have force on it.
-is_forced_release=false
 if [[ "${build_branch}" = "master" && "${GITHUB_EVENT_NAME}" != "schedule" ]] \
   && git --no-pager log -1 --pretty=format:"%s" \
     | head -n1 \
@@ -24,6 +28,8 @@ if [[ "${build_branch}" = "master" && "${GITHUB_EVENT_NAME}" != "schedule" ]] \
 
   # Seen '[publish]' in the latest commit msg on master
   is_forced_release=true;
+else
+  is_forced_release=false
 fi
 echo -e "${GREEN}is_forced_release: ${BLUE}${is_forced_release}${NC}"
 
