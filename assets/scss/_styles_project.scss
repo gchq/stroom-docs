@@ -106,18 +106,23 @@ li.td-sidebar-nav__section-title {
     white-space: nowrap;
   }
   span:before {
-    font-size: 90%; // Make the + a bit smaller than the text it is with
     content: "✚ ";
-    color: $primary;
     visibility: hidden;
+    opacity: 90%;
   }
   li.with-child span:before {
-    opacity: 90%;
+    color: $primary;
+    //opacity: 90%;
     visibility: visible;
   }
+  // Show a different icon/colour for each item on the active path
+  // so you can see where you are in the tree
   li.active-path > a > span:before {
-    visibility: hidden;
+    content: "➔ ";
+    color: $secondary;
+    visibility: visible;
   }
+  // No icon for leaves unless they are covered by active path rule above
   li.without-child span:before {
     visibility: hidden;
   }
