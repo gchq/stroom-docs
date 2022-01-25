@@ -212,7 +212,7 @@ main() {
           sed \
             -r \
             -i'' \
-            "0,/^(#\s*)?weight:/{s/^(#\s*)?weight:/weight: ${new_weight}/}" \
+            "0,/^(#\s*)?weight:.*/{s/^(#\s*)?weight:.*/weight: ${new_weight}/}" \
             "${file}"
         else
           # 'weight:' not in the front matter so add it
