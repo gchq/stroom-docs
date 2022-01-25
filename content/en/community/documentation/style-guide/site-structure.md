@@ -2,7 +2,7 @@
 title: "Site Structure"
 linkTitle: "Site Structure"
 weight: 10
-date: 2021-07-20
+date: 2022-01-25
 tags:
 description: >
   Describes the file and directory structure for the site.
@@ -31,7 +31,7 @@ This is the page that users will initially see, unless visiting via a direct lin
 
 #### About (`about`)
 
-A single page describing what stroom is
+A single page describing what stroom is.
 
 
 #### Documentation (`docs`)
@@ -47,7 +47,7 @@ The pages in the two sub-sections (`news` and `releases`) are displayed in chron
 
 ##### News (`news/news`)
 
-This sub section has one `.md` file per news item.
+This sub section has a flat structure with one `.md` file per news item.
 Each file should be named in the form `YYYYMMDD-<name>.md`.
 The `date` key should be set in the front matter to match the date of the file.
 Hugo will use this `date` key to order the files in the menu.
@@ -76,71 +76,40 @@ description: >
 ```
 
 
-
 #### Community (`community`)
 
 This section provides information for people wanting to contribute to the development of Stroom and its peripheral repositories.
 This can include developer documentation for building and developing Stroom.
-
-### Content files
-
-The `docs` and `news` top level sections have a tree structure for the co
+This has the same structure as `docs`.
 
 
+### Documentation content
 
+The `docs` and `community` top level sections have a tree structure for their content.
+Each of these directories will contain three different types of entities:
 
-## Front matter
+* Section directories
+* Section index files (`_index.md`)
+* Pages (e.g. `building.md`)
 
-{{% note %}}
-See [Hugo Front Matter (external link)](https://gohugo.io/content-management/front-matter/) for the full list of metadata keys that can be set.
-{{% /note %}}
+The following is an example of part of the structure of the `community` section.
 
-Front matter in Hugo is a set of meta data at the top of each page that controls which menus include the page as well as providing information about the page, e.g.
-
-```yaml
----
-title: "Site Structure"
-linkTitle: "Site Structure"
-#weight:
-date: 2021-07-20
-tags:
-  - style
-description: >
-  Describes the file and directory structure for the site.
----
+```text
+├── documentation/                 Documentation section directory
+│   ├── building.md                Page
+│   ├── _index.md                  Documentation section index page
+│   ├── style-guide/               Style guide section directory
+│   │   ├── basic-elements.md      Page
+│   │   ├── icon-gallery.md        Page     
+│   │   ├── _index.md              Style guide section index page
+│   │   ├── site-structure.md      Page
+│   │   └── using-images.md        Page
+│   └── versions.md                Page
+└── roadmap.md                     Page
 ```
 
-### Tags
-
-In the front matter, `tags` is a list of tags that are applicable to the document and allow documents to be searched for by tag.
-Tag names should conform to the following conventions:
-
-* Lower kebab case, i.e. `reference-data`, even for abbreviations.
-* The only exception to the case rule is `TODO`, which is always upper case.
-* Singular, i.e. `pipeline` rather than `pipelines`.
-
-Avoid using too many unique tag names as it will make the list of tags in the sidebar to large to be useful.
-When setting a tag on a document consult the list of existing tags to ensure consistency and to see if a more applicable tag already exists.
-
-Add the `TODO` tag to a page when the page is incomplete.
-This makes it easy to find areas of the documentation that are in need of attention.
-
-
-## Versioning
-
-{{% note %}}
-See [Docsy Versioning (external link)](https://www.docsy.dev/docs/adding-content/versioning/) for details on how to configure versioning.
-{{% /note %}}
-
-The site will be versioned and the versions will be tied to each minor release of Stroom, e.g 7.0, 7.1, 8.0 etc.
-Each version will live in its own git branch, e.g. `7.0`, `7.1`, `8.0`, etc.
-
-The site will also have a _Legacy_ version which will live on the branch `legacy`.
-This will contain the documentation as it was when it was migrated to Hugo.
-The legacy documentation contains content relevant to multiple versions of Stroom.
-All subsequent versions will only contain content relevant to that minor version of Stroom, or will be clearly marked as being out of date, e.g.:
-
-{{% warning %}}
-This section is out of date.
-{{% /warning %}}
-
+A section can essentially contain branches (sections) and leaves (pages).
+A branch (i.e. a section) is defined by a directory that contains an `_index.md` file.
+The front matter in this index file defines the meta data for that section, e.g. the title, date, tags, description, etc.
+A leaf (i.e. a page with no children) is just a markdown file with front matter.
+The front matter for branches and leaves works in the same way.

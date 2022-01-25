@@ -2,19 +2,22 @@
 title: "Running Stroom in an IDE"
 linkTitle: "Running Stroom in an IDE"
 #weight:
-date: 2021-08-20
+date: 2022-01-25
 tags: 
 description: >
-  
+  How to run Stroom in an Integrated Development Environment, e.g. IntelliJ
+
 ---
 
-We tend to use IntelliJ as our Java IDE of choice. This is a guide for running Stroom in IntelliJ for the purposes of developing/debugging Stroom.
+We tend to use IntelliJ as our Java IDE of choice.
+This is a guide for running Stroom in IntelliJ for the purposes of developing/debugging Stroom.
+
 
 ## Prerequisites
 
 In order to build/run/debug Stroom you will need the following:
 
- * Java 8 JDK
+ * OpenJDK 15
  * Git
  * Gradle
  * IntelliJ
@@ -23,25 +26,27 @@ In order to build/run/debug Stroom you will need the following:
 
 These instructions assume that all servcies will either run in the IDE or in Docker containers.
 
-## Environment variables
 
 ## Stroom git repositories
 
-To develop stroom you will need to clone/fork multiple git repositories.
+To develop Stroom you will need to clone/fork multiple git repositories.
 To quickly clone all of the Stroom repositories you can use the helper script described in [stroom-resource (external link)](https://github.com/gchq/stroom-resources/blob/master/README.md).
 
 
 ## Database setup
 
-Stroom requires a MySQL database to run. You can either point stroom at a MySQL server or preferably at a MySQL Docker containers.
+Stroom requires a MySQL database to run.
+You can either point stroom at a MySQL server or preferably at a MySQL Docker container.
+
 
 ### MySQL in a Docker container
 
-See the section below on stroom-resources.
+See the section below on [stroom-resources](#stroom-resources).
+
 
 ### Host based MySQL server
 
-With an instance of MySQL server 5.5 running on your local machine do the following to create the _stroom_ database:
+With an instance of MySQL server 8.0 running on your local machine do the following to create the _stroom_ database:
 
 ```bash
 # log into your MySQL server using your root credentials
@@ -57,15 +62,20 @@ grant all privileges on stroom.* to stroomuser@localhost identified by 'stroompa
 quit;
 ```
 
+
 ## Local configuration file
 
-When running stroom in an IDE it is advisable to have a local configuration file to allow you to change settings locally without affecting the repository. The local configuration file is expected to live at `~/.stroom/stroom.conf`. To create a default version of this file run the script `stroom.conf.sh` from within the root of the stroom git repository.
+When running stroom in an IDE it is advisable to have a local configuration file to allow you to change settings locally without affecting the repository.
+The local configuration file is expected to live at `~/.stroom/stroom.conf`.
+To create a default version of this file run the script `stroom.conf.sh` from within the root of the stroom git repository.
 
 Add any properties from stroom.properties that you want different values for, e.g.
 
+
 ## stroom-resources
 
-As a minimum to develop stroom you will need clones of the `stroom` and `stroom-resources` git repositories. `stroom-resources` provides the docker-compose configuration for running the many docker containers needed.
+As a minimum to develop stroom you will need clones of the `stroom` and `stroom-resources` git repositories.
+`stroom-resources` provides the docker-compose configuration for running the many docker containers needed.
 
 Having cloned `stroom-resources` navigate to the directory `stroom-resources/bin` and run the script
 
@@ -75,25 +85,35 @@ Having cloned `stroom-resources` navigate to the directory `stroom-resources/bin
 
 On first run this will create a default version of the git-ignored file `stroom-resources/bin/local.env` which is intended for use by developers to configure the docker stacks to run.
 
-This file is used to set a number of environment variables that docker compose will use to configure the various containers. The key environment variable in there is `SERVICE_LIST`. This is a space delimited list of the services for docker-compose to run. The services are all defined in `stroom-resources/bin/compose/everything.yml` and its dependencies. By default `SERVICE_LIST` runs a core stroom stack entirely in docker. 
+This file is used to set a number of environment variables that docker compose will use to configure the various containers.
+The key environment variable in there is `SERVICE_LIST`.
+This is a space delimited list of the services for docker-compose to run.
+The services are all defined in `stroom-resources/bin/compose/everything.yml` and its dependencies.
+By default `SERVICE_LIST` runs a core stroom stack entirely in docker. 
 
-To run stroom in an IDE `stroom` needs to be removed from `SERVICE_LIST`, i.e. by commenting out the line `SERVICE_LIST="${SERVICE_LIST} stroom"` in `local.env`. Having done this run stroom's core dependencies as follows:
+To run stroom in an IDE `stroom` needs to be removed from `SERVICE_LIST`, i.e. by commenting out the line `SERVICE_LIST="${SERVICE_LIST} stroom"` in `local.env`.
+Having done this run Stroom's core dependencies as follows:
 
 ``` bash
 ./bounceIt.sh
 ```
 
+
 ## Verify the Gradle build
 
-Before trying to run Stroom in an IDE it is worth performing a Gradle build without the integration tests (as these take ~20mins to run) to verify the code compiles and all dependencies are present.
+Before trying to run Stroom in an IDE it is worth performing a Gradle build to verify the code compiles and all dependencies are present.
+This command will run all parts of the build except for the tests which can take 20+mins to run.
 
 ```bash 
-./gradlew clean build -x integrationTest
+./gradlew clean build -x test
 ```
+
 
 ## Sample Data
 
-Some of the tests are dependant on some sample data and content being present in the database.  This sample data/content can also be useful for manually testing the application in development. The sample data/content is generated by a class called _SetupSampleData.java_. This class assumes that the database being used for Stroom is completely empty.
+Some of the tests are dependent on some sample data and content being present in the database.  This sample data/content can also be useful for manually testing the application in development.
+The sample data/content is generated by a class called _SetupSampleData.java_.
+This class assumes that the database being used for Stroom is completely empty.
 
 First you need to create a run configuration for _SetupSampleData.java_
 
@@ -112,55 +132,57 @@ Now run _SetupSampleData_
 
 You should now have a database populated with tables and data, providing you with some predefined feeds, data, translations, pipelines, dashboards, etc.
 
+
 ## Running Stroom from the IDE
 
-The user interface for Stroom is built using GWT (see [GWT Project](http://www.gwtproject.org/) for more information or GWT specific documentation). As a result Stroom needs to be started up with GWT _Dev Mode_. _Dev Mode_ handles the compilation of the Java user interface source into JavaScript and the source map that links client JavaScript back to Java source for client side debugging.
+The user interface for Stroom is built using GWT (see [GWT Project](http://www.gwtproject.org/) for more information or GWT specific documentation).
+As a result Stroom needs to be started up with GWT _Dev Mode_. _Dev Mode_ handles the compilation of the Java user interface source into JavaScript and the source map that links client JavaScript back to Java source for client side debugging.
 
-Stroom is run from the main method in Startup.java. Before running this you need to setup the run configuration:
+The following steps for running and debugging Stroom in IDEA assume you have a MySQL database running on `localhost`, with a database `stroom` and user `stroomuser` already created.
 
-1. Click _Run_ -> _Edit Configurations..._
-1. Click the green _+_ icon to add a new configuration
-1. Select _Application_ as the configuration type
-1. In the _Main class_ field enter _Startup_
-1. In the _Programme arguments_ field enter 
+### JAVA_HOME
 
-  `-startupUrl stroom.jsp -logLevel INFO -war . -logdir . -gen . -extra . -workDir . stroom.app.AppSuperDevMode`
+Ensure environment variable `JAVA_HOME` is set and points to a valid JDK 15 directory
 
-1. In the _Use classpath of module_ field select _stroom-startup_
-1. If you have set the _STROOM_TMP_ environment variable in your _.bashrc_ / _.zshrc_ then ignore this step.  In the _Environment variables_ field click the _..._ icon and add _STROOM_TMP_ = _~/tmp/stroom/_ (or whatever directory you choose)
-1. Click the _OK_ button
+```bash
+export JAVA_HOME=~/.jdks/openjdk-15.0.2
+```
 
-Now run _Startup_ 
+Alternatively to simplify the process of installing and managing Java JDKs consider using [SDKMan (external link)](https://sdkman.io/install).
 
-1. Click _Run_ -> _Run..._
-1. Select _Startup_
+### Build `stroom-app`
 
-You should eventually see the GWT Dev Mode window appear.
+NOTE: During development, it is helpful to skip running unit and integration tests, to speed up the build process:
+```bash
+./gradlew clean build -x test
+```
 
-{{< screenshot "dev-guide/devMode.png" >}}GWT Dev Mode Window{{< /screenshot >}}
+### Start a single Stroom node
 
-Initially, some of the buttons shown above will not be visible as it is in the process of starting up. As soon as the _Launch Default Browser_ button appears you are ready to open Stroom in a browser. You have two options:
+1. Select the IDEA run configuration named `Stroom GWT SuperDevMode`
+1. Click `Debug`. Stroom will start, with log output displayed in the `Run` pane at the bottom of the window.
 
-* Click the _Launch Default Browser_ button
-* Open your preferred browser and enter the URL [http://127.0.0.1:8888](http://127.0.0.1:8888)
+Watch the log output. Once you see a log INFO message containing the text "Started", you will be able to launch the app in a browser from: https://localhost.
 
-> **NOTE:** Stroom has been written with Google's Chrome browser in mind so has only been tested on Chrome. Behaviour in other browsers may vary. We would like to improve cross-browser support so please let us know about any browser incompatibilities that you find.
-
-In the browser you will initially see the following:
-
->Starting Stroom
-
->Initialising context...
-
-Once the context has been initialised you will see the Stroom blue background and a spinner while GWT compiles the front-end code. Once the code has been compiled you will be presented with the Stroom login page. Stroom in development mode uses simple username/password authentication. Enter the following credentials:
+You will see the Stroom blue background, with a username/password prompt. Enter the following default credentials:
 
 * **Username**: admin
 * **Password**: admin
 
-## Right click behaviour
-Stroom overrides the defualt right click behaviour in the browser with its own context menu. For UI development it is often required to have access to the browser's context menu for example to inspect elements. To enable the browser's context menu you need to uncomment the following property in your _stroom.conf_ file, e.g.
+You can now interact with Stroom and set breakpoints in Java code. Note that setting breakpoints in GWT code does not
+have any effect, as these components are compiled to static JavaScript.
 
-```properties 
-#Uncomment this to enable browser's right click menu for development
-stroom.ui.oncontextmenu=
+> **NOTE:** Stroom has been written with Google's Chrome browser in mind so has only been tested on Chrome. Behaviour in other browsers may vary. We would like to improve cross-browser support so please let us know about any browser incompatibilities that you find.
+
+
+## Right click behaviour
+
+Stroom overrides the default right click behaviour in the browser with its own context menu.
+For UI development it is often required to have access to the browser's context menu for example to inspect elements.
+To enable the browser's context menu you need to ensure this is property is set to null in `dev.yml`:
+
+```yaml
+stroom:
+  ui:
+    oncontextmenu: null
 ```
