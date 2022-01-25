@@ -4,17 +4,12 @@
 
 # The top of page title.
 # Each word capitalised.
-title: "Style Guide"
+title: "Documentation Style Guide"
 
 # The link title in the left menu. Often the same as the title but if the title
 # is long then it is better to shorten/abbreviate the link title
 # Each word capitalised.
 linkTitle: "Style Guide"
-
-# Priority in the main (top) menu bar, lower numbers to left
-# menu:
-#   main:
-#     weight: 100
 
 # Optional priority in the left menu bar, lower number = higher position
 # Use this if you want to control over the positions
