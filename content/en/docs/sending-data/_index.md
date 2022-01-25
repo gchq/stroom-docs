@@ -1,7 +1,7 @@
 ---
 title: "Sending Data to Stroom"
 linkTitle: "Sending Data to Stroom"
-weight: 50
+weight: 60 50
 date: 2021-07-27
 tags: 
 description: >

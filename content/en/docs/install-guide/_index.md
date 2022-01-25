@@ -1,7 +1,7 @@
 ---
 title: "Installation Guide"
 linkTitle: "Installation Guide"
-weight: 20
+weight: 30 20
 date: 2021-08-20
 tags: 
 description: >
