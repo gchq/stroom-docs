@@ -71,13 +71,6 @@ build_version_from_source() {
   local branch_head_commit_sha
   branch_head_commit_sha="$(git rev-parse HEAD)"
 
-  # Scrape the Hugo config to find out what the latest version is
-  local latest_version
-  latest_version="$( \
-    grep  -e "^\s*url_latest_version" "${BUILD_DIR}/config.toml" \
-    | sed -r 's|[^"]*".*/([^"]+)"|\1|' \
-  )"
-
   local branch_gh_pages_dir="${NEW_GH_PAGES_DIR}/${branch_name}"
   mkdir -p "${branch_gh_pages_dir}"
   # Write the commit sha to gh-pages so in future builds we can query it
@@ -116,7 +109,7 @@ build_version_from_source() {
       "${branch_gh_pages_dir}/"
 
     # Might be some random feature branch
-    if element_in "${branch_name}" "${RELEASE_BRANCHES[@]}"; then
+    if element_in "${branch_name}" "${release_branches[@]}"; then
 
       mkdir -p "${branch_gh_pages_dir}"
       echo -e "${GREEN}Copying site HTML (${BLUE}${generated_site_dir}${GREEN})" \
@@ -258,12 +251,6 @@ make_single_version_site() {
 }
 
 create_root_redirect_page() {
-  local latest_version
-  latest_version="$( \
-    grep  -e "^\s*url_latest_version" "${BUILD_DIR}/config.toml" \
-    | sed -r 's|[^"]*".*/([^"]+)"|\1|' \
-  )"
-  
   echo -e "${GREEN}Creating root redirect page with latest version [" \
     "${BLUE}${latest_version}${GREEN}]${NC}"
 
@@ -396,6 +383,30 @@ prepare_for_release() {
   fi
 }
 
+populate_release_brances_arr() {
+  # Read all the matching release branches into the arr
+  readarray -t release_branches \
+    < <(curl \
+      --silent \
+      --header "authorization: Bearer ${GITHUB_TOKEN}" \
+      "${GIT_API_URL}/branches" \
+      | jq -r '.[] | select(.name | test("(^legacy|[0-9]+\\.[0-9]+$)")) | .name')
+
+  echo -e "release_branches:      [${GREEN}${release_branches[*]}${NC}]"
+
+  # print array, null delimited
+  # Get just the 123.456 ones
+  # Sort them by major then minor part
+  # Get the biggest one
+  latest_version="$( \
+    printf '%s\0' "${release_branches[@]}" \
+    | grep -E "^[0-9]+\.[0-9]+$" \
+    | sort -z -t . -k 1,1n -k 2,2n \
+    | tail -n1)"
+
+  echo -e "latest_version:        [${GREEN}${latest_version}${NC}]"
+}
+
 main() {
   setup_echo_colours
 
@@ -412,13 +423,18 @@ main() {
   #   /7.1/
   #   ...
   # Master should not be published to ghpages or released.
-  #RELEASE_BRANCHES=(
+  #release_branches=(
     #"hugo-docsy"
   #)
-  RELEASE_BRANCHES=(
-    "7.0"
-    "legacy"
-  )
+  local release_branches=()
+  local latest_version=
+
+  populate_release_brances_arr
+
+  #release_branches=(
+    #"7.0"
+    #"legacy"
+  #)
 
   local PDF_FILENAME_BASE="${BUILD_TAG:-SNAPSHOT}"
   local ZIP_FILENAME="${BUILD_TAG:-SNAPSHOT}.zip"
@@ -445,14 +461,13 @@ main() {
   echo -e "BUILD_IS_RELEASE:      [${GREEN}${BUILD_IS_RELEASE}${NC}]"
   echo -e "BUILD_NUMBER:          [${GREEN}${BUILD_NUMBER}${NC}]"
   echo -e "BUILD_TAG:             [${GREEN}${BUILD_TAG}${NC}]"
+  echo -e "GITHUB_EVENT_NAME:     [${GREEN}${GITHUB_EVENT_NAME}${NC}]"
   echo -e "LOCAL_BUILD:           [${GREEN}${LOCAL_BUILD}${NC}]"
   echo -e "PDF_FILENAME_BASE:     [${GREEN}${PDF_FILENAME_BASE}${NC}]"
   echo -e "PWD:                   [${GREEN}$(pwd)${NC}]"
-  echo -e "RELEASE_BRANCHES:      [${GREEN}${RELEASE_BRANCHES[*]}${NC}]"
   echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
-  #mkdir -p "${COMBINED_SITE_DIR}"
   mkdir -p "${GIT_WORK_DIR}"
   mkdir -p "${NEW_GH_PAGES_DIR}"
   mkdir -p "${SINGLE_SITE_DIR}"
@@ -462,10 +477,14 @@ main() {
   # Get a local copy of the gh-pages branch as it stands
   clone_current_gh_pages_branch
 
-  # Build the commit/tag/pr that triggered this script to run
-  # to ensure the site and PDF build ok. E.g. this might be some feature
-  # branch
-  build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
+  # If this is a scheduled build there is point in building the master branch
+  # as it will have been built before and is not part of the release.
+  if [[ ! "${GITHUB_EVENT_NAME}" = "schedule" ]]; then
+    # Build the commit/tag/pr that triggered this script to run
+    # to ensure the site and PDF build ok. E.g. this might be some feature
+    # branch
+    build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
+  fi
 
   # TODO get this working for hugo content
   #echo -e "${GREEN}Checking all .md files for broken links${NC}"
@@ -473,14 +492,12 @@ main() {
 
   pushd "${GIT_WORK_DIR}"
 
-  #local hugo_base_url
-
   # Now build each of the release branches (if they have changed)
-  for branch_name in "${RELEASE_BRANCHES[@]}"; do
+  for branch_name in "${release_branches[@]}"; do
 
     if ! git ls-remote --exit-code --heads origin "refs/heads/${branch_name}"; then
       echo -e "${RED}ERROR: Branch ${BLUE}${branch_name}${RED}" \
-        "does not exist. Check contents of RELEASE_BRANCHES array.${NC}"
+        "does not exist. Check contents of release_branches array.${NC}"
       exit 1
     fi
 
@@ -489,31 +506,12 @@ main() {
 
       # Run the build for this branch in the self named dir
       assemble_version "${branch_name}" "${branch_clone_dir}"
-
-      #hugo_base_url="${BASE_URL_BASE}/${BUILD_BRANCH}"
     else
       echo -e "${GREEN}Skipping build for ${BLUE}${branch_name}${NC}"
     fi
   done
 
   popd
-
-  #echo -e "${GREEN}Removing unwanted files${NC}"
-  #rm -v "${SITE_DIR}"/*.yml
-  #rm -v "${SITE_DIR}"/*.sh
-  #rm -v -rf "${SITE_DIR}/.github"
-
-  # In the absence of url rewriting on github pages, copy the latest
-  # branch into the root
-  #if [[ -d "${COMBINED_SITE_DIR}/${latest_version}" ]]; then
-    #echo -e "${GREEN}Copying contents of " \
-      #"${BLUE}${COMBINED_SITE_DIR}/${latest_version}/${GREEN} to" \
-      #"${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
-    #cp \
-      #-r \
-      #"${COMBINED_SITE_DIR}/${latest_version}/"*
-      #"${NEW_GH_PAGES_DIR}/"
-  #fi
 
   # In the absence of url rewriting on github pages create an index.html
   # that does a redirect to the latest version e.g. / => /7.1
@@ -522,7 +520,7 @@ main() {
   echo -e "${GREEN}have_any_release_branches_changed:" \
     "${BLUE}${have_any_release_branches_changed}${NC}"
 
-  #if element_in "${BUILD_BRANCH}" "${RELEASE_BRANCHES[@]}"; then
+  #if element_in "${BUILD_BRANCH}" "${release_branches[@]}"; then
   if [[ "${BUILD_IS_RELEASE}" = "true" \
     && "${have_any_release_branches_changed}" = "true" ]]; then
 
