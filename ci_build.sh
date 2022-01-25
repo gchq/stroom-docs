@@ -79,10 +79,10 @@ build_version_from_source() {
 
   echo -e "${GREEN}-----------------------------------------------------${NC}"
   echo -e "${GREEN}Building" \
-    "\n  branch_name:            ${BLUE}${branch_name}${GREEN}," \
-    "\n  branch_head_commit_sha: ${BLUE}${branch_head_commit_sha}${GREEN}," \
-    "\n  repo_root:              ${BLUE}${repo_root}${GREEN}," \
-    "\n  latest_version:         ${BLUE}${latest_version}${GREEN},"
+    "\n  branch_name:            ${BLUE}${branch_name}${GREEN}" \
+    "\n  branch_head_commit_sha: ${BLUE}${branch_head_commit_sha}${GREEN}" \
+    "\n  repo_root:              ${BLUE}${repo_root}${GREEN}" \
+    "\n  latest_version:         ${BLUE}${latest_version}${GREEN}"
     #"\n  base_url:        ${BLUE}${hugo_base_url}${NC}"
   echo -e "${GREEN}-----------------------------------------------------${NC}"
 
@@ -407,22 +407,6 @@ populate_release_brances_arr() {
     echo "---------"
     exit 1
   fi
-
-  echo "---"
-  printf '%s\n' "${release_branches[@]}"
-  echo "---"
-  printf '%s\n' "${release_branches[@]}" \
-    | grep -E "^[0-9]+\.[0-9]+$"
-  echo "---"
-  printf '%s\n' "${release_branches[@]}" \
-    | grep -E "^[0-9]+\.[0-9]+$" \
-    | sort -t . -k 1,1n -k 2,2n
-  echo "---"
-  printf '%s\n' "${release_branches[@]}" \
-    | grep -E "^[0-9]+\.[0-9]+$" \
-    | sort -t . -k 1,1n -k 2,2n \
-    | tail -n1
-  echo "---"
 
   # print array, null delimited
   # Get just the 123.456 ones
