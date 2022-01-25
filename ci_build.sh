@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -eo pipefail
-IFS=$'\n\t'
+#IFS=$'\n\t'
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -408,14 +408,30 @@ populate_release_brances_arr() {
     exit 1
   fi
 
+  echo "---"
+  printf '%s\n' "${release_branches[@]}"
+  echo "---"
+  printf '%s\n' "${release_branches[@]}" \
+    | grep -E "^[0-9]+\.[0-9]+$"
+  echo "---"
+  printf '%s\n' "${release_branches[@]}" \
+    | grep -E "^[0-9]+\.[0-9]+$" \
+    | sort -t . -k 1,1n -k 2,2n
+  echo "---"
+  printf '%s\n' "${release_branches[@]}" \
+    | grep -E "^[0-9]+\.[0-9]+$" \
+    | sort -t . -k 1,1n -k 2,2n \
+    | tail -n1
+  echo "---"
+
   # print array, null delimited
   # Get just the 123.456 ones
   # Sort them by major then minor part
   # Get the biggest one
   latest_version="$( \
-    printf '%s\0' "${release_branches[@]}" \
+    printf '%s\n' "${release_branches[@]}" \
     | grep -E "^[0-9]+\.[0-9]+$" \
-    | sort -z -t . -k 1,1n -k 2,2n \
+    | sort -t . -k 1,1n -k 2,2n \
     | tail -n1)"
 
   echo -e "latest_version:        [${GREEN}${latest_version}${NC}]"
