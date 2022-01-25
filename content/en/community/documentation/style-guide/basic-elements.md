@@ -1,7 +1,7 @@
 ---
 title: "Basic Page Elements"
 linkTitle: "Basic Page Elements"
-weight: 20
+weight: 30
 date: 2021-07-20
 description: >
   Examples of various markdown and Hugo page elements.
