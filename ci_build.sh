@@ -384,6 +384,7 @@ prepare_for_release() {
 }
 
 populate_release_brances_arr() {
+  echo -e "${GREEN}Getting list of release branches${NC}"
   # Read all the matching release branches into the arr
   readarray -t release_branches \
     < <(curl \
