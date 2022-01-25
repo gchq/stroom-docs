@@ -446,10 +446,6 @@ main() {
   #release_branches=(
     #"hugo-docsy"
   #)
-  local release_branches=()
-  local latest_version=
-
-  populate_release_brances_arr
 
   #release_branches=(
     #"7.0"
@@ -491,6 +487,11 @@ main() {
   mkdir -p "${GIT_WORK_DIR}"
   mkdir -p "${NEW_GH_PAGES_DIR}"
   mkdir -p "${SINGLE_SITE_DIR}"
+
+  local release_branches=()
+  local latest_version=
+
+  populate_release_brances_arr
 
   # TODO Need to check for broken simple markdown links
 
