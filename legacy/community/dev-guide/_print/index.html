@@ -373,7 +373,8 @@ Create a repo secret with the private key, named &lsquo;SSH_DEPLOY_KEY&rsquo; at
 <li>stroom-dictionary - Component for storing lists of words.</li>
 <li>stroom-statistics - Component for recording statistical data, e.g. amount of data received in X minutes.</li>
 </ul>
-<p>In the project structure a component appears as a first level subdirectory of the root project folder. Components have further subdirectories (modules) that make up the various parts of the component, e.g.</p>
+<p>In the project structure a component appears as a first level subdirectory of the root project folder.
+Components have further subdirectories (modules) that make up the various parts of the component, e.g.</p>
 <ul>
 <li><code>stroom</code> - Root project
 <ul>
@@ -390,26 +391,118 @@ Create a repo secret with the private key, named &lsquo;SSH_DEPLOY_KEY&rsquo; at
 </li>
 </ul>
 <h2 id="dependencies-between-a-modules-components">Dependencies between a modules components</h2>
-<p>The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the <code>impl</code> module. The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application. Tests can bind mock implementations of a components API just by using the Guice module within the mock module.</p>
-<p><img src="module-dependencies.puml.svg" alt="Internal Component Dependencies"></p>
+<p>The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the <code>impl</code> module.
+The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
+Tests can bind mock implementations of a components API just by using the Guice module within the mock module.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/dev-guide/module-dependencies.puml.svg" href="../../../images/dev-guide/module-dependencies.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/dev-guide/module-dependencies.puml.svg" alt="images/dev-guide/module-dependencies.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Internal Component Dependencies</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
 <h2 id="dependencies-between-components">Dependencies between components</h2>
-<p>Typically a component will need to call out to other components to apply security constraints and to log user activity. These typical relationships are shown in the diagram below.</p>
-<p><img src="external-dependencies.puml.svg" alt="External Component Dependencies"></p>
+<p>Typically a component will need to call out to other components to apply security constraints and to log user activity.
+These typical relationships are shown in the diagram below.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/dev-guide/external-dependencies.puml.svg" href="../../../images/dev-guide/external-dependencies.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/dev-guide/external-dependencies.puml.svg" alt="images/dev-guide/external-dependencies.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">External Component Dependencies</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
 <h2 id="component-api-eg-modules-ending-in--api">Component API, e.g. modules ending in <code>-api</code></h2>
 <h3 id="api-layer">API layer</h3>
-<p>All communication between components in stroom must be made via a component&rsquo;s API. The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code. For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.</p>
+<p>All communication between components in stroom must be made via a component&rsquo;s API.
+The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code.
+For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.</p>
 <h2 id="component-api-and-service-implementation-eg-modules-ending-in--impl">Component API and service implementation, e.g. modules ending in <code>-impl</code></h2>
 <h3 id="client-interaction---rest-services-and-gwt-action-handlers">Client interaction - REST services and GWT Action Handlers</h3>
-<p>The uppermost layer of the server side code services requests from the client. The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.</p>
-<p>Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc. No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.</p>
-<p>The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code. This allows multiple types of endpoint to use the same underlying service layer. If a request requires the use of multiple services to form a response, this must be handled within the service layer by the primary service which will be responsible for any such orchestration.</p>
+<p>The uppermost layer of the server side code services requests from the client.
+The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.</p>
+<p>Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc.
+No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.</p>
+<p>The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code.
+This allows multiple types of endpoint to use the same underlying service layer.
+If a request requires the use of multiple services to form a response, this must be handled within the service layer by the primary service which will be responsible for any such orchestration.</p>
 <h3 id="service-layer">Service layer</h3>
-<p>The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed. The service layer performs all orchestration and business logic, and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.</p>
+<p>The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed.
+The service layer performs all orchestration and business logic, and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.</p>
 <p>The service layer provides implementations for any API that the component may have.</p>
 <p>The service layer provides the DAO (Data Access Object) API for the persistence layer to implement but maintains no knowledge of underlying persistence implementation, e.g. database queries.</p>
 <h2 id="persistence-implementation-eg-modules-ending-in--impl-db">Persistence implementation, e.g. modules ending in <code>-impl-db</code></h2>
 <h3 id="persistence-layer---daos">Persistence layer - DAOs</h3>
-<p>The persistence layer is an implementation of one or more DAOs specified in the service layer. The persistence layer provides no logic, it just stores and retrieves objects in a database or other persistence technology. If serialisation/de-serialisation is required in order to persist the object then that should also be performed by this layer so that no code above this layer has to care about this implementation detail.</p>
+<p>The persistence layer is an implementation of one or more DAOs specified in the service layer.
+The persistence layer provides no logic, it just stores and retrieves objects in a database or other persistence technology.
+If serialisation/de-serialisation is required in order to persist the object then that should also be performed by this layer so that no code above this layer has to care about this implementation detail.</p>
 <p>The persistence layer does not apply security or permissions checking so should not need to reference the security API.</p>
 
 </div>

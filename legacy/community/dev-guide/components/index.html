@@ -27,13 +27,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/dev-guide/components/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2021-08-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-24T18:42:55+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-25T18:23:27+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Components">
 <meta itemprop="description" content="Stroom is broken down into separate components. Each component encapsulates a specific area of Stroom functionality and aids development by providing a single area of focus for new features and ensures separate components remain as loosely coupled as possible. Components can be tested in isolation and their interaction with other components easily understood by only allowing dependencies via minimal APIs.
 "><meta itemprop="datePublished" content="2021-08-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-24T18:42:55+00:00" />
-<meta itemprop="wordCount" content="692">
+<meta itemprop="dateModified" content="2022-01-25T18:23:27+00:00" />
+<meta itemprop="wordCount" content="698">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Components"/>
 <meta name="twitter:description" content="Stroom is broken down into separate components. Each component encapsulates a specific area of Stroom functionality and aids development by providing a single area of focus for new features and ensures separate components remain as loosely coupled as possible. Components can be tested in isolation and their interaction with other components easily understood by only allowing dependencies via minimal APIs.
@@ -201,11 +201,15 @@
   <ul class="ul-2 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationbuilding-li">
   <a href="../../../community/documentation/building/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationbuilding"><span class="">Building the Documentation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationversions-li">
+  <a href="../../../community/documentation/versions/" title="Managing Stroom Versions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationversions"><span class="">Stroom Versions</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-communitydocumentationstyle-guide-li">
-  <a href="../../../community/documentation/style-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-communitydocumentationstyle-guide"><span class="">Style Guide</span></a>
+  <a href="../../../community/documentation/style-guide/" title="Documentation Style Guide" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-communitydocumentationstyle-guide"><span class="">Style Guide</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guidesite-structure-li">
   <a href="../../../community/documentation/style-guide/site-structure/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidesite-structure"><span class="">Site Structure</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guidefront-matter-li">
+  <a href="../../../community/documentation/style-guide/front-matter/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidefront-matter"><span class="">Front Matter</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guidebasic-elements-li">
   <a href="../../../community/documentation/style-guide/basic-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidebasic-elements"><span class="">Basic Page Elements</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guideusing-images-li">
@@ -383,7 +387,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">5</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">6</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
         
@@ -465,7 +469,8 @@
 <li>stroom-dictionary - Component for storing lists of words.</li>
 <li>stroom-statistics - Component for recording statistical data, e.g. amount of data received in X minutes.</li>
 </ul>
-<p>In the project structure a component appears as a first level subdirectory of the root project folder. Components have further subdirectories (modules) that make up the various parts of the component, e.g.</p>
+<p>In the project structure a component appears as a first level subdirectory of the root project folder.
+Components have further subdirectories (modules) that make up the various parts of the component, e.g.</p>
 <ul>
 <li><code>stroom</code> - Root project
 <ul>
@@ -482,32 +487,124 @@
 </li>
 </ul>
 <h2 id="dependencies-between-a-modules-components">Dependencies between a modules components</h2>
-<p>The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the <code>impl</code> module. The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application. Tests can bind mock implementations of a components API just by using the Guice module within the mock module.</p>
-<p><img src="module-dependencies.puml.svg" alt="Internal Component Dependencies"></p>
+<p>The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the <code>impl</code> module.
+The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
+Tests can bind mock implementations of a components API just by using the Guice module within the mock module.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/dev-guide/module-dependencies.puml.svg" href="../../../images/dev-guide/module-dependencies.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/dev-guide/module-dependencies.puml.svg" alt="images/dev-guide/module-dependencies.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Internal Component Dependencies</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
 <h2 id="dependencies-between-components">Dependencies between components</h2>
-<p>Typically a component will need to call out to other components to apply security constraints and to log user activity. These typical relationships are shown in the diagram below.</p>
-<p><img src="external-dependencies.puml.svg" alt="External Component Dependencies"></p>
+<p>Typically a component will need to call out to other components to apply security constraints and to log user activity.
+These typical relationships are shown in the diagram below.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/dev-guide/external-dependencies.puml.svg" href="../../../images/dev-guide/external-dependencies.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/dev-guide/external-dependencies.puml.svg" alt="images/dev-guide/external-dependencies.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">External Component Dependencies</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
 <h2 id="component-api-eg-modules-ending-in--api">Component API, e.g. modules ending in <code>-api</code></h2>
 <h3 id="api-layer">API layer</h3>
-<p>All communication between components in stroom must be made via a component&rsquo;s API. The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code. For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.</p>
+<p>All communication between components in stroom must be made via a component&rsquo;s API.
+The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code.
+For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.</p>
 <h2 id="component-api-and-service-implementation-eg-modules-ending-in--impl">Component API and service implementation, e.g. modules ending in <code>-impl</code></h2>
 <h3 id="client-interaction---rest-services-and-gwt-action-handlers">Client interaction - REST services and GWT Action Handlers</h3>
-<p>The uppermost layer of the server side code services requests from the client. The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.</p>
-<p>Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc. No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.</p>
-<p>The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code. This allows multiple types of endpoint to use the same underlying service layer. If a request requires the use of multiple services to form a response, this must be handled within the service layer by the primary service which will be responsible for any such orchestration.</p>
+<p>The uppermost layer of the server side code services requests from the client.
+The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.</p>
+<p>Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc.
+No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.</p>
+<p>The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code.
+This allows multiple types of endpoint to use the same underlying service layer.
+If a request requires the use of multiple services to form a response, this must be handled within the service layer by the primary service which will be responsible for any such orchestration.</p>
 <h3 id="service-layer">Service layer</h3>
-<p>The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed. The service layer performs all orchestration and business logic, and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.</p>
+<p>The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed.
+The service layer performs all orchestration and business logic, and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.</p>
 <p>The service layer provides implementations for any API that the component may have.</p>
 <p>The service layer provides the DAO (Data Access Object) API for the persistence layer to implement but maintains no knowledge of underlying persistence implementation, e.g. database queries.</p>
 <h2 id="persistence-implementation-eg-modules-ending-in--impl-db">Persistence implementation, e.g. modules ending in <code>-impl-db</code></h2>
 <h3 id="persistence-layer---daos">Persistence layer - DAOs</h3>
-<p>The persistence layer is an implementation of one or more DAOs specified in the service layer. The persistence layer provides no logic, it just stores and retrieves objects in a database or other persistence technology. If serialisation/de-serialisation is required in order to persist the object then that should also be performed by this layer so that no code above this layer has to care about this implementation detail.</p>
+<p>The persistence layer is an implementation of one or more DAOs specified in the service layer.
+The persistence layer provides no logic, it just stores and retrieves objects in a database or other persistence technology.
+If serialisation/de-serialisation is required in order to persist the object then that should also be performed by this layer so that no code above this layer has to care about this implementation detail.</p>
 <p>The persistence layer does not apply security or permissions checking so should not need to reference the security API.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified January 24, 2022: <a href="https://github.com/gchq/stroom-docs/commit/f400eeaa94a007859a9177acf60082a8a93e3470">Merge branch &#39;legacy&#39; of github.com-at055612:gchq/stroom-docs into legacy (f400eea)</a>
+  Last modified January 25, 2022: <a href="https://github.com/gchq/stroom-docs/commit/9897d2510c820766817e563e02244fbd166de76f">Improve style-guide section (9897d25)</a>
 </div>
 
 </div>
