@@ -27,13 +27,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/style-guide/site-structure/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2022-01-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-25T18:24:07+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-01-27T17:31:41+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Site Structure">
 <meta itemprop="description" content="Describes the file and directory structure for the site.
 "><meta itemprop="datePublished" content="2022-01-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-25T18:24:07+00:00" />
-<meta itemprop="wordCount" content="544">
+<meta itemprop="dateModified" content="2022-01-27T17:31:41+00:00" />
+<meta itemprop="wordCount" content="913">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Site Structure"/>
 <meta name="twitter:description" content="Describes the file and directory structure for the site.
@@ -210,8 +210,10 @@
   <a href="../../../../community/documentation/style-guide/site-structure/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidesite-structure"><span class="td-sidebar-nav-active-item">Site Structure</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guidefront-matter-li">
   <a href="../../../../community/documentation/style-guide/front-matter/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidefront-matter"><span class="">Front Matter</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guidebasic-elements-li">
-  <a href="../../../../community/documentation/style-guide/basic-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidebasic-elements"><span class="">Basic Page Elements</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guidemarkdown-style-li">
+  <a href="../../../../community/documentation/style-guide/markdown-style/" title="Markdown Style Conventions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidemarkdown-style"><span class="">Markdown Conventions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guideadditional-elements-li">
+  <a href="../../../../community/documentation/style-guide/additional-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guideadditional-elements"><span class="">Additional Page Elements</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guideusing-images-li">
   <a href="../../../../community/documentation/style-guide/using-images/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guideusing-images"><span class="">Images</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guideicon-gallery-li">
@@ -258,6 +260,12 @@
           </ul>
         </li>
         <li><a href="#documentation-content">Documentation content</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-do-i">How do I&hellip;?</a>
+      <ul>
+        <li><a href="#add-a-child-page">Add a child page</a></li>
+        <li><a href="#add-a-new-section">Add a new section</a></li>
       </ul>
     </li>
   </ul>
@@ -513,11 +521,69 @@ A branch (i.e. a section) is defined by a directory that contains an <code>_inde
 The front matter in this index file defines the meta data for that section, e.g. the title, date, tags, description, etc.
 A leaf (i.e. a page with no children) is just a markdown file with front matter.
 The front matter for branches and leaves works in the same way.</p>
+<h2 id="how-do-i">How do I&hellip;?</h2>
+<h3 id="add-a-child-page">Add a child page</h3>
+<p>If you already have a section that you want to add a new child page to then you will already have a structure like this:</p>
+<pre><code class="language-text">└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+</code></pre>
+<p>To add a new page simple create a <code>.md</code> file for the new page in the section directory, e.g.</p>
+<pre><code class="language-text">└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    ├── another-page.md
+    └── new-page.md
+</code></pre>
+<p>Add the <a href="../../../../community/documentation/style-guide/front-matter/">front matter</a> to the top of the new page file. e.g.</p>
+<pre><code class="language-yaml">---
+title: &quot;My Long Wordy Title&quot;
+linkTitle: &quot;My Short Title&quot;
+weight: 20
+date: 2022-01-27
+tags: 
+description: &gt;
+  A new page describing stuff.
+---
+</code></pre>
+<p>The new page should now appear in the list of child pages on the section page and in the left hand navigation pane.</p>
+<p>If you want to control the position of the new page relative to its siblings then adjust the <a href="../../../../community/documentation/style-guide/front-matter/#weight">weight</a> of this page and that of its siblings to get the order that you want.</p>
+<h3 id="add-a-new-section">Add a new section</h3>
+<p>If you want to add a sub-section to an existin section then you will already have a structure like this:</p>
+<pre><code class="language-text">└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+</code></pre>
+<p>To add a new sub-section create a sub-directory within the existing directory (with a name that roughly matches the section name) and create an <code>_index.md</code> file within it, e.g.</p>
+<pre><code class="language-text">└── my-section/
+    ├── my-new-sub-section/
+    │   └── _index.md
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+</code></pre>
+<p>In the <code>_index.md</code> file add front matter to the top, e.g.</p>
+<pre><code class="language-yaml">---
+title: &quot;My Long Wordy Section Title&quot;
+linkTitle: &quot;My Short Section Title&quot;
+weight: 20
+date: 2022-01-27
+tags: 
+description: &gt;
+  A new section for stuff.
+---
+</code></pre>
+<p>As with pages, adjust the <a href="../../../../community/documentation/style-guide/front-matter/#weight">weight</a> of the section and its siblings to get the order you require.</p>
+<p>To add pages to this new section see <a href="#add-a-child-page">Add a new child page</a> above.</p>
+<p>If you are not sure if you need to add a whole new sub-section or just a child page you can just add a new sub-section and add content to the <code>_index.md</code> file as if it were a simple page.
+If you later realise that you need child pages then move the content out into a child page and create other sibling pages to it.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified January 25, 2022: <a href="https://github.com/gchq/stroom-docs/commit/21b5dea27f1caaa2a7cd84dba64d8a43af08e2ac">Merge branch &#39;legacy&#39; into 7.0 (21b5dea)</a>
+  Last modified January 27, 2022: <a href="https://github.com/gchq/stroom-docs/commit/af986ecda8fc5a8156043e5a6f582b95636f5fe5">Merge branch &#39;legacy&#39; into 7.0 (af986ec)</a>
 </div>
 
 </div>

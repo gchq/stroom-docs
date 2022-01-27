@@ -206,8 +206,10 @@
   <a href="../../../community/documentation/style-guide/site-structure/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidesite-structure"><span class="">Site Structure</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guidefront-matter-li">
   <a href="../../../community/documentation/style-guide/front-matter/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidefront-matter"><span class="">Front Matter</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guidebasic-elements-li">
-  <a href="../../../community/documentation/style-guide/basic-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidebasic-elements"><span class="">Basic Page Elements</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guidemarkdown-style-li">
+  <a href="../../../community/documentation/style-guide/markdown-style/" title="Markdown Style Conventions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidemarkdown-style"><span class="">Markdown Conventions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guideadditional-elements-li">
+  <a href="../../../community/documentation/style-guide/additional-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guideadditional-elements"><span class="">Additional Page Elements</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guideusing-images-li">
   <a href="../../../community/documentation/style-guide/using-images/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guideusing-images"><span class="">Images</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydocumentationstyle-guideicon-gallery-li">
@@ -427,12 +429,103 @@
 		
 		
 	</header>
-	<p><em>Stroom-Docs</em> is created using the static site generator <a href="https://gohugo.io/">Hugo (external link)</a>.
-The full documentation for <em>Hugo</em> can be found <a href="https://gohugo.io/documentation/">here (external link)</a>.</p>
-<p>The site also uses the <a href="https://www.docsy.dev">Docsy (external link)</a> theme for Hugo.
+	<h2 id="overview">Overview</h2>
+<p>Stroom&rsquo;s documentation is created using the static site generator <a href="https://gohugo.io/">Hugo (external link)</a>.
+This converts markdown content into a rich HTML site.
+The markdown content in <em>stroom-docs</em> is not intended to be read as-is in GitHub, it needs to be rendered first.</p>
+<p>The full documentation for <em>Hugo</em> can be found <a href="https://gohugo.io/documentation/">here (external link)</a>.
+The site also uses the <a href="https://www.docsy.dev">Docsy (external link)</a> theme for Hugo.
 The documentation for <em>Docsy</em> can be found <a href="https://www.docsy.dev/docs/">here (external link)</a>.
 The <em>Docsy</em> theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the <em>Docsy</em> documentation in the first instance.</p>
+<p>To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.</p>
+<h2 id="shortcodes">Shortcodes</h2>
+<p>The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
+Shortcodes make it easy to change how a page element is styled by just changing the shortcode.</p>
+<p>Hugo includes many <a href="https://gohugo.io/content-management/shortcodes/">shortcodes (external link)</a>, the Docsy theme adds some <a href="https://www.docsy.dev/docs/adding-content/shortcodes/">more (external link)</a> and there are some bespoke <em>stroom-docs</em> ones in <code>layouts/shortcodes/</code>.</p>
+<p>To make your life easier when editing the documentation it is recomended to use an editor that supports text snippets.
+Snippets make it very quick to add shortcodes into the documentation.</p>
+<p>For example the following snippet adds a skeleton front matter to a page.</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Ultisnips
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-snippets">snippet hfront &quot;Hugo markdown metadata front matter&quot; b
+---
+title: &quot;${1:Title}&quot;
+linkTitle: &quot;$1&quot;
+#weight:
+date: `date &quot;+%Y-%m-%d&quot;`
+tags: $2
+description: &gt;
+  $3
+---
+
+$0
+endsnippet
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        JSON (VS Code)
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-json">{
+  &quot;hugo-front-matter&quot;: {
+    &quot;prefix&quot;: &quot;hfront&quot;,
+    &quot;body&quot;: [
+      &quot;---&quot;,
+      &quot;title: \&quot;${1:Title}\&quot;&quot;,
+      &quot;linkTitle: \&quot;$1\&quot;&quot;,
+      &quot;#weight:&quot;,
+      &quot;date: `date \&quot;+%Y-%m-%d\&quot;`&quot;,
+      &quot;tags: $2&quot;,
+      &quot;description: &gt;&quot;,
+      &quot;  $3&quot;,
+      &quot;---&quot;,
+      &quot;&quot;,
+      &quot;$0&quot;
+    ],
+    &quot;description&quot;: &quot;Hugo markdown metadata front matter&quot;
+  }
+}
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
@@ -466,13 +559,21 @@ You should consult the <em>Docsy</em> documentation in the first instance.</p>
                 <h5>
                     <a href="../../../community/documentation/style-guide/front-matter/">Front Matter</a>
                 </h5>
-                <p>The meta data (or front mattter) for pages/sections.</p>
+                <p>The meta data (or front matter) for pages/sections.</p>
             </div>
         
             
             <div class="entry">
                 <h5>
-                    <a href="../../../community/documentation/style-guide/basic-elements/">Basic Page Elements</a>
+                    <a href="../../../community/documentation/style-guide/markdown-style/">Markdown Style Conventions</a>
+                </h5>
+                <p>House style conventions for basic Markdown use.</p>
+            </div>
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="../../../community/documentation/style-guide/additional-elements/">Additional Page Elements</a>
                 </h5>
                 <p>Examples of various markdown and Hugo page elements.</p>
             </div>
@@ -499,7 +600,7 @@ You should consult the <em>Docsy</em> documentation in the first instance.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified January 25, 2022: <a href="https://github.com/gchq/stroom-docs/commit/21b5dea27f1caaa2a7cd84dba64d8a43af08e2ac">Merge branch &#39;legacy&#39; into 7.0 (21b5dea)</a>
+  Last modified January 27, 2022: <a href="https://github.com/gchq/stroom-docs/commit/af986ecda8fc5a8156043e5a6f582b95636f5fe5">Merge branch &#39;legacy&#39; into 7.0 (af986ec)</a>
 </div>
 
 </div>

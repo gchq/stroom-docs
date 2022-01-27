@@ -229,7 +229,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3.3: <a href="#pg-f3f52b5ad7cfa101fc2dae06d15d15e6">Basic Page Elements</a></li>
+<li>3.3: <a href="#pg-d3c21971aacce87c2222c29866fc4a47">Markdown Style Conventions</a></li>
 
 
     
@@ -237,7 +237,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3.4: <a href="#pg-e4c143c686e89b1a713a57f39dcc4f1e">Images</a></li>
+<li>3.4: <a href="#pg-cdd8b429a46110b260691f0a2d989d90">Additional Page Elements</a></li>
 
 
     
@@ -245,7 +245,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3.5: <a href="#pg-f7770d3ec7d0c638d8a7f2b27a9a6ad1">Icon Gallery</a></li>
+<li>3.5: <a href="#pg-e4c143c686e89b1a713a57f39dcc4f1e">Images</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3.6: <a href="#pg-f7770d3ec7d0c638d8a7f2b27a9a6ad1">Icon Gallery</a></li>
 
 
     
@@ -321,6 +329,7 @@ In order that they can be rendered in the site they need to be converted into SV
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
 
+
     Docsy has the capability to render PlantUML content in fenced code blocks on the fly.
 This capability makes use of internet based servers to do the conversion therefore it is not suitable for this site as this site needs to available for deployment in environments with no internet access.
 All PlantUML content should authored in <code>.puml</code> files and converted at build time.
@@ -354,6 +363,7 @@ executing &quot;shortcodes/image.html&quot; at &lt;$image.Name&gt;: nil pointer 
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
+
 
     In the build docker containers your local <em>stroom-docs</em> repository is mounted into the container as <code>/builder/shared/</code>, so if you see this path mentioned in the logs this is referring to your local repository.
 
@@ -557,12 +567,103 @@ python -m SimpleHTTPServer 8888
     
   <h1 id="pg-a1136b8792bf5eb185463a4ea6b0de0f">3 - Documentation Style Guide</h1>
     <div class="lead">A guide on the house style, structure and content for this site. It should be viewed both in its rendered form and as source to understand how the page elements are formed. You should read this section before contributing to the documentation.</div>
-	<p><em>Stroom-Docs</em> is created using the static site generator <a href="https://gohugo.io/">Hugo (external link)</a>.
-The full documentation for <em>Hugo</em> can be found <a href="https://gohugo.io/documentation/">here (external link)</a>.</p>
-<p>The site also uses the <a href="https://www.docsy.dev">Docsy (external link)</a> theme for Hugo.
+	<h2 id="overview">Overview</h2>
+<p>Stroom&rsquo;s documentation is created using the static site generator <a href="https://gohugo.io/">Hugo (external link)</a>.
+This converts markdown content into a rich HTML site.
+The markdown content in <em>stroom-docs</em> is not intended to be read as-is in GitHub, it needs to be rendered first.</p>
+<p>The full documentation for <em>Hugo</em> can be found <a href="https://gohugo.io/documentation/">here (external link)</a>.
+The site also uses the <a href="https://www.docsy.dev">Docsy (external link)</a> theme for Hugo.
 The documentation for <em>Docsy</em> can be found <a href="https://www.docsy.dev/docs/">here (external link)</a>.
 The <em>Docsy</em> theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the <em>Docsy</em> documentation in the first instance.</p>
+<p>To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.</p>
+<h2 id="shortcodes">Shortcodes</h2>
+<p>The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
+Shortcodes make it easy to change how a page element is styled by just changing the shortcode.</p>
+<p>Hugo includes many <a href="https://gohugo.io/content-management/shortcodes/">shortcodes (external link)</a>, the Docsy theme adds some <a href="https://www.docsy.dev/docs/adding-content/shortcodes/">more (external link)</a> and there are some bespoke <em>stroom-docs</em> ones in <code>layouts/shortcodes/</code>.</p>
+<p>To make your life easier when editing the documentation it is recomended to use an editor that supports text snippets.
+Snippets make it very quick to add shortcodes into the documentation.</p>
+<p>For example the following snippet adds a skeleton front matter to a page.</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Ultisnips
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-snippets">snippet hfront &quot;Hugo markdown metadata front matter&quot; b
+---
+title: &quot;${1:Title}&quot;
+linkTitle: &quot;$1&quot;
+#weight:
+date: `date &quot;+%Y-%m-%d&quot;`
+tags: $2
+description: &gt;
+  $3
+---
+
+$0
+endsnippet
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        JSON (VS Code)
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-json">{
+  &quot;hugo-front-matter&quot;: {
+    &quot;prefix&quot;: &quot;hfront&quot;,
+    &quot;body&quot;: [
+      &quot;---&quot;,
+      &quot;title: \&quot;${1:Title}\&quot;&quot;,
+      &quot;linkTitle: \&quot;$1\&quot;&quot;,
+      &quot;#weight:&quot;,
+      &quot;date: `date \&quot;+%Y-%m-%d\&quot;`&quot;,
+      &quot;tags: $2&quot;,
+      &quot;description: &gt;&quot;,
+      &quot;  $3&quot;,
+      &quot;---&quot;,
+      &quot;&quot;,
+      &quot;$0&quot;
+    ],
+    &quot;description&quot;: &quot;Hugo markdown metadata front matter&quot;
+  }
+}
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
@@ -667,6 +768,64 @@ A branch (i.e. a section) is defined by a directory that contains an <code>_inde
 The front matter in this index file defines the meta data for that section, e.g. the title, date, tags, description, etc.
 A leaf (i.e. a page with no children) is just a markdown file with front matter.
 The front matter for branches and leaves works in the same way.</p>
+<h2 id="how-do-i">How do I&hellip;?</h2>
+<h3 id="add-a-child-page">Add a child page</h3>
+<p>If you already have a section that you want to add a new child page to then you will already have a structure like this:</p>
+<pre><code class="language-text">└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+</code></pre>
+<p>To add a new page simple create a <code>.md</code> file for the new page in the section directory, e.g.</p>
+<pre><code class="language-text">└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    ├── another-page.md
+    └── new-page.md
+</code></pre>
+<p>Add the <a href="../../../community/documentation/style-guide/front-matter/">front matter</a> to the top of the new page file. e.g.</p>
+<pre><code class="language-yaml">---
+title: &quot;My Long Wordy Title&quot;
+linkTitle: &quot;My Short Title&quot;
+weight: 20
+date: 2022-01-27
+tags: 
+description: &gt;
+  A new page describing stuff.
+---
+</code></pre>
+<p>The new page should now appear in the list of child pages on the section page and in the left hand navigation pane.</p>
+<p>If you want to control the position of the new page relative to its siblings then adjust the <a href="../../../community/documentation/style-guide/front-matter/#weight">weight</a> of this page and that of its siblings to get the order that you want.</p>
+<h3 id="add-a-new-section">Add a new section</h3>
+<p>If you want to add a sub-section to an existin section then you will already have a structure like this:</p>
+<pre><code class="language-text">└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+</code></pre>
+<p>To add a new sub-section create a sub-directory within the existing directory (with a name that roughly matches the section name) and create an <code>_index.md</code> file within it, e.g.</p>
+<pre><code class="language-text">└── my-section/
+    ├── my-new-sub-section/
+    │   └── _index.md
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+</code></pre>
+<p>In the <code>_index.md</code> file add front matter to the top, e.g.</p>
+<pre><code class="language-yaml">---
+title: &quot;My Long Wordy Section Title&quot;
+linkTitle: &quot;My Short Section Title&quot;
+weight: 20
+date: 2022-01-27
+tags: 
+description: &gt;
+  A new section for stuff.
+---
+</code></pre>
+<p>As with pages, adjust the <a href="../../../community/documentation/style-guide/front-matter/#weight">weight</a> of the section and its siblings to get the order you require.</p>
+<p>To add pages to this new section see <a href="#add-a-child-page">Add a new child page</a> above.</p>
+<p>If you are not sure if you need to add a whole new sub-section or just a child page you can just add a new sub-section and add content to the <code>_index.md</code> file as if it were a simple page.
+If you later realise that you need child pages then move the content out into a child page and create other sibling pages to it.</p>
 
 </div>
 
@@ -686,12 +845,26 @@ The front matter for branches and leaves works in the same way.</p>
 <div class="td-content" style="--base-section-num: '3.2.'; page-break-before: always">
     
   <h1 id="pg-d7481e91f9684bbd32c692658d98bf5f">3.2 - Front Matter</h1>
-    <div class="lead">The meta data (or front mattter) for pages/sections.</div>
+    <div class="lead">The meta data (or front matter) for pages/sections.</div>
 	
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
 
-    See <a href="https://gohugo.io/content-management/front-matter/">Hugo Front Matter (external link)</a> for the full list of metadata keys that can be set.
+
+
+    
+See 
+
+
+
+
+
+<span class="external-link">
+<a href="https://gohugo.io/content-management/front-matter/" class="" style="">Hugo Front Matter</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
+ for the full list of metadata keys that can be set.
+
 
 </div>
 
@@ -718,8 +891,8 @@ It should be the same as <code>title</code> unless the title is quite long, in w
 <p>The weight controls the position of the page/section within the other pages/sections of its parent.
 i.e. it controls the order of the pages/sections in the left hand navigation bar and the list of child items on a section index.
 If no weight is provided then Hugo will use <code>date</code>, then <code>linkTitle</code>, then the file path.</p>
-<p>To assit with re-ordering pages you can use the script <code>change_weights.sh</code> in the root of the repo.
-E.g. to change the oder of the child items of the user-guide section do the following:</p>
+<p>To assist with re-ordering pages you can use the script <code>change_weights.sh</code> in the root of the repo.
+E.g. to change the order of the child items of the user-guide section do the following:</p>
 <pre><code class="language-bash">./change_weight.sh content/en/docs/user-guide
 </code></pre>
 <h2 id="date">Date</h2>
@@ -737,6 +910,13 @@ Tag names should conform to the following conventions:</p>
 When setting a tag on a document consult the list of existing tags to ensure consistency and to see if a more applicable tag already exists.</p>
 <p>Add the <code>TODO</code> tag to a page when the page is incomplete.
 This makes it easy to find areas of the documentation that are in need of attention.</p>
+<h3 id="cascading-tags">Cascading tags</h3>
+<p>If you want to apply a tag to all descendant pages of a section you can add this to the front matter of the section:</p>
+<pre><code class="language-yaml">cascade:
+  tags:
+    - install
+</code></pre>
+<p>This will then apply all of tags added to <code>tags</code> to each descendant page.</p>
 <h2 id="description">Description</h2>
 <p>A short description of what the page/section covers.
 This will be shown on the index page of its parent.</p>
@@ -758,48 +938,27 @@ This will be shown on the index page of its parent.</p>
 
 <div class="td-content" style="--base-section-num: '3.3.'; page-break-before: always">
     
-  <h1 id="pg-f3f52b5ad7cfa101fc2dae06d15d15e6">3.3 - Basic Page Elements</h1>
-    <div class="lead">Examples of various markdown and Hugo page elements.</div>
-	<h2 id="markdown-style-conventions">Markdown style conventions</h2>
-<h3 id="line-breaks">Line breaks</h3>
-<h4 id="sentence-per-line">Sentence per line</h4>
-<p>Each sentence should start on a new line, even in numbered/bulleted lists.
-This makes it easier to move sentences around or to remove them.
+  <h1 id="pg-d3c21971aacce87c2222c29866fc4a47">3.3 - Markdown Style Conventions</h1>
+    <div class="lead">House style conventions for basic Markdown use.</div>
+	<h2 id="line-breaks">Line breaks</h2>
+<h3 id="sentence-per-line">Sentence per line</h3>
+<p>Each sentence must start on a new line, even in numbered/bulleted lists.
+This makes it easier to move sentences around or to remove them and limits the scope of changes when it comes to git diffs and merges.
 When the markdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.</p>
-<p>See this <a href="https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line">link (external link)</a> for more of the reasons behind sentence per line.
-Though this link relates to Asciidoc, the same applies to markdown.</p>
+<p>See this 
+
+
+
+
+
+<span class="external-link">
+<a href="https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line" class="" style="">site</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
+ for more of the reasons behind sentence per line.
+Though this link relates to Asciidoc, the same logic applies to markdown.</p>
 <p>For example:</p>
 <div class="card-deck mb-4">
-
-  <div class="card mb-4">
-  
-    <div class="card-header">
-      
-        Don&rsquo;t do this
-      
-    </div>
-  
-  <div class="card-body">
-    
-    
-    
-      <p class="card-text">
-        
-          <pre><code class="language-markdown">This is the first sentence of the paragraph. This is the second. This it the third and final one.
-
-This is the start of a new paragraph.
-</code></pre>
-<p><strong>Which renders as:</strong></p>
-<p>This is the first sentence of the paragraph. This is the second. This it the third and final one.</p>
-<p>This is the start of a new paragraph.</p>
-
-        
-      </p>
-    
-  </div>
-  
-</div>
-
 
   <div class="card mb-4">
   
@@ -835,8 +994,37 @@ This it the third and final one.</p>
 </div>
 
 
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Don&rsquo;t do this
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">This is the first sentence of the paragraph. This is the second. This it the third and final one.
+
+This is the start of a new paragraph.
+</code></pre>
+<p><strong>Which renders as:</strong></p>
+<p>This is the first sentence of the paragraph. This is the second. This it the third and final one.</p>
+<p>This is the start of a new paragraph.</p>
+
+        
+      </p>
+    
+  </div>
+  
 </div>
-<h4 id="no-hard-line-breaks">No hard line breaks.</h4>
+
+</div>
+<h3 id="no-hard-line-breaks">No hard line breaks.</h3>
 <p>Long lines should <strong>not</strong> be hard wrapped by adding line breaks.
 You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
 The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.
@@ -859,15 +1047,72 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </code></pre>
-<p><strong>Which both render as:</strong></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+<div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Both examples render as:
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<h4 id="forced-line-breaks">Forced line breaks</h4>
-<p>In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjecent lines when rendered.
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
+<h3 id="forced-line-breaks">Forced line breaks</h3>
+<p>In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjacent lines when rendered.
 You can force a line break by adding two spaces <code>␣␣</code> at the end of a line.</p>
 <div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Do this
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">Paragraph 1.
+
+One␣␣
+Two␣␣
+Three
+
+Paragraph 2.
+</code></pre>
+<p><strong>Which renders as:</strong></p>
+<p>Paragraph 1.</p>
+<p>One<br>
+Two<br>
+Three</p>
+<p>Paragraph 2.</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
 
   <div class="card mb-4">
   
@@ -905,46 +1150,8 @@ Three</p>
   
 </div>
 
-
-  <div class="card mb-4">
-  
-    <div class="card-header">
-      
-        Do this
-      
-    </div>
-  
-  <div class="card-body">
-    
-    
-    
-      <p class="card-text">
-        
-          <pre><code class="language-markdown">Paragraph 1.
-
-One␣␣
-Two␣␣
-Three
-
-Paragraph 2.
-</code></pre>
-<p><strong>Which renders as:</strong></p>
-<p>Paragraph 1.</p>
-<p>One<br>
-Two<br>
-Three</p>
-<p>Paragraph 2.</p>
-
-        
-      </p>
-    
-  </div>
-  
 </div>
-
-
-</div>
-<h3 id="blank-lines-and-spacing">Blank lines and spacing</h3>
+<h2 id="blank-lines-and-spacing">Blank lines and spacing</h2>
 <ul>
 <li>A heading line should be preceded by two blank lines and followed by one blank line.
 This makes the headings clearer in the markdown source.</li>
@@ -991,7 +1198,7 @@ Another random line.
 <p>The page title uses heading level one (<code># </code> in markdown) so all markdown headings should be &gt;= 2 (<code>## </code>, <code>### </code>, <code>#### </code>, etc.).
 Headings should have two blank lines above them for clarity in the raw markdown.
 The <code>#</code> characters should <strong>always</strong> be followed by one space character</p>
-<p>The following is an exmaple of the heading levels.</p>
+<p>The following is an example of the heading levels.</p>
 <pre><code class="language-markdown"># Heading level 1
 
 DON'T use this level in your documents.
@@ -1073,35 +1280,6 @@ This is the third line.</p>
   
     <div class="card-header">
       
-        Markdown
-      
-    </div>
-  
-  <div class="card-body">
-    
-    
-    
-      <p class="card-text">
-        
-          <pre><code class="language-markdown">* Fruit -
-  Make sure you get your five-a-day.
-* Meat
-    * Beef
-    * Chicken
-* Vegetables.
-</code></pre>
-
-        
-      </p>
-    
-  </div>
-  
-</div>
-
-  <div class="card mb-4">
-  
-    <div class="card-header">
-      
         Rendered
       
     </div>
@@ -1113,7 +1291,7 @@ This is the third line.</p>
       <p class="card-text">
         
           <ul>
-<li>Fruit -
+<li>Fruit.
 Make sure you get your five-a-day.</li>
 <li>Meat
 <ul>
@@ -1131,11 +1309,6 @@ Make sure you get your five-a-day.</li>
   
 </div>
 
-</div>
-<h3 id="numbered-list">Numbered List</h3>
-<p>Numbered list items should all be numbered with number <code>1</code> so that the markdown render handles the consecutive numbering.
-This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:</p>
-<div class="card-deck mb-4">
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1150,12 +1323,12 @@ This makes the file easier to edit and means the addition of one item in the mid
     
       <p class="card-text">
         
-          <pre><code class="language-markdown">1. Item one.
-   This is some extra content for step 1.
-1. Item two.
-    1. Sub-item A.
-    1. Sub-item B.
-1. Item three.
+          <pre><code class="language-markdown">* Fruit.
+  Make sure you get your five-a-day.
+* Meat
+    * Beef
+    * Chicken
+* Vegetables.
 </code></pre>
 
         
@@ -1165,6 +1338,11 @@ This makes the file easier to edit and means the addition of one item in the mid
   
 </div>
 
+</div>
+<h3 id="numbered-list">Numbered List</h3>
+<p>Numbered list items should all be numbered with number <code>1</code> so that the markdown render handles the consecutive numbering.
+This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:</p>
+<div class="card-deck mb-4">
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1198,9 +1376,6 @@ This is some extra content for step 1.</li>
   
 </div>
 
-</div>
-<h3 id="check-list">Check List</h3>
-<div class="card-deck mb-4">
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1215,12 +1390,12 @@ This is some extra content for step 1.</li>
     
       <p class="card-text">
         
-          <pre><code class="language-markdown">* [ ] Item 1.
-      This is some extra content for item 1.
-* [ ] Item 2.
-    * [x] Item 2a.
-    * [ ] Item 2b.
-* [x] Item 3.
+          <pre><code class="language-markdown">1. Item one.
+   This is some extra content for step 1.
+1. Item two.
+    1. Sub-item A.
+    1. Sub-item B.
+1. Item three.
 </code></pre>
 
         
@@ -1230,6 +1405,9 @@ This is some extra content for step 1.</li>
   
 </div>
 
+</div>
+<h3 id="check-list">Check List</h3>
+<div class="card-deck mb-4">
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1263,9 +1441,68 @@ This is some extra content for item 1.</li>
   
 </div>
 
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Markdown
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">* [ ] Item 1.
+      This is some extra content for item 1.
+* [ ] Item 2.
+    * [x] Item 2a.
+    * [ ] Item 2b.
+* [x] Item 3.
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
 </div>
 <h3 id="definition-list">Definition list</h3>
 <div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Rendered
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <dl>
+<dt>Name</dt>
+<dd>Godzilla</dd>
+<dt>Birthplace</dt>
+<dd>Japan</dd>
+<dt>Color</dt>
+<dd>Green</dd>
+</dl>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1289,36 +1526,6 @@ Birthplace
 Color
 : Green
 </code></pre>
-
-        
-      </p>
-    
-  </div>
-  
-</div>
-
-  <div class="card mb-4">
-  
-    <div class="card-header">
-      
-        Rendered
-      
-    </div>
-  
-  <div class="card-body">
-    
-    
-    
-      <p class="card-text">
-        
-          <dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
 
         
       </p>
@@ -1373,7 +1580,27 @@ Color
 </tr>
 </tbody>
 </table>
-<h2 id="links">Links</h2>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.4.'; page-break-before: always">
+    
+  <h1 id="pg-cdd8b429a46110b260691f0a2d989d90">3.4 - Additional Page Elements</h1>
+    <div class="lead">Examples of various markdown and Hugo page elements.</div>
+	<h2 id="links">Links</h2>
 <p>Links can be added using either standard markdown link syntax or using a Hugo shortcode.
 The advantage of the shortcode is that hugo will check for broken links when building the site so there are preferred.</p>
 <p>Links to external sites, i.e. on the internet, should have <code> (external link)</code> appended to the link title.
@@ -1389,35 +1616,47 @@ The anchor for a heading is the heading text with:</p>
 </ul>
 <p>For example the heading <code>Mr O'Neil's 1st Event (something)</code> becomes as an anchor <code>#mr-oneils-1st-event-something</code>.</p>
 <h3 id="shortcode-page-link-examples">Shortcode page link examples</h3>
+<p>Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.</p>
+<p>Hugo has <code>ref</code> and <code>relref</code> link shortcodes.
+Use only <code>relref</code> as this will be translated into a relative path when the site it built ensuring that the site can be run from any base path.</p>
+<p>The following are some example of different links to internal content.</p>
+<h4 id="heading-anchor">Heading anchor</h4>
 <ul>
 <li>
 <p>A <a href="#alerts">link</a> to a heading anchor on this page.</p>
-<pre><code class="language-markdown">[link]({{&lt; ref &quot;#alerts&quot; &gt;}})
+<pre><code class="language-markdown">[link]({{&lt; relref &quot;#alerts&quot; &gt;}})
 </code></pre>
 </li>
+</ul>
+<h4 id="absolute-path">Absolute path</h4>
+<ul>
 <li>
-<p>A <a href="../../../community/documentation/style-guide/using-images/#captions">link</a> to a heading anchor on another page.</p>
-<pre><code class="language-markdown">[link]({{&lt; ref &quot;community/documentation/style-guide/using-images#captions&quot; &gt;}})
+<p>A <a href="../../../community/documentation/style-guide/using-images/#captions">link</a> to a heading anchor on another page, using an absolute path.</p>
+<pre><code class="language-markdown">[link]({{&lt; relref &quot;community/documentation/style-guide/using-images#captions&quot; &gt;}})
 </code></pre>
 </li>
-<li>
-<p>A <a href="../../../docs/quick-start-guide/running/#basic-configuration">link</a> to a heading anchor on another page, using only the page name.
-This will only work if the page name is unique</p>
-<pre><code class="language-markdown">[link]({{&lt; ref &quot;community/documentation/style-guide/using-images#captions&quot; &gt;}})
-</code></pre>
-</li>
+</ul>
+<h4 id="relative-path">Relative path</h4>
+<ul>
 <li>
 <p>A <a href="../../../docs/proxy/install/#prerequisites">link</a> to a heading anchor on page above this one, using a relative path.</p>
-<pre><code class="language-markdown">[link]({{&lt; ref &quot;../../../docs/proxy/install.md#prerequisites&quot; &gt;}})
+<pre><code class="language-markdown">[link]({{&lt; relref &quot;../../../docs/proxy/install.md#prerequisites&quot; &gt;}})
 </code></pre>
 </li>
+</ul>
+<h4 id="unique-page-name">Unique page name</h4>
+<ul>
 <li>
-<p>A <a href="../../../docs/proxy/install/#prerequisites">link</a> to a heading anchor on page above this one, using an absolute path, that will be converted to a relative one.</p>
-<pre><code class="language-markdown">[link]({{&lt; relref &quot;/docs/proxy/install.md#prerequisites&quot; &gt;}})
+<p>A <a href="../../../docs/quick-start-guide/running/#basic-configuration">link</a> to a heading anchor on another page, using only the unique page name.
+This is quicker to type and won&rsquo;t break if pages are moved but will not work if the page name is not unique.</p>
+<pre><code class="language-markdown">[link]({{&lt; relref &quot;running#basic-configuration&quot; &gt;}})
 </code></pre>
 </li>
+</ul>
+<h4 id="section-link">Section link</h4>
+<ul>
 <li>
-<p>A <a href="../../../docs/howtos/">link</a> to a branch in the document tree, i.e. to the _index.md.</p>
+<p>A <a href="../../../docs/howtos/">link</a> to a branch/section in the document tree, i.e. to the <code>\_index.md</code>.</p>
 <pre><code class="language-markdown">[link]({{&lt; relref &quot;docs/HOWTOs&quot; &gt;}})
 </code></pre>
 </li>
@@ -1427,7 +1666,7 @@ This will only work if the page name is unique</p>
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
-    Avoid using markdown style links as they can&rsquo;t be verified at site build time like the short code links can.
+    Don&rsquo;t use markdown style links for internal page links as they can&rsquo;t be verified at site build time like the short code links can.
 
 </div>
 
@@ -1487,9 +1726,31 @@ This will only work if the page name is unique</p>
 <pre><code class="language-markdown">{{&lt; file-link &quot;quick-start-guide/mock_stroom_data.csv&quot; &gt;}}Link Title{{&lt; /file-link &gt;}}
 </code></pre>
 <p>Paths are relative to <code>/assets/files/</code>.</p>
-<h2 id="code-highlighting">Code highlighting</h2>
+<h2 id="code">Code</h2>
 <h3 id="inline-code">Inline code</h3>
 <div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Rendered
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          Inline code <code>looks like this</code>.
+        
+      </p>
+    
+  </div>
+  
+</div>
+
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1514,6 +1775,12 @@ This will only work if the page name is unique</p>
   
 </div>
 
+</div>
+<h3 id="code-blocks">Code blocks</h3>
+<p>Code blocks should be surrounded with fences <code>```language-type</code> and <code>```</code> with the <a href="#supported-languages">language</a> type <strong>always</strong> specified to ensure correct syntax highlighting.
+If the language type is not supplied then styling will be different to fenced blocks with a language.</p>
+<p>This is a markdown example of a fenced code block containing XML content.</p>
+<div class="card-deck mb-4">
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1528,7 +1795,11 @@ This will only work if the page name is unique</p>
     
       <p class="card-text">
         
-          Inline code <code>looks like this</code>.
+          <pre><code class="language-xml">&lt;root&gt;
+  &lt;child attr=&quot;xxx&quot;&gt;some val&lt;/child&gt;
+&lt;/root&gt;
+</code></pre>
+
         
       </p>
     
@@ -1536,12 +1807,6 @@ This will only work if the page name is unique</p>
   
 </div>
 
-</div>
-<h3 id="code-blocks">Code blocks</h3>
-<p>Code blocks should be surrounded with fences <code>```language-type</code> and <code>```</code> with the language type <strong>always</strong> specified to ensure correct syntax highlighting.
-If the language type is not supplied then styling will be different to fenced blocks with a language.</p>
-<p>This is a markdown example of a fenced code block containing XML content.</p>
-<div class="card-deck mb-4">
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1570,46 +1835,11 @@ If the language type is not supplied then styling will be different to fenced bl
   
 </div>
 
-  <div class="card mb-4">
-  
-    <div class="card-header">
-      
-        Rendered
-      
-    </div>
-  
-  <div class="card-body">
-    
-    
-    
-      <p class="card-text">
-        
-          <pre><code class="language-xml">&lt;root&gt;
-  &lt;child attr=&quot;xxx&quot;&gt;some val&lt;/child&gt;
-&lt;/root&gt;
-</code></pre>
-
-        
-      </p>
-    
-  </div>
-  
 </div>
-
-</div>
-<p>Some language types commonly used in this documentation are:</p>
-<ul>
-<li><code>bash</code></li>
-<li><code>java</code></li>
-<li><code>json</code></li>
-<li><code>text</code></li>
-<li><code>xml</code></li>
-<li><code>yaml</code></li>
-</ul>
-<p>The list of supported languages can be found <a href="https://prismjs.com/index.html#supported-languages">here (external)</a>.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
+
 
     The fenced code block <strong>MUST</strong> have a language specified.
 This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.
@@ -1620,7 +1850,6 @@ If the content of the fenced block has no supported language or is just plain te
 
 <p>The following are some example of rendered code blocks:</p>
 <div class="card-deck mb-4">
-
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1648,8 +1877,6 @@ If the content of the fenced block has no supported language or is just plain te
   
 </div>
 
-
-
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1675,8 +1902,6 @@ root:
   </div>
   
 </div>
-
-
 
   <div class="card mb-4">
   
@@ -1706,8 +1931,6 @@ root:
   
 </div>
 
-
-
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1732,6 +1955,76 @@ root:
   
 </div>
 
+</div>
+<h3 id="command-line-blocks">Command line blocks</h3>
+<p>To demostrate commands being run on the command line you can use the <code>command-line</code> shortcode.
+This results in a code block with the shell prompt displayed on the left of each line.
+It also means the prompt part is not selectable when the user selects the text for copy/pasting.</p>
+<p>The shortcode takes the following arguments:</p>
+<ul>
+<li><strong>username</strong> - The username to appear in the prompt, defaults to <code>user</code>.</li>
+<li><strong>hostname</strong> - The hostname to appear in the prompt, defaults to <code>localhost</code>.</li>
+<li><strong>language</strong> - The language of the content (a valid and installed prism <a href="#supported-languages">language name</a> language name), defaults to <code>bash</code>.</li>
+</ul>
+<p>If you want to display shell output then prefix each output line with <code>(out)</code>.
+It will then be displayed without a prompt.</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Rendered
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <div class="code-toolbar">
+  <pre class="command-line language-bash" data-user="david" data-host="wopr" data-filter-output="(out)"><code>echo &#34;hello world&#34;
+(out) class
+id
+(out) uid=1000(jdoe) gid=1000(jdoe)</code></pre>
+</div>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Markdown
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">{{&lt; command-line &quot;david&quot; &quot;wopr&quot; &gt;}}
+echo &quot;hello world&quot;
+(out) class
+id
+(out) uid=1000(jdoe) gid=1000(jdoe)
+{{&lt; command-line &gt;}}
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
 
 </div>
 <h3 id="inline-files">Inline files</h3>
@@ -1823,12 +2116,69 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 {{&lt; textfile &quot;style-guide/in_line_file_example.xml&quot; &gt;}}My caption{{&lt; /textfile &gt;}}
 {{&lt; textfile &quot;style-guide/in_line_file_example.xml&quot; /&gt;}}
 </code></pre>
+<h3 id="supported-languages">Supported languages</h3>
+<p>This site uses 
+
+
+
+
+
+<span class="external-link">
+<a href="https://prismjs.com/index.html" class="" style="">Prismjs</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
+ for syntax highlighing code blocks.
+PrismJs supports a large number of different languages however only certain languages have been included with this site.
+The language specified in the markdown code fence or in the <code>command-line</code> shortcode must be in the list of included languages.</p>
+<p>The list of included language names are:</p>
+<p><code>sh</code><br>
+<code>bash</code><br>
+<code>css</code><br>
+<code>csv</code><br>
+<code>groovy</code><br>
+<code>java</code><br>
+<code>javascript</code><br>
+<code>jq</code><br>
+<code>json</code><br>
+<code>python</code><br>
+<code>regex</code><br>
+<code>scss</code><br>
+<code>sql</code><br>
+<code>text</code><br>
+<code>toml</code><br>
+<code>xml</code><br>
+<code>yaml</code></p>
+<p>To include extra languages in this site you need to build a new version of the <code>prism.js</code> and <code>prism.css</code> files.
+This can be done 
+
+
+
+
+
+<span class="external-link">
+<a href="https://prismjs.com/index.html#supported-languages" class="" style="">here</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
+.
+When creating new versions of these file you must included the languages and plugins already included else you may break this site.
+The generated files are then copied over the top of <code>/static/css/prism.css</code> and <code>/static/js/prism.js</code>.
+Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
+Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.</p>
+<p>An example of the download link is 
+
+
+
+
+  
+
+
+<span class="external-link">
+<a href="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview" class="" style="">https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
+</p>
 <h2 id="alerts">Alerts</h2>
 <h3 id="warning-block-quote">Warning block Quote</h3>
-<pre><code class="language-markdown">{{% warning %}}
-This is a warning that can contain _markdown_.
-{{% /warning %}}
-</code></pre>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
@@ -1838,11 +2188,12 @@ This is a warning that can contain _markdown_.
 </div>
 
 
-<h3 id="page-level-warning">Page level warning</h3>
-<pre><code class="language-markdown">{{% page-warning %}}
+<p>The markdown for this is:</p>
+<pre><code class="language-markdown">{{% warning %}}
 This is a warning that can contain _markdown_.
-{{% /page-warning %}}
+{{% /warning %}}
 </code></pre>
+<h3 id="page-level-warning">Page level warning</h3>
 
 <div class="pageinfo pageinfo-danger">
 <h4 class="text-danger alert-heading">Warning</h4>
@@ -1851,25 +2202,28 @@ This is a warning that can contain _markdown_.
 </div>
 
 
-<h3 id="note-block-quote">Note block Quote</h3>
-<pre><code class="language-markdown">{{% note %}}
-This is a note that can contain **markdown**.
-{{% /note %}}
+<p>The markdown for this is:</p>
+<pre><code class="language-markdown">{{% page-warning %}}
+This is a warning that can contain _markdown_.
+{{% /page-warning %}}
 </code></pre>
+<h3 id="note-block-quote">Note block Quote</h3>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
+
 
     This is a note that can contain <strong>markdown</strong>.
 
 </div>
 
 
-<h3 id="page-level-info">Page level info</h3>
-<pre><code class="language-markdown">{{% pageinfo %}}
-This is some info that can contain **markdown**.
-{{% /pageinfo %}}
+<p>The markdown for this is:</p>
+<pre><code class="language-markdown">{{% note %}}
+This is a note that can contain **markdown**.
+{{% /note %}}
 </code></pre>
+<h3 id="page-level-info">Page level info</h3>
 
 
 <div class="pageinfo pageinfo-primary">
@@ -1877,11 +2231,12 @@ This is some info that can contain **markdown**.
 
 </div>
 
-<h3 id="todo-block-quote">TODO block Quote</h3>
-<pre><code class="language-markdown">{{% todo %}}
-This is a TODO that can contain `markdown`.
-{{% /todo %}}
+<p>The markdown for this is:</p>
+<pre><code class="language-markdown">{{% pageinfo %}}
+This is some info that can contain **markdown**.
+{{% /pageinfo %}}
 </code></pre>
+<h3 id="todo-block-quote">TODO block Quote</h3>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
@@ -1890,32 +2245,16 @@ This is a TODO that can contain `markdown`.
 
 </div>
 
-<h2 id="cards">Cards</h2>
-<p>Cards can be used to display related conent side by side.
-Each card can contain markdown and/or Hugo short codes.
-The cards will be displayed horizopntally across the page.</p>
-<pre><code class="language-marckdown">{{&lt; cardpane &gt;}}
-
-  {{&lt; card header=&quot;YAML&quot; &gt;}}
-```yaml
----
-root:
-  someKey: &quot;value&quot;
-```
-  {{&lt; /card &gt;}}
-
-  {{&lt; card header=&quot;XML&quot; &gt;}}
-```xml
-&lt;root&gt;
-  &lt;child attr=&quot;xxx&quot;&gt;some val&lt;/child&gt;
-&lt;/root&gt;
-```
-  {{&lt; /card &gt;}}
-
-{{&lt; /cardpane &gt;}}
+<p>The markdown for this is:</p>
+<pre><code class="language-markdown">{{% todo %}}
+This is a TODO that can contain `markdown`.
+{{% /todo %}}
 </code></pre>
+<h2 id="cards">Cards</h2>
+<p>Cards can be used to display related content side by side.
+Each card can contain markdown and/or Hugo short codes.
+The cards will be displayed horizontally to fill the width of the page.</p>
 <div class="card-deck mb-4">
-
   <div class="card mb-4">
   
     <div class="card-header">
@@ -1969,8 +2308,37 @@ root:
   
 </div>
 
-
 </div>
+<p>The markdown for this is:</p>
+<pre><code class="language-marckdown">{{&lt; cardpane &gt;}}
+  {{&lt; card header=&quot;YAML&quot; &gt;}}
+```yaml
+---
+root:
+  someKey: &quot;value&quot;
+```
+  {{&lt; /card &gt;}}
+  {{&lt; card header=&quot;XML&quot; &gt;}}
+```xml
+&lt;root&gt;
+  &lt;child attr=&quot;xxx&quot;&gt;some val&lt;/child&gt;
+&lt;/root&gt;
+```
+  {{&lt; /card &gt;}}
+{{&lt; /cardpane &gt;}}
+</code></pre>
+<h2 id="tabbed-panes">Tabbed panes</h2>
+<p>Hugo/Docsy have shortcodes for 
+
+
+
+
+
+<span class="external-link">
+<a href="https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" class="" style="">tabbed panes</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
+ however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.</p>
 
 </div>
 
@@ -1987,9 +2355,9 @@ root:
 
 
 
-<div class="td-content" style="--base-section-num: '3.4.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '3.5.'; page-break-before: always">
     
-  <h1 id="pg-e4c143c686e89b1a713a57f39dcc4f1e">3.4 - Images</h1>
+  <h1 id="pg-e4c143c686e89b1a713a57f39dcc4f1e">3.5 - Images</h1>
     <div class="lead">Examples of how to include images in documents.</div>
 	<h2 id="image-assets">Image assets</h2>
 <p>All Images should be placed in <code>/assets/images/</code> or within a descendent directory of it.
@@ -2429,9 +2797,9 @@ E.g:</p>
 
 
 
-<div class="td-content" style="--base-section-num: '3.5.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '3.6.'; page-break-before: always">
     
-  <h1 id="pg-f7770d3ec7d0c638d8a7f2b27a9a6ad1">3.5 - Icon Gallery</h1>
+  <h1 id="pg-f7770d3ec7d0c638d8a7f2b27a9a6ad1">3.6 - Icon Gallery</h1>
     <div class="lead">A gallery of all the icons in use in stroom for reference.</div>
 	<p>This page can be used as a reference for finding icons and their filenames to use them in the documentation.</p>
 <p>See <a href="../../../community/documentation/style-guide/using-images/#stroom-icons">here</a> for how to add icons to pages.</p>

@@ -23,12 +23,103 @@
       <description>
         
         
-        &lt;p&gt;&lt;em&gt;Stroom-Docs&lt;/em&gt; is created using the static site generator &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo (external link)&lt;/a&gt;.
-The full documentation for &lt;em&gt;Hugo&lt;/em&gt; can be found &lt;a href=&#34;https://gohugo.io/documentation/&#34;&gt;here (external link)&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The site also uses the &lt;a href=&#34;https://www.docsy.dev&#34;&gt;Docsy (external link)&lt;/a&gt; theme for Hugo.
+        &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Stroom&amp;rsquo;s documentation is created using the static site generator &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo (external link)&lt;/a&gt;.
+This converts markdown content into a rich HTML site.
+The markdown content in &lt;em&gt;stroom-docs&lt;/em&gt; is not intended to be read as-is in GitHub, it needs to be rendered first.&lt;/p&gt;
+&lt;p&gt;The full documentation for &lt;em&gt;Hugo&lt;/em&gt; can be found &lt;a href=&#34;https://gohugo.io/documentation/&#34;&gt;here (external link)&lt;/a&gt;.
+The site also uses the &lt;a href=&#34;https://www.docsy.dev&#34;&gt;Docsy (external link)&lt;/a&gt; theme for Hugo.
 The documentation for &lt;em&gt;Docsy&lt;/em&gt; can be found &lt;a href=&#34;https://www.docsy.dev/docs/&#34;&gt;here (external link)&lt;/a&gt;.
 The &lt;em&gt;Docsy&lt;/em&gt; theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the &lt;em&gt;Docsy&lt;/em&gt; documentation in the first instance.&lt;/p&gt;
+&lt;p&gt;To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.&lt;/p&gt;
+&lt;h2 id=&#34;shortcodes&#34;&gt;Shortcodes&lt;/h2&gt;
+&lt;p&gt;The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
+Shortcodes make it easy to change how a page element is styled by just changing the shortcode.&lt;/p&gt;
+&lt;p&gt;Hugo includes many &lt;a href=&#34;https://gohugo.io/content-management/shortcodes/&#34;&gt;shortcodes (external link)&lt;/a&gt;, the Docsy theme adds some &lt;a href=&#34;https://www.docsy.dev/docs/adding-content/shortcodes/&#34;&gt;more (external link)&lt;/a&gt; and there are some bespoke &lt;em&gt;stroom-docs&lt;/em&gt; ones in &lt;code&gt;layouts/shortcodes/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To make your life easier when editing the documentation it is recomended to use an editor that supports text snippets.
+Snippets make it very quick to add shortcodes into the documentation.&lt;/p&gt;
+&lt;p&gt;For example the following snippet adds a skeleton front matter to a page.&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Ultisnips
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-snippets&#34;&gt;snippet hfront &amp;quot;Hugo markdown metadata front matter&amp;quot; b
+---
+title: &amp;quot;${1:Title}&amp;quot;
+linkTitle: &amp;quot;$1&amp;quot;
+#weight:
+date: `date &amp;quot;+%Y-%m-%d&amp;quot;`
+tags: $2
+description: &amp;gt;
+  $3
+---
+
+$0
+endsnippet
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        JSON (VS Code)
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;hugo-front-matter&amp;quot;: {
+    &amp;quot;prefix&amp;quot;: &amp;quot;hfront&amp;quot;,
+    &amp;quot;body&amp;quot;: [
+      &amp;quot;---&amp;quot;,
+      &amp;quot;title: \&amp;quot;${1:Title}\&amp;quot;&amp;quot;,
+      &amp;quot;linkTitle: \&amp;quot;$1\&amp;quot;&amp;quot;,
+      &amp;quot;#weight:&amp;quot;,
+      &amp;quot;date: `date \&amp;quot;+%Y-%m-%d\&amp;quot;`&amp;quot;,
+      &amp;quot;tags: $2&amp;quot;,
+      &amp;quot;description: &amp;gt;&amp;quot;,
+      &amp;quot;  $3&amp;quot;,
+      &amp;quot;---&amp;quot;,
+      &amp;quot;&amp;quot;,
+      &amp;quot;$0&amp;quot;
+    ],
+    &amp;quot;description&amp;quot;: &amp;quot;Hugo markdown metadata front matter&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
@@ -42,628 +133,15 @@ You should consult the &lt;em&gt;Docsy&lt;/em&gt; documentation in the first ins
     </item>
     
     <item>
-      <title>Community: Basic Page Elements</title>
-      <link>/community/documentation/style-guide/basic-elements/</link>
+      <title>Community: Additional Page Elements</title>
+      <link>/community/documentation/style-guide/additional-elements/</link>
       <pubDate>Tue, 20 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>/community/documentation/style-guide/basic-elements/</guid>
+      <guid>/community/documentation/style-guide/additional-elements/</guid>
       <description>
         
         
-        &lt;h2 id=&#34;markdown-style-conventions&#34;&gt;Markdown style conventions&lt;/h2&gt;
-&lt;h3 id=&#34;line-breaks&#34;&gt;Line breaks&lt;/h3&gt;
-&lt;h4 id=&#34;sentence-per-line&#34;&gt;Sentence per line&lt;/h4&gt;
-&lt;p&gt;Each sentence should start on a new line, even in numbered/bulleted lists.
-This makes it easier to move sentences around or to remove them.
-When the markdown is rendered into HTML/PDF, the sentences will be joined into a single paragraph.&lt;/p&gt;
-&lt;p&gt;See this &lt;a href=&#34;https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line&#34;&gt;link (external link)&lt;/a&gt; for more of the reasons behind sentence per line.
-Though this link relates to Asciidoc, the same applies to markdown.&lt;/p&gt;
-&lt;p&gt;For example:&lt;/p&gt;
-&lt;div class=&#34;card-deck mb-4&#34;&gt;
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Don&amp;rsquo;t do this
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;This is the first sentence of the paragraph. This is the second. This it the third and final one.
-
-This is the start of a new paragraph.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;This is the first sentence of the paragraph. This is the second. This it the third and final one.&lt;/p&gt;
-&lt;p&gt;This is the start of a new paragraph.&lt;/p&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Do this
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;This is the first sentence of the paragraph.
-This is the second.
-This it the third and final one.
-
-This is the start of a new paragraph.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;This is the first sentence of the paragraph.
-This is the second.
-This it the third and final one.&lt;/p&gt;
-&lt;p&gt;This is the start of a new paragraph.&lt;/p&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-&lt;/div&gt;
-&lt;h4 id=&#34;no-hard-line-breaks&#34;&gt;No hard line breaks.&lt;/h4&gt;
-&lt;p&gt;Long lines should &lt;strong&gt;not&lt;/strong&gt; be hard wrapped by adding line breaks.
-You should instead rely on your editor to soft wrap long lines that cannot fit on the visible screen area.
-The process of hard wrapping long lines will vary from editor to editor and not all editors support re-wrapping lines after the content has changed.
-It also relies on each person&amp;rsquo;s editor being configured to the same wrap column.
-Adding hard wraps also means a slight change at the start of a paragraph will potentially cause all subsequent lines to be re-wrapped and thus appear as a substantial difference in the commit.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Don&#39;t do this
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
-
-
-## Do this instead
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Which both render as:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-&lt;h4 id=&#34;forced-line-breaks&#34;&gt;Forced line breaks&lt;/h4&gt;
-&lt;p&gt;In some circumstances, e.g. a list of items that is not bulleted, you may want to prevent the joining of adjecent lines when rendered.
-You can force a line break by adding two spaces &lt;code&gt;␣␣&lt;/code&gt; at the end of a line.&lt;/p&gt;
-&lt;div class=&#34;card-deck mb-4&#34;&gt;
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Don&amp;rsquo;t do this
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Paragraph 1.
-
-One
-Two
-Three
-
-Paragraph 2.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Paragraph 1.&lt;/p&gt;
-&lt;p&gt;One
-Two
-Three&lt;/p&gt;
-&lt;p&gt;Paragraph 2.&lt;/p&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Do this
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Paragraph 1.
-
-One␣␣
-Two␣␣
-Three
-
-Paragraph 2.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Which renders as:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Paragraph 1.&lt;/p&gt;
-&lt;p&gt;One&lt;br&gt;
-Two&lt;br&gt;
-Three&lt;/p&gt;
-&lt;p&gt;Paragraph 2.&lt;/p&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-
-&lt;/div&gt;
-&lt;h3 id=&#34;blank-lines-and-spacing&#34;&gt;Blank lines and spacing&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;A heading line should be preceded by two blank lines and followed by one blank line.
-This makes the headings clearer in the markdown source.&lt;/li&gt;
-&lt;li&gt;A fenced code block should be surrounded by one blank line.&lt;/li&gt;
-&lt;li&gt;Paragraphs should be separated by one blank line.&lt;/li&gt;
-&lt;li&gt;Bulleted and numbered lists should be surrounded by one blank line.&lt;/li&gt;
-&lt;li&gt;Additional sentences in bulleted/numbered lists should be indented for clarity in the raw markdown.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;e.g:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;The text belonging to the previous heading.
-
-
-## A Heading
-
-
-## A sub heading
-
-The text of this heading.
-A second sentence in this paragraph.
-
-A new paragraph.
-A second sentence in this paragraph.
-
-Here are some bullets:
-
-* Bullet Z.
-* Bullet A.
-  This is an additional sentence for this bullet point.
-  And so is this.
-  * Sub-bullet AX.
-    This is an additional sentence for this bullet point.
-    And so is this.
-* Bullet F.
-
-Here are some numbered steps:
-
-1. Step 1.
-1. Step 2.
-1. Step 3.
-
-Another random line.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;headings&#34;&gt;Headings&lt;/h2&gt;
-&lt;p&gt;The page title uses heading level one (&lt;code&gt;# &lt;/code&gt; in markdown) so all markdown headings should be &amp;gt;= 2 (&lt;code&gt;## &lt;/code&gt;, &lt;code&gt;### &lt;/code&gt;, &lt;code&gt;#### &lt;/code&gt;, etc.).
-Headings should have two blank lines above them for clarity in the raw markdown.
-The &lt;code&gt;#&lt;/code&gt; characters should &lt;strong&gt;always&lt;/strong&gt; be followed by one space character&lt;/p&gt;
-&lt;p&gt;The following is an exmaple of the heading levels.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;# Heading level 1
-
-DON&#39;T use this level in your documents.
-Level one headings will be generated from the `title` in the document&#39;s front matter.
-
-
-## Heading level 2
-
-
-### Heading level 3
-
-
-#### Heading level 4
-
-
-##### Heading level 5
-
-
-###### Heading level 6
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Markdown supports an alternate style for headings, as shown below.
-&lt;strong&gt;Don&amp;rsquo;t&lt;/strong&gt; use this style as it is not clear from the symbols what the heading level is.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markddown&#34;&gt;
-Heading level 1
-===============
-
-Don&#39;t use this style.
-
-
-Heading level 2
----------------
-
-Don&#39;t use this style.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;table-of-contents&#34;&gt;Table of contents&lt;/h3&gt;
-&lt;p&gt;The page table of contents (right hand pane) is controlled by this in &lt;code&gt;config.toml&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;[markup]
-  [markup.tableOfContents]
-    endLevel = 4
-    ordered = false
-    startLevel = 2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The maximum depth of the table of contents can be controlled with &lt;code&gt;endLevel&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;heading-example-level-2&#34;&gt;Heading example (level 2)&lt;/h2&gt;
-&lt;p&gt;This is an example of a level 2 heading.&lt;/p&gt;
-&lt;h3 id=&#34;heading-example-level-3&#34;&gt;Heading example (level 3)&lt;/h3&gt;
-&lt;p&gt;This is an example of a level 3 heading.&lt;/p&gt;
-&lt;h4 id=&#34;heading-example-level-4&#34;&gt;Heading example (level 4)&lt;/h4&gt;
-&lt;p&gt;This is an example of a level 4 heading.&lt;/p&gt;
-&lt;h5 id=&#34;heading-example-level-5&#34;&gt;Heading example (level 5)&lt;/h5&gt;
-&lt;p&gt;This is an example of a level 5 heading.&lt;/p&gt;
-&lt;h6 id=&#34;heading-example-level-6&#34;&gt;Heading example (level 6)&lt;/h6&gt;
-&lt;p&gt;This is an example of a level 6 heading.&lt;/p&gt;
-&lt;h2 id=&#34;block-quotes&#34;&gt;Block quotes&lt;/h2&gt;
-&lt;h3 id=&#34;single-line&#34;&gt;Single line&lt;/h3&gt;
-&lt;p&gt;A simple paragraph block quote.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;gt; This is a simple block quote.
-&amp;gt; This is the second sentence on the same line.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;blockquote&gt;
-&lt;p&gt;This is a simple block quote.
-This is the second sentence on the same line.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;multi-line&#34;&gt;Multi line&lt;/h3&gt;
-&lt;p&gt;A pair of spaces at the end of a line can be used to force line breaks, e.g.:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;&amp;gt; This is a multi line block quote.␣␣
-&amp;gt; This is the second line.␣␣
-&amp;gt; This is the third line.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;blockquote&gt;
-&lt;p&gt;This is a multi line block quote.&lt;br&gt;
-This is the second line.&lt;br&gt;
-This is the third line.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;lists&#34;&gt;Lists&lt;/h2&gt;
-&lt;h3 id=&#34;bulleted-list&#34;&gt;Bulleted list&lt;/h3&gt;
-&lt;div class=&#34;card-deck mb-4&#34;&gt;
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Markdown
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;* Fruit -
-  Make sure you get your five-a-day.
-* Meat
-    * Beef
-    * Chicken
-* Vegetables.
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Rendered
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;Fruit -
-Make sure you get your five-a-day.&lt;/li&gt;
-&lt;li&gt;Meat
-&lt;ul&gt;
-&lt;li&gt;Beef&lt;/li&gt;
-&lt;li&gt;Chicken&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Vegetables.&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;h3 id=&#34;numbered-list&#34;&gt;Numbered List&lt;/h3&gt;
-&lt;p&gt;Numbered list items should all be numbered with number &lt;code&gt;1&lt;/code&gt; so that the markdown render handles the consecutive numbering.
-This makes the file easier to edit and means the addition of one item in the middle does not cause a change to all the lines after it, e.g:&lt;/p&gt;
-&lt;div class=&#34;card-deck mb-4&#34;&gt;
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Markdown
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;1. Item one.
-   This is some extra content for step 1.
-1. Item two.
-    1. Sub-item A.
-    1. Sub-item B.
-1. Item three.
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Rendered
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ol&gt;
-&lt;li&gt;Item one.
-This is some extra content for step 1.&lt;/li&gt;
-&lt;li&gt;Item two.
-&lt;ol&gt;
-&lt;li&gt;Sub-item A.&lt;/li&gt;
-&lt;li&gt;Sub-item B.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Item three.&lt;/li&gt;
-&lt;/ol&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;h3 id=&#34;check-list&#34;&gt;Check List&lt;/h3&gt;
-&lt;div class=&#34;card-deck mb-4&#34;&gt;
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Markdown
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;* [ ] Item 1.
-      This is some extra content for item 1.
-* [ ] Item 2.
-    * [x] Item 2a.
-    * [ ] Item 2b.
-* [x] Item 3.
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Rendered
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 1.
-This is some extra content for item 1.&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2.
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2a.&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 2b.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Item 3.&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;h3 id=&#34;definition-list&#34;&gt;Definition list&lt;/h3&gt;
-&lt;div class=&#34;card-deck mb-4&#34;&gt;
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Markdown
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Name
-: Godzilla
-
-Birthplace
-: Japan
-
-Color
-: Green
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Rendered
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;dl&gt;
-&lt;dt&gt;Name&lt;/dt&gt;
-&lt;dd&gt;Godzilla&lt;/dd&gt;
-&lt;dt&gt;Birthplace&lt;/dt&gt;
-&lt;dd&gt;Japan&lt;/dd&gt;
-&lt;dt&gt;Color&lt;/dt&gt;
-&lt;dd&gt;Green&lt;/dd&gt;
-&lt;/dl&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
-&lt;p&gt;Tables should ideally have its columns aligned in the markdown for clarity in the raw markdown.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Ideally do this
-
-| Artist          | Album          | Year |
-|-----------------|----------------|------|
-| Michael Jackson | Thriller       | 1982 |
-| Prince          | Purple Rain    | 1984 |
-| Beastie Boys    | License to Ill | 1986 |
-
-## But this is acceptable
-
-| Artist | Album | Year |
-|-|-|-|
-| Michael Jackson | Thriller | 1982 |
-| Prince | Purple Rain | 1984 |
-| Beastie Boys | License to Ill | 1986 |
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Both will produce the same result but the latter can be harder to read in markdown form.&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Artist&lt;/th&gt;
-&lt;th&gt;Album&lt;/th&gt;
-&lt;th&gt;Year&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Michael Jackson&lt;/td&gt;
-&lt;td&gt;Thriller&lt;/td&gt;
-&lt;td&gt;1982&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Prince&lt;/td&gt;
-&lt;td&gt;Purple Rain&lt;/td&gt;
-&lt;td&gt;1984&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Beastie Boys&lt;/td&gt;
-&lt;td&gt;License to Ill&lt;/td&gt;
-&lt;td&gt;1986&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+        &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
 &lt;p&gt;Links can be added using either standard markdown link syntax or using a Hugo shortcode.
 The advantage of the shortcode is that hugo will check for broken links when building the site so there are preferred.&lt;/p&gt;
 &lt;p&gt;Links to external sites, i.e. on the internet, should have &lt;code&gt; (external link)&lt;/code&gt; appended to the link title.
@@ -679,35 +157,47 @@ The anchor for a heading is the heading text with:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;For example the heading &lt;code&gt;Mr O&#39;Neil&#39;s 1st Event (something)&lt;/code&gt; becomes as an anchor &lt;code&gt;#mr-oneils-1st-event-something&lt;/code&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;shortcode-page-link-examples&#34;&gt;Shortcode page link examples&lt;/h3&gt;
+&lt;p&gt;Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.&lt;/p&gt;
+&lt;p&gt;Hugo has &lt;code&gt;ref&lt;/code&gt; and &lt;code&gt;relref&lt;/code&gt; link shortcodes.
+Use only &lt;code&gt;relref&lt;/code&gt; as this will be translated into a relative path when the site it built ensuring that the site can be run from any base path.&lt;/p&gt;
+&lt;p&gt;The following are some example of different links to internal content.&lt;/p&gt;
+&lt;h4 id=&#34;heading-anchor&#34;&gt;Heading anchor&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;A &lt;a href=&#34;#alerts&#34;&gt;link&lt;/a&gt; to a heading anchor on this page.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;#alerts&amp;quot; &amp;gt;}})
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; relref &amp;quot;#alerts&amp;quot; &amp;gt;}})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;absolute-path&#34;&gt;Absolute path&lt;/h4&gt;
+&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;A &lt;a href=&#34;../../community/documentation/style-guide/using-images/#captions&#34;&gt;link&lt;/a&gt; to a heading anchor on another page.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;community/documentation/style-guide/using-images#captions&amp;quot; &amp;gt;}})
+&lt;p&gt;A &lt;a href=&#34;../../community/documentation/style-guide/using-images/#captions&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using an absolute path.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; relref &amp;quot;community/documentation/style-guide/using-images#captions&amp;quot; &amp;gt;}})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A &lt;a href=&#34;../../docs/quick-start-guide/running/#basic-configuration&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using only the page name.
-This will only work if the page name is unique&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;community/documentation/style-guide/using-images#captions&amp;quot; &amp;gt;}})
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;relative-path&#34;&gt;Relative path&lt;/h4&gt;
+&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;A &lt;a href=&#34;../../docs/proxy/install/#prerequisites&#34;&gt;link&lt;/a&gt; to a heading anchor on page above this one, using a relative path.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; ref &amp;quot;../../../docs/proxy/install.md#prerequisites&amp;quot; &amp;gt;}})
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; relref &amp;quot;../../../docs/proxy/install.md#prerequisites&amp;quot; &amp;gt;}})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;unique-page-name&#34;&gt;Unique page name&lt;/h4&gt;
+&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;A &lt;a href=&#34;../../docs/proxy/install/#prerequisites&#34;&gt;link&lt;/a&gt; to a heading anchor on page above this one, using an absolute path, that will be converted to a relative one.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; relref &amp;quot;/docs/proxy/install.md#prerequisites&amp;quot; &amp;gt;}})
+&lt;p&gt;A &lt;a href=&#34;../../docs/quick-start-guide/running/#basic-configuration&#34;&gt;link&lt;/a&gt; to a heading anchor on another page, using only the unique page name.
+This is quicker to type and won&amp;rsquo;t break if pages are moved but will not work if the page name is not unique.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; relref &amp;quot;running#basic-configuration&amp;quot; &amp;gt;}})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;section-link&#34;&gt;Section link&lt;/h4&gt;
+&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;A &lt;a href=&#34;../../docs/howtos/&#34;&gt;link&lt;/a&gt; to a branch in the document tree, i.e. to the _index.md.&lt;/p&gt;
+&lt;p&gt;A &lt;a href=&#34;../../docs/howtos/&#34;&gt;link&lt;/a&gt; to a branch/section in the document tree, i.e. to the &lt;code&gt;\_index.md&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;[link]({{&amp;lt; relref &amp;quot;docs/HOWTOs&amp;quot; &amp;gt;}})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
@@ -717,7 +207,7 @@ This will only work if the page name is unique&lt;/p&gt;
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
 
-    Avoid using markdown style links as they can&amp;rsquo;t be verified at site build time like the short code links can.
+    Don&amp;rsquo;t use markdown style links for internal page links as they can&amp;rsquo;t be verified at site build time like the short code links can.
 
 &lt;/div&gt;
 
@@ -777,9 +267,31 @@ This will only work if the page name is unique&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; file-link &amp;quot;quick-start-guide/mock_stroom_data.csv&amp;quot; &amp;gt;}}Link Title{{&amp;lt; /file-link &amp;gt;}}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Paths are relative to &lt;code&gt;/assets/files/&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;code-highlighting&#34;&gt;Code highlighting&lt;/h2&gt;
+&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
 &lt;h3 id=&#34;inline-code&#34;&gt;Inline code&lt;/h3&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          Inline code &lt;code&gt;looks like this&lt;/code&gt;.
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -804,6 +316,12 @@ This will only work if the page name is unique&lt;/p&gt;
   
 &lt;/div&gt;
 
+&lt;/div&gt;
+&lt;h3 id=&#34;code-blocks&#34;&gt;Code blocks&lt;/h3&gt;
+&lt;p&gt;Code blocks should be surrounded with fences &lt;code&gt;```language-type&lt;/code&gt; and &lt;code&gt;```&lt;/code&gt; with the &lt;a href=&#34;#supported-languages&#34;&gt;language&lt;/a&gt; type &lt;strong&gt;always&lt;/strong&gt; specified to ensure correct syntax highlighting.
+If the language type is not supplied then styling will be different to fenced blocks with a language.&lt;/p&gt;
+&lt;p&gt;This is a markdown example of a fenced code block containing XML content.&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -818,7 +336,11 @@ This will only work if the page name is unique&lt;/p&gt;
     
       &lt;p class=&#34;card-text&#34;&gt;
         
-          Inline code &lt;code&gt;looks like this&lt;/code&gt;.
+          &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
         
       &lt;/p&gt;
     
@@ -826,12 +348,6 @@ This will only work if the page name is unique&lt;/p&gt;
   
 &lt;/div&gt;
 
-&lt;/div&gt;
-&lt;h3 id=&#34;code-blocks&#34;&gt;Code blocks&lt;/h3&gt;
-&lt;p&gt;Code blocks should be surrounded with fences &lt;code&gt;```language-type&lt;/code&gt; and &lt;code&gt;```&lt;/code&gt; with the language type &lt;strong&gt;always&lt;/strong&gt; specified to ensure correct syntax highlighting.
-If the language type is not supplied then styling will be different to fenced blocks with a language.&lt;/p&gt;
-&lt;p&gt;This is a markdown example of a fenced code block containing XML content.&lt;/p&gt;
-&lt;div class=&#34;card-deck mb-4&#34;&gt;
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -860,46 +376,11 @@ If the language type is not supplied then styling will be different to fenced bl
   
 &lt;/div&gt;
 
-  &lt;div class=&#34;card mb-4&#34;&gt;
-  
-    &lt;div class=&#34;card-header&#34;&gt;
-      
-        Rendered
-      
-    &lt;/div&gt;
-  
-  &lt;div class=&#34;card-body&#34;&gt;
-    
-    
-    
-      &lt;p class=&#34;card-text&#34;&gt;
-        
-          &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
-  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
-&amp;lt;/root&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-        
-      &lt;/p&gt;
-    
-  &lt;/div&gt;
-  
 &lt;/div&gt;
-
-&lt;/div&gt;
-&lt;p&gt;Some language types commonly used in this documentation are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;bash&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;java&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;json&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;text&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;xml&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;yaml&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The list of supported languages can be found &lt;a href=&#34;https://prismjs.com/index.html#supported-languages&#34;&gt;here (external)&lt;/a&gt;.&lt;/p&gt;
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
 
     The fenced code block &lt;strong&gt;MUST&lt;/strong&gt; have a language specified.
 This ensures the correct default styling is used and makes it explicitly clear to anyone editing the markdown what the content of the block is.
@@ -910,7 +391,6 @@ If the content of the fenced block has no supported language or is just plain te
 
 &lt;p&gt;The following are some example of rendered code blocks:&lt;/p&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
-
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -938,8 +418,6 @@ If the content of the fenced block has no supported language or is just plain te
   
 &lt;/div&gt;
 
-
-
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -965,8 +443,6 @@ root:
   &lt;/div&gt;
   
 &lt;/div&gt;
-
-
 
   &lt;div class=&#34;card mb-4&#34;&gt;
   
@@ -996,8 +472,6 @@ root:
   
 &lt;/div&gt;
 
-
-
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -1022,6 +496,76 @@ root:
   
 &lt;/div&gt;
 
+&lt;/div&gt;
+&lt;h3 id=&#34;command-line-blocks&#34;&gt;Command line blocks&lt;/h3&gt;
+&lt;p&gt;To demostrate commands being run on the command line you can use the &lt;code&gt;command-line&lt;/code&gt; shortcode.
+This results in a code block with the shell prompt displayed on the left of each line.
+It also means the prompt part is not selectable when the user selects the text for copy/pasting.&lt;/p&gt;
+&lt;p&gt;The shortcode takes the following arguments:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;username&lt;/strong&gt; - The username to appear in the prompt, defaults to &lt;code&gt;user&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;hostname&lt;/strong&gt; - The hostname to appear in the prompt, defaults to &lt;code&gt;localhost&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;language&lt;/strong&gt; - The language of the content (a valid and installed prism &lt;a href=&#34;#supported-languages&#34;&gt;language name&lt;/a&gt; language name), defaults to &lt;code&gt;bash&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you want to display shell output then prefix each output line with &lt;code&gt;(out)&lt;/code&gt;.
+It will then be displayed without a prompt.&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre class=&#34;command-line language-bash&#34; data-user=&#34;david&#34; data-host=&#34;wopr&#34; data-filter-output=&#34;(out)&#34;&gt;&lt;code&gt;echo &amp;#34;hello world&amp;#34;
+(out) class
+id
+(out) uid=1000(jdoe) gid=1000(jdoe)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; command-line &amp;quot;david&amp;quot; &amp;quot;wopr&amp;quot; &amp;gt;}}
+echo &amp;quot;hello world&amp;quot;
+(out) class
+id
+(out) uid=1000(jdoe) gid=1000(jdoe)
+{{&amp;lt; command-line &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
 
 &lt;/div&gt;
 &lt;h3 id=&#34;inline-files&#34;&gt;Inline files&lt;/h3&gt;
@@ -1113,12 +657,69 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 {{&amp;lt; textfile &amp;quot;style-guide/in_line_file_example.xml&amp;quot; &amp;gt;}}My caption{{&amp;lt; /textfile &amp;gt;}}
 {{&amp;lt; textfile &amp;quot;style-guide/in_line_file_example.xml&amp;quot; /&amp;gt;}}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;supported-languages&#34;&gt;Supported languages&lt;/h3&gt;
+&lt;p&gt;This site uses 
+
+
+
+
+
+&lt;span class=&#34;external-link&#34;&gt;
+&lt;a href=&#34;https://prismjs.com/index.html&#34; class=&#34;&#34; style=&#34;&#34;&gt;Prismjs&lt;/a&gt;
+&lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34; title=&#34;External link&#34;&gt;&lt;/i&gt;
+&lt;/span&gt;
+ for syntax highlighing code blocks.
+PrismJs supports a large number of different languages however only certain languages have been included with this site.
+The language specified in the markdown code fence or in the &lt;code&gt;command-line&lt;/code&gt; shortcode must be in the list of included languages.&lt;/p&gt;
+&lt;p&gt;The list of included language names are:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sh&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;bash&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;css&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;csv&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;groovy&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;java&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;javascript&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;jq&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;json&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;python&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;regex&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;scss&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;sql&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;text&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;toml&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;xml&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;yaml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To include extra languages in this site you need to build a new version of the &lt;code&gt;prism.js&lt;/code&gt; and &lt;code&gt;prism.css&lt;/code&gt; files.
+This can be done 
+
+
+
+
+
+&lt;span class=&#34;external-link&#34;&gt;
+&lt;a href=&#34;https://prismjs.com/index.html#supported-languages&#34; class=&#34;&#34; style=&#34;&#34;&gt;here&lt;/a&gt;
+&lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34; title=&#34;External link&#34;&gt;&lt;/i&gt;
+&lt;/span&gt;
+.
+When creating new versions of these file you must included the languages and plugins already included else you may break this site.
+The generated files are then copied over the top of &lt;code&gt;/static/css/prism.css&lt;/code&gt; and &lt;code&gt;/static/js/prism.js&lt;/code&gt;.
+Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
+Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.&lt;/p&gt;
+&lt;p&gt;An example of the download link is 
+
+
+
+
+  
+
+
+&lt;span class=&#34;external-link&#34;&gt;
+&lt;a href=&#34;https://prismjs.com/download.html#themes=prism&amp;amp;languages=markup&amp;#43;css&amp;#43;clike&amp;#43;javascript&amp;#43;bash&amp;#43;csv&amp;#43;groovy&amp;#43;java&amp;#43;jq&amp;#43;json&amp;#43;markdown&amp;#43;python&amp;#43;regex&amp;#43;scss&amp;#43;sql&amp;#43;toml&amp;#43;yaml&amp;amp;plugins=command-line&amp;#43;toolbar&amp;#43;copy-to-clipboard&amp;#43;treeview&#34; class=&#34;&#34; style=&#34;&#34;&gt;https://prismjs.com/download.html#themes=prism&amp;amp;languages=markup&amp;#43;css&amp;#43;clike&amp;#43;javascript&amp;#43;bash&amp;#43;csv&amp;#43;groovy&amp;#43;java&amp;#43;jq&amp;#43;json&amp;#43;markdown&amp;#43;python&amp;#43;regex&amp;#43;scss&amp;#43;sql&amp;#43;toml&amp;#43;yaml&amp;amp;plugins=command-line&amp;#43;toolbar&amp;#43;copy-to-clipboard&amp;#43;treeview&lt;/a&gt;
+&lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34; title=&#34;External link&#34;&gt;&lt;/i&gt;
+&lt;/span&gt;
+&lt;/p&gt;
 &lt;h2 id=&#34;alerts&#34;&gt;Alerts&lt;/h2&gt;
 &lt;h3 id=&#34;warning-block-quote&#34;&gt;Warning block Quote&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% warning %}}
-This is a warning that can contain _markdown_.
-{{% /warning %}}
-&lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
@@ -1128,11 +729,12 @@ This is a warning that can contain _markdown_.
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;page-level-warning&#34;&gt;Page level warning&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% page-warning %}}
+&lt;p&gt;The markdown for this is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% warning %}}
 This is a warning that can contain _markdown_.
-{{% /page-warning %}}
+{{% /warning %}}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;page-level-warning&#34;&gt;Page level warning&lt;/h3&gt;
 
 &lt;div class=&#34;pageinfo pageinfo-danger&#34;&gt;
 &lt;h4 class=&#34;text-danger alert-heading&#34;&gt;Warning&lt;/h4&gt;
@@ -1141,25 +743,28 @@ This is a warning that can contain _markdown_.
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;note-block-quote&#34;&gt;Note block Quote&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% note %}}
-This is a note that can contain **markdown**.
-{{% /note %}}
+&lt;p&gt;The markdown for this is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% page-warning %}}
+This is a warning that can contain _markdown_.
+{{% /page-warning %}}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;note-block-quote&#34;&gt;Note block Quote&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
 
     This is a note that can contain &lt;strong&gt;markdown&lt;/strong&gt;.
 
 &lt;/div&gt;
 
 
-&lt;h3 id=&#34;page-level-info&#34;&gt;Page level info&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% pageinfo %}}
-This is some info that can contain **markdown**.
-{{% /pageinfo %}}
+&lt;p&gt;The markdown for this is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% note %}}
+This is a note that can contain **markdown**.
+{{% /note %}}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;page-level-info&#34;&gt;Page level info&lt;/h3&gt;
 
 
 &lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
@@ -1167,11 +772,12 @@ This is some info that can contain **markdown**.
 
 &lt;/div&gt;
 
-&lt;h3 id=&#34;todo-block-quote&#34;&gt;TODO block Quote&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% todo %}}
-This is a TODO that can contain `markdown`.
-{{% /todo %}}
+&lt;p&gt;The markdown for this is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% pageinfo %}}
+This is some info that can contain **markdown**.
+{{% /pageinfo %}}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;todo-block-quote&#34;&gt;TODO block Quote&lt;/h3&gt;
 
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
@@ -1180,32 +786,16 @@ This is a TODO that can contain `markdown`.
 
 &lt;/div&gt;
 
-&lt;h2 id=&#34;cards&#34;&gt;Cards&lt;/h2&gt;
-&lt;p&gt;Cards can be used to display related conent side by side.
-Each card can contain markdown and/or Hugo short codes.
-The cards will be displayed horizopntally across the page.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-marckdown&#34;&gt;{{&amp;lt; cardpane &amp;gt;}}
-
-  {{&amp;lt; card header=&amp;quot;YAML&amp;quot; &amp;gt;}}
-```yaml
----
-root:
-  someKey: &amp;quot;value&amp;quot;
-```
-  {{&amp;lt; /card &amp;gt;}}
-
-  {{&amp;lt; card header=&amp;quot;XML&amp;quot; &amp;gt;}}
-```xml
-&amp;lt;root&amp;gt;
-  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
-&amp;lt;/root&amp;gt;
-```
-  {{&amp;lt; /card &amp;gt;}}
-
-{{&amp;lt; /cardpane &amp;gt;}}
+&lt;p&gt;The markdown for this is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% todo %}}
+This is a TODO that can contain `markdown`.
+{{% /todo %}}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;cards&#34;&gt;Cards&lt;/h2&gt;
+&lt;p&gt;Cards can be used to display related content side by side.
+Each card can contain markdown and/or Hugo short codes.
+The cards will be displayed horizontally to fill the width of the page.&lt;/p&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
-
   &lt;div class=&#34;card mb-4&#34;&gt;
   
     &lt;div class=&#34;card-header&#34;&gt;
@@ -1259,8 +849,37 @@ root:
   
 &lt;/div&gt;
 
-
 &lt;/div&gt;
+&lt;p&gt;The markdown for this is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-marckdown&#34;&gt;{{&amp;lt; cardpane &amp;gt;}}
+  {{&amp;lt; card header=&amp;quot;YAML&amp;quot; &amp;gt;}}
+```yaml
+---
+root:
+  someKey: &amp;quot;value&amp;quot;
+```
+  {{&amp;lt; /card &amp;gt;}}
+  {{&amp;lt; card header=&amp;quot;XML&amp;quot; &amp;gt;}}
+```xml
+&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;some val&amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;
+```
+  {{&amp;lt; /card &amp;gt;}}
+{{&amp;lt; /cardpane &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;tabbed-panes&#34;&gt;Tabbed panes&lt;/h2&gt;
+&lt;p&gt;Hugo/Docsy have shortcodes for 
+
+
+
+
+
+&lt;span class=&#34;external-link&#34;&gt;
+&lt;a href=&#34;https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes&#34; class=&#34;&#34; style=&#34;&#34;&gt;tabbed panes&lt;/a&gt;
+&lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34; title=&#34;External link&#34;&gt;&lt;/i&gt;
+&lt;/span&gt;
+ however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.&lt;/p&gt;
 
       </description>
     </item>
