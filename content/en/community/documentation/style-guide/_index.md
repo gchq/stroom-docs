@@ -36,13 +36,79 @@ description: >
 
 ---
 
-_Stroom-Docs_ is created using the static site generator [Hugo (external link)](https://gohugo.io/).
-The full documentation for _Hugo_ can be found [here (external link)](https://gohugo.io/documentation/).
+## Overview
 
+Stroom's documentation is created using the static site generator [Hugo (external link)](https://gohugo.io/).
+This converts markdown content into a rich HTML site.
+The markdown content in _stroom-docs_ is not intended to be read as-is in GitHub, it needs to be rendered first.
+
+The full documentation for _Hugo_ can be found [here (external link)](https://gohugo.io/documentation/).
 The site also uses the [Docsy (external link)](https://www.docsy.dev) theme for Hugo.
 The documentation for _Docsy_ can be found [here (external link)](https://www.docsy.dev/docs/).
 The _Docsy_ theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the _Docsy_ documentation in the first instance.
+
+To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.
+
+
+## Shortcodes
+
+The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
+Shortcodes make it easy to change how a page element is styled by just changing the shortcode.
+
+Hugo includes many [shortcodes (external link)](https://gohugo.io/content-management/shortcodes/), the Docsy theme adds some [more (external link)](https://www.docsy.dev/docs/adding-content/shortcodes/) and there are some bespoke _stroom-docs_ ones in `layouts/shortcodes/`.
+
+To make your life easier when editing the documentation it is recomended to use an editor that supports text snippets.
+Snippets make it very quick to add shortcodes into the documentation.
+
+For example the following snippet adds a skeleton front matter to a page.
+
+{{< cardpane >}}
+  {{< card header="Ultisnips" >}}
+```snippets
+snippet hfront "Hugo markdown metadata front matter" b
+---
+title: "${1:Title}"
+linkTitle: "$1"
+#weight:
+date: `date "+%Y-%m-%d"`
+tags: $2
+description: >
+  $3
+---
+
+$0
+endsnippet
+```
+  {{< /card >}}
+  {{< card header="JSON (VS Code)" >}}
+
+```json
+{
+  "hugo-front-matter": {
+    "prefix": "hfront",
+    "body": [
+      "---",
+      "title: \"${1:Title}\"",
+      "linkTitle: \"$1\"",
+      "#weight:",
+      "date: `date \"+%Y-%m-%d\"`",
+      "tags: $2",
+      "description: >",
+      "  $3",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "Hugo markdown metadata front matter"
+  }
+}
+```
+
+  {{< /card >}}
+{{< /cardpane >}}
+
+
 
 {{% todo %}}
 Add section on naming, i.e. what names we use for things, e.g. data/meta/stream, config/properties, job/task, etc.

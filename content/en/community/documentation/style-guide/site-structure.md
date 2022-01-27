@@ -113,3 +113,87 @@ A branch (i.e. a section) is defined by a directory that contains an `_index.md`
 The front matter in this index file defines the meta data for that section, e.g. the title, date, tags, description, etc.
 A leaf (i.e. a page with no children) is just a markdown file with front matter.
 The front matter for branches and leaves works in the same way.
+
+## How do I...?
+
+### Add a child page
+
+If you already have a section that you want to add a new child page to then you will already have a structure like this:
+
+```text
+└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+```
+
+To add a new page simple create a `.md` file for the new page in the section directory, e.g.
+
+```text
+└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    ├── another-page.md
+    └── new-page.md
+```
+
+Add the [front matter]({{< relref "front-matter" >}}) to the top of the new page file. e.g.
+
+```yaml
+---
+title: "My Long Wordy Title"
+linkTitle: "My Short Title"
+weight: 20
+date: 2022-01-27
+tags: 
+description: >
+  A new page describing stuff.
+---
+```
+
+The new page should now appear in the list of child pages on the section page and in the left hand navigation pane.
+
+If you want to control the position of the new page relative to its siblings then adjust the [weight]({{< relref "front-matter#weight" >}}) of this page and that of its siblings to get the order that you want.
+
+### Add a new section
+
+If you want to add a sub-section to an existin section then you will already have a structure like this:
+
+```text
+└── my-section/
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+```
+
+To add a new sub-section create a sub-directory within the existing directory (with a name that roughly matches the section name) and create an `_index.md` file within it, e.g.
+
+```text
+└── my-section/
+    ├── my-new-sub-section/
+    │   └── _index.md
+    ├── _index.md
+    ├── a-page.md
+    └── another-page.md
+```
+
+In the `_index.md` file add front matter to the top, e.g.
+
+```yaml
+---
+title: "My Long Wordy Section Title"
+linkTitle: "My Short Section Title"
+weight: 20
+date: 2022-01-27
+tags: 
+description: >
+  A new section for stuff.
+---
+```
+
+As with pages, adjust the [weight]({{< relref "front-matter#weight" >}}) of the section and its siblings to get the order you require.
+
+To add pages to this new section see [Add a new child page]({{< relref "#add-a-child-page" >}}) above.
+
+If you are not sure if you need to add a whole new sub-section or just a child page you can just add a new sub-section and add content to the `_index.md` file as if it were a simple page.
+If you later realise that you need child pages then move the content out into a child page and create other sibling pages to it.

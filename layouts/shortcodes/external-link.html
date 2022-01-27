@@ -1,0 +1,26 @@
+<!-- 
+{{/*
+Short code to add a html <a> link tag with a globe icon to indicate it is an external link.
+Usage:
+external-link text url
+text - The path of the file relative to /assets/files/
+url - The syntax language or "text" if not supplied
+
+If only one arg is supplied then it will be used for both text and url
+e.g.:
+{{< external-link "BBC News" "https://www.bbc.co.uk/news" />}}
+{{< external-link "https://www.bbc.co.uk/news" />}}
+
+*/}}
+-->
+
+{{ $text := printf "%s" (.Get 0) }}
+{{ $url := printf "%s" (.Get 1) }}
+{{ if not $url }}
+  {{ $url = $text }}
+{{ end }}
+
+<span class="external-link">
+<a href="{{ $url }}" class="" style="">{{ $text }}</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
