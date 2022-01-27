@@ -1,7 +1,7 @@
 ---
 title: "Configuration"
 linkTitle: "Configuration"
-#weight:
+weight: 20
 date: 2021-06-23
 tags: 
 description: >

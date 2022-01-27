@@ -1,7 +1,7 @@
 ---
 title: "Stroom Upgrades"
 linkTitle: "Stroom Upgrades"
-#weight:
+weight: 90
 date: 2021-08-20
 tags: 
   - upgrade

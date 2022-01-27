@@ -1,7 +1,7 @@
 ---
 title: "Stroom 6 Installation"
 linkTitle: "Stroom 6 Installation"
-#weight:
+weight: 70
 date: 2021-08-20
 tags: 
 description: >

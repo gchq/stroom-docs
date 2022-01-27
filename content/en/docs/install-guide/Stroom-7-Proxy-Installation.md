@@ -1,7 +1,7 @@
 ---
 title: "Stroom Proxy Installation"
 linkTitle: "Stroom Proxy Installation"
-#weight:
+weight: 80
 date: 2021-08-20
 tags: 
   - proxy
