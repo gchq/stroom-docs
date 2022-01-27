@@ -5,13 +5,13 @@ weight: 20
 date: 2022-01-25
 tags: 
 description: >
-  The meta data (or front mattter) for pages/sections.
+  The meta data (or front matter) for pages/sections.
 
 ---
 
-{{% note %}}
-See [Hugo Front Matter (external link)](https://gohugo.io/content-management/front-matter/) for the full list of metadata keys that can be set.
-{{% /note %}}
+{{< note >}}
+See {{< external-link "Hugo Front Matter" "https://gohugo.io/content-management/front-matter/" >}} for the full list of metadata keys that can be set.
+{{</note >}}
 
 Front matter in Hugo is a set of meta data at the top of each page that controls which menus include the page as well as providing information about the page, e.g.
 
@@ -43,8 +43,8 @@ The weight controls the position of the page/section within the other pages/sect
 i.e. it controls the order of the pages/sections in the left hand navigation bar and the list of child items on a section index.
 If no weight is provided then Hugo will use `date`, then `linkTitle`, then the file path.
 
-To assit with re-ordering pages you can use the script `change_weights.sh` in the root of the repo.
-E.g. to change the oder of the child items of the user-guide section do the following:
+To assist with re-ordering pages you can use the script `change_weights.sh` in the root of the repo.
+E.g. to change the order of the child items of the user-guide section do the following:
 
 ```bash
 ./change_weight.sh content/en/docs/user-guide
@@ -71,6 +71,18 @@ When setting a tag on a document consult the list of existing tags to ensure con
 
 Add the `TODO` tag to a page when the page is incomplete.
 This makes it easy to find areas of the documentation that are in need of attention.
+
+### Cascading tags
+
+If you want to apply a tag to all descendant pages of a section you can add this to the front matter of the section:
+
+```yaml
+cascade:
+  tags:
+    - install
+```
+
+This will then apply all of tags added to `tags` to each descendant page.
 
 
 ## Description
