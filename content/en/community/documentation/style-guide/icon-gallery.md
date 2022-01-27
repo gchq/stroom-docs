@@ -1,7 +1,7 @@
 ---
 title: "Icon Gallery"
 linkTitle: "Icon Gallery"
-weight: 50
+weight: 60
 date: 2021-07-12
 tags: 
 description: >
