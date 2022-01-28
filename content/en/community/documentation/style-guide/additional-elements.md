@@ -257,18 +257,18 @@ It will then be displayed without a prompt.
   {{< card header="Rendered" >}}
 {{< command-line "david" "wopr" >}}
 echo "hello world"
-(out) class
+(out)hello world
 id
-(out) uid=1000(jdoe) gid=1000(jdoe)
+(out)uid=1000(david) gid=1000(david)
 {{</ command-line >}}
   {{< /card >}}
   {{< card header="Markdown" >}}
 ```markdown
 {{</* command-line "david" "wopr" */>}}
 echo "hello world"
-(out) class
+(out)class
 id
-(out) uid=1000(jdoe) gid=1000(jdoe)
+(out)uid=1000(david) gid=1000(david)
 {{</* command-line */>}}
 ```
   {{< /card >}}
