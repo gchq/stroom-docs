@@ -73,6 +73,7 @@ build_version_from_source() {
 
   local branch_gh_pages_dir="${NEW_GH_PAGES_DIR}/${branch_name}"
   mkdir -p "${branch_gh_pages_dir}"
+
   # Write the commit sha to gh-pages so in future builds we can query it
   echo "${branch_head_commit_sha}" \
     > "${branch_gh_pages_dir}/${COMMIT_SHA_FILENAME}"
@@ -85,6 +86,14 @@ build_version_from_source() {
     "\n  latest_version:         ${BLUE}${latest_version}${GREEN}"
     #"\n  base_url:        ${BLUE}${hugo_base_url}${NC}"
   echo -e "${GREEN}-----------------------------------------------------${NC}"
+
+  echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
+    "(build_version=${BUILD_TAG})${NC}"
+  sed \
+    --in-place'' \
+    --regexp-extended \
+    --expression "s/^  build_version *=.*/  build_version = ${BUILD_TAG}/" \
+    "${config_file}"
 
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
@@ -197,6 +206,9 @@ assemble_version() {
   if has_release_branch_changed "${branch_name}"; then
     # Has new commits, so build the site and pdf from source for this version
 
+    echo -e "${GREEN}Branch ${BLUE}${branch_name}${GREEN} has new commits" \
+      "since last release${NC}"
+
     local branch_clone_dir="${GIT_WORK_DIR}/${branch_name}"
 
     echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
@@ -213,10 +225,11 @@ assemble_version() {
       "${branch_clone_dir}"
 
     build_version_from_source "${branch_name}" "${branch_clone_dir}"
-
   else
     # No new commits so copy the existing site from gh-pages and the
     # pdf from gh releases
+    echo -e "${GREEN}Branch ${BLUE}${branch_name}${GREEN} has not changed" \
+      "since last release${NC}"
     copy_version_from_current "${branch_name}"
   fi
 }
