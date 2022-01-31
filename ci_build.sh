@@ -582,15 +582,31 @@ main() {
     "${BLUE}${have_any_release_branches_changed}${NC}"
 
   #if element_in "${BUILD_BRANCH}" "${release_branches[@]}"; then
-  if [[ "${BUILD_IS_RELEASE}" = "true" \
-    && "${have_any_release_branches_changed}" = "true" ]]; then
+  if [[ "${BUILD_IS_RELEASE}" = "true" ]]; then
+    if [[ "${have_any_release_branches_changed}" = "true" ]]; then
 
-    prepare_for_release
+      prepare_for_release
+
+      echo "CONTENT_HAS_CHANGED=true" >> "${GITHUB_ENV}"
+
+    else
+    echo -e "${GREEN}Nothing has changed since last release so skipping" \
+      "release preparation${NC}"
+
+    # Clear out any artefacts to be on the safe side
+    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
+    rm -rf "${NEW_GH_PAGES_DIR:?}/*"
+
+    echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
+    fi
   else
     echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
-    # Clear out any artefacts (e.g. previous zip/pdf files) to ensure no release
-    # happens.
-    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/"
+
+    # Clear out any artefacts to be on the safe side
+    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
+    rm -rf "${NEW_GH_PAGES_DIR:?}/*"
+
+    echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
   fi
 }
 
