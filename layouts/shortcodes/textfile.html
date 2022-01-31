@@ -13,14 +13,13 @@ Caption is taken from the short code content
 */}}
 -->
 
-{{ $path := printf "assets/files/%s" (.Get 0) }}
-{{ $url := printf "/files/%s" (.Get 0) }}
+{{ $url := resources.Get (printf "/files/%s" (.Get 0)) }}
+{{ $path := printf "/assets/files/%s" (.Get 0) }}
 {{ $lang := .Get 1 | default "text"}}
 
 <div class="text-file card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="">
 
   <div class="card-body px-0 pt-2 pb-0">
-
     {{ $fileContent := ($path | readFile) }}
     {{ (print "```" $lang "\n" $fileContent "\n```") | markdownify }}
 
@@ -29,7 +28,7 @@ Caption is taken from the short code content
       {{ with (.Inner | default "" )}}
       <span class="" style="font-size: smaller">{{ ( . | default "" ) | html }}</span>
       {{ end }}
-      (<a href="{{ $url }}" class="" style="font-size: smaller">Download {{ path.Base $url }}</a>)
+      (<a href="{{ $url.RelPermalink }}" class="" style="font-size: smaller">Download {{ path.Base $url }}</a>)
     </div>
   </div>
 </div>
