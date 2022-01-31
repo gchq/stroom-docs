@@ -73,7 +73,8 @@ jobs:
 
       - name: Release to GitHub
         id: create_release
-        if: ${{ env.BUILD_IS_RELEASE == 'true' }}
+        # CREATE_RELEASE is set in ci_build.sh
+        if: ${{ env.BUILD_IS_RELEASE == 'true' && env.CONTENT_HAS_CHANGED == 'true' }}
         env:
           # Github provided secret
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -81,8 +82,8 @@ jobs:
 
       - name: Update gh-pages
         id: update_gh-pages
-        # TODO remove huo-docsy condition once we are merged to master
-        if: ${{ env.BUILD_IS_RELEASE == 'true' || env.BUILD_BRANCH == 'hugo-docsy' }}
+        # CREATE_RELEASE is set in ci_build.sh
+        if: ${{ env.BUILD_IS_RELEASE == 'true' && env.CONTENT_HAS_CHANGED == 'true' }}
         env:
           # ssh private key (corresponding to the public key in github deploy keys
           # for the stroom repo), manually added to secrets

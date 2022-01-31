@@ -104,9 +104,9 @@ build_version_from_source() {
     # Rename/move the gennerated PDF and also copy to gh-pages so we
     # can easily get it in a future build
     mv stroom-docs.pdf "${RELEASE_ARTEFACTS_DIR}/${pdf_filename}"
-    cp \
-      "${RELEASE_ARTEFACTS_DIR}/${pdf_filename}" \
-      "${branch_gh_pages_dir}/"
+    #cp \
+      #"${RELEASE_ARTEFACTS_DIR}/${pdf_filename}" \
+      #"${branch_gh_pages_dir}/"
 
     # Might be some random feature branch
     if element_in "${branch_name}" "${release_branches[@]}"; then
@@ -133,15 +133,60 @@ copy_version_from_current() {
   local branch_name="${1:-SNAPSHOT}"; shift
 
   # If there have been no commits on this branch then we can just copy
-  # everything from the current gh-pages clone. This will include the site
-  # html, pdf and single branch zip.
+  # the site from the current gh-pages clone.
   echo -e "${GREEN}Copying current gh-pages site${NC}"
   cp -r "${CURRENT_GH_PAGES_DIR}/${branch_name}" "${NEW_GH_PAGES_DIR}/"
 
-  # Now copy the zip and pdf to be release artefacts
-  cp \
-    "${CURRENT_GH_PAGES_DIR}/${branch_name}/stroom-docs-v"*.{pdf,zip} \
-    "${NEW_GH_PAGES_DIR}/${branch_name}"
+  # Now need to get the single site zip and pdf from github releases
+  # to save us having to rebuild them
+
+  echo -e "${GREEN}Latest GitHub release: ${NC}"
+  curl \
+    --silent \
+    --header "authorization: Bearer ${GITHUB_TOKEN}" \
+    "${GIT_API_URL}/releases/latest" \
+    | jq -r '.tag_name'
+
+  echo -e "${GREEN}Dumping asset names for latest release${NC}"
+  curl \
+    --silent \
+    --header "authorization: Bearer ${GITHUB_TOKEN}" \
+    "${GIT_API_URL}/releases/latest" \
+    | jq -r '.assets[] | .name'
+
+  # Double escape \. to \\\\., once for bash, once for jq
+  local existing_zip_url=
+  existing_zip_url="$( \
+    curl \
+      --silent \
+      --header "authorization: Bearer ${GITHUB_TOKEN}" \
+      "${GIT_API_URL}/releases/latest" \
+      | jq -r ".assets[] | select(.name | test(\"^stroom-docs-.*_stroom-${branch_name}\\\\.zip$\")) .browser_download_url")"
+
+  echo -e "${GREEN}Downloading: ${BLUE}${existing_zip_url}${GREEN}" \
+    "to ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
+
+  wget \
+    --quiet \
+    --directory-prefix "${RELEASE_ARTEFACTS_DIR}" \
+    "${existing_zip_url}"
+
+  # Double escape \. to \\\\., once for bash, once for jq
+  local existing_pdf_url=
+  existing_pdf_url="$( \
+    curl \
+      --silent \
+      --header "authorization: Bearer ${GITHUB_TOKEN}" \
+      "${GIT_API_URL}/releases/latest" \
+      | jq -r ".assets[] | select(.name | test(\"^stroom-docs-.*_stroom-${branch_name}\\\\.pdf$\")) .browser_download_url")"
+
+  echo -e "${GREEN}Downloading: ${BLUE}${existing_pdf_url}${GREEN}" \
+    "to ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
+
+  wget \
+    --quiet \
+    --directory-prefix "${RELEASE_ARTEFACTS_DIR}" \
+    "${existing_pdf_url}"
 }
 
 assemble_version() {
@@ -243,16 +288,16 @@ make_single_version_site() {
 
   # Also copy the zip into gh-pages so it is easier for us to get on future
   # builds
-  cp \
-    "${RELEASE_ARTEFACTS_DIR}/${single_ver_zip_filename}" \
-    "${NEW_GH_PAGES_DIR}/${branch_name}/"
+  #cp \
+    #"${RELEASE_ARTEFACTS_DIR}/${single_ver_zip_filename}" \
+    #"${NEW_GH_PAGES_DIR}/${branch_name}/"
 
   popd
 }
 
 create_root_redirect_page() {
-  echo -e "${GREEN}Creating root redirect page with latest version [" \
-    "${BLUE}${latest_version}${GREEN}]${NC}"
+  echo -e "${GREEN}Creating root redirect page with latest version" \
+    "[${BLUE}${latest_version}${GREEN}]${NC}"
 
   # :? = error if unset
   sed \
@@ -295,7 +340,7 @@ has_release_branch_changed() {
 
   # Get the latest commit sha on this branch
   # DO NOT echo the token
-  latest_commit_sha=
+  local latest_commit_sha=
   latest_commit_sha="$( \
     curl \
       --silent \
@@ -305,6 +350,7 @@ has_release_branch_changed() {
 
   local gh_pages_commit_sha_file="${CURRENT_GH_PAGES_DIR}/${branch_name}/${COMMIT_SHA_FILENAME}"
 
+  echo -e "${GREEN}gh_pages_commit_sha_file: ${BLUE}${gh_pages_commit_sha_file}${NC}"
   echo -e "${GREEN}branch_name: ${BLUE}${branch_name}${NC}"
   echo -e "${GREEN}latest_commit_sha: ${BLUE}${latest_commit_sha}${NC}"
   
@@ -312,7 +358,7 @@ has_release_branch_changed() {
   # so we know which commit it came from
   if [[ -f "${gh_pages_commit_sha_file}" ]]; then
     local gh_pages_commit_sha
-    gh_pages_commit_sha=$(<config.txt)
+    gh_pages_commit_sha=$(<"${gh_pages_commit_sha_file}")
     echo -e "${GREEN}gh_pages_commit_sha: ${BLUE}${gh_pages_commit_sha}${NC}"
 
     if [[ "${gh_pages_commit_sha}" = "${latest_commit_sha}" ]]; then
@@ -536,12 +582,31 @@ main() {
     "${BLUE}${have_any_release_branches_changed}${NC}"
 
   #if element_in "${BUILD_BRANCH}" "${release_branches[@]}"; then
-  if [[ "${BUILD_IS_RELEASE}" = "true" \
-    && "${have_any_release_branches_changed}" = "true" ]]; then
+  if [[ "${BUILD_IS_RELEASE}" = "true" ]]; then
+    if [[ "${have_any_release_branches_changed}" = "true" ]]; then
 
-    prepare_for_release
+      prepare_for_release
+
+      echo "CONTENT_HAS_CHANGED=true" >> "${GITHUB_ENV}"
+
+    else
+    echo -e "${GREEN}Nothing has changed since last release so skipping" \
+      "release preparation${NC}"
+
+    # Clear out any artefacts to be on the safe side
+    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
+    rm -rf "${NEW_GH_PAGES_DIR:?}/*"
+
+    echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
+    fi
   else
     echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
+
+    # Clear out any artefacts to be on the safe side
+    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
+    rm -rf "${NEW_GH_PAGES_DIR:?}/*"
+
+    echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
   fi
 }
 
