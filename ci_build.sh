@@ -73,6 +73,7 @@ build_version_from_source() {
 
   local branch_gh_pages_dir="${NEW_GH_PAGES_DIR}/${branch_name}"
   mkdir -p "${branch_gh_pages_dir}"
+
   # Write the commit sha to gh-pages so in future builds we can query it
   echo "${branch_head_commit_sha}" \
     > "${branch_gh_pages_dir}/${COMMIT_SHA_FILENAME}"
@@ -85,6 +86,14 @@ build_version_from_source() {
     "\n  latest_version:         ${BLUE}${latest_version}${GREEN}"
     #"\n  base_url:        ${BLUE}${hugo_base_url}${NC}"
   echo -e "${GREEN}-----------------------------------------------------${NC}"
+
+  echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
+    "(build_version=${BUILD_TAG})${NC}"
+  sed \
+    --in-place'' \
+    --regexp-extended \
+    --expression "s/^  build_version *=.*/  build_version = ${BUILD_TAG}/" \
+    "${config_file}"
 
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
