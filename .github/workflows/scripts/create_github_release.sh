@@ -43,17 +43,9 @@ debug() {
   fi
 }
 
-main() {
-  IS_DEBUG=false
-  #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-  setup_echo_colours
-
-  # Use Github's hub CLI to create our release
-  # See https://github.com/github/hub
-  echo -e "${GREEN}Finding asset files for release${NC}"
-  local args=()
-  for asset_file in "${BUILD_DIR}/release_artefacts/"*; do
+create_release() {
+  echo -e "${GREEN}Found release asssets${NC}"
+  for asset_file in "${RELEASE_ARTEFACTS_DIR}/"*; do
     echo -e "${GREEN}Found asset file: ${BLUE}${asset_file}${NC}"
     args+=(
       "--attach"
@@ -89,6 +81,29 @@ main() {
 
   #hub release create "${args[@]}" "$BUILD_TAG"
   echo -e "${GREEN}Release created for tag ${BLUE}${BUILD_TAG}${NC}"
+}
+
+main() {
+  IS_DEBUG=false
+  #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+  setup_echo_colours
+
+  local RELEASE_ARTEFACTS_DIR="${BUILD_DIR}/release_artefacts"
+
+  # Use Github's hub CLI to create our release
+  # See https://github.com/github/hub
+  echo -e "${GREEN}Finding asset files for release${NC}"
+  local args=()
+
+  if compgen -G "${RELEASE_ARTEFACTS_DIR}/*" > /dev/null; then
+    # The dir is non-empty so go ahead with the release
+    create_release
+  else
+    echo -e "${GREEN}Directory ${BLUE}${RELEASE_ARTEFACTS_DIR}${GREEN}" \
+      "is empty, nothing to release. Quitting.${NC}"
+    exit 0
+  fi
 }
 
 main "$@"

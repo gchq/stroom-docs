@@ -154,8 +154,6 @@ copy_version_from_current() {
     "${GIT_API_URL}/releases/latest" \
     | jq -r '.assets[] | .name'
 
-  local dest_dir="${NEW_GH_PAGES_DIR}/${branch_name}"
-
   # Double escape \. to \\\\., once for bash, once for jq
   local existing_zip_url=
   existing_zip_url="$( \
@@ -166,10 +164,11 @@ copy_version_from_current() {
       | jq -r ".assets[] | select(.name | test(\"^stroom-docs-.*_stroom-${branch_name}\\\\.zip$\")) .browser_download_url")"
 
   echo -e "${GREEN}Downloading: ${BLUE}${existing_zip_url}${GREEN}" \
-    "to ${BLUE}${dest_dir}${NC}"
+    "to ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
 
   wget \
-    --directory-prefix "${NEW_GH_PAGES_DIR}/${branch_name}" \
+    --quiet \
+    --directory-prefix "${RELEASE_ARTEFACTS_DIR}" \
     "${existing_zip_url}"
 
   # Double escape \. to \\\\., once for bash, once for jq
@@ -182,10 +181,11 @@ copy_version_from_current() {
       | jq -r ".assets[] | select(.name | test(\"^stroom-docs-.*_stroom-${branch_name}\\\\.pdf$\")) .browser_download_url")"
 
   echo -e "${GREEN}Downloading: ${BLUE}${existing_pdf_url}${GREEN}" \
-    "to ${BLUE}${dest_dir}${NC}"
+    "to ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
 
   wget \
-    --directory-prefix "${NEW_GH_PAGES_DIR}/${branch_name}" \
+    --quiet \
+    --directory-prefix "${RELEASE_ARTEFACTS_DIR}" \
     "${existing_pdf_url}"
 }
 
@@ -296,8 +296,8 @@ make_single_version_site() {
 }
 
 create_root_redirect_page() {
-  echo -e "${GREEN}Creating root redirect page with latest version [" \
-    "${BLUE}${latest_version}${GREEN}]${NC}"
+  echo -e "${GREEN}Creating root redirect page with latest version" \
+    "[${BLUE}${latest_version}${GREEN}]${NC}"
 
   # :? = error if unset
   sed \
@@ -588,6 +588,9 @@ main() {
     prepare_for_release
   else
     echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
+    # Clear out any artefacts (e.g. previous zip/pdf files) to ensure no release
+    # happens.
+    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/"
   fi
 }
 
