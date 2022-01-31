@@ -87,13 +87,17 @@ build_version_from_source() {
     #"\n  base_url:        ${BLUE}${hugo_base_url}${NC}"
   echo -e "${GREEN}-----------------------------------------------------${NC}"
 
-  echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
-    "(build_version=${BUILD_TAG})${NC}"
-  sed \
-    --in-place'' \
-    --regexp-extended \
-    --expression "s/^  build_version *=.*/  build_version = ${BUILD_TAG}/" \
-    "${config_file}"
+  if [[ -n "${BUILD_TAG}" ]]; then
+    local config_file="${repo_root}/${CONFIG_FILENAME}"
+    echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
+      "(build_version=${BUILD_TAG:-SNAPSHOT})${NC}"
+
+    sed \
+      --in-place'' \
+      --regexp-extended \
+      --expression "s/^  build_version *=.*/  build_version = ${BUILD_TAG:-SNAPSHOT}/" \
+      "${config_file}"
+  fi
 
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
