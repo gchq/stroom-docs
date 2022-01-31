@@ -10,6 +10,8 @@ description: >
 
 ---
 
-> This documentation is applicable to Stroom version "{{< param "version" >}}" and was generated on {{< build-date >}}.  
+> Applicable Stroom version: "**{{< param "version" >}}**"  
+> Documentation generated on: **{{< build-date >}}**  
+> Documentation release version: **{{< build-version >}}**  
 >  
 > To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.
