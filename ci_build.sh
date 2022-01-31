@@ -95,7 +95,7 @@ build_version_from_source() {
     sed \
       --in-place'' \
       --regexp-extended \
-      --expression "s/^  build_version *=.*/  build_version = ${BUILD_TAG:-SNAPSHOT}/" \
+      --expression "s/^  build_version *=.*/  build_version = \"${BUILD_TAG:-SNAPSHOT}\"/" \
       "${config_file}"
   fi
 
