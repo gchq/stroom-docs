@@ -15,7 +15,8 @@ Caption is taken from the short code content
 
 {{ $path := printf "assets/files/%s" (.Get 0) }}
 {{ $url := printf "/files/%s" (.Get 0) }}
+{{ $url = resources.Get $url }}
 
-{{ with (.Inner | default "" )}}
-<a href="{{ $url }}" class="" style="">{{ ( . | default "" ) | html }}</a>
-{{ end }}
+{{- with (.Inner | default "" ) -}}
+<a href="{{ $url.RelPermalink }}" class="" style="">{{ ( . | default "" ) | html }}</a>
+{{- end -}}
