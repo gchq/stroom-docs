@@ -99,17 +99,28 @@ build_version_from_source() {
       "${config_file}"
   fi
 
+  # Don't want sections like news|community in the old versions
+  if element_in "${branch_name}" "${release_branches[@]}" \
+    && [[ "${branch_name}" != "${latest_version}" ]]; then
+      remove_unwanted_sections "${repo_root}"
+  fi
+
+  echo "::group::PUML conversion"
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
+  echo "::endgroup::"
 
   # Build the Hugo site html (into ./public/)
   # TODO, remove --buildDrafts arg once we merge to master
+  echo "::group::Hugo build"
   echo -e "${GREEN}Building combined site HTML with Hugo${NC}"
-  #./container_build/runInHugoDocker.sh build "${hugo_base_url}"
   ./container_build/runInHugoDocker.sh build
+  echo "::endgroup::"
 
+  echo "::group::PDF generation"
   echo -e "${GREEN}Building whole site docs PDF for this branch${NC}"
   ./container_build/runInPupeteerDocker.sh PDF
+  echo "::endgroup::"
 
   # Don't want to release anything for master
   if [[ "${branch_name}" != "master" ]]; then
@@ -215,6 +226,8 @@ assemble_version() {
 
     local branch_clone_dir="${GIT_WORK_DIR}/${branch_name}"
 
+
+    echo "::group::Cloning branch ${branch_name}"
     echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
       "${BLUE}${GIT_REPO_URL}${GREEN} into ${BLUE}${branch_clone_dir}${NC}"
 
@@ -227,6 +240,7 @@ assemble_version() {
       --recurse-submodules \
       "${GIT_REPO_URL}" \
       "${branch_clone_dir}"
+    echo "::endgroup::"
 
     build_version_from_source "${branch_name}" "${branch_clone_dir}"
   else
@@ -278,18 +292,28 @@ make_single_version_site() {
     '/<<<VERSIONS_BLOCK_START>>>/,/<<<VERSIONS_BLOCK_END>>>/d' \
     "${config_file}"
 
+  echo "::group::Diffing config changes"
   echo -e "${GREEN}Diffing config changes${NC}"
   echo -e "${GREEN}---------------------------------${NC}"
   diff "${temp_config_backup_file}" "${config_file}" \
     || true
   echo -e "${GREEN}---------------------------------${NC}"
+  echo "::endgroup::"
 
   # Clear out the generated site dir from the last run
   rm -rf "${generated_site_dir:?}"/*
 
+  # Don't want sections like news|community in the old versions
+  if element_in "${branch_name}" "${release_branches[@]}" \
+    && [[ "${branch_name}" != "${latest_version}" ]]; then
+      remove_unwanted_sections "${repo_root}"
+  fi
+
   # Now re-build the site with the modified config
+  echo "::group::Hugo build"
   echo -e "${GREEN}Building single site HTML with Hugo${NC}"
   ./container_build/runInHugoDocker.sh build
+  echo "::endgroup::"
 
   # go into the dir so all paths in the zip are relative to generated_site_dir
   pushd "${generated_site_dir}"
@@ -310,6 +334,20 @@ make_single_version_site() {
     #"${NEW_GH_PAGES_DIR}/${branch_name}/"
 
   popd
+}
+
+remove_unwanted_sections() {
+  local site_root_dir="$1"; shift
+
+  for section_name in "${UNWANTED_SECTIONS[@]}"; do
+    local section_dir="${site_root_dir}/content/en/${section_name}"
+    if [[ -d "${section_dir}" ]]; then
+      echo -e "${GREEN}Removing section ${BLUE}${section_dir}${NC}"
+      rm -rf "${section_dir:?}"
+    else
+      echo -e "${GREEN}Section ${BLUE}${section_dir}${GREEN} doesn't exist${NC}"
+    fi
+  done
 }
 
 create_root_redirect_page() {
@@ -410,7 +448,6 @@ prepare_for_release() {
     #"to ${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
   #cp -r "${COMBINED_SITE_DIR}"/* "${NEW_GH_PAGES_DIR}/"
 
-  echo -e "${GREEN}Making a zip of the combined site html content${NC}"
   # Make sure master dir is not in the zipped site. It is ok to have it
   # in the gh-pages one so we can see docs for an as yet un-released
   # stroom, though master should not appear in the versions dropdown.
@@ -418,6 +455,8 @@ prepare_for_release() {
 
   echo -e "${GREEN}Dumping contents of ${BLUE}${NEW_GH_PAGES_DIR}${NC}"
   ls -1 "${NEW_GH_PAGES_DIR}/"
+
+  echo -e "${GREEN}Making a zip of the combined site html content${NC}"
 
   # pushd so all paths in the zip are relative to this dir
   pushd "${NEW_GH_PAGES_DIR}"
@@ -526,6 +565,12 @@ main() {
   local CONFIG_FILENAME="config.toml"
   local COMMIT_SHA_FILENAME="commit.sha1"
   local have_any_release_branches_changed=false
+  # These are the sections we don't want in old/single versions of the site
+  # Can't remove community at the mo as some pages in docs link to it
+  local UNWANTED_SECTIONS=(
+    #"community"
+    "news"
+  )
 
   echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
   echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
@@ -539,6 +584,7 @@ main() {
   echo -e "PDF_FILENAME_BASE:     [${GREEN}${PDF_FILENAME_BASE}${NC}]"
   echo -e "PWD:                   [${GREEN}$(pwd)${NC}]"
   echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
+  echo -e "UNWANTED_SECTIONS:     [${GREEN}${UNWANTED_SECTIONS[*]}${NC}]"
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
   mkdir -p "${GIT_WORK_DIR}"
@@ -546,6 +592,7 @@ main() {
   mkdir -p "${SINGLE_SITE_DIR}"
 
   local release_branches=()
+  # Set by populate_release_brances_arr()
   local latest_version=
 
   populate_release_brances_arr
