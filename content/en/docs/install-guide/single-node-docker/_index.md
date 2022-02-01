@@ -11,6 +11,8 @@ description: >
 ---
 
 Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running.
+Using Docker means you don't need to install the right versions of dependencies like Java or MySQL or get them configured corectly for Stroom.
+
 
 ## Prerequisites
 
@@ -23,6 +25,7 @@ In order to run Stroom using Docker you will need the following installed on the
 * bash (v4+)
 * jq - [stedolan.github.io/jq/ (external link)](https://stedolan.github.io/jq/) e.g. `sudo yum install jq`
 * curl
+* A non-root user to perform the install as, e.g. `stroomuser`
 
 {{% note %}}
 `jq` is not a hard requirement but improves the functionality of the health checks.
@@ -39,8 +42,7 @@ If it is for an actual deployment of Stroom then download `stroom_core*.tar.gz`,
 
 Using `stroom_core_test-v7.0-beta.175.tar.gz` as an example:
 
-```bash
-
+{{< command-line "stroomuser" "localhost" >}}
 # Define the version to download
 VERSION="v7.0-beta.175"; STACK="stroom_core_test"
 
@@ -52,11 +54,11 @@ cd "${STACK}-${VERSION}"
 
 # Start the stack
 ./start.sh
-```
+{{</ command-line >}}
 
 Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest `stroom_core_test` release using:
 
-``` bash
+{{< command-line "stroomuser" "localhost" >}}
 # Download and extract the laStroom stack
 bash <(curl -s https://gchq.github.io/stroom-resources/v7.0/get_stroom.sh)
 
@@ -65,7 +67,7 @@ cd stroom_core_test/stroom_core_test*
 
 # Start the stack
 ./start.sh
-```
+{{</ command-line >}}
 
 On first run stroom will build the database schemas so this can take a minute or two. 
 The `start.sh` script will provide details of the various URLs that are available.

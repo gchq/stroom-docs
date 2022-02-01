@@ -8,7 +8,8 @@ tags:
   - visualisation
   - query
 description: >
-  
+  Querying and visualising the indexed data.
+
 ---
 
 Create a new dashboard the same way you create anything else
