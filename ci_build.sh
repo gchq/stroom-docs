@@ -561,8 +561,9 @@ main() {
   local COMMIT_SHA_FILENAME="commit.sha1"
   local have_any_release_branches_changed=false
   # These are the sections we don't want in old/single versions of the site
+  # Can't remove community at the mo as some pages in docs link to it
   local UNWANTED_SECTIONS=(
-    "community"
+    #"community"
     "news"
   )
 
