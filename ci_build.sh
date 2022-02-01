@@ -291,6 +291,12 @@ make_single_version_site() {
   echo -e "${GREEN}Building single site HTML with Hugo${NC}"
   ./container_build/runInHugoDocker.sh build
 
+  # Old single version sites should not include sections like news/community
+  # as they will be out of date
+  if [[ "${branch_name}" != "${latest_version}" ]]; then
+    remove_unwanted_sections "${generated_site_dir}"
+  fi
+
   # go into the dir so all paths in the zip are relative to generated_site_dir
   pushd "${generated_site_dir}"
 
@@ -310,6 +316,20 @@ make_single_version_site() {
     #"${NEW_GH_PAGES_DIR}/${branch_name}/"
 
   popd
+}
+
+remove_unwanted_sections() {
+  local site_root_dir="$1"; shift
+
+  for section_name in "${UNWANTED_SECTIONS[@]}"; do
+    local section_dir="${site_root_dir}/content/en/${section_name}"
+    if [[ -d "${section_dir}" ]]; then
+      echo -e "${RED}ERROR${NC}Directory ${section_dir} doesn't exist${NC}"
+      exit 1
+    fi
+    echo -e "${GREEN}Removing section ${BLUE}${section_dir}${NC}"
+    rm -rf "${section_dir:?}"
+  done
 }
 
 create_root_redirect_page() {
@@ -415,6 +435,14 @@ prepare_for_release() {
   # in the gh-pages one so we can see docs for an as yet un-released
   # stroom, though master should not appear in the versions dropdown.
   rm -rf "${NEW_GH_PAGES_DIR}/master"
+
+  # Make sure we don't have sections like news/community for any
+  # branches except the latest as they will be stale
+  for branch_name in "${release_branches[@]}"; do
+    if [[ "${branch_name}" != "${latest_version}" ]]; then
+      remove_unwanted_sections "${NEW_GH_PAGES_DIR}/${branch_name}"
+    fi
+  done
 
   echo -e "${GREEN}Dumping contents of ${BLUE}${NEW_GH_PAGES_DIR}${NC}"
   ls -1 "${NEW_GH_PAGES_DIR}/"
@@ -526,6 +554,11 @@ main() {
   local CONFIG_FILENAME="config.toml"
   local COMMIT_SHA_FILENAME="commit.sha1"
   local have_any_release_branches_changed=false
+  # These are the sections we don't want in old/single versions of the site
+  local UNWANTED_SECTIONS=(
+    "community"
+    "news"
+  )
 
   echo -e "BUILD_BRANCH:          [${GREEN}${BUILD_BRANCH}${NC}]"
   echo -e "BUILD_COMMIT:          [${GREEN}${BUILD_COMMIT}${NC}]"
@@ -539,6 +572,7 @@ main() {
   echo -e "PDF_FILENAME_BASE:     [${GREEN}${PDF_FILENAME_BASE}${NC}]"
   echo -e "PWD:                   [${GREEN}$(pwd)${NC}]"
   echo -e "ZIP_FILENAME:          [${GREEN}${ZIP_FILENAME}${NC}]"
+  echo -e "UNWANTED_SECTIONS:     [${GREEN}${UNWANTED_SECTIONS[*]}${NC}]"
 
   mkdir -p "${RELEASE_ARTEFACTS_DIR}"
   mkdir -p "${GIT_WORK_DIR}"
@@ -546,6 +580,7 @@ main() {
   mkdir -p "${SINGLE_SITE_DIR}"
 
   local release_branches=()
+  # Set by populate_release_brances_arr()
   local latest_version=
 
   populate_release_brances_arr
