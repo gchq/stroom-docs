@@ -16,6 +16,9 @@
 [x] Get puml conversion working, decide where .puml.svg files go
 [x] Get pdf generateion working
 [x] Update github workflow to run hugo container build and pdf generation
-[ ] Create legacy branch once the site is all working and all content is migrated
-[ ] Get versioning working
-[ ] Remove non-v7 content from master
+[x] Create legacy branch once the site is all working and all content is migrated
+[x] Get versioning working
+[ ] Remove non-v7 content from `7.0`
+[ ] Create glossary of terms, e.g. Feed, Stream, Pipeline, Translation, etc.
+[ ] Maybe create a change history for the docs
+[ ] Remove all sections except About|Docs from legacy
