@@ -200,8 +200,8 @@ main() {
 
         if  sed -n '/---/,/---/p' "${file}" | grep -E -q "weight:"; then
           # 'weight:' is present in the front matter so replace it
-          echo -e "${GREEN}Changing weight of file ${BLUE}${file}${GREEN}" \
-            "from ${BLUE}${old_weight}${GREEN} to ${BLUE}${new_weight}${NC}"
+          echo -e "${YELLOW}Changing weight of file ${BLUE}${file}${YELLOW}" \
+            "from ${BLUE}${old_weight}${YELLOW} to ${BLUE}${new_weight}${NC}"
 
           # Needs to cope with:
           #   weight: 99
@@ -216,7 +216,7 @@ main() {
             "${file}"
         else
           # 'weight:' not in the front matter so add it
-          echo -e "${GREEN}Adding weight ${BLUE}${new_weight}${GREEN} to file" \
+          echo -e "${YELLOW}Adding weight ${BLUE}${new_weight}${YELLOW} to file" \
             "${BLUE}${file}${NC}"
 
           # Hugo's sorting is weight|date|linkTitle|filePath so in theory we
