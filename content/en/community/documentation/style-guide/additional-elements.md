@@ -153,6 +153,21 @@ To create a link to download a file, {{< file-link "quick-start-guide/mock_stroo
 
 Paths are relative to `/assets/files/`.
 
+### Glossary links
+
+If you need to create a link to an item in the [Glossary]({{< relref "docs/glossary" >}}) you can use the `glossary` shortcode.
+E.g.
+
+A {{< glossary "feed" >}} is something you should know about.
+
+```markdown
+A {{</* glossary "feed" */>}} is something you should know about.
+```
+
+The argument to the shortcode is the glossary term.
+This should match the heading text on the Glossary page exactly.
+It will be converted to an HTML anchor so that you can link direct to the heading for the term in question.
+
 
 ## Code
 

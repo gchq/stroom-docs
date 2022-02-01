@@ -1,0 +1,9 @@
+<!-- 
+{{/*
+
+e.g. {{< glossary "Feed" >}}
+*/}}
+-->
+{{ $term := .Get 0 }}
+{{ $url := printf "docs/glossary#%s" ( lower (replaceRE "[^a-zA-Z0-9]" "-" $term) ) }}
+<span><a href="{{- relref . $url -}}" class="" style="">{{- $term -}}</a></span>
