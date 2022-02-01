@@ -336,12 +336,12 @@ remove_unwanted_sections() {
 
   for section_name in "${UNWANTED_SECTIONS[@]}"; do
     local section_dir="${site_root_dir}/content/en/${section_name}"
-    if [[ ! -d "${section_dir}" ]]; then
-      echo -e "${RED}ERROR${NC}Directory ${section_dir} doesn't exist${NC}"
-      exit 1
+    if [[ -d "${section_dir}" ]]; then
+      echo -e "${GREEN}Removing section ${BLUE}${section_dir}${NC}"
+      rm -rf "${section_dir:?}"
+    else
+      echo -e "${GREEN}Section ${BLUE}${section_dir}${GREEN} doesn't exist${NC}"
     fi
-    echo -e "${GREEN}Removing section ${BLUE}${section_dir}${NC}"
-    rm -rf "${section_dir:?}"
   done
 }
 
