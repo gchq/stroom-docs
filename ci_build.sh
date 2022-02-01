@@ -226,6 +226,8 @@ assemble_version() {
 
     local branch_clone_dir="${GIT_WORK_DIR}/${branch_name}"
 
+
+    echo "::group::Cloning branch ${branch_name}"
     echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
       "${BLUE}${GIT_REPO_URL}${GREEN} into ${BLUE}${branch_clone_dir}${NC}"
 
@@ -238,6 +240,7 @@ assemble_version() {
       --recurse-submodules \
       "${GIT_REPO_URL}" \
       "${branch_clone_dir}"
+    echo "::endgroup::"
 
     build_version_from_source "${branch_name}" "${branch_clone_dir}"
   else
@@ -289,11 +292,13 @@ make_single_version_site() {
     '/<<<VERSIONS_BLOCK_START>>>/,/<<<VERSIONS_BLOCK_END>>>/d' \
     "${config_file}"
 
+  echo "::group::Diffing config changes"
   echo -e "${GREEN}Diffing config changes${NC}"
   echo -e "${GREEN}---------------------------------${NC}"
   diff "${temp_config_backup_file}" "${config_file}" \
     || true
   echo -e "${GREEN}---------------------------------${NC}"
+  echo "::endgroup::"
 
   # Clear out the generated site dir from the last run
   rm -rf "${generated_site_dir:?}"/*
@@ -336,12 +341,12 @@ remove_unwanted_sections() {
 
   for section_name in "${UNWANTED_SECTIONS[@]}"; do
     local section_dir="${site_root_dir}/content/en/${section_name}"
-    if [[ ! -d "${section_dir}" ]]; then
-      echo -e "${RED}ERROR${NC}Directory ${section_dir} doesn't exist${NC}"
-      exit 1
+    if [[ -d "${section_dir}" ]]; then
+      echo -e "${GREEN}Removing section ${BLUE}${section_dir}${NC}"
+      rm -rf "${section_dir:?}"
+    else
+      echo -e "${GREEN}Section ${BLUE}${section_dir}${GREEN} doesn't exist${NC}"
     fi
-    echo -e "${GREEN}Removing section ${BLUE}${section_dir}${NC}"
-    rm -rf "${section_dir:?}"
   done
 }
 
@@ -561,8 +566,9 @@ main() {
   local COMMIT_SHA_FILENAME="commit.sha1"
   local have_any_release_branches_changed=false
   # These are the sections we don't want in old/single versions of the site
+  # Can't remove community at the mo as some pages in docs link to it
   local UNWANTED_SECTIONS=(
-    "community"
+    #"community"
     "news"
   )
 
