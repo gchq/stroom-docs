@@ -99,17 +99,22 @@ build_version_from_source() {
       "${config_file}"
   fi
 
+  echo "::group::PUML conversion"
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
+  echo "::endgroup::"
 
   # Build the Hugo site html (into ./public/)
   # TODO, remove --buildDrafts arg once we merge to master
+  echo "::group::Hugo build"
   echo -e "${GREEN}Building combined site HTML with Hugo${NC}"
-  #./container_build/runInHugoDocker.sh build "${hugo_base_url}"
   ./container_build/runInHugoDocker.sh build
+  echo "::endgroup::"
 
+  echo "::group::PDF generation"
   echo -e "${GREEN}Building whole site docs PDF for this branch${NC}"
   ./container_build/runInPupeteerDocker.sh PDF
+  echo "::endgroup::"
 
   # Don't want to release anything for master
   if [[ "${branch_name}" != "master" ]]; then
@@ -288,8 +293,10 @@ make_single_version_site() {
   rm -rf "${generated_site_dir:?}"/*
 
   # Now re-build the site with the modified config
+  echo "::group::Hugo build"
   echo -e "${GREEN}Building single site HTML with Hugo${NC}"
   ./container_build/runInHugoDocker.sh build
+  echo "::endgroup::"
 
   # Old single version sites should not include sections like news/community
   # as they will be out of date
