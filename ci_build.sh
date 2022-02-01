@@ -99,6 +99,12 @@ build_version_from_source() {
       "${config_file}"
   fi
 
+  # Don't want sections like news|community in the old versions
+  if element_in "${branch_name}" "${release_branches[@]}" \
+    && [[ "${branch_name}" != "${latest_version}" ]]; then
+      remove_unwanted_sections "${repo_root}"
+  fi
+
   echo "::group::PUML conversion"
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
@@ -292,17 +298,17 @@ make_single_version_site() {
   # Clear out the generated site dir from the last run
   rm -rf "${generated_site_dir:?}"/*
 
+  # Don't want sections like news|community in the old versions
+  if element_in "${branch_name}" "${release_branches[@]}" \
+    && [[ "${branch_name}" != "${latest_version}" ]]; then
+      remove_unwanted_sections "${repo_root}"
+  fi
+
   # Now re-build the site with the modified config
   echo "::group::Hugo build"
   echo -e "${GREEN}Building single site HTML with Hugo${NC}"
   ./container_build/runInHugoDocker.sh build
   echo "::endgroup::"
-
-  # Old single version sites should not include sections like news/community
-  # as they will be out of date
-  if [[ "${branch_name}" != "${latest_version}" ]]; then
-    remove_unwanted_sections "${generated_site_dir}"
-  fi
 
   # go into the dir so all paths in the zip are relative to generated_site_dir
   pushd "${generated_site_dir}"
@@ -330,7 +336,7 @@ remove_unwanted_sections() {
 
   for section_name in "${UNWANTED_SECTIONS[@]}"; do
     local section_dir="${site_root_dir}/content/en/${section_name}"
-    if [[ -d "${section_dir}" ]]; then
+    if [[ ! -d "${section_dir}" ]]; then
       echo -e "${RED}ERROR${NC}Directory ${section_dir} doesn't exist${NC}"
       exit 1
     fi
@@ -437,22 +443,15 @@ prepare_for_release() {
     #"to ${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
   #cp -r "${COMBINED_SITE_DIR}"/* "${NEW_GH_PAGES_DIR}/"
 
-  echo -e "${GREEN}Making a zip of the combined site html content${NC}"
   # Make sure master dir is not in the zipped site. It is ok to have it
   # in the gh-pages one so we can see docs for an as yet un-released
   # stroom, though master should not appear in the versions dropdown.
   rm -rf "${NEW_GH_PAGES_DIR}/master"
 
-  # Make sure we don't have sections like news/community for any
-  # branches except the latest as they will be stale
-  for branch_name in "${release_branches[@]}"; do
-    if [[ "${branch_name}" != "${latest_version}" ]]; then
-      remove_unwanted_sections "${NEW_GH_PAGES_DIR}/${branch_name}"
-    fi
-  done
-
   echo -e "${GREEN}Dumping contents of ${BLUE}${NEW_GH_PAGES_DIR}${NC}"
   ls -1 "${NEW_GH_PAGES_DIR}/"
+
+  echo -e "${GREEN}Making a zip of the combined site html content${NC}"
 
   # pushd so all paths in the zip are relative to this dir
   pushd "${NEW_GH_PAGES_DIR}"
