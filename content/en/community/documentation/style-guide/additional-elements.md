@@ -18,6 +18,18 @@ Links to external sites, i.e. on the internet, should have ` (external link)` ap
 This makes it clear to readers which links are local and which are external and therefore possibly not available if there is no access to the internet.
 
 
+### External links
+
+As this site is deployed to environmnets with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+To include an external link do the following:
+
+* This is an external link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}}.
+
+  ```markdown
+  This is an external link to {{</* external-link "Stroom on Github" "https://github.com/gchq/stroom" */>}}.
+  ```
+
+
 ### Anchors
 
 You can link to headings on a page using its anchor.
@@ -29,6 +41,8 @@ The anchor for a heading is the heading text with:
 * Multiple consecutive `-` characters, e.g. `---` are replaced with a single `-`
 
 For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor `#mr-oneils-1st-event-something`.
+
+See The link exampls below that use anchors.
 
 
 ### Shortcode page link examples
@@ -468,4 +482,4 @@ root:
 
 ## Tabbed panes
 
-Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.
+Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.
