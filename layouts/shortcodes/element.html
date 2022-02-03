@@ -1,0 +1,18 @@
+<!-- 
+{{/*
+
+Creates a link to an item in the pipeline elements reference page.
+
+Arguments:
+
+name - The element name exactly as it appears in the H3 heading on the pipeline elements reference page
+title - An optional title that is different from $term, e.g. when the term is singular and the title needs to be plural
+
+e.g. {{< element "XSLTFilter" >}}
+e.g. {{< glossary "XSLTFilter" "XSLT Filter">}}
+*/}}
+-->
+{{ $term := .Get 0 }}
+{{ $title := .Get 1 | default $term}}
+{{ $url := printf "/docs/user-guide/pipelines/element-reference#%s" ( lower (replaceRE "[^a-zA-Z0-9]" "-" $term) ) }}
+<span><a href="{{- relref . $url -}}" class="" style="">{{- $title -}}</a></span>

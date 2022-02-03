@@ -14,9 +14,9 @@ See https://prismjs.com/plugins/command-line/
 e.g.:
 {{% command-line "jdoe" "bigserver" %}}
 echo "hello world"
-(out) class
+(out)hello world
 id
-(out) uid=1000(jdoe) gid=1000(jdoe)
+(out)uid=1000(jdoe) gid=1000(jdoe)
 {{% /command-line %}}
 
 */}}
@@ -27,9 +27,13 @@ id
 {{ $language := .Get 2 | default "bash" }}
 
 <div class="code-toolbar">
-  <pre class="command-line language-{{ $language }}" data-user="{{ $user }}" data-host="{{ $host }}" data-filter-output="(out)">
+  <pre 
+    class="command-line language-{{ $language }}" 
+    data-user="{{ $user }}" 
+    data-host="{{ $host }}" 
+    data-filter-output="(out)">
   {{- with (.Inner | default "" ) -}}
-    <code class="language-{{ $language }}">{{- trim ( . | default "" ) "\n" -}}</code>
+    <code class="language-{{ $language }}">{{- trim . " \n" -}}</code>
   {{- end -}}
   </pre>
 </div>
