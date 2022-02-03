@@ -16,7 +16,11 @@ Caption is taken from the short code content
 {{ $path := printf "assets/files/%s" (.Get 0) }}
 {{ $url := printf "/files/%s" (.Get 0) }}
 {{ $url = resources.Get $url }}
+{{ $filename := path.Base $path }}
 
-{{- with (.Inner | default "" ) -}}
-<a href="{{ $url.RelPermalink }}" class="" style="">{{ ( . | default "" ) | html }}</a>
+{{- with (.Inner | default $filename ) -}}
+<span class="external-link">
+  <a href="{{ $url.RelPermalink }}" class="" style="">{{ ( . | default "" ) | html }}</a>
+  <i class="external-link-icon fas fa-file-download fa-sm text-secondary" title="External link"></i>
+</span>
 {{- end -}}
