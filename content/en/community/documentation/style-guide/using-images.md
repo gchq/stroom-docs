@@ -172,28 +172,29 @@ In the above example, the shortcode would look like:
 
 ## Stroom icons
 
-Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
+Stroom UI icons such as {{< stroom-icon "add.svg" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
 The first argument is the filename (and path) of the icon file.
 The filename is relative to `/assets/images/stroom-ui/`.
-The second argument is the hover tip title that will be given to the icon.
+The second optional argument is the hover tip title that will be given to the icon.
+If the title is not provided it will be derived from the filename.
 E.g:
 
 ```markdown
 or {{</* stroom-icon "explorer.svg" "Explorer Tree" */>}} can be added in line like this.
 ```
 
-Stroom pipeline elements can be added in line like this {{< stroom-icon "pipeline/split.svg" "Split" >}}.
+Stroom pipeline elements can be added in line like this {{< stroom-icon "pipeline/split.svg" >}}.
 E.g:
 
 ```markdown
-like this {{</* stroom-icon "pipeline/split.svg" "Split" */>}}.
+like this {{</* stroom-icon "pipeline/split.svg" */>}}.
 ```
 
-Stroom document elements can be added in line like this {{< stroom-icon "document/Visualisation.svg" "Visualisation" >}}.
+Stroom document elements can be added in line like this {{< stroom-icon "document/Visualisation.svg" >}}.
 E.g:
 
 ```markdown
-like this {{</* stroom-icon "document/Visualisation.svg" "Visualisation" */>}}.
+like this {{</* stroom-icon "document/Visualisation.svg" */>}}.
 ```
 
 For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery.md" >}})

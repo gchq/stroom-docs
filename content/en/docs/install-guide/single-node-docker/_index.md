@@ -37,8 +37,10 @@ In order to run Stroom using Docker you will need the following installed on the
 This will install the core stack (Stroom and the peripheral services required to run Stroom).
 
 Visit [stroom-resources/releases (external link)](https://github.com/gchq/stroom-resources/releases) to find the latest stack release.
-If you are just evaluating Stroom or just want to see it running then download the `stroom_core_test*.tar.gz` stack which includes some pre-loaded content.
-If it is for an actual deployment of Stroom then download `stroom_core*.tar.gz`, which has no content and requires some configuration.
+The Stroom stack comes in a number of different variants:
+
+* **stroom_core_test** - If you are just evaluating Stroom or just want to see it running then download the `stroom_core_test*.tar.gz` stack which includes some pre-loaded content.
+* **stroom_core** - If it is for an actual deployment of Stroom then download `stroom_core*.tar.gz`, which has no content and requires some configuration.
 
 Using `stroom_core_test-v7.0-beta.175.tar.gz` as an example:
 

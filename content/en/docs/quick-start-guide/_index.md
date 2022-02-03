@@ -43,4 +43,6 @@ All the things we create here are available as a {{< external-link "content pack
 
 > **Note:** The CSV data used in _mock_stroom_data.csv_ (linked to above) is randomly generated and any association with any real world IP address or name is entirely coincidental.
 
-We're going to do follow the links below in this order:
+We're going to do follow the links below in this order.
+
+If you don't want to follow all the steps to create the example content then the _stroom_core_test_ stack includes it in the folder _Stroom 101_.

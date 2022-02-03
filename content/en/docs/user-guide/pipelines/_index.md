@@ -7,7 +7,7 @@ tags:
   - pipeline
   - processing
 description: >
-  Pipelines are the mechanism for processin and transforming ingested data.
+  Pipelines are the mechanism for processing and transforming ingested data.
 ---
 
 # Pipelines

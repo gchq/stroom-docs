@@ -11,11 +11,8 @@ tags:
 
 ## Links
 
-Links can be added using either standard markdown link syntax or using a Hugo shortcode.
-The advantage of the shortcode is that hugo will check for broken links when building the site so there are preferred.
-
-Links to external sites, i.e. on the internet, should have ` (external link)` appended to the link title.
-This makes it clear to readers which links are local and which are external and therefore possibly not available if there is no access to the internet.
+While links can be added using standard markdown link syntax you should use Hugo shortcodes to add them.
+The advantage of the shortcode is that Hugo will check for broken links when building the site.
 
 
 ### External links
@@ -45,7 +42,7 @@ For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor
 See The link exampls below that use anchors.
 
 
-### Shortcode page link examples
+### Shortcode internal page link examples
 
 Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.
 
@@ -159,28 +156,35 @@ in the rendered site.
 
 ### Download file links
 
-To create a link to download a file, {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}like this{{< /file-link >}}, that is served by this site you need to do:
+You can create a link to download a file, like these:
+
+* Download a {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}file{{< /file-link >}}.
+
+* Download {{< file-link "quick-start-guide/mock_stroom_data.csv" />}}
 
 ```markdown
 {{</* file-link "quick-start-guide/mock_stroom_data.csv" */>}}Link Title{{</* /file-link */>}}
+
+{{</* file-link "quick-start-guide/mock_stroom_data.csv" /*/>}}
 ```
 
-Paths are relative to `/assets/files/`.
+All paths are relative to `/assets/files/`.
+
 
 ### Glossary links
 
 If you need to create a link to an item in the [Glossary]({{< relref "docs/glossary" >}}) you can use the `glossary` shortcode.
 E.g.
 
-A {{< glossary "feed" >}} is something you should know about.
+* A {{< glossary "feed" >}} is something you should know about, and so are {{< glossary "stream" "streams" >}}.
 
-```markdown
-A {{</* glossary "feed" */>}} is something you should know about.
-```
+  ```markdown
+  A {{</* glossary "feed" */>}} is something you should know about, and so are {{</* glossary "stream" "streams" */>}}.
+  ```
 
 The argument to the shortcode is the glossary term.
-This should match the heading text on the Glossary page exactly.
-It will be converted to an HTML anchor so that you can link direct to the heading for the term in question.
+This should match the heading text on the Glossary page exactly, ignoring case.
+It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.
 
 
 ## Code
