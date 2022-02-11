@@ -20,24 +20,53 @@ The `stroom-java-client` provides an example Java client that can:
 
 To use the example client first compile the Java code:
 
-```bash
+{{< command-line "user" "localhost" >}}
 javac DataFeedClient.java
-```
+{{</ command-line >}}
+
 
 ## Example HTTP Post:
 
-```bash
-java -classpath . DataFeedClient inputfile=datafeed url=http://<Stroom_HOST>/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-```
+{{< command-line "user" "localhost" >}}
+java \
+-classpath . \
+DataFeedClient \
+inputfile=datafeed \
+url=http://<Stroom_HOST>/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED
+{{</ command-line >}}
+
 
 ## Example HTTPS With 1 way SSL authentication:
 
-```bash
-java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass DataFeedClient inputfile=datafeed url=https://<Stroom_HOST>/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-```
+{{< command-line "user" "localhost" >}}
+java \
+-classpath . \
+-Djavax.net.ssl.trustStore=ca.jks \
+-Djavax.net.ssl.trustStorePassword=capass \
+DataFeedClient \
+inputfile=datafeed \
+url=https://<Stroom_HOST>/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED
+{{</ command-line >}}
+
 
 ## Example HTTPS With 2 way SSL authentication:
 
-```bash
-java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass -Djavax.net.ssl.keyStore=example.jks -Djavax.net.ssl.keyStorePassword=<PASSWORD> DataFeedClient inputfile=datafeed url=https://<Stroom_HOST>/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-```
+{{< command-line "user" "localhost" >}}
+java \
+-classpath . \
+-Djavax.net.ssl.trustStore=ca.jks \
+-Djavax.net.ssl.trustStorePassword=capass \
+-Djavax.net.ssl.keyStore=example.jks \
+-Djavax.net.ssl.keyStorePassword=<PASSWORD> \
+DataFeedClient \
+inputfile=datafeed url=https://<Stroom_HOST>/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED
+{{</ command-line >}}

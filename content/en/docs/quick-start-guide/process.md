@@ -102,12 +102,12 @@ We need to add this to our pipeline as a filter, so head back to the pipeline's 
 
 1. Click the _Source_ element.
 1. Click the add button {{< stroom-icon "add.svg" "Add" >}}.
-1. From the menu select _Parser_ => {{< stroom-icon "document/TextConverter.svg" "CombinedParser" >}} _CombinedParser_.
+1. From the menu select _Parser_ => {{< stroom-icon "document/TextConverter.svg" "DSParser" >}} _DSParser_.
 1. Call it _CSV Parser_ and click OK.
 
 We need to tell the new _CSV parser_ to use the {{< stroom-icon "document/TextConverter.svg" >}} _TextConverter_ (_CSV splitter_) we created earlier.
 
-1. Click on the _CSV parser_ element and the pane below will show it's properties.
+1. Click on the {{< stroom-icon "pipeline/text.svg" "DSParser" >}} _CSV parser_ element and the pane below will show it's properties.
 1. Double click the `textConverter` property and change `Value` to our _CSV splitter_ entity.
 
 {{< image "quick-start-guide/process/configuring-dsSplitter.png" >}}Configuring the CSV splitter{{< /image >}}
@@ -276,23 +276,15 @@ To do this we create a {{< element "StreamAppender" >}}:
 1. Name it _Stream appender_.
 1. Click OK.
 
-We need to configure this Stream Appender so set the type of the data (_streamType_) and which Feed the stream will be written to (_destination feed_). 
+Streams only exist within feeds and have a type.
+We could set the feed that the stream will be written into but by default the _StreamAppender_ will write to the same _Feed_ as the input stream.
+We must however set the type of the _Stream_ to distinguish it from the _Raw Events_ _Stream_ that we POSTed to Stroom.
 
+To set the stream type do the following:
 
-##### Setting the feed
+1. Click on the {{< stroom-icon "pipeline/stream.svg" "Stream Appender" >}} _Stream appender_ pipeline element and the pane below will show it's properties.
+1. Double click the `streamType` property and change `Value` to the _Events_ stream type.
 
-We'll send the output to the `CSV_FEED` - all data associated with this feed will be in the same place.
-To do that we edit the `feed` property and set it to `CSV_FEED`:
-
-{{< image "quick-start-guide/process/configure-streamAppender-feed.png" >}}Change the feed property{{< /image >}}
-
-We also need to edit the `streamType` property:We set the streamType to Events:
-
-{{< image "quick-start-guide/process/configure-streamAppender-streamType.png" >}}Change the streamType property{{< /image >}}
-
-{{< image "quick-start-guide/process/configure-destination-streamType.png" >}}Setting the streamType{{< /image >}}
-
-That's it! Our pipeline is configured! 
 
 #### Test the destination
 
@@ -306,18 +298,26 @@ If you click on the `stream appender` you'll see something like this:
 ## Set the pipeline running
 
 Obviously you don't want to step through your data one by one.
-This all needs automation, and this is what Processors are for.
-The processor works in the background to take any unprocessed data from a feed and put it through a pipeline.
-So far everything on our EXAMPLE_IN feed is unprocessed. 
+This all needs automation, and this is what {{< glossary "Processor" "Processors" >}} and {{< glossary "Processor Filter" "Processor Filters" >}} are for.
+The processor works in the background to take any unprocessed streams (as determined by the Processor Filter and its {{< glossary "Tracker" >}}) and process them through the pipeline.
+So far everything on our _EXAMPLE_IN_ feed is unprocessed. 
 
 
-### Create a processor
+### Create a processor and filter
 
-Processors are created from the _Processors_ section of the pipeline:
+Processors are created from the _Processors_ sub-tab of the pipeline.
 
-{{< image "quick-start-guide/process/go-processors.png" >}}The processors section of the pipeline{{< /image >}}
+Click the add button {{< stroom-icon "add.svg" >}} and you will be presented with a Filter {{< glossary "Expression Tree" >}}.
+To configure the filter do the following:
 
-Click the add button {{< stroom-icon "add.svg" >}} and configure the huge dialog.
+1. Right click on the root AND operator and click {{< stroom-icon "add.svg" "Add Term" >}} Add Term.
+  A new expression is added to the tree as a child of the operator and it has three dropdowns in it.
+<!-- TODO finish from here down -->
+1. To create an expression term for the Feed:
+  1. In the first dropdown (the Field), select _Feed_.
+  1. In the second dropdown (the Field), select _Feed_.
+
+
 You only need to set the incoming feed and the stream types:
 
 {{< image "quick-start-guide/process/configure-processor.png" >}}Configure the new processor{{< /image >}}
