@@ -32,7 +32,7 @@ We think you will learn more by deleting this pre-loaded content and following a
 
    {{< image "quick-start-guide/feed/create-folder.png" >}}Creating a folder{{< /image >}}
 
-1. Right-click on the new _Stroom Quick Start_ folder then click New => {{< stroom-icon "feed.svg" >}}Feed to create a feed.
+1. Right-click on the new _Stroom Quick Start_ folder then click {{< stroom-icon "add.svg" "title" >}} _New_ => {{< stroom-icon "feed.svg" >}} _Feed_ to create a feed.
    The name needs to be capitalised and unique across all feeds.
    Name it `CSV_FEED`.
 

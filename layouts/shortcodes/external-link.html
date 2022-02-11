@@ -14,13 +14,12 @@ e.g.:
 */}}
 -->
 
-{{ $text := printf "%s" (.Get 0) }}
-{{ $url := printf "%s" (.Get 1) }}
-{{ if not $url }}
-  {{ $url = $text }}
-{{ end }}
+{{ $text := .Get 0 }}
+{{ $url := .Get 1 | default $text }}
 
 <span class="external-link">
-  <a href="{{ $url }}" class="" style="">{{- $text -}}</a>
-  <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+  <a href="{{ $url }}" class="" style="" title="{{- $text }} (external link)">
+    <span>{{- $text -}}</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
 </span>

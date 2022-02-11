@@ -38,13 +38,13 @@ description: >
 
 ## Overview
 
-Stroom's documentation is created using the static site generator [Hugo (external link)](https://gohugo.io/).
+Stroom's documentation is created using the static site generator {{< external-link "Hugo" "https://gohugo.io/" >}}.
 This converts markdown content into a rich HTML site.
 The markdown content in _stroom-docs_ is not intended to be read as-is in GitHub, it needs to be rendered first.
 
-The full documentation for _Hugo_ can be found [here (external link)](https://gohugo.io/documentation/).
-The site also uses the [Docsy (external link)](https://www.docsy.dev) theme for Hugo.
-The documentation for _Docsy_ can be found [here (external link)](https://www.docsy.dev/docs/).
+The full documentation for _Hugo_ can be found {{< external-link "here" "https://gohugo.io/documentation/" >}}.
+The site also uses the {{< external-link "Docsy" "https://www.docsy.dev" >}} theme for Hugo.
+The documentation for _Docsy_ can be found {{< external-link "here" "https://www.docsy.dev/docs/" >}}.
 The _Docsy_ theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the _Docsy_ documentation in the first instance.
 
@@ -56,7 +56,7 @@ To maintain a degree of consistency in the documentation you should use this sec
 The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
 Shortcodes make it easy to change how a page element is styled by just changing the shortcode.
 
-Hugo includes many [shortcodes (external link)](https://gohugo.io/content-management/shortcodes/), the Docsy theme adds some [more (external link)](https://www.docsy.dev/docs/adding-content/shortcodes/) and there are some bespoke _stroom-docs_ ones in `layouts/shortcodes/`.
+Hugo includes many {{< external-link "shortcodes" "https://gohugo.io/content-management/shortcodes/" >}}, the Docsy theme adds some {{< external-link "more" "https://www.docsy.dev/docs/adding-content/shortcodes/" >}} and there are some bespoke _stroom-docs_ ones in `layouts/shortcodes/`.
 
 To make your life easier when editing the documentation it is highly recomended to use an editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.

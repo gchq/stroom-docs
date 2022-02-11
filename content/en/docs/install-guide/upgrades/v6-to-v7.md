@@ -1,11 +1,12 @@
 ---
-title: "v6 to v7 Upgrade"
-linkTitle: "v6 to v7 Upgrade"
+title: "Upgrade from v6 to v7"
+linkTitle: "Upgrade from v6 to v7"
 #weight:
-date: 2021-03-10
+date: 2022-02-04
 tags: 
 description: >
   This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.
+
 ---
 
 {{% page-warning %}}
@@ -100,7 +101,7 @@ Stroom v6 ran on mysql v5.6.
 Stroom v7 runs on mysql v8.
 The upgrade path for MySQL is 5.6 => 5.7.33 => 8.x
 
-To ensure the database is up to date `mysql_upgrade` neeeds to be run using the 5.7.33 binaries, [see (external link)](https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html).
+To ensure the database is up to date `mysql_upgrade` neeeds to be run using the 5.7.33 binaries, see the {{< external-link "MySQL documentation" "https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" >}}.
 
 This is the process for upgrading the database. All of these commands are using the v7 stack.
 

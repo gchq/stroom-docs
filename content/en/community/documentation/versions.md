@@ -127,7 +127,7 @@ In the same example scenario as above, the `config.toml` file for the _7.0_ bran
 ## Automated build process
 
 The site is built by Gihub Actions on a nightly basis.
-This schedule is controlled by [build_and_release.yml (external link)](https://github.com/gchq/stroom-docs/blob/master/.github/workflows/build_and_release.yml) on the `master` branch.
+This schedule is controlled by {{< external-link "build_and_release.yml" "https://github.com/gchq/stroom-docs/blob/master/.github/workflows/build_and_release.yml" >}} on the `master` branch.
 
 This automated build will look for any branches matching the pattern `(legacy|[0-9]+\.[0-9]+)` and for each one will do the following:
 
@@ -147,7 +147,7 @@ Once each site has been processed it will:
   * Combined site zip
   * Single version PDFs
 * Create a root `index.hml` file that will redirect to the latest version sub-directory.
-* Publish the combined site to GitHub Pages [https://gchq.github.io/stroom-docs (external link)](https://gchq.github.io/stroom-docs).
+* Publish the combined site to GitHub Pages {{< external-link "https://gchq.github.io/stroom-docs" "https://gchq.github.io/stroom-docs" >}}.
 
 Although the build is run on the `master` branch it will use the `HEAD` commit of each of the release branches to build the site(s).
 

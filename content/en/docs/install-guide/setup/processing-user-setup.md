@@ -2,7 +2,7 @@
 title: "Processing Users"
 linkTitle: "Processing Users"
 #weight:
-date: 2021-08-20
+date: 2022-02-04
 tags: 
 description: >
   
@@ -10,21 +10,27 @@ description: >
 
 ## Processing User Setup
 
-Stroom / Stroom Proxy should be run under a processing user (we assume stroomuser below).
+Stroom and Stroom Proxy should be run under a processing user (we assume _stroomuser_ below).
 
-- Setup this user
+## Create user
 
-```bash
+{{< command-line "root" "localhost" >}}
 /usr/sbin/adduser --system stroomuser
-```
+{{</ command-line >}}
 
-- You may want to allow normal accounts to sudo to this account for maintenance (visudo)
+You may want to allow normal accounts to sudo to this account for maintenance (visudo).
 
-- Create a service script to start/stop on server startup (as root).  
+## Create service script
+
+Create a service script to start/stop on server startup (as root).  
+
+{{< command-line "root" "localhost" >}}
+vi /etc/init.d/stroomuser
+{{</ command-line >}}
+
+Paste/type the following content into vi.
 
 ```bash
-vi /etc/init.d/stroomuser
-
 #!/bin/bash
 #
 # stroomuser       This shell script takes care of starting and stopping
@@ -33,48 +39,42 @@ vi /etc/init.d/stroomuser
 # chkconfig: - 86 14
 # description: stroomuser is the stroomuser sub system
 
-Stroom_USER=stroomuser
+STROOM_USER=stroomuser
+DEPLOY_DIR=/home/${STROOM_USER}/stroom-deploy
 
 case $1 in
 start)
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/start.sh
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/start.sh
 ;;
 stop)
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/stop.sh
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/stop.sh
 ;;
 restart)
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/stop.sh
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/start.sh
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/stop.sh
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/start.sh
 ;;
 esac
 exit 0
 ```
 
-- Initialise Script
+Now initialise the script.
 
-```bash
+{{< command-line "root" "localhost" >}}
 /bin/chmod +x /etc/init.d/stroomuser
 /sbin/chkconfig --level 345 stroomuser on
-```
+{{</ command-line >}}
 
-## Install Java 8
 
-```bash
-yum install java-1.8.0-openjdk.x86_64
-yum install java-1.8.0-openjdk-devel.x86_64
-```
+### Setup user's environment
 
-## Setup Deployment Scripts 
 
-- As the processing user unpack the stroom-deploy-X-Y-Z-bin.zip generic deployment
-scripts in the processing users home directory.
+Setup `env.sh` to include `JAVA_HOME` to point to the installed directory of the JDK (this will be platform specific).
 
-```bash
-unzip stroom-deploy-5.0.beta1-bin.zip
-```
+{{< command-line "stroomuser" "localhost" >}}
+vi ~/env.sh
+{{</ command-line >}}
 
-- Setup env.sh to include JAVA_HOME to point to the installed directory of the JDK 
-(this will be platform specific).  vi ~/env.sh
+In vi add the following lines.
 
 ```bash
 # User specific aliases and functions
@@ -82,36 +82,35 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 ```
 
-- Setup users profile to include the same.  vi ~/.bashrc
+Setup the user's profile to include source the env script.
+
+{{< command-line "stroomuser" "localhost" >}}
+vi ~/.bashrc
+{{</ command-line >}}
  
+In vi add the following lines.
+
 ``` bash
 # User specific aliases and functions
 . ~/env.sh
 ```	 
 
-- Check that java is installed OK
+### Verify Java installation
 
-```bash
-[stroomuser@node1 ~]$ . .bashrc
-[stroomuser@node1 ~]$ which java
-/usr/lib/jvm/java-1.8.0/bin/java
+Assuming you are using Stroom without using docker and have installed Java, verify that the processing user can use the Java installation.
 
-[stroomuser@node1 ~]$ which javac
-/usr/lib/jvm/java-1.8.0/bin/javac
+> The shell output below may show a different version of Java to the one you are using.
 
-[stroomuser@node1 ~]$ java -version
-openjdk version "1.8.0_65"
-OpenJDK Runtime Environment (build 1.8.0_65-b17)
-OpenJDK 64-Bit Server VM (build 25.65-b01, mixed mode)
-```
+{{< command-line "stroomuser" "localhost" >}}
+. .bashrc
+which java
+(out)/usr/lib/jvm/java-1.8.0/bin/java
 
-- Setup auto deployment crontab script as below (crontab -e)
+which javac
+(out)/usr/lib/jvm/java-1.8.0/bin/javac
 
-```bash
-[stroomuser@node1 ~]$ crontab -l
-# Deploy Script
-0,5,10,15,20,25,30,35,40,45,50,55 * * * * /home/stroomuser/stroom-deploy/deploy.sh >> /home/stroomuser/stroom-deploy.log
-59 0 * * * rm -f /home/stroomuser/stroom-deploy.log
-# Clean system
-0 0 * * * /home/stroomuser/stroom-deploy/clean.sh > /dev/null
-```
+java -version
+(out)openjdk version "1.8.0_65"
+(out)OpenJDK Runtime Environment (build 1.8.0_65-b17)
+(out)OpenJDK 64-Bit Server VM (build 25.65-b01, mixed mode)
+{{</ command-line >}}

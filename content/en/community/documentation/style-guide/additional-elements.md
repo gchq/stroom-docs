@@ -20,10 +20,16 @@ The advantage of the shortcode is that Hugo will check for broken links when bui
 As this site is deployed to environmnets with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
 To include an external link do the following:
 
-* This is an external link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}}.
+* This is a link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}} with a title.
 
   ```markdown
-  This is an external link to {{</* external-link "Stroom on Github" "https://github.com/gchq/stroom" */>}}.
+  This is a link to {{</* external-link "Stroom on Github" "https://github.com/gchq/stroom" */>}} with a title.
+  ```
+
+* This is the same link with no title, {{< external-link "https://github.com/gchq/stroom" >}}.
+
+  ```markdown
+  This is the same link with no title, {{</* external-link "https://github.com/gchq/stroom" */>}}.
   ```
 
 
@@ -72,10 +78,10 @@ The following are some example of different links to internal content.
 
 #### Relative path
 
-* A [link]({{< relref "../../../docs/proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using a relative path.
+* A [link]({{< relref "../versions" >}}) to a heading anchor on page above this one, using a relative path.
 
   ```markdown
-  [link]({{</* relref "../../../docs/proxy/install.md#prerequisites" */>}})
+  [link]({{</* relref "../versions" */>}})
   ```
 
 
@@ -285,6 +291,7 @@ The shortcode takes the following arguments:
 
 If you want to display shell output then prefix each output line with `(out)`.
 It will then be displayed without a prompt.
+To display a blank line with no prompt then have a line with just `(out)` in it.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -303,6 +310,59 @@ echo "hello world"
 id
 (out)uid=1000(david) gid=1000(david)
 {{</* command-line */>}}
+```
+  {{< /card >}}
+{{< /cardpane >}}
+
+
+### MySQL shell blocks
+
+To demonstrate commands being run in a MySQL shell you can use the `sql-shell` shortcode.
+This works in a similar way to the `command-line` shortcode but has a different prompt and no shortcode arguments.
+
+If you want to display shell output then prefix each output line with `(out)`.
+It will then be displayed without a prompt.
+To display a blank line with no prompt then have a line with just `(out)` in it.
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+{{< sql-shell >}}
+select user();
+(out)+----------------------+
+(out)| user()               |
+(out)+----------------------+
+(out)| stroomuser@localhost |
+(out)+----------------------+
+(out)1 row in set (0.00 sec)
+(out)
+select database();
+(out)+------------+
+(out)| database() |
+(out)+------------+
+(out)| stroom     |
+(out)+------------+
+(out)1 row in set (0.00 sec)
+{{</ sql-shell >}}
+  {{< /card >}}
+  {{< card header="Markdown" >}}
+```markdown
+{{</* sql-shell */>}}
+select user();
+(out)+----------------------+
+(out)| user()               |
+(out)+----------------------+
+(out)| stroomuser@localhost |
+(out)+----------------------+
+(out)1 row in set (0.00 sec)
+(out)
+select database();
+(out)+------------+
+(out)| database() |
+(out)+------------+
+(out)| stroom     |
+(out)+------------+
+(out)1 row in set (0.00 sec)
+{{</* sql-shell */>}}
 ```
   {{< /card >}}
 {{< /cardpane >}}

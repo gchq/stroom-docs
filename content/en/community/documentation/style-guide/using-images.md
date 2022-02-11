@@ -129,7 +129,7 @@ You should embed an PlantUML image like this, using the `.puml.svg` file (that m
 
 ## Using page resources
 
-Images can be located in a [page bundle (external link)](https://gohugo.io/content-management/page-bundles/).
+Images can be located in a {{< external-link "page bundle" "https://gohugo.io/content-management/page-bundles/" >}}.
 This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown contnet.
 All other items in the directory are page resources that can be used by the page, i.e. image files.
 

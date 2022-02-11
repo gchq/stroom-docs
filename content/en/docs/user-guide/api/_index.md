@@ -10,6 +10,6 @@ description: >
 ---
 
 _Stroom_ has a number of public APIs to allow other systems to interact with _Stroom_.
-The APIs are defined by a _Swagger_ spec that can be viewed as [json (external link)](https://gchq.github.io/stroom/swagger.json) or [yaml (external link)](https://gchq.github.io/stroom/swagger.yaml).
-A dynamic [user interface (external link)](https://gchq.github.io/stroom/) is also available for viewing the APIs.
+The APIs are defined by a _Swagger_ spec that can be viewed as {{< external-link "json" "https://gchq.github.io/stroom/swagger.json" >}} or [link)](https://gchq.github.io/stroom/swagger.yaml).
+A dynamic {{< external-link "user interface" "https://gchq.github.io/stroom/" >}} is also available for viewing the APIs.
 

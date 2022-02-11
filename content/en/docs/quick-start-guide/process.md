@@ -157,13 +157,13 @@ You will now see the stepping view for this element that is split into three pan
 If there are any errors then you will see an error icon {{< stroom-icon "error.svg" >}} in the gutter of the top pane.
 In the example below, an invalid XML element has been added to the Data Splitter content to demonstrate an error occurring.
 
-{{< image "quick-start-guide/process/stepping-error.png" />}}
+{{< image "quick-start-guide/process/stepping-error.png" "700" />}}
 
 
 ### Add XSLT to transform records format XML into something else
 
-{{< glossary "XSLT" "XSLT">}} is the language used to transform record/event data from one form into another in Stroom pipelines.
-An {{< element "XSLTFilter" >}} pipeline element takes XML input and transforms it into different XML or some other text format.
+{{< glossary "XSLT" >}} is the language used to transform record/event data from one form into another in Stroom pipelines.
+An {{< element "XSLTFilter" >}} pipeline element takes XML input and uses an XSLT to transform it into different XML or some other text format.
 
 
 #### Create the XSLT filter
@@ -222,45 +222,45 @@ The XSLT for this is below but if you'd like to tinker then go ahead.
 
 Make sure you save it by clicking the save button {{< stroom-icon "save.svg" >}}.
 
-Go back to the Structure sub-tab of the pipeline and add an {{< element "XSLTFilter" >}} element.
-Call it something like `XSLT filter`. 
+Go back to the Structure sub-tab of the pipeline and add an {{< element "XSLTFilter" >}} element downstream of the _CSV parser_ element.
+Call it something like _XSLT filter_. 
 
-{{< image "quick-start-guide/process/add-xsltFilter.png" >}}Add the XSLT filter{{< /image >}}
+Select the _XSLT filter_ element and configure it to use the actual XSLT you just created by double-clicking `xslt` in the properties pane at the bottom:
 
-Select the `XSLT filter` and configure it to use the actual XSLT you just created by double-clicking `xslt` in the properties:
-
-{{< image "quick-start-guide/process/configure-xslt.png" >}}Configuring the XSLT filter{{< /image >}}
-
-In the dialog make sure the value is the `XSLT` filter. Save the pipeline.
+In the dialog make sure you select the `XSLT` filter in the _Stroom 101_ folder.
+Save the pipeline.
 
 
 #### Test the XSLT filter
 
-We're going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed.
+We're going to test this in the same way we tested the CSV splitter, by clicking the large stepping button {{< stroom-icon "stepping.svg" >}}on the feed data pane.
 Click the step forward button {{< stroom-icon "step-forward.svg" >}} a few times to make sure it's working then click on the XSLT element.
 This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:
 
-{{< image "quick-start-guide/process/stepping-03.png" >}}Debugging the XSLT filter{{< /image >}}
+{{< image "quick-start-guide/process/stepping-03.png" "500" >}}Stepping the XSLT filter{{< /image >}}
 
-Fantastic!
-Data converted!
-Well done if you've got this far.
-Really, there are lots of steps and things that could go wrong and you've persevered.
 There's a few more things to get this pipeline ready for doing this [task]({{< relref "../user-guide/jobs.md" >}}) for real.
 We need to get this data to a destination.
 
 
 ### Outputting the transformed data
 
+The XSLT filter doesn't actually write XML but instead it just outputs XML events to the next element in the pipeline.
+In order to write these XML events out to a destination you need a writer.
+If your transofmration is producing XML then you need an {{< element "XMLWriter" >}}, if it is producing JSON then you need a {{< element "JSONWriter" >}} and for plain text you need a {{< element "TextWriter" >}}.
+
+Our _XSLT filter_ element is outputting XML so we will create an _XMLWriter_.
+
+
 #### Create the XML writer
 
-What's an XML Writer and why do you need one?
-The XSLT filter doesn't actually write XML but instead just passes XML events from one filter to another.
-In order to write XML out you need an XML writer.
 You don't need to create one outside the pipeline (in the way you did with the `CSV splitter` and the `XSLT` filter).
-An XML writer is just added to the pipeline like this:
+Just do the following:
 
-{{< image "quick-start-guide/process/add-xmlWriter.png" >}}Addnig an XML Writer{{< /image >}}
+1. Right click on the _XSLT filter_ element.
+1. Click _Add_ => _Writer_ => _XMLWriter_
+1. Name it _XML writer_.
+1. Click OK.
 
 That's it, no other configuration necessary.
 
@@ -268,12 +268,15 @@ That's it, no other configuration necessary.
 #### Create the destination
 
 We need to do something with the serialised XML.
-We'll write it to a stream. To do this we create a stream appender:
+We'll write it to a {{< glossary "Stream" >}}.
+To do this we create a {{< element "StreamAppender" >}}:
 
-{{< image "quick-start-guide/process/add-streamAppender.png" >}}Creating a stream appender{{< /image >}}
+1. Right click on the _XML Writer_ element.
+1. Click _Add_ => _Destination_ => _StreamAppender_
+1. Name it _Stream appender_.
+1. Click OK.
 
-Unlike the `Source` element this element needs to be configured.
-We need to configure two things: the _streamType_ and the _destination feed_. 
+We need to configure this Stream Appender so set the type of the data (_streamType_) and which Feed the stream will be written to (_destination feed_). 
 
 
 ##### Setting the feed

@@ -19,11 +19,11 @@ The following assumptions are used in this document.
 ## Introduction
 This HOWTO will demonstrate the process by which an Event Processing pipeline for a given Event Source is developed and deployed.
 
-The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from [log-sharing.dreamhosters.com (external link)](http://log-sharing.dreamhosters.com) (a Public Security Log Sharing Site) but modified to add sample user attribution.
+The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from {{< external-link "log-sharing.dreamhosters.com" "http://log-sharing.dreamhosters.com" >}} (a Public Security Log Sharing Site) but modified to add sample user attribution.
 
 Template pipelines are being used to simplify the establishment of this processing pipeline.
 
-The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the [Stroom Event Logging XML Schema (external link)](https://github.com/gchq/event-logging-schema) format.
+The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the {{< external-link "Stroom Event Logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} format.
 
 ## Event Source
 
@@ -342,7 +342,7 @@ The next pane down is the editing pane for the Text Converter. This pane is used
 
 The lower two panes are the _input_ and _output_ displays for the text converter.
 
-The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the [Data Splitter]({{< relref "../../../user-guide/data-splitter" >}}) and review the various samples found in the Stroom Context packs published, or the Pull Requests of [github.com/gchq/stroom-content (external link)](https://github.com/gchq/stroom-content).
+The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the [Data Splitter]({{< relref "../../../user-guide/data-splitter" >}}) and review the various samples found in the Stroom Context packs published, or the Pull Requests of {{< external-link "github.com/gchq/stroom-content" "https://github.com/gchq/stroom-content" >}}.
 
 For the purpose of this HOWTO, the Datasplitter appears below. The author believes the comments should support the understanding of the transformation.
 
@@ -498,9 +498,9 @@ The next pane down is the editing pane for the Translation Filter. This pane is 
 
 The lower two panes are the _input_ and _output_ displays for the xslt translation. You will note that the _input_ and _output_ displays are identical for a null xslt translation is effectively a direct copy.
 
-In this HOWTO we will transform the `<records>` XML structure into the _GCHQ Stroom Event Logging XML Schema_ form which is documented [here (external link)](https://github.com/gchq/event-logging-schema).
+In this HOWTO we will transform the `<records>` XML structure into the _GCHQ Stroom Event Logging XML Schema_ form which is documented {{< external-link "here" "https://github.com/gchq/event-logging-schema" >}}.
 
-The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on [XSLT Conversion]({{< relref "../../../user-guide/pipelines/xslt" >}}) and the [Stroom Event Logging XML Schema (external link)](https://github.com/gchq/event-logging-schema) and review the various samples found in the Stroom Context packs published, or the Pull Requests of [https://github.com/gchq/stroom-content (external link)](https://github.com/gchq/stroom-content).
+The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on [XSLT Conversion]({{< relref "../../../user-guide/pipelines/xslt" >}}) and the {{< external-link "Stroom Event Logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} and review the various samples found in the Stroom Context packs published, or the Pull Requests of {{< external-link "https://github.com/gchq/stroom-content" "https://github.com/gchq/stroom-content" >}}.
 
 We will build the translation in steps. We enter an initial portion of our xslt transformation that just consumes the `Software` and `Version` key values and converts the `date` and `time` values (which are in UTC) into the `EventTime/TimeCreated` element. This code segment is
 

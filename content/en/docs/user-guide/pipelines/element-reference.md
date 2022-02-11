@@ -22,7 +22,7 @@ descriptive text.
 
 ### BOMRemovalFilterInput
 
-> TODO - Add description.
+Removes the Byte Order Mark (if present) from the stream.
 
 **Category:** Reader
 
@@ -38,7 +38,7 @@ descriptive text.
 
 ### BadTextXMLFilterReader
 
-> TODO - Add description.
+null
 
 **Category:** Reader
 
@@ -60,7 +60,7 @@ descriptive text.
 
 ### FindReplaceFilter
 
-> TODO - Add description.
+null
 
 **Category:** Reader
 
@@ -91,7 +91,7 @@ descriptive text.
 
 ### InvalidCharFilterReader
 
-> TODO - Add description.
+null
 
 **Category:** Reader
 
@@ -113,7 +113,7 @@ descriptive text.
 
 ### InvalidXMLCharFilterReader
 
-> TODO - Add description.
+null
 
 **Category:** Reader
 
@@ -135,7 +135,7 @@ descriptive text.
 
 ### Reader
 
-> TODO - Add description.
+null
 
 **Category:** Reader
 
@@ -153,7 +153,7 @@ descriptive text.
 
 ### CombinedParser
 
-> TODO - Add description.
+null
 
 **Category:** Parser
 
@@ -181,7 +181,7 @@ descriptive text.
 
 ### DSParser
 
-> TODO - Add description.
+null
 
 **Category:** Parser
 
@@ -207,7 +207,7 @@ descriptive text.
 
 ### JSONParser
 
-> TODO - Add description.
+null
 
 **Category:** Parser
 
@@ -240,7 +240,7 @@ descriptive text.
 
 ### XMLFragmentParser
 
-> TODO - Add description.
+null
 
 **Category:** Parser
 
@@ -266,7 +266,7 @@ descriptive text.
 
 ### XMLParser
 
-> TODO - Add description.
+null
 
 **Category:** Parser
 
@@ -286,7 +286,7 @@ descriptive text.
 
 ### HttpPostFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -307,7 +307,7 @@ descriptive text.
 
 ### IdEnrichmentFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -323,7 +323,7 @@ descriptive text.
 
 ### IndexingFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -344,7 +344,7 @@ descriptive text.
 
 ### RecordCountFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -364,7 +364,7 @@ descriptive text.
 
 ### RecordOutputFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -378,7 +378,8 @@ descriptive text.
 
 ### ReferenceDataFilter
 
-> TODO - Add description.
+Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Reference Data Store.
+Reference data values can be either simple strings or XML fragments.
 
 **Category:** Filter
 
@@ -399,7 +400,7 @@ descriptive text.
 
 ### SafeXMLFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -415,7 +416,7 @@ descriptive text.
 
 ### SchemaFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -441,7 +442,7 @@ descriptive text.
 
 ### SearchResultOutputFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -454,7 +455,7 @@ descriptive text.
 
 ### SolrIndexingFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -478,7 +479,7 @@ descriptive text.
 
 ### SplitFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -500,7 +501,7 @@ descriptive text.
 
 ### StatisticsFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -521,7 +522,7 @@ descriptive text.
 
 ### StroomStatsFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -544,7 +545,7 @@ descriptive text.
 
 ### XPathExtractionOutputFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -563,7 +564,7 @@ descriptive text.
 
 ### XSLTFilter
 
-> TODO - Add description.
+null
 
 **Category:** Filter
 
@@ -594,7 +595,7 @@ descriptive text.
 
 ### JSONWriter
 
-> TODO - Add description.
+null
 
 **Category:** Writer
 
@@ -617,7 +618,7 @@ descriptive text.
 
 ### TextWriter
 
-> TODO - Add description.
+null
 
 **Category:** Writer
 
@@ -642,7 +643,7 @@ descriptive text.
 
 ### XMLWriter
 
-> TODO - Add description.
+null
 
 **Category:** Writer
 
@@ -672,7 +673,7 @@ descriptive text.
 
 ### AnnotationWriter
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -687,7 +688,7 @@ descriptive text.
 
 ### FileAppender
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -711,7 +712,7 @@ descriptive text.
 
 ### HDFSFileAppender
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -737,7 +738,7 @@ descriptive text.
 
 ### HTTPAppender
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -781,7 +782,7 @@ descriptive text.
 
 ### RollingFileAppender
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -807,7 +808,7 @@ descriptive text.
 
 ### RollingStreamAppender
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -833,7 +834,7 @@ descriptive text.
 
 ### StandardKafkaProducer
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -855,7 +856,7 @@ descriptive text.
 
 ### StreamAppender
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -881,7 +882,7 @@ descriptive text.
 
 ### StroomStatsAppender
 
-> TODO - Add description.
+null
 
 **Category:** Destination
 
@@ -902,4 +903,8 @@ descriptive text.
  maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             
  statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             
 
+
+
+
+Process finished with exit code 0
 

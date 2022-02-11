@@ -15,7 +15,7 @@ description: >
 In order to build and contribute to the documentation you will need the following installed:
 
 * bash
-* [Docker (external link)](https://docs.docker.com/get-docker/)
+* {{< external-link "Docker" "https://docs.docker.com/get-docker/" >}} 
 
 Docker is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.
@@ -25,11 +25,11 @@ It is possible to build the docs without docker but you would need to install al
 
 ## Cloning the stroom-docs git repository
 
-The git repository for this site is [stroom-docs (external link)](https://github.com/gchq/stroom-docs).
+The git repository for this site is {{< external-link "stroom-docs" "https://github.com/gchq/stroom-docs" >}}.
 _stroom-docs_ uses the Docsy theme (`themes/docsy/`) via a git sub-module, which in turn uses two nested sub-modules for Bootstrap (`themes/docsy/assets/vendor/bootstrap/`) and Font-Awesome (`themes/docsy/assets/vendor/Font-Awesome/`).
 Therefore to clone stroom-docs you need to do
 
-```bash
+{{< command-line "user" "localhost" >}}
 # Clone the repo
 git clone https://github.com/gchq/stroom-docs.git
 
@@ -37,12 +37,12 @@ cd stroom-docs
 
 # Download all sub modules
 git submodule update --init --recursive
-```
+{{</ command-line >}}
 
 
 ## Converting the PlantUML files to SVG
 
-_stroom-docs_ makes used of [PlantUML (external link)](https://plantuml.com) for a lot of its diagrams.
+_stroom-docs_ makes used of {{< external-link "PlantUML" "https://plantuml.com" >}} for a lot of its diagrams.
 These are stored in the repository as `.puml` text files.
 In order that they can be rendered in the site they need to be converted into SVGs first.
 
@@ -54,9 +54,9 @@ All PlantUML content should authored in `.puml` files and converted at build tim
 
 To convert all `.puml` files into sibling `.puml.svg` files do the following:
 
-```bash
+{{< command-line "user" "localhost" >}}
 ./container_build/runInPumlDocker.sh SVG
-```
+{{</ command-line >}}
 
 This command will find all `.puml` files (in `content/` and `assets/`) and convert each one to SVG.
 It only needs to be run on first clone of the repo or when `.puml` files are added/changed.
@@ -86,9 +86,9 @@ In the build docker containers your local _stroom-docs_ repository is mounted in
 The documentation can be built and served locally while developing it.
 To build and serve the site run
 
-```bash
+{{< command-line "user" "localhost" >}}
 ./container_build/runInHugoDocker.sh server
-```
+{{</ command-line >}}
 
 This uses Hugo to build the site in memory and then serve it from a local web server.
 When any source files are changed or added Hugo will detect this and rebuild the site as required, including automatically refreshing the browser page to update the rendered view.
@@ -104,9 +104,9 @@ Sometimes changes made to the site source will not be re-loaded correctly so it 
 
 To perform a full build of the static site run:
 
-```bash
+{{< command-line "user" "localhost" >}}
 ./container_build/runInHugoDocker.sh build
-```
+{{</ command-line >}}
 
 This will generate all the static content and place it in `public/`.
 
@@ -119,9 +119,10 @@ This makes the documentation available for offline use.
 
 To test the PDF generation do:
 
-```bash
+{{< command-line "user" "localhost" >}}
 ./container_build/runInPupeteerDocker.sh PDF
-```
+{{</ command-line >}}
+
 
 ## Updating the Docsy theme
 

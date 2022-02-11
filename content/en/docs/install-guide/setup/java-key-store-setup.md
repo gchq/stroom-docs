@@ -4,9 +4,15 @@ linkTitle: "Java Key Store Setup"
 #weight:
 date: 2021-08-20
 tags: 
+  - TODO
 description: >
   
 ---
+
+{{% todo %}}
+This is out of date for stroom 7.
+{{% /todo %}}
+
 
 In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore's setting up.
 
