@@ -280,7 +280,7 @@ Streams only exist within feeds and have a type.
 We could set the feed that the stream will be written into but by default the _StreamAppender_ will write to the same _Feed_ as the input stream.
 We must however set the type of the _Stream_ to distinguish it from the _Raw Events_ _Stream_ that we POSTed to Stroom.
 
-To set the stream type do the following:
+To set the {{< glossary "Stream Type" >}} do the following:
 
 1. Click on the {{< stroom-icon "pipeline/stream.svg" "Stream Appender" >}} _Stream appender_ pipeline element and the pane below will show it's properties.
 1. Double click the `streamType` property and change `Value` to the _Events_ stream type.
@@ -311,45 +311,40 @@ Click the add button {{< stroom-icon "add.svg" >}} and you will be presented wit
 To configure the filter do the following:
 
 1. Right click on the root AND operator and click {{< stroom-icon "add.svg" "Add Term" >}} Add Term.
-  A new expression is added to the tree as a child of the operator and it has three dropdowns in it.
-<!-- TODO finish from here down -->
+  A new expression is added to the tree as a child of the operator and it has three dropdowns in it ({{< glossary "Field" >}}, {{< glossary "Condition" >}} and value).
 1. To create an expression term for the Feed:
-  1. In the first dropdown (the Field), select _Feed_.
-  1. In the second dropdown (the Field), select _Feed_.
+    1. Field: `Feed`
+    1. Condition: `is`
+    1. Value: `CSV_FEED`
+1. To create an expression term for the Stream Type:
+    1. Field: `Type`
+    1. Condition: `=`
+    1. Value: `Raw Events`
 
 
 You only need to set the incoming feed and the stream types:
 
-{{< image "quick-start-guide/process/configure-processor.png" >}}Configure the new processor{{< /image >}}
+{{< image "quick-start-guide/process/configure-processor.png" >}}Configure the new processor filter{{< /image >}}
 
-Now you'll see a very wide table looking something like this:
+You will now see the newly created processor and its filter.
 
-{{< image "quick-start-guide/process/show-processors.png" >}}The new processor{{< /image >}}
+{{< image "quick-start-guide/process/show-processors.png" >}}The new processor and filter{{< /image >}}
 
-This shows two things:
+By default the processor will be enabled on creation but a filter will be disabled on creation.
 
-* The processor for the pipeline
-* The filter that determines what data is passed to the processor
-
-If you scroll all the way over to the right you'll see the _Enabled_ checkbox:
-
-{{< image "quick-start-guide/process/show-processors-enabled.png" >}}The enabled checkbox{{< /image >}}
-
-Check _enabled_ for the processor and the filter you've just created.
+Ensure that both the processor and its filter are enabled by clicking the checkbox at the left of the row.
 This is it, everything we've done is about to start working on its own, just like it would in a real configuration.
 
 If you keep refreshing this table it will show you the processing status which should change after a few seconds to show that the data you have uploaded is being or has been processed.
-Once this has happened you should be able to open the destination feed and see the output data (or errors if there were any).
+The fields in the filter row will have been updated to reflect the new position of the Filter Tracker.
+Once this has happened you should be able to open the destination feed `CSV_FEED` and see the output data (or errors if there were any).
+If the `CSV_FEED` tab was already open then you will likely need to click refresh {{< stroom-icon "refresh.svg" >}} on the top pane.
+
+<!-- TODO Fix this image and sort out the errors locally -->
 
 {{< image "quick-start-guide/process/show-output.png" >}}The output of the pipeline{{< /image >}}
 
 You can see that there are the `Raw Events` and the processed `Events`.
 If you click on the `Events` then you can see all the XML that we've produced.
-
-
-#### Troubleshooting
-
-If nothing happens you might need to enable stream processing.
-This was explained [earlier]({{< relref "running.md#enable-processing-of-data-streams" >}}).
 
 Now you've processed your data you can go ahead and [index]({{< relref "indexing.md" >}}) it.

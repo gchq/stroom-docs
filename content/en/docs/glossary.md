@@ -16,12 +16,6 @@ An interface that one system can present so other systems can use it to communic
 Stroom has a number of APIs, e.g. its many REST APIs and its `/datafeed` interface for data receipt.
 
 
-## Field
-
-A named data Field within some form of record, and within such a record, each Field can have a value.
-In Stroom Fields can be the Fields in an {{< glossary "Index" >}} or other queryable {{< glossary "Datasource" >}} or the fields of {{< glossary "Meta Data" >}} associated with a {{< glossary "Stream" >}}, e.g. Stream ID, {{< glossary "Feed" >}}, creation time, etc.
-
-
 ## Dashboard
 
 {{% todo %}}
@@ -87,6 +81,12 @@ See also [Dashboard Expressions]({{< relref "expressions" >}}).
 A Feed is means of organising and categorising data in Stoom.
 A Feed contains multiple {{< glossary "stream" "Streams" >}} of data that have been ingested into Stroom or output by a {{< glossary "Pipeline" >}}.
 Typically a Feed will contain {{< glossary "Stream" "Streams" >}} of data that are all from one system and have a common data format.
+
+
+## Field
+
+A named data Field within some form of record or entity, and where each Field can have an associated value.
+In Stroom Fields can be the Fields in an {{< glossary "Index" >}} or other queryable {{< glossary "Datasource" >}} or the fields of {{< glossary "Meta Data" >}} associated with a {{< glossary "Stream" >}}, e.g. Stream ID, {{< glossary "Feed" >}}, creation time, etc.
 
 
 ## Filter (Processor)

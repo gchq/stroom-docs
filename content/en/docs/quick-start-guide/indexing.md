@@ -7,31 +7,37 @@ tags:
   - index
 description: >
   Indexing the ingested data.
+
 ---
 
-Before you can visualise your data with dashboards you have to index the data;
+Before you can visualise your data with dashboards you have to {{< glossary "index" >}} the data;
 First I opted for creating a specific volume to hold my data, just because I wanted to keep my shards away from the default volumes;
 
-Go to the Tools ➔ Volumes menu
+Go to the Tools => Volumes menu
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/001_volumes.png" >}}Volumes{{< /image >}}
 
 Once the volumes dialogue opens click the blue plus sign at the top left of the window to add a new one
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/002_volume_list.png" >}}Volume list{{< /image >}}
 
 Select the node where you want the volume to be and the path you want to create, (because we are following the quick-start guide we just have one node and limited size, but we do want to set it as active so we can write documents to it and we want it to be public, because we might want other indexes to use it; your needs might be different.
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/003_volume_edit.png" >}}Volume edit{{< /image >}}
 
 Click ok and we’re good to go.
 
 Then we can create an index by selecting index item in the explorer tree. You do this in the same way you create any of the items. Just select/create a folder that you want to create the new index in and right click, select New Index.
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/004_index_new.png" >}}New index{{< /image >}}
 
 Choose a name for your new index
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/005_index_name.png" >}}Index name{{< /image >}}
 
 In the settings tab we need to specify the volume where we will store our shards
@@ -42,6 +48,7 @@ Firstly there are two mandatory fields that need to be added: `StreamId` and `Ev
 
 Both should be of type `Id`, stored and indexed with the `Keyword` analyser
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/006_index_field.png" >}}Index field{{< /image >}}
 
 If you were following the quick-start instruction on ingesting the `mock_stroom_data.csv`, we’ll use those fields here.
@@ -60,24 +67,29 @@ Application  | Text   | Yes    | Yes    | Yes        | Alpha numeric  | false
 
 We are creating fields in our index to match the fields we have ingested to provide a place for the data to go that Stroom can reference.
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/007_index_field_list.png" >}}Index field list{{< /image >}}
 
 When you've done that, save the new index.
 
 Now create a new XSLT.  We are going to convert xml data into something indexable by Stroom.
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/008_xslt_new.png" >}}New XSLT{{< /image >}}
 
 To make things manageable we create our new XSLT with the same name as the index in the same folder. After you've set the name just save it and close it, we’ll add some code in there later.
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/009_xslt_name.png" >}}XSLT name{{< /image >}}
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/010_xslt_settings.png" >}}XSLT settings{{< /image >}}
 
 Now we get to send data to the index
 
 Create a new pipeline called Indexing (we are going to make this a template for future indexing requirements).
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/011_pipeline_new.png" >}}New pipeline{{< /image >}}
 
 Edit the structure of the pipeline
@@ -94,6 +106,7 @@ IndexingFilter      |indexingFilter
 
 So it looks like this (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/012_indexing_pipeline.png" >}}Indexing pipeline{{< /image >}}
 
 Once the elements have been added you need to set the following property on the elements:
@@ -104,26 +117,31 @@ splitFilter             |splitCount |100
 
 To do this we select the element then double click the property value in the property panel which is below it.
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/013_pipeline_element_property.png" >}}Pipeline element property{{< /image >}}
 
 The dialogue pops up where you can set the values
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/014_pipeline_edit_element_property.png" >}}Pipeline edit element property{{< /image >}}
 
 Save the pipeline, using the top left icon {{< stroom-icon "save.svg" "Save" >}}, then close the pipeline tab.
 
 Now create a new pipeline
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/015_pipeline_name.png" >}}Pipeline name{{< /image >}}
 
 Which we will base on our new “Indexing” template pipeline
 
 On our structure tab
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/016_pipeline_structure_new.png" >}}Pipeline structure{{< /image >}}
 
 Click in the “Inherit From” window
 
+<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/017_pipeline_inheritance.png" >}}Pipeline inheritance{{< /image >}}
 
 Select our Indexing pipeline template that we just created
