@@ -86,7 +86,7 @@ Typically a Feed will contain {{< glossary "Stream" "Streams" >}} of data that a
 ## Field
 
 A named data Field within some form of record or entity, and where each Field can have an associated value.
-In Stroom Fields can be the Fields in an {{< glossary "Index" >}} or other queryable {{< glossary "Datasource" >}} or the fields of {{< glossary "Meta Data" >}} associated with a {{< glossary "Stream" >}}, e.g. Stream ID, {{< glossary "Feed" >}}, creation time, etc.
+In Stroom Fields can be the Fields in an {{< glossary "Index" >}} (or other queryable {{< glossary "Datasource" >}}) or the fields of {{< glossary "Meta Data" >}} associated with a {{< glossary "Stream" >}}, e.g. Stream ID, {{< glossary "Feed" >}}, creation time, etc.
 
 
 ## Filter (Processor)
@@ -149,6 +149,14 @@ The act of repeating the processing of a set of input data ({{< glossary "Stream
 Re-Processing can be done for an individual Stream or multiple Streams using a {{< glossary "Processor Filter" >}}.
 
 
+## Search Extraction
+
+The process of extracting un-indexed {{< glossary "Field" >}} values from the source {{< glossary "Event" >}}/Record to be used in search results.
+
+See [the user guide]({{< relref "docs/user-guide/indexing/extraction" >}}) for more detail.
+
+
+
 ## Stream
 
 A Stream is the unit of data that Stroom works with and will typically contain many {{< glossary "Event" "Events" >}}.
@@ -178,6 +186,29 @@ Some Stream Types, such as `Meta` and `Context` only exist as [child streams]({{
 A Tracker is associated with a {{< glossary "Processor Filter" >}} and keeps track of the {{< glossary "Stream" "Streams" >}} that the Processor Filter has already processed.
 
 
+## Volume
+
+In Stroom a Volume is a logical storage area that Stroom can write data to.
+Volumes are associated with a path on a file system that can either be local to the Stroom node or on a shared file system.
+Stroom has two types of Volume; Index Volumes and Data Volumes.
+
+* _Index Volume_ - Where the Lucene Index Shards are written to.
+  An Index Volume must belong to a {{< glossary "Volume Group" >}}.
+* _Data Volume_ - Where streams are written to.
+  When writing {{< glossary "Stream" >}} data Stroom will pick a data volume to using a volume selector as configured by the {{< glossary "Property" >}} `stroom.data.filesystemVolume.volumeSelector`.
+
+See [the user guide]({{< relref "/docs/user-guide/volumes" >}}) for more detail.
+
+
+## Volume Group
+
+A Volume Group is a collection of one or more Index Volumes.
+Index volumes must belong to a volume group and Indexes are configured to write to a particular Volume Group.
+When Stroom is write data to a Volume Group it will choose which if the Volumes in the group to write to using a a volume selector as configured by the {{< glossary "Property" >}} `stroom.volumes.volumeSelector`.
+
+See [the user guide]({{< relref "/docs/user-guide/volumes" >}}) for more detail.
+
+
 ## XSLT
 E**x**tensible **S**tylesheet **L**anguage **T**ransformations is a language for transforming XML documents into other XML documents.
 XSLTs are the primary means of transforming data in Stroom.
@@ -185,7 +216,6 @@ All data is converted into a basic form of XML and then XSLTs are used to decora
 XSLTs are also used to transform XML {{< glossary "Event" >}} data into non-XML forms or XML with a different schema for indexing, statistics or for sending to other systems.
 
 See [the user guide]({{< relref "/docs/user-guide/pipelines/xslt" >}}) for more detail.
-
 
 
 
@@ -200,6 +230,5 @@ Writer
 Destination  
 Index  
 Task  
-Property  
 Processor Filter
 {{% /todo %}}

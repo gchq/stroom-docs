@@ -10,50 +10,54 @@ description: >
 
 ---
 
-Before you can visualise your data with dashboards you have to {{< glossary "index" >}} the data;
-First I opted for creating a specific volume to hold my data, just because I wanted to keep my shards away from the default volumes;
+Before you can visualise your data with dashboards you have to {{< glossary "index" >}} the data.
 
-Go to the Tools => Volumes menu
+{{% note %}}
+Stroom uses Apache Lucene for indexing its data but can also can also integrate with Solr and Elastic Search.
+For this Quick Start Guide we are going to use Stroom's internal Lucence indexing.
+{{% /note %}}
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/001_volumes.png" >}}Volumes{{< /image >}}
 
-Once the volumes dialogue opens click the blue plus sign at the top left of the window to add a new one
+## Create the index
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/002_volume_list.png" >}}Volume list{{< /image >}}
+We can create an index by adding an index entity {{< stroom-icon "document/Index.svg" "Index" >}}to the explorer tree.
+You do this in the same way you create any of the items.
 
-Select the node where you want the volume to be and the path you want to create, (because we are following the quick-start guide we just have one node and limited size, but we do want to set it as active so we can write documents to it and we want it to be public, because we might want other indexes to use it; your needs might be different.
+1. Right click on the _Stroom 101_ folder.
+1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/Index.svg" "Index" >}} Index.
+1. Call the index _Stroom 101_.
+   Click OK.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/003_volume_edit.png" >}}Volume edit{{< /image >}}
+This will open the new _Stroom 101_ index as a new tab.
 
-Click ok and we’re good to go.
 
-Then we can create an index by selecting index item in the explorer tree. You do this in the same way you create any of the items. Just select/create a folder that you want to create the new index in and right click, select New Index.
+## Assign a volume group
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/004_index_new.png" >}}New index{{< /image >}}
+In the settings tab we need to specify the {{< glossary "Volume" >}} where we will store our index shards.
 
-Choose a name for your new index
+1. Click the _Settings_ sub-tab.
+1. In the _Volume Group_ dropdown select _Default Volume Group_.
+1. Click the {{< stroom-icon "save.svg" "Save" >}} button.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/005_index_name.png" >}}Index name{{< /image >}}
 
-In the settings tab we need to specify the volume where we will store our shards
+## Adding fields
 
 Now you need to add fields to this index.
 
-Firstly there are two mandatory fields that need to be added: `StreamId` and `EventId`
+The fields in the index may map 1:1 with the fields in the source data but you may want to index only a sub-set of the fields, e.g. if you would only ever want to filter the data on certain fields.
+Fields can also be created that are an abstraction of multiple fields in the data, e.g. adding all text in the record into one field to allow filtering on some text appearing anywhere in the record/event.
 
-Both should be of type `Id`, stored and indexed with the `Keyword` analyser
+Click the _Fields_ sub-tab.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/006_index_field.png" >}}Index field{{< /image >}}
+Firstly there are two mandatory fields that need to be added: `StreamId` and `EventId`.
 
-If you were following the quick-start instruction on ingesting the `mock_stroom_data.csv`, we’ll use those fields here.
+Both should be of type `Id`, _Stored_ and _Indexed_ with the `Keyword` analyser
 
-Open the fields tab then create the following fields:
+{{< image "quick-start-guide/index/006_index_field.png" >}}Creating an index field{{< /image >}}
+
+We need to create fields in our index to match the fields in our source data so that we can query against them.
+
+Now create the rest of the fields as follows:
 
 Name         | Type   | Store  | Index  | Positions  | Analyser       | Case Sensitive
 ----         | ----   | -----  | -----  | ---------  | --------       | --------------
@@ -65,7 +69,7 @@ FromIp       | Text   | Yes    | Yes    | Yes        | Keyword        | false
 ToIp         | Text   | Yes    | Yes    | Yes        | Keyword        | false
 Application  | Text   | Yes    | Yes    | Yes        | Alpha numeric  | false
 
-We are creating fields in our index to match the fields we have ingested to provide a place for the data to go that Stroom can reference.
+You should now have:
 
 <!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/007_index_field_list.png" >}}Index field list{{< /image >}}
