@@ -3,9 +3,19 @@ Short code to display all stroom icons
 -->
 
 {{ $pathPrefix := (.Get 0) }}
-{{ with resources.Match (printf "%s*.svg" $pathPrefix) }}
+{{ with resources.Match (printf "%s*" $pathPrefix) }}
   <div class="row bg-light">
   {{ range . }}
+    {{ $filename := strings.TrimPrefix $pathPrefix .Name }}
+    {{ if and
+    (not (or
+      (eq $filename "tabBackground.png")
+      (eq $filename "tabmiddle.png")
+      (eq $filename "tabright.png")
+      (eq $filename "tableft.png")))
+    (or 
+      (eq (path.Ext $filename) ".svg") 
+      (eq (path.Ext $filename) ".png")) }}
     <!--{{ printf "%s%" .Name }}-->
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -17,6 +27,7 @@ Short code to display all stroom icons
         alt="{{ .Name }}">
       <span style="padding-left: 10px; padding-top: 5px">{{ strings.TrimPrefix $pathPrefix .Name }}</span>
     </div>
+    {{ end }}
   {{ end }}
   </div>
 {{ end }}
