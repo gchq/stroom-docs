@@ -338,9 +338,7 @@ The fields in the filter row will have been updated to reflect the new position 
 Once this has happened you should be able to open the destination feed `CSV_FEED` and see the output data (or errors if there were any).
 If the `CSV_FEED` tab was already open then you will likely need to click refresh {{< stroom-icon "refresh.svg" >}} on the top pane.
 
-<!-- TODO Fix this image and sort out the errors locally -->
-
-{{< image "quick-start-guide/process/show-output.png" >}}The output of the pipeline{{< /image >}}
+{{< image "quick-start-guide/process/show-output.png" "400" >}}The output of the pipeline{{< /image >}}
 
 You can see that there are the `Raw Events` and the processed `Events`.
 If you click on the `Events` then you can see all the XML that we've produced.

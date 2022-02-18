@@ -5,6 +5,7 @@ weight: 40
 date: 2021-07-09
 tags:
   - index
+  - xslt
 description: >
   Indexing the ingested data so we can search it.
 
