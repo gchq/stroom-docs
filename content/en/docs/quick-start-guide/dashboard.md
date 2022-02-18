@@ -12,22 +12,78 @@ description: >
 
 ---
 
-Create a new dashboard the same way you create anything else
+Create a new {{< stroom-icon "document/Dashboard.svg">}} {{< glossary "Dashboard" >}} in the _Stroom 101_ folder and call it _Stroom 101_.
 
-{{< image "quick-start-guide/dashboard/001_dashboard_new.png" >}}New dashboard{{< /image >}}
+{{< image "quick-start-guide/dashboard/001_dashboard_new.png" "500" >}}New Dashboard{{< /image >}}
 
-On the query pane click the settings {{< stroom-icon "settings-grey.svg" "Dashboard settings" >}}
- button on the top right of the panel.
+By default a new Dashboard opens with two panes; a {{< glossary "Query" >}} pane at the top to build the query; and a {{< glossary "Table" >}} pane at the bottom to display the results.
+Dashboards are highly configurable; panes can be added and resized; they can contain multiple queries; and a query pane can provide data for multiple output panes (such as {{< glossary "Visualisation" "Visualisations">}}).
 
-Choose the index you just created as your data source.
 
-{{< image "quick-start-guide/dashboard/002_dashboard_query_settings.png" >}}Dashboard settings{{< /image >}}
+## Configuring the query data source
 
-Now add a term to the query to get a handle on the data
+On the query pane click the settings {{< stroom-icon "settings-grey.svg" "Dashboard settings" >}} button on the top right of the panel.
+
+{{< image "quick-start-guide/dashboard/002_dashboard_query_settings.png" "350" >}}Dashboard settings{{< /image >}}
+
+1. Click on the _Data Source_ document picker.
+1. Select the index you created earlier:  
+   {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_
+
+
+## Configuring the query expression
+
+Now add a term to the query to filter the data.
+
+1. Right click on the root AND operator and click {{< stroom-icon "add.svg" "Add Term" >}} Add Term.
+  A new expression is added to the tree as a child of the operator and it has three dropdowns in it ({{< glossary "Field" >}}, {{< glossary "Condition" >}} and value).
+1. Create an expression term for the _Application_ field:
+    1. Field: `Application`
+    1. Condition: `=`
+    1. Value: `*ar*`
+
+This will find any records with `ar` in the _Application_ field.
+
+
+## Configuring the table
+
+All fields are [stored]({{< relref "/docs/user-guide/indexing/lucene#stored-fields" >}}) in our index so we do not need to worry about configuring {{< glossary "Search Extraction" >}}.
+
+We first need to add some columns to our table.
+Using the {{< stroom-icon "add.svg" >}} add button, add the following columns to the table.
+
+* _Application_
+* _Count_
+
+We want a count of records grouped by _Application_.
+
+{{% note %}}
+_Count_ is a special column, not in the index, that applies the aggregate function `count()`.
+All columns are actually just an expression which may be a simple field like `${Application}` or a function.
+Stroom has a rich library of functions for aggregating and mutating query results.
+See [Expressions]({{< relref "/docs/user-guide/dashboards/expressions" >}})
+{{% /note %}}
+
+To group our data we need to apply a group level to the _Application_ column.
+
+1. Click on the _Application_ column
+1. Click 
+
+
+
+
+
+
+
+
+
+
+
+Now click the large green and white play button to run the query.
 
 {{< image "quick-start-guide/dashboard/002_dashboard_query_add_term.png" >}}Dashboard query add term{{< /image >}}
 
-For our simple example we’re using a wildcard that captures all documents with an Id set.
+For our simple example we’re using a wild card that captures all documents with an Id set.
 
 {{< image "quick-start-guide/dashboard/003_dashboard_query_edit_term.png" >}}Dashboard query edit term{{< /image >}}
 

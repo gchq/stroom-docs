@@ -33,6 +33,25 @@ To include an external link do the following:
   ```
 
 
+#### Versioned URLs
+
+Some external links are to other Stroom urls are versioned.
+If you need to link to a site external to this one that has the Stroom version in the URL then you can use the tag `@@VERSION@@` in the url.
+This will be translated into the Stroom version of this site, as seen in the _Stroom Version (...)_ drop down at the top of the page.
+This saves you from having to update the URL on each release of Stroom.
+
+* This is a versioned URL {{< external-link "https://gchq.github.io/stroom/v@@VERSION@@" >}} 
+
+  ```markdown
+  This is a versioned URL {{</* external-link "https://gchq.github.io/stroom/v@@VERSION@@" */>}} 
+  ```
+
+{{% warning %}}
+This will not work for version `legacy` as that is not an actual Stroom version.
+{{% /warning %}}
+
+
+
 ### Anchors
 
 You can link to headings on a page using its anchor.

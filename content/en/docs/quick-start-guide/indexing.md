@@ -6,7 +6,7 @@ date: 2021-07-09
 tags:
   - index
 description: >
-  Indexing the ingested data.
+  Indexing the ingested data so we can search it.
 
 ---
 
@@ -49,214 +49,294 @@ Fields can also be created that are an abstraction of multiple fields in the dat
 
 Click the _Fields_ sub-tab.
 
-Firstly there are two mandatory fields that need to be added: `StreamId` and `EventId`.
+We need to create fields in our index to match the fields in our source data so that we can query against them.
 
-Both should be of type `Id`, _Stored_ and _Indexed_ with the `Keyword` analyser
+Click on the {{< stroom-icon "add.svg" "Add" >}} button to add a new index field.
 
 {{< image "quick-start-guide/index/006_index_field.png" >}}Creating an index field{{< /image >}}
 
-We need to create fields in our index to match the fields in our source data so that we can query against them.
-
-Now create the rest of the fields as follows:
+Now create the fields using these values.
 
 Name         | Type   | Store  | Index  | Positions  | Analyser       | Case Sensitive
 ----         | ----   | -----  | -----  | ---------  | --------       | --------------
 StreamId     | Id     | Yes    | Yes    | No         | Keyword        | false
 EventId      | Id     | Yes    | Yes    | No         | Keyword        | false
-Id           | Text   | Yes    | Yes    | No         | Keyword        | false
-Guid         | Text   | Yes    | Yes    | No         | Alpha numeric  | false
-FromIp       | Text   | Yes    | Yes    | Yes        | Keyword        | false
-ToIp         | Text   | Yes    | Yes    | Yes        | Keyword        | false
+Id           | Id     | Yes    | Yes    | No         | Keyword        | false
+Guid         | Text   | Yes    | Yes    | No         | Keyword        | false
+FromIp       | Text   | Yes    | Yes    | No         | Keyword        | false
+ToIp         | Text   | Yes    | Yes    | No         | Keyword        | false
 Application  | Text   | Yes    | Yes    | Yes        | Alpha numeric  | false
+
+{{% note %}}
+There are two mandatory fields that need to be added: `StreamId` and `EventId`.
+These are not in the source records but are assigned to cooked events/records by Stroom.
+You will see later how these fields get populated.
+{{% /note %}}
 
 You should now have:
 
-<!-- TODO Fix this image -->
 {{< image "quick-start-guide/index/007_index_field_list.png" >}}Index field list{{< /image >}}
 
-When you've done that, save the new index.
+When you've done that, save the new index by clicking the {{< stroom-icon "save.svg" "Save" >}} button.
 
-Now create a new XSLT.  We are going to convert xml data into something indexable by Stroom.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/008_xslt_new.png" >}}New XSLT{{< /image >}}
+## Create empty index XSLT
 
-To make things manageable we create our new XSLT with the same name as the index in the same folder. After you've set the name just save it and close it, we’ll add some code in there later.
+In order for Stroom to index the data, an {{< glossary "XSLT" >}} is required to convert the event XML into an Index record.
+This can be a simple 1:1 mapping from event field to index field or something more complex, e.g. combining multiple event fields into one index field.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/009_xslt_name.png" >}}XSLT name{{< /image >}}
+To create the XSLT for the Index:
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/010_xslt_settings.png" >}}XSLT settings{{< /image >}}
+1. Right click on the _Stroom 101_ folder {{< stroom-icon "folder.svg" "Folder" >}} in the explorer tree.
+1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/XSLT.svg" "XSLT" >}} XSLT.
+1. Name it `Stroom 101`.
+1. Click OK.
 
-Now we get to send data to the index
+We will add the XSLT content later on.
 
-Create a new pipeline called Indexing (we are going to make this a template for future indexing requirements).
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/011_pipeline_new.png" >}}New pipeline{{< /image >}}
+## Index pipeline
 
-Edit the structure of the pipeline
+Now we are going to create a pipeline to send the processed data (_Events_) to the index we just created.
+Typically in Stroom all {{< glossary "Raw Events" >}} are first processed into normalised {{< glossary "Events" >}} conforming to the same XML schema to allow common onward processing of events from all sources.
 
-Add the following element types with the specified names
+We will create a pipeline to index the processed _Event_ streams containing XML data.
 
-Type                |Name
-----                |----
-XMLParser           |parser
-SplitFilter         |splitFilter
-IdEnrichmentFilter  |idEnrichmentFilter
-XSLTFilter          |xsltFilter
-IndexingFilter      |indexingFilter
+1. Right click on the _Stroom 101_ folder {{< stroom-icon "folder.svg" "Folder" >}} in the explorer tree.
+1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/Pipeline.svg" >}} XSLT.
+1. Name it `Stroom 101`.
+1. Click OK.
 
-So it looks like this (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)
+Select the _Structure_ sub-tab to edit the structure of the pipeline.
 
-<!-- TODO Fix this image -->
+Pipelines can inherit from other pipelines in Stroom so that you can benefit from re-use.
+We will inherit from an existing indexing template pipeline and then modify it for our needs.
+
+1. On the _Structure_ sub tab, click the `...` in the _Inherit From_ entity picker.
+1. Select {{< stroom-icon "folder.svg">}} _Template Pipelines_ / {{< stroom-icon "document/pipeline.svg">}} _Indexing_
+
+You should now see the following structure:
+
 {{< image "quick-start-guide/index/012_indexing_pipeline.png" >}}Indexing pipeline{{< /image >}}
 
-Once the elements have been added you need to set the following property on the elements:
+Inheriting from another pipeline often means the structure is there but some properties may not have been set, e.g. `xslt` in the _xsltFilter_.
+If a property has been set in the partent pipeline then you can either use the inherited value or override it.
 
-Element                 |Property   |Value
--------                 |--------   |-----
-splitFilter             |splitCount |100
+See the [Pipeline Element Reference]({{< relref "docs/user-guide/pipelines/element-reference.md" >}}) for details of what each element does.
 
-To do this we select the element then double click the property value in the property panel which is below it.
+Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT document we created earlier and set the `index` property on the _indexFilter_ to point to the index we created.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/013_pipeline_element_property.png" >}}Pipeline element property{{< /image >}}
+1. Assign the XSLT document
+   1. Click on the {{< stroom-icon "pipeline/xslt.svg" "title" >}} _xsltFilter_ element.
+   1. In the middle Properties pane double-click on the `xslt` row.
+   1. Click the `...` in the _Value_ document picker
+   1. Select:  
+      {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Xslt.svg">}} _Stroom 101_.
+   1. Click _OK_.
+1. Assign the Index document
+   1. Click on the {{< stroom-icon "pipeline/index.svg" "title" >}} _indexingFilter_ element.
+   1. In the middle Properties pane double-click on the `index` row.
+   1. Click the `...` in the _Value_ document picker
+   1. Select:  
+      {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_.
+   1. Click _OK_.
 
-The dialogue pops up where you can set the values
+Once that's done you can save your new pipeline by clicking the {{< stroom-icon "save.svg" >}} button.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/014_pipeline_edit_element_property.png" >}}Pipeline edit element property{{< /image >}}
 
-Save the pipeline, using the top left icon {{< stroom-icon "save.svg" "Save" >}}, then close the pipeline tab.
+## Develop index translation
 
-Now create a new pipeline
+Next we need to create an XSLT that the `indexingFilter` understands.
+The best place to develop a translation is in the {{< glossary "Stepper" >}} as it allows you to simulate running the data through the pipeline without producing any persistent output.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/015_pipeline_name.png" >}}Pipeline name{{< /image >}}
+Open the {{< stroom-icon "feed.svg" >}} _CSV_FEED_ {{< glossary "Feed" >}} we created earlier in the quick-start guide.
 
-Which we will base on our new “Indexing” template pipeline
+1. In the top pane of the Data Browser select the _Events_ {{< glossary "Events" >}} stream.
+1. In the bottom pane you will see the XML data the you processed earlier.
+1. Click the {{< stroom-icon "stepping.svg" >}} button to open the Stepper.
+1. In the _Choose Pipeline To Step With_ dialog select our index pipeline:  
+   {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/pipeline.svg">}} _Stroom 101_.
 
-On our structure tab
+This will open a Stepper tab showing only the elements of the selected pipeline that can be stepped.
+The data pane of the _Source_ element will show the first event in the stream.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/016_pipeline_structure_new.png" >}}Pipeline structure{{< /image >}}
+To add XSLT content click the {{< stroom-icon "pipeline/xslt.svg">}} _xsltFilter_ element.
+This will show the three pane view with editable content (empty) in the top pane and input and output in the bottom two panes.
 
-Click in the “Inherit From” window
+The input and output panes will be identical as there is no XSLT content to transform the input.
 
-<!-- TODO Fix this image -->
-{{< image "quick-start-guide/index/017_pipeline_inheritance.png" >}}Pipeline inheritance{{< /image >}}
+{{< cardpane >}}
+  {{< card header="Input" >}}
+```xml
+<?xml version="1.1" encoding="UTF-8"?>
+<Events xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Event StreamId="25884" EventId="1">
+    <Id>1</Id>
+    <Guid>10990cde-1084-4006-aaf3-7fe52b62ce06</Guid>
+    <FromIp>159.161.108.105</FromIp>
+    <ToIp>217.151.32.69</ToIp>
+    <Application>Tres-Zap</Application>
+  </Event>
+</Events>
+```
+  {{< /card >}}
+  {{< card header="Output" >}}
+```xml
+<?xml version="1.1" encoding="UTF-8"?>
+<Events xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Event StreamId="25884" EventId="1">
+    <Id>1</Id>
+    <Guid>10990cde-1084-4006-aaf3-7fe52b62ce06</Guid>
+    <FromIp>159.161.108.105</FromIp>
+    <ToIp>217.151.32.69</ToIp>
+    <Application>Tres-Zap</Application>
+  </Event>
+</Events>
+```
+  {{< /card >}}
+{{< /cardpane >}}
 
-Select our Indexing pipeline template that we just created
-
-{{< image "quick-start-guide/index/018_pipeline_inheritance_selection.png" >}}Pipeline inheritance selection{{< /image >}}
-
-Now we need to set the XSLT property on the `xsltFilter` to point at the XSLT we created earlier and set the index on the `indexFilter` to point to the index we created.
-This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)
-
-{{< image "quick-start-guide/index/019_pipeline_properties_xslt.png" >}}Pipeline XSLT properties{{< /image >}}
-
-Once that's done you can save your new pipeline
-
-Next we need to create an XSLT that the `IndexingFilter` understands.
-
-Open the feed we created in the quick-start guide if you find some processed data in your feed - i.e. browse the data
-
-{{< image "quick-start-guide/index/020_data_browsing.png" >}}Data browsing{{< /image >}}
-
-Click the stepping button {{< stroom-icon "stepping.svg" "Stepping" >}}
-
-Select your new pipeline
-
-{{< image "quick-start-guide/index/022_stepping_choose_pipeline.png" >}}Stepping choose pipeline{{< /image >}}
-
-Paste the following into your `xsltFilter`
+Paste the following content into the top pane.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet
-  xmlns="records:2" xmlns:stroom="stroom"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  version="2.0">
+    xmlns="records:2"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="2.0">
+  
+  <!-- Match on the top level Events element -->
   <xsl:template match="/Events">
-    <records xsi:schemaLocation="records:2 file://records-v2.0.xsd"
-      version="2.0">
+    <!-- Create the wrapper element for all the events/records -->
+    <records
+        xsi:schemaLocation="records:2 file://records-v2.0.xsd"
+        version="2.0">
+      <!-- Apply any templates to this element or its children -->
       <xsl:apply-templates />
     </records>
   </xsl:template>
+  
+  <!-- Match on any Event element at this level -->
   <xsl:template match="Event">
+    <!-- Create a record element and populate its data items -->
     <record>
       <data name="StreamId">
+        <!-- Added to the event by the IdEnrichmentFiler -->
         <xsl:attribute name="value" select="@StreamId" />
       </data>
       <data name="EventId">
+        <!-- Added to the event by the IdEnrichmentFiler -->
         <xsl:attribute name="value" select="@EventId" />
       </data>
-      <xsl:apply-templates select="*" />
+      <data name="Id">
+        <xsl:attribute name="value" select="./Id" />
+      </data>
+      <data name="Guid">
+        <xsl:attribute name="value" select="./Guid" />
+      </data>
+      <data name="FromIp">
+        <xsl:attribute name="value" select="./FromIp" />
+      </data>
+      <data name="ToIp">
+        <xsl:attribute name="value" select="./ToIp" />
+      </data>
+      <data name="Application">
+        <xsl:attribute name="value" select="./Application" />
+      </data>
     </record>
-  </xsl:template>
-  <!-- Index the Id -->
-  <xsl:template match="Id">
-        <data name="Id">
-          <xsl:attribute name="value" select="text()" />
-        </data>
-  </xsl:template>
-  <!-- Index the Guid -->
-  <xsl:template match="Guid">
-    <data name="Guid">
-      <xsl:attribute name="value" select="text()" />
-    </data>
-  </xsl:template>
-  <!-- Index the FromIp -->
-  <xsl:template match="FromIp">
-    <data name="FromIp">
-      <xsl:attribute name="value" select="text()" />
-    </data>
-  </xsl:template>
-  <!-- Index the ToIp -->
-  <xsl:template match="ToIp">
-    <data name="ToIp">
-      <xsl:attribute name="value" select="text()" />
-    </data>
-  </xsl:template>
-  <!-- Index the Application -->
-  <xsl:template match="Application">
-    <data name="Application">
-      <xsl:attribute name="value" select="text()" />
-    </data>
   </xsl:template>
 </xsl:stylesheet>
 ```
 
-Which should look like this
+The XSLT is converting `Events/Event` elements into `Records/Record` elements conforming to the `records:2` XML Schema, which is the expected input format for the {{< element "IndexingFilter" >}}.
 
-{{< image "quick-start-guide/index/023_stepping_edit_xslt.png" >}}Stepping edit XSLT{{< /image >}}
+The _IndexingFilter_ expects a set of `Record` elements wrapped in a `Records` element.
+Each `Record` element needs to contain one `Data` element for each Field in the Index.
+Each `Data` element needs a `Name` attribute (the Index Field name) and a `Value` attribute (the value from the event to index).
 
-What we are trying to do is turn the data into Stroom `record` format. This is basically name value pairs that we pass to the index. Step through the data using the top right arrows to ensure the XSLT produces correct output.
+Now click the {{< stroom-icon "refresh-green.svg" "Refresh">}} refresh button to refresh the step with the new XSLT content.
 
-We're nearly there for indexing the data - you just need to tell the pipeline to pick up all processed data and index it.
+The Output should have changed so that the Input and Output now look like this:
 
-Go back to your pipeline and go to the processors tab.
+{{< cardpane >}}
+  {{< card header="Input" >}}
+```xml
+<?xml version="1.1" encoding="UTF-8"?>
+<Events xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Event StreamId="25884" EventId="1">
+    <Id>1</Id>
+    <Guid>10990cde-1084-4006-aaf3-7fe52b62ce06</Guid>
+    <FromIp>159.161.108.105</FromIp>
+    <ToIp>217.151.32.69</ToIp>
+    <Application>Tres-Zap</Application>
+  </Event>
+</Events>
+```
+  {{< /card >}}
+  {{< card header="Output" >}}
+```xml
+<?xml version="1.1" encoding="UTF-8"?>
+<records
+    xmlns="records:2"
+    xmlns:stroom="stroom"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="records:2 file://records-v2.0.xsd"
+    version="2.0">
+  <record>
+    <data name="StreamId" value="25884" />
+    <data name="EventId" value="1" />
+    <data name="Id" value="1" />
+    <data name="Guid" value="10990cde-1084-4006-aaf3-7fe52b62ce06" />
+    <data name="FromIp" value="159.161.108.105" />
+    <data name="ToIp" value="217.151.32.69" />
+    <data name="Application" value="Tres-Zap" />
+  </record>
+</records>
+```
+  {{< /card >}}
+{{< /cardpane >}}
 
-{{< image "quick-start-guide/index/024_processors_list.png" >}}Processors{{< /image >}}
+You can use the stepping controls ({{< stroom-icon "fast-backward-green.svg" "Fast Backward" >}}{{< stroom-icon "step-backward-green.svg" "Step Backward" >}}{{< stroom-icon "step-forward-green.svg" "Step Forward" >}}{{< stroom-icon "fast-forward-green.svg" "Fast Forward" >}}) to check that the ouput is correct for other input events.
 
-Add a filter using {{< stroom-icon "add.svg" "Add" >}} and tell it to process all `Events` data when the filter dialogue opens so it looks like this
+Once you are happy with your translation click the {{< stroom-icon "save.svg" >}} button to save the XSLT content to the _Stroom 101_ XSLT document.
 
-{{< image "quick-start-guide/index/025_stream_filter_edit.png" >}}Edit stream filter{{< /image >}}
 
-Enable the processor and the filter by clicking the enabled tick boxes
+## Processing the indexing pipeline
 
-{{< image "quick-start-guide/index/026_processors_enable.png" >}}Enable processors{{< /image >}}
+To get our indexing pipeline processing data we need to create a {{< glossary "Processor Filter" >}} to select the data to process through the pipeline.
 
-Stroom should then index the data, assuming everything is correct
+Go back to your {{< stroom-icon "document/pipeline.svg">}} _Stroom 101_ pipeline and go to the Processors sub-tab.
 
-If there are errors you'll see error streams produced in the data browsing page, i.e. where you would normally see your processed and raw data.  If no errors have occurred, there will be no rows in the data page.
+Click the add button {{< stroom-icon "add.svg" >}} and you will be presented with a Filter {{< glossary "Expression Tree" >}} in the _Add Filter_ dialog.
+To configure the filter do the following:
 
-If it all goes to plan you'll see index shards appear if you open the index you created and click the shards tab.
+1. Right click on the root AND operator and click {{< stroom-icon "add.svg" "Add Term" >}} Add Term.
+  A new expression is added to the tree as a child of the operator and it has three dropdowns in it ({{< glossary "Field" >}}, {{< glossary "Condition" >}} and value).
+1. To create an expression term for the Feed:
+    1. Field: `Feed`
+    1. Condition: `is`
+    1. Value: `CSV_FEED`
+1. To create an expression term for the Stream Type:
+    1. Field: `Type`
+    1. Condition: `=`
+    1. Value: `Events`
 
-{{< image "quick-start-guide/index/027_index_shard_list.png" >}}Index shards{{< /image >}}
+This filter will process all Streams of type `Events` in the Feed `CSV_FEED`.
+Enable processing for the {{< stroom-icon "document/pipeline.svg">}} Pipeline and the {{< stroom-icon "filter.svg" "Processor Filter">}} Processor Filter by clicking the checkboxes in the _Enabled_ column.
 
-The document count doesn't update immediately so don't worry if the count is 0. The count is updated on shard flush and happens in the background.
+Stroom should then index the data, assuming everything is correct.
+
+If there are errors you'll see error streams produced in the data browsing page of the _CSV_FEED_ Feed or the _Stroom 101_ Pipeline.
+If no errors have occurred, there will be no rows in the data browser page as the IndexFilter does not output any Streams.
+
+To verify the data has been written to the Index:
+
+1. Open the {{< stroom-icon "document/Index.svg" >}} _Stroom 101_ Index.
+1. Select the _Shards_ sub-tab.
+1. Click {{< stroom-icon "refresh.svg" >}} refresh.
+   You many need to wait a bit for the data to be flushed to the index shards.
+
+You should eventually see a _Doc Count_ of 2,000 to match the number of events processed in the source Stream.
 
 Now that we have finished indexing we can display data on a [dashboard]({{< relref "dashboard.md" >}}).

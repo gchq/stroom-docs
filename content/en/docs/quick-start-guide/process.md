@@ -312,11 +312,11 @@ To configure the filter do the following:
 
 1. Right click on the root AND operator and click {{< stroom-icon "add.svg" "Add Term" >}} Add Term.
   A new expression is added to the tree as a child of the operator and it has three dropdowns in it ({{< glossary "Field" >}}, {{< glossary "Condition" >}} and value).
-1. To create an expression term for the Feed:
+1. Create an expression term for the Feed:
     1. Field: `Feed`
     1. Condition: `is`
     1. Value: `CSV_FEED`
-1. To create an expression term for the Stream Type:
+1. Create an expression term for the Stream Type:
     1. Field: `Type`
     1. Condition: `=`
     1. Value: `Raw Events`
@@ -329,8 +329,6 @@ You only need to set the incoming feed and the stream types:
 You will now see the newly created processor and its filter.
 
 {{< image "quick-start-guide/process/show-processors.png" >}}The new processor and filter{{< /image >}}
-
-By default the processor will be enabled on creation but a filter will be disabled on creation.
 
 Ensure that both the processor and its filter are enabled by clicking the checkbox at the left of the row.
 This is it, everything we've done is about to start working on its own, just like it would in a real configuration.
