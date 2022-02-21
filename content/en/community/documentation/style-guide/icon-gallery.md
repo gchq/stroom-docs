@@ -34,6 +34,13 @@ Icons used for the different _document_ entity types, i.e. those seen in the exp
 {{< stroom-icons-gallery "images/stroom-ui/document/" >}}
 
 
+## Dashboard icons
+
+Icons used on the Dashboard
+
+{{< stroom-icons-gallery "images/stroom-ui/dashboard/" >}}
+
+
 ## Updating this gallery
 
 This gallery of icons can be updated by running the following script which will copy all the icons from the stroom repository.

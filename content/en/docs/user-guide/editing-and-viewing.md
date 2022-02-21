@@ -130,7 +130,7 @@ The following are some useful keyboard shortcuts in the editor:
 * `shift-tab` - Outdent selection.
 * `ctrl-u` - Make selection upper-case.
 
-See [here (external link)](https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts) for more.
+See {{< external-link "here" "https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" >}} for more.
 
 #### Vim key bindings
 
@@ -159,7 +159,7 @@ Notable features not supported by the _Ace_ editor:
 * The `g` command mode command, i.e. `:g/foo/d`
 * Splits
 
-For a list of useful Vim key bindings see this [cheat sheet (external link)](https://vim.rtorr.com), though not all bindings will be available in Stroom's _Ace_ editor.
+For a list of useful Vim key bindings see this {{< external-link "cheat sheet" "https://vim.rtorr.com" >}}, though not all bindings will be available in Stroom's _Ace_ editor.
 
 ### Auto-Completion And Snippets
 

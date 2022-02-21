@@ -11,11 +11,45 @@ tags:
 
 ## Links
 
-Links can be added using either standard markdown link syntax or using a Hugo shortcode.
-The advantage of the shortcode is that hugo will check for broken links when building the site so there are preferred.
+While links can be added using standard markdown link syntax you should use Hugo shortcodes to add them.
+The advantage of the shortcode is that Hugo will check for broken links when building the site.
 
-Links to external sites, i.e. on the internet, should have ` (external link)` appended to the link title.
-This makes it clear to readers which links are local and which are external and therefore possibly not available if there is no access to the internet.
+
+### External links
+
+As this site is deployed to environmnets with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+To include an external link do the following:
+
+* This is a link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}} with a title.
+
+  ```markdown
+  This is a link to {{</* external-link "Stroom on Github" "https://github.com/gchq/stroom" */>}} with a title.
+  ```
+
+* This is the same link with no title, {{< external-link "https://github.com/gchq/stroom" >}}.
+
+  ```markdown
+  This is the same link with no title, {{</* external-link "https://github.com/gchq/stroom" */>}}.
+  ```
+
+
+#### Versioned URLs
+
+Some external links are to other Stroom urls are versioned.
+If you need to link to a site external to this one that has the Stroom version in the URL then you can use the tag `@@VERSION@@` in the url.
+This will be translated into the Stroom version of this site, as seen in the _Stroom Version (...)_ drop down at the top of the page.
+This saves you from having to update the URL on each release of Stroom.
+
+* This is a versioned URL {{< external-link "https://gchq.github.io/stroom/v@@VERSION@@" >}} 
+
+  ```markdown
+  This is a versioned URL {{</* external-link "https://gchq.github.io/stroom/v@@VERSION@@" */>}} 
+  ```
+
+{{% warning %}}
+This will not work for version `legacy` as that is not an actual Stroom version.
+{{% /warning %}}
+
 
 
 ### Anchors
@@ -30,8 +64,10 @@ The anchor for a heading is the heading text with:
 
 For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor `#mr-oneils-1st-event-something`.
 
+See The link exampls below that use anchors.
 
-### Shortcode page link examples
+
+### Shortcode internal page link examples
 
 Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.
 
@@ -61,10 +97,10 @@ The following are some example of different links to internal content.
 
 #### Relative path
 
-* A [link]({{< relref "../../../docs/proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using a relative path.
+* A [link]({{< relref "../versions" >}}) to a heading anchor on page above this one, using a relative path.
 
   ```markdown
-  [link]({{</* relref "../../../docs/proxy/install.md#prerequisites" */>}})
+  [link]({{</* relref "../versions" */>}})
   ```
 
 
@@ -145,13 +181,35 @@ in the rendered site.
 
 ### Download file links
 
-To create a link to download a file, {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}like this{{< /file-link >}}, that is served by this site you need to do:
+You can create a link to download a file, like these:
+
+* Download a {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}file{{< /file-link >}}.
+
+* Download {{< file-link "quick-start-guide/mock_stroom_data.csv" />}}
 
 ```markdown
 {{</* file-link "quick-start-guide/mock_stroom_data.csv" */>}}Link Title{{</* /file-link */>}}
+
+{{</* file-link "quick-start-guide/mock_stroom_data.csv" /*/>}}
 ```
 
-Paths are relative to `/assets/files/`.
+All paths are relative to `/assets/files/`.
+
+
+### Glossary links
+
+If you need to create a link to an item in the [Glossary]({{< relref "docs/glossary" >}}) you can use the `glossary` shortcode.
+E.g.
+
+* A {{< glossary "feed" >}} is something you should know about, and so are {{< glossary "stream" "streams" >}}.
+
+  ```markdown
+  A {{</* glossary "feed" */>}} is something you should know about, and so are {{</* glossary "stream" "streams" */>}}.
+  ```
+
+The argument to the shortcode is the glossary term.
+This should match the heading text on the Glossary page exactly, ignoring case.
+It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.
 
 
 ## Code
@@ -252,6 +310,7 @@ The shortcode takes the following arguments:
 
 If you want to display shell output then prefix each output line with `(out)`.
 It will then be displayed without a prompt.
+To display a blank line with no prompt then have a line with just `(out)` in it.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -270,6 +329,59 @@ echo "hello world"
 id
 (out)uid=1000(david) gid=1000(david)
 {{</* command-line */>}}
+```
+  {{< /card >}}
+{{< /cardpane >}}
+
+
+### MySQL shell blocks
+
+To demonstrate commands being run in a MySQL shell you can use the `sql-shell` shortcode.
+This works in a similar way to the `command-line` shortcode but has a different prompt and no shortcode arguments.
+
+If you want to display shell output then prefix each output line with `(out)`.
+It will then be displayed without a prompt.
+To display a blank line with no prompt then have a line with just `(out)` in it.
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+{{< sql-shell >}}
+select user();
+(out)+----------------------+
+(out)| user()               |
+(out)+----------------------+
+(out)| stroomuser@localhost |
+(out)+----------------------+
+(out)1 row in set (0.00 sec)
+(out)
+select database();
+(out)+------------+
+(out)| database() |
+(out)+------------+
+(out)| stroom     |
+(out)+------------+
+(out)1 row in set (0.00 sec)
+{{</ sql-shell >}}
+  {{< /card >}}
+  {{< card header="Markdown" >}}
+```markdown
+{{</* sql-shell */>}}
+select user();
+(out)+----------------------+
+(out)| user()               |
+(out)+----------------------+
+(out)| stroomuser@localhost |
+(out)+----------------------+
+(out)1 row in set (0.00 sec)
+(out)
+select database();
+(out)+------------+
+(out)| database() |
+(out)+------------+
+(out)| stroom     |
+(out)+------------+
+(out)1 row in set (0.00 sec)
+{{</* sql-shell */>}}
 ```
   {{< /card >}}
 {{< /cardpane >}}
@@ -453,4 +565,4 @@ root:
 
 ## Tabbed panes
 
-Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.
+Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.

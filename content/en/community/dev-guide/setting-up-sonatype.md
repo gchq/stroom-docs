@@ -1,7 +1,7 @@
 ---
 title: "Setting up releases to Sonatype & Maven Central"
 linkTitle: "Setting up Sonatype"
-#weight:
+weight: 60
 date: 2021-11-05
 tags: 
 description: >
@@ -18,7 +18,7 @@ This will require an existing user approved for the group to approve you on the 
 
 You can use the following commands for setting up a GPG2 key for signing.
 
-```bash
+{{< command-line "user" "localhost" >}}
 # Generate the GPG2 key
 gpg2 --gen-key
 
@@ -34,8 +34,10 @@ gpg2 --keyserver hkp://keyserver.ubuntu.com --send-keys <key id>
 gpg2 --keyserver hkp://pgp.mit.edu --send-keys <key id>
 
 # To display the secret key in base64 form, for use in GH actions
-key="$(gpg2 --armor --export-secret-keys <key id> | base64 -w0)"; echo -e "-------\n$key\n-------"; key=""
-```
+key="$(gpg2 --armor --export-secret-keys <key id> | base64 -w0)"; \
+echo -e "-------\n$key\n-------"; \
+key=""
+{{</ command-line >}}
 
 ## Setting up the gradle build
 
@@ -66,9 +68,9 @@ For each one create a secret with the `ORG_GRADLE_...` bit as the name.
 So that the action can create the Github release you will also need to set up an SSH key pair and provide it with the public and private key.
 To generate the key pair do:
 
-```bash
+{{< command-line "user" "localhost" >}}
 ssh-keygen -t rsa -b 4096 -f <repo>_deploy_key
-```
+{{</ command-line >}}
 
 The key pair will be created in `~/.ssh/`.
 

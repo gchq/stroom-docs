@@ -9,7 +9,7 @@ description: >
 
 ---
 
-[event-logging (external link)](https://github.com/gchq/event-logging) is a Java API for logging audit events conforming to the [Event Logging XML Schema (external link)](https://github.com/gchq/event-logging-schema).
+{{< external-link "event-logging" "https://github.com/gchq/event-logging" >}} is a Java API for logging audit events conforming to the {{< external-link "Event Logging XML Schema" "https://github.com/gchq/event-logging-schema" >}}.
 The API uses a generated Java JAXB model of the _Event Logging XML Schema_.
 _Event Logging_ can be incorporated into your Java application to provide a means of recording and outputting audit events or user actions for compliance, security or monitoring.
 

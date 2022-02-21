@@ -4,15 +4,15 @@ linkTitle: "MySQL Configuration"
 #weight:
 date: 2021-06-07
 tags:
+  - TODO
   - mysql
 description: >
-  
+  Confnguring MySQl for use with Stroom.
+
 ---
 
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-07  
 > **See Also:** [MySQL Server Setup]({{< relref "../setup/mysql-server-setup.md" >}})  
-> **See Also:** [MySQL Server Administration (external link)](https://dev.mysql.com/doc/refman/8.0/en/server-administration.html)
+> **See Also:** {{< external-link "MySQL Server Administration" "https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" >}} 
 
 ## General configuration
 
@@ -30,20 +30,22 @@ MySQL is configured via the `.cnf` file which is typically located in one of the
   A value of `0` means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
   This is the default in linux and is the preferred value for deployments of stroom of v7+.
   A value of `1` means tables are stored on the filesystem in lowercase but sql is case insensitive.
-  [See also (external link)](https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html)
+  See also {{< external-link "Identifier Case Sensitivity" "https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html" >}} 
 
 * `max_connections` - The maximum permitted number of simultaneous client connections.
   For a clustered deployment of stroom, the default value of 151 will typically be too low.
   Each stroom node will hold a pool of open database connections for its use, therefore with a large number of stroom nodes and a big connection pool the total number of connections can be very large.
   This property should be set taking into account the values of the stroom properties of the form `*.db.connectionPool.maxPoolSize`.
-  [See also (external link)](https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html)
+  See also {{< external-link "Connection Interfaces" "https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html" >}} 
 
 * `innodb_buffer_pool_size`/`innodb_buffer_pool_instances` - Controls the amount of memory availble to MySQL for caching table/index data.
   Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
   _Note_: `innodb_buffer_pool_size` must be set to a value that is equal to or a multiple of `innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances`.
-  [See also (external link)](https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html)
+  See also {{< external-link "Configuring InnoDB Buffer Pool Size" "https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html" >}} 
 
-> **TODO** - Add additional key configuration items
+{{% todo %}}
+Add additional key configuration items
+{{% /todo %}}
 
 
 ## Deploying without Docker

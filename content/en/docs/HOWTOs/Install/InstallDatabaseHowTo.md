@@ -18,7 +18,7 @@ Stroom has two databases. The first, `stroom`, is used for management of Stroom 
 - have two separate nodes, each with it's own database instance
 - the list goes on.
 
-In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the [MariaDB (external link)](https://mariadb.com "MariaDB Site") or [MySQL Community (external link)](https://www.mysql.com/products/community/ "MySQL Community Site") versions of MySQL.
+In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the {{< external-link "MariaDB" "https://mariadb.com" >}} or {{< external-link "MySQL Community" "https://www.mysql.com/products/community/" >}} versions of MySQL.
 
 ## Assumptions
 - we are installing the MariaDB or MySQL Community RDBMS software.
@@ -37,8 +37,8 @@ sudo yum -y install policycoreutils-python mariadb-server
 ```
 ### MySQL Community Server Installation
 As MySQL is not directly supported by Centos 7, we need to install it's repository files prior to installation.
-We get the current MySQL Community release repository rpm and validate it's MD5 checksum against the published value found on the
-[MySQL Yum Repository (external link)](https://dev.mysql.com/downloads/repo/yum "Download MySQL Yum Repository") site.
+We get the current MySQL Community release repository rpm and validate it's MD5 checksum against the published value found on the {{< external-link "MySQL Yum Repository" "https://dev.mysql.com/downloads/repo/yum" >}} site.
+
 ```bash
 wget https://repo.mysql.com/mysql57-community-release-el7.rpm
 md5sum mysql57-community-release-el7.rpm

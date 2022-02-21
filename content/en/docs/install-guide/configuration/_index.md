@@ -1,7 +1,7 @@
 ---
 title: "Configuration"
 linkTitle: "Configuration"
-#weight:
+weight: 20
 date: 2021-06-23
 tags: 
 description: >
@@ -196,4 +196,4 @@ server.unencrypted.key -> /some/path/to/host123.key
 
 This approach avoids the need to change any configuration files to reference differently named certificate/key files and avoids having to copy your real certificates/keys into multiple places.
 
-For examples of how to create certificates, keys and keystores see [creatCerts.sh (external link)](https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh)
+For examples of how to create certificates, keys and keystores see {{< external-link "creatCerts.sh" "https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh" >}} 

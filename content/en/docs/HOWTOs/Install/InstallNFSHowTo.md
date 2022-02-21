@@ -4,7 +4,7 @@ linkTitle: "NFS"
 #weight:
 date: 2021-07-12
 tags: 
-  - NFS
+  - nfs
   - installation
 description: >
   The following is a HOWTO to assist users in the installation and set up of NFS to support the sharing of directories in a two node Stroom cluster or add a new node to an existing cluster.

@@ -62,6 +62,10 @@ do_copy() {
     --verbose \
     --recursive \
     --delete \
+    --include='*/' \
+    --include='*.svg' \
+    --include='*.png' \
+    --exclude='*' \
     "${source_dir}"/ \
     "${dest_dir}/"
   echo
@@ -80,7 +84,8 @@ main() {
 
   local stroom_repo_root="$1"
   local images_base_dir="${stroom_repo_root}/stroom-app/src/main/resources/ui/images"
-  local dest="./assets/images/stroom-ui/"
+  local dashboard_images_base_dir="${stroom_repo_root}/stroom-dashboard/stroom-dashboard-client/src/main/resources/stroom/dashboard/client/table"
+  local dest="./assets/images/stroom-ui"
 
   if [ ! -d "${stroom_repo_root}" ]; then
     echo -e "${RED}ERROR${NC}: Can't find stroom repo root ${BLUE}${stroom_repo_root}${NC}"
@@ -88,13 +93,14 @@ main() {
   fi
 
   if [ ! -d "${dest}" ]; then
-    echo -e "${RED}ERROR${NC}: Can't find destination directory ${BLUE}${dest}${NC}"
+    echo -e "${RED}ERROR${NC}: Can't find destination directory ${BLUE}${dest}/${NC}"
     exit 1
   fi
 
-  do_copy "${images_base_dir}" "${dest}/"
+  do_copy "${images_base_dir}" "${dest}"
   do_copy "${images_base_dir}/document" "${dest}/document"
   do_copy "${images_base_dir}/pipeline" "${dest}/pipeline"
+  do_copy "${dashboard_images_base_dir}" "${dest}/dashboard"
   
   echo -e "${GREEN}Done${NC}"
 }

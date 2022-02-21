@@ -1,6 +1,6 @@
 <!-- 
 {{/*
-Short code to add command line input/output
+Short code to add a bash command line input/output
 Usage:
 command-line username hostname language
 username - The username to appear in the prompt, defaults to 'user'
@@ -31,6 +31,7 @@ id
     class="command-line language-{{ $language }}" 
     data-user="{{ $user }}" 
     data-host="{{ $host }}" 
+    data-continuation-str="\"
     data-filter-output="(out)">
   {{- with (.Inner | default "" ) -}}
     <code class="language-{{ $language }}">{{- trim . " \n" -}}</code>

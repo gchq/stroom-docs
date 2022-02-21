@@ -129,7 +129,7 @@ You should embed an PlantUML image like this, using the `.puml.svg` file (that m
 
 ## Using page resources
 
-Images can be located in a [page bundle (external link)](https://gohugo.io/content-management/page-bundles/).
+Images can be located in a {{< external-link "page bundle" "https://gohugo.io/content-management/page-bundles/" >}}.
 This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown contnet.
 All other items in the directory are page resources that can be used by the page, i.e. image files.
 
@@ -172,28 +172,29 @@ In the above example, the shortcode would look like:
 
 ## Stroom icons
 
-Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
+Stroom UI icons such as {{< stroom-icon "add.svg" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
 The first argument is the filename (and path) of the icon file.
 The filename is relative to `/assets/images/stroom-ui/`.
-The second argument is the hover tip title that will be given to the icon.
+The second optional argument is the hover tip title that will be given to the icon.
+If the title is not provided it will be derived from the filename.
 E.g:
 
 ```markdown
 or {{</* stroom-icon "explorer.svg" "Explorer Tree" */>}} can be added in line like this.
 ```
 
-Stroom pipeline elements can be added in line like this {{< stroom-icon "pipeline/split.svg" "Split" >}}.
+Stroom pipeline elements can be added in line like this {{< stroom-icon "pipeline/split.svg" >}}.
 E.g:
 
 ```markdown
-like this {{</* stroom-icon "pipeline/split.svg" "Split" */>}}.
+like this {{</* stroom-icon "pipeline/split.svg" */>}}.
 ```
 
-Stroom document elements can be added in line like this {{< stroom-icon "document/Visualisation.svg" "Visualisation" >}}.
+Stroom document elements can be added in line like this {{< stroom-icon "document/Visualisation.svg" >}}.
 E.g:
 
 ```markdown
-like this {{</* stroom-icon "document/Visualisation.svg" "Visualisation" */>}}.
+like this {{</* stroom-icon "document/Visualisation.svg" */>}}.
 ```
 
 For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery.md" >}})

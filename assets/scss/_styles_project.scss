@@ -190,15 +190,10 @@ pre[class*=language-] {
   font-size: small !important;
 }
 
-code[class*=language-] > span:not(.command-line-prompt) {
-  user-select: initial;
+// Stop selection of command line output
+.command-line span.token.output {
+	user-select: none;
 }
-
-// Pending https://github.com/PrismJS/prism/pull/3312
-//.command-line-output {
-  //user-select: none;
-  //color: #999;
-//}
 
 // Fenced blocks of in-line files
 .text-file pre {
@@ -264,6 +259,10 @@ code[class*=language-] > span:not(.command-line-prompt) {
 .external-link {
   // Handle long link text in external links
   overflow-wrap: anywhere;
+}
+
+.glossary-link-icon {
+  opacity: 0.8;
 }
 
 /*
