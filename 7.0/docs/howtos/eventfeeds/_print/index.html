@@ -4453,9 +4453,39 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
 </ul>
 <h2 id="introduction">Introduction</h2>
 <p>This HOWTO will demonstrate the process by which an Event Processing pipeline for a given Event Source is developed and deployed.</p>
-<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from <a href="http://log-sharing.dreamhosters.com">log-sharing.dreamhosters.com (external link)</a> (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
+<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="http://log-sharing.dreamhosters.com" target="_blank" class="" style="" title="log-sharing.dreamhosters.com (external link)">
+    <span>log-sharing.dreamhosters.com</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
 <p>Template pipelines are being used to simplify the establishment of this processing pipeline.</p>
-<p>The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> format.</p>
+<p>The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="Stroom Event Logging XML Schema (external link)">
+    <span>Stroom Event Logging XML Schema</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ format.</p>
 <h2 id="event-source">Event Source</h2>
 <p>As mentioned, we will use BlueCoat Proxy logs as a sample event source. Although BlueCoat logs can be customised, the default is to use the W2C Extended Log File Format (ELF). Our sample data set looks like</p>
 <pre><code class="language-text">#Software: SGOS 3.2.4.28
@@ -7050,7 +7080,22 @@ Version:V1.0
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Text Converter. This pane is used to edit the text converter that converts our <em>line based</em> BlueCoat Proxy logs into a XML format. We make use of the Stroom Data Splitter facility to perform this transformation. See <a href="../../../../docs/user-guide/data-splitter/">here</a> for complete details on the data splitter.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the text converter.</p>
-<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="../../../../docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">github.com/gchq/stroom-content (external link)</a>.</p>
+<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="../../../../docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-content" target="_blank" class="" style="" title="github.com/gchq/stroom-content (external link)">
+    <span>github.com/gchq/stroom-content</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <p>For the purpose of this HOWTO, the Datasplitter appears below. The author believes the comments should support the understanding of the transformation.</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter bufferSize=&quot;5000000&quot; xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot; version=&quot;3.0&quot; ignoreErrors=&quot;true&quot;&gt;
@@ -7924,8 +7969,53 @@ to
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Translation Filter. This pane is used to edit an <em>xslt</em> translation that converts our simple key value pair <code>&lt;records&gt;</code> XML structure into another XML form.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the xslt translation. You will note that the <em>input</em> and <em>output</em> displays are identical for a null xslt translation is effectively a direct copy.</p>
-<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented <a href="https://github.com/gchq/event-logging-schema">here (external link)</a>.</p>
-<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="../../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content (external link)</a>.</p>
+<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="../../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="Stroom Event Logging XML Schema (external link)">
+    <span>Stroom Event Logging XML Schema</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and review the various samples found in the Stroom Context packs published, or the Pull Requests of 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-content" target="_blank" class="" style="" title="https://github.com/gchq/stroom-content (external link)">
+    <span>https://github.com/gchq/stroom-content</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <p>We will build the translation in steps. We enter an initial portion of our xslt transformation that just consumes the <code>Software</code> and <code>Version</code> key values and converts the <code>date</code> and <code>time</code> values (which are in UTC) into the <code>EventTime/TimeCreated</code> element. This code segment is</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot; xmlns=&quot;event-logging:3&quot; xmlns:stroom=&quot;stroom&quot; 

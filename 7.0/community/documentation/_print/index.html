@@ -270,9 +270,54 @@ This is the multi-page printable view of this section.
 The content is pre-dominantly authored in Markdown with some Hugo shortcodes.</p>
 <h2 id="useful-external-links">Useful external links</h2>
 <ul>
-<li><a href="https://gohugo.io/">Hugo</a> static site generator.</li>
-<li><a href="https://www.docsy.dev/">Docsy</a> theme for Hugo.</li>
-<li><a href="https://commonmark.org/help/">Commonmark Markdown</a> cheat sheet and tutorial.</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gohugo.io/" target="_blank" class="" style="" title="Hugo (external link)">
+    <span>Hugo</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ static site generator.</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.docsy.dev/" target="_blank" class="" style="" title="Docsy (external link)">
+    <span>Docsy</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ theme for Hugo.</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://commonmark.org/help/" target="_blank" class="" style="" title="Commonmark Markdown (external link)">
+    <span>Commonmark Markdown</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ cheat sheet and tutorial.</li>
 </ul>
 
 </div>
@@ -303,25 +348,83 @@ The content is pre-dominantly authored in Markdown with some Hugo shortcodes.</p
 <p>In order to build and contribute to the documentation you will need the following installed:</p>
 <ul>
 <li>bash</li>
-<li><a href="https://docs.docker.com/get-docker/">Docker (external link)</a></li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://docs.docker.com/get-docker/" target="_blank" class="" style="" title="Docker (external link)">
+    <span>Docker</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
 </ul>
 <p>Docker is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.</p>
 <p>It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.</p>
 <h2 id="cloning-the-stroom-docs-git-repository">Cloning the stroom-docs git repository</h2>
-<p>The git repository for this site is <a href="https://github.com/gchq/stroom-docs">stroom-docs (external link)</a>.
+<p>The git repository for this site is 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-docs" target="_blank" class="" style="" title="stroom-docs (external link)">
+    <span>stroom-docs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 <em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a git sub-module, which in turn uses two nested sub-modules for Bootstrap (<code>themes/docsy/assets/vendor/bootstrap/</code>) and Font-Awesome (<code>themes/docsy/assets/vendor/Font-Awesome/</code>).
 Therefore to clone stroom-docs you need to do</p>
-<pre><code class="language-bash"># Clone the repo
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Clone the repo
 git clone https://github.com/gchq/stroom-docs.git
 
 cd stroom-docs
 
 # Download all sub modules
-git submodule update --init --recursive
-</code></pre>
+git submodule update --init --recursive</code></pre>
+</div>
+
 <h2 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h2>
-<p><em>stroom-docs</em> makes used of <a href="https://plantuml.com">PlantUML (external link)</a> for a lot of its diagrams.
+<p><em>stroom-docs</em> makes used of 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://plantuml.com" target="_blank" class="" style="" title="PlantUML (external link)">
+    <span>PlantUML</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for a lot of its diagrams.
 These are stored in the repository as <code>.puml</code> text files.
 In order that they can be rendered in the site they need to be converted into SVGs first.</p>
 
@@ -337,8 +440,21 @@ All PlantUML content should authored in <code>.puml</code> files and converted a
 
 
 <p>To convert all <code>.puml</code> files into sibling <code>.puml.svg</code> files do the following:</p>
-<pre><code class="language-bash">./container_build/runInPumlDocker.sh SVG
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./container_build/runInPumlDocker.sh SVG</code></pre>
+</div>
+
 <p>This command will find all <code>.puml</code> files (in <code>content/</code> and <code>assets/</code>) and convert each one to SVG.
 It only needs to be run on first clone of the repo or when <code>.puml</code> files are added/changed.
 The generated <code>.puml.svg</code> files are ignored by git.
@@ -372,8 +488,21 @@ executing &quot;shortcodes/image.html&quot; at &lt;$image.Name&gt;: nil pointer 
 <h2 id="running-a-local-server">Running a local server</h2>
 <p>The documentation can be built and served locally while developing it.
 To build and serve the site run</p>
-<pre><code class="language-bash">./container_build/runInHugoDocker.sh server
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./container_build/runInHugoDocker.sh server</code></pre>
+</div>
+
 <p>This uses Hugo to build the site in memory and then serve it from a local web server.
 When any source files are changed or added Hugo will detect this and rebuild the site as required, including automatically refreshing the browser page to update the rendered view.</p>
 <p>Once the server is running the site is available at <a href="http://localhost:1313/stroom-docs">localhost:1313/stroom-docs</a>.</p>
@@ -388,16 +517,42 @@ When any source files are changed or added Hugo will detect this and rebuild the
 
 <h2 id="building-the-site-locally">Building the site locally</h2>
 <p>To perform a full build of the static site run:</p>
-<pre><code class="language-bash">./container_build/runInHugoDocker.sh build
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./container_build/runInHugoDocker.sh build</code></pre>
+</div>
+
 <p>This will generate all the static content and place it in <code>public/</code>.</p>
 <h2 id="generating-the-pdf">Generating the PDF</h2>
 <p>Every page has a <em>Print entire section</em> link that will display a printable view of that section and its children.
 In addition to this the GitHub Actions we generate a PDF of the <code>docs</code> section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
 This makes the documentation available for offline use.</p>
 <p>To test the PDF generation do:</p>
-<pre><code class="language-bash">./container_build/runInPupeteerDocker.sh PDF
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./container_build/runInPupeteerDocker.sh PDF</code></pre>
+</div>
+
 <h2 id="updating-the-docsy-theme">Updating the Docsy theme</h2>
 <p>This repository uses a git submodule for the Docsy theme.</p>
 
@@ -443,32 +598,52 @@ Documentation changes for an as yet unreleased Stroom version would be performed
 /8.0/
 /legacy/
 </code></pre>
+<p>The <code>master</code> branch is NOT published to GitHub Pages or included in the release artefacts.</p>
 <h2 id="versioned-site-configuration">Versioned Site Configuration</h2>
 <p>To configure each version of the site so that it knows what version it is and what the other versions are you need to edit <code>config.toml</code>.
 This needs to be done on each branch in a way that is appropriate to each branch.
 If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published and then merged the changes up the chain, e.g. legacy =&gt; 7.0 =&gt; 7.1 =&gt; 7.2 =&gt; 8.0 =&gt; master.</p>
 <p>The following config properties needed to be amended on each branch.
-This example is based on there being version legacy, 7.0 and 7.1, with 7.1 being the latest.</p>
-<pre><code class="language-toml">[params]
-  # Menu title if your navbar has a versions selector to access old versions of your site.
+This example is from the <em>7.1</em> branch and is based on there being versions <em>legacy</em>, <em>7.0</em> and <em>7.1</em>, with <em>7.1</em> being the latest.</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        7.1
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml">[params]
+  # Menu title if your navbar has a versions selector
+  # to access old versions of your site.
   version_menu = &quot;Stroom Version (7.1)&quot;
 
-  # If true, displays a banner on each page warning that it is an old version.
-  # Set this to true on each git branch of stroom-docs that is not the latest release branch
+  # If true, displays a banner on each page warning that
+  # it is an old version. Set this to true on each git branch
+  # of stroom-docs that is not the latest release branch
   archived_version = false
 
   # Used in the banner on each archived page.
   # Must match the value in brackets in &quot;version_menu&quot; above
   version = &quot;7.1&quot;
 
-  # A link to latest version of the docs. Used in the &quot;version-banner&quot; partial to
-  # point people to the main doc site.
+  # A link to latest version of the docs. Used in the
+  # &quot;version-banner&quot; partial to point people to the main
+  # doc site.
   url_latest_version = &quot;/../7.1&quot;
 
-  # The name of the github branch that this version of the documentation lives on.
-  # Used for the github links in the top of the right hand sidebar.
-  # Should match the last part of url_latest_version.
-  github_branch= &quot;7.1&quot;
+  # The name of the github branch that this version of the
+  # documentation lives on. Used for the github links in the
+  # top of the right hand sidebar. Should match the last part
+  # of url_latest_version.
+  github_branch = &quot;7.1&quot;
 
   # A set of all the versions that are available.
   [[params.versions]]
@@ -481,9 +656,92 @@ This example is based on there being version legacy, 7.0 and 7.1, with 7.1 being
     version = &quot;Legacy&quot;
     url = &quot;/../legacy&quot;
 </code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        7.0
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml">[params]
+  # Menu title if your navbar has a versions selector
+  # to access old versions of your site.
+  version_menu = &quot;Stroom Version (7.0)&quot;
+
+  # If true, displays a banner on each page warning that
+  # it is an old version. Set this to true on each git branch
+  # of stroom-docs that is not the latest release branch
+  archived_version = true
+
+  # Used in the banner on each archived page.
+  # Must match the value in brackets in &quot;version_menu&quot; above
+  version = &quot;7.0&quot;
+
+  # A link to latest version of the docs. Used in the
+  # &quot;version-banner&quot; partial to point people to the main
+  # doc site.
+  url_latest_version = &quot;/../7.1&quot;
+
+  # The name of the github branch that this version of the
+  # documentation lives on. Used for the github links in the
+  # top of the right hand sidebar. Should match the last part
+  # of url_latest_version.
+  github_branch = &quot;7.0&quot;
+
+  # A set of all the versions that are available.
+  [[params.versions]]
+    version = &quot;7.1&quot;
+    url = &quot;/../7.1&quot;
+  [[params.versions]]
+    version = &quot;7.0&quot;
+    url = &quot;/../7.0&quot;
+  [[params.versions]]
+    version = &quot;Legacy&quot;
+    url = &quot;/../legacy&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
+<p>In the same example scenario as above, the <code>config.toml</code> file for the <em>7.0</em> branch (which is not the latest version in this case) would be:</p>
 <h2 id="automated-build-process">Automated build process</h2>
 <p>The site is built by Gihub Actions on a nightly basis.
-This schedule is controlled by <a href="https://github.com/gchq/stroom-docs/blob/master/.github/workflows/build_and_release.yml">build_and_release.yml (external link)</a> on the <code>master</code> branch.</p>
+This schedule is controlled by 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-docs/blob/master/.github/workflows/build_and_release.yml" target="_blank" class="" style="" title="build_and_release.yml (external link)">
+    <span>build_and_release.yml</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ on the <code>master</code> branch.</p>
 <p>This automated build will look for any branches matching the pattern <code>(legacy|[0-9]+\.[0-9]+)</code> and for each one will do the following:</p>
 <ul>
 <li>Checkout that branch</li>
@@ -511,7 +769,22 @@ This schedule is controlled by <a href="https://github.com/gchq/stroom-docs/blob
 </ul>
 </li>
 <li>Create a root <code>index.hml</code> file that will redirect to the latest version sub-directory.</li>
-<li>Publish the combined site to GitHub Pages <a href="https://gchq.github.io/stroom-docs">https://gchq.github.io/stroom-docs (external link)</a>.</li>
+<li>Publish the combined site to GitHub Pages 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gchq.github.io/stroom-docs" target="_blank" class="" style="" title="https://gchq.github.io/stroom-docs (external link)">
+    <span>https://gchq.github.io/stroom-docs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
 </ul>
 <p>Although the build is run on the <code>master</code> branch it will use the <code>HEAD</code> commit of each of the release branches to build the site(s).</p>
 <p>The build and release can be forced by adding the text <code>[publish]</code> to the commit message on <code>master</code>.
@@ -519,12 +792,14 @@ This is useful in testing, or if updated documentation is needed for any reason.
 <h2 id="where-to-make-changes">Where to make changes</h2>
 <p>The nature of a change to the site/documentation will determine which git branch the change is made on.</p>
 <h3 id="changes-specific-to-a-stroom-version">Changes specific to a Stroom version</h3>
-<p>Any changes that are specific to a Stroom version, e.g. documenting a new feature in that version should be made on the oldest branch that contains that feature.</p>
+<p>Any changes that are specific to a Stroom version, e.g. documenting a new feature in that version should be made on the oldest branch that contains that feature.
+If the change relates to an as yet unreleased version of Stroom then make the change on <code>master</code>.</p>
 <h3 id="changes-to-the-newsreleases">Changes to the News/Releases</h3>
-<p>Adding news items or release notes for new versions should be done on the latest release branch.</p>
+<p>Adding news items or release notes for new versions should be done on the latest release branch.
+The News/Releases section is not included in old versions when released.</p>
 <h3 id="changing-the-site-look">Changing the site look</h3>
-<p>Ideally changes to the look of the site, e.g. upgrading the <em>Docsy</em> theme sub-module to a new commit, should be done on all branches so when switching between branches the look doesn&rsquo;t change.
-This means changes to the site framework should be done on the oldest published version branch and then merged up the chain to the others, e.g. <code>legacy</code> =&gt; <code>7.0</code> =&gt; <code>7.1</code> =&gt; <code>master</code>.</p>
+<p>Ideally changes to the look of the site, e.g. upgrading the <em>Docsy</em> theme sub-module to a new commit, adding shortcodes or tweaking the CSS should be done on all branches so when switching between branches the look doesn&rsquo;t change.
+This means this sort of change should be done on the oldest published version branch and then merged up the chain to the others, e.g. <code>legacy</code> =&gt; <code>7.0</code> =&gt; <code>7.1</code> =&gt; <code>master</code>.</p>
 <p>In some cases a change to the look may require significant refactoring of the content, e.g. changes to a shortcode.
 In the event of this it may be necessary to only make the change on the latest release branch and for different versions to have a slightly different look.
 The decision on how best to tackle these situations will have to be on a case by case basis.</p>
@@ -567,20 +842,110 @@ python -m SimpleHTTPServer 8888
   <h1 id="pg-a1136b8792bf5eb185463a4ea6b0de0f">3 - Documentation Style Guide</h1>
     <div class="lead">A guide on the house style, structure and content for this site. It should be viewed both in its rendered form and as source to understand how the page elements are formed. You should read this section before contributing to the documentation.</div>
 	<h2 id="overview">Overview</h2>
-<p>Stroom&rsquo;s documentation is created using the static site generator <a href="https://gohugo.io/">Hugo (external link)</a>.
+<p>Stroom&rsquo;s documentation is created using the static site generator 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gohugo.io/" target="_blank" class="" style="" title="Hugo (external link)">
+    <span>Hugo</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 This converts markdown content into a rich HTML site.
 The markdown content in <em>stroom-docs</em> is not intended to be read as-is in GitHub, it needs to be rendered first.</p>
-<p>The full documentation for <em>Hugo</em> can be found <a href="https://gohugo.io/documentation/">here (external link)</a>.
-The site also uses the <a href="https://www.docsy.dev">Docsy (external link)</a> theme for Hugo.
-The documentation for <em>Docsy</em> can be found <a href="https://www.docsy.dev/docs/">here (external link)</a>.
+<p>The full documentation for <em>Hugo</em> can be found 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gohugo.io/documentation/" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+The site also uses the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.docsy.dev" target="_blank" class="" style="" title="Docsy (external link)">
+    <span>Docsy</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ theme for Hugo.
+The documentation for <em>Docsy</em> can be found 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.docsy.dev/docs/" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 The <em>Docsy</em> theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the <em>Docsy</em> documentation in the first instance.</p>
 <p>To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.</p>
 <h2 id="shortcodes">Shortcodes</h2>
 <p>The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
 Shortcodes make it easy to change how a page element is styled by just changing the shortcode.</p>
-<p>Hugo includes many <a href="https://gohugo.io/content-management/shortcodes/">shortcodes (external link)</a>, the Docsy theme adds some <a href="https://www.docsy.dev/docs/adding-content/shortcodes/">more (external link)</a> and there are some bespoke <em>stroom-docs</em> ones in <code>layouts/shortcodes/</code>.</p>
-<p>To make your life easier when editing the documentation it is recomended to use an editor that supports text snippets.
+<p>Hugo includes many 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gohugo.io/content-management/shortcodes/" target="_blank" class="" style="" title="shortcodes (external link)">
+    <span>shortcodes</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, the Docsy theme adds some 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.docsy.dev/docs/adding-content/shortcodes/" target="_blank" class="" style="" title="more (external link)">
+    <span>more</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and there are some bespoke <em>stroom-docs</em> ones in <code>layouts/shortcodes/</code>.</p>
+<p>To make your life easier when editing the documentation it is highly recomended to use an editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.</p>
 <p>For example the following snippet adds a skeleton front matter to a page.</p>
 <div class="card-deck mb-4">
@@ -858,9 +1223,14 @@ See
 
 
 
+
+  
+
 <span class="external-link">
-<a href="https://gohugo.io/content-management/front-matter/" class="" style="">Hugo Front Matter</a>
-<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+  <a href="https://gohugo.io/content-management/front-matter/" target="_blank" class="" style="" title="Hugo Front Matter (external link)">
+    <span>Hugo Front Matter</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
 </span>
  for the full list of metadata keys that can be set.
 
@@ -950,9 +1320,14 @@ When the markdown is rendered into HTML/PDF, the sentences will be joined into a
 
 
 
+
+  
+
 <span class="external-link">
-<a href="https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line" class="" style="">site</a>
-<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+  <a href="https://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sentence-per-line" target="_blank" class="" style="" title="site (external link)">
+    <span>site</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
 </span>
  for more of the reasons behind sentence per line.
 Though this link relates to Asciidoc, the same logic applies to markdown.</p>
@@ -1153,7 +1528,8 @@ Three</p>
 <h2 id="blank-lines-and-spacing">Blank lines and spacing</h2>
 <ul>
 <li>A heading line should be preceded by two blank lines and followed by one blank line.
-This makes the headings clearer in the markdown source.</li>
+This makes the headings clearer in the markdown source.
+The only exception to this is when one heading come immediately after its parent heading with no text in between.</li>
 <li>A fenced code block should be surrounded by one blank line.</li>
 <li>Paragraphs should be separated by one blank line.</li>
 <li>Bulleted and numbered lists should be surrounded by one blank line.</li>
@@ -1164,7 +1540,6 @@ This makes the headings clearer in the markdown source.</li>
 
 
 ## A Heading
-
 
 ## A sub heading
 
@@ -1192,6 +1567,9 @@ Here are some numbered steps:
 1. Step 3.
 
 Another random line.
+
+
+## Another Heading
 </code></pre>
 <h2 id="headings">Headings</h2>
 <p>The page title uses heading level one (<code># </code> in markdown) so all markdown headings should be &gt;= 2 (<code>## </code>, <code>### </code>, <code>#### </code>, etc.).
@@ -1552,7 +1930,9 @@ Color
 | Prince | Purple Rain | 1984 |
 | Beastie Boys | License to Ill | 1986 |
 </code></pre>
-<p>Both will produce the same result but the latter can be harder to read in markdown form.</p>
+<p>Both will produce the same result.
+The latter can be harder to read in markdown form.
+The former is harder to create and update in markdown form.</p>
 <table>
 <thead>
 <tr>
@@ -1579,6 +1959,22 @@ Color
 </tr>
 </tbody>
 </table>
+<h2 id="comments">Comments</h2>
+<p>As the Markdown content is procesed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
+This can be useful when you want to leave development comments in the content that are not for display in the rendered site.
+Comments are done with the HTML comment syntax, i.e.</p>
+<pre><code class="language-html">&lt;!-- This is a comment --&gt;
+
+&lt;!--
+This is a
+mult-line comment
+--&gt;
+</code></pre>
+<!-- This is a comment -->
+<!--
+This is a
+mult-line comment
+-->
 
 </div>
 
@@ -1600,10 +1996,89 @@ Color
   <h1 id="pg-cdd8b429a46110b260691f0a2d989d90">3.4 - Additional Page Elements</h1>
     <div class="lead">Examples of various markdown and Hugo page elements.</div>
 	<h2 id="links">Links</h2>
-<p>Links can be added using either standard markdown link syntax or using a Hugo shortcode.
-The advantage of the shortcode is that hugo will check for broken links when building the site so there are preferred.</p>
-<p>Links to external sites, i.e. on the internet, should have <code> (external link)</code> appended to the link title.
-This makes it clear to readers which links are local and which are external and therefore possibly not available if there is no access to the internet.</p>
+<p>While links can be added using standard markdown link syntax you should use Hugo shortcodes to add them.
+The advantage of the shortcode is that Hugo will check for broken links when building the site.</p>
+<h3 id="external-links">External links</h3>
+<p>As this site is deployed to environmnets with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+To include an external link do the following:</p>
+<ul>
+<li>
+<p>This is a link to 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom" target="_blank" class="" style="" title="Stroom on Github (external link)">
+    <span>Stroom on Github</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ with a title.</p>
+<pre><code class="language-markdown">This is a link to {{&lt; external-link &quot;Stroom on Github&quot; &quot;https://github.com/gchq/stroom&quot; &gt;}} with a title.
+</code></pre>
+</li>
+<li>
+<p>This is the same link with no title, 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom" target="_blank" class="" style="" title="https://github.com/gchq/stroom (external link)">
+    <span>https://github.com/gchq/stroom</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<pre><code class="language-markdown">This is the same link with no title, {{&lt; external-link &quot;https://github.com/gchq/stroom&quot; &gt;}}.
+</code></pre>
+</li>
+</ul>
+<h4 id="versioned-urls">Versioned URLs</h4>
+<p>Some external links are to other Stroom urls are versioned.
+If you need to link to a site external to this one that has the Stroom version in the URL then you can use the tag <code>@@VERSION@@</code> in the url.
+This will be translated into the Stroom version of this site, as seen in the <em>Stroom Version (&hellip;)</em> drop down at the top of the page.
+This saves you from having to update the URL on each release of Stroom.</p>
+<ul>
+<li>
+<p>This is a versioned URL 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gchq.github.io/stroom/v7.0" target="_blank" class="" style="" title="https://gchq.github.io/stroom/v7.0 (external link)">
+    <span>https://gchq.github.io/stroom/v7.0</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+<pre><code class="language-markdown">This is a versioned URL {{&lt; external-link &quot;https://gchq.github.io/stroom/v@@VERSION@@&quot; &gt;}} 
+</code></pre>
+</li>
+</ul>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    This will not work for version <code>legacy</code> as that is not an actual Stroom version.
+
+</div>
+
+
 <h3 id="anchors">Anchors</h3>
 <p>You can link to headings on a page using its anchor.
 The anchor for a heading is the heading text with:</p>
@@ -1614,7 +2089,8 @@ The anchor for a heading is the heading text with:</p>
 <li>Multiple consecutive <code>-</code> characters, e.g. <code>---</code> are replaced with a single <code>-</code></li>
 </ul>
 <p>For example the heading <code>Mr O'Neil's 1st Event (something)</code> becomes as an anchor <code>#mr-oneils-1st-event-something</code>.</p>
-<h3 id="shortcode-page-link-examples">Shortcode page link examples</h3>
+<p>See The link exampls below that use anchors.</p>
+<h3 id="shortcode-internal-page-link-examples">Shortcode internal page link examples</h3>
 <p>Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.</p>
 <p>Hugo has <code>ref</code> and <code>relref</code> link shortcodes.
 Use only <code>relref</code> as this will be translated into a relative path when the site it built ensuring that the site can be run from any base path.</p>
@@ -1638,8 +2114,8 @@ Use only <code>relref</code> as this will be translated into a relative path whe
 <h4 id="relative-path">Relative path</h4>
 <ul>
 <li>
-<p>A <a href="../../../docs/proxy/install/#prerequisites">link</a> to a heading anchor on page above this one, using a relative path.</p>
-<pre><code class="language-markdown">[link]({{&lt; relref &quot;../../../docs/proxy/install.md#prerequisites&quot; &gt;}})
+<p>A <a href="../../../community/documentation/versions/">link</a> to a heading anchor on page above this one, using a relative path.</p>
+<pre><code class="language-markdown">[link]({{&lt; relref &quot;../versions&quot; &gt;}})
 </code></pre>
 </li>
 </ul>
@@ -1713,14 +2189,69 @@ This is quicker to type and won&rsquo;t break if pages are moved but will not wo
 </li>
 </ul>
 <h3 id="download-file-links">Download file links</h3>
-<p>To create a link to download a file, 
+<p>You can create a link to download a file, like these:</p>
+<ul>
+<li>
+<p>Download a 
 
 
 
-<a href="../../../files/quick-start-guide/mock_stroom_data.csv" class="" style="">like this</a>, that is served by this site you need to do:</p>
+
+<span class="external-link">
+  <a href="../../../files/quick-start-guide/mock_stroom_data.csv" class="" style="">file</a>
+  <i class="external-link-icon fas fa-file-download fa-sm text-secondary" title="External link"></i>
+</span>.</p>
+</li>
+<li>
+<p>Download 
+
+
+
+
+<span class="external-link">
+  <a href="../../../files/quick-start-guide/mock_stroom_data.csv" class="" style="">mock_stroom_data.csv</a>
+  <i class="external-link-icon fas fa-file-download fa-sm text-secondary" title="External link"></i>
+</span></p>
+</li>
+</ul>
 <pre><code class="language-markdown">{{&lt; file-link &quot;quick-start-guide/mock_stroom_data.csv&quot; &gt;}}Link Title{{&lt; /file-link &gt;}}
+
+{{&lt; file-link &quot;quick-start-guide/mock_stroom_data.csv&quot; /&gt;}}
 </code></pre>
-<p>Paths are relative to <code>/assets/files/</code>.</p>
+<p>All paths are relative to <code>/assets/files/</code>.</p>
+<h3 id="glossary-links">Glossary links</h3>
+<p>If you need to create a link to an item in the <a href="../../../docs/glossary/">Glossary</a> you can use the <code>glossary</code> shortcode.
+E.g.</p>
+<ul>
+<li>
+<p>A 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#feed" title="Glossary entry for feed">
+    <span>feed</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ is something you should know about, and so are 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#stream" title="Glossary entry for streams">
+    <span>streams</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.</p>
+<pre><code class="language-markdown">A {{&lt; glossary &quot;feed&quot; &gt;}} is something you should know about, and so are {{&lt; glossary &quot;stream&quot; &quot;streams&quot; &gt;}}.
+</code></pre>
+</li>
+</ul>
+<p>The argument to the shortcode is the glossary term.
+This should match the heading text on the Glossary page exactly, ignoring case.
+It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.</p>
 <h2 id="code">Code</h2>
 <h3 id="inline-code">Inline code</h3>
 <div class="card-deck mb-4">
@@ -1962,7 +2493,8 @@ It also means the prompt part is not selectable when the user selects the text f
 <li><strong>language</strong> - The language of the content (a valid and installed prism <a href="#supported-languages">language name</a> language name), defaults to <code>bash</code>.</li>
 </ul>
 <p>If you want to display shell output then prefix each output line with <code>(out)</code>.
-It will then be displayed without a prompt.</p>
+It will then be displayed without a prompt.
+To display a blank line with no prompt then have a line with just <code>(out)</code> in it.</p>
 <div class="card-deck mb-4">
   <div class="card mb-4">
   
@@ -1979,7 +2511,12 @@ It will then be displayed without a prompt.</p>
       <p class="card-text">
         
           <div class="code-toolbar">
-  <pre class="command-line language-bash" data-user="david" data-host="wopr" data-filter-output="(out)"><code class="language-bash">echo &#34;hello world&#34;
+  <pre 
+    class="command-line language-bash" 
+    data-user="david" 
+    data-host="wopr" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#34;hello world&#34;
 (out)hello world
 id
 (out)uid=1000(david) gid=1000(david)</code></pre>
@@ -2012,6 +2549,96 @@ echo &quot;hello world&quot;
 id
 (out)uid=1000(david) gid=1000(david)
 {{&lt; command-line &gt;}}
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
+<h3 id="mysql-shell-blocks">MySQL shell blocks</h3>
+<p>To demonstrate commands being run in a MySQL shell you can use the <code>sql-shell</code> shortcode.
+This works in a similar way to the <code>command-line</code> shortcode but has a different prompt and no shortcode arguments.</p>
+<p>If you want to display shell output then prefix each output line with <code>(out)</code>.
+It will then be displayed without a prompt.
+To display a blank line with no prompt then have a line with just <code>(out)</code> in it.</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Rendered
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <div class="code-toolbar">
+  <pre 
+    class="command-line language-sql" 
+    data-prompt="mysql>" 
+    data-filter-output="(out)"><code class="language-sql">select user();
+(out)&#43;----------------------&#43;
+(out)| user()               |
+(out)&#43;----------------------&#43;
+(out)| stroomuser@localhost |
+(out)&#43;----------------------&#43;
+(out)1 row in set (0.00 sec)
+(out)
+select database();
+(out)&#43;------------&#43;
+(out)| database() |
+(out)&#43;------------&#43;
+(out)| stroom     |
+(out)&#43;------------&#43;
+(out)1 row in set (0.00 sec)</code></pre>
+</div>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Markdown
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">{{&lt; sql-shell &gt;}}
+select user();
+(out)+----------------------+
+(out)| user()               |
+(out)+----------------------+
+(out)| stroomuser@localhost |
+(out)+----------------------+
+(out)1 row in set (0.00 sec)
+(out)
+select database();
+(out)+------------+
+(out)| database() |
+(out)+------------+
+(out)| stroom     |
+(out)+------------+
+(out)1 row in set (0.00 sec)
+{{&lt; sql-shell &gt;}}
 </code></pre>
 
         
@@ -2099,7 +2726,10 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
       
       <span class="" style="font-size: smaller">Example in-line XML file</span>
       
-      (<a href="../../../files/style-guide/in_line_file_example.xml" class="" style="font-size: smaller">Download in_line_file_example.xml</a>)
+      (
+      <a href="../../../files/style-guide/in_line_file_example.xml" class="" style="font-size: smaller">Download in_line_file_example.xml</a>
+      <i class="external-link-icon fas fa-file-download fa-sm text-secondary" title="External link"></i>
+      )
     </div>
   </div>
 </div>
@@ -2117,9 +2747,14 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
 
 
 
+
+  
+
 <span class="external-link">
-<a href="https://prismjs.com/index.html" class="" style="">Prismjs</a>
-<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+  <a href="https://prismjs.com/index.html" target="_blank" class="" style="" title="Prismjs (external link)">
+    <span>Prismjs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
 </span>
  for syntax highlighing code blocks.
 PrismJs supports a large number of different languages however only certain languages have been included with this site.
@@ -2149,9 +2784,14 @@ This can be done
 
 
 
+
+  
+
 <span class="external-link">
-<a href="https://prismjs.com/index.html#supported-languages" class="" style="">here</a>
-<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+  <a href="https://prismjs.com/index.html#supported-languages" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
 </span>
 .
 When creating new versions of these file you must included the languages and plugins already included else you may break this site.
@@ -2163,12 +2803,15 @@ Use this link then add any additional items, bearing in mind the size of the dow
 
 
 
+
+
   
 
-
 <span class="external-link">
-<a href="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview" class="" style="">https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview</a>
-<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+  <a href="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview" target="_blank" class="" style="" title="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview (external link)">
+    <span>https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
 </span>
 </p>
 <h2 id="alerts">Alerts</h2>
@@ -2328,11 +2971,16 @@ root:
 
 
 
+
+  
+
 <span class="external-link">
-<a href="https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" class="" style="">tabbed panes</a>
-<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+  <a href="https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" target="_blank" class="" style="" title="tabbed panes (external link)">
+    <span>tabbed panes</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
 </span>
- however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.</p>
+ however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.</p>
 
 </div>
 
@@ -2652,7 +3300,22 @@ The images can be generated by doing:</p>
 </div>
 
 <h2 id="using-page-resources">Using page resources</h2>
-<p>Images can be located in a <a href="https://gohugo.io/content-management/page-bundles/">page bundle (external link)</a>.
+<p>Images can be located in a 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gohugo.io/content-management/page-bundles/" target="_blank" class="" style="" title="page bundle (external link)">
+    <span>page bundle</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 This is where the page is defined as a named directory (rather than a <code>.md</code> file) with an associated <code>index.md</code> file for the markdown contnet.
 All other items in the directory are page resources that can be used by the page, i.e. image files.</p>
 
@@ -2731,8 +3394,10 @@ For the short code to work the page must be a leaf bundle (<code>index.md</code>
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
  or 
+
 
 
 
@@ -2744,7 +3409,8 @@ For the short code to work the page must be a leaf bundle (<code>index.md</code>
  can be added in line like this.
 The first argument is the filename (and path) of the icon file.
 The filename is relative to <code>/assets/images/stroom-ui/</code>.
-The second argument is the hover tip title that will be given to the icon.
+The second optional argument is the hover tip title that will be given to the icon.
+If the title is not provided it will be derived from the filename.
 E.g:</p>
 <pre><code class="language-markdown">or {{&lt; stroom-icon &quot;explorer.svg&quot; &quot;Explorer Tree&quot; &gt;}} can be added in line like this.
 </code></pre>
@@ -2756,12 +3422,14 @@ E.g:</p>
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/pipeline/split.svg" width="16px" title="Split" alt="pipeline/split.svg">
 .
 E.g:</p>
-<pre><code class="language-markdown">like this {{&lt; stroom-icon &quot;pipeline/split.svg&quot; &quot;Split&quot; &gt;}}.
+<pre><code class="language-markdown">like this {{&lt; stroom-icon &quot;pipeline/split.svg&quot; &gt;}}.
 </code></pre>
 <p>Stroom document elements can be added in line like this 
+
 
 
 
@@ -2772,7 +3440,7 @@ E.g:</p>
 <img class="stroom-icon" src="../../../images/stroom-ui/document/Visualisation.svg" width="16px" title="Visualisation" alt="document/Visualisation.svg">
 .
 E.g:</p>
-<pre><code class="language-markdown">like this {{&lt; stroom-icon &quot;document/Visualisation.svg&quot; &quot;Visualisation&quot; &gt;}}.
+<pre><code class="language-markdown">like this {{&lt; stroom-icon &quot;document/Visualisation.svg&quot; &gt;}}.
 </code></pre>
 <p>For a full list of all available icons see the <a href="../../../community/documentation/style-guide/icon-gallery/">Icon Gallery</a></p>
 
@@ -2806,6 +3474,8 @@ E.g:</p>
   <div class="row bg-light">
   
     
+    
+    
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
         style="vertical-align: -0.5em;" 
@@ -2816,7 +3486,10 @@ E.g:</p>
         alt="images/stroom-ui/add-above.svg">
       <span style="padding-left: 10px; padding-top: 5px">add-above.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2828,7 +3501,10 @@ E.g:</p>
         alt="images/stroom-ui/add-below.svg">
       <span style="padding-left: 10px; padding-top: 5px">add-below.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2840,7 +3516,10 @@ E.g:</p>
         alt="images/stroom-ui/add.svg">
       <span style="padding-left: 10px; padding-top: 5px">add.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2852,7 +3531,10 @@ E.g:</p>
         alt="images/stroom-ui/alert.svg">
       <span style="padding-left: 10px; padding-top: 5px">alert.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2864,7 +3546,10 @@ E.g:</p>
         alt="images/stroom-ui/clear.svg">
       <span style="padding-left: 10px; padding-top: 5px">clear.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2876,7 +3561,10 @@ E.g:</p>
         alt="images/stroom-ui/close-grey.svg">
       <span style="padding-left: 10px; padding-top: 5px">close-grey.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2888,7 +3576,10 @@ E.g:</p>
         alt="images/stroom-ui/close.svg">
       <span style="padding-left: 10px; padding-top: 5px">close.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2900,7 +3591,10 @@ E.g:</p>
         alt="images/stroom-ui/collapse-up.svg">
       <span style="padding-left: 10px; padding-top: 5px">collapse-up.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2912,7 +3606,10 @@ E.g:</p>
         alt="images/stroom-ui/copy.svg">
       <span style="padding-left: 10px; padding-top: 5px">copy.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2924,7 +3621,10 @@ E.g:</p>
         alt="images/stroom-ui/database.svg">
       <span style="padding-left: 10px; padding-top: 5px">database.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2936,7 +3636,10 @@ E.g:</p>
         alt="images/stroom-ui/delete.svg">
       <span style="padding-left: 10px; padding-top: 5px">delete.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2948,7 +3651,10 @@ E.g:</p>
         alt="images/stroom-ui/deleted.svg">
       <span style="padding-left: 10px; padding-top: 5px">deleted.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2960,7 +3666,10 @@ E.g:</p>
         alt="images/stroom-ui/dependencies.svg">
       <span style="padding-left: 10px; padding-top: 5px">dependencies.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2972,7 +3681,10 @@ E.g:</p>
         alt="images/stroom-ui/disable.svg">
       <span style="padding-left: 10px; padding-top: 5px">disable.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2984,7 +3696,10 @@ E.g:</p>
         alt="images/stroom-ui/down.svg">
       <span style="padding-left: 10px; padding-top: 5px">down.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -2996,7 +3711,10 @@ E.g:</p>
         alt="images/stroom-ui/download.svg">
       <span style="padding-left: 10px; padding-top: 5px">download.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3008,7 +3726,10 @@ E.g:</p>
         alt="images/stroom-ui/drop-down.svg">
       <span style="padding-left: 10px; padding-top: 5px">drop-down.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3020,7 +3741,10 @@ E.g:</p>
         alt="images/stroom-ui/edit.svg">
       <span style="padding-left: 10px; padding-top: 5px">edit.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3032,7 +3756,10 @@ E.g:</p>
         alt="images/stroom-ui/ellipses-horizontal.svg">
       <span style="padding-left: 10px; padding-top: 5px">ellipses-horizontal.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3044,7 +3771,10 @@ E.g:</p>
         alt="images/stroom-ui/ellipses-vertical.svg">
       <span style="padding-left: 10px; padding-top: 5px">ellipses-vertical.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3056,7 +3786,10 @@ E.g:</p>
         alt="images/stroom-ui/error.svg">
       <span style="padding-left: 10px; padding-top: 5px">error.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3068,7 +3801,10 @@ E.g:</p>
         alt="images/stroom-ui/expand-down.svg">
       <span style="padding-left: 10px; padding-top: 5px">expand-down.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3080,7 +3816,10 @@ E.g:</p>
         alt="images/stroom-ui/explorer.svg">
       <span style="padding-left: 10px; padding-top: 5px">explorer.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3092,7 +3831,10 @@ E.g:</p>
         alt="images/stroom-ui/fast-backward-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">fast-backward-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3104,7 +3846,10 @@ E.g:</p>
         alt="images/stroom-ui/fast-backward.svg">
       <span style="padding-left: 10px; padding-top: 5px">fast-backward.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3116,7 +3861,10 @@ E.g:</p>
         alt="images/stroom-ui/fast-forward-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">fast-forward-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3128,7 +3876,10 @@ E.g:</p>
         alt="images/stroom-ui/fast-forward.svg">
       <span style="padding-left: 10px; padding-top: 5px">fast-forward.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3140,7 +3891,10 @@ E.g:</p>
         alt="images/stroom-ui/fatal.svg">
       <span style="padding-left: 10px; padding-top: 5px">fatal.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3152,7 +3906,10 @@ E.g:</p>
         alt="images/stroom-ui/favourites.svg">
       <span style="padding-left: 10px; padding-top: 5px">favourites.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3164,7 +3921,10 @@ E.g:</p>
         alt="images/stroom-ui/feed.svg">
       <span style="padding-left: 10px; padding-top: 5px">feed.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3176,7 +3936,10 @@ E.g:</p>
         alt="images/stroom-ui/field.svg">
       <span style="padding-left: 10px; padding-top: 5px">field.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3188,7 +3951,10 @@ E.g:</p>
         alt="images/stroom-ui/file-formatted.svg">
       <span style="padding-left: 10px; padding-top: 5px">file-formatted.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3200,7 +3966,10 @@ E.g:</p>
         alt="images/stroom-ui/file-raw.svg">
       <span style="padding-left: 10px; padding-top: 5px">file-raw.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3212,7 +3981,10 @@ E.g:</p>
         alt="images/stroom-ui/file.svg">
       <span style="padding-left: 10px; padding-top: 5px">file.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3224,7 +3996,10 @@ E.g:</p>
         alt="images/stroom-ui/filter.svg">
       <span style="padding-left: 10px; padding-top: 5px">filter.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3236,7 +4011,10 @@ E.g:</p>
         alt="images/stroom-ui/folder-tree.svg">
       <span style="padding-left: 10px; padding-top: 5px">folder-tree.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3248,7 +4026,10 @@ E.g:</p>
         alt="images/stroom-ui/folder.svg">
       <span style="padding-left: 10px; padding-top: 5px">folder.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3260,7 +4041,10 @@ E.g:</p>
         alt="images/stroom-ui/format.svg">
       <span style="padding-left: 10px; padding-top: 5px">format.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3272,7 +4056,10 @@ E.g:</p>
         alt="images/stroom-ui/function.svg">
       <span style="padding-left: 10px; padding-top: 5px">function.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3284,7 +4071,10 @@ E.g:</p>
         alt="images/stroom-ui/generate.svg">
       <span style="padding-left: 10px; padding-top: 5px">generate.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3296,7 +4086,10 @@ E.g:</p>
         alt="images/stroom-ui/help.svg">
       <span style="padding-left: 10px; padding-top: 5px">help.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3308,7 +4101,10 @@ E.g:</p>
         alt="images/stroom-ui/hide.svg">
       <span style="padding-left: 10px; padding-top: 5px">hide.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3320,7 +4116,10 @@ E.g:</p>
         alt="images/stroom-ui/history.svg">
       <span style="padding-left: 10px; padding-top: 5px">history.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3332,7 +4131,10 @@ E.g:</p>
         alt="images/stroom-ui/info-deleted.svg">
       <span style="padding-left: 10px; padding-top: 5px">info-deleted.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3344,7 +4146,10 @@ E.g:</p>
         alt="images/stroom-ui/info-warning.svg">
       <span style="padding-left: 10px; padding-top: 5px">info-warning.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3356,7 +4161,10 @@ E.g:</p>
         alt="images/stroom-ui/info.svg">
       <span style="padding-left: 10px; padding-top: 5px">info.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3368,7 +4176,10 @@ E.g:</p>
         alt="images/stroom-ui/jobs.svg">
       <span style="padding-left: 10px; padding-top: 5px">jobs.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3380,7 +4191,10 @@ E.g:</p>
         alt="images/stroom-ui/key.svg">
       <span style="padding-left: 10px; padding-top: 5px">key.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3392,7 +4206,10 @@ E.g:</p>
         alt="images/stroom-ui/lock-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">lock-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3404,7 +4221,10 @@ E.g:</p>
         alt="images/stroom-ui/locked-amber.svg">
       <span style="padding-left: 10px; padding-top: 5px">locked-amber.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3416,7 +4236,10 @@ E.g:</p>
         alt="images/stroom-ui/logo.svg">
       <span style="padding-left: 10px; padding-top: 5px">logo.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3428,7 +4251,10 @@ E.g:</p>
         alt="images/stroom-ui/logout.svg">
       <span style="padding-left: 10px; padding-top: 5px">logout.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3440,7 +4266,10 @@ E.g:</p>
         alt="images/stroom-ui/monitoring.svg">
       <span style="padding-left: 10px; padding-top: 5px">monitoring.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3452,7 +4281,10 @@ E.g:</p>
         alt="images/stroom-ui/move.svg">
       <span style="padding-left: 10px; padding-top: 5px">move.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3464,7 +4296,10 @@ E.g:</p>
         alt="images/stroom-ui/nodes.svg">
       <span style="padding-left: 10px; padding-top: 5px">nodes.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3476,7 +4311,10 @@ E.g:</p>
         alt="images/stroom-ui/oo.svg">
       <span style="padding-left: 10px; padding-top: 5px">oo.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3488,7 +4326,10 @@ E.g:</p>
         alt="images/stroom-ui/operator.svg">
       <span style="padding-left: 10px; padding-top: 5px">operator.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3500,7 +4341,10 @@ E.g:</p>
         alt="images/stroom-ui/password.svg">
       <span style="padding-left: 10px; padding-top: 5px">password.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3512,7 +4356,10 @@ E.g:</p>
         alt="images/stroom-ui/pause.svg">
       <span style="padding-left: 10px; padding-top: 5px">pause.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3524,7 +4371,10 @@ E.g:</p>
         alt="images/stroom-ui/play-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">play-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3536,7 +4386,10 @@ E.g:</p>
         alt="images/stroom-ui/play.svg">
       <span style="padding-left: 10px; padding-top: 5px">play.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3548,7 +4401,10 @@ E.g:</p>
         alt="images/stroom-ui/process.svg">
       <span style="padding-left: 10px; padding-top: 5px">process.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3560,7 +4416,10 @@ E.g:</p>
         alt="images/stroom-ui/properties.svg">
       <span style="padding-left: 10px; padding-top: 5px">properties.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3572,7 +4431,10 @@ E.g:</p>
         alt="images/stroom-ui/raw.svg">
       <span style="padding-left: 10px; padding-top: 5px">raw.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3584,7 +4446,10 @@ E.g:</p>
         alt="images/stroom-ui/refresh-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">refresh-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3596,7 +4461,10 @@ E.g:</p>
         alt="images/stroom-ui/refresh.svg">
       <span style="padding-left: 10px; padding-top: 5px">refresh.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3608,7 +4476,10 @@ E.g:</p>
         alt="images/stroom-ui/remove.svg">
       <span style="padding-left: 10px; padding-top: 5px">remove.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3620,7 +4491,10 @@ E.g:</p>
         alt="images/stroom-ui/ruleset.svg">
       <span style="padding-left: 10px; padding-top: 5px">ruleset.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3632,7 +4506,10 @@ E.g:</p>
         alt="images/stroom-ui/save.svg">
       <span style="padding-left: 10px; padding-top: 5px">save.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3644,7 +4521,10 @@ E.g:</p>
         alt="images/stroom-ui/saveas.svg">
       <span style="padding-left: 10px; padding-top: 5px">saveas.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3656,7 +4536,10 @@ E.g:</p>
         alt="images/stroom-ui/settings-blue.svg">
       <span style="padding-left: 10px; padding-top: 5px">settings-blue.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3668,7 +4551,10 @@ E.g:</p>
         alt="images/stroom-ui/settings-grey.svg">
       <span style="padding-left: 10px; padding-top: 5px">settings-grey.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3680,7 +4566,10 @@ E.g:</p>
         alt="images/stroom-ui/settings.svg">
       <span style="padding-left: 10px; padding-top: 5px">settings.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3692,7 +4581,10 @@ E.g:</p>
         alt="images/stroom-ui/shard-close.svg">
       <span style="padding-left: 10px; padding-top: 5px">shard-close.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3704,7 +4596,10 @@ E.g:</p>
         alt="images/stroom-ui/shard-flush.svg">
       <span style="padding-left: 10px; padding-top: 5px">shard-flush.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3716,7 +4611,10 @@ E.g:</p>
         alt="images/stroom-ui/show.svg">
       <span style="padding-left: 10px; padding-top: 5px">show.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3728,7 +4626,10 @@ E.g:</p>
         alt="images/stroom-ui/spinner.svg">
       <span style="padding-left: 10px; padding-top: 5px">spinner.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3740,7 +4641,10 @@ E.g:</p>
         alt="images/stroom-ui/step-backward-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">step-backward-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3752,7 +4656,10 @@ E.g:</p>
         alt="images/stroom-ui/step-backward.svg">
       <span style="padding-left: 10px; padding-top: 5px">step-backward.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3764,7 +4671,10 @@ E.g:</p>
         alt="images/stroom-ui/step-forward-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">step-forward-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3776,7 +4686,10 @@ E.g:</p>
         alt="images/stroom-ui/step-forward.svg">
       <span style="padding-left: 10px; padding-top: 5px">step-forward.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3788,7 +4701,10 @@ E.g:</p>
         alt="images/stroom-ui/step.svg">
       <span style="padding-left: 10px; padding-top: 5px">step.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3800,7 +4716,10 @@ E.g:</p>
         alt="images/stroom-ui/stepping.svg">
       <span style="padding-left: 10px; padding-top: 5px">stepping.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3812,7 +4731,10 @@ E.g:</p>
         alt="images/stroom-ui/stop-red.svg">
       <span style="padding-left: 10px; padding-top: 5px">stop-red.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3824,7 +4746,13 @@ E.g:</p>
         alt="images/stroom-ui/stop.svg">
       <span style="padding-left: 10px; padding-top: 5px">stop.svg</span>
     </div>
+    
   
+    
+    
+  
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3836,7 +4764,10 @@ E.g:</p>
         alt="images/stroom-ui/table-nested.svg">
       <span style="padding-left: 10px; padding-top: 5px">table-nested.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3848,7 +4779,19 @@ E.g:</p>
         alt="images/stroom-ui/table.svg">
       <span style="padding-left: 10px; padding-top: 5px">table.svg</span>
     </div>
+    
   
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3860,7 +4803,10 @@ E.g:</p>
         alt="images/stroom-ui/tree-closed.svg">
       <span style="padding-left: 10px; padding-top: 5px">tree-closed.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3872,7 +4818,10 @@ E.g:</p>
         alt="images/stroom-ui/tree-leaf.svg">
       <span style="padding-left: 10px; padding-top: 5px">tree-leaf.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3884,7 +4833,10 @@ E.g:</p>
         alt="images/stroom-ui/tree-open.svg">
       <span style="padding-left: 10px; padding-top: 5px">tree-open.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3896,7 +4848,10 @@ E.g:</p>
         alt="images/stroom-ui/undo.svg">
       <span style="padding-left: 10px; padding-top: 5px">undo.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3908,7 +4863,10 @@ E.g:</p>
         alt="images/stroom-ui/unlock-amber.svg">
       <span style="padding-left: 10px; padding-top: 5px">unlock-amber.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3920,7 +4878,10 @@ E.g:</p>
         alt="images/stroom-ui/unlocked-green.svg">
       <span style="padding-left: 10px; padding-top: 5px">unlocked-green.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3932,7 +4893,10 @@ E.g:</p>
         alt="images/stroom-ui/up.svg">
       <span style="padding-left: 10px; padding-top: 5px">up.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3944,7 +4908,10 @@ E.g:</p>
         alt="images/stroom-ui/upload.svg">
       <span style="padding-left: 10px; padding-top: 5px">upload.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3956,7 +4923,10 @@ E.g:</p>
         alt="images/stroom-ui/user-disabled.svg">
       <span style="padding-left: 10px; padding-top: 5px">user-disabled.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3968,7 +4938,10 @@ E.g:</p>
         alt="images/stroom-ui/user.svg">
       <span style="padding-left: 10px; padding-top: 5px">user.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3980,7 +4953,10 @@ E.g:</p>
         alt="images/stroom-ui/users-disabled.svg">
       <span style="padding-left: 10px; padding-top: 5px">users-disabled.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -3992,7 +4968,10 @@ E.g:</p>
         alt="images/stroom-ui/users.svg">
       <span style="padding-left: 10px; padding-top: 5px">users.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4004,6 +4983,7 @@ E.g:</p>
         alt="images/stroom-ui/volumes.svg">
       <span style="padding-left: 10px; padding-top: 5px">volumes.svg</span>
     </div>
+    
   
   </div>
 
@@ -4018,6 +4998,8 @@ E.g:</p>
   <div class="row bg-light">
   
     
+    
+    
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
         style="vertical-align: -0.5em;" 
@@ -4028,7 +5010,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/ElasticSearch.svg">
       <span style="padding-left: 10px; padding-top: 5px">ElasticSearch.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4040,7 +5025,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/StroomStatsStore.svg">
       <span style="padding-left: 10px; padding-top: 5px">StroomStatsStore.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4052,7 +5040,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/analyticOutput.svg">
       <span style="padding-left: 10px; padding-top: 5px">analyticOutput.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4064,7 +5055,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/apache_kafka-icon.svg">
       <span style="padding-left: 10px; padding-top: 5px">apache_kafka-icon.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4076,7 +5070,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/file.svg">
       <span style="padding-left: 10px; padding-top: 5px">file.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4088,7 +5085,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/files.svg">
       <span style="padding-left: 10px; padding-top: 5px">files.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4100,7 +5100,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/hadoop-elephant-logo.svg">
       <span style="padding-left: 10px; padding-top: 5px">hadoop-elephant-logo.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4112,7 +5115,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/id.svg">
       <span style="padding-left: 10px; padding-top: 5px">id.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4124,7 +5130,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/index.svg">
       <span style="padding-left: 10px; padding-top: 5px">index.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4136,7 +5145,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/json.svg">
       <span style="padding-left: 10px; padding-top: 5px">json.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4148,7 +5160,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/kafka.svg">
       <span style="padding-left: 10px; padding-top: 5px">kafka.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4160,7 +5175,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/recordCount.svg">
       <span style="padding-left: 10px; padding-top: 5px">recordCount.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4172,7 +5190,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/recordOutput.svg">
       <span style="padding-left: 10px; padding-top: 5px">recordOutput.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4184,7 +5205,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/referenceData.svg">
       <span style="padding-left: 10px; padding-top: 5px">referenceData.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4196,7 +5220,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/search.svg">
       <span style="padding-left: 10px; padding-top: 5px">search.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4208,7 +5235,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/solr.svg">
       <span style="padding-left: 10px; padding-top: 5px">solr.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4220,7 +5250,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/split.svg">
       <span style="padding-left: 10px; padding-top: 5px">split.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4232,7 +5265,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/statistics.svg">
       <span style="padding-left: 10px; padding-top: 5px">statistics.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4244,7 +5280,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/stream.svg">
       <span style="padding-left: 10px; padding-top: 5px">stream.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4256,7 +5295,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/stroomStats.svg">
       <span style="padding-left: 10px; padding-top: 5px">stroomStats.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4268,7 +5310,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/text.svg">
       <span style="padding-left: 10px; padding-top: 5px">text.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4280,7 +5325,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/xml.svg">
       <span style="padding-left: 10px; padding-top: 5px">xml.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4292,7 +5340,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/xmlSearch.svg">
       <span style="padding-left: 10px; padding-top: 5px">xmlSearch.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4304,7 +5355,10 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/xsd.svg">
       <span style="padding-left: 10px; padding-top: 5px">xsd.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4316,6 +5370,7 @@ E.g:</p>
         alt="images/stroom-ui/pipeline/xslt.svg">
       <span style="padding-left: 10px; padding-top: 5px">xslt.svg</span>
     </div>
+    
   
   </div>
 
@@ -4330,6 +5385,8 @@ E.g:</p>
   <div class="row bg-light">
   
     
+    
+    
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
         style="vertical-align: -0.5em;" 
@@ -4340,7 +5397,10 @@ E.g:</p>
         alt="images/stroom-ui/document/AnalyticOutputStore.svg">
       <span style="padding-left: 10px; padding-top: 5px">AnalyticOutputStore.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4352,7 +5412,10 @@ E.g:</p>
         alt="images/stroom-ui/document/AnnotationsIndex.svg">
       <span style="padding-left: 10px; padding-top: 5px">AnnotationsIndex.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4364,7 +5427,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Dashboard.svg">
       <span style="padding-left: 10px; padding-top: 5px">Dashboard.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4376,7 +5442,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Dictionary.svg">
       <span style="padding-left: 10px; padding-top: 5px">Dictionary.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4388,7 +5457,10 @@ E.g:</p>
         alt="images/stroom-ui/document/ElasticIndex.svg">
       <span style="padding-left: 10px; padding-top: 5px">ElasticIndex.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4400,7 +5472,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Feed.svg">
       <span style="padding-left: 10px; padding-top: 5px">Feed.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4412,7 +5487,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Folder.svg">
       <span style="padding-left: 10px; padding-top: 5px">Folder.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4424,7 +5502,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Index.svg">
       <span style="padding-left: 10px; padding-top: 5px">Index.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4436,7 +5517,10 @@ E.g:</p>
         alt="images/stroom-ui/document/KafkaConfig.svg">
       <span style="padding-left: 10px; padding-top: 5px">KafkaConfig.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4448,7 +5532,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Pipeline.svg">
       <span style="padding-left: 10px; padding-top: 5px">Pipeline.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4460,7 +5547,10 @@ E.g:</p>
         alt="images/stroom-ui/document/ReceiveDataRuleSet.svg">
       <span style="padding-left: 10px; padding-top: 5px">ReceiveDataRuleSet.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4472,7 +5562,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Script.svg">
       <span style="padding-left: 10px; padding-top: 5px">Script.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4484,7 +5577,10 @@ E.g:</p>
         alt="images/stroom-ui/document/SelectAllOrNone.svg">
       <span style="padding-left: 10px; padding-top: 5px">SelectAllOrNone.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4496,7 +5592,10 @@ E.g:</p>
         alt="images/stroom-ui/document/SolrIndex.svg">
       <span style="padding-left: 10px; padding-top: 5px">SolrIndex.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4508,7 +5607,10 @@ E.g:</p>
         alt="images/stroom-ui/document/StatisticStore.svg">
       <span style="padding-left: 10px; padding-top: 5px">StatisticStore.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4520,7 +5622,10 @@ E.g:</p>
         alt="images/stroom-ui/document/StroomStatsStore.svg">
       <span style="padding-left: 10px; padding-top: 5px">StroomStatsStore.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4532,7 +5637,10 @@ E.g:</p>
         alt="images/stroom-ui/document/System.svg">
       <span style="padding-left: 10px; padding-top: 5px">System.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4544,7 +5652,10 @@ E.g:</p>
         alt="images/stroom-ui/document/TextConverter.svg">
       <span style="padding-left: 10px; padding-top: 5px">TextConverter.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4556,7 +5667,10 @@ E.g:</p>
         alt="images/stroom-ui/document/Visualisation.svg">
       <span style="padding-left: 10px; padding-top: 5px">Visualisation.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4568,7 +5682,10 @@ E.g:</p>
         alt="images/stroom-ui/document/XMLSchema.svg">
       <span style="padding-left: 10px; padding-top: 5px">XMLSchema.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4580,7 +5697,10 @@ E.g:</p>
         alt="images/stroom-ui/document/XSLT.svg">
       <span style="padding-left: 10px; padding-top: 5px">XSLT.svg</span>
     </div>
+    
   
+    
+    
     
     <div style="padding-top: 10px;" class="col-md-4">
       <img 
@@ -4592,6 +5712,124 @@ E.g:</p>
         alt="images/stroom-ui/document/searchable.svg">
       <span style="padding-left: 10px; padding-top: 5px">searchable.svg</span>
     </div>
+    
+  
+  </div>
+
+
+
+<h2 id="dashboard-icons">Dashboard icons</h2>
+<p>Icons used on the Dashboard</p>
+
+
+
+
+  <div class="row bg-light">
+  
+    
+    
+    
+    <div style="padding-top: 10px;" class="col-md-4">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="../../../images/stroom-ui/dashboard/expression.png" 
+        width="25px" 
+        title="images/stroom-ui/dashboard/expression.png" 
+        alt="images/stroom-ui/dashboard/expression.png">
+      <span style="padding-left: 10px; padding-top: 5px">expression.png</span>
+    </div>
+    
+  
+    
+    
+    
+    <div style="padding-top: 10px;" class="col-md-4">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="../../../images/stroom-ui/dashboard/filter.png" 
+        width="25px" 
+        title="images/stroom-ui/dashboard/filter.png" 
+        alt="images/stroom-ui/dashboard/filter.png">
+      <span style="padding-left: 10px; padding-top: 5px">filter.png</span>
+    </div>
+    
+  
+    
+    
+    
+    <div style="padding-top: 10px;" class="col-md-4">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="../../../images/stroom-ui/dashboard/format.png" 
+        width="25px" 
+        title="images/stroom-ui/dashboard/format.png" 
+        alt="images/stroom-ui/dashboard/format.png">
+      <span style="padding-left: 10px; padding-top: 5px">format.png</span>
+    </div>
+    
+  
+    
+    
+    
+    <div style="padding-top: 10px;" class="col-md-4">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="../../../images/stroom-ui/dashboard/group.png" 
+        width="25px" 
+        title="images/stroom-ui/dashboard/group.png" 
+        alt="images/stroom-ui/dashboard/group.png">
+      <span style="padding-left: 10px; padding-top: 5px">group.png</span>
+    </div>
+    
+  
+    
+    
+    
+    <div style="padding-top: 10px;" class="col-md-4">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="../../../images/stroom-ui/dashboard/sortaz.png" 
+        width="25px" 
+        title="images/stroom-ui/dashboard/sortaz.png" 
+        alt="images/stroom-ui/dashboard/sortaz.png">
+      <span style="padding-left: 10px; padding-top: 5px">sortaz.png</span>
+    </div>
+    
+  
+    
+    
+    
+    <div style="padding-top: 10px;" class="col-md-4">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="../../../images/stroom-ui/dashboard/sortoff.png" 
+        width="25px" 
+        title="images/stroom-ui/dashboard/sortoff.png" 
+        alt="images/stroom-ui/dashboard/sortoff.png">
+      <span style="padding-left: 10px; padding-top: 5px">sortoff.png</span>
+    </div>
+    
+  
+    
+    
+    
+    <div style="padding-top: 10px;" class="col-md-4">
+      <img 
+        style="vertical-align: -0.5em;" 
+        class="" 
+        src="../../../images/stroom-ui/dashboard/sortza.png" 
+        width="25px" 
+        title="images/stroom-ui/dashboard/sortza.png" 
+        alt="images/stroom-ui/dashboard/sortza.png">
+      <span style="padding-left: 10px; padding-top: 5px">sortza.png</span>
+    </div>
+    
   
   </div>
 

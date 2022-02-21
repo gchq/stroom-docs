@@ -25,10 +25,47 @@
         
         &lt;h2 id=&#34;getting-data-into-stroom&#34;&gt;Getting data into Stroom&lt;/h2&gt;
 &lt;h3 id=&#34;create-the-feed&#34;&gt;Create the feed&lt;/h3&gt;
-&lt;p&gt;In real life you might configure Stroom to watch for new files in a directory. In this tutorial we&amp;rsquo;ll be uploading data but the result will be the same: raw event data sitting on a feed.&lt;/p&gt;
+&lt;p&gt;Stroom organises the data it ingests and stores by 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#feed&#34; title=&#34;Glossary entry for Feed&#34;&gt;
+    &lt;span&gt;Feed&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.
+A feed will typically be created for each client system and data format.&lt;/p&gt;
+&lt;p&gt;Data is sent to a Stroom feed using a POST to the &lt;code&gt;/datafeed&lt;/code&gt; 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#api&#34; title=&#34;Glossary entry for API&#34;&gt;
+    &lt;span&gt;API&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.
+We will use &lt;code&gt;curl&lt;/code&gt; to represent a client system &lt;a href=&#34;../../docs/sending-data/&#34;&gt;sending data&lt;/a&gt; into Stroom.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    &lt;p&gt;The &lt;em&gt;stroom_core_test&lt;/em&gt; stack that you are running includes a copy of the content created by this quick start guide in the folder &lt;em&gt;Stroom 101&lt;/em&gt;.
+If you want to skip the steps involving creating content then you can just use the pre-loaded &lt;em&gt;Stroom 101&lt;/em&gt; content. To delete the folder and all its content, right-click on it and then click delete.&lt;/p&gt;
+&lt;p&gt;We think you will learn more by deleting this pre-loaded content and following all the steps.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;A lot of Stroom&amp;rsquo;s functionality is available through right-click context menus. If you right-click  &lt;em&gt;System&lt;/em&gt; in the tree you can create new things. Create a new folder and call it something like &lt;code&gt;Stroom 101&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;A lot of Stroom&amp;rsquo;s functionality is available through right-click context menus.
+If you right-click  &lt;em&gt;System&lt;/em&gt; in the tree you can create new child items.
+Create a new folder and call it something like &lt;code&gt;Stroom 101&lt;/code&gt;:&lt;/p&gt;
 
 
 
@@ -72,7 +109,29 @@
 
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Right-click again and create a feed. The name needs to be capitalised, e.g. &lt;code&gt;CSV_IN&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Right-click on the new &lt;em&gt;Stroom Quick Start&lt;/em&gt; folder then click 
+
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;../../images/stroom-ui/add.svg&#34; width=&#34;16px&#34; title=&#34;title&#34; alt=&#34;add.svg&#34;&gt;
+ &lt;em&gt;New&lt;/em&gt; =&amp;gt; 
+
+
+
+
+
+
+
+
+&lt;img class=&#34;stroom-icon&#34; src=&#34;../../images/stroom-ui/feed.svg&#34; width=&#34;16px&#34; title=&#34;Feed&#34; alt=&#34;feed.svg&#34;&gt;
+ &lt;em&gt;Feed&lt;/em&gt; to create a feed.
+The name needs to be capitalised and unique across all feeds.
+Name it &lt;code&gt;CSV_FEED&lt;/code&gt;.&lt;/p&gt;
 
 
 
@@ -114,117 +173,46 @@
   &lt;/a&gt;
 &lt;/div&gt;
 
+&lt;p&gt;This will open a new tab for the feed.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;This will open a new tab for the feed. We want to add some data to the feed so click on &lt;em&gt;Data&lt;/em&gt; at the top of the tab.&lt;/p&gt;
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
-
-  &lt;a title=&#34;images/quick-start-guide/feed/go-feed-data.png&#34; href=&#34;../../images/quick-start-guide/feed/go-feed-data.png&#34;&gt;
-    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
-      
-      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/quick-start-guide/feed/go-feed-data.png&#34; alt=&#34;images/quick-start-guide/feed/go-feed-data.png&#34;&gt;
-      
-
-      
-      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
-        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
-        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;The Data section of a feed&lt;/figcaption&gt;
-      &lt;/div&gt;
-      
-    &lt;/figure&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Then click the green up arrow 
-
-
-
-
-
-
-
-&lt;img class=&#34;stroom-icon&#34; src=&#34;../../images/stroom-ui/upload.svg&#34; width=&#34;16px&#34; title=&#34;Upload&#34; alt=&#34;upload.svg&#34;&gt;
-
-to get the file upload dialog.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;We&amp;rsquo;re going to be putting in unprocessed events, known in Stroom as &lt;em&gt;raw&lt;/em&gt; events. That&amp;rsquo;s the type of stream this feed will contain, so that&amp;rsquo;s the Stream Type you need to select.&lt;/p&gt;
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
-
-  &lt;a title=&#34;images/quick-start-guide/feed/upload-dialog.png&#34; href=&#34;../../images/quick-start-guide/feed/upload-dialog.png&#34;&gt;
-    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
-      
-      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/quick-start-guide/feed/upload-dialog.png&#34; alt=&#34;images/quick-start-guide/feed/upload-dialog.png&#34;&gt;
-      
-
-      
-      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
-        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
-        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Setting the Stream Type&lt;/figcaption&gt;
-      &lt;/div&gt;
-      
-    &lt;/figure&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/li&gt;
-&lt;li&gt;
+&lt;p&gt;We want to emulate a client system sending some data to the feed, so from the command line do&lt;/p&gt;
 &lt;p&gt;Download 
 
 
 
-&lt;a href=&#34;../../files/quick-start-guide/mock_stroom_data.csv&#34; class=&#34;&#34; style=&#34;&#34;&gt;this file&lt;/a&gt;, then click &lt;em&gt;choose file&lt;/em&gt; from the dialog, select the file, and then &lt;em&gt;ok&lt;/em&gt; everything until you&amp;rsquo;re back at the feed.&lt;/p&gt;
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;../../files/quick-start-guide/mock_stroom_data.csv&#34; class=&#34;&#34; style=&#34;&#34;&gt;mock_stroom_data.csv&lt;/a&gt;
+  &lt;i class=&#34;external-link-icon fas fa-file-download fa-sm text-secondary&#34; title=&#34;External link&#34;&gt;&lt;/i&gt;
+&lt;/span&gt; to your computer.
+Then open a terminal session and change directory to the location of the downloaded file.&lt;/p&gt;
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -k --data-binary @mock_stroom_data.csv &amp;#34;https://localhost/stroom/datafeeddirect&amp;#34; -H &amp;#34;Feed:CSV_FEED&amp;#34; -H &amp;#34;System:TEST_SYSTEM&amp;#34; -H &amp;#34;Environment:TEST&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;That&amp;rsquo;s it, there&amp;rsquo;s now data in Stroom. You should be able to see it in the data table (you might need to click the refresh 
+&lt;p&gt;The &lt;code&gt;-H&lt;/code&gt; arguments add HTTP headers to the HTTP POST request.
+Stroom uses these headers to determine how to process the data, see &lt;a href=&#34;../../docs/sending-data/header-arguments/&#34;&gt;Header Arguments&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In this example we used &lt;code&gt;/datafeeddirect&lt;/code&gt; rather than &lt;code&gt;/datafeed&lt;/code&gt;.&lt;br&gt;
+The former goes directly into Stroom, the latter goes via Stoom Proxy where it is aggregated before being picked up by Stroom.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That&amp;rsquo;s it, there&amp;rsquo;s now data in Stroom.
+In the &lt;em&gt;CSV_FEED&lt;/em&gt; tab, ensure the &lt;em&gt;Data&lt;/em&gt; sub-tab is selected then click the new entry in the top pane and finnaly click the 
+
 
 
 
@@ -233,8 +221,8 @@ to get the file upload dialog.&lt;/p&gt;
 
 
 &lt;img class=&#34;stroom-icon&#34; src=&#34;../../images/stroom-ui/refresh.svg&#34; width=&#34;16px&#34; title=&#34;Refresh&#34; alt=&#34;refresh.svg&#34;&gt;
-
-button:&lt;/p&gt;
+ button:
+You should be able to see it in the data table in the bottom pane.&lt;/p&gt;
 
 
 
@@ -276,7 +264,8 @@ button:&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Now you can do all sorts of things with the data: transform it, visualise it, index it. It&amp;rsquo;s &lt;a href=&#34;../../docs/quick-start-guide/process/&#34;&gt;Pipelines&lt;/a&gt; that allow all these things to happen.&lt;/p&gt;
+&lt;p&gt;Now you can do all sorts of things with the data: transform it, visualise it, index it.
+It&amp;rsquo;s &lt;a href=&#34;../../docs/quick-start-guide/process/&#34;&gt;Pipelines&lt;/a&gt; that allow all these things to happen.&lt;/p&gt;
 
       </description>
     </item>

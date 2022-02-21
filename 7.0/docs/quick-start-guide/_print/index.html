@@ -2244,16 +2244,14 @@ This is the multi-page printable view of this section.
       
       <span class="" style="font-size: smaller">Quick start test data</span>
       
-      (<a href="../../../files/quick-start-guide/mock_stroom_data.csv" class="" style="font-size: smaller">Download mock_stroom_data.csv</a>)
+      (
+      <a href="../../../files/quick-start-guide/mock_stroom_data.csv" class="" style="font-size: smaller">Download mock_stroom_data.csv</a>
+      <i class="external-link-icon fas fa-file-download fa-sm text-secondary" title="External link"></i>
+      )
     </div>
   </div>
 </div>
 
-<pre><code class="language-csv">id,guid,from_ip,to_ip,application
-1,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
-2,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
-...
-</code></pre>
 <p>To this XML:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;Events xmlns:stroom=&quot;stroom&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
@@ -2276,17 +2274,27 @@ This is the multi-page printable view of this section.
 <p>You will go from a clean vanilla Stroom to having a simple <a href="../../../docs/user-guide/pipelines/">pipeline</a> that takes in CSV data and outputs that data transformed into XML.
 Stroom is a generic and powerful tool for ingesting and processing data: it&rsquo;s flexible because it&rsquo;s generic so if you do want to start processing data we would recommend you follow this tutorial otherwise you&rsquo;ll find yourself struggling.</p>
 <p>We&rsquo;re going to do the following:</p>
-<ol>
-<li><a href="../../../docs/quick-start-guide/running/">Get, configure, and run Stroom</a></li>
-<li><a href="../../../docs/quick-start-guide/feed/">Get some data into Stroom</a></li>
-<li><a href="../../../docs/quick-start-guide/process/">Set up a pipeline to process the data</a></li>
-<li><a href="../../../docs/quick-start-guide/indexing/">Index the data</a></li>
-<li><a href="../../../docs/quick-start-guide/dashboard/">Show the data on a dashboard</a></li>
-</ol>
-<p>All the things we create here are available as a <a href="https://github.com/gchq/stroom-content/releases/tag/stroom-101-v1.0">content pack (external link)</a>, so if you just wanted to see it running you could get there quite easily.</p>
+<p>All the things we create here are available as a 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-content/releases/tag/stroom-101-v1.0" target="_blank" class="" style="" title="content pack (external link)">
+    <span>content pack</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, so if you just wanted to see it running you could get there quite easily.</p>
 <blockquote>
 <p><strong>Note:</strong> The CSV data used in <em>mock_stroom_data.csv</em> (linked to above) is randomly generated and any association with any real world IP address or name is entirely coincidental.</p>
 </blockquote>
+<p>We&rsquo;re going to do follow the links below in this order.</p>
+<p>If you don&rsquo;t want to follow all the steps to create the example content then the <em>stroom_core_test</em> stack includes it in the folder <em>Stroom 101</em>.</p>
 
 </div>
 </div>
@@ -2311,26 +2319,25 @@ Stroom is a generic and powerful tool for ingesting and processing data: it&rsqu
 <div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
   <h1 id="pg-1c39aa06b3056b71debaa0987b1e804b">1 - Running Stroom</h1>
-    
+    <div class="lead">How to install and run Stroom locally.</div>
 	<h2 id="getting-and-running-stroom">Getting and Running Stroom</h2>
 <p>For this quick start you want a simple single-node Stroom.
-You will want to follow <a href="../../../community/dev-guide/docker-running/">these instructions</a>.
-They do require Docker and Docker Compose, so make sure you&rsquo;ve installed those first.</p>
-<p>At the risk of sowing confusion you should know that there are different ways of running Stroom. Here are the full options:</p>
-<ul>
-<li><a href="../../../community/dev-guide/docker-running/">Run using Docker Hub images (recommended)</a></li>
-<li><a href="../../../docs/install-guide/stroom-app-install/">Install a stroom v5.x release</a></li>
-<li><a href="../../../docs/install-guide/stroom-6-installation/">Install a stroom v6.x release</a></li>
-<li>From source you can:
-<ul>
-<li><a href="../../../community/dev-guide/stroom-in-an-ide/">Build and run from IntelliJ</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="basic-configuration">Basic configuration</h2>
-<h3 id="enable-processing-of-data-streams">Enable processing of data streams</h3>
-<p>Automatic processing isn&rsquo;t enabled by default: you might first want to check other settings (for example  nodes, properties, and volumes). So we need to enable Stream Processing.
-This is in Tools -&gt; Jobs menu::
+You will want to follow <a href="../../../docs/install-guide/single-node-docker/">these instructions</a> for setting up a single node <em>stroom_core_test</em> stack installation in the simplest way.</p>
+<h2 id="first-look">First look</h2>
+<p>Once you log into Stroom you will see that it comes pre-loaded with some content as can be seen in the left hand explorer pane.
+The <em>stroom_core_test</em> stack includes <em>stroom-log-sender</em> to forward the application, user and request logs generated by Stroom, Stroom Proxy and Nginx to Stroom.
+This stack is pre-configured to have processing enabled on boot so Stroom will start receiving logs and processing them.</p>
+<p>Double click on the <em>System</em> entry 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/oo.svg" width="16px" title="System" alt="oo.svg">
+ in the explorer tree to see all raw and processed streams.</p>
 
 
 
@@ -2356,107 +2363,23 @@ This is in Tools -&gt; Jobs menu::
 
 <div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
 
-  <a title="images/quick-start-guide/running/go-jobs.png" href="../../../images/quick-start-guide/running/go-jobs.png">
+  <a title="images/quick-start-guide/running/system.png" href="../../../images/quick-start-guide/running/system.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/running/go-jobs.png" alt="images/quick-start-guide/running/go-jobs.png">
+      <img class="card-img-top" src="../../../images/quick-start-guide/running/system.png" alt="images/quick-start-guide/running/system.png">
       
 
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Opening the jobs menu</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-</p>
-<p>Next we need to enable Stream Processor jobs:</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/running/configure-jobs.png" href="../../../images/quick-start-guide/running/configure-jobs.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/running/configure-jobs.png" alt="images/quick-start-guide/running/configure-jobs.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Enabling stream processing</figcaption>
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Viewing all streams</figcaption>
       </div>
       
     </figure>
   </a>
 </div>
 
-<p>Below the list of jobs is the properties pane. The Stream Processor&rsquo;s properties show the list of nodes. You should have one. You&rsquo;ll need to enable it by scrolling right:</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/running/configure-jobs-stream.png" href="../../../images/quick-start-guide/running/configure-jobs-stream.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/running/configure-jobs-stream.png" alt="images/quick-start-guide/running/configure-jobs-stream.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Enabling the nodes for the stream processor</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>So now we&rsquo;ve done that lets <a href="../feed">get data into stroom</a>.</p>
+<p>So now we&rsquo;ve got Stroom up and running lets <a href="../../../docs/quick-start-guide/feed/">get data into Stroom</a></p>
 
 </div>
 
@@ -2479,10 +2402,47 @@ This is in Tools -&gt; Jobs menu::
     <div class="lead">How to get data into Stroom.</div>
 	<h2 id="getting-data-into-stroom">Getting data into Stroom</h2>
 <h3 id="create-the-feed">Create the feed</h3>
-<p>In real life you might configure Stroom to watch for new files in a directory. In this tutorial we&rsquo;ll be uploading data but the result will be the same: raw event data sitting on a feed.</p>
+<p>Stroom organises the data it ingests and stores by 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#feed" title="Glossary entry for Feed">
+    <span>Feed</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.
+A feed will typically be created for each client system and data format.</p>
+<p>Data is sent to a Stroom feed using a POST to the <code>/datafeed</code> 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#api" title="Glossary entry for API">
+    <span>API</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.
+We will use <code>curl</code> to represent a client system <a href="../../../docs/sending-data/">sending data</a> into Stroom.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>The <em>stroom_core_test</em> stack that you are running includes a copy of the content created by this quick start guide in the folder <em>Stroom 101</em>.
+If you want to skip the steps involving creating content then you can just use the pre-loaded <em>Stroom 101</em> content. To delete the folder and all its content, right-click on it and then click delete.</p>
+<p>We think you will learn more by deleting this pre-loaded content and following all the steps.</p>
+
+
+</div>
+
+
 <ol>
 <li>
-<p>A lot of Stroom&rsquo;s functionality is available through right-click context menus. If you right-click  <em>System</em> in the tree you can create new things. Create a new folder and call it something like <code>Stroom 101</code>:</p>
+<p>A lot of Stroom&rsquo;s functionality is available through right-click context menus.
+If you right-click  <em>System</em> in the tree you can create new child items.
+Create a new folder and call it something like <code>Stroom 101</code>:</p>
 
 
 
@@ -2526,7 +2486,29 @@ This is in Tools -&gt; Jobs menu::
 
 </li>
 <li>
-<p>Right-click again and create a feed. The name needs to be capitalised, e.g. <code>CSV_IN</code>.</p>
+<p>Right-click on the new <em>Stroom Quick Start</em> folder then click 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="title" alt="add.svg">
+ <em>New</em> =&gt; 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/feed.svg" width="16px" title="Feed" alt="feed.svg">
+ <em>Feed</em> to create a feed.
+The name needs to be capitalised and unique across all feeds.
+Name it <code>CSV_FEED</code>.</p>
 
 
 
@@ -2568,117 +2550,46 @@ This is in Tools -&gt; Jobs menu::
   </a>
 </div>
 
+<p>This will open a new tab for the feed.</p>
 </li>
 <li>
-<p>This will open a new tab for the feed. We want to add some data to the feed so click on <em>Data</em> at the top of the tab.</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/feed/go-feed-data.png" href="../../../images/quick-start-guide/feed/go-feed-data.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/feed/go-feed-data.png" alt="images/quick-start-guide/feed/go-feed-data.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Data section of a feed</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-</li>
-<li>
-<p>Then click the green up arrow 
-
-
-
-
-
-
-
-<img class="stroom-icon" src="../../../images/stroom-ui/upload.svg" width="16px" title="Upload" alt="upload.svg">
-
-to get the file upload dialog.</p>
-</li>
-<li>
-<p>We&rsquo;re going to be putting in unprocessed events, known in Stroom as <em>raw</em> events. That&rsquo;s the type of stream this feed will contain, so that&rsquo;s the Stream Type you need to select.</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/feed/upload-dialog.png" href="../../../images/quick-start-guide/feed/upload-dialog.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/feed/upload-dialog.png" alt="images/quick-start-guide/feed/upload-dialog.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Setting the Stream Type</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-</li>
-<li>
+<p>We want to emulate a client system sending some data to the feed, so from the command line do</p>
 <p>Download 
 
 
 
-<a href="../../../files/quick-start-guide/mock_stroom_data.csv" class="" style="">this file</a>, then click <em>choose file</em> from the dialog, select the file, and then <em>ok</em> everything until you&rsquo;re back at the feed.</p>
+
+<span class="external-link">
+  <a href="../../../files/quick-start-guide/mock_stroom_data.csv" class="" style="">mock_stroom_data.csv</a>
+  <i class="external-link-icon fas fa-file-download fa-sm text-secondary" title="External link"></i>
+</span> to your computer.
+Then open a terminal session and change directory to the location of the downloaded file.</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @mock_stroom_data.csv &#34;https://localhost/stroom/datafeeddirect&#34; -H &#34;Feed:CSV_FEED&#34; -H &#34;System:TEST_SYSTEM&#34; -H &#34;Environment:TEST&#34;</code></pre>
+</div>
+
 </li>
 </ol>
-<p>That&rsquo;s it, there&rsquo;s now data in Stroom. You should be able to see it in the data table (you might need to click the refresh 
+<p>The <code>-H</code> arguments add HTTP headers to the HTTP POST request.
+Stroom uses these headers to determine how to process the data, see <a href="../../../docs/sending-data/header-arguments/">Header Arguments</a> for more details.</p>
+<blockquote>
+<p>In this example we used <code>/datafeeddirect</code> rather than <code>/datafeed</code>.<br>
+The former goes directly into Stroom, the latter goes via Stoom Proxy where it is aggregated before being picked up by Stroom.</p>
+</blockquote>
+<p>That&rsquo;s it, there&rsquo;s now data in Stroom.
+In the <em>CSV_FEED</em> tab, ensure the <em>Data</em> sub-tab is selected then click the new entry in the top pane and finnaly click the 
+
 
 
 
@@ -2687,8 +2598,8 @@ to get the file upload dialog.</p>
 
 
 <img class="stroom-icon" src="../../../images/stroom-ui/refresh.svg" width="16px" title="Refresh" alt="refresh.svg">
-
-button:</p>
+ button:
+You should be able to see it in the data table in the bottom pane.</p>
 
 
 
@@ -2730,7 +2641,8 @@ button:</p>
   </a>
 </div>
 
-<p>Now you can do all sorts of things with the data: transform it, visualise it, index it. It&rsquo;s <a href="../../../docs/quick-start-guide/process/">Pipelines</a> that allow all these things to happen.</p>
+<p>Now you can do all sorts of things with the data: transform it, visualise it, index it.
+It&rsquo;s <a href="../../../docs/quick-start-guide/process/">Pipelines</a> that allow all these things to happen.</p>
 
 </div>
 
@@ -2751,11 +2663,11 @@ button:</p>
     
   <h1 id="pg-16e5a05f6c9d4f4f0f787350b2885b63">3 - Pipeline Processing</h1>
     <div class="lead">Creating pipelines to process and transform data.</div>
-	<h2 id="create-a-pipeline">Create a pipeline</h2>
-<p>Pipelines control how data is processed in Stroom.
+	<p>Pipelines control how data is processed in Stroom.
 Typically you&rsquo;re going to want to do a lot of the same stuff for every pipeline, i.e. similar transformations, indexing, writing out data.
 You can actually create a template pipeline and inherit from it, tweaking what you need to for this or that feed.
 We&rsquo;re not doing that now because we want to show how to create one from scratch.</p>
+<h2 id="create-a-pipeline">Create a pipeline</h2>
 
 
 
@@ -2798,62 +2710,39 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 </div>
 
 <ol>
-<li>Create a pipeline by right-clicking our <code>Stroom 101</code> folder. Call it something like <code>CSV to XML pipeline</code>.</li>
-<li>Select <em>Structure</em> from the top of the new tab. This is the most important view for the pipeline because it shows what will actually happen on the pipeline.</li>
-<li>Check <em>Advanced Mode</em> so that we can actually edit things.</li>
+<li>
+<p>Create a pipeline by right-clicking our <code>Stroom 101</code> folder. Call it something like <code>CSV to XML pipeline</code>.</p>
+</li>
+<li>
+<p>Select <em>Structure</em> from the top of the new tab. This is the most important view for the pipeline because it shows what will actually happen on the pipeline.</p>
+</li>
 </ol>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/configure-pipeline-advanced.png" href="../../../images/quick-start-guide/process/configure-pipeline-advanced.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/configure-pipeline-advanced.png" alt="images/quick-start-guide/process/configure-pipeline-advanced.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Turn on 'Advanced Mode'</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>We already have a <code>Source</code> element. Unlike most other pipeline elements this isn&rsquo;t something we need to configure. It&rsquo;s just there to show the starting point. Data gets into the pipeline via other means - we&rsquo;ll describe this in detail later.</p>
+<p>We already have a <code>Source</code> element.
+Unlike most other pipeline elements this isn&rsquo;t something we need to configure.
+It&rsquo;s just there to show the starting point.
+Data gets into the pipeline via other means - we&rsquo;ll describe this in detail later.</p>
 <h3 id="add-a-data-splitter">Add a data splitter</h3>
-<p>Data splitters are powerful, and there is <a href="../../../docs/user-guide/data-splitter/">a lot we can say</a> about them. Here we&rsquo;re just going to make a basic one.</p>
+<p>Data splitters are powerful, and there is <a href="../../../docs/user-guide/data-splitter/">a lot we can say</a> about them.
+Here we&rsquo;re just going to make a basic one.</p>
 <h4 id="create-a-csv-splitter">Create a CSV splitter</h4>
-<p>We have CSV in the following form:</p>
-<pre><code class="language-text">id,guid,from_ip,to_ip,application
+<p>We have CSV data in the following form:</p>
+<pre><code class="language-csv">id,guid,from_ip,to_ip,application
 1,10990cde-1084-4006-aaf3-7fe52b62ce06,159.161.108.105,217.151.32.69,Tres-Zap
 2,633aa1a8-04ff-442d-ad9a-03ce9166a63a,210.14.34.58,133.136.48.23,Sub-Ex
 </code></pre>
-<p>To process this we need to know if there&rsquo;s a header row, and what the delimiters are. This is a job for a <em>Data Splitter</em>.</p>
-<p>The splitter is actually a type of <em>Text Converter</em>, so lets create one of those:</p>
+<p>To process this we need to know if there&rsquo;s a header row, and what the delimiters are.
+This is a job for a <em>Data Splitter</em>.</p>
+<p>The splitter is actually a type of <em>Text Converter</em> 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/TextConverter.svg" width="16px" title="Text converter" alt="document/TextConverter.svg">
+, so lets create one of those:</p>
 
 
 
@@ -2895,7 +2784,9 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   </a>
 </div>
 
-<p>Call it something like <code>CSV splitter</code>. In the new tab you need to tell the <em>Text Converter</em> that it&rsquo;ll be a <em>Data Splitter</em>:</p>
+<p>Call it something like <code>CSV splitter</code>.
+In the new tab you need to tell the <em>Text Converter</em> that it&rsquo;ll be a <em>Data Splitter</em>:</p>
+<p>Click the <em>Settings</em> sub-tab then select <em>Data Splitter</em> in the <em>Converter Type</em> drop-down.</p>
 
 
 
@@ -2937,9 +2828,15 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   </a>
 </div>
 
-<p>Now go to the <em>Conversion</em> tab. What you need to put in here is specific to the built-in <em>Data Splitter</em> functionality, so I&rsquo;m just going to tell you what you&rsquo;re going to need:</p>
+<p>Now go to the <em>Conversion</em> tab.
+What you need to put in here is specific to the built-in <em>Data Splitter</em> functionality, so I&rsquo;m just going to tell you what you&rsquo;re going to need:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;dataSplitter xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.1.xsd&quot; version=&quot;3.0&quot;&gt;
+&lt;dataSplitter
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+
   &lt;!-- The first line contains the field names --&gt;
   &lt;split delimiter=&quot;\n&quot; maxMatch=&quot;1&quot;&gt;
     &lt;group&gt;
@@ -2959,7 +2856,11 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   &lt;/split&gt;
 &lt;/dataSplitter&gt;
 </code></pre>
-<p>You can see that it uses the <code>data-splitter-v3.0.1.xsd</code> that we imported earlier. Save it by clicking the save icon 
+<blockquote>
+<p>This guide assumes you are running the <em>stroom_core_test</em> stack which has the <em>data_splitter-v3.0.xsd</em> schema pre-loaded.</p>
+</blockquote>
+<p>Save it by clicking the save button 
+
 
 
 
@@ -2969,7 +2870,11 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 <img class="stroom-icon" src="../../../images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
 .</p>
-<p>So we now have a configured, re-usable data splitter for CSV files that have headers. We need to add this to our pipeline as a filter, so head back to the pipeline&rsquo;s Structure section and add a DSParser, as below. Call it something like <code>CSV splitter filter</code>:
+<p>So we now have a configured, re-usable data splitter for CSV files that have headers.
+We need to add this to our pipeline as a filter, so head back to the pipeline&rsquo;s Structure section and add a DSParser.</p>
+<ol>
+<li>Click the <em>Source</em> element.</li>
+<li>Click the add button 
 
 
 
@@ -2977,11 +2882,10 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-  
-  
-  
-  
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
+.</li>
+<li>From the menu select <em>Parser</em> =&gt; 
 
 
 
@@ -2989,29 +2893,12 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-  
 
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/add-dsParser.png" href="../../../images/quick-start-guide/process/add-dsParser.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/add-dsParser.png" alt="images/quick-start-guide/process/add-dsParser.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Adding a dsParser</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-</p>
-<p>Now we have a pipeline that looks like this:</p>
+<img class="stroom-icon" src="../../../images/stroom-ui/document/TextConverter.svg" width="16px" title="DSParser" alt="document/TextConverter.svg">
+ <em>DSParser</em>.</li>
+<li>Call it <em>CSV Parser</em> and click OK.</li>
+</ol>
+<p>We need to tell the new <em>CSV parser</em> to use the 
 
 
 
@@ -3019,11 +2906,11 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-  
-  
-  
-  
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/TextConverter.svg" width="16px" title="Text converter" alt="document/TextConverter.svg">
+ <em>TextConverter</em> (<em>CSV splitter</em>) we created earlier.</p>
+<ol>
+<li>Click on the 
 
 
 
@@ -3031,29 +2918,11 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-  
 
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/pipeline-01.png" href="../../../images/quick-start-guide/process/pipeline-01.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/pipeline-01.png" alt="images/quick-start-guide/process/pipeline-01.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline with a CSV splitter</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Click on the <code>CSV splitter filter</code> element and the pane below will show it&rsquo;s properties. We need to tell it to use our newly created <code>CSV splitter</code>. Double click the <code>textConverter</code> property and change <code>Value</code> to the actual CSV splitter:</p>
+<img class="stroom-icon" src="../../../images/stroom-ui/pipeline/text.svg" width="16px" title="DSParser" alt="pipeline/text.svg">
+ <em>CSV parser</em> element and the pane below will show it&rsquo;s properties.</li>
+<li>Double click the <code>textConverter</code> property and change <code>Value</code> to our <em>CSV splitter</em> entity.</li>
+</ol>
 
 
 
@@ -3095,50 +2964,44 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   </a>
 </div>
 
+<p>Now save the pipeline by clicking the add button 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
+.</p>
 <h4 id="test-the-csv-splitter">Test the csv splitter</h4>
-<p>So now we have CSV data in Stroom and a pipeline that is configured to process CSV data. We&rsquo;ve done a fair few things so far and are we sure the pipeline is correctly configured? We can do some debugging and find out.</p>
-<p>In Stroom you can step through you records and see what the output is at each stage. It&rsquo;s easy to start doing this. The first thing to do is to open your <code>CSV_FEED</code> feed, then click the big blue <em>stepping</em> button at the bottom right:</p>
+<p>So now we have CSV data in Stroom and a pipeline that is configured to process CSV data.
+We&rsquo;ve done a fair few things so far and are we sure the pipeline is correctly configured?
+We can do some debugging and find out.</p>
+<p>In Stroom you can step through you records and see what the output is at each stage.
+It&rsquo;s easy to start doing this.
+The first thing to do is to open your <code>CSV_FEED</code> feed, click on the 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/run-debug.png" href="../../../images/quick-start-guide/process/run-debug.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/run-debug.png" alt="images/quick-start-guide/process/run-debug.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Starting pipeline stepping</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#stream" title="Glossary entry for stream">
+    <span>stream</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
+</span>
+ in the top pane then click the big blue stepping button 
 
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/stepping.svg" width="16px" title="Stepping" alt="stepping.svg">
+ at the bottom right of the bottom data pane.</p>
 <p>You&rsquo;ll be asked to select a pipeline:</p>
 
 
@@ -3181,7 +3044,9 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   </a>
 </div>
 
-<p>Now you get a view that&rsquo;s similar to your feed view, except it also shows the pipeline:</p>
+<p>Now you get a view that&rsquo;s similar to your feed view, except it also shows the pipeline.
+The Stepper allows you to step through each record in the source data, where a record is defined by your Data Splitter parser.
+The Stepper will highlight the currently selected record/event.</p>
 
 
 
@@ -3216,14 +3081,15 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Debugging - source data</figcaption>
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stepping - source data</figcaption>
       </div>
       
     </figure>
   </a>
 </div>
 
-<p>It also has stepping controls. Click the green step forward icon 
+<p>The Stepper also has stepping controls to allow you to move forward/backward through the source data.
+Click the green step forward button 
 
 
 
@@ -3231,8 +3097,10 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-<img class="stroom-icon" src="../../../images/stroom-ui/step-forward.svg" width="16px" title="Step Forward" alt="step-forward.svg">
-. You should see something like this:</p>
+
+<img class="stroom-icon" src="../../../images/stroom-ui/step-forward.svg" width="16px" title="Step forward" alt="step-forward.svg">
+.</p>
+<p>You should see the highlighted section advance to the next record/event.</p>
 
 
 
@@ -3274,9 +3142,16 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   </a>
 </div>
 
-<p>Great! If you don&rsquo;t see this then there&rsquo;s something wrong. Click on <code>CSV splitter filter</code>. You&rsquo;ll see the conversion code and hopefully some errors. Some issues might be: did you remember to import the data splitter schema into Stroom? Did you remember to confgure the <em>Text Converter</em> to be a <em>Data Splitter</em>?</p>
-<p>If everything went fine then click the step forward button a few more times and you&rsquo;ll see the yellow selection move down as you process each row.</p>
-<p>What we actually want to see is the output from the <em>Text Converter</em>, so click on <code>CSV splitter filter</code>. You&rsquo;ll see the conversion code we entered earlier and below two panes, one containing the CSV and one containing the split-up text, in XML form:</p>
+<p>Click on the <em>CSV parser</em> element.
+You will now see the stepping view for this element that is split into three panes:</p>
+<ul>
+<li>Top pane - this shows the content of your <em>CSV parser</em> element, i.e. the <em>TextConverter</em> (<em>CSV splitter</em>) XML.
+This can be used to modify your <em>TextConverter</em>.</li>
+<li>Bottom left pane - this shows the input to the pipeline element.</li>
+<li>Bottom right pane - this shows the output from the pipeline element.
+The output from the Data Splitter is XML in <em>records</em> format.
+You can see the schema for <em>records</em> in the <code>XML schemas</code> folder.</li>
+</ul>
 
 
 
@@ -3318,8 +3193,73 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   </a>
 </div>
 
-<p>So here we have some XML in a basic format we call the <em>records</em> format. You can see the schema for <em>records</em> in the <code>XML schemas</code> folder.</p>
+<p>If there are any errors then you will see an error icon 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/error.svg" width="16px" title="Error" alt="error.svg">
+ in the gutter of the top pane.
+In the example below, an invalid XML element has been added to the Data Splitter content to demonstrate an error occurring.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 710px">
+
+  <a title="images/quick-start-guide/process/stepping-error.png" href="../../../images/quick-start-guide/process/stepping-error.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/quick-start-guide/process/stepping-error.png" width="700" alt="images/quick-start-guide/process/stepping-error.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
 <h3 id="add-xslt-to-transform-records-format-xml-into-something-else">Add XSLT to transform records format XML into something else</h3>
+<p>
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#xslt" title="Glossary entry for XSLT">
+    <span>XSLT</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ is the language used to transform record/event data from one form into another in Stroom pipelines.
+An 
+
+
+
+<span><a href="../../../docs/user-guide/pipelines/element-reference/#xsltfilter" title="Pipeline element reference entry for XSLTFilter" style="">XSLTFilter</a></span>
+ pipeline element takes XML input and uses an XSLT to transform it into different XML or some other text format.</p>
 <h4 id="create-the-xslt-filter">Create the XSLT filter</h4>
 <p>This process is very similar to creating the <code>CSV splitter</code>:</p>
 <ol>
@@ -3327,51 +3267,36 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 <li>Add it to the pipeline</li>
 <li>Step through to make sure it&rsquo;s doing what we expect</li>
 </ol>
-<p>Create the XSLT filter, calling it something like <code>XSLT</code>:</p>
+<p>To create the new <em>XSLT</em> entity do the following:</p>
+<ol>
+<li>Right click the <em>Stroom 101</em> folder in the 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/create-xslt.png" href="../../../images/quick-start-guide/process/create-xslt.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/create-xslt.png" alt="images/quick-start-guide/process/create-xslt.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Create the XSLT filter</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#explorer-tree" title="Glossary entry for Explorer Tree">
+    <span>Explorer Tree</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>On the new tab click on <code>XSLT</code>. This is another big text field but this one accepts XSLT. This one will be very basic and just takes the split up data and puts it into fields. The XSLT for this is below but if you&rsquo;d like to tinker then go ahead.</p>
+</span>
+.</li>
+<li>Click <em>New</em> =&gt; <em>XSLT</em>.</li>
+<li>Name it <em>XSLT</em>.</li>
+<li>Click <em>OK</em>.</li>
+</ol>
+<p>This will open a new tab for the <em>XSLT</em> entity.</p>
+<p>On the new tab ensure the <code>XSLT</code> sub-tab is selected.
+This is another text editor pane but this one accepts <em>XSLT</em>.
+This <em>XSLT</em> will be very basic and just takes the record data from the split filter and puts it into fields.
+The XSLT for this is below but if you&rsquo;d like to tinker then go ahead.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot; xmlns:stroom=&quot;stroom&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; version=&quot;2.0&quot;&gt;
+&lt;xsl:stylesheet
+    xpath-default-namespace=&quot;records:2&quot;
+    xmlns:stroom=&quot;stroom&quot;
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    version=&quot;2.0&quot;&gt;
+
   &lt;xsl:template match=&quot;records&quot;&gt;
     &lt;Events&gt;
       &lt;xsl:apply-templates /&gt;
@@ -3394,8 +3319,7 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   &lt;/xsl:template&gt;
 &lt;/xsl:stylesheet&gt;
 </code></pre>
-<p>Make sure you save it.</p>
-<p>Go back to the Structure section of the pipeline and add an <em>XSLTFilter</em> element. Call it something like <code>XSLT filter</code>.</p>
+<p>Make sure you save it by clicking the save button 
 
 
 
@@ -3403,85 +3327,21 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-  
-  
-  
-  
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
+.</p>
+<p>Go back to the Structure sub-tab of the pipeline and add an 
 
 
 
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/add-xsltFilter.png" href="../../../images/quick-start-guide/process/add-xsltFilter.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/add-xsltFilter.png" alt="images/quick-start-guide/process/add-xsltFilter.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Add the XSLT filter</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Select the <code>XSLT filter</code> and configure it to use the actual XSLT you just created by double-clicking <code>xslt</code> in the properties:</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/configure-xslt.png" href="../../../images/quick-start-guide/process/configure-xslt.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/configure-xslt.png" alt="images/quick-start-guide/process/configure-xslt.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Configuring the XSLT filter</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>In the dialog make sure the value is the <code>XSLT</code> filter. Save the pipeline.</p>
+<span><a href="../../../docs/user-guide/pipelines/element-reference/#xsltfilter" title="Pipeline element reference entry for XSLTFilter" style="">XSLTFilter</a></span>
+ element downstream of the <em>CSV parser</em> element.
+Call it something like <em>XSLT filter</em>.</p>
+<p>Select the <em>XSLT filter</em> element and configure it to use the actual XSLT you just created by double-clicking <code>xslt</code> in the properties pane at the bottom:</p>
+<p>In the dialog make sure you select the <code>XSLT</code> filter in the <em>Stroom 101</em> folder.
+Save the pipeline.</p>
 <h4 id="test-the-xslt-filter">Test the XSLT filter</h4>
-<p>We&rsquo;re going to test this in the same way we tested the CSV splitter, by clicking the big blue button on the feed. Click the step forward button 
+<p>We&rsquo;re going to test this in the same way we tested the CSV splitter, by clicking the large stepping button 
 
 
 
@@ -3489,8 +3349,21 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-<img class="stroom-icon" src="../../../images/stroom-ui/step-forward.svg" width="16px" title="Step Forward" alt="step-forward.svg">
- a few times to make sure it&rsquo;s working then click on the XSLT element. This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:</p>
+
+<img class="stroom-icon" src="../../../images/stroom-ui/stepping.svg" width="16px" title="Stepping" alt="stepping.svg">
+on the feed data pane.
+Click the step forward button 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/step-forward.svg" width="16px" title="Step forward" alt="step-forward.svg">
+ a few times to make sure it&rsquo;s working then click on the XSLT element.
+This time you should see the XSLT filter there too, as well as the basic XML being transformed into more useful XML:</p>
 
 
 
@@ -3511,201 +3384,101 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
   
+  
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
 
   <a title="images/quick-start-guide/process/stepping-03.png" href="../../../images/quick-start-guide/process/stepping-03.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/stepping-03.png" alt="images/quick-start-guide/process/stepping-03.png">
+      <img class="card-img-top" src="../../../images/quick-start-guide/process/stepping-03.png" width="500" alt="images/quick-start-guide/process/stepping-03.png">
       
 
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Debugging the XSLT filter</figcaption>
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stepping the XSLT filter</figcaption>
       </div>
       
     </figure>
   </a>
 </div>
 
-<p>Fantastic! Data converted! Well done if you&rsquo;ve got this far. Really, there are lots of steps and things that could go wrong and you&rsquo;ve persevered. There&rsquo;s a few more things to get this pipeline ready for doing this <a href="../../../docs/user-guide/jobs/">task</a> for real. We need to get this data to a destination.</p>
+<p>There&rsquo;s a few more things to get this pipeline ready for doing this <a href="../../../docs/user-guide/jobs/">task</a> for real.
+We need to get this data to a destination.</p>
 <h3 id="outputting-the-transformed-data">Outputting the transformed data</h3>
+<p>The XSLT filter doesn&rsquo;t actually write XML but instead it just outputs XML events to the next element in the pipeline.
+In order to write these XML events out to a destination you need a writer.
+If your transofmration is producing XML then you need an 
+
+
+
+<span><a href="../../../docs/user-guide/pipelines/element-reference/#xmlwriter" title="Pipeline element reference entry for XMLWriter" style="">XMLWriter</a></span>
+, if it is producing JSON then you need a 
+
+
+
+<span><a href="../../../docs/user-guide/pipelines/element-reference/#jsonwriter" title="Pipeline element reference entry for JSONWriter" style="">JSONWriter</a></span>
+ and for plain text you need a 
+
+
+
+<span><a href="../../../docs/user-guide/pipelines/element-reference/#textwriter" title="Pipeline element reference entry for TextWriter" style="">TextWriter</a></span>
+.</p>
+<p>Our <em>XSLT filter</em> element is outputting XML so we will create an <em>XMLWriter</em>.</p>
 <h4 id="create-the-xml-writer">Create the XML writer</h4>
-<p>What&rsquo;s an XML Writer and why do you need one? The XSLT filter doesn&rsquo;t actually write XML but instead just passes XML events from one filter to another. In order to write XML out you need an XML writer. You don&rsquo;t need to create one outside the pipeline (in the way you did with the <code>CSV splitter</code> and the <code>XSLT</code> filter). An XML writer is just added to the pipeline like this:</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/add-xmlWriter.png" href="../../../images/quick-start-guide/process/add-xmlWriter.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/add-xmlWriter.png" alt="images/quick-start-guide/process/add-xmlWriter.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Addnig an XML Writer</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
+<p>You don&rsquo;t need to create one outside the pipeline (in the way you did with the <code>CSV splitter</code> and the <code>XSLT</code> filter).
+Just do the following:</p>
+<ol>
+<li>Right click on the <em>XSLT filter</em> element.</li>
+<li>Click <em>Add</em> =&gt; <em>Writer</em> =&gt; <em>XMLWriter</em></li>
+<li>Name it <em>XML writer</em>.</li>
+<li>Click OK.</li>
+</ol>
 <p>That&rsquo;s it, no other configuration necessary.</p>
 <h4 id="create-the-destination">Create the destination</h4>
-<p>We need to do something with the serialised XML. We&rsquo;ll write it to a stream. To do this we create a stream appender:</p>
+<p>We need to do something with the serialised XML.
+We&rsquo;ll write it to a 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/add-streamAppender.png" href="../../../images/quick-start-guide/process/add-streamAppender.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/add-streamAppender.png" alt="images/quick-start-guide/process/add-streamAppender.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Creating a stream appender</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#stream" title="Glossary entry for Stream">
+    <span>Stream</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>Unlike the <code>Source</code> element this element needs to be configured. We need to configure two things: the <em>streamType</em> and the <em>destination feed</em>.</p>
-<h5 id="setting-the-feed">Setting the feed</h5>
-<p>We&rsquo;ll send the output to the <code>CSV_FEED</code> - all data associated with this feed will be in the same place. To do that we edit the <code>feed</code> property and set it to <code>CSV_FEED</code>:</p>
+</span>
+.
+To do this we create a 
 
 
 
+<span><a href="../../../docs/user-guide/pipelines/element-reference/#streamappender" title="Pipeline element reference entry for StreamAppender" style="">StreamAppender</a></span>
+:</p>
+<ol>
+<li>Right click on the <em>XML Writer</em> element.</li>
+<li>Click <em>Add</em> =&gt; <em>Destination</em> =&gt; <em>StreamAppender</em></li>
+<li>Name it <em>Stream appender</em>.</li>
+<li>Click OK.</li>
+</ol>
+<p>Streams only exist within feeds and have a type.
+We could set the feed that the stream will be written into but by default the <em>StreamAppender</em> will write to the same <em>Feed</em> as the input stream.
+We must however set the type of the <em>Stream</em> to distinguish it from the <em>Raw Events</em> <em>Stream</em> that we POSTed to Stroom.</p>
+<p>To set the 
 
 
 
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/configure-streamAppender-feed.png" href="../../../images/quick-start-guide/process/configure-streamAppender-feed.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/configure-streamAppender-feed.png" alt="images/quick-start-guide/process/configure-streamAppender-feed.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Change the feed property</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#stream-type" title="Glossary entry for Stream Type">
+    <span>Stream Type</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>We also need to edit the <code>streamType</code> property:We set the streamType to Events:</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/configure-streamAppender-streamType.png" href="../../../images/quick-start-guide/process/configure-streamAppender-streamType.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/configure-streamAppender-streamType.png" alt="images/quick-start-guide/process/configure-streamAppender-streamType.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Change the streamType property</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
+</span>
+ do the following:</p>
+<ol>
+<li>Click on the 
 
 
 
@@ -3714,43 +3487,14 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/configure-destination-streamType.png" href="../../../images/quick-start-guide/process/configure-destination-streamType.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/configure-destination-streamType.png" alt="images/quick-start-guide/process/configure-destination-streamType.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Setting the streamType</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>That&rsquo;s it! Our pipeline is configured!</p>
+<img class="stroom-icon" src="../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="Stream Appender" alt="pipeline/stream.svg">
+ <em>Stream appender</em> pipeline element and the pane below will show it&rsquo;s properties.</li>
+<li>Double click the <code>streamType</code> property and change <code>Value</code> to the <em>Events</em> stream type.</li>
+</ol>
 <h4 id="test-the-destination">Test the destination</h4>
-<p>We can test the XML writer and the streamAppender using the same stepping feature. Make sure you&rsquo;ve saved the pipeline and set a <strong>new</strong> stepping session running. If you click on the <code>stream appender</code> you&rsquo;ll see something like this:</p>
+<p>We can test the XML writer and the streamAppender using the same stepping feature.
+Make sure you&rsquo;ve saved the pipeline and set a <strong>new</strong> stepping session running.
+If you click on the <code>stream appender</code> you&rsquo;ll see something like this:</p>
 
 
 
@@ -3793,50 +3537,42 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 </div>
 
 <h2 id="set-the-pipeline-running">Set the pipeline running</h2>
-<p>Obviously you don&rsquo;t want to step through your data one by one. This all needs automation, and this is what Processors are for. The processor works in the background to take any unprocessed data from a feed and put it through a pipeline. So far everything on our EXAMPLE_IN feed is unprocessed.</p>
-<h3 id="create-a-processor">Create a processor</h3>
-<p>Processors are created from the <em>Processors</em> section of the pipeline:</p>
+<p>Obviously you don&rsquo;t want to step through your data one by one.
+This all needs automation, and this is what 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/go-processors.png" href="../../../images/quick-start-guide/process/go-processors.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/go-processors.png" alt="images/quick-start-guide/process/go-processors.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The processors section of the pipeline</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#processor" title="Glossary entry for Processors">
+    <span>Processors</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
+</span>
+ and 
 
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#processor-filter" title="Glossary entry for Processor Filters">
+    <span>Processor Filters</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ are for.
+The processor works in the background to take any unprocessed streams (as determined by the Processor Filter and its 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#tracker" title="Glossary entry for Tracker">
+    <span>Tracker</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+) and process them through the pipeline.
+So far everything on our <em>EXAMPLE_IN</em> feed is unprocessed.</p>
+<h3 id="create-a-processor-and-filter">Create a processor and filter</h3>
+<p>Processors are created from the <em>Processors</em> sub-tab of the pipeline.</p>
 <p>Click the add button 
 
 
@@ -3845,8 +3581,69 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
- and configure the huge dialog. You only need to set the incoming feed and the stream types:</p>
+ and you will be presented with a Filter 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#expression-tree" title="Glossary entry for Expression Tree">
+    <span>Expression Tree</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.
+To configure the filter do the following:</p>
+<ol>
+<li>Right click on the root AND operator and click 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add Term" alt="add.svg">
+ Add Term.
+A new expression is added to the tree as a child of the operator and it has three dropdowns in it (
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#field" title="Glossary entry for Field">
+    <span>Field</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+, 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#condition" title="Glossary entry for Condition">
+    <span>Condition</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ and value).</li>
+<li>Create an expression term for the Feed:
+<ol>
+<li>Field: <code>Feed</code></li>
+<li>Condition: <code>is</code></li>
+<li>Value: <code>CSV_FEED</code></li>
+</ol>
+</li>
+<li>Create an expression term for the Stream Type:
+<ol>
+<li>Field: <code>Type</code></li>
+<li>Condition: <code>=</code></li>
+<li>Value: <code>Raw Events</code></li>
+</ol>
+</li>
+</ol>
+<p>You only need to set the incoming feed and the stream types:</p>
 
 
 
@@ -3881,14 +3678,14 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Configure the new processor</figcaption>
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Configure the new processor filter</figcaption>
       </div>
       
     </figure>
   </a>
 </div>
 
-<p>Now you&rsquo;ll see a very wide table looking something like this:</p>
+<p>You will now see the newly created processor and its filter.</p>
 
 
 
@@ -3923,19 +3720,29 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The new processor</figcaption>
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The new processor and filter</figcaption>
       </div>
       
     </figure>
   </a>
 </div>
 
-<p>This shows two things:</p>
-<ul>
-<li>The processor for the pipeline</li>
-<li>The filter that determines what data is passed to the processor</li>
-</ul>
-<p>If you scroll all the way over to the right you&rsquo;ll see the <em>Enabled</em> checkbox:</p>
+<p>Ensure that both the processor and its filter are enabled by clicking the checkbox at the left of the row.
+This is it, everything we&rsquo;ve done is about to start working on its own, just like it would in a real configuration.</p>
+<p>If you keep refreshing this table it will show you the processing status which should change after a few seconds to show that the data you have uploaded is being or has been processed.
+The fields in the filter row will have been updated to reflect the new position of the Filter Tracker.
+Once this has happened you should be able to open the destination feed <code>CSV_FEED</code> and see the output data (or errors if there were any).
+If the <code>CSV_FEED</code> tab was already open then you will likely need to click refresh 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/refresh.svg" width="16px" title="Refresh" alt="refresh.svg">
+ on the top pane.</p>
 
 
 
@@ -3956,58 +3763,16 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 
 
   
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/process/show-processors-enabled.png" href="../../../images/quick-start-guide/process/show-processors-enabled.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/show-processors-enabled.png" alt="images/quick-start-guide/process/show-processors-enabled.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The enabled checkbox</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Check <em>enabled</em> for the processor and the filter you&rsquo;ve just created. This is it, everything we&rsquo;ve done is about to start working on its own, just like it would in a real configuration.</p>
-<p>If you keep refreshing this table it will show you the processing status which should change after a few seconds to show that the data you have uploaded is being or has been processed. Once this has happened you should be able to open the destination feed and see the output data (or errors if there were any).</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
   
 
 
 
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
 
   <a title="images/quick-start-guide/process/show-output.png" href="../../../images/quick-start-guide/process/show-output.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/process/show-output.png" alt="images/quick-start-guide/process/show-output.png">
+      <img class="card-img-top" src="../../../images/quick-start-guide/process/show-output.png" width="400" alt="images/quick-start-guide/process/show-output.png">
       
 
       
@@ -4020,9 +3785,8 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
   </a>
 </div>
 
-<p>You can see that there are the <code>Raw Events</code> and the processed <code>Events</code>. If you click on the <code>Events</code> then you can see all the XML that we&rsquo;ve produced.</p>
-<h4 id="troubleshooting">Troubleshooting</h4>
-<p>If nothing happens you might need to enable stream processing. This was explained <a href="../../../docs/quick-start-guide/running/#enable-processing-of-data-streams">earlier</a>.</p>
+<p>You can see that there are the <code>Raw Events</code> and the processed <code>Events</code>.
+If you click on the <code>Events</code> then you can see all the XML that we&rsquo;ve produced.</p>
 <p>Now you&rsquo;ve processed your data you can go ahead and <a href="../../../docs/quick-start-guide/indexing/">index</a> it.</p>
 
 </div>
@@ -4043,52 +3807,31 @@ We&rsquo;re not doing that now because we want to show how to create one from sc
 <div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
     
   <h1 id="pg-917d55d471c64d37463de23d61bd33de">4 - Indexing</h1>
-    <div class="lead">Indexing the ingested data.</div>
-	<p>Before you can visualise your data with dashboards you have to index the data;
-First I opted for creating a specific volume to hold my data, just because I wanted to keep my shards away from the default volumes;</p>
-<p>Go to the Tools ➔ Volumes menu</p>
+    <div class="lead">Indexing the ingested data so we can search it.</div>
+	<p>Before you can visualise your data with dashboards you have to 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/001_volumes.png" href="../../../images/quick-start-guide/index/001_volumes.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/001_volumes.png" alt="images/quick-start-guide/index/001_volumes.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Volumes</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#index" title="Glossary entry for index">
+    <span>index</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
+</span>
+ the data.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Stroom uses Apache Lucene for indexing its data but can also can also integrate with Solr and Elastic Search.
+For this Quick Start Guide we are going to use Stroom&rsquo;s internal Lucence indexing.
+
 </div>
 
-<p>Once the volumes dialogue opens click the blue plus sign at the top left of the window to add a new one</p>
+
+<h2 id="create-the-index">Create the index</h2>
+<p>We can create an index by adding an index entity 
 
 
 
@@ -4096,11 +3839,13 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
-  
-  
-  
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Index.svg" width="16px" title="Index" alt="document/Index.svg">
+to the explorer tree.
+You do this in the same way you create any of the items.</p>
+<ol>
+<li>Right click on the <em>Stroom 101</em> folder.</li>
+<li>Click 
 
 
 
@@ -4108,41 +3853,39 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="New" alt="add.svg">
+ New =&gt; 
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
 
-  <a title="images/quick-start-guide/index/002_volume_list.png" href="../../../images/quick-start-guide/index/002_volume_list.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/002_volume_list.png" alt="images/quick-start-guide/index/002_volume_list.png">
-      
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Volume list</figcaption>
-      </div>
-      
-    </figure>
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Index.svg" width="16px" title="Index" alt="document/Index.svg">
+ Index.</li>
+<li>Call the index <em>Stroom 101</em>.
+Click OK.</li>
+</ol>
+<p>This will open the new <em>Stroom 101</em> index as a new tab.</p>
+<h2 id="assign-a-volume-group">Assign a volume group</h2>
+<p>In the settings tab we need to specify the 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#volume" title="Glossary entry for Volume">
+    <span>Volume</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>Select the node where you want the volume to be and the path you want to create, (because we are following the quick-start guide we just have one node and limited size, but we do want to set it as active so we can write documents to it and we want it to be public, because we might want other indexes to use it; your needs might be different.</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
+</span>
+ where we will store our index shards.</p>
+<ol>
+<li>Click the <em>Settings</em> sub-tab.</li>
+<li>In the <em>Volume Group</em> dropdown select <em>Default Volume Group</em>.</li>
+<li>Click the 
 
 
 
@@ -4150,117 +3893,27 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
 
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/003_volume_edit.png" href="../../../images/quick-start-guide/index/003_volume_edit.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/003_volume_edit.png" alt="images/quick-start-guide/index/003_volume_edit.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Volume edit</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Click ok and we’re good to go.</p>
-<p>Then we can create an index by selecting index item in the explorer tree. You do this in the same way you create any of the items. Just select/create a folder that you want to create the new index in and right click, select New Index.</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/004_index_new.png" href="../../../images/quick-start-guide/index/004_index_new.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/004_index_new.png" alt="images/quick-start-guide/index/004_index_new.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">New index</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Choose a name for your new index</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/005_index_name.png" href="../../../images/quick-start-guide/index/005_index_name.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/005_index_name.png" alt="images/quick-start-guide/index/005_index_name.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Index name</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>In the settings tab we need to specify the volume where we will store our shards</p>
+<img class="stroom-icon" src="../../../images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
+ button.</li>
+</ol>
+<h2 id="adding-fields">Adding fields</h2>
 <p>Now you need to add fields to this index.</p>
-<p>Firstly there are two mandatory fields that need to be added: <code>StreamId</code> and <code>EventId</code></p>
-<p>Both should be of type <code>Id</code>, stored and indexed with the <code>Keyword</code> analyser</p>
+<p>The fields in the index may map 1:1 with the fields in the source data but you may want to index only a sub-set of the fields, e.g. if you would only ever want to filter the data on certain fields.
+Fields can also be created that are an abstraction of multiple fields in the data, e.g. adding all text in the record into one field to allow filtering on some text appearing anywhere in the record/event.</p>
+<p>Click the <em>Fields</em> sub-tab.</p>
+<p>We need to create fields in our index to match the fields in our source data so that we can query against them.</p>
+<p>Click on the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
+ button to add a new index field.</p>
 
 
 
@@ -4295,15 +3948,14 @@ First I opted for creating a specific volume to hold my data, just because I wan
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Index field</figcaption>
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Creating an index field</figcaption>
       </div>
       
     </figure>
   </a>
 </div>
 
-<p>If you were following the quick-start instruction on ingesting the <code>mock_stroom_data.csv</code>, we’ll use those fields here.</p>
-<p>Open the fields tab then create the following fields:</p>
+<p>Now create the fields using these values.</p>
 <table>
 <thead>
 <tr>
@@ -4337,7 +3989,7 @@ First I opted for creating a specific volume to hold my data, just because I wan
 </tr>
 <tr>
 <td>Id</td>
-<td>Text</td>
+<td>Id</td>
 <td>Yes</td>
 <td>Yes</td>
 <td>No</td>
@@ -4350,7 +4002,7 @@ First I opted for creating a specific volume to hold my data, just because I wan
 <td>Yes</td>
 <td>Yes</td>
 <td>No</td>
-<td>Alpha numeric</td>
+<td>Keyword</td>
 <td>false</td>
 </tr>
 <tr>
@@ -4358,7 +4010,7 @@ First I opted for creating a specific volume to hold my data, just because I wan
 <td>Text</td>
 <td>Yes</td>
 <td>Yes</td>
-<td>Yes</td>
+<td>No</td>
 <td>Keyword</td>
 <td>false</td>
 </tr>
@@ -4367,7 +4019,7 @@ First I opted for creating a specific volume to hold my data, just because I wan
 <td>Text</td>
 <td>Yes</td>
 <td>Yes</td>
-<td>Yes</td>
+<td>No</td>
 <td>Keyword</td>
 <td>false</td>
 </tr>
@@ -4382,7 +4034,19 @@ First I opted for creating a specific volume to hold my data, just because I wan
 </tr>
 </tbody>
 </table>
-<p>We are creating fields in our index to match the fields we have ingested to provide a place for the data to go that Stroom can reference.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    There are two mandatory fields that need to be added: <code>StreamId</code> and <code>EventId</code>.
+These are not in the source records but are assigned to cooked events/records by Stroom.
+You will see later how these fields get populated.
+
+</div>
+
+
+<p>You should now have:</p>
 
 
 
@@ -4424,8 +4088,7 @@ First I opted for creating a specific volume to hold my data, just because I wan
   </a>
 </div>
 
-<p>When you&rsquo;ve done that, save the new index.</p>
-<p>Now create a new XSLT.  We are going to convert xml data into something indexable by Stroom.</p>
+<p>When you&rsquo;ve done that, save the new index by clicking the 
 
 
 
@@ -4433,53 +4096,25 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
-  
-  
-  
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
+ button.</p>
+<h2 id="create-empty-index-xslt">Create empty index XSLT</h2>
+<p>In order for Stroom to index the data, an 
 
 
 
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/008_xslt_new.png" href="../../../images/quick-start-guide/index/008_xslt_new.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/008_xslt_new.png" alt="images/quick-start-guide/index/008_xslt_new.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">New XSLT</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#xslt" title="Glossary entry for XSLT">
+    <span>XSLT</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>To make things manageable we create our new XSLT with the same name as the index in the same folder. After you&rsquo;ve set the name just save it and close it, we’ll add some code in there later.</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
+</span>
+ is required to convert the event XML into an Index record.
+This can be a simple 1:1 mapping from event field to index field or something more complex, e.g. combining multiple event fields into one index field.</p>
+<p>To create the XSLT for the Index:</p>
+<ol>
+<li>Right click on the <em>Stroom 101</em> folder 
 
 
 
@@ -4487,83 +4122,60 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ in the explorer tree.</li>
+<li>Click 
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
 
-  <a title="images/quick-start-guide/index/009_xslt_name.png" href="../../../images/quick-start-guide/index/009_xslt_name.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/009_xslt_name.png" alt="images/quick-start-guide/index/009_xslt_name.png">
-      
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">XSLT name</figcaption>
-      </div>
-      
-    </figure>
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="New" alt="add.svg">
+ New =&gt; 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/XSLT.svg" width="16px" title="XSLT" alt="document/XSLT.svg">
+ XSLT.</li>
+<li>Name it <code>Stroom 101</code>.</li>
+<li>Click OK.</li>
+</ol>
+<p>We will add the XSLT content later on.</p>
+<h2 id="index-pipeline">Index pipeline</h2>
+<p>Now we are going to create a pipeline to send the processed data (<em>Events</em>) to the index we just created.
+Typically in Stroom all 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#raw-events" title="Glossary entry for Raw Events">
+    <span>Raw Events</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
+</span>
+ are first processed into normalised 
 
 
 
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/010_xslt_settings.png" href="../../../images/quick-start-guide/index/010_xslt_settings.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/010_xslt_settings.png" alt="images/quick-start-guide/index/010_xslt_settings.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">XSLT settings</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#events" title="Glossary entry for Events">
+    <span>Events</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>Now we get to send data to the index</p>
-<p>Create a new pipeline called Indexing (we are going to make this a template for future indexing requirements).</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
+</span>
+ conforming to the same XML schema to allow common onward processing of events from all sources.</p>
+<p>We will create a pipeline to index the processed <em>Event</em> streams containing XML data.</p>
+<ol>
+<li>Right click on the <em>Stroom 101</em> folder 
 
 
 
@@ -4571,61 +4183,61 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ in the explorer tree.</li>
+<li>Click 
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
 
-  <a title="images/quick-start-guide/index/011_pipeline_new.png" href="../../../images/quick-start-guide/index/011_pipeline_new.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/011_pipeline_new.png" alt="images/quick-start-guide/index/011_pipeline_new.png">
-      
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">New pipeline</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
 
-<p>Edit the structure of the pipeline</p>
-<p>Add the following element types with the specified names</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>XMLParser</td>
-<td>parser</td>
-</tr>
-<tr>
-<td>SplitFilter</td>
-<td>splitFilter</td>
-</tr>
-<tr>
-<td>IdEnrichmentFilter</td>
-<td>idEnrichmentFilter</td>
-</tr>
-<tr>
-<td>XSLTFilter</td>
-<td>xsltFilter</td>
-</tr>
-<tr>
-<td>IndexingFilter</td>
-<td>indexingFilter</td>
-</tr>
-</tbody>
-</table>
-<p>So it looks like this (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)</p>
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="New" alt="add.svg">
+ New =&gt; 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Pipeline.svg" width="16px" title="Pipeline" alt="document/Pipeline.svg">
+ XSLT.</li>
+<li>Name it <code>Stroom 101</code>.</li>
+<li>Click OK.</li>
+</ol>
+<p>Select the <em>Structure</em> sub-tab to edit the structure of the pipeline.</p>
+<p>Pipelines can inherit from other pipelines in Stroom so that you can benefit from re-use.
+We will inherit from an existing indexing template pipeline and then modify it for our needs.</p>
+<ol>
+<li>On the <em>Structure</em> sub tab, click the <code>...</code> in the <em>Inherit From</em> entity picker.</li>
+<li>Select 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ <em>Template Pipelines</em> / 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Pipeline.svg" width="16px" title="Pipeline" alt="document/pipeline.svg">
+ <em>Indexing</em></li>
+</ol>
+<p>You should now see the following structure:</p>
 
 
 
@@ -4667,24 +4279,14 @@ First I opted for creating a specific volume to hold my data, just because I wan
   </a>
 </div>
 
-<p>Once the elements have been added you need to set the following property on the elements:</p>
-<table>
-<thead>
-<tr>
-<th>Element</th>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>splitFilter</td>
-<td>splitCount</td>
-<td>100</td>
-</tr>
-</tbody>
-</table>
-<p>To do this we select the element then double click the property value in the property panel which is below it.</p>
+<p>Inheriting from another pipeline often means the structure is there but some properties may not have been set, e.g. <code>xslt</code> in the <em>xsltFilter</em>.
+If a property has been set in the partent pipeline then you can either use the inherited value or override it.</p>
+<p>See the <a href="../../../docs/user-guide/pipelines/element-reference/">Pipeline Element Reference</a> for details of what each element does.</p>
+<p>Now we need to set the <code>xslt</code> property on the <em>xsltFilter</em> to point at the XSLT document we created earlier and set the <code>index</code> property on the <em>indexFilter</em> to point to the index we created.</p>
+<ol>
+<li>Assign the XSLT document
+<ol>
+<li>Click on the 
 
 
 
@@ -4692,11 +4294,12 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
-  
-  
-  
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/pipeline/xslt.svg" width="16px" title="title" alt="pipeline/xslt.svg">
+ <em>xsltFilter</em> element.</li>
+<li>In the middle Properties pane double-click on the <code>xslt</code> row.</li>
+<li>Click the <code>...</code> in the <em>Value</em> document picker</li>
+<li>Select:<br>
 
 
 
@@ -4704,29 +4307,10 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
 
 
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/013_pipeline_element_property.png" href="../../../images/quick-start-guide/index/013_pipeline_element_property.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/013_pipeline_element_property.png" alt="images/quick-start-guide/index/013_pipeline_element_property.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline element property</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>The dialogue pops up where you can set the values</p>
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ <em>Stroom 101</em> / 
 
 
 
@@ -4734,11 +4318,15 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
-  
-  
-  
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/XSLT.svg" width="16px" title="Xslt" alt="document/Xslt.svg">
+ <em>Stroom 101</em>.</li>
+<li>Click <em>OK</em>.</li>
+</ol>
+</li>
+<li>Assign the Index document
+<ol>
+<li>Click on the 
 
 
 
@@ -4746,29 +4334,39 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/pipeline/index.svg" width="16px" title="title" alt="pipeline/index.svg">
+ <em>indexingFilter</em> element.</li>
+<li>In the middle Properties pane double-click on the <code>index</code> row.</li>
+<li>Click the <code>...</code> in the <em>Value</em> document picker</li>
+<li>Select:<br>
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
 
-  <a title="images/quick-start-guide/index/014_pipeline_edit_element_property.png" href="../../../images/quick-start-guide/index/014_pipeline_edit_element_property.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/014_pipeline_edit_element_property.png" alt="images/quick-start-guide/index/014_pipeline_edit_element_property.png">
-      
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline edit element property</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
 
-<p>Save the pipeline, using the top left icon 
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ <em>Stroom 101</em> / 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Index.svg" width="16px" title="Index" alt="document/Index.svg">
+ <em>Stroom 101</em>.</li>
+<li>Click <em>OK</em>.</li>
+</ol>
+</li>
+</ol>
+<p>Once that&rsquo;s done you can save your new pipeline by clicking the 
+
 
 
 
@@ -4777,63 +4375,21 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 <img class="stroom-icon" src="../../../images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
-, then close the pipeline tab.</p>
-<p>Now create a new pipeline</p>
+ button.</p>
+<h2 id="develop-index-translation">Develop index translation</h2>
+<p>Next we need to create an XSLT that the <code>indexingFilter</code> understands.
+The best place to develop a translation is in the 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/015_pipeline_name.png" href="../../../images/quick-start-guide/index/015_pipeline_name.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/015_pipeline_name.png" alt="images/quick-start-guide/index/015_pipeline_name.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline name</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#stepper" title="Glossary entry for Stepper">
+    <span>Stepper</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>Which we will base on our new “Indexing” template pipeline</p>
-<p>On our structure tab</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
+</span>
+ as it allows you to simulate running the data through the pipeline without producing any persistent output.</p>
+<p>Open the 
 
 
 
@@ -4841,200 +4397,34 @@ First I opted for creating a specific volume to hold my data, just because I wan
 
 
 
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/feed.svg" width="16px" title="Feed" alt="feed.svg">
+ <em>CSV_FEED</em> 
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/016_pipeline_structure_new.png" href="../../../images/quick-start-guide/index/016_pipeline_structure_new.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/016_pipeline_structure_new.png" alt="images/quick-start-guide/index/016_pipeline_structure_new.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline structure</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#feed" title="Glossary entry for Feed">
+    <span>Feed</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>Click in the “Inherit From” window</p>
-
-
-
+</span>
+ we created earlier in the quick-start guide.</p>
+<ol>
+<li>In the top pane of the Data Browser select the <em>Events</em> 
 
 
 
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/017_pipeline_inheritance.png" href="../../../images/quick-start-guide/index/017_pipeline_inheritance.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/017_pipeline_inheritance.png" alt="images/quick-start-guide/index/017_pipeline_inheritance.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline inheritance</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#events" title="Glossary entry for Events">
+    <span>Events</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
+</span>
+ stream.</li>
+<li>In the bottom pane you will see the XML data the you processed earlier.</li>
+<li>Click the 
 
-<p>Select our Indexing pipeline template that we just created</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/018_pipeline_inheritance_selection.png" href="../../../images/quick-start-guide/index/018_pipeline_inheritance_selection.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/018_pipeline_inheritance_selection.png" alt="images/quick-start-guide/index/018_pipeline_inheritance_selection.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline inheritance selection</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Now we need to set the XSLT property on the <code>xsltFilter</code> to point at the XSLT we created earlier and set the index on the <code>indexFilter</code> to point to the index we created.
-This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCountFilter elements)</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/019_pipeline_properties_xslt.png" href="../../../images/quick-start-guide/index/019_pipeline_properties_xslt.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/019_pipeline_properties_xslt.png" alt="images/quick-start-guide/index/019_pipeline_properties_xslt.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Pipeline XSLT properties</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Once that&rsquo;s done you can save your new pipeline</p>
-<p>Next we need to create an XSLT that the <code>IndexingFilter</code> understands.</p>
-<p>Open the feed we created in the quick-start guide if you find some processed data in your feed - i.e. browse the data</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/020_data_browsing.png" href="../../../images/quick-start-guide/index/020_data_browsing.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/020_data_browsing.png" alt="images/quick-start-guide/index/020_data_browsing.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Data browsing</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Click the stepping button 
 
 
 
@@ -5043,8 +4433,8 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 
 
 <img class="stroom-icon" src="../../../images/stroom-ui/stepping.svg" width="16px" title="Stepping" alt="stepping.svg">
-</p>
-<p>Select your new pipeline</p>
+ button to open the Stepper.</li>
+<li>In the <em>Choose Pipeline To Step With</em> dialog select our index pipeline:<br>
 
 
 
@@ -5052,96 +4442,164 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 
 
 
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ <em>Stroom 101</em> / 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Pipeline.svg" width="16px" title="Pipeline" alt="document/pipeline.svg">
+ <em>Stroom 101</em>.</li>
+</ol>
+<p>This will open a Stepper tab showing only the elements of the selected pipeline that can be stepped.
+The data pane of the <em>Source</em> element will show the first event in the stream.</p>
+<p>To add XSLT content click the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/pipeline/xslt.svg" width="16px" title="Xslt" alt="pipeline/xslt.svg">
+ <em>xsltFilter</em> element.
+This will show the three pane view with editable content (empty) in the top pane and input and output in the bottom two panes.</p>
+<p>The input and output panes will be identical as there is no XSLT content to transform the input.</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
   
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/022_stepping_choose_pipeline.png" href="../../../images/quick-start-guide/index/022_stepping_choose_pipeline.png">
-    <figure style="margin-block-end: 0px" >
+    <div class="card-header">
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/022_stepping_choose_pipeline.png" alt="images/quick-start-guide/index/022_stepping_choose_pipeline.png">
+        Input
       
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+  &lt;Event StreamId=&quot;25884&quot; EventId=&quot;1&quot;&gt;
+    &lt;Id&gt;1&lt;/Id&gt;
+    &lt;Guid&gt;10990cde-1084-4006-aaf3-7fe52b62ce06&lt;/Guid&gt;
+    &lt;FromIp&gt;159.161.108.105&lt;/FromIp&gt;
+    &lt;ToIp&gt;217.151.32.69&lt;/ToIp&gt;
+    &lt;Application&gt;Tres-Zap&lt;/Application&gt;
+  &lt;/Event&gt;
+&lt;/Events&gt;
+</code></pre>
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stepping choose pipeline</figcaption>
-      </div>
-      
-    </figure>
-  </a>
+        
+      </p>
+    
+  </div>
+  
 </div>
 
-<p>Paste the following into your <code>xsltFilter</code></p>
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Output
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+  &lt;Event StreamId=&quot;25884&quot; EventId=&quot;1&quot;&gt;
+    &lt;Id&gt;1&lt;/Id&gt;
+    &lt;Guid&gt;10990cde-1084-4006-aaf3-7fe52b62ce06&lt;/Guid&gt;
+    &lt;FromIp&gt;159.161.108.105&lt;/FromIp&gt;
+    &lt;ToIp&gt;217.151.32.69&lt;/ToIp&gt;
+    &lt;Application&gt;Tres-Zap&lt;/Application&gt;
+  &lt;/Event&gt;
+&lt;/Events&gt;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
+<p>Paste the following content into the top pane.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet
-  xmlns=&quot;records:2&quot; xmlns:stroom=&quot;stroom&quot;
-  xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-  version=&quot;2.0&quot;&gt;
+    xmlns=&quot;records:2&quot;
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    version=&quot;2.0&quot;&gt;
+  
+  &lt;!-- Match on the top level Events element --&gt;
   &lt;xsl:template match=&quot;/Events&quot;&gt;
-    &lt;records xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
-      version=&quot;2.0&quot;&gt;
+    &lt;!-- Create the wrapper element for all the events/records --&gt;
+    &lt;records
+        xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+        version=&quot;2.0&quot;&gt;
+      &lt;!-- Apply any templates to this element or its children --&gt;
       &lt;xsl:apply-templates /&gt;
     &lt;/records&gt;
   &lt;/xsl:template&gt;
+  
+  &lt;!-- Match on any Event element at this level --&gt;
   &lt;xsl:template match=&quot;Event&quot;&gt;
+    &lt;!-- Create a record element and populate its data items --&gt;
     &lt;record&gt;
       &lt;data name=&quot;StreamId&quot;&gt;
+        &lt;!-- Added to the event by the IdEnrichmentFiler --&gt;
         &lt;xsl:attribute name=&quot;value&quot; select=&quot;@StreamId&quot; /&gt;
       &lt;/data&gt;
       &lt;data name=&quot;EventId&quot;&gt;
+        &lt;!-- Added to the event by the IdEnrichmentFiler --&gt;
         &lt;xsl:attribute name=&quot;value&quot; select=&quot;@EventId&quot; /&gt;
       &lt;/data&gt;
-      &lt;xsl:apply-templates select=&quot;*&quot; /&gt;
+      &lt;data name=&quot;Id&quot;&gt;
+        &lt;xsl:attribute name=&quot;value&quot; select=&quot;./Id&quot; /&gt;
+      &lt;/data&gt;
+      &lt;data name=&quot;Guid&quot;&gt;
+        &lt;xsl:attribute name=&quot;value&quot; select=&quot;./Guid&quot; /&gt;
+      &lt;/data&gt;
+      &lt;data name=&quot;FromIp&quot;&gt;
+        &lt;xsl:attribute name=&quot;value&quot; select=&quot;./FromIp&quot; /&gt;
+      &lt;/data&gt;
+      &lt;data name=&quot;ToIp&quot;&gt;
+        &lt;xsl:attribute name=&quot;value&quot; select=&quot;./ToIp&quot; /&gt;
+      &lt;/data&gt;
+      &lt;data name=&quot;Application&quot;&gt;
+        &lt;xsl:attribute name=&quot;value&quot; select=&quot;./Application&quot; /&gt;
+      &lt;/data&gt;
     &lt;/record&gt;
-  &lt;/xsl:template&gt;
-  &lt;!-- Index the Id --&gt;
-  &lt;xsl:template match=&quot;Id&quot;&gt;
-        &lt;data name=&quot;Id&quot;&gt;
-          &lt;xsl:attribute name=&quot;value&quot; select=&quot;text()&quot; /&gt;
-        &lt;/data&gt;
-  &lt;/xsl:template&gt;
-  &lt;!-- Index the Guid --&gt;
-  &lt;xsl:template match=&quot;Guid&quot;&gt;
-    &lt;data name=&quot;Guid&quot;&gt;
-      &lt;xsl:attribute name=&quot;value&quot; select=&quot;text()&quot; /&gt;
-    &lt;/data&gt;
-  &lt;/xsl:template&gt;
-  &lt;!-- Index the FromIp --&gt;
-  &lt;xsl:template match=&quot;FromIp&quot;&gt;
-    &lt;data name=&quot;FromIp&quot;&gt;
-      &lt;xsl:attribute name=&quot;value&quot; select=&quot;text()&quot; /&gt;
-    &lt;/data&gt;
-  &lt;/xsl:template&gt;
-  &lt;!-- Index the ToIp --&gt;
-  &lt;xsl:template match=&quot;ToIp&quot;&gt;
-    &lt;data name=&quot;ToIp&quot;&gt;
-      &lt;xsl:attribute name=&quot;value&quot; select=&quot;text()&quot; /&gt;
-    &lt;/data&gt;
-  &lt;/xsl:template&gt;
-  &lt;!-- Index the Application --&gt;
-  &lt;xsl:template match=&quot;Application&quot;&gt;
-    &lt;data name=&quot;Application&quot;&gt;
-      &lt;xsl:attribute name=&quot;value&quot; select=&quot;text()&quot; /&gt;
-    &lt;/data&gt;
   &lt;/xsl:template&gt;
 &lt;/xsl:stylesheet&gt;
 </code></pre>
-<p>Which should look like this</p>
+<p>The XSLT is converting <code>Events/Event</code> elements into <code>Records/Record</code> elements conforming to the <code>records:2</code> XML Schema, which is the expected input format for the 
+
+
+
+<span><a href="../../../docs/user-guide/pipelines/element-reference/#indexingfilter" title="Pipeline element reference entry for IndexingFilter" style="">IndexingFilter</a></span>
+.</p>
+<p>The <em>IndexingFilter</em> expects a set of <code>Record</code> elements wrapped in a <code>Records</code> element.
+Each <code>Record</code> element needs to contain one <code>Data</code> element for each Field in the Index.
+Each <code>Data</code> element needs a <code>Name</code> attribute (the Index Field name) and a <code>Value</code> attribute (the value from the event to index).</p>
+<p>Now click the 
 
 
 
@@ -5149,85 +4607,162 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 
 
 
+
+<img class="stroom-icon" src="../../../images/stroom-ui/refresh-green.svg" width="16px" title="Refresh" alt="refresh-green.svg">
+ refresh button to refresh the step with the new XSLT content.</p>
+<p>The Output should have changed so that the Input and Output now look like this:</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
   
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/023_stepping_edit_xslt.png" href="../../../images/quick-start-guide/index/023_stepping_edit_xslt.png">
-    <figure style="margin-block-end: 0px" >
+    <div class="card-header">
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/023_stepping_edit_xslt.png" alt="images/quick-start-guide/index/023_stepping_edit_xslt.png">
+        Input
       
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+  &lt;Event StreamId=&quot;25884&quot; EventId=&quot;1&quot;&gt;
+    &lt;Id&gt;1&lt;/Id&gt;
+    &lt;Guid&gt;10990cde-1084-4006-aaf3-7fe52b62ce06&lt;/Guid&gt;
+    &lt;FromIp&gt;159.161.108.105&lt;/FromIp&gt;
+    &lt;ToIp&gt;217.151.32.69&lt;/ToIp&gt;
+    &lt;Application&gt;Tres-Zap&lt;/Application&gt;
+  &lt;/Event&gt;
+&lt;/Events&gt;
+</code></pre>
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stepping edit XSLT</figcaption>
-      </div>
-      
-    </figure>
-  </a>
+        
+      </p>
+    
+  </div>
+  
 </div>
 
-<p>What we are trying to do is turn the data into Stroom <code>record</code> format. This is basically name value pairs that we pass to the index. Step through the data using the top right arrows to ensure the XSLT produces correct output.</p>
-<p>We&rsquo;re nearly there for indexing the data - you just need to tell the pipeline to pick up all processed data and index it.</p>
-<p>Go back to your pipeline and go to the processors tab.</p>
-
-
-
-
-
-
-
+  <div class="card mb-4">
   
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/024_processors_list.png" href="../../../images/quick-start-guide/index/024_processors_list.png">
-    <figure style="margin-block-end: 0px" >
+    <div class="card-header">
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/024_processors_list.png" alt="images/quick-start-guide/index/024_processors_list.png">
+        Output
       
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;records
+    xmlns=&quot;records:2&quot;
+    xmlns:stroom=&quot;stroom&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+    version=&quot;2.0&quot;&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;StreamId&quot; value=&quot;25884&quot; /&gt;
+    &lt;data name=&quot;EventId&quot; value=&quot;1&quot; /&gt;
+    &lt;data name=&quot;Id&quot; value=&quot;1&quot; /&gt;
+    &lt;data name=&quot;Guid&quot; value=&quot;10990cde-1084-4006-aaf3-7fe52b62ce06&quot; /&gt;
+    &lt;data name=&quot;FromIp&quot; value=&quot;159.161.108.105&quot; /&gt;
+    &lt;data name=&quot;ToIp&quot; value=&quot;217.151.32.69&quot; /&gt;
+    &lt;data name=&quot;Application&quot; value=&quot;Tres-Zap&quot; /&gt;
+  &lt;/record&gt;
+&lt;/records&gt;
+</code></pre>
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Processors</figcaption>
-      </div>
-      
-    </figure>
-  </a>
+        
+      </p>
+    
+  </div>
+  
 </div>
 
-<p>Add a filter using 
+</div>
+<p>You can use the stepping controls (
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/fast-backward-green.svg" width="16px" title="Fast Backward" alt="fast-backward-green.svg">
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/step-backward-green.svg" width="16px" title="Step Backward" alt="step-backward-green.svg">
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/step-forward-green.svg" width="16px" title="Step Forward" alt="step-forward-green.svg">
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/fast-forward-green.svg" width="16px" title="Fast Forward" alt="fast-forward-green.svg">
+) to check that the ouput is correct for other input events.</p>
+<p>Once you are happy with your translation click the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
+ button to save the XSLT content to the <em>Stroom 101</em> XSLT document.</p>
+<h2 id="processing-the-indexing-pipeline">Processing the indexing pipeline</h2>
+<p>To get our indexing pipeline processing data we need to create a 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#processor-filter" title="Glossary entry for Processor Filter">
+    <span>Processor Filter</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ to select the data to process through the pipeline.</p>
+<p>Go back to your 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Pipeline.svg" width="16px" title="Pipeline" alt="document/pipeline.svg">
+ <em>Stroom 101</em> pipeline and go to the Processors sub-tab.</p>
+<p>Click the add button 
+
 
 
 
@@ -5236,61 +4771,20 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 
 
 <img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
- and tell it to process all <code>Events</code> data when the filter dialogue opens so it looks like this</p>
+ and you will be presented with a Filter 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/025_stream_filter_edit.png" href="../../../images/quick-start-guide/index/025_stream_filter_edit.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/025_stream_filter_edit.png" alt="images/quick-start-guide/index/025_stream_filter_edit.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Edit stream filter</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#expression-tree" title="Glossary entry for Expression Tree">
+    <span>Expression Tree</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>Enable the processor and the filter by clicking the enabled tick boxes</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
+</span>
+ in the <em>Add Filter</em> dialog.
+To configure the filter do the following:</p>
+<ol>
+<li>Right click on the root AND operator and click 
 
 
 
@@ -5298,73 +4792,98 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 
 
 
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add Term" alt="add.svg">
+ Add Term.
+A new expression is added to the tree as a child of the operator and it has three dropdowns in it (
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/026_processors_enable.png" href="../../../images/quick-start-guide/index/026_processors_enable.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/026_processors_enable.png" alt="images/quick-start-guide/index/026_processors_enable.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Enable processors</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#field" title="Glossary entry for Field">
+    <span>Field</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
-
-<p>Stroom should then index the data, assuming everything is correct</p>
-<p>If there are errors you&rsquo;ll see error streams produced in the data browsing page, i.e. where you would normally see your processed and raw data.  If no errors have occurred, there will be no rows in the data page.</p>
-<p>If it all goes to plan you&rsquo;ll see index shards appear if you open the index you created and click the shards tab.</p>
+</span>
+, 
 
 
 
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/index/027_index_shard_list.png" href="../../../images/quick-start-guide/index/027_index_shard_list.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/index/027_index_shard_list.png" alt="images/quick-start-guide/index/027_index_shard_list.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Index shards</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#condition" title="Glossary entry for Condition">
+    <span>Condition</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</div>
+</span>
+ and value).</li>
+<li>To create an expression term for the Feed:
+<ol>
+<li>Field: <code>Feed</code></li>
+<li>Condition: <code>is</code></li>
+<li>Value: <code>CSV_FEED</code></li>
+</ol>
+</li>
+<li>To create an expression term for the Stream Type:
+<ol>
+<li>Field: <code>Type</code></li>
+<li>Condition: <code>=</code></li>
+<li>Value: <code>Events</code></li>
+</ol>
+</li>
+</ol>
+<p>This filter will process all Streams of type <code>Events</code> in the Feed <code>CSV_FEED</code>.
+Enable processing for the 
 
-<p>The document count doesn&rsquo;t update immediately so don&rsquo;t worry if the count is 0. The count is updated on shard flush and happens in the background.</p>
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Pipeline.svg" width="16px" title="Pipeline" alt="document/pipeline.svg">
+ Pipeline and the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/filter.svg" width="16px" title="Processor Filter" alt="filter.svg">
+ Processor Filter by clicking the checkboxes in the <em>Enabled</em> column.</p>
+<p>Stroom should then index the data, assuming everything is correct.</p>
+<p>If there are errors you&rsquo;ll see error streams produced in the data browsing page of the <em>CSV_FEED</em> Feed or the <em>Stroom 101</em> Pipeline.
+If no errors have occurred, there will be no rows in the data browser page as the IndexFilter does not output any Streams.</p>
+<p>To verify the data has been written to the Index:</p>
+<ol>
+<li>Open the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Index.svg" width="16px" title="Index" alt="document/Index.svg">
+ <em>Stroom 101</em> Index.</li>
+<li>Select the <em>Shards</em> sub-tab.</li>
+<li>Click 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/refresh.svg" width="16px" title="Refresh" alt="refresh.svg">
+ refresh.
+You many need to wait a bit for the data to be flushed to the index shards.</li>
+</ol>
+<p>You should eventually see a <em>Doc Count</em> of 2,000 to match the number of events processed in the source Stream.</p>
 <p>Now that we have finished indexing we can display data on a <a href="../../../docs/quick-start-guide/dashboard/">dashboard</a>.</p>
 
 </div>
@@ -5385,8 +4904,28 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 <div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
     
   <h1 id="pg-0082dc8f7b9da1dc844df10062371b0b">5 - Dashboards</h1>
-    
-	<p>Create a new dashboard the same way you create anything else</p>
+    <div class="lead">Querying and visualising the indexed data.</div>
+	<p>Create a new 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Dashboard.svg" width="16px" title="Dashboard" alt="document/Dashboard.svg">
+ 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#dashboard" title="Glossary entry for Dashboard">
+    <span>Dashboard</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ in the <em>Stroom 101</em> folder and call it <em>Stroom 101</em>.</p>
 
 
 
@@ -5407,27 +4946,61 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 
 
   
+  
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
 
   <a title="images/quick-start-guide/dashboard/001_dashboard_new.png" href="../../../images/quick-start-guide/dashboard/001_dashboard_new.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/001_dashboard_new.png" alt="images/quick-start-guide/dashboard/001_dashboard_new.png">
+      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/001_dashboard_new.png" width="500" alt="images/quick-start-guide/dashboard/001_dashboard_new.png">
       
 
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">New dashboard</figcaption>
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">New Dashboard</figcaption>
       </div>
       
     </figure>
   </a>
 </div>
 
+<p>By default a new Dashboard opens with two panes; a 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#query" title="Glossary entry for Query">
+    <span>Query</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ pane at the top to build the query; and a 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#table" title="Glossary entry for Table">
+    <span>Table</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ pane at the bottom to display the results.
+Dashboards are highly configurable; panes can be added and resized; they can contain multiple queries; and a query pane can provide data for multiple output panes (such as 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#visualisation" title="Glossary entry for Visualisations">
+    <span>Visualisations</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+).</p>
+<h2 id="configuring-the-query-data-source">Configuring the query data source</h2>
 <p>On the query pane click the settings 
 
 
@@ -5436,10 +5009,9 @@ This will appear as below (excluding the ReadRecordCountFilter and WriteRecordCo
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/settings-grey.svg" width="16px" title="Dashboard settings" alt="settings-grey.svg">
-
-button on the top right of the panel.</p>
-<p>Choose the index you just created as your data source.</p>
+ button on the top right of the panel.</p>
 
 
 
@@ -5460,15 +5032,16 @@ button on the top right of the panel.</p>
 
 
   
+  
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 360px">
 
   <a title="images/quick-start-guide/dashboard/002_dashboard_query_settings.png" href="../../../images/quick-start-guide/dashboard/002_dashboard_query_settings.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/002_dashboard_query_settings.png" alt="images/quick-start-guide/dashboard/002_dashboard_query_settings.png">
+      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/002_dashboard_query_settings.png" width="350" alt="images/quick-start-guide/dashboard/002_dashboard_query_settings.png">
       
 
       
@@ -5481,7 +5054,9 @@ button on the top right of the panel.</p>
   </a>
 </div>
 
-<p>Now add a term to the query to get a handle on the data</p>
+<ol>
+<li>Click on the <em>Data Source</em> document picker.</li>
+<li>Select the index you created earlier:<br>
 
 
 
@@ -5489,320 +5064,36 @@ button on the top right of the panel.</p>
 
 
 
-  
-  
-  
-  
-  
 
 
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ <em>Stroom 101</em> / 
 
 
 
 
 
-  
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Index.svg" width="16px" title="Index" alt="document/Index.svg">
+ <em>Stroom 101</em></li>
+</ol>
 
-  <a title="images/quick-start-guide/dashboard/002_dashboard_query_add_term.png" href="../../../images/quick-start-guide/dashboard/002_dashboard_query_add_term.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/002_dashboard_query_add_term.png" alt="images/quick-start-guide/dashboard/002_dashboard_query_add_term.png">
-      
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
 
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Dashboard query add term</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
 
-<p>For our simple example we’re using a wildcard that captures all documents with an Id set.</p>
+    Dashboards can be made to automatically run all queries when they are opened and/or to keep refreshing the query every N seconds.
+This can be done in the Query settings dialog you used above.
 
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/dashboard/003_dashboard_query_edit_term.png" href="../../../images/quick-start-guide/dashboard/003_dashboard_query_edit_term.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/003_dashboard_query_edit_term.png" alt="images/quick-start-guide/dashboard/003_dashboard_query_edit_term.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Dashboard query edit term</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Within the table panel we now need to set a few defaults.  On the table pane click the settings 
-
-
-
-
-
-
-
-<img class="stroom-icon" src="../../../images/stroom-ui/settings-grey.svg" width="16px" title="Dashboard settings" alt="settings-grey.svg">
-
-button on the top right of the panel.  <code>Extract Values</code> needs to be ticked.  If grouping is to be used and the content of the groups is to be viewed then <code>Show Group Detail</code> should also be ticked.  The <code>Maximum Results</code> field may also be changed from default if required to limit the results or if more results are expected than the default value.  Be aware that setting this value too high may result in excessive memory being used by the query process though.</p>
-<p>We now need to select a pipeline to display the results in the table by setting <code>Extraction Pipeline</code>.  The simplest way is to create and save a new pipeline based on the existing <code>Search Extraction</code> template pipeline.  Within this new pipeline, use either the XSLT used for indexing the data or preferably a copy of this XSLT saved elsewhere.  The extraction pipeline and the dashboard itself should then be saved.</p>
-<p>In the table panel we can add the fields we are interested in, in this case we wanted to sort the application field and count how many time the application name appears.</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/dashboard/004_dashboard_table_fields.png" href="../../../images/quick-start-guide/dashboard/004_dashboard_table_fields.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/004_dashboard_table_fields.png" alt="images/quick-start-guide/dashboard/004_dashboard_table_fields.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Dashboard table fields</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>If at this point, we decide that we&rsquo;d like to see additional fields in the table extracted from each record then the Extraction Pipeline XSLT can be modified to extract them from the Event:</p>
-<pre><code class="language-xml">...
-  &lt;xsl:template match=&quot;/xpath/to/usefulField&quot;&gt;
-    &lt;data name=&quot;UsefulField&quot;&gt;
-      &lt;xsl:attribute name=&quot;value&quot; select=&quot;text()&quot; /&gt;
-    &lt;/data&gt;
-  &lt;/xsl:template&gt;
-...
-</code></pre>
-<p>To be able to select this new field from the table drop-down, it needs to be added back into the list of fields in the original index:</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Store</th>
-<th>Index</th>
-<th>Positions</th>
-<th>Analyser</th>
-<th>Case Sensitive</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>UsefulField</td>
-<td>Text</td>
-<td>No</td>
-<td>No</td>
-<td>No</td>
-<td>Keyword</td>
-<td>false</td>
-</tr>
-</tbody>
-</table>
-<p>If any additionals are made at this point, the index must first be saved and then the dashboard closed and reopened. <code>UsefulField</code> will then be available as a drop-down option in the table.</p>
-<p>Start the query and we should get this</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/dashboard/005_dashboard_table.png" href="../../../images/quick-start-guide/dashboard/005_dashboard_table.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/005_dashboard_table.png" alt="images/quick-start-guide/dashboard/005_dashboard_table.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Dashboard table</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Then we can add an element from the top again and this time use visualisation</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/dashboard/006_dashboard_add_visualisation.png" href="../../../images/quick-start-guide/dashboard/006_dashboard_add_visualisation.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/006_dashboard_add_visualisation.png" alt="images/quick-start-guide/dashboard/006_dashboard_add_visualisation.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Dashboard add visualisation</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>In the visualisation panel that has been added to the bottom, click the settings 
-
-
-
-
-
-
-
-<img class="stroom-icon" src="../../../images/stroom-ui/settings-grey.svg" width="16px" title="Dashboard settings" alt="settings-grey.svg">
-
-button on the top right of the panel.</p>
-<p>In our example we have used the Bubble visualisation</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/dashboard/008_visualisation_settings_basic.png" href="../../../images/quick-start-guide/dashboard/008_visualisation_settings_basic.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/008_visualisation_settings_basic.png" alt="images/quick-start-guide/dashboard/008_visualisation_settings_basic.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Visualisation settings - basic</figcaption>
-      </div>
-      
-    </figure>
-  </a>
 </div>
 
 
-
-
-
-
-
-
-  
-  
-  
-  
-  
+<h2 id="configuring-the-query-expression">Configuring the query expression</h2>
+<p>Now add a term to the query to filter the data.</p>
+<ol>
+<li>Right click on the root AND operator and click 
 
 
 
@@ -5810,29 +5101,316 @@ button on the top right of the panel.</p>
 
 
 
-  
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add Term" alt="add.svg">
+ Add Term.
+A new expression is added to the tree as a child of the operator and it has three dropdowns in it (
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/dashboard/009_visualisation_settings_data.png" href="../../../images/quick-start-guide/dashboard/009_visualisation_settings_data.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/009_visualisation_settings_data.png" alt="images/quick-start-guide/dashboard/009_visualisation_settings_data.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Visualisation settings data</figcaption>
-      </div>
-      
-    </figure>
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#field" title="Glossary entry for Field">
+    <span>Field</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
+</span>
+, 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#condition" title="Glossary entry for Condition">
+    <span>Condition</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ and value).</li>
+<li>Create an expression term for the <em>Application</em> field:
+<ol>
+<li>Field: <code>Application</code></li>
+<li>Condition: <code>=</code></li>
+<li>Value: <code>*b*</code></li>
+</ol>
+</li>
+</ol>
+<p>This will find any records with <code>b</code> in the <em>Application</em> field value.</p>
+<h2 id="configuring-the-table">Configuring the table</h2>
+<p>All fields are <a href="../../../docs/user-guide/indexing/lucene/#stored-fields">stored</a> in our index so we do not need to worry about configuring 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#search-extraction" title="Glossary entry for Search Extraction">
+    <span>Search Extraction</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.</p>
+<p>We first need to add some columns to our table.
+Using the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add Field" alt="add.svg">
+ button on the Table pane, add the following columns to the table.
+We want a count of records grouped by <em>Application</em>.</p>
+<ul>
+<li><em>Application</em></li>
+<li><em>Count</em></li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p><em>Count</em> is a special column (not in the index) that applies the aggregate function <code>count()</code>.
+All columns are actually just an expression which may be a simple field like <code>${Application}</code> or a function.
+Stroom has a rich library of functions for aggregating and mutating query results.
+See <a href="../../../docs/user-guide/dashboards/expressions/">Expressions</a>.</p>
+
+
 </div>
 
-<p>Which gives us this visualisation when the query is executed</p>
+
+<p>To group our data by <em>Application</em> we need to apply a group level to the <em>Application</em> column.</p>
+<ol>
+<li>Click on the <em>Application</em> column</li>
+<li>Click<br>
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/dashboard/group.png" width="16px" title="Group" alt="dashboard/group.png">
+ <em>Group</em> =&gt; 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/dashboard/group.png" width="16px" title="Group" alt="dashboard/group.png">
+ <em>Level 1</em></li>
+</ol>
+<p>Now we can reverse sort the data in the table by the count.</p>
+<ol>
+<li>Click on the <em>Count</em> column.</li>
+<li>Click<br>
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/dashboard/sortaz.png" width="16px" title="Sortaz" alt="dashboard/sortaz.png">
+ <em>Sort</em> =&gt; 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/dashboard/sortza.png" width="16px" title="Sortza" alt="dashboard/sortza.png">
+ <em>Sort Z to A</em></li>
+</ol>
+<p>Now click the large green and white play button to run the query.
+You should see 15 <em>Applications</em> and their counts returned in the table.</p>
+<p>Now we are going to add a custom column to show the lowest EventId for each <em>Application</em> group.</p>
+<ol>
+<li>Click on the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add Field" alt="add.svg">
+ button on the Table pane.</li>
+<li>Select <em>Custom</em> (at the bottom of the list).</li>
+<li>Click on the new <em>Custom</em> column.</li>
+<li>Click<br>
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/dashboard/expression.png" width="16px" title="Expression" alt="dashboard/expression.png">
+ <em>Expression</em></li>
+<li>In the <em>Set Expression For &lsquo;Custom&rsquo;</em> dialog enter the following:<br>
+<code>first(${EventId})</code></li>
+<li>Click <em>OK</em>.</li>
+</ol>
+<p>Instead of typing out the expression you can use the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/function.svg" width="16px" title="Function" alt="function.svg">
+ and 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/field.svg" width="16px" title="Field" alt="field.svg">
+ buttons to pick from a list to add expressions and fields respectively.
+You can also use <code>ctrl-&lt;space&gt;</code> to auto-complete your expressions.</p>
+<p>To rename the <em>Custom</em> column:</p>
+<ol>
+<li>Click on the <em>Custom</em> column.</li>
+<li>Click<br>
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/edit.svg" width="16px" title="Rename" alt="edit.svg">
+ <em>Rename</em></li>
+<li>Enter the text <code>First Event ID</code>.</li>
+<li>Clico <em>OK</em>.</li>
+</ol>
+<p>Now run the query again to see the results with the added column.</p>
+<h2 id="add-a-visualisation">Add a visualisation</h2>
+<p>We will add a new pane to the dashboard to display a 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#visualisation" title="Glossary entry for Visualisation">
+    <span>Visualisation</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.</p>
+<ol>
+<li>Click on the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add Component" alt="add.svg">
+ button at the top left of the Dashboard.</li>
+<li>Select Visualisation.</li>
+</ol>
+<p>A new empty <em>Visualisation</em> pane will be added at the bottom of the Dashboard.</p>
+<p>To configure the visualisation:</p>
+<ol>
+<li>Click on the 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/settings-grey.svg" width="16px" title="Settings" alt="settings-grey.svg">
+ button at the top right of the <em>Visualisation</em> pane.</li>
+<li>In the <em>Visualisation</em> document picker select<br>
+
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ <em>Visualisations</em> / 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/folder.svg" width="16px" title="Folder" alt="folder.svg">
+ <em>Version3</em> / 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/document/Visualisation.svg" width="16px" title="Visualisation" alt="document/Visualisation.svg">
+ <em>Bubble</em></li>
+<li>Click <em>OK</em>.</li>
+<li>On the <em>Data</em> tab that has now appeared in the dialog, assign the following table fields to the visualisation:
+<ol>
+<li><em>Name</em>: <code>Application</code></li>
+<li><em>Value</em>: <code>Count</code></li>
+<li><em>Series</em>: <code>Application</code></li>
+</ol>
+</li>
+<li>On the <em>Bubble</em> tab on the dialog, set the following:
+<ol>
+<li><em>Show Labels</em>: <code>True</code></li>
+</ol>
+</li>
+<li>Click <em>OK</em>.</li>
+</ol>
+<p>To change the look of your Dashboard you can drag the different panes around into different positons.</p>
+<ol>
+<li>Click and hold on the <code>Visualisation</code> text in the top left of the <em>Visualisation</em> pane.</li>
+<li>Drag the cursor to the right hand side of the <em>Table</em> pane.
+You will see a purple rectangle showing where the pane will be moved to.</li>
+<li>Once you are happy with the position release the mouse button.</li>
+<li>Click and hold the mouse button on the borders between the panes to resize the panes to suit.</li>
+<li>Click 
+
+
+
+
+
+
+
+
+<img class="stroom-icon" src="../../../images/stroom-ui/save.svg" width="16px" title="Save" alt="save.svg">
+ to save the Dashboard.</li>
+</ol>
+<p>You should now see something like this:</p>
 
 
 
@@ -5853,63 +5431,22 @@ button on the top right of the panel.</p>
 
 
   
+  
 
 
 
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
 
   <a title="images/quick-start-guide/dashboard/010_visualisation_bubbles.png" href="../../../images/quick-start-guide/dashboard/010_visualisation_bubbles.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/010_visualisation_bubbles.png" alt="images/quick-start-guide/dashboard/010_visualisation_bubbles.png">
+      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/010_visualisation_bubbles.png" width="400" alt="images/quick-start-guide/dashboard/010_visualisation_bubbles.png">
       
 
       
       <div class="card-body px-0 pt-2 pb-0">
         <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
         <figcaption class="card-text" style="font-size: smaller; text-align: center;">Bubble visualisation</figcaption>
-      </div>
-      
-    </figure>
-  </a>
-</div>
-
-<p>Where you can hover over elements and get a summary of that representation.</p>
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-  
-
-
-
-<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
-
-  <a title="images/quick-start-guide/dashboard/011_visualisation_bubbles_legend.png" href="../../../images/quick-start-guide/dashboard/011_visualisation_bubbles_legend.png">
-    <figure style="margin-block-end: 0px" >
-      
-      <img class="card-img-top" src="../../../images/quick-start-guide/dashboard/011_visualisation_bubbles_legend.png" alt="images/quick-start-guide/dashboard/011_visualisation_bubbles_legend.png">
-      
-
-      
-      <div class="card-body px-0 pt-2 pb-0">
-        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
-        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Bubble visualisation legends</figcaption>
       </div>
       
     </figure>

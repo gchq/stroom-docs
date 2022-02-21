@@ -177,7 +177,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-751a8e0db6ce54a247c6cecee7659fca">v6 to v7 Upgrade</a></li>
+<li>1: <a href="#pg-3343397eca2385c268b1e77ebc0c4e41">Minor Upgrades and Patches</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-63dfce89305ebda417758285ed429726">Upgrade from v6 to v7</a></li>
 
 
     
@@ -210,7 +218,75 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="--base-section-num: '1.'; ">
     
-  <h1 id="pg-751a8e0db6ce54a247c6cecee7659fca">1 - v6 to v7 Upgrade</h1>
+  <h1 id="pg-3343397eca2385c268b1e77ebc0c4e41">1 - Minor Upgrades and Patches</h1>
+    <div class="lead">How to upgrade to a new minor or patch release.</div>
+	<p>Stroom versioning follows 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://semver.org" target="_blank" class="" style="" title="Semantic Versioning (external link)">
+    <span>Semantic Versioning</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>Given a version number <em>MAJOR</em>.<em>MINOR</em>.<em>PATCH</em>:</p>
+<ul>
+<li><em>MAJOR</em> is incremented when there are major or breaking changes.</li>
+<li><em>MINOR</em> is incremented when functionality is added in a backwards compatible manner.</li>
+<li><em>PATCH</em> is incremented when bugs are fixed.</li>
+</ul>
+<p>Stroom is designed to detect the version of the existing database schema and to run any migrations necessary to bring it up to the version begin deployed.
+This means you can jump from say 7.0.0 =&gt; 7.2.0 or from 7.0.0 to 7.0.5.</p>
+<p>This document covers minor and patch upgrades only.</p>
+<h2 id="docker-stack-deployments">Docker stack deployments</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this
+
+</div>
+
+<h2 id="non-docker-deployments">Non-docker deployments</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this
+
+</div>
+
+<h2 id="major-version-upgrades">Major version upgrades</h2>
+<p>The following notes are specific for these major version upgrades</p>
+<ul>
+<li><a href="../../../../docs/install-guide/upgrades/v6-to-v7/">v6 =&gt; v7</a></li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-63dfce89305ebda417758285ed429726">2 - Upgrade from v6 to v7</h1>
     <div class="lead">This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.</div>
 	
 <div class="pageinfo pageinfo-danger">
@@ -270,7 +346,22 @@ Ensure that there is NOT any configuration for a separate auth database as this 
 <p>Stroom v6 ran on mysql v5.6.
 Stroom v7 runs on mysql v8.
 The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x</p>
-<p>To ensure the database is up to date <code>mysql_upgrade</code> neeeds to be run using the 5.7.33 binaries, <a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html">see (external link)</a>.</p>
+<p>To ensure the database is up to date <code>mysql_upgrade</code> neeeds to be run using the 5.7.33 binaries, see the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" target="_blank" class="" style="" title="MySQL documentation (external link)">
+    <span>MySQL documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <p>This is the process for upgrading the database. All of these commands are using the v7 stack.</p>
 <pre><code class="language-bash"># Set the version of the MySQL docker image to use
 export MYSQL_TAG=5.7.33

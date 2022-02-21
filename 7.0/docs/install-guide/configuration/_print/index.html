@@ -370,7 +370,22 @@ server.pem.crt -&gt; /some/path/to/host123.pem.crt
 server.unencrypted.key -&gt; /some/path/to/host123.key
 </code></pre>
 <p>This approach avoids the need to change any configuration files to reference differently named certificate/key files and avoids having to copy your real certificates/keys into multiple places.</p>
-<p>For examples of how to create certificates, keys and keystores see <a href="https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh">creatCerts.sh (external link)</a></p>
+<p>For examples of how to create certificates, keys and keystores see 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh" target="_blank" class="" style="" title="creatCerts.sh (external link)">
+    <span>creatCerts.sh</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
 
 </div>
 </div>
@@ -395,12 +410,26 @@ server.unencrypted.key -&gt; /some/path/to/host123.key
 <div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
   <h1 id="pg-a53a193cf4abc0b6dfa8fa20a2fda8e2">1 - Nginx Configuration</h1>
-    <div class="lead">Nginx is the standard web server used by stroom. Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it. It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance. Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.</div>
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 2021-06-07<br>
-<strong>See Also:</strong> <a href="https://nginx.org/en/docs/">Nginx documentation (external link)</a>.</p>
-</blockquote>
+    <div class="lead">Configuring Nginx for use with Stroom and Stroom Proxy.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <span class="external-link">
+  <a href="https://nginx.org/en/docs/" target="_blank" class="" style="" title="Nginx documentation (external link)">
+    <span>Nginx documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+
+</div>
+
+<p>Nginx is the standard web server used by stroom.
+Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
+It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance.
+Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.</p>
 <h2 id="without-docker">Without Docker</h2>
 <p>The standard way of deploying Nginx with stroom running without docker involves running Nginx as part of the <em>services</em> stack.
 See below for details of how to configure it.
@@ -511,7 +540,22 @@ This crontab file drives the lograte process and by default is set to run every 
 <strong>See Also:</strong> <a href="../../../../docs/user-guide/properties/">Properties</a>.</p>
 </blockquote>
 <h2 id="general-configuration">General configuration</h2>
-<p>The Stroom application is essentially just an executable <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29">JAR (external link)</a> file that can be run when provided with a configuration file, <code>config.yml</code>.
+<p>The Stroom application is essentially just an executable 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29" target="_blank" class="" style="" title="JAR (external link)">
+    <span>JAR</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ file that can be run when provided with a configuration file, <code>config.yml</code>.
 This config file is common to all forms of deployment.</p>
 <h3 id="configyml">config.yml</h3>
 <p>This file, sometimes known as the DropWizard configuration file (as DropWizard is the java framework on which Stroom runs) is the primary means of configuring stroom.
@@ -637,7 +681,22 @@ The <a href="https://github.com/gchq/stroom-ansible/blob/master/config/single_no
 Stroom-proxy has a <code>proxyConfig</code> key in the YAML while Stroom has <code>appConfig</code>.
 It is recommended to first read <a href="../../../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a> to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.</p>
 <h2 id="general-configuration">General configuration</h2>
-<p>The Stroom-proxy application is essentially just an executable <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29">JAR (external link)</a> file that can be run when provided with a configuration file, <code>config.yml</code>.
+<p>The Stroom-proxy application is essentially just an executable 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29" target="_blank" class="" style="" title="JAR (external link)">
+    <span>JAR</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ file that can be run when provided with a configuration file, <code>config.yml</code>.
 This configuration file is common to all forms of deployment.</p>
 <h3 id="configyml">config.yml</h3>
 <p>Stroom-proxy does not have a user interface so the <code>config.yml</code> file is the only way of configuring stroom-proxy.
@@ -774,7 +833,22 @@ Each forward location can use a different key/trust store pair.</p>
 <strong>Last Updated:</strong> 2021-06-14</p>
 </blockquote>
 <p>Stroom log sender is a docker image used for sending application logs to stroom.
-It is essentially just a combination of the <a href="https://github.com/gchq/stroom-clients/tree/master/bash">send_to_stroom.sh (external link)</a> script and a set of crontab entries to call the script at intervals.</p>
+It is essentially just a combination of the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/tree/master/bash" target="_blank" class="" style="" title="send_to_stroom.sh (external link)">
+    <span>send_to_stroom.sh</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ script and a set of crontab entries to call the script at intervals.</p>
 <h2 id="deploying-without-docker">Deploying without Docker</h2>
 <p>When deploying without docker stroom and stroom-proxy nodes will need to be configured to send their logs to stroom.
 This can be done using the <code>./bin/send_to_stroom.sh</code> script in the stroom and stroom-proxy zip distributions and some crontab configuration.</p>
@@ -845,12 +919,25 @@ volumes/stroom-log-sender/certs/client.unencrypted.key
 <div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
     
   <h1 id="pg-c55274dc8017978026995b0c30172626">5 - MySQL Configuration</h1>
-    
+    <div class="lead">Confnguring MySQl for use with Stroom.</div>
 	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 2021-06-07<br>
-<strong>See Also:</strong> <a href="../../../../docs/install-guide/setup/mysql-server-setup/">MySQL Server Setup</a><br>
-<strong>See Also:</strong> <a href="https://dev.mysql.com/doc/refman/8.0/en/server-administration.html">MySQL Server Administration (external link)</a></p>
+<p><strong>See Also:</strong> <a href="../../../../docs/install-guide/setup/mysql-server-setup/">MySQL Server Setup</a><br>
+<strong>See Also:</strong> 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" target="_blank" class="" style="" title="MySQL Server Administration (external link)">
+    <span>MySQL Server Administration</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
 </blockquote>
 <h2 id="general-configuration">General configuration</h2>
 <p>MySQL is configured via the <code>.cnf</code> file which is typically located in one of these locations:</p>
@@ -868,25 +955,75 @@ volumes/stroom-log-sender/certs/client.unencrypted.key
 A value of <code>0</code> means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
 This is the default in linux and is the preferred value for deployments of stroom of v7+.
 A value of <code>1</code> means tables are stored on the filesystem in lowercase but sql is case insensitive.
-<a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html">See also (external link)</a></p>
+See also 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html" target="_blank" class="" style="" title="Identifier Case Sensitivity (external link)">
+    <span>Identifier Case Sensitivity</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
 </li>
 <li>
 <p><code>max_connections</code> - The maximum permitted number of simultaneous client connections.
 For a clustered deployment of stroom, the default value of 151 will typically be too low.
 Each stroom node will hold a pool of open database connections for its use, therefore with a large number of stroom nodes and a big connection pool the total number of connections can be very large.
 This property should be set taking into account the values of the stroom properties of the form <code>*.db.connectionPool.maxPoolSize</code>.
-<a href="https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html">See also (external link)</a></p>
+See also 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html" target="_blank" class="" style="" title="Connection Interfaces (external link)">
+    <span>Connection Interfaces</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
 </li>
 <li>
 <p><code>innodb_buffer_pool_size</code>/<code>innodb_buffer_pool_instances</code> - Controls the amount of memory availble to MySQL for caching table/index data.
 Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
 <em>Note</em>: <code>innodb_buffer_pool_size</code> must be set to a value that is equal to or a multiple of <code>innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances</code>.
-<a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html">See also (external link)</a></p>
+See also 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html" target="_blank" class="" style="" title="Configuring InnoDB Buffer Pool Size (external link)">
+    <span>Configuring InnoDB Buffer Pool Size</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
 </li>
 </ul>
-<blockquote>
-<p><strong>TODO</strong> - Add additional key configuration items</p>
-</blockquote>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Add additional key configuration items
+
+</div>
+
 <h2 id="deploying-without-docker">Deploying without Docker</h2>
 <p>When MySQL is deployed without a docker stack then MySQL should be installed and configured according to the MySQL documentation.
 How MySQL is deployed and configured will depend on the requirements of the environment, e.g. clustered, primary/standby, etc.</p>

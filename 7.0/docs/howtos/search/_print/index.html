@@ -238,20 +238,80 @@ are searchable via a Stroom <em>dashboard</em>, much like a Stroom Lucene index.
 <h3 id="assumptions">Assumptions</h3>
 <ol>
 <li>You have created an Elasticsearch cluster.
-For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode">Elasticsearch Docs (external link)</a>.</li>
+For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode" target="_blank" class="" style="" title="Elasticsearch Docs (external link)">
+    <span>Elasticsearch Docs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
 <li>The Elasticsearch cluster is reachable via HTTP/S from all Stroom nodes participating in <a href="../../../../docs/quick-start-guide/running/">stream processing</a>.</li>
 <li>Elasticsearch security is disabled.</li>
 <li>You have a feed containing <code>Event</code> data.</li>
 </ol>
 <h3 id="key-differences">Key differences</h3>
 <ol>
-<li>Unlike with <a href="../../../../docs/howtos/search/solr/">Solr indexing</a>, Elasticsearch field mappings are managed outside of Stroom, usually via the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings">REST API (external link)</a>.</li>
+<li>Unlike with <a href="../../../../docs/howtos/search/solr/">Solr indexing</a>, Elasticsearch field mappings are managed outside of Stroom, usually via the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings" target="_blank" class="" style="" title="REST API (external link)">
+    <span>REST API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
 <li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional.
 It is however, considered good practice to define these mappings, to ensure each field&rsquo;s data type is correctly parsed and represented.
-For text fields, it also pays to ensure that the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html">appropriate mapping parameters are used (external link)</a>,
+For text fields, it also pays to ensure that the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html" target="_blank" class="" style="" title="appropriate mapping parameters are used (external link)">
+    <span>appropriate mapping parameters are used</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+,
 in order to satisfy your search and analysis requirements - and meet system resource constraints.</li>
 <li>Unlike both Solr and Lucene indexing, it is not necessary to mark a field as <code>stored</code> (i.e. storing its raw value in the inverted index).
-This is because Elasticsearch stores the content of the original document in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-source-field.html"><code>_source</code> field (external link)</a>,
+This is because Elasticsearch stores the content of the original document in the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-source-field.html" target="_blank" class="" style="" title="_source field (external link)">
+    <span>_source field</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+,
 which is retrieved when populating search results.
 Provided the <code>_source</code> field is enabled (as it is by default), a field is treated as <code>stored</code> in Stroom and its value doesn&rsquo;t need to be retrieved via an <em>extraction pipeline</em>.</li>
 </ol>
@@ -262,12 +322,42 @@ Provided the <code>_source</code> field is enabled (as it is by default), a fiel
 <li><code>StreamId</code> (mandatory, must be of data type <code>long</code>)</li>
 <li><code>EventId</code> (mandatory, must also be <code>long</code>)</li>
 <li><code>Name</code> (text). Uses the default analyzer, which tokenizes the text for matching on terms.
-<code>fielddata</code> is enabled, which allows for <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param">aggregating on these terms (external link)</a>.</li>
+<code>fielddata</code> is enabled, which allows for 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param" target="_blank" class="" style="" title="aggregating on these terms (external link)">
+    <span>aggregating on these terms</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
 <li><code>State</code> (keyword). Supports exact matching.</li>
 </ol>
 <p>The created index consists of <code>5</code> shards.
 Note that the shard count cannot be changed after index creation, without a reindex.
-See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html">this guide (external link)</a> on shard sizing.</p>
+See 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html" target="_blank" class="" style="" title="this guide (external link)">
+    <span>this guide</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ on shard sizing.</p>
 <pre><code class="language-bash">curl -X PUT &quot;http://localhost:9200/stroom_test?pretty&quot; -H 'Content-Type: application/json' -d'
    {
       &quot;settings&quot;: {
@@ -295,7 +385,22 @@ See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/siz
 '
 </code></pre>
 <p>After creating the index, you can add additional field mappings.
-Note the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html#updating-field-mappings">limitations (external link)</a> in doing so, particularly the fact that it will not cause existing documents to be re-indexed.
+Note the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html#updating-field-mappings" target="_blank" class="" style="" title="limitations (external link)">
+    <span>limitations</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ in doing so, particularly the fact that it will not cause existing documents to be re-indexed.
 It is worthwhile to test index mappings on a subset of data before committing to indexing a large event feed, to ensure the resulting search experience meets your requirements.</p>
 <h3 id="registering-the-index-in-stroom">Registering the index in Stroom</h3>
 <p>This step creates an <em>Elasticsearch Index</em> in the <em>Stroom Tree</em> and tells Stroom how to connect to your Elasticsearch cluster
@@ -334,7 +439,22 @@ The refresh button in the <code>Fields</code> tab does not have any effect.
 <h3 id="setting-index-retention">Setting index retention</h3>
 <p>As with Solr indexing, index document retention is determined by defining a Stroom query.</p>
 <p>Setting a retention query is optional and by default, documents will be retained in an index indefinitely.</p>
-<p>It is recommended for indices containing events spanning long periods of time, that <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html">Elasticsearch Index Lifecycle Management (external link)</a>
+<p>It is recommended for indices containing events spanning long periods of time, that 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" target="_blank" class="" style="" title="Elasticsearch Index Lifecycle Management (external link)">
+    <span>Elasticsearch Index Lifecycle Management</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
 be used instead. The capabilities provided, such as automatic rollover to warm or cold storage tiers, are well worth considering, especially in high-volume production clusters.</p>
 <h4 id="considerations-when-implementing-ilm">Considerations when implementing ILM</h4>
 <ol>
@@ -356,14 +476,44 @@ of each <code>&lt;data&gt;</code> element exactly matches the mapping property o
 <li>Delete the default <code>indexingFilter</code> and in its place, create an <code>ElasticIndexingFilter</code> (see screenshot below).</li>
 <li>Review and set the following properties:
 <ol>
-<li><code>batchSize</code> (default: <code>10,000</code>). Number of documents to send in a single request to the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html">Bulk API (external link)</a>.
+<li><code>batchSize</code> (default: <code>10,000</code>). Number of documents to send in a single request to the Elasticsearch 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html" target="_blank" class="" style="" title="Bulk API (external link)">
+    <span>Bulk API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 Should usually be set to <code>1,000</code> or more.
 The higher the number, the more memory is required by both Stroom and Elasticsearch when sending or receiving the request.</li>
 <li><code>index</code> (required). Set this to the target Elasticsearch index in the Stroom <em>Explorer Tree</em>.</li>
 <li><code>refreshAfterEachBatch</code> (default: <code>false</code>). Refreshes the Elasticsearch index after each batch has finished processing.
 This makes any documents ingested in the batch available for searching.
 Unless search results are needed in near-real-time, it is recommended this be set to <code>false</code> and the index refresh interval be set to an appropriate value.
-See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html#_unset_or_increase_the_refresh_interval">this document (external link)</a> for guidance on optimising indexing performance.</li>
+See 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html#_unset_or_increase_the_refresh_interval" target="_blank" class="" style="" title="this document (external link)">
+    <span>this document</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for guidance on optimising indexing performance.</li>
 </ol>
 </li>
 </ol>
@@ -418,10 +568,40 @@ See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tun
 <p>You can also get an exact document count, to ensure this matches the number of events you are expecting:</p>
 <pre><code class="language-bash">curl -X GET &quot;http://localhost:9200/stroom_test/_count&quot;
 </code></pre>
-<p>For more information, see the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search API documentation (external link)</a>.</p>
+<p>For more information, see the Elasticsearch 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html" target="_blank" class="" style="" title="Search API documentation (external link)">
+    <span>Search API documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h3 id="reindexing-data">Reindexing data</h3>
 <p>By default, the original document values are stored in an Elasticsearch index and may be used later on to re-index data (such as when a change is made to field mappings).
-This is done via the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html">Reindex API (external link)</a>.
+This is done via the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html" target="_blank" class="" style="" title="Reindex API (external link)">
+    <span>Reindex API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 Provided these values have not changed, it would likely be more efficient to use this API to perform a re-index,
 instead of processing data from scratch using a Stroom stream processor.</p>
 <p>On the other hand, if the content of documents being output to Elasticsearch has changed, the Elasticsearch index will need to be re-created
@@ -436,7 +616,22 @@ events.</li>
 occupied by that field.</p>
 <h4 id="reindexing-using-a-pipeline-processor">Reindexing using a pipeline processor</h4>
 <ol>
-<li>Delete the index. While it is possible to <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html">delete by query (external link)</a>, it is more efficient to drop the index.
+<li>Delete the index. While it is possible to 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html" target="_blank" class="" style="" title="delete by query (external link)">
+    <span>delete by query</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, it is more efficient to drop the index.
 Additionally, deleting by query doesn&rsquo;t actually remove data from disk, until segments are merged.
 <pre><code class="language-bash">curl -X DELETE &quot;http://localhost:9200/stroom_test&quot;
 </code></pre>
@@ -449,7 +644,22 @@ Additionally, deleting by query doesn&rsquo;t actually remove data from disk, un
 the Elasticsearch cluster.</p>
 <p>The advantage of using Stroom to search is that it allows access to the raw source data (i.e. it is not limited to what&rsquo;s stored in the index).
 It can also use <em>extraction pipelines</em> to enrich search results for export in a table.</p>
-<p>Elasticsearch on the other hand, provides a rich <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search REST API (external link)</a>
+<p>Elasticsearch on the other hand, provides a rich
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html" target="_blank" class="" style="" title="Search REST API (external link)">
+    <span>Search REST API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
 with powerful <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html">aggregations</a> that can be
 used to generate reports and discover patterns and anomalies. It can also be readily queried using third-party tools.</p>
 <h3 id="stroom">Stroom</h3>
@@ -457,13 +667,88 @@ used to generate reports and discover patterns and anomalies. It can also be rea
 <p>Instead of selecting a Lucene index, set the target <em>data source</em> to the desired Elasticsearch index in the Stroom <em>Explorer Tree</em>.</p>
 <p>Once the target <em>data source</em> has been set, the Dashboard can be used as with a Lucene or Solr index <em>data source</em>.</p>
 <h3 id="elasticsearch">Elasticsearch</h3>
-<p>Elasticsearch queries can be performed directly against the cluster using the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search API (external link)</a>.</p>
-<p>Alternatively, there are tools that make search and discovery easier and more intuitive, like <a href="https://www.elastic.co/kibana">Kibana (external link)</a>.</p>
+<p>Elasticsearch queries can be performed directly against the cluster using the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html" target="_blank" class="" style="" title="Search API (external link)">
+    <span>Search API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>Alternatively, there are tools that make search and discovery easier and more intuitive, like 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/kibana" target="_blank" class="" style="" title="Kibana (external link)">
+    <span>Kibana</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h2 id="security">Security</h2>
-<p>It is important to note that Elasticsearch data is not encrypted at rest, unless this feature is enabled and the relevant <a href="https://www.elastic.co/subscriptions">licensing tier (external link)</a> is purchased.
+<p>It is important to note that Elasticsearch data is not encrypted at rest, unless this feature is enabled and the relevant 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/subscriptions" target="_blank" class="" style="" title="licensing tier (external link)">
+    <span>licensing tier</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is purchased.
 Therefore, appropriate measures should be taken to control access to Elasticsearch user data at the file level.</p>
-<p>For production clusters, the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-security.html">security guidelines (external link)</a> should be followed, in order to control access and ensure requests are audited.</p>
-<p>You might want to consider implementing <a href="https://www.elastic.co/guide/en/kibana/current/development-security.html">role-based access control (external link)</a>
+<p>For production clusters, the Elasticsearch 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-security.html" target="_blank" class="" style="" title="security guidelines (external link)">
+    <span>security guidelines</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ should be followed, in order to control access and ensure requests are audited.</p>
+<p>You might want to consider implementing 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/development-security.html" target="_blank" class="" style="" title="role-based access control (external link)">
+    <span>role-based access control</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
 to prevent unauthorised users of the native Elasticsearch API or tools like Kibana, from creating, modifying or deleting data within sensitive indices.</p>
 
 </div>

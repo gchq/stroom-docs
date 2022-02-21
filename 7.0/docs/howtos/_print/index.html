@@ -508,18 +508,18 @@ This is the multi-page printable view of this section.
 
 
 <div class="content">
-      
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+      <p>The <em>HOWTOs</em> are broken down into different functional concepts or areas of Stroom.</p>
 
-    Add the resources dir to /assets and fix all the img links
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    These <em>HOWTOs</em> will match the development of Stroom and as a result, various elements will be updated over time, including screen captures.
+In some instances, screen captures will contain timestamps and so you may note inconsistent date or time movements within a complete HOWTO, although if a sequence of captures is contained within a section of a document, they all will be replaced.
 
 </div>
 
-<p>The <em>HOWTOs</em> are broken down into different functional concepts or areas of Stroom.</p>
-<p><strong>NOTE:</strong> These <em>HOWTOs</em> will match the development of Stroom and as a result, various elements will be updated over time, including screen captures.
-In some instances, screen captures will contain timestamps and so you may note inconsistent date or time movements within a complete HOWTO,
-although if a sequence of captures is contained within a section of a document, they all will be replaced.</p>
+
 <h2 id="installation">Installation</h2>
 <p>The <a href="../../../docs/howtos/install/installhowto/">Installation Scenarios</a> HOWTO is provided to assist users in setting up a number
 of different Stroom deployments.</p>
@@ -620,9 +620,38 @@ of different Stroom deployments.</p>
 <pre><code class="language-bash">sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
 sudo yum -y install tomcat-native
 </code></pre>
-<p>The reason for the distinct <code>tomcat-native</code> installation is that this package is from the <a href="https://fedoraproject.org/wiki/EPEL" title="Extra Packages for Enterprise Linux (EPEL)">EPEL (external link)</a> repository so it must be installed first.</p>
-<p>For the Apache mod_jk Tomcat connector we need to acquire a recent
-<a href="http://tomcat.apache.org/connectors-doc/" title="The Apache Tomcat Connectors: mod_jk, ISAPI redirector, NSAPI redirector">release (external link)</a> and install it.
+<p>The reason for the distinct <code>tomcat-native</code> installation is that this package is from the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://fedoraproject.org/wiki/EPEL" target="_blank" class="" style="" title="EPEL (external link)">
+    <span>EPEL</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ repository so it must be installed first.</p>
+<p>For the Apache mod_jk Tomcat connector we need to acquire a recent 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="http://tomcat.apache.org/connectors-doc/" target="_blank" class="" style="" title="release (external link)">
+    <span>release</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and install it.
 The following commands achieve this for the 1.2.42 release.</p>
 <pre><code class="language-bash">sudo bash
 cd /tmp
@@ -1432,7 +1461,37 @@ systemctl start httpd.service
 <li>have two separate nodes, each with it&rsquo;s own database instance</li>
 <li>the list goes on.</li>
 </ul>
-<p>In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the <a href="https://mariadb.com" title="MariaDB Site">MariaDB (external link)</a> or <a href="https://www.mysql.com/products/community/" title="MySQL Community Site">MySQL Community (external link)</a> versions of MySQL.</p>
+<p>In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://mariadb.com" target="_blank" class="" style="" title="MariaDB (external link)">
+    <span>MariaDB</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ or 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.mysql.com/products/community/" target="_blank" class="" style="" title="MySQL Community (external link)">
+    <span>MySQL Community</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ versions of MySQL.</p>
 <h2 id="assumptions">Assumptions</h2>
 <ul>
 <li>we are installing the MariaDB or MySQL Community RDBMS software.</li>
@@ -1450,8 +1509,22 @@ systemctl start httpd.service
 </code></pre>
 <h3 id="mysql-community-server-installation">MySQL Community Server Installation</h3>
 <p>As MySQL is not directly supported by Centos 7, we need to install it&rsquo;s repository files prior to installation.
-We get the current MySQL Community release repository rpm and validate it&rsquo;s MD5 checksum against the published value found on the
-<a href="https://dev.mysql.com/downloads/repo/yum" title="Download MySQL Yum Repository">MySQL Yum Repository (external link)</a> site.</p>
+We get the current MySQL Community release repository rpm and validate it&rsquo;s MD5 checksum against the published value found on the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/downloads/repo/yum" target="_blank" class="" style="" title="MySQL Yum Repository (external link)">
+    <span>MySQL Yum Repository</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ site.</p>
 <pre><code class="language-bash">wget https://repo.mysql.com/mysql57-community-release-el7.rpm
 md5sum mysql57-community-release-el7.rpm
 </code></pre>
@@ -2004,7 +2077,22 @@ quit;
 <li>better security of password choices, networking, firewalls, data stores, etc. can and should be achieved in various ways, but these HOWTOs are just a quick means of getting a working system, so only limited security is applied</li>
 <li>better configuration of the database (e.g. more memory. redundancy) should be considered in production environments</li>
 <li>the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments</li>
-<li>the user has access to a <a href="https://www.google.com/chrome" title="Google Chrome Web Browser">Chrome (external link)</a> web browser as Stroom is optimised for this browser.</li>
+<li>the user has access to a 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.google.com/chrome" target="_blank" class="" style="" title="Chrome (external link)">
+    <span>Chrome</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ web browser as Stroom is optimised for this browser.</li>
 </ul>
 <h2 id="introduction">Introduction</h2>
 <p>This HOWTO provides guidance on a variety of simple Stroom deployments.</p>
@@ -2099,7 +2187,22 @@ just install them both on the first (or only) Stroom node.</p>
 <p><a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client.
 Instructions for installation of the MySQL Community repository files can be
 found <a href="../../../docs/howtos/install/installdatabasehowto/#mysql-community-server-installation">here</a> or on
-the <a href="https://dev.mysql.com/downloads/repo/yum" title="Download MySQL Yum Repository">MySQL Site (external link)</a>.
+the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/downloads/repo/yum" target="_blank" class="" style="" title="MySQL Site (external link)">
+    <span>MySQL Site</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 Once you have installed the MySQL repository files, install the client via</p>
 <pre><code class="language-bash">sudo yum -y install mysql-community-client
 </code></pre>
@@ -2118,13 +2221,58 @@ a system&rsquo;s entropy.</p>
 <p>A reasonable value would be over 2000 and a poor value would be below a few hundred.</p>
 <p>If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
 the Application as high as 15 minutes.</p>
-<p>One software based solution would be to install the <a href="http://www.issihosts.com/haveged" title="Haveged Web Site">haveged (external link)</a> service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
+<p>One software based solution would be to install the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="http://www.issihosts.com/haveged" target="_blank" class="" style="" title="haveged (external link)">
+    <span>haveged</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
 To install execute</p>
 <pre><code class="language-bash">yum -y install haveged
 systemctl enable haveged
 systemctl start haveged
 </code></pre>
-<p>For background reading in this matter, see <a href="https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged" title="Haveged Entropy Service">this reference (external link)</a> or <a href="https://cwiki.apache.org/confluence/display/TOMCAT/HowTo+FasterStartUp" title="How do I make Tomcat startup faster?">this reference (external link)</a>.</p>
+<p>For background reading in this matter, see 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged" target="_blank" class="" style="" title="this reference (external link)">
+    <span>this reference</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ or 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://cwiki.apache.org/confluence/display/TOMCAT/HowTo&#43;FasterStartUp" target="_blank" class="" style="" title="this reference (external link)">
+    <span>this reference</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h2 id="storage-scenario">Storage Scenario</h2>
 <p>For the purpose of this Installation HOWTO, the following sets up the storage hierarchy for a two node processing
 cluster. To share our <strong>permanent data</strong> we will use NFS. Accept that the NFS deployment described here is very simple, and
@@ -2187,7 +2335,22 @@ provides instructions for this. The created certificates can then be used when c
 <p>This HOWTO is designed to deploy Apache&rsquo;s httpd web service as a front end (https) (to the user) and
 Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found <a href="../../../docs/howtos/install/installhttpdhowto/">here</a>.</p>
-<p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
+<p>Other Web service capability can be used, for example, 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://nginx.org" target="_blank" class="" style="" title="NGINX (external link)">
+    <span>NGINX</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h2 id="installation-validation">Installation Validation</h2>
 <p>We will now check that the installation and web services integration has worked.</p>
 <h3 id="sanity-firewall-check">Sanity firewall check</h3>
@@ -2233,7 +2396,22 @@ proxy log file, then second on stroomp01.strmdev00.org&rsquo;s proxy log file, t
 We do this via the user interface (UI).</p>
 <h3 id="logging-into-the-stroom-ui-for-the-first-time">Logging into the Stroom UI for the first time</h3>
 <p>To log into the UI of your newly installed Stroom instance, present the base URL to your
-<a href="https://www.google.com/chrome" title="Google Chrome Web Browser">Chrome (external link)</a> browser. In this deployment, you should enter the URLS
+
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.google.com/chrome" target="_blank" class="" style="" title="Chrome (external link)">
+    <span>Chrome</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ browser. In this deployment, you should enter the URLS
 <code>http://stroomp.strmdev00.org</code>, or <code>https://stroomp.strmdev00.org</code> or <code>https://stroomp.strmdev00.org/stroom</code>, noting the first URLs
 should automatically direct you to the last URL.</p>
 <p>If you have personal certificates loaded in your Chrome browser, you may be asked which certificate to use to authenticate yourself
@@ -2506,7 +2684,22 @@ proxy we will need to establish Key and Trust stores as well. This is also docum
 Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found <a href="../../../docs/howtos/install/installhttpdhowto/">here</a>. Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.</p>
-<p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
+<p>Other Web service capability can be used, for example, 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://nginx.org" target="_blank" class="" style="" title="NGINX (external link)">
+    <span>NGINX</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h2 id="testing-our-forwarding-proxy-installation">Testing our Forwarding Proxy Installation</h2>
 <p>To complete the installation process we will test that we can send data to the forwarding proxy and that it forwards the files
 it receives to the central Stroom processing system. As stated earlier, it is assumed we have installed, configured and tested the destination
@@ -2576,7 +2769,22 @@ The created certificates can then be used when configuration the web service. Th
 Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
 to configure this can be found <a href="../../../docs/howtos/install/installhttpdhowto/">here</a>. Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.</p>
-<p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
+<p>Other Web service capability can be used, for example, 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://nginx.org" target="_blank" class="" style="" title="NGINX (external link)">
+    <span>NGINX</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h2 id="testing-our-standalone-proxy-installation">Testing our Standalone Proxy Installation</h2>
 <p>To complete the installation process we will test that we can send data to the standalone proxy and it stores it.</p>
 <h3 id="sending-test-data-2">Sending Test Data</h3>
@@ -2723,7 +2931,22 @@ to configure this can be found <a href="../../../docs/howtos/install/installhttp
 You should pay particular attention to the section on the
 <a href="../../../docs/howtos/install/installhttpdhowto/#apache-modjk-configuration">Apache Mod_JK configuration</a>
 as you <strong>MUST</strong> regenerate the Mod_JK workers.properties file on the existing cluster nodes as well as generating it on our new node.</p>
-<p>Other Web service capability can be used, for example, <a href="https://nginx.org" title="NGINX Web Service Capability">NGINX (external link)</a>.</p>
+<p>Other Web service capability can be used, for example, 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://nginx.org" target="_blank" class="" style="" title="NGINX (external link)">
+    <span>NGINX</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <p>Note that once you have integrated the web services for our new node, you will need to restart the Apache systemd process on the existing
 two nodes that that the new Mod_JK configuration has taken place.</p>
 <h2 id="installation-validation-1">Installation Validation</h2>
@@ -3564,6 +3787,7 @@ sudo su -c &quot;printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /st
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/edit.svg" width="16px" title="Edit" alt="edit.svg">
  in the top left of
 the <code>Nodes</code> tab and select it. On selection the <code>Edit Node</code> configuration window will be displayed and into
@@ -3743,6 +3967,7 @@ at which we see the <em>Cluster URL</em> has been set for the first node as per<
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/edit.svg" width="16px" title="Edit" alt="edit.svg">
  in the top left of
 the <code>Nodes</code> tab and select it. On selection the <code>Edit Node</code> configuration window will be displayed and into
@@ -3873,6 +4098,7 @@ the <strong>Cluster URL:</strong> entry box, enter the second node&rsquo;s URL o
 </div>
 .</p>
 <p>You may need to press the <em>Refresh</em> icon 
+
 
 
 
@@ -4107,6 +4333,7 @@ the new node, one has to configure the new node&rsquo;s Cluster URL.</p>
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/edit.svg" width="16px" title="Edit" alt="edit.svg">
  in the top left
 of the <code>Nodes</code> tab and select it. On selection the <code>Edit Node</code> configuration window will be displayed
@@ -4237,6 +4464,7 @@ button at which we see the <em>Cluster URL</em> has been set for the first node 
 </div>
 
 <p>You need to press the <em>Refresh</em> icon 
+
 
 
 
@@ -5419,6 +5647,7 @@ configuring the Stroom service application, you will see two default volumes hav
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/add.svg" width="16px" title="Add" alt="add.svg">
  in the top left of
 the <code>Volumes</code> window and select it. This will bring up the <code>Add Volume</code> configuration window</p>
@@ -5822,6 +6051,7 @@ we see the changes in the <code>Volumes</code> configuration window</p>
 
 
 
+
 <img class="stroom-icon" src="../../../images/stroom-ui/delete.svg" width="16px" title="Delete" alt="delete.svg">
  in the top left of the <code>Volumes</code> window and select it. On selection you will be given a confirmation request</p>
 
@@ -6035,7 +6265,22 @@ button to see the first default volume has been deleted</p>
  button.</p>
 <p><strong>NOTE</strong>: At the time of writing there is an issue regarding volumes</p>
 <h5 id="stroom-github-issue-84---">Stroom Github Issue 84  -</h5>
-<p>Due to <a href="https://github.com/gchq/stroom/issues/84">Issue 84 (external link)</a>, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster.
+<p>Due to 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/84" target="_blank" class="" style="" title="Issue 84 (external link)">
+    <span>Issue 84</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster.
 Thus if we attempted to use the volumes we would get a database error.
 The current <em>workaround</em> is to restart all the Stroom applications which will cause a reload of all volume information.
 This <strong>MUST</strong> be done before sending any data to your multi-node Stroom cluster.</p>
@@ -6099,6 +6344,7 @@ one has to configure the new volumes that are on the new node. The following dem
 </p>
 <p>then move down and select the <code>Volumes</code> sub-item to be presented with the <code>Volumes</code> configuration window as.
 We then move the cursor to the <em>New</em> icon 
+
 
 
 
@@ -11652,20 +11898,80 @@ are searchable via a Stroom <em>dashboard</em>, much like a Stroom Lucene index.
 <h3 id="assumptions">Assumptions</h3>
 <ol>
 <li>You have created an Elasticsearch cluster.
-For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode">Elasticsearch Docs (external link)</a>.</li>
+For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode" target="_blank" class="" style="" title="Elasticsearch Docs (external link)">
+    <span>Elasticsearch Docs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
 <li>The Elasticsearch cluster is reachable via HTTP/S from all Stroom nodes participating in <a href="../../../docs/quick-start-guide/running/">stream processing</a>.</li>
 <li>Elasticsearch security is disabled.</li>
 <li>You have a feed containing <code>Event</code> data.</li>
 </ol>
 <h3 id="key-differences">Key differences</h3>
 <ol>
-<li>Unlike with <a href="../../../docs/howtos/search/solr/">Solr indexing</a>, Elasticsearch field mappings are managed outside of Stroom, usually via the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings">REST API (external link)</a>.</li>
+<li>Unlike with <a href="../../../docs/howtos/search/solr/">Solr indexing</a>, Elasticsearch field mappings are managed outside of Stroom, usually via the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#mappings" target="_blank" class="" style="" title="REST API (external link)">
+    <span>REST API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
 <li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional.
 It is however, considered good practice to define these mappings, to ensure each field&rsquo;s data type is correctly parsed and represented.
-For text fields, it also pays to ensure that the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html">appropriate mapping parameters are used (external link)</a>,
+For text fields, it also pays to ensure that the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html" target="_blank" class="" style="" title="appropriate mapping parameters are used (external link)">
+    <span>appropriate mapping parameters are used</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+,
 in order to satisfy your search and analysis requirements - and meet system resource constraints.</li>
 <li>Unlike both Solr and Lucene indexing, it is not necessary to mark a field as <code>stored</code> (i.e. storing its raw value in the inverted index).
-This is because Elasticsearch stores the content of the original document in the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-source-field.html"><code>_source</code> field (external link)</a>,
+This is because Elasticsearch stores the content of the original document in the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-source-field.html" target="_blank" class="" style="" title="_source field (external link)">
+    <span>_source field</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+,
 which is retrieved when populating search results.
 Provided the <code>_source</code> field is enabled (as it is by default), a field is treated as <code>stored</code> in Stroom and its value doesn&rsquo;t need to be retrieved via an <em>extraction pipeline</em>.</li>
 </ol>
@@ -11676,12 +11982,42 @@ Provided the <code>_source</code> field is enabled (as it is by default), a fiel
 <li><code>StreamId</code> (mandatory, must be of data type <code>long</code>)</li>
 <li><code>EventId</code> (mandatory, must also be <code>long</code>)</li>
 <li><code>Name</code> (text). Uses the default analyzer, which tokenizes the text for matching on terms.
-<code>fielddata</code> is enabled, which allows for <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param">aggregating on these terms (external link)</a>.</li>
+<code>fielddata</code> is enabled, which allows for 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html#fielddata-mapping-param" target="_blank" class="" style="" title="aggregating on these terms (external link)">
+    <span>aggregating on these terms</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
 <li><code>State</code> (keyword). Supports exact matching.</li>
 </ol>
 <p>The created index consists of <code>5</code> shards.
 Note that the shard count cannot be changed after index creation, without a reindex.
-See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html">this guide (external link)</a> on shard sizing.</p>
+See 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html" target="_blank" class="" style="" title="this guide (external link)">
+    <span>this guide</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ on shard sizing.</p>
 <pre><code class="language-bash">curl -X PUT &quot;http://localhost:9200/stroom_test?pretty&quot; -H 'Content-Type: application/json' -d'
    {
       &quot;settings&quot;: {
@@ -11709,7 +12045,22 @@ See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/siz
 '
 </code></pre>
 <p>After creating the index, you can add additional field mappings.
-Note the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html#updating-field-mappings">limitations (external link)</a> in doing so, particularly the fact that it will not cause existing documents to be re-indexed.
+Note the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html#updating-field-mappings" target="_blank" class="" style="" title="limitations (external link)">
+    <span>limitations</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ in doing so, particularly the fact that it will not cause existing documents to be re-indexed.
 It is worthwhile to test index mappings on a subset of data before committing to indexing a large event feed, to ensure the resulting search experience meets your requirements.</p>
 <h3 id="registering-the-index-in-stroom">Registering the index in Stroom</h3>
 <p>This step creates an <em>Elasticsearch Index</em> in the <em>Stroom Tree</em> and tells Stroom how to connect to your Elasticsearch cluster
@@ -11748,7 +12099,22 @@ The refresh button in the <code>Fields</code> tab does not have any effect.
 <h3 id="setting-index-retention">Setting index retention</h3>
 <p>As with Solr indexing, index document retention is determined by defining a Stroom query.</p>
 <p>Setting a retention query is optional and by default, documents will be retained in an index indefinitely.</p>
-<p>It is recommended for indices containing events spanning long periods of time, that <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html">Elasticsearch Index Lifecycle Management (external link)</a>
+<p>It is recommended for indices containing events spanning long periods of time, that 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" target="_blank" class="" style="" title="Elasticsearch Index Lifecycle Management (external link)">
+    <span>Elasticsearch Index Lifecycle Management</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
 be used instead. The capabilities provided, such as automatic rollover to warm or cold storage tiers, are well worth considering, especially in high-volume production clusters.</p>
 <h4 id="considerations-when-implementing-ilm">Considerations when implementing ILM</h4>
 <ol>
@@ -11770,14 +12136,44 @@ of each <code>&lt;data&gt;</code> element exactly matches the mapping property o
 <li>Delete the default <code>indexingFilter</code> and in its place, create an <code>ElasticIndexingFilter</code> (see screenshot below).</li>
 <li>Review and set the following properties:
 <ol>
-<li><code>batchSize</code> (default: <code>10,000</code>). Number of documents to send in a single request to the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html">Bulk API (external link)</a>.
+<li><code>batchSize</code> (default: <code>10,000</code>). Number of documents to send in a single request to the Elasticsearch 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html" target="_blank" class="" style="" title="Bulk API (external link)">
+    <span>Bulk API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 Should usually be set to <code>1,000</code> or more.
 The higher the number, the more memory is required by both Stroom and Elasticsearch when sending or receiving the request.</li>
 <li><code>index</code> (required). Set this to the target Elasticsearch index in the Stroom <em>Explorer Tree</em>.</li>
 <li><code>refreshAfterEachBatch</code> (default: <code>false</code>). Refreshes the Elasticsearch index after each batch has finished processing.
 This makes any documents ingested in the batch available for searching.
 Unless search results are needed in near-real-time, it is recommended this be set to <code>false</code> and the index refresh interval be set to an appropriate value.
-See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html#_unset_or_increase_the_refresh_interval">this document (external link)</a> for guidance on optimising indexing performance.</li>
+See 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html#_unset_or_increase_the_refresh_interval" target="_blank" class="" style="" title="this document (external link)">
+    <span>this document</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for guidance on optimising indexing performance.</li>
 </ol>
 </li>
 </ol>
@@ -11832,10 +12228,40 @@ See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/tun
 <p>You can also get an exact document count, to ensure this matches the number of events you are expecting:</p>
 <pre><code class="language-bash">curl -X GET &quot;http://localhost:9200/stroom_test/_count&quot;
 </code></pre>
-<p>For more information, see the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search API documentation (external link)</a>.</p>
+<p>For more information, see the Elasticsearch 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html" target="_blank" class="" style="" title="Search API documentation (external link)">
+    <span>Search API documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h3 id="reindexing-data">Reindexing data</h3>
 <p>By default, the original document values are stored in an Elasticsearch index and may be used later on to re-index data (such as when a change is made to field mappings).
-This is done via the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html">Reindex API (external link)</a>.
+This is done via the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html" target="_blank" class="" style="" title="Reindex API (external link)">
+    <span>Reindex API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 Provided these values have not changed, it would likely be more efficient to use this API to perform a re-index,
 instead of processing data from scratch using a Stroom stream processor.</p>
 <p>On the other hand, if the content of documents being output to Elasticsearch has changed, the Elasticsearch index will need to be re-created
@@ -11850,7 +12276,22 @@ events.</li>
 occupied by that field.</p>
 <h4 id="reindexing-using-a-pipeline-processor">Reindexing using a pipeline processor</h4>
 <ol>
-<li>Delete the index. While it is possible to <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html">delete by query (external link)</a>, it is more efficient to drop the index.
+<li>Delete the index. While it is possible to 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html" target="_blank" class="" style="" title="delete by query (external link)">
+    <span>delete by query</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, it is more efficient to drop the index.
 Additionally, deleting by query doesn&rsquo;t actually remove data from disk, until segments are merged.
 <pre><code class="language-bash">curl -X DELETE &quot;http://localhost:9200/stroom_test&quot;
 </code></pre>
@@ -11863,7 +12304,22 @@ Additionally, deleting by query doesn&rsquo;t actually remove data from disk, un
 the Elasticsearch cluster.</p>
 <p>The advantage of using Stroom to search is that it allows access to the raw source data (i.e. it is not limited to what&rsquo;s stored in the index).
 It can also use <em>extraction pipelines</em> to enrich search results for export in a table.</p>
-<p>Elasticsearch on the other hand, provides a rich <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search REST API (external link)</a>
+<p>Elasticsearch on the other hand, provides a rich
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html" target="_blank" class="" style="" title="Search REST API (external link)">
+    <span>Search REST API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
 with powerful <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html">aggregations</a> that can be
 used to generate reports and discover patterns and anomalies. It can also be readily queried using third-party tools.</p>
 <h3 id="stroom">Stroom</h3>
@@ -11871,13 +12327,88 @@ used to generate reports and discover patterns and anomalies. It can also be rea
 <p>Instead of selecting a Lucene index, set the target <em>data source</em> to the desired Elasticsearch index in the Stroom <em>Explorer Tree</em>.</p>
 <p>Once the target <em>data source</em> has been set, the Dashboard can be used as with a Lucene or Solr index <em>data source</em>.</p>
 <h3 id="elasticsearch">Elasticsearch</h3>
-<p>Elasticsearch queries can be performed directly against the cluster using the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Search API (external link)</a>.</p>
-<p>Alternatively, there are tools that make search and discovery easier and more intuitive, like <a href="https://www.elastic.co/kibana">Kibana (external link)</a>.</p>
+<p>Elasticsearch queries can be performed directly against the cluster using the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html" target="_blank" class="" style="" title="Search API (external link)">
+    <span>Search API</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>Alternatively, there are tools that make search and discovery easier and more intuitive, like 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/kibana" target="_blank" class="" style="" title="Kibana (external link)">
+    <span>Kibana</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <h2 id="security">Security</h2>
-<p>It is important to note that Elasticsearch data is not encrypted at rest, unless this feature is enabled and the relevant <a href="https://www.elastic.co/subscriptions">licensing tier (external link)</a> is purchased.
+<p>It is important to note that Elasticsearch data is not encrypted at rest, unless this feature is enabled and the relevant 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/subscriptions" target="_blank" class="" style="" title="licensing tier (external link)">
+    <span>licensing tier</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is purchased.
 Therefore, appropriate measures should be taken to control access to Elasticsearch user data at the file level.</p>
-<p>For production clusters, the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-security.html">security guidelines (external link)</a> should be followed, in order to control access and ensure requests are audited.</p>
-<p>You might want to consider implementing <a href="https://www.elastic.co/guide/en/kibana/current/development-security.html">role-based access control (external link)</a>
+<p>For production clusters, the Elasticsearch 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-security.html" target="_blank" class="" style="" title="security guidelines (external link)">
+    <span>security guidelines</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ should be followed, in order to control access and ensure requests are audited.</p>
+<p>You might want to consider implementing 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/development-security.html" target="_blank" class="" style="" title="role-based access control (external link)">
+    <span>role-based access control</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
 to prevent unauthorised users of the native Elasticsearch API or tools like Kibana, from creating, modifying or deleting data within sensitive indices.</p>
 
 </div>
@@ -12657,6 +13188,7 @@ updated in the <strong>System Properties</strong> configuration window</p>
 </div>
 
 <p>To add the user, move the cursor to the <em>New</em> icon 
+
 
 
 
@@ -18066,9 +18598,39 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
 </ul>
 <h2 id="introduction">Introduction</h2>
 <p>This HOWTO will demonstrate the process by which an Event Processing pipeline for a given Event Source is developed and deployed.</p>
-<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from <a href="http://log-sharing.dreamhosters.com">log-sharing.dreamhosters.com (external link)</a> (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
+<p>The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="http://log-sharing.dreamhosters.com" target="_blank" class="" style="" title="log-sharing.dreamhosters.com (external link)">
+    <span>log-sharing.dreamhosters.com</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (a Public Security Log Sharing Site) but modified to add sample user attribution.</p>
 <p>Template pipelines are being used to simplify the establishment of this processing pipeline.</p>
-<p>The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> format.</p>
+<p>The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="Stroom Event Logging XML Schema (external link)">
+    <span>Stroom Event Logging XML Schema</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ format.</p>
 <h2 id="event-source">Event Source</h2>
 <p>As mentioned, we will use BlueCoat Proxy logs as a sample event source. Although BlueCoat logs can be customised, the default is to use the W2C Extended Log File Format (ELF). Our sample data set looks like</p>
 <pre><code class="language-text">#Software: SGOS 3.2.4.28
@@ -20663,7 +21225,22 @@ Version:V1.0
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Text Converter. This pane is used to edit the text converter that converts our <em>line based</em> BlueCoat Proxy logs into a XML format. We make use of the Stroom Data Splitter facility to perform this transformation. See <a href="../../../docs/user-guide/data-splitter/">here</a> for complete details on the data splitter.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the text converter.</p>
-<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="../../../docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">github.com/gchq/stroom-content (external link)</a>.</p>
+<p>The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the <a href="../../../docs/user-guide/data-splitter/">Data Splitter</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-content" target="_blank" class="" style="" title="github.com/gchq/stroom-content (external link)">
+    <span>github.com/gchq/stroom-content</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <p>For the purpose of this HOWTO, the Datasplitter appears below. The author believes the comments should support the understanding of the transformation.</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter bufferSize=&quot;5000000&quot; xmlns=&quot;data-splitter:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot; version=&quot;3.0&quot; ignoreErrors=&quot;true&quot;&gt;
@@ -21537,8 +22114,53 @@ to
 <p>The top pane remains the same - a display of the pipeline structure and the <em>step indicator</em> and green <em>Stepping Actions</em>.</p>
 <p>The next pane down is the editing pane for the Translation Filter. This pane is used to edit an <em>xslt</em> translation that converts our simple key value pair <code>&lt;records&gt;</code> XML structure into another XML form.</p>
 <p>The lower two panes are the <em>input</em> and <em>output</em> displays for the xslt translation. You will note that the <em>input</em> and <em>output</em> displays are identical for a null xslt translation is effectively a direct copy.</p>
-<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented <a href="https://github.com/gchq/event-logging-schema">here (external link)</a>.</p>
-<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the <a href="https://github.com/gchq/event-logging-schema">Stroom Event Logging XML Schema (external link)</a> and review the various samples found in the Stroom Context packs published, or the Pull Requests of <a href="https://github.com/gchq/stroom-content">https://github.com/gchq/stroom-content (external link)</a>.</p>
+<p>In this HOWTO we will transform the <code>&lt;records&gt;</code> XML structure into the <em>GCHQ Stroom Event Logging XML Schema</em> form which is documented 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on <a href="../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a> and the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="Stroom Event Logging XML Schema (external link)">
+    <span>Stroom Event Logging XML Schema</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and review the various samples found in the Stroom Context packs published, or the Pull Requests of 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-content" target="_blank" class="" style="" title="https://github.com/gchq/stroom-content (external link)">
+    <span>https://github.com/gchq/stroom-content</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 <p>We will build the translation in steps. We enter an initial portion of our xslt transformation that just consumes the <code>Software</code> and <code>Version</code> key values and converts the <code>date</code> and <code>time</code> values (which are in UTC) into the <code>EventTime/TimeCreated</code> element. This code segment is</p>
 <pre><code class="language-xslt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet xpath-default-namespace=&quot;records:2&quot; xmlns=&quot;event-logging:3&quot; xmlns:stroom=&quot;stroom&quot; 

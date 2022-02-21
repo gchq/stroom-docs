@@ -181,23 +181,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-4a9ccf1be15151102f421a8f9486c86d">Apache Forwarding</a></li>
-
-
-    
-  
-    
-    
-	
-<li>2: <a href="#pg-282abd8e77097d1d1e818b714efb1276">Running with docker</a></li>
-
-
-    
-  
-    
-    
-	
-<li>3: <a href="#pg-50486f41ef9bd8fcad0abc31cffc328d">Stroom Proxy Installation</a></li>
+<li>1: <a href="#pg-66e532a8ec8d994c948525cce6b1926c">Stroom Proxy Installation</a></li>
 
 
     
@@ -230,385 +214,304 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="--base-section-num: '1.'; ">
     
-  <h1 id="pg-4a9ccf1be15151102f421a8f9486c86d">1 - Apache Forwarding</h1>
+  <h1 id="pg-66e532a8ec8d994c948525cce6b1926c">1 - Stroom Proxy Installation</h1>
     
-	
-<div class="pageinfo pageinfo-danger">
-<h4 class="text-danger alert-heading">Warning</h4>
-<p>This document refers to v5.</p>
-
-</div>
-
-
-<p>Stroom Proxy defaults to listening for HTTP on port 9080.
-It is recommended that Apache is used to listen on the standard HTTP port 80 and forward requests on via the Apache mod_jk module and the AJP protocol (on 9009).
-Apache can also perform HTTPS on port 443 and pass over requests to Tomcat using the same AJP protocol.</p>
-<p>It is additionally recommended that Stroom Proxy is used to front data ingest and so Apache is configured to route traffic to http(s)://server/stroom/datafeed to Stroom Proxy.</p>
-<h2 id="prerequisites">Prerequisites</h2>
+	<p>There are 2 versions of the stroom software availble for building a proxy server.
+There is an <em>app</em> version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.
+The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database.
+The document will cover the installation and configuration of the stroom proxy software for both the docker and &lsquo;app&rsquo; versions.</p>
+<h2 id="assumptions">Assumptions</h2>
+<p>The following assumptions are used in this document.</p>
 <ul>
-<li>tomcat-connectors-1.2.31-src.tar.gz</li>
+<li>the user has reasonable RHEL/CentOS System administration skills.</li>
+<li>installation is on a fully patched minimal CentOS 7 instance.</li>
+<li>the Stroom database has been created and resides on the host <code>stroomdb0.strmdev00.org</code> listening on port 3307.</li>
+<li>the Stroom database user is <code>stroomuser</code> with a password of <code>Stroompassword1@</code>.</li>
+<li>the application user <code>stroomuser</code> has been created.</li>
+<li>the user is or has deployed the two node Stroom cluster described <a href="../../../docs/howtos/install/installhowto/#storage-scenario">here</a>.</li>
+<li>the user has set up the Stroom processing user as described <a href="../../../docs/howtos/install/installprocessingusersetuphowto/">here</a>.</li>
+<li>the prerequisite software has been installed.</li>
+<li>when a screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
 </ul>
-<h2 id="setup-apache">Setup Apache</h2>
+<h2 id="stroom-remote-proxy-docker-version">Stroom Remote Proxy (docker version)</h2>
+<p>The build of a stroom proxy where the stroom applications are running in docker containers.
+The operating system (OS) build for a &lsquo;dockerised&rsquo; stroom proxy is minimal RHEL/CentOS 7 plus the docker-ce &amp; docker-compose packages.
+Neither of the pre-requisites are available from the CentOS ditribution.
+It will also be necessary to open additional ports on the system firewall (where appropriate).</p>
+<h3 id="download-and-install-docker">Download and install docker</h3>
+<p>To download and install - docker-ce - from the internet, a new &lsquo;repo&rsquo; file is downloaded first, that provides access to the docker.com repository.
+e.g. as <em>root</em> user:</p>
 <ul>
-<li>As root</li>
-<li>Patch mod_jk</li>
+<li>wget <a href="https://download.docker.com/linux/centos/docker-ce.repo">https://download.docker.com/linux/centos/docker-ce.repo</a> -O /etc/yum.repos.d/docker-ce.repo</li>
+<li>yum install docker-ce.x86_64</li>
 </ul>
-<pre><code class="language-bash">cd ~/tmp
-tar -xvzf tomcat-connectors-1.2.31-src.tar.gz 
-cd tomcat-connectors-1.2.31-src/native
-./configure --with-apxs=/usr/sbin/apxs 
-make
-sudo cp apache-2.0/mod_jk.so /etc/httpd/modules/
-cd
-</code></pre>
+<p>The packages - docker-ce docker-ce-cli &amp; containerd.io - will be installed</p>
+<p>The docker-compose software can de downloaded from github
+e.g. as <em>root</em> user to download docker-compose version 1.25.4 and save it to -  /usr/local/bin/docker-compose</p>
 <ul>
-<li>Put the web server cert, private key, and CA cert into the web servers conf directory  /etc/httpd/conf.  E.g.</li>
+<li>curl -L <a href="https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64">https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64</a> -o /usr/local/bin/docker-compose</li>
+<li>chmod 755 /usr/local/bin/docker-compose</li>
 </ul>
-<pre><code class="language-bash">[user@node1 stroom-doc]$ ls -al /etc/httpd/conf
-....
--rw-r--r-- 1 root root  1729 Aug 27  2013 host.crt
--rw-r--r-- 1 root root  1675 Aug 27  2013 host.key
--rw-r--r-- 1 root root  1289 Aug 27  2013 CA.crt
-....
+<h3 id="firewall-configuration">Firewall Configuration</h3>
+<p>If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
+Currently these ports are:</p>
+<p>80
+443<br>
+2888<br>
+3307<br>
+5000<br>
+8080<br>
+8081<br>
+8090<br>
+8091<br>
+8543</p>
+<p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
+<pre><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=80/tcp
+firewall-cmd --zone=public --permanent --add-port=443/tcp
+firewall-cmd --zone=public --permanent --add-port=2888/tcp
+firewall-cmd --zone=public --permanent --add-port=3307/tcp
+firewall-cmd --zone=public --permanent --add-port=5000/tcp
+firewall-cmd --zone=public --permanent --add-port=8080/tcp
+firewall-cmd --zone=public --permanent --add-port=8081/tcp
+firewall-cmd --zone=public --permanent --add-port=8090/tcp
+firewall-cmd --zone=public --permanent --add-port=8091/tcp
+firewall-cmd --zone=public --permanent --add-port=8099/tcp
+firewall-cmd --reload
 </code></pre>
+<h3 id="download-and-install-stroom-v7-docker-version">Download and install Stroom v7 (docker version)</h3>
+<p>The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.
+As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.</p>
 <ul>
-<li>Make changes to /etc/http/conf.d/ssl.conf as per below</li>
+<li>wget <a href="https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.0-beta.41/stroom_proxy-v7.0-beta.45.tar.gz">https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.0-beta.41/stroom_proxy-v7.0-beta.45.tar.gz</a></li>
+<li>tar zxf stroom-stacks…………..</li>
 </ul>
-<pre><code class="language-text">JkMount /stroom/datafeed* loadbalancer_proxy
-JkMount /stroom* loadbalancer_proxy
+<p>For a stroom proxy, the configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env needs to be edited, with the connection details of the stroom server that data files will be sent to.
+The default network port for connection to the stroom server is 8080.</p>
+<p>The values that need to be set are:</p>
+<pre><code class="language-text">STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY  
+STROOM_PROXY_REMOTE_FEED_STATUS_URL  
+STROOM_PROXY_REMOTE_FORWARD_URL  
 </code></pre>
-<pre><code class="language-text">JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
-
-SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
-SSLCertificateKeyFile /etc/httpd/conf/[YOUR SERVER].key
-SSLCertificateChainFile /etc/httpd/conf/[YOUR CA].crt
-SSLCACertificateFile /etc/httpd/conf/[YOUR CA APPENDED LIST].crt
+<p>The &lsquo;API key&rsquo; is generated on the stroom server and is related to a specific user e.g. proxyServiceUser.
+The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.</p>
+<p>e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:</p>
+<pre><code class="language-bash">export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&quot;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&quot;
+export STROOM_PROXY_REMOTE_FORWARD_URL=&quot;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&quot;
 </code></pre>
+<h3 id="to-start-stroom-proxy">To Start Stroom Proxy</h3>
+<p>As the stroom user, run the &lsquo;start.sh&rsquo; script found in the stroom install:</p>
 <ul>
-<li>Remove /etc/httpd/conf.d/nss.conf to avoid a 8443 port clash</li>
+<li>cd ~/stroom_proxy/stroom_proxy-v7.0-beta.45/</li>
+<li>./start.sh</li>
 </ul>
-<pre><code class="language-bash">rm /etc/httpd/conf.d/nss.conf 
-</code></pre>
-<ul>
-<li>Create a /etc/httpd/conf.d/mod_jk.conf configuration</li>
-</ul>
-<pre><code class="language-text">LoadModule jk_module modules/mod_jk.so
-JkWorkersFile conf/workers.properties
-JkLogFile logs/mod_jk.log
-JkLogLevel info
-JkLogStampFormat  &quot;[%a %b %d %H:%M:%S %Y]&quot;
-JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
-JkRequestLogFormat &quot;%w %V %T&quot;
-</code></pre>
-<pre><code class="language-text">JkMount /stroom/datafeed* loadbalancer_proxy
-JkMount /stroom* loadbalancer_proxy
-</code></pre>
-<pre><code class="language-text">JkShmFile logs/jk.shm
-&lt;Location /jkstatus/&gt;
-    JkMount status
-    Order deny,allow
-    Deny from all
-    Allow from 127.0.0.1
-&lt;/Location&gt;
-</code></pre>
-<ul>
-<li>Setup stroom-setup/cluster.txt, generate the workers file and copy into Apache.  (as root and replace stroomuser with your processing user)</li>
-</ul>
-<pre><code class="language-bash">/home/stroomuser/stroom-setup/workers.properties.sh --cluster=/home/stroomuser/cluster.txt &gt; /etc/httpd/conf/workers.properties
-</code></pre>
-<ul>
-<li>Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster
-text</li>
-</ul>
-<pre><code>worker.list=loadbalancer_proxy,local_proxy
-worker.stroom_1_proxy.port=9009
-worker.stroom_1_proxy.host=localhost
-worker.stroom_1_proxy.type=ajp13
-worker.stroom_1_proxy.lbfactor=1
-worker.stroom_1_proxy.max_packet_size=65536
-....
-....
-worker.loadbalancer_proxy.type=lb
-worker.loadbalancer_proxy.balance_workers=stroom_1_proxy,stroom_2_proxy
-worker.loadbalancer_proxy.sticky_session=1
-worker.local_proxy.type=lb
-worker.local_proxy.balance_workers=stroom_1_proxy
-worker.local_proxy.sticky_session=1
-</code></pre>
-<ul>
-<li>Create a simple redirect page to the stroom web app for the root URL (e.g. DocumentRoot &ldquo;/var/www/html&rdquo;, index.html)</li>
-</ul>
-<pre><code class="language-text">&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
-</code></pre>
-<ul>
-<li>Restart Apache and then test default http / https access.</li>
-</ul>
-<pre><code class="language-bash">sudo /etc/init.d/httpd restart
-</code></pre>
+<p>The first time the script is ran it will download from github the docker containers for a stroom proxy
+these are - stroom-proxy-remote, stroom-log-sender and nginx.
+Once the script has completed the stroom proxy server should be running.
+There are additional scripts - status.sh - that will show the status of the docker containers (stroom-proxy-remote, stroom-log-sender and nginx)
+and - logs.sh - that will tail all of the stroom message files to the screen.</p>
+<h2 id="stroom-remote-proxy-app-version">Stroom Remote Proxy (app version)</h2>
+<p>The build of a stroom proxy server, where the stroom application is running locally as a Java ARchive (jar) file.
+The operating system (OS) build for an &lsquo;application&rsquo; stroom proxy is minimal RHEL/CentOS 7 plus Java.</p>
+<p>The Java version required for stroom v7 is 15+.
+This version of Java is not available from the RHEL/CentOS distribution.
+The version of Java used below is the &lsquo;openJDK&rsquo; version as opposed to Oracle&rsquo;s version.
+This can be downloaded from the internet.</p>
 
-</div>
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
-    
-  <h1 id="pg-282abd8e77097d1d1e818b714efb1276">2 - Running with docker</h1>
-    
-	
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
 
-    This document is out of date and needs updating to refer to the stroom-proxy docker stack.
+    Needs updating for java 15.
 
 </div>
 
-<h2 id="clone-and-build-_stroom-proxy_">Clone and build <em>stroom-proxy</em></h2>
-<pre><code class="language-bash">git clone https://github.com/gchq/stroom-proxy.git
-mvn clean install
-</code></pre>
-<h2 id="unpack-the-stroom-proxy-distribution-in-preparation-for-building-the-docker-iamge">Unpack the <code>stroom-proxy</code> distribution in preparation for building the docker iamge</h2>
-<pre><code class="language-bash">cd stroom-proxy-distribution
-unzip target/stroom-proxy-distribution-&lt;version&gt;-bin.zip -d target
-</code></pre>
-<h2 id="building-and-running-the-docker-image">Building and running the docker image</h2>
-<p>Here you need to say where you want data to be sent by <code>stroom-proxy</code>.
-This is done using a <a href="https://docs.docker.com/engine/reference/commandline/build/#/set-build-time-variables-build-arg"><code>--build-arg</code> (external link)</a> parameter of <code>STROOM_PROXY_TYPE</code>.
-These values can be <code>forward</code>, <code>store</code>, or <code>store_nodb</code>. See the <em>stroom-proxy</em> section in the <a href="https://github.com/gchq/stroom-docs/blob/master/SUMMARY.md">stroom documentation (external link)</a> documentation for more details about these options.</p>
-<pre><code class="language-bash">docker stop stroom-proxy
-docker rm stroom-proxy
-docker rmi stroom-proxy
+<p>Version 12.0.1
 
-docker build --build-arg STROOM_PROXY_TYPE=store_nodb --tag=stroom-proxy:latest target/stroom-proxy
-docker run -p 8080:8080 --name=stroom-proxy stroom-proxy
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_linux-x64_bin.tar.gz</code></pre>
+</div>
+</p>
+<p><em>Or version 14.0.2 <a href="https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz">https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz</a></em></p>
+<p>The gzipped tar file needs to be untarred and moved to a suitable location.</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">tar xvf openjdk-12.0.1_linux-x64_bin.tar.gz
+mv jdk-12.0.1 /opt/</code></pre>
+</div>
+
+<p>Create a shell script that will define the Java variables	OR add the statements to .bash_profile.
+e.g. vi /etc/profile.d/jdk12.sh</p>
+<pre><code class="language-bash">export JAVA_HOME=/opt/jdk-12.0.1
+export PATH=$PATH:$JAVA_HOME/bin
 </code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">source /etc/profile.d/jdk12.sh
+echo $JAVA_HOME
+(out)/opt/jdk-12.0.1
+
+java --version
+(out)*openjdk version &#34;12.0.1&#34; 2019-04-16*
+(out)*OpenJDK Runtime Environment (build 12.0.1&#43;12)*
+(out)*OpenJDK 64-Bit Server VM (build 12.0.1&#43;12, mixed mode, sharing)*</code></pre>
+</div>
+
+<p><strong>Disable selinux to avoid issues with access and file permissions.</strong></p>
+<h3 id="firewall-configuration-1">Firewall Configuration</h3>
+<p>If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
+Currently these ports are:</p>
+<p>80
+443
+2888
+3307
+5000
+8080
+8081
+8090
+8091
+8543</p>
+<p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=80/tcp
+firewall-cmd --zone=public --permanent --add-port=443/tcp
+firewall-cmd --zone=public --permanent --add-port=2888/tcp
+firewall-cmd --zone=public --permanent --add-port=3307/tcp
+firewall-cmd --zone=public --permanent --add-port=5000/tcp
+firewall-cmd --zone=public --permanent --add-port=8080/tcp
+firewall-cmd --zone=public --permanent --add-port=8081/tcp
+firewall-cmd --zone=public --permanent --add-port=8090/tcp
+firewall-cmd --zone=public --permanent --add-port=8091/tcp
+firewall-cmd --zone=public --permanent --add-port=8099/tcp
+firewall-cmd --reload</code></pre>
+</div>
+
+<h3 id="download-and-install-stroom-v7-app-version">Download and install Stroom v7 (app version)</h3>
+<p>The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.
+As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
+unzip stroom-proxy-app..............</code></pre>
+</div>
+
+<p>The configuration file – <code>stroom-proxy/config/config.yml</code> – is the principal file to be edited, as it contains</p>
+<ul>
+<li>connection details to the stroom server</li>
+<li>the locations of the proxy server log files</li>
+<li>the directory on the proxy server, where data files will be stored prior to forwarding onot stroom</li>
+<li>the location of the PKI Java keystore (jks) files</li>
+</ul>
+<p>The log file locations are changed to be relative to where stroom is started i.e. <code>~stroomuser/stroom-proxy/logs/…</code>..</p>
+<pre><code class="language-yaml">server:
+  requestLog:
+    appenders:
+    - currentLogFilename: logs/access/access.log		
+      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log
+logging:
+  loggers:
+    &quot;receive&quot;:
+      appenders:
+      - currentLogFilename: logs/receive/receive.log
+        archivedLogFilenamePattern: logs/receive/receive-%d{yyyy-MM-dd'T'HH:mm}.log
+    &quot;send&quot;:
+      appenders:
+      - currentLogFilename: logs/send/send.log
+        archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+  appenders:
+      - currentLogFilename: logs/app/app.log
+        archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+</code></pre>
+<p>An API key created on the stroom server for a special proxy user is added to the configuration file.
+The API key is used to validate access to the application</p>
+<pre><code class="language-yaml">proxyConfig:
+  useDefaultOpenIdCredentials: false
+  proxyContentDir: &quot;/stroom-proxy/content&quot;
+
+  feedStatus:
+    url: “http://stroomserver.somewhere.co.uk:8080/api/feedStatus/v1&quot;
+    apiKey: &quot;eyJhbGciOiJSUz...ScdPX0qai5UwlBA&quot;
+  forwardStreamConfig:
+    forwardingEnabled: true
+</code></pre>
+<p>The location of the jks files has to be set, or comment all of the lines that have <strong>sslConfig: and tls:</strong> sections out to not use jks checking.</p>
+<p>Stroom also needs the client and ca ‘jks’ files and by default are located in - <code>/stroom-proxy/certs/ca.jks</code> and <code>client.jks</code>.
+Their location can be changed in the <code>config.yml</code></p>
+<pre><code class="language-yaml">keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+</code></pre>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Change to reflect use of proxy home.
 
 </div>
 
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
-    
-  <h1 id="pg-50486f41ef9bd8fcad0abc31cffc328d">3 - Stroom Proxy Installation</h1>
-    
-	
-<div class="pageinfo pageinfo-danger">
-<h4 class="text-danger alert-heading">Warning</h4>
-<p>This document refers to v5.</p>
-
-</div>
-
-
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li>Linux Server&rsquo;s with at least 4GB RAM</li>
-<li>Install files stroom-proxy-X-Y-Z-distribution.zip, stroom-deploy-X-Y-Z-distribution.zip</li>
-<li>Temporarily allow port 9080 if not relying on Apache Forwarding (see below)</li>
-</ul>
-<h2 id="processing-user-setup">Processing User Setup</h2>
-<p>See <a href="../../../docs/install-guide/setup/processing-user-setup/">Processing User Setup</a>.</p>
-<h2 id="installing-stroom-proxy">Installing Stroom Proxy</h2>
-<p>As the processing user unpack the stroom-proxy-X-Y-Z-distribution.zip installation files
-in the processing users home directory.</p>
-<pre><code class="language-bash">unzip stroom-proxy-X-Y-Z-distribution.zip
+<p>Could be changed to</p>
+<pre><code class="language-yaml">keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;
+trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
+keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;
+trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
 </code></pre>
-<p>Stroom Proxy can be setup as follows:</p>
-<ul>
-<li>forward - as an aggregation point to store and forwarding onto another Stroom or Stroom / Proxy</li>
-<li>store - to front Stroom for data ingest</li>
-</ul>
-<h3 id="stroom-proxy---forward">Stroom Proxy - forward</h3>
-<p>In forward mode you need to know the server address that data is being sent onto.
-Run the setup script to capture the basic settings required to run Stroom Proxy in forward mode.</p>
-<ul>
-<li>@@ NODE @@ - Each Stroom instance in the cluster needs a unique name, if this is a reinstall ensure you use the previous deployment.
-<strong>This name needs match the name used in your worker.properties (e.g. &lsquo;node1&rsquo; in the case &lsquo;node1.my.org&rsquo;)</strong></li>
-<li>@@ PORT PREFIX @@ - By default Stroom Proxy will run on port 9080</li>
-</ul>
-<pre><code class="language-bash">[stroomuser@node1 ~]$ ./stroom-proxy/bin/setup.sh forward
-
-[stroomuser@dev1 ~]$ ./stroom-proxy/bin/setup.sh forward
-
-
-
-
-
-...
-
-Parameters
-==========
-
-@@NODE@@           : Unique node name for install [node1                                                     ] : node1
-@@PORT_PREFIX@@    : HTTP prefix to use           [90                                                        ] : 90
-@@REPO_DIR@@       : Stroom Proxy Repository Dir     [/stroomdata/stroom-proxy                                        ] : /home/stroomuser/stroom-proxy-repo
-@@FORWARD_SERVER@@ : Server to forward data on to [hostname                                                  ] : audit.my.org
-@@JAVA_OPTS@@      : Optional tomcat JVM settings [&quot;-Xms512m -Xmx1g&quot;                                         ] :
-
-...
+<p>Create a directory - <code>/stroom-proxy</code> – and ensure that stroom can write to it.
+This is where the proxy data files are stored - <code>/stroom-proxy/repo</code></p>
+<pre><code class="language-yaml">proxyRepositoryConfig:
+  storingEnabled: true
+  repoDir: &quot;/stroom-proxy/repo&quot;
+  format: &quot;${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}&quot;
 </code></pre>
-<h3 id="stroom-proxy---store">Stroom Proxy - store</h3>
-<p>In store mode you need to know the mysql details to validate incoming data with.</p>
-<pre><code class="language-bash">[stroomuser@node1 ~]$ ./stroom-proxy-app/bin/setup.sh store
-
-...
-
-@@NODE@@           : Unique node name for install            [node                                                      ] :
-@@PORT_PREFIX@@    : HTTP prefix to use                      [90                                                        ] : 72
-@@REPO_DIR@@       : Stroom Proxy Repository Dir                [/stroomdata/stroom-proxy                                        ] : /home/stroomuser/stroom-proxy-repo-2
-@@JDBC_CLASSNAME@@ : JDBC class name                         [com.mysql.jdbc.Driver                                     ] :
-@@JDBC_URL@@       : JDBC URL (jdbc:mysql://[HOST]/[DBNAME]) [jdbc:mysql://localhost/stroom                                ] :
-@@DB_USERNAME@@    : Database username                       [                                                          ] : stroomuser
-@@DB_PASSWORD@@    : Database password                       [                                                          ] :
-@@JAVA_OPTS@@      : Optional tomcat JVM settings            [&quot;-Xms512m -Xmx1g&quot;                                         ] :
-</code></pre>
-<h3 id="install-check">Install Check</h3>
-<p>Start the installed instance:</p>
-<pre><code class="language-bash">./stroom-deploy/start.sh
-</code></pre>
-<p>Inspect the logs:</p>
-<pre><code class="language-bash">tail -f stroom-proxy-app/instance/logs/stroom.log
-</code></pre>
-<h3 id="stroom-proxy-properties">Stroom Proxy Properties</h3>
-<p>The following properties can be configured in the stroom.properties file.</p>
-<p>TODO - Could do with a column indicating which proxy mode these properties apply to, e.g. store/forward</p>
-<table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>repoDir</td>
-<td>Optional Repository DIR. If set any incoming request will be written to the file system.</td>
-</tr>
-<tr>
-<td>logRequest</td>
-<td>Optional log line with header attributes output as defined by this property</td>
-</tr>
-<tr>
-<td>bufferSize</td>
-<td>Override default (8192) JDK buffer size to use</td>
-</tr>
-<tr>
-<td>forwardUrl</td>
-<td>Optional The URL&rsquo;s to forward onto This is pass-through mode if repoDir is not set</td>
-</tr>
-<tr>
-<td>forwardThreadCount</td>
-<td>Number of threads to forward with</td>
-</tr>
-<tr>
-<td>forwardTimeoutMs</td>
-<td>Time out when forwarding</td>
-</tr>
-<tr>
-<td>forwardChunkSize</td>
-<td>Chunk size to use over http(s) if not set requires buffer to be fully loaded into memory</td>
-</tr>
-<tr>
-<td>rollCron</td>
-<td>Interval to roll any writing repositories.</td>
-</tr>
-<tr>
-<td>readCron</td>
-<td>Cron style interval (e.g. every hour &lsquo;0 * *&rsquo;, every half hour &lsquo;0,30 * *') to read any ready repositories (if not defined we read all the time).</td>
-</tr>
-<tr>
-<td>maxAggregation</td>
-<td>Aggregate size to break at when building an aggregate.</td>
-</tr>
-<tr>
-<td>zipFilenameDelimiter</td>
-<td>The delimiter used to separate the id ihe zip filename from the templated part</td>
-</tr>
-<tr>
-<td>zipFilenameTemplate</td>
-<td>A template for naming the zip files in the repository where files will be named nnn!zipFilenameTemplate.zip where nnn is the id prefix, ! is the configurable delimiter and zipFilenameTemplate will be something like &lsquo;${feed}!${headerMapKey1}!${headerMapKey2}&rsquo;. The naem of each variable must exactly match a key in the meta data else it will resolve to &lsquo;&rsquo;.</td>
-</tr>
-<tr>
-<td>requestDelayMs</td>
-<td>Sleep time used to aid with testing</td>
-</tr>
-<tr>
-<td>forwardDelayMs</td>
-<td>Debug setting to add a delay</td>
-</tr>
-<tr>
-<td>dbRequestValidatorContext</td>
-<td>Database Feed Validator - Data base JDBC context</td>
-</tr>
-<tr>
-<td>dbRequestValidatorJndiName</td>
-<td>Database Feed Validator - Data base JDBC JNDI name</td>
-</tr>
-<tr>
-<td>dbRequestValidatorFeedQuery</td>
-<td>Database Feed Validator - SQL to check feed status</td>
-</tr>
-<tr>
-<td>dbRequestValidatorAuthQuery</td>
-<td>Database Feed Validator - SQL to check authorisation required</td>
-</tr>
-<tr>
-<td>remotingUrl</td>
-<td>Url to use for remoting services</td>
-</tr>
-<tr>
-<td>remotingReadTimeoutMs</td>
-<td>Change from the default JVM settings.</td>
-</tr>
-<tr>
-<td>remotingConnectTimeoutMs</td>
-<td>Change from the default JVM settings.</td>
-</tr>
-<tr>
-<td>maxStreamSize</td>
-<td>Stream size to break at when building an aggregate.</td>
-</tr>
-<tr>
-<td>maxFileScan</td>
-<td>Max number of files to scan over during forwarding.  Once this limit is it it will wait until next read interval</td>
-</tr>
-<tr>
-<td>cacheTimeToIdleSeconds</td>
-<td>Time to idle settings to used for validating feed information</td>
-</tr>
-<tr>
-<td>cacheTimeToLiveSeconds</td>
-<td>Time to live settings to used for validating feed information</td>
-</tr>
-</tbody>
-</table>
-<h2 id="apache-forwarding">Apache Forwarding</h2>
-<p>See <a href="../../../docs/install-guide/setup/apache-forwarding/">Apache Forwarding</a>.</p>
-<h2 id="java-key-store-setup">Java Key Store Setup</h2>
-<p>If you require that Stroom Proxy communicates over 2-way https you will need to set up Java Key Stores.</p>
-<p>See <a href="../../../docs/install-guide/setup/java-key-store-setup/">Java Key Store Setup</a>.</p>
-<h2 id="securing-stroom">Securing Stroom</h2>
-<p>See <a href="../../../docs/install-guide/setup/securing-stroom/">Securing Stroom</a>.</p>
 
 </div>
 

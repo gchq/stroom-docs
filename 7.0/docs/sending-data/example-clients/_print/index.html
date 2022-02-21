@@ -256,7 +256,22 @@ This is the multi-page printable view of this section.
 
 <div class="content">
       <p>The following article provides examples to help data providers send data to Stroom via the HTTPS interface.
-The code for the clients is in the <em>stroom-clients</em> repository <a href="https://github.com/gchq/stroom-clients">stroom-clients (external link)</a>.</p>
+The code for the clients is in the <em>stroom-clients</em> repository 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients" target="_blank" class="" style="" title="stroom-clients (external link)">
+    <span>stroom-clients</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 
 </div>
 </div>
@@ -291,49 +306,128 @@ If it is not then curl will post the file name instead of it&rsquo;s contents.</
 <li>The &ndash;data-binary argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.</li>
 </ul>
 <h2 id="example-https-post-without-authentication">Example HTTPS post without authentication:</h2>
-<pre><code class="language-bash">curl -k --data-binary @file.dat &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
-        -H &quot;Feed:EXAMPLE_FEED&quot;
-        -H &quot;System:EXAMPLE_SYSTEM&quot;
-        -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
 <p>In the above example -k is required to stop curl from authenticating the server.
 The next example must be used to supply the necessary CA to authenticate the server if this is required.</p>
 <h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
-<pre><code class="language-bash">curl --cacert root_ca.crt --data-binary @file.dat &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
-        -H &quot;Feed:EXAMPLE_FEED&quot;
-        -H &quot;System:EXAMPLE_SYSTEM&quot;
-        -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl --cacert root_ca.crt --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
 <p>The above example verifies that the certificate presented by Stroom is signed by the CA.
 The CA is provided to curl using the &lsquo;&ndash;cacert root_ca.crt&rsquo; parameter.</p>
 <p>For step by step instructions for creating, configuring and testing the PKI authentication, see the <a href="../../../../docs/sending-data/ssl/">SSL Guide</a></p>
 <h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
-<pre><code class="language-bash">curl --cert example.pem --cacert root_ca.crt --data-binary @file.dat &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
-        -H &quot;Feed:EXAMPLE_FEED&quot;
-        -H &quot;System:EXAMPLE_SYSTEM&quot;
-        -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl --cert example.pem --cacert root_ca.crt --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
 <p>The above example both verifies that the certificate presented by Stroom is signed by the CA and also provides a certificate to authenticate itself with Stroom.
 The data provider provides a certificate using the &lsquo;&ndash;cert example.pem&rsquo; parameter.</p>
 <p>If your input file is not compressed you should compress it as follows:</p>
-<pre><code class="language-bash">gzip -c uncompressedfile.dat | curl --cert example.pem --cacert root_ca.crt --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
-	        -H &quot;Feed:EXAMPLE_FEED&quot;
-	        -H &quot;System:EXAMPLE_SYSTEM&quot;
-	        -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
-	        -H &quot;Compression:Gzip&quot;
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">gzip -c uncompressedfile.dat \
+| curl --cert example.pem --cacert root_ca.crt --data-binary @- &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34; \
+-H &#34;Compression:Gzip&#34;</code></pre>
+</div>
+
 <p>When delivering data from a RHEL4 host, an additional header argument must be added to specify the FQDN of the host:</p>
 <pre><code class="language-bash">-H &quot;Hostname:host.being.audited&quot;
 </code></pre>
 <p>The hostname being sent as a header argument may be resolved upon execution using the command <code>hostname -f</code>.</p>
 <h2 id="ssl-notes">SSL Notes</h2>
 <p>To create a .pem format key simply append the private key and certifcate.</p>
-<pre><code class="language-bash">cat &lt;NAME&gt;.key &gt;&gt; &lt;NAME&gt;.pem
-cat &lt;NAME&gt;.crt &gt;&gt; &lt;NAME&gt;.pem
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cat &lt;NAME&gt;.key &gt;&gt; &lt;NAME&gt;.pem
+cat &lt;NAME&gt;.crt &gt;&gt; &lt;NAME&gt;.pem</code></pre>
+</div>
+
 <p>To remove the pass phrase from a openssl private key use.</p>
-<pre><code class="language-bash">openssl rsa -in server.key -out server-clear.key
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">openssl rsa -in server.key -out server-clear.key</code></pre>
+</div>
+
 <p>The <code>send-logs.sh</code> script assumes the period start and end times are embedded in the file name (e.g. log_2010-01-01T12:00:00.000Z_2010-01-02T12:00:00.000Z.log).
 The certificates will need to be added to the script as above.</p>
 
@@ -424,7 +518,37 @@ For older versions of Windows, the cURL project has Windows binaries.</p>
     
   <h1 id="pg-166a5e5a02228e4ece5fed9278250e81">3 - event-logging (Java library)</h1>
     <div class="lead">A Java library for logging events in Java applications.</div>
-	<p><a href="https://github.com/gchq/event-logging">event-logging (external link)</a> is a Java API for logging audit events conforming to the <a href="https://github.com/gchq/event-logging-schema">Event Logging XML Schema (external link)</a>.
+	<p>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging" target="_blank" class="" style="" title="event-logging (external link)">
+    <span>event-logging</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is a Java API for logging audit events conforming to the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="Event Logging XML Schema (external link)">
+    <span>Event Logging XML Schema</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
 The API uses a generated Java JAXB model of the <em>Event Logging XML Schema</em>.
 <em>Event Logging</em> can be incorporated into your Java application to provide a means of recording and outputting audit events or user actions for compliance, security or monitoring.</p>
 <p>This library only generates the events.
@@ -450,18 +574,73 @@ In order to send the events to Stroom either the logged files will need to be se
     
   <h1 id="pg-295b677760e8a81324ed677a90fafcb1">4 - send_to_stroom.sh (Linux)</h1>
     <div class="lead">A shell script for sending logs to Stroom or one of its proxies</div>
-	<p><a href="https://github.com/gchq/stroom-clients/releases">send_to_stroom.sh (external link)</a> is a small bash script to make it easier to send data to <em>stroom</em>.
-To use it download the following files using wget or similar, replacing <code>SEND_TO_STROOM_VER</code> with the latest released version from <a href="https://github.com/gchq/stroom-clients/releases">here (external link)</a>:</p>
-<pre><code class="language-bash">SEND_TO_STROOM_VER=&quot;send-to-stroom-v2.0&quot; &amp;&amp; \
-    wget &quot;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom.sh&quot; &amp;&amp; \
-    wget &quot;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom_args.sh&quot; &amp;&amp; \
-    chmod u+x send_to_stroom*.sh
-</code></pre>
+	<p>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/releases" target="_blank" class="" style="" title="send_to_stroom.sh (external link)">
+    <span>send_to_stroom.sh</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is a small bash script to make it easier to send data to <em>stroom</em>.
+To use it download the following files using wget or similar, replacing <code>SEND_TO_STROOM_VER</code> with the latest released version from 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/releases" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">SEND_TO_STROOM_VER=&#34;send-to-stroom-v2.0&#34; &amp;&amp; \
+    wget &#34;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom.sh&#34; &amp;&amp; \
+    wget &#34;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom_args.sh&#34; &amp;&amp; \
+    chmod u&#43;x send_to_stroom*.sh</code></pre>
+</div>
+
 <p>To see the help for <em>send_to_stroom.sh</em>, enter <code>./send_to_stroom.sh --help</code></p>
 <p>The following is an example of using <em>send_to_stroom.sh</em> to send all logs in a directory:</p>
-<pre><code class="language-bash">./send_to_stroom.sh \
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./send_to_stroom.sh \
     --delete-after-sending \
-    --file-regex &quot;.*/access-[0-9]+.*\.log(\.gz)?$&quot; \
+    --file-regex &#34;.*/access-[0-9]&#43;.*\.log(\.gz)?$&#34; \
     --key ./client..key \
     --cert ./client.pem.crt \
     --cacert ./ca.pem.crt \
@@ -469,8 +648,9 @@ To use it download the following files using wget or similar, replacing <code>SE
     MY_FEED \
     MY_SYSTEM \
     DEV \
-    https://stroom-host/stroom/datafeed
-</code></pre>
+    https://stroom-host/stroom/datafeed</code></pre>
+</div>
+
 
 </div>
 
@@ -492,7 +672,22 @@ To use it download the following files using wget or similar, replacing <code>SE
   <h1 id="pg-12691c821995ef3fad858d48ad731b0c">5 - Simple C# Client</h1>
     <div class="lead">A simple C# client for sending data files to Stroom.</div>
 	<p>The <code>StroomCSharpClient</code> is a C# port of the Java client and behaves in the same way. Note that this is just an example, not a fully functional client.
-See <a href="https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClient">StroomCSharpClient (external link)</a>.</p>
+See 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClient" target="_blank" class="" style="" title="StroomCSharpClient (external link)">
+    <span>StroomCSharpClient</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 
 </div>
 
@@ -522,17 +717,95 @@ See <a href="https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClie
 </ul>
 <p><em>(N.B. arguments must be in lower case).</em></p>
 <p>To use the example client first compile the Java code:</p>
-<pre><code class="language-bash">javac DataFeedClient.java
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">javac DataFeedClient.java</code></pre>
+</div>
+
 <h2 id="example-http-post">Example HTTP Post:</h2>
-<pre><code class="language-bash">java -classpath . DataFeedClient inputfile=datafeed url=http://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java \
+-classpath . \
+DataFeedClient \
+inputfile=datafeed \
+url=http://&lt;Stroom_HOST&gt;/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED</code></pre>
+</div>
+
 <h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
-<pre><code class="language-bash">java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass DataFeedClient inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java \
+-classpath . \
+-Djavax.net.ssl.trustStore=ca.jks \
+-Djavax.net.ssl.trustStorePassword=capass \
+DataFeedClient \
+inputfile=datafeed \
+url=https://&lt;Stroom_HOST&gt;/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED</code></pre>
+</div>
+
 <h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
-<pre><code class="language-bash">java -classpath . -Djavax.net.ssl.trustStore=ca.jks -Djavax.net.ssl.trustStorePassword=capass -Djavax.net.ssl.keyStore=example.jks -Djavax.net.ssl.keyStorePassword=&lt;PASSWORD&gt; DataFeedClient inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed system=EXAMPLE-SYSTEM environment=DEV feed=EXAMPLE-FEED
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java \
+-classpath . \
+-Djavax.net.ssl.trustStore=ca.jks \
+-Djavax.net.ssl.trustStorePassword=capass \
+-Djavax.net.ssl.keyStore=example.jks \
+-Djavax.net.ssl.keyStorePassword=&lt;PASSWORD&gt; \
+DataFeedClient \
+inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED</code></pre>
+</div>
+
 
 </div>
 
@@ -553,7 +826,22 @@ See <a href="https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClie
     
   <h1 id="pg-5816a31f40b44194fbd5c9e1249594ad">7 - stroom-log-sender (Docker)</h1>
     <div class="lead">A Docker image for peridoically sending log files generated by an application to Stroom.</div>
-	<p><a href="https://hub.docker.com/r/gchq/stroom-log-sender/">stroom-log-sender (external link)</a> is a small Docker image for sending data to <em>Stroom</em>.</p>
+	<p>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://hub.docker.com/r/gchq/stroom-log-sender/" target="_blank" class="" style="" title="stroom-log-sender (external link)">
+    <span>stroom-log-sender</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is a small Docker image for sending data to <em>Stroom</em>.</p>
 <p>This is the simplest way to get data into stroom if the data provider is itself running in docker.
 It can also be used for sending data to <em>Stroom</em> from data providers that are not running in Docker.
 <em>stroom-log-sender</em> makes use of the <em>send_to_stroom.sh</em> bash script that is described below.

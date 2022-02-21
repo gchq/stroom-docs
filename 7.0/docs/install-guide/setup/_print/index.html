@@ -177,7 +177,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-baf25f528dd0b5d043a6131fcf804e8d">Apache Forwarding</a></li>
+<li>1: <a href="#pg-83516d1c6898776469e61e1639643937">Processing Users</a></li>
 
 
     
@@ -185,7 +185,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-06d5f6643ea3f5b645b70260fb32e360">Java Key Store Setup</a></li>
+<li>2: <a href="#pg-1423b5de8658215848877b76e270e0c7">Securing Stroom</a></li>
 
 
     
@@ -193,7 +193,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>3: <a href="#pg-2ca84eb0d1a73aaef4a9d836a7d0b0be">MySQL Setup</a></li>
+<li>3: <a href="#pg-06d5f6643ea3f5b645b70260fb32e360">Java Key Store Setup</a></li>
 
 
     
@@ -201,15 +201,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>4: <a href="#pg-83516d1c6898776469e61e1639643937">Processing Users</a></li>
-
-
-    
-  
-    
-    
-	
-<li>5: <a href="#pg-1423b5de8658215848877b76e270e0c7">Securing Stroom</a></li>
+<li>4: <a href="#pg-2ca84eb0d1a73aaef4a9d836a7d0b0be">MySQL Setup</a></li>
 
 
     
@@ -242,128 +234,159 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="--base-section-num: '1.'; ">
     
-  <h1 id="pg-baf25f528dd0b5d043a6131fcf804e8d">1 - Apache Forwarding</h1>
+  <h1 id="pg-83516d1c6898776469e61e1639643937">1 - Processing Users</h1>
     
-	
-<div class="pageinfo pageinfo-danger">
-<h4 class="text-danger alert-heading">Warning</h4>
-<p>This document refers to v4/5.</p>
+	<h2 id="processing-user-setup">Processing User Setup</h2>
+<p>Stroom and Stroom Proxy should be run under a processing user (we assume <em>stroomuser</em> below).</p>
+<h2 id="create-user">Create user</h2>
 
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">/usr/sbin/adduser --system stroomuser</code></pre>
 </div>
 
+<p>You may want to allow normal accounts to sudo to this account for maintenance (visudo).</p>
+<h2 id="create-service-script">Create service script</h2>
+<p>Create a service script to start/stop on server startup (as root).</p>
 
-<p>Stroom defaults to listening for HTTP on port 8080.
-It is recommended that Apache is used to listen on the standard HTTP port 80 and forward requests on via the Apache mod_jk module and the AJP protocol (on 8009).
-Apache can also perform HTTPS on port 443 and pass over requests to Tomcat using the same AJP protocol.</p>
-<p>It is additionally recommended that Stroom Proxy is used to front data ingest and so Apache is configured to route traffic to http(s)://server/stroom/datafeed to Stroom Proxy and anything else to Stroom.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li>tomcat-connectors-1.2.31-src.tar.gz</li>
-</ul>
-<h2 id="setup-apache">Setup Apache</h2>
-<ul>
-<li>As root</li>
-<li>Patch mod_jk</li>
-</ul>
-<pre><code class="language-bash">cd ~/tmp
-tar -xvzf tomcat-connectors-1.2.31-src.tar.gz 
-cd tomcat-connectors-1.2.31-src/native
-./configure --with-apxs=/usr/sbin/apxs 
-make
-sudo cp apache-2.0/mod_jk.so /etc/httpd/modules/
-cd
-</code></pre>
-<ul>
-<li>Put the web server cert, private key, and CA cert into the web servers conf directory  /etc/httpd/conf.  E.g.</li>
-</ul>
-<pre><code class="language-bash">[user@node1 stroom-doc]$ ls -al /etc/httpd/conf
-....
--rw-r--r-- 1 root root  1729 Aug 27  2013 host.crt
--rw-r--r-- 1 root root  1675 Aug 27  2013 host.key
--rw-r--r-- 1 root root  1289 Aug 27  2013 CA.crt
-....
-</code></pre>
-<ul>
-<li>Make changes to /etc/http/conf.d/ssl.conf as per below</li>
-</ul>
-<pre><code class="language-text">JkMount /stroom* local
-JkMount /stroom/remoting/cluster* local
-</code></pre>
-<pre><code class="language-text">JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 
-SSLCertificateFile /etc/httpd/conf/[YOUR SERVER].crt
-SSLCertificateKeyFile /etc/httpd/conf/[YOUR SERVER].key
-SSLCertificateChainFile /etc/httpd/conf/[YOUR CA].crt
-SSLCACertificateFile /etc/httpd/conf/[YOUR CA APPENDED LIST].crt
 
-SSLOptions +ExportCertData
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">vi /etc/init.d/stroomuser</code></pre>
+</div>
+
+<p>Paste/type the following content into vi.</p>
+<pre><code class="language-bash">#!/bin/bash
+#
+# stroomuser       This shell script takes care of starting and stopping
+#               the stroomuser subsystem (tomcat6, etc)
+#
+# chkconfig: - 86 14
+# description: stroomuser is the stroomuser sub system
+
+STROOM_USER=stroomuser
+DEPLOY_DIR=/home/${STROOM_USER}/stroom-deploy
+
+case $1 in
+start)
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/start.sh
+;;
+stop)
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/stop.sh
+;;
+restart)
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/stop.sh
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/start.sh
+;;
+esac
+exit 0
 </code></pre>
-<ul>
-<li>Remove /etc/httpd/conf.d/nss.conf to avoid a 8443 port clash</li>
-</ul>
-<pre><code class="language-bash">rm /etc/httpd/conf.d/nss.conf 
+<p>Now initialise the script.</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">/bin/chmod &#43;x /etc/init.d/stroomuser
+/sbin/chkconfig --level 345 stroomuser on</code></pre>
+</div>
+
+<h3 id="setup-users-environment">Setup user&rsquo;s environment</h3>
+<p>Setup <code>env.sh</code> to include <code>JAVA_HOME</code> to point to the installed directory of the JDK (this will be platform specific).</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">vi ~/env.sh</code></pre>
+</div>
+
+<p>In vi add the following lines.</p>
+<pre><code class="language-bash"># User specific aliases and functions
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0
+export PATH=${JAVA_HOME}/bin:${PATH}
 </code></pre>
-<ul>
-<li>Create a /etc/httpd/conf.d/mod_jk.conf configuration</li>
-</ul>
-<pre><code class="language-text">LoadModule jk_module modules/mod_jk.so
-JkWorkersFile conf/workers.properties
-JkLogFile logs/mod_jk.log
-JkLogLevel info
-JkLogStampFormat  &quot;[%a %b %d %H:%M:%S %Y]&quot;
-JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
-JkRequestLogFormat &quot;%w %V %T&quot;
+<p>Setup the user&rsquo;s profile to include source the env script.</p>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">vi ~/.bashrc</code></pre>
+</div>
+
+<p>In vi add the following lines.</p>
+<pre><code class="language-bash"># User specific aliases and functions
+. ~/env.sh
 </code></pre>
-<pre><code class="language-text">JkMount /stroom* local
-JkMount /stroom/remoting/cluster* local
-</code></pre>
-<pre><code class="language-text">JkShmFile logs/jk.shm
-&lt;Location /jkstatus/&gt;
-    JkMount status
-    Order deny,allow
-    Deny from all
-    Allow from 127.0.0.1
-&lt;/Location&gt;
-</code></pre>
-<ul>
-<li>Setup stroom-setup/cluster.txt, generate the workers file and copy into Apache.  (as root and replace stroomuser with your processing user)</li>
-</ul>
-<pre><code class="language-bash">/home/stroomuser/stroom-setup/workers.properties.sh --cluster=/home/stroomuser/cluster.txt &gt; /etc/httpd/conf/workers.properties
-</code></pre>
-<ul>
-<li>Inspect /etc/httpd/conf/workers.properties to make sure it looks as you expect for your cluster</li>
-</ul>
-<pre><code class="language-text">worker.list=loadbalancer,local,status
-worker.stroom_1.port=8009
-worker.stroom_1.host=localhost
-worker.stroom_1.type=ajp13
-worker.stroom_1.lbfactor=1
-worker.stroom_1.max_packet_size=65536
-....
-....
-worker.loadbalancer.type=lb
-worker.loadbalancer.balance_workers=stroom_1,stroom_2
-worker.loadbalancer.sticky_session=1
-worker.local.type=lb
-worker.local.balance_workers=stroom_1
-worker.local.sticky_session=1
-worker.status.type=status
-</code></pre>
-<ul>
-<li>Create a simple redirect page to the stroom web app for the root URL (e.g. DocumentRoot &ldquo;/var/www/html&rdquo;, index.html)</li>
-</ul>
-<pre><code class="language-text">&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=stroom&quot;&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;
-</code></pre>
-<ul>
-<li>Restart Apache and then test default http / https access.</li>
-</ul>
-<pre><code class="language-bash">sudo /etc/init.d/httpd restart
-</code></pre>
-<h2 id="advanced-forwarding">Advanced Forwarding</h2>
-<p>Typically Stroom is setup so that traffic sent to /stroom* is routed to Stroom and /stroom/datafeed to Stroom Proxy.  It is possible to setup an extra 1 level of datafeed routing so that based on the URL this traffic can be routed differently.</p>
-<p>For example to route traffic directly to Stroom under the URL /stroom/datafeed/direct (avoiding any aggregation) the following mod_jk setting could be used.</p>
-<pre><code class="language-text">JkMount /stroom/datafeed/direct* loadbalancer
-</code></pre>
+<h3 id="verify-java-installation">Verify Java installation</h3>
+<p>Assuming you are using Stroom without using docker and have installed Java, verify that the processing user can use the Java installation.</p>
+<blockquote>
+<p>The shell output below may show a different version of Java to the one you are using.</p>
+</blockquote>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">. .bashrc
+which java
+(out)/usr/lib/jvm/java-1.8.0/bin/java
+
+which javac
+(out)/usr/lib/jvm/java-1.8.0/bin/javac
+
+java -version
+(out)openjdk version &#34;1.8.0_65&#34;
+(out)OpenJDK Runtime Environment (build 1.8.0_65-b17)
+(out)OpenJDK 64-Bit Server VM (build 25.65-b01, mixed mode)</code></pre>
+</div>
+
 
 </div>
 
@@ -382,9 +405,71 @@ worker.status.type=status
 
 <div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
     
-  <h1 id="pg-06d5f6643ea3f5b645b70260fb32e360">2 - Java Key Store Setup</h1>
+  <h1 id="pg-1423b5de8658215848877b76e270e0c7">2 - Securing Stroom</h1>
+    <div class="lead">How to secure Stroom and the cluster</div>
+	<blockquote>
+<p><em>NOTE</em> This document was written for stroom v4/5. Some parts may not be applicable for v6+.</p>
+</blockquote>
+<h2 id="firewall">Firewall</h2>
+<p>The following firewall configuration is recommended:</p>
+<ul>
+<li>Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc</li>
+<li>Within cluster allow all access</li>
+</ul>
+<p>This will enable nodes within the cluster to communicate on:</p>
+<ul>
+<li>8080 - Stroom HTTP.</li>
+<li>8081 - Stroom HTTP (admin).</li>
+<li>8090 - Stroom Proxy HTTP.</li>
+<li>8091 - Stroom Proxy HTTP (admin).</li>
+<li>3306 - MySQL</li>
+</ul>
+<h2 id="mysql">MySQL</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Update this for MySQL 8
+
+</div>
+
+<p>It is recommended that you run mysql_secure_installation to set a root password and remove test database:</p>
+<pre><code class="language-bash">mysql_secure_installation (provide a root password)
+- Set root password? [Y/n] Y
+- Remove anonymous users? [Y/n] Y 
+- Disallow root login remotely? [Y/n] Y
+- Remove test database and access to it? [Y/n] Y
+- Reload privilege tables now? [Y/n] Y
+</code></pre>
+
+</div>
+
+
+
+
     
-	<p>In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore&rsquo;s setting up.</p>
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-06d5f6643ea3f5b645b70260fb32e360">3 - Java Key Store Setup</h1>
+    
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    This is out of date for stroom 7.
+
+</div>
+
+<p>In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore&rsquo;s setting up.</p>
 <p>As the processing user copy the following files to a directory stroom-jks in the processing user home directory :</p>
 <ul>
 <li>CA.crt     - Certificate Authority</li>
@@ -434,13 +519,21 @@ echo &quot;export JAVA_OPTS=\&quot;-Djavax.net.ssl.trustStore=${PWD}/${AUTHORITY
 
 
 
-<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
     
-  <h1 id="pg-2ca84eb0d1a73aaef4a9d836a7d0b0be">3 - MySQL Setup</h1>
+  <h1 id="pg-2ca84eb0d1a73aaef4a9d836a7d0b0be">4 - MySQL Setup</h1>
     
-	<h2 id="prerequisites">Prerequisites</h2>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
+
+</div>
+
+<h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li>MySQL 5.5.y server installed (e.g. yum install mysql-server)</li>
+<li>MySQL 8.0.x server installed (e.g. yum install mysql-server)</li>
 <li>Processing User Setup</li>
 </ul>
 <p>A single MySQL database is required for each Stroom instance.
@@ -455,9 +548,22 @@ Welcome to the MySQL monitor.  Commands end with ; or \g.
 mysql&gt; quit      
 </code></pre>
 <p>The following commands can be used to auto start mysql if required:</p>
-<pre><code class="language-bash">[root@stroomdb ~]# /sbin/chkconfig –level 345 mysqld on
-[root@stroomdb ~]# /sbin/service httpd start
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="stroomdb" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">/sbin/chkconfig –level 345 mysqld on
+/sbin/service httpd start</code></pre>
+</div>
+
 <h2 id="overview">Overview</h2>
 <p>MySQL configuration can be simple to complex depending on your requirements.<br>
 For a very simple configuration you simply need an out-of-the-box mysql
@@ -655,175 +761,6 @@ Welcome to the MySQL monitor.  Commands end with ; or \g.
 ....
 mysql&gt; create database stats;
 Query OK, 1 row affected (0.00 sec)
-</code></pre>
-
-</div>
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
-    
-  <h1 id="pg-83516d1c6898776469e61e1639643937">4 - Processing Users</h1>
-    
-	<h2 id="processing-user-setup">Processing User Setup</h2>
-<p>Stroom / Stroom Proxy should be run under a processing user (we assume stroomuser below).</p>
-<ul>
-<li>Setup this user</li>
-</ul>
-<pre><code class="language-bash">/usr/sbin/adduser --system stroomuser
-</code></pre>
-<ul>
-<li>
-<p>You may want to allow normal accounts to sudo to this account for maintenance (visudo)</p>
-</li>
-<li>
-<p>Create a service script to start/stop on server startup (as root).</p>
-</li>
-</ul>
-<pre><code class="language-bash">vi /etc/init.d/stroomuser
-
-#!/bin/bash
-#
-# stroomuser       This shell script takes care of starting and stopping
-#               the stroomuser subsystem (tomcat6, etc)
-#
-# chkconfig: - 86 14
-# description: stroomuser is the stroomuser sub system
-
-Stroom_USER=stroomuser
-
-case $1 in
-start)
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/start.sh
-;;
-stop)
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/stop.sh
-;;
-restart)
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/stop.sh
-/bin/su ${Stroom_USER} /home/${Stroom_USER}/stroom-deploy/start.sh
-;;
-esac
-exit 0
-</code></pre>
-<ul>
-<li>Initialise Script</li>
-</ul>
-<pre><code class="language-bash">/bin/chmod +x /etc/init.d/stroomuser
-/sbin/chkconfig --level 345 stroomuser on
-</code></pre>
-<h2 id="install-java-8">Install Java 8</h2>
-<pre><code class="language-bash">yum install java-1.8.0-openjdk.x86_64
-yum install java-1.8.0-openjdk-devel.x86_64
-</code></pre>
-<h2 id="setup-deployment-scripts">Setup Deployment Scripts</h2>
-<ul>
-<li>As the processing user unpack the stroom-deploy-X-Y-Z-bin.zip generic deployment
-scripts in the processing users home directory.</li>
-</ul>
-<pre><code class="language-bash">unzip stroom-deploy-5.0.beta1-bin.zip
-</code></pre>
-<ul>
-<li>Setup env.sh to include JAVA_HOME to point to the installed directory of the JDK
-(this will be platform specific).  vi ~/env.sh</li>
-</ul>
-<pre><code class="language-bash"># User specific aliases and functions
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0
-export PATH=${JAVA_HOME}/bin:${PATH}
-</code></pre>
-<ul>
-<li>Setup users profile to include the same.  vi ~/.bashrc</li>
-</ul>
-<pre><code class="language-bash"># User specific aliases and functions
-. ~/env.sh
-</code></pre>
-<ul>
-<li>Check that java is installed OK</li>
-</ul>
-<pre><code class="language-bash">[stroomuser@node1 ~]$ . .bashrc
-[stroomuser@node1 ~]$ which java
-/usr/lib/jvm/java-1.8.0/bin/java
-
-[stroomuser@node1 ~]$ which javac
-/usr/lib/jvm/java-1.8.0/bin/javac
-
-[stroomuser@node1 ~]$ java -version
-openjdk version &quot;1.8.0_65&quot;
-OpenJDK Runtime Environment (build 1.8.0_65-b17)
-OpenJDK 64-Bit Server VM (build 25.65-b01, mixed mode)
-</code></pre>
-<ul>
-<li>Setup auto deployment crontab script as below (crontab -e)</li>
-</ul>
-<pre><code class="language-bash">[stroomuser@node1 ~]$ crontab -l
-# Deploy Script
-0,5,10,15,20,25,30,35,40,45,50,55 * * * * /home/stroomuser/stroom-deploy/deploy.sh &gt;&gt; /home/stroomuser/stroom-deploy.log
-59 0 * * * rm -f /home/stroomuser/stroom-deploy.log
-# Clean system
-0 0 * * * /home/stroomuser/stroom-deploy/clean.sh &gt; /dev/null
-</code></pre>
-
-</div>
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
-    
-  <h1 id="pg-1423b5de8658215848877b76e270e0c7">5 - Securing Stroom</h1>
-    
-	<blockquote>
-<p><em>NOTE</em> This document was written for stroom v4/5. Some parts may not be applicable for v6+.</p>
-</blockquote>
-<h2 id="firewall">Firewall</h2>
-<p>The following firewall configuration is recommended:</p>
-<ul>
-<li>Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc</li>
-<li>Within cluster allow all access</li>
-</ul>
-<p>This will enable nodes within the cluster to communicate on:</p>
-<ul>
-<li>Native tomcat HTTP 8080, 9080</li>
-<li>Tomcat AJP 8009, 9009</li>
-<li>MySQL 3006</li>
-</ul>
-<h2 id="mysql">MySQL</h2>
-<ul>
-<li>It is recommended that you run mysql_secure_installation to set a root password and remove test database:</li>
-</ul>
-<pre><code class="language-bash">mysql_secure_installation (provide a root password)
-- Set root password? [Y/n] Y
-- Remove anonymous users? [Y/n] Y 
-- Disallow root login remotely? [Y/n] Y
-- Remove test database and access to it? [Y/n] Y
-- Reload privilege tables now? [Y/n] Y
-</code></pre>
-<ul>
-<li>stroom-setup includes a version of this script designed to be run on instances create using mysqld_instance.sh
-(i.e. non standard or multiple instances of mysql)</li>
-</ul>
-<pre><code class="language-bash">[stroomuser@stroom_1 stroom-setup]$ ./mysql_secure_installation.sh --name=mysqld_ref1m
 </code></pre>
 
 </div>
