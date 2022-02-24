@@ -30,14 +30,6 @@ node "stroom host" as stroom_host <<device>> {
         node "nginx" as nginx <<web server>>
     }
 
-    rectangle "stroom-auth-ui" as stroom_auth_ui_container <<container>>{
-        node "stroom-auth-ui (nginx)" as stroom_auth_ui_nginx <<web server>>
-    }
-
-    rectangle "stroom-auth-service" as stroom_auth_service_container <<container>>{
-        node "stroom-auth-service" as stroom_auth_service_dropwiz <<java app>>
-    }
-
     rectangle "stroom" as stroom_container <<container>>{
         node "stroom" as stroom_dropwiz <<java app>>
     }
@@ -54,24 +46,19 @@ node "stroom host" as stroom_host <<device>> {
         database stroom_all_dbs <<mysql>> {
             storage "stroom" as stroom_db <<database>>
             storage "stats" as stroom_stats_db <<database>>
-            storage "auth" as stroom_auth_db <<database>>
         }
     }
 
     'DB connections
-    stroom_auth_service_dropwiz --> stroom_auth_db
     stroom_dropwiz --> stroom_db
     stroom_dropwiz --> stroom_stats_db
 
     ' API calls
     stroom_dropwiz --> nginx
     stroom_proxy_dropwiz --> nginx
-    stroom_auth_service_dropwiz --> nginx
     stroom_log_sender_script -left-> nginx
 
     'Reverse proxy connections
-    nginx --> stroom_auth_ui_nginx
-    nginx --> stroom_auth_service_dropwiz
     nginx --> stroom_dropwiz
     nginx --> stroom_proxy_dropwiz
 }
