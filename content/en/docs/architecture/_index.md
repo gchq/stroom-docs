@@ -81,7 +81,7 @@ Such a deployment can be achieved by following [these instructions]({{< relref "
 
 The following diagram shows how a single node deployment would look.
 
-{{< image "architecture/stroom-6-deployment-docker-single.puml.svg" >}}Logical Architecture Diagram{{< /image >}}
+{{< image "architecture/stroom-deployment-docker-single.puml.svg" >}}Logical Architecture Diagram{{< /image >}}
 
 
 ### Multi Node Mixed Deployment
@@ -92,7 +92,7 @@ This approach was taken to gradually introduce docker into the stroom deployment
 
 The following diagram shows how a multi node deployment would look.
 
-{{< image "architecture/stroom-6-deployment-mixed-multi.puml.svg" >}}Logical Architecture Diagram{{< /image >}}
+{{< image "architecture/stroom-deployment-mixed-multi.puml.svg" >}}Logical Architecture Diagram{{< /image >}}
 
 
 ### Multi Node Docker Deployment
