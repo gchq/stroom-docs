@@ -719,7 +719,7 @@ root:
 
 &lt;/div&gt;
 &lt;h3 id=&#34;command-line-blocks&#34;&gt;Command line blocks&lt;/h3&gt;
-&lt;p&gt;To demostrate commands being run on the command line you can use the &lt;code&gt;command-line&lt;/code&gt; shortcode.
+&lt;p&gt;To demonstrate commands being run on the command line you can use the &lt;code&gt;command-line&lt;/code&gt; shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
 It also means the prompt part is not selectable when the user selects the text for copy/pasting.&lt;/p&gt;
 &lt;p&gt;The shortcode takes the following arguments:&lt;/p&gt;
@@ -731,6 +731,9 @@ It also means the prompt part is not selectable when the user selects the text f
 &lt;p&gt;If you want to display shell output then prefix each output line with &lt;code&gt;(out)&lt;/code&gt;.
 It will then be displayed without a prompt.
 To display a blank line with no prompt then have a line with just &lt;code&gt;(out)&lt;/code&gt; in it.&lt;/p&gt;
+&lt;p&gt;If your shell command is very long then you can split it into multiple lines using the shell line continuation character &lt;code&gt;\&lt;/code&gt; which must be the last character on the line.
+If this character is present then it will be rendered with a different prompt to indicate it is a continuation.
+Readers can then copy/past the muli-line command into a shell and run it.&lt;/p&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
   &lt;div class=&#34;card mb-4&#34;&gt;
   
@@ -752,7 +755,8 @@ To display a blank line with no prompt then have a line with just &lt;code&gt;(o
     data-user=&#34;david&#34; 
     data-host=&#34;wopr&#34; 
     data-continuation-str=&#34;\&#34;
-    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;echo &amp;#34;hello world&amp;#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;echo hello \
+world
 (out)hello world
 id
 (out)uid=1000(david) gid=1000(david)&lt;/code&gt;&lt;/pre&gt;
@@ -780,8 +784,9 @@ id
       &lt;p class=&#34;card-text&#34;&gt;
         
           &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; command-line &amp;quot;david&amp;quot; &amp;quot;wopr&amp;quot; &amp;gt;}}
-echo &amp;quot;hello world&amp;quot;
-(out)class
+echo hello \
+world
+(out)hello world
 id
 (out)uid=1000(david) gid=1000(david)
 {{&amp;lt; command-line &amp;gt;}}
@@ -799,8 +804,10 @@ id
 &lt;p&gt;To demonstrate commands being run in a MySQL shell you can use the &lt;code&gt;sql-shell&lt;/code&gt; shortcode.
 This works in a similar way to the &lt;code&gt;command-line&lt;/code&gt; shortcode but has a different prompt and no shortcode arguments.&lt;/p&gt;
 &lt;p&gt;If you want to display shell output then prefix each output line with &lt;code&gt;(out)&lt;/code&gt;.
-It will then be displayed without a prompt.
-To display a blank line with no prompt then have a line with just &lt;code&gt;(out)&lt;/code&gt; in it.&lt;/p&gt;
+It will then be displayed without a prompt.&lt;/p&gt;
+&lt;p&gt;If your sql statement is multi-line, prefix all lines except the first with &lt;code&gt;(con)&lt;/code&gt; (for continuation).
+Continuation lines will be rendered with a continuation prompt (&lt;code&gt;-&amp;gt;&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;To display a blank line with no prompt then have a line with just &lt;code&gt;(out)&lt;/code&gt; in it.&lt;/p&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
   &lt;div class=&#34;card mb-4&#34;&gt;
   
@@ -820,13 +827,18 @@ To display a blank line with no prompt then have a line with just &lt;code&gt;(o
   &lt;pre 
     class=&#34;command-line language-sql&#34; 
     data-prompt=&#34;mysql&gt;&#34; 
-    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;select user();
-(out)&amp;#43;----------------------&amp;#43;
-(out)| user()               |
-(out)&amp;#43;----------------------&amp;#43;
-(out)| stroomuser@localhost |
-(out)&amp;#43;----------------------&amp;#43;
-(out)1 row in set (0.00 sec)
+    data-filter-output=&#34;(out)&#34;
+    data-continuation-prompt=&#34;-&gt;&#34;
+    data-filter-continuation=&#34;(con)&#34;&gt;&lt;code class=&#34;language-sql&#34;&gt;select *
+(con)from token_type
+(con)limit 2;
+(out)&amp;#43;----&amp;#43;------&amp;#43;
+(out)| id | type |
+(out)&amp;#43;----&amp;#43;------&amp;#43;
+(out)|  1 | user |
+(out)|  2 | api  |
+(out)&amp;#43;----&amp;#43;------&amp;#43;
+(out)2 rows in set (0.00 sec)
 (out)
 select database();
 (out)&amp;#43;------------&amp;#43;
@@ -859,13 +871,16 @@ select database();
       &lt;p class=&#34;card-text&#34;&gt;
         
           &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; sql-shell &amp;gt;}}
-select user();
-(out)+----------------------+
-(out)| user()               |
-(out)+----------------------+
-(out)| stroomuser@localhost |
-(out)+----------------------+
-(out)1 row in set (0.00 sec)
+select *
+(con)from token_type
+(con)limit 2;
+(con)+----+------+
+(con)| id | type |
+(con)+----+------+
+(con)|  1 | user |
+(con)|  2 | api  |
+(con)+----+------+
+(out)2 rows in set (0.00 sec)
 (out)
 select database();
 (out)+------------+
@@ -1030,7 +1045,7 @@ This can be done
   &lt;/a&gt;
 &lt;/span&gt;
 .
-When creating new versions of these file you must included the languages and plugins already included else you may break this site.
+When creating new versions of these file you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of &lt;code&gt;/static/css/prism.css&lt;/code&gt; and &lt;code&gt;/static/js/prism.js&lt;/code&gt;.
 Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.&lt;/p&gt;
@@ -1050,6 +1065,15 @@ Use this link then add any additional items, bearing in mind the size of the dow
   &lt;/a&gt;
 &lt;/span&gt;
 &lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    The css/js downloaded from the Prism site is taken from the head of their master branch so even though the css/js mention a Prism version number this may be the same for downloads done at different times.
+
+&lt;/div&gt;
+
+
 &lt;h2 id=&#34;alerts&#34;&gt;Alerts&lt;/h2&gt;
 &lt;h3 id=&#34;warning-block-quote&#34;&gt;Warning block Quote&lt;/h3&gt;
 

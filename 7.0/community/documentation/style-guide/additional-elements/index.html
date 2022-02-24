@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.92.2" />
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/style-guide/additional-elements/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2021-07-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-02-18T15:50:17+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-02-24T16:17:59+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Additional Page Elements">
 <meta itemprop="description" content="Examples of various markdown and Hugo page elements.
 "><meta itemprop="datePublished" content="2021-07-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-02-18T15:50:17+00:00" />
-<meta itemprop="wordCount" content="2011">
+<meta itemprop="dateModified" content="2022-02-24T16:17:59+00:00" />
+<meta itemprop="wordCount" content="2170">
 <meta itemprop="keywords" content="style," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Additional Page Elements"/>
 <meta name="twitter:description" content="Examples of various markdown and Hugo page elements.
@@ -976,7 +976,7 @@ root:
 
 </div>
 <h3 id="command-line-blocks">Command line blocks</h3>
-<p>To demostrate commands being run on the command line you can use the <code>command-line</code> shortcode.
+<p>To demonstrate commands being run on the command line you can use the <code>command-line</code> shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
 It also means the prompt part is not selectable when the user selects the text for copy/pasting.</p>
 <p>The shortcode takes the following arguments:</p>
@@ -988,6 +988,9 @@ It also means the prompt part is not selectable when the user selects the text f
 <p>If you want to display shell output then prefix each output line with <code>(out)</code>.
 It will then be displayed without a prompt.
 To display a blank line with no prompt then have a line with just <code>(out)</code> in it.</p>
+<p>If your shell command is very long then you can split it into multiple lines using the shell line continuation character <code>\</code> which must be the last character on the line.
+If this character is present then it will be rendered with a different prompt to indicate it is a continuation.
+Readers can then copy/past the muli-line command into a shell and run it.</p>
 <div class="card-deck mb-4">
   <div class="card mb-4">
   
@@ -1009,7 +1012,8 @@ To display a blank line with no prompt then have a line with just <code>(out)</c
     data-user="david" 
     data-host="wopr" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">echo &#34;hello world&#34;
+    data-filter-output="(out)"><code class="language-bash">echo hello \
+world
 (out)hello world
 id
 (out)uid=1000(david) gid=1000(david)</code></pre>
@@ -1037,8 +1041,9 @@ id
       <p class="card-text">
         
           <pre><code class="language-markdown">{{&lt; command-line &quot;david&quot; &quot;wopr&quot; &gt;}}
-echo &quot;hello world&quot;
-(out)class
+echo hello \
+world
+(out)hello world
 id
 (out)uid=1000(david) gid=1000(david)
 {{&lt; command-line &gt;}}
@@ -1056,8 +1061,10 @@ id
 <p>To demonstrate commands being run in a MySQL shell you can use the <code>sql-shell</code> shortcode.
 This works in a similar way to the <code>command-line</code> shortcode but has a different prompt and no shortcode arguments.</p>
 <p>If you want to display shell output then prefix each output line with <code>(out)</code>.
-It will then be displayed without a prompt.
-To display a blank line with no prompt then have a line with just <code>(out)</code> in it.</p>
+It will then be displayed without a prompt.</p>
+<p>If your sql statement is multi-line, prefix all lines except the first with <code>(con)</code> (for continuation).
+Continuation lines will be rendered with a continuation prompt (<code>-&gt;</code>).</p>
+<p>To display a blank line with no prompt then have a line with just <code>(out)</code> in it.</p>
 <div class="card-deck mb-4">
   <div class="card mb-4">
   
@@ -1077,13 +1084,18 @@ To display a blank line with no prompt then have a line with just <code>(out)</c
   <pre 
     class="command-line language-sql" 
     data-prompt="mysql>" 
-    data-filter-output="(out)"><code class="language-sql">select user();
-(out)&#43;----------------------&#43;
-(out)| user()               |
-(out)&#43;----------------------&#43;
-(out)| stroomuser@localhost |
-(out)&#43;----------------------&#43;
-(out)1 row in set (0.00 sec)
+    data-filter-output="(out)"
+    data-continuation-prompt="->"
+    data-filter-continuation="(con)"><code class="language-sql">select *
+(con)from token_type
+(con)limit 2;
+(out)&#43;----&#43;------&#43;
+(out)| id | type |
+(out)&#43;----&#43;------&#43;
+(out)|  1 | user |
+(out)|  2 | api  |
+(out)&#43;----&#43;------&#43;
+(out)2 rows in set (0.00 sec)
 (out)
 select database();
 (out)&#43;------------&#43;
@@ -1116,13 +1128,16 @@ select database();
       <p class="card-text">
         
           <pre><code class="language-markdown">{{&lt; sql-shell &gt;}}
-select user();
-(out)+----------------------+
-(out)| user()               |
-(out)+----------------------+
-(out)| stroomuser@localhost |
-(out)+----------------------+
-(out)1 row in set (0.00 sec)
+select *
+(con)from token_type
+(con)limit 2;
+(con)+----+------+
+(con)| id | type |
+(con)+----+------+
+(con)|  1 | user |
+(con)|  2 | api  |
+(con)+----+------+
+(out)2 rows in set (0.00 sec)
 (out)
 select database();
 (out)+------------+
@@ -1287,7 +1302,7 @@ This can be done
   </a>
 </span>
 .
-When creating new versions of these file you must included the languages and plugins already included else you may break this site.
+When creating new versions of these file you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of <code>/static/css/prism.css</code> and <code>/static/js/prism.js</code>.
 Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.</p>
@@ -1307,6 +1322,15 @@ Use this link then add any additional items, bearing in mind the size of the dow
   </a>
 </span>
 </p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    The css/js downloaded from the Prism site is taken from the head of their master branch so even though the css/js mention a Prism version number this may be the same for downloads done at different times.
+
+</div>
+
+
 <h2 id="alerts">Alerts</h2>
 <h3 id="warning-block-quote">Warning block Quote</h3>
 
@@ -1478,7 +1502,7 @@ root:
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 18, 2022: <a href="https://github.com/gchq/stroom-docs/commit/1aa298d01dba4aaf1a961dabd2a65899417cfcda">Uplift Prism to 1.27.0 (1aa298d)</a>
+  Last modified February 24, 2022: <a href="https://github.com/gchq/stroom-docs/commit/f842f17ae9cefc61afb60eb8a9d9140b8af65514">Rename architecture puml files (f842f17)</a>
 </div>
 
 </div>
