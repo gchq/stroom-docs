@@ -298,7 +298,7 @@ echo "${VAR}"
 
 ### Command line blocks
 
-To demostrate commands being run on the command line you can use the `command-line` shortcode.
+To demonstrate commands being run on the command line you can use the `command-line` shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
 It also means the prompt part is not selectable when the user selects the text for copy/pasting.
 
@@ -312,10 +312,15 @@ If you want to display shell output then prefix each output line with `(out)`.
 It will then be displayed without a prompt.
 To display a blank line with no prompt then have a line with just `(out)` in it.
 
+If your shell command is very long then you can split it into multiple lines using the shell line continuation character `\` which must be the last character on the line.
+If this character is present then it will be rendered with a different prompt to indicate it is a continuation.
+Readers can then copy/past the muli-line command into a shell and run it.
+
 {{< cardpane >}}
   {{< card header="Rendered" >}}
 {{< command-line "david" "wopr" >}}
-echo "hello world"
+echo hello \
+world
 (out)hello world
 id
 (out)uid=1000(david) gid=1000(david)
@@ -324,8 +329,9 @@ id
   {{< card header="Markdown" >}}
 ```markdown
 {{</* command-line "david" "wopr" */>}}
-echo "hello world"
-(out)class
+echo hello \
+world
+(out)hello world
 id
 (out)uid=1000(david) gid=1000(david)
 {{</* command-line */>}}
