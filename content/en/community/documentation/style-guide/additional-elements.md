@@ -341,18 +341,25 @@ This works in a similar way to the `command-line` shortcode but has a different 
 
 If you want to display shell output then prefix each output line with `(out)`.
 It will then be displayed without a prompt.
+
+If your sql statement is multi-line, prefix all lines except the first with `(con)` (for continuation).
+Continuation lines will be rendered with a continuation prompt (`->`).
+
 To display a blank line with no prompt then have a line with just `(out)` in it.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
 {{< sql-shell >}}
-select user();
-(out)+----------------------+
-(out)| user()               |
-(out)+----------------------+
-(out)| stroomuser@localhost |
-(out)+----------------------+
-(out)1 row in set (0.00 sec)
+select *
+(con)from token_type
+(con)limit 2;
+(out)+----+------+
+(out)| id | type |
+(out)+----+------+
+(out)|  1 | user |
+(out)|  2 | api  |
+(out)+----+------+
+(out)2 rows in set (0.00 sec)
 (out)
 select database();
 (out)+------------+
@@ -366,13 +373,16 @@ select database();
   {{< card header="Markdown" >}}
 ```markdown
 {{</* sql-shell */>}}
-select user();
-(out)+----------------------+
-(out)| user()               |
-(out)+----------------------+
-(out)| stroomuser@localhost |
-(out)+----------------------+
-(out)1 row in set (0.00 sec)
+select *
+(con)from token_type
+(con)limit 2;
+(con)+----+------+
+(con)| id | type |
+(con)+----+------+
+(con)|  1 | user |
+(con)|  2 | api  |
+(con)+----+------+
+(out)2 rows in set (0.00 sec)
 (out)
 select database();
 (out)+------------+
@@ -432,16 +442,19 @@ The list of included language names are:
 
 To include extra languages in this site you need to build a new version of the `prism.js` and `prism.css` files.
 This can be done {{< external-link "here" "https://prismjs.com/index.html#supported-languages" >}}.
-When creating new versions of these file you must included the languages and plugins already included else you may break this site.
+When creating new versions of these file you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of `/static/css/prism.css` and `/static/js/prism.js`.
 Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.
 
 An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=command-line+toolbar+copy-to-clipboard+treeview" >}}
 
+{{% warning %}}
+The css/js downloaded from the Prism site is taken from the head of their master branch so even though the css/js mention a Prism version number this may be the same for downloads done at different times.
+{{% /warning %}}
+
 
 ## Alerts
-
 
 ### Warning block Quote
 
