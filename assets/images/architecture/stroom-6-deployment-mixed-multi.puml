@@ -27,19 +27,12 @@ rectangle "stroom estate" {
         database stroom_all_dbs <<mysql>> {
             storage "stroom" as stroom_db <<database>>
             storage "stats" as stroom_stats_db <<database>>
-            storage "auth" as stroom_auth_db <<database>>
         }
     }
 
     node "Services host" as services_host <<device>> {
         rectangle "nginx" as nginx_container <<container>>{
             node "nginx" as nginx <<web server>>
-        }
-        rectangle "stroom-auth-ui" as stroom_auth_ui_container <<container>>{
-            node "stroom-auth-ui nginx" as stroom_auth_ui_nginx <<web server>>
-        }
-        rectangle "stroom-auth-service" as stroom_auth_service_container <<container>>{
-            node "stroom-auth-service" as stroom_auth_service_dropwiz <<java app>>
         }
         rectangle "stroom-log-sender" as stroom_log_sender <<container>>{
             node "stroom-log-sender" as stroom_log_sender_script <<script>>
@@ -80,17 +73,10 @@ rectangle "stroom estate" {
     }
 }
 
-'DB connections
-stroom_auth_service_dropwiz --> stroom_auth_db
-
 'Client connections
 ui_client_browser --> nginx
 dataload_client_app --> nginx
 remote_proxy --> nginx
-
-'Reverse proxy connections
-nginx --> stroom_auth_ui_nginx
-nginx --> stroom_auth_service_dropwiz
 
 
 ' see http://plantuml.com/skinparam & https://github.com/plantuml/plantuml/pull/31
