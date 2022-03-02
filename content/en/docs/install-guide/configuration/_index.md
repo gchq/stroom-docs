@@ -139,9 +139,11 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
 
 * **Symlink** - One option is to move the `var/lib/docker` directory to a new location then create a symlink to it.
     For example: 
-    ```sh
+
+    {{< command-line "root" "localhost" >}}
     ln -s /large_mount/docker_data_root /var/lib/docker
-    ```
+    {{</ command-line >}}
+    
     This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.
 
 * **Configuration** - The location can be changed by adding this key to the file `/etc/docker/daemon.json` (or creating this file if it doesn't exist.
@@ -149,7 +151,6 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
     {
       "data-root": "/mnt/docker"
     }
-    
     ```
 * **Mount** - If your intention is to use a whole storage device for the docker data root then you can mount that device to `/var/lib/docker`.
     You will need to make a copy of the `/var/lib/docker` directory prior to doing this then copy it mount once created.
@@ -169,9 +170,9 @@ Each stroom docker stack comes pre-built with a number of different services, e.
 While you can pass a set of service names to the commands like `start.sh` and `stop.sh`, it may sometimes be required to configure the stack instance to only have a set of services active.
 You can set the active services like so:
 
-```bash
+{{< command-line "stroomuser" "localhost" >}}
 ./set_services.sh stroom stroom-all-dbs nginx
-```
+{{</ command-line >}}
 
 In the above example and subsequent use of commands like `start.sh` and `stop.sh` with no named services would only act upon the active services set by `set_services.sh`.
 This list of active services is held in `ACTIVE_SERVICES.txt` and the full list of available services is held in `ALL_SERVICES.txt`.
