@@ -8,9 +8,6 @@ description: >
   How to find things in Stroom, for example content, simple string values, etc.
 ---
 
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 01 Jun 2020
-
 ## Explorer Tree
 
 {{< image "user-guide/finding-things/explorer_tree.png" >}}Explorer Tree{{< /image >}}
@@ -18,6 +15,7 @@ description: >
 The _Explorer Tree_ in stroom is the primary means of finding user created content, for example _Feeds_, _XSLTs_, _Pipelines_, etc.
 
 Branches of the _Explorer Tree_ can be expanded and collapsed to reveal/hide the content at different levels.
+
 
 ### Filtering by Type
 
@@ -50,6 +48,7 @@ This is done by entering some text in the _Quick Filter_ field.
 The tree will then be updated to only show entities matching the _Quick Filter_.
 The way the matching works for entity names is described in [Common Fuzzy Matching](#common-fuzzy-matching)
 
+
 ### Filtering by UUID
 
 #### What is a UUID?
@@ -76,6 +75,7 @@ Clicking _Info_ displays the entities UUID.
 {{< image "user-guide/finding-things/entity_info.png" >}}Entity Info{{< /image >}}
 
 The UUID can be copied by selecting it and then pressing `ctrl-c`.
+
 
 #### UUID Quick Filter Matching
 
@@ -188,6 +188,7 @@ Disabled
 ```
 
 **Won't match**: `A MAN`, `HUMAN`
+
 
 ## Suggestion Input Fields
 
@@ -392,6 +393,7 @@ events-xslt
 **Won't match**: `xslt-events`, `JSON_EVENTS`
 
 Note: Despite the similarity in syntax, this is NOT regular expression matching.
+
 
 ### Ends With
 

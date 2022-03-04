@@ -5,17 +5,19 @@ linkTitle: "Stroom Configuration"
 date: 2021-06-23
 tags:
 description: >
-  
+  Describes how the Stroom application is configured.
 ---
 
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-23  
-> **See Also:** [Properties]({{< relref "../../user-guide/properties.md" >}}).  
+{{% see-also %}}
+[Properties]({{< relref "../../user-guide/properties.md" >}}).
+{{% /see-also %}}
+
 
 ## General configuration
 
 The Stroom application is essentially just an executable {{< external-link "JAR" "https://en.wikipedia.org/wiki/JAR_%28file_format%29" >}} file that can be run when provided with a configuration file, `config.yml`.
 This config file is common to all forms of deployment.
+
 
 ### config.yml
 
