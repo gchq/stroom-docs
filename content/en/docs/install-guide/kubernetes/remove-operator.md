@@ -3,7 +3,7 @@ title: "Remove Operator"
 linkTitle: "Remove Operator"
 weight: 40
 date: 2022-03-04
-tags: 
+#tags: 
 description: >
   How to remove the Stroom Kubernetes operator.
 

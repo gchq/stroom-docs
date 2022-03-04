@@ -3,7 +3,7 @@ title: "Install Operator"
 linkTitle: "Install Operator"
 weight: 20
 date: 2022-03-04
-tags: 
+#tags: 
 description: >
   How to install the Stroom Kubernetes operator.
 
@@ -30,17 +30,17 @@ Stage the following images in a locally-accessible container registry:
 
 1. Clone the repository
 
-{{< command-line "user" "localhost" >}}
-git clone https://github.com/p-kimberley/stroom-k8s-operator.git
-{{</ command-line >}}
+   {{< command-line "user" "localhost" >}}
+   git clone https://github.com/p-kimberley/stroom-k8s-operator.git
+   {{</ command-line >}}
 
 1. Edit `./deploy/all-in-one.yaml`, prefixing any referenced images with your private registry URL.
    For example, if your private registry is `my-registry.example.com`, the image `gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0` will become: `my-registry.example.com:5000/gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0`.
 1. Deploy the Operator
 
-{{< command-line "user" "localhost" >}}
-kubectl apply -f ./deploy/all-in-one.yaml
-{{</ command-line >}}
+   {{< command-line "user" "localhost" >}}
+   kubectl apply -f ./deploy/all-in-one.yaml
+   {{</ command-line >}}
 
 The Stroom K8s Operator is now deployed to namespace `stroom-operator-system`.
 You can monitor its progress by watching the Pod named `stroom-operator-controller-manager`.

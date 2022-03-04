@@ -3,9 +3,10 @@ title: "Upgrade Operator"
 linkTitle: "Upgrade Operator"
 weight: 30
 date: 2022-03-04
-tags: 
+#tags: 
 description: >
   How to upgrade the Stroom Kubernetes Operator.
+
 ---
 
 Upgrading the Operator can be performed without disrupting any resources it controls, including Stroom clusters.

@@ -3,7 +3,9 @@ title: "Configure Database"
 linkTitle: "Configure Database"
 weight: 50
 date: 2022-03-04
-tags: 
+tags:
+  - kubernetes
+  - database
 description: >
   How to configure the database server for a Stroom cluster.
 

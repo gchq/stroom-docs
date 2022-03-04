@@ -3,7 +3,9 @@ title: "Auto Scaler"
 linkTitle: "Auto Scaler"
 weight: 70
 date: 2022-03-04
-tags: 
+tags:
+  - kubernetes
+  - task
 description: >
   How to configure Stroom task auto scaling.
 ---

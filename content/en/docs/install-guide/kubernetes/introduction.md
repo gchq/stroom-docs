@@ -3,9 +3,10 @@ title: "Introduction"
 linkTitle: "Introduction"
 weight: 10
 date: 2022-03-04
-tags: 
+#tags: 
 description: >
   Introduction to using Stroom on Kubernetes.
+
 ---
 
 {{< external-link "Kubernetes" "https://kubernetes.io/" >}} is an open-source system for automating deployment scaling and management of containerised applications.

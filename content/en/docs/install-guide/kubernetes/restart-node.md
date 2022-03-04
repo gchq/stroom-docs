@@ -3,9 +3,10 @@ title: "Restart Node"
 linkTitle: "Restart Node"
 weight: 90
 date: 2022-03-04
-tags: 
+#tags: 
 description: >
   How to restart a Stroom node.
+
 ---
 
 Stroom nodes may occasionally hang or become unresponsive.

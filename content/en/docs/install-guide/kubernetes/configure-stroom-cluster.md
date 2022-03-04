@@ -3,7 +3,7 @@ title: "Configure a cluster"
 linkTitle: "Configure a cluster"
 weight: 60
 date: 2022-03-04
-tags: 
+#tags: 
 description: >
   How to configure a Stroom cluster.
 ---
