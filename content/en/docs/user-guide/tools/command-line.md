@@ -8,16 +8,13 @@ description: >
   Command line actions for administering Stroom.
 ---
 
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 10 September 2020  
-
 Stroom has a number of tools that are available from the command line in addition to starting the main application.
 
 The basic structure of the command for starting one of stroom's commands is:
 
-```bash
+{{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app.jar COMMAND
-```
+{{</ command-line >}}
 
 `COMMAND` can be a number of values depending on what you want to do.
 Each command value is described in its own section.
@@ -26,11 +23,12 @@ Each command value is described in its own section.
 > Access to these commands should be strictly limited.
 > Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.
 
+
 ## `server`
 
-```bash
+{{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app.jar server path/to/config.yml
-```
+{{</ command-line >}}
 
 This is the normal command for starting the Stroom application using the supplied YAML configuration file.
 The example above will start the application as a foreground process.
@@ -42,9 +40,9 @@ If migration from an earlier version (including from an empty database) is requi
 
 ## `migrate`
 
-```bash
+{{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app.jar migrate path/to/config.yml
-```
+{{</ command-line >}}
 
 There may be occasions where you want to migrate an old version but not start the application, e.g. during migration testing or to initiate the migration before starting up a cluster.
 This command will run the process that checks for any required migrations and then performs them.
@@ -54,9 +52,15 @@ This runs as a foreground process.
 
 ## `create_account`
 
-```bash
-java -jar /absolute/path/to/stroom-app.jar create_account --u USER --p PASSWORD [OPTIONS] path/to/config.yml
-```
+{{< command-line "stroomuser" "localhost" >}}
+java -jar /absolute/path/to/stroom-app.jar \
+create_account \
+--u USER \
+--p PASSWORD \
+[OPTIONS] \
+path/to/config.yml
+{{</ command-line >}}
+
 Where the named arguments are:
 
 * `-u` `--user` - The username for the user.
@@ -72,7 +76,9 @@ Stroom is able to use third party OpenID identity providers such as Google or AW
 When configured to use its own (the default) it will auto create an admin account when starting up a fresh instance.
 There are times when you may wish to create this account manually which this command allows.
 
+
 ### Authentication Accounts and Stroom Users
+
 The user account used for authentication is distinct to the Stroom _user_ entity that is used for authorisation within Stroom.
 If an external IDP is used then the mechanism for creating the authentication account will be specific to that IDP.
 If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged used or using this command.
@@ -86,9 +92,14 @@ This command will also run any necessary database migrations to ensure it is wor
 
 ## `reset_password`
 
-```bash
-java -jar /absolute/path/to/stroom-app.jar reset_password --u USER --p PASSWORD path/to/config.yml
-```
+{{< command-line "stroomuser" "localhost" >}}
+java -jar /absolute/path/to/stroom-app.jar \
+reset_password \
+--u USER \
+--p PASSWORD \
+path/to/config.yml
+{{</ command-line >}}
+
 Where the named arguments are:
 
 * `-u` `--user` - The username for the user.
@@ -104,9 +115,13 @@ This command will also run any necessary database migrations to ensure it is wor
 
 ## `manage_users`
 
-```bash
-java -jar /absolute/path/to/stroom-app.jar manage_users [OPTIONS] path/to/config.yml
-```
+{{< command-line "stroomuser" "localhost" >}}
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+[OPTIONS] \
+path/to/config.yml
+{{</ command-line >}}
+
 Where the named arguments are:
 
 * `--createUser USER_NAME` - Creates a Stroom user with the supplied username.
@@ -128,9 +143,15 @@ If you want to automate actions that can be performed in the UI then you can mak
 
 > See the [note](#authentication-accounts-and-stroom-users) above about the distinction between authentication accounts and stroom users.
 
-```bash
-java -jar /absolute/path/to/stroom-app.jar manage_users --createUser jbloggs --createGroup Administrators --addToGroup jbloggs Administrators --grantPermission Administrators "Administrator" path/to/config.yml
-```
+{{< command-line "stroomuser" "localhost" >}}
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser jbloggs \
+--createGroup Administrators \
+--addToGroup jbloggs Administrators \
+--grantPermission Administrators "Administrator" \
+path/to/config.yml
+{{</ command-line >}}
 
 Where _jbloggs_ is the user name of the account on the 3rd party IDP.
 
@@ -145,4 +166,3 @@ Regardless of the order of the arguments, the changes are executed in the follow
 1. Remove users/groups from a group
 1. Grant permissions to users/groups
 1. Revoke permissions from users/groups
-

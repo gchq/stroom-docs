@@ -8,8 +8,6 @@ tags:
 description: >
   
 ---
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-14
 
 Stroom log sender is a docker image used for sending application logs to stroom.
 It is essentially just a combination of the {{< external-link "send_to_stroom.sh" "https://github.com/gchq/stroom-clients/tree/master/bash" >}} script and a set of crontab entries to call the script at intervals.

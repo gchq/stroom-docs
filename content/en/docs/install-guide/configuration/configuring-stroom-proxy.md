@@ -9,11 +9,11 @@ description: >
   
 ---
 
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-23  
-> **See Also:** [Stroom Application Configuration]({{< relref "./configuring-stroom.md" >}})  
-> **See Also:** [Properties]({{< relref "../../user-guide/properties.md" >}}).  
-> **TODO:** This needs updating for v7.1  
+{{% see-also %}}
+[Stroom Application Configuration]({{< relref "./configuring-stroom.md" >}})  
+[Properties]({{< relref "../../user-guide/properties.md" >}})
+{{% /see-also %}}
+
 
 The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the `config.yml` file.
 Stroom-proxy has a `proxyConfig` key in the YAML while Stroom has `appConfig`.

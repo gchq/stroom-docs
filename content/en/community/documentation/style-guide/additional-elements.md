@@ -487,6 +487,26 @@ This is a note that can contain **markdown**.
 {{%/* /note */%}}
 ```
 
+
+### See also block Quote
+
+Useful for linking to other areas of the documentation or to external sites.
+
+{{% see-also %}}
+[Note block quote]({{< relref "#note-block-quote" >}})  
+[Warning block quote]({{< relref "#warning-block-quote" >}})
+{{% /see-also %}}
+
+The markdown for this is:
+
+```markdown
+{{%/* see-also */%}}
+[Note block quote]({{</* relref "#note-block-quote" */>}})  
+[Warning block quote]({{</* relref "#warning-block-quote" */>}})
+{{%/* /see-also */%}}
+```
+
+
 ### Page level info
 
 {{% pageinfo %}}
@@ -503,6 +523,8 @@ This is some info that can contain **markdown**.
 
 
 ### TODO block Quote
+
+Used to indicate areas of the documentation that are unfinished or incorrect.
 
 {{% todo %}}
 This is a TODO that can contain `markdown`.
