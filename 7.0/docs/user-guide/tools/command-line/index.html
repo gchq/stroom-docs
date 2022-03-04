@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.93.0" />
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/tools/command-line/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-02-24T16:17:59+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-03-04T19:32:28+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Command Line Tools">
 <meta itemprop="description" content="Command line actions for administering Stroom.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-02-24T16:17:59+00:00" />
-<meta itemprop="wordCount" content="1069">
+<meta itemprop="dateModified" content="2022-03-04T19:32:28+00:00" />
+<meta itemprop="wordCount" content="1076">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Command Line Tools"/>
 <meta name="twitter:description" content="Command line actions for administering Stroom.
@@ -88,18 +88,6 @@
 				
 				
 				<a class="nav-link active" href="../../../../docs/" ><span class="active">Documentation</span></a>
-			</li>
-			
-			<li class="nav-item mr-4 mb-2 mb-lg-0">
-				
-				
-				
-				
-				
-				
-				
-				
-				<a class="nav-link" href="../../../../news/" ><span>News / Releases</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -762,14 +750,23 @@
 		
 		
 	</header>    
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 10 September 2020</p>
-</blockquote>
-<p>Stroom has a number of tools that are available from the command line in addition to starting the main application.</p>
+	<p>Stroom has a number of tools that are available from the command line in addition to starting the main application.</p>
 <p>The basic structure of the command for starting one of stroom&rsquo;s commands is:</p>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar COMMAND
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar COMMAND</code></pre>
+</div>
+
 <p><code>COMMAND</code> can be a number of values depending on what you want to do.
 Each command value is described in its own section.</p>
 <blockquote>
@@ -778,23 +775,67 @@ Access to these commands should be strictly limited.
 Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.</p>
 </blockquote>
 <h2 id="server"><code>server</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar server path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar server path/to/config.yml</code></pre>
+</div>
+
 <p>This is the normal command for starting the Stroom application using the supplied YAML configuration file.
 The example above will start the application as a foreground process.
 Stroom would typically be started using the <code>start.sh</code> shell script, but the command above is listed for completeness.</p>
 <p>When stroom starts it will check the database to see if any migration is required.
 If migration from an earlier version (including from an empty database) is required then this will happen as part of the application start process.</p>
 <h2 id="migrate"><code>migrate</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar migrate path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar migrate path/to/config.yml</code></pre>
+</div>
+
 <p>There may be occasions where you want to migrate an old version but not start the application, e.g. during migration testing or to initiate the migration before starting up a cluster.
 This command will run the process that checks for any required migrations and then performs them.
 On completion of the process it exits.
 This runs as a foreground process.</p>
 <h2 id="create_account"><code>create_account</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar create_account --u USER --p PASSWORD [OPTIONS] path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+create_account \
+--u USER \
+--p PASSWORD \
+[OPTIONS] \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where the named arguments are:</p>
 <ul>
 <li><code>-u</code> <code>--user</code> - The username for the user.</li>
@@ -818,8 +859,25 @@ In either case a Stroom user will need to exist with the same username as the au
 This command should NOT be run if you are using a third party identity provider.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h2 id="reset_password"><code>reset_password</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar reset_password --u USER --p PASSWORD path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+reset_password \
+--u USER \
+--p PASSWORD \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where the named arguments are:</p>
 <ul>
 <li><code>-u</code> <code>--user</code> - The username for the user.</li>
@@ -831,8 +889,24 @@ This command should NOT be run if you are using a third party identity provider.
 It will fail if the account does not exist.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h2 id="manage_users"><code>manage_users</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar manage_users [OPTIONS] path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+[OPTIONS] \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where the named arguments are:</p>
 <ul>
 <li><code>--createUser USER_NAME</code> - Creates a Stroom user with the supplied username.</li>
@@ -853,8 +927,27 @@ If you want to automate actions that can be performed in the UI then you can mak
 <blockquote>
 <p>See the <a href="#authentication-accounts-and-stroom-users">note</a> above about the distinction between authentication accounts and stroom users.</p>
 </blockquote>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar manage_users --createUser jbloggs --createGroup Administrators --addToGroup jbloggs Administrators --grantPermission Administrators &quot;Administrator&quot; path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser jbloggs \
+--createGroup Administrators \
+--addToGroup jbloggs Administrators \
+--grantPermission Administrators &#34;Administrator&#34; \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where <em>jbloggs</em> is the user name of the account on the 3rd party IDP.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <p>The named arguments can be used as many times as you like so you can create multiple users/groups/grants/etc.
@@ -871,7 +964,7 @@ Regardless of the order of the arguments, the changes are executed in the follow
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 24, 2022: <a href="https://github.com/gchq/stroom-docs/commit/f842f17ae9cefc61afb60eb8a9d9140b8af65514">Rename architecture puml files (f842f17)</a>
+  Last modified March 4, 2022: <a href="https://github.com/gchq/stroom-docs/commit/6e2a6ab51b451cd291de717aa195c762311db3bd">Merge branch &#39;legacy&#39; into 7.0 (6e2a6ab)</a>
 </div>
 
 </div>

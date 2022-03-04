@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.93.0" />
 <link rel="canonical" type="text/html" href="../../../../docs/install-guide/upgrades/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -80,18 +80,6 @@
 				
 				
 				<a class="nav-link active" href="../../../../docs/" ><span class="active">Documentation</span></a>
-			</li>
-			
-			<li class="nav-item mr-4 mb-2 mb-lg-0">
-				
-				
-				
-				
-				
-				
-				
-				
-				<a class="nav-link" href="../../../../news/" ><span>News / Releases</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -316,8 +304,25 @@ e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts">https:/
 <p>These scripts will be used in the steps below.</p>
 <h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
 <p>Run the pre-migration checks script on the running database.</p>
-<pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --table -u&quot;stroomuser&quot; -p&quot;stroompassword1&quot; stroom &lt; v7_db_pre_migration_checks.sql
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
+&lt; v7_db_pre_migration_checks.sql</code></pre>
+</div>
+
 <p>This will produce a report of items that will not be migrated or need attention before migration.</p>
 <h3 id="stop-processing">Stop processing</h3>
 <p>Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.</p>
@@ -326,17 +331,43 @@ e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts">https:/
 <p>Stop the stack (stroom and the database) then start up the database.
 Do this using the v6 stack.
 This ensures that stroom is not trying to access the database.</p>
-<pre><code class="language-bash">./stop.sh
-./start.sh stroom-all-dbs
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh
+./start.sh stroom-all-dbs</code></pre>
+</div>
+
 <h3 id="backup-the-databases">Backup the databases</h3>
 <p>Backup all the databases for the different components.
 Typically these will be <code>stroom</code>, <code>stats</code> and <code>auth</code>.</p>
 <p>If you are running in a docker stack then you can run the <code>./backup_databases.sh</code> script.</p>
 <h3 id="stop-the-database">Stop the database</h3>
 <p>Stop the database using the v6 stack.</p>
-<pre><code class="language-bash">./stop.sh
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh</code></pre>
+</div>
+
 <h3 id="deploy-and-configure-v7">Deploy and configure v7</h3>
 <p>Deploy the v7 stack.
 <em>TODO</em> - more detail</p>
@@ -363,39 +394,95 @@ The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x</p>
 </span>
 .</p>
 <p>This is the process for upgrading the database. All of these commands are using the v7 stack.</p>
-<pre><code class="language-bash"># Set the version of the MySQL docker image to use
-export MYSQL_TAG=5.7.33
 
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Set the version of the MySQL docker image to use
+export MYSQL_TAG=5.7.33
+(out)
 # Start MySQL at v5.7, this will recreate the container
 ./start.sh stroom-all-dbs
-
+(out)
 # Run the upgrade from 5.6 =&gt; 5.7.33
-docker exec -it stroom-all-dbs mysql_upgrade -u&quot;root&quot; -p&quot;my-secret-pw&quot;
-
+docker exec -it stroom-all-dbs mysql_upgrade -u&#34;root&#34; -p&#34;my-secret-pw&#34;
+(out)
 # Stop MySQL
 ./stop.sh
-
+(out)
 # Unset the tag variable so that it now uses the default from the stack (8.x)
 unset MYSQL_TAG
-
+(out)
 # Start MySQL at v8.x, this will recreate the container and run the upgrade from 5.7.33=&gt;8
 ./start.sh stroom-all-dbs
+(out)
+./stop.sh</code></pre>
+</div>
 
-./stop.sh
-</code></pre>
 <h3 id="rename-legacy-stroom-auth-tables">Rename legacy stroom-auth tables</h3>
 <p>Run this command to connect to the <code>auth</code> database and run the pre-migration SQL script.</p>
-<pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --table -u&quot;authuser&quot; -p&quot;stroompassword1&quot; auth &lt; v7_auth_db_table_rename.sql
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --table -u&#34;authuser&#34; -p&#34;stroompassword1&#34; auth \
+&lt; v7_auth_db_table_rename.sql</code></pre>
+</div>
+
 <p>This will rename all but one of the tables in the <code>auth</code> database.</p>
 <h3 id="copy-the-auth-database-content-to-stroom">Copy the <code>auth</code> database content to <code>stroom</code></h3>
 <p>Having run the table rename perform another backup of just the <code>auth</code> database.</p>
-<pre><code class="language-bash">./backup_databases.sh . auth
-</code></pre>
-<p>Now restore this backup into the <code>stroom</code> database.
+<p>
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./backup_databases.sh . auth</code></pre>
+</div>
+
+Now restore this backup into the <code>stroom</code> database.
 You can use the v7 stack scripts to do this.</p>
-<pre><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz</code></pre>
+</div>
+
 <p>You should now see the following tables in the <code>stroom</code> database:</p>
 <pre><code class="language-text">OLD_AUTH_json_web_key
 OLD_AUTH_schema_version
@@ -404,22 +491,79 @@ OLD_AUTH_tokens
 OLD_AUTH_users
 </code></pre>
 <p>This can be checked by running the following in the v7 stack.</p>
-<pre><code class="language-bash">echo 'select table_name from information_schema.tables where table_name like &quot;OLD_AUTH%&quot;' | ./database_shell.sh
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#39;select table_name from information_schema.tables where table_name like &#34;OLD_AUTH%&#34;&#39; \
+| ./database_shell.sh</code></pre>
+</div>
+
 <h3 id="drop-unused-databases">Drop unused databases</h3>
 <p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
-<pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --force -u&quot;root&quot; -p&quot;my-secret-pw&quot; &lt; v7_drop_unused_databases.sql
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --force -u&#34;root&#34; -p&#34;my-secret-pw&#34; \
+&lt; v7_drop_unused_databases.sql</code></pre>
+</div>
+
 <p>Verify it worked with:</p>
-<pre><code class="language-bash">echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u&quot;root&quot; -p&quot;my-secret-pw&quot;
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#39;show databases;&#39; | docker exec -i stroom-all-dbs mysql -u&#34;root&#34; -p&#34;my-secret-pw&#34;</code></pre>
+</div>
+
 <h2 id="performing-the-upgrade">Performing the upgrade</h2>
 <p>To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
 For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
 Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.</p>
-<pre><code class="language-bash">./migrate.sh
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./migrate.sh</code></pre>
+</div>
+
 <h2 id="post-upgrade-tasks">Post-Upgrade tasks</h2>
 <p><em>TODO</em> remove auth* containers,images,volumes</p>
 

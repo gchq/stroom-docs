@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.93.0" />
 <link rel="canonical" type="text/html" href="../../../../docs/user-guide/pipelines/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -84,18 +84,6 @@
 				
 				
 				<a class="nav-link active" href="../../../../docs/" ><span class="active">Documentation</span></a>
-			</li>
-			
-			<li class="nav-item mr-4 mb-2 mb-lg-0">
-				
-				
-				
-				
-				
-				
-				
-				
-				<a class="nav-link" href="../../../../news/" ><span>News / Releases</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -339,8 +327,8 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-850da8228403d37fae63cefb4607865a">1.1 - Context Data</h1>
     
-	<p>##Context File</p>
-<p>###Input File:</p>
+	<h2 id="context-file">Context File</h2>
+<h3 id="input-file">Input File:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;SomeData&gt;
 	&lt;SomeEvent&gt;
@@ -351,13 +339,13 @@ This is the multi-page printable view of this section.
 	&lt;/SomeEvent&gt;
 &lt;/SomeData&gt;
 </code></pre>
-<p>###Context File:</p>
+<h3 id="context-file-1">Context File:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;SomeContext&gt;
 	&lt;Machine&gt;MyMachine&lt;/Machine&gt;
 &lt;/SomeContext&gt;
 </code></pre>
-<p>###Context XSLT:</p>
+<h3 id="context-xslt">Context XSLT:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet
 	xmlns=&quot;reference-data:2&quot;
@@ -385,7 +373,7 @@ This is the multi-page printable view of this section.
 		
 &lt;/xsl:stylesheet&gt;
 </code></pre>
-<p>###Context XML Translation:</p>
+<h3 id="context-xml-translation">Context XML Translation:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;referenceData xmlns:evt=&quot;event-logging:3&quot;
 								xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
@@ -399,7 +387,7 @@ This is the multi-page printable view of this section.
 		&lt;/reference&gt;
 &lt;/referenceData&gt;
 </code></pre>
-<p>###Input File:</p>
+<h3 id="input-file-1">Input File:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;SomeData&gt;
 	&lt;SomeEvent&gt;
@@ -410,7 +398,7 @@ This is the multi-page printable view of this section.
 	&lt;/SomeEvent&gt;
 &lt;/SomeData&gt;
 </code></pre>
-<p>###Main XSLT (Note the use of the context lookup):</p>
+<h3 id="main-xslt-note-the-use-of-the-context-lookup">Main XSLT (Note the use of the context lookup):</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet
 	xmlns=&quot;event-logging:3&quot;
@@ -462,7 +450,7 @@ This is the multi-page printable view of this section.
     &lt;/xsl:template&gt;
 &lt;/xsl:stylesheet&gt;
 </code></pre>
-<p>###Main Output XML:</p>
+<h3 id="main-output-xml">Main Output XML:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
 				xmlns=&quot;event-logging:3&quot;
@@ -1042,15 +1030,18 @@ count a number of records that meet certain criteria.</p>
     
   <h1 id="pg-0d3ac18ea787cffda6272f82e6bae0a5">3 - Reference Data</h1>
     <div class="lead">Performing temporal reference data lookups to decorate event data.</div>
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 15 September 2020<br>
-<strong>See Also:</strong></p>
-<ul>
-<li><a href="../../../../docs/howtos/referencefeeds/createsimplereferencefeeds/">HOWTO - Creating a Simple Reference Feed</a></li>
-<li><a href="../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Functions</a></li>
-</ul>
-</blockquote>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../docs/howtos/referencefeeds/createsimplereferencefeeds/">HOWTO - Creating a Simple Reference Feed</a><br>
+<a href="../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Functions</a></p>
+
+
+</div>
+
+
 <p>In Stroom reference data is primarily used to decorate events using <code>stroom:lookup()</code> calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the physical location.
 You can then perform a <code>stroom:lookup()</code> in the XSLT to decorate an event with the physical location of a device by looking up the FQDN found in the event.</p>
@@ -1429,9 +1420,10 @@ that class you can easily diff the new output with this file which contains adde
 descriptive text.
 -->
 <h2 id="reader">Reader</h2>
+<p>Reader elements read and transform the data at the character level before they are parsed into
+a structured form.</p>
 <h3 id="bomremovalfilterinput">BOMRemovalFilterInput</h3>
 <p>Removes the Byte Order Mark (if present) from the stream.</p>
-<p><strong>Category:</strong> Reader</p>
 <p><strong>Icon:</strong> 
 
 
@@ -1443,16 +1435,10 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="BOMRemovalFilterInput" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
 <h3 id="badtextxmlfilterreader">BadTextXMLFilterReader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1464,14 +1450,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="BadTextXMLFilterReader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1489,8 +1468,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="findreplacefilter">FindReplaceFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1502,15 +1482,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="FindReplaceFilter" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1568,8 +1540,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="invalidcharfilterreader">InvalidCharFilterReader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1581,14 +1554,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="InvalidCharFilterReader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1606,8 +1572,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="invalidxmlcharfilterreader">InvalidXMLCharFilterReader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1619,14 +1586,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="InvalidXMLCharFilterReader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1644,8 +1604,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="reader-1">Reader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1657,16 +1618,16 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="Reader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Reader</li>
-<li>Target</li>
-</ul>
 <h2 id="parser">Parser</h2>
+<p>Parser elements parse raw text data that conforms to some kind of structure (e.g. XML, JSON, CSV)
+into XML events (elements, attributes, text, etc) that can be further validated or transformed
+using.
+The choice of Parser will be dictated by the structure of the data.
+Parsers read the data using the character encoding defined on the feed.</p>
 <h3 id="combinedparser">CombinedParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1678,16 +1639,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/text.svg" width="16px" title="CombinedParser" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1725,8 +1677,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="dsparser">DSParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1738,16 +1691,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/text.svg" width="16px" title="DSParser" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1775,8 +1719,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="jsonparser">JSONParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1788,15 +1733,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/json.svg" width="16px" title="JSONParser" alt="pipeline/json.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1818,7 +1755,7 @@ descriptive text.
 </tr>
 <tr>
 <td>allowComments</td>
-<td>Feature that determines whether parser will allow use  of Java/C++ style comments (both &lsquo;/'+'*&rsquo; and &lsquo;//&rsquo; varieties) within parsed content or not.</td>
+<td>Feature that determines whether parser will allow use  of Java/C++ style comments (both &lsquo;/&rsquo;+&rsquo;*&rsquo; and &lsquo;//&rsquo; varieties) within parsed content or not.</td>
 <td>false</td>
 </tr>
 <tr>
@@ -1838,7 +1775,7 @@ descriptive text.
 </tr>
 <tr>
 <td>allowSingleQuotes</td>
-<td>Feature that determines whether parser will allow use of single quotes (apostrophe, character &lsquo;'') for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).</td>
+<td>Feature that determines whether parser will allow use of single quotes (apostrophe, character &lsquo;'&rsquo;) for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).</td>
 <td>false</td>
 </tr>
 <tr>
@@ -1864,8 +1801,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="xmlfragmentparser">XMLFragmentParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1877,16 +1815,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/xml.svg" width="16px" title="XMLFragmentParser" alt="pipeline/xml.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1914,8 +1843,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="xmlparser">XMLParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1927,18 +1857,16 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/xml.svg" width="16px" title="XMLParser" alt="pipeline/xml.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
 <h2 id="filter">Filter</h2>
+<p>Filter elements work with XML events that have been generated by a <em>parser</em>.
+They can consume the events without modifying them, e.g. <em>RecordCountFilter</em> or modify them in
+some way, e.g. <em>XSLTFilter</em>.
+Multiple filters can be used one after another with each using the output from the last as its
+input.</p>
 <h3 id="httppostfilter">HttpPostFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1950,13 +1878,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="HttpPostFilter" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1974,8 +1896,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="idenrichmentfilter">IdEnrichmentFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -1987,16 +1910,10 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/id.svg" width="16px" title="IdEnrichmentFilter" alt="pipeline/id.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
 <h3 id="indexingfilter">IndexingFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2008,13 +1925,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/index.svg" width="16px" title="IndexingFilter" alt="pipeline/index.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2032,8 +1943,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="recordcountfilter">RecordCountFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2045,12 +1957,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/recordCount.svg" width="16px" title="RecordCountFilter" alt="pipeline/recordCount.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2068,8 +1975,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="recordoutputfilter">RecordOutputFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2081,15 +1989,9 @@ descriptive text.
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/recordOutput.svg" width="16px" title="RecordOutputFilter" alt="pipeline/recordOutput.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
 <h3 id="referencedatafilter">ReferenceDataFilter</h3>
 <p>Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Reference Data Store.
 Reference data values can be either simple strings or XML fragments.</p>
-<p><strong>Category:</strong> Filter</p>
 <p><strong>Icon:</strong> 
 
 
@@ -2101,12 +2003,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/referenceData.svg" width="16px" title="ReferenceDataFilter" alt="pipeline/referenceData.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2129,8 +2026,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="safexmlfilter">SafeXMLFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2142,16 +2040,10 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/recordOutput.svg" width="16px" title="SafeXMLFilter" alt="pipeline/recordOutput.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
 <h3 id="schemafilter">SchemaFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2163,14 +2055,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/xsd.svg" width="16px" title="SchemaFilter" alt="pipeline/xsd.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Validator</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2208,8 +2093,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="searchresultoutputfilter">SearchResultOutputFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2221,13 +2107,10 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/search.svg" width="16px" title="SearchResultOutputFilter" alt="pipeline/search.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Target</li>
-</ul>
 <h3 id="solrindexingfilter">SolrIndexingFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2239,13 +2122,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/solr.svg" width="16px" title="SolrIndexingFilter" alt="pipeline/solr.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2278,8 +2155,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="splitfilter">SplitFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2291,12 +2169,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/split.svg" width="16px" title="SplitFilter" alt="pipeline/split.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2324,8 +2197,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="statisticsfilter">StatisticsFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2337,13 +2211,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/statistics.svg" width="16px" title="StatisticsFilter" alt="pipeline/statistics.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2361,8 +2229,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="stroomstatsfilter">StroomStatsFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2374,13 +2243,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/StroomStatsStore.svg" width="16px" title="StroomStatsFilter" alt="pipeline/StroomStatsStore.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2408,8 +2271,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="xpathextractionoutputfilter">XPathExtractionOutputFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2421,11 +2285,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/xmlSearch.svg" width="16px" title="XPathExtractionOutputFilter" alt="pipeline/xmlSearch.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2443,8 +2303,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="xsltfilter">XSLTFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2456,16 +2317,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/xslt.svg" width="16px" title="XSLTFilter" alt="pipeline/xslt.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Simple</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2503,9 +2355,12 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h2 id="writer">Writer</h2>
+<p>Writers consume XML events (from <em>Parsers</em> and <em>Filters</em>) and convert them into a stream of bytes
+using the character encoding configured on the <em>Writer</em> (if applicable).</p>
 <h3 id="jsonwriter">JSONWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Writer</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2517,14 +2372,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/json.svg" width="16px" title="JSONWriter" alt="pipeline/json.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Writer</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2547,8 +2395,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="textwriter">TextWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Writer</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2560,15 +2409,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/text.svg" width="16px" title="TextWriter" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Writer</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2596,8 +2437,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="xmlwriter">XMLWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Writer</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2609,15 +2451,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/xml.svg" width="16px" title="XMLWriter" alt="pipeline/xml.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Writer</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2655,9 +2489,12 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h2 id="destination">Destination</h2>
+<p>Destination elements consume a stream of bytes from a <em>Writer</em> and persist then to a destination.
+This could be a file on a file system or to Stroom&rsquo;s stream store.</p>
 <h3 id="annotationwriter">AnnotationWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2669,15 +2506,10 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/text.svg" width="16px" title="AnnotationWriter" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
 <h3 id="fileappender">FileAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2689,13 +2521,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/file.svg" width="16px" title="FileAppender" alt="pipeline/file.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2728,8 +2554,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="hdfsfileappender">HDFSFileAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2741,13 +2568,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/hadoop-elephant-logo.svg" width="16px" title="HDFSFileAppender" alt="pipeline/hadoop-elephant-logo.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2790,8 +2611,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="httpappender">HTTPAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2803,13 +2625,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="HTTPAppender" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -2942,8 +2758,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="rollingfileappender">RollingFileAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -2955,13 +2772,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/files.svg" width="16px" title="RollingFileAppender" alt="pipeline/files.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -3004,8 +2815,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="rollingstreamappender">RollingStreamAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -3017,13 +2829,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="RollingStreamAppender" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -3066,8 +2872,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="standardkafkaproducer">StandardKafkaProducer</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -3079,13 +2886,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/apache_kafka-icon.svg" width="16px" title="StandardKafkaProducer" alt="pipeline/apache_kafka-icon.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -3108,8 +2909,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="streamappender">StreamAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -3121,13 +2923,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/stream.svg" width="16px" title="StreamAppender" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -3170,8 +2966,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="stroomstatsappender">StroomStatsAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -3183,13 +2980,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../../../images/stroom-ui/pipeline/StroomStatsStore.svg" width="16px" title="StroomStatsAppender" alt="pipeline/StroomStatsStore.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -3221,7 +3012,6 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tr>
 </tbody>
 </table>
-<p>Process finished with exit code 0</p>
 
 </div>
 

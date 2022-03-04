@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.93.0" />
 <link rel="canonical" type="text/html" href="../../docs/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -84,18 +84,6 @@
 				
 				
 				<a class="nav-link active" href="../../docs/" ><span class="active">Documentation</span></a>
-			</li>
-			
-			<li class="nav-item mr-4 mb-2 mb-lg-0">
-				
-				
-				
-				
-				
-				
-				
-				
-				<a class="nav-link" href="../../news/" ><span>News / Releases</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -1654,8 +1642,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.0</strong>&rdquo;<br>
-Documentation generated on: <strong>24 Feb 2022, 23:39 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v795</strong></p>
+Documentation generated on: <strong>04 Mar 2022, 19:38 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v817</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -7529,11 +7517,7 @@ The <code>start.sh</code> script will provide details of the various URLs that a
     
   <h1 id="pg-c89e5b17a07204690526a16417c9dd50">3.2 - Configuration</h1>
     
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 2021-06-23</p>
-</blockquote>
-<p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+	<p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
 This document will cover two types of deployment:</p>
 <ul>
 <li>Single node stroom_core docker stack.</li>
@@ -7631,8 +7615,21 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
 <li>
 <p><strong>Symlink</strong> - One option is to move the <code>var/lib/docker</code> directory to a new location then create a symlink to it.
 For example:</p>
-<pre><code class="language-sh">ln -s /large_mount/docker_data_root /var/lib/docker
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">ln -s /large_mount/docker_data_root /var/lib/docker</code></pre>
+</div>
+
 <p>This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.</p>
 </li>
 <li>
@@ -7640,7 +7637,6 @@ For example:</p>
 <pre><code class="language-json">{
   &quot;data-root&quot;: &quot;/mnt/docker&quot;
 }
-
 </code></pre>
 </li>
 <li>
@@ -7660,8 +7656,21 @@ The process for setting up this mount will be OS dependent and is outside the sc
 </ul>
 <p>While you can pass a set of service names to the commands like <code>start.sh</code> and <code>stop.sh</code>, it may sometimes be required to configure the stack instance to only have a set of services active.
 You can set the active services like so:</p>
-<pre><code class="language-bash">./set_services.sh stroom stroom-all-dbs nginx
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./set_services.sh stroom stroom-all-dbs nginx</code></pre>
+</div>
+
 <p>In the above example and subsequent use of commands like <code>start.sh</code> and <code>stop.sh</code> with no named services would only act upon the active services set by <code>set_services.sh</code>.
 This list of active services is held in <code>ACTIVE_SERVICES.txt</code> and the full list of available services is held in <code>ALL_SERVICES.txt</code>.</p>
 <h3 id="certificates">Certificates</h3>
@@ -7734,6 +7743,7 @@ server.unencrypted.key -&gt; /some/path/to/host123.key
 
 
 </div>
+
 
 <p>Nginx is the standard web server used by stroom.
 Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
@@ -7842,12 +7852,18 @@ This crontab file drives the lograte process and by default is set to run every 
 <div class="td-content" style="--base-section-num: '3.2.2.'; page-break-before: always">
     
   <h1 id="pg-f67b02c1954e1e3755f22565ea9c45a2">3.2.2 - Stroom Configuration</h1>
-    
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 2021-06-23<br>
-<strong>See Also:</strong> <a href="../../docs/user-guide/properties/">Properties</a>.</p>
-</blockquote>
+    <div class="lead">Describes how the Stroom application is configured.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../docs/user-guide/properties/">Properties</a>.</p>
+
+
+</div>
+
+
 <h2 id="general-configuration">General configuration</h2>
 <p>The Stroom application is essentially just an executable 
 
@@ -7979,13 +7995,18 @@ The <a href="https://github.com/gchq/stroom-ansible/blob/master/config/single_no
     
   <h1 id="pg-2fbd4f6015742d6292564c2fec48dde8">3.2.3 - Stroom Proxy Configuration</h1>
     
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 2021-06-23<br>
-<strong>See Also:</strong> <a href="../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a><br>
-<strong>See Also:</strong> <a href="../../docs/user-guide/properties/">Properties</a>.<br>
-<strong>TODO:</strong> This needs updating for v7.1</p>
-</blockquote>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a><br>
+<a href="../../docs/user-guide/properties/">Properties</a></p>
+
+
+</div>
+
+
 <p>The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the <code>config.yml</code> file.
 Stroom-proxy has a <code>proxyConfig</code> key in the YAML while Stroom has <code>appConfig</code>.
 It is recommended to first read <a href="../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a> to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.</p>
@@ -8137,11 +8158,7 @@ Each forward location can use a different key/trust store pair.</p>
     
   <h1 id="pg-cea106477cd6590d5c2f583e39fc1d53">3.2.4 - Stroom Log Sender Configuration</h1>
     
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 2021-06-14</p>
-</blockquote>
-<p>Stroom log sender is a docker image used for sending application logs to stroom.
+	<p>Stroom log sender is a docker image used for sending application logs to stroom.
 It is essentially just a combination of the 
 
 
@@ -8229,25 +8246,23 @@ volumes/stroom-log-sender/certs/client.unencrypted.key
     
   <h1 id="pg-c55274dc8017978026995b0c30172626">3.2.5 - MySQL Configuration</h1>
     <div class="lead">Confnguring MySQl for use with Stroom.</div>
-	<blockquote>
-<p><strong>See Also:</strong> <a href="../../docs/install-guide/setup/mysql-server-setup/">MySQL Server Setup</a><br>
-<strong>See Also:</strong> 
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
 
 
-
-
-
-
-  
-
+    <p><a href="../../docs/install-guide/setup/mysql-server-setup/">MySQL Server Setup</a></p>
 <span class="external-link">
   <a href="https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" target="_blank" class="" style="" title="MySQL Server Administration (external link)">
     <span>MySQL Server Administration</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-</p>
-</blockquote>
+
+
+</div>
+
+
 <h2 id="general-configuration">General configuration</h2>
 <p>MySQL is configured via the <code>.cnf</code> file which is typically located in one of these locations:</p>
 <ul>
@@ -8620,8 +8635,25 @@ e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts">https:/
 <p>These scripts will be used in the steps below.</p>
 <h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
 <p>Run the pre-migration checks script on the running database.</p>
-<pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --table -u&quot;stroomuser&quot; -p&quot;stroompassword1&quot; stroom &lt; v7_db_pre_migration_checks.sql
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
+&lt; v7_db_pre_migration_checks.sql</code></pre>
+</div>
+
 <p>This will produce a report of items that will not be migrated or need attention before migration.</p>
 <h3 id="stop-processing">Stop processing</h3>
 <p>Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.</p>
@@ -8630,17 +8662,43 @@ e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts">https:/
 <p>Stop the stack (stroom and the database) then start up the database.
 Do this using the v6 stack.
 This ensures that stroom is not trying to access the database.</p>
-<pre><code class="language-bash">./stop.sh
-./start.sh stroom-all-dbs
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh
+./start.sh stroom-all-dbs</code></pre>
+</div>
+
 <h3 id="backup-the-databases">Backup the databases</h3>
 <p>Backup all the databases for the different components.
 Typically these will be <code>stroom</code>, <code>stats</code> and <code>auth</code>.</p>
 <p>If you are running in a docker stack then you can run the <code>./backup_databases.sh</code> script.</p>
 <h3 id="stop-the-database">Stop the database</h3>
 <p>Stop the database using the v6 stack.</p>
-<pre><code class="language-bash">./stop.sh
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh</code></pre>
+</div>
+
 <h3 id="deploy-and-configure-v7">Deploy and configure v7</h3>
 <p>Deploy the v7 stack.
 <em>TODO</em> - more detail</p>
@@ -8667,39 +8725,95 @@ The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x</p>
 </span>
 .</p>
 <p>This is the process for upgrading the database. All of these commands are using the v7 stack.</p>
-<pre><code class="language-bash"># Set the version of the MySQL docker image to use
-export MYSQL_TAG=5.7.33
 
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Set the version of the MySQL docker image to use
+export MYSQL_TAG=5.7.33
+(out)
 # Start MySQL at v5.7, this will recreate the container
 ./start.sh stroom-all-dbs
-
+(out)
 # Run the upgrade from 5.6 =&gt; 5.7.33
-docker exec -it stroom-all-dbs mysql_upgrade -u&quot;root&quot; -p&quot;my-secret-pw&quot;
-
+docker exec -it stroom-all-dbs mysql_upgrade -u&#34;root&#34; -p&#34;my-secret-pw&#34;
+(out)
 # Stop MySQL
 ./stop.sh
-
+(out)
 # Unset the tag variable so that it now uses the default from the stack (8.x)
 unset MYSQL_TAG
-
+(out)
 # Start MySQL at v8.x, this will recreate the container and run the upgrade from 5.7.33=&gt;8
 ./start.sh stroom-all-dbs
+(out)
+./stop.sh</code></pre>
+</div>
 
-./stop.sh
-</code></pre>
 <h3 id="rename-legacy-stroom-auth-tables">Rename legacy stroom-auth tables</h3>
 <p>Run this command to connect to the <code>auth</code> database and run the pre-migration SQL script.</p>
-<pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --table -u&quot;authuser&quot; -p&quot;stroompassword1&quot; auth &lt; v7_auth_db_table_rename.sql
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --table -u&#34;authuser&#34; -p&#34;stroompassword1&#34; auth \
+&lt; v7_auth_db_table_rename.sql</code></pre>
+</div>
+
 <p>This will rename all but one of the tables in the <code>auth</code> database.</p>
 <h3 id="copy-the-auth-database-content-to-stroom">Copy the <code>auth</code> database content to <code>stroom</code></h3>
 <p>Having run the table rename perform another backup of just the <code>auth</code> database.</p>
-<pre><code class="language-bash">./backup_databases.sh . auth
-</code></pre>
-<p>Now restore this backup into the <code>stroom</code> database.
+<p>
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./backup_databases.sh . auth</code></pre>
+</div>
+
+Now restore this backup into the <code>stroom</code> database.
 You can use the v7 stack scripts to do this.</p>
-<pre><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz</code></pre>
+</div>
+
 <p>You should now see the following tables in the <code>stroom</code> database:</p>
 <pre><code class="language-text">OLD_AUTH_json_web_key
 OLD_AUTH_schema_version
@@ -8708,22 +8822,79 @@ OLD_AUTH_tokens
 OLD_AUTH_users
 </code></pre>
 <p>This can be checked by running the following in the v7 stack.</p>
-<pre><code class="language-bash">echo 'select table_name from information_schema.tables where table_name like &quot;OLD_AUTH%&quot;' | ./database_shell.sh
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#39;select table_name from information_schema.tables where table_name like &#34;OLD_AUTH%&#34;&#39; \
+| ./database_shell.sh</code></pre>
+</div>
+
 <h3 id="drop-unused-databases">Drop unused databases</h3>
 <p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
-<pre><code class="language-bash">docker exec -i stroom-all-dbs mysql --force -u&quot;root&quot; -p&quot;my-secret-pw&quot; &lt; v7_drop_unused_databases.sql
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --force -u&#34;root&#34; -p&#34;my-secret-pw&#34; \
+&lt; v7_drop_unused_databases.sql</code></pre>
+</div>
+
 <p>Verify it worked with:</p>
-<pre><code class="language-bash">echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u&quot;root&quot; -p&quot;my-secret-pw&quot;
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#39;show databases;&#39; | docker exec -i stroom-all-dbs mysql -u&#34;root&#34; -p&#34;my-secret-pw&#34;</code></pre>
+</div>
+
 <h2 id="performing-the-upgrade">Performing the upgrade</h2>
 <p>To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
 For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
 Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.</p>
-<pre><code class="language-bash">./migrate.sh
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./migrate.sh</code></pre>
+</div>
+
 <h2 id="post-upgrade-tasks">Post-Upgrade tasks</h2>
 <p><em>TODO</em> remove auth* containers,images,volumes</p>
 
@@ -11021,7 +11192,7 @@ quit;
 <ul>
 <li>the user has reasonable RHEL/Centos System administration skills.</li>
 <li>installations are on Centos 7.3 minimal systems (fully patched).</li>
-<li>the term &lsquo;node&rsquo; is used to reference the &lsquo;host&rsquo; a service is running on.</li>
+<li>the term &rsquo;node&rsquo; is used to reference the &lsquo;host&rsquo; a service is running on.</li>
 <li>the Stroom Proxy and Application software runs as user &lsquo;stroomuser&rsquo; and will be deployed in this user&rsquo;s home directory</li>
 <li>data will reside in a directory tree referenced via &lsquo;/stroomdata&rsquo;. It is up to the user to provision a filesystem here, noting sub-directories of it will be NFS shared in Multi Node Stroom Deployments</li>
 <li>any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems</li>
@@ -11544,8 +11715,8 @@ This is achieved using
 <a href="../../docs/user-guide/feeds/">Event Feeds</a>.
 Each feed has a unique name within the system.</p>
 <p>To test our installation can accept and ingest data, we will
-<a href="../../docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed">create a test Event feed</a>. The &lsquo;name&rsquo; of the feed will be
-<code>TEST-FEED-V1_0</code>. Note that in a production environment is is best that a well defined nomenclature is used for feed &lsquo;names&rsquo;. For our
+<a href="../../docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed">create a test Event feed</a>. The &rsquo;name&rsquo; of the feed will be
+<code>TEST-FEED-V1_0</code>. Note that in a production environment is is best that a well defined nomenclature is used for feed &rsquo;names&rsquo;. For our
 testing purposes <code>TEST-FEED-V1_0</code> is sufficient.</p>
 <h3 id="sending-test-data">Sending Test Data</h3>
 <p><strong>NOTE:</strong> Before testing our new feed, we should restart both our Stroom application services so that any volume changes are
@@ -11850,10 +12021,10 @@ when generating the Environment Variable files to <em>02</em>.</p>
 <h3 id="stroom-proxy-installation-1">Stroom Proxy Installation</h3>
 <p>Instructions for installation of the Stroom Proxy can be found <a href="../../docs/howtos/install/installproxyhowto/">here</a>. Note you
 will be deploying a <em>Store</em> proxy and during the setup execution ensure you enter the appropriate values for NODE (&lsquo;stroomp02&rsquo;)
-and REPO_DIR ('/stroomdata/stroom-working-p02/proxy'). All other values will be the same.</p>
+and REPO_DIR (&rsquo;/stroomdata/stroom-working-p02/proxy&rsquo;). All other values will be the same.</p>
 <h3 id="stroom-application-installation-1">Stroom Application Installation</h3>
 <p>Instructions for installation of the Stroom application can be found <a href="../../docs/howtos/install/installapplicationhowto/">here</a>.
-When executing the setup script ensure you enter the appropriate values for TEMP_DIR ('/stroomdata/stroom-working-p02') and NODE (&lsquo;stroomp02&rsquo;).
+When executing the setup script ensure you enter the appropriate values for TEMP_DIR (&rsquo;/stroomdata/stroom-working-p02&rsquo;) and NODE (&lsquo;stroomp02&rsquo;).
 All other values will be the same. Note also that you will not have to wait for the &lsquo;first&rsquo; node to initialise the Stroom database as
 this would have already been done when you first deployed your Stroom Cluster.</p>
 <h2 id="web-service-integration-1">Web Service Integration</h2>
@@ -12323,7 +12494,7 @@ The default template is <code>${pathId}/${id}</code> and this pattern will produ
 ...
 </code></pre>
 <p>The template uses replacement variables to form the file path. As indicated above, the default template is <code>${pathId}/${id}</code> where <code>${pathId}</code> is the automatically generated directory for a given <em>repository id</em> and <code>${id}</code> is the <em>repository id</em>.</p>
-<p>Other replacement variables can be used to in the template including http header meta data parameters (e.g. &lsquo;${feed}') and time based parameters (e.g. &lsquo;${year}'). Replacement variables that cannot be resolved will be output as &lsquo;_&rsquo;. You must ensure that all templates include the &lsquo;${id}&rsquo; replacement variable at the start of the file name, failure to do this will result in an invalid repository.</p>
+<p>Other replacement variables can be used to in the template including http header meta data parameters (e.g. &lsquo;${feed}&rsquo;) and time based parameters (e.g. &lsquo;${year}&rsquo;). Replacement variables that cannot be resolved will be output as &lsquo;_&rsquo;. You must ensure that all templates include the &lsquo;${id}&rsquo; replacement variable at the start of the file name, failure to do this will result in an invalid repository.</p>
 <p>Available time based parameters are based on the file&rsquo;s time of processing and are zero filled (excluding <code>ms</code>).</p>
 <table>
 <thead>
@@ -14318,7 +14489,7 @@ we need to <a href="../../docs/howtos/general/taskshowto/#turn-on-proxy-aggregat
 <h3 id="data-post-tests-1">Data Post Tests</h3>
 <h4 id="simple-post-tests-1">Simple Post tests</h4>
 <p>This test is to ensure the Stroom <em>Forwarding</em> proxy and it&rsquo;s connection to the central Stroom Processing system is working.</p>
-<p>We will send a file to our <em>Forwarding</em> proxy (<code>stroomfp0.strmdev00.org</code>) and monitor this nodes' proxy log files as well as all the
+<p>We will send a file to our <em>Forwarding</em> proxy (<code>stroomfp0.strmdev00.org</code>) and monitor this nodes&rsquo; proxy log files as well as all the
 destination nodes proxy log files. The reason for monitoring all the destination system&rsquo;s proxy log files is that the destination system is
 probably load balancing and hence the forwarded file may turn up on any of the destination nodes.</p>
 <p>Perform the following</p>
@@ -14366,7 +14537,7 @@ the <em>datafeed.DataFeedRequestHandler$1</em> event in the <em>ajp-apr-9009-exe
 <h3 id="data-post-tests-2">Data Post Tests</h3>
 <h4 id="simple-post-tests-2">Simple Post tests</h4>
 <p>This test is to ensure the Stroom <em>Store NODB</em> or <em>Standalone</em> proxy is working.</p>
-<p>We will send a file to our <em>Standalone</em> proxy (<code>stroomsap0.strmdev00.org</code>) and monitor this nodes' proxy log files as well the directory the
+<p>We will send a file to our <em>Standalone</em> proxy (<code>stroomsap0.strmdev00.org</code>) and monitor this nodes&rsquo; proxy log files as well the directory the
 received files are meant to be stored in.</p>
 <p>Perform the following</p>
 <ul>
@@ -36030,7 +36201,7 @@ services on the new node, we need to enable it&rsquo;s <code>Stream Processors</
 <div class="td-content" style="--base-section-num: '5.1.'; ">
     
   <h1 id="pg-d26bddfaf19c5dd48a7a6cdceea631c8">5.1 - Application Programming Interfaces (API)</h1>
-    <div class="lead">Stroom' public REST APIs for querying and interacting with all aspects of Stroom.</div>
+    <div class="lead">Stroom&rsquo; public REST APIs for querying and interacting with all aspects of Stroom.</div>
 	<p><em>Stroom</em> has many public REST APIs to allow other systems to interact with <em>Stroom</em>.
 Everything that can be done via the user interface can also be done using the API.</p>
 <h2 id="swagger">Swagger</h2>
@@ -37343,7 +37514,7 @@ For Example, a data set grouped as follows</p>
 <li>Group by Name</li>
 <li>Group by Type</li>
 </ol>
-<p>A groupCount could be used to count the number of distinct values of &lsquo;type&rsquo; for each value of &lsquo;name&rsquo;</p>
+<p>A groupCount could be used to count the number of distinct values of &rsquo;type&rsquo; for each value of &rsquo;name'</p>
 <h2 id="count-unique">Count Unique</h2>
 <p>This is used to count the number of unique values passed to the function where grouping is used to aggregate values in other columns.
 For Example, a data set grouped as follows</p>
@@ -37351,7 +37522,7 @@ For Example, a data set grouped as follows</p>
 <li>Group by Name</li>
 <li>Group by Type</li>
 </ol>
-<p><code>countUnique()</code> could be used to count the number of distinct values of &lsquo;type&rsquo; for each value of &lsquo;name&rsquo;</p>
+<p><code>countUnique()</code> could be used to count the number of distinct values of &rsquo;type&rsquo; for each value of &rsquo;name'</p>
 <p>Examples</p>
 <pre><code class="language-clike">countUnique(${val})
 ${val} = ['bill', 'bob', 'fred', 'bill']
@@ -39748,10 +39919,10 @@ value1,value2,value3 # a useless comment
 <h4 id="a-namesec-2-2-2-1-2apattern"><a name="sec-2-2-2-1-2"></a>pattern</h4>
 <p>This is a required attribute used to specify a regular expression to use to match on the supplied content. The pattern is used to match the content multiple times until the end of the content is reached while the maxMatch and onlyMatch conditions are satisfied.</p>
 <h4 id="a-namesec-2-2-2-1-3adotall"><a name="sec-2-2-2-1-3"></a>dotAll</h4>
-<p>An optional attribute used to specify if the use of &lsquo;.&rsquo; in the supplied pattern matches all characters including new lines. If &lsquo;true&rsquo; &lsquo;.&rsquo; will match all characters including new lines, if &lsquo;false&rsquo; it will only match up to a new line. If this attribute is not specified it defaults to &lsquo;false&rsquo; and will only match up to a new line.</p>
+<p>An optional attribute used to specify if the use of &lsquo;.&rsquo; in the supplied pattern matches all characters including new lines. If &rsquo;true&rsquo; &lsquo;.&rsquo; will match all characters including new lines, if &lsquo;false&rsquo; it will only match up to a new line. If this attribute is not specified it defaults to &lsquo;false&rsquo; and will only match up to a new line.</p>
 <p>This attribute is used in many of the multiline examples above.</p>
 <h4 id="a-namesec-2-2-2-1-4acaseinsensitive"><a name="sec-2-2-2-1-4"></a>caseInsensitive</h4>
-<p>An optional attribute used to specify if the supplied pattern should match content in a case insensitive way. If &lsquo;true&rsquo; the expression will match content in a case insensitive manner, if &lsquo;false&rsquo; it will match the content in a case sensitive manner. If this attribute is not specified it defaults to &lsquo;false&rsquo; and will match the content in a case sensitive manner.</p>
+<p>An optional attribute used to specify if the supplied pattern should match content in a case insensitive way. If &rsquo;true&rsquo; the expression will match content in a case insensitive manner, if &lsquo;false&rsquo; it will match the content in a case sensitive manner. If this attribute is not specified it defaults to &lsquo;false&rsquo; and will match the content in a case sensitive manner.</p>
 <h4 id="a-namesec-2-2-2-1-5amaxmatch"><a name="sec-2-2-2-1-5"></a>maxMatch</h4>
 <p>This is used in the same way it is on the <code>&lt;split&gt;</code> element, see <a href="#sec-2-2-1-1-6">maxMatch</a>.</p>
 <h4 id="a-namesec-2-2-2-1-6aminmatch"><a name="sec-2-2-2-1-6"></a>minMatch</h4>
@@ -40639,11 +40810,7 @@ site can be broken down further.</p>
     
   <h1 id="pg-c15dd253f719f80d0be2ad950d65cab4">5.10 - Finding Things</h1>
     <div class="lead">How to find things in Stroom, for example content, simple string values, etc.</div>
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 01 Jun 2020</p>
-</blockquote>
-<h2 id="explorer-tree">Explorer Tree</h2>
+	<h2 id="explorer-tree">Explorer Tree</h2>
 
 
 
@@ -41348,8 +41515,8 @@ If you do not get ping results for each node then they are not configured correc
     
   <h1 id="pg-850da8228403d37fae63cefb4607865a">5.12.1.1 - Context Data</h1>
     
-	<p>##Context File</p>
-<p>###Input File:</p>
+	<h2 id="context-file">Context File</h2>
+<h3 id="input-file">Input File:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;SomeData&gt;
 	&lt;SomeEvent&gt;
@@ -41360,13 +41527,13 @@ If you do not get ping results for each node then they are not configured correc
 	&lt;/SomeEvent&gt;
 &lt;/SomeData&gt;
 </code></pre>
-<p>###Context File:</p>
+<h3 id="context-file-1">Context File:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;SomeContext&gt;
 	&lt;Machine&gt;MyMachine&lt;/Machine&gt;
 &lt;/SomeContext&gt;
 </code></pre>
-<p>###Context XSLT:</p>
+<h3 id="context-xslt">Context XSLT:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet
 	xmlns=&quot;reference-data:2&quot;
@@ -41394,7 +41561,7 @@ If you do not get ping results for each node then they are not configured correc
 		
 &lt;/xsl:stylesheet&gt;
 </code></pre>
-<p>###Context XML Translation:</p>
+<h3 id="context-xml-translation">Context XML Translation:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;referenceData xmlns:evt=&quot;event-logging:3&quot;
 								xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
@@ -41408,7 +41575,7 @@ If you do not get ping results for each node then they are not configured correc
 		&lt;/reference&gt;
 &lt;/referenceData&gt;
 </code></pre>
-<p>###Input File:</p>
+<h3 id="input-file-1">Input File:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;SomeData&gt;
 	&lt;SomeEvent&gt;
@@ -41419,7 +41586,7 @@ If you do not get ping results for each node then they are not configured correc
 	&lt;/SomeEvent&gt;
 &lt;/SomeData&gt;
 </code></pre>
-<p>###Main XSLT (Note the use of the context lookup):</p>
+<h3 id="main-xslt-note-the-use-of-the-context-lookup">Main XSLT (Note the use of the context lookup):</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet
 	xmlns=&quot;event-logging:3&quot;
@@ -41471,7 +41638,7 @@ If you do not get ping results for each node then they are not configured correc
     &lt;/xsl:template&gt;
 &lt;/xsl:stylesheet&gt;
 </code></pre>
-<p>###Main Output XML:</p>
+<h3 id="main-output-xml">Main Output XML:</h3>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
 				xmlns=&quot;event-logging:3&quot;
@@ -42051,15 +42218,18 @@ count a number of records that meet certain criteria.</p>
     
   <h1 id="pg-0d3ac18ea787cffda6272f82e6bae0a5">5.12.3 - Reference Data</h1>
     <div class="lead">Performing temporal reference data lookups to decorate event data.</div>
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 15 September 2020<br>
-<strong>See Also:</strong></p>
-<ul>
-<li><a href="../../docs/howtos/referencefeeds/createsimplereferencefeeds/">HOWTO - Creating a Simple Reference Feed</a></li>
-<li><a href="../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Functions</a></li>
-</ul>
-</blockquote>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../docs/howtos/referencefeeds/createsimplereferencefeeds/">HOWTO - Creating a Simple Reference Feed</a><br>
+<a href="../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Functions</a></p>
+
+
+</div>
+
+
 <p>In Stroom reference data is primarily used to decorate events using <code>stroom:lookup()</code> calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the physical location.
 You can then perform a <code>stroom:lookup()</code> in the XSLT to decorate an event with the physical location of a device by looking up the FQDN found in the event.</p>
@@ -42438,9 +42608,10 @@ that class you can easily diff the new output with this file which contains adde
 descriptive text.
 -->
 <h2 id="reader">Reader</h2>
+<p>Reader elements read and transform the data at the character level before they are parsed into
+a structured form.</p>
 <h3 id="bomremovalfilterinput">BOMRemovalFilterInput</h3>
 <p>Removes the Byte Order Mark (if present) from the stream.</p>
-<p><strong>Category:</strong> Reader</p>
 <p><strong>Icon:</strong> 
 
 
@@ -42452,16 +42623,10 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="BOMRemovalFilterInput" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
 <h3 id="badtextxmlfilterreader">BadTextXMLFilterReader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42473,14 +42638,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="BadTextXMLFilterReader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42498,8 +42656,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="findreplacefilter">FindReplaceFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42511,15 +42670,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="FindReplaceFilter" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42577,8 +42728,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="invalidcharfilterreader">InvalidCharFilterReader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42590,14 +42742,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="InvalidCharFilterReader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42615,8 +42760,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="invalidxmlcharfilterreader">InvalidXMLCharFilterReader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42628,14 +42774,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="InvalidXMLCharFilterReader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Reader</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42653,8 +42792,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="reader-1">Reader</h3>
-<p>null</p>
-<p><strong>Category:</strong> Reader</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42666,16 +42806,16 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="Reader" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Reader</li>
-<li>Target</li>
-</ul>
 <h2 id="parser">Parser</h2>
+<p>Parser elements parse raw text data that conforms to some kind of structure (e.g. XML, JSON, CSV)
+into XML events (elements, attributes, text, etc) that can be further validated or transformed
+using.
+The choice of Parser will be dictated by the structure of the data.
+Parsers read the data using the character encoding defined on the feed.</p>
 <h3 id="combinedparser">CombinedParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42687,16 +42827,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/text.svg" width="16px" title="CombinedParser" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42734,8 +42865,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="dsparser">DSParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42747,16 +42879,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/text.svg" width="16px" title="DSParser" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42784,8 +42907,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="jsonparser">JSONParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42797,15 +42921,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/json.svg" width="16px" title="JSONParser" alt="pipeline/json.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42827,7 +42943,7 @@ descriptive text.
 </tr>
 <tr>
 <td>allowComments</td>
-<td>Feature that determines whether parser will allow use  of Java/C++ style comments (both &lsquo;/'+'*&rsquo; and &lsquo;//&rsquo; varieties) within parsed content or not.</td>
+<td>Feature that determines whether parser will allow use  of Java/C++ style comments (both &lsquo;/&rsquo;+&rsquo;*&rsquo; and &lsquo;//&rsquo; varieties) within parsed content or not.</td>
 <td>false</td>
 </tr>
 <tr>
@@ -42847,7 +42963,7 @@ descriptive text.
 </tr>
 <tr>
 <td>allowSingleQuotes</td>
-<td>Feature that determines whether parser will allow use of single quotes (apostrophe, character &lsquo;'') for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).</td>
+<td>Feature that determines whether parser will allow use of single quotes (apostrophe, character &lsquo;'&rsquo;) for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).</td>
 <td>false</td>
 </tr>
 <tr>
@@ -42873,8 +42989,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="xmlfragmentparser">XMLFragmentParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42886,16 +43003,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/xml.svg" width="16px" title="XMLFragmentParser" alt="pipeline/xml.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42923,8 +43031,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="xmlparser">XMLParser</h3>
-<p>null</p>
-<p><strong>Category:</strong> Parser</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42936,18 +43045,16 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/xml.svg" width="16px" title="XMLParser" alt="pipeline/xml.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Parser</li>
-<li>Simple</li>
-<li>Stepping</li>
-</ul>
 <h2 id="filter">Filter</h2>
+<p>Filter elements work with XML events that have been generated by a <em>parser</em>.
+They can consume the events without modifying them, e.g. <em>RecordCountFilter</em> or modify them in
+some way, e.g. <em>XSLTFilter</em>.
+Multiple filters can be used one after another with each using the output from the last as its
+input.</p>
 <h3 id="httppostfilter">HttpPostFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42959,13 +43066,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="HttpPostFilter" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -42983,8 +43084,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="idenrichmentfilter">IdEnrichmentFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -42996,16 +43098,10 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/id.svg" width="16px" title="IdEnrichmentFilter" alt="pipeline/id.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
 <h3 id="indexingfilter">IndexingFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43017,13 +43113,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/index.svg" width="16px" title="IndexingFilter" alt="pipeline/index.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43041,8 +43131,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="recordcountfilter">RecordCountFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43054,12 +43145,7 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/recordCount.svg" width="16px" title="RecordCountFilter" alt="pipeline/recordCount.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43077,8 +43163,9 @@ descriptive text.
 </tbody>
 </table>
 <h3 id="recordoutputfilter">RecordOutputFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43090,15 +43177,9 @@ descriptive text.
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/recordOutput.svg" width="16px" title="RecordOutputFilter" alt="pipeline/recordOutput.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
 <h3 id="referencedatafilter">ReferenceDataFilter</h3>
 <p>Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Reference Data Store.
 Reference data values can be either simple strings or XML fragments.</p>
-<p><strong>Category:</strong> Filter</p>
 <p><strong>Icon:</strong> 
 
 
@@ -43110,12 +43191,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/referenceData.svg" width="16px" title="ReferenceDataFilter" alt="pipeline/referenceData.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43138,8 +43214,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="safexmlfilter">SafeXMLFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43151,16 +43228,10 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/recordOutput.svg" width="16px" title="SafeXMLFilter" alt="pipeline/recordOutput.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
 <h3 id="schemafilter">SchemaFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43172,14 +43243,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/xsd.svg" width="16px" title="SchemaFilter" alt="pipeline/xsd.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Validator</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43217,8 +43281,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="searchresultoutputfilter">SearchResultOutputFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43230,13 +43295,10 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/search.svg" width="16px" title="SearchResultOutputFilter" alt="pipeline/search.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Target</li>
-</ul>
 <h3 id="solrindexingfilter">SolrIndexingFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43248,13 +43310,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/solr.svg" width="16px" title="SolrIndexingFilter" alt="pipeline/solr.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43287,8 +43343,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="splitfilter">SplitFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43300,12 +43357,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/split.svg" width="16px" title="SplitFilter" alt="pipeline/split.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43333,8 +43385,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="statisticsfilter">StatisticsFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43346,13 +43399,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/statistics.svg" width="16px" title="StatisticsFilter" alt="pipeline/statistics.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43370,8 +43417,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="stroomstatsfilter">StroomStatsFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43383,13 +43431,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/StroomStatsStore.svg" width="16px" title="StroomStatsFilter" alt="pipeline/StroomStatsStore.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43417,8 +43459,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="xpathextractionoutputfilter">XPathExtractionOutputFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43430,11 +43473,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/xmlSearch.svg" width="16px" title="XPathExtractionOutputFilter" alt="pipeline/xmlSearch.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43452,8 +43491,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="xsltfilter">XSLTFilter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Filter</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43465,16 +43505,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/xslt.svg" width="16px" title="XSLTFilter" alt="pipeline/xslt.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasCode</li>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Simple</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43512,9 +43543,12 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h2 id="writer">Writer</h2>
+<p>Writers consume XML events (from <em>Parsers</em> and <em>Filters</em>) and convert them into a stream of bytes
+using the character encoding configured on the <em>Writer</em> (if applicable).</p>
 <h3 id="jsonwriter">JSONWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Writer</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43526,14 +43560,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/json.svg" width="16px" title="JSONWriter" alt="pipeline/json.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Writer</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43556,8 +43583,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="textwriter">TextWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Writer</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43569,15 +43597,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/text.svg" width="16px" title="TextWriter" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Writer</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43605,8 +43625,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="xmlwriter">XMLWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Writer</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43618,15 +43639,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/xml.svg" width="16px" title="XMLWriter" alt="pipeline/xml.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Mutator</li>
-<li>Stepping</li>
-<li>Target</li>
-<li>Writer</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43664,9 +43677,12 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h2 id="destination">Destination</h2>
+<p>Destination elements consume a stream of bytes from a <em>Writer</em> and persist then to a destination.
+This could be a file on a file system or to Stroom&rsquo;s stream store.</p>
 <h3 id="annotationwriter">AnnotationWriter</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43678,15 +43694,10 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/text.svg" width="16px" title="AnnotationWriter" alt="pipeline/text.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
 <h3 id="fileappender">FileAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43698,13 +43709,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/file.svg" width="16px" title="FileAppender" alt="pipeline/file.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43737,8 +43742,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="hdfsfileappender">HDFSFileAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43750,13 +43756,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/hadoop-elephant-logo.svg" width="16px" title="HDFSFileAppender" alt="pipeline/hadoop-elephant-logo.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43799,8 +43799,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="httpappender">HTTPAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43812,13 +43813,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="HTTPAppender" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -43951,8 +43946,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="rollingfileappender">RollingFileAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -43964,13 +43960,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/files.svg" width="16px" title="RollingFileAppender" alt="pipeline/files.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -44013,8 +44003,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="rollingstreamappender">RollingStreamAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -44026,13 +44017,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="RollingStreamAppender" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -44075,8 +44060,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="standardkafkaproducer">StandardKafkaProducer</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -44088,13 +44074,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/apache_kafka-icon.svg" width="16px" title="StandardKafkaProducer" alt="pipeline/apache_kafka-icon.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>HasTargets</li>
-<li>Simple</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -44117,8 +44097,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="streamappender">StreamAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -44130,13 +44111,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/stream.svg" width="16px" title="StreamAppender" alt="pipeline/stream.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -44179,8 +44154,9 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tbody>
 </table>
 <h3 id="stroomstatsappender">StroomStatsAppender</h3>
-<p>null</p>
-<p><strong>Category:</strong> Destination</p>
+<blockquote>
+<p>TODO - Add description</p>
+</blockquote>
 <p><strong>Icon:</strong> 
 
 
@@ -44192,13 +44168,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 <img class="stroom-icon" src="../../images/stroom-ui/pipeline/StroomStatsStore.svg" width="16px" title="StroomStatsAppender" alt="pipeline/StroomStatsStore.svg">
 </p>
-<p><strong>Roles:</strong></p>
-<ul>
-<li>Destination</li>
-<li>Stepping</li>
-<li>Target</li>
-</ul>
-<p><strong>Properties:</strong></p>
+<p><strong>Element properties:</strong></p>
 <table>
 <thead>
 <tr>
@@ -44230,7 +44200,6 @@ Reference data values can be either simple strings or XML fragments.</p>
 </tr>
 </tbody>
 </table>
-<p>Process finished with exit code 0</p>
 
 </div>
 
@@ -44255,10 +44224,7 @@ Reference data values can be either simple strings or XML fragments.</p>
     
   <h1 id="pg-43200edc2182b8f93348171cfe19220f">5.13 - Properties</h1>
     <div class="lead">Configuration of Stroom&rsquo;s application properties.</div>
-	<blockquote>
-<p>This documentation applies to Stroom 7.0 or higher</p>
-</blockquote>
-<p>Properties are the means of configuring the Stroom application and are typically maintained by the Stroom system administrator.
+	<p>Properties are the means of configuring the Stroom application and are typically maintained by the Stroom system administrator.
 The value of some properties are required in order for Stroom to function, e.g. database connection details, and thus need to be set prior to running Stroom.
 Some properties can be changed at runtime to alter the behaviour of Stroom.</p>
 <h2 id="sources">Sources</h2>
@@ -45048,14 +45014,23 @@ This job controls the frequency that the in memory statistics are flushed from t
     
   <h1 id="pg-75d7e9d7b1cee4d8756d17b998f45770">5.17.1 - Command Line Tools</h1>
     <div class="lead">Command line actions for administering Stroom.</div>
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 10 September 2020</p>
-</blockquote>
-<p>Stroom has a number of tools that are available from the command line in addition to starting the main application.</p>
+	<p>Stroom has a number of tools that are available from the command line in addition to starting the main application.</p>
 <p>The basic structure of the command for starting one of stroom&rsquo;s commands is:</p>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar COMMAND
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar COMMAND</code></pre>
+</div>
+
 <p><code>COMMAND</code> can be a number of values depending on what you want to do.
 Each command value is described in its own section.</p>
 <blockquote>
@@ -45064,23 +45039,67 @@ Access to these commands should be strictly limited.
 Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.</p>
 </blockquote>
 <h2 id="server"><code>server</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar server path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar server path/to/config.yml</code></pre>
+</div>
+
 <p>This is the normal command for starting the Stroom application using the supplied YAML configuration file.
 The example above will start the application as a foreground process.
 Stroom would typically be started using the <code>start.sh</code> shell script, but the command above is listed for completeness.</p>
 <p>When stroom starts it will check the database to see if any migration is required.
 If migration from an earlier version (including from an empty database) is required then this will happen as part of the application start process.</p>
 <h2 id="migrate"><code>migrate</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar migrate path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar migrate path/to/config.yml</code></pre>
+</div>
+
 <p>There may be occasions where you want to migrate an old version but not start the application, e.g. during migration testing or to initiate the migration before starting up a cluster.
 This command will run the process that checks for any required migrations and then performs them.
 On completion of the process it exits.
 This runs as a foreground process.</p>
 <h2 id="create_account"><code>create_account</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar create_account --u USER --p PASSWORD [OPTIONS] path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+create_account \
+--u USER \
+--p PASSWORD \
+[OPTIONS] \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where the named arguments are:</p>
 <ul>
 <li><code>-u</code> <code>--user</code> - The username for the user.</li>
@@ -45104,8 +45123,25 @@ In either case a Stroom user will need to exist with the same username as the au
 This command should NOT be run if you are using a third party identity provider.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h2 id="reset_password"><code>reset_password</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar reset_password --u USER --p PASSWORD path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+reset_password \
+--u USER \
+--p PASSWORD \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where the named arguments are:</p>
 <ul>
 <li><code>-u</code> <code>--user</code> - The username for the user.</li>
@@ -45117,8 +45153,24 @@ This command should NOT be run if you are using a third party identity provider.
 It will fail if the account does not exist.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h2 id="manage_users"><code>manage_users</code></h2>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar manage_users [OPTIONS] path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+[OPTIONS] \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where the named arguments are:</p>
 <ul>
 <li><code>--createUser USER_NAME</code> - Creates a Stroom user with the supplied username.</li>
@@ -45139,8 +45191,27 @@ If you want to automate actions that can be performed in the UI then you can mak
 <blockquote>
 <p>See the <a href="#authentication-accounts-and-stroom-users">note</a> above about the distinction between authentication accounts and stroom users.</p>
 </blockquote>
-<pre><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar manage_users --createUser jbloggs --createGroup Administrators --addToGroup jbloggs Administrators --grantPermission Administrators &quot;Administrator&quot; path/to/config.yml
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser jbloggs \
+--createGroup Administrators \
+--addToGroup jbloggs Administrators \
+--grantPermission Administrators &#34;Administrator&#34; \
+path/to/config.yml</code></pre>
+</div>
+
 <p>Where <em>jbloggs</em> is the user name of the account on the 3rd party IDP.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <p>The named arguments can be used as many times as you like so you can create multiple users/groups/grants/etc.

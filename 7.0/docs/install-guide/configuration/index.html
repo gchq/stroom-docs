@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.93.0" />
 <link rel="alternate" type="text/html" href="../../../docs/install-guide/configuration/_print/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -21,11 +21,8 @@
 <link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>Configuration | Stroom</title>
-<meta name="description" content="
-Version Information: Created with Stroom v7.0
-Last Updated: 2021-06-23
-
-Stroom and its associated services can be deployed in may ways (single node …">
+<meta name="description" content="Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+This document will …">
 <meta property="og:title" content="Configuration" />
 <meta property="og:description" content="Stroom documentation, release notes, news and open source community information" />
 <meta property="og:type" content="website" />
@@ -84,18 +81,6 @@ Stroom and its associated services can be deployed in may ways (single node …"
 				
 				
 				<a class="nav-link active" href="../../../docs/" ><span class="active">Documentation</span></a>
-			</li>
-			
-			<li class="nav-item mr-4 mb-2 mb-lg-0">
-				
-				
-				
-				
-				
-				
-				
-				
-				<a class="nav-link" href="../../../news/" ><span>News / Releases</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -761,11 +746,7 @@ Stroom and its associated services can be deployed in may ways (single node …"
 		
 		
 	</header>
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 2021-06-23</p>
-</blockquote>
-<p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+	<p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
 This document will cover two types of deployment:</p>
 <ul>
 <li>Single node stroom_core docker stack.</li>
@@ -863,8 +844,21 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
 <li>
 <p><strong>Symlink</strong> - One option is to move the <code>var/lib/docker</code> directory to a new location then create a symlink to it.
 For example:</p>
-<pre><code class="language-sh">ln -s /large_mount/docker_data_root /var/lib/docker
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">ln -s /large_mount/docker_data_root /var/lib/docker</code></pre>
+</div>
+
 <p>This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.</p>
 </li>
 <li>
@@ -872,7 +866,6 @@ For example:</p>
 <pre><code class="language-json">{
   &quot;data-root&quot;: &quot;/mnt/docker&quot;
 }
-
 </code></pre>
 </li>
 <li>
@@ -892,8 +885,21 @@ The process for setting up this mount will be OS dependent and is outside the sc
 </ul>
 <p>While you can pass a set of service names to the commands like <code>start.sh</code> and <code>stop.sh</code>, it may sometimes be required to configure the stack instance to only have a set of services active.
 You can set the active services like so:</p>
-<pre><code class="language-bash">./set_services.sh stroom stroom-all-dbs nginx
-</code></pre>
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./set_services.sh stroom stroom-all-dbs nginx</code></pre>
+</div>
+
 <p>In the above example and subsequent use of commands like <code>start.sh</code> and <code>stop.sh</code> with no named services would only act upon the active services set by <code>set_services.sh</code>.
 This list of active services is held in <code>ACTIVE_SERVICES.txt</code> and the full list of available services is held in <code>ALL_SERVICES.txt</code>.</p>
 <h3 id="certificates">Certificates</h3>
@@ -949,7 +955,7 @@ server.unencrypted.key -&gt; /some/path/to/host123.key
                 <h5>
                     <a href="../../../docs/install-guide/configuration/configuring-stroom/">Stroom Configuration</a>
                 </h5>
-                <p></p>
+                <p>Describes how the Stroom application is configured.</p>
             </div>
         
             
@@ -982,7 +988,7 @@ server.unencrypted.key -&gt; /some/path/to/host123.key
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 24, 2022: <a href="https://github.com/gchq/stroom-docs/commit/f842f17ae9cefc61afb60eb8a9d9140b8af65514">Rename architecture puml files (f842f17)</a>
+  Last modified March 4, 2022: <a href="https://github.com/gchq/stroom-docs/commit/6e2a6ab51b451cd291de717aa195c762311db3bd">Merge branch &#39;legacy&#39; into 7.0 (6e2a6ab)</a>
 </div>
 
 </div>

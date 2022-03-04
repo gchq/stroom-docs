@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.93.0" />
 <link rel="canonical" type="text/html" href="../../../../docs/howtos/install/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -1685,7 +1685,7 @@ quit;
 <ul>
 <li>the user has reasonable RHEL/Centos System administration skills.</li>
 <li>installations are on Centos 7.3 minimal systems (fully patched).</li>
-<li>the term &lsquo;node&rsquo; is used to reference the &lsquo;host&rsquo; a service is running on.</li>
+<li>the term &rsquo;node&rsquo; is used to reference the &lsquo;host&rsquo; a service is running on.</li>
 <li>the Stroom Proxy and Application software runs as user &lsquo;stroomuser&rsquo; and will be deployed in this user&rsquo;s home directory</li>
 <li>data will reside in a directory tree referenced via &lsquo;/stroomdata&rsquo;. It is up to the user to provision a filesystem here, noting sub-directories of it will be NFS shared in Multi Node Stroom Deployments</li>
 <li>any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems</li>
@@ -2103,8 +2103,8 @@ This is achieved using
 <a href="../../../../docs/user-guide/feeds/">Event Feeds</a>.
 Each feed has a unique name within the system.</p>
 <p>To test our installation can accept and ingest data, we will
-<a href="../../../../docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed">create a test Event feed</a>. The &lsquo;name&rsquo; of the feed will be
-<code>TEST-FEED-V1_0</code>. Note that in a production environment is is best that a well defined nomenclature is used for feed &lsquo;names&rsquo;. For our
+<a href="../../../../docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed">create a test Event feed</a>. The &rsquo;name&rsquo; of the feed will be
+<code>TEST-FEED-V1_0</code>. Note that in a production environment is is best that a well defined nomenclature is used for feed &rsquo;names&rsquo;. For our
 testing purposes <code>TEST-FEED-V1_0</code> is sufficient.</p>
 <h3 id="sending-test-data">Sending Test Data</h3>
 <p><strong>NOTE:</strong> Before testing our new feed, we should restart both our Stroom application services so that any volume changes are
@@ -2379,10 +2379,10 @@ when generating the Environment Variable files to <em>02</em>.</p>
 <h3 id="stroom-proxy-installation-1">Stroom Proxy Installation</h3>
 <p>Instructions for installation of the Stroom Proxy can be found <a href="../../../../docs/howtos/install/installproxyhowto/">here</a>. Note you
 will be deploying a <em>Store</em> proxy and during the setup execution ensure you enter the appropriate values for NODE (&lsquo;stroomp02&rsquo;)
-and REPO_DIR ('/stroomdata/stroom-working-p02/proxy'). All other values will be the same.</p>
+and REPO_DIR (&rsquo;/stroomdata/stroom-working-p02/proxy&rsquo;). All other values will be the same.</p>
 <h3 id="stroom-application-installation-1">Stroom Application Installation</h3>
 <p>Instructions for installation of the Stroom application can be found <a href="../../../../docs/howtos/install/installapplicationhowto/">here</a>.
-When executing the setup script ensure you enter the appropriate values for TEMP_DIR ('/stroomdata/stroom-working-p02') and NODE (&lsquo;stroomp02&rsquo;).
+When executing the setup script ensure you enter the appropriate values for TEMP_DIR (&rsquo;/stroomdata/stroom-working-p02&rsquo;) and NODE (&lsquo;stroomp02&rsquo;).
 All other values will be the same. Note also that you will not have to wait for the &lsquo;first&rsquo; node to initialise the Stroom database as
 this would have already been done when you first deployed your Stroom Cluster.</p>
 <h2 id="web-service-integration-1">Web Service Integration</h2>
@@ -2837,7 +2837,7 @@ The default template is <code>${pathId}/${id}</code> and this pattern will produ
 ...
 </code></pre>
 <p>The template uses replacement variables to form the file path. As indicated above, the default template is <code>${pathId}/${id}</code> where <code>${pathId}</code> is the automatically generated directory for a given <em>repository id</em> and <code>${id}</code> is the <em>repository id</em>.</p>
-<p>Other replacement variables can be used to in the template including http header meta data parameters (e.g. &lsquo;${feed}') and time based parameters (e.g. &lsquo;${year}'). Replacement variables that cannot be resolved will be output as &lsquo;_&rsquo;. You must ensure that all templates include the &lsquo;${id}&rsquo; replacement variable at the start of the file name, failure to do this will result in an invalid repository.</p>
+<p>Other replacement variables can be used to in the template including http header meta data parameters (e.g. &lsquo;${feed}&rsquo;) and time based parameters (e.g. &lsquo;${year}&rsquo;). Replacement variables that cannot be resolved will be output as &lsquo;_&rsquo;. You must ensure that all templates include the &lsquo;${id}&rsquo; replacement variable at the start of the file name, failure to do this will result in an invalid repository.</p>
 <p>Available time based parameters are based on the file&rsquo;s time of processing and are zero filled (excluding <code>ms</code>).</p>
 <table>
 <thead>
@@ -4827,7 +4827,7 @@ we need to <a href="../../../../docs/howtos/general/taskshowto/#turn-on-proxy-ag
 <h3 id="data-post-tests-1">Data Post Tests</h3>
 <h4 id="simple-post-tests-1">Simple Post tests</h4>
 <p>This test is to ensure the Stroom <em>Forwarding</em> proxy and it&rsquo;s connection to the central Stroom Processing system is working.</p>
-<p>We will send a file to our <em>Forwarding</em> proxy (<code>stroomfp0.strmdev00.org</code>) and monitor this nodes' proxy log files as well as all the
+<p>We will send a file to our <em>Forwarding</em> proxy (<code>stroomfp0.strmdev00.org</code>) and monitor this nodes&rsquo; proxy log files as well as all the
 destination nodes proxy log files. The reason for monitoring all the destination system&rsquo;s proxy log files is that the destination system is
 probably load balancing and hence the forwarded file may turn up on any of the destination nodes.</p>
 <p>Perform the following</p>
@@ -4875,7 +4875,7 @@ the <em>datafeed.DataFeedRequestHandler$1</em> event in the <em>ajp-apr-9009-exe
 <h3 id="data-post-tests-2">Data Post Tests</h3>
 <h4 id="simple-post-tests-2">Simple Post tests</h4>
 <p>This test is to ensure the Stroom <em>Store NODB</em> or <em>Standalone</em> proxy is working.</p>
-<p>We will send a file to our <em>Standalone</em> proxy (<code>stroomsap0.strmdev00.org</code>) and monitor this nodes' proxy log files as well the directory the
+<p>We will send a file to our <em>Standalone</em> proxy (<code>stroomsap0.strmdev00.org</code>) and monitor this nodes&rsquo; proxy log files as well the directory the
 received files are meant to be stored in.</p>
 <p>Perform the following</p>
 <ul>
