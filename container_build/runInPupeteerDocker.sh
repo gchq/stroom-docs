@@ -119,7 +119,7 @@ wait_for_200_response() {
   fi
 
   local url=$1; shift
-  local maxWaitSecs=10
+  local maxWaitSecs=30
 
   local n=0
   local were_dots_shown=false
