@@ -10,15 +10,15 @@ description: >
   Configuration of Stroom's application properties.
 ---
 
-> This documentation applies to Stroom 7.0 or higher
-
 Properties are the means of configuring the Stroom application and are typically maintained by the Stroom system administrator.
 The value of some properties are required in order for Stroom to function, e.g. database connection details, and thus need to be set prior to running Stroom.
 Some properties can be changed at runtime to alter the behaviour of Stroom.
 
+
 ## Sources
 
 Property values can be defined in the following locations.
+
 
 ### System Default
 
@@ -26,6 +26,7 @@ The system defaults are hard-coded into the Stroom application code by the devel
 These represent reasonable defaults, where applicable, but may need to be changed, e.g. to reflect the scale of the Stroom system or the specific environment.
 
 The default property values can either be viewed in the Stroom user interface (_Tools_ -> _Properties_) or in the file `config/config-defaults.yml` in the Stroom distribution.
+
 
 ### Global Database Value
 
@@ -39,6 +40,7 @@ Database values can be set from the Stroom user interface using _Tools_ -> _Prop
 Some properties are marked _Read Only_ which means they cannot have a database value set for them.
 These properties can only be altered via the YAML configuration file on each node.
 Such properties are typically used to configure values required for Stroom to be able to boot, so it does not make sense for them to be configurable from the User Interface.
+
 
 ### YAML Configuration file
 
@@ -89,6 +91,7 @@ appConfig:
 
 The _stroom_ part of the dot notation name is replaced with _appConfig_.
 
+
 #### Variable Substitution
 
 The YAML configuration file supports Bash style variable substitution in the form of:
@@ -105,6 +108,7 @@ This allows values to be set either directly in the file or via an environment v
 
 In the above example, if the _STROOM_JDBC_DRIVER_CLASS_NAME_ environment variable is not set then the value _com.mysql.cj.jdbc.Driver_ will be used instead.
 
+
 #### Typed Values
 
 YAML supports typed values rather than just strings, see https://yaml.org/refcard.html.
@@ -113,6 +117,7 @@ Some properties will be represented differently in the user interface to the YAM
 This is due to how values are stored in the database and how the current user interface works.
 This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see [Data Types](#data-types).
+
 
 ## Source Precedence
 
@@ -147,6 +152,7 @@ Database  | green     | green
 YAML      | -         | NULL
 Effective | **green** | **NULL**
 
+
 ## Data Types
 
 Stroom property values can be set using a number of different data types.
@@ -167,10 +173,12 @@ Enum            | `HIGH` `LOW`                                                  
 Path            | `/some/path/to/a/file`                                                | `"/some/path/to/a/file"`
 ByteSize        | `32`, `512Kib`                                                        | `32`, `512Kib` See [Byte Size Data Type](#byte-size-data-type)
 
+
 ### Stroom Duration Data Type
 
 The _Stroom Duration_ data type is used to specify time durations, for example the time to live of a cache or the time to keep data before it is purged.
 _Stroom Duration_ uses a number of string forms to support legacy property values.
+
 
 #### ISO 8601 Durations
 
@@ -185,6 +193,7 @@ The following are examples of _ISO 8601_ duration strings:
 * `PT30S` - 30 seconds
 * `PT0.5S` - 500 milliseconds
 
+
 #### Legacy Stroom Durations
 
 This format was used in versions of Stroom older than v7 and is included to support legacy property values.
@@ -198,6 +207,7 @@ The following are examples of legacy duration strings:
 * `500` - 500 milliseconds
 
 Combinations such as `1m30s` are not supported.
+
 
 ### List Data Type
 
@@ -239,6 +249,7 @@ This would be represented as a string in the User Interface as:
 
 See [Delimiters in String Conversion](#delimiters-in-string-conversion) for details of how the items are delimited in the string.
 
+
 ### Map Data Type
 
 This type supports a collection of key/value pairs where the key is unique within the collection.
@@ -261,6 +272,7 @@ The delimiter between pairs is defined first, then the delimiter for the key and
 
 See [Delimiters in String Conversion](#delimiters-in-string-conversion) for details of how the items are delimited in the string.
 
+
 ### DocRef Data Type
 
 A DocRef (or Document Reference) is a type specific to Stroom that defines a reference to an instance of a Document within Stroom, e.g. an XLST, Pipeline, Dictionary, etc.
@@ -281,6 +293,7 @@ This would be represented as a string in the User Interface as:
 
 See [Delimiters in String Conversion](#delimiters-in-string-conversion) for details of how the items are delimited in the string.
 
+
 ### Byte Size Data Type
 
 The Byte Size data type is used to represent a quantity of bytes using the {{< external-link "IEC" "https://en.wikipedia.org/wiki/Binary_prefix" >}} standard.
@@ -297,6 +310,7 @@ Examples of Byte Size values in string form are (a YAML value would optionally b
 
 The `*iB` form is preferred as it is more explicit and avoids confusion with SI units.
 
+
 ### Delimiters in String Conversion
 
 The string conversion used for collection types like _List_, _Map_ etc. relies on the string form defining the delimiter(s) to use for the collection.
@@ -308,14 +322,17 @@ The following are the delimiter characters that can be used.
 
 When Stroom records a property value to the database it may use a delimiter of its own choosing, ensuring that it picks a delimiter that is not used in the property value.
 
+
 ## Restart Required
 
 Some properties are marked as requiring a restart.
 There are two scopes for this:
 
+
 ### Requires UI Refresh
 
 If a property is marked in UI as requiring a UI refresh then this means that a change to the property requires that the Stroom nodes serving the UI are restarted for the new value to take effect.
+
 
 ### Requires Restart
 

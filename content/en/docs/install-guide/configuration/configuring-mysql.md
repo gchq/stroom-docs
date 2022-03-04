@@ -11,8 +11,10 @@ description: >
 
 ---
 
-> **See Also:** [MySQL Server Setup]({{< relref "../setup/mysql-server-setup.md" >}})  
-> **See Also:** {{< external-link "MySQL Server Administration" "https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" >}} 
+{{% see-also %}}
+[MySQL Server Setup]({{< relref "../setup/mysql-server-setup.md" >}})
+{{< external-link "MySQL Server Administration" "https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" >}}
+{{% /see-also %}}
 
 ## General configuration
 

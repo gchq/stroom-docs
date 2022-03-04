@@ -8,11 +8,11 @@ description: >
   Performing temporal reference data lookups to decorate event data.
 ---
 
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 15 September 2020  
-> **See Also:**  
-> * [HOWTO - Creating a Simple Reference Feed]({{< relref "../../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeeds" >}})  
-> * [XSLT Functions]({{< relref "./xslt/xslt-functions.md" >}})
+{{% see-also %}}
+[HOWTO - Creating a Simple Reference Feed]({{< relref "../../HOWTOs/ReferenceFeeds/CreateSimpleReferenceFeeds" >}})  
+[XSLT Functions]({{< relref "./xslt/xslt-functions.md" >}})
+{{% /see-also %}}
+
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the physical location.

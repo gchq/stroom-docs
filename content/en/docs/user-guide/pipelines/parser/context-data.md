@@ -9,9 +9,9 @@ description: >
   
 ---
 
-##Context File
+## Context File
 
-###Input File:
+### Input File:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -25,7 +25,8 @@ description: >
 </SomeData>
 ```
 
-###Context File:
+
+### Context File:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -34,7 +35,8 @@ description: >
 </SomeContext>
 ```
 
-###Context XSLT:
+
+### Context XSLT:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -65,7 +67,8 @@ description: >
 </xsl:stylesheet>
 ```
 
-###Context XML Translation:
+
+### Context XML Translation:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -82,7 +85,8 @@ description: >
 </referenceData>
 ```
 
-###Input File:
+
+### Input File:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -96,7 +100,8 @@ description: >
 </SomeData>
 ```
 
-###Main XSLT (Note the use of the context lookup):
+
+### Main XSLT (Note the use of the context lookup):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -151,7 +156,8 @@ description: >
 </xsl:stylesheet>
 ```
 
-###Main Output XML:
+
+### Main Output XML:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
