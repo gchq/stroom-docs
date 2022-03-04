@@ -20,38 +20,28 @@ descriptive text.
 
 ## Reader
 
+Reader elements read and transform the data at the character level before they are parsed into
+a structured form.
+
+
 ### BOMRemovalFilterInput
 
 Removes the Byte Order Mark (if present) from the stream.
 
-**Category:** Reader
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "BOMRemovalFilterInput" >}}
-
-**Roles:**
-
-* HasTargets
-* Mutator
-* Reader
-* Stepping
 
 
 ### BadTextXMLFilterReader
 
-null
+> TODO - Add description
 
-**Category:** Reader
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "BadTextXMLFilterReader" >}}
 
-**Roles:**
-
-* HasTargets
-* Mutator
-* Reader
-* Stepping
-
-**Properties:**
+**Element properties:**
 
  Name | Description                                                                                  | Default Value 
 ------|----------------------------------------------------------------------------------------------|---------------
@@ -60,21 +50,13 @@ null
 
 ### FindReplaceFilter
 
-null
+> TODO - Add description
 
-**Category:** Reader
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "FindReplaceFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Mutator
-* Reader
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                 | Description                                                                        | Default Value 
 ----------------------|------------------------------------------------------------------------------------|---------------
@@ -91,20 +73,13 @@ null
 
 ### InvalidCharFilterReader
 
-null
+> TODO - Add description
 
-**Category:** Reader
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "InvalidCharFilterReader" >}}
 
-**Roles:**
-
-* HasTargets
-* Mutator
-* Reader
-* Stepping
-
-**Properties:**
+**Element properties:**
 
  Name       | Description                  | Default Value 
 ------------|------------------------------|---------------
@@ -113,20 +88,13 @@ null
 
 ### InvalidXMLCharFilterReader
 
-null
+> TODO - Add description
 
-**Category:** Reader
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "InvalidXMLCharFilterReader" >}}
 
-**Roles:**
-
-* HasTargets
-* Mutator
-* Reader
-* Stepping
-
-**Properties:**
+**Element properties:**
 
  Name       | Description                  | Default Value 
 ------------|------------------------------|---------------
@@ -135,40 +103,32 @@ null
 
 ### Reader
 
-null
+> TODO - Add description
 
-**Category:** Reader
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "Reader" >}}
-
-**Roles:**
-
-* HasTargets
-* Reader
-* Target
 
 
 
 ## Parser
 
+Parser elements parse raw text data that conforms to some kind of structure (e.g. XML, JSON, CSV)
+into XML events (elements, attributes, text, etc) that can be further validated or transformed
+using.
+The choice of Parser will be dictated by the structure of the data.
+Parsers read the data using the character encoding defined on the feed.
+
+
 ### CombinedParser
 
-null
+> TODO - Add description
 
-**Category:** Parser
+
 
 **Icon:** {{< stroom-icon "pipeline/text.svg" "CombinedParser" >}}
 
-**Roles:**
-
-* HasCode
-* HasTargets
-* Mutator
-* Parser
-* Simple
-* Stepping
-
-**Properties:**
+**Element properties:**
 
  Name                             | Description                                                                        | Default Value 
 ----------------------------------|------------------------------------------------------------------------------------|---------------
@@ -181,22 +141,13 @@ null
 
 ### DSParser
 
-null
+> TODO - Add description
 
-**Category:** Parser
+
 
 **Icon:** {{< stroom-icon "pipeline/text.svg" "DSParser" >}}
 
-**Roles:**
-
-* HasCode
-* HasTargets
-* Mutator
-* Parser
-* Simple
-* Stepping
-
-**Properties:**
+**Element properties:**
 
  Name                             | Description                                                                       | Default Value 
 ----------------------------------|-----------------------------------------------------------------------------------|---------------
@@ -207,21 +158,13 @@ null
 
 ### JSONParser
 
-null
+> TODO - Add description
 
-**Category:** Parser
+
 
 **Icon:** {{< stroom-icon "pipeline/json.svg" "JSONParser" >}}
 
-**Roles:**
-
-* HasTargets
-* Mutator
-* Parser
-* Simple
-* Stepping
-
-**Properties:**
+**Element properties:**
 
  Name                               | Description                                                                                                                                                                                                                                                                          | Default Value 
 ------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------
@@ -240,22 +183,13 @@ null
 
 ### XMLFragmentParser
 
-null
+> TODO - Add description
 
-**Category:** Parser
+
 
 **Icon:** {{< stroom-icon "pipeline/xml.svg" "XMLFragmentParser" >}}
 
-**Roles:**
-
-* HasCode
-* HasTargets
-* Mutator
-* Parser
-* Simple
-* Stepping
-
-**Properties:**
+**Element properties:**
 
  Name                             | Description                                                                        | Default Value 
 ----------------------------------|------------------------------------------------------------------------------------|---------------
@@ -266,39 +200,32 @@ null
 
 ### XMLParser
 
-null
+> TODO - Add description
 
-**Category:** Parser
+
 
 **Icon:** {{< stroom-icon "pipeline/xml.svg" "XMLParser" >}}
-
-**Roles:**
-
-* HasTargets
-* Mutator
-* Parser
-* Simple
-* Stepping
 
 
 
 ## Filter
 
+Filter elements work with XML events that have been generated by a _parser_.
+They can consume the events without modifying them, e.g. _RecordCountFilter_ or modify them in
+some way, e.g. _XSLTFilter_.
+Multiple filters can be used one after another with each using the output from the last as its
+input.
+
+
 ### HttpPostFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "HttpPostFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Simple
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name            | Description                   | Default Value 
 -----------------|-------------------------------|---------------
@@ -307,35 +234,22 @@ null
 
 ### IdEnrichmentFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/id.svg" "IdEnrichmentFilter" >}}
-
-**Roles:**
-
-* HasTargets
-* Mutator
-* Stepping
-* Target
 
 
 ### IndexingFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/index.svg" "IndexingFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Simple
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name  | Description                   | Default Value 
 -------|-------------------------------|---------------
@@ -344,18 +258,13 @@ null
 
 ### RecordCountFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/recordCount.svg" "RecordCountFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name      | Description                                              | Default Value 
 -----------|----------------------------------------------------------|---------------
@@ -364,16 +273,11 @@ null
 
 ### RecordOutputFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/recordOutput.svg" "RecordOutputFilter" >}}
-
-**Roles:**
-
-* HasTargets
-* Target
 
 
 ### ReferenceDataFilter
@@ -381,16 +285,11 @@ null
 Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Reference Data Store.
 Reference data values can be either simple strings or XML fragments.
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/referenceData.svg" "ReferenceDataFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                   | Description                                                   | Default Value 
 ------------------------|---------------------------------------------------------------|---------------
@@ -400,36 +299,22 @@ Reference data values can be either simple strings or XML fragments.
 
 ### SafeXMLFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/recordOutput.svg" "SafeXMLFilter" >}}
-
-**Roles:**
-
-* HasTargets
-* Mutator
-* Stepping
-* Target
 
 
 ### SchemaFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/xsd.svg" "SchemaFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Stepping
-* Target
-* Validator
-
-**Properties:**
+**Element properties:**
 
  Name             | Description                                                                                      | Default Value                    
 ------------------|--------------------------------------------------------------------------------------------------|----------------------------------
@@ -442,32 +327,22 @@ null
 
 ### SearchResultOutputFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/search.svg" "SearchResultOutputFilter" >}}
-
-**Roles:**
-
-* Target
 
 
 ### SolrIndexingFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/solr.svg" "SolrIndexingFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Simple
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name           | Description                                                                                                           | Default Value 
 ----------------|-----------------------------------------------------------------------------------------------------------------------|---------------
@@ -479,18 +354,13 @@ null
 
 ### SplitFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/split.svg" "SplitFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name           | Description                                                                 | Default Value 
 ----------------|-----------------------------------------------------------------------------|---------------
@@ -501,19 +371,13 @@ null
 
 ### StatisticsFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/statistics.svg" "StatisticsFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Simple
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                 | Description                                              | Default Value 
 ----------------------|----------------------------------------------------------|---------------
@@ -522,19 +386,13 @@ null
 
 ### StroomStatsFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/StroomStatsStore.svg" "StroomStatsFilter" >}}
 
-**Roles:**
-
-* HasTargets
-* Simple
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                 | Description                                                                                                                                                 | Default Value 
 ----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------
@@ -545,17 +403,13 @@ null
 
 ### XPathExtractionOutputFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/xmlSearch.svg" "XPathExtractionOutputFilter" >}}
 
-**Roles:**
-
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                   | Description                                   | Default Value 
 ------------------------|-----------------------------------------------|---------------
@@ -564,22 +418,13 @@ null
 
 ### XSLTFilter
 
-null
+> TODO - Add description
 
-**Category:** Filter
+
 
 **Icon:** {{< stroom-icon "pipeline/xslt.svg" "XSLTFilter" >}}
 
-**Roles:**
-
-* HasCode
-* HasTargets
-* Mutator
-* Simple
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                         | Description                                                                                   | Default Value 
 ------------------------------|-----------------------------------------------------------------------------------------------|---------------
@@ -593,22 +438,19 @@ null
 
 ## Writer
 
+Writers consume XML events (from _Parsers_ and _Filters_) and convert them into a stream of bytes
+using the character encoding configured on the _Writer_ (if applicable).
+
+
 ### JSONWriter
 
-null
+> TODO - Add description
 
-**Category:** Writer
+
 
 **Icon:** {{< stroom-icon "pipeline/json.svg" "JSONWriter" >}}
 
-**Roles:**
-
-* Mutator
-* Stepping
-* Target
-* Writer
-
-**Properties:**
+**Element properties:**
 
  Name         | Description                                                            | Default Value 
 --------------|------------------------------------------------------------------------|---------------
@@ -618,21 +460,13 @@ null
 
 ### TextWriter
 
-null
+> TODO - Add description
 
-**Category:** Writer
+
 
 **Icon:** {{< stroom-icon "pipeline/text.svg" "TextWriter" >}}
 
-**Roles:**
-
-* HasTargets
-* Mutator
-* Stepping
-* Target
-* Writer
-
-**Properties:**
+**Element properties:**
 
  Name     | Description                                               | Default Value 
 ----------|-----------------------------------------------------------|---------------
@@ -643,21 +477,13 @@ null
 
 ### XMLWriter
 
-null
+> TODO - Add description
 
-**Category:** Writer
+
 
 **Icon:** {{< stroom-icon "pipeline/xml.svg" "XMLWriter" >}}
 
-**Roles:**
-
-* HasTargets
-* Mutator
-* Stepping
-* Target
-* Writer
-
-**Properties:**
+**Element properties:**
 
  Name                         | Description                                                                                          | Default Value 
 ------------------------------|------------------------------------------------------------------------------------------------------|---------------
@@ -671,36 +497,28 @@ null
 
 ## Destination
 
+Destination elements consume a stream of bytes from a _Writer_ and persist then to a destination.
+This could be a file on a file system or to Stroom's stream store.
+
+
 ### AnnotationWriter
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/text.svg" "AnnotationWriter" >}}
-
-**Roles:**
-
-* HasTargets
-* Simple
-* Target
 
 
 ### FileAppender
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/file.svg" "FileAppender" >}}
 
-**Roles:**
-
-* Destination
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                   | Description                                                                                                                              | Default Value 
 ------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------
@@ -712,19 +530,13 @@ null
 
 ### HDFSFileAppender
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/hadoop-elephant-logo.svg" "HDFSFileAppender" >}}
 
-**Roles:**
-
-* Destination
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                   | Description                                                                                                                              | Default Value 
 ------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------
@@ -738,19 +550,13 @@ null
 
 ### HTTPAppender
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "HTTPAppender" >}}
 
-**Roles:**
-
-* Destination
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                             | Description                                                                        | Default Value                                         
 ----------------------------------|------------------------------------------------------------------------------------|-------------------------------------------------------
@@ -782,19 +588,13 @@ null
 
 ### RollingFileAppender
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/files.svg" "RollingFileAppender" >}}
 
-**Roles:**
-
-* Destination
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name           | Description                                                                                                                              | Default Value 
 ----------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------
@@ -808,19 +608,13 @@ null
 
 ### RollingStreamAppender
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "RollingStreamAppender" >}}
 
-**Roles:**
-
-* Destination
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name          | Description                                                                                                           | Default Value 
 ---------------|-----------------------------------------------------------------------------------------------------------------------|---------------
@@ -834,19 +628,13 @@ null
 
 ### StandardKafkaProducer
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/apache_kafka-icon.svg" "StandardKafkaProducer" >}}
 
-**Roles:**
-
-* HasTargets
-* Simple
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name        | Description                                                                                                                                                 | Default Value 
 -------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------
@@ -856,19 +644,13 @@ null
 
 ### StreamAppender
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/stream.svg" "StreamAppender" >}}
 
-**Roles:**
-
-* Destination
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                   | Description                                                                                                           | Default Value 
 ------------------------|-----------------------------------------------------------------------------------------------------------------------|---------------
@@ -882,19 +664,13 @@ null
 
 ### StroomStatsAppender
 
-null
+> TODO - Add description
 
-**Category:** Destination
+
 
 **Icon:** {{< stroom-icon "pipeline/StroomStatsStore.svg" "StroomStatsAppender" >}}
 
-**Roles:**
-
-* Destination
-* Stepping
-* Target
-
-**Properties:**
+**Element properties:**
 
  Name                 | Description                                                                                                                                                 | Default Value 
 ----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------
@@ -903,8 +679,4 @@ null
  maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             
  statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             
 
-
-
-
-Process finished with exit code 0
 
