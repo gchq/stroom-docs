@@ -10,8 +10,6 @@ cascade:
   tags:
     - configuration
 ---
-> **Version Information:** Created with Stroom v7.0  
-> **Last Updated:** 2021-06-23
 
 Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
 This document will cover two types of deployment:
