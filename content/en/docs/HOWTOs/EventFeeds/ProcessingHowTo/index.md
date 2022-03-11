@@ -9,26 +9,33 @@ description: >
   This HOWTO is provided to assist users in setting up Stroom to process inbound raw event logs and transform them into the Stroom Event Logging XML Schema.
 ---
 
-## Assumptions
-The following assumptions are used in this document.
-- the user successfully deployed Stroom 
-- the following Stroom content packages have been installed
-  - Template Pipelines
-  - XML Schemas
+<!-- Created with Stroom v6.1-beta.16 -->
+
 
 ## Introduction
+
+This HOWTO is provided to assist users in setting up Stroom to process inbound raw event logs and transform them into the Stroom Event Logging XML Schema.
+
 This HOWTO will demonstrate the process by which an Event Processing pipeline for a given Event Source is developed and deployed.
 
-The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from [log-sharing.dreamhosters.com (external link)](http://log-sharing.dreamhosters.com) (a Public Security Log Sharing Site) but modified to add sample user attribution.
+The sample event source used will be based on BlueCoat Proxy logs. An extract of BlueCoat logs were sourced from {{< external-link "log-sharing.dreamhosters.com" "http://log-sharing.dreamhosters.com" >}} (a Public Security Log Sharing Site) but modified to add sample user attribution.
 
 Template pipelines are being used to simplify the establishment of this processing pipeline.
 
-The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the [Stroom Event Logging XML Schema (external link)](https://github.com/gchq/event-logging-schema) format.
+The sample BlueCoat Proxy log will be transformed into an intermediate simple XML key value pair structure, then into the {{< external-link "Stroom Event Logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} format.
+
+## Assumptions
+
+The following assumptions are used in this document.
+1. The user successfully deployed Stroom 
+1. The following Stroom content packages have been installed:
+    - Template Pipelines
+    - XML Schemas
+
 
 ## Event Source
 
 As mentioned, we will use BlueCoat Proxy logs as a sample event source. Although BlueCoat logs can be customised, the default is to use the W2C Extended Log File Format (ELF). Our sample data set looks like
-
 
 ```text
 #Software: SGOS 3.2.4.28
@@ -44,6 +51,7 @@ A copy of this sample data source can be found [here](sampleBluecoat.log "Sample
 Later in this HOWTO, one will be required to upload this file. If you save this file now, ensure the file is saved
 as a text document with ANSI encoding.
 
+
 ## Establish the Processing Pipeline
 
 We will create the components that make up the processing pipeline for transforming these raw logs into the Stroom Event Logging XML Schema.
@@ -56,6 +64,7 @@ There will be four components
 - the Processing pipeline which manages how the processing is performed.
 
 All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**. It should be noted that the default Stroom FeedName pattern will not accept this name. One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{3,}$`. See the [HOWTO on System Properties]({{< relref "../../Administration/SystemProperties.md" >}}) docment to see how to make this change.
+
 
 ### Create the Event Feed
 
@@ -105,6 +114,7 @@ has disappeared from the `Feed` tab and the the second is that the _Save_ icon {
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-03.png" >}}Stroom UI Create Feed - New feed tab saved{{< /screenshot >}}
 
+
 ### Create the Text Converter
 
 We now create the Text Converter for this `Feed` in a similar fashion to the `Event Feed`.
@@ -123,6 +133,7 @@ We set the configuration for this `Text Converter` to be
  
 Again, press the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} to save the configuration items.
 
+
 ### Create the XSLT Translation
 
 We now create the XSLT translation for this `Feed` in a similar fashion to the `Event Feed` or `Text Converter`.
@@ -140,6 +151,7 @@ We set the configuration for this `XSLT Translation` to be
 
 Again, press the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} to save the configuration items.
 
+
 ### Create the Pipeline
 
 We now create the Pipeline for this `Feed` in a similar fashion to the `Event Feed`, `Text Converter` or `XSLT Translation`.
@@ -156,7 +168,9 @@ We set the configuration for this `Pipeline` to be
  * Description - *Processing of XML of BlueCoat Proxy log data into Stroom Event Logging XML*
  * Type - We leave as *Event Data* as this is an *Event Data* pipeline
 
-#### Configure Pipeline Structure
+
+### Configure Pipeline Structure
+
 We now need to configure the *Structure* of this `Pipeline`.
 
 We do this by selecting the `Structure` hyper-link of the **BlueCoat-Proxy-V1.0-EVENTS* `Pipeline` tab.
@@ -173,7 +187,6 @@ We find a template by selecting the **Inherit From:** entry box labeled {{< scre
 
 Select the **Template Pipelines** folder by pressing the {{< screenshot "HOWTOs/icons/openFolder.png" >}}Stroom UI Open Folder{{< /screenshot >}} icon to the left of the folder to reveal the choice of available templates.
 
-
 {{< screenshot "HOWTOs/UI-FeedProcessing-09.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Templates{{< /screenshot >}}
 
 For our BlueCoat feed we will select the `Event Data (Text)` template. This is done by moving the cursor to the relevant line and select via a _left click_
@@ -184,7 +197,8 @@ then pressing {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-11.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Template Selected{{< /screenshot >}}
 
-#### Configure Pipeline Elements
+
+### Configure Pipeline Elements
 
 For the purpose of this HOWTO, we are only interested in two of the eleven (11) elements in this pipeline
 
@@ -193,7 +207,8 @@ For the purpose of this HOWTO, we are only interested in two of the eleven (11) 
 
 We need to assign our BlueCoat-Proxy-V1.0-EVENTS Text Converter and XSLT Translation to these elements respectively.
 
-##### Text Converter Configuration
+
+#### Text Converter Configuration
 
 We do this by first selecting (_left click_) the *dsParser* element at which we see the _Property_ sub-window displayed
 
@@ -209,7 +224,6 @@ then press the `Edit Property` button {{< screenshot "HOWTOs/icons/edit.png" >}}
 
 We select the **Value:** entry box labeled {{< screenshot "HOWTOs/icons/noneEntryBox.png" >}}Stroom UI NoneEntryBox{{< /screenshot >}} to reveal a **Choose Item** configuration item window.
 
-
 {{< screenshot "HOWTOs/UI-FeedProcessing-15.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item{{< /screenshot >}}
 
 We traverse the folder structure until we can select the **BlueCoat-Proxy-V1.0-EVENTS** `Text Converter` as per
@@ -224,7 +238,8 @@ and pressing the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButto
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-18.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property{{< /screenshot >}}
 
-##### XSLT Translation Configuration
+
+#### XSLT Translation Configuration
 
 We do this by first selecting (_left click_) the *translationFilter* element at which we see the _Property_ sub-window displayed
 
@@ -240,6 +255,7 @@ and following the same steps as for the Text Converter property selection, we as
 
 At this point, we save these changes by pressing the _Save_ icon {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}}.
 
+
 ## Authoring the Translation
 
 We are now ready to author the translation. Close all tabs except for the **Welcome** and **BlueCoat-Proxy-V1.0-EVENTS** `Feed` tabs.
@@ -249,7 +265,6 @@ On the **BlueCoat-Proxy-V1.0-EVENTS** `Feed` tab, select the **Data** hyper-link
 {{< screenshot "HOWTOs/UI-FeedProcessing-22.png" >}}Stroom UI Create Feed - Translation - Data Pane{{< /screenshot >}}
 
 Although we can post our test data set to this feed, we will manually upload it via the **Data** pane. To do this we press the Upload button {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} in the top **Data** pane to display the `Upload` configuration window
-
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-23.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload{{< /screenshot >}}
 
@@ -303,6 +318,7 @@ You should see all the HTTP variables we set as part of the Upload step as well 
 
 We now switch back to the **Data** hyper-link before we start to develop the actual translation.
 
+
 ### Stepping the Pipeline
 
 We will now author the two translation components of the pipeline, the data splitter that will transform our lines of BlueCoat data into a simple xml format and then the XSLT translation that will take this simple xml format and translate it into appropriate Stroom Event Logging XML form.
@@ -328,6 +344,7 @@ The top pane displays the Pipeline structure with `Source` selected (we could re
 
 The bottom pane displays the first page (up to 100 lines) of data along with a set of blue _Data Selection Actions_. The Data Selection Actions are used to step through the source data 100 lines at a time. When multiple source log files have been aggregated into a single stream, two _Data Selection Actions_ control buttons will be offered. The right hand one will allow a user to step though the source data as before, but the left hand set of control buttons allows one to step between files from the aggregated event log files.
 
+
 ### Stepping the Pipeline - dsParser
 
 We now select the `dsParser` pipeline element that results in the window below
@@ -342,7 +359,7 @@ The next pane down is the editing pane for the Text Converter. This pane is used
 
 The lower two panes are the _input_ and _output_ displays for the text converter.
 
-The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the [Data Splitter]({{< relref "../../../user-guide/data-splitter" >}}) and review the various samples found in the Stroom Context packs published, or the Pull Requests of [github.com/gchq/stroom-content (external link)](https://github.com/gchq/stroom-content).
+The authoring of this data splitter translation is outside the scope of this HOWTO. It is recommended that one reads up on the [Data Splitter]({{< relref "../../../user-guide/data-splitter" >}}) and review the various samples found in the Stroom Context packs published, or the Pull Requests of {{< external-link "github.com/gchq/stroom-content" "https://github.com/gchq/stroom-content" >}}.
 
 For the purpose of this HOWTO, the Datasplitter appears below. The author believes the comments should support the understanding of the transformation.
 
@@ -424,7 +441,6 @@ So, if one was to press the {{< screenshot "HOWTOs/icons/stepForward.png" >}}Ste
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-33.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1{{< /screenshot >}}
 
-
 We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and it's _value_ attribute of _SGOS 3.2.4.28_. The definition of the **record** structure can be found in the **System/XML Schemas/records** folder.
 
 This is the result of the code in our editor
@@ -447,9 +463,7 @@ Stepping forward once more causes the translation to ignore the Date comment lin
 
 We see that a `<record>` element has been formed with multiple key value pair `<data>` elements where the _name_ attribute is the key and the _value_ attribute the value. You will note that the keys have been taken from the Fields comment line which where placed in the $headings variable.
 
-You should also take note that the _stepping indicator_ has been incrementing the last number, so at this point it is displaying
-
-    [1:1:3]
+You should also take note that the _stepping indicator_ has been incrementing the last number, so at this point it is displaying `[1:1:3]`.
 
 The general form of this _indicator_ is 
 
@@ -472,7 +486,6 @@ to
 {{< screenshot "HOWTOs/UI-FeedProcessing-37.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 2{{< /screenshot >}}
 
 If we change the record number from __3__ to __12__ then either press Enter or press the {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Refresh Current Step{{< /screenshot >}} action we see
-
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-38.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 3{{< /screenshot >}}
 
@@ -498,9 +511,9 @@ The next pane down is the editing pane for the Translation Filter. This pane is 
 
 The lower two panes are the _input_ and _output_ displays for the xslt translation. You will note that the _input_ and _output_ displays are identical for a null xslt translation is effectively a direct copy.
 
-In this HOWTO we will transform the `<records>` XML structure into the _GCHQ Stroom Event Logging XML Schema_ form which is documented [here (external link)](https://github.com/gchq/event-logging-schema).
+In this HOWTO we will transform the `<records>` XML structure into the _GCHQ Stroom Event Logging XML Schema_ form which is documented {{< external-link "here" "https://github.com/gchq/event-logging-schema" >}}.
 
-The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on [XSLT Conversion]({{< relref "../../../user-guide/pipelines/xslt" >}}) and the [Stroom Event Logging XML Schema (external link)](https://github.com/gchq/event-logging-schema) and review the various samples found in the Stroom Context packs published, or the Pull Requests of [https://github.com/gchq/stroom-content (external link)](https://github.com/gchq/stroom-content).
+The authoring of this xslt translation is outside the scope of this HOWTO, as is the use of the Stroom XML Schema. It is recommended that one reads up on [XSLT Conversion]({{< relref "../../../user-guide/pipelines/xslt" >}}) and the {{< external-link "Stroom Event Logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} and review the various samples found in the Stroom Context packs published, or the Pull Requests of {{< external-link "https://github.com/gchq/stroom-content" >}}.
 
 We will build the translation in steps. We enter an initial portion of our xslt transformation that just consumes the `Software` and `Version` key values and converts the `date` and `time` values (which are in UTC) into the `EventTime/TimeCreated` element. This code segment is
 
@@ -1254,9 +1267,9 @@ for the given input
 
 Do not forget to Save {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} the translation as we are complete.
 
-#### Schema Validation
-
+### Schema Validation
 One last point, validating the use of the Stroom Event Logging Schema is performed in the `schemaFilter` component of the pipeline. Had our translation resulted in a malformed Event, this pipeline component displays any errors. In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd`. If one selects the `schemaFilter` component and then Refresh {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Refresh Current Step{{< /screenshot >}} the current step, we will see that
+
 
    * there is an error as indicated by a square **Red** box {{< screenshot "HOWTOs/icons/errorIndicator.png" >}}Error Indicator{{< /screenshot >}} in the top right hand corner
    * there is a **Red** rectangle line indicator mark {{< screenshot "HOWTOs/icons/errorLine.png" >}}Error Line Indicator{{< /screenshot >}} on the right hand side in the display slide bar
@@ -1392,9 +1405,19 @@ If we select (_left click_) on the `Events` _Type_ in either pane, we will see t
 
 We can now send a file of BlueCoat Proxy logs to our Stroom instance from a Linux host using _curl_ command and see how Stroom will automatically processes the file. Use the command
 
-```bash
-curl -k --data-binary @sampleBluecoat.log https://stroomp.strmdev00.org/stroom/datafeed -H"Feed:BlueCoat-Proxy-V1.0-EVENTS" -H"Environment:Development"  -H"LogFileName:sampleBluecoat.log" -H"MyHost:\"somenode.strmdev00.org\"" -H"MyIPaddress:\"192.168.2.220 192.168.122.1\"" -H"System:Site http://log-sharing.dreamhosters.com/ Bluecoat Logs" -H"Version:V1.0"
-```
+{{< command-line "user" "localhost" >}}
+curl \
+-k \
+--data-binary @sampleBluecoat.log \
+https://stroomp.strmdev00.org/stroom/datafeed \
+-H"Feed:BlueCoat-Proxy-V1.0-EVENTS" \
+-H"Environment:Development" \
+-H"LogFileName:sampleBluecoat.log" \
+-H"MyHost:\"somenode.strmdev00.org\"" \
+-H"MyIPaddress:\"192.168.2.220 192.168.122.1\"" \
+-H"System:Site http://log-sharing.dreamhosters.com/ Bluecoat Logs" \
+-H"Version:V1.0"
+{{</ command-line >}}
 
 After Stroom's Proxy aggregation has occurred, we will see that the new file posted via _curl_ has been loaded into Stroom as per
 

@@ -16,8 +16,7 @@ This HOWTO demonstrates how to manage
 - All Sections
  - an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
 
-
-### Creation of an Event Feed
+## Creation of an Event Feed
 We will be creating an Event Feed with the name `TEST-FEED-V1_0`.
 
 Once you have logged in, move the cursor to the **System** folder within the `Explorer` tab and select it.
@@ -60,7 +59,7 @@ has disappeared from the `Feed` tab and the _Save_ icon {{< screenshot "HOWTOs/i
 {{< screenshot "HOWTOs/UI-CreateFeed-06.png" >}}Stroom UI Create Feed - New feed tab with description saved{{< /screenshot >}}.
 
 
-### Folder Structure for Event Sources
+## 3. Folder Structure for Event Sources
 In order to simplify the management of multiple event sources being processed by Stroom, it is suggested that an Event Source folder is created at the root of the **System** folder in the `Explorer` tab.
 
 This can be achived by moving the cursor to the **System** folder within the `Explorer` tabe and select it. Once selected, _right click_ to bring up the `New Item` selection sub-menu.

@@ -19,3 +19,25 @@
 [ ] Create legacy branch once the site is all working and all content is migrated
 [ ] Get versioning working
 [ ] Remove non-v7 content from master
+
+
+
+
+
+
+
+
+replace markdown link with external-link
+```text
+i{{< external-linkl€kb jklcs["f(i jklcs("f"a >}}jk
+```
+
+replace image link with screenshot
+```text
+xl"tyi]di]hxxf"da"F(l"udi)hxxi{{< screenshot ""jk"uPla >}}jk"tpa{{< /screenshot >}}jk
+```
+
+replace link with rel-ref
+```text
+f(li{{< relref "jkf)i"jkhhhxxxli >}}jk
+```

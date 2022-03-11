@@ -1,0 +1,17 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+{{ if or (strings.Contains .Inner "</span>") (strings.Contains .Inner "</a>") }}
+<!-- {{/* Nasty hack to cope with the html of external links in notes */}}-->
+    {{ .Inner | htmlUnescape | safeHTML }}
+{{ else if eq .Page.File.Ext "md" }}
+    {{ .Inner | markdownify }}
+{{ else }}
+    {{ .Inner | htmlUnescape | safeHTML }}
+{{ end }}
+</div>
+<!--
+<pre>{{ printf "%s" .Inner }}</pre>
+<pre>{{ printf "%s" (index (findRE "<span .*?>(.|\n)*</span>" .Inner 1) 0) }}</pre>
+<pre>{{ printf "%s" (replaceRE "<span .*?>(.|\n)*</span>" "XXX" .Inner ) }}</pre>
+-->

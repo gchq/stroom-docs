@@ -1,0 +1,40 @@
+<!-- 
+{{/*
+Short code to add a bash command line input/output
+Usage:
+command-line username hostname language
+username - The username to appear in the prompt, defaults to 'user'
+hostname - The hostname to appear in the prompt, defaults to 'localhost'
+language - The language of the content, defaults to bash
+
+Prefix lines with '(out)' and it will render them as output lines
+
+See https://prismjs.com/plugins/command-line/
+
+e.g.:
+{{% command-line "jdoe" "bigserver" %}}
+echo "hello world"
+(out)hello world
+id
+(out)uid=1000(jdoe) gid=1000(jdoe)
+{{% /command-line %}}
+
+*/}}
+-->
+
+{{ $user := .Get 0 | default "user" }}
+{{ $host := .Get 1 | default "localhost" }}
+{{ $language := .Get 2 | default "bash" }}
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-{{ $language }}" 
+    data-user="{{ $user }}" 
+    data-host="{{ $host }}" 
+    data-continuation-str="\"
+    data-filter-output="(out)">
+  {{- with (.Inner | default "" ) -}}
+    <code class="language-{{ $language }}">{{- trim . " \n" -}}</code>
+  {{- end -}}
+  </pre>
+</div>
