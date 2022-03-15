@@ -192,7 +192,7 @@ This is done by clicking on the **Structure** link, at which we will see
 
 As this pipeline will be processing reference data, we would use a `Reference Data` pipeline.
 This is done by inheriting it from a defined set of Standard Pipelines.
-To do this, click on the menu selection icon {{< screenshot "HOWTOs/icons/menu-selection-horizontal.png" >}}Menu Selection{{< /screenshot >}} to the right of the **Inherit From:** test display box.
+To do this, click on the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu selection">}} to the right of the **Inherit From:** test display box.
 
 When the **Choose item** selection window appears, navigate to the `Template Pipelines` system group (if not already displayed), and select (left click) the {{< stroom-icon "document/Pipeline.svg" >}} `Reference Data` pipeline.
 You can find further information about the Template Pipelines {{< external-link "here" "https://github.com/gchq/stroom-content/blob/master/source/template-pipelines/README.md" >}}.
@@ -204,7 +204,7 @@ At this we will see the inherited pipeline structure of
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-22.png" >}}New Pipeline - Inherited set{{< /screenshot >}}
 
-Noting that this pipeline has not yet been saved - indicated by the * in the tab label and the highlighted {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} to save, which results in
+Noting that this pipeline has not yet been saved - indicated by the * in the tab label and the highlighted {{< stroom-icon "save.svg" >}} to save, which results in
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-23.png" >}}New Pipeline - saved{{< /screenshot >}}
 
@@ -218,7 +218,7 @@ To turn our tab delimited data in Stroom reference data, we first need to conver
 We do this using a _Text Converter_. _Test Converters_ use a _Stroom Data Splitter_ to convert text into simple XML.
 
 Within the Explorer pane, and having selected the `Event Sources` system group, right click to bring up the object context menu.
-Navigate to the {{< screenshot "HOWTOs/icons/textConverterItem.png" >}}Text Converter{{< /screenshot >}} item and left click to select.
+Navigate to the {{< stroom-icon "pipeline/text.svg" "Text converter">}} item and left click to select.
 
 When the _New Text Converter_ selection window comes up, navigate to and select `Event Sources` system group, then enter the name of the feed, GeoHost-V1.0-REFERENCE into the **Name:** text entry box as per
 
@@ -297,7 +297,7 @@ host01.company4.org	192.168.4.220	USA	LosAngeles-S19	ILM	C5-54-2	-08:00/-07:00
    </dataSplitter>
 ```
 
-At this point we want to save our Text Converter, so click on the {{< screenshot "HOWTOs/icons/save.png" >}}Save{{< /screenshot >}} icon.
+At this point we want to save our Text Converter, so click on the {{< stroom-icon "save.svg" >}} icon.
 
 A copy of this data splitter can be found [here](GeoHost-data-splitter.txt "GEOHOST Data Splitter").
 
@@ -309,7 +309,7 @@ Select the `GeoHost-V1.0-REFERENCE` pipeline tab and then select the **Structure
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-27.png" >}}Associated text converter with pipeline{{< /screenshot >}}
 
-To associate our new Text Converter with the pipeline, click on the {{< screenshot "HOWTOs/icons/combinedParser.png" >}}combinedParser{{< /screenshot >}} icon then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
+To associate our new Text Converter with the pipeline, click on the {{< pipe-elm "text.svg" "combinedParser" >}} pipeline element then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-28.png" >}}textConverter Edit property{{< /screenshot >}}
 
@@ -505,6 +505,7 @@ version="2.0">
   </xsl:template>
 </xsl:stylesheet>
 ```
+
 And on pressing the refresh button {{< screenshot "HOWTOs/icons/stepRefresh.png" >}}Step Refresh Button{{< /screenshot >}} we see that the _output_ window is an empty ReferenceData element.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-54.png" >}}xslt Translation - null translation{{< /screenshot >}}
