@@ -71,12 +71,12 @@ copy_file() {
   local source_file="$1"; shift
   local dest_dir="$1"; shift
 
-  if [ ! -d "${source_file}" ]; then
+  if [ ! -f "${source_file}" ]; then
     echo -e "${RED}ERROR${NC}: Can't find source file ${BLUE}${source_file}${NC}"
     exit 1
   fi
   
-  echo -e "Copying file from" \
+  echo -e "Copying file" \
     "${BLUE}${source_file}${NC} to ${BLUE}${dest_dir}${NC}"
   echo
 
@@ -102,7 +102,7 @@ main() {
 
   local stroom_repo_root="$1"
   local images_base_dir="${stroom_repo_root}/stroom-app/src/main/resources/ui/images"
-  local dest="./assets/images/stroom-ui/"
+  local dest="./assets/images/stroom-ui"
   local assorted_dir="${dest}/assorted"
 
   if [ ! -d "${stroom_repo_root}" ]; then

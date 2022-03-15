@@ -17,12 +17,15 @@ See [here]({{< ref "using-images#stroom-icons" >}}) for how to add icons to page
 
 General icons used in Stroom.
 
+
 {{< stroom-icons-gallery "images/stroom-ui/" >}}
 
 
 ## Pipeline element icons
 
 Icons used for the different pipeline elements.
+
+**Base path**: `pipeline`.
 
 {{< stroom-icons-gallery "images/stroom-ui/pipeline/" >}}
 
@@ -31,7 +34,18 @@ Icons used for the different pipeline elements.
 
 Icons used for the different _document_ entity types, i.e. those seen in the explorer tree.
 
+**Base path**: `document`.
+
 {{< stroom-icons-gallery "images/stroom-ui/document/" >}}
+
+
+## Assorted UI elements
+
+Assorted images used in the user interface.
+
+**Base path**: `assorted`.
+
+{{< stroom-icons-gallery "images/stroom-ui/assorted/" >}}
 
 
 ## Updating this gallery
