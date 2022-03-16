@@ -29,13 +29,17 @@ documentation for detailed instruction on this.
 ## Pipeline
 
 Initially we need to open the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline.
-Within the Explorer pane, navigate to the Apache HTTPD folder, then double click on the {{< screenshot "HOWTOs/v6/UI-EnableProcessors-00.png" >}}Apache HTTPD pipeline{{< /screenshot >}} object to bring up the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline configuration tab
+Within the Explorer pane, navigate to the Apache HTTPD folder, then double click on the
+
+{{< stroom-icon "document/Pipeline.svg" >}} _Apache-SSLBlackBox-V2.0-EVENTS_ Pipeline
+
+to bring up the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline configuration tab
 
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-01.png" >}}Stroom UI EnableProcessors - Apache HTTPD pipeline{{< /screenshot >}} 
 
 Next, select the **Processors** sub-item to show
 
-{{< screenshot "HOWTOs/v6/UI-EnableProcessors-02.png" >}}Stroom UI EnableProcessors - pipeline processors tab{{< /screenshot >}}b
+{{< screenshot "HOWTOs/v6/UI-EnableProcessors-02.png" >}}Stroom UI EnableProcessors - pipeline processors tab{{< /screenshot >}}
 
 This configuration tab is divided into two panes.
 The top pane shows the current enabled Processors and any recently processed streams and the bottom pane provides meta-data about each Processor or recently processed streams.
@@ -166,7 +170,7 @@ You will need to adjust the  create time range until you get the number of event
 Once you are displaying less than 1000 streams you can select all the streams in your filtered selection by clicking in the topmost check box.
 Then click on the {{< stroom-icon "process.svg" "Reprocess">}} icon to reprocess these streams.
 
-{{< screenshot "HOWTOs/v6/UI-EnableProcessors-23.png" >}}Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection{{< /screenshot >}}. 
+{{< screenshot "HOWTOs/v6/UI-EnableProcessors-23.png" >}}Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection{{< /screenshot >}}
 
 Repeat the process in batches of less that 1000 until your entire error stream backlog has been reprocessed.
 
