@@ -1,0 +1,34 @@
+<!-- 
+Short code to add a stroom top level tab to the page.
+It can be used in-line. It will appear as if it doesn't have focus
+i.e. currently with a blue background.
+
+Usage:
+stroom-tab filename title
+e.g
+stroom-tab "Feed.svg" "MY_FEED"
+
+filename must exist in assets/images/stroom-ui/document/.
+-->
+
+{{/* First try to get the resource from the page resources */}}
+
+{{ $filename := .Get 0 }}
+{{ $title := .Get 1 }}
+{{ $document := humanize (strings.TrimSuffix (path.Ext $filename) (path.Base $filename)) }}
+{{ $path := printf "/images/stroom-ui/document/%s" $filename }}
+{{ $image := resources.Get (printf "%s" $path) }}
+{{ if not $image }}
+  {{ errorf "Unable to find file %s" $path }}
+{{ end }}
+
+<span class="stroom-tab" title="{{ $document }} tab - '{{ $title }}'" >
+  <img
+    class="stroom-icon" 
+    style="max-width: 15px;"
+    src="{{ $image.RelPermalink }}" 
+    title="{{ $title }}" 
+    alt="{{ $filename }}">
+  <span class="stroom-tab-name">{{ $title }}</span>
+  <span class="stroom-tab-cross">×</span>
+</span>

@@ -14,6 +14,9 @@ stroom-icon add.svg
 {{ $title := (.Get 1) | default (humanize (strings.TrimSuffix (path.Ext $filename) (path.Base $filename))) }}
 {{ $path := printf "/images/stroom-ui/%s" $filename }}
 {{ $image := resources.Get (printf "%s" $path) }}
+{{ if not $image }}
+  {{ errorf "Unable to find file %s" $path }}
+{{ end }}
 
 <img 
   class="stroom-icon" 
