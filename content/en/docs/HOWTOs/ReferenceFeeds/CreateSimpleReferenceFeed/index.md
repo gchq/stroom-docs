@@ -309,7 +309,7 @@ Select the `GeoHost-V1.0-REFERENCE` pipeline tab and then select the **Structure
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-27.png" >}}Associated text converter with pipeline{{< /screenshot >}}
 
-To associate our new Text Converter with the pipeline, click on the {{< pipe-elm "text.svg" "combinedParser" >}} pipeline element then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
+To associate our new Text Converter with the pipeline, click on the {{< pipe-elm "combinedParser" >}} pipeline element then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-28.png" >}}textConverter Edit property{{< /screenshot >}}
 

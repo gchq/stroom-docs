@@ -196,4 +196,37 @@ E.g:
 like this {{</* stroom-icon "document/Visualisation.svg" "Visualisation" */>}}.
 ```
 
+## Pipeline elements
+
+Sometimes it is useful to dsiplay an image of a pipeline element as seen in the _Structure_ sub tab of the _Pipeline_ screen.
+Rather than use screenshots of the elements you can use a simple shortcode (`pipe-elm`) to display a pipeline element.
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+This is an xsltFilter with its default name:
+
+{{< pipe-elm "xsltFilter" >}}
+
+This is a splitFilter with a custom name:
+
+{{< pipe-elm "splitFilter" "My Split Filter" >}}
+  {{< /card >}}
+  {{< card header="Markdown" >}}
+```markdown
+This is an xsltFilter with its default name:
+
+{{</* pipe-elm "xsltFilter" */>}}
+
+This is a splitFilter with a custom name:
+
+{{</* pipe-elm "splitFilter" "My Split Filter" */>}}
+```
+  {{< /card >}}
+{{< /cardpane >}}
+
+The first argument of the shortcode is the name of the pipeline element (case insensitive).
+The second optional argument is the display name for the pipeline element.
+If a display name is not provided then the lower camel case form of the element name will be used as the display name.
+The icon will be selected to match the element name provided.
+
 For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery.md" >}})
