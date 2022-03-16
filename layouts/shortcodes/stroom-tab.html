@@ -15,14 +15,18 @@ filename must exist in assets/images/stroom-ui/document/.
 
 {{ $filename := .Get 0 }}
 {{ $title := .Get 1 }}
+{{ $active_class := "" }}
+{{ if eq ( lower (.Get 2 | default "inactive" )) "active" }}
+  {{ $active_class = "stroom-tab-active" }}
+{{ end }}
 {{ $document := humanize (strings.TrimSuffix (path.Ext $filename) (path.Base $filename)) }}
 {{ $path := printf "/images/stroom-ui/document/%s" $filename }}
 {{ $image := resources.Get (printf "%s" $path) }}
 {{ if not $image }}
-  {{ errorf "Unable to find file %s" $path }}
+  {{ errorf "Unable to find file %s: %s" $path .Position }}
 {{ end }}
 
-<span class="stroom-tab" title="{{ $document }} tab - '{{ $title }}'" >
+<span class="stroom-tab {{ $active_class }}" title="{{ $document }} tab - '{{ $title }}'" >
   <img
     class="stroom-icon" 
     style="max-width: 15px;"

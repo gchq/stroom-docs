@@ -196,10 +196,48 @@ E.g:
 like this {{</* stroom-icon "document/Visualisation.svg" "Visualisation" */>}}.
 ```
 
-## Pipeline elements
 
-Sometimes it is useful to dsiplay an image of a pipeline element as seen in the _Structure_ sub tab of the _Pipeline_ screen.
-Rather than use screenshots of the elements you can use a simple shortcode (`pipe-elm`) to display a pipeline element.
+## Stroom user interface Components
+
+Sometimes it is useful to display an image of certain user interface elements to explain something.
+Rather than use screenshots which are very difficult to keep up to date, you can instead use some simple shortcodes to display some UI elements, e.g. buttons, pipeline elements, etc.
+By using shortcodes, any change to the look of the Stroom UI means only the shortcode content and their styling need to change, without having to recreate tens or hundreds of screenshots.
+
+
+### Buttons
+
+To display a UI button you can use the shortcode `stroom-btn` with the button title as its only argument.
+
+**Arguments**:
+* `title` - The text to display on the button.
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+{{< stroom-btn "Ok" >}}
+and
+{{< stroom-btn "Cancel" >}}
+  {{< /card >}}
+  {{< card header="Markdown" >}}
+```markdown
+{{</* stroom-btn "Ok" */>}}
+and
+{{</* stroom-btn "Cancel" */>}}
+```
+  {{< /card >}}
+{{< /cardpane >}}
+
+
+### Pipeline elements
+
+To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen) you can use the shortcode `pipe-elm`.
+
+**Arguments**:
+* `element_name` - The name of the pipeline element (case insensitive), e.g. `XsltFilter`.
+* `display_name` (optional) - The display name for the pipeline element.
+  If a display name is not provided then the lower camel case form of the element name will be used as the display name.
+
+The icon will be selected to match the element name provided.
+
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
@@ -224,9 +262,30 @@ This is a splitFilter with a custom name:
   {{< /card >}}
 {{< /cardpane >}}
 
-The first argument of the shortcode is the name of the pipeline element (case insensitive).
-The second optional argument is the display name for the pipeline element.
-If a display name is not provided then the lower camel case form of the element name will be used as the display name.
-The icon will be selected to match the element name provided.
 
-For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery.md" >}})
+
+### Stroom document tabs
+
+To display a top level Stroom document tab you can use the shortcode `stroom-tab`.
+
+**Arguments**:
+* `icon_filename` - The filename of the icon to use (relative to `assets/images/stroom-ui/document/`) (case sensitive), e.g. `Pipeline.svg`.
+* `title` - The text to display in the tab, e.g. `Indexing Pipeline`.
+* `state` (optional) - Whether the tab is active or not (`active` or `inactive`). Defaults to `inactive`.
+
+For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gallery/#document-type-icons" >}})
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+{{< stroom-tab "Feed.svg" "MY_FEED" >}}
+and
+{{< stroom-tab "XSLT.svg" "My Translation" "active" >}}
+  {{< /card >}}
+  {{< card header="Markdown" >}}
+```markdown
+{{</* stroom-tab "Feed.svg" "MY_FEED" */>}}
+and
+{{</* stroom-tab "XSLT.svg" "My Translation" "active" */>}}
+```
+  {{< /card >}}
+{{< /cardpane >}}
