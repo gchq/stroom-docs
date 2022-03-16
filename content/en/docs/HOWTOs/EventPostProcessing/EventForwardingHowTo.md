@@ -138,9 +138,7 @@ Clicking on the Pipeline **Settings** sub-item and add an appropriate descriptio
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-02.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline description{{< /screenshot >}}
 
-Now switch to the **Structure** sub-item and select the source element
-
-{{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-03.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline source element{{< /screenshot >}}
+Now switch to the **Structure** sub-item and select the {{< pipe-elm "source" "Source" >}} element.
 
 Next click on the _Add New Pipeline Element_ icon {{< stroom-icon "add.svg" "Add pipeline element" >}}.
 
@@ -184,10 +182,7 @@ At this stage the Pipeline should look like
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-12.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline view{{< /screenshot >}}
 
-To continue building the Pipeline Structure.
-Left click the 
-
-{{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-13.png" >}}Stroom UI MultiGeoFwd - AUSxsltFilter{{< /screenshot >}}
+To continue building the Pipeline Structure, left click the {{< pipe-elm "xsltFilter" "ClientAUSxlstFilter" >}}
 
 ClientAUSxsltFilter element then left click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element" >}} to bring up the pipeline Element context menu and select the SchemaFilter item.
 
@@ -266,16 +261,12 @@ The completed Element should look like
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-29.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xmlWriter Edit Property completed{{< /screenshot >}}
 
-Next, select the 
+Next, select the {{< pipe-elm "rollingFileAppender" "AUSrollingFileAppender" >}} and change the Properties as per
 
-{{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-30.png" >}}Stroom UI MultiGeoFwd - rollingFileAppender Element{{< /screenshot >}}
-
-AUSrollingFileAppender and change the Properties as per
-
-* fileName to be fwd_${ms}.lock
-* frequency to be 15m
-* outputPaths to be /stroom/volumes/defaultStreamVolume/forwarding/AUS00
-* rolledFileName to be fwd_${ms}.ready
+* fileName to be `fwd_${ms}.lock`
+* frequency to be `15m`
+* outputPaths to be `/stroom/volumes/defaultStreamVolume/forwarding/AUS00`
+* rolledFileName to be `fwd_${ms}.ready`
 
 Note that these settings are for demonstration purposes only and will depend on your unique Stroom instance's configuration.
 The outputPath can contain replacement variables to provide more structure if desired. {{< external-link "File Output substitution variables" "https://gchq.github.io/stroom-docs/user-guide/pipelines/file-output.html" >}}
@@ -316,9 +307,7 @@ We select the Events stream and Enter Stepping Mode by pressing the large {{< st
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-33.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test Enter Stepping Mode{{< /screenshot >}}
 
-and we will choose the 
-{{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-34.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline{{< /screenshot >}}
-to step with.
+and we will choose the {{< stroom-icon "document/Pipeline.svg">}} _MultiGeoFwd_ to step with.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-35.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test selection{{< /screenshot >}}
 
@@ -329,9 +318,7 @@ If we step forward by clicking on the {{< stroom-icon "step-forward-green.svg" "
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-37.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test first record{{< /screenshot >}}
 
-If we now click on the
-{{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-13.png" >}}Stroom UI MultiGeoFwd - AUSxsltFilter{{< /screenshot >}}
-element we will see the ClientAUS translation in the code pane.
+If we now click on the {{< pipe-elm "xsltFilter" "ClientAUSxsltFilter" >}} element we will see the ClientAUS translation in the code pane.
 The first Event in the _input_ pane and an empty event in the _output_ pane.
 The output is empty as the Client/Location/Country is NOT the string _AUS_, which is what the translation is matching on.
 
@@ -348,12 +335,10 @@ This jumps the stepping process to the RecordNo you specify, in this particular 
 
 If you repeatedly click on the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon seven more times you will continue to see Events in the _output_ pane, as our stream source Client/Location/Country value is _AUS_ for Events 5-11.
 
-Now, double click on the
-{{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-41.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline ClientGBR{{< /screenshot >}}
-element.
+Now, double click on the {{< pipe-elm "xsltFilter" "ClientGBRxsltFilter" >}} element.
 The _output_ pane will once again be empty as the Client/Location/Country value of this Event (AUS) does not match what your translation is filtering on (GBR).
 
-If you now step forward 1 event using the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon, you will see the ClientGBR translation _output_ pane populate as Events 12-16 have a Client/Location/Country of GRC.
+If you now step forward one event using the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon, you will see the ClientGBR translation _output_ pane populate as Events 12-16 have a Client/Location/Country of GRC.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-42.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline ClientGBR populated{{< /screenshot >}}
 
@@ -372,10 +357,10 @@ For testing purposes, we will only apply this pipeline to our Apache-SSLBlackBox
 To create the Processor, click the Add Processor {{< stroom-icon "add.svg" "Add Processor" >}} icon to bring up the _Add Processor_ selection window. 
 
 Add the following items to the processor:
-* Feed is Apache-SSLBlackBox-V2.0-EVENTS
-* Type = Events
+* Feed is `Apache-SSLBlackBox-V2.0-EVENTS`
+* Type = `Events`
 
-    {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-44.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Filters{{< /screenshot >}}
+{{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-44.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Filters{{< /screenshot >}}
 
 then press **OK** to see
 
@@ -429,88 +414,84 @@ We may need to wait up to 15 minutes before a file move from .lock to .ready sta
 
 If we check one of the AUS00 output files we see the expected result
 
-``` xml
-[testdoc@localhost forwarding]# less AUS00/fwd_1588588112856.ready
-<?xml version="1.1" encoding="UTF-8"?>
-<Events xmlns="event-logging:3"
-        xmlns:stroom="stroom"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xsi:schemaLocation="event-logging:3 file://event-logging-v3.2.3.xsd"
-        Version="3.2.3">
-   <Event>
-      <EventTime>
-         <TimeCreated>2020-01-18T22:43:04.000Z</TimeCreated>
-      </EventTime>
-      <EventSource>
-         <System>
-            <Name>LinuxWebServer</Name>
-            <Environment>Production</Environment>
-         </System>
-         <Generator>Apache  HTTPD</Generator>
-         <Device>
-            <HostName>stroomnode00.strmdev00.org</HostName>
-            <IPAddress>192.168.2.245</IPAddress>
-         </Device>
-         <Client>
-            <HostName>host32.strmdev01.org</HostName>
-            <IPAddress>192.168.8.151</IPAddress>
-            <Port>62015</Port>
-            <Location>
-               <Country>AUS</Country>
-               <Site>Sydney-S02</Site>
-               <Building>RC45</Building>
-               <Room>5-134</Room>
-               <TimeZone>+10:00/+11:00</TimeZone>
-            </Location>
-         </Client>
-
-         ....
-
-AUS00/fwd_1588588112856.ready
-```
+{{< command-line "testdoc" "localhost" >}}
+less AUS00/fwd_1588588112856.ready
+(out)<?xml version="1.1" encoding="UTF-8"?>
+(out)<Events xmlns="event-logging:3"
+(out)        xmlns:stroom="stroom"
+(out)        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+(out)        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+(out)        xsi:schemaLocation="event-logging:3 file://event-logging-v3.2.3.xsd"
+(out)        Version="3.2.3">
+(out)   <Event>
+(out)      <EventTime>
+(out)         <TimeCreated>2020-01-18T22:43:04.000Z</TimeCreated>
+(out)      </EventTime>
+(out)      <EventSource>
+(out)         <System>
+(out)            <Name>LinuxWebServer</Name>
+(out)            <Environment>Production</Environment>
+(out)         </System>
+(out)         <Generator>Apache  HTTPD</Generator>
+(out)         <Device>
+(out)            <HostName>stroomnode00.strmdev00.org</HostName>
+(out)            <IPAddress>192.168.2.245</IPAddress>
+(out)         </Device>
+(out)         <Client>
+(out)            <HostName>host32.strmdev01.org</HostName>
+(out)            <IPAddress>192.168.8.151</IPAddress>
+(out)            <Port>62015</Port>
+(out)            <Location>
+(out)               <Country>AUS</Country>
+(out)               <Site>Sydney-S02</Site>
+(out)               <Building>RC45</Building>
+(out)               <Room>5-134</Room>
+(out)               <TimeZone>+10:00/+11:00</TimeZone>
+(out)            </Location>
+(out)         </Client>
+(out)
+(out)         ....
+{{</ command-line >}}
 
 Similarly, if we look at one of the GBR00 output files we also see the expected output
 
-``` xml
-[testdoc@localhost forwarding]# less GBR00/fwd_1588588112809.ready
-<?xml version="1.1" encoding="UTF-8"?>
-<Events xmlns="event-logging:3"
-        xmlns:stroom="stroom"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xsi:schemaLocation="event-logging:3 file://event-logging-v3.2.3.xsd"
-        Version="3.2.3">
-   <Event>
-      <EventTime>
-         <TimeCreated>2020-01-18T12:50:06.000Z</TimeCreated>
-      </EventTime>
-      <EventSource>
-         <System>
-            <Name>LinuxWebServer</Name>
-            <Environment>Production</Environment>
-         </System>
-         <Generator>Apache  HTTPD</Generator>
-         <Device>
-            <HostName>stroomnode00.strmdev00.org</HostName>
-            <IPAddress>192.168.2.245</IPAddress>
-         </Device>
-         <Client>
-            <HostName>host14.strmdev00.org</HostName>
-            <IPAddress>192.168.234.9</IPAddress>
-            <Port>62429</Port>
-            <Location>
-               <Country>GBR</Country>
-               <Site>Bristol-S22</Site>
-               <Building>CAMP2</Building>
-               <Room>Rm67</Room>
-               <TimeZone>+00:00/+01:00</TimeZone>
-            </Location>
-         </Client>
-
-        ....
-
-GBR00/fwd_1588588112809.ready
-```
+{{< command-line "testdoc" "localhost" >}}
+less GBR00/fwd_1588588112809.ready
+(out)<?xml version="1.1" encoding="UTF-8"?>
+(out)<Events xmlns="event-logging:3"
+(out)        xmlns:stroom="stroom"
+(out)        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+(out)        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+(out)        xsi:schemaLocation="event-logging:3 file://event-logging-v3.2.3.xsd"
+(out)        Version="3.2.3">
+(out)   <Event>
+(out)      <EventTime>
+(out)         <TimeCreated>2020-01-18T12:50:06.000Z</TimeCreated>
+(out)      </EventTime>
+(out)      <EventSource>
+(out)         <System>
+(out)            <Name>LinuxWebServer</Name>
+(out)            <Environment>Production</Environment>
+(out)         </System>
+(out)         <Generator>Apache  HTTPD</Generator>
+(out)         <Device>
+(out)            <HostName>stroomnode00.strmdev00.org</HostName>
+(out)            <IPAddress>192.168.2.245</IPAddress>
+(out)         </Device>
+(out)         <Client>
+(out)            <HostName>host14.strmdev00.org</HostName>
+(out)            <IPAddress>192.168.234.9</IPAddress>
+(out)            <Port>62429</Port>
+(out)            <Location>
+(out)               <Country>GBR</Country>
+(out)               <Site>Bristol-S22</Site>
+(out)               <Building>CAMP2</Building>
+(out)               <Room>Rm67</Room>
+(out)               <TimeZone>+00:00/+01:00</TimeZone>
+(out)            </Location>
+(out)         </Client>
+(out)
+(out)        ....
+{{</ command-line >}}
 
 At this point, you can manage the .ready files in any manner you see fit.
