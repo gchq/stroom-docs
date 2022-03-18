@@ -102,9 +102,7 @@ At this you will see the Explorer pane system group structure reduce down to jus
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-01.png" >}}Stroom UI CreateReferenceFeed - Explorer pane Quick Filter -reduced structure{{< /screenshot >}}
 
 The Explorer pane will display any resources that match our `Apache` string. 
-Double clicking on the
-{{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-02.png" >}}Stroom UI CreateReferenceFeed - Explorer pane Quick Filter -select feed{{< /screenshot >}}
-feed will select it, and bring up the Feed’s tab in the main window.
+Double clicking on the {{< stroom-icon "document/Feed.svg">}} _Apache-SSL-BlackBox-V2.0-EVENTS_ Feed will select it, and bring up the Feed’s tab in the main window.
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-03.png" >}}Stroom UI CreateReferenceFeed - Explorer pane Quick Filter -selected feed displayed{{< /screenshot >}}
 
@@ -116,9 +114,7 @@ Now, select the check box on the Raw Events stream in the Specific Stream (middl
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-05.png" >}}Stroom UI CreateReferenceFeed - Selected stream check box{{< /screenshot >}}
 
-Note that, when we check the box, we see that the Process, Delete and Download
-{{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-06.png" >}}Stroom UI CreateReferenceFeed - ProcessDeleteDownload icons{{< /screenshot >}}
-icons are enabled.
+Note that, when we check the box, we see that the Process, Delete and Download icons ({{< stroom-icon "process.svg">}} {{< stroom-icon "delete.svg" >}} {{< stroom-icon "download.svg">}}) are enabled.
 
 We enter Stepping Mode by pressing the stepping button found at the bottom right corner of the Data/Meta-data pane.
 You will then be requested to choose a pipeline to step with, with the selection already pre-selected
@@ -130,7 +126,7 @@ Press **OK** to start the stepping which displays the pipeline stepping tab
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-08.png" >}}Stroom UI CreateReferenceFeed - Stepping pipeline source display{{< /screenshot >}}
 
-Select the {{< stroom-icon "pipeline/xslt.svg">}} button to reveal the translation we plan to modify.
+Select the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to reveal the translation we plan to modify.
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-09.png" >}}Stroom UI CreateReferenceFeed - Stepping pipeline xslt translation filter selected{{< /screenshot >}}
 
@@ -211,7 +207,7 @@ then switch to the **Structure** sub-item
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-19.png" >}}Stroom UI CreateReferenceFeed - Pipeline display structure{{< /screenshot >}}
 
-and then select the {{< stroom-icon "pipeline/xslt.svg" >}} icon to reveal
+and then select the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to reveal
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-20.png" >}}Stroom UI CreateReferenceFeed - Pipeline translationFilter structure{{< /screenshot >}}
 

@@ -54,7 +54,8 @@ The AUS selection translation is
   v1.0.0 - 2015-01-19  
   v1.5.0 - 2020-04-15
 
-  This translation find all events where the EventSource/Client/Location/Country element contains the string 'AUS' and then copies them.
+  This translation find all events where the EventSource/Client/Location/Country element
+  contains the string 'AUS' and then copies them.
   -->
 
   <!--  Match all  events -->
@@ -94,7 +95,8 @@ The Great Britain selection translation is
   v1.0.0 - 2015-01-19  
   v1.5.0 - 2020-04-15
 
-  This translation find all events where the EventSource/Client/Location/Country element contains the string 'GBR' and then copies them.
+  This translation find all events where the EventSource/Client/Location/Country
+  element contains the string 'GBR' and then copies them.
   -->
 
   <!--  Match all  events -->

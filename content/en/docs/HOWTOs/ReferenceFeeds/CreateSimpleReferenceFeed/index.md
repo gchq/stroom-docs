@@ -71,7 +71,7 @@ Now hover the mouse over the {{< stroom-icon "feed.svg" >}} Feed icon and right 
 
 When the **New Feed** selection windows comes up, navigate to the `Event Sources` system group.
 Then enter the name of the reference feed `GeoHost-V1.0-REFERENCE` onto the **Name:** text entry box.
-On pressing the OK button we will see the following Feed configuration tab appear.
+On pressing the {{< stroom-btn "Ok" >}} button we will see the following Feed configuration tab appear.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-03.png" >}}New Feed Data tab{{< /screenshot >}}
 
@@ -120,7 +120,7 @@ To get the calendar selection window to disappear, click anywhere outside of the
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-10.png" >}}Upload data choose file{{< /screenshot >}}
 
-Note, if you happen to click on the **OK** button before selecting the **File** (or Stream Type for that matter), an appropriate Alert dialog box will be displayed
+Note, if you happen to click on the {{< stroom-btn "Ok" >}} button before selecting the **File** (or Stream Type for that matter), an appropriate Alert dialog box will be displayed
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-11.png" >}}Upload Data No file set{{< /screenshot >}}
 
@@ -138,7 +138,7 @@ On clicking **Open** we return to the **Upload** window with the file selected.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-12.png" >}}Upload Reference Data - File chosen{{< /screenshot >}}
 
-On clicking **OK** we get an Alert dialog window to advise a file has been uploaded.
+On clicking {{< stroom-btn "Ok" >}} we get an Alert dialog window to advise a file has been uploaded.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-13.png" >}}Upload Alert window{{< /screenshot >}}
 
@@ -176,7 +176,7 @@ When the _New Pipeline_ selection window appears, navigate to, then select the `
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-17.png" >}}New Pipeline - GeoHost-V1.0-REFERENCE{{< /screenshot >}}
 
-On pressing the **OK** button you will be presented with the new pipeline's configuration tab
+On pressing the {{< stroom-btn "Ok" >}} button you will be presented with the new pipeline's configuration tab
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-18.png" >}}New Pipeline - Configuration tab{{< /screenshot >}}
 
@@ -199,7 +199,7 @@ You can find further information about the Template Pipelines {{< external-link 
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-21.png" >}}New Pipeline - Reference Data pipeline inherited{{< /screenshot >}}
 
-Then press **OK**.
+Then press {{< stroom-btn "Ok" >}}.
 At this we will see the inherited pipeline structure of 
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-22.png" >}}New Pipeline - Inherited set{{< /screenshot >}}
@@ -224,7 +224,7 @@ When the _New Text Converter_ selection window comes up, navigate to and select 
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-24.png" >}}New TextConverter{{< /screenshot >}}
 
-On pressing the **OK** button we see the next text converter's configuration tab displayed.
+On pressing the {{< stroom-btn "Ok" >}} button we see the next text converter's configuration tab displayed.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-25.png" >}}New TextConverter Settings{{< /screenshot >}}
 
@@ -317,12 +317,12 @@ We leave the Property **Source:** as _Inherit_ but we need to change the Propert
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-29.png" >}}textConverter select GeoHost-V1.0-REFERENCE{{< /screenshot >}}
 
-then press **OK**.
+then press {{< stroom-btn "Ok" >}}.
 At this we will see the Property _Value_ set
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-30.png" >}}textConverter set Property Value{{< /screenshot >}}
 
-Again press **OK** to finish editing this property and we then see that the **textConverter** property has been set to GeoHost-V1.0-REFERENCE.
+Again press {{< stroom-btn "Ok" >}} to finish editing this property and we then see that the **textConverter** property has been set to GeoHost-V1.0-REFERENCE.
 Similarly set the **type** property _Value_ to "Data Splitter".
 
 At this point, we should save our changes, by clicking on the highlighted {{< stroom-icon "save.svg" >}} icon.
@@ -344,7 +344,7 @@ You will then be requested to choose a pipeline to step with, at which, you shou
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-34.png" >}}textConverter - select pipeline to step with{{< /screenshot >}}
 
-then press **OK**.
+then press {{< stroom-btn "Ok" >}}.
 
 At this point we enter the pipeline Stepping tab
 
@@ -385,15 +385,15 @@ This XSLT translation will convert simple _records_ XML data into _ReferenceData
 More information can be found {{< external-link "here" "https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/README.md" >}}.
 
 We first need to create an XSLT translation for our feed.
-Move back to the Explorer window, and with the cursor having selected the `Event Sources` system group, right click the mouse to display the object context menu, select {{< stroom-icon "add.svg" "New" >}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_.
+Move back to the Explorer tree, right click on {{< stroom-icon "document/Folder.svg" >}} _Event Sources_ folder then select:
 
-{{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-40.png" >}}translation object sub-contect menu{{< /screenshot >}}
+{{< stroom-icon "add.svg" "New" >}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_.
 
 When the **New XSLT** selection window comes up, navigate to the `Event Sources` system group and enter the name of the reference feed - GeoHost-V1.0-REFERENCE into the **Name:** text entry box as per 
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-41.png" >}}New xslt Translation selection window{{< /screenshot >}}
 
-On pressing the **OK** button we see the XSL tab for our translation and as previously, we enter an appropriate description before selecting the **XSLT** sub-item.
+On pressing the {{< stroom-btn "Ok" >}} button we see the XSL tab for our translation and as previously, we enter an appropriate description before selecting the **XSLT** sub-item.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-42.png" >}}New xslt - Configuration tab{{< /screenshot >}}
 
@@ -405,7 +405,7 @@ At this point, rather than edit the translation in this editor and then assign t
 This is to demonstrate there are a number of ways to _develop a translation_.
 
 So, to start, save the XSLT by clicking on the {{< stroom-tab "Pipeline.svg" "GeoHost-V1.0-REFERENCE Pipeline" >}} tab to raise the GeoHost-V1.0-REFERENCE pipeline.
-Then select the **Structure** sub-item followed by selecting the **XSL translationFilter** icon.
+Then select the **Structure** sub-item followed by selecting the {{< pipe-elm "xsltFilter" "translationFilter" >}} element.
 We now see the  **XSL translationFilter** Property Table for our pipeline in the middle pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-45.png" >}}xslt translation element - property pane{{< /screenshot >}}
@@ -420,12 +420,12 @@ Navigate to the `Event Sources` system group then select the GeoHost-V1.0-REFERE
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-47.png" >}}xslt - value selection{{< /screenshot >}}
 
-then press **OK**.
+then press {{< stroom-btn "Ok" >}}.
 At this point we will see the property **Value:** set
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-48.png" >}}xslt - value selected{{< /screenshot >}}
 
-Again press **OK** to finish editing this property and we see that the _xslt_ property has been set to GeoHost-V1.0-REFERENCE.
+Again press {{< stroom-btn "Ok" >}} to finish editing this property and we see that the _xslt_ property has been set to GeoHost-V1.0-REFERENCE.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-49.png" >}}xslt - property set{{< /screenshot >}}
 
@@ -446,7 +446,7 @@ You will then be requested to choose a pipeline to step with, at which, you shou
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-50.png" >}}xslt Translation - select pipeline to step with{{< /screenshot >}}
 
-then press **OK**.
+then press {{< stroom-btn "Ok" >}}.
 
 At this point we enter the pipeline through the Stepping tab {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-35.png" >}}xslt Translation - stepping tab{{< /screenshot >}}
 
@@ -732,7 +732,7 @@ To do this, first click on the **Add Term** {{< stroom-icon "add.svg" "Add Term"
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-60.png" >}}pipeline Processors - Choose Feed name{{< /screenshot >}}
 
-and press **OK** to make the selection.
+and press {{< stroom-btn "Ok" >}} to make the selection.
 
 Next, we select the required _stream type_.
 To do this click on the **Add Term** {{< stroom-icon "add.svg" "Add Term">}} icon again.
@@ -742,7 +742,7 @@ Once you have clicked here a drop-down box will appear as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-61.png" >}}pipeline Processors - Choose Stream Type{{< /screenshot >}}
 
-at which point, select the _Stream Type_ of **Raw Reference**and then press **OK**.
+at which point, select the _Stream Type_ of **Raw Reference**and then press {{< stroom-btn "Ok" >}}.
 At this we return to the **Add Processor** selection window to see that the _Raw Reference_ stream type has been added.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-62.png" >}}pipeline Processors - pipeline criteria set{{< /screenshot >}}
