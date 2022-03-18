@@ -57,33 +57,33 @@ The created index consists of `5` shards.
 Note that the shard count cannot be changed after index creation, without a reindex.
 See [this guide (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html) on shard sizing.
 
-```bash
+{{< command-line "user" "localhost" >}}
 curl -X PUT "http://localhost:9200/stroom_test?pretty" -H 'Content-Type: application/json' -d'
-   {
-      "settings": {
-        "number_of_shards": 5
-      },
-      "mappings": {
-        "properties": {
-          "StreamId": {
-            "type": "long"
-          },
-          "EventId": {
-            "type": "long"
-          },
-          "Name": {
-            "type": "text",
-            "fielddata": true
-          },
-          "State": {
-            "type": "text",
-            "fielddata": true
-          }
-        }
-      }
-    }
-'
-```
+(out)   {
+(out)      "settings": {
+(out)        "number_of_shards": 5
+(out)      },
+(out)      "mappings": {
+(out)        "properties": {
+(out)          "StreamId": {
+(out)            "type": "long"
+(out)          },
+(out)          "EventId": {
+(out)            "type": "long"
+(out)          },
+(out)          "Name": {
+(out)            "type": "text",
+(out)            "fielddata": true
+(out)          },
+(out)          "State": {
+(out)            "type": "text",
+(out)            "fielddata": true
+(out)          }
+(out)        }
+(out)      }
+(out)    }
+(out)'
+{{</ command-line >}}
 
 After creating the index, you can add additional field mappings.
 Note the [limitations (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html#updating-field-mappings) in doing so, particularly the fact that it will not cause existing documents to be re-indexed.
@@ -167,17 +167,18 @@ Follow the steps as in [this guide]({{< relref "../../quick-start-guide/indexing
 Query Elasticsearch, checking the fields you expect are there, and of the correct data type:
 
 The following query displays five results:
-```bash
+{{< command-line "user" "localhost" >}}
 curl -X GET "http://localhost:9200/stroom_test/_search?size=5" 
-```
+{{</ command-line >}}
 
 You can also get an exact document count, to ensure this matches the number of events you are expecting:
 
-```bash
+{{< command-line "user" "localhost" >}}
 curl -X GET "http://localhost:9200/stroom_test/_count"
-```
+{{</ command-line >}}
 
 For more information, see the Elasticsearch [Search API documentation (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html).
+
 
 ### Reindexing data
 
@@ -197,15 +198,17 @@ events.
 If a field is omitted from the indexing translation, there is no need for a re-index, unless you wish to reclaim the space
 occupied by that field.
 
+
 #### Reindexing using a pipeline processor
 
 1. Delete the index. While it is possible to [delete by query (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html), it is more efficient to drop the index.
    Additionally, deleting by query doesn't actually remove data from disk, until segments are merged.
-   ```bash
+   {{< command-line "user" "localhost" >}}
    curl -X DELETE "http://localhost:9200/stroom_test"
-   ```
+   {{</ command-line >}}
 1. Re-create the index (as shown earlier)
 1. Create a new pipeline processor to index the documents
+
 
 ## Searching
 
@@ -219,6 +222,7 @@ Elasticsearch on the other hand, provides a rich [Search REST API (external link
 with powerful [aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) that can be
 used to generate reports and discover patterns and anomalies. It can also be readily queried using third-party tools.
 
+
 ### Stroom
 
 See the [Dashboard]({{< relref "../../quick-start-guide/dashboard.md" >}}) page in the Quick-Start Guide.
@@ -227,11 +231,13 @@ Instead of selecting a Lucene index, set the target _data source_ to the desired
 
 Once the target _data source_ has been set, the Dashboard can be used as with a Lucene or Solr index _data source_.
 
+
 ### Elasticsearch
 
 Elasticsearch queries can be performed directly against the cluster using the [Search API (external link)](https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html).
 
 Alternatively, there are tools that make search and discovery easier and more intuitive, like [Kibana (external link)](https://www.elastic.co/kibana).
+
 
 ## Security
 
