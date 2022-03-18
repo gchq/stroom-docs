@@ -4,9 +4,11 @@ It can be used in-line. It will appear as if it doesn't have focus
 i.e. currently with a blue background.
 
 Usage:
-stroom-tab filename title
+stroom-tab filename title [active|inactive] [saved|unsaved]
 e.g
 stroom-tab "Feed.svg" "MY_FEED"
+stroom-tab "Feed.svg" "MY_FEED" "inactive" 
+stroom-tab "Feed.svg" "MY_FEED" "active" "unsaved"
 
 filename must exist in assets/images/stroom-ui/document/.
 -->
@@ -19,6 +21,10 @@ filename must exist in assets/images/stroom-ui/document/.
 {{ if eq ( lower (.Get 2 | default "inactive" )) "active" }}
   {{ $active_class = "stroom-tab-active" }}
 {{ end }}
+{{ $saved_state_text := "" }}
+{{ if eq ( lower (.Get 3 | default "saved" )) "unsaved" }}
+  {{ $saved_state_text = "* " }}
+{{ end }}
 {{ $document := humanize (strings.TrimSuffix (path.Ext $filename) (path.Base $filename)) }}
 {{ $path := printf "/images/stroom-ui/document/%s" $filename }}
 {{ $image := resources.Get (printf "%s" $path) }}
@@ -29,10 +35,9 @@ filename must exist in assets/images/stroom-ui/document/.
 <span class="stroom-tab {{ $active_class }}" title="{{ $document }} tab - '{{ $title }}'" >
   <img
     class="stroom-icon" 
-    style="max-width: 15px;"
     src="{{ $image.RelPermalink }}" 
     title="{{ $title }}" 
     alt="{{ $filename }}">
-  <span class="stroom-tab-name">{{ $title }}</span>
+  <span class="stroom-tab-name">{{ $saved_state_text }}{{ $title }}</span>
   <span class="stroom-tab-cross">×</span>
 </span>
