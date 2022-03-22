@@ -470,7 +470,7 @@ Also noted that the #Date and #Fields lines are not considered processed data, a
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-39.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 4{{< /screenshot >}}
 
-If we select the `dsParser` pipeline element then press the {{< screenshot "HOWTOs/icons/stepLast.png" >}}Step Last{{< /screenshot >}} action we see the `recordNo` jump to 31 which is the last processed line of our sample log file.
+If we select the `dsParser` pipeline element then press the {{< stroom-icon "fast-forward-green.svg" "Step last">}} action we see the `recordNo` jump to 31 which is the last processed line of our sample log file.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-40.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 5{{< /screenshot >}}
 

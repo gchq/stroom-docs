@@ -52,7 +52,6 @@ In this example, we are changing the value to `512M`.
 
 {{< screenshot "HOWTOs/UI-Tools-SystemProperties-04.png" >}}Stroom UI Tools System Properties - Editing Property - Value changed{{< /screenshot >}}
 
-At this, press the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} to see the new value
-updated in the **System Properties** configuration window
+At this, press the {{< stroom-btn "Ok" >}} to see the new value updated in the **System Properties** configuration window
 
 {{< screenshot "HOWTOs/UI-Tools-SystemProperties-05.png" >}}Stroom UI Tools System Properties - Value changed{{< /screenshot >}}

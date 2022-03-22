@@ -93,6 +93,7 @@ By selecting the node `stroomp00` we see
 {{< screenshot "HOWTOs/UI-ManageVolumes-04.png" >}}Stroom UI Add Volume - selected node{{< /screenshot >}}
 
 To configure the rest of the attributes for this volume, we:
+
 - enter the *Path* to our first node's _data_ volume
 - select a *Volume Type* of _Public_ as this is a data volume we want all nodes to access
 - select a *Stream Status* of _Active_ to indicate we want to store data on it
@@ -101,9 +102,7 @@ To configure the rest of the attributes for this volume, we:
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-05.png" >}}Stroom UI Add Volume - adding first data volume{{< /screenshot >}}
 
-and on selection of the 
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
-we see the changes in the `Volumes` configuration window
+and on selection of the {{< stroom-btn "Ok" >}} we see the changes in the `Volumes` configuration window
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-06.png" >}}Stroom UI Add Volume - added first data volume{{< /screenshot >}}
 
@@ -115,7 +114,9 @@ And after adding the second node's volumes we are finally presented with our con
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-08.png" >}}Stroom UI Add Volume - all volumes added{{< /screenshot >}}
 
+
 #### Delete Default Volumes
+
 We now need to deal with our default volumes. We want to delete them.
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-09.png" >}}Stroom UI Delete Default - display default{{< /screenshot >}}
@@ -124,9 +125,7 @@ So we move the cursor to the first volume's line (_stroomp00 /home/stroomuser/st
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-10.png" >}}Stroom UI Delete Default - confirm deletion{{< /screenshot >}}
 
-at which we press the 
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
-button to see the first default volume has been deleted
+at which we press the {{< stroom-btn "Ok" >}} button to see the first default volume has been deleted
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-11.png" >}}Stroom UI Delete Default - first volume deleted{{< /screenshot >}}
 
@@ -134,8 +133,7 @@ and after we select then delete the second default volume( _stroomp00 /home/stro
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-12.png" >}}Stroom UI Delete Default - all deleted{{< /screenshot >}}
 
-At this one can close the `Volumes` configuration window by pressing the 
-{{< screenshot "HOWTOs/icons/buttonClose.png" >}}Stroom UI CloseButton{{< /screenshot >}} button.
+At this one can close the `Volumes` configuration window by pressing the {{< stroom-btn "Close" >}} button.
 
 __NOTE__: At the time of writing there is an issue regarding volumes
 
@@ -176,17 +174,14 @@ We select this node and then configure the rest of the attributes for this _data
 
 {{< screenshot "HOWTOs/UI-ManageNewVolume-01.png" >}}Stroom UI Volumes - New Node configuration window data volume{{< /screenshot >}}
 
-then press the
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button.
+then press the {{< stroom-btn "title" >}} button.
 
 We then add another volume for the _index_ volume for this node with attributes as per
 
 {{< screenshot "HOWTOs/UI-ManageNewVolume-02.png" >}}Stroom UI Volumes - New Node configuration window index volume added{{< /screenshot >}}
 
-And on pressing the {{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}} button we see our two new volumes for this node have been added.
+And on pressing the {{< stroom-btn "Ok" >}} button we see our two new volumes for this node have been added.
 
 {{< screenshot "HOWTOs/UI-ManageNewVolume-03.png" >}}Stroom UI Volumes - New Node configuration window volumes added{{< /screenshot >}}
 
-At this one can close the `Volumes` configuration window by pressing the 
-{{< screenshot "HOWTOs/icons/buttonClose.png" >}}Stroom UI CloseButton{{< /screenshot >}} button.
-
+At this one can close the `Volumes` configuration window by pressing the {{< stroom-btn "Close" >}} button.
