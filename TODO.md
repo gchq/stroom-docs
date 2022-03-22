@@ -22,3 +22,20 @@
 [ ] Create glossary of terms, e.g. Feed, Stream, Pipeline, Translation, etc.
 [ ] Maybe create a change history for the docs
 [ ] Remove all sections except About|Docs from legacy
+
+
+
+replace markdown link with external-link
+```text
+i{{< external-linkl€kb jklcs["f(i jklcs("f"a >}}jk
+```
+
+replace image link with screenshot
+```text
+xl"tyi]di]hxxf"da"F(l"udi)hxxi{{< screenshot ""jk"uPla >}}jk"tpa{{< /screenshot >}}jk
+```
+
+replace link with rel-ref
+```text
+f(li{{< relref "jkf)i"jkhhhxxxli >}}jk
+```

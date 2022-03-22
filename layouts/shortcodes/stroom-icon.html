@@ -3,19 +3,28 @@ Short code to add a stroom icon (from /assets/images/stroom-ui/) to the page
 with an optional hover title. If you don't supply a title it will make one from the
 filename.
 Usage:
-stroom-icon filename [title]
+stroom-icon filename [title] [enabled|disabled]
 e.g
 stroom-icon add.svg "Add"
 stroom-icon add.svg
+stroom-icon save.svg "Save" "disabled"
 -->
 
 {{/* First try to get the resource from the page resources */}}
 {{ $filename := (.Get 0) }}
 {{ $title := (.Get 1) | default (humanize (strings.TrimSuffix (path.Ext $filename) (path.Base $filename))) }}
+{{ $disabled_class := "" }}
+{{ if eq ( lower (.Get 2 | default "enabled" )) "disabled" }}
+  {{ $disabled_class = "stroom-icon-disabled" }}
+{{ end }}
 {{ $path := printf "/images/stroom-ui/%s" $filename }}
 {{ $image := resources.Get (printf "%s" $path) }}
 {{ if not $image }}
   {{ errorf "Unable to find file %s" $path }}
 {{ end }}
 
-<img class="stroom-icon" src="{{ $image.RelPermalink }}" width="16px" title="{{ $title }}" alt="{{ $filename }}">
+<img 
+  class="stroom-icon {{ $disabled_class }}" 
+  src="{{ $image.RelPermalink }}" 
+  title="{{ $title }}" 
+  alt="{{ $filename }}">

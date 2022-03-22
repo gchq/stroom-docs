@@ -43,7 +43,7 @@ debug() {
   fi
 }
 
-do_copy() {
+copy_dir() {
   local source_dir="$1"; shift
   local dest_dir="$1"; shift
 
@@ -71,6 +71,28 @@ do_copy() {
   echo
 }
 
+copy_file() {
+  local source_file="$1"; shift
+  local dest_dir="$1"; shift
+
+  if [ ! -f "${source_file}" ]; then
+    echo -e "${RED}ERROR${NC}: Can't find source file ${BLUE}${source_file}${NC}"
+    exit 1
+  fi
+  
+  echo -e "Copying file" \
+    "${BLUE}${source_file}${NC} to ${BLUE}${dest_dir}${NC}"
+  echo
+
+  mkdir -p "${dest_dir}"
+
+  rsync \
+    --verbose \
+    "${source_file}" \
+    "${dest_dir}/"
+  echo
+}
+
 main() {
   IS_DEBUG=false
 
@@ -86,6 +108,7 @@ main() {
   local images_base_dir="${stroom_repo_root}/stroom-app/src/main/resources/ui/images"
   local dashboard_images_base_dir="${stroom_repo_root}/stroom-dashboard/stroom-dashboard-client/src/main/resources/stroom/dashboard/client/table"
   local dest="./assets/images/stroom-ui"
+  local assorted_dir="${dest}/assorted"
 
   if [ ! -d "${stroom_repo_root}" ]; then
     echo -e "${RED}ERROR${NC}: Can't find stroom repo root ${BLUE}${stroom_repo_root}${NC}"
@@ -97,10 +120,13 @@ main() {
     exit 1
   fi
 
-  do_copy "${images_base_dir}" "${dest}"
-  do_copy "${images_base_dir}/document" "${dest}/document"
-  do_copy "${images_base_dir}/pipeline" "${dest}/pipeline"
-  do_copy "${dashboard_images_base_dir}" "${dest}/dashboard"
+  copy_dir "${images_base_dir}" "${dest}/"
+  copy_dir "${images_base_dir}/document" "${dest}/document"
+  copy_dir "${images_base_dir}/pipeline" "${dest}/pipeline"
+  copy_dir "${dashboard_images_base_dir}" "${dest}/dashboard"
+  copy_file \
+    "${stroom_repo_root}/stroom-core-client-widget/src/main/resources/stroom/widget/dropdowntree/client/view/popup.png" \
+    "${assorted_dir}"
   
   echo -e "${GREEN}Done${NC}"
 }

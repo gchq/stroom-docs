@@ -106,7 +106,7 @@ Using the positional information it is possible to tag Events with sufficient de
    ${src-id}, ${src-partNo}, ${src-recordNo}, ${src-lineFrom}, ${src-lineTo}, ${src-colFrom}, ${src-colTo}
    ```
 1. Now add a New Text Window to your Dashboard, and configure it as below:
-   {{< screenshot "HOWTOs/HT-RawSourceTextWindow.png" >}}TextWindow Config{{< /screenshot >}}
+   {{< screenshot "HOWTOs/HT-RawSourceTextWindow.png" "500x" >}}TextWindow Config{{< /screenshot >}}
 1. You can also add a column to the table that will open a data window showing the source.
    Add a custom column with the following expression:
    ```text
