@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xsl:stylesheet xpath-default-namespace="records:2" xmlns="event-logging:3" xmlns:stroom="stroom" 
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="3.0">
+<xsl:stylesheet 
+    xpath-default-namespace="records:2" 
+    xmlns="event-logging:3" 
+    xmlns:stroom="stroom" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    version="3.0">
 
   <!-- Bluecoat Proxy logs in W2C Extended Log File Format (ELF) -->
 
@@ -15,7 +21,8 @@
   <xsl:template match="record">
     <xsl:choose>
 
-      <!-- Store the Software and Version information of the Bluecoat log file for use in the Event Source elements which are processed later -->
+      <!-- Store the Software and Version information of the Bluecoat log file for use in the Event
+      Source elements which are processed later -->
       <xsl:when test="data[@name='_bc_software']">
         <xsl:value-of select="stroom:put('_bc_software', data[@name='_bc_software']/@value)" />
       </xsl:when>
@@ -46,9 +53,8 @@
   <!-- Template for event source-->
   <xsl:template name="event_source">
 
-    <!--
-             We extract some situational awareness information that the posting script includes when posting the event data 
-    -->
+    <!-- We extract some situational awareness information that the posting script includes when
+      posting the event data -->
     <xsl:variable name="_mymeta" select="translate(stroom:meta('MyMeta'),'&quot;', '')" />
 
     <!-- Form the EventSource node -->
@@ -137,12 +143,12 @@
     <EventDetail>
 
       <!--
-                 We model Proxy events as either Receive or Send events depending on the method.
+        We model Proxy events as either Receive or Send events depending on the method.
       
-      We make use of the Receive/Send sub-elements Source/Destination to map the Client/Destination Proxy values
-      and the Payload sub-element to map the URL and other details of the activity. If we have a query, we model it
-      as a Criteria
-      
+        We make use of the Receive/Send sub-elements Source/Destination to map
+        the Client/Destination Proxy values and the Payload sub-element to map
+        the URL and other details of the activity. If we have a query, we model
+        it as a Criteria
       -->
       <TypeId>
         <xsl:value-of select="concat('Bluecoat-', data[@name='cs-method']/@value, '-', data[@name='cs-uri-scheme']/@value)" />
