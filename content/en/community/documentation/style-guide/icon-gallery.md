@@ -17,6 +17,7 @@ See [here]({{< ref "using-images#stroom-icons" >}}) for how to add icons to page
 
 General icons used in Stroom.
 
+**Example**: {{< stroom-icon "edit.svg">}} `{{</* stroom-icon "edit.svg" */>}}`
 
 {{< stroom-icons-gallery "images/stroom-ui/" >}}
 
@@ -25,7 +26,8 @@ General icons used in Stroom.
 
 Icons used for the different pipeline elements.
 
-**Base path**: `pipeline`.
+**Base path**: `pipeline`  
+**Example**: {{< stroom-icon "pipeline/stream.svg">}} `{{</* stroom-icon "pipeline/stream.svg" */>}}`
 
 {{< stroom-icons-gallery "images/stroom-ui/pipeline/" >}}
 
@@ -34,7 +36,8 @@ Icons used for the different pipeline elements.
 
 Icons used for the different _document_ entity types, i.e. those seen in the explorer tree.
 
-**Base path**: `document`.
+**Base path**: `document`  
+**Example**: {{< stroom-icon "document/Index.svg">}} `{{</* stroom-icon "document/Index.svg" */>}}`
 
 {{< stroom-icons-gallery "images/stroom-ui/document/" >}}
 
@@ -52,7 +55,8 @@ Icons used on the Dashboard
 
 Assorted images used in the user interface.
 
-**Base path**: `assorted`.
+**Base path**: `assorted`  
+**Example**: {{< stroom-icon "assorted/popup.png" "Menu selection">}} `{{</* stroom-icon "assorted/popup.png" "Menu selection" */>}}`
 
 {{< stroom-icons-gallery "images/stroom-ui/assorted/" >}}
 
@@ -62,12 +66,12 @@ Assorted images used in the user interface.
 This gallery of icons can be updated by running the following script which will copy all the icons from the stroom repository.
 You should ensure your local stroom repository is up to date and on the correct branch before running this.
 
-```bash
+{{< command-line >}}
 ./update_stroom_icons.sh <stroom repo root>
-```
+{{</ command-line >}}
 
 e.g. 
 
-```bash
+{{< command-line >}}
 ./update_stroom_icons.sh ../v7stroom/
-```
+{{</ command-line >}}
