@@ -18,16 +18,23 @@ description: >
    Save the JSON to a file named *query.json*.
 
 1. Use curl to send the query to Stroom.
-   ```bash
-   API_KEY='<put your API Key here'
-   URI=stroom.host/api/searchable/v2/search
-   curl -s --request POST ${URL} -o response.out -H "Authorization:Bearer ${API_KEY}" -H "Content-Type: application/json" --data-binary @query.json
-   ```
+   {{< command-line "user" "localhost" >}}
+API_KEY='<put your API Key here' \
+URI=stroom.host/api/searchable/v2/search \
+curl \
+-s \
+--request POST \
+${URL} \
+-o response.out \
+-H "Authorization:Bearer ${API_KEY}" \
+-H "Content-Type: application/json" \
+--data-binary @query.json
+   {{</ command-line >}}
 
 1. The query response should be in a file named response.out.
 
 1. Optional step: reformat the response to csv using `jq`.
 
-   ```bash
+   {{< command-line "user" "localhost" >}}
    cat response.out | jq '.results[0].rows[].values | @csv'
-   ```
+   {{</ command-line >}}

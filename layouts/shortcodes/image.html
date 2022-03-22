@@ -54,11 +54,11 @@ Page resources
   <a title="{{ $image.Name }}" href="{{ $image.RelPermalink }}">
     <figure style="margin-block-end: 0px" >
       {{ if not $hasSize }}
-      <img class="card-img-top" src="{{ $image.RelPermalink }}" alt="{{ $image.Name }}">
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" style="max-width: fit-content" alt="{{ $image.Name }}">
       {{ else if $width }}
-      <img class="card-img-top" src="{{ $image.RelPermalink }}" width="{{ $width }}" alt="{{ $image.Name }}">
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" style="max-width:{{ $width }}" alt="{{ $image.Name }}">
       {{ else }}
-      <img class="card-img-top" src="{{ $image.RelPermalink }}" height="{{ $height }}" alt="{{ $image.Name }}">
+      <img class="card-img-top" src="{{ $image.RelPermalink }}" style="max-height:{{ $height }}" alt="{{ $image.Name }}">
       {{ end }}
 
       {{ with .Inner }}

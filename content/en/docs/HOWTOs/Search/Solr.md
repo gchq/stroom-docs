@@ -25,16 +25,17 @@ description: >
 ## Method
 
 1. Start a docker container for a single solr node.
-
-   ```bash
+   {{< command-line "user" "localhost" >}}
    docker run -d -p 8983:8983 --name my_solr solr
-   ```
+   {{</ command-line >}}
+
 1. Check your Solr node. Point your browser at http://yourSolrHost:8983
 1. Create a core in Solr using the CLI.
 
-   ```bash
+   {{< command-line "user" "localhost" >}}
    docker exec -it my_solr solr create_core -c test_index
-   ```
+   {{</ command-line >}}
+
 1. Create a SolrIndex in Stroom
    {{< screenshot "HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png" >}}New Solr Index{{< /screenshot >}}
 
