@@ -1659,7 +1659,11 @@ For the short code to work the page must be a leaf bundle (&lt;code&gt;index.md&
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;stroom-icons&#34;&gt;Stroom icons&lt;/h2&gt;
+&lt;h2 id=&#34;stroom-user-interface-components&#34;&gt;Stroom user interface Components&lt;/h2&gt;
+&lt;p&gt;Sometimes it is useful to display an image of certain user interface elements to explain something.
+Rather than use screenshots which are very difficult to keep up to date, you can instead use some simple shortcodes to display some UI elements, e.g. buttons, pipeline elements, etc.
+By using shortcodes, any change to the look of the Stroom UI means only the shortcode content and their styling need to change, without having to recreate tens or hundreds of screenshots.&lt;/p&gt;
+&lt;h3 id=&#34;stroom-icons&#34;&gt;Stroom icons&lt;/h3&gt;
 &lt;p&gt;Stroom UI icons such as 
 
 
@@ -1692,58 +1696,98 @@ For the short code to work the page must be a leaf bundle (&lt;code&gt;index.md&
   src=&#34;../../images/stroom-ui/explorer.svg&#34; 
   title=&#34;Explorer Tree&#34; 
   alt=&#34;explorer.svg&#34;&gt;
- can be added in line like this.
-The first argument is the filename (and path) of the icon file.
-The filename is relative to &lt;code&gt;/assets/images/stroom-ui/&lt;/code&gt;.
-The second optional argument is the hover tip title that will be given to the icon.
-If the title is not provided it will be derived from the filename.
-E.g:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;or {{&amp;lt; stroom-icon &amp;quot;explorer.svg&amp;quot; &amp;quot;Explorer Tree&amp;quot; &amp;gt;}} can be added in line like this.
+ can be added in line using the shortcode &lt;code&gt;stroom-icon&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Arguments&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;icon_file_path&lt;/code&gt; - The filename (and path) of the icon file.
+The path is relative to &lt;code&gt;/assets/images/stroom-ui/&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;title&lt;/code&gt; (optional) - The hover tip title that will be given to the icon.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;state&lt;/code&gt; (optional) [&lt;code&gt;enabled&lt;/code&gt;|&lt;code&gt;disabled&lt;/code&gt;] - Whether the button is enabled or disabled.
+Defaults to enabled.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The full list of available icons can be found in the &lt;a href=&#34;../../community/documentation/style-guide/icon-gallery/&#34;&gt;Icon Gallery&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    The icon filenames and paths are case sensitive so ensure you have the correct case, e.g. most &lt;code&gt;document&lt;/code&gt; icons are in upper sentence case.
+Also note the extension of the icon files as most are &lt;code&gt;.svg&lt;/code&gt; but some are &lt;code&gt;.png&lt;/code&gt;.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;E.g:&lt;/p&gt;
+&lt;div class=&#34;card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rendered
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;Simple use:&lt;/p&gt;
+&lt;p&gt;&lt;img 
+class=&#34;stroom-icon &#34; 
+src=&#34;../../images/stroom-ui/save.svg&#34; 
+title=&#34;Save&#34; 
+alt=&#34;save.svg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Custom name:&lt;/p&gt;
+&lt;p&gt;&lt;img 
+class=&#34;stroom-icon &#34; 
+src=&#34;../../images/stroom-ui/key.svg&#34; 
+title=&#34;Lock&#34; 
+alt=&#34;key.svg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Disabled document icon:&lt;/p&gt;
+&lt;p&gt;&lt;img 
+class=&#34;stroom-icon stroom-icon-disabled&#34; 
+src=&#34;../../images/stroom-ui/document/Feed.svg&#34; 
+title=&#34;Feed&#34; 
+alt=&#34;document/Feed.svg&#34;&gt;&lt;/p&gt;
+&lt;span class=&#34;stroom-button&#34; title=&#34;Cancel button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;Cancel&lt;/span&gt;
+&lt;/span&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Markdown
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Simple use: {{&amp;lt; stroom-icon &amp;quot;save.svg&amp;quot; &amp;gt;}}
+Custom name: {{&amp;lt; stroom-icon &amp;quot;key.svg&amp;quot; &amp;quot;Lock&amp;quot; &amp;gt;}}
+Disabled document icon: {{&amp;lt; stroom-icon &amp;quot;document/Feed.svg&amp;quot; &amp;quot;Feed&amp;quot; &amp;quot;disabled&amp;quot; &amp;gt;}}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Stroom pipeline elements can be added in line like this 
 
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
 
-
-
-
-
-
-
-
-
-&lt;img 
-  class=&#34;stroom-icon &#34; 
-  src=&#34;../../images/stroom-ui/pipeline/split.svg&#34; 
-  title=&#34;Split&#34; 
-  alt=&#34;pipeline/split.svg&#34;&gt;
-.
-E.g:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;like this {{&amp;lt; stroom-icon &amp;quot;pipeline/split.svg&amp;quot; &amp;gt;}}.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Stroom document elements can be added in line like this 
-
-
-
-
-
-
-
-
-
-
-&lt;img 
-  class=&#34;stroom-icon &#34; 
-  src=&#34;../../images/stroom-ui/document/Visualisation.svg&#34; 
-  title=&#34;Visualisation&#34; 
-  alt=&#34;document/Visualisation.svg&#34;&gt;
-.
-E.g:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;like this {{&amp;lt; stroom-icon &amp;quot;document/Visualisation.svg&amp;quot; &amp;gt;}}.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;stroom-user-interface-components&#34;&gt;Stroom user interface Components&lt;/h2&gt;
-&lt;p&gt;Sometimes it is useful to display an image of certain user interface elements to explain something.
-Rather than use screenshots which are very difficult to keep up to date, you can instead use some simple shortcodes to display some UI elements, e.g. buttons, pipeline elements, etc.
-By using shortcodes, any change to the look of the Stroom UI means only the shortcode content and their styling need to change, without having to recreate tens or hundreds of screenshots.&lt;/p&gt;
+&lt;/div&gt;
 &lt;h3 id=&#34;buttons&#34;&gt;Buttons&lt;/h3&gt;
 &lt;p&gt;To display a UI button you can use the shortcode &lt;code&gt;stroom-btn&lt;/code&gt; with the button title as its only argument.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Arguments&lt;/strong&gt;:&lt;/p&gt;
@@ -1808,7 +1852,35 @@ and
 
 &lt;/div&gt;
 &lt;h3 id=&#34;pipeline-elements&#34;&gt;Pipeline elements&lt;/h3&gt;
-&lt;p&gt;To display a pipeline element (as seen on the &lt;em&gt;Structure&lt;/em&gt; sub-tab on the Pipeline screen) you can use the shortcode &lt;code&gt;pipe-elm&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To display a pipeline element (as seen on the &lt;em&gt;Structure&lt;/em&gt; sub-tab on the Pipeline screen), like 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+&lt;span class=&#34;pipeline-element&#34; title=&#34;splitFilter&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    style=&#34;max-width: 15px;&#34;
+    src=&#34;../../images/stroom-ui/pipeline/split.svg&#34; 
+    title=&#34;splitFilter&#34; 
+    alt=&#34;split.svg&#34;&gt;
+  &lt;span&gt;splitFilter&lt;/span&gt;
+&lt;/span&gt;
+, you can use the shortcode &lt;code&gt;pipe-elm&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Arguments&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;element_name&lt;/code&gt; - The name of the pipeline element (case insensitive), e.g. &lt;code&gt;XsltFilter&lt;/code&gt;.&lt;/li&gt;
@@ -1891,7 +1963,31 @@ This is a splitFilter with a custom name:
 
 &lt;/div&gt;
 &lt;h3 id=&#34;stroom-document-tabs&#34;&gt;Stroom document tabs&lt;/h3&gt;
-&lt;p&gt;To display a top level Stroom document tab you can use the shortcode &lt;code&gt;stroom-tab&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To display a top level Stroom document tab, like 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;span class=&#34;stroom-tab &#34; title=&#34;Index tab - &#39;Big Index&#39;&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    src=&#34;../../images/stroom-ui/document/Index.svg&#34; 
+    title=&#34;Big Index&#34; 
+    alt=&#34;Index.svg&#34;&gt;
+  &lt;span class=&#34;stroom-tab-name&#34;&gt;Big Index&lt;/span&gt;
+  &lt;span class=&#34;stroom-tab-cross&#34;&gt;×&lt;/span&gt;
+&lt;/span&gt;
+, you can use the shortcode &lt;code&gt;stroom-tab&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Arguments&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;icon_filename&lt;/code&gt; - The filename of the icon to use (relative to &lt;code&gt;assets/images/stroom-ui/document/&lt;/code&gt;) (case sensitive), e.g. &lt;code&gt;Pipeline.svg&lt;/code&gt;.&lt;/li&gt;
@@ -1914,7 +2010,8 @@ This is a splitFilter with a custom name:
     
       &lt;p class=&#34;card-text&#34;&gt;
         
-          &lt;span class=&#34;stroom-tab &#34; title=&#34;Feed tab - &#39;MY_FEED&#39;&#34; &gt;
+          &lt;p&gt;Simple:&lt;/p&gt;
+&lt;span class=&#34;stroom-tab &#34; title=&#34;Feed tab - &#39;MY_FEED&#39;&#34; &gt;
   &lt;img
     class=&#34;stroom-icon&#34; 
     src=&#34;../../images/stroom-ui/document/Feed.svg&#34; 
@@ -1923,7 +2020,17 @@ This is a splitFilter with a custom name:
   &lt;span class=&#34;stroom-tab-name&#34;&gt;MY_FEED&lt;/span&gt;
   &lt;span class=&#34;stroom-tab-cross&#34;&gt;×&lt;/span&gt;
 &lt;/span&gt;
-&lt;p&gt;and&lt;/p&gt;
+&lt;p&gt;Custom name:&lt;/p&gt;
+&lt;span class=&#34;stroom-tab &#34; title=&#34;Xslt tab - &#39;My Translation&#39;&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    src=&#34;../../images/stroom-ui/document/XSLT.svg&#34; 
+    title=&#34;My Translation&#34; 
+    alt=&#34;XSLT.svg&#34;&gt;
+  &lt;span class=&#34;stroom-tab-name&#34;&gt;My Translation&lt;/span&gt;
+  &lt;span class=&#34;stroom-tab-cross&#34;&gt;×&lt;/span&gt;
+&lt;/span&gt;
+&lt;p&gt;Active:&lt;/p&gt;
 &lt;span class=&#34;stroom-tab stroom-tab-active&#34; title=&#34;Xslt tab - &#39;My Translation&#39;&#34; &gt;
   &lt;img
     class=&#34;stroom-icon&#34; 
@@ -1931,6 +2038,16 @@ This is a splitFilter with a custom name:
     title=&#34;My Translation&#34; 
     alt=&#34;XSLT.svg&#34;&gt;
   &lt;span class=&#34;stroom-tab-name&#34;&gt;My Translation&lt;/span&gt;
+  &lt;span class=&#34;stroom-tab-cross&#34;&gt;×&lt;/span&gt;
+&lt;/span&gt;
+&lt;p&gt;Unsaved:&lt;/p&gt;
+&lt;span class=&#34;stroom-tab stroom-tab-active&#34; title=&#34;Xslt tab - &#39;My Translation&#39;&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    src=&#34;../../images/stroom-ui/document/XSLT.svg&#34; 
+    title=&#34;My Translation&#34; 
+    alt=&#34;XSLT.svg&#34;&gt;
+  &lt;span class=&#34;stroom-tab-name&#34;&gt;* My Translation&lt;/span&gt;
   &lt;span class=&#34;stroom-tab-cross&#34;&gt;×&lt;/span&gt;
 &lt;/span&gt;
 
@@ -1955,9 +2072,10 @@ This is a splitFilter with a custom name:
     
       &lt;p class=&#34;card-text&#34;&gt;
         
-          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; stroom-tab &amp;quot;Feed.svg&amp;quot; &amp;quot;MY_FEED&amp;quot; &amp;gt;}}
-and
-{{&amp;lt; stroom-tab &amp;quot;XSLT.svg&amp;quot; &amp;quot;My Translation&amp;quot; &amp;quot;active&amp;quot; &amp;gt;}}
+          &lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;Simple: {{&amp;lt; stroom-tab &amp;quot;Feed.svg&amp;quot; &amp;quot;MY_FEED&amp;quot; &amp;gt;}}
+Custom name: {{&amp;lt; stroom-tab &amp;quot;XSLT.svg&amp;quot; &amp;quot;My Translation&amp;quot; &amp;gt;}}
+Active: {{&amp;lt; stroom-tab &amp;quot;XSLT.svg&amp;quot; &amp;quot;My Translation&amp;quot; &amp;quot;active&amp;quot; &amp;gt;}}
+Unsaved: {{&amp;lt; stroom-tab &amp;quot;XSLT.svg&amp;quot; &amp;quot;My Translation&amp;quot; &amp;quot;active&amp;quot; &amp;quot;unsaved&amp;quot; &amp;gt;}}
 &lt;/code&gt;&lt;/pre&gt;
 
         

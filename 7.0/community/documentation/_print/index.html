@@ -3444,7 +3444,11 @@ For the short code to work the page must be a leaf bundle (<code>index.md</code>
   </a>
 </div>
 
-<h2 id="stroom-icons">Stroom icons</h2>
+<h2 id="stroom-user-interface-components">Stroom user interface Components</h2>
+<p>Sometimes it is useful to display an image of certain user interface elements to explain something.
+Rather than use screenshots which are very difficult to keep up to date, you can instead use some simple shortcodes to display some UI elements, e.g. buttons, pipeline elements, etc.
+By using shortcodes, any change to the look of the Stroom UI means only the shortcode content and their styling need to change, without having to recreate tens or hundreds of screenshots.</p>
+<h3 id="stroom-icons">Stroom icons</h3>
 <p>Stroom UI icons such as 
 
 
@@ -3477,58 +3481,98 @@ For the short code to work the page must be a leaf bundle (<code>index.md</code>
   src="../../../images/stroom-ui/explorer.svg" 
   title="Explorer Tree" 
   alt="explorer.svg">
- can be added in line like this.
-The first argument is the filename (and path) of the icon file.
-The filename is relative to <code>/assets/images/stroom-ui/</code>.
-The second optional argument is the hover tip title that will be given to the icon.
-If the title is not provided it will be derived from the filename.
-E.g:</p>
-<pre><code class="language-markdown">or {{&lt; stroom-icon &quot;explorer.svg&quot; &quot;Explorer Tree&quot; &gt;}} can be added in line like this.
+ can be added in line using the shortcode <code>stroom-icon</code>.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>icon_file_path</code> - The filename (and path) of the icon file.
+The path is relative to <code>/assets/images/stroom-ui/</code>.</li>
+<li><code>title</code> (optional) - The hover tip title that will be given to the icon.</li>
+<li><code>state</code> (optional) [<code>enabled</code>|<code>disabled</code>] - Whether the button is enabled or disabled.
+Defaults to enabled.</li>
+</ul>
+<p>The full list of available icons can be found in the <a href="../../../community/documentation/style-guide/icon-gallery/">Icon Gallery</a>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    The icon filenames and paths are case sensitive so ensure you have the correct case, e.g. most <code>document</code> icons are in upper sentence case.
+Also note the extension of the icon files as most are <code>.svg</code> but some are <code>.png</code>.
+
+</div>
+
+
+<p>E.g:</p>
+<div class="card-deck mb-4">
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Rendered
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <p>Simple use:</p>
+<p><img 
+class="stroom-icon " 
+src="../../../images/stroom-ui/save.svg" 
+title="Save" 
+alt="save.svg"></p>
+<p>Custom name:</p>
+<p><img 
+class="stroom-icon " 
+src="../../../images/stroom-ui/key.svg" 
+title="Lock" 
+alt="key.svg"></p>
+<p>Disabled document icon:</p>
+<p><img 
+class="stroom-icon stroom-icon-disabled" 
+src="../../../images/stroom-ui/document/Feed.svg" 
+title="Feed" 
+alt="document/Feed.svg"></p>
+<span class="stroom-button" title="Cancel button" >
+  <span class="stroom-button-text">Cancel</span>
+</span>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        Markdown
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-markdown">Simple use: {{&lt; stroom-icon &quot;save.svg&quot; &gt;}}
+Custom name: {{&lt; stroom-icon &quot;key.svg&quot; &quot;Lock&quot; &gt;}}
+Disabled document icon: {{&lt; stroom-icon &quot;document/Feed.svg&quot; &quot;Feed&quot; &quot;disabled&quot; &gt;}}
 </code></pre>
-<p>Stroom pipeline elements can be added in line like this 
 
+        
+      </p>
+    
+  </div>
+  
+</div>
 
-
-
-
-
-
-
-
-
-<img 
-  class="stroom-icon " 
-  src="../../../images/stroom-ui/pipeline/split.svg" 
-  title="Split" 
-  alt="pipeline/split.svg">
-.
-E.g:</p>
-<pre><code class="language-markdown">like this {{&lt; stroom-icon &quot;pipeline/split.svg&quot; &gt;}}.
-</code></pre>
-<p>Stroom document elements can be added in line like this 
-
-
-
-
-
-
-
-
-
-
-<img 
-  class="stroom-icon " 
-  src="../../../images/stroom-ui/document/Visualisation.svg" 
-  title="Visualisation" 
-  alt="document/Visualisation.svg">
-.
-E.g:</p>
-<pre><code class="language-markdown">like this {{&lt; stroom-icon &quot;document/Visualisation.svg&quot; &gt;}}.
-</code></pre>
-<h2 id="stroom-user-interface-components">Stroom user interface Components</h2>
-<p>Sometimes it is useful to display an image of certain user interface elements to explain something.
-Rather than use screenshots which are very difficult to keep up to date, you can instead use some simple shortcodes to display some UI elements, e.g. buttons, pipeline elements, etc.
-By using shortcodes, any change to the look of the Stroom UI means only the shortcode content and their styling need to change, without having to recreate tens or hundreds of screenshots.</p>
+</div>
 <h3 id="buttons">Buttons</h3>
 <p>To display a UI button you can use the shortcode <code>stroom-btn</code> with the button title as its only argument.</p>
 <p><strong>Arguments</strong>:</p>
@@ -3593,7 +3637,35 @@ and
 
 </div>
 <h3 id="pipeline-elements">Pipeline elements</h3>
-<p>To display a pipeline element (as seen on the <em>Structure</em> sub-tab on the Pipeline screen) you can use the shortcode <code>pipe-elm</code>.</p>
+<p>To display a pipeline element (as seen on the <em>Structure</em> sub-tab on the Pipeline screen), like 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+<span class="pipeline-element" title="splitFilter" >
+  <img
+    class="stroom-icon" 
+    style="max-width: 15px;"
+    src="../../../images/stroom-ui/pipeline/split.svg" 
+    title="splitFilter" 
+    alt="split.svg">
+  <span>splitFilter</span>
+</span>
+, you can use the shortcode <code>pipe-elm</code>.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>element_name</code> - The name of the pipeline element (case insensitive), e.g. <code>XsltFilter</code>.</li>
@@ -3676,7 +3748,31 @@ This is a splitFilter with a custom name:
 
 </div>
 <h3 id="stroom-document-tabs">Stroom document tabs</h3>
-<p>To display a top level Stroom document tab you can use the shortcode <code>stroom-tab</code>.</p>
+<p>To display a top level Stroom document tab, like 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="stroom-tab " title="Index tab - 'Big Index'" >
+  <img
+    class="stroom-icon" 
+    src="../../../images/stroom-ui/document/Index.svg" 
+    title="Big Index" 
+    alt="Index.svg">
+  <span class="stroom-tab-name">Big Index</span>
+  <span class="stroom-tab-cross">×</span>
+</span>
+, you can use the shortcode <code>stroom-tab</code>.</p>
 <p><strong>Arguments</strong>:</p>
 <ul>
 <li><code>icon_filename</code> - The filename of the icon to use (relative to <code>assets/images/stroom-ui/document/</code>) (case sensitive), e.g. <code>Pipeline.svg</code>.</li>
@@ -3699,7 +3795,8 @@ This is a splitFilter with a custom name:
     
       <p class="card-text">
         
-          <span class="stroom-tab " title="Feed tab - 'MY_FEED'" >
+          <p>Simple:</p>
+<span class="stroom-tab " title="Feed tab - 'MY_FEED'" >
   <img
     class="stroom-icon" 
     src="../../../images/stroom-ui/document/Feed.svg" 
@@ -3708,7 +3805,17 @@ This is a splitFilter with a custom name:
   <span class="stroom-tab-name">MY_FEED</span>
   <span class="stroom-tab-cross">×</span>
 </span>
-<p>and</p>
+<p>Custom name:</p>
+<span class="stroom-tab " title="Xslt tab - 'My Translation'" >
+  <img
+    class="stroom-icon" 
+    src="../../../images/stroom-ui/document/XSLT.svg" 
+    title="My Translation" 
+    alt="XSLT.svg">
+  <span class="stroom-tab-name">My Translation</span>
+  <span class="stroom-tab-cross">×</span>
+</span>
+<p>Active:</p>
 <span class="stroom-tab stroom-tab-active" title="Xslt tab - 'My Translation'" >
   <img
     class="stroom-icon" 
@@ -3716,6 +3823,16 @@ This is a splitFilter with a custom name:
     title="My Translation" 
     alt="XSLT.svg">
   <span class="stroom-tab-name">My Translation</span>
+  <span class="stroom-tab-cross">×</span>
+</span>
+<p>Unsaved:</p>
+<span class="stroom-tab stroom-tab-active" title="Xslt tab - 'My Translation'" >
+  <img
+    class="stroom-icon" 
+    src="../../../images/stroom-ui/document/XSLT.svg" 
+    title="My Translation" 
+    alt="XSLT.svg">
+  <span class="stroom-tab-name">* My Translation</span>
   <span class="stroom-tab-cross">×</span>
 </span>
 
@@ -3740,9 +3857,10 @@ This is a splitFilter with a custom name:
     
       <p class="card-text">
         
-          <pre><code class="language-markdown">{{&lt; stroom-tab &quot;Feed.svg&quot; &quot;MY_FEED&quot; &gt;}}
-and
-{{&lt; stroom-tab &quot;XSLT.svg&quot; &quot;My Translation&quot; &quot;active&quot; &gt;}}
+          <pre><code class="language-markdown">Simple: {{&lt; stroom-tab &quot;Feed.svg&quot; &quot;MY_FEED&quot; &gt;}}
+Custom name: {{&lt; stroom-tab &quot;XSLT.svg&quot; &quot;My Translation&quot; &gt;}}
+Active: {{&lt; stroom-tab &quot;XSLT.svg&quot; &quot;My Translation&quot; &quot;active&quot; &gt;}}
+Unsaved: {{&lt; stroom-tab &quot;XSLT.svg&quot; &quot;My Translation&quot; &quot;active&quot; &quot;unsaved&quot; &gt;}}
 </code></pre>
 
         
@@ -3777,6 +3895,23 @@ and
 <p>See <a href="../../../community/documentation/style-guide/using-images/#stroom-icons">here</a> for how to add icons to pages.</p>
 <h2 id="general-icons">General icons</h2>
 <p>General icons used in Stroom.</p>
+<p><strong>Example</strong>: 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../images/stroom-ui/edit.svg" 
+  title="Edit" 
+  alt="edit.svg">
+ <code>{{&lt; stroom-icon &quot;edit.svg&quot; &gt;}}</code></p>
 
 
 
@@ -5200,7 +5335,24 @@ and
 
 <h2 id="pipeline-element-icons">Pipeline element icons</h2>
 <p>Icons used for the different pipeline elements.</p>
-<p><strong>Base path</strong>: <code>pipeline</code>.</p>
+<p><strong>Base path</strong>: <code>pipeline</code><br>
+<strong>Example</strong>: 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../images/stroom-ui/pipeline/stream.svg" 
+  title="Stream" 
+  alt="pipeline/stream.svg">
+ <code>{{&lt; stroom-icon &quot;pipeline/stream.svg&quot; &gt;}}</code></p>
 
 
 
@@ -5562,7 +5714,24 @@ and
 
 <h2 id="document-type-icons">Document type icons</h2>
 <p>Icons used for the different <em>document</em> entity types, i.e. those seen in the explorer tree.</p>
-<p><strong>Base path</strong>: <code>document</code>.</p>
+<p><strong>Base path</strong>: <code>document</code><br>
+<strong>Example</strong>: 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../images/stroom-ui/document/Index.svg" 
+  title="Index" 
+  alt="document/Index.svg">
+ <code>{{&lt; stroom-icon &quot;document/Index.svg&quot; &gt;}}</code></p>
 
 
 
@@ -5992,7 +6161,24 @@ and
 
 <h2 id="assorted-ui-elements">Assorted UI elements</h2>
 <p>Assorted images used in the user interface.</p>
-<p><strong>Base path</strong>: <code>assorted</code>.</p>
+<p><strong>Base path</strong>: <code>assorted</code><br>
+<strong>Example</strong>: 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../images/stroom-ui/assorted/popup.png" 
+  title="Menu selection" 
+  alt="assorted/popup.png">
+ <code>{{&lt; stroom-icon &quot;assorted/popup.png&quot; &quot;Menu selection&quot; &gt;}}</code></p>
 
 
 
@@ -6019,11 +6205,41 @@ and
 <h2 id="updating-this-gallery">Updating this gallery</h2>
 <p>This gallery of icons can be updated by running the following script which will copy all the icons from the stroom repository.
 You should ensure your local stroom repository is up to date and on the correct branch before running this.</p>
-<pre><code class="language-bash">./update_stroom_icons.sh &lt;stroom repo root&gt;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./update_stroom_icons.sh &lt;stroom repo root&gt;</code></pre>
+</div>
+
 <p>e.g.</p>
-<pre><code class="language-bash">./update_stroom_icons.sh ../v7stroom/
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./update_stroom_icons.sh ../v7stroom/</code></pre>
+</div>
+
 
 </div>
 
