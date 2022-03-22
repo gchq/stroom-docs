@@ -170,39 +170,48 @@ In the above example, the shortcode would look like:
 {{< image "style-guide/stroom-oo.svg" "200x" />}}
 
 
-## Stroom icons
-
-Stroom UI icons such as {{< stroom-icon "add.svg" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line like this.
-The first argument is the filename (and path) of the icon file.
-The filename is relative to `/assets/images/stroom-ui/`.
-The second optional argument is the hover tip title that will be given to the icon.
-If the title is not provided it will be derived from the filename.
-E.g:
-
-```markdown
-or {{</* stroom-icon "explorer.svg" "Explorer Tree" */>}} can be added in line like this.
-```
-
-Stroom pipeline elements can be added in line like this {{< stroom-icon "pipeline/split.svg" >}}.
-E.g:
-
-```markdown
-like this {{</* stroom-icon "pipeline/split.svg" */>}}.
-```
-
-Stroom document elements can be added in line like this {{< stroom-icon "document/Visualisation.svg" >}}.
-E.g:
-
-```markdown
-like this {{</* stroom-icon "document/Visualisation.svg" */>}}.
-```
-
-
 ## Stroom user interface Components
 
 Sometimes it is useful to display an image of certain user interface elements to explain something.
 Rather than use screenshots which are very difficult to keep up to date, you can instead use some simple shortcodes to display some UI elements, e.g. buttons, pipeline elements, etc.
 By using shortcodes, any change to the look of the Stroom UI means only the shortcode content and their styling need to change, without having to recreate tens or hundreds of screenshots.
+
+
+### Stroom icons
+
+Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line using the shortcode `stroom-icon`.
+
+**Arguments**:
+* `icon_file_path` - The filename (and path) of the icon file.
+  The path is relative to `/assets/images/stroom-ui/`.
+* `title` (optional) - The hover tip title that will be given to the icon.
+* `state` (optional) [`enabled`|`disabled`] - Whether the button is enabled or disabled.
+  Defaults to enabled.
+
+The full list of available icons can be found in the [Icon Gallery]({{< relref "icon-gallery" >}}).
+
+{{% warning %}}
+The icon filenames and paths are case sensitive so ensure you have the correct case, e.g. most `document` icons are in upper sentence case.
+Also note the extension of the icon files as most are `.svg` but some are `.png`.
+{{% /warning %}}
+
+E.g:
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+Simple use: {{< stroom-icon "save.svg" >}}
+Custom name: {{< stroom-icon "key.svg" "Lock" >}}
+Disabled document icon: {{< stroom-icon "document/Feed.svg" "Feed" "disabled" >}}
+{{< stroom-btn "Cancel" >}}
+  {{< /card >}}
+  {{< card header="Markdown" >}}
+```markdown
+Simple use: {{</* stroom-icon "save.svg" */>}}
+Custom name: {{</* stroom-icon "key.svg" "Lock" */>}}
+Disabled document icon: {{</* stroom-icon "document/Feed.svg" "Feed" "disabled" */>}}
+```
+  {{< /card >}}
+{{< /cardpane >}}
 
 
 ### Buttons
@@ -230,7 +239,7 @@ and
 
 ### Pipeline elements
 
-To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen) you can use the shortcode `pipe-elm`.
+To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen), like {{< pipe-elm "splitFilter" >}}, you can use the shortcode `pipe-elm`.
 
 **Arguments**:
 * `element_name` - The name of the pipeline element (case insensitive), e.g. `XsltFilter`.
@@ -267,7 +276,7 @@ This is a splitFilter with a custom name:
 
 ### Stroom document tabs
 
-To display a top level Stroom document tab you can use the shortcode `stroom-tab`.
+To display a top level Stroom document tab, like {{< stroom-tab "Index.svg" "Big Index" >}}, you can use the shortcode `stroom-tab`.
 
 **Arguments**:
 * `icon_filename` - The filename of the icon to use (relative to `assets/images/stroom-ui/document/`) (case sensitive), e.g. `Pipeline.svg`.
@@ -278,15 +287,17 @@ For a full list of all available icons see the [Icon Gallery]({{< ref "icon-gall
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
-{{< stroom-tab "Feed.svg" "MY_FEED" >}}
-and
-{{< stroom-tab "XSLT.svg" "My Translation" "active" >}}
+Simple: {{< stroom-tab "Feed.svg" "MY_FEED" >}}
+Custom name: {{< stroom-tab "XSLT.svg" "My Translation" >}}
+Active: {{< stroom-tab "XSLT.svg" "My Translation" "active" >}}
+Unsaved: {{< stroom-tab "XSLT.svg" "My Translation" "active" "unsaved" >}}
   {{< /card >}}
   {{< card header="Markdown" >}}
 ```markdown
-{{</* stroom-tab "Feed.svg" "MY_FEED" */>}}
-and
-{{</* stroom-tab "XSLT.svg" "My Translation" "active" */>}}
+Simple: {{</* stroom-tab "Feed.svg" "MY_FEED" */>}}
+Custom name: {{</* stroom-tab "XSLT.svg" "My Translation" */>}}
+Active: {{</* stroom-tab "XSLT.svg" "My Translation" "active" */>}}
+Unsaved: {{</* stroom-tab "XSLT.svg" "My Translation" "active" "unsaved" */>}}
 ```
   {{< /card >}}
 {{< /cardpane >}}
