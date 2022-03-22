@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 linkTitle: "Installation"
-#weight:
+weight: 40
 date: 2021-07-12
 cascade:
   tags: 
