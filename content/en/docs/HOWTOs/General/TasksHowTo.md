@@ -14,17 +14,22 @@ Various
 [Tasks]({{< relref "../../user-guide/jobs.md" >}})
 run in the background within Stroom. This HOWTO demonstrates how to manage these tasks
 
+
 ## Assumptions
+
 - All Sections
- - an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
+  - an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
 - Proxy Aggregation Tasks
- - we have a multi node Stroom cluster with two nodes, `stroomp00` and `stroomp01`.
+  - we have a multi node Stroom cluster with two nodes, `stroomp00` and `stroomp01`.
 - Stream Processor Tasks
- - we have a multi node Stroom cluster with two nodes, `stroomp00` and `stroomp01`.
- - when demonstrating adding a new node to an existing cluster, the new node is `stroomp02`.
+  - we have a multi node Stroom cluster with two nodes, `stroomp00` and `stroomp01`.
+  - when demonstrating adding a new node to an existing cluster, the new node is `stroomp02`.
+
 
 ## Proxy Aggregation
+
 ## Turn Off Proxy Aggregation
+
 We first select the `Monitoring` item of the __Main Menu__ to bring up the `Monitoring` sub-menu.
 
 {{< screenshot "HOWTOs/UI-MonitoringSubmenu-00.png" >}}Stroom UI Monitoring sub-menu{{< /screenshot >}}
@@ -44,7 +49,9 @@ At this, uncheck the `Enabled` check-boxes for both nodes and also the main Prox
 
 At this point, no new proxy aggregation will occur and any inbound files received by the Store Proxies will accumulate in the proxy storage area.
 
+
 ### Turn On Proxy Aggregation
+
 We first select the `Monitoring` item of the __Main Menu__ to bring up the `Monitoring` sub-menu.
 
 {{< screenshot "HOWTOs/UI-MonitoringSubmenu-00.png" >}}Stroom UI Monitoring sub-menu{{< /screenshot >}}
@@ -55,16 +62,17 @@ then move down and select the `Jobs` sub-item then select the `Proxy Aggregation
 
 Now, re-enable each node's `Proxy Aggregation` check-box and the main `Proxy Aggregation` check-box.
 
-After checking the check-boxes, perform a refresh of the display by pressing
-the _Refresh_ icon {{< screenshot "HOWTOs/icons/refresh.png" >}}Stroom UI RefreshButton{{< /screenshot >}}
+After checking the check-boxes, perform a refresh of the display by pressing the _Refresh_ icon {{< stroom-icon "refresh.svg" >}}.
 
 on the top right of the lower (node display) pane. You should note the `Last Executed` date/time change to see
 
-{{< screenshot "HOWTOs/UI-TestProxyAggregation-00.png" >}}Stroom UI Test Feed - Re-enable Proxy Aggregation{{< /screenshot >}}.
+{{< screenshot "HOWTOs/UI-TestProxyAggregation-00.png" >}}Stroom UI Test Feed - Re-enable Proxy Aggregation{{< /screenshot >}}
 
 
 ## Stream Processors
+
 ### Enable Stream Processors
+
 To enable the `Stream Processors` task, move to the `Monitoring` item of the __Main Menu__ and select it to bring up the `Monitoring` sub-menu.
 
 {{< screenshot "HOWTOs/UI-MonitoringSubmenu-00.png" >}}Stroom UI Monitoring sub-menu{{< /screenshot >}}
@@ -85,6 +93,7 @@ We enable nodes nodes by selecting their check-boxes as well as the main `Stream
 {{< screenshot "HOWTOs/UI-NodeProcessors-02.png" >}}Stroom UI Jobs Management - Stream Processor enabled{{< /screenshot >}}
 
 That is it. Stroom will automatically take note of these changes and internally start each node's Stroom Processor task.
+
 
 ### Enable Stream Processors On New Node
 

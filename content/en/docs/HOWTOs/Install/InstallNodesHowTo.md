@@ -38,9 +38,7 @@ the __Cluster URL:__ entry box, enter the first node's URL of `http://stroomp00.
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-03.png" >}}Stroom UI Node Management - set clustercall url for first node{{< /screenshot >}}
 
-then press the 
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
-at which we see the _Cluster URL_ has been set for the first node as per
+then press the {{< stroom-btn "Ok" >}} at which we see the _Cluster URL_ has been set for the first node as per
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-04.png" >}}Stroom UI Node Management - set clustercall url on first node{{< /screenshot >}}
 
@@ -54,8 +52,7 @@ the __Cluster URL:__ entry box, enter the second node's URL of `http://stroomp01
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-06.png" >}}Stroom UI Node Management - set clustercall url for second node{{< /screenshot >}}
 
-then press the 
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
+then press the {{< stroom-btn "Ok" >}} button.
 
 At this we will see both nodes have the __Cluster URLs__ set.
 
@@ -97,9 +94,7 @@ and into the __Cluster URL:__ entry box, enter the first node's URL of `http://s
 
 {{< screenshot "HOWTOs/UI-AddNewNode-02.png" >}}Stroom UI New Node Management - set clustercall url for new node{{< /screenshot >}}
 
-then press the 
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
-button at which we see the _Cluster URL_ has been set for the first node as per
+then press the {{< stroom-btn "Ok" >}} button at which we see the _Cluster URL_ has been set for the first node as per
 
 {{< screenshot "HOWTOs/UI-AddNewNode-03.png" >}}Stroom UI New Node Management - set clustercall url on new node{{< /screenshot >}}
 

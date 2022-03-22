@@ -10,6 +10,7 @@ description: >
 ---
 
 ## Assumptions
+
 The following assumptions are used in this document.
 - for manual login, we will log in as the user `admin` whose password is set to `admin` and the password is pre-expired
 - for PKI Certificate login, the Stroom deployment would have been configured to accept PKI Logins
@@ -21,29 +22,21 @@ Within the **Login** panel, enter `admin` into the *User Name:* entry box and `a
 
 {{< screenshot "HOWTOs/UI-Login-01.png" >}}Stroom UI Login - logging in as admin{{< /screenshot >}}
 
-When you press the
-{{< screenshot "HOWTOs/icons/buttonLogin.png" >}}Stroom UI LoginButton{{< /screenshot >}}
-button, you are advised that your user's password has expired and you need to change it.
+When you press the {{< stroom-btn "Login" >}} button, you are advised that your user's password has expired and you need to change it.
 
 {{< screenshot "HOWTOs/UI-Login-02.png" >}}Stroom UI Login - password expiry{{< /screenshot >}}
 
-Press the
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
-button and enter the old password `admin` and a new password with confirmation in the appropriate entry boxes.
+Press the {{< stroom-btn "Ok" >}} button and enter the old password `admin` and a new password with confirmation in the appropriate entry boxes.
 
 {{< screenshot "HOWTOs/UI-Login-03.png" >}}Stroom UI Login - password change{{< /screenshot >}}
 
-Again press the
-{{< screenshot "HOWTOs/icons/buttonOk.png" >}}Stroom UI OkButton{{< /screenshot >}}
-button to see the confirmation that the password has changed.
+Again press the {{< stroom-btn "Ok" >}} button to see the confirmation that the password has changed.
 
 {{< screenshot "HOWTOs/UI-Login-04.png" >}}Stroom UI Login - password change confirmation{{< /screenshot >}}.
 
-On pressing
-{{< screenshot "HOWTOs/icons/buttonClose.png" >}}Stroom UI CloseButton{{< /screenshot >}}
-you will be logged in as the `admin` user and you will be presented with the __Main Menu__ (`Item Tools Monitoring User Help`), and the `Explorer` and `Welcome` panels (or tabs).
+On pressing {{< stroom-btn "Close" >}} you will be logged in as the `admin` user and you will be presented with the __Main Menu__ (`Item Tools Monitoring User Help`), and the `Explorer` and `Welcome` panels (or tabs).
 
-{{< screenshot "HOWTOs/UI-Login-06.png" >}}Stroom UI Login - user logged in{{< /screenshot >}}.
+{{< screenshot "HOWTOs/UI-Login-06.png" >}}Stroom UI Login - user logged in{{< /screenshot >}}
 
 We have now successfully logged on as the `admin` user.
 
