@@ -360,6 +360,11 @@ create_root_redirect_page() {
     --expression "s/<<<LATEST_VERSION>>>/${latest_version:?}/g" \
     "${BUILD_DIR}/index.html.template" \
     > "${NEW_GH_PAGES_DIR}/index.html"
+
+  # This is to stop gh-pages treating the content as Jekyll content
+  # in which case dirs prefixed with '_' are ignored breaking the print 
+  # functionality
+  touch "${NEW_GH_PAGES_DIR}/.nojekyll"
 }
 
 create_release_tag() {
