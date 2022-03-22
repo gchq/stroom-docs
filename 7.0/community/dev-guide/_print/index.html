@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.93.0" />
+<meta name="generator" content="Hugo 0.95.0" />
 <link rel="canonical" type="text/html" href="../../../community/dev-guide/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -434,6 +434,8 @@ You can either point stroom at a local MySQL server or use the MySQL Docker cont
 <h3 id="host-based-mysql-server">Host based MySQL server</h3>
 <p>With an instance of MySQL server 8.0 running on your local machine do the following to create the <em>stroom</em> database:</p>
 
+  
+
 
 
 
@@ -469,6 +471,8 @@ quit;</code></pre>
 The local configuration file live in the root of the <em>Stroom</em> repository <code>./local.yml</code>.</p>
 <p>To create a default version of this file run this script from within the root of the stroom git repository.</p>
 
+  
+
 
 
 
@@ -490,6 +494,8 @@ These files are not source controlled so you can make any changes you like to th
 <p>As a minimum to develop stroom you will need clones of the <code>stroom</code> and <code>stroom-resources</code> git repositories.
 <code>stroom-resources</code> provides the docker-compose configuration for running the many docker containers needed.</p>
 <p>Having cloned <code>stroom-resources</code> navigate to the directory <code>stroom-resources/bin</code> and run the script</p>
+
+  
 
 
 
@@ -515,6 +521,8 @@ By default it is set to run <code>stroom-all-dbs</code> (MySQL + database init s
 This command will run all parts of the build except for the tests which can take 20+mins to run.
 Some parts of the build are run inside docker containers (to remove the need to install additional dependencies) so on first run there will be an overhead of building the docker image layers.
 These layers will be cached which will speed up future builds.</p>
+
+  
 
 
 
@@ -606,6 +614,8 @@ If you are running other unrelated containers, don&rsquo;t run this.</p>
 
 
 
+  
+
 
 
 
@@ -646,6 +656,8 @@ As a result Stroom needs to be started up with GWT <em>Super Dev Mode</em>.
 <h3 id="java_home">JAVA_HOME</h3>
 <p>Ensure environment variable <code>JAVA_HOME</code> is set and points to a valid JDK 15 directory</p>
 
+  
+
 
 
 
@@ -678,6 +690,8 @@ As a result Stroom needs to be started up with GWT <em>Super Dev Mode</em>.
 .</p>
 <h3 id="build-stroom-app">Build <code>stroom-app</code></h3>
 <p>NOTE: During development, it is helpful to skip running unit and integration tests, to speed up the build process:
+
+  
 
 
 
@@ -726,6 +740,8 @@ We would like to improve cross-browser support so please let us know about any b
 <p>With the Stroom application running you need to also run a draft GWT compile and run the Super Dev Mode compiler.</p>
 <p>On first use it is recomended to run:</p>
 
+  
+
 
 
 
@@ -743,6 +759,8 @@ We would like to improve cross-browser support so please let us know about any b
 <p>This will ensure a clean state of the GWT compiled javascript.
 It may be necessary to re-run the clean, and draft compile if there have been significant changes to the Java code or if there are problems running Stroom in Super Dev Mode.</p>
 <p>Normally however you can just run:</p>
+
+  
 
 
 
@@ -877,7 +895,7 @@ Tests can bind mock implementations of a components API just by using the Guice 
   <a title="images/dev-guide/module-dependencies.puml.svg" href="../../../images/dev-guide/module-dependencies.puml.svg">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/dev-guide/module-dependencies.puml.svg" alt="images/dev-guide/module-dependencies.puml.svg">
+      <img class="card-img-top" src="../../../images/dev-guide/module-dependencies.puml.svg" style="max-width: fit-content" alt="images/dev-guide/module-dependencies.puml.svg">
       
 
       
@@ -921,7 +939,7 @@ These typical relationships are shown in the diagram below.</p>
   <a title="images/dev-guide/external-dependencies.puml.svg" href="../../../images/dev-guide/external-dependencies.puml.svg">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../images/dev-guide/external-dependencies.puml.svg" alt="images/dev-guide/external-dependencies.puml.svg">
+      <img class="card-img-top" src="../../../images/dev-guide/external-dependencies.puml.svg" style="max-width: fit-content" alt="images/dev-guide/external-dependencies.puml.svg">
       
 
       
@@ -1059,6 +1077,8 @@ This is not done by directly editing the file but instead using the script <code
 This prevents merge conflicts that would happen with multiple people editing the <em>CHANGELOG</em> file.</p>
 <p>The following examples show you how to use the <em>log_change</em> script.</p>
 
+  
+
 
 
 
@@ -1144,6 +1164,8 @@ Once pushed and merged ensure that the branch passes the
 <h2 id="performing-a-named-release-of-stroom">Performing a named release of Stroom</h2>
 <p>Once all the above pre-requisites have been met you can trigger the release by running this command:</p>
 
+  
+
 
 
 
@@ -1207,6 +1229,8 @@ Once pushed and merged ensure that the branch passes the
  you can create an associated release of the Stroom docker stacks.</p>
 <p>In the following examples we will assume that you have just released <em>Stroom</em> <code>v7.0.1</code> on branch <code>7.0</code>, and the previous release was <code>v7.0.0</code>.</p>
 <p>Checkout and pull the corresponding release branch in the <em>stroom-resources</em> repository.</p>
+
+  
 
 
 
@@ -1297,6 +1321,8 @@ Check the
  is successful for the new Stroom image.</p>
 <p>If the build is green then tag the stacks release as follows:</p>
 
+  
+
 
 
 
@@ -1349,6 +1375,8 @@ If a development version of a library needs to be shared between projects then y
 </ul>
 <h2 id="to-perform-a-local-build">To Perform a Local Build</h2>
 
+  
+
 
 
 
@@ -1399,6 +1427,8 @@ If a development version of a library needs to be shared between projects then y
 This will require an existing user approved for the group to approve you on the ticket.</p>
 <h2 id="setting-up-a-gpg-key">Setting up a GPG key</h2>
 <p>You can use the following commands for setting up a GPG2 key for signing.</p>
+
+  
 
 
 
@@ -1451,6 +1481,8 @@ The credentials required are:</p>
 For each one create a secret with the <code>ORG_GRADLE_...</code> bit as the name.</p>
 <p>So that the action can create the Github release you will also need to set up an SSH key pair and provide it with the public and private key.
 To generate the key pair do:</p>
+
+  
 
 
 

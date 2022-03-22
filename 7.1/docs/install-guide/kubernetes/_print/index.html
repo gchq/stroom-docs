@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.93.0" />
+<meta name="generator" content="Hugo 0.95.0" />
 <link rel="canonical" type="text/html" href="../../../../docs/install-guide/kubernetes/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -451,6 +451,8 @@ A purpose-built Kubernetes Operator (
 <li>
 <p>Clone the repository</p>
 
+  
+
 
 
 
@@ -472,6 +474,8 @@ For example, if your private registry is <code>my-registry.example.com</code>, t
 </li>
 <li>
 <p>Deploy the Operator</p>
+
+  
 
 
 
@@ -575,6 +579,8 @@ The tag should correspond to the release number that was downloaded (e.g. <code>
 <p>It is good practice to first delete any dependent resources <em>before</em> deleting the Operator.</p>
 <h2 id="deleting-the-operator">Deleting the Operator</h2>
 <p>Execute this command against the <strong>same version</strong> of manifest that was used to deploy the Operator currently running.</p>
+
+  
 
 
 
@@ -681,6 +687,8 @@ spec:
 <p>The Operator will create <code>StatefulSet</code> when the <code>DatabaseServer</code> is deployed, which will attempt to claim a <code>PersistentVolume</code> matching the specification provided in <code>DatabaseServer.spec.volumeClaim</code>.</p>
 <p>Fast, low-latency storage should be used for the Stroom database</p>
 <h3 id="deploy-the-databaseserver-to-the-cluster">Deploy the <code>DatabaseServer</code> to the cluster</h3>
+
+  
 
 
 
@@ -826,6 +834,8 @@ When deciding on a storage quota, be sure to consider the needs of log and refer
 <p>This volume should ideally be backed by fast, low-latency storage in order to maximise the performance of LMDB.</p>
 <h3 id="deploy-the-stroomcluster-resource">Deploy the <code>StroomCluster</code> resource</h3>
 
+  
+
 
 
 
@@ -879,6 +889,8 @@ This can be useful when providing files like certificates for Kafka integration.
 <li><code>spec.nodeSets.count</code> If changed, the <code>NodeSet</code>&rsquo;s <code>StatefulSet</code> will be scaled (up or down) to match the corresponding number of replicas</li>
 </ol>
 <p>After changing any of the above properties, re-apply the manifest:</p>
+
+  
 
 
 
@@ -988,6 +1000,8 @@ If it can&rsquo;t, the autoscaler will continue adjusting upwards, potentially c
 
 <h3 id="deploy-the-resource-manifest">Deploy the resource manifest</h3>
 
+  
+
 
 
 
@@ -1004,6 +1018,8 @@ If it can&rsquo;t, the autoscaler will continue adjusting upwards, potentially c
 
 <h2 id="disable-autoscaling">Disable autoscaling</h2>
 <p>Delete the <code>StroomTaskAutoscaler</code> resource</p>
+
+  
 
 
 
@@ -1060,6 +1076,8 @@ Ensure this is set to a reasonable value, otherwise long-running tasks may not h
 
 
 <h2 id="stopping-the-cluster">Stopping the cluster</h2>
+
+  
 
 
 
@@ -1126,6 +1144,8 @@ However the operator may be configured to delete the PVC in certain situations, 
 In these situations, it may be necessary to terminate the Pod.</p>
 <p>After you identify the unresponsive Pod (e.g. by finding a node not responding to cluster ping):</p>
 
+  
+
 
 
 
@@ -1171,6 +1191,8 @@ Task processing is resumed once the node starts up again.
   </a>
 </span>
 :</p>
+
+  
 
 
 

@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.93.0" />
+<meta name="generator" content="Hugo 0.95.0" />
 <link rel="canonical" type="text/html" href="../../../../docs/install-guide/upgrades/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -319,6 +319,8 @@ e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts">https:/
 <h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
 <p>Run the pre-migration checks script on the running database.</p>
 
+  
+
 
 
 
@@ -346,6 +348,8 @@ mysql --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
 Do this using the v6 stack.
 This ensures that stroom is not trying to access the database.</p>
 
+  
+
 
 
 
@@ -367,6 +371,8 @@ Typically these will be <code>stroom</code>, <code>stats</code> and <code>auth</
 <p>If you are running in a docker stack then you can run the <code>./backup_databases.sh</code> script.</p>
 <h3 id="stop-the-database">Stop the database</h3>
 <p>Stop the database using the v6 stack.</p>
+
+  
 
 
 
@@ -409,6 +415,8 @@ The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x</p>
 .</p>
 <p>This is the process for upgrading the database. All of these commands are using the v7 stack.</p>
 
+  
+
 
 
 
@@ -444,6 +452,8 @@ unset MYSQL_TAG
 <h3 id="rename-legacy-stroom-auth-tables">Rename legacy stroom-auth tables</h3>
 <p>Run this command to connect to the <code>auth</code> database and run the pre-migration SQL script.</p>
 
+  
+
 
 
 
@@ -466,6 +476,8 @@ mysql --table -u&#34;authuser&#34; -p&#34;stroompassword1&#34; auth \
 <h3 id="copy-the-auth-database-content-to-stroom">Copy the <code>auth</code> database content to <code>stroom</code></h3>
 <p>Having run the table rename perform another backup of just the <code>auth</code> database.</p>
 <p>
+  
+
 
 
 
@@ -482,6 +494,8 @@ mysql --table -u&#34;authuser&#34; -p&#34;stroompassword1&#34; auth \
 
 Now restore this backup into the <code>stroom</code> database.
 You can use the v7 stack scripts to do this.</p>
+
+  
 
 
 
@@ -506,6 +520,8 @@ OLD_AUTH_users
 </code></pre>
 <p>This can be checked by running the following in the v7 stack.</p>
 
+  
+
 
 
 
@@ -524,6 +540,8 @@ OLD_AUTH_users
 <h3 id="drop-unused-databases">Drop unused databases</h3>
 <p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
+
+  
 
 
 
@@ -545,6 +563,8 @@ mysql --force -u&#34;root&#34; -p&#34;my-secret-pw&#34; \
 
 <p>Verify it worked with:</p>
 
+  
+
 
 
 
@@ -563,6 +583,8 @@ mysql --force -u&#34;root&#34; -p&#34;my-secret-pw&#34; \
 <p>To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
 For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
 Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.</p>
+
+  
 
 
 

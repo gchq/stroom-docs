@@ -36,14 +36,43 @@ It also ensures that the local build environment matches that used in GitHub act
 &lt;p&gt;The git repository for this site is &lt;a href=&#34;https://github.com/gchq/stroom-docs&#34;&gt;stroom-docs (external link)&lt;/a&gt;.
 &lt;em&gt;stroom-docs&lt;/em&gt; uses the Docsy theme (&lt;code&gt;themes/docsy/&lt;/code&gt;) via a git sub-module, which in turn uses two nested sub-modules for Bootstrap (&lt;code&gt;themes/docsy/assets/vendor/bootstrap/&lt;/code&gt;) and Font-Awesome (&lt;code&gt;themes/docsy/assets/vendor/Font-Awesome/&lt;/code&gt;).
 Therefore to clone stroom-docs you need to do&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Clone the repo
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Clone the repo
 git clone https://github.com/gchq/stroom-docs.git
-
+(out)Cloning into &amp;#39;stroom-docs&amp;#39;...
+(out)remote: Enumerating objects: 66006, done.
+(out)remote: Counting objects: 100% (7916/7916), done.
+(out)remote: Compressing objects: 100% (1955/1955), done.
+(out)remote: Total 66006 (delta 3984), reused 7417 (delta 3603), pack-reused 58090
+(out)Receiving objects: 100% (66006/66006), 286.61 MiB | 7.31 MiB/s, done.
+(out)Resolving deltas: 100% (34981/34981), done.
 cd stroom-docs
-
+(out)
 # Download all sub modules
 git submodule update --init --recursive
-&lt;/code&gt;&lt;/pre&gt;
+(out)Submodule &amp;#39;themes/docsy&amp;#39; (https://github.com/google/docsy.git) registered for path &amp;#39;themes/docsy&amp;#39;
+(out)Cloning into &amp;#39;/tmp/stroom-docs/themes/docsy&amp;#39;...
+(out)...
+(out)Submodule &amp;#39;assets/vendor/Font-Awesome&amp;#39; (https://github.com/FortAwesome/Font-Awesome.git) registered for path &amp;#39;themes/docsy/assets/vendor/Font-Awesome&amp;#39;
+(out)Submodule &amp;#39;assets/vendor/bootstrap&amp;#39; (https://github.com/twbs/bootstrap.git) registered for path &amp;#39;themes/docsy/assets/vendor/bootstrap&amp;#39;
+(out)Cloning into &amp;#39;/tmp/stroom-docs/themes/docsy/assets/vendor/Font-Awesome&amp;#39;...
+(out)Cloning into &amp;#39;/tmp/stroom-docs/themes/docsy/assets/vendor/bootstrap&amp;#39;...
+(out)...&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;converting-the-plantuml-files-to-svg&#34;&gt;Converting the PlantUML files to SVG&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;stroom-docs&lt;/em&gt; makes used of &lt;a href=&#34;https://plantuml.com&#34;&gt;PlantUML (external link)&lt;/a&gt; for a lot of its diagrams.
 These are stored in the repository as &lt;code&gt;.puml&lt;/code&gt; text files.
@@ -61,8 +90,23 @@ All PlantUML content should authored in &lt;code&gt;.puml&lt;/code&gt; files and
 
 
 &lt;p&gt;To convert all &lt;code&gt;.puml&lt;/code&gt; files into sibling &lt;code&gt;.puml.svg&lt;/code&gt; files do the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInPumlDocker.sh SVG
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInPumlDocker.sh SVG&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;This command will find all &lt;code&gt;.puml&lt;/code&gt; files (in &lt;code&gt;content/&lt;/code&gt; and &lt;code&gt;assets/&lt;/code&gt;) and convert each one to SVG.
 It only needs to be run on first clone of the repo or when &lt;code&gt;.puml&lt;/code&gt; files are added/changed.
 The generated &lt;code&gt;.puml.svg&lt;/code&gt; files are ignored by git.
@@ -96,8 +140,23 @@ executing &amp;quot;shortcodes/image.html&amp;quot; at &amp;lt;$image.Name&amp;g
 &lt;h2 id=&#34;running-a-local-server&#34;&gt;Running a local server&lt;/h2&gt;
 &lt;p&gt;The documentation can be built and served locally while developing it.
 To build and serve the site run&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInHugoDocker.sh server
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInHugoDocker.sh server&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;This uses Hugo to build the site in memory and then serve it from a local web server.
 When any source files are changed or added Hugo will detect this and rebuild the site as required, including automatically refreshing the browser page to update the rendered view.&lt;/p&gt;
 &lt;p&gt;Once the server is running the site is available at &lt;a href=&#34;http://localhost:1313/stroom-docs&#34;&gt;localhost:1313/stroom-docs&lt;/a&gt;.&lt;/p&gt;
@@ -112,16 +171,46 @@ When any source files are changed or added Hugo will detect this and rebuild the
 
 &lt;h2 id=&#34;building-the-site-locally&#34;&gt;Building the site locally&lt;/h2&gt;
 &lt;p&gt;To perform a full build of the static site run:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInHugoDocker.sh build
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInHugoDocker.sh build&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;This will generate all the static content and place it in &lt;code&gt;public/&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;generating-the-pdf&#34;&gt;Generating the PDF&lt;/h2&gt;
 &lt;p&gt;Every page has a &lt;em&gt;Print entire section&lt;/em&gt; link that will display a printable view of that section and its children.
 In addition to this the GitHub Actions we generate a PDF of the &lt;code&gt;docs&lt;/code&gt; section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
 This makes the documentation available for offline use.&lt;/p&gt;
 &lt;p&gt;To test the PDF generation do:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInPupeteerDocker.sh PDF
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;./container_build/runInPupeteerDocker.sh PDF&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h2 id=&#34;updating-the-docsy-theme&#34;&gt;Updating the Docsy theme&lt;/h2&gt;
 &lt;p&gt;This repository uses a git submodule for the Docsy theme.&lt;/p&gt;
 
@@ -260,7 +349,14 @@ Warn of implications of breaking the site when updating with incompatible upstre
 
 
 
-&lt;img class=&#34;stroom-icon&#34; src=&#34;../../images/stroom-ui/edit.svg&#34; width=&#34;16px&#34; title=&#34;Edit&#34; alt=&#34;edit.svg&#34;&gt;
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/edit.svg&#34; 
+  title=&#34;Edit&#34; 
+  alt=&#34;edit.svg&#34;&gt;
  icon at the bottom.
 The URL for each node needs to be set as above but obviously substituting in the host name of the individual node, e.g. &lt;code&gt;http://&amp;lt;HOST_NAME&amp;gt;:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Nodes are expected communicate with each other on port 8080 over http.

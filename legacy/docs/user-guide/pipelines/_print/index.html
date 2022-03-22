@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.93.0" />
+<meta name="generator" content="Hugo 0.95.0" />
 <link rel="canonical" type="text/html" href="../../../../docs/user-guide/pipelines/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -171,7 +171,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-b02a3d3f350b1b05feec5352bf2f0e77">File Output</a></li>
+<li>1: <a href="#pg-0d3ac18ea787cffda6272f82e6bae0a5">Reference Data</a></li>
 
 
     
@@ -179,7 +179,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-abb89cd998f89dc653cebf1da2271a55">Parser</a></li>
+<li>2: <a href="#pg-b02a3d3f350b1b05feec5352bf2f0e77">File Output</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-abb89cd998f89dc653cebf1da2271a55">Parser</a></li>
 
 
     
@@ -194,7 +202,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2.1: <a href="#pg-850da8228403d37fae63cefb4607865a">Context Data</a></li>
+<li>3.1: <a href="#pg-850da8228403d37fae63cefb4607865a">Context Data</a></li>
 
 
     
@@ -202,21 +210,13 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2.2: <a href="#pg-59f866a6d2114dc2ea44119af58eff26">XML Fragments</a></li>
+<li>3.2: <a href="#pg-59f866a6d2114dc2ea44119af58eff26">XML Fragments</a></li>
 
 
     
   
 
     </ul>
-    
-  
-    
-    
-	
-<li>3: <a href="#pg-0d3ac18ea787cffda6272f82e6bae0a5">Reference Data</a></li>
-
-
     
   
     
@@ -285,333 +285,24 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="--base-section-num: '1.'; ">
     
-  <h1 id="pg-b02a3d3f350b1b05feec5352bf2f0e77">1 - File Output</h1>
-    
-	<p>When outputting files with Stroom, the output file names and paths can include various substitution variables to form the file and path names.</p>
-<h2 id="context-variables">Context Variables</h2>
-<p>The following replacement variables are specific to the current processing context.</p>
-<ul>
-<li><code>${feed}</code> - The name of the feed that the stream being processed belongs to</li>
-<li><code>${pipeline}</code> - The name of the pipeline that is producing output</li>
-<li><code>${sourceId}</code> - The id of the input data being processed</li>
-<li><code>${partNo}</code> - The part number of the input data being processed where data is in aggregated batches</li>
-<li><code>${searchId}</code> - The id of the batch search being performed. This is only available during a batch search</li>
-<li><code>${node}</code> - The name of the node producing the output</li>
-</ul>
-<h2 id="time-variables">Time Variables</h2>
-<p>The following replacement variables can be used to include aspects of the current time in UTC.</p>
-<ul>
-<li><code>${year}</code> - Year in 4 digit form, e.g. 2000</li>
-<li><code>${month}</code> - Month of the year padded to 2 digits</li>
-<li><code>${day}</code> - Day of the month padded to 2 digits</li>
-<li><code>${hour}</code> - Hour padded to 2 digits using 24 hour clock, e.g. 22</li>
-<li><code>${minute}</code> - Minute padded to 2 digits</li>
-<li><code>${second}</code> - Second padded to 2 digits</li>
-<li><code>${millis}</code> - Milliseconds padded to 3 digits</li>
-<li><code>${ms}</code> - Milliseconds since the epoch</li>
-</ul>
-<h2 id="system-environment-variables">System (Environment) Variables</h2>
-<p>System variables (environment variables) can also be used, e.g. <code>${TMP}</code>.</p>
-<h2 id="file-name-references">File Name References</h2>
-<p>rolledFileName in RollingFileAppender can use references to the fileName to incorporate parts of the non rolled file name.</p>
-<ul>
-<li><code>${fileName}</code> - The complete file name</li>
-<li><code>${fileStem}</code> - Part of the file name before the file extension, i.e. everything before the last &lsquo;.&rsquo;</li>
-<li><code>${fileExtension}</code> - The extension part of the file name, i.e. everything after the last &lsquo;.&rsquo;</li>
-</ul>
-<h2 id="other-variables">Other Variables</h2>
-<ul>
-<li><code>${uuid}</code> - A randomly generated UUID to guarantee unique file names</li>
-</ul>
-
-</div>
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
-    
-  <h1 id="pg-abb89cd998f89dc653cebf1da2271a55">2 - Parser</h1>
-    <div class="lead">Parsing input data.</div>
-	<p>The following capabilities are available to parse input data:</p>
-<ul>
-<li>XML - XML input can be parsed with the XML parser.</li>
-<li><a href="../../../../docs/user-guide/pipelines/parser/xml-fragments/">XML Fragment</a> - Treat input data as an XML fragment, i.e. XML that does not have an XML declaration or root elements.</li>
-<li><a href="../../../../docs/user-guide/data-splitter/">Data Splitter</a> - Delimiter and regular expression based language for turning non XML data into XML (e.g. CSV)</li>
-</ul>
-
-</div>
-
-
-
-
-    
-      
-  
-  
-  
-  
-
-  
-  
-
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '2.1.'; page-break-before: always">
-    
-  <h1 id="pg-850da8228403d37fae63cefb4607865a">2.1 - Context Data</h1>
-    
-	<p>##Context File</p>
-<p>###Input File:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeData&gt;
-	&lt;SomeEvent&gt;
-			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
-			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
-			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
-			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
-	&lt;/SomeEvent&gt;
-&lt;/SomeData&gt;
-</code></pre>
-<p>###Context File:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeContext&gt;
-	&lt;Machine&gt;MyMachine&lt;/Machine&gt;
-&lt;/SomeContext&gt;
-</code></pre>
-<p>###Context XSLT:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet
-	xmlns=&quot;reference-data:2&quot;
-	xmlns:evt=&quot;event-logging:3&quot;
-	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-	version=&quot;2.0&quot;&gt;
-		
-		&lt;xsl:template match=&quot;SomeContext&quot;&gt;
-			&lt;referenceData 
-					xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
-					version=&quot;2.0.1&quot;&gt;
-							
-					&lt;xsl:apply-templates/&gt;
-			&lt;/referenceData&gt;
-		&lt;/xsl:template&gt;
-
-		&lt;xsl:template match=&quot;Machine&quot;&gt;
-			&lt;reference&gt;
-					&lt;map&gt;CONTEXT&lt;/map&gt;
-					&lt;key&gt;Machine&lt;/key&gt;
-					&lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt;
-			&lt;/reference&gt;
-		&lt;/xsl:template&gt;
-		
-&lt;/xsl:stylesheet&gt;
-</code></pre>
-<p>###Context XML Translation:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;referenceData xmlns:evt=&quot;event-logging:3&quot;
-								xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-								xmlns=&quot;reference-data:2&quot;
-								xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
-								version=&quot;2.0.1&quot;&gt;
-		&lt;reference&gt;
-			&lt;map&gt;CONTEXT&lt;/map&gt;
-			&lt;key&gt;Machine&lt;/key&gt;
-			&lt;value&gt;MyMachine&lt;/value&gt;
-		&lt;/reference&gt;
-&lt;/referenceData&gt;
-</code></pre>
-<p>###Input File:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeData&gt;
-	&lt;SomeEvent&gt;
-			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
-			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
-			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
-			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
-	&lt;/SomeEvent&gt;
-&lt;/SomeData&gt;
-</code></pre>
-<p>###Main XSLT (Note the use of the context lookup):</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet
-	xmlns=&quot;event-logging:3&quot;
-	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
-	version=&quot;2.0&quot;&gt;
-	
-    &lt;xsl:template match=&quot;SomeData&quot;&gt;
-        &lt;Events xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot; Version=&quot;3.0.0&quot;&gt;
-            &lt;xsl:apply-templates/&gt;
-        &lt;/Events&gt;
-    &lt;/xsl:template&gt;
-    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
-        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
-            &lt;Event&gt;
-                &lt;EventTime&gt;
-                        &lt;TimeCreated&gt;
-                            &lt;xsl:value-of select=&quot;s:format-date(SomeTime, 'dd/MM/yyyy:hh:mm:ss')&quot;/&gt;
-                        &lt;/TimeCreated&gt;
-                &lt;/EventTime&gt;
-				&lt;EventSource&gt;
-					&lt;System&gt;Example&lt;/System&gt;
-					&lt;Environment&gt;Example&lt;/Environment&gt;
-					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
-					&lt;Device&gt;
-						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
-						&lt;Location&gt;
-							&lt;Country&gt;UK&lt;/Country&gt;
-							&lt;Site&gt;&lt;xsl:value-of select=&quot;s:lookup('CONTEXT', 'Machine')&quot;/&gt;&lt;/Site&gt;
-							&lt;Building&gt;Main&lt;/Building&gt;
-							&lt;Floor&gt;1&lt;/Floor&gt;              
-							&lt;Room&gt;1aaa&lt;/Room&gt;
-						&lt;/Location&gt;           
-					&lt;/Device&gt;
-					&lt;User&gt;&lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;&lt;/User&gt;
-				&lt;/EventSource&gt;
-				&lt;EventDetail&gt;
-					&lt;View&gt;
-						&lt;Document&gt;
-							&lt;Title&gt;UNKNOWN&lt;/Title&gt;
-							&lt;File&gt;
-								&lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
-							&lt;/File&gt;
-						&lt;/Document&gt;
-					&lt;/View&gt;
-				&lt;/EventDetail&gt;
-            &lt;/Event&gt;
-        &lt;/xsl:if&gt;
-    &lt;/xsl:template&gt;
-&lt;/xsl:stylesheet&gt;
-</code></pre>
-<p>###Main Output XML:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-				xmlns=&quot;event-logging:3&quot;
-				xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
-				Version=&quot;3.0.0&quot;&gt;
-		&lt;Event Id=&quot;6:1&quot;&gt;
-			&lt;EventTime&gt;
-					&lt;TimeCreated&gt;2009-01-01T00:00:01.000Z&lt;/TimeCreated&gt;
-			&lt;/EventTime&gt;
-			&lt;EventSource&gt;
-					&lt;System&gt;Example&lt;/System&gt;
-					&lt;Environment&gt;Example&lt;/Environment&gt;
-					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
-					&lt;Device&gt;
-						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
-						&lt;Location&gt;
-								&lt;Country&gt;UK&lt;/Country&gt;
-								&lt;Site&gt;MyMachine&lt;/Site&gt;
-								&lt;Building&gt;Main&lt;/Building&gt;
-								&lt;Floor&gt;1&lt;/Floor&gt;
-								&lt;Room&gt;1aaa&lt;/Room&gt;
-						&lt;/Location&gt;
-					&lt;/Device&gt;
-					&lt;User&gt;
-						&lt;Id&gt;userone&lt;/Id&gt;
-					&lt;/User&gt;
-			&lt;/EventSource&gt;
-			&lt;EventDetail&gt;
-					&lt;View&gt;
-						&lt;Document&gt;
-								&lt;Title&gt;UNKNOWN&lt;/Title&gt;
-								&lt;File&gt;
-									&lt;Path&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/Path&gt;
-								&lt;/File&gt;
-						&lt;/Document&gt;
-					&lt;/View&gt;
-			&lt;/EventDetail&gt;
-		&lt;/Event&gt;
-&lt;/Events&gt;
-</code></pre>
-
-</div>
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '2.2.'; page-break-before: always">
-    
-  <h1 id="pg-59f866a6d2114dc2ea44119af58eff26">2.2 - XML Fragments</h1>
-    <div class="lead">Handling XML data without root level elements.</div>
-	<p>Some input XML data may be missing an XML declaration and root level enclosing elements.
-This data is not a valid XML document and must be treated as an XML fragment.
-To use XML fragments the input type for a translation must be set to &lsquo;XML Fragment&rsquo;.
-A fragment wrapper must be defined in the XML conversion that tells Stroom what declaration and root elements to place around the XML fragment data.</p>
-<p>Here is an example:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE records [
-&lt;!ENTITY fragment SYSTEM &quot;fragment&quot;&gt;
-]&gt;
-&lt;records
-  xmlns=&quot;records:2&quot;
-  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-  xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
-  version=&quot;2.0&quot;&gt;
-  &amp;fragment;
-&lt;/records&gt;
-</code></pre>
-<p>During conversion Stroom replaces the fragment text entity with the input XML fragment data.
-Note that XML fragments must still be well formed so that they can be parsed correctly.</p>
-
-</div>
-
-
-
-
-    
-	
-  
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
-    
-  <h1 id="pg-0d3ac18ea787cffda6272f82e6bae0a5">3 - Reference Data</h1>
+  <h1 id="pg-0d3ac18ea787cffda6272f82e6bae0a5">1 - Reference Data</h1>
     <div class="lead">Performing temporal reference data lookups to decorate event data.</div>
-	<blockquote>
-<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
-<strong>Last Updated:</strong> 15 September 2020<br>
-<strong>See Also:</strong></p>
-<ul>
-<li><a href="../../../../docs/howtos/referencefeeds/createsimplereferencefeeds/">HOWTO - Creating a Simple Reference Feed</a></li>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <ul>
+<li><a href="../../../../docs/howtos/referencefeeds/createsimplereferencefeed/">HOWTO - Creating a Simple Reference Feed</a></li>
 <li><a href="../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Functions</a></li>
 </ul>
+
+
+</div>
+
+
+<blockquote>
+<p><strong>See Also:</strong></p>
 </blockquote>
 <p>In Stroom reference data is primarily used to decorate events using <code>stroom:lookup()</code> calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the physical location.
@@ -912,6 +603,323 @@ The <code>lookup</code> endpoint requires the caller to provide details of the r
 
 
 
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-b02a3d3f350b1b05feec5352bf2f0e77">2 - File Output</h1>
+    
+	<p>When outputting files with Stroom, the output file names and paths can include various substitution variables to form the file and path names.</p>
+<h2 id="context-variables">Context Variables</h2>
+<p>The following replacement variables are specific to the current processing context.</p>
+<ul>
+<li><code>${feed}</code> - The name of the feed that the stream being processed belongs to</li>
+<li><code>${pipeline}</code> - The name of the pipeline that is producing output</li>
+<li><code>${sourceId}</code> - The id of the input data being processed</li>
+<li><code>${partNo}</code> - The part number of the input data being processed where data is in aggregated batches</li>
+<li><code>${searchId}</code> - The id of the batch search being performed. This is only available during a batch search</li>
+<li><code>${node}</code> - The name of the node producing the output</li>
+</ul>
+<h2 id="time-variables">Time Variables</h2>
+<p>The following replacement variables can be used to include aspects of the current time in UTC.</p>
+<ul>
+<li><code>${year}</code> - Year in 4 digit form, e.g. 2000</li>
+<li><code>${month}</code> - Month of the year padded to 2 digits</li>
+<li><code>${day}</code> - Day of the month padded to 2 digits</li>
+<li><code>${hour}</code> - Hour padded to 2 digits using 24 hour clock, e.g. 22</li>
+<li><code>${minute}</code> - Minute padded to 2 digits</li>
+<li><code>${second}</code> - Second padded to 2 digits</li>
+<li><code>${millis}</code> - Milliseconds padded to 3 digits</li>
+<li><code>${ms}</code> - Milliseconds since the epoch</li>
+</ul>
+<h2 id="system-environment-variables">System (Environment) Variables</h2>
+<p>System variables (environment variables) can also be used, e.g. <code>${TMP}</code>.</p>
+<h2 id="file-name-references">File Name References</h2>
+<p>rolledFileName in RollingFileAppender can use references to the fileName to incorporate parts of the non rolled file name.</p>
+<ul>
+<li><code>${fileName}</code> - The complete file name</li>
+<li><code>${fileStem}</code> - Part of the file name before the file extension, i.e. everything before the last &lsquo;.&rsquo;</li>
+<li><code>${fileExtension}</code> - The extension part of the file name, i.e. everything after the last &lsquo;.&rsquo;</li>
+</ul>
+<h2 id="other-variables">Other Variables</h2>
+<ul>
+<li><code>${uuid}</code> - A randomly generated UUID to guarantee unique file names</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-abb89cd998f89dc653cebf1da2271a55">3 - Parser</h1>
+    <div class="lead">Parsing input data.</div>
+	<p>The following capabilities are available to parse input data:</p>
+<ul>
+<li>XML - XML input can be parsed with the XML parser.</li>
+<li><a href="../../../../docs/user-guide/pipelines/parser/xml-fragments/">XML Fragment</a> - Treat input data as an XML fragment, i.e. XML that does not have an XML declaration or root elements.</li>
+<li><a href="../../../../docs/user-guide/data-splitter/">Data Splitter</a> - Delimiter and regular expression based language for turning non XML data into XML (e.g. CSV)</li>
+</ul>
+
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.1.'; page-break-before: always">
+    
+  <h1 id="pg-850da8228403d37fae63cefb4607865a">3.1 - Context Data</h1>
+    
+	<p>##Context File</p>
+<p>###Input File:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SomeData&gt;
+	&lt;SomeEvent&gt;
+			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
+			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
+			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
+			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
+	&lt;/SomeEvent&gt;
+&lt;/SomeData&gt;
+</code></pre>
+<p>###Context File:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SomeContext&gt;
+	&lt;Machine&gt;MyMachine&lt;/Machine&gt;
+&lt;/SomeContext&gt;
+</code></pre>
+<p>###Context XSLT:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+	xmlns=&quot;reference-data:2&quot;
+	xmlns:evt=&quot;event-logging:3&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+	version=&quot;2.0&quot;&gt;
+		
+		&lt;xsl:template match=&quot;SomeContext&quot;&gt;
+			&lt;referenceData 
+					xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
+					version=&quot;2.0.1&quot;&gt;
+							
+					&lt;xsl:apply-templates/&gt;
+			&lt;/referenceData&gt;
+		&lt;/xsl:template&gt;
+
+		&lt;xsl:template match=&quot;Machine&quot;&gt;
+			&lt;reference&gt;
+					&lt;map&gt;CONTEXT&lt;/map&gt;
+					&lt;key&gt;Machine&lt;/key&gt;
+					&lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt;
+			&lt;/reference&gt;
+		&lt;/xsl:template&gt;
+		
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>###Context XML Translation:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;referenceData xmlns:evt=&quot;event-logging:3&quot;
+								xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+								xmlns=&quot;reference-data:2&quot;
+								xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
+								version=&quot;2.0.1&quot;&gt;
+		&lt;reference&gt;
+			&lt;map&gt;CONTEXT&lt;/map&gt;
+			&lt;key&gt;Machine&lt;/key&gt;
+			&lt;value&gt;MyMachine&lt;/value&gt;
+		&lt;/reference&gt;
+&lt;/referenceData&gt;
+</code></pre>
+<p>###Input File:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SomeData&gt;
+	&lt;SomeEvent&gt;
+			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
+			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
+			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
+			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
+	&lt;/SomeEvent&gt;
+&lt;/SomeData&gt;
+</code></pre>
+<p>###Main XSLT (Note the use of the context lookup):</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+	xmlns=&quot;event-logging:3&quot;
+	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+	version=&quot;2.0&quot;&gt;
+	
+    &lt;xsl:template match=&quot;SomeData&quot;&gt;
+        &lt;Events xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot; Version=&quot;3.0.0&quot;&gt;
+            &lt;xsl:apply-templates/&gt;
+        &lt;/Events&gt;
+    &lt;/xsl:template&gt;
+    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
+        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
+            &lt;Event&gt;
+                &lt;EventTime&gt;
+                        &lt;TimeCreated&gt;
+                            &lt;xsl:value-of select=&quot;s:format-date(SomeTime, 'dd/MM/yyyy:hh:mm:ss')&quot;/&gt;
+                        &lt;/TimeCreated&gt;
+                &lt;/EventTime&gt;
+				&lt;EventSource&gt;
+					&lt;System&gt;Example&lt;/System&gt;
+					&lt;Environment&gt;Example&lt;/Environment&gt;
+					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
+					&lt;Device&gt;
+						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
+						&lt;Location&gt;
+							&lt;Country&gt;UK&lt;/Country&gt;
+							&lt;Site&gt;&lt;xsl:value-of select=&quot;s:lookup('CONTEXT', 'Machine')&quot;/&gt;&lt;/Site&gt;
+							&lt;Building&gt;Main&lt;/Building&gt;
+							&lt;Floor&gt;1&lt;/Floor&gt;              
+							&lt;Room&gt;1aaa&lt;/Room&gt;
+						&lt;/Location&gt;           
+					&lt;/Device&gt;
+					&lt;User&gt;&lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;&lt;/User&gt;
+				&lt;/EventSource&gt;
+				&lt;EventDetail&gt;
+					&lt;View&gt;
+						&lt;Document&gt;
+							&lt;Title&gt;UNKNOWN&lt;/Title&gt;
+							&lt;File&gt;
+								&lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
+							&lt;/File&gt;
+						&lt;/Document&gt;
+					&lt;/View&gt;
+				&lt;/EventDetail&gt;
+            &lt;/Event&gt;
+        &lt;/xsl:if&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>###Main Output XML:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+				xmlns=&quot;event-logging:3&quot;
+				xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
+				Version=&quot;3.0.0&quot;&gt;
+		&lt;Event Id=&quot;6:1&quot;&gt;
+			&lt;EventTime&gt;
+					&lt;TimeCreated&gt;2009-01-01T00:00:01.000Z&lt;/TimeCreated&gt;
+			&lt;/EventTime&gt;
+			&lt;EventSource&gt;
+					&lt;System&gt;Example&lt;/System&gt;
+					&lt;Environment&gt;Example&lt;/Environment&gt;
+					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
+					&lt;Device&gt;
+						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
+						&lt;Location&gt;
+								&lt;Country&gt;UK&lt;/Country&gt;
+								&lt;Site&gt;MyMachine&lt;/Site&gt;
+								&lt;Building&gt;Main&lt;/Building&gt;
+								&lt;Floor&gt;1&lt;/Floor&gt;
+								&lt;Room&gt;1aaa&lt;/Room&gt;
+						&lt;/Location&gt;
+					&lt;/Device&gt;
+					&lt;User&gt;
+						&lt;Id&gt;userone&lt;/Id&gt;
+					&lt;/User&gt;
+			&lt;/EventSource&gt;
+			&lt;EventDetail&gt;
+					&lt;View&gt;
+						&lt;Document&gt;
+								&lt;Title&gt;UNKNOWN&lt;/Title&gt;
+								&lt;File&gt;
+									&lt;Path&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/Path&gt;
+								&lt;/File&gt;
+						&lt;/Document&gt;
+					&lt;/View&gt;
+			&lt;/EventDetail&gt;
+		&lt;/Event&gt;
+&lt;/Events&gt;
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.2.'; page-break-before: always">
+    
+  <h1 id="pg-59f866a6d2114dc2ea44119af58eff26">3.2 - XML Fragments</h1>
+    <div class="lead">Handling XML data without root level elements.</div>
+	<p>Some input XML data may be missing an XML declaration and root level enclosing elements.
+This data is not a valid XML document and must be treated as an XML fragment.
+To use XML fragments the input type for a translation must be set to &lsquo;XML Fragment&rsquo;.
+A fragment wrapper must be defined in the XML conversion that tells Stroom what declaration and root elements to place around the XML fragment data.</p>
+<p>Here is an example:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE records [
+&lt;!ENTITY fragment SYSTEM &quot;fragment&quot;&gt;
+]&gt;
+&lt;records
+  xmlns=&quot;records:2&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+  version=&quot;2.0&quot;&gt;
+  &amp;fragment;
+&lt;/records&gt;
+</code></pre>
+<p>During conversion Stroom replaces the fragment text entity with the input XML fragment data.
+Note that XML fragments must still be well formed so that they can be parsed correctly.</p>
+
+</div>
+
+
+
+
+    
+	
+  
 
     
 	

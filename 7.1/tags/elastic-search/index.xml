@@ -153,32 +153,47 @@ See
   &lt;/a&gt;
 &lt;/span&gt;
  on shard sizing.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X PUT &amp;quot;http://localhost:9200/stroom_test?pretty&amp;quot; -H &#39;Content-Type: application/json&#39; -d&#39;
-   {
-      &amp;quot;settings&amp;quot;: {
-        &amp;quot;number_of_shards&amp;quot;: 5
-      },
-      &amp;quot;mappings&amp;quot;: {
-        &amp;quot;properties&amp;quot;: {
-          &amp;quot;StreamId&amp;quot;: {
-            &amp;quot;type&amp;quot;: &amp;quot;long&amp;quot;
-          },
-          &amp;quot;EventId&amp;quot;: {
-            &amp;quot;type&amp;quot;: &amp;quot;long&amp;quot;
-          },
-          &amp;quot;Name&amp;quot;: {
-            &amp;quot;type&amp;quot;: &amp;quot;text&amp;quot;,
-            &amp;quot;fielddata&amp;quot;: true
-          },
-          &amp;quot;State&amp;quot;: {
-            &amp;quot;type&amp;quot;: &amp;quot;text&amp;quot;,
-            &amp;quot;fielddata&amp;quot;: true
-          }
-        }
-      }
-    }
-&#39;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X PUT &amp;#34;http://localhost:9200/stroom_test?pretty&amp;#34; -H &amp;#39;Content-Type: application/json&amp;#39; -d&amp;#39;
+(out)   {
+(out)      &amp;#34;settings&amp;#34;: {
+(out)        &amp;#34;number_of_shards&amp;#34;: 5
+(out)      },
+(out)      &amp;#34;mappings&amp;#34;: {
+(out)        &amp;#34;properties&amp;#34;: {
+(out)          &amp;#34;StreamId&amp;#34;: {
+(out)            &amp;#34;type&amp;#34;: &amp;#34;long&amp;#34;
+(out)          },
+(out)          &amp;#34;EventId&amp;#34;: {
+(out)            &amp;#34;type&amp;#34;: &amp;#34;long&amp;#34;
+(out)          },
+(out)          &amp;#34;Name&amp;#34;: {
+(out)            &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;,
+(out)            &amp;#34;fielddata&amp;#34;: true
+(out)          },
+(out)          &amp;#34;State&amp;#34;: {
+(out)            &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34;,
+(out)            &amp;#34;fielddata&amp;#34;: true
+(out)          }
+(out)        }
+(out)      }
+(out)    }
+(out)&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;After creating the index, you can add additional field mappings.
 Note the 
 
@@ -340,7 +355,7 @@ See
   &lt;a title=&#34;images/HOWTOs/Elastic-Add-Pipeline-Filter.png&#34; href=&#34;../../images/HOWTOs/Elastic-Add-Pipeline-Filter.png&#34;&gt;
     &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
       
-      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/Elastic-Add-Pipeline-Filter.png&#34; alt=&#34;images/HOWTOs/Elastic-Add-Pipeline-Filter.png&#34;&gt;
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/Elastic-Add-Pipeline-Filter.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/Elastic-Add-Pipeline-Filter.png&#34;&gt;
       
 
       
@@ -357,12 +372,42 @@ See
 &lt;p&gt;Follow the steps as in &lt;a href=&#34;../../docs/quick-start-guide/indexing/&#34;&gt;this guide&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;checking-data-has-been-indexed&#34;&gt;Checking data has been indexed&lt;/h3&gt;
 &lt;p&gt;Query Elasticsearch, checking the fields you expect are there, and of the correct data type:&lt;/p&gt;
-&lt;p&gt;The following query displays five results:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X GET &amp;quot;http://localhost:9200/stroom_test/_search?size=5&amp;quot; 
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The following query displays five results:
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X GET &amp;#34;http://localhost:9200/stroom_test/_search?size=5&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;p&gt;You can also get an exact document count, to ensure this matches the number of events you are expecting:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X GET &amp;quot;http://localhost:9200/stroom_test/_count&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X GET &amp;#34;http://localhost:9200/stroom_test/_count&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;For more information, see the Elasticsearch 
 
 
@@ -428,8 +473,22 @@ occupied by that field.&lt;/p&gt;
 &lt;/span&gt;
 , it is more efficient to drop the index.
 Additionally, deleting by query doesn&amp;rsquo;t actually remove data from disk, until segments are merged.
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X DELETE &amp;quot;http://localhost:9200/stroom_test&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -X DELETE &amp;#34;http://localhost:9200/stroom_test&amp;#34;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;Re-create the index (as shown earlier)&lt;/li&gt;
 &lt;li&gt;Create a new pipeline processor to index the documents&lt;/li&gt;

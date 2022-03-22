@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.93.0" />
+<meta name="generator" content="Hugo 0.95.0" />
 <meta name="robots" content="noindex, nofollow">
 
 
@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/building/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2022-01-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-03-04T20:55:28+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-03-22T14:18:32+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Building the Documentation">
 <meta itemprop="description" content="How to develop and build the documentation.
 "><meta itemprop="datePublished" content="2022-01-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-03-04T20:55:28+00:00" />
-<meta itemprop="wordCount" content="702">
+<meta itemprop="dateModified" content="2022-03-22T14:18:32+00:00" />
+<meta itemprop="wordCount" content="781">
 <meta itemprop="keywords" content="TODO," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Building the Documentation"/>
 <meta name="twitter:description" content="How to develop and build the documentation.
@@ -350,7 +350,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">2</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/retention/" data-taxonomy-term="retention"><span class="taxonomy-label">retention</span><span class="taxonomy-count">1</span></a></li>
         
@@ -483,6 +483,8 @@ It also ensures that the local build environment matches that used in GitHub act
 <em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a git sub-module, which in turn uses two nested sub-modules for Bootstrap (<code>themes/docsy/assets/vendor/bootstrap/</code>) and Font-Awesome (<code>themes/docsy/assets/vendor/Font-Awesome/</code>).
 Therefore to clone stroom-docs you need to do</p>
 
+  
+
 
 
 
@@ -496,11 +498,25 @@ Therefore to clone stroom-docs you need to do</p>
     data-continuation-str="\"
     data-filter-output="(out)"><code class="language-bash"># Clone the repo
 git clone https://github.com/gchq/stroom-docs.git
-
+(out)Cloning into &#39;stroom-docs&#39;...
+(out)remote: Enumerating objects: 66006, done.
+(out)remote: Counting objects: 100% (7916/7916), done.
+(out)remote: Compressing objects: 100% (1955/1955), done.
+(out)remote: Total 66006 (delta 3984), reused 7417 (delta 3603), pack-reused 58090
+(out)Receiving objects: 100% (66006/66006), 286.61 MiB | 7.31 MiB/s, done.
+(out)Resolving deltas: 100% (34981/34981), done.
 cd stroom-docs
-
+(out)
 # Download all sub modules
-git submodule update --init --recursive</code></pre>
+git submodule update --init --recursive
+(out)Submodule &#39;themes/docsy&#39; (https://github.com/google/docsy.git) registered for path &#39;themes/docsy&#39;
+(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy&#39;...
+(out)...
+(out)Submodule &#39;assets/vendor/Font-Awesome&#39; (https://github.com/FortAwesome/Font-Awesome.git) registered for path &#39;themes/docsy/assets/vendor/Font-Awesome&#39;
+(out)Submodule &#39;assets/vendor/bootstrap&#39; (https://github.com/twbs/bootstrap.git) registered for path &#39;themes/docsy/assets/vendor/bootstrap&#39;
+(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy/assets/vendor/Font-Awesome&#39;...
+(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy/assets/vendor/bootstrap&#39;...
+(out)...</code></pre>
 </div>
 
 <h2 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h2>
@@ -535,6 +551,8 @@ All PlantUML content should authored in <code>.puml</code> files and converted a
 
 
 <p>To convert all <code>.puml</code> files into sibling <code>.puml.svg</code> files do the following:</p>
+
+  
 
 
 
@@ -584,6 +602,8 @@ executing &quot;shortcodes/image.html&quot; at &lt;$image.Name&gt;: nil pointer 
 <p>The documentation can be built and served locally while developing it.
 To build and serve the site run</p>
 
+  
+
 
 
 
@@ -613,6 +633,8 @@ When any source files are changed or added Hugo will detect this and rebuild the
 <h2 id="building-the-site-locally">Building the site locally</h2>
 <p>To perform a full build of the static site run:</p>
 
+  
+
 
 
 
@@ -633,6 +655,8 @@ When any source files are changed or added Hugo will detect this and rebuild the
 In addition to this the GitHub Actions we generate a PDF of the <code>docs</code> section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
 This makes the documentation available for offline use.</p>
 <p>To test the PDF generation do:</p>
+
+  
 
 
 
@@ -665,7 +689,7 @@ Warn of implications of breaking the site when updating with incompatible upstre
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 4, 2022: <a href="https://github.com/gchq/stroom-docs/commit/5cfe3d27e7b5ca00f9b3edd616aee3526a13ad5f">Merge branch &#39;legacy&#39; into 7.0 (5cfe3d2)</a>
+  Last modified March 22, 2022: <a href="https://github.com/gchq/stroom-docs/commit/850658287e38d5e349d2bbbde759c3f7891f85a6">Merge branch &#39;legacy&#39; into 7.0 (8506582)</a>
 </div>
 
 </div>

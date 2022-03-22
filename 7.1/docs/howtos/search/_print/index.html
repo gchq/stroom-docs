@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.93.0" />
+<meta name="generator" content="Hugo 0.95.0" />
 <link rel="canonical" type="text/html" href="../../../../docs/howtos/search/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -360,32 +360,47 @@ See
   </a>
 </span>
  on shard sizing.</p>
-<pre><code class="language-bash">curl -X PUT &quot;http://localhost:9200/stroom_test?pretty&quot; -H 'Content-Type: application/json' -d'
-   {
-      &quot;settings&quot;: {
-        &quot;number_of_shards&quot;: 5
-      },
-      &quot;mappings&quot;: {
-        &quot;properties&quot;: {
-          &quot;StreamId&quot;: {
-            &quot;type&quot;: &quot;long&quot;
-          },
-          &quot;EventId&quot;: {
-            &quot;type&quot;: &quot;long&quot;
-          },
-          &quot;Name&quot;: {
-            &quot;type&quot;: &quot;text&quot;,
-            &quot;fielddata&quot;: true
-          },
-          &quot;State&quot;: {
-            &quot;type&quot;: &quot;text&quot;,
-            &quot;fielddata&quot;: true
-          }
-        }
-      }
-    }
-'
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -X PUT &#34;http://localhost:9200/stroom_test?pretty&#34; -H &#39;Content-Type: application/json&#39; -d&#39;
+(out)   {
+(out)      &#34;settings&#34;: {
+(out)        &#34;number_of_shards&#34;: 5
+(out)      },
+(out)      &#34;mappings&#34;: {
+(out)        &#34;properties&#34;: {
+(out)          &#34;StreamId&#34;: {
+(out)            &#34;type&#34;: &#34;long&#34;
+(out)          },
+(out)          &#34;EventId&#34;: {
+(out)            &#34;type&#34;: &#34;long&#34;
+(out)          },
+(out)          &#34;Name&#34;: {
+(out)            &#34;type&#34;: &#34;text&#34;,
+(out)            &#34;fielddata&#34;: true
+(out)          },
+(out)          &#34;State&#34;: {
+(out)            &#34;type&#34;: &#34;text&#34;,
+(out)            &#34;fielddata&#34;: true
+(out)          }
+(out)        }
+(out)      }
+(out)    }
+(out)&#39;</code></pre>
+</div>
+
 <p>After creating the index, you can add additional field mappings.
 Note the 
 
@@ -547,7 +562,7 @@ See
   <a title="images/HOWTOs/Elastic-Add-Pipeline-Filter.png" href="../../../../images/HOWTOs/Elastic-Add-Pipeline-Filter.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../../images/HOWTOs/Elastic-Add-Pipeline-Filter.png" alt="images/HOWTOs/Elastic-Add-Pipeline-Filter.png">
+      <img class="card-img-top" src="../../../../images/HOWTOs/Elastic-Add-Pipeline-Filter.png" style="max-width: fit-content" alt="images/HOWTOs/Elastic-Add-Pipeline-Filter.png">
       
 
       
@@ -564,12 +579,42 @@ See
 <p>Follow the steps as in <a href="../../../../docs/quick-start-guide/indexing/">this guide</a>.</p>
 <h3 id="checking-data-has-been-indexed">Checking data has been indexed</h3>
 <p>Query Elasticsearch, checking the fields you expect are there, and of the correct data type:</p>
-<p>The following query displays five results:</p>
-<pre><code class="language-bash">curl -X GET &quot;http://localhost:9200/stroom_test/_search?size=5&quot; 
-</code></pre>
+<p>The following query displays five results:
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -X GET &#34;http://localhost:9200/stroom_test/_search?size=5&#34;</code></pre>
+</div>
+</p>
 <p>You can also get an exact document count, to ensure this matches the number of events you are expecting:</p>
-<pre><code class="language-bash">curl -X GET &quot;http://localhost:9200/stroom_test/_count&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -X GET &#34;http://localhost:9200/stroom_test/_count&#34;</code></pre>
+</div>
+
 <p>For more information, see the Elasticsearch 
 
 
@@ -635,8 +680,22 @@ occupied by that field.</p>
 </span>
 , it is more efficient to drop the index.
 Additionally, deleting by query doesn&rsquo;t actually remove data from disk, until segments are merged.
-<pre><code class="language-bash">curl -X DELETE &quot;http://localhost:9200/stroom_test&quot;
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -X DELETE &#34;http://localhost:9200/stroom_test&#34;</code></pre>
+</div>
 </li>
 <li>Re-create the index (as shown earlier)</li>
 <li>Create a new pipeline processor to index the documents</li>
@@ -785,19 +844,56 @@ Press the download icon in the Query Pane to generate a file containing the JSON
 Save the JSON to a file named <em>query.json</em>.</p>
 </li>
 <li>
-<p>Use curl to send the query to Stroom.</p>
-<pre><code class="language-bash">API_KEY='&lt;put your API Key here'
-URI=stroom.host/api/searchable/v2/search
-curl -s --request POST ${URL} -o response.out -H &quot;Authorization:Bearer ${API_KEY}&quot; -H &quot;Content-Type: application/json&quot; --data-binary @query.json
-</code></pre>
+<p>Use curl to send the query to Stroom.
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">API_KEY=&#39;&lt;put your API Key here&#39; \
+URI=stroom.host/api/searchable/v2/search \
+curl \
+-s \
+--request POST \
+${URL} \
+-o response.out \
+-H &#34;Authorization:Bearer ${API_KEY}&#34; \
+-H &#34;Content-Type: application/json&#34; \
+--data-binary @query.json</code></pre>
+</div>
+</p>
 </li>
 <li>
 <p>The query response should be in a file named response.out.</p>
 </li>
 <li>
 <p>Optional step: reformat the response to csv using <code>jq</code>.</p>
-<pre><code class="language-bash">cat response.out | jq '.results[0].rows[].values | @csv'
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cat response.out | jq &#39;.results[0].rows[].values | @csv&#39;</code></pre>
+</div>
+
 </li>
 </ol>
 
@@ -834,17 +930,47 @@ curl -s --request POST ${URL} -o response.out -H &quot;Authorization:Bearer ${AP
 <h2 id="method">Method</h2>
 <ol>
 <li>
-<p>Start a docker container for a single solr node.</p>
-<pre><code class="language-bash">docker run -d -p 8983:8983 --name my_solr solr
-</code></pre>
+<p>Start a docker container for a single solr node.
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker run -d -p 8983:8983 --name my_solr solr</code></pre>
+</div>
+</p>
 </li>
 <li>
 <p>Check your Solr node. Point your browser at http://yourSolrHost:8983</p>
 </li>
 <li>
 <p>Create a core in Solr using the CLI.</p>
-<pre><code class="language-bash">docker exec -it my_solr solr create_core -c test_index
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec -it my_solr solr create_core -c test_index</code></pre>
+</div>
+
 </li>
 <li>
 <p>Create a SolrIndex in Stroom
@@ -876,7 +1002,7 @@ curl -s --request POST ${URL} -o response.out -H &quot;Authorization:Bearer ${AP
   <a title="images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png" href="../../../../images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../../images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png" alt="images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png">
+      <img class="card-img-top" src="../../../../images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png" style="max-width: fit-content" alt="images/HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png">
       
 
       
@@ -922,7 +1048,7 @@ Note the &ldquo;Solr URL&rdquo; field is a reference to the newly created Solr c
   <a title="images/HOWTOs/v7/HT_SimpleSolr_Settings.png" href="../../../../images/HOWTOs/v7/HT_SimpleSolr_Settings.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../../images/HOWTOs/v7/HT_SimpleSolr_Settings.png" alt="images/HOWTOs/v7/HT_SimpleSolr_Settings.png">
+      <img class="card-img-top" src="../../../../images/HOWTOs/v7/HT_SimpleSolr_Settings.png" style="max-width: fit-content" alt="images/HOWTOs/v7/HT_SimpleSolr_Settings.png">
       
 
       
@@ -970,7 +1096,7 @@ e.g.EventTime, UserId</p>
   <a title="images/HOWTOs/v7/HT_SimpleSolr_Retention.png" href="../../../../images/HOWTOs/v7/HT_SimpleSolr_Retention.png">
     <figure style="margin-block-end: 0px" >
       
-      <img class="card-img-top" src="../../../../images/HOWTOs/v7/HT_SimpleSolr_Retention.png" alt="images/HOWTOs/v7/HT_SimpleSolr_Retention.png">
+      <img class="card-img-top" src="../../../../images/HOWTOs/v7/HT_SimpleSolr_Retention.png" style="max-width: fit-content" alt="images/HOWTOs/v7/HT_SimpleSolr_Retention.png">
       
 
       

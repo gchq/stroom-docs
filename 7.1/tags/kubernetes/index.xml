@@ -185,6 +185,8 @@ A purpose-built Kubernetes Operator (
 &lt;li&gt;
 &lt;p&gt;Clone the repository&lt;/p&gt;
 
+  
+
 
 
 
@@ -206,6 +208,8 @@ For example, if your private registry is &lt;code&gt;my-registry.example.com&lt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Deploy the Operator&lt;/p&gt;
+
+  
 
 
 
@@ -295,6 +299,8 @@ The tag should correspond to the release number that was downloaded (e.g. &lt;co
 &lt;p&gt;It is good practice to first delete any dependent resources &lt;em&gt;before&lt;/em&gt; deleting the Operator.&lt;/p&gt;
 &lt;h2 id=&#34;deleting-the-operator&#34;&gt;Deleting the Operator&lt;/h2&gt;
 &lt;p&gt;Execute this command against the &lt;strong&gt;same version&lt;/strong&gt; of manifest that was used to deploy the Operator currently running.&lt;/p&gt;
+
+  
 
 
 
@@ -394,6 +400,8 @@ spec:
 &lt;p&gt;The Operator will create &lt;code&gt;StatefulSet&lt;/code&gt; when the &lt;code&gt;DatabaseServer&lt;/code&gt; is deployed, which will attempt to claim a &lt;code&gt;PersistentVolume&lt;/code&gt; matching the specification provided in &lt;code&gt;DatabaseServer.spec.volumeClaim&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Fast, low-latency storage should be used for the Stroom database&lt;/p&gt;
 &lt;h3 id=&#34;deploy-the-databaseserver-to-the-cluster&#34;&gt;Deploy the &lt;code&gt;DatabaseServer&lt;/code&gt; to the cluster&lt;/h3&gt;
+
+  
 
 
 
@@ -532,6 +540,8 @@ When deciding on a storage quota, be sure to consider the needs of log and refer
 &lt;p&gt;This volume should ideally be backed by fast, low-latency storage in order to maximise the performance of LMDB.&lt;/p&gt;
 &lt;h3 id=&#34;deploy-the-stroomcluster-resource&#34;&gt;Deploy the &lt;code&gt;StroomCluster&lt;/code&gt; resource&lt;/h3&gt;
 
+  
+
 
 
 
@@ -585,6 +595,8 @@ This can be useful when providing files like certificates for Kafka integration.
 &lt;li&gt;&lt;code&gt;spec.nodeSets.count&lt;/code&gt; If changed, the &lt;code&gt;NodeSet&lt;/code&gt;&amp;rsquo;s &lt;code&gt;StatefulSet&lt;/code&gt; will be scaled (up or down) to match the corresponding number of replicas&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;After changing any of the above properties, re-apply the manifest:&lt;/p&gt;
+
+  
 
 
 
@@ -687,6 +699,8 @@ If it can&amp;rsquo;t, the autoscaler will continue adjusting upwards, potential
 
 &lt;h3 id=&#34;deploy-the-resource-manifest&#34;&gt;Deploy the resource manifest&lt;/h3&gt;
 
+  
+
 
 
 
@@ -703,6 +717,8 @@ If it can&amp;rsquo;t, the autoscaler will continue adjusting upwards, potential
 
 &lt;h2 id=&#34;disable-autoscaling&#34;&gt;Disable autoscaling&lt;/h2&gt;
 &lt;p&gt;Delete the &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; resource&lt;/p&gt;
+
+  
 
 
 
@@ -752,6 +768,8 @@ Ensure this is set to a reasonable value, otherwise long-running tasks may not h
 
 
 &lt;h2 id=&#34;stopping-the-cluster&#34;&gt;Stopping the cluster&lt;/h2&gt;
+
+  
 
 
 
@@ -811,6 +829,8 @@ However the operator may be configured to delete the PVC in certain situations, 
 In these situations, it may be necessary to terminate the Pod.&lt;/p&gt;
 &lt;p&gt;After you identify the unresponsive Pod (e.g. by finding a node not responding to cluster ping):&lt;/p&gt;
 
+  
+
 
 
 
@@ -856,6 +876,8 @@ Task processing is resumed once the node starts up again.
   &lt;/a&gt;
 &lt;/span&gt;
 :&lt;/p&gt;
+
+  
 
 
 

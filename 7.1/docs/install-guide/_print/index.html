@@ -4,7 +4,7 @@
     
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.93.0" />
+<meta name="generator" content="Hugo 0.95.0" />
 <link rel="canonical" type="text/html" href="../../../docs/install-guide/">
 <meta name="robots" content="noindex, nofollow">
 
@@ -703,6 +703,8 @@ The Stroom stack comes in a number of different variants:</p>
 </ul>
 <p>Using <code>stroom_core_test-v7.0-beta.175.tar.gz</code> as an example:</p>
 
+  
+
 
 
 
@@ -728,6 +730,8 @@ cd &#34;${STACK}-${VERSION}&#34;
 </div>
 
 <p>Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest <code>stroom_core_test</code> release using:</p>
+
+  
 
 
 
@@ -926,6 +930,8 @@ In all cases the docker daemon should be stopped prior to making the changes, e.
 <p><strong>Symlink</strong> - One option is to move the <code>var/lib/docker</code> directory to a new location then create a symlink to it.
 For example:</p>
 
+  
+
 
 
 
@@ -966,6 +972,8 @@ The process for setting up this mount will be OS dependent and is outside the sc
 </ul>
 <p>While you can pass a set of service names to the commands like <code>start.sh</code> and <code>stop.sh</code>, it may sometimes be required to configure the stack instance to only have a set of services active.
 You can set the active services like so:</p>
+
+  
 
 
 
@@ -1731,6 +1739,8 @@ stroom-proxy-local gchq/stroom-proxy:v7.0-beta.175
 <p>If you have access to an internet connected computer that has Docker installed on it then you can use Docker to pull the images.
 For each of the required images run a command like this:</p>
 
+  
+
 
 
 
@@ -1771,6 +1781,8 @@ Either this will be the local repo on the maching where you will deploy Stroom (
 Managing a central air-gapped repository is beyond the scope of this documentation.</p>
 <p>To load the images into your local repository use a command similar to this for each of the <code>.tar</code> files that you created using <code>docker save</code> above:</p>
 
+  
+
 
 
 
@@ -1786,6 +1798,8 @@ Managing a central air-gapped repository is beyond the scope of this documentati
 </div>
 
 <p>You can check the images are avialable using:</p>
+
+  
 
 
 
@@ -1946,6 +1960,8 @@ e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts">https:/
 <h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
 <p>Run the pre-migration checks script on the running database.</p>
 
+  
+
 
 
 
@@ -1973,6 +1989,8 @@ mysql --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
 Do this using the v6 stack.
 This ensures that stroom is not trying to access the database.</p>
 
+  
+
 
 
 
@@ -1994,6 +2012,8 @@ Typically these will be <code>stroom</code>, <code>stats</code> and <code>auth</
 <p>If you are running in a docker stack then you can run the <code>./backup_databases.sh</code> script.</p>
 <h3 id="stop-the-database">Stop the database</h3>
 <p>Stop the database using the v6 stack.</p>
+
+  
 
 
 
@@ -2036,6 +2056,8 @@ The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x</p>
 .</p>
 <p>This is the process for upgrading the database. All of these commands are using the v7 stack.</p>
 
+  
+
 
 
 
@@ -2071,6 +2093,8 @@ unset MYSQL_TAG
 <h3 id="rename-legacy-stroom-auth-tables">Rename legacy stroom-auth tables</h3>
 <p>Run this command to connect to the <code>auth</code> database and run the pre-migration SQL script.</p>
 
+  
+
 
 
 
@@ -2093,6 +2117,8 @@ mysql --table -u&#34;authuser&#34; -p&#34;stroompassword1&#34; auth \
 <h3 id="copy-the-auth-database-content-to-stroom">Copy the <code>auth</code> database content to <code>stroom</code></h3>
 <p>Having run the table rename perform another backup of just the <code>auth</code> database.</p>
 <p>
+  
+
 
 
 
@@ -2109,6 +2135,8 @@ mysql --table -u&#34;authuser&#34; -p&#34;stroompassword1&#34; auth \
 
 Now restore this backup into the <code>stroom</code> database.
 You can use the v7 stack scripts to do this.</p>
+
+  
 
 
 
@@ -2133,6 +2161,8 @@ OLD_AUTH_users
 </code></pre>
 <p>This can be checked by running the following in the v7 stack.</p>
 
+  
+
 
 
 
@@ -2151,6 +2181,8 @@ OLD_AUTH_users
 <h3 id="drop-unused-databases">Drop unused databases</h3>
 <p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
 Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
+
+  
 
 
 
@@ -2172,6 +2204,8 @@ mysql --force -u&#34;root&#34; -p&#34;my-secret-pw&#34; \
 
 <p>Verify it worked with:</p>
 
+  
+
 
 
 
@@ -2190,6 +2224,8 @@ mysql --force -u&#34;root&#34; -p&#34;my-secret-pw&#34; \
 <p>To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
 For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
 Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.</p>
+
+  
 
 
 
@@ -2263,6 +2299,8 @@ Running migrate ensures all parts of the migration are completed when the comman
 <p>Stroom and Stroom Proxy should be run under a processing user (we assume <em>stroomuser</em> below).</p>
 <h2 id="create-user">Create user</h2>
 
+  
+
 
 
 
@@ -2280,6 +2318,8 @@ Running migrate ensures all parts of the migration are completed when the comman
 <p>You may want to allow normal accounts to sudo to this account for maintenance (visudo).</p>
 <h2 id="create-service-script">Create service script</h2>
 <p>Create a service script to start/stop on server startup (as root).</p>
+
+  
 
 
 
@@ -2323,6 +2363,8 @@ exit 0
 </code></pre>
 <p>Now initialise the script.</p>
 
+  
+
 
 
 
@@ -2340,6 +2382,8 @@ exit 0
 
 <h3 id="setup-users-environment">Setup user&rsquo;s environment</h3>
 <p>Setup <code>env.sh</code> to include <code>JAVA_HOME</code> to point to the installed directory of the JDK (this will be platform specific).</p>
+
+  
 
 
 
@@ -2361,6 +2405,8 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 </code></pre>
 <p>Setup the user&rsquo;s profile to include source the env script.</p>
+
+  
 
 
 
@@ -2385,6 +2431,8 @@ export PATH=${JAVA_HOME}/bin:${PATH}
 <blockquote>
 <p>The shell output below may show a different version of Java to the one you are using.</p>
 </blockquote>
+
+  
 
 
 
@@ -2571,6 +2619,8 @@ Welcome to the MySQL monitor.  Commands end with ; or \g.
 mysql&gt; quit      
 </code></pre>
 <p>The following commands can be used to auto start mysql if required:</p>
+
+  
 
 
 
@@ -3131,6 +3181,8 @@ A purpose-built Kubernetes Operator (
 <li>
 <p>Clone the repository</p>
 
+  
+
 
 
 
@@ -3152,6 +3204,8 @@ For example, if your private registry is <code>my-registry.example.com</code>, t
 </li>
 <li>
 <p>Deploy the Operator</p>
+
+  
 
 
 
@@ -3255,6 +3309,8 @@ The tag should correspond to the release number that was downloaded (e.g. <code>
 <p>It is good practice to first delete any dependent resources <em>before</em> deleting the Operator.</p>
 <h2 id="deleting-the-operator">Deleting the Operator</h2>
 <p>Execute this command against the <strong>same version</strong> of manifest that was used to deploy the Operator currently running.</p>
+
+  
 
 
 
@@ -3361,6 +3417,8 @@ spec:
 <p>The Operator will create <code>StatefulSet</code> when the <code>DatabaseServer</code> is deployed, which will attempt to claim a <code>PersistentVolume</code> matching the specification provided in <code>DatabaseServer.spec.volumeClaim</code>.</p>
 <p>Fast, low-latency storage should be used for the Stroom database</p>
 <h3 id="deploy-the-databaseserver-to-the-cluster">Deploy the <code>DatabaseServer</code> to the cluster</h3>
+
+  
 
 
 
@@ -3506,6 +3564,8 @@ When deciding on a storage quota, be sure to consider the needs of log and refer
 <p>This volume should ideally be backed by fast, low-latency storage in order to maximise the performance of LMDB.</p>
 <h3 id="deploy-the-stroomcluster-resource">Deploy the <code>StroomCluster</code> resource</h3>
 
+  
+
 
 
 
@@ -3559,6 +3619,8 @@ This can be useful when providing files like certificates for Kafka integration.
 <li><code>spec.nodeSets.count</code> If changed, the <code>NodeSet</code>&rsquo;s <code>StatefulSet</code> will be scaled (up or down) to match the corresponding number of replicas</li>
 </ol>
 <p>After changing any of the above properties, re-apply the manifest:</p>
+
+  
 
 
 
@@ -3668,6 +3730,8 @@ If it can&rsquo;t, the autoscaler will continue adjusting upwards, potentially c
 
 <h3 id="deploy-the-resource-manifest">Deploy the resource manifest</h3>
 
+  
+
 
 
 
@@ -3684,6 +3748,8 @@ If it can&rsquo;t, the autoscaler will continue adjusting upwards, potentially c
 
 <h2 id="disable-autoscaling">Disable autoscaling</h2>
 <p>Delete the <code>StroomTaskAutoscaler</code> resource</p>
+
+  
 
 
 
@@ -3740,6 +3806,8 @@ Ensure this is set to a reasonable value, otherwise long-running tasks may not h
 
 
 <h2 id="stopping-the-cluster">Stopping the cluster</h2>
+
+  
 
 
 
@@ -3806,6 +3874,8 @@ However the operator may be configured to delete the PVC in certain situations, 
 In these situations, it may be necessary to terminate the Pod.</p>
 <p>After you identify the unresponsive Pod (e.g. by finding a node not responding to cluster ping):</p>
 
+  
+
 
 
 
@@ -3851,6 +3921,8 @@ Task processing is resumed once the node starts up again.
   </a>
 </span>
 :</p>
+
+  
 
 
 

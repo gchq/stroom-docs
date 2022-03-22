@@ -1,0 +1,2885 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../docs/howtos/eventpostprocessing/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Event Post Processing | Stroom</title>
+<meta name="description" content="How to do further processing on Events.
+">
+<meta property="og:title" content="Event Post Processing" />
+<meta property="og:description" content="How to do further processing on Events.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/howtos/eventpostprocessing/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Event Post Processing">
+<meta itemprop="description" content="How to do further processing on Events.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Event Post Processing"/>
+<meta name="twitter:description" content="How to do further processing on Events.
+"/>
+
+
+
+
+
+<link href="../../../../scss/main.css" rel="stylesheet">
+
+
+<script src='../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../css/prism.css"/>
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="../../../../">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../about/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="../../../../docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../news/" ><span>News / Releases</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../community/" ><span>Community</span></a>
+			</li>
+			
+			
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.1)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="../../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../legacy">Legacy</a>
+	
+</div>
+
+			</li>
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"><input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="../../../../offline-search-index.json"
+  data-offline-search-base-href="../../../../"
+  data-offline-search-max-results="50"
+>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../docs/howtos/eventpostprocessing/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Event Post Processing</h1>
+<div class="lead">How to do further processing on Events.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-11dc23704255d3336b69c10c5c6a88d1">Event Forwarding</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-11dc23704255d3336b69c10c5c6a88d1">1 - Event Forwarding</h1>
+    <div class="lead">How to write processed events to the file system for use by other systems.</div>
+	<!-- Created with Stroom v6.1-beta.16  -->
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../docs/howtos/eventfeeds/createapachehttpdeventfeed/">HOWTO - Apache HTTPD Event Feed</a></p>
+
+
+</div>
+
+
+<h2 id="introduction">Introduction</h2>
+<p>In some situations, you will want to automatically extract stored Events in their XML format to forward to the file system.
+This is achieved via a Pipeline with an appropriate XSLT translation that is used to decide what events are forwarded.
+Once the Events have been chosen, the Pipeline would need to validate the Events (via a schemaFilter) and then the Events would be passed to an xmlWriter and then onto a file system writer (fileSystemOutputStreamProvider or RollingFileAppender).</p>
+<h2 id="example-event-forwarding---multiple-destinations">Example Event Forwarding - Multiple destinations</h2>
+<p>In this example, we will create a pipeline that writes Events to the file system, but to multiple destinations based on the location of the Event Client element.</p>
+<p>We will use the EventSource/Client/Location/Country element to decided where to store the events.
+Specifically, we store events from clients in AUS in one location, and events from clients in GBR to another.
+All other client locations will be ignored.</p>
+<h2 id="create-translations">Create translations</h2>
+<p>First, we will create two translations - one for each country location Australia (AUS) and Great Britain (GBR).
+The AUS selection translation is</p>
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet 
+    version=&quot;3.0&quot; 
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; 
+    xmlns=&quot;event-logging:3&quot; 
+    xmlns:stroom=&quot;stroom&quot; 
+    xpath-default-namespace=&quot;event-logging:3 
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt; 
+
+  &lt;!--
+  ClientAUS Translation: CHANGE  HISTORY
+  v1.0.0 - 2015-01-19  
+  v1.5.0 - 2020-04-15
+
+  This translation find all events where the EventSource/Client/Location/Country element
+  contains the string 'AUS' and then copies them.
+  --&gt;
+
+  &lt;!--  Match all  events --&gt;
+  &lt;xsl:template match=&quot;/Events|/Events/@*&quot;&gt;
+  &lt;xsl:copy&gt;
+  &lt;xsl:apply-templates  select=&quot;node()|@*&quot; /&gt;
+  &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;!-- Find all  events  whose Client location is in the AUS --&gt;
+  &lt;xsl:template match=&quot;Event&quot;&gt;
+  &lt;xsl:apply-templates select=&quot;EventSource/Client/Location/Country[contains(upper-case(text()),  'AUS')]&quot; /&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;!--  Country template - deep copy the event --&gt;
+  &lt;xsl:template match=&quot;Country&quot;&gt;
+  &lt;xsl:copy-of select=&quot;ancestor::Event&quot;  /&gt;
+  &lt;/xsl:template&gt;
+  &lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>The Great Britain selection translation is</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet
+    version=&quot;3.0&quot;
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    xmlns=&quot;event-logging:3&quot;
+    xmlns:stroom=&quot;stroom&quot;
+    xpath-default-namespace=&quot;event-logging:3
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt; 
+
+  &lt;!--
+  ClientGBR Translation: CHANGE  HISTORY
+  v1.0.0 - 2015-01-19  
+  v1.5.0 - 2020-04-15
+
+  This translation find all events where the EventSource/Client/Location/Country
+  element contains the string 'GBR' and then copies them.
+  --&gt;
+
+  &lt;!--  Match all  events --&gt;
+  &lt;xsl:template  match=&quot;/Events|/Events/@*&quot;&gt;
+  &lt;xsl:copy&gt;
+  &lt;xsl:apply-templates  select=&quot;node()|@*&quot; /&gt;
+  &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;!-- Find all  events  whose Client location is in the GBR --&gt;
+  &lt;xsl:template  match=&quot;Event&quot;&gt;
+  &lt;xsl:apply-templates select=&quot;EventSource/Client/Location/Country[contains(upper-case(text()),  'GBR')]&quot; /&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;!--  Country template - deep copy the event --&gt;
+  &lt;xsl:template  match=&quot;Country&quot;&gt;
+  &lt;xsl:copy-of select=&quot;ancestor::Event&quot;  /&gt;
+  &lt;/xsl:template&gt;
+  &lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>We will store this capability in the Explorer Folder <strong>MultiGeoForwarding</strong>.
+Create two new XSLT under this folder, one called <strong>ClientAUS</strong> and one called <strong>ClientGBR</strong>.
+Copy and paste the relevant XSL from the above code blocks into its comparable XSLT windows.
+Save the XSLT by clicking on the save 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/save.svg" 
+  title="Save" 
+  alt="save.svg">
+ icon.
+Having created the two translations we see</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-00.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-00.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-00.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-00.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Folder</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h2 id="create-pipeline">Create Pipeline</h2>
+<p>We now create a Pipeline called <strong>MultiGeoFwd</strong> in the Explorer tree.
+Within the <em>MultiGeoForwarding</em> folder right click to bring up the object context menu and sub-menu then create a New
+Pipeline called <strong>MultiGeoFwd</strong>.
+The Explorer should now look like</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-01.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-01.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-01.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-01.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Clicking on the Pipeline <strong>Settings</strong> sub-item and add an appropriate description</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-02.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-02.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-02.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-02.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline description</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Now switch to the <strong>Structure</strong> sub-item and select the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+<span class="pipeline-element" title="Source" >
+  <img
+    class="stroom-icon" 
+    style="max-width: 15px;"
+    src="../../../../images/stroom-ui/pipeline/stream.svg" 
+    title="Source" 
+    alt="stream.svg">
+  <span>Source</span>
+</span>
+ element.</p>
+<p>Next click on the <em>Add New Pipeline Element</em> icon 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/add.svg" 
+  title="Add pipeline element" 
+  alt="add.svg">
+.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-04.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-04.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-04.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-04.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline add new pipeline element</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Select <em>Parser, XMLParser</em> from the Element context menu</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-05.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-05.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-05.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-05.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select pipeline parser</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Click on <strong>OK</strong> in the <em>Create Element</em> dialog box to accept the default for the parser Id.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-06.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-06.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-06.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-06.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select pipeline parser</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>We continue building the pipeline structure by sequentially selecting the last Element and adding the next required Element.
+We next add a <em>SplitFilter</em> Element</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-07.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-07.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-07.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-07.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select pipeline SplitFilter</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>We change the SplitFilter <strong>Id:</strong> from <em>splitFilter</em> to <em>multiGeoSplitFilter</em> and click on <strong>OK</strong> to add the Element to the Pipeline</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-08.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-08.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-08.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-08.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select pipeline SplitFilter Id</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Our Pipeline currently looks like</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-09.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-09.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-09.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-09.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Structure view</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>We now add the two XSLT translation elements, ClientAUS and ClientGBR to the split Filter.
+Left click on the split Filter then left click on the Add New Pipeline Element to bring up the pipeline Element context menu and select the XSLTFilter item</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-10.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-10.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-10.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-10.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline XSLT Filter</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>and change the <strong>Id:</strong> from <em>xsltFilter</em> to <em>ClientAUSxsltFilter</em></p>
+<p>Now select the multiGeoSplitFilter Element again and add another XSLTFilter as previously</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-11.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-11.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-11.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-11.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline XSLT Filter2</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Name this xsltFilter <em>ClientGBRxsltFilter</em>.</p>
+<p>At this stage the Pipeline should look like</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-12.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-12.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-12.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-12.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline view</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>To continue building the Pipeline Structure, left click the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+<span class="pipeline-element" title="ClientAUSxlstFilter" >
+  <img
+    class="stroom-icon" 
+    style="max-width: 15px;"
+    src="../../../../images/stroom-ui/pipeline/xslt.svg" 
+    title="ClientAUSxlstFilter" 
+    alt="xslt.svg">
+  <span>ClientAUSxlstFilter</span>
+</span>
+</p>
+<p>ClientAUSxsltFilter element then left click on the <em>Add New Pipeline Element</em> 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/add.svg" 
+  title="Add new pipeline element" 
+  alt="add.svg">
+ to bring up the pipeline Element context menu and select the SchemaFilter item.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-14.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-14.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-14.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-14.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select SchemaFilter</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>and change the <strong>Id:</strong> from schemaFilter to AUSschemaFilter to show</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-15.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-15.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-15.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-15.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Now, left click the AUSschemaFilter element then then right click on the <em>Add New Pipeline Element</em> 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/add.svg" 
+  title="Add new pipeline element" 
+  alt="add.svg">
+ to bring up the pipeline Element context menu and select the XMLWriter item</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-16.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-16.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-16.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-16.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select XMLWriter</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>and change the <strong>Id:</strong> from xmlWriter to AUSxmlWriter</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-17.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-17.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-17.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-17.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline XMLWriter Id</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Your Pipeline should now look like</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-18.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-18.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-18.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-18.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development2</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Finally, left click the  AUSxmlWriter element then then right click on the Add New Pipeline Element  <em>Add New Pipeline Element</em> 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/add.svg" 
+  title="Add new pipeline element" 
+  alt="add.svg">
+  to bring up the <strong>Destination</strong> pipeline Element context menu.</p>
+<p>Select <strong>RollingFileAppender</strong></p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-19.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-19.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-19.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-19.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select destination</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>and change the <strong>Id:</strong> from rollingFileAppender to AUSrollingFileAppender to show</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-20.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-20.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-20.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-20.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development3</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This completes the pipeline structure for the AUS branch of the pipeline.  Replicate the process of adding schemaFilter, xmlWriter, and rollingFileAppender Elements for the GBR branch of the pipeline to get the complete pipeline structure as below</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-21.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-21.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-21.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-21.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Structure completed</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Save your Pipeline development work by clicking on the 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/save.svg" 
+  title="Save" 
+  alt="save.svg">
+ icon at the top left of the MultiGeoFwd pipeline tab.</p>
+<p>We will now assign appropriate properties to each of the pipeline’s elements.
+First, the client xsltFilters.
+Click the ClientAUSxsltFilter element to show</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-22.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-22.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-22.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-22.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xsltFilter properties</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>In the middle pane click on the <em>xslt</em> <strong>Property Name</strong> line.
+Now click on the <strong>Edit Property</strong> 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/edit.svg" 
+  title="Edit" 
+  alt="edit.svg">
+ icon</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-23.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-23.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-23.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-23.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xslt Edit Property</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This will bring up the <strong>Edit Property</strong> selection window</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-24.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-24.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-24.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-24.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xslt Edit Property window</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Select the <strong>Value:</strong> to be the ClientAUS translation.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-25.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-25.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-25.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-25.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xslt Edit Property window value</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Click on <strong>OK</strong> twice to get your back to main MultiGeoFwd tab which should now have an updated <em>middle pane</em> that looks like</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-26.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-26.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-26.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-26.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xslt Edit Property completed</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Now go back to the top pane of the Pipeline Structure and select the AUSschemaFilter element on the pipeline.
+Then click the <em>schemaGroup</em> <strong>Property Name</strong> line.
+Now click on the <strong>Edit Property</strong> 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/edit.svg" 
+  title="Edit property" 
+  alt="edit.svg">
+ icon.
+Set the Property Value to be EVENTS.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-27.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-27.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-27.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-27.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline schemaFilter Edit Property</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>then press <strong>OK</strong>.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-28.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-28.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-28.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-28.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline schemaFilter Edit Property completed</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Now select the AUSxmlWriter element in the pipeline structure and click the <em>indentOutput</em> <strong>Property Name</strong> line.
+Click on the <strong>Edit Property</strong> 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/edit.svg" 
+  title="Edit property" 
+  alt="edit.svg">
+ icon.
+Set the Property Value to be <em>true</em>.
+The completed Element should look like</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-29.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-29.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-29.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-29.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xmlWriter Edit Property completed</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Next, select the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+<span class="pipeline-element" title="AUSrollingFileAppender" >
+  <img
+    class="stroom-icon" 
+    style="max-width: 15px;"
+    src="../../../../images/stroom-ui/pipeline/files.svg" 
+    title="AUSrollingFileAppender" 
+    alt="files.svg">
+  <span>AUSrollingFileAppender</span>
+</span>
+ and change the Properties as per</p>
+<ul>
+<li>fileName to be <code>fwd_${ms}.lock</code></li>
+<li>frequency to be <code>15m</code></li>
+<li>outputPaths to be <code>/stroom/volumes/defaultStreamVolume/forwarding/AUS00</code></li>
+<li>rolledFileName to be <code>fwd_${ms}.ready</code></li>
+</ul>
+<p>Note that these settings are for demonstration purposes only and will depend on your unique Stroom instance&rsquo;s configuration.
+The outputPath can contain replacement variables to provide more structure if desired. 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://gchq.github.io/stroom-docs/user-guide/pipelines/file-output.html" target="_blank" class="" style="" title="File Output substitution variables (external link)">
+    <span>File Output substitution variables</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-31.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-31.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-31.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-31.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline rollingFileAppender Edit Property completed</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Repeat this Element Property Name assignment for the GBR branch of the pipeline substituting the ClientGBR translation and /stroom/volumes/defaultStreamVolume/forwarding/GBR00  for rollingFileAppender outputPaths where appropriate.</p>
+<p>Note, if you expect lots of events to be processed by the pipeline, you may which to create multiple outputPaths.
+For example, you could have</p>
+<pre><code class="language-text">/stroom/volumes/defaultStreamVolume/forwarding/_AUS00_,
+/stroom/volumes/defaultStreamVolume/forwarding/_AUS01_,
+/stroom/volumes/defaultStreamVolume/forwarding/_AUS0n_
+</code></pre>
+<p>and</p>
+<pre><code class="language-text">/stroom/volumes/defaultStreamVolume/forwarding/_GBR00_,
+/stroom/volumes/defaultStreamVolume/forwarding/_GBR01_,
+/stroom/volumes/defaultStreamVolume/forwarding/_GBR0n_
+</code></pre>
+<p>as appropriate.</p>
+<p>Save the pipeline by pressing the Save 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/save.svg" 
+  title="Save" 
+  alt="save.svg">
+ icon.</p>
+<h2 id="test-pipeline">Test Pipeline</h2>
+<p>We first select a stream of Events which we know to have both AUS and GBR Client locations.
+We have such a stream from our Apache-SSLBlackBox-V2.0-EVENTS Feed.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-32.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-32.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-32.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-32.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test Events selection</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>We select the Events stream and Enter Stepping Mode by pressing the large 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/stepping.svg" 
+  title="Stepping" 
+  alt="stepping.svg">
+ button in the bottom right.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-33.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-33.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-33.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-33.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test Enter Stepping Mode</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>and we will choose the 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/document/Pipeline.svg" 
+  title="Pipeline" 
+  alt="document/Pipeline.svg">
+ <em>MultiGeoFwd</em> to step with.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-35.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-35.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-35.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-35.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test selection</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>We are now presented with the <em>Stepping</em> tab positioned at the start
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-36.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-36.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-36.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-36.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline start</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+</p>
+<p>If we step forward by clicking on the 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/step-forward-green.svg" 
+  title="Step Forward" 
+  alt="step-forward-green.svg">
+ icon we will see that our first event in our source stream has a Client Country location of USA.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-37.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-37.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-37.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-37.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test first record</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>If we now click on the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+<span class="pipeline-element" title="ClientAUSxsltFilter" >
+  <img
+    class="stroom-icon" 
+    style="max-width: 15px;"
+    src="../../../../images/stroom-ui/pipeline/xslt.svg" 
+    title="ClientAUSxsltFilter" 
+    alt="xslt.svg">
+  <span>ClientAUSxsltFilter</span>
+</span>
+ element we will see the ClientAUS translation in the code pane.
+The first Event in the <em>input</em> pane and an empty event in the <em>output</em> pane.
+The output is empty as the Client/Location/Country is NOT the string <em>AUS</em>, which is what the translation is matching on.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-38.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-38.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-38.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-38.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test first record output empty</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>If we step forward to the 5th Event we will see the <em>output</em> pane change and become populated.
+This is because this Event&rsquo;s Client/Location/Country value is the string <em>AUS</em>.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-39.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-39.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-39.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-39.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test fifth record output</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Note, that you can move to the 5th Event on the pipeline by clicking on the 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/step-forward-green.svg" 
+  title="Step Forward" 
+  alt="step-forward-green.svg">
+ icon repeatedly until you get to the 5th event, or you can insert your cursor into the <strong>recordNo</strong> of the stepping key to manually change the recordNo from 1 to 5
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-40.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-40.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-40.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-40.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline stepping key</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+ and then press <strong>Enter</strong>.
+This jumps the stepping process to the RecordNo you specify, in this particular case &ldquo;5&rdquo;.</p>
+<p>If you repeatedly click on the 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/step-forward-green.svg" 
+  title="Step Forward" 
+  alt="step-forward-green.svg">
+ icon seven more times you will continue to see Events in the <em>output</em> pane, as our stream source Client/Location/Country value is <em>AUS</em> for Events 5-11.</p>
+<p>Now, double click on the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+<span class="pipeline-element" title="ClientGBRxsltFilter" >
+  <img
+    class="stroom-icon" 
+    style="max-width: 15px;"
+    src="../../../../images/stroom-ui/pipeline/xslt.svg" 
+    title="ClientGBRxsltFilter" 
+    alt="xslt.svg">
+  <span>ClientGBRxsltFilter</span>
+</span>
+ element.
+The <em>output</em> pane will once again be empty as the Client/Location/Country value of this Event (AUS) does not match what your translation is filtering on (GBR).</p>
+<p>If you now step forward one event using the 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/step-forward-green.svg" 
+  title="Step Forward" 
+  alt="step-forward-green.svg">
+ icon, you will see the ClientGBR translation <em>output</em> pane populate as Events 12-16 have a Client/Location/Country of GRC.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-42.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-42.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-42.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-42.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline ClientGBR populated</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>We have thus tested the ‘splitting’ effect of our pipeline.
+We now need to turn it on and produce files.</p>
+<h3 id="enabling-processors-for-multi-forwarding-pipeline">Enabling Processors for Multi Forwarding Pipeline</h3>
+<p>To enable the Processors for the pipeline, select the <em>MultiGeoFwd</em> pipeline tab and then select the Processors sub-item.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-43.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-43.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-43.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-43.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>For testing purposes, we will only apply this pipeline to our Apache-SSLBlackBox-V2.0-EVENTS feed to minimise the test output files.</p>
+<p>To create the Processor, click the Add Processor 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/add.svg" 
+  title="Add Processor" 
+  alt="add.svg">
+ icon to bring up the <em>Add Processor</em> selection window.</p>
+<p>Add the following items to the processor:</p>
+<ul>
+<li>Feed is <code>Apache-SSLBlackBox-V2.0-EVENTS</code></li>
+<li>Type = <code>Events</code></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-44.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-44.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-44.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-44.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Filters</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>then press <strong>OK</strong> to see</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-45.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-45.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-45.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-45.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Configured</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Enable the processors by checking both Enabled check boxes</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-46.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-46.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-46.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-46.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Enabled</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>If we switch to the Active Tasks tab of the MultiGeoFwd pipeline, a refresh of the panes 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/refresh.svg" 
+  title="Refresh" 
+  alt="refresh.svg">
+ will show that we have passed streams from the
+APACHE-SSLBlackBox-V2.0-EVENTS feed to completion.
+If we select the MultiGeoFwd pipeline in the top pane we will see each stream that has run.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/HOWTOs/v6/UI-MultiGeoFwd-47.png" href="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-47.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../../images/HOWTOs/v6/UI-MultiGeoFwd-47.png" style="max-width: fit-content" alt="images/HOWTOs/v6/UI-MultiGeoFwd-47.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Active Tasks</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>Take note that all streams have processed on Node node1a.</p>
+<h3 id="examine-output-files-on-destination-node">Examine Output Files on Destination Node</h3>
+<p>If we navigate to the /stroom/volumes/defaultStreamVolume/forwarding directory on the processing node we should be able to view the expected output files.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="testdoc" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd forwarding
+ls -lR
+(out).:
+(out)total 0
+(out)drwxr-xr-x. 2 testdoc testdoc 129 May  5 01:13 AUS00
+(out)drwxr-xr-x. 2 testdoc testdoc 129 May  5 01:13 GBR00
+(out)
+(out)./AUS00:
+(out)total 136
+(out)-rw-r--r--. 1 testdoc testdoc 21702 May  4 22:28 fwd_1588588112856.ready
+(out)-rw-r--r--. 1 testdoc testdoc 21702 May  4 22:44 fwd_1588589043294.ready
+(out)-rw-r--r--. 1 testdoc testdoc 64452 May  5 01:09 fwd_1588597744865.ready
+(out)-rw-r--r--. 1 testdoc testdoc 21692 May  5 01:14 fwd_1588598005439.lock
+(out)
+(out)./GBR00:
+(out)total 96
+(out)-rw-r--r--. 1 testdoc testdoc 15660 May  4 22:28 fwd_1588588112809.ready
+(out)-rw-r--r--. 1 testdoc testdoc 15660 May  4 22:44 fwd_1588589043293.ready
+(out)-rw-r--r--. 1 testdoc testdoc 46326 May  5 01:09 fwd_1588597744865.ready
+(out)-rw-r--r--. 1 testdoc testdoc 15650 May  5 01:14 fwd_1588598005408.lock</code></pre>
+</div>
+
+<p>The output directory contains files with suffixes of  *.lock or *.ready.
+All the files that are ‘currently processing’ have a nomenclature of *.lock suffix.
+These are the files that our pipeline is currently writing to.
+Remember we configured the rollingFileAppender to roll the files at a frequency of 15 minutes.
+We may need to wait up to 15 minutes before a file move from .lock to .ready status.</p>
+<p>If we check one of the AUS00 output files we see the expected result</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="testdoc" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">less AUS00/fwd_1588588112856.ready
+(out)&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34;?&gt;
+(out)&lt;Events xmlns=&#34;event-logging:3&#34;
+(out)        xmlns:stroom=&#34;stroom&#34;
+(out)        xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+(out)        xmlns:xs=&#34;http://www.w3.org/2001/XMLSchema&#34;
+(out)        xsi:schemaLocation=&#34;event-logging:3 file://event-logging-v3.2.3.xsd&#34;
+(out)        Version=&#34;3.2.3&#34;&gt;
+(out)   &lt;Event&gt;
+(out)      &lt;EventTime&gt;
+(out)         &lt;TimeCreated&gt;2020-01-18T22:43:04.000Z&lt;/TimeCreated&gt;
+(out)      &lt;/EventTime&gt;
+(out)      &lt;EventSource&gt;
+(out)         &lt;System&gt;
+(out)            &lt;Name&gt;LinuxWebServer&lt;/Name&gt;
+(out)            &lt;Environment&gt;Production&lt;/Environment&gt;
+(out)         &lt;/System&gt;
+(out)         &lt;Generator&gt;Apache  HTTPD&lt;/Generator&gt;
+(out)         &lt;Device&gt;
+(out)            &lt;HostName&gt;stroomnode00.strmdev00.org&lt;/HostName&gt;
+(out)            &lt;IPAddress&gt;192.168.2.245&lt;/IPAddress&gt;
+(out)         &lt;/Device&gt;
+(out)         &lt;Client&gt;
+(out)            &lt;HostName&gt;host32.strmdev01.org&lt;/HostName&gt;
+(out)            &lt;IPAddress&gt;192.168.8.151&lt;/IPAddress&gt;
+(out)            &lt;Port&gt;62015&lt;/Port&gt;
+(out)            &lt;Location&gt;
+(out)               &lt;Country&gt;AUS&lt;/Country&gt;
+(out)               &lt;Site&gt;Sydney-S02&lt;/Site&gt;
+(out)               &lt;Building&gt;RC45&lt;/Building&gt;
+(out)               &lt;Room&gt;5-134&lt;/Room&gt;
+(out)               &lt;TimeZone&gt;&#43;10:00/&#43;11:00&lt;/TimeZone&gt;
+(out)            &lt;/Location&gt;
+(out)         &lt;/Client&gt;
+(out)
+(out)         ....</code></pre>
+</div>
+
+<p>Similarly, if we look at one of the GBR00 output files we also see the expected output</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="testdoc" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">less GBR00/fwd_1588588112809.ready
+(out)&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34;?&gt;
+(out)&lt;Events xmlns=&#34;event-logging:3&#34;
+(out)        xmlns:stroom=&#34;stroom&#34;
+(out)        xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+(out)        xmlns:xs=&#34;http://www.w3.org/2001/XMLSchema&#34;
+(out)        xsi:schemaLocation=&#34;event-logging:3 file://event-logging-v3.2.3.xsd&#34;
+(out)        Version=&#34;3.2.3&#34;&gt;
+(out)   &lt;Event&gt;
+(out)      &lt;EventTime&gt;
+(out)         &lt;TimeCreated&gt;2020-01-18T12:50:06.000Z&lt;/TimeCreated&gt;
+(out)      &lt;/EventTime&gt;
+(out)      &lt;EventSource&gt;
+(out)         &lt;System&gt;
+(out)            &lt;Name&gt;LinuxWebServer&lt;/Name&gt;
+(out)            &lt;Environment&gt;Production&lt;/Environment&gt;
+(out)         &lt;/System&gt;
+(out)         &lt;Generator&gt;Apache  HTTPD&lt;/Generator&gt;
+(out)         &lt;Device&gt;
+(out)            &lt;HostName&gt;stroomnode00.strmdev00.org&lt;/HostName&gt;
+(out)            &lt;IPAddress&gt;192.168.2.245&lt;/IPAddress&gt;
+(out)         &lt;/Device&gt;
+(out)         &lt;Client&gt;
+(out)            &lt;HostName&gt;host14.strmdev00.org&lt;/HostName&gt;
+(out)            &lt;IPAddress&gt;192.168.234.9&lt;/IPAddress&gt;
+(out)            &lt;Port&gt;62429&lt;/Port&gt;
+(out)            &lt;Location&gt;
+(out)               &lt;Country&gt;GBR&lt;/Country&gt;
+(out)               &lt;Site&gt;Bristol-S22&lt;/Site&gt;
+(out)               &lt;Building&gt;CAMP2&lt;/Building&gt;
+(out)               &lt;Room&gt;Rm67&lt;/Room&gt;
+(out)               &lt;TimeZone&gt;&#43;00:00/&#43;01:00&lt;/TimeZone&gt;
+(out)            &lt;/Location&gt;
+(out)         &lt;/Client&gt;
+(out)
+(out)        ....</code></pre>
+</div>
+
+<p>At this point, you can manage the .ready files in any manner you see fit.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../js/popper.min.js'></script>
+<script src='../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<script src='../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>
