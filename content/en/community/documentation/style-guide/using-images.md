@@ -202,7 +202,6 @@ E.g:
 Simple use: {{< stroom-icon "save.svg" >}}
 Custom name: {{< stroom-icon "key.svg" "Lock" >}}
 Disabled document icon: {{< stroom-icon "document/Feed.svg" "Feed" "disabled" >}}
-{{< stroom-btn "Cancel" >}}
   {{< /card >}}
   {{< card header="Markdown" >}}
 ```markdown
