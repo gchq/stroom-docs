@@ -307,9 +307,7 @@ XSLTs are also used to transform XML {{< glossary "Events" >}} data into non-XML
 See the [User Guide]({{< relref "user-guide/pipelines/xslt" >}}) for more detail.
 
 
-
-
-{{% todo %}}
+<!-- TODO
 Event  
 Pipeline  
 Translation  
@@ -319,4 +317,4 @@ Writer
 Destination  
 Index  
 Task  
-{{% /todo %}}
+-->
