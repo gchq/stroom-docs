@@ -28,12 +28,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installhttpdhowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-03-23T10:13:44+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-04-08T18:05:16+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Apache Httpd/Mod_JK configuration for Stroom">
 <meta itemprop="description" content="The following is a HOWTO to assist users in configuring Apache&#39;s HTTPD with Mod_JK for Stroom.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-03-23T10:13:44+00:00" />
+<meta itemprop="dateModified" content="2022-04-08T18:05:16+01:00" />
 <meta itemprop="wordCount" content="4036">
 <meta itemprop="keywords" content="httpd,installation," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Apache Httpd/Mod_JK configuration for Stroom"/>
@@ -220,6 +220,8 @@
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideupgradesupgrade-patch-li">
   <a href="../../../../docs/install-guide/upgrades/upgrade-patch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideupgradesupgrade-patch"><span class="">Minor Upgrades and Patches</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideupgradesv5-to-v7-li">
+  <a href="../../../../docs/install-guide/upgrades/v5-to-v7/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideupgradesv5-to-v7"><span class="">Upgrade from v5 to v7</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsinstall-guideupgradesv6-to-v7-li">
   <a href="../../../../docs/install-guide/upgrades/v6-to-v7/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsinstall-guideupgradesv6-to-v7"><span class="">Upgrade from v6 to v7</span></a>
 </li>
@@ -1158,7 +1160,7 @@ JkMount /stroom* loadbalancer
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom/remoting* loadbalancer_proxy
-JkMount /stroom/datafeed/direct* loadbalancer
+JkMount /stroom/datafeeddirect* loadbalancer
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
@@ -1186,7 +1188,7 @@ JkMount /stroom* loadbalancer
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom/remoting* loadbalancer_proxy
-JkMount /stroom/datafeed/direct* loadbalancer
+JkMount /stroom/datafeeddirect* loadbalancer
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 # Stroom Change: End
 
@@ -1236,7 +1238,7 @@ JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* local_proxy
 JkMount /stroom/remoting* local_proxy
-JkMount /stroom/datafeed/direct* local
+JkMount /stroom/datafeeddirect* local
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
@@ -1264,7 +1266,7 @@ JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* local_proxy
 JkMount /stroom/remoting* local_proxy
-JkMount /stroom/datafeed/direct* local
+JkMount /stroom/datafeeddirect* local
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 # Stroom Change: End
 
@@ -1473,7 +1475,7 @@ printf 'JkMount /stroom* loadbalancer\n' &gt;&gt; ${F}
 printf 'JkMount /stroom/remoting/cluster* local\n' &gt;&gt; ${F}
 printf 'JkMount /stroom/datafeed* loadbalancer_proxy\n' &gt;&gt; ${F}
 printf 'JkMount /stroom/remoting* loadbalancer_proxy\n' &gt;&gt; ${F}
-printf 'JkMount /stroom/datafeed/direct* loadbalancer\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/datafeeddirect* loadbalancer\n' &gt;&gt; ${F}
 printf '# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n' &gt;&gt; ${F}
 printf '# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n' &gt;&gt; ${F}
 printf '# The following makes use of the existing /run/httpd directory\n' &gt;&gt; ${F}
@@ -1611,7 +1613,7 @@ printf 'JkMount /stroom* local\n' &gt;&gt; ${F}
 printf 'JkMount /stroom/remoting/cluster* local\n' &gt;&gt; ${F}
 printf 'JkMount /stroom/datafeed* local_proxy\n' &gt;&gt; ${F}
 printf 'JkMount /stroom/remoting* local_proxy\n' &gt;&gt; ${F}
-printf 'JkMount /stroom/datafeed/direct* local\n' &gt;&gt; ${F}
+printf 'JkMount /stroom/datafeeddirect* local\n' &gt;&gt; ${F}
 printf '# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n' &gt;&gt; ${F}
 printf '# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n' &gt;&gt; ${F}
 printf '# The following makes use of the existing /run/httpd directory\n' &gt;&gt; ${F}
@@ -1674,7 +1676,7 @@ systemctl start httpd.service
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 23, 2022: <a href="https://github.com/gchq/stroom-docs/commit/18408ae0fd805a6c1677e1cd578b315ccd634c58">Merge branch &#39;7.0&#39; into 7.1 (18408ae)</a>
+  Last modified April 8, 2022: <a href="https://github.com/gchq/stroom-docs/commit/c55f26cb7366e7a1ea2b882c39a06dd77f7e687b">Merge branch &#39;7.0&#39; into 7.1 (c55f26c)</a>
 </div>
 
 </div>

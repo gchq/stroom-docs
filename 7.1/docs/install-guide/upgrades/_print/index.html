@@ -187,7 +187,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-63dfce89305ebda417758285ed429726">Upgrade from v6 to v7</a></li>
+<li>2: <a href="#pg-0a1127f5aa5f66d848408d2c8caefecc">Upgrade from v5 to v7</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-63dfce89305ebda417758285ed429726">Upgrade from v6 to v7</a></li>
 
 
     
@@ -288,7 +296,358 @@ This means you can jump from say 7.0.0 =&gt; 7.2.0 or from 7.0.0 to 7.0.5.</p>
 
 <div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
     
-  <h1 id="pg-63dfce89305ebda417758285ed429726">2 - Upgrade from v6 to v7</h1>
+  <h1 id="pg-0a1127f5aa5f66d848408d2c8caefecc">2 - Upgrade from v5 to v7</h1>
+    <div class="lead">This document describes the process for upgrading Stroom from v5.x to v7.x.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    This page is currently work in progress and will evolve with further testing of v5 =&gt; v7 migrations.
+
+</div>
+
+
+
+<div class="pageinfo pageinfo-danger">
+<h4 class="text-danger alert-heading">Warning</h4>
+<p>Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor and patch version of v5.<br>
+At the time of writing the latest version of v5 is <code>v5.5.16</code>.</p>
+
+</div>
+
+
+<h2 id="differences-between-v5-and-v7">Differences between v5 and v7</h2>
+<p>Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.</p>
+<ul>
+<li>v5 handled authentication within the application.
+In v7 authentication is handled either internally in stroom (the default) or by an external identity provider such as google or AWS Cognito.</li>
+<li>v5 used the <code>~setup.xml</code>, <code>~env.sh</code> and <code>stroom.properties</code> files for configuration.
+In v7 stroom uses a config.yml file for its configuration (see <a href="../../../../docs/user-guide/properties/">Properties</a>)</li>
+<li>v5 used upper case and heavily abbreviated names for its tables.
+In v7 clearer and lower case table names are used.
+As a result ALL v5 tables get renamed with the prefix <code>OLD_</code>, the new tables created and any content copied over.
+As the database will be holding two copies of most data you need to ensure you have space to accommodate it.</li>
+</ul>
+<h2 id="pre-upgrade-tasks">Pre-Upgrade tasks</h2>
+<p>Stroom can be upgraded straight from v5 to v7 without going via v6.
+There are however a few pre-migration steps that need to be followed.</p>
+<h3 id="upgrade-stroom-to-the-latest-v5-version">Upgrade Stroom to the latest v5 version</h3>
+<p>Follow your standard process for performing a minor upgrade to bring your v5 Stroom instance up to the latest v5 version.
+This ensures all v5 migrations are applying all the v6 and v7 migrations.</p>
+<h3 id="download-migration-scripts">Download migration scripts</h3>
+<p>Download the migration SQL scripts from <a href="https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts">https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts</a>
+e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.198/scripts">https://github.com/gchq/stroom/blob/v7.0-beta.198/scripts</a></p>
+<p>Some of these scripts will be used in the steps below.
+The unused scripts are not applicable to a v5=&gt;v7 upgrade.</p>
+<h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
+<p>Run the pre-migration checks script on the running database.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mysql --force --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
+&lt; v7_db_pre_migration_checks.sql \
+&gt; v7_db_pre_migration_checks.out \
+2&gt;&amp;1</code></pre>
+</div>
+
+<p>This will produce a report of items that will not be migrated or need attention before migration.</p>
+<h3 id="capture-non-default-stroom-properties">Capture non-default Stroom properties</h3>
+<p>Run the following script to capture the non-default system properties that are held in the database.
+This is a precaution in case they are needed following migration.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mysql --force --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
+&lt; v5_list_properties.sql \
+&gt; v5_list_properties.out \
+2&gt;&amp;1</code></pre>
+</div>
+
+<h3 id="stop-processing">Stop processing</h3>
+<p>Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.</p>
+<p><em>TODO</em> clarify steps for this.</p>
+<h3 id="stop-stroom">Stop Stroom</h3>
+<p>Stop the stack (stroom and the database) then start up the database.
+Do this using the v6 stack.
+This ensures that stroom is not trying to access the database.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh</code></pre>
+</div>
+
+<h3 id="backup-the-databases">Backup the databases</h3>
+<p>Backup all the databases for the different components.
+Typically these will be <code>stroom</code> and <code>stats</code> (or <code>statistics</code>).</p>
+<h3 id="stop-the-database">Stop the database</h3>
+<p>Stop the database using the v6 stack.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh</code></pre>
+</div>
+
+<h3 id="deploy-v7">Deploy v7</h3>
+<p>Deploy the latest version of Stroom but don&rsquo;t start it.</p>
+<p><em>TODO</em> - more detail</p>
+<h3 id="migrate-the-v5-configuration-into-v7">Migrate the v5 configuration into v7</h3>
+<p>The configuration properties held in the database and accessed for the <em>Properties</em> UI screen will be migrated automatically by Stroom where possible.</p>
+<p>Stroom v5 and v7 however are configured differently when it comes to the configuration files used to bootstrap the application, such as the database connection details.
+These properties will need to be manually migrated from the v5 instance to the v7 instance.
+The configuration to bootstrap Stroom v5 can be found in <code>instance/lib/stroom.properties</code>.
+The configuration for v7 can be found in the following places:</p>
+<ul>
+<li>Zip distribution - <code>config/config.yml</code>.</li>
+<li>Docker stack - <code>volumes/stroom/config/config.yml</code>.
+Note that this file uses variable substitution so values can be set in <code>config/&lt;stack_name&gt;.env</code> if suitably substituted.</li>
+</ul>
+<p>The following table shows the key configuration properties that need to be set to start the application and how they map between v5 and v7.</p>
+<table>
+<thead>
+<tr>
+<th>V5 property</th>
+<th>V7 property</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>stroom.temp</em></td>
+<td><em>appConfig.path.temp</em></td>
+<td>Set this if different from <code>$TEMP</code> env var.</td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.path.home</em></td>
+<td>By default all local state (e.g. reference data stores, search results) will live under this directory. Typically it should be in a different location to the stroom instance as it has a different lifecycle.</td>
+</tr>
+<tr>
+<td><em>stroom.node</em></td>
+<td><em>appConfig.node.name</em></td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.nodeUrl.hostname</em></td>
+<td>Set this to the FQDN of the node so other nodes can communicate with it.</td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.publicUrl.hostname</em></td>
+<td>Set this to the public FQDN of Stroom, typically a load balancer or Nginx instance.</td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverClassName</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverClassName</em></td>
+<td>Do not set this. Will get defaulted to <code>com.mysql.cj.jdbc.Driver</code></td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverUrl</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverUrl</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverUsername</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverUsername</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverPassword</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverPassword</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.jpaDialect</em></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverClassName</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverClassName</em></td>
+<td>Do not set this. Will get defaulted to <code>com.mysql.cj.jdbc.Driver</code></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverUrl</em></td>
+<td><em>appConfig.statistics.sql.db.connection.jdbcDriverUrl</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverUsername</em></td>
+<td><em>appConfig.statistics.sql.db.connection.jdbcDriverUsername</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverPassword</em></td>
+<td><em>appConfig.statistics.sql.db.connection.jdbcDriverPassword</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.common.statisticEngines</em></td>
+<td><em>appConfig.statistics.internal.enabledStoreTypes</em></td>
+<td>Do not set this. Will get defaulted to <code>StatisticStore</code></td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.ui.helpUrl</em></td>
+<td>Set this to the URL of your locally published stroom-docs site.</td>
+</tr>
+<tr>
+<td><em>stroom.contentPackImportEnabled</em></td>
+<td><em>appConfig.contentPackImport.enabled</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    In the <code>config.yml</code> file, properties have a root of <code>appConfig.</code> which corresponds to a root of <code>stroom.</code> in the UI Properties screen.
+
+</div>
+
+
+<p>Some v5 properties, such as connection pool settings cannot be migrated to v7 equivalents.
+It is recommended to review the default values for v7 <code>appConfig.commonDbDetails.connectionPool.*</code> and <code>appConfig.statistics.sql.db.connectionPool.*</code> properties to ensure they are suitable for your environment.
+If they are not then set them in the <code>config.yml</code> file.
+The defaults can be found in <code>config-defaults.yml</code>.</p>
+<h3 id="upgrading-the-mysql-instance-and-database">Upgrading the MySQL instance and database</h3>
+<p>Stroom v5 ran on MySQL v5.6.
+Stroom v7 runs on MySQL v8.
+The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x (see 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/upgrade-paths.html" target="_blank" class="" style="" title="Upgrade Paths (external link)">
+    <span>Upgrade Paths</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+).</p>
+<p>To ensure the database is up to date <code>mysql_upgrade</code> needs to be run using the 5.7.33 binaries, see the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" target="_blank" class="" style="" title="MySQL documentation (external link)">
+    <span>MySQL documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>This is the process for upgrading the database.
+The exact steps will depend on how you have installed MySQL.</p>
+<ol>
+<li>Shutdown the database instance.</li>
+<li>Remove the MySQL 5.6 binaries, e.g. using your package manager.</li>
+<li>Install the MySQL 5.7.33 binaries.</li>
+<li>Start the database instance using the 5.7.33 binaries.</li>
+<li>Run <code>mysql_upgrade</code> to upgrade the database to 5.7 specification.</li>
+<li>Shutdown the database instance.</li>
+<li>Remove the MySQL 5.7.33 binaries.</li>
+<li>Install the latest MySQL 8.0 binaries.</li>
+<li>Start the database instance.
+On start up MySQL 8 will detect a v5.7 instance and upgrade it to 8.0 spec automatically without the need to run <code>mysql_upgrade</code>.</li>
+</ol>
+<h2 id="performing-the-stroom-upgrade">Performing the Stroom upgrade</h2>
+<p>To perform the stroom schema upgrade to v7 run the <em>migrate</em> command (on a single node) which will migrate the database then exit.
+For a large upgrade like this is it is preferable to run the <em>migrate</em> command rather than just starting Stroom as Stroom will only migrate the parts of the schema as it needs to use them so some parts of the database may not be migrated initially.
+Running the migrate command ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./migrate.sh</code></pre>
+</div>
+
+<h2 id="post-upgrade-tasks">Post-Upgrade tasks</h2>
+<p><em>TODO</em></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-63dfce89305ebda417758285ed429726">3 - Upgrade from v6 to v7</h1>
     <div class="lead">This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.</div>
 	
 <div class="pageinfo pageinfo-danger">
