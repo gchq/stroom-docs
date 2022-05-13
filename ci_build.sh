@@ -65,7 +65,7 @@ build_version_from_source() {
   pushd "${repo_root}"
   
   #local hugo_base_url
-  local generated_site_dir="${repo_root}/docs/public"
+  local generated_site_dir="${repo_root}/public"
   local pdf_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.pdf"
 
   local branch_head_commit_sha
@@ -110,7 +110,7 @@ build_version_from_source() {
   ./container_build/runInPumlDocker.sh SVG
   echo "::endgroup::"
 
-  # Build the Hugo site html (into ./docs/public/)
+  # Build the Hugo site html (into ./public/)
   # TODO, remove --buildDrafts arg once we merge to master
   echo "::group::Hugo build"
   echo -e "${GREEN}Building combined site HTML with Hugo${NC}"
@@ -261,7 +261,7 @@ make_single_version_site() {
   echo -e "${GREEN}Creating single version site for ${BLUE}${branch_name}" \
     "${repo_root}${NC}"
 
-  local generated_site_dir="${repo_root}/docs/public"
+  local generated_site_dir="${repo_root}/public"
   local single_ver_zip_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.zip"
 
   local config_file="${repo_root}/${CONFIG_FILENAME}"
@@ -561,7 +561,7 @@ main() {
   #local COMBINED_SITE_DIR="${BUILD_DIR}/_combined_site"
   local SINGLE_SITE_DIR="${BUILD_DIR}/_single_site"
   local GIT_WORK_DIR="${BUILD_DIR}/_git_work"
-  #local SITE_DIR="${BUILD_DIR}/docs/public"
+  #local SITE_DIR="${BUILD_DIR}/public"
   local NEW_GH_PAGES_DIR="${BUILD_DIR}/gh-pages"
   local CURRENT_GH_PAGES_DIR="${BUILD_DIR}/gh-pages_current"
   #local BASE_URL_BASE="/stroom-docs"
