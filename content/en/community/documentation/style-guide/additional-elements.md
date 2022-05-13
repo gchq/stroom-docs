@@ -17,7 +17,7 @@ The advantage of the shortcode is that Hugo will check for broken links when bui
 
 ### External links
 
-As this site is deployed to environmnets with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+As this site is deployed to environments with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
 To include an external link do the following:
 
 * This is a link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}} with a title.
@@ -35,8 +35,8 @@ To include an external link do the following:
 
 #### Versioned URLs
 
-Some external links are to other Stroom urls are versioned.
-If you need to link to a site external to this one that has the Stroom version in the URL then you can use the tag `@@VERSION@@` in the url.
+Some external links are to other Stroom URLs are versioned.
+If you need to link to a site external to this one that has the Stroom version in the URL then you can use the tag `@@VERSION@@` in the URL.
 This will be translated into the Stroom version of this site, as seen in the _Stroom Version (...)_ drop down at the top of the page.
 This saves you from having to update the URL on each release of Stroom.
 
@@ -64,7 +64,7 @@ The anchor for a heading is the heading text with:
 
 For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor `#mr-oneils-1st-event-something`.
 
-See The link exampls below that use anchors.
+See The link examples below that use anchors.
 
 
 ### Shortcode internal page link examples
