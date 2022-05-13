@@ -1,4 +1,4 @@
-![Stroom](resources/logo.png)
+![Stroom](assets/icons/logo.png)
 
 This repository hosts the [documentation, news and release notes](https://gchq.github.io/stroom-docs/) for the [Stroom](https://github.com/gchq/stroom/) family of products.
 
