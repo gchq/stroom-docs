@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../docs/install-guide/configuration/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Configuration | Stroom</title>
+<meta name="description" content="
+Version Information: Created with Stroom v7.0
+Last Updated: 2021-06-23
+
+Stroom and its associated services can be deployed in may ways (single node …">
+<meta property="og:title" content="Configuration" />
+<meta property="og:description" content="Stroom documentation, release notes, news and open source community information" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/install-guide/configuration/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Configuration">
+<meta itemprop="description" content="Stroom documentation, release notes, news and open source community information"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Configuration"/>
+<meta name="twitter:description" content="Stroom documentation, release notes, news and open source community information"/>
+
+
+
+
+
+<link href="../../../../scss/main.css" rel="stylesheet">
+
+
+<script src='../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../css/prism.css"/>
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="../../../../">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../about/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="../../../../docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../community/" ><span>Community</span></a>
+			</li>
+			
+			
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (Legacy)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="../../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../legacy">Legacy</a>
+	
+</div>
+
+			</li>
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"><input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="../../../../offline-search-index.json"
+  data-offline-search-base-href="../../../../"
+  data-offline-search-max-results="50"
+>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../docs/install-guide/configuration/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Configuration</h1>
+
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-a53a193cf4abc0b6dfa8fa20a2fda8e2">Nginx Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-f67b02c1954e1e3755f22565ea9c45a2">Stroom Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-2fbd4f6015742d6292564c2fec48dde8">Stroom Proxy Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-cea106477cd6590d5c2f583e39fc1d53">Stroom Log Sender Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-c55274dc8017978026995b0c30172626">MySQL Configuration</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <blockquote>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
+<strong>Last Updated:</strong> 2021-06-23</p>
+</blockquote>
+<p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+This document will cover two types of deployment:</p>
+<ul>
+<li>Single node stroom_core docker stack.</li>
+<li>A mixed deployment with nginx in docker and stroom, stroom-proxy and the database not in docker.</li>
+</ul>
+<p>This document will explain how each application/service is configured and where its configuration files live.</p>
+<h2 id="application-configuration">Application Configuration</h2>
+<p>The following sections provide links to how to configure each application.</p>
+<ul>
+<li>
+<p><a href="../../../../docs/install-guide/configuration/configuring-stroom/">Stroom Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../../docs/install-guide/configuration/configuring-stroom-proxy/">Stroom Proxy Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../../docs/install-guide/configuration/configuring-mysql/">MySQL Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../../docs/install-guide/configuration/configuring-nginx/">Nginx Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../../docs/install-guide/configuration/configuring-stroom-log-sender/">Stroom log sender Configuration</a></p>
+</li>
+</ul>
+<h2 id="general-configuration-of-docker-stacks">General configuration of docker stacks</h2>
+<h3 id="environment-variables">Environment variables</h3>
+<p>The stroom docker stacks have a single env file <code>&lt;stack name&gt;.env</code> that acts as a single point to configure some aspects of the stack.
+Setting values in the env file can be useful when the value is shared between multiple containers.
+This env file sets environment variables that are then used for variable substitution in the docker compose YAML files, e.g.</p>
+<pre><code class="language-yaml">    environment:
+      - MYSQL_ROOT_PASSWORD=${STROOM_DB_ROOT_PASSWORD:-my-secret-pw}
+</code></pre>
+<p>In this example the environment variable <code>STROOM_DB_ROOT_PASSWORD</code> is read and used to set the environment variable <code>MYSQL_ROOT_PASSWORD</code> in the docker container.
+If <code>STROOM_DB_ROOT_PASSWORD</code> is not set then the value <code>my-secret-pw</code> is used instead.</p>
+<p>The environment variables set in the env file are <em>NOT</em> automatically visible <em>inside</em> the containers.
+Only those environment variables defined in the <code>environment</code> section of the docker-compose YAML files are visible.
+These <code>environment</code> entries can either be hard coded values or use environment variables from <em>outside</em> the container.
+In some case the names in the env file and the names of the environment variables set in the containers are the same, in some they are different.</p>
+<p>The environment variables set in the containers can then be used by the application running in each container to set its configuration.
+For example, stroom&rsquo;s <code>config.yml</code> file also uses variable substitution, e.g.</p>
+<pre><code class="language-yaml">appConfig:
+  commonDbDetails:
+    connection:
+    jdbcDriverClassName: &quot;${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}&quot;
+</code></pre>
+<p>In this example <code>jdbcDriverUrl</code> will be set to the value of environment variable <code>STROOM_JDBC_DRIVER_CLASS_NAME</code> or <code>com.mysql.cj.jdbc.Driver</code> if that is not set.</p>
+<p>The following example shows how setting <code>MY_ENV_VAR=123</code> means <code>myProperty</code> will ultimately get a value of <code>123</code> and not its default of <code>789</code>.</p>
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env) - MY_ENV_VAR=123
+                |
+                |
+                | environment variable substitution
+                |
+                v
+docker compose YAML (01_stroom.yml) - STROOM_ENV_VAR=${MY_ENV_VAR:-456}
+                |
+                |
+                | environment variable substitution
+                |
+                v
+Stroom configuration file (config.yml) - myProperty: &quot;${STROOM_ENV_VAR:-789}&quot;
+</code></pre>
+<p>Note that environment variables are only set into the container on start.
+Any changes to the env file will not take effect until the container is (re)started.</p>
+<h3 id="configuration-files">Configuration files</h3>
+<p>The following shows the basic structure of a stack with respect to the location of the configuration files:</p>
+<pre><code class="language-text">── stroom_core_test-vX.Y.Z
+   ├── config                [stack env file and docker compose YAML files]
+   └── volumes
+       └── &lt;service&gt;
+           └── conf/config   [service specifc configuration files]
+</code></pre>
+<p>Some aspects of configuration do not lend themselves to environment variable substitution, e.g. deeply nested parts of stroom&rsquo;s <code>config.yml</code>.
+In these instances it may be necessary to have static configuration files that have no connection to the env file or only use environment variables for some values.</p>
+<h3 id="bind-mounts">Bind mounts</h3>
+<p>Everything in the stack <code>volumes</code> directory is bind-mounted into the named docker container but is mounted read-only to the container.
+This allows configuration files to be read by the container but not modified.</p>
+<p>Typically the bind mounts mount a directory into the container, though in the case of the <code>stroom-all-dbs.cnf</code> file, the file is mounted.
+The mounts are done using the inode of the file/directory rather than the name, so docker will mount whatever the inode points to even if the name changes.
+If for instance the <code>stroom-all-dbs.cnf</code> file is renamed to <code>stroom-all-dbs.cnf.old</code> then copied to <code>stroom-all-dbs.cnf</code> and then the new version modified, the container would still see the old file.</p>
+<h3 id="docker-managed-volumes">Docker managed volumes</h3>
+<p>When stroom is running various forms of data are persisted, e.g. stroom&rsquo;s stream store, stroom-all-dbs database files, etc.
+All this data is stored in docker managed volumes.
+By default these will be located in <code>/var/lib/docker/volumes/&lt;volume name&gt;/_data</code> and root/sudo access will be needed to access these directories.</p>
+<h4 id="docker-data-root">Docker data root</h4>
+<blockquote>
+<p><strong>IMPORTANT</strong></p>
+</blockquote>
+<p>By default Docker stores all its images, container layers and managed volumes in its default data root directory which defaults to <code>/var/lib/docker</code>.
+It is typical in server deployments for the root file system to be kept fairly small and this is likely to result in the root file system running out of space due to the growth in docker images/layers/volumes in <code>/var/lib/docker</code>.
+It is therefore strongly recommended to move the docker data root to another location with more space.</p>
+<p>There are various options for achieving this.
+In all cases the docker daemon should be stopped prior to making the changes, e.g. <code>service docker stop</code>, then started afterwards.</p>
+<ul>
+<li>
+<p><strong>Symlink</strong> - One option is to move the <code>var/lib/docker</code> directory to a new location then create a symlink to it.
+For example:</p>
+<pre><code class="language-sh">ln -s /large_mount/docker_data_root /var/lib/docker
+</code></pre>
+<p>This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.</p>
+</li>
+<li>
+<p><strong>Configuration</strong> - The location can be changed by adding this key to the file <code>/etc/docker/daemon.json</code> (or creating this file if it doesn&rsquo;t exist.</p>
+<pre><code class="language-json">{
+  &quot;data-root&quot;: &quot;/mnt/docker&quot;
+}
+
+</code></pre>
+</li>
+<li>
+<p><strong>Mount</strong> - If your intention is to use a whole storage device for the docker data root then you can mount that device to <code>/var/lib/docker</code>.
+You will need to make a copy of the <code>/var/lib/docker</code> directory prior to doing this then copy it mount once created.
+The process for setting up this mount will be OS dependent and is outside the scope of this document.</p>
+</li>
+</ul>
+<h3 id="active-services">Active services</h3>
+<p>Each stroom docker stack comes pre-built with a number of different services, e.g. the <em>stroom_core</em> stack contains the following:</p>
+<ul>
+<li>stroom</li>
+<li>stroom-proxy-local</li>
+<li>stroom-all-dbs</li>
+<li>nginx</li>
+<li>stroom-log-sender</li>
+</ul>
+<p>While you can pass a set of service names to the commands like <code>start.sh</code> and <code>stop.sh</code>, it may sometimes be required to configure the stack instance to only have a set of services active.
+You can set the active services like so:</p>
+<pre><code class="language-bash">./set_services.sh stroom stroom-all-dbs nginx
+</code></pre>
+<p>In the above example and subsequent use of commands like <code>start.sh</code> and <code>stop.sh</code> with no named services would only act upon the active services set by <code>set_services.sh</code>.
+This list of active services is held in <code>ACTIVE_SERVICES.txt</code> and the full list of available services is held in <code>ALL_SERVICES.txt</code>.</p>
+<h3 id="certificates">Certificates</h3>
+<p>A number of the services in the docker stacks will make use of SSL certificates/keys in various forms.
+The certificate/key files are typically found in the directories <code>volumes/&lt;service&gt;/certs/</code>.</p>
+<p>The stacks come with a set of client/server certificates that can be used for demo/test purposes.
+For production deployments these should be replaced with the actual certificates/keys for your environment.</p>
+<p>In general the best approach to configuring the certificates/keys is to replace the existing files with symlinks to the actual files.
+For example in the case of the server certificates for nginx (found in <code>volumes/nginx/certs/</code>) the directory would look like:</p>
+<pre><code class="language-text">ca.pem.crt -&gt; /some/path/to/certificate_authority.pem.crt
+server.pem.crt -&gt; /some/path/to/host123.pem.crt
+server.unencrypted.key -&gt; /some/path/to/host123.key
+</code></pre>
+<p>This approach avoids the need to change any configuration files to reference differently named certificate/key files and avoids having to copy your real certificates/keys into multiple places.</p>
+<p>For examples of how to create certificates, keys and keystores see <a href="https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh">creatCerts.sh (external link)</a></p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
+    
+  <h1 id="pg-a53a193cf4abc0b6dfa8fa20a2fda8e2">1 - Nginx Configuration</h1>
+    <div class="lead">Nginx is the standard web server used by stroom. Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it. It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance. Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.</div>
+	<blockquote>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
+<strong>Last Updated:</strong> 2021-06-07<br>
+<strong>See Also:</strong> <a href="https://nginx.org/en/docs/">Nginx documentation (external link)</a>.</p>
+</blockquote>
+<h2 id="without-docker">Without Docker</h2>
+<p>The standard way of deploying Nginx with stroom running without docker involves running Nginx as part of the <em>services</em> stack.
+See below for details of how to configure it.
+If you want to deploy Nginx without docker then you can but that is outside the scope of the this documentation.</p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>Nginx is included in all the stroom docker stacks.
+Nginx is configured using multiple configuration files to aid clarity and allow reuse of sections of configuration.
+The main file for configuring Nginx is <code>nginx.conf.template</code> and this makes use of other files via <code>include</code> statements.</p>
+<p>The purpose of the various files is as follows:</p>
+<ul>
+<li><code>nginx.conf.template</code> - Top level configuration file that orchestrate the other files.</li>
+<li><code>logging.conf.template</code> - Configures the logging output, its content and format.</li>
+<li><code>server.conf.template</code> - Configures things like SSL settings, timeouts, ports, buffering, etc.</li>
+<li>Upstream configuration
+<ul>
+<li><code>upstreams.stroom.ui.conf.template</code> - Defines the upstream host(s) for stroom node(s) that are dedicated to serving the user interface.</li>
+<li><code>upstreams.stroom.processing.conf.template</code> - Defines the upstream host(s) for stroom node(s) that are dedicated to stream processing and direct data receipt.</li>
+<li><code>upstreams.proxy.conf.template</code> - Defines the upstream host(s) for local stroom-proxy node(s).</li>
+</ul>
+</li>
+<li>Location configuration
+<ul>
+<li><code>locations_defaults.conf.template</code> - Defines some default directives (e.g. headers) for configuring stroom paths.</li>
+<li><code>proxy_location_defaults.conf.template</code> - Defines some default directives (e.g. headers) for configuring stroom-proxy paths.</li>
+<li><code>locations.proxy.conf.template</code> - Defines the various paths (e.g/ <code>/datafeed</code>) that will be reverse proxied to stroom-proxy hosts.</li>
+<li><code>locations.stroom.conf.template</code> - Defines the various paths (e.g/ <code>/datafeeddirect</code>) that will be reverse proxied to stroom hosts.</li>
+</ul>
+</li>
+</ul>
+<h3 id="templating">Templating</h3>
+<p>The nginx container has been configured to support using environment variables passed into it to set values in the Nginx configuration files.
+It should be noted that recent versions of Nginx have templating support built in.
+The templating mechanism used in stroom&rsquo;s Nginx container was set up before this existed but achieves the same result.</p>
+<p>All non-default configuration files for Nginx should be placed in <code>volumes/nginx/conf/</code> and named with the suffix <code>.template</code> (even if no templating is needed).
+When the container starts any variables in these templates will be substituted and the resulting files will be copied into <code>/etc/nginx</code>.
+The result of the template substitution is logged to help with debugging.</p>
+<p>The files can contain templating of the form:</p>
+<pre><code class="language-text">ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
+</code></pre>
+<p>In this example <code>&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;</code> will be replaced with the value of environment variable <code>NGINX_SSL_CERTIFICATE</code> when the container starts.</p>
+<h3 id="upstreams">Upstreams</h3>
+<p>When configuring a multi node cluster you will need to configure the upstream hosts.
+Nginx acts as a reverse proxy for the applications behind it so the lists of hosts for each application need to be configured.</p>
+<p>For example if you have a 10 node cluster and 2 of those nodes are dedicated for user interface use then the configuration would look like:</p>
+<p><strong>upstreams.stroom.ui.conf.template</strong></p>
+<pre><code class="language-conf">server node1.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node2.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+</code></pre>
+<p><strong>upstreams.stroom.processing.conf.template</strong></p>
+<pre><code class="language-conf">server node3.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node4.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node5.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node6.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node7.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node8.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node9.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node10.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+</code></pre>
+<p><strong>upstreams.proxy.conf.template</strong></p>
+<pre><code class="language-conf">server node3.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node4.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node5.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node6.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node7.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node8.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node9.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node10.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+</code></pre>
+<p>In the above example the port is set using templating as it is the same for all nodes.
+Nodes 1 and 2 will receive all UI and REST API traffic.
+Nodes 8-10 will serve all datafeed(direct) requests.</p>
+<h3 id="certificates">Certificates</h3>
+<p>The stack comes with a default server certificate/key and CA certificate for demo/test purposes.
+The files are located in <code>volumes/nginx/certs/</code>.
+For a production deployment these will need to be changed, see <a href="../../../../docs/install-guide/configuration/#certificates">Certificates</a></p>
+<h3 id="log-rotation">Log rotation</h3>
+<p>The Nginx container makes use of logrotate to rotate Nginx&rsquo;s log files after a period of time so that rotated logs can be sent to stroom.
+Logrotate is configured using the file <code>volumes/stroom-log-sender/logrotate.conf.template</code>.
+This file is templated in the same way as the Nginx configuration files, see <a href="#templating">above</a>.
+The number of rotated files that should be kept before deleting them can be controlled using the line.</p>
+<pre><code class="language-text">rotate 100
+</code></pre>
+<p>This should be set in conjunction with the frequency that logrotate is called, which is controlled by <code>volumes/stroom-log-sender/crontab.txt</code>.
+This crontab file drives the lograte process and by default is set to run every minute.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-f67b02c1954e1e3755f22565ea9c45a2">2 - Stroom Configuration</h1>
+    
+	<blockquote>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
+<strong>Last Updated:</strong> 2021-06-23<br>
+<strong>See Also:</strong> <a href="../../../../docs/user-guide/properties/">Properties</a>.</p>
+</blockquote>
+<h2 id="general-configuration">General configuration</h2>
+<p>The Stroom application is essentially just an executable <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29">JAR (external link)</a> file that can be run when provided with a configuration file, <code>config.yml</code>.
+This config file is common to all forms of deployment.</p>
+<h3 id="configyml">config.yml</h3>
+<p>This file, sometimes known as the DropWizard configuration file (as DropWizard is the java framework on which Stroom runs) is the primary means of configuring stroom.
+As a minimum this file should be used to configure anything that needs to be set before stroom can start up, e.g. database connection details or is specific to a node in a stroom cluster.
+If you are using some form of scripted deployment, e.g. ansible then it can be used to set all stroom properties for the environment that stroom runs in.
+If you are not using scripted deployments then you can maintain stroom&rsquo;s node agnostic configuration properties via the user interface.</p>
+<p>For more details on the structure of the file, data types and property precedence see <a href="../../../../docs/user-guide/properties/">Properties</a>.</p>
+<p>Stroom operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
+As a result <code>config.yml</code> only contains a minimal set of properties.
+The full tree of properties can be seen in <code>./config/config-defaults.yml</code> and a schema for the configuration tree (along with descriptions for each property) can be found in <code>./config/config-schema.yml</code>.
+These two files can be used as a reference when configuring stroom.</p>
+<h4 id="key-configuration-properties">Key Configuration Properties</h4>
+<p>The following are key properties that would typically be changed for a production deployment.
+All configuration branches are relative to the <code>appConfig</code> root.</p>
+<p>The database name(s), hostname(s), port(s), usernames(s) and password(s) should be configured using these properties.
+Typically stroom is configured to keep it statistics data in a separate database to the main stroom database, as is configured below.</p>
+<pre><code class="language-yaml">  commonDbDetails:
+    connection:
+      jdbcDriverUrl: &quot;jdbc:mysql://localhost:3307/stroom?useUnicode=yes&amp;characterEncoding=UTF-8&quot;
+      jdbcDriverUsername: &quot;stroomuser&quot;
+      jdbcDriverPassword: &quot;stroompassword1&quot;
+  statistics:
+    sql:
+      db:
+        connection:
+          jdbcDriverUrl: &quot;jdbc:mysql://localhost:3307/stats?useUnicode=yes&amp;characterEncoding=UTF-8&quot;
+          jdbcDriverUsername: &quot;statsuser&quot;
+          jdbcDriverPassword: &quot;stroompassword1&quot;
+</code></pre>
+<p>In a clustered deployment each node must be given a node name that is unique within the cluster.
+This is used to identify nodes in the Nodes screen.
+It could be the hostname of the node or follow some other naming convetion.</p>
+<pre><code class="language-yaml">  node:
+    name: &quot;node1a&quot;
+</code></pre>
+<p>Each node should have its identity on the network configured so that it uses the appropriate FQDNs.
+The <code>nodeUri</code> hostname is the FQDN of each node and used by nodes to communicate with each other, therefore it can be private to the cluster of nodes.
+The <code>publicUri</code> hostname is the public facing FQDN for stroom, i.e. the address of a load balancer or Nginx.
+This is the address that users will use in their browser.</p>
+<pre><code class="language-yaml">  nodeUri:
+    hostname: &quot;localhost&quot; # e.g. node5.stroomnodes.somedomain
+  publicUri:
+    hostname: &quot;localhost&quot; # e.g. stroom.somedomain
+</code></pre>
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>Stroom running without docker has two files to configure it.
+The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.</p>
+<ul>
+<li><code>./config/config.yml</code> - Stroom configuration YAML file</li>
+<li><code>./config/scripts.env</code> - Stroom scripts configuration env file</li>
+</ul>
+<p>The distribution also includes these files which are helpful when it comes to configuring stroom.</p>
+<ul>
+<li><code>./config/config-defaults.yml</code> - Full version of the config.yml file containing all branches/leaves with default values set.
+Useful as a reference for the structure and the default values.</li>
+<li><code>./config/config-schema.yml</code> - The schema defining the structure of the <code>config.yml</code> file.</li>
+</ul>
+<h3 id="scriptsenv">scripts.env</h3>
+<p>This file is used by the various shell scripts like <code>start.sh</code>, <code>stop.sh</code>, etc.
+This file should not need to be unless you want to change the locations where certain log files are written to or need to change the java memory settings.</p>
+<p>In a production system it is highly likely that you will need to increase the java heap size as the default is only 2G.
+The heap size settings and any other java command line options can be set by changing:</p>
+<pre><code class="language-sh">JAVA_OPTS=&quot;-Xms512m -Xmx2048m&quot;
+</code></pre>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>When stroom is run as part of one of our docker stacks, e.g. <em>stroom_core</em> there are some additional layers of configuration to take into account, but the configuration is still primarily done using the <code>config.yml</code> file.</p>
+<p>Stroom&rsquo;s <code>config.yml</code> file is found in the stack in <code>./volumes/stroom/config/</code> and this is the primary means of configuring Stroom.</p>
+<p>The stack also ships with a default <code>config.yml</code> file baked into the docker image.
+This minimal fallback file (located in <code>/stroom/config-fallback/</code> inside the container) will be used in the absence of one provided in the docker stack configuration (<code>./volumes/stroom/config/</code>).</p>
+<p>The default <code>config.yml</code> file uses <a href="../../../../docs/install-guide/configuration/#environment-variables">environment variable substitution</a> so some configuration items will be set by environment variables set into the container by the stack <em>env</em> file and the docker-compose YAML.
+This approach is useful for configuration values that need to be used by multiple containers, e.g. the public FQDN of Nginx, so it can be configured in one place.</p>
+<p>If you need to further customise the stroom configuration then it is recommended to edit the <code>./volumes/stroom/config/config.yml</code> file.
+This can either be a simple file with hard coded values or one that uses environment variables for some of its
+configuration items.</p>
+<p>The configuration works as follows:</p>
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env)
+                |
+                |
+                | environment variable substitution
+                |
+                v
+docker compose YAML (01_stroom.yml)
+                |
+                |
+                | environment variable substitution
+                |
+                v
+Stroom configuration file (config.yml)
+</code></pre>
+<h3 id="ansible">Ansible</h3>
+<p>If you are using Ansible to deploy a stack then it is recommended that all of stroom&rsquo;s configuration properties are set directly in the <code>config.yml</code> file using a templated version of the file and to NOT use any environment variable substitution.
+When using Ansible, the Ansible inventory is the single source of truth for your configuration so not using environment variable substitution for stroom simplifies the configuration and makes it clearer when looking at deployed configuration files.</p>
+<p><a href="https://github.com/gchq/stroom-ansible">Stroom-ansible</a> has an example inventory for a single node stroom stack deployment.
+The <a href="https://github.com/gchq/stroom-ansible/blob/master/config/single_node_stroom_core_stack/example_inventory/group_vars/all">group_vars/all</a> file shows how values can be set into the <em>env</em> file.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-2fbd4f6015742d6292564c2fec48dde8">3 - Stroom Proxy Configuration</h1>
+    
+	<blockquote>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
+<strong>Last Updated:</strong> 2021-06-23<br>
+<strong>See Also:</strong> <a href="../../../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a><br>
+<strong>See Also:</strong> <a href="../../../../docs/user-guide/properties/">Properties</a>.<br>
+<strong>TODO:</strong> This needs updating for v7.1</p>
+</blockquote>
+<p>The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the <code>config.yml</code> file.
+Stroom-proxy has a <code>proxyConfig</code> key in the YAML while Stroom has <code>appConfig</code>.
+It is recommended to first read <a href="../../../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a> to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.</p>
+<h2 id="general-configuration">General configuration</h2>
+<p>The Stroom-proxy application is essentially just an executable <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29">JAR (external link)</a> file that can be run when provided with a configuration file, <code>config.yml</code>.
+This configuration file is common to all forms of deployment.</p>
+<h3 id="configyml">config.yml</h3>
+<p>Stroom-proxy does not have a user interface so the <code>config.yml</code> file is the only way of configuring stroom-proxy.
+As with stroom, the <code>config.yml</code> file is split into three sections using these keys:</p>
+<ul>
+<li><code>server</code> - Configuration of the web server, e.g. ports, paths, request logging.</li>
+<li><code>logging</code> - Configuration of application logging</li>
+<li><code>proxyConfig</code> - Configuration of stroom-proxy</li>
+</ul>
+<p>See also <a href="../../../../docs/user-guide/properties/">Properties</a> for more details on structure of the config.yml file and supported data types.</p>
+<p>Stroom-proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
+As a result <code>config.yml</code> only contains a minimal set of properties.
+The full tree of properties can be seen in <code>./config/config-defaults.yml</code> and a schema for the configuration tree (along with descriptions for each property) can be found in <code>./config/config-schema.yml</code>.
+These two files can be used as a reference when configuring stroom.</p>
+<h4 id="key-configuration-properties">Key Configuration Properties</h4>
+<p>Stroom-proxy has two main functions, storing and forwarding.
+It can be configured to do either or both of these functions.
+These functions are enabled/disabled using:</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  forwardStreamConfig:
+    forwardingEnabled: true
+
+  proxyRepositoryConfig:
+    storingEnabled: true
+</code></pre>
+<p>Stroom-proxy should be configured to check the receipt status of feeds on receipt of data.
+This is done by configuring the end point of a downstream stroom-proxy or stroom.</p>
+<pre><code class="language-yaml">  feedStatus:
+    url: &quot;http://stroom:8080/api/feedStatus/v1&quot;
+    apiKey: &quot;&quot;
+</code></pre>
+<p>The <code>url</code> should be the url for the feed status API on the downstream stroom(-proxy).
+If this is on the same host then you can use the http endpoint, however if it is on a remote host then you should use https and the host of its nginx, e.g. <code>https://downstream-instance/api/feedStatus/v1</code>.</p>
+<p>In order to use the API, the proxy must have a configured <code>apiKey</code>.
+The API key must be created in the downstream stroom instance and then copied into this configuration.</p>
+<p>If the proxy is configured to forward data then the forward destination(s) should be set.
+This is the <code>datafeed</code> endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
+This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
+See also <a href="#feed-status-certificate-configuration">Feed status certificate configuration</a>.</p>
+<pre><code class="language-yaml">  forwardStreamConfig:
+    forwardDestinations:
+      - forwardUrl: &quot;https://nginx/stroom/datafeed&quot;
+</code></pre>
+<p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
+Each forward location can use a different key/trust store pair.
+See also <a href="#forwarding-certificate-configuration">Forwarding certificate configuration</a>.</p>
+<p>If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.</p>
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>Apart from the structure of the <code>config.yml</code> file, the configuration in a non-docker environment is the same as for <a href="../../../../docs/install-guide/configuration/configuring-stroom-proxy/#deploying-without-docker">stroom</a></p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>The way stroom-proxy is configured is essentially the same as for <a href="../../../../docs/install-guide/configuration/configuring-stroom-proxy/#as-part-of-a-docker-stack">stroom</a> with the only real difference being the structure of the <code>config.yml</code> file as note <a href="#configyml">above</a> .
+As with stroom the docker stack comes with a <code>./volumes/stroom-proxy-*/config/config.yml</code> file that will be used in the absence of a provided one.
+Also as with stroom, the <code>config.yml</code> file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files.</p>
+<h3 id="certificates">Certificates</h3>
+<p>Stroom-proxy makes use of client certificates for two purposes:</p>
+<ul>
+<li>Communicating with a downstream stroom/stroom-proxy in order to establish the receipt status for the feeds it has received data for.</li>
+<li>When forwarding data to a downstream stroom/stroom-proxy</li>
+</ul>
+<p>The stack comes with the following files that can be used for demo/test purposes.</p>
+<pre><code class="language-text">volumes/stroom-proxy-*/certs/ca.jks
+volumes/stroom-proxy-*/certs/client.jks
+</code></pre>
+<p>For a production deployment these will need to be changed, see <a href="../../../../docs/install-guide/configuration/#certificates">Certificates</a></p>
+<h4 id="feed-status-certificate-configuration">Feed status certificate configuration</h4>
+<p>The configuration of the client certificates for feed status checks is done using:</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  jerseyClient:
+    timeout: &quot;10s&quot;
+    connectionTimeout: &quot;10s&quot;
+    timeToLive: &quot;1h&quot;
+    cookiesEnabled: false
+    maxConnections: 1024
+    maxConnectionsPerRoute: &quot;1024&quot;
+    keepAlive: &quot;0ms&quot;
+    retries: 0
+    tls:
+      verifyHostname: true
+      keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+      keyStorePassword: &quot;password&quot;
+      keyStoreType: &quot;JKS&quot;
+      trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+      trustStorePassword: &quot;password&quot;
+      trustStoreType: &quot;JKS&quot;
+      trustSelfSignedCertificates: false
+</code></pre>
+<p>This configuration is also used for making any other REST API calls.</p>
+<h4 id="forwarding-certificate-configuration">Forwarding certificate configuration</h4>
+<p>Stroom-proxy can forward to multiple locations.
+The configuration of the certificate(s) for the forwarding locations is as follows:</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  forwardStreamConfig:
+    forwardingEnabled: true
+    forwardDestinations:
+      # If you want multiple forward destinations then you will need to edit this file directly
+      # instead of using env var substitution
+      - forwardUrl: &quot;https://nginx/stroom/datafeed&quot;
+        sslConfig:
+          keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+          keyStorePassword: &quot;password&quot;
+          keyStoreType: &quot;JKS&quot;
+          trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+          trustStorePassword: &quot;password&quot;
+          trustStoreType: &quot;JKS&quot;
+          hostnameVerificationEnabled: true
+</code></pre>
+<p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
+Each forward location can use a different key/trust store pair.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-cea106477cd6590d5c2f583e39fc1d53">4 - Stroom Log Sender Configuration</h1>
+    
+	<blockquote>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
+<strong>Last Updated:</strong> 2021-06-14</p>
+</blockquote>
+<p>Stroom log sender is a docker image used for sending application logs to stroom.
+It is essentially just a combination of the <a href="https://github.com/gchq/stroom-clients/tree/master/bash">send_to_stroom.sh (external link)</a> script and a set of crontab entries to call the script at intervals.</p>
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>When deploying without docker stroom and stroom-proxy nodes will need to be configured to send their logs to stroom.
+This can be done using the <code>./bin/send_to_stroom.sh</code> script in the stroom and stroom-proxy zip distributions and some crontab configuration.</p>
+<p>The crontab file for the user account running stroom should be edited (<code>crontab -e</code>) and set to something like:</p>
+<pre><code class="language-crontab"># stroom logs
+* * * * * STROOM_HOME=&lt;path to stroom home&gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/access STROOM-ACCESS-EVENTS &lt;datafeed URL&gt; --system STROOM --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * STROOM_HOME=&lt;path to stroom home&gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/app    STROOM-APP-EVENTS    &lt;datafeed URL&gt; --system STROOM --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * STROOM_HOME=&lt;path to stroom home&gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/user   STROOM-USER-EVENTS   &lt;datafeed URL&gt; --system STROOM --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+
+# stroom-proxy logs
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/access  STROOM_PROXY-ACCESS-EVENTS  &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/app     STROOM_PROXY-APP-EVENTS     &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/send    STROOM_PROXY-SEND-EVENTS    &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/receive STROOM_PROXY-RECEIVE-EVENTS &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+</code></pre>
+<p>where the environment specific values are:</p>
+<ul>
+<li><code>&lt;path to stroom home&gt;</code> - The absolute path to the stroom home, i.e. the location of the <code>start.sh</code> script.</li>
+<li><code>&lt;path to proxy home&gt;</code> - The absolute path to the stroom-proxy home, i.e. the location of the <code>start.sh</code> script.</li>
+<li><code>&lt;datafeed URL&gt;</code> - The URL that the logs will be sent to.
+This will typically be the nginx host or load balancer and the path will typically be <code>https://host/datafeeddirect</code> to bypass the proxy for faster access to the logs.</li>
+<li><code>&lt;environment&gt;</code> - The environment name that the stroom/proxy is deployed in, e.g. OPS, REF, DEV, etc.</li>
+<li><code>&lt;key file&gt;</code> - The absolute path to the SSL key file used by curl.</li>
+<li><code>&lt;cert file&gt;</code> - The absolute path to the SSL certificate file used by curl.</li>
+<li><code>&lt;CA cert file&gt;</code> - The absolute path to the SSL certificate authority file used by curl.</li>
+<li><code>&lt;path to log&gt;</code> - The absolute path to a log file to log all the send_to_stroom.sh output to.</li>
+</ul>
+<p>If your implementation of cron supports environment variables then you can define some of the common values at the top of the crontab file and use them in the entries.
+<code>cronie</code> as used by Centos does not support environment variables in the crontab file but variables can be defined at the line level as has been shown with STROOM_HOME and PROXY_HOME.</p>
+<p>The above crontab entries assume that stroom and stroom-proxy are running on the same host.
+If there are not then the entries can be split across the hosts accordingly.</p>
+<h3 id="service-hosts">Service host(s)</h3>
+<p>When deploying stroom/stroom-proxy without stroom you may still be deploying the service stack (nginx and stroom-log-sender) to a host.
+In this case see <a href="#as-part-of-a-docker-stack">As part of a docker stack</a> below for details of how to configure stroom-log-sender to send the nginx logs.</p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<h3 id="crontab">Crontab</h3>
+<p>The docker stacks include the stroom-log-sender docker image for sending the logs of all the other containers to stroom.
+Stroom-log-sender is configured using the crontab file <code>volumes/stroom-log-sender/conf/crontab.txt</code>.
+When the container starts this file will be read.
+Any variables in it will be substituted with the values from the corresponding environment variables that are present in the container.
+These common values can be set in the <code>config/&lt;stack name&gt;.env</code> file.</p>
+<p>As the variables are substituted on container start you will need to restart the container following any configuration change.</p>
+<h3 id="certificates">Certificates</h3>
+<p>The directory <code>volumes/stroom-log-sender/certs</code> contains the default client certificates used for the stack.
+These allow stroom-log-sender to send the log files over SSL which also provides stroom with details of the sender.
+These will need to be replaced in a production environment.</p>
+<pre><code class="language-text">volumes/stroom-log-sender/certs/ca.pem.crt
+volumes/stroom-log-sender/certs/client.pem.crt
+volumes/stroom-log-sender/certs/client.unencrypted.key
+</code></pre>
+<p>For a production deployment these will need to be changed, see <a href="../../../../docs/install-guide/configuration/#certificates">Certificates</a></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-c55274dc8017978026995b0c30172626">5 - MySQL Configuration</h1>
+    
+	<blockquote>
+<p><strong>Version Information:</strong> Created with Stroom v7.0<br>
+<strong>Last Updated:</strong> 2021-06-07<br>
+<strong>See Also:</strong> <a href="../../../../docs/install-guide/setup/mysql-server-setup/">MySQL Server Setup</a><br>
+<strong>See Also:</strong> <a href="https://dev.mysql.com/doc/refman/8.0/en/server-administration.html">MySQL Server Administration (external link)</a></p>
+</blockquote>
+<h2 id="general-configuration">General configuration</h2>
+<p>MySQL is configured via the <code>.cnf</code> file which is typically located in one of these locations:</p>
+<ul>
+<li><code>/etc/my.cnf</code></li>
+<li><code>/etc/mysql/my.cnf</code></li>
+<li><code>$MYSQL_HOME/my.cnf</code></li>
+<li><code>&lt;data dir&gt;/my.cnf</code></li>
+<li><code>~/.my.cnf</code></li>
+</ul>
+<h3 id="key-configuration-properties">Key configuration properties</h3>
+<ul>
+<li>
+<p><code>lower_case_table_names</code> - This proerty controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
+A value of <code>0</code> means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
+This is the default in linux and is the preferred value for deployments of stroom of v7+.
+A value of <code>1</code> means tables are stored on the filesystem in lowercase but sql is case insensitive.
+<a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html">See also (external link)</a></p>
+</li>
+<li>
+<p><code>max_connections</code> - The maximum permitted number of simultaneous client connections.
+For a clustered deployment of stroom, the default value of 151 will typically be too low.
+Each stroom node will hold a pool of open database connections for its use, therefore with a large number of stroom nodes and a big connection pool the total number of connections can be very large.
+This property should be set taking into account the values of the stroom properties of the form <code>*.db.connectionPool.maxPoolSize</code>.
+<a href="https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html">See also (external link)</a></p>
+</li>
+<li>
+<p><code>innodb_buffer_pool_size</code>/<code>innodb_buffer_pool_instances</code> - Controls the amount of memory availble to MySQL for caching table/index data.
+Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
+<em>Note</em>: <code>innodb_buffer_pool_size</code> must be set to a value that is equal to or a multiple of <code>innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances</code>.
+<a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html">See also (external link)</a></p>
+</li>
+</ul>
+<blockquote>
+<p><strong>TODO</strong> - Add additional key configuration items</p>
+</blockquote>
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>When MySQL is deployed without a docker stack then MySQL should be installed and configured according to the MySQL documentation.
+How MySQL is deployed and configured will depend on the requirements of the environment, e.g. clustered, primary/standby, etc.</p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>Where a stroom docker stack includes stroom-all-dbs (MySQL) the MySQL instance is configured via the <code>.cnf</code> file.
+The <code>.cnf</code> file is located in <code>volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf</code>.
+This file is read-only to the container and will be read on container start.</p>
+<h3 id="database-initialisation">Database initialisation</h3>
+<p>When the container is started for the first time the database be initialised with the root user account.
+It will also then run any scripts found in <code>volumes/stroom-all-dbs/init/stroom</code>.
+The scripts in here will be run in alpabetical order.
+Scripts of the form <code>.sh</code>, <code>.sql</code>, <code>.sql.gz</code> and <code>.sql.template</code> are supported.</p>
+<p><code>.sql.template</code> files are proprietry to stroom stacks and are just templated <code>.sql</code> files.
+They can contain tags of the form <code>&lt;&lt;&lt;ENV_VAR_NAME&gt;&gt;&gt;</code> which will be replaced with the value of the named environment variable that has been set in the container.</p>
+<p>If you need to add additional database users then either add them to <code>volumes/stroom-all-dbs/init/stroom/001_create_databases.sql.template</code> or create additional scripts/templates in that directory.</p>
+<p>The script that controls this templating is <code>volumes/stroom-all-dbs/init/000_stroom_init.sh</code>.
+This script MUST not have its executable bit set else it will be executed rather than being sourced by the MySQL entry point scripts and will then not work.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../js/popper.min.js'></script>
+<script src='../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../js/main.js"></script>
+
+
+
+<script src='../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

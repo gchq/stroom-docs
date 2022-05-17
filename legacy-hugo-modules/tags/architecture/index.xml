@@ -1,0 +1,193 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – architecture</title>
+    <link>/tags/architecture/</link>
+    <description>Recent content in architecture on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 20 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Stroom 6 Architecture &amp; Depployment</title>
+      <link>/docs/install-guide/stroom-6-architecture/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/stroom-6-architecture/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The diagram below shows the logical architecture of Stroom v6.
+It is not concerned with how/where the various services are deployed.
+This page describes represents a reference architecture and deployment for stroom but it is possible to deploy the various services in many different ways, e.g. using a different web server to Nginx or introducing load balancers.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/install-guide/stroom-6-architecture.puml.svg&#34; href=&#34;../../images/install-guide/stroom-6-architecture.puml.svg&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/install-guide/stroom-6-architecture.puml.svg&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/install-guide/stroom-6-architecture.puml.svg&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Logical Architecture Diagram&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;nginx&#34;&gt;Nginx&lt;/h2&gt;
+&lt;p&gt;In stroom v6, a central Nginx is key to the whole architecture.
+It acts in the following capacities:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A reverse proxy to abstract clients from the multiple service instances.&lt;/li&gt;
+&lt;li&gt;An API gateway for all service traffic.&lt;/li&gt;
+&lt;li&gt;The termination point for client SSL traffic.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;reverse-proxy&#34;&gt;Reverse Proxy&lt;/h3&gt;
+&lt;p&gt;Nginx is used to reverse proxy all client connections (even those from within the estate) to the various services that sit behind it.
+For example, a client request to &lt;code&gt;https://nginx-host/stroom&lt;/code&gt; will be reverse proxied to &lt;code&gt;http://a-stroom-host:8080/stroom&lt;/code&gt;.
+Nginx is responsible for selecting the upstream server to reverse proxy to.
+It is possible to use multiple instances of Nginx for redundancy or improved performance, however care needs to be taken to ensure all requests for a session go to the same Nginx instance, i.e. sticky sessions.
+Some requests are stateful and some are stateless but the Nginx config will reverse proxy them accordingly.&lt;/p&gt;
+&lt;h3 id=&#34;api-gateway&#34;&gt;API Gateway&lt;/h3&gt;
+&lt;p&gt;Nginx is also used as an API gateway.
+This means all inter-service calls go via the Nginx gateway so each service only needs to know the location of the Nginx gateway.
+Nginx will then reverse proxy all requests to the appropriate instance of an upstream service.&lt;/p&gt;
+&lt;p&gt;The grey dashed lines on the diagram attempt to show the effective inter-service connections that are being made if you ignore the Nginx reverse proxying.&lt;/p&gt;
+&lt;h3 id=&#34;ssl-termination&#34;&gt;SSL Termination&lt;/h3&gt;
+&lt;p&gt;All SSL termination is handled by Nginx.
+Nginx holds the server and certificate authority certificate and will authenticate the client requests if the client has a certificate.
+Any client certificate details will be passed on to the service that is being reverse proxied.&lt;/p&gt;
+&lt;h2 id=&#34;physical-deployment&#34;&gt;Physical Deployment&lt;/h2&gt;
+&lt;h3 id=&#34;single-node-docker-deployment&#34;&gt;Single Node Docker Deployment&lt;/h3&gt;
+&lt;p&gt;The simplest deployment of stroom is where all services are on a single host and each service runs in its own docker container.
+Such a deployment can be achieved by following &lt;a href=&#34;../../community/dev-guide/docker-running/&#34;&gt;these instructions&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The following diagram shows how a single node deployment would look.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/install-guide/stroom-6-deployment-docker-single.puml.svg&#34; href=&#34;../../images/install-guide/stroom-6-deployment-docker-single.puml.svg&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/install-guide/stroom-6-deployment-docker-single.puml.svg&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/install-guide/stroom-6-deployment-docker-single.puml.svg&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Logical Architecture Diagram&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;multi-node-mixed-deployment&#34;&gt;Multi Node Mixed Deployment&lt;/h3&gt;
+&lt;p&gt;The typical deployment for a large scale stroom is where stroom is run on multiple hosts to scale out the processing.
+In this deployment stroom and MySQL are run directly on the host OS, i.e. without docker.
+This approach was taken to gradually introduce docker into the stroom deployment strategies.&lt;/p&gt;
+&lt;p&gt;The following diagram shows how a multi node deployment would look.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/install-guide/stroom-6-deployment-mixed-multi.puml.svg&#34; href=&#34;../../images/install-guide/stroom-6-deployment-mixed-multi.puml.svg&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/install-guide/stroom-6-deployment-mixed-multi.puml.svg&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/install-guide/stroom-6-deployment-mixed-multi.puml.svg&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Logical Architecture Diagram&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;multi-node-all-docker-deployment&#34;&gt;Multi Node All docker Deployment&lt;/h3&gt;
+&lt;p&gt;The aim in future is to run all services in docker in a multi node deployment.
+Such a deployment is still under development and will likely involve kubernetes for container orchestration.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
