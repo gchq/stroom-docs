@@ -237,7 +237,6 @@ assemble_version() {
       --depth 1 \
       --branch "${branch_name}" \
       --single-branch \
-      --recurse-submodules \
       "${GIT_REPO_URL}" \
       "${branch_clone_dir}"
     echo "::endgroup::"
