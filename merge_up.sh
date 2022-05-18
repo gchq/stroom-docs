@@ -120,6 +120,9 @@ merge_branch_up() {
 
   checkout_branch "${dest_branch}"
 
+  git pull \
+    || error_exit "Pulling on branch ${dest_branch}"
+
   local is_merge_success=true
   #git merge --no-edit "${source_branch}" \
     #|| is_merge_success=false
