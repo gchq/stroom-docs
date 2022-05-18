@@ -168,7 +168,7 @@ confirm_branches() {
   echo -e "${GREEN}Merge_up will use this chain of branches:${NC}"
   local branch_chain=""
   for branch in "${branches[@]}"; do
-    branch_chain="${branch_chain}${BLUE}${branch} ${GREEN}-> "
+    branch_chain="${branch_chain}${BLUE}${branch}${GREEN} -> "
   done
   branch_chain="${branch_chain% -> }"
   echo -e "${GREEN}${branch_chain}${NC}"
