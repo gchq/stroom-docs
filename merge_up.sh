@@ -171,7 +171,9 @@ confirm_branches() {
     branch_chain="${branch_chain}${BLUE}${branch}${GREEN} -> "
   done
   branch_chain="${branch_chain% -> }"
+  echo
   echo -e "${GREEN}${branch_chain}${NC}"
+  echo
 
   read -rsp $'Press [y|Y] to continue, or ctrl-c to exit...\n' -n1 keyPressed
 
