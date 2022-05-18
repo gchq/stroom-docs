@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# ***********************************************************************
+# A script to merge changes up the chain of release brances.
+# It will checkout the first branch in the chain and ensure commits
+# are pushed then checkout the next branch and merge the previous one
+# in, and so on until it reaches the last branch.
+# ***********************************************************************
+
 set -e
 
 setup_echo_colours() {
@@ -156,6 +163,29 @@ push_if_needed() {
   fi
 }
 
+confirm_branches() {
+
+  echo -e "${GREEN}Merge_up will merge changes up this chain of branches:${NC}"
+  local branch_chain=""
+  for branch in "${branches[@]}"; do
+    branch_chain="${branch_chain}${BLUE}${branch}${GREEN} -> "
+  done
+  branch_chain="${branch_chain% -> }"
+  echo
+  echo -e "${GREEN}${branch_chain}${NC}"
+  echo
+  echo -e "${GREEN}It will stop if there are merge conflicts.${NC}"
+
+  read -rsp $'Press [y|Y] to continue, or ctrl-c to exit...\n' -n1 keyPressed
+
+  if [[ "${keyPressed}X" =~ ^(y|Y)?X$ ]] ; then
+    echo
+  else
+    echo "Exiting"
+    exit 1
+  fi
+}
+
 main() {
   #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -174,6 +204,8 @@ main() {
   populate_branches_arr
 
   debug_value "branches" "${branches[*]}"
+
+  confirm_branches
 
   local initial_branch
   initial_branch="$( \
