@@ -24,6 +24,13 @@ Possession of a valid API Key for a user account means that you can do anything 
 API Keys should therefore be protected carefully and treated like a password.
 
 
+## Byte Order Mark
+
+A special Unicode character at the start of a text stream that indicates the byte order (or endianness) of the stream.
+
+See [Byte Order Mark]({{< relref "docs/sending-data/data-formats/character-encoding" >}}) for more detail.
+
+
 ## Condition
 
 A Condition in an query expression term, e.g. `=`, `>`, `in`, etc.
