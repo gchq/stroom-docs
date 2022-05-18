@@ -170,13 +170,12 @@ confirm_branches() {
   for branch in "${branches[@]}"; do
     branch_chain="${branch_chain}${BLUE}${branch} ${GREEN}-> "
   done
-  branch_chain="${branch_chain%" -> "}"
-  echo -e "${GREEN}Merge_up will use this chain of branches:${NC}"
+  branch_chain="${branch_chain% -> }"
   echo -e "${GREEN}${branch_chain}${NC}"
 
-  read -rsp $'Press [space|y|Y] to continue, or ctrl-c to exit...\n' -n1 keyPressed
+  read -rsp $'Press [y|Y] to continue, or ctrl-c to exit...\n' -n1 keyPressed
 
-  if [[ "${keyPressed}X" =~ ^([:space:]|y|Y)?X$ ]] ; then
+  if [[ "${keyPressed}X" =~ ^(y|Y)?X$ ]] ; then
     echo
   else
     echo "Exiting"
