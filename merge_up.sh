@@ -91,10 +91,13 @@ populate_branches_arr() {
     found_start_branch=false
   fi
 
-  for branch in "${branches[@]}"; do
+  for branch in "${all_branches[@]}"; do
+    debug_value "branch" "${branch}"
+    debug_value "found_start_branch" "${found_start_branch}"
+
     check_branch_exists "${branch}"
 
-    if [[ -n "${start_branch}" ]]; then
+    if [[ -n "${start_branch}" && "${branch}" = "${start_branch}" ]]; then
       found_start_branch=true
     fi
 
@@ -103,6 +106,12 @@ populate_branches_arr() {
       branches+=( "${branch}" )
     fi
   done
+
+  if [[ "${found_start_branch}" = "false" ]]; then
+    error_exit "Start branch ${start_branch} not found in list" \
+      "of branches [${all_branches[*]}]"
+  fi
+
 }
 
 validate_inside_git_repo() {
