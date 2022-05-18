@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/building/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2022-01-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-05-13T16:44:31+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-05-18T11:52:34+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Building the Documentation">
 <meta itemprop="description" content="How to develop and build the documentation.
 "><meta itemprop="datePublished" content="2022-01-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-05-13T16:44:31+01:00" />
-<meta itemprop="wordCount" content="781">
+<meta itemprop="dateModified" content="2022-05-18T11:52:34+01:00" />
+<meta itemprop="wordCount" content="735">
 <meta itemprop="keywords" content="TODO," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Building the Documentation"/>
 <meta name="twitter:description" content="How to develop and build the documentation.
@@ -304,6 +304,8 @@
         
           <li><a class="taxonomy-term" href="../../../tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../tags/event/" data-taxonomy-term="event"><span class="taxonomy-label">event</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../tags/expression/" data-taxonomy-term="expression"><span class="taxonomy-label">expression</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/extraction/" data-taxonomy-term="extraction"><span class="taxonomy-label">extraction</span><span class="taxonomy-count">1</span></a></li>
@@ -311,6 +313,8 @@
           <li><a class="taxonomy-term" href="../../../tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">5</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/file/" data-taxonomy-term="file"><span class="taxonomy-label">file</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/fragment/" data-taxonomy-term="fragment"><span class="taxonomy-label">fragment</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/header/" data-taxonomy-term="header"><span class="taxonomy-label">header</span><span class="taxonomy-count">1</span></a></li>
         
@@ -384,6 +388,8 @@
         
           <li><a class="taxonomy-term" href="../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">2</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">3</span></a></li>
         
       </ul>
@@ -398,17 +404,18 @@
 
   
 
-            <nav aria-label="breadcrumb" class="td-breadcrumbs">
+            
+
+
+<nav aria-label="breadcrumb" class="td-breadcrumbs">
   <ol class="breadcrumb">
-  <li class="breadcrumb-item">
-    <a href="../../../community/">Community</a>
-  </li>
-  <li class="breadcrumb-item">
-    <a href="../../../community/documentation/">Documenting Stroom</a>
-  </li>
-  <li class="breadcrumb-item active" aria-current="page">
-    <a href="../../../community/documentation/building/">Building the Documentation</a>
-  </li>
+  <li class="breadcrumb-item"><a href="../../../community/">Community</a>
+    </li>
+  <li class="breadcrumb-item"><a href="../../../community/documentation/">Documenting Stroom</a>
+    </li>
+  <li class="breadcrumb-item active">
+      <span>Building the Documentation</span>
+    </li>
   </ol>
 </nav>
             
@@ -417,13 +424,13 @@
 	<div class="lead">How to develop and build the documentation.</div>
 	<header class="article-meta">
 		
-		
-			
-				
+
+  
+    
 
 
-			
-				
+  
+    
 
 
 <div class="taxonomy taxonomy-terms-article taxo-tags">
@@ -435,8 +442,8 @@
   </ul>
 </div>
 
-			
-		
+  
+
 		
 	</header>    
 	<h2 id="prerequisites">Prerequisites</h2>
@@ -464,24 +471,9 @@
 It also ensures that the local build environment matches that used in GitHub actions.</p>
 <p>It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.</p>
 <h2 id="cloning-the-stroom-docs-git-repository">Cloning the stroom-docs git repository</h2>
-<p>The git repository for this site is 
-
-
-
-
-
-
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom-docs" target="_blank" class="" style="" title="stroom-docs (external link)">
-    <span>stroom-docs</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
-.
-<em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a git sub-module, which in turn uses two nested sub-modules for Bootstrap (<code>themes/docsy/assets/vendor/bootstrap/</code>) and Font-Awesome (<code>themes/docsy/assets/vendor/Font-Awesome/</code>).
-Therefore to clone stroom-docs you need to do</p>
+<p>The git repository for this site is <a href="https://github.com/gchq/stroom-docs">stroom-docs (external link)</a>.
+<em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a Go module so the theme will be pulled in when Hugo is first run.
+To clone stroom-docs you need to do:</p>
 
   
 
@@ -504,19 +496,7 @@ git clone https://github.com/gchq/stroom-docs.git
 (out)remote: Compressing objects: 100% (1955/1955), done.
 (out)remote: Total 66006 (delta 3984), reused 7417 (delta 3603), pack-reused 58090
 (out)Receiving objects: 100% (66006/66006), 286.61 MiB | 7.31 MiB/s, done.
-(out)Resolving deltas: 100% (34981/34981), done.
-cd stroom-docs
-(out)
-# Download all sub modules
-git submodule update --init --recursive
-(out)Submodule &#39;themes/docsy&#39; (https://github.com/google/docsy.git) registered for path &#39;themes/docsy&#39;
-(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy&#39;...
-(out)...
-(out)Submodule &#39;assets/vendor/Font-Awesome&#39; (https://github.com/FortAwesome/Font-Awesome.git) registered for path &#39;themes/docsy/assets/vendor/Font-Awesome&#39;
-(out)Submodule &#39;assets/vendor/bootstrap&#39; (https://github.com/twbs/bootstrap.git) registered for path &#39;themes/docsy/assets/vendor/bootstrap&#39;
-(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy/assets/vendor/Font-Awesome&#39;...
-(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy/assets/vendor/bootstrap&#39;...
-(out)...</code></pre>
+(out)Resolving deltas: 100% (34981/34981), done.</code></pre>
 </div>
 
 <h2 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h2>
@@ -689,7 +669,7 @@ Warn of implications of breaking the site when updating with incompatible upstre
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified May 13, 2022: <a href="https://github.com/gchq/stroom-docs/commit/fc1bbf5d5aafd5ce1dfe65121f92482f8a526d7c">Fix typos (fc1bbf5)</a>
+  Last modified May 18, 2022: <a href="https://github.com/gchq/stroom-docs/commit/69e0d139abfc694c773c38aec0cc30c5d9d9b60f">Add section on data formats (69e0d13)</a>
 </div>
 
 </div>

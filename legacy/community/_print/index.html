@@ -1228,8 +1228,8 @@ It also ensures that the local build environment matches that used in GitHub act
 <p>It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.</p>
 <h2 id="cloning-the-stroom-docs-git-repository">Cloning the stroom-docs git repository</h2>
 <p>The git repository for this site is <a href="https://github.com/gchq/stroom-docs">stroom-docs (external link)</a>.
-<em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a git sub-module, which in turn uses two nested sub-modules for Bootstrap (<code>themes/docsy/assets/vendor/bootstrap/</code>) and Font-Awesome (<code>themes/docsy/assets/vendor/Font-Awesome/</code>).
-Therefore to clone stroom-docs you need to do</p>
+<em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a Go module so the theme will be pulled in when Hugo is first run.
+To clone stroom-docs you need to do:</p>
 
   
 
@@ -1252,19 +1252,7 @@ git clone https://github.com/gchq/stroom-docs.git
 (out)remote: Compressing objects: 100% (1955/1955), done.
 (out)remote: Total 66006 (delta 3984), reused 7417 (delta 3603), pack-reused 58090
 (out)Receiving objects: 100% (66006/66006), 286.61 MiB | 7.31 MiB/s, done.
-(out)Resolving deltas: 100% (34981/34981), done.
-cd stroom-docs
-(out)
-# Download all sub modules
-git submodule update --init --recursive
-(out)Submodule &#39;themes/docsy&#39; (https://github.com/google/docsy.git) registered for path &#39;themes/docsy&#39;
-(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy&#39;...
-(out)...
-(out)Submodule &#39;assets/vendor/Font-Awesome&#39; (https://github.com/FortAwesome/Font-Awesome.git) registered for path &#39;themes/docsy/assets/vendor/Font-Awesome&#39;
-(out)Submodule &#39;assets/vendor/bootstrap&#39; (https://github.com/twbs/bootstrap.git) registered for path &#39;themes/docsy/assets/vendor/bootstrap&#39;
-(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy/assets/vendor/Font-Awesome&#39;...
-(out)Cloning into &#39;/tmp/stroom-docs/themes/docsy/assets/vendor/bootstrap&#39;...
-(out)...</code></pre>
+(out)Resolving deltas: 100% (34981/34981), done.</code></pre>
 </div>
 
 <h2 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h2>
