@@ -131,7 +131,6 @@ merge_branch_up() {
     echo -e "${GREEN}Merge completed successfully${NC}"
     push_if_needed
     echo -e "${GREEN}--------------------------------------------------${NC}"
-    exit 0
   else
     error_exit "Merge has conflicts. Fix and push the conflicts and try again."
   fi
