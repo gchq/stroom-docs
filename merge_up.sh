@@ -109,9 +109,12 @@ populate_branches_arr() {
 
   if [[ "${found_start_branch}" = "false" ]]; then
     error_exit "Start branch ${start_branch} not found in list" \
-      "of branches [${all_branches[*]}]"
+      "of all valid branches [${all_branches[*]}]"
   fi
 
+  if [[ "${#branches[@]}" -lt 2 ]]; then
+    error_exit "Need at least two branches in the chain to continue."
+  fi
 }
 
 validate_inside_git_repo() {
