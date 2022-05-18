@@ -1,7 +1,7 @@
 ---
 title: "Example Clients"
 linkTitle: "Example Clients"
-#weight:
+weight: 20
 date: 2022-01-13
 tags: 
 description: >

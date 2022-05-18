@@ -1,7 +1,7 @@
 ---
 title: "Response Codes"
 linkTitle: "Response Codes"
-#weight:
+weight: 40
 date: 2021-07-27
 tags:
   - http
