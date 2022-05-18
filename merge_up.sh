@@ -200,11 +200,13 @@ confirm_branches() {
     echo -e "${GREEN}To start at specific branch do" \
       "${BLUE}./merge_up.sh <start branch>${NC}"
   fi
+
   local branch_chain=""
   for branch in "${branches[@]}"; do
     branch_chain="${branch_chain}${BLUE}${branch}${GREEN} -> "
   done
   branch_chain="${branch_chain% -> }"
+
   echo
   echo -e "${GREEN}${branch_chain}${NC}"
   echo
