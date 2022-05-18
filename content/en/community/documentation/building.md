@@ -4,7 +4,6 @@ linkTitle: "Building the Documentation"
 weight: 10
 date: 2022-01-12
 tags: 
-  - TODO
 description: >
   How to develop and build the documentation.
 ---
@@ -128,11 +127,16 @@ To test the PDF generation do:
 
 ## Updating the Docsy theme
 
-This repository uses a git submodule for the Docsy theme.
+The Docsy theme is a dependency of this Hugo site. See {{< external-link "Update the Hugo Docsy Module" "https://www.docsy.dev/docs/updating/updating-hugo-module/" >}} for details on how to update the version of the Docsy theme.
 
-{{% todo %}}
-Complete this section.
-Docsy is undergoing changes to make use of shallow sub modules for Bootstrap/Font-Awesome and to change to being a Hugo module so maybe wait until that is complete.
-Cover how to update the submodule to the latest (or a specific) Docsy commit.
-Warn of implications of breaking the site when updating with incompatible upstream changes.
-{{% /todo %}}
+In those instructions when it says to run a `hugo` command you need to do it from within the hugo docker container.
+
+{{< command-line >}}
+./container_build/runInHugoDocker.sh bash
+{{</ command-line >}}
+
+This will give you a bash prompt inside the container that has the `hugo` binary available.
+The container has access to your local stroom-docs repository (from where you ran `runInHugoDocker.sh`) and the initial directory is the root of the repository.
+Inside the container the root of the repository is mounted as `/builder/shared`.
+
+To leave the container's shell type `exit`.
