@@ -59,6 +59,7 @@ error_exit() {
 }
 
 populate_branches_arr() {
+  local start_branch="$1"
 
   # Ensure we have an accurate picture of branches available
   # on the default remote
@@ -67,7 +68,8 @@ populate_branches_arr() {
   git fetch --prune
 
   # Add the branches that come before the release branches
-  branches+=( "${TAIL_BRANCHES[@]}" )
+  local all_branches=()
+  all_branches+=( "${TAIL_BRANCHES[@]}" )
 
   local release_branches
   # Sort them by major then minor part
@@ -78,15 +80,41 @@ populate_branches_arr() {
     | sort -t . -k 1,1n -k 2,2n )"
 
   for branch in ${release_branches}; do
-    branches+=( "${branch}" )
+    all_branches+=( "${branch}" )
   done
 
   # Add the branches that come after the release branches
-  branches+=( "${HEAD_BRANCHES[@]}" )
+  all_branches+=( "${HEAD_BRANCHES[@]}" )
 
-  for branch in "${branches[@]}"; do
+  local found_start_branch=true
+  if [[ -n "${start_branch}" ]]; then
+    found_start_branch=false
+  fi
+
+  for branch in "${all_branches[@]}"; do
+    debug_value "branch" "${branch}"
+    debug_value "found_start_branch" "${found_start_branch}"
+
     check_branch_exists "${branch}"
+
+    if [[ -n "${start_branch}" && "${branch}" = "${start_branch}" ]]; then
+      found_start_branch=true
+    fi
+
+    # Only add branches >= the start branch
+    if [[ "${found_start_branch}" = "true" ]]; then
+      branches+=( "${branch}" )
+    fi
   done
+
+  if [[ "${found_start_branch}" = "false" ]]; then
+    error_exit "Start branch ${start_branch} not found in list" \
+      "of all valid branches [${all_branches[*]}]"
+  fi
+
+  if [[ "${#branches[@]}" -lt 2 ]]; then
+    error_exit "Need at least two branches in the chain to continue."
+  fi
 }
 
 validate_inside_git_repo() {
@@ -168,11 +196,17 @@ push_if_needed() {
 confirm_branches() {
 
   echo -e "${GREEN}Merge_up will merge changes up this chain of branches:${NC}"
+  if [[ -z "${start_branch}" ]]; then
+    echo -e "${GREEN}To start at specific branch do" \
+      "${BLUE}./merge_up.sh <start branch>${NC}"
+  fi
+
   local branch_chain=""
   for branch in "${branches[@]}"; do
     branch_chain="${branch_chain}${BLUE}${branch}${GREEN} -> "
   done
   branch_chain="${branch_chain% -> }"
+
   echo
   echo -e "${GREEN}${branch_chain}${NC}"
   echo
@@ -193,6 +227,8 @@ main() {
 
   setup_echo_colours
 
+  local start_branch="$1"
+
   local REMOTE_NAME="origin"
   local TAIL_BRANCHES=( \
     "legacy" )
@@ -203,7 +239,7 @@ main() {
 
   validate_inside_git_repo
   validate_for_uncommitted_work
-  populate_branches_arr
+  populate_branches_arr "${start_branch}"
 
   debug_value "branches" "${branches[*]}"
 
