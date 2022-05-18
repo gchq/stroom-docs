@@ -110,8 +110,8 @@ validate_for_uncommitted_work() {
 }
 
 merge_branch_up() {
-  local source_branch="$1"; shift
-  local dest_branch="$1"; shift
+  local source_branch="${1:?source_branch not set}"; shift
+  local dest_branch="${1:?dest_branch not set}"; shift
 
   echo 
   echo -e "${GREEN}--------------------------------------------------${NC}"
@@ -185,7 +185,7 @@ main() {
     push_if_needed
 
     if [[ -n "${prev_branch}" ]]; then
-      merge_branch_up "${prev_branch}" "${source_branch}"
+      merge_branch_up "${prev_branch}" "${curr_branch}"
     else
       debug "No prev_branch, curr_branch: ${curr_branch}"
     fi
