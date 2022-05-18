@@ -160,7 +160,7 @@ main() {
 
   setup_echo_colours
 
-  local REMOTE_NAME
+  local REMOTE_NAME="origin"
   local TAIL_BRANCHES=( \
     "legacy" )
   local HEAD_BRANCHES=( \
