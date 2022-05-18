@@ -152,8 +152,6 @@ push_if_needed() {
       || error_exit "Error pushing on branch ${curr_branch}"
   fi
 }
-  
-
 
 main() {
   #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
@@ -198,8 +196,11 @@ main() {
     prev_branch="${curr_branch}"
   done
 
-  # Return user to their initial branch
+  echo
+  echo -e "${GREEN}Returning to original branch${NC}"
   checkout_branch "${initial_branch}"
+  echo
+  echo -e "${GREEN}Done${NC}"
 }
 
 main "$@"
