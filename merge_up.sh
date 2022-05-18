@@ -134,10 +134,10 @@ merge_branch_up() {
 }
 
 checkout_branch() {
-  local branch_name="$1"; shift
-    echo -e "${GREEN}Checking out branch ${BLUE}${curr_branch}${NC}"
-    git checkout "${curr_branch}" \
-      || error_exit "Checking out ${dest_branch}"
+  local branch_name="${1:?branch_name not set}"; shift
+    echo -e "${GREEN}Checking out branch ${BLUE}${branch_name}${NC}"
+    git checkout "${branch_name}" \
+      || error_exit "Checking out ${branch_name}"
 }
 
 push_if_needed() {
