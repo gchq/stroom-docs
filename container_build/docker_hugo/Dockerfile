@@ -14,7 +14,7 @@
 # limitations under the License.
 #**********************************************************************
 
-FROM klakegg/hugo:ext-alpine
+FROM klakegg/hugo:0.95.0-ext-alpine
 
 # Run separately so docker can cache the layer to speed up image creation
 RUN apk add --no-cache \
@@ -58,8 +58,11 @@ RUN echo "USER_ID: [$USER_ID]" \
     && if [ ! -n "${user_name}" ]; then user_name="builder"; fi \
     && echo "user_name: [$user_name]" \
     && echo \
-    && mkdir -p /builder/shared
+    && mkdir -p /builder/shared \
+    && mkdir -p /hugo-cache \
+    && chown "${USER_ID}:${GROUP_ID}" /hugo-cache
 
 USER $USER_ID
+VOLUME /hugo-cache
 
 # vim: set tabstop=4 shiftwidth=4 expandtab:
