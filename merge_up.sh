@@ -46,6 +46,11 @@ error() {
     echo -e "${RED}ERROR${NC} $*${NC}" >&2
 }
 
+error_exit() {
+    echo -e "${RED}ERROR${NC} $*${NC}" >&2
+    exit 1
+}
+
 populate_branches_arr() {
 
   # Ensure we have an accurate picture of branches available
@@ -108,11 +113,44 @@ merge_branch_up() {
   local source_branch="$1"; shift
   local dest_branch="$1"; shift
 
+  echo 
+  echo -e "${GREEN}--------------------------------------------------${NC}"
   echo -e "${GREEN}Merging up from ${BLUE}${source_branch}${GREEN}" \
     "to ${BLUE}${dest_branch}${NC}"
+  echo -e "${GREEN}--------------------------------------------------${NC}"
 
-  git checkout 
-  
+  echo -e "${GREEN}Checking out destination branch ${BLUE}${dest_branch}${NC}"
+  checkout_branch "${dest_branch}"
+
+  local is_merge_success=true
+  #git merge --no-edit "${source_branch}" \
+    #|| is_merge_success=false
+
+  if [[ "${is_merge_success}" = "true" ]]; then
+    echo -e "${GREEN}Merge completed successfully${NC}"
+  else
+    error_exit "Merge has conflicts. Fix and push the conflicts and try again."
+  fi
+}
+
+checkout_branch() {
+  local branch_name="$1"; shift
+    echo -e "${GREEN}Checking out branch ${BLUE}${curr_branch}${NC}"
+    git checkout "${curr_branch}" \
+      || error_exit "Checking out ${dest_branch}"
+}
+
+push_if_needed() {
+  local unpushed_commit_count
+  unpushed_commit_count="$( \
+    git cherry -v \
+    | wc -l )"
+
+  if [[ "${unpushed_commit_count}" -gt 0 ]]; then
+    echo -e "${GREEN}Pushing branch ${BLUE}${curr_branch}${NC}"
+    git push \
+      || error_exit "Error pushing on branch ${curr_branch}"
+  fi
 }
   
 
@@ -142,11 +180,9 @@ main() {
   for branch in "${branches[@]}"; do
     curr_branch="${branch}"
 
-    echo -e "${GREEN}Checking out ${BLUE}${curr_branch}${NC}"
-    git checkout "${curr_branch}"
+    checkout_branch "${curr_branch}"
 
-    echo -e "${GREEN}Pushing branch ${BLUE}${curr_branch}${NC}"
-    git push "${curr_branch}"
+    push_if_needed
 
     if [[ -n "${prev_branch}" ]]; then
       merge_branch_up "${prev_branch}" "${source_branch}"
