@@ -51,18 +51,20 @@ docker_login() {
 }
 
 clean_up() {
-  echo -e "${GREEN}Stopping hugo-build-env* containers${NC}"
+  echo -e "${GREEN}Stopping stroom-hugo-build-env* containers${NC}"
   docker container \
     ls \
     -q \
-    --filter "name=hugo-build-env*" \
+    --filter "name=stroom-hugo-build-env*" \
     | xargs -r docker container stop
 
-  echo -e "${GREEN}Deleting hugo-build-env* containers${NC}"
+  sleep 1
+
+  echo -e "${GREEN}Deleting stroom-hugo-build-env* containers${NC}"
   docker container \
     ls -a \
     -q \
-    --filter "name=hugo-build-env*" \
+    --filter "name=stroom-hugo-build-env*" \
     | xargs --no-run-if-empty docker container rm
 
   remove_network
@@ -99,7 +101,7 @@ remove_network() {
 run_hugo_server() {
   local container_count
   container_count="$( \
-    docker container ls -q --filter "name=hugo-build-env*" | wc -l)"
+    docker container ls -q --filter "name=stroom-hugo-build-env*" | wc -l)"
 
   if [[ "${container_count}" -lt 1 ]]; then
     echo -e "${GREEN}Run Hugo server in the background on port" \
@@ -188,7 +190,7 @@ main() {
     run_cmd=( \
       "node" \
       "../generate-pdf.js" \
-      "http://hugo-build-env:${HUGO_PORT}${PRINT_PAGE_PATH}" )
+      "http://stroom-hugo-build-env:${HUGO_PORT}${PRINT_PAGE_PATH}" )
   else
     run_cmd=( \
       "bash" \
@@ -202,7 +204,7 @@ main() {
   group_id=
   group_id="$(id -g)"
 
-  image_tag="pupeteer-pdf-builder"
+  image_tag="stroom-pupeteer-pdf-builder"
 
   # This path may be on the host or in the container depending
   # on where this script is called from
@@ -223,6 +225,28 @@ main() {
   # will pull images
   docker_login
 
+  if ! docker buildx inspect stroom-puppeteer-builder >/dev/null 2>&1; then
+    docker buildx \
+      create \
+      --name stroom-puppeteer-builder
+  fi
+  docker buildx \
+    use \
+    stroom-puppeteer-builder
+
+  # Make a hash of these things and effectively use this as the cache key for
+  # buildx so any change makes it ignore a previous cache.
+  cache_key=
+  cache_key="$( \
+    "${local_repo_root}/container_build/generate_buildx_cache_key.sh"
+    )"
+
+  cache_dir_base="/tmp/stroom_puppeteer_buildx_caches"
+  cache_dir_from="${cache_dir_base}/from_${cache_key}"
+  #cache_dir_to="${cache_dir_base}/to_${cache_key}"
+
+  echo -e "${GREEN}Using cache_key: ${YELLOW}${cache_key}${NC}"
+
   # TODO consider pushing the built image to dockerhub so we can
   # reuse it for better performance.  See here
   # https://github.com/i3/i3/blob/42f5a6ce479968a8f95dd5a827524865094d6a5c/.travis.yml
@@ -230,14 +254,33 @@ main() {
   # for an example of how to hash the build context so we can pull or push
   # depending on whether there is already an image for the hash.
 
+  mkdir -p "${cache_dir_base}"
+
+  # Delete old caches, except latest
+  # shellcheck disable=SC2012
+  if compgen -G  "${cache_dir_base}/from_*" > /dev/null; then
+    echo -e "${GREEN}Removing old cache directories${NC}"
+    #ls -1trd "${cache_dir_base}/from_"*
+
+    ls -1trd "${cache_dir_base}/from_"* \
+      | head -n -1 \
+      | xargs -d '\n' rm -rf --
+    echo -e "${GREEN}Remaining cache directories${NC}"
+    ls -1trd "${cache_dir_base}/from_"*
+  fi
+
   # Pass in the location of the repo root on the docker host
   # which may have been passed down to us or we have determined
-  echo -e "${GREEN}Building image ${BLUE}${image_tag}${NC}"
-  docker build \
+  echo -e "${GREEN}Building image ${BLUE}${image_tag}${GREEN}" \
+    "(this may take a while on first run)${NC}"
+  docker buildx build \
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
     --build-arg "HOST_REPO_DIR=${host_abs_repo_dir}" \
+    "--cache-from=type=local,src=${cache_dir_from}" \
+    "--cache-to=type=local,dest=${cache_dir_from},mode=max" \
+    --load \
     "${local_repo_root}/container_build/docker_pdf"
 
   run_hugo_server
@@ -269,7 +312,7 @@ main() {
     --tmpfs /tmp \
     --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
     --workdir "${dest_dir}" \
-    --name "docsy-pdf-build-env" \
+    --name "stroom_puppeteer-build-env" \
     --network "hugo-stroom" \
     --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \

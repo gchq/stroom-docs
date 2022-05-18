@@ -138,7 +138,7 @@ main() {
   group_id=
   group_id="$(id -g)"
 
-  image_tag="hugo-build-env"
+  image_tag="stroom-hugo-build-env"
 
   # This path may be on the host or in the container depending
   # on where this script is called from
@@ -161,9 +161,37 @@ main() {
   # Create a persistent vol for the home dir, idempotent
   docker volume create builder-home-dir-vol
 
+  # Create a persistent vol for the hugo cache which contains the downloaded
+  # go modules, else they will end up in /tmp and have to be downloaded
+  # on each run.
+  hugo_cache_vol="builder-hugo-cache-vol"
+  docker volume create "${hugo_cache_vol}"
+
   # So we are not rate limited, login before doing the build as this
   # will pull images
   docker_login
+
+  if ! docker buildx inspect stroom-hugo-builder >/dev/null 2>&1; then
+    docker buildx \
+      create \
+      --name stroom-hugo-builder
+  fi
+  docker buildx \
+    use \
+    stroom-hugo-builder
+
+  # Make a hash of these things and effectively use this as the cache key for
+  # buildx so any change makes it ignore a previous cache.
+  cache_key=
+  cache_key="$( \
+    "${local_repo_root}/container_build/generate_buildx_cache_key.sh"
+    )"
+
+  cache_dir_base="/tmp/stroom_hugo_buildx_caches"
+  cache_dir_from="${cache_dir_base}/from_${cache_key}"
+  #cache_dir_to="${cache_dir_base}/to_${cache_key}"
+
+  echo -e "${GREEN}Using cache_key: ${YELLOW}${cache_key}${NC}"
 
   # TODO consider pushing the built image to dockerhub so we can
   # reuse it for better performance.  See here
@@ -172,12 +200,36 @@ main() {
   # for an example of how to hash the build context so we can pull or push
   # depending on whether there is already an image for the hash.
 
-  echo -e "${GREEN}Building image ${BLUE}${image_tag}${NC}"
-  docker build \
+  mkdir -p "${cache_dir_base}"
+  #ls -l "${cache_dir_base}/"
+
+  # Delete old caches, except latest
+  # shellcheck disable=SC2012
+  if compgen -G  "${cache_dir_base}/from_*" > /dev/null; then
+    echo -e "${GREEN}Removing old cache directories${NC}"
+    #ls -1trd "${cache_dir_base}/from_"*
+
+    ls -1trd "${cache_dir_base}/from_"* \
+      | head -n -1 \
+      | xargs -d '\n' rm -rf --
+    echo -e "${GREEN}Remaining cache directories${NC}"
+    ls -1trd "${cache_dir_base}/from_"*
+  fi
+
+  #echo 
+  #ls -l "${cache_dir_base}"
+  #echo
+
+  echo -e "${GREEN}Building image ${BLUE}${image_tag}${GREEN}" \
+    "(this may take a while on first run)${NC}"
+  docker buildx build \
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
     --build-arg "HOST_REPO_DIR=${host_abs_repo_dir}" \
+    "--cache-from=type=local,src=${cache_dir_from}" \
+    "--cache-to=type=local,dest=${cache_dir_from},mode=max" \
+    --load \
     "${local_repo_root}/container_build/docker_hugo"
 
     #--workdir "${dest_dir}" \
@@ -202,18 +254,26 @@ main() {
   echo -e "${GREEN}Running image ${BLUE}${image_tag}${NC} with command" \
     "${BLUE}${run_cmd[@]}${NC}"
 
+  echo -e "${GREEN}Hugo cache is in docker volume" \
+    "${YELLOW}${hugo_cache_vol}${GREEN}, use" \
+    "${BLUE}docker volume rm ${hugo_cache_vol}${GREEN} to clear it.${NC}"
+
+  hudo_cache_dir="/hugo-cache"
+
   docker run \
     "${tty_args[@]+"${tty_args[@]}"}" \
     --rm \
     --publish 1313:1313 \
     --tmpfs /tmp:exec \
     --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
+    --volume "${hugo_cache_vol}:${hudo_cache_dir}" \
     --read-only \
-    --name "hugo-build-env" \
+    --name "stroom-hugo-build-env" \
     --network "hugo-stroom" \
     --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
     --env "DOCKER_PASSWORD=${DOCKER_PASSWORD}" \
+    --env "HUGO_CACHEDIR=/${hudo_cache_dir}" \
     "${extra_docker_args[@]}" \
     "${image_tag}" \
     "${run_cmd[@]}"
