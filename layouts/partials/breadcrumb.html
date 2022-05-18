@@ -1,0 +1,31 @@
+{{/* This is a modified version of Docsy's file and will not be needed when this PR is merged */}}
+{{/* https://github.com/google/docsy/pull/1011 */}}
+{{/* It makes the leaf item not a link */}}
+{{ $isSingle := true -}}
+{{ with .Parent -}}
+  {{ $isSingle = .IsHome -}}
+{{ end -}}
+<nav aria-label="breadcrumb" class="td-breadcrumbs
+    {{- if $isSingle }} td-breadcrumbs__single {{- end }}">
+  <ol class="breadcrumb">
+    {{- template "breadcrumbnav" (dict "p1" . "p2" .) }}
+  </ol>
+</nav>
+
+{{- define "breadcrumbnav" -}}
+  {{ if .p1.Parent -}}
+    {{ if not .p1.Parent.IsHome -}}
+      {{ template "breadcrumbnav" (dict "p1" .p1.Parent "p2" .p2 )  -}}
+    {{ end -}}
+  {{ else if not .p1.IsHome -}}
+    {{ template "breadcrumbnav" (dict "p1" .p1.Site.Home "p2" .p2 )  -}}
+  {{ end -}}
+  {{ $isActive :=  eq .p1 .p2 }}
+  <li class="breadcrumb-item{{ if $isActive }} active{{ end }}">
+    {{- if $isActive }}
+      <span>{{ .p1.LinkTitle }}</span>
+    {{ else -}}
+      <a href="{{ .p1.Permalink }}">{{ .p1.LinkTitle }}</a>
+    {{ end -}}
+  </li>
+{{- end -}}
