@@ -165,7 +165,7 @@ push_if_needed() {
 
 confirm_branches() {
 
-  echo -e "${GREEN}Merge_up will use this chain of branches:${NC}"
+  echo -e "${GREEN}Merge_up will merge changes up this chain of branches:${NC}"
   local branch_chain=""
   for branch in "${branches[@]}"; do
     branch_chain="${branch_chain}${BLUE}${branch}${GREEN} -> "
@@ -174,6 +174,7 @@ confirm_branches() {
   echo
   echo -e "${GREEN}${branch_chain}${NC}"
   echo
+  echo -e "${GREEN}It will stop if there are merge conflicts.${NC}"
 
   read -rsp $'Press [y|Y] to continue, or ctrl-c to exit...\n' -n1 keyPressed
 
