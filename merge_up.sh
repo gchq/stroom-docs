@@ -70,10 +70,12 @@ populate_branches_arr() {
   branches+=( "${TAIL_BRANCHES[@]}" )
 
   local release_branches
+  # Sort them by major then minor part
   release_branches="$( \
     git branch \
     | sed 's/..//' \
-    | grep -E "^[0-9]+\.[0-9]+$" )"
+    | grep -E "^[0-9]+\.[0-9]+$" \
+    | sort -t . -k 1,1n -k 2,2n )"
 
   for branch in ${release_branches}; do
     branches+=( "${branch}" )
