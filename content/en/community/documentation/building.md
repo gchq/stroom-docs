@@ -26,8 +26,8 @@ It is possible to build the docs without docker but you would need to install al
 ## Cloning the stroom-docs git repository
 
 The git repository for this site is [stroom-docs (external link)](https://github.com/gchq/stroom-docs).
-_stroom-docs_ uses the Docsy theme (`themes/docsy/`) via a git sub-module, which in turn uses two nested sub-modules for Bootstrap (`themes/docsy/assets/vendor/bootstrap/`) and Font-Awesome (`themes/docsy/assets/vendor/Font-Awesome/`).
-Therefore to clone stroom-docs you need to do
+_stroom-docs_ uses the Docsy theme (`themes/docsy/`) via a Go module so the theme will be pulled in when Hugo is first run.
+To clone stroom-docs you need to do:
 
 {{< command-line >}}
 # Clone the repo
@@ -39,18 +39,6 @@ git clone https://github.com/gchq/stroom-docs.git
 (out)remote: Total 66006 (delta 3984), reused 7417 (delta 3603), pack-reused 58090
 (out)Receiving objects: 100% (66006/66006), 286.61 MiB | 7.31 MiB/s, done.
 (out)Resolving deltas: 100% (34981/34981), done.
-cd stroom-docs
-(out)
-# Download all sub modules
-git submodule update --init --recursive
-(out)Submodule 'themes/docsy' (https://github.com/google/docsy.git) registered for path 'themes/docsy'
-(out)Cloning into '/tmp/stroom-docs/themes/docsy'...
-(out)...
-(out)Submodule 'assets/vendor/Font-Awesome' (https://github.com/FortAwesome/Font-Awesome.git) registered for path 'themes/docsy/assets/vendor/Font-Awesome'
-(out)Submodule 'assets/vendor/bootstrap' (https://github.com/twbs/bootstrap.git) registered for path 'themes/docsy/assets/vendor/bootstrap'
-(out)Cloning into '/tmp/stroom-docs/themes/docsy/assets/vendor/Font-Awesome'...
-(out)Cloning into '/tmp/stroom-docs/themes/docsy/assets/vendor/bootstrap'...
-(out)...
 {{</ command-line >}}
 
 
