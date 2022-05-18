@@ -174,6 +174,11 @@ main() {
 
   debug_value "branches" "${branches[*]}"
 
+  local initial_branch
+  initial_branch="$( \
+    git symbolic-ref --short HEAD )"
+  debug_value "initial_branch" "${initial_branch}"
+
   local prev_branch
   local curr_branch
 
@@ -192,6 +197,9 @@ main() {
 
     prev_branch="${curr_branch}"
   done
+
+  # Return user to their initial branch
+  checkout_branch "${initial_branch}"
 }
 
 main "$@"
