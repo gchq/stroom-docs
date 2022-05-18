@@ -127,6 +127,7 @@ merge_branch_up() {
 
   if [[ "${is_merge_success}" = "true" ]]; then
     echo -e "${GREEN}Merge completed successfully${NC}"
+    push_if_needed
     echo -e "${GREEN}--------------------------------------------------${NC}"
   else
     error_exit "Merge has conflicts. Fix and push the conflicts and try again."
@@ -183,16 +184,12 @@ main() {
   for branch in "${branches[@]}"; do
     curr_branch="${branch}"
 
-    echo
-    echo -e "${GREEN}Checking out next branch${NC}"
-    checkout_branch "${curr_branch}"
-
-    push_if_needed
-
     if [[ -n "${prev_branch}" ]]; then
       merge_branch_up "${prev_branch}" "${curr_branch}"
     else
       debug "No prev_branch, curr_branch: ${curr_branch}"
+      checkout_branch "${curr_branch}"
+      push_if_needed
     fi
 
     prev_branch="${curr_branch}"
