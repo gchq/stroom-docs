@@ -196,6 +196,7 @@ push_if_needed() {
 confirm_branches() {
 
   echo -e "${GREEN}Merge_up will merge changes up this chain of branches:${NC}"
+  echo -e "${GREEN}To start at specific branch do ${BLUE}./merge_up.sh <start branch>${NC}"
   local branch_chain=""
   for branch in "${branches[@]}"; do
     branch_chain="${branch_chain}${BLUE}${branch}${GREEN} -> "
