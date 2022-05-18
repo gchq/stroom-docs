@@ -105,6 +105,8 @@
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
+	<a class="dropdown-item" href="../../../../latest">Latest</a>
+	
 	<a class="dropdown-item" href="../../../../7.1">7.1</a>
 	
 	<a class="dropdown-item" href="../../../../7.0">7.0</a>
@@ -541,18 +543,44 @@ This makes the documentation available for offline use.</p>
 </div>
 
 <h2 id="updating-the-docsy-theme">Updating the Docsy theme</h2>
-<p>This repository uses a git submodule for the Docsy theme.</p>
+<p>The Docsy theme is a dependency of this Hugo site. See 
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
 
-    Complete this section.
-Docsy is undergoing changes to make use of shallow sub modules for Bootstrap/Font-Awesome and to change to being a Hugo module so maybe wait until that is complete.
-Cover how to update the submodule to the latest (or a specific) Docsy commit.
-Warn of implications of breaking the site when updating with incompatible upstream changes.
 
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.docsy.dev/docs/updating/updating-hugo-module/" target="_blank" class="" style="" title="Update the Hugo Docsy Module (external link)">
+    <span>Update the Hugo Docsy Module</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for details on how to update the version of the Docsy theme.</p>
+<p>In those instructions when it says to run a <code>hugo</code> command you need to do it from within the hugo docker container.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./container_build/runInHugoDocker.sh bash</code></pre>
 </div>
 
+<p>This will give you a bash prompt inside the container that has the <code>hugo</code> binary available.
+The container has access to your local stroom-docs repository (from where you ran <code>runInHugoDocker.sh</code>) and the initial directory is the root of the repository.
+Inside the container the root of the repository is mounted as <code>/builder/shared</code>.</p>
+<p>To leave the container&rsquo;s shell type <code>exit</code>.</p>
 
 </div>
 

@@ -28,14 +28,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/building/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2022-01-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-05-18T10:04:30+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-05-18T15:47:04+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Building the Documentation">
 <meta itemprop="description" content="How to develop and build the documentation.
 "><meta itemprop="datePublished" content="2022-01-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-05-18T10:04:30+01:00" />
-<meta itemprop="wordCount" content="739">
-<meta itemprop="keywords" content="TODO," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="dateModified" content="2022-05-18T15:47:04+01:00" />
+<meta itemprop="wordCount" content="781">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Building the Documentation"/>
 <meta name="twitter:description" content="How to develop and build the documentation.
 "/>
@@ -108,6 +108,8 @@
 	Stroom Version (Legacy)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="../../../../latest">Latest</a>
 	
 	<a class="dropdown-item" href="../../../../7.1">7.1</a>
 	
@@ -367,7 +369,7 @@
         
           <li><a class="taxonomy-term" href="../../../tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">6</span></a></li>
+          <li><a class="taxonomy-term" href="../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">5</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
         
@@ -439,15 +441,6 @@
   
     
 
-
-<div class="taxonomy taxonomy-terms-article taxo-tags">
-  <h5 class="taxonomy-title">Tags:</h5>
-  <ul class="taxonomy-terms">
-    
-      <li><a class="taxonomy-term" href="../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span></a></li>
-    
-  </ul>
-</div>
 
   
 
@@ -630,23 +623,44 @@ This makes the documentation available for offline use.</p>
 </div>
 
 <h2 id="updating-the-docsy-theme">Updating the Docsy theme</h2>
-<p>This repository uses a git submodule for the Docsy theme.</p>
+<p>The Docsy theme is a dependency of this Hugo site. See 
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
 
-    Complete this section.
-Docsy is undergoing changes to make use of shallow sub modules for Bootstrap/Font-Awesome and to change to being a Hugo module so maybe wait until that is complete.
-Cover how to update the submodule to the latest (or a specific) Docsy commit.
-Warn of implications of breaking the site when updating with incompatible upstream changes.
 
+
+
+<span class="external-link">
+<a href="https://www.docsy.dev/docs/updating/updating-hugo-module/" class="" style="">Update the Hugo Docsy Module</a>
+<i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary" title="External link"></i>
+</span>
+ for details on how to update the version of the Docsy theme.</p>
+<p>In those instructions when it says to run a <code>hugo</code> command you need to do it from within the hugo docker container.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./container_build/runInHugoDocker.sh bash</code></pre>
 </div>
 
+<p>This will give you a bash prompt inside the container that has the <code>hugo</code> binary available.
+The container has access to your local stroom-docs repository (from where you ran <code>runInHugoDocker.sh</code>) and the initial directory is the root of the repository.
+Inside the container the root of the repository is mounted as <code>/builder/shared</code>.</p>
+<p>To leave the container&rsquo;s shell type <code>exit</code>.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified May 18, 2022: <a href="https://github.com/gchq/stroom-docs/commit/6fe492bb961c7a9b41b916042d9199bdf9afe9fe">Merge pull request #67 from gchq/legacy-hugo-modules (6fe492b)</a>
+  Last modified May 18, 2022: <a href="https://github.com/gchq/stroom-docs/commit/56d96ea359f121b3ec7e7db9117e8d1170c2f2d4">Improve merge_up.sh (56d96ea)</a>
 </div>
 
 </div>
