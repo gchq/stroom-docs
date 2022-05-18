@@ -118,7 +118,6 @@ merge_branch_up() {
   echo -e "${GREEN}Merging up from ${BLUE}${source_branch}${GREEN}" \
     "to ${BLUE}${dest_branch}${NC}"
 
-  echo -e "${GREEN}Checking out destination branch ${BLUE}${dest_branch}${NC}"
   checkout_branch "${dest_branch}"
 
   local is_merge_success=true
