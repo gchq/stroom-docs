@@ -88,6 +88,12 @@ else
   fi
 fi
 
+if [[ "$( uname -s )" == "Darwin" ]]; then
+  is_mac_os=true
+else
+  is_mac_os=false
+fi
+
 user_id=
 user_id="$(id -u)"
 
@@ -106,7 +112,12 @@ host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
 
 dest_dir="/builder/shared"
 
-docker_group_id="$(stat -c '%g' /var/run/docker.sock)"
+if [[ "${is_mac_os}" = true ]]; then
+  # No GNU binutils on macos
+  docker_group_id="$(stat -f '%g' /var/run/docker.sock)"
+else
+  docker_group_id="$(stat -c '%g' /var/run/docker.sock)"
+fi
 
 echo -e "${GREEN}HOME ${BLUE}${HOME}${NC}"
 echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
