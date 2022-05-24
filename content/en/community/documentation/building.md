@@ -94,7 +94,7 @@ To build and serve the site run
 This uses Hugo to build the site in memory and then serve it from a local web server.
 When any source files are changed or added Hugo will detect this and rebuild the site as required, including automatically refreshing the browser page to update the rendered view.
 
-Once the server is running the site is available at [localhost:1313/stroom-docs](http://localhost:1313/stroom-docs).
+Once the server is running the site is available at [localhost:1313](http://localhost:1313).
 
 {{% warning %}}
 Sometimes changes made to the site source will not be re-loaded correctly so it may be necessary to stop and re-start the server.
