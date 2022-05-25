@@ -21,16 +21,27 @@ It also ensures that the local build environment matches that used in GitHub act
 
 It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.
 
+It is assumed that you have a reasonable understanding of how to use Git and Github, specifically:
+
+* Github
+  * Forks
+  * Pull requests
+* Git
+  * Branching
+  * Pulling from upstream remotes
+
 
 ## Cloning the stroom-docs git repository
 
 The git repository for this site is [stroom-docs (external link)](https://github.com/gchq/stroom-docs).
 _stroom-docs_ uses the Docsy theme (`themes/docsy/`) via a Go module so the theme will be pulled in when Hugo is first run.
-To clone stroom-docs you need to do:
+
+Unless you are a committer on the `gchq/stroom-docs` repository, you will need to fork this repository into your own Github account.
+You can then clone your fork of the repository like so (in this example it is assumed your Github username is `jbloggs`):
 
 {{< command-line >}}
 # Clone the repo
-git clone https://github.com/gchq/stroom-docs.git
+git clone https://github.com/jbloggs/stroom-docs.git
 (out)Cloning into 'stroom-docs'...
 (out)remote: Enumerating objects: 66006, done.
 (out)remote: Counting objects: 100% (7916/7916), done.
@@ -39,6 +50,43 @@ git clone https://github.com/gchq/stroom-docs.git
 (out)Receiving objects: 100% (66006/66006), 286.61 MiB | 7.31 MiB/s, done.
 (out)Resolving deltas: 100% (34981/34981), done.
 {{</ command-line >}}
+
+
+### Configuring the fork
+
+You now need to configure the clone of your fork with details of the `gchq/stroom-docs` upstream, which will allow you to pull changes from it.
+
+{{< command-line >}}
+git remote add upstream https://github.com/gchq/stroom-docs.git
+{{</ command-line >}}
+
+
+### Checking out the correct branch
+
+There is a version of the documentation for each minor Stroom version (see [Stroom Versions]({{< relref "versions" >}}).
+
+Before you start editing/viewing the documentation you need to be working from the correct branch of the Git repository.
+If for example you are adding some content that is applicable to Stroom v7.0 then you need to checkout branch `7.0`.
+
+{{< command-line >}}
+git checkout 7.0
+{{</ command-line >}}
+
+
+### Creating a feature branch
+
+If you are making changes to the documentation then the recommended working practice is to always make changes on a _feature branch_.
+A feature branch would typically contain all commits/changes relating to a single feature, e.g. the addition of a new section, or updating the documentation for a specific change in Stroom.
+Having only these changes on a branch makes it easy to merge them into the release branch (e.g. `7.0`) or to just delete the branch if they are no longer needed.
+A feature branch would typically be merged into the appropriate release branch by creating a pull request in GitHub.
+
+Assuming you have checked out the desired release branch that you would like your changes to ultimately be merged into, do something like the following to create a feature branch (where `add-properties-section` is the name of your branch):
+
+{{< command-line >}}
+git checkout -b add-properties-section
+{{</ command-line >}}
+
+This will create the named branch and check it out in one step.
 
 
 ## Converting the PlantUML files to SVG
