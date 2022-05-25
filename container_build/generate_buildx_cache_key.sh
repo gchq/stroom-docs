@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -eo pipefail
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -48,6 +48,13 @@ main() {
 
   setup_echo_colours
 
+  local is_mac_os
+  if [[ "$( uname -s )" == "Darwin" ]]; then
+    is_mac_os=true
+  else
+    is_mac_os=false
+  fi
+
   user_id=
   user_id="$(id -u)"
 
@@ -75,8 +82,13 @@ main() {
 
   # Make a hash of these things and effectively use this as the cache key for
   # buildx so any change makes it ignore a previous cache.
-  sha256sum <<< "${cache_key_source}" \
-    | cut -d" " -f1
+  if [[ "${is_mac_os}" = true ]]; then
+    shasum -a 256 <<< "${cache_key_source}" \
+      | cut -d" " -f1
+  else
+    sha256sum <<< "${cache_key_source}" \
+      | cut -d" " -f1
+  fi
 }
 
 main "$@"

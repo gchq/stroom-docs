@@ -221,9 +221,12 @@ main() {
     echo -e "${GREEN}Removing old cache directories${NC}"
     #ls -1trd "${cache_dir_base}/from_"*
 
+    # List all matching dirs
+    # Remove the last item
+    # Delete each item
     ls -1trd "${cache_dir_base}/from_"* \
-      | head -n -1 \
-      | xargs -d '\n' rm -rf --
+      | sed '$d' \
+      | xargs rm -rf --
     echo -e "${GREEN}Remaining cache directories${NC}"
     ls -1trd "${cache_dir_base}/from_"*
   fi
