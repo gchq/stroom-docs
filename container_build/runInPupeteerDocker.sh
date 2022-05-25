@@ -58,6 +58,7 @@ clean_up() {
     --filter "name=stroom-hugo-build-env*" \
     | xargs -r docker container stop
 
+  # Seconds
   sleep 1
 
   echo -e "${GREEN}Deleting stroom-hugo-build-env* containers${NC}"
@@ -150,8 +151,8 @@ wait_for_200_response() {
     fi
 
     n=$(( n + 1 ))
-    # sleep for one secs
-    sleep 0.5s
+    # Seconds
+    sleep 0.3
   done
 
   if [ "${were_dots_shown}" = true ]; then
@@ -321,6 +322,8 @@ main() {
     "${run_cmd[@]}"
 
   clean_up
+
+  echo -e "${GREEN}Done${NC}"
 }
 
 main "$@"

@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 var args = process.argv.slice(2);
 var url = args[0]
 
-console.log('Generating pdf for: ', url);
+console.log('Generating stroom-docs.pdf for url: ', url);
 
 (async () => {
   const browser = await puppeteer.launch({
