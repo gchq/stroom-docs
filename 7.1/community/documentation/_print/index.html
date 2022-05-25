@@ -372,10 +372,26 @@ The content is pre-dominantly authored in Markdown with some Hugo shortcodes.</p
 <p>Docker is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.</p>
 <p>It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.</p>
+<p>It is assumed that you have a reasonable understanding of how to use Git and Github, specifically:</p>
+<ul>
+<li>Github
+<ul>
+<li>Forks</li>
+<li>Pull requests</li>
+</ul>
+</li>
+<li>Git
+<ul>
+<li>Branching</li>
+<li>Pulling from upstream remotes</li>
+</ul>
+</li>
+</ul>
 <h2 id="cloning-the-stroom-docs-git-repository">Cloning the stroom-docs git repository</h2>
 <p>The git repository for this site is <a href="https://github.com/gchq/stroom-docs">stroom-docs (external link)</a>.
-<em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a Go module so the theme will be pulled in when Hugo is first run.
-To clone stroom-docs you need to do:</p>
+<em>stroom-docs</em> uses the Docsy theme (<code>themes/docsy/</code>) via a Go module so the theme will be pulled in when Hugo is first run.</p>
+<p>Unless you are a committer on the <code>gchq/stroom-docs</code> repository, you will need to fork this repository into your own Github account.
+You can then clone your fork of the repository like so (in this example it is assumed your Github username is <code>jbloggs</code>):</p>
 
   
 
@@ -391,7 +407,7 @@ To clone stroom-docs you need to do:</p>
     data-host="localhost" 
     data-continuation-str="\"
     data-filter-output="(out)"><code class="language-bash"># Clone the repo
-git clone https://github.com/gchq/stroom-docs.git
+git clone https://github.com/jbloggs/stroom-docs.git
 (out)Cloning into &#39;stroom-docs&#39;...
 (out)remote: Enumerating objects: 66006, done.
 (out)remote: Counting objects: 100% (7916/7916), done.
@@ -401,6 +417,70 @@ git clone https://github.com/gchq/stroom-docs.git
 (out)Resolving deltas: 100% (34981/34981), done.</code></pre>
 </div>
 
+<h3 id="configuring-the-fork">Configuring the fork</h3>
+<p>You now need to configure the clone of your fork with details of the <code>gchq/stroom-docs</code> upstream, which will allow you to pull changes from it.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">git remote add upstream https://github.com/gchq/stroom-docs.git</code></pre>
+</div>
+
+<h3 id="checking-out-the-correct-branch">Checking out the correct branch</h3>
+<p>There is a version of the documentation for each minor Stroom version (see <a href="../../../community/documentation/versions/">Stroom Versions</a>.</p>
+<p>Before you start editing/viewing the documentation you need to be working from the correct branch of the Git repository.
+If for example you are adding some content that is applicable to Stroom v7.0 then you need to checkout branch <code>7.0</code>.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">git checkout 7.0</code></pre>
+</div>
+
+<h3 id="creating-a-feature-branch">Creating a feature branch</h3>
+<p>If you are making changes to the documentation then the recommended working practice is to always make changes on a <em>feature branch</em>.
+A feature branch would typically contain all commits/changes relating to a single feature, e.g. the addition of a new section, or updating the documentation for a specific change in Stroom.
+Having only these changes on a branch makes it easy to merge them into the release branch (e.g. <code>7.0</code>) or to just delete the branch if they are no longer needed.
+A feature branch would typically be merged into the appropriate release branch by creating a pull request in GitHub.</p>
+<p>Assuming you have checked out the desired release branch that you would like your changes to ultimately be merged into, do something like the following to create a feature branch (where <code>add-properties-section</code> is the name of your branch):</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">git checkout -b add-properties-section</code></pre>
+</div>
+
+<p>This will create the named branch and check it out in one step.</p>
 <h2 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h2>
 <p><em>stroom-docs</em> makes used of 
 
