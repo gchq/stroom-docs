@@ -39,7 +39,7 @@ This is only required if source data is not already within an XML document.
 There are various standard parsers available (although not all may be available on a default stroom build) to cover the majority of standard source formats such as CSV, TSV, CSV with header row and XML fragments.
 
 The language used within the parser is defined within an XML schema located at “XML Schemas / data-splitter / data-splitter v3.0” within the tree browser.
-The language can be quite complex so if non-standard format logs are being parsed, it may be worth speaking to the stroom dev team to at least get an initial parser configured for your data.
+The language can be quite complex so if non-standard format logs are being parsed, it may be worth speaking to your stroom sysadmin team to at least get an initial parser configured for your data.
 
 Stroom also has a built-in parser for JSON fragments.
 This can be set either by using the combinedParser and setting the “type” property to JSON or preferably by just using the jsonParser.
@@ -69,25 +69,16 @@ As an example, we’ve seen instances of people removing schema validation tasks
 In practice, this just breaks things further down the processing chain.
 
 
+## Translation Basics
 
-## Event Log Source
+Assuming you have a simple pipeline containing a working parser and an empty XSLT, the output of the parser will look something like this:
 
-For this example, we will use logs from an Apache HTTPD Web server.
-In fact, the web server in front of Stroom v5 and earlier.
+{{< textfile "HOWTOs/EventFeeds/TranslationHowTo/ParserOutput1.txt" "text" >}}Example Output from Parser{{</textfile >}}
 
-To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension of the BlackBox format.
-The format is described and defined below.
-This is an extract from a httpd configuration file (/etc/httpd/conf/httpd.conf)
+The details within the <record> node will differ as it’s possible to have nested data nodes as well as named data nodes, but for a non-JSON and non-XML fragment source data format, the top-level structure will be similar.
 
-{{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/ApacheHTTPDAuditConfig.txt" "text" >}}Apache BlackBox Auditing Configuration{{</textfile >}}
+## OLD STUFF FROM HERE ON...
 
-As Stroom can use PKI for login, you can configure Stroom’s Apache to make use of the blackboxSSLUser log format.
-A sample set of logs in this format appear below.
-
-{{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/sampleApacheBlackBox.log" "text" >}}Apache BlackBox sample log{{</textfile >}}
-
-Save a copy of this data to your local environment for use later in this HOWTO.
-Save this file as a text document with ANSI encoding.
 
 
 ## Create the Feed and its Pipeline
