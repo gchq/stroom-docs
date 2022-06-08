@@ -229,7 +229,7 @@ Inline code `looks like this`.
 {{< /cardpane >}}
 
 
-### Code blocks
+### Code blocks (simple)
 
 Code blocks should be surrounded with fences `` ```language-type `` and `` ``` `` with the [language]({{< relref "#supported-languages" >}}) type **always** specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.
@@ -296,17 +296,139 @@ echo "${VAR}"
 {{< /cardpane >}}
 
 
+### code blocks (advanced)
+
+If you need to show line numbers or to highlight sections of a code block then you can use the `code-block` shortcode.
+This shortcode takes the following named arguments:
+
+* **language** - The [language]({{< relref "#supported-languages" >}}) for syntax highlighting.
+  Defaults to `text`.
+* **lines** - Whether to display line numbers or not (`true`|`false`).
+  Defaults to `true`.
+* **highlight** - A comma separate list of lines to highlight.
+  Ranges of line numbers can be specified, e.g. `2-8,13,25-30`.
+  Defaults to no line highlighting.
+* **start** - The line number to start at.
+  Defaults to 1.
+
+The following is an example of how to use the shortcode.
+
+```markdown
+{{</* code-block language="xml" highlight="2-5,8" */>}}
+<root>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+</root>
+{{</* /code-block */>}}
+```
+
+
+**Default behaviour**
+
+```markdown
+{{</* code-block */>}}
+...
+{{</* /code-block */>}}
+```
+
+{{< code-block >}}
+<root>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+</root>
+{{< /code-block >}}
+
+
+**With line numbers, a language and a starting line number**
+
+```markdown
+{{</* code-block language="xml" start="5" */>}}
+...
+{{</* /code-block */>}}
+```
+
+{{< code-block language="xml" start="5" >}}
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+</root>
+{{< /code-block >}}
+
+
+**With line numbers, a language and highlighted lines**
+
+```markdown
+{{</* code-block language="xml" highlight="2-5,8" */>}}
+...
+{{</* /code-block */>}}
+```
+
+{{< code-block language="xml" highlight="2-5,8" >}}
+<root>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+</root>
+{{< /code-block >}}
+
+
+**With a language and highlighted lines, but without line numbers**
+
+```markdown
+{{</* code-block language="xml" lines="false" highlight="2-5,8" */>}}
+...
+{{</* /code-block */>}}
+```
+
+{{< code-block language="xml" lines="false" highlight="2-5,8" >}}
+<root>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+  <child attr="xxx">
+    some val
+  </child>
+</root>
+{{< /code-block >}}
+
+
 ### Command line blocks
 
 To demonstrate commands being run on the command line you can use the `command-line` shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
 It also means the prompt part is not selectable when the user selects the text for copy/pasting.
 
-The shortcode takes the following arguments:
+The shortcode takes the following positional arguments:
 
-* **username** - The username to appear in the prompt, defaults to `user`.
-* **hostname** - The hostname to appear in the prompt, defaults to `localhost`.
-* **language** - The language of the content (a valid and installed prism [language name]({{< relref "#supported-languages" >}}) language name), defaults to `bash`.
+1. **username** - The username to appear in the prompt, defaults to `user`.
+1. **hostname** - The hostname to appear in the prompt, defaults to `localhost`.
+1. **language** - The language of the content (a valid and installed prism [language name]({{< relref "#supported-languages" >}}) language name), defaults to `bash`.
 
 If you want to display shell output then prefix each output line with `(out)`.
 It will then be displayed without a prompt.
@@ -453,7 +575,7 @@ The generated files are then copied over the top of `/static/css/prism.css` and 
 Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.
 
-An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=command-line+toolbar+copy-to-clipboard+treeview" >}}
+An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard+treeview */" >}}
 
 {{% warning %}}
 The css/js downloaded from the Prism site is taken from the head of their master branch so even though the css/js mention a Prism version number this may be the same for downloads done at different times.
