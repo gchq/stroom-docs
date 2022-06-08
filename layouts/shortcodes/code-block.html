@@ -1,0 +1,47 @@
+<!-- 
+{{/*
+Short code to display a code block with more advanced features than
+a standard fenced block. Supports line numbers and line highlighting.
+Usage:
+code-block language="" lines="" highlight="" start=""
+language - The syntax language.
+lines - Whether to show line numbers or not [true|false].
+highlight - The lines to hightlight, e.g. "2-5,4,10-15".
+start - The line number to start at, defaults to 1.
+*/}}
+-->
+
+{{ $language := .Get "language" | default "text" }}
+{{ $lines := .Get "lines" | default "true" }}
+{{ $highlight := .Get "highlight" | default "" }}
+{{ $start_line := .Get "start" | default "1" }}
+
+{{ $line_no_class := "" }}
+{{ if eq (lower $lines) "true" }}
+  {{ $line_no_class = "line-numbers" }}
+{{ else }}
+  {{ $line_no_class = "no-line-numbers" }}
+{{ end }}
+
+{{ $data_line_attr := "" }}
+{{ if $highlight }}
+  {{/* Sanitise the highlight text in case there is any html in there */}}
+  {{ $data_line_attr = printf "data-line=\"%s\" " (replaceRE "[^-,0-9]+" "" $highlight) }}
+{{ end }}
+
+{{ $data_start_attr := "" }}
+{{ if $start_line }}
+  {{/* Sanitise the highlight text in case there is any html in there */}}
+  {{ $data_start_attr = printf "data-start=\"%s\" " (replaceRE "[^-0-9]+" "" $start_line) }}
+{{ end }}
+
+<div class="code-block code-toolbar">
+  <pre 
+     class="{{ $line_no_class }} language-{{ $language }}" 
+     {{ $data_line_attr | safeHTMLAttr }}
+     {{ $data_start_attr | safeHTMLAttr }} >
+    {{- with (.Inner | default "" ) -}}
+      <code class="language-{{ $language }}">{{- trim . "\n" -}}</code>
+    {{- end -}}
+  </pre>
+</div>
