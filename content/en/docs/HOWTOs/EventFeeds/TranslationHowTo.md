@@ -38,11 +38,11 @@ The parser takes raw data and converts it into an intermediate XML document form
 This is only required if source data is not already within an XML document.
 There are various standard parsers available (although not all may be available on a default stroom build) to cover the majority of standard source formats such as CSV, TSV, CSV with header row and XML fragments.
 
-The language used within the parser is defined within an XML schema located at “XML Schemas / data-splitter / data-splitter v3.0” within the tree browser.
+The language used within the parser is defined within an XML schema located at `XML Schemas / data-splitter / data-splitter v3.0` within the tree browser.
 The language can be quite complex so if non-standard format logs are being parsed, it may be worth speaking to your stroom sysadmin team to at least get an initial parser configured for your data.
 
 Stroom also has a built-in parser for JSON fragments.
-This can be set either by using the combinedParser and setting the “type” property to JSON or preferably by just using the jsonParser.
+This can be set either by using the _combinedParser_ and setting the `type` property to JSON or preferably by just using the _jsonParser_.
 
 The parser has several minor limitations.
 The most significant is that it’s unable to deal with records that are interleaved.
@@ -58,7 +58,7 @@ This is one of the reasons why the stroom team would prefer to be involved in th
 ### XSLT
 
 The actual translation takes the XML document produced by the parser and converts it to a new XML document format in what’s known as “stroom schema format”.
-The current latest schema is documented at “XML Schemas / event-logging / event-logging v3.5.2” within the tree browser.
+The current latest schema is documented at `XML Schemas / event-logging / event-logging v3.5.2` within the tree browser.
 The version is likely to change over time so you should aim to use the latest non-beta version.
 
 ### Other Pipeline Elements
@@ -73,9 +73,57 @@ In practice, this just breaks things further down the processing chain.
 
 Assuming you have a simple pipeline containing a working parser and an empty XSLT, the output of the parser will look something like this:
 
-{{< textfile "HOWTOs/EventFeeds/TranslationHowTo/ParserOutput1.txt" "text" >}}Example Output from Parser{{</textfile >}}
+```xml
+<?xml version="1.1" encoding="UTF-8"?>
+<records xmlns="records:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="records:2 file://records-v2.0.xsd" version="2.0">
+  <record>
+    <data value="2022-04-06 15:45:38.737" />
+    <data value="fakeuser2" />
+    <data value="192.168.0.1" />
+    <data value="1000011" />
+    <data value="200" />
+    <data value="Query success" />
+    <data value="1" />
+  </record>
+</records>
+```
 
-The details within the <record> node will differ as it’s possible to have nested data nodes as well as named data nodes, but for a non-JSON and non-XML fragment source data format, the top-level structure will be similar.
+The data nodes within the **record** node will differ as it’s possible to have nested data nodes as well as named data nodes, but for a non-JSON and non-XML fragment source data format, the top-level structure will be similar.
+
+The XSLT needed to recognise and start processing the above example data needs to do several things.
+The following initial XSLT provides the minimum required function:
+
+```xml
+<?xml version="1.1" encoding="UTF-8" ?>
+<xsl:stylesheet
+    xpath-default-namespace="records:2" 
+    xmlns="event-logging:3" 
+    xmlns:stroom="stroom"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="2.0">
+  <xsl:template match="records">
+    <Events
+        xsi:schemaLocation="event-logging:3 file://event-logging-v3.5.2.xsd" Version="3.5.2">
+      <xsl:apply-templates />
+    </Events>
+  </xsl:template>
+  <xsl:template match="record">
+    <Event>
+      ...
+    </Event>
+  </xsl:template>
+</xsl:stylesheet>
+```
+The following lists the necessary functions of the XSLT, along with the line numbers where they're implemented in the above example:
+
+* Match the source namespace - `line 3`;
+* Specify the output namespace - `lines 4, 11`;
+* Specify the namespace for any functions - `lines 5-8`;
+* Match the top-level **records** node - `line 9`;
+* Provide any output in stroom schema format - `lines 10, 13, 16-18`;
+* Individually match subsequent **record** nodes - `line 15`.
+
 
 ## OLD STUFF FROM HERE ON...
 
