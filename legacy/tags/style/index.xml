@@ -317,7 +317,7 @@ This is quicker to type and won&amp;rsquo;t break if pages are moved but will no
 &lt;/div&gt;
 
 &lt;/div&gt;
-&lt;h3 id=&#34;code-blocks&#34;&gt;Code blocks&lt;/h3&gt;
+&lt;h3 id=&#34;code-blocks-simple&#34;&gt;Code blocks (simple)&lt;/h3&gt;
 &lt;p&gt;Code blocks should be surrounded with fences &lt;code&gt;```language-type&lt;/code&gt; and &lt;code&gt;```&lt;/code&gt; with the &lt;a href=&#34;#supported-languages&#34;&gt;language&lt;/a&gt; type &lt;strong&gt;always&lt;/strong&gt; specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.&lt;/p&gt;
 &lt;p&gt;This is a markdown example of a fenced code block containing XML content.&lt;/p&gt;
@@ -497,16 +497,219 @@ root:
 &lt;/div&gt;
 
 &lt;/div&gt;
+&lt;h3 id=&#34;code-blocks-advanced&#34;&gt;code blocks (advanced)&lt;/h3&gt;
+&lt;p&gt;If you need to show line numbers or to highlight sections of a code block then you can use the &lt;code&gt;code-block&lt;/code&gt; shortcode.
+This shortcode takes the following named arguments:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;language&lt;/strong&gt; - The &lt;a href=&#34;#supported-languages&#34;&gt;language&lt;/a&gt; for syntax highlighting.
+Defaults to &lt;code&gt;text&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;lines&lt;/strong&gt; - Whether to display line numbers or not (&lt;code&gt;true&lt;/code&gt;|&lt;code&gt;false&lt;/code&gt;).
+Defaults to &lt;code&gt;true&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;highlight&lt;/strong&gt; - A comma separate list of lines to highlight.
+Ranges of line numbers can be specified, e.g. &lt;code&gt;2-8,13,25-30&lt;/code&gt;.
+Defaults to no line highlighting.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;start&lt;/strong&gt; - The line number to start at.
+Defaults to 1.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The following is an example of how to use the shortcode.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; code-block language=&amp;quot;xml&amp;quot; highlight=&amp;quot;2-5,8&amp;quot; &amp;gt;}}
+&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;quot;xxx&amp;quot;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;
+{{&amp;lt; /code-block &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Default behaviour&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; code-block &amp;gt;}}
+...
+{{&amp;lt; /code-block &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;code-block code-toolbar&#34;&gt;
+  &lt;pre 
+     class=&#34;line-numbers language-text&#34; 
+     
+     data-start=&#34;1&#34;  &gt;&lt;code class=&#34;language-text&#34;&gt;&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;With line numbers, a language and a starting line number&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; code-block language=&amp;quot;xml&amp;quot; start=&amp;quot;5&amp;quot; &amp;gt;}}
+...
+{{&amp;lt; /code-block &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;code-block code-toolbar&#34;&gt;
+  &lt;pre 
+     class=&#34;line-numbers language-xml&#34; 
+     
+     data-start=&#34;5&#34;  &gt;&lt;code class=&#34;language-xml&#34;&gt;  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;With line numbers, a language and highlighted lines&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; code-block language=&amp;quot;xml&amp;quot; highlight=&amp;quot;2-5,8&amp;quot; &amp;gt;}}
+...
+{{&amp;lt; /code-block &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;code-block code-toolbar&#34;&gt;
+  &lt;pre 
+     class=&#34;line-numbers language-xml&#34; 
+     data-line=&#34;2-5,8&#34; 
+     data-start=&#34;1&#34;  &gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;With a language and highlighted lines, but without line numbers&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; code-block language=&amp;quot;xml&amp;quot; lines=&amp;quot;false&amp;quot; highlight=&amp;quot;2-5,8&amp;quot; &amp;gt;}}
+...
+{{&amp;lt; /code-block &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;code-block code-toolbar&#34;&gt;
+  &lt;pre 
+     class=&#34;no-line-numbers language-xml&#34; 
+     data-line=&#34;2-5,8&#34; 
+     data-start=&#34;1&#34;  &gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;root&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+  &amp;lt;child attr=&amp;#34;xxx&amp;#34;&amp;gt;
+    some val
+  &amp;lt;/child&amp;gt;
+&amp;lt;/root&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;h3 id=&#34;command-line-blocks&#34;&gt;Command line blocks&lt;/h3&gt;
-&lt;p&gt;To demostrate commands being run on the command line you can use the &lt;code&gt;command-line&lt;/code&gt; shortcode.
+&lt;p&gt;To demonstrate commands being run on the command line you can use the &lt;code&gt;command-line&lt;/code&gt; shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
 It also means the prompt part is not selectable when the user selects the text for copy/pasting.&lt;/p&gt;
-&lt;p&gt;The shortcode takes the following arguments:&lt;/p&gt;
-&lt;ul&gt;
+&lt;p&gt;The shortcode takes the following positional arguments:&lt;/p&gt;
+&lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;username&lt;/strong&gt; - The username to appear in the prompt, defaults to &lt;code&gt;user&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;hostname&lt;/strong&gt; - The hostname to appear in the prompt, defaults to &lt;code&gt;localhost&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;language&lt;/strong&gt; - The language of the content (a valid and installed prism &lt;a href=&#34;#supported-languages&#34;&gt;language name&lt;/a&gt; language name), defaults to &lt;code&gt;bash&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ol&gt;
 &lt;p&gt;If you want to display shell output then prefix each output line with &lt;code&gt;(out)&lt;/code&gt;.
 It will then be displayed without a prompt.&lt;/p&gt;
 &lt;div class=&#34;card-deck mb-4&#34;&gt;
@@ -721,7 +924,7 @@ Use this link then add any additional items, bearing in mind the size of the dow
 
 
 &lt;span class=&#34;external-link&#34;&gt;
-&lt;a href=&#34;https://prismjs.com/download.html#themes=prism&amp;amp;languages=markup&amp;#43;css&amp;#43;clike&amp;#43;javascript&amp;#43;bash&amp;#43;csv&amp;#43;groovy&amp;#43;java&amp;#43;jq&amp;#43;json&amp;#43;markdown&amp;#43;python&amp;#43;regex&amp;#43;scss&amp;#43;sql&amp;#43;toml&amp;#43;yaml&amp;amp;plugins=command-line&amp;#43;toolbar&amp;#43;copy-to-clipboard&amp;#43;treeview&#34; class=&#34;&#34; style=&#34;&#34;&gt;https://prismjs.com/download.html#themes=prism&amp;amp;languages=markup&amp;#43;css&amp;#43;clike&amp;#43;javascript&amp;#43;bash&amp;#43;csv&amp;#43;groovy&amp;#43;java&amp;#43;jq&amp;#43;json&amp;#43;markdown&amp;#43;python&amp;#43;regex&amp;#43;scss&amp;#43;sql&amp;#43;toml&amp;#43;yaml&amp;amp;plugins=command-line&amp;#43;toolbar&amp;#43;copy-to-clipboard&amp;#43;treeview&lt;/a&gt;
+&lt;a href=&#34;https://prismjs.com/download.html#themes=prism&amp;amp;languages=markup&amp;#43;css&amp;#43;clike&amp;#43;javascript&amp;#43;bash&amp;#43;csv&amp;#43;groovy&amp;#43;java&amp;#43;jq&amp;#43;json&amp;#43;markdown&amp;#43;python&amp;#43;regex&amp;#43;scss&amp;#43;sql&amp;#43;toml&amp;#43;yaml&amp;amp;plugins=line-highlight&amp;#43;line-numbers&amp;#43;command-line&amp;#43;toolbar&amp;#43;copy-to-clipboard&amp;#43;treeview%20*/&#34; class=&#34;&#34; style=&#34;&#34;&gt;https://prismjs.com/download.html#themes=prism&amp;amp;languages=markup&amp;#43;css&amp;#43;clike&amp;#43;javascript&amp;#43;bash&amp;#43;csv&amp;#43;groovy&amp;#43;java&amp;#43;jq&amp;#43;json&amp;#43;markdown&amp;#43;python&amp;#43;regex&amp;#43;scss&amp;#43;sql&amp;#43;toml&amp;#43;yaml&amp;amp;plugins=line-highlight&amp;#43;line-numbers&amp;#43;command-line&amp;#43;toolbar&amp;#43;copy-to-clipboard&amp;#43;treeview */&lt;/a&gt;
 &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34; title=&#34;External link&#34;&gt;&lt;/i&gt;
 &lt;/span&gt;
 &lt;/p&gt;

@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/style-guide/additional-elements/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2021-07-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-05-25T16:00:43+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2022-06-08T19:16:30+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Additional Page Elements">
 <meta itemprop="description" content="Examples of various markdown and Hugo page elements.
 "><meta itemprop="datePublished" content="2021-07-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-05-25T16:00:43+01:00" />
-<meta itemprop="wordCount" content="2230">
+<meta itemprop="dateModified" content="2022-06-08T19:16:30+01:00" />
+<meta itemprop="wordCount" content="2486">
 <meta itemprop="keywords" content="style," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Additional Page Elements"/>
 <meta name="twitter:description" content="Examples of various markdown and Hugo page elements.
@@ -268,7 +268,8 @@
     <li><a href="#code">Code</a>
       <ul>
         <li><a href="#inline-code">Inline code</a></li>
-        <li><a href="#code-blocks">Code blocks</a></li>
+        <li><a href="#code-blocks-simple">Code blocks (simple)</a></li>
+        <li><a href="#code-blocks-advanced">code blocks (advanced)</a></li>
         <li><a href="#command-line-blocks">Command line blocks</a></li>
         <li><a href="#mysql-shell-blocks">MySQL shell blocks</a></li>
         <li><a href="#inline-files">Inline files</a></li>
@@ -794,7 +795,7 @@ It will be converted to an HTML anchor so that you can link directly to the head
 </div>
 
 </div>
-<h3 id="code-blocks">Code blocks</h3>
+<h3 id="code-blocks-simple">Code blocks (simple)</h3>
 <p>Code blocks should be surrounded with fences <code>```language-type</code> and <code>```</code> with the <a href="#supported-languages">language</a> type <strong>always</strong> specified to ensure correct syntax highlighting.
 If the language type is not supplied then styling will be different to fenced blocks with a language.</p>
 <p>This is a markdown example of a fenced code block containing XML content.</p>
@@ -974,16 +975,219 @@ root:
 </div>
 
 </div>
+<h3 id="code-blocks-advanced">code blocks (advanced)</h3>
+<p>If you need to show line numbers or to highlight sections of a code block then you can use the <code>code-block</code> shortcode.
+This shortcode takes the following named arguments:</p>
+<ul>
+<li><strong>language</strong> - The <a href="#supported-languages">language</a> for syntax highlighting.
+Defaults to <code>text</code>.</li>
+<li><strong>lines</strong> - Whether to display line numbers or not (<code>true</code>|<code>false</code>).
+Defaults to <code>true</code>.</li>
+<li><strong>highlight</strong> - A comma separate list of lines to highlight.
+Ranges of line numbers can be specified, e.g. <code>2-8,13,25-30</code>.
+Defaults to no line highlighting.</li>
+<li><strong>start</strong> - The line number to start at.
+Defaults to 1.</li>
+</ul>
+<p>The following is an example of how to use the shortcode.</p>
+<pre><code class="language-markdown">{{&lt; code-block language=&quot;xml&quot; highlight=&quot;2-5,8&quot; &gt;}}
+&lt;root&gt;
+  &lt;child attr=&quot;xxx&quot;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&quot;xxx&quot;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&quot;xxx&quot;&gt;
+    some val
+  &lt;/child&gt;
+&lt;/root&gt;
+{{&lt; /code-block &gt;}}
+</code></pre>
+<p><strong>Default behaviour</strong></p>
+<pre><code class="language-markdown">{{&lt; code-block &gt;}}
+...
+{{&lt; /code-block &gt;}}
+</code></pre>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="code-block code-toolbar">
+  <pre 
+     class="line-numbers language-text" 
+     
+     data-start="1"  ><code class="language-text">&lt;root&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+&lt;/root&gt;</code></pre>
+</div>
+
+<p><strong>With line numbers, a language and a starting line number</strong></p>
+<pre><code class="language-markdown">{{&lt; code-block language=&quot;xml&quot; start=&quot;5&quot; &gt;}}
+...
+{{&lt; /code-block &gt;}}
+</code></pre>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="code-block code-toolbar">
+  <pre 
+     class="line-numbers language-xml" 
+     
+     data-start="5"  ><code class="language-xml">  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+&lt;/root&gt;</code></pre>
+</div>
+
+<p><strong>With line numbers, a language and highlighted lines</strong></p>
+<pre><code class="language-markdown">{{&lt; code-block language=&quot;xml&quot; highlight=&quot;2-5,8&quot; &gt;}}
+...
+{{&lt; /code-block &gt;}}
+</code></pre>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+
+
+<div class="code-block code-toolbar">
+  <pre 
+     class="line-numbers language-xml" 
+     data-line="2-5,8" 
+     data-start="1"  ><code class="language-xml">&lt;root&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+&lt;/root&gt;</code></pre>
+</div>
+
+<p><strong>With a language and highlighted lines, but without line numbers</strong></p>
+<pre><code class="language-markdown">{{&lt; code-block language=&quot;xml&quot; lines=&quot;false&quot; highlight=&quot;2-5,8&quot; &gt;}}
+...
+{{&lt; /code-block &gt;}}
+</code></pre>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+  
+  
+
+
+<div class="code-block code-toolbar">
+  <pre 
+     class="no-line-numbers language-xml" 
+     data-line="2-5,8" 
+     data-start="1"  ><code class="language-xml">&lt;root&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+  &lt;child attr=&#34;xxx&#34;&gt;
+    some val
+  &lt;/child&gt;
+&lt;/root&gt;</code></pre>
+</div>
+
 <h3 id="command-line-blocks">Command line blocks</h3>
 <p>To demonstrate commands being run on the command line you can use the <code>command-line</code> shortcode.
 This results in a code block with the shell prompt displayed on the left of each line.
 It also means the prompt part is not selectable when the user selects the text for copy/pasting.</p>
-<p>The shortcode takes the following arguments:</p>
-<ul>
+<p>The shortcode takes the following positional arguments:</p>
+<ol>
 <li><strong>username</strong> - The username to appear in the prompt, defaults to <code>user</code>.</li>
 <li><strong>hostname</strong> - The hostname to appear in the prompt, defaults to <code>localhost</code>.</li>
 <li><strong>language</strong> - The language of the content (a valid and installed prism <a href="#supported-languages">language name</a> language name), defaults to <code>bash</code>.</li>
-</ul>
+</ol>
 <p>If you want to display shell output then prefix each output line with <code>(out)</code>.
 It will then be displayed without a prompt.
 To display a blank line with no prompt then have a line with just <code>(out)</code> in it.</p>
@@ -1315,8 +1519,8 @@ Use this link then add any additional items, bearing in mind the size of the dow
   
 
 <span class="external-link">
-  <a href="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview" target="_blank" class="" style="" title="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview (external link)">
-    <span>https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview</span>
+  <a href="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=line-highlight&#43;line-numbers&#43;command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview%20*/" target="_blank" class="" style="" title="https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=line-highlight&#43;line-numbers&#43;command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview */ (external link)">
+    <span>https://prismjs.com/download.html#themes=prism&amp;languages=markup&#43;css&#43;clike&#43;javascript&#43;bash&#43;csv&#43;groovy&#43;java&#43;jq&#43;json&#43;markdown&#43;python&#43;regex&#43;scss&#43;sql&#43;toml&#43;yaml&amp;plugins=line-highlight&#43;line-numbers&#43;command-line&#43;toolbar&#43;copy-to-clipboard&#43;treeview */</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
@@ -1522,7 +1726,7 @@ root:
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified May 25, 2022: <a href="https://github.com/gchq/stroom-docs/commit/9392ada31227c53764e47c6751cdfbf3b8c09dde">Merge branch &#39;legacy&#39; into 7.0 (9392ada)</a>
+  Last modified June 8, 2022: <a href="https://github.com/gchq/stroom-docs/commit/327963bae137ad8c0073b2dcdc3f3c9f06fb1421">Merge branch &#39;legacy&#39; into 7.0 (327963b)</a>
 </div>
 
 </div>
