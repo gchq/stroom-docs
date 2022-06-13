@@ -10,24 +10,80 @@ description: >
 
 Stroom has a number of tools that are available from the command line in addition to starting the main application.
 
-The basic structure of the command for starting one of stroom's commands is:
+
+## Running commands
+
+The basic structure of the shell command for starting one of stroom's commands depends on whether you are running the zip distribution of stroom or a docker stack.
+
+In either case, `COMMAND` is the name of the stroom command to run, as specified by the various headings on this page.
+Each command value is described in its own section and may take no arguments or a mixture of mandatory and optional arguments.
+
+{{% note %}}
+These commands are very powerful and potentially dangerous in the wrong hands, e.g. they allow the changing of user's passwords.
+Access to these commands should be strictly limited.
+Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.
+{{% /note %}}
+
+
+### Running commands with the zip distribution
+
+The commands are run by passing the command and any of its arguments to the `java` command.
+The jar file is in the `bin` directory of the zip distribution.
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar COMMAND
+java -jar /absolute/path/to/stroom-app-all.jar \
+COMMAND \
+[COMMAND_ARG...] \
+path/to/config.yml
 {{</ command-line >}}
 
-`COMMAND` can be a number of values depending on what you want to do.
-Each command value is described in its own section.
-
-> **NOTE:** These commands are very powerful and potentially dangerous in the wrong hands, e.g. they allow the changing of user's passwords.
-> Access to these commands should be strictly limited.
-> Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.
-
-
-## `server`
+For example:
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar server path/to/config.yml
+java -jar /opt/stroom/bin/stroom-app-all.jar \
+reset_password \
+-u joe \
+-p "correct horse battery staple" \
+/opt/stroom/config/config.yml
+{{</ command-line >}}
+
+
+### Running commands in a stroom Docker stack
+
+Commands are run in a Docker stack using the `command.sh` script found in the root of the stack directory structure.
+
+{{% note %}}
+You do not specify the config file location as the script does this for you.
+{{% /note %}}
+
+{{< command-line "stroomuser" "localhost" >}}
+./command.sh COMMAND [COMMAND_ARG...]
+{{</ command-line >}}
+
+For example:
+
+{{< command-line "stroomuser" "localhost" >}}
+./command.sh \
+reset_password \
+-u joe \
+-p "correct horse battery staple"
+{{</ command-line >}}
+
+
+## Command reference
+
+{{% note %}}
+All the examples below assume you are running stroom as part of the zip distribution.
+If you are running a Docker stack then you will need to use the `command.sh` script (as described above) with the same arguments  but omitting the config file path.
+{{% /note %}}
+
+
+### `server`
+
+{{< command-line "stroomuser" "localhost" >}}
+java -jar /absolute/path/to/stroom-app-all.jar \
+server \
+path/to/config.yml
 {{</ command-line >}}
 
 This is the normal command for starting the Stroom application using the supplied YAML configuration file.
@@ -38,10 +94,10 @@ When stroom starts it will check the database to see if any migration is require
 If migration from an earlier version (including from an empty database) is required then this will happen as part of the application start process.
 
 
-## `migrate`
+### `migrate`
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar migrate path/to/config.yml
+java -jar /absolute/path/to/stroom-app-all.jar migrate path/to/config.yml
 {{</ command-line >}}
 
 There may be occasions where you want to migrate an old version but not start the application, e.g. during migration testing or to initiate the migration before starting up a cluster.
@@ -50,10 +106,10 @@ On completion of the process it exits.
 This runs as a foreground process.
 
 
-## `create_account`
+### `create_account`
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 create_account \
 --u USER \
 --p PASSWORD \
@@ -77,7 +133,7 @@ When configured to use its own (the default) it will auto create an admin accoun
 There are times when you may wish to create this account manually which this command allows.
 
 
-### Authentication Accounts and Stroom Users
+#### Authentication Accounts and Stroom Users
 
 The user account used for authentication is distinct to the Stroom _user_ entity that is used for authorisation within Stroom.
 If an external IDP is used then the mechanism for creating the authentication account will be specific to that IDP.
@@ -90,10 +146,10 @@ This command should NOT be run if you are using a third party identity provider.
 This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
 
 
-## `reset_password`
+### `reset_password`
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 reset_password \
 --u USER \
 --p PASSWORD \
@@ -113,10 +169,10 @@ It will fail if the account does not exist.
 This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
 
 
-## `manage_users`
+### `manage_users`
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 [OPTIONS] \
 path/to/config.yml
@@ -141,7 +197,10 @@ This command is not intended for automation of user management tasks on a runnin
 It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
 If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at `/stroom/noauth/swagger-ui`.
 
-> See the [note](#authentication-accounts-and-stroom-users) above about the distinction between authentication accounts and stroom users.
+{{% warning %}}
+See the [section](#authentication-accounts-and-stroom-users) above about the distinction between authentication accounts and stroom users.
+{{% /warning %}}
+
 
 {{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app.jar \
