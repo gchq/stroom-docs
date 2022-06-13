@@ -10387,32 +10387,25 @@ This job controls the frequency that the in memory statistics are flushed from t
   <h1 id="pg-75d7e9d7b1cee4d8756d17b998f45770">17.1 - Command Line Tools</h1>
     <div class="lead">Command line actions for administering Stroom.</div>
 	<p>Stroom has a number of tools that are available from the command line in addition to starting the main application.</p>
-<p>The basic structure of the command for starting one of stroom&rsquo;s commands is:</p>
+<h2 id="running-commands">Running commands</h2>
+<p>The basic structure of the shell command for starting one of stroom&rsquo;s commands depends on whether you are running the zip distribution of stroom or a docker stack.</p>
+<p>In either case, <code>COMMAND</code> is the name of the stroom command to run, as specified by the various headings on this page.
+Each command value is described in its own section and may take no arguments or a mixture of mandatory and optional arguments.</p>
 
-  
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
 
 
+    These commands are very powerful and potentially dangerous in the wrong hands, e.g. they allow the changing of user&rsquo;s passwords.
+Access to these commands should be strictly limited.
+Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.
 
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="stroomuser" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar COMMAND</code></pre>
 </div>
 
-<p><code>COMMAND</code> can be a number of values depending on what you want to do.
-Each command value is described in its own section.</p>
-<blockquote>
-<p><strong>NOTE:</strong> These commands are very powerful and potentially dangerous in the wrong hands, e.g. they allow the changing of user&rsquo;s passwords.
-Access to these commands should be strictly limited.
-Also, each command will run in its own JVM so are not really intended to be run when Stroom is running on the node.</p>
-</blockquote>
-<h2 id="server"><code>server</code></h2>
+
+<h3 id="running-commands-with-the-zip-distribution">Running commands with the zip distribution</h3>
+<p>The commands are run by passing the command and any of its arguments to the <code>java</code> command.
+The jar file is in the <code>bin</code> directory of the zip distribution.</p>
 
   
 
@@ -10427,7 +10420,114 @@ Also, each command will run in its own JVM so are not really intended to be run 
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar server path/to/config.yml</code></pre>
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
+COMMAND \
+[COMMAND_ARG...] \
+path/to/config.yml</code></pre>
+</div>
+
+<p>For example:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /opt/stroom/bin/stroom-app-all.jar \
+reset_password \
+-u joe \
+-p &#34;correct horse battery staple&#34; \
+/opt/stroom/config/config.yml</code></pre>
+</div>
+
+<h3 id="running-commands-in-a-stroom-docker-stack">Running commands in a stroom Docker stack</h3>
+<p>Commands are run in a Docker stack using the <code>command.sh</code> script found in the root of the stack directory structure.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    You do not specify the config file location as the script does this for you.
+
+</div>
+
+
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./command.sh COMMAND [COMMAND_ARG...]</code></pre>
+</div>
+
+<p>For example:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./command.sh \
+reset_password \
+-u joe \
+-p &#34;correct horse battery staple&#34;</code></pre>
+</div>
+
+<h2 id="command-reference">Command reference</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    All the examples below assume you are running stroom as part of the zip distribution.
+If you are running a Docker stack then you will need to use the <code>command.sh</code> script (as described above) with the same arguments  but omitting the config file path.
+
+</div>
+
+
+<h3 id="server"><code>server</code></h3>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
+server \
+path/to/config.yml</code></pre>
 </div>
 
 <p>This is the normal command for starting the Stroom application using the supplied YAML configuration file.
@@ -10435,7 +10535,7 @@ The example above will start the application as a foreground process.
 Stroom would typically be started using the <code>start.sh</code> shell script, but the command above is listed for completeness.</p>
 <p>When stroom starts it will check the database to see if any migration is required.
 If migration from an earlier version (including from an empty database) is required then this will happen as part of the application start process.</p>
-<h2 id="migrate"><code>migrate</code></h2>
+<h3 id="migrate"><code>migrate</code></h3>
 
   
 
@@ -10450,14 +10550,14 @@ If migration from an earlier version (including from an empty database) is requi
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar migrate path/to/config.yml</code></pre>
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar migrate path/to/config.yml</code></pre>
 </div>
 
 <p>There may be occasions where you want to migrate an old version but not start the application, e.g. during migration testing or to initiate the migration before starting up a cluster.
 This command will run the process that checks for any required migrations and then performs them.
 On completion of the process it exits.
 This runs as a foreground process.</p>
-<h2 id="create_account"><code>create_account</code></h2>
+<h3 id="create_account"><code>create_account</code></h3>
 
   
 
@@ -10472,7 +10572,7 @@ This runs as a foreground process.</p>
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 create_account \
 --u USER \
 --p PASSWORD \
@@ -10494,7 +10594,7 @@ path/to/config.yml</code></pre>
 Stroom is able to use third party OpenID identity providers such as Google or AWS Cognito but by default will use its own.
 When configured to use its own (the default) it will auto create an admin account when starting up a fresh instance.
 There are times when you may wish to create this account manually which this command allows.</p>
-<h3 id="authentication-accounts-and-stroom-users">Authentication Accounts and Stroom Users</h3>
+<h4 id="authentication-accounts-and-stroom-users">Authentication Accounts and Stroom Users</h4>
 <p>The user account used for authentication is distinct to the Stroom <em>user</em> entity that is used for authorisation within Stroom.
 If an external IDP is used then the mechanism for creating the authentication account will be specific to that IDP.
 If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged used or using this command.
@@ -10502,7 +10602,7 @@ In either case a Stroom user will need to exist with the same username as the au
 <p>The command will fail if the user already exists.
 This command should NOT be run if you are using a third party identity provider.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
-<h2 id="reset_password"><code>reset_password</code></h2>
+<h3 id="reset_password"><code>reset_password</code></h3>
 
   
 
@@ -10517,7 +10617,7 @@ This command should NOT be run if you are using a third party identity provider.
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 reset_password \
 --u USER \
 --p PASSWORD \
@@ -10534,7 +10634,7 @@ It will also reset all locked/inactive/disabled statuses to ensure the account c
 This command should NOT be run if you are using a third party identity provider.
 It will fail if the account does not exist.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
-<h2 id="manage_users"><code>manage_users</code></h2>
+<h3 id="manage_users"><code>manage_users</code></h3>
 
   
 
@@ -10549,7 +10649,7 @@ It will fail if the account does not exist.</p>
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 [OPTIONS] \
 path/to/config.yml</code></pre>
@@ -10572,9 +10672,17 @@ To set up an admin account to enable you to login to stroom you can do:</p>
 <p>This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
 It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
 If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at <code>/stroom/noauth/swagger-ui</code>.</p>
-<blockquote>
-<p>See the <a href="#authentication-accounts-and-stroom-users">note</a> above about the distinction between authentication accounts and stroom users.</p>
-</blockquote>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+
+    <p>See the <a href="#authentication-accounts-and-stroom-users">section</a> above about the distinction between authentication accounts and stroom users.</p>
+
+
+</div>
+
+
 
   
 
