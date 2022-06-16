@@ -4,7 +4,7 @@
     <link>/tags/processing/</link>
     <description>Recent content in processing on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 03 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jun 2022 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/processing/index.xml" rel="self" type="application/rss+xml" />
     
@@ -1250,6 +1250,715 @@ If the &lt;code&gt;CSV_FEED&lt;/code&gt; tab was already open then you will like
 &lt;p&gt;You can see that there are the &lt;code&gt;Raw Events&lt;/code&gt; and the processed &lt;code&gt;Events&lt;/code&gt;.
 If you click on the &lt;code&gt;Events&lt;/code&gt; then you can see all the XML that we&amp;rsquo;ve produced.&lt;/p&gt;
 &lt;p&gt;Now you&amp;rsquo;ve processed your data you can go ahead and &lt;a href=&#34;../../docs/quick-start-guide/indexing/&#34;&gt;index&lt;/a&gt; it.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Writing an XSLT Translation</title>
+      <link>/docs/howtos/eventfeeds/translation-how-to/</link>
+      <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/howtos/eventfeeds/translation-how-to/</guid>
+      <description>
+        
+        
+        &lt;!-- Created with Stroom v6.1-beta.16 --&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+
+
+    &lt;p&gt;&lt;a href=&#34;../../docs/howtos/eventfeeds/processinghowto/&#34;&gt;HOWTO - Event Processing&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;This document is intended to explain how and why to produce a translation within stroom and how the translation fits into the overall processing within stroom.
+It is intended for use by the developers/admins of client systems that want to send data to stroom and need to transform their events into event-logging XML format.
+It&amp;rsquo;s not intended as an XSLT tutorial so a basic XSLT knowledge must be assumed.
+The document will contain potentially useful XSLT fragments to show how certain processing activities can be carried out.
+As with most programming languages, there are likely to be multiple ways of producing the same end result with different degrees of complexity and efficiency.
+Examples here may not be the best for all situations but do reflect experience built up from many previous translation jobs.&lt;/p&gt;
+&lt;p&gt;The document should be read in conjunction with other online stroom documentation, in particular &lt;a href=&#34;../../docs/howtos/eventfeeds/processinghowto/&#34;&gt;Event Processing&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;translation-overview&#34;&gt;Translation Overview&lt;/h2&gt;
+&lt;p&gt;The translation process for raw logs is a multi-stage process defined by the processing pipeline:&lt;/p&gt;
+&lt;h3 id=&#34;parser&#34;&gt;Parser&lt;/h3&gt;
+&lt;p&gt;The parser takes raw data and converts it into an intermediate XML document format.
+This is only required if source data is not already within an XML document.
+There are various standard parsers available (although not all may be available on a default stroom build) to cover the majority of standard source formats such as CSV, TSV, CSV with header row and XML fragments.&lt;/p&gt;
+&lt;p&gt;The language used within the parser is defined within an XML schema located at &lt;code&gt;XML Schemas / data-splitter / data-splitter v3.0&lt;/code&gt; within the tree browser.
+The data splitter schema may have been provided as part of the core schemas content pack.
+It is not present in a vanilla stroom.
+The language can be quite complex so if non-standard format logs are being parsed, it may be worth speaking to your stroom sysadmin team to at least get an initial parser configured for your data.&lt;/p&gt;
+&lt;p&gt;Stroom also has a built-in parser for JSON fragments.
+This can be set either by using the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+&lt;span class=&#34;pipeline-element&#34; title=&#34;combinedParser&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    style=&#34;max-width: 15px;&#34;
+    src=&#34;../../images/stroom-ui/pipeline/text.svg&#34; 
+    title=&#34;combinedParser&#34; 
+    alt=&#34;text.svg&#34;&gt;
+  &lt;span&gt;combinedParser&lt;/span&gt;
+&lt;/span&gt;
+ and setting the &lt;code&gt;type&lt;/code&gt; property to JSON or preferably by just using the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+&lt;span class=&#34;pipeline-element&#34; title=&#34;jsonParser&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    style=&#34;max-width: 15px;&#34;
+    src=&#34;../../images/stroom-ui/pipeline/json.svg&#34; 
+    title=&#34;jsonParser&#34; 
+    alt=&#34;json.svg&#34;&gt;
+  &lt;span&gt;jsonParser&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;The parser has several minor limitations.
+The most significant is that it&amp;rsquo;s unable to deal with records that are interleaved.
+This occasionally happens within multi-line syslog records where a syslog server receives the first x lines of record A followed by the first y lines of record B, then the rest of record A and finally the rest of record B (or the start of record C etc).
+If data is likely to arrive like this then some sort of pre-processing within the source system would be necessary to ensure that each record is a contiguous block before being forwarded to stroom.&lt;/p&gt;
+&lt;p&gt;The other main limitation of the parser is actually its flexibility.
+If forwarding large streams to stroom and one or more regexes within the parser have been written inefficiently or incorrectly then it&amp;rsquo;s quite possible for the parser to try to read the entire stream in one go rather than a single record or part of a record.
+This will slow down the overall processing and may even cause memory issues in the worst cases.
+This is one of the reasons why the stroom team would prefer to be involved in the production of any non-standard parsers as mentioned above.&lt;/p&gt;
+&lt;h3 id=&#34;xslt&#34;&gt;XSLT&lt;/h3&gt;
+&lt;p&gt;The actual translation takes the XML document produced by the parser and converts it to a new XML document format in what&amp;rsquo;s known as &amp;ldquo;stroom schema format&amp;rdquo;.
+The current latest schema is documented at &lt;code&gt;XML Schemas / event-logging / event-logging v3.5.2&lt;/code&gt; within the tree browser.
+The version is likely to change over time so you should aim to use the latest non-beta version.&lt;/p&gt;
+&lt;h3 id=&#34;other-pipeline-elements&#34;&gt;Other Pipeline Elements&lt;/h3&gt;
+&lt;p&gt;The pipeline functionality is flexible in that multiple XSLTs may be used in sequence to add decoration (e.g. Job Title, Grade, Employee type etc. from an HR reference database), schema validation and other business-related tasks.
+However, this is outside the scope of this document and pipelines should not be altered unless agreed with the stroom sysadmins.
+As an example, we&amp;rsquo;ve seen instances of people removing schema validation tasks from a pipeline so that processing appears to occur without error.
+In practice, this just breaks things further down the processing chain.&lt;/p&gt;
+&lt;h2 id=&#34;translation-basics&#34;&gt;Translation Basics&lt;/h2&gt;
+&lt;p&gt;Assuming you have a simple pipeline containing a working parser and an empty XSLT, the output of the parser will look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;records
+    xmlns=&amp;quot;records:2&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;records:2 file://records-v2.0.xsd&amp;quot;
+    version=&amp;quot;2.0&amp;quot;&amp;gt;
+  &amp;lt;record&amp;gt;
+    &amp;lt;data value=&amp;quot;2022-04-06 15:45:38.737&amp;quot; /&amp;gt;
+    &amp;lt;data value=&amp;quot;fakeuser2&amp;quot; /&amp;gt;
+    &amp;lt;data value=&amp;quot;192.168.0.1&amp;quot; /&amp;gt;
+    &amp;lt;data value=&amp;quot;1000011&amp;quot; /&amp;gt;
+    &amp;lt;data value=&amp;quot;200&amp;quot; /&amp;gt;
+    &amp;lt;data value=&amp;quot;Query success&amp;quot; /&amp;gt;
+    &amp;lt;data value=&amp;quot;1&amp;quot; /&amp;gt;
+  &amp;lt;/record&amp;gt;
+&amp;lt;/records&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The data nodes within the &lt;strong&gt;record&lt;/strong&gt; node will differ as it&amp;rsquo;s possible to have nested data nodes as well as named data nodes, but for a non-JSON and non-XML fragment source data format, the top-level structure will be similar.&lt;/p&gt;
+&lt;p&gt;The XSLT needed to recognise and start processing the above example data needs to do several things.
+The following initial XSLT provides the minimum required function:&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;code-block code-toolbar&#34;&gt;
+  &lt;pre 
+     class=&#34;line-numbers language-xml&#34; 
+     
+     data-start=&#34;1&#34;  &gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;#34;1.1&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt;
+&amp;lt;xsl:stylesheet
+    xpath-default-namespace=&amp;#34;records:2&amp;#34; 
+    xmlns=&amp;#34;event-logging:3&amp;#34; 
+    xmlns:stroom=&amp;#34;stroom&amp;#34;
+    xmlns:xsl=&amp;#34;http://www.w3.org/1999/XSL/Transform&amp;#34;
+    xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
+    version=&amp;#34;2.0&amp;#34;&amp;gt;
+
+  &amp;lt;xsl:template match=&amp;#34;records&amp;#34;&amp;gt;
+    &amp;lt;Events
+        xsi:schemaLocation=&amp;#34;event-logging:3 file://event-logging-v3.5.2.xsd&amp;#34; Version=&amp;#34;3.5.2&amp;#34;&amp;gt;
+      &amp;lt;xsl:apply-templates /&amp;gt;
+    &amp;lt;/Events&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
+
+  &amp;lt;xsl:template match=&amp;#34;record&amp;#34;&amp;gt;
+    &amp;lt;Event&amp;gt;
+      ...
+    &amp;lt;/Event&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The following lists the necessary functions of the XSLT, along with the line numbers where they&amp;rsquo;re implemented in the above example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Match the source namespace - &lt;code&gt;line 3&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Specify the output namespace - &lt;code&gt;lines 4, 12&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Specify the namespace for any functions - &lt;code&gt;lines 5-8&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Match the top-level &lt;strong&gt;records&lt;/strong&gt; node - &lt;code&gt;line 10&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Provide any output in stroom schema format - &lt;code&gt;lines 11, 14, 18-20&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Individually match subsequent &lt;strong&gt;record&lt;/strong&gt; nodes - &lt;code&gt;line 17&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This XSLT will generate the following output data:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;Events
+    xmlns=&amp;quot;event-logging:3&amp;quot;
+    xmlns:stroom=&amp;quot;stroom&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.5.2.xsd&amp;quot;
+    Version=&amp;quot;3.5.2&amp;quot;&amp;gt;
+  &amp;lt;Event&amp;gt;
+    ...
+  &amp;lt;/Event&amp;gt;
+  ...
+&amp;lt;Events&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It&amp;rsquo;s normally best to get this part of the XSLT correctly stepping before getting any further into the code.&lt;/p&gt;
+&lt;p&gt;Similarly for JSON fragments, the output of the parser will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;map xmlns=&amp;quot;http://www.w3.org/2013/XSL/json&amp;quot;&amp;gt;
+  &amp;lt;map&amp;gt;
+    &amp;lt;string key=&amp;quot;version&amp;quot;&amp;gt;0&amp;lt;/string&amp;gt;
+    &amp;lt;string key=&amp;quot;id&amp;quot;&amp;gt;2801bbff-fafa-4427-32b5-d38068d3de73&amp;lt;/string&amp;gt;
+    &amp;lt;string key=&amp;quot;detail-type&amp;quot;&amp;gt;xyz_event&amp;lt;/string&amp;gt;
+    &amp;lt;string key=&amp;quot;source&amp;quot;&amp;gt;my.host.here&amp;lt;/string&amp;gt;
+    &amp;lt;string key=&amp;quot;account&amp;quot;&amp;gt;223592823261&amp;lt;/string&amp;gt;
+    &amp;lt;string key=&amp;quot;time&amp;quot;&amp;gt;2022-02-15T11:01:36Z&amp;lt;/string&amp;gt;
+    &amp;lt;array key=&amp;quot;resources&amp;quot; /&amp;gt;
+    &amp;lt;map key=&amp;quot;detail&amp;quot;&amp;gt;
+      &amp;lt;number key=&amp;quot;id&amp;quot;&amp;gt;1644922894335&amp;lt;/number&amp;gt;
+      &amp;lt;string key=&amp;quot;userId&amp;quot;&amp;gt;testuser&amp;lt;/string&amp;gt;
+    &amp;lt;/map&amp;gt;
+  &amp;lt;/map&amp;gt;
+&amp;lt;/map&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The following initial XSLT will carry out the same tasks as before:&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;code-block code-toolbar&#34;&gt;
+  &lt;pre 
+     class=&#34;line-numbers language-xml&#34; 
+     
+     data-start=&#34;1&#34;  &gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt;
+&amp;lt;xsl:stylesheet
+    xpath-default-namespace=&amp;#34;http://www.w3.org/2013/XSL/json&amp;#34;
+    xmlns=&amp;#34;event-logging:3&amp;#34;
+    xmlns:stroom=&amp;#34;stroom&amp;#34;
+    xmlns:xsl=&amp;#34;http://www.w3.org/1999/XSL/Transform&amp;#34;
+    xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
+    version=&amp;#34;2.0&amp;#34;&amp;gt;
+
+  &amp;lt;xsl:template match=&amp;#34;/map&amp;#34;&amp;gt;
+    &amp;lt;Events
+        xsi:schemaLocation=&amp;#34;event-logging:3 file://event-logging-v3.5.2.xsd&amp;#34; Version=&amp;#34;3.5.2&amp;#34;&amp;gt;
+      &amp;lt;xsl:apply-templates /&amp;gt;
+    &amp;lt;/Events&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
+
+  &amp;lt;xsl:template match=&amp;#34;/map/map&amp;#34;&amp;gt;
+    &amp;lt;Event&amp;gt;
+      ...
+    &amp;lt;/Event&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
+&amp;lt;/xsl:stylesheet&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The necessary functions of the XSLT, along with the line numbers where they&amp;rsquo;re implemented in the above example as before:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Match the source namespace - &lt;code&gt;line 3&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Specify the output namespace - &lt;code&gt;lines 4, 12&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Specify the namespace for any functions - &lt;code&gt;lines 5-8&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Match the top-level &lt;strong&gt;/map&lt;/strong&gt; node - &lt;code&gt;line 10&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Provide any output in stroom schema format - &lt;code&gt;lines 11, 14, 18-20&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Individually match subsequent &lt;strong&gt;/map/map&lt;/strong&gt; nodes - &lt;code&gt;line 17&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This XSLT will generate the following output data which is identical to the previous output:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;Events
+    xmlns=&amp;quot;event-logging:3&amp;quot;
+    xmlns:stroom=&amp;quot;stroom&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.5.2.xsd&amp;quot;
+    Version=&amp;quot;3.5.2&amp;quot;&amp;gt;
+  &amp;lt;Event&amp;gt;
+    ...
+  &amp;lt;/Event&amp;gt;
+  ...
+&amp;lt;Events&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Once the initial XSLT is correct, it&amp;rsquo;s a fairly simple matter to populate the correct nodes using standard XSLT functions and a knowledge of XPaths.&lt;/p&gt;
+&lt;h2 id=&#34;extending-the-translation-to-populate-specific-nodes&#34;&gt;Extending the Translation to Populate Specific Nodes&lt;/h2&gt;
+&lt;p&gt;The above examples of &lt;code&gt;&amp;lt;xsl:apply-templates match=&amp;quot;...&amp;quot;/&amp;gt;&lt;/code&gt; for an Event all point to a specific path within the XML document - often at &lt;code&gt;/records/record/&lt;/code&gt; or at &lt;code&gt;/map/map/&lt;/code&gt;.
+XPath references to nodes further down inside the record should normally be made relative to this node.&lt;/p&gt;
+&lt;p&gt;Depending on the output format from the parser, there are two ways of referencing a field to populate an output node.&lt;/p&gt;
+&lt;p&gt;If the intermedia XML is of the following format:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;record&amp;gt;
+  &amp;lt;data value=&amp;quot;2022-04-06 15:45:38.737&amp;quot; /&amp;gt;
+  &amp;lt;data value=&amp;quot;fakeuser2&amp;quot; /&amp;gt;
+  &amp;lt;data value=&amp;quot;192.168.0.1&amp;quot; /&amp;gt;
+  ...
+&amp;lt;/record&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then the developer needs to understand which field contains what data and then to reference based upon the index, e.g:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;IPAddress&amp;gt;
+  &amp;lt;xsl:value-of select=&amp;quot;data[3]/@value&amp;quot;/&amp;gt;
+&amp;lt;/IPAddress&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, if the intermediate XML is of this format:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;record&amp;gt;
+  &amp;lt;data name=&amp;quot;time&amp;quot; value=&amp;quot;2022-04-06 15:45:38.737&amp;quot; /&amp;gt;
+  &amp;lt;data name=&amp;quot;user&amp;quot; value=&amp;quot;fakeuser2&amp;quot; /&amp;gt;
+  &amp;lt;data name=&amp;quot;ip&amp;quot; value=&amp;quot;192.168.0.1&amp;quot; /&amp;gt;
+  ...
+&amp;lt;/record&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, although the first method is still acceptable, it&amp;rsquo;s easier and safer to reference by @name:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;IPAddress&amp;gt;
+  &amp;lt;xsl:value-of select=&amp;quot;data[@name=&#39;ip&#39;]/@value&amp;quot;/&amp;gt;
+&amp;lt;/IPAddress&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This second method also has the advantage that if the field positions differ for different event types, the names will hopefully stay the same, saving the need to add &lt;code&gt;if TypeA then do X, if TypeB then do Y, ...&lt;/code&gt; code into the XSLT.&lt;/p&gt;
+&lt;p&gt;More complex field references are likely to be required at times, particularly for data that&amp;rsquo;s been converted using the internal JSON parser.
+Assuming source data of:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;map&amp;gt;
+  &amp;lt;string key=&amp;quot;version&amp;quot;&amp;gt;0&amp;lt;/string&amp;gt;
+  ...
+  &amp;lt;array key=&amp;quot;resources&amp;quot; /&amp;gt;
+  &amp;lt;map key=&amp;quot;detail&amp;quot;&amp;gt;
+    &amp;lt;number key=&amp;quot;id&amp;quot;&amp;gt;1644922894335&amp;lt;/number&amp;gt;
+    &amp;lt;string key=&amp;quot;userId&amp;quot;&amp;gt;testuser&amp;lt;/string&amp;gt;
+  &amp;lt;/map&amp;gt;
+&amp;lt;/map&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then selecting the id field requires something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;map[@key=&#39;detail&#39;]/number[@key=&#39;id&#39;]&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It&amp;rsquo;s important at this stage to have a reasonable understanding of which fields in the source data provide what detail in terms of stroom schema values, which fields can be ignored and which can be used but modified to control the flow of the translation.
+For example - there may be an IP address within the log, but is it of the device itself or of the client?
+It&amp;rsquo;s normally best to start with several examples of each event type requiring translation to ensure that fields are translated correctly.&lt;/p&gt;
+&lt;h2 id=&#34;structuring-the-xslt&#34;&gt;Structuring the XSLT&lt;/h2&gt;
+&lt;p&gt;There are many different ways of structuring the overall XSLT and it&amp;rsquo;s ultimately for the developer to decide the best way based upon the requirements of their own data.
+However, the following points should be noted:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When working on e.g a CreateDocument event, it&amp;rsquo;s far easier to edit a 10-line template named &lt;strong&gt;CreateDocument&lt;/strong&gt; than lines 841-850 of a template named &lt;strong&gt;MainTemplate&lt;/strong&gt;.
+Therefore, keep each template relatively small and helpfully named.&lt;/li&gt;
+&lt;li&gt;Both the logic and XPaths required for EventTime and EventSource are normally common to all or most events for a given log.
+Therefore, it usually makes sense to have a common EventTime and EventSource template for all event types rather than a duplicate of this code for each event type.&lt;/li&gt;
+&lt;li&gt;If code needs to be repeated in multiple templates, then it&amp;rsquo;s often simpler to move that code into a separate template and call it from multiple places.
+This is often used for e.g. adding an Outcome node for multiple failed event types.&lt;/li&gt;
+&lt;li&gt;Use comments within the XSLT even when the code appears obvious.
+If nothing else, a comment field will ensure a newline prior to the comment once auto-formatted.
+This allows the end of one template and the start of the next template to be differentiated more easily if each template is prefixed by something like &lt;code&gt;&amp;lt;!-- Template for EventDetail --&amp;gt;&lt;/code&gt;.
+Comments are also useful for anybody who needs to fix your code several years later when you&amp;rsquo;ve moved on to far more interesting work.&lt;/li&gt;
+&lt;li&gt;For most feeds, the main development work is within the EventDetail node.
+This will normally contain a lot of code effectively doing &lt;code&gt;if CreateDocument do X; if DeleteFile do Y; if SuccessfulLogin do Z; ...&lt;/code&gt;.
+From experience, the following type of XSLT is normally the easiest to write and to follow:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;  &amp;lt;!-- Event Detail template --&amp;gt;
+  &amp;lt;xsl:template name=&amp;quot;EventDetail&amp;quot;&amp;gt;
+    &amp;lt;xsl:variable name=&amp;quot;typeId&amp;quot; select=&amp;quot;...&amp;quot;/&amp;gt;
+      &amp;lt;EventDetail&amp;gt;
+        &amp;lt;xsl:choose&amp;gt;
+          &amp;lt;xsl:when test=&amp;quot;$typeId=&#39;A&#39;&amp;quot;&amp;gt;
+            &amp;lt;xsl:call-template name=&amp;quot;Logon&amp;quot;/&amp;gt;
+          &amp;lt;/xsl:when&amp;gt;
+          &amp;lt;xsl:when test=&amp;quot;$typeId=&#39;B&#39;&amp;quot;&amp;gt;
+            &amp;lt;xsl:call-template name=&amp;quot;CreateDoc&amp;quot;/&amp;gt;
+          &amp;lt;/xsl:when&amp;gt;
+          ...
+        &amp;lt;/xsl:choose&amp;gt;
+      &amp;lt;/EventDetail&amp;gt;
+    &amp;lt;/xsl:template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;If in the above example, the various values of &lt;code&gt;$typeId&lt;/code&gt; are sufficiently descriptive to use as text values then the &lt;strong&gt;TypeId&lt;/strong&gt; node can be implemented prior to the &lt;code&gt;&amp;lt;xsl:choose&amp;gt;&lt;/code&gt; to avoid specifying it once in each child template.&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s common for systems to generate &lt;code&gt;Create/Delete/View/Modify/...&lt;/code&gt; events against a range of different &lt;code&gt;Document/File/Email/Object/...&lt;/code&gt; types.
+Rather than looking at events such as &lt;code&gt;CreateDocument/DeleteFile/...&lt;/code&gt; and creating a template for each, it&amp;rsquo;s often simpler to work in two stages.
+Firstly create templates for the &lt;code&gt;Create/Delete/...&lt;/code&gt;  types within &lt;code&gt;EventDetail&lt;/code&gt; and then from each of these templates, call another template which then checks and calls the relevant object template.&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s also sometimes possible to take the above multi-step process further and use a common template for Create/Delete/View.
+The following code assumes that the variable &lt;code&gt;${evttype}&lt;/code&gt; is a valid schema action such as &lt;code&gt;Create/Delete/View&lt;/code&gt;.
+Whilst it can be used to produce more compact XSLT code, it tends to lose readability and makes extending the code for additional types more difficult.
+The inner &lt;code&gt;&amp;lt;xsl:choose&amp;gt;&lt;/code&gt; can even be simplified again by populating an &lt;code&gt;&amp;lt;xsl:element&amp;gt;&lt;/code&gt; with &lt;code&gt;{objType}&lt;/code&gt; to make the code even more compact and more difficult to follow.
+There may occasionally be times when this sort of thing is useful but care should be taken to use it sparingly and provide plenty of comments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;  &amp;lt;xsl:variable name=&amp;quot;evttype&amp;quot; select=&amp;quot;...&amp;quot;/&amp;gt;
+  &amp;lt;xsl:element name=&amp;quot;${evttype}&amp;quot;&amp;gt;
+    &amp;lt;xsl:choose&amp;gt;
+      &amp;lt;xsl:when test=&amp;quot;objType=&#39;Document&#39;&amp;quot;&amp;gt;
+        &amp;lt;xsl:call-template name=&amp;quot;Document&amp;quot;/&amp;gt;
+      &amp;lt;/xsl:when&amp;gt;
+      &amp;lt;xsl:when test=&amp;quot;objType=&#39;File&#39;&amp;quot;&amp;gt;
+        &amp;lt;xsl:call-template name=&amp;quot;File&amp;quot;/&amp;gt;
+      &amp;lt;/xsl:when&amp;gt;
+      ...
+    &amp;lt;/xsl:choose&amp;gt;
+  &amp;lt;/xsl:element&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are always exceptions to the above advice.
+If a feed will only ever contain e.g. successful logins then it may be easier to create the entire event within a single template, for example.
+But if there&amp;rsquo;s ever a possibility of e.g. logon failures, logoffs or anything else in the future then it&amp;rsquo;s safer to structure the XSLT into separate templates.&lt;/p&gt;
+&lt;h2 id=&#34;filtering-wantedunwanted-event-types&#34;&gt;Filtering Wanted/Unwanted Event Types&lt;/h2&gt;
+&lt;p&gt;It&amp;rsquo;s common that not all received events are required to be translated.  Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.&lt;/p&gt;
+&lt;h3 id=&#34;remove-unwanted-events&#34;&gt;Remove Unwanted Events&lt;/h3&gt;
+&lt;p&gt;The first method is best to use when the majority of event types are to be translated and only a few types, such as debug messages are to be dropped.
+Consider the code fragment from earlier:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:template match=&amp;quot;record&amp;quot;&amp;gt;
+  &amp;lt;Event&amp;gt;
+    ...
+  &amp;lt;/Event&amp;gt;
+&amp;lt;/xsl:template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will create an Event node for every source record.
+However, if we replace this with something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:template match=&amp;quot;record[data[@name=&#39;logLevel&#39; and @value=&#39;DEBUG&#39;]]&amp;quot;/&amp;gt;
+
+&amp;lt;xsl:template match=&amp;quot;record[data[@name=&#39;msgType&#39;
+                                 and (@value=&#39;drop1&#39; or @value=&#39;drop2&#39;)
+                                ]]&amp;quot;/&amp;gt;
+
+&amp;lt;xsl:template match=&amp;quot;record&amp;quot;&amp;gt;
+  &amp;lt;Event&amp;gt;
+    ...
+  &amp;lt;/Event&amp;gt;
+&amp;lt;/xsl:template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will filter out all DEBUG messages and messages where the msgType is either “drop1&amp;quot; or “drop2&amp;quot;.
+All other messages will result in an Event being generated.&lt;/p&gt;
+&lt;p&gt;This method is often not suited to systems where the full set of message types isn&amp;rsquo;t known prior to translation development, such as for closed source software where the full set of possible messages isn&amp;rsquo;t already known.
+If an unexpected message type appears in the logs then it&amp;rsquo;s likely that the translation won&amp;rsquo;t know how to deal with it and may either make incorrect assumptions about it or fail to produce a schema-compliant output.&lt;/p&gt;
+&lt;h3 id=&#34;translate-wanted-events&#34;&gt;Translate Wanted Events&lt;/h3&gt;
+&lt;p&gt;This is the opposite of the previous method and the XSLT just ignores anything that it&amp;rsquo;s not expecting.
+This method is best used where only a few event types are of interest such as the scenario of translation logons/logoffs from a vast range of possible types.&lt;/p&gt;
+&lt;p&gt;For this, we&amp;rsquo;d use something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:template match=&amp;quot;record[data[@name=&#39;msgType&#39;
+                                   and (@value=&#39;logon&#39; or @value=&#39;logoff&#39;)
+                                  ]]&amp;quot;&amp;gt;
+  &amp;lt;Event&amp;gt;
+    ...
+  &amp;lt;/Event&amp;gt;
+&amp;lt;/xsl:template&amp;gt;
+
+&amp;lt;xsl:template match=&amp;quot;text()&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The final line stops the XSLT outputting a sequence of unformatted text nodes for any unmatched event types when an &lt;code&gt;&amp;lt;xsl:apply-templates/&amp;gt;&lt;/code&gt; is used elsewhere within the XSLT.
+It isn&amp;rsquo;t always needed but does no harm if present.&lt;/p&gt;
+&lt;p&gt;This method starts to become messy and difficult to understand if a large number of wanted types are to be matched.&lt;/p&gt;
+&lt;h3 id=&#34;advanced-removal-method-with-optional-warnings&#34;&gt;Advanced Removal Method (With Optional Warnings)&lt;/h3&gt;
+&lt;p&gt;Where the full list of event types isn&amp;rsquo;t known or may expand over time, the best method may be to filter out the definite unwanted events and handle anything unexpected as well as the known and wanted events.
+This would use code similar to before to drop the specific unwanted types but handle everything else including unknown types:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:template match=&amp;quot;record[data[@name=&#39;logLevel&#39; and @value=&#39;DEBUG&#39;]]&amp;quot;/&amp;gt;
+...
+&amp;lt;xsl:template match=&amp;quot;record[data[@name=&#39;msgType&#39;
+                                   and (@value=&#39;drop1&#39; or @value=&#39;drop2&#39;)
+                                  ]]&amp;quot;/&amp;gt;
+
+&amp;lt;xsl:template match=&amp;quot;record&amp;quot;&amp;gt;
+  &amp;lt;Event&amp;gt;
+    ...
+  &amp;lt;/Event&amp;gt;
+&amp;lt;/xsl:template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, the XSLT must then be able to handle unknown arbitrary event types.
+In practice, most systems provide a consistent format for logging the “who/where/when&amp;quot; and it&amp;rsquo;s only the “what&amp;quot; that differs between event types.
+Therefore, it&amp;rsquo;s usually possible to add something like this into the XSLT:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;EventDetail&amp;gt;
+  &amp;lt;xsl:choose&amp;gt;
+    &amp;lt;xsl:when test=&amp;quot;$evtType=&#39;1&#39;&amp;quot;&amp;gt;
+      ...
+    &amp;lt;/xsl:when&amp;gt;
+    ...
+    &amp;lt;xsl:when test=&amp;quot;$evtType=&#39;n&#39;&amp;quot;&amp;gt;
+      ...
+    &amp;lt;/xsl:when&amp;gt;
+    &amp;lt;!-- Unknown event type --&amp;gt;
+    &amp;lt;xsl:otherwise&amp;gt;
+      &amp;lt;Unknown&amp;gt;
+        &amp;lt;xsl:value-of select=&amp;quot;stroom:log(‘WARN&#39;,concat(&#39;Unexpected Event Type - &#39;, $evtType))&amp;quot;/&amp;gt;
+        ...
+      &amp;lt;/Unknown&amp;gt;
+    &amp;lt;/xsl:otherwise&amp;gt;
+&amp;lt;/EventDetail&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will create an Event of type &lt;code&gt;Unknown&lt;/code&gt;.
+The Unknown node is only able to contain data name/value pairs and it should be simple to extract these directly from the intermediate XML using an &lt;code&gt;&amp;lt;xsl:for-each&amp;gt;&lt;/code&gt;.
+This will allow the attributes from the source event to populate the output event for later analysis but will also generate an error stream of level &lt;strong&gt;WARN&lt;/strong&gt; which will record the event type.
+Looking through these error streams will allow the developer to see which unexpected events have appeared then either filter them out within a top-level &lt;code&gt;&amp;lt;xsl:template match=&amp;quot;record[data[@name=&#39;...&#39; and @value=&#39;...&#39;]]&amp;quot;/&amp;gt;&lt;/code&gt; statement or to produce an additional &lt;code&gt;&amp;lt;xsl:when&amp;gt;&lt;/code&gt; within the EventDetail node to translate the type correctly.&lt;/p&gt;
+&lt;h2 id=&#34;common-mistakes&#34;&gt;Common Mistakes&lt;/h2&gt;
+&lt;h3 id=&#34;performance-issues&#34;&gt;Performance Issues&lt;/h3&gt;
+&lt;p&gt;The way that the code is written can affect its overall performance.
+This may not matter for low-volume logs but can greatly affect processing time for higher volumes.
+Consider the following example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Event Detail template --&amp;gt;
+&amp;lt;xsl:template name=&amp;quot;EventDetail&amp;quot;&amp;gt;
+  &amp;lt;xsl:variable name=&amp;quot;X&amp;quot; select=&amp;quot;...&amp;quot;/&amp;gt;
+  &amp;lt;xsl:variable name=&amp;quot;Y&amp;quot; select=&amp;quot;...&amp;quot;/&amp;gt;
+  &amp;lt;xsl:variable name=&amp;quot;Z&amp;quot; select=&amp;quot;...&amp;quot;/&amp;gt;
+
+  &amp;lt;EventDetail&amp;gt;
+    &amp;lt;xsl:choose&amp;gt;
+      &amp;lt;xsl:when test=&amp;quot;$X=&#39;A&#39; and $Y=&#39;foo&#39; and matches($Z,&#39;blah.*blah&#39;)&amp;quot;&amp;gt;
+        &amp;lt;xsl:call-template name=&amp;quot;AAA&amp;quot;/&amp;gt;
+      &amp;lt;/xsl:when&amp;gt;
+      &amp;lt;xsl:when test=&amp;quot;$X=&#39;B&#39; or $Z=&#39;ABC&#39;&amp;quot;&amp;gt;
+        &amp;lt;xsl:call-template name=&amp;quot;BBB&amp;quot;/&amp;gt;
+      &amp;lt;/xsl:when&amp;gt;
+      ...
+      &amp;lt;xsl:otherwise&amp;gt;
+        &amp;lt;xsl:call-template name=&amp;quot;ZZZ&amp;quot;/&amp;gt;
+      &amp;lt;/xsl:otherwise&amp;gt;
+    &amp;lt;/xsl:choose&amp;gt;
+  &amp;lt;/EventDetail&amp;gt;
+&amp;lt;/xsl:template&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If none of the &lt;code&gt;&amp;lt;xsl:when&amp;gt;&lt;/code&gt; choices match, particularly if there are many of them or their logic is complex then it&amp;rsquo;ll take a significant time to reach the &lt;code&gt;&amp;lt;xsl:otherwise&amp;gt;&lt;/code&gt; element.
+If this is by far the most common type of source data (i.e. none of the specific &lt;code&gt;&amp;lt;xsl:when&amp;gt;&lt;/code&gt; elements is expected to match very often) then the XSLT will be slow and inefficient.
+It&amp;rsquo;s therefore better to list the most common examples first, if known.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s also usually better to have a hierarchy of smaller numbers of options within an &lt;code&gt;&amp;lt;xsl:choose&amp;gt;&lt;/code&gt;.
+So rather than the above code, the following is likely to be more efficient:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:choose&amp;gt;
+  &amp;lt;xsl:when test=&amp;quot;$X=&#39;A&#39;&amp;quot;&amp;gt;
+    &amp;lt;xsl:choose&amp;gt;
+      &amp;lt;xsl:when test=&amp;quot;$Y=&#39;foo&#39;&amp;quot;&amp;gt;
+        &amp;lt;xsl:choose&amp;gt;
+          &amp;lt;xsl:when test=&amp;quot;matches($Z,&#39;blah.*blah&#39;)&amp;quot;&amp;gt;
+            &amp;lt;xsl:call-template name=&amp;quot;AAA&amp;quot;/&amp;gt;
+          &amp;lt;/xsl:when&amp;gt;
+          &amp;lt;xsl:otherwise&amp;gt;
+            ...
+          &amp;lt;/xsl:otherwise&amp;gt;
+        &amp;lt;/xsl:choose&amp;gt;
+      &amp;lt;/xsl:when&amp;gt;
+      ...
+    &amp;lt;/xsl:choose&amp;gt;
+    ...
+  &amp;lt;/xsl:when&amp;gt;
+  ...
+&amp;lt;/xsl:choose&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Whilst this code looks more complex, it&amp;rsquo;s far more efficient to carry out a shorter sequence of checks, each based upon the result of the previous check, rather than a single consecutive list of checks where the data may only match the final check.&lt;/p&gt;
+&lt;p&gt;Where possible, the most commonly appearing choices in the source data should be dealt with first to avoid running through multiple &lt;code&gt;&amp;lt;xsl:when&amp;gt;&lt;/code&gt; statements.&lt;/p&gt;
+&lt;h3 id=&#34;stepping-works-fine-but-errors-whilst-processing&#34;&gt;Stepping Works Fine But Errors Whilst Processing&lt;/h3&gt;
+&lt;p&gt;When data is being stepped, it&amp;rsquo;s only ever fed to the XSLT as a single event, whilst a pipeline is able to process multiple events within a single input stream.
+This apparently minor difference sometimes results in obscure errors if the translation has incorrect XPaths specified.
+Taking the following input data example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;TopLevelNode&amp;gt;
+  &amp;lt;EventNode&amp;gt;
+    &amp;lt;Field1&amp;gt;1&amp;lt;/Field1&amp;gt;
+    ...
+  &amp;lt;/EventNode&amp;gt;
+  &amp;lt;EventNode&amp;gt;
+    &amp;lt;Field1&amp;gt;2&amp;lt;/Field1&amp;gt;
+    ...
+  &amp;lt;/EventNode&amp;gt;
+  ...
+  &amp;lt;EventNode&amp;gt;
+    &amp;lt;Field1&amp;gt;n&amp;lt;/Field1&amp;gt;
+    ...
+  &amp;lt;/EventNode&amp;gt;
+&amp;lt;/TopLevelNode&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If an XSLT is stepped, all XPaths will be relative to &lt;code&gt;&amp;lt;EventNode&amp;gt;&lt;/code&gt;.
+To extract the value of Field1, you&amp;rsquo;d use something similar to &lt;code&gt;&amp;lt;xsl:value-of select=&amp;quot;Field1&amp;quot;/&amp;gt;&lt;/code&gt;.
+The following examples would also work in stepping mode or when there was only ever one Event per input stream:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;//Field1&amp;quot;/&amp;gt;
+&amp;lt;xsl:value-of select=&amp;quot;../EventNode/Field1&amp;quot;/&amp;gt;
+&amp;lt;xsl:value-of select=&amp;quot;../*/Field1&amp;quot;/&amp;gt;
+&amp;lt;xsl:value-of select=&amp;quot;/TopLevelNode/EventNode/Field1&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, if there&amp;rsquo;s ever a stream with multiple event nodes, the output from pipeline processing would be a sequence of the Field1 node values i.e. &lt;code&gt;12...n&lt;/code&gt; for each event.
+Whilst it&amp;rsquo;s easy to spot the issues in these basic examples, it&amp;rsquo;s harder to see in more complex structures.
+It&amp;rsquo;s also worth mentioning that just because your test data only ever has a single event per stream, there&amp;rsquo;s nothing to say it&amp;rsquo;ll stay this way when operational or when the next version of the software is installed on the source system, so you should always guard against using XPaths that go to the root of the tree.&lt;/p&gt;
+&lt;h2 id=&#34;unexpected-data-values-causing-schema-validation-errors&#34;&gt;Unexpected Data Values Causing Schema Validation Errors&lt;/h2&gt;
+&lt;p&gt;A source system may provide a log containing an IP address.
+All works fine for a while with the following code fragment:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;Client&amp;gt;
+  &amp;lt;IPAddress&amp;gt;
+    &amp;lt;xsl:value-of select=&amp;quot;$ipAddress&amp;quot;/&amp;gt;
+  &amp;lt;/IPAddress&amp;gt;
+&amp;lt;/Client&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, let&amp;rsquo;s assume that in certain circumstances (e.g. when accessed locally rather than over a network) the system provides a value of &lt;code&gt;localhost&lt;/code&gt; or something else that&amp;rsquo;s not an IP address.
+Whilst the majority of schema values are of type &lt;code&gt;string&lt;/code&gt;, there are still many that are limited in character set in some way.
+The most common is probably IPAddress and it must match a fairly complex regex to be valid.
+In this instance, the translation will still succeed but any schema validation elements within the pipeline will throw an error and stop the invalid event (not just the invalid element) from being output within the Events stream.
+Without the event in the stream, it&amp;rsquo;s not indexable or searchable so is effectively dropped by the system.&lt;/p&gt;
+&lt;p&gt;To resolve this issue, the XSLT should be aware of the possibility of invalid input using something like the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;Client&amp;gt;
+  &amp;lt;xsl:choose&amp;gt;
+    &amp;lt;xsl:when test=&amp;quot;matches($ipAddress,&#39;^[.0-9]+$&#39;)&amp;quot;&amp;gt;
+      &amp;lt;IPAddress&amp;gt;
+        &amp;lt;xsl:value-of select=&amp;quot;$ipAddress&amp;quot;/&amp;gt;
+      &amp;lt;/IPAddress&amp;gt;
+    &amp;lt;/xsl:when&amp;gt;
+    &amp;lt;xsl:otherwise&amp;gt;
+      &amp;lt;HostName&amp;gt;
+        &amp;lt;xsl:value-of select=&amp;quot;$ipAddress&amp;quot;/&amp;gt;
+      &amp;lt;/HostName&amp;gt;
+    &amp;lt;/xsl:otherwise&amp;gt;
+  &amp;lt;/xsl:choose&amp;gt;
+&amp;lt;/Client&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This would need to be modified slightly for IPv6 and also wouldn&amp;rsquo;t catch obvious errors such as &lt;code&gt;999.1..8888&lt;/code&gt; but if we can assume that the source will generate either a valid IP address or a valid hostname then the events will at least be available within the output stream.&lt;/p&gt;
+&lt;h2 id=&#34;testing-the-translation&#34;&gt;Testing the Translation&lt;/h2&gt;
+&lt;p&gt;When stepping a stream with more than a few events in it, it&amp;rsquo;s possible to filter the stepping rather than just moving to first/previous/next/last.
+In the bottom right hand corner of the bottom right hand pane within the XSLT tab, there&amp;rsquo;s a small &lt;em&gt;filter&lt;/em&gt; icon 
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/filter.svg&#34; 
+  title=&#34;Filter&#34; 
+  alt=&#34;filter.svg&#34;&gt;
+ that&amp;rsquo;s often not spotted.
+The icon will be &lt;strong&gt;grey&lt;/strong&gt; if no filter is set or &lt;strong&gt;green&lt;/strong&gt; if set.
+Opening this filter gives choices such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Jump to error&lt;/li&gt;
+&lt;li&gt;Jump to empty/non-empty output&lt;/li&gt;
+&lt;li&gt;Jump to specific XPath exists/contains/equals/unique&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each of these options can be used to move directly to the next/previous event that matches one of these attributes.&lt;/p&gt;
+&lt;p&gt;A filter on e.g. the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+&lt;span class=&#34;pipeline-element&#34; title=&#34;xsltFilter&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    style=&#34;max-width: 15px;&#34;
+    src=&#34;../../images/stroom-ui/pipeline/xslt.svg&#34; 
+    title=&#34;xsltFilter&#34; 
+    alt=&#34;xslt.svg&#34;&gt;
+  &lt;span&gt;xsltFilter&lt;/span&gt;
+&lt;/span&gt;
+ will still be active even if viewing the 
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+&lt;span class=&#34;pipeline-element&#34; title=&#34;dsParser&#34; &gt;
+  &lt;img
+    class=&#34;stroom-icon&#34; 
+    style=&#34;max-width: 15px;&#34;
+    src=&#34;../../images/stroom-ui/pipeline/text.svg&#34; 
+    title=&#34;dsParser&#34; 
+    alt=&#34;text.svg&#34;&gt;
+  &lt;span&gt;dsParser&lt;/span&gt;
+&lt;/span&gt;
+ or any other pipeline entry, although the filter that&amp;rsquo;s present in the parser step will not show any values.
+This may cause confusion if you lose track of which filters have been set on which steps.&lt;/p&gt;
+&lt;p&gt;Filters can be entered for multiple pipeline elements, e.g. Empty output in translationFilter and Error in schemaFilter.
+In this example, all empty outputs AND schema errors will be seen, effectively providing an OR of the filters.&lt;/p&gt;
+&lt;p&gt;The XPath syntax is fairly flexible.
+If looking for specific TypeId values, the shortcut of &lt;code&gt;//TypeId&lt;/code&gt; will work just as well as &lt;code&gt;/Events/Event/EventDetail/TypeId&lt;/code&gt;, for example.&lt;/p&gt;
+&lt;p&gt;Using filters will allow a developer to find a wide range of types of records far quicker than stepping through a large file of events.&lt;/p&gt;
 
       </description>
     </item>
