@@ -20,6 +20,7 @@ description: >
 ## Introduction
 
 This document is intended to explain how and why to produce a translation within stroom and how the translation fits into the overall processing within stroom.
+It is intended for use by the developers/admins of client systems that want to send data to stroom and need to transform their events into event-logging XML format.
 It's not intended as an XSLT tutorial so a basic XSLT knowledge must be assumed.
 The document will contain potentially useful XSLT fragments to show how certain processing activities can be carried out.
 As with most programming languages, there are likely to be multiple ways of producing the same end result with different degrees of complexity and efficiency.
@@ -32,6 +33,7 @@ The document should be read in conjunction with other online stroom documentatio
 
 The translation process for raw logs is a multi-stage process defined by the processing pipeline:
 
+
 ### Parser
 
 The parser takes raw data and converts it into an intermediate XML document format.
@@ -39,10 +41,12 @@ This is only required if source data is not already within an XML document.
 There are various standard parsers available (although not all may be available on a default stroom build) to cover the majority of standard source formats such as CSV, TSV, CSV with header row and XML fragments.
 
 The language used within the parser is defined within an XML schema located at `XML Schemas / data-splitter / data-splitter v3.0` within the tree browser.
+The data splitter schema may have been provided as part of the core schemas content pack.
+It is not present in a vanilla stroom.
 The language can be quite complex so if non-standard format logs are being parsed, it may be worth speaking to your stroom sysadmin team to at least get an initial parser configured for your data.
 
 Stroom also has a built-in parser for JSON fragments.
-This can be set either by using the _combinedParser_ and setting the `type` property to JSON or preferably by just using the _jsonParser_.
+This can be set either by using the {{< pipe-elm "combinedParser" >}} and setting the `type` property to JSON or preferably by just using the {{< pipe-elm "jsonParser" >}}.
 
 The parser has several minor limitations.
 The most significant is that it's unable to deal with records that are interleaved.
@@ -57,9 +61,10 @@ This is one of the reasons why the stroom team would prefer to be involved in th
 
 ### XSLT
 
-The actual translation takes the XML document produced by the parser and converts it to a new XML document format in what's known as “stroom schema format".
+The actual translation takes the XML document produced by the parser and converts it to a new XML document format in what's known as "stroom schema format".
 The current latest schema is documented at `XML Schemas / event-logging / event-logging v3.5.2` within the tree browser.
 The version is likely to change over time so you should aim to use the latest non-beta version.
+
 
 ### Other Pipeline Elements
 
@@ -75,7 +80,11 @@ Assuming you have a simple pipeline containing a working parser and an empty XSL
 
 ```xml
 <?xml version="1.1" encoding="UTF-8"?>
-<records xmlns="records:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="records:2 file://records-v2.0.xsd" version="2.0">
+<records
+    xmlns="records:2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="records:2 file://records-v2.0.xsd"
+    version="2.0">
   <record>
     <data value="2022-04-06 15:45:38.737" />
     <data value="fakeuser2" />
@@ -131,7 +140,12 @@ This XSLT will generate the following output data:
 
 ```xml
 <?xml version="1.1" encoding="UTF-8"?>
-<Events xmlns="event-logging:3" xmlns:stroom="stroom" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="event-logging:3 file://event-logging-v3.5.2.xsd" Version="3.5.2">
+<Events
+    xmlns="event-logging:3"
+    xmlns:stroom="stroom"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="event-logging:3 file://event-logging-v3.5.2.xsd"
+    Version="3.5.2">
   <Event>
     ...
   </Event>
@@ -202,7 +216,12 @@ This XSLT will generate the following output data which is identical to the prev
 
 ```xml
 <?xml version="1.1" encoding="UTF-8"?>
-<Events xmlns="event-logging:3" xmlns:stroom="stroom" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="event-logging:3 file://event-logging-v3.5.2.xsd" Version="3.5.2">
+<Events
+    xmlns="event-logging:3"
+    xmlns:stroom="stroom"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="event-logging:3 file://event-logging-v3.5.2.xsd"
+    Version="3.5.2">
   <Event>
     ...
   </Event>
@@ -284,6 +303,7 @@ It's important at this stage to have a reasonable understanding of which fields 
 For example - there may be an IP address within the log, but is it of the device itself or of the client?
 It's normally best to start with several examples of each event type requiring translation to ensure that fields are translated correctly.
 
+
 ## Structuring the XSLT
 
 There are many different ways of structuring the overall XSLT and it's ultimately for the developer to decide the best way based upon the requirements of their own data.
@@ -355,6 +375,7 @@ But if there's ever a possibility of e.g. logon failures, logoffs or anything el
 
 It's common that not all received events are required to be translated.  Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.
 
+
 ### Remove Unwanted Events
 
 The first method is best to use when the majority of event types are to be translated and only a few types, such as debug messages are to be dropped.
@@ -416,6 +437,7 @@ It isn't always needed but does no harm if present.
 
 This method starts to become messy and difficult to understand if a large number of wanted types are to be matched.
 
+
 ### Advanced Removal Method (With Optional Warnings)
 
 Where the full list of event types isn't known or may expand over time, the best method may be to filter out the definite unwanted events and handle anything unexpected as well as the known and wanted events.
@@ -449,10 +471,10 @@ Therefore, it's usually possible to add something like this into the XSLT:
     <xsl:when test="$evtType='n'">
       ...
     </xsl:when>
-    <!-- Unknown event type –->
+    <!-- Unknown event type -->
     <xsl:otherwise>
       <Unknown>
-        <xsl:value-of select="stroom:log(‘WARN',concat('Unexpected Event Type - ', $evtType)"/>
+        <xsl:value-of select="stroom:log(‘WARN',concat('Unexpected Event Type - ', $evtType))"/>
         ...
       </Unknown>
     </xsl:otherwise>
@@ -466,6 +488,7 @@ Looking through these error streams will allow the developer to see which unexpe
 
 
 ## Common Mistakes
+
 
 ### Performance Issues
 
@@ -501,14 +524,14 @@ If none of the `<xsl:when>` choices match, particularly if there are many of the
 If this is by far the most common type of source data (i.e. none of the specific `<xsl:when>` elements is expected to match very often) then the XSLT will be slow and inefficient.
 It's therefore better to list the most common examples first, if known.
 
-It's also usually better to have a hierarchy of  smaller numbers of options within an `<xsl:choose>`.
+It's also usually better to have a hierarchy of smaller numbers of options within an `<xsl:choose>`.
 So rather than the above code, the following is likely to be more efficient:
 
 ```xml
 <xsl:choose>
   <xsl:when test="$X='A'">
     <xsl:choose>
-      <xsl:when test="$Y='foo'>
+      <xsl:when test="$Y='foo'">
         <xsl:choose>
           <xsl:when test="matches($Z,'blah.*blah')">
             <xsl:call-template name="AAA"/>
@@ -533,7 +556,7 @@ Where possible, the most commonly appearing choices in the source data should be
 
 ### Stepping Works Fine But Errors Whilst Processing
 
-When data is being stepped, it’s only ever fed to the XSLT as a single event, whilst a pipeline is able to process multiple events within a single input stream.
+When data is being stepped, it's only ever fed to the XSLT as a single event, whilst a pipeline is able to process multiple events within a single input stream.
 This apparently minor difference sometimes results in obscure errors if the translation has incorrect XPaths specified.
 Taking the following input data example:
 
@@ -556,19 +579,19 @@ Taking the following input data example:
 ```
 
 If an XSLT is stepped, all XPaths will be relative to `<EventNode>`.
-To extract the value of Field1, you’d use something similar to ```<xsl:value-of select=”Field1”/>```.
+To extract the value of Field1, you'd use something similar to ```<xsl:value-of select="Field1"/>```.
 The following examples would also work in stepping mode or when there was only ever one Event per input stream:
 
 ```xml
-<xsl:value-of select=”//Field1”/>
-<xsl:value-of select=”../EventNode/Field1”/>
-<xsl:value-of select=”../*/Field1”/>
-<xsl:value-of select=”/TopLevelNode/EventNode/Field1”/>
+<xsl:value-of select="//Field1"/>
+<xsl:value-of select="../EventNode/Field1"/>
+<xsl:value-of select="../*/Field1"/>
+<xsl:value-of select="/TopLevelNode/EventNode/Field1"/>
 ```
 
-However, if there’s ever a stream with multiple event nodes, the output from pipeline processing would be a sequence of the Field1 node values i.e. `12...n` for each event.
-Whilst it’s easy to spot the issues in these basic examples, it’s harder to see in more complex structures.
-It’s also worth mentioning that just because your test data only ever has a single event per stream, there’s nothing to say it’ll stay this way when operational or when the next version of the software is installed on the source system, so you should always guard against using XPaths that go to the root of the tree.
+However, if there's ever a stream with multiple event nodes, the output from pipeline processing would be a sequence of the Field1 node values i.e. `12...n` for each event.
+Whilst it's easy to spot the issues in these basic examples, it's harder to see in more complex structures.
+It's also worth mentioning that just because your test data only ever has a single event per stream, there's nothing to say it'll stay this way when operational or when the next version of the software is installed on the source system, so you should always guard against using XPaths that go to the root of the tree.
 
 
 ## Unexpected Data Values Causing Schema Validation Errors
@@ -579,43 +602,43 @@ All works fine for a while with the following code fragment:
 ```xml
 <Client>
   <IPAddress>
-    <xsl:value-of select=”$ipAddress”/>
+    <xsl:value-of select="$ipAddress"/>
   </IPAddress>
 </Client>
 ```
 
-However, let’s assume that in certain circumstances (e.g. when accessed locally rather than over a network) the system provides a value of `localhost` or something else that’s not an IP address.
+However, let's assume that in certain circumstances (e.g. when accessed locally rather than over a network) the system provides a value of `localhost` or something else that's not an IP address.
 Whilst the majority of schema values are of type `string`, there are still many that are limited in character set in some way.
 The most common is probably IPAddress and it must match a fairly complex regex to be valid.
 In this instance, the translation will still succeed but any schema validation elements within the pipeline will throw an error and stop the invalid event (not just the invalid element) from being output within the Events stream.
-Without the event in the stream, it’s not indexable or searchable so is effectively dropped by the system.
+Without the event in the stream, it's not indexable or searchable so is effectively dropped by the system.
 
 To resolve this issue, the XSLT should be aware of the possibility of invalid input using something like the following:
 
 ```xml
 <Client>
   <xsl:choose>
-    <xsl:when test=”matches($ipAddress,’^[.0-9]+$’)”>
+    <xsl:when test="matches($ipAddress,'^[.0-9]+$')">
       <IPAddress>
-        <xsl:value-of select=”$ipAddress”/>
+        <xsl:value-of select="$ipAddress"/>
       </IPAddress>
     </xsl:when>
     <xsl:otherwise>
       <HostName>
-        <xsl:value-of select=”$ipAddress”/>
+        <xsl:value-of select="$ipAddress"/>
       </HostName>
     </xsl:otherwise>
   </xsl:choose>
 </Client>
 ```
 
-This would need to be modified slightly for IPv6 and also wouldn’t catch obvious errors such as `999.1..8888` but if we can assume that the source will generate either a valid IP address or a valid hostname then the events will at least be available within the output stream.
+This would need to be modified slightly for IPv6 and also wouldn't catch obvious errors such as `999.1..8888` but if we can assume that the source will generate either a valid IP address or a valid hostname then the events will at least be available within the output stream.
 
 
 ## Testing the Translation
 
-When stepping a stream with more than a few events in it, it’s possible to filter the stepping rather than just moving to first/previous/next/last.
-In the bottom right hand corner of the bottom right hand pane within the XSLT tab, there’s a small *filter* icon {{< stroom-icon "filter.svg" >}} that’s often not spotted.
+When stepping a stream with more than a few events in it, it's possible to filter the stepping rather than just moving to first/previous/next/last.
+In the bottom right hand corner of the bottom right hand pane within the XSLT tab, there's a small *filter* icon {{< stroom-icon "filter.svg" >}} that's often not spotted.
 The icon will be **grey** if no filter is set or **green** if set.
 Opening this filter gives choices such as:
 
@@ -625,7 +648,7 @@ Opening this filter gives choices such as:
 
 Each of these options can be used to move directly to the next/previous event that matches one of these attributes.
 
-A filter on e.g. the {{< pipe-elm "xsltFilter" >}} will still be active even if viewing the {{< pipe-elm "DSParser" >}} or any other pipeline entry, although the filter that’s present in the parser step will not show any values.
+A filter on e.g. the {{< pipe-elm "xsltFilter" >}} will still be active even if viewing the {{< pipe-elm "DSParser" >}} or any other pipeline entry, although the filter that's present in the parser step will not show any values.
 This may cause confusion if you lose track of which filters have been set on which steps.
 
 Filters can be entered for multiple pipeline elements, e.g. Empty output in translationFilter and Error in schemaFilter.
