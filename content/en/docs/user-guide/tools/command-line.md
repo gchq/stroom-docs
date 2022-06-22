@@ -55,7 +55,7 @@ This runs as a foreground process.
 ## `create_account`
 
 ```bash
-java -jar /absolute/path/to/stroom-app.jar create_account --u USER --p PASSWORD [OPTIONS] path/to/config.yml
+java -jar /absolute/path/to/stroom-app.jar create_account --user USER --password PASSWORD [OPTIONS] path/to/config.yml
 ```
 Where the named arguments are:
 
@@ -87,7 +87,7 @@ This command will also run any necessary database migrations to ensure it is wor
 ## `reset_password`
 
 ```bash
-java -jar /absolute/path/to/stroom-app.jar reset_password --u USER --p PASSWORD path/to/config.yml
+java -jar /absolute/path/to/stroom-app.jar reset_password --user USER --password PASSWORD path/to/config.yml
 ```
 Where the named arguments are:
 
