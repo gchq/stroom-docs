@@ -74,7 +74,7 @@ populate_branches_arr() {
   local release_branches
   # Sort them by major then minor part
   release_branches="$( \
-    git branch \
+    git branch --all \
     | grep \
       --only-matching \
       --perl-regexp \
