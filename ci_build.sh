@@ -664,7 +664,7 @@ main() {
 
   popd
 
-  # In the absence of url rewriting on github pages create an index.html
+  # In the absence of url rewriting on github pages create a symlink
   # that does a redirect to the latest version e.g. / => /7.1
   create_root_redirect_page
 

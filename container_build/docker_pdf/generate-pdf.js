@@ -18,6 +18,8 @@ console.log('Generating stroom-docs.pdf for url: ', url);
   });
   const page = await browser.newPage();
 
+  // https://stackoverflow.com/questions/56757822/puppeteer-throws-unhandledpromiserejectionwarning-timeouterror-navigation-tim
+  await page.setDefaultNavigationTimeout(0);
   await page.goto(url, {
     waitUntil: 'networkidle2',
   });
