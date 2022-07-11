@@ -282,6 +282,7 @@ main() {
   echo -e "${GREEN}Building image ${BLUE}${image_tag}${GREEN}" \
     "(this may take a while on first run)${NC}"
   docker buildx build \
+    --progress=auto \
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
@@ -322,6 +323,7 @@ main() {
     --workdir "${dest_dir}" \
     --name "stroom_puppeteer-build-env" \
     --network "hugo-stroom" \
+    --init \
     --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
     --env "DOCKER_PASSWORD=${DOCKER_PASSWORD}" \
