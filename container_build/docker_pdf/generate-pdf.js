@@ -18,12 +18,19 @@ console.log('Generating stroom-docs.pdf for url: ', url);
   });
   const page = await browser.newPage();
 
-  // https://stackoverflow.com/questions/56757822/puppeteer-throws-unhandledpromiserejectionwarning-timeouterror-navigation-tim
-  await page.setDefaultNavigationTimeout(0);
+  await page.setDefaultNavigationTimeout(300000);
   await page.goto(url, {
-    waitUntil: 'networkidle2',
-  });
-  await page.pdf({ path: 'stroom-docs.pdf', format: 'a4' });
+    waitUntil: 'networkidle2'});
+
+  // If networkidle2 doesn't work then try
+  //await page.goto(url, {
+    //waitUntil: 'domcontentloaded'});
+  //await page.waitForSelector('h1');
+
+  await page.pdf({ 
+    path: 'stroom-docs.pdf', 
+    format: 'a4', 
+    timeout: 300000 });
 
   await browser.close();
 })();
