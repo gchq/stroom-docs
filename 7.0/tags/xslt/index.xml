@@ -1418,7 +1418,12 @@ You many need to wait a bit for the data to be flushed to the index shards.&lt;/
       <description>
         
         
-        &lt;p&gt;By including the following namespace:&lt;/p&gt;
+        &lt;!-- 
+TODO
+This file needs splitting up with one file per function.
+These files can be generated from annotations in the Java code (see https://github.com/gchq/stroom/issues/2932)
+--&gt;
+&lt;p&gt;By including the following namespace:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;xmlns:s=&amp;quot;stroom&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;E.g.&lt;/p&gt;
@@ -1444,16 +1449,24 @@ You many need to wait a bit for the data to be flushed to the index shards.&lt;/
 &lt;li&gt;&lt;code&gt;decode-url(String encodedUrl)&lt;/code&gt; - Decode the provided url.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#dictionary&#34;&gt;&lt;code&gt;dictionary(String name)&lt;/code&gt;&lt;/a&gt; - Loads the contents of the named dictionary for use within the translation&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;encode-url(String url)&lt;/code&gt; - Encode the provided url.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;feed-attribute(String attributeKey)&lt;/code&gt; - The value for the supplied feed &lt;code&gt;attributeKey&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;feed-name()&lt;/code&gt; - Name of the feed for the data being processed&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fetch-json(String url)&lt;/code&gt; - Simplistic version of &lt;code&gt;http-call&lt;/code&gt; that sends a request to the passed &lt;code&gt;url&lt;/code&gt; and converts the JSON response body to XML using &lt;code&gt;json-to-xml&lt;/code&gt;.
+Currently does not support SSL configuration like &lt;code&gt;http-call&lt;/code&gt; does.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String date, String pattern)&lt;/code&gt;&lt;/a&gt; - Format a date that uses the specified pattern using the default time zone&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String date, String pattern, String timeZone)&lt;/code&gt;&lt;/a&gt; - Format a date that uses the specified pattern with the specified time zone&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String date, String patternIn, String timeZoneIn, String patternOut, String timeZoneOut)&lt;/code&gt;&lt;/a&gt; - Parse a date with the specified input pattern and time zone and format the output with the specified output pattern and time zone&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#format-date&#34;&gt;&lt;code&gt;format-date(String milliseconds)&lt;/code&gt;&lt;/a&gt; - Format a date that is specified as a number of milliseconds since a standard base time known as &amp;ldquo;the epoch&amp;rdquo;, namely January 1, 1970, 00:00:00 GMT&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#put-and-get&#34;&gt;&lt;code&gt;get(String key)&lt;/code&gt;&lt;/a&gt; - Returns the value associated with a key that has been stored using put()&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#put-and-get&#34;&gt;&lt;code&gt;get(String key)&lt;/code&gt;&lt;/a&gt; - Returns the value associated with a &lt;code&gt;key&lt;/code&gt; that has been stored in a map using the &lt;a href=&#34;#put-and-get&#34;&gt;&lt;code&gt;put()&lt;/code&gt;&lt;/a&gt; function.
+The map is in the scope of the current pipeline process so values do not live after the stream has been processed.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;hash(String value)&lt;/code&gt; - Hash a string value using the default &lt;code&gt;SHA-256&lt;/code&gt; algorithm and no salt&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;hash(String value, String algorithm, String salt)&lt;/code&gt; - Hash a string value using the specified hashing algorithm and supplied salt value. Supported hashing algorithms include &lt;code&gt;SHA-256&lt;/code&gt;, &lt;code&gt;SHA-512&lt;/code&gt;, &lt;code&gt;MD5&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hash(String value, String algorithm, String salt)&lt;/code&gt; - Hash a string value using the specified hashing algorithm and supplied salt value.
+Supported hashing algorithms include &lt;code&gt;SHA-256&lt;/code&gt;, &lt;code&gt;SHA-512&lt;/code&gt;, &lt;code&gt;MD5&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;hex-to-dec(String hex)&lt;/code&gt; - Convert hex to dec representation&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;hex-to-oct(String hex)&lt;/code&gt; - Convert hex to oct representation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host-address(String hostname)&lt;/code&gt; - Convert a hostname into an IP address.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host-name(String ipAddress)&lt;/code&gt; - Convert an IP address into a hostname.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#http-call&#34;&gt;&lt;code&gt;http-call(String url, String headers, String mediaType, String data, String clientConfig)&lt;/code&gt;&lt;/a&gt; - Makes an HTTP(S) request to a remote server.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;json-to-xml(String json)&lt;/code&gt; - Returns an XML representation of the supplied JSON value for use in XPath expressions&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;line-from()&lt;/code&gt; - The line in the input that the current record begins on (1 based).&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;line-to()&lt;/code&gt; - The line in the input that the current record ends at.&lt;/li&gt;
@@ -1469,6 +1482,8 @@ You many need to wait a bit for the data to be flushed to the index shards.&lt;/
 &lt;li&gt;&lt;code&gt;numeric-ip(String ipAddress)&lt;/code&gt; - Convert an IP address to a numeric representation for range comparison&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;part-no()&lt;/code&gt; - The current part within a multi part aggregated input stream (AKA the substream number) (1 based)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#parse-uri&#34;&gt;&lt;code&gt;parse-uri(String URI)&lt;/code&gt;&lt;/a&gt; - Returns an XML structure of the URI providing &lt;code&gt;authority&lt;/code&gt;, &lt;code&gt;fragment&lt;/code&gt;, &lt;code&gt;host&lt;/code&gt;, &lt;code&gt;path&lt;/code&gt;, &lt;code&gt;port&lt;/code&gt;, &lt;code&gt;query&lt;/code&gt;, &lt;code&gt;scheme&lt;/code&gt;, &lt;code&gt;schemeSpecificPart&lt;/code&gt;, and &lt;code&gt;userInfo&lt;/code&gt; components if present.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pipeline-name()&lt;/code&gt; - Get the name of the pipeline currently processing the stream.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#pointIsInsideXYPolygon&#34;&gt;&lt;code&gt;pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)&lt;/code&gt;&lt;/a&gt; - Get the name of the pipeline currently processing the stream.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;random()&lt;/code&gt; - Get a system generated random number between 0 and 1.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;record-no()&lt;/code&gt; - The current record number within the current part (substream) (1 based).&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;search-id()&lt;/code&gt; - Get the id of the batch search when a pipeline is processing as part of a batch search&lt;/li&gt;
@@ -1608,6 +1623,142 @@ British Summer Time).&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;s:format-date(&#39;1269270011640&#39;)&amp;quot;/&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.&lt;/p&gt;
+&lt;h2 id=&#34;http-call&#34;&gt;http-call()&lt;/h2&gt;
+&lt;p&gt;Executes an HTTP(S) request to a remote server and returns the response.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;http-call(String url, [String headers], [String mediaType], [String data], [String clientConfig])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The arguments are as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - The URL to send the request to.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;headers&lt;/code&gt; - A newline (&lt;code&gt;&amp;amp;#10;&lt;/code&gt;) delimited list of HTTP headers to send.
+Each header is of the form &lt;code&gt;key:value&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mediaType&lt;/code&gt; - The media (or MIME) type of the request &lt;code&gt;data&lt;/code&gt;, e.g. &lt;code&gt;application/json&lt;/code&gt;.
+If not set &lt;code&gt;application/json; charset=utf-8&lt;/code&gt; will be used.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;data&lt;/code&gt; - The data to send.
+The data type should be consistent with &lt;code&gt;mediaType&lt;/code&gt;.
+Supplying the &lt;code&gt;data&lt;/code&gt; argument means a POST request method will be used rather than the default GET.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clientConfig&lt;/code&gt; - A JSON object containing the configuration for the HTTP client to use, including any SSL configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The function returns the response as XML with namespace &lt;code&gt;stroom-http&lt;/code&gt;.
+The XML includes the body of the response in addition to the status code, success status, message and any headers.&lt;/p&gt;
+&lt;h3 id=&#34;clientconfig&#34;&gt;&lt;code&gt;clientConfig&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;The client can be configured using a JSON object containing various optional configuration items.
+The following is an example of the client configuration object with all keys populated.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;callTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;,
+  &amp;quot;connectionTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;,
+  &amp;quot;followRedirects&amp;quot;: false,
+  &amp;quot;followSslRedirects&amp;quot;: false,
+  &amp;quot;httpProtocols&amp;quot;: [
+    &amp;quot;http/2&amp;quot;,
+    &amp;quot;http/1.1&amp;quot;
+  ],
+  &amp;quot;readTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;,
+  &amp;quot;retryOnConnectionFailure&amp;quot;: true,
+  &amp;quot;sslConfig&amp;quot;: {
+    &amp;quot;keyStorePassword&amp;quot;: &amp;quot;password&amp;quot;,
+    &amp;quot;keyStorePath&amp;quot;: &amp;quot;/some/path/client.jks&amp;quot;,
+    &amp;quot;keyStoreType&amp;quot;: &amp;quot;JKS&amp;quot;,
+    &amp;quot;trustStorePassword&amp;quot;: &amp;quot;password&amp;quot;,
+    &amp;quot;trustStorePath&amp;quot;: &amp;quot;/some/path/ca.jks&amp;quot;,
+    &amp;quot;trustStoreType&amp;quot;: &amp;quot;JKS&amp;quot;,
+    &amp;quot;sslProtocol&amp;quot;: &amp;quot;TLSv1.2&amp;quot;,
+    &amp;quot;hostnameVerificationEnabled&amp;quot;: false
+  },
+  &amp;quot;writeTimeout&amp;quot;: &amp;quot;PT30S&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you are using two-way SSL then you may need to set the protocol to &lt;code&gt;HTTP/1.1&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;  &amp;quot;httpProtocols&amp;quot;: [
+    &amp;quot;http/1.1&amp;quot;
+  ],
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;example-output&#34;&gt;Example output&lt;/h3&gt;
+&lt;p&gt;The following is an example of the XML returned from the &lt;code&gt;http-call&lt;/code&gt; function:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;response xmlns=&amp;quot;stroom-http&amp;quot;&amp;gt;
+  &amp;lt;successful&amp;gt;true&amp;lt;/successful&amp;gt;
+  &amp;lt;code&amp;gt;200&amp;lt;/code&amp;gt;
+  &amp;lt;message&amp;gt;OK&amp;lt;/message&amp;gt;
+  &amp;lt;headers&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;cache-control&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;public, max-age=600&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;connection&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;keep-alive&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;content-length&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;108&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;content-type&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;application/json;charset=iso-8859-1&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;date&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;Wed, 29 Jun 2022 13:03:38 GMT&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;expires&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;Wed, 29 Jun 2022 13:13:38 GMT&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;server&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;nginx/1.21.6&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;vary&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;Accept-Encoding&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;x-content-type-options&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;nosniff&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;x-frame-options&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;sameorigin&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;header&amp;gt;
+      &amp;lt;key&amp;gt;x-xss-protection&amp;lt;/key&amp;gt;
+      &amp;lt;value&amp;gt;1; mode=block&amp;lt;/value&amp;gt;
+    &amp;lt;/header&amp;gt;
+  &amp;lt;/headers&amp;gt;
+  &amp;lt;body&amp;gt;{&amp;quot;buildDate&amp;quot;:&amp;quot;2022-06-29T09:22:41.541886118Z&amp;quot;,&amp;quot;buildVersion&amp;quot;:&amp;quot;SNAPSHOT&amp;quot;,&amp;quot;upDate&amp;quot;:&amp;quot;2022-06-29T11:06:26.869Z&amp;quot;}&amp;lt;/body&amp;gt;
+&amp;lt;/response&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;example-usage&#34;&gt;Example usage&lt;/h3&gt;
+&lt;p&gt;This is an example of how to use the function call in your XSLT.
+It is recommended to place the &lt;code&gt;clientConfig&lt;/code&gt; JSON in a 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#dictionary&#34; title=&#34;Glossary entry for Dictionary&#34;&gt;
+    &lt;span&gt;Dictionary&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ to make it easier to edit and to avoid having to escape all the quotes.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;  ...
+  &amp;lt;xsl:template match=&amp;quot;record&amp;quot;&amp;gt;
+    ...
+    &amp;lt;!-- Read the client config from a Dictionary into a variable --&amp;gt;
+    &amp;lt;xsl:variable name=&amp;quot;clientConfig&amp;quot; select=&amp;quot;stroom:dictionary(&#39;HTTP Client Config&#39;)&amp;quot; /&amp;gt;
+    &amp;lt;!-- Make the HTTP call and store the response in a variable --&amp;gt;
+    &amp;lt;xsl:variable name=&amp;quot;response&amp;quot; select=&amp;quot;stroom:http-call(&#39;https://reqbin.com/echo&#39;, null, null, null, $clientConfig)&amp;quot; /&amp;gt;
+    &amp;lt;!-- Apply &#39;response&#39; templates to the response --&amp;gt;
+    &amp;lt;xsl:apply-templates mode=&amp;quot;response&amp;quot; select=&amp;quot;$response&amp;quot; /&amp;gt;
+    ...
+  &amp;lt;/xsl:template&amp;gt;
+  
+  &amp;lt;xsl:template mode=&amp;quot;response&amp;quot; match=&amp;quot;http:response&amp;quot;&amp;gt;
+    &amp;lt;!-- Extract just the body of the response --&amp;gt;
+    &amp;lt;val&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;./http:body/text()&amp;quot; /&amp;gt;&amp;lt;/val&amp;gt;
+  &amp;lt;/xsl:template&amp;gt;
+  ...
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;link&#34;&gt;link()&lt;/h2&gt;
 &lt;p&gt;Create a string that represents a hyperlink for display in a dashboard table.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;link(url)
@@ -1702,10 +1853,12 @@ If no value is found at any point in the chain then that results in no value bei
 &lt;p&gt;In order to use nested map lookups each intermediate map must contain simple string values.
 The last map in the chain can either contain string values or XML fragment values.&lt;/p&gt;
 &lt;h2 id=&#34;put-and-get&#34;&gt;put() and get()&lt;/h2&gt;
-&lt;p&gt;You can put values into a map using the put() function. These values can then be retrieved
-later using the get() function. Values are stored against a key name so that multiple values
-can be stored. These functions can be used for many purposes but are most commonly used to
-count a number of records that meet certain criteria.&lt;/p&gt;
+&lt;p&gt;You can put values into a map using the &lt;code&gt;put()&lt;/code&gt; function.
+These values can then be retrieved later using the &lt;code&gt;get()&lt;/code&gt; function.
+Values are stored against a key name so that multiple values can be stored.
+These functions can be used for many purposes but are most commonly used to count a number of records that meet certain criteria.&lt;/p&gt;
+&lt;p&gt;The map is in the scope of the current pipeline process so values do not live after the stream has been processed.
+Also, the map will only contain entries that were &lt;code&gt;put()&lt;/code&gt; within the current pipeline process.&lt;/p&gt;
 &lt;p&gt;An example of how to count records is shown below:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Get the current record count --&amp;gt;
 &amp;lt;xsl:variable name=&amp;quot;currentCount&amp;quot; select=&amp;quot;number(s:get(&#39;count&#39;))&amp;quot; /&amp;gt;
@@ -1760,6 +1913,21 @@ count a number of records that meet certain criteria.&lt;/p&gt;
   &amp;lt;userInfo xmlns=&amp;quot;uri&amp;quot;&amp;gt;foo:bar&amp;lt;/userInfo&amp;gt;
 &amp;lt;/URIDetail&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;pointisinsidexypolygon&#34;&gt;pointIsInsideXYPolygon()&lt;/h2&gt;
+&lt;p&gt;Returns true if the specified point is inside the specified polygon.
+Useful for determining if a user is inside a physical zone based on their location and the boundary of that zone.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Arguments:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xPos&lt;/code&gt; - The X value of the point to be tested.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;yPos&lt;/code&gt; - The Y value of the point to be tested.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xPolyData&lt;/code&gt; - A sequence of X values that define the polygon.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;yPolyData&lt;/code&gt; - A sequence of Y values that define the polygon.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The list of values supplied for &lt;code&gt;xPolyData&lt;/code&gt; must correspond with the list of values supplied for &lt;code&gt;yPolyData&lt;/code&gt;.
+The points that define the polygon must be provided in order, i.e. starting from one point on the polygon and then traveling round the path of the polygon until it gets back to the beginning.&lt;/p&gt;
+&lt;!-- TODO add example XSLT --&gt;
 
       </description>
     </item>

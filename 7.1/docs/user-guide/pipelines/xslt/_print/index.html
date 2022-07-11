@@ -286,7 +286,12 @@ schemas within the application.</p>
     
   <h1 id="pg-00fcef074a5fb84079d17e4049c5a7f8">1 - XSLT Functions</h1>
     <div class="lead">Custom XSLT functions available in Stroom.</div>
-	<p>By including the following namespace:</p>
+	<!-- 
+TODO
+This file needs splitting up with one file per function.
+These files can be generated from annotations in the Java code (see https://github.com/gchq/stroom/issues/2932)
+-->
+<p>By including the following namespace:</p>
 <pre><code class="language-xml">xmlns:s=&quot;stroom&quot;
 </code></pre>
 <p>E.g.</p>
@@ -312,16 +317,24 @@ schemas within the application.</p>
 <li><code>decode-url(String encodedUrl)</code> - Decode the provided url.</li>
 <li><a href="#dictionary"><code>dictionary(String name)</code></a> - Loads the contents of the named dictionary for use within the translation</li>
 <li><code>encode-url(String url)</code> - Encode the provided url.</li>
+<li><code>feed-attribute(String attributeKey)</code> - The value for the supplied feed <code>attributeKey</code>.</li>
 <li><code>feed-name()</code> - Name of the feed for the data being processed</li>
+<li><code>fetch-json(String url)</code> - Simplistic version of <code>http-call</code> that sends a request to the passed <code>url</code> and converts the JSON response body to XML using <code>json-to-xml</code>.
+Currently does not support SSL configuration like <code>http-call</code> does.</li>
 <li><a href="#format-date"><code>format-date(String date, String pattern)</code></a> - Format a date that uses the specified pattern using the default time zone</li>
 <li><a href="#format-date"><code>format-date(String date, String pattern, String timeZone)</code></a> - Format a date that uses the specified pattern with the specified time zone</li>
 <li><a href="#format-date"><code>format-date(String date, String patternIn, String timeZoneIn, String patternOut, String timeZoneOut)</code></a> - Parse a date with the specified input pattern and time zone and format the output with the specified output pattern and time zone</li>
 <li><a href="#format-date"><code>format-date(String milliseconds)</code></a> - Format a date that is specified as a number of milliseconds since a standard base time known as &ldquo;the epoch&rdquo;, namely January 1, 1970, 00:00:00 GMT</li>
-<li><a href="#put-and-get"><code>get(String key)</code></a> - Returns the value associated with a key that has been stored using put()</li>
+<li><a href="#put-and-get"><code>get(String key)</code></a> - Returns the value associated with a <code>key</code> that has been stored in a map using the <a href="#put-and-get"><code>put()</code></a> function.
+The map is in the scope of the current pipeline process so values do not live after the stream has been processed.</li>
 <li><code>hash(String value)</code> - Hash a string value using the default <code>SHA-256</code> algorithm and no salt</li>
-<li><code>hash(String value, String algorithm, String salt)</code> - Hash a string value using the specified hashing algorithm and supplied salt value. Supported hashing algorithms include <code>SHA-256</code>, <code>SHA-512</code>, <code>MD5</code>.</li>
+<li><code>hash(String value, String algorithm, String salt)</code> - Hash a string value using the specified hashing algorithm and supplied salt value.
+Supported hashing algorithms include <code>SHA-256</code>, <code>SHA-512</code>, <code>MD5</code>.</li>
 <li><code>hex-to-dec(String hex)</code> - Convert hex to dec representation</li>
 <li><code>hex-to-oct(String hex)</code> - Convert hex to oct representation</li>
+<li><code>host-address(String hostname)</code> - Convert a hostname into an IP address.</li>
+<li><code>host-name(String ipAddress)</code> - Convert an IP address into a hostname.</li>
+<li><a href="#http-call"><code>http-call(String url, String headers, String mediaType, String data, String clientConfig)</code></a> - Makes an HTTP(S) request to a remote server.</li>
 <li><code>json-to-xml(String json)</code> - Returns an XML representation of the supplied JSON value for use in XPath expressions</li>
 <li><code>line-from()</code> - The line in the input that the current record begins on (1 based).</li>
 <li><code>line-to()</code> - The line in the input that the current record ends at.</li>
@@ -337,6 +350,8 @@ schemas within the application.</p>
 <li><code>numeric-ip(String ipAddress)</code> - Convert an IP address to a numeric representation for range comparison</li>
 <li><code>part-no()</code> - The current part within a multi part aggregated input stream (AKA the substream number) (1 based)</li>
 <li><a href="#parse-uri"><code>parse-uri(String URI)</code></a> - Returns an XML structure of the URI providing <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code>, and <code>userInfo</code> components if present.</li>
+<li><code>pipeline-name()</code> - Get the name of the pipeline currently processing the stream.</li>
+<li><a href="#pointIsInsideXYPolygon"><code>pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)</code></a> - Get the name of the pipeline currently processing the stream.</li>
 <li><code>random()</code> - Get a system generated random number between 0 and 1.</li>
 <li><code>record-no()</code> - The current record number within the current part (substream) (1 based).</li>
 <li><code>search-id()</code> - Get the id of the batch search when a pipeline is processing as part of a batch search</li>
@@ -476,6 +491,142 @@ British Summer Time).</p>
 <pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('1269270011640')&quot;/&gt;
 </code></pre>
 <p>Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.</p>
+<h2 id="http-call">http-call()</h2>
+<p>Executes an HTTP(S) request to a remote server and returns the response.</p>
+<pre><code class="language-text">http-call(String url, [String headers], [String mediaType], [String data], [String clientConfig])
+</code></pre>
+<p>The arguments are as follows:</p>
+<ul>
+<li><code>url</code> - The URL to send the request to.</li>
+<li><code>headers</code> - A newline (<code>&amp;#10;</code>) delimited list of HTTP headers to send.
+Each header is of the form <code>key:value</code>.</li>
+<li><code>mediaType</code> - The media (or MIME) type of the request <code>data</code>, e.g. <code>application/json</code>.
+If not set <code>application/json; charset=utf-8</code> will be used.</li>
+<li><code>data</code> - The data to send.
+The data type should be consistent with <code>mediaType</code>.
+Supplying the <code>data</code> argument means a POST request method will be used rather than the default GET.</li>
+<li><code>clientConfig</code> - A JSON object containing the configuration for the HTTP client to use, including any SSL configuration.</li>
+</ul>
+<p>The function returns the response as XML with namespace <code>stroom-http</code>.
+The XML includes the body of the response in addition to the status code, success status, message and any headers.</p>
+<h3 id="clientconfig"><code>clientConfig</code></h3>
+<p>The client can be configured using a JSON object containing various optional configuration items.
+The following is an example of the client configuration object with all keys populated.</p>
+<pre><code class="language-json">{
+  &quot;callTimeout&quot;: &quot;PT30S&quot;,
+  &quot;connectionTimeout&quot;: &quot;PT30S&quot;,
+  &quot;followRedirects&quot;: false,
+  &quot;followSslRedirects&quot;: false,
+  &quot;httpProtocols&quot;: [
+    &quot;http/2&quot;,
+    &quot;http/1.1&quot;
+  ],
+  &quot;readTimeout&quot;: &quot;PT30S&quot;,
+  &quot;retryOnConnectionFailure&quot;: true,
+  &quot;sslConfig&quot;: {
+    &quot;keyStorePassword&quot;: &quot;password&quot;,
+    &quot;keyStorePath&quot;: &quot;/some/path/client.jks&quot;,
+    &quot;keyStoreType&quot;: &quot;JKS&quot;,
+    &quot;trustStorePassword&quot;: &quot;password&quot;,
+    &quot;trustStorePath&quot;: &quot;/some/path/ca.jks&quot;,
+    &quot;trustStoreType&quot;: &quot;JKS&quot;,
+    &quot;sslProtocol&quot;: &quot;TLSv1.2&quot;,
+    &quot;hostnameVerificationEnabled&quot;: false
+  },
+  &quot;writeTimeout&quot;: &quot;PT30S&quot;
+}
+</code></pre>
+<p>If you are using two-way SSL then you may need to set the protocol to <code>HTTP/1.1</code>.</p>
+<pre><code class="language-json">  &quot;httpProtocols&quot;: [
+    &quot;http/1.1&quot;
+  ],
+</code></pre>
+<h3 id="example-output">Example output</h3>
+<p>The following is an example of the XML returned from the <code>http-call</code> function:</p>
+<pre><code class="language-xml">&lt;response xmlns=&quot;stroom-http&quot;&gt;
+  &lt;successful&gt;true&lt;/successful&gt;
+  &lt;code&gt;200&lt;/code&gt;
+  &lt;message&gt;OK&lt;/message&gt;
+  &lt;headers&gt;
+    &lt;header&gt;
+      &lt;key&gt;cache-control&lt;/key&gt;
+      &lt;value&gt;public, max-age=600&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;connection&lt;/key&gt;
+      &lt;value&gt;keep-alive&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;content-length&lt;/key&gt;
+      &lt;value&gt;108&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;content-type&lt;/key&gt;
+      &lt;value&gt;application/json;charset=iso-8859-1&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;date&lt;/key&gt;
+      &lt;value&gt;Wed, 29 Jun 2022 13:03:38 GMT&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;expires&lt;/key&gt;
+      &lt;value&gt;Wed, 29 Jun 2022 13:13:38 GMT&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;server&lt;/key&gt;
+      &lt;value&gt;nginx/1.21.6&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;vary&lt;/key&gt;
+      &lt;value&gt;Accept-Encoding&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;x-content-type-options&lt;/key&gt;
+      &lt;value&gt;nosniff&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;x-frame-options&lt;/key&gt;
+      &lt;value&gt;sameorigin&lt;/value&gt;
+    &lt;/header&gt;
+    &lt;header&gt;
+      &lt;key&gt;x-xss-protection&lt;/key&gt;
+      &lt;value&gt;1; mode=block&lt;/value&gt;
+    &lt;/header&gt;
+  &lt;/headers&gt;
+  &lt;body&gt;{&quot;buildDate&quot;:&quot;2022-06-29T09:22:41.541886118Z&quot;,&quot;buildVersion&quot;:&quot;SNAPSHOT&quot;,&quot;upDate&quot;:&quot;2022-06-29T11:06:26.869Z&quot;}&lt;/body&gt;
+&lt;/response&gt;
+</code></pre>
+<h3 id="example-usage">Example usage</h3>
+<p>This is an example of how to use the function call in your XSLT.
+It is recommended to place the <code>clientConfig</code> JSON in a 
+
+
+
+<span class="glossary-link">
+  <a href="../../../../../docs/glossary/#dictionary" title="Glossary entry for Dictionary">
+    <span>Dictionary</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ to make it easier to edit and to avoid having to escape all the quotes.</p>
+<pre><code class="language-xml">  ...
+  &lt;xsl:template match=&quot;record&quot;&gt;
+    ...
+    &lt;!-- Read the client config from a Dictionary into a variable --&gt;
+    &lt;xsl:variable name=&quot;clientConfig&quot; select=&quot;stroom:dictionary('HTTP Client Config')&quot; /&gt;
+    &lt;!-- Make the HTTP call and store the response in a variable --&gt;
+    &lt;xsl:variable name=&quot;response&quot; select=&quot;stroom:http-call('https://reqbin.com/echo', null, null, null, $clientConfig)&quot; /&gt;
+    &lt;!-- Apply 'response' templates to the response --&gt;
+    &lt;xsl:apply-templates mode=&quot;response&quot; select=&quot;$response&quot; /&gt;
+    ...
+  &lt;/xsl:template&gt;
+  
+  &lt;xsl:template mode=&quot;response&quot; match=&quot;http:response&quot;&gt;
+    &lt;!-- Extract just the body of the response --&gt;
+    &lt;val&gt;&lt;xsl:value-of select=&quot;./http:body/text()&quot; /&gt;&lt;/val&gt;
+  &lt;/xsl:template&gt;
+  ...
+</code></pre>
 <h2 id="link">link()</h2>
 <p>Create a string that represents a hyperlink for display in a dashboard table.</p>
 <pre><code>link(url)
@@ -570,10 +721,12 @@ If no value is found at any point in the chain then that results in no value bei
 <p>In order to use nested map lookups each intermediate map must contain simple string values.
 The last map in the chain can either contain string values or XML fragment values.</p>
 <h2 id="put-and-get">put() and get()</h2>
-<p>You can put values into a map using the put() function. These values can then be retrieved
-later using the get() function. Values are stored against a key name so that multiple values
-can be stored. These functions can be used for many purposes but are most commonly used to
-count a number of records that meet certain criteria.</p>
+<p>You can put values into a map using the <code>put()</code> function.
+These values can then be retrieved later using the <code>get()</code> function.
+Values are stored against a key name so that multiple values can be stored.
+These functions can be used for many purposes but are most commonly used to count a number of records that meet certain criteria.</p>
+<p>The map is in the scope of the current pipeline process so values do not live after the stream has been processed.
+Also, the map will only contain entries that were <code>put()</code> within the current pipeline process.</p>
 <p>An example of how to count records is shown below:</p>
 <pre><code class="language-xml">&lt;!-- Get the current record count --&gt;
 &lt;xsl:variable name=&quot;currentCount&quot; select=&quot;number(s:get('count'))&quot; /&gt;
@@ -628,6 +781,21 @@ count a number of records that meet certain criteria.</p>
   &lt;userInfo xmlns=&quot;uri&quot;&gt;foo:bar&lt;/userInfo&gt;
 &lt;/URIDetail&gt;
 </code></pre>
+<h2 id="pointisinsidexypolygon">pointIsInsideXYPolygon()</h2>
+<p>Returns true if the specified point is inside the specified polygon.
+Useful for determining if a user is inside a physical zone based on their location and the boundary of that zone.</p>
+<pre><code class="language-text">pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)
+</code></pre>
+<p>Arguments:</p>
+<ul>
+<li><code>xPos</code> - The X value of the point to be tested.</li>
+<li><code>yPos</code> - The Y value of the point to be tested.</li>
+<li><code>xPolyData</code> - A sequence of X values that define the polygon.</li>
+<li><code>yPolyData</code> - A sequence of Y values that define the polygon.</li>
+</ul>
+<p>The list of values supplied for <code>xPolyData</code> must correspond with the list of values supplied for <code>yPolyData</code>.
+The points that define the polygon must be provided in order, i.e. starting from one point on the polygon and then traveling round the path of the polygon until it gets back to the beginning.</p>
+<!-- TODO add example XSLT -->
 
 </div>
 
