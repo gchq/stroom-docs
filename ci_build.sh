@@ -364,7 +364,7 @@ create_root_redirect_page() {
   ln -s "./${latest_version}/" "latest" 
   popd
 
-  # No make a redirect to the symlink so we open the latest
+  # Now make a redirect to the symlink so we open the latest
   # version by default
   sed \
     --regexp-extended \
@@ -376,6 +376,12 @@ create_root_redirect_page() {
   # in which case dirs prefixed with '_' are ignored breaking the print 
   # functionality
   touch "${NEW_GH_PAGES_DIR}/.nojekyll"
+
+  # Make sure the google site verification file is in gh-pages
+  # so google can index the site
+  cp \
+    "${BUILD_DIR}/${GOOGLE_VERIFICATION_FILENAME}" \
+    "${NEW_GH_PAGES_DIR}/"
 }
 
 create_release_tag() {
@@ -583,6 +589,7 @@ main() {
   local GIT_API_URL="https://api.github.com/repos/gchq/stroom-docs"
   local CONFIG_FILENAME="config.toml"
   local COMMIT_SHA_FILENAME="commit.sha1"
+  local GOOGLE_VERIFICATION_FILENAME="googlebc2798bfa34e6596.html"
   local have_any_release_branches_changed=false
   # These are the sections we don't want in old/single versions of the site
   # Can't remove community at the mo as some pages in docs link to it
@@ -657,7 +664,7 @@ main() {
 
   popd
 
-  # In the absence of url rewriting on github pages create an index.html
+  # In the absence of url rewriting on github pages create a symlink
   # that does a redirect to the latest version e.g. / => /7.1
   create_root_redirect_page
 

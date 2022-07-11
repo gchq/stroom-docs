@@ -74,9 +74,11 @@ populate_branches_arr() {
   local release_branches
   # Sort them by major then minor part
   release_branches="$( \
-    git branch \
-    | sed 's/..//' \
-    | grep -E "^[0-9]+\.[0-9]+$" \
+    git branch --all \
+    | grep \
+      --only-matching \
+      --perl-regexp \
+      "(?<=^  remotes/origin/)[0-9]+\.[0-9]+$" \
     | sort -t . -k 1,1n -k 2,2n )"
 
   for branch in ${release_branches}; do
