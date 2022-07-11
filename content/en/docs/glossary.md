@@ -74,6 +74,12 @@ Data Splitter is a {{< glossary "pipeline" >}} element for converting text data 
 See the [User Guide]({{< relref "docs/user-guide/data-splitter" >}}) or the [Pipeline Element Reference]({{< relref "user-guide/pipelines/element-reference/#dsparser" >}}) for more detail.
 
 
+## Dictionary
+
+A entity for storing static content, e.g. lists of terms for use in a query with the `in dictionary` condition.
+They can also be used to hold arbitrary text for use in {{< glossary "XSLT" "XSLTs" >}} with the [dictionary()]({{< relref "user-guide/pipelines/xslt/xslt-functions#dictionary" >}})
+
+
 ## DocRef
 
 A DocRef is an identifier used to identify most documents/entities in Stroom, e.g. An XSLT will have a DocRef.
