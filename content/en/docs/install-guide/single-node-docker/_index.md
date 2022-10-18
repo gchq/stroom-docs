@@ -2,7 +2,7 @@
 title: "Single Node Docker Installation"
 linkTitle: "Single Node (Docker)"
 weight: 10
-date: 2022-01-25
+date: 2022-10-18
 tags: 
   - TODO
   - docker
@@ -96,11 +96,11 @@ The Stroom stack comes in a number of different variants:
 * **stroom_core_test** - If you are just evaluating Stroom or just want to see it running then download the `stroom_core_test*.tar.gz` stack which includes some pre-loaded content.
 * **stroom_core** - If it is for an actual deployment of Stroom then download `stroom_core*.tar.gz`, which has no content and requires some configuration.
 
-Using `stroom_core_test-v7.0-beta.175.tar.gz` as an example:
+Using `stroom_core_test-v7.1-beta.15.tar.gz` as an example:
 
 {{< command-line "stroomuser" "localhost" >}}
 # Define the version to download
-VERSION="v7.0-beta.175"; STACK="stroom_core_test"
+VERSION="v7.1-beta.15"; STACK="stroom_core_test"
 (out)
 # Download and extract the Stroom stack
 curl -sL "https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz" | tar xz
@@ -116,7 +116,7 @@ Alternatively if you understand the risks of redirecting web sourced content dir
 
 {{< command-line "stroomuser" "localhost" >}}
 # Download and extract the laStroom stack
-bash <(curl -s https://gchq.github.io/stroom-resources/v7.0/get_stroom.sh)
+bash <(curl -s https://gchq.github.io/stroom-resources/v7.1/get_stroom.sh)
 (out)
 # Navigate into the new stack directory
 cd stroom_core_test/stroom_core_test*
