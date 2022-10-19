@@ -11,6 +11,7 @@ RUN apt-get update \
     && apt-get install -y wget gnupg \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && echo "installing apt-get packages" \
     && apt-get update \
     && apt-get install -y \
       curl \
@@ -25,20 +26,13 @@ RUN apt-get update \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# Install puppeteer so it's available in the container.
 RUN npm init -y \
+    && echo "installing npm packages" \
     && npm install \
       puppeteer \
       html2canvas \
-      jspdf
-
-# Run separately so docker can cache the layer to speed up image re-creation
-RUN apt-get update && apt-get install -y \
-    curl \
-    wait-for-it \
-  && echo "installing npm packages" \
-  && npm install html2canvas jspdf \
-  && mkdir -p /builder/repo
+      jspdf \
+    && mkdir -p /builder/repo
 
 # Pass in the uid/gid of the running user so we can use the same user id
 # in the container so that any files created can be read outside the 
@@ -71,7 +65,7 @@ RUN echo "USER_ID: [$USER_ID]" \
   && chown -R "${USER_ID}:${GROUP_ID}" ./node_modules \
   && chown -R "${USER_ID}:${GROUP_ID}" ./package.json \
   && chown -R "${USER_ID}:${GROUP_ID}" ./package-lock.json \
-  && echo "Done"
+  && echo "Done setting up users/groups"
 
 ENV PATH="${PATH}:/builder/node_modules/.bin"
 
@@ -79,3 +73,11 @@ COPY --chown=$USER_ID:$GROUP_ID generate-pdf.js /builder/
 
 USER $USER_ID
 
+# This needs to be run after we switch to user $USER_ID so it can see the locally
+# installed chromium.
+RUN \
+    cd /builder/node_modules/puppeteer \
+    && pwd \
+    && ls -l \
+    && npm install \
+    && cd /builder
