@@ -282,7 +282,7 @@ main() {
   echo -e "${GREEN}Building image ${BLUE}${image_tag}${GREEN}" \
     "(this may take a while on first run)${NC}"
   docker buildx build \
-    --progress=auto \
+    --progress=plain \
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
