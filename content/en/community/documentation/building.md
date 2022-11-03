@@ -22,12 +22,12 @@ It also ensures that the local build environment matches that used in GitHub act
 
 `docker-buildx` is a plugin for docker that allows caching of the docker images to speed up the build process.
 This may be installed by your package manager when you install `docker` or Docker Desktop, or you may need to install it separately.
-You can confirm you have `buildx` by doing the following:
+You can confirm you have `buildx` by executing the following command which should give you output similar to this:
 
 {{< command-line >}}
 docker buildx version
+(out)github.com/docker/buildx 0.9.1 ed00243a0ce2a0aee75311b06e32d33b44729689
 {{</ command-line >}}
-
 
 It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.
 
