@@ -1906,9 +1906,46 @@ The content is pre-dominantly authored in Markdown with some Hugo shortcodes.</p
   </a>
 </span>
 </li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://docs.docker.com/build/buildx/install/" target="_blank" class="" style="" title="docker-buildx (external link)">
+    <span>docker-buildx</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
 </ul>
-<p>Docker is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
+<p>Docker or Docker Desktop is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.</p>
+<p><code>docker-buildx</code> is a plugin for docker that allows caching of the docker images to speed up the build process.
+This may be installed by your package manager when you install <code>docker</code> or Docker Desktop, or you may need to install it separately.
+You can confirm you have <code>buildx</code> by executing the following command which should give you output similar to this:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker buildx version
+(out)github.com/docker/buildx 0.9.1 ed00243a0ce2a0aee75311b06e32d33b44729689</code></pre>
+</div>
+
 <p>It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.</p>
 <p>It is assumed that you have a reasonable understanding of how to use Git and Github, specifically:</p>
 <ul>
@@ -2247,7 +2284,7 @@ Documentation changes for an as yet unreleased Stroom version would be performed
 <h2 id="versioned-site-configuration">Versioned Site Configuration</h2>
 <p>To configure each version of the site so that it knows what version it is and what the other versions are you need to edit <code>config.toml</code>.
 This needs to be done on each branch in a way that is appropriate to each branch.
-If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published and then merged the changes up the chain, e.g. legacy =&gt; 7.0 =&gt; 7.1 =&gt; 7.2 =&gt; 8.0 =&gt; master.</p>
+If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published, and then <a href="#merging-changes">merge the changes</a> the changes up the chain, e.g. legacy =&gt; 7.0 =&gt; 7.1 =&gt; 7.2 =&gt; 8.0 =&gt; master.</p>
 <p>The following config properties needed to be amended on each branch.
 This example is from the <em>7.1</em> branch and is based on there being versions <em>legacy</em>, <em>7.0</em> and <em>7.1</em>, with <em>7.1</em> being the latest.</p>
 <div class="card-deck mb-4">
@@ -2370,7 +2407,10 @@ This example is from the <em>7.1</em> branch and is based on there being version
 </div>
 <p>In the same example scenario as above, the <code>config.toml</code> file for the <em>7.0</em> branch (which is not the latest version in this case) would be:</p>
 <h2 id="automated-build-process">Automated build process</h2>
-<p>The site is built by Gihub Actions on a nightly basis.
+<p>On every commit Github Actions will build the version of the site that the commit is on to ensure that Hugo can convert the content into a static site.
+It will also build all the other versioned branches to check that they work.</p>
+<p>On a nightly basis, Github Actions will check to see if there have been any commits on the <code>master</code> branch since the last publish.
+If there have been it will proceed with full build and publish.
 This schedule is controlled by 
 
 
@@ -2434,6 +2474,39 @@ This schedule is controlled by
 <p>Although the build is run on the <code>master</code> branch it will use the <code>HEAD</code> commit of each of the release branches to build the site(s).</p>
 <p>The build and release can be forced by adding the text <code>[publish]</code> to the commit message on <code>master</code>.
 This is useful in testing, or if updated documentation is needed for any reason.</p>
+<h2 id="merging-changes">Merging changes</h2>
+<p>When you make changes to one of the version branches (<code>7.0</code>, <code>7.1</code>, etc.), either directly or with a pull request from a feature branch, you will need to merge the changes up through each of the versions until they reach <code>master</code>.
+Merging up through multiple branches is tedious when done manually so you can use the <code>merge_up.sh</code> script in the root of this repo.</p>
+<p>You can either run it without any arguments to merge from <code>legacy</code> all the way up to <code>master</code> with all branches in between.
+Alternatively you can supply the name of the branch to start from, e.g. <code>./merge_up.sh 7.0</code>, which will save it doing a pointless merge up from older branches that have not changed.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./merge_up.sh 7.0
+(out)Merge_up will merge changes up this chain of branches:
+(out)
+(out)7.0 -&gt; 7.1 -&gt; master
+(out)
+(out)It will stop if there are merge conflicts.
+(out)Press [y|Y] to continue, or ctrl-c to exit...</code></pre>
+</div>
+
+<p>When you run it, it will tell you the merge path and get you to confirm.
+If there are no merge conflicts then it will perform all the merges and return you to your current branch.
+If there are conflicts at any stage then it will stop at that point.
+You will then need to fix the conflicts and commit the merge.
+You can then run <code>merge_up.sh</code> again to do the rest of the merges.</p>
 <h2 id="where-to-make-changes">Where to make changes</h2>
 <p>The nature of a change to the site/documentation will determine which git branch the change is made on.</p>
 <h3 id="changes-specific-to-a-stroom-version">Changes specific to a Stroom version</h3>
