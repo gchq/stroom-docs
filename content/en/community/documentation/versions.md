@@ -32,7 +32,7 @@ The `master` branch is NOT published to GitHub Pages or included in the release 
 
 To configure each version of the site so that it knows what version it is and what the other versions are you need to edit `config.toml`.
 This needs to be done on each branch in a way that is appropriate to each branch.
-If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published and then merged the changes up the chain, e.g. legacy => 7.0 => 7.1 => 7.2 => 8.0 => master.
+If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published, and then [merge the changes]({{< relref "#merging-changes" >}}) the changes up the chain, e.g. legacy => 7.0 => 7.1 => 7.2 => 8.0 => master.
 
 The following config properties needed to be amended on each branch.
 This example is from the _7.1_ branch and is based on there being versions _legacy_, _7.0_ and _7.1_, with _7.1_ being the latest.
@@ -126,7 +126,11 @@ In the same example scenario as above, the `config.toml` file for the _7.0_ bran
 
 ## Automated build process
 
-The site is built by Gihub Actions on a nightly basis.
+On every commit Github Actions will build the version of the site that the commit is on to ensure that Hugo can convert the content into a static site.
+It will also build all the other versioned branches to check that they work.
+
+On a nightly basis, Github Actions will check to see if there have been any commits on the `master` branch since the last publish.
+If there have been it will proceed with full build and publish.
 This schedule is controlled by {{< external-link "build_and_release.yml" "https://github.com/gchq/stroom-docs/blob/master/.github/workflows/build_and_release.yml" >}} on the `master` branch.
 
 This automated build will look for any branches matching the pattern `(legacy|[0-9]+\.[0-9]+)` and for each one will do the following:
@@ -153,6 +157,31 @@ Although the build is run on the `master` branch it will use the `HEAD` commit o
 
 The build and release can be forced by adding the text `[publish]` to the commit message on `master`.
 This is useful in testing, or if updated documentation is needed for any reason.
+
+
+## Merging changes
+
+When you make changes to one of the version branches (`7.0`, `7.1`, etc.), either directly or with a pull request from a feature branch, you will need to merge the changes up through each of the versions until they reach `master`.
+Merging up through multiple branches is tedious when done manually so you can use the `merge_up.sh` script in the root of this repo.
+
+You can either run it without any arguments to merge from `legacy` all the way up to `master` with all branches in between.
+Alternatively you can supply the name of the branch to start from, e.g. `./merge_up.sh 7.0`, which will save it doing a pointless merge up from older branches that have not changed.
+
+{{< command-line >}}
+./merge_up.sh 7.0
+(out)Merge_up will merge changes up this chain of branches:
+(out)
+(out)7.0 -> 7.1 -> master
+(out)
+(out)It will stop if there are merge conflicts.
+(out)Press [y|Y] to continue, or ctrl-c to exit...
+{{</ command-line >}}
+
+When you run it, it will tell you the merge path and get you to confirm.
+If there are no merge conflicts then it will perform all the merges and return you to your current branch.
+If there are conflicts at any stage then it will stop at that point.
+You will then need to fix the conflicts and commit the merge.
+You can then run `merge_up.sh` again to do the rest of the merges.
 
 
 ## Where to make changes
