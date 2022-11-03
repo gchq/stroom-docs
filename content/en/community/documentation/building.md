@@ -15,9 +15,19 @@ In order to build and contribute to the documentation you will need the followin
 
 * bash
 * {{< external-link "Docker" "https://docs.docker.com/get-docker/" >}} 
+* {{< external-link "docker-buildx" "https://docs.docker.com/build/buildx/install/" >}}
 
-Docker is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
+Docker or Docker Desktop is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.
+
+`docker-buildx` is a plugin for docker that allows caching of the docker images to speed up the build process.
+This may be installed by your package manager when you install `docker` or Docker Desktop, or you may need to install it separately.
+You can confirm you have `buildx` by doing the following:
+
+{{< command-line >}}
+docker buildx version
+{{</ command-line >}}
+
 
 It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.
 
