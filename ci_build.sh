@@ -350,6 +350,31 @@ remove_unwanted_sections() {
   done
 }
 
+# Copies the site map from the latest branch down to the root
+# and changes all the <loc> tags in the sitemap to point sub-paths of
+# the latest branch dir
+create_root_sitemap() {
+  echo -e "${GREEN}Creating root sitemap file for latest version" \
+    "[${BLUE}${latest_version}${GREEN}]${NC}"
+  pushd "${NEW_GH_PAGES_DIR}"
+
+  echo "Copying sitemap.xml file to root"
+  cp "./${latest_version}/sitemap.xml" ./
+
+  echo "Changing <loc> tags in sitemap.xml to point to /${latest_version}/"
+  sed \
+    -i \
+    "s#<loc>/#<loc>${GH_PAGES_BASE_URL}/latest/#" \
+    ./sitemap.xml
+
+  echo "Copying robots.txt file to root"
+  cp "./${latest_version}/robots.txt" ./
+  echo "Adding sitemap location to robots.txt"
+  echo "Sitemap: ${GH_PAGES_BASE_URL}/sitemap.xml" >> ./robots.txt
+
+  popd
+}
+
 create_root_redirect_page() {
   echo -e "${GREEN}Creating root redirect page with latest version" \
     "[${BLUE}${latest_version}${GREEN}]${NC}"
@@ -587,6 +612,7 @@ main() {
   #local BASE_URL_BASE="/stroom-docs"
   local GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
   local GIT_API_URL="https://api.github.com/repos/gchq/stroom-docs"
+  local GH_PAGES_BASE_URL="https://gchq.github.io/stroom-docs"
   local CONFIG_FILENAME="config.toml"
   local COMMIT_SHA_FILENAME="commit.sha1"
   local GOOGLE_VERIFICATION_FILENAME="googlebc2798bfa34e6596.html"
@@ -663,6 +689,8 @@ main() {
   done
 
   popd
+
+  create_root_sitemap
 
   # In the absence of url rewriting on github pages create a symlink
   # that does a redirect to the latest version e.g. / => /7.1
