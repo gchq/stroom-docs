@@ -367,10 +367,13 @@ create_root_sitemap() {
     "s#<loc>/#<loc>${GH_PAGES_BASE_URL}/latest/#" \
     ./sitemap.xml
 
-  echo "Copying robots.txt file to root"
+  echo "Creating robots.txt file in root"
   cp "./${latest_version}/robots.txt" ./
   echo "Adding sitemap location to robots.txt"
-  echo "Sitemap: ${GH_PAGES_BASE_URL}/sitemap.xml" >> ./robots.txt
+  {
+    echo "User-agent: *" 
+    echo "Sitemap: ${GH_PAGES_BASE_URL}/sitemap.xml" 
+  } > ./robots.txt
 
   popd
 }
