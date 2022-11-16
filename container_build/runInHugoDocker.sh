@@ -111,7 +111,7 @@ main() {
         # Build the site and output to ./public
         "bash" \
         "-c"  \
-        "hugo --buildDrafts" \
+        "hugo --environment production" \
       )
         #"hugo --buildDrafts --baseURL '/stroom-docs'" \
     elif [[ $# -ge 1 ]] && [[ "$1" = "build" ]]; then
@@ -121,7 +121,7 @@ main() {
         # Build the site and output to ./public
         "bash" \
         "-c"  \
-        "hugo --buildDrafts --baseUrl \"$2\"" \
+        "hugo --environment production --baseUrl \"$2\"" \
       )
     else
       run_cmd=( \
