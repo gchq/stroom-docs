@@ -350,18 +350,21 @@ remove_unwanted_sections() {
 }
 
 set_meta_robots_for_all_version_branches() {
-  local combined_site_root_dir="$1"; shift
 
   echo -e "${GREEN}Setting meta robots for all versioned brances in" \
-    "${BLUE}${combined_site_root_dir}${NC}"
+    "${BLUE}${NEW_GH_PAGES_DIR}${NC}"
 
   for branch_name in "${release_branches[@]}"; do
-    local site_html_root_dir="${combined_site_root_dir}/${branch_name}"; shift
-
-    # Replace "index, follow" with "noindex, nofollow" so our version branches
-    # that are not the latest one don't get indexed. We only want the 'latest'
-    # content to be indexed by google.
-    set_meta_robots "${combined_site_root_dir}/${branch_name}" "no"
+    local site_html_root_dir="${NEW_GH_PAGES_DIR}/${branch_name}"; shift
+    if [[ -d "${site_html_root_dir}" ]]; then
+      # Replace "index, follow" with "noindex, nofollow" so our version branches
+      # that are not the latest one don't get indexed. We only want the 'latest'
+      # content to be indexed by google.
+      set_meta_robots "${site_html_root_dir}" "no"
+    else
+      echo -e "${RED}Error${NC} Can't find dir ${site_html_root_dir}"
+      exit 1
+    fi
   done
 }
 
@@ -758,7 +761,7 @@ main() {
 
   copy_latest_to_root
 
-  set_meta_robots_for_all_version_branches "${NEW_GH_PAGES_DIR}"
+  set_meta_robots_for_all_version_branches
 
   echo -e "${GREEN}have_any_release_branches_changed:" \
     "${BLUE}${have_any_release_branches_changed}${NC}"
