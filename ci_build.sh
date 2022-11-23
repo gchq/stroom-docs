@@ -226,7 +226,6 @@ assemble_version() {
 
     local branch_clone_dir="${GIT_WORK_DIR}/${branch_name}"
 
-
     echo "::group::Cloning branch ${branch_name}"
     echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
       "${BLUE}${GIT_REPO_URL}${GREEN} into ${BLUE}${branch_clone_dir}${NC}"
@@ -350,6 +349,29 @@ remove_unwanted_sections() {
   done
 }
 
+set_no_follow_no_index() {
+  local combined_site_root_dir="$1"; shift
+
+  for branch_name in "${release_branches[@]}"; do
+    local site_html_root_dir="${combined_site_root_dir}/${branch_name}"; shift
+
+    # Replace "index, follow" with "noindex, nofollow" so our version branches
+    # that are not the latest one don't get indexed. We only want the 'latest'
+    # dir to be indexed by google.
+
+    echo -e "${GREEN}Setting noindex/nofollow in ${BLUE}${site_html_root_dir}${NC}"
+    find \
+        "${site_html_root_dir}" \
+        -name "*.html" \
+        -print0 \
+      | xargs \
+        -0 \
+        sed \
+        -i \
+        's#<meta name="robots" content="index, follow">#<meta name="robots" content="noindex, nofollow">#'
+  done
+}
+
 # Copies the site map from the latest branch down to the root
 # and changes all the <loc> tags in the sitemap to point sub-paths of
 # the latest branch dir
@@ -378,22 +400,27 @@ create_root_sitemap() {
   popd
 }
 
-create_root_redirect_page() {
-  echo -e "${GREEN}Creating root redirect page with latest version" \
-    "[${BLUE}${latest_version}${GREEN}]${NC}"
+create_latest_dir() {
 
-  # Create a symlink so we have something like
+  # Copy the latest version into a dir called 'latest'
+  # That way we can make all other dirs noindex/nofollow to stop
+  # google finding them
+  #
   # /
   #   /7.0/
   #   /7.1/
   #   /7.2/
   #   /latest/ -> /7.2/
   pushd "${NEW_GH_PAGES_DIR}"
-  ln -s "./${latest_version}/" "latest" 
+  echo -e "${GREEN}Coping dir ${BLUE}${latest_version}${GREEN} to" \
+    "${BLUE}./latest${NC}"
+  cp -r "./${latest_version}" "./latest" 
   popd
 
-  # Now make a redirect to the symlink so we open the latest
+  # Now make a redirect to the 'latest' dir so we open the latest
   # version by default
+  echo -e "${GREEN}Creating root redirect page with latest version" \
+    "[${BLUE}${latest_version}${GREEN}]${NC}"
   sed \
     --regexp-extended \
     --expression "s/<<<LATEST_VERSION>>>/latest/g" \
@@ -697,7 +724,9 @@ main() {
 
   # In the absence of url rewriting on github pages create a symlink
   # that does a redirect to the latest version e.g. / => /7.1
-  create_root_redirect_page
+  create_latest_dir
+
+  set_no_follow_no_index "${NEW_GH_PAGES_DIR}"
 
   echo -e "${GREEN}have_any_release_branches_changed:" \
     "${BLUE}${have_any_release_branches_changed}${NC}"
