@@ -352,10 +352,6 @@ remove_unwanted_sections() {
 set_meta_robots_for_all_version_branches() {
   local combined_site_root_dir="$1"; shift
 
-  # Ensure we have index and follow for the latest site
-  # Unfortunately this will also descend into each version branch
-  set_meta_robots "${combined_site_root_dir}/${branch_name}" ""
-
   for branch_name in "${release_branches[@]}"; do
     local site_html_root_dir="${combined_site_root_dir}/${branch_name}"; shift
 
