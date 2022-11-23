@@ -349,27 +349,43 @@ remove_unwanted_sections() {
   done
 }
 
-set_no_follow_no_index() {
+set_meta_robots_for_all_version_branches() {
   local combined_site_root_dir="$1"; shift
+
+  # Ensure we have index and follow for the latest site
+  # Unfortunately this will also descend into each version branch
+  set_meta_robots "${combined_site_root_dir}/${branch_name}" ""
 
   for branch_name in "${release_branches[@]}"; do
     local site_html_root_dir="${combined_site_root_dir}/${branch_name}"; shift
 
     # Replace "index, follow" with "noindex, nofollow" so our version branches
     # that are not the latest one don't get indexed. We only want the 'latest'
-    # dir to be indexed by google.
-
-    echo -e "${GREEN}Setting noindex/nofollow in ${BLUE}${site_html_root_dir}${NC}"
-    find \
-        "${site_html_root_dir}" \
-        -name "*.html" \
-        -print0 \
-      | xargs \
-        -0 \
-        sed \
-        -i \
-        's#<meta name="robots" content="index, follow">#<meta name="robots" content="noindex, nofollow">#'
+    # content to be indexed by google.
+    set_meta_robots "${combined_site_root_dir}/${branch_name}" ""
   done
+}
+
+set_meta_robots() {
+  local site_html_root_dir="$1"; shift
+  local prefix="$1"; shift
+
+  local old="<meta name=\"robots\" content=\"(no)?index, (no)?follow\">"
+  local new="<meta name=\"robots\" content=\"${prefix}index, ${prefix}follow\">"
+
+  echo -e "${GREEN}Setting meta robots to ${prefix}index/${prefix}follow" \
+    "in ${BLUE}${site_html_root_dir}${NC}"
+  
+  find \
+      "${site_html_root_dir}" \
+      -name "*.html" \
+      -print0 \
+    | xargs \
+      -0 \
+      sed \
+      -i \
+      -E \
+      "s#${old}#${new}#"
 }
 
 # Copies the site map from the latest branch down to the root
@@ -386,7 +402,7 @@ create_root_sitemap() {
   echo "Changing <loc> tags in sitemap.xml to point to /${latest_version}/"
   sed \
     -i \
-    "s#<loc>/#<loc>${GH_PAGES_BASE_URL}/latest/#" \
+    "s#<loc>/#<loc>${GH_PAGES_BASE_URL}/#" \
     ./sitemap.xml
 
   echo "Creating robots.txt file in root"
@@ -400,32 +416,44 @@ create_root_sitemap() {
   popd
 }
 
-create_latest_dir() {
+copy_latest_to_root() {
 
-  # Copy the latest version into a dir called 'latest'
+  # Copy the latest version content down to the root dir
   # That way we can make all other dirs noindex/nofollow to stop
-  # google finding them
+  # google finding them.
+  # Don't just rename it, so that we keep a numbered version on
+  # gh-pages that we can check the commit for, (see has_release_branch_changed)
   #
-  # /
+  # /    <--copy-of-- /7.2/
   #   /7.0/
   #   /7.1/
   #   /7.2/
-  #   /latest/ -> /7.2/
-  pushd "${NEW_GH_PAGES_DIR}"
-  echo -e "${GREEN}Coping dir ${BLUE}${latest_version}${GREEN} to" \
-    "${BLUE}./latest${NC}"
-  cp -r "./${latest_version}" "./latest" 
-  popd
+
+  local src="${NEW_GH_PAGES_DIR}/${latest_version}"
+  local latest_temp_dir="${NEW_GH_PAGES_DIR}/latest_temp"
+
+  # Copy into temp so when we call set_meta_robots it doesn't descend
+  # into the other version dirs
+  echo -e "${GREEN}Coping dir ${BLUE}${src}${GREEN} to ${BLUE}${latest_temp_dir}${NC}"
+  cp -r "${src}" "${latest_temp_dir}/" 
+
+  # Ensure we have index and follow for the latest site content
+  set_meta_robots "${latest_temp_dir}" ""
+
+  # Now move the latest content down to root
+  echo -e "${GREEN}Moving contents of ${BLUE}${latest_temp_dir}${GREEN} to" \
+    "${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
+  mv "${latest_temp_dir}"/* "${NEW_GH_PAGES_DIR}/"
 
   # Now make a redirect to the 'latest' dir so we open the latest
   # version by default
-  echo -e "${GREEN}Creating root redirect page with latest version" \
-    "[${BLUE}${latest_version}${GREEN}]${NC}"
-  sed \
-    --regexp-extended \
-    --expression "s/<<<LATEST_VERSION>>>/latest/g" \
-    "${BUILD_DIR}/index.html.template" \
-    > "${NEW_GH_PAGES_DIR}/index.html"
+  #echo -e "${GREEN}Creating root redirect page with latest version" \
+    #"[${BLUE}${latest_version}${GREEN}]${NC}"
+  #sed \
+    #--regexp-extended \
+    #--expression "s/<<<LATEST_VERSION>>>/latest/g" \
+    #"${BUILD_DIR}/index.html.template" \
+    #> "${NEW_GH_PAGES_DIR}/index.html"
 
   # This is to stop gh-pages treating the content as Jekyll content
   # in which case dirs prefixed with '_' are ignored breaking the print 
@@ -722,11 +750,9 @@ main() {
 
   create_root_sitemap
 
-  # In the absence of url rewriting on github pages create a symlink
-  # that does a redirect to the latest version e.g. / => /7.1
-  create_latest_dir
+  copy_latest_to_root
 
-  set_no_follow_no_index "${NEW_GH_PAGES_DIR}"
+  set_meta_robots_for_all_version_branches "${NEW_GH_PAGES_DIR}"
 
   echo -e "${GREEN}have_any_release_branches_changed:" \
     "${BLUE}${have_any_release_branches_changed}${NC}"
