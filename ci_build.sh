@@ -367,6 +367,7 @@ set_meta_robots_for_all_version_branches() {
 }
 
 set_meta_robots() {
+  echo "args: ${*}"
   local site_html_root_dir="$1"; shift
   local prefix="$1"; shift
   echo "prefix: ${prefix}"
