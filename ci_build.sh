@@ -362,7 +362,7 @@ set_meta_robots_for_all_version_branches() {
     # Replace "index, follow" with "noindex, nofollow" so our version branches
     # that are not the latest one don't get indexed. We only want the 'latest'
     # content to be indexed by google.
-    set_meta_robots "${combined_site_root_dir}/${branch_name}" ""
+    set_meta_robots "${combined_site_root_dir}/${branch_name}" "no"
   done
 }
 
@@ -441,7 +441,7 @@ copy_latest_to_root() {
   set_meta_robots "${latest_temp_dir}" ""
 
   # Now move the latest content down to root
-  echo -e "${GREEN}Moving contents of ${BLUE}${latest_temp_dir}${GREEN} to" \
+  echo -e "${GREEN}Moving contents of ${BLUE}${latest_temp_dir}/${GREEN} to" \
     "${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
   mv "${latest_temp_dir}"/* "${NEW_GH_PAGES_DIR}/"
 
@@ -458,10 +458,13 @@ copy_latest_to_root() {
   # This is to stop gh-pages treating the content as Jekyll content
   # in which case dirs prefixed with '_' are ignored breaking the print 
   # functionality
-  touch "${NEW_GH_PAGES_DIR}/.nojekyll"
+  local no_jekyll_file="${NEW_GH_PAGES_DIR}/.nojeykll"
+  echo -e "${GREEN}Ensuring presence of ${BLUE}${no_jekyll_file}/${NC}"
+  touch "${no_jekyll_file}"
 
   # Make sure the google site verification file is in gh-pages
   # so google can index the site
+  echo -e "${GREEN}Copy google verification file${NC}"
   cp \
     "${BUILD_DIR}/${GOOGLE_VERIFICATION_FILENAME}" \
     "${NEW_GH_PAGES_DIR}/"
