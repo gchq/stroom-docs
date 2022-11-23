@@ -152,6 +152,21 @@ In Stroom Fields can be the Fields in an {{< glossary "Index" >}} (or other quer
 See {{< glossary "Processor Filter" >}}.
 
 
+## Group (Users)
+
+A named group of users to which application and document permissions can be assigned.
+Users can belong to multiple groups.
+Groups allow permissions to be assigned once and affect multiple users.
+
+
+## Identity Provider (IDP)
+
+An _Identity Provider_ is a system or service that can authenticate a user and assert their identity.
+_Identity providers_ can support single sign on (SSO), which allows the user to sign in once to the _Identity Provider_ so they are then authenticated to all systems using that IDP.
+Examples of identity providers are Google, Cognito, KeyCloack.
+Stroom has its own built in IDP or can be configured to use a 3rd party IDP.
+
+
 ## Parser
 
 A Parser is a {{< glossary "Pipeline" >}} element for parsing {{< glossary "Raw Events" >}} into a structured form.
