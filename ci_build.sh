@@ -356,6 +356,8 @@ set_meta_robots_for_all_version_branches() {
 
   for branch_name in "${release_branches[@]}"; do
     local site_html_root_dir="${NEW_GH_PAGES_DIR}/${branch_name}"; shift
+    echo "site_html_root_dir: ${site_html_root_dir}"
+
     if [[ -d "${site_html_root_dir}" ]]; then
       # Replace "index, follow" with "noindex, nofollow" so our version branches
       # that are not the latest one don't get indexed. We only want the 'latest'
