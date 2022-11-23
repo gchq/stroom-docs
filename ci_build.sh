@@ -369,9 +369,12 @@ set_meta_robots_for_all_version_branches() {
 set_meta_robots() {
   local site_html_root_dir="$1"; shift
   local prefix="$1"; shift
+  echo "prefix: ${prefix}"
 
   local old="<meta name=\"robots\" content=\"(no)?index, (no)?follow\">"
   local new="<meta name=\"robots\" content=\"${prefix}index, ${prefix}follow\">"
+  echo "old: ${old}"
+  echo "new: ${new}"
 
   echo -e "${GREEN}Setting meta robots to ${prefix}index/${prefix}follow" \
     "in ${BLUE}${site_html_root_dir}${NC}"
