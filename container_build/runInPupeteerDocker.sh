@@ -187,11 +187,10 @@ main() {
 
   if [ "${bash_cmd}" = "bash" ]; then
     run_cmd=( "bash" )
-  elif [ "${bash_cmd}" = "PDF" ]; then
-    #run_cmd=( "node" "../generate-pdf.js" "http://site:1313/all-content/" )
 
-    # Hugo is running in another container so use the service name 'site' as
-    # the host
+  elif [[ "${bash_cmd}" = "PDF" || "${bash_cmd}" = "pdf" ]]; then
+    # Hugo is running in another container so use the service name 
+    # 'stroom-hugo-build-env' the host
     run_cmd=( \
       "node" \
       "../generate-pdf.js" \
@@ -341,6 +340,17 @@ main() {
     "${run_cmd[@]}"
 
   clean_up
+
+  # Would be nice to use "${bash_cmd,,}" = "pdf" for case insense compare
+  # but that is bash4, and well, you know, macOS :-(
+  if [[ "${bash_cmd}" = "PDF" || "${bash_cmd}" = "pdf" ]]; then
+    pdf_file="${local_repo_root}/stroom-docs.pdf" 
+    if [[ ! -f "${pdf_file}" ]]; then
+      echo -e "${RED}ERROR${NC} Can't find PDF file ${pdf_file}." \
+        "Has the Puppeteer PDF generation failed?"
+      exit 1
+    fi
+  fi
 
   echo -e "${GREEN}Done${NC}"
 }
