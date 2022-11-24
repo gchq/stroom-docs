@@ -399,29 +399,18 @@ set_meta_robots() {
 # Copies the site map from the latest branch down to the root
 # and changes all the <loc> tags in the sitemap to point sub-paths of
 # the latest branch dir
-create_root_sitemap() {
-  echo -e "${GREEN}Creating root sitemap file for latest version" \
-    "[${BLUE}${latest_version}${GREEN}]${NC}"
-  pushd "${NEW_GH_PAGES_DIR}"
-
-  echo "Copying sitemap.xml file to root"
-  cp "./${latest_version}/sitemap.xml" ./
-
-  echo "Changing <loc> tags in sitemap.xml to point to /${latest_version}/"
+update_root_sitemap() {
+  echo "Changing <loc> tags in root sitemap.xml to point to ${GH_PAGES_BASE_URL}/"
   sed \
     -i \
     "s#<loc>/#<loc>${GH_PAGES_BASE_URL}/#" \
-    ./sitemap.xml
+    "${NEW_GH_PAGES_DIR}/sitemap.xml"
 
-  echo "Creating robots.txt file in root"
-  cp "./${latest_version}/robots.txt" ./
-  echo "Adding sitemap location to robots.txt"
+  echo "Creating robots.txt file pointing to sitemap"
   {
     echo "User-agent: *" 
     echo "Sitemap: ${GH_PAGES_BASE_URL}/sitemap.xml" 
-  } > ./robots.txt
-
-  popd
+  } > "${NEW_GH_PAGES_DIR}/robots.txt"
 }
 
 copy_latest_to_root() {
@@ -452,16 +441,6 @@ copy_latest_to_root() {
   echo -e "${GREEN}Moving contents of ${BLUE}${latest_temp_dir}/${GREEN} to" \
     "${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
   mv "${latest_temp_dir}"/* "${NEW_GH_PAGES_DIR}/"
-
-  # Now make a redirect to the 'latest' dir so we open the latest
-  # version by default
-  #echo -e "${GREEN}Creating root redirect page with latest version" \
-    #"[${BLUE}${latest_version}${GREEN}]${NC}"
-  #sed \
-    #--regexp-extended \
-    #--expression "s/<<<LATEST_VERSION>>>/latest/g" \
-    #"${BUILD_DIR}/index.html.template" \
-    #> "${NEW_GH_PAGES_DIR}/index.html"
 
   # This is to stop gh-pages treating the content as Jekyll content
   # in which case dirs prefixed with '_' are ignored breaking the print 
@@ -759,9 +738,9 @@ main() {
 
   popd
 
-  create_root_sitemap
-
   copy_latest_to_root
+
+  update_root_sitemap
 
   set_meta_robots_for_all_version_branches
 
