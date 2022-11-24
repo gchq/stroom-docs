@@ -148,7 +148,7 @@ if (!doNotTrack) {
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="../../../offline-search-index.37c71a7e6714a6aa4a21015292f5cdbd.json"
+  data-offline-search-index-json-src="../../../offline-search-index.068e23fd3b7335561d150cc21a49e4cb.json"
   data-offline-search-base-href="../../../"
   data-offline-search-max-results="50"
 >
@@ -745,10 +745,11 @@ Each Stroom version is represented by a git branch with the same name.
 There is an additional git branch <code>legacy</code> that is for all Stroom versions prior to <code>7.0</code> and will be removed once the versions prior to <code>7.0</code> are no longer supported.
 Documentation changes for an as yet unreleased Stroom version would be performed on the <code>master</code> branch.</p>
 <p>When the combined site is built, each version will exist within a directory as siblings of each other, i.e.</p>
-<pre><code class="language-text">/7.0/
+<pre><code class="language-bash">/         # Latest version content lives here (i.e. copy of v8.0)
+/7.0/
 /7.1/
 /7.2/
-/8.0/
+/8.0/     # Latest version is also published here but only used by CI build.
 /legacy/
 </code></pre>
 <p>The <code>master</code> branch is NOT published to GitHub Pages or included in the release artefacts.</p>
@@ -759,64 +760,6 @@ If a change needs to be applied to all branches then it is best to make it in th
 <p>The following config properties needed to be amended on each branch.
 This example is from the <em>7.1</em> branch and is based on there being versions <em>legacy</em>, <em>7.0</em> and <em>7.1</em>, with <em>7.1</em> being the latest.</p>
 <div class="card-deck mb-4">
-  <div class="card mb-4">
-  
-    <div class="card-header">
-      
-        7.1
-      
-    </div>
-  
-  <div class="card-body">
-    
-    
-    
-      <p class="card-text">
-        
-          <pre><code class="language-toml">[params]
-  # Menu title if your navbar has a versions selector
-  # to access old versions of your site.
-  version_menu = &quot;Stroom Version (7.1)&quot;
-
-  # If true, displays a banner on each page warning that
-  # it is an old version. Set this to true on each git branch
-  # of stroom-docs that is not the latest release branch
-  archived_version = false
-
-  # Used in the banner on each archived page.
-  # Must match the value in brackets in &quot;version_menu&quot; above
-  version = &quot;7.1&quot;
-
-  # A link to latest version of the docs. Used in the
-  # &quot;version-banner&quot; partial to point people to the main
-  # doc site.
-  url_latest_version = &quot;/../7.1&quot;
-
-  # The name of the github branch that this version of the
-  # documentation lives on. Used for the github links in the
-  # top of the right hand sidebar. Should match the last part
-  # of url_latest_version.
-  github_branch = &quot;7.1&quot;
-
-  # A set of all the versions that are available.
-  [[params.versions]]
-    version = &quot;7.1&quot;
-    url = &quot;/../7.1&quot;
-  [[params.versions]]
-    version = &quot;7.0&quot;
-    url = &quot;/../7.0&quot;
-  [[params.versions]]
-    version = &quot;Legacy&quot;
-    url = &quot;/../legacy&quot;
-</code></pre>
-
-        
-      </p>
-    
-  </div>
-  
-</div>
-
   <div class="card mb-4">
   
     <div class="card-header">
@@ -847,8 +790,13 @@ This example is from the <em>7.1</em> branch and is based on there being version
 
   # A link to latest version of the docs. Used in the
   # &quot;version-banner&quot; partial to point people to the main
-  # doc site.
-  url_latest_version = &quot;/../7.1&quot;
+  # doc site. Ignored for the latest version
+  url_latest_version = &quot;/../&quot;
+
+  # The version number of the latest version. Used in the
+  # &quot;version-banner&quot; partial to tell people what the latest
+  # version is. Ignored for the latest version
+  latest_version = &quot;7.1&quot;
 
   # The name of the github branch that this version of the
   # documentation lives on. Used for the github links in the
@@ -858,8 +806,8 @@ This example is from the <em>7.1</em> branch and is based on there being version
 
   # A set of all the versions that are available.
   [[params.versions]]
-    version = &quot;7.1&quot;
-    url = &quot;/../7.1&quot;
+    version = &quot;7.1 (Latest)&quot;
+    url = &quot;/../&quot;
   [[params.versions]]
     version = &quot;7.0&quot;
     url = &quot;/../7.0&quot;
@@ -875,29 +823,78 @@ This example is from the <em>7.1</em> branch and is based on there being version
   
 </div>
 
+
+  <div class="card mb-4">
+  
+    <div class="card-header">
+      
+        7.1
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml">[params]
+  # Menu title if your navbar has a versions selector
+  # to access old versions of your site.
+  version_menu = &quot;Stroom Version (7.1)&quot;
+
+  # If true, displays a banner on each page warning that
+  # it is an old version. Set this to true on each git branch
+  # of stroom-docs that is not the latest release branch
+  archived_version = false
+
+  # Used in the banner on each archived page.
+  # Must match the value in brackets in &quot;version_menu&quot; above
+  version = &quot;7.1&quot;
+
+  # A link to latest version of the docs. Used in the
+  # &quot;version-banner&quot; partial to point people to the main
+  # doc site. Ignored for the latest version
+  url_latest_version = &quot;/../&quot;
+
+  # The version number of the latest version. Used in the
+  # &quot;version-banner&quot; partial to tell people what the latest
+  # version is. Ignored for the latest version
+  latest_version = &quot;7.1&quot;
+
+  # The name of the github branch that this version of the
+  # documentation lives on. Used for the github links in the
+  # top of the right hand sidebar. Should match the last part
+  # of url_latest_version.
+  github_branch = &quot;7.1&quot;
+
+  # A set of all the versions that are available.
+  [[params.versions]]
+    version = &quot;7.1 (Latest)&quot;
+    url = &quot;/&quot;
+  [[params.versions]]
+    version = &quot;7.0&quot;
+    url = &quot;/7.0&quot;
+  [[params.versions]]
+    version = &quot;Legacy&quot;
+    url = &quot;/legacy&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
 </div>
-<p>In the same example scenario as above, the <code>config.toml</code> file for the <em>7.0</em> branch (which is not the latest version in this case) would be:</p>
+
+</div>
 <h2 id="automated-build-process">Automated build process</h2>
 <p>On every commit Github Actions will build the version of the site that the commit is on to ensure that Hugo can convert the content into a static site.
-It will also build all the other versioned branches to check that they work.</p>
-<p>On a nightly basis, Github Actions will check to see if there have been any commits on the <code>master</code> branch since the last publish.
-If there have been it will proceed with full build and publish.
-This schedule is controlled by 
-
-
-
-
-
-
-  
-
-<span class="external-link">
-  <a href="https://github.com/gchq/stroom-docs/blob/master/.github/workflows/build_and_release.yml" target="_blank" class="" style="" title="build_and_release.yml (external link)">
-    <span>build_and_release.yml</span>
-    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
-  </a>
-</span>
- on the <code>master</code> branch.</p>
+It will also build all the other versioned branches to check that they work.
+On a nightly basis, Github Actions will also run a scheduled build on the <em>HEAD</em> commit of the <code>master</code> branch.</p>
+<p>In addition to building each version of the site, it will establish if the combined site needs to be published.
+It will determine this by comparing the commit hashes of each version branch with the contents of a <code>commit.sha1</code> file that is published in each of the version directories on <a href="https://gchq.github.io/stroom-docs">https://gchq.github.io/stroom-docs</a>.
+If any one of the hashes is different then the combined site will be assembled and published.</p>
 <p>This automated build will look for any branches matching the pattern <code>(legacy|[0-9]+\.[0-9]+)</code> and for each one will do the following:</p>
 <ul>
 <li>Checkout that branch</li>
@@ -915,6 +912,7 @@ This schedule is controlled by
 </ul>
 <p>Once each site has been processed it will:</p>
 <ul>
+<li>Copy the latest version of the site to the root of the combined site</li>
 <li>Create a single zip file containing the combined site</li>
 <li>Tag the release with a version number</li>
 <li>Add the following release artefacts:
@@ -924,7 +922,6 @@ This schedule is controlled by
 <li>Single version PDFs</li>
 </ul>
 </li>
-<li>Create a root <code>index.hml</code> file that will redirect to the latest version sub-directory.</li>
 <li>Publish the combined site to GitHub Pages 
 
 
@@ -992,6 +989,9 @@ This means this sort of change should be done on the oldest published version br
 <p>In some cases a change to the look may require significant refactoring of the content, e.g. changes to a shortcode.
 In the event of this it may be necessary to only make the change on the latest release branch and for different versions to have a slightly different look.
 The decision on how best to tackle these situations will have to be on a case by case basis.</p>
+<h3 id="changing-the-github-actions-build-process">Changing the GitHub Actions build process</h3>
+<p>If the change impacts the building of a single version then it needs to be done on the oldest version and merge up.</p>
+<p>If the change only impacts the preparation of release artefacts then it can be performed on the <code>master</code> branch.</p>
 <h2 id="building-a-mock-multi-version-site">Building a mock multi-version site</h2>
 <p>To make it easier to test how the combined site will look with multiple versions the following script can be run to mock up a multi-version site.
 It does the following:</p>
