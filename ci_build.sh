@@ -355,7 +355,7 @@ set_meta_robots_for_all_version_branches() {
     "${BLUE}${NEW_GH_PAGES_DIR}${NC}"
 
   for branch_name in "${release_branches[@]}"; do
-    local site_html_root_dir="${NEW_GH_PAGES_DIR}/${branch_name}"; shift
+    local site_html_root_dir="${NEW_GH_PAGES_DIR}/${branch_name}"
     echo "site_html_root_dir: ${site_html_root_dir}"
 
     if [[ -d "${site_html_root_dir}" ]]; then
