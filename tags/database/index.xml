@@ -1,0 +1,759 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – database</title>
+    <link>/tags/database/</link>
+    <description>Recent content in database on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Configure Database</title>
+      <link>/docs/install-guide/kubernetes/configure-database-server/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/configure-database-server/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Before creating a Stroom cluster, a database server must first be configured.&lt;/p&gt;
+&lt;p&gt;There are two options for deploying a MySQL database for Stroom:&lt;/p&gt;
+&lt;h2 id=&#34;managed-by-stroom-k8s-operator&#34;&gt;Managed by Stroom K8s Operator&lt;/h2&gt;
+&lt;p&gt;A Database server can be created and managed by the Operator.
+This is the recommended option, as the Operator will take care of the creation and storage of database credentials, which are shared securely with the Pod via the use of a &lt;code&gt;Secret&lt;/code&gt; cluster resource.&lt;/p&gt;
+&lt;h3 id=&#34;create-a-databaseserver-resource-manifest&#34;&gt;Create a &lt;code&gt;DatabaseServer&lt;/code&gt; resource manifest&lt;/h3&gt;
+&lt;p&gt;Use the example at 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;database-server.yaml (external link)&#34;&gt;
+    &lt;span&gt;database-server.yaml&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;See the &lt;code&gt;DatabaseServer&lt;/code&gt; Custom Resource Definition (CRD) 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;API documentation (external link)&#34;&gt;
+    &lt;span&gt;API documentation&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ for an explanation of the various CRD fields.&lt;/p&gt;
+&lt;p&gt;By default, MySQL imposes a limit of 151 concurrent connections.
+If your Stroom cluster is larger than a few nodes, it is likely you will exceed this limit.
+Therefore, it is recommended to set the MySQL property &lt;code&gt;max_connections&lt;/code&gt; to a suitable value.&lt;/p&gt;
+&lt;p&gt;Bear in mind the Operator generally consumes one connection per &lt;code&gt;StroomCluster&lt;/code&gt; it manages, so be sure to include some headroom in your allocation.&lt;/p&gt;
+&lt;p&gt;You can specify this value via the &lt;code&gt;spec.additionalConfig&lt;/code&gt; property as in the example below:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;apiVersion: stroom.gchq.github.io/v1
+kind: DatabaseServer
+...
+spec:
+  additionalConfig:
+    - max_connections=1000
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;provision-a-persistentvolume-for-the-databaseserver&#34;&gt;Provision a &lt;code&gt;PersistentVolume&lt;/code&gt; for the &lt;code&gt;DatabaseServer&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;General instructions on creating a Kubernetes Persistent Volume (PV) are explained 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://kubernetes.io/docs/concepts/storage/persistent-volumes/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;here (external link)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;The Operator will create &lt;code&gt;StatefulSet&lt;/code&gt; when the &lt;code&gt;DatabaseServer&lt;/code&gt; is deployed, which will attempt to claim a &lt;code&gt;PersistentVolume&lt;/code&gt; matching the specification provided in &lt;code&gt;DatabaseServer.spec.volumeClaim&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Fast, low-latency storage should be used for the Stroom database&lt;/p&gt;
+&lt;h3 id=&#34;deploy-the-databaseserver-to-the-cluster&#34;&gt;Deploy the &lt;code&gt;DatabaseServer&lt;/code&gt; to the cluster&lt;/h3&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl apply -f database-server.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Observe the Pod &lt;code&gt;stroom-&amp;lt;database server name&amp;gt;-db&lt;/code&gt; start up.
+Once it&amp;rsquo;s reached &lt;code&gt;Ready&lt;/code&gt; state, the server has started, and the databases you specified have been created.&lt;/p&gt;
+&lt;h3 id=&#34;backup-the-created-credentials&#34;&gt;Backup the created credentials&lt;/h3&gt;
+&lt;p&gt;The Operator generates a &lt;code&gt;Secret&lt;/code&gt; containing the passwords of the users &lt;code&gt;root&lt;/code&gt; and &lt;code&gt;stroomuser&lt;/code&gt; when it initially creates the &lt;code&gt;DatabaseServer&lt;/code&gt; resource.
+These credentials should be backed up to a secure location, in the event the &lt;code&gt;Secret&lt;/code&gt; is inadvertently deleted.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Secret&lt;/code&gt; is named using the format: &lt;code&gt;stroom-&amp;lt;db server name&amp;gt;-db&lt;/code&gt; (e.g. &lt;code&gt;stroom-dev-db&lt;/code&gt;).&lt;/p&gt;
+&lt;h2 id=&#34;external&#34;&gt;External&lt;/h2&gt;
+&lt;p&gt;You may alternatively provide the connection details of an existing MySQL (or compatible) database server.
+This may be desirable if you have for instance, a replication-enabled MySQL InnoDB cluster.&lt;/p&gt;
+&lt;h3 id=&#34;provision-the-server-and-stroom-databases&#34;&gt;Provision the server and Stroom databases&lt;/h3&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this secion.
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;store-credentials-in-a-secret&#34;&gt;Store credentials in a &lt;code&gt;Secret&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Create a &lt;code&gt;Secret&lt;/code&gt; in the same namespace as the &lt;code&gt;StroomCluster&lt;/code&gt;, containing the key &lt;code&gt;stroomuser&lt;/code&gt;, with the value set to the password of that user.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    If at any time the MySQL password is updated, the value of the &lt;code&gt;Secret&lt;/code&gt; must also be changed.
+Otherwise, Stroom will stop functioning.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;upgrading-or-removing-a-databaseserver&#34;&gt;Upgrading or removing a &lt;code&gt;DatabaseServer&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;A &lt;code&gt;DatabaseServer&lt;/code&gt; cannot shut down while its dependent &lt;code&gt;StroomCluster&lt;/code&gt; is running.
+This is a necessary safeguard to prevent database connectivity from being lost.&lt;/p&gt;
+&lt;p&gt;Upgrading or removing a &lt;code&gt;DatabaseServer&lt;/code&gt; requires the &lt;code&gt;StroomCluster&lt;/code&gt; be &lt;a href=&#34;../../docs/install-guide/kubernetes/stop-stroom-cluster/&#34;&gt;removed&lt;/a&gt; first.&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;configure-stroom-cluster.md&#34;&gt;Configure&lt;/a&gt; a Stroom cluster&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Database Installation</title>
+      <link>/docs/howtos/install/installdatabasehowto/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/howtos/install/installdatabasehowto/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.&lt;/p&gt;
+&lt;p&gt;Stroom has two databases. The first, &lt;code&gt;stroom&lt;/code&gt;, is used for management of Stroom itself and the second, &lt;code&gt;statistics&lt;/code&gt; is used for the Stroom Statistics capability. There are many ways to deploy these two databases. One could&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;have a single database instance and serve both databases from it&lt;/li&gt;
+&lt;li&gt;have two database instances on the same server and serve one database per instance&lt;/li&gt;
+&lt;li&gt;have two separate nodes, each with it&amp;rsquo;s own database instance&lt;/li&gt;
+&lt;li&gt;the list goes on.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://mariadb.com&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;MariaDB (external link)&#34;&gt;
+    &lt;span&gt;MariaDB&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ or 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.mysql.com/products/community/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;MySQL Community (external link)&#34;&gt;
+    &lt;span&gt;MySQL Community&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ versions of MySQL.&lt;/p&gt;
+&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;we are installing the MariaDB or MySQL Community RDBMS software.&lt;/li&gt;
+&lt;li&gt;the primary database node is &amp;lsquo;stroomdb0.strmdev00.org&amp;rsquo;.&lt;/li&gt;
+&lt;li&gt;installation is on a fully patched minimal Centos 7.3 instance.&lt;/li&gt;
+&lt;li&gt;we are installing BOTH databases (&lt;code&gt;stroom&lt;/code&gt; and &lt;code&gt;statistics&lt;/code&gt;) on the same node - &amp;lsquo;stroomdb0.stromdev00.org&amp;rsquo; but with two distinct database engines. The first database will communicate on port &lt;code&gt;3307&lt;/code&gt; and the second on &lt;code&gt;3308&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;we are deploying with SELinux in enforcing mode.&lt;/li&gt;
+&lt;li&gt;any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems.&lt;/li&gt;
+&lt;li&gt;in this document, when a textual screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;installation-of-software&#34;&gt;Installation of Software&lt;/h2&gt;
+&lt;h3 id=&#34;mariadb-server-installation&#34;&gt;MariaDB Server Installation&lt;/h3&gt;
+&lt;p&gt;As MariaDB is directly supported by Centos 7, we simply install the database server software and SELinux policy files, as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install policycoreutils-python mariadb-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;mysql-community-server-installation&#34;&gt;MySQL Community Server Installation&lt;/h3&gt;
+&lt;p&gt;As MySQL is not directly supported by Centos 7, we need to install it&amp;rsquo;s repository files prior to installation.
+We get the current MySQL Community release repository rpm and validate it&amp;rsquo;s MD5 checksum against the published value found on the 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/downloads/repo/yum&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;MySQL Yum Repository (external link)&#34;&gt;
+    &lt;span&gt;MySQL Yum Repository&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ site.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://repo.mysql.com/mysql57-community-release-el7.rpm
+md5sum mysql57-community-release-el7.rpm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;On correct validation of the MD5 checksum, we install the repository files via&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y localinstall mysql57-community-release-el7.rpm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; Stroom currently does not support the latest production MySQL version - 5.7. You will need to install MySQL Version 5.6.&lt;/p&gt;
+&lt;p&gt;Now since we must use MySQL Version 5.6 you will need to edit the MySQL repo file &lt;code&gt;/etc/yum.repos.d/mysql-community.repo&lt;/code&gt; to
+disable the &lt;code&gt;mysql57-community&lt;/code&gt; channel and enable the &lt;code&gt;mysql56-community&lt;/code&gt; channel. We start by, backing up the repo file with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/yum.repos.d/mysql-community.repo /etc/yum.repos.d/mysql-community.repo.ORIG
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then edit the file to change&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;...
+# Enable to use MySQL 5.6
+[mysql56-community]
+name=MySQL 5.6 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/7/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to become&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;...
+# Enable to use MySQL 5.6
+[mysql56-community]
+name=MySQL 5.6 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next we install server software and SELinux policy files, as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum -y install policycoreutils-python mysql-community-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;preparing-the-database-deployment&#34;&gt;Preparing the Database Deployment&lt;/h2&gt;
+&lt;h3 id=&#34;mariadb-variant&#34;&gt;MariaDB Variant&lt;/h3&gt;
+&lt;h4 id=&#34;create-and-instantiate-both-database-instances&#34;&gt;Create and instantiate both database instances&lt;/h4&gt;
+&lt;p&gt;To set up two MariaDB database instances on the one node, we will use &lt;code&gt;mysql_multi&lt;/code&gt; and systemd service templates. The &lt;code&gt;mysql_multi&lt;/code&gt; utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an &lt;code&gt;@&lt;/code&gt; character before the &lt;code&gt;.service&lt;/code&gt; suffix.&lt;/p&gt;
+&lt;p&gt;To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MariaDB configuration file, &lt;code&gt;/etc/my.cnf&lt;/code&gt;, with one that includes configuration of key options for each instance. We will name our instances, &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt;. We will also create specific log files for each instance.&lt;/p&gt;
+&lt;p&gt;We will use the directories, &lt;code&gt;/var/lib/mysql-mysqld0&lt;/code&gt; and &lt;code&gt;/var/lib/mysql-mysqld1&lt;/code&gt; for the data directories and &lt;code&gt;/var/log/mariadb/mysql-mysqld0.log&lt;/code&gt; and &lt;code&gt;/var/log/mariadb/mysql-mysqld1.log&lt;/code&gt; for the log files. Note you should modify /etc/logrotate.d/mariadb to manage these log files. Note also, we need to set the appropriate SELinux file contexts on the created directories and any files.&lt;/p&gt;
+&lt;p&gt;We create the data directories and log files and set their respective SELinux contexts via&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir /var/lib/mysql-mysqld0
+sudo chown mysql:mysql /var/lib/mysql-mysqld0
+sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld0(/.*)?&amp;quot;
+sudo restorecon -Rv /var/lib/mysql-mysqld0
+
+sudo touch /var/log/mariadb/mysql-mysqld0.log
+sudo chown mysql:mysql /var/log/mariadb/mysql-mysqld0.log
+sudo chcon --reference=/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysqld0.log
+
+sudo mkdir /var/lib/mysql-mysqld1
+sudo chown mysql:mysql /var/lib/mysql-mysqld1
+sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld1(/.*)?&amp;quot;
+sudo restorecon -Rv /var/lib/mysql-mysqld1
+
+sudo touch /var/log/mariadb/mysql-mysqld1.log
+sudo chown mysql:mysql /var/log/mariadb/mysql-mysqld1.log
+sudo chcon --reference=/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysqld1.log
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now initialise the our two database data directories via&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
+sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now replace the  MySQL configuration file to set the options for each instance. Note that we will serve &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt; via TCP ports &lt;code&gt;3307&lt;/code&gt; and &lt;code&gt;3308&lt;/code&gt; respectively. First backup the existing configuration file with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/my.cnf /etc/my.cnf.ORIG
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then setup &lt;code&gt;/etc/my.cnf&lt;/code&gt; as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
+F=/etc/my.cnf
+printf &#39;[mysqld_multi]\n&#39; &amp;gt; ${F}
+printf &#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[mysqld0]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;port=3307\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;datadir=/var/lib/mysql-mysqld0/\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;socket=/var/lib/mysql-mysqld0/mysql.sock\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;pid-file=/var/run/mariadb/mysql-mysqld0.pid\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;log-error=/var/log/mariadb/mysql-mysqld0.log\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# Disabling symbolic-links is recommended to prevent assorted security\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# risks\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;symbolic-links=0\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[mysqld1]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;port=3308\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;datadir=/var/lib/mysql-mysqld1/\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;socket=/var/lib/mysql-mysqld1/mysql.sock\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;pid-file=/var/run/mariadb/mysql-mysqld1.pid\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;log-error=/var/log/mariadb/mysql-mysqld1.log\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# Disabling symbolic-links is recommended to prevent assorted security risks\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;symbolic-links=0\n&#39; &amp;gt;&amp;gt; ${F}
+exit # To exit the root shell
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We also need to associate the ports with the &lt;code&gt;mysqld_port_t&lt;/code&gt; SELinux context as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo semanage port -a -t mysqld_port_t -p tcp 3307
+sudo semanage port -a -t mysqld_port_t -p tcp 3308
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We next create the systemd service template as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
+F=/etc/systemd/system/mysqld@.service
+
+printf &#39;# Install in /etc/systemd/system\n&#39; &amp;gt; ${F}
+printf &#39;# Enable via systemctl enable mysqld@0 or systemctl enable mysqld@1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[Unit]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Description=MySQL Multi Server for instance %%i\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;After=syslog.target\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;After=network.target\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[Service]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;User=mysql\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Group=mysql\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Type=forking\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;ExecStart=/usr/bin/mysqld_multi start %%i\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;ExecStop=/usr/bin/mysqld_multi stop %%i\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Restart=always\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;PrivateTmp=true\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[Install]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;WantedBy=multi-user.target\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 644 ${F}
+exit; # to exit the root shell
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We next enable and start both instances via&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl enable mysqld@0
+sudo systemctl enable mysqld@1
+sudo systemctl start mysqld@0
+sudo systemctl start mysqld@1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this we should have both instances running. One should check each instance&amp;rsquo;s log file for any errors.&lt;/p&gt;
+&lt;h4 id=&#34;secure-each-database-instance&#34;&gt;Secure each database instance&lt;/h4&gt;
+&lt;p&gt;We secure each database engine by running the &lt;code&gt;mysql_secure_installation&lt;/code&gt; script. One should accept all defaults, which means the
+only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+we will use &lt;code&gt;Stroom5User@&lt;/code&gt;.
+The utility &lt;code&gt;mysql_secure_installation&lt;/code&gt; expects to find the Linux socket file to access the database it&amp;rsquo;s securing at &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt;.
+Since we have used other locations, we temporarily link the real socket file to &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt; for each invocation of the
+utility. Thus we execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to see&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we&#39;ll need the current
+password for the root user.  If you&#39;ve just installed MariaDB, and
+you haven&#39;t set the root password yet, the password will be blank,
+so you should just press enter here.
+
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+
+Setting the root password ensures that nobody can log into the MariaDB
+root user without the proper authorisation.
+
+Set root password? [Y/n] 
+New password: &amp;lt;__ Stroom5User@ __&amp;gt;
+Re-enter new password: &amp;lt;__ Stroom5User@ __&amp;gt;
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] 
+ ... Success!
+
+Normally, root should only be allowed to connect from &#39;localhost&#39;.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] 
+ ... Success!
+
+By default, MariaDB comes with a database named &#39;test&#39; that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n]
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n]
+... Success!
+
+Cleaning up...
+
+All done!  If you&#39;ve completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then we execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo rm /var/lib/mysql/mysql.sock
+sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+sudo rm /var/lib/mysql/mysql.sock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and process as before (for when running mysql_secure_installation). At this both database instances should be secure.&lt;/p&gt;
+&lt;h3 id=&#34;mysql-community-variant&#34;&gt;MySQL Community Variant&lt;/h3&gt;
+&lt;h4 id=&#34;create-and-instantiate-both-database-instances-1&#34;&gt;Create and instantiate both database instances&lt;/h4&gt;
+&lt;p&gt;To set up two MySQL database instances on the one node, we will use &lt;code&gt;mysql_multi&lt;/code&gt; and systemd service templates. The &lt;code&gt;mysql_multi&lt;/code&gt; utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an &lt;code&gt;@&lt;/code&gt; character before the &lt;code&gt;.service&lt;/code&gt; suffix.&lt;/p&gt;
+&lt;p&gt;To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MySQL configuration file, &lt;code&gt;/etc/my.cnf&lt;/code&gt;, with one that includes configuration of key options for each instance. We will name our instances, &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt;. We will also create specific log files for each instance.&lt;/p&gt;
+&lt;p&gt;We will use the directories, &lt;code&gt;/var/lib/mysql-mysqld0&lt;/code&gt; and &lt;code&gt;/var/lib/mysql-mysqld1&lt;/code&gt; for the data directories and &lt;code&gt;/var/log/mysql-mysqld0.log&lt;/code&gt; and &lt;code&gt;/var/log/mysql-mysqld1.log&lt;/code&gt; for the log directories. Note you should modify /etc/logrotate.d/mysql to manage these log files. Note also, we need to set the appropriate SELinux file context on the created directories and files.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mkdir /var/lib/mysql-mysqld0
+sudo chown mysql:mysql /var/lib/mysql-mysqld0
+sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld0(/.*)?&amp;quot;
+sudo restorecon -Rv /var/lib/mysql-mysqld0
+
+sudo touch /var/log/mysql-mysqld0.log
+sudo chown mysql:mysql /var/log/mysql-mysqld0.log
+sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld0.log
+
+sudo mkdir /var/lib/mysql-mysqld1
+sudo chown mysql:mysql /var/lib/mysql-mysqld1 
+sudo semanage fcontext -a -t mysqld_db_t &amp;quot;/var/lib/mysql-mysqld1(/.*)?&amp;quot;
+sudo restorecon -Rv /var/lib/mysql-mysqld1
+
+sudo touch /var/log/mysql-mysqld1.log
+sudo chown mysql:mysql /var/log/mysql-mysqld1.log
+sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld1.log
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now initialise the our two database data directories via&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
+sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Disable the default database via&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl disable mysqld
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now modify the  MySQL configuration file to set the options for each instance. Note that we will serve &lt;code&gt;mysqld0&lt;/code&gt; and &lt;code&gt;mysqld1&lt;/code&gt; via TCP ports &lt;code&gt;3307&lt;/code&gt; and &lt;code&gt;3308&lt;/code&gt; respectively.  First backup the existing configuration file with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cp /etc/my.cnf /etc/my.cnf.ORIG
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then setup &lt;code&gt;/etc/my.cnf&lt;/code&gt; as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
+F=/etc/my.cnf
+printf &#39;[mysqld_multi]\n&#39; &amp;gt; ${F}
+printf &#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[mysqld0]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;port=3307\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;datadir=/var/lib/mysql-mysqld0/\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;socket=/var/lib/mysql-mysqld0/mysql.sock\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;pid-file=/var/run/mysqld/mysql-mysqld0.pid\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;log-error=/var/log/mysql-mysqld0.log\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# Disabling symbolic-links is recommended to prevent assorted security\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# risks\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;symbolic-links=0\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[mysqld1]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;mysqld = /usr/bin/mysqld_safe --basedir=/usr\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;port=3308\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;datadir=/var/lib/mysql-mysqld1/\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;socket=/var/lib/mysql-mysqld1/mysql.sock\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;pid-file=/var/run/mysqld/mysql-mysqld1.pid\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;log-error=/var/log/mysql-mysqld1.log\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;# Disabling symbolic-links is recommended to prevent assorted security risks\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;symbolic-links=0\n&#39; &amp;gt;&amp;gt; ${F}
+exit # To exit the root shell
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We also need to associate the ports with the &lt;code&gt;mysqld_port_t&lt;/code&gt; SELinux context as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo semanage port -a -t mysqld_port_t -p tcp 3307
+sudo semanage port -a -t mysqld_port_t -p tcp 3308
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We next create the systemd service template as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo bash
+F=/etc/systemd/system/mysqld@.service
+
+printf &#39;# Install in /etc/systemd/system\n&#39; &amp;gt; ${F}
+printf &#39;# Enable via systemctl enable mysqld@0 or systemctl enable mysqld@1\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[Unit]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Description=MySQL Multi Server for instance %%i\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;After=syslog.target\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;After=network.target\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[Service]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;User=mysql\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Group=mysql\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Type=forking\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;ExecStart=/usr/bin/mysqld_multi start %%i\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;ExecStop=/usr/bin/mysqld_multi stop %%i\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;Restart=always\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;PrivateTmp=true\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;[Install]\n&#39; &amp;gt;&amp;gt; ${F}
+printf &#39;WantedBy=multi-user.target\n&#39; &amp;gt;&amp;gt; ${F}
+chmod 644 ${F}
+exit; # to exit the root shell
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We next enable and start both instances via&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo systemctl enable mysqld@0
+sudo systemctl enable mysqld@1
+sudo systemctl start mysqld@0
+sudo systemctl start mysqld@1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this we should have both instances running. One should check each instance&amp;rsquo;s log file for any errors.&lt;/p&gt;
+&lt;h4 id=&#34;secure-each-database-instance-1&#34;&gt;Secure each database instance&lt;/h4&gt;
+&lt;p&gt;We secure each database engine by running the &lt;code&gt;mysql_secure_installation&lt;/code&gt; script. One should accept all defaults, which means the
+only entry (aside from pressing returns) is the administrator (root) database password. Make a note of the password you use. In this case
+we will use &lt;code&gt;Stroom5User@&lt;/code&gt;.
+The utility &lt;code&gt;mysql_secure_installation&lt;/code&gt; expects to find the Linux socket file to access the database it&amp;rsquo;s securing at &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt;.
+Since we have used other locations, we temporarily link the real socket file to &lt;code&gt;/var/lib/mysql/mysql.sock&lt;/code&gt; for each invocation of the
+utility. Thus we execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln /var/lib/mysql-mysqld0/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to see&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MySQL to secure it, we&#39;ll need the current
+password for the root user.  If you&#39;ve just installed MySQL, and
+you haven&#39;t set the root password yet, the password will be blank,
+so you should just press enter here.
+
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+
+Setting the root password ensures that nobody can log into the MySQL
+root user without the proper authorisation.
+
+Set root password? [Y/n] y
+New password: &amp;lt;__ Stroom5User@ __&amp;gt;
+Re-enter new password: &amp;lt;__ Stroom5User@ __&amp;gt;
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MySQL installation has an anonymous user, allowing anyone
+to log into MySQL without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] 
+ ... Success!
+
+Normally, root should only be allowed to connect from &#39;localhost&#39;.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] 
+ ... Success!
+
+By default, MySQL comes with a database named &#39;test&#39; that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] 
+ - Dropping test database...
+ERROR 1008 (HY000) at line 1: Can&#39;t drop database &#39;test&#39;; database doesn&#39;t exist
+ ... Failed!  Not critical, keep moving...
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] 
+ ... Success!
+
+
+
+
+All done!  If you&#39;ve completed all of the above steps, your MySQL
+installation should now be secure.
+
+Thanks for using MySQL!
+
+
+Cleaning up...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then we execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo rm /var/lib/mysql/mysql.sock
+sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
+sudo mysql_secure_installation
+sudo rm /var/lib/mysql/mysql.sock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and process as before (for when running mysql_secure_installation). At this both database instances should be secure.&lt;/p&gt;
+&lt;h2 id=&#34;create-the-databases-and-enable-access-by-the-stroom-processing-users&#34;&gt;Create the Databases and Enable access by the Stroom processing users&lt;/h2&gt;
+&lt;p&gt;We now create the &lt;code&gt;stroom&lt;/code&gt; database within the first instance, &lt;code&gt;mysqld0&lt;/code&gt; and the &lt;code&gt;statistics&lt;/code&gt; database within the second
+instance &lt;code&gt;mysqld1&lt;/code&gt;. It does not matter which database variant used as all commands are the same for both.&lt;/p&gt;
+&lt;p&gt;As well as creating the databases, we also need to establish the Stroom processing users
+that the Stroom processing nodes will use to access each database.
+For the &lt;code&gt;stroom&lt;/code&gt; database, we will use the database user &lt;code&gt;stroomuser&lt;/code&gt; with a password of &lt;code&gt;Stroompassword1@&lt;/code&gt; and for the &lt;code&gt;statistics&lt;/code&gt; database, we will use the database user &lt;code&gt;stroomstats&lt;/code&gt; with a password of &lt;code&gt;Stroompassword2@&lt;/code&gt;. One identifies a processing user as &lt;code&gt;&amp;lt;user&amp;gt;@&amp;lt;host&amp;gt;&lt;/code&gt; on a &lt;code&gt;grant&lt;/code&gt; SQL command.&lt;/p&gt;
+&lt;p&gt;In the &lt;code&gt;stroom&lt;/code&gt; database instance, we will grant access for&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stroomuser@localhost&lt;/code&gt; for local access for maintenance etc.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomuser@stroomp00.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomuser@stroomp01.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and in the &lt;code&gt;statistics&lt;/code&gt; database instance, we will grant access for&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stroomstats@localhost&lt;/code&gt; for local access for maintenance etc.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomstats@stroomp00.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroomstats@stroomp01.strmdev00.org&lt;/code&gt; for access by processing node &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Thus for the &lt;code&gt;stroom&lt;/code&gt; database we execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and on entering the administrator&amp;rsquo;s password, we arrive at the &lt;code&gt;MariaDB [(none)]&amp;gt;&lt;/code&gt; or &lt;code&gt;mysql&amp;gt;&lt;/code&gt; prompt. At this we create the database with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;create database stroom;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and then to establish the users, we execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;grant all privileges on stroom.* to stroomuser@localhost identified by &#39;Stroompassword1@&#39;;
+grant all privileges on stroom.* to stroomuser@stroomp00.strmdev00.org identified by &#39;Stroompassword1@&#39;;
+grant all privileges on stroom.* to stroomuser@stroomp01.strmdev00.org identified by &#39;Stroompassword1@&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;quit;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to exit.&lt;/p&gt;
+&lt;p&gt;And for the &lt;code&gt;statistics&lt;/code&gt; database&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;with&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;create database statistics;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and then to establish the users, we execute&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;grant all privileges on statistics.* to stroomstats@localhost identified by &#39;Stroompassword2@&#39;;
+grant all privileges on statistics.* to stroomstats@stroomp00.strmdev00.org identified by &#39;Stroompassword2@&#39;;
+grant all privileges on statistics.* to stroomstats@stroomp01.strmdev00.org identified by &#39;Stroompassword2@&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;quit;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to exit.&lt;/p&gt;
+&lt;p&gt;Clearly if we need to add more processing nodes, additional &lt;code&gt;grant&lt;/code&gt; commands would be used. Further, if we were installing the databases in a single node Stroom environment, we would just have the first two pairs of &lt;code&gt;grants&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;configure-firewall&#34;&gt;Configure Firewall&lt;/h2&gt;
+&lt;p&gt;Next we need to modify our firewall to allow remote access to our databases which listens on ports 3307 and 3308.
+The simplest way to achieve this is with the commands&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo firewall-cmd --zone=public --add-port=3307/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=3308/tcp --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd --zone=public --list-all
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    That this allows ANY node to connect to your databases. You should give consideration to restricting this to only allowing processing node access.
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;debugging-of-mariadb-for-stroom&#34;&gt;Debugging of Mariadb for Stroom&lt;/h3&gt;
+&lt;p&gt;If there is a need to debug the Mariadb database and Stroom interaction, one can turn on auditing for the Mariadb service.
+To do so, log onto the relevant database as the administrative user as per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
+or
+mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and at the &lt;code&gt;MariaDB [(none)]&amp;gt; &lt;/code&gt; prompt enter&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;install plugin server_audit SONAME &#39;server_audit&#39;;
+set global server_audit_file_path=&#39;/var/log/mariadb/mysqld-mysqld0_server_audit.log&#39;;
+or
+set global server_audit_file_path=&#39;/var/log/mariadb/mysqld-mysqld1_server_audit.log&#39;;
+set global server_audit_logging=ON;
+set global server_audit_file_rotate_size=10485760;
+install plugin SQL_ERROR_LOG soname &#39;sql_errlog&#39;;
+quit;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The above will generate two log files,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/var/log/mariadb/mysqld-mysqld0_server_audit.log&lt;/code&gt; or &lt;code&gt;/var/log/mariadb/mysqld-mysqld1_server_audit.log&lt;/code&gt; which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/var/lib/mysql-mysqld0/sql_errors.log&lt;/code&gt; or &lt;code&gt;/var/lib/mysql-mysqld1/sql_errors.log&lt;/code&gt; which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All files will, by default, generate up to 9 rotated files.&lt;/p&gt;
+&lt;p&gt;If you wish to rotate a log file manually, log into the database as the administrative user and execute either&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;set global server_audit_file_rotate_now=1;&lt;/code&gt; to rotate the audit log file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;set global sql_error_log_rotate=1;&lt;/code&gt; to rotate the sql_errlog log file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;initial-database-access&#34;&gt;Initial Database Access&lt;/h3&gt;
+&lt;p&gt;It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, it&amp;rsquo;s initial access to the &lt;code&gt;stroom&lt;/code&gt; database will result in the following attempted sql statements.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.schema_version&#39; doesn&#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
+2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.STROOM_VER&#39; doesn&#39;t exist : SELECT VER_MAJ, VER_MIN, VER_PAT FROM STROOM_VER ORDER BY VER_MAJ DESC, VER_MIN DESC, VER_PAT DESC LIMIT 1
+2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.FD&#39; doesn&#39;t exist : SELECT ID FROM FD LIMIT 1
+2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.FEED&#39; doesn&#39;t exist : SELECT ID FROM FEED LIMIT 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After this access the application will realise the database does not exist and it will initialise the database.&lt;/p&gt;
+&lt;p&gt;In the case of the &lt;code&gt;statistics&lt;/code&gt; database you may note the following attempted access&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;2017-04-16 16:25:09 stroomstats[stroomstats] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;statistics.schema_version&#39; doesn&#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again, at this point the application will initialise this database.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

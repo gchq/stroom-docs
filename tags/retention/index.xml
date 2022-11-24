@@ -1,0 +1,162 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – retention</title>
+    <link>/tags/retention/</link>
+    <description>Recent content in retention on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/retention/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Data Retention</title>
+      <link>/docs/user-guide/data-retention/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/data-retention/</guid>
+      <description>
+        
+        
+        &lt;p&gt;By default Stroom will retain all the data it ingests and creates forever.
+It is likely that storage constraints/costs will mean that data needs to be deleted after a certain time.
+It is also likely that certain types of data may need to be kept for longer than other types.&lt;/p&gt;
+&lt;h2 id=&#34;rules&#34;&gt;Rules&lt;/h2&gt;
+&lt;p&gt;Stroom allows for a set of data retention policy rules to be created to control at a fine grained level what data is deleted and what is retained.&lt;/p&gt;
+&lt;p&gt;The data retention rules are accessible by selecting &lt;em&gt;Data Retention&lt;/em&gt; from the &lt;em&gt;Tools&lt;/em&gt; menu.
+On first use the &lt;em&gt;Rules&lt;/em&gt; tab of the &lt;em&gt;Data Retention&lt;/em&gt; screen will show a single rule named &lt;em&gt;Default Retain All Forever Rule&lt;/em&gt;.
+This is the implicit rule in stroom that retains all data and is always in play unless another rule overrides it.
+This rule cannot be edited, moved or removed.&lt;/p&gt;
+&lt;h3 id=&#34;rule-precedence&#34;&gt;Rule Precedence&lt;/h3&gt;
+&lt;p&gt;Rules have a precedence, with a lower rule number being a higher priority.
+When running the data retention job, Stroom will look at each stream held on the system and the retention policy of the first rule (starting from the lowest numbered rule) that matches that stream will apply.
+One a matching rule is found all other rules with higher rule numbers (lower priority) are ignored.
+For example if rule 1 says to retain streams from feed &lt;code&gt;X-EVENTS&lt;/code&gt; for 10 years and rule 2 says to retain streams from feeds &lt;code&gt;*-EVENTS&lt;/code&gt; for 1 year then rule 1 would apply to streams from feed &lt;code&gt;X-EVENTS&lt;/code&gt; and they would be kept for 10 years, but rule 2 would apply to feed &lt;code&gt;Y-EVENTS&lt;/code&gt; and they would only be kept for 1 year.
+Rules are re-numbered as new rules are added/deleted/moved.&lt;/p&gt;
+&lt;h3 id=&#34;creating-a-rule&#34;&gt;Creating a Rule&lt;/h3&gt;
+&lt;p&gt;To create a rule do the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click the 
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/add.svg&#34; 
+  title=&#34;Add&#34; 
+  alt=&#34;add.svg&#34;&gt;
+ icon to add a new rule.&lt;/li&gt;
+&lt;li&gt;Edit the expression to define the data that the rule will match on.&lt;/li&gt;
+&lt;li&gt;Provide a name for the rule to help describe what its purpose is.&lt;/li&gt;
+&lt;li&gt;Set the retention period for data matching this rule, i.e &lt;em&gt;Forever&lt;/em&gt; or a set time period.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The new rule will be added at the top of the list of rules, i.e. with the highest priority.
+The 
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/up.svg&#34; 
+  title=&#34;Up&#34; 
+  alt=&#34;up.svg&#34;&gt;
+ and 
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/down.svg&#34; 
+  title=&#34;Down&#34; 
+  alt=&#34;down.svg&#34;&gt;
+ icons can be used to change the priority of the rule.&lt;/p&gt;
+&lt;p&gt;Rules can be enabled/disabled by clicking the checkbox next to the rule.&lt;/p&gt;
+&lt;p&gt;Changes to rules will not take effect until the 
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/save.svg&#34; 
+  title=&#34;Save&#34; 
+  alt=&#34;save.svg&#34;&gt;
+ icon is clicked.&lt;/p&gt;
+&lt;p&gt;Rules can also be deleted ( 
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/delete.svg&#34; 
+  title=&#34;Delete&#34; 
+  alt=&#34;delete.svg&#34;&gt;
+ ) and copied ( 
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/copy.svg&#34; 
+  title=&#34;Copy&#34; 
+  alt=&#34;copy.svg&#34;&gt;
+ ).&lt;/p&gt;
+&lt;h2 id=&#34;impact-summary&#34;&gt;Impact Summary&lt;/h2&gt;
+&lt;p&gt;When you have a number of complex rules it can be difficult to determine what data will actually be deleted next time the &lt;em&gt;Policy Based Data Retention&lt;/em&gt; job runs.
+To help with this, Stroom has the &lt;em&gt;Impact Summary&lt;/em&gt; tab that acts as a dry run for the active rules.
+The impact summary provides a count of the number of streams that will be deleted broken down by rule, stream type and feed name.
+On large systems with lots of data or complex rules, this query may take a long time to run.&lt;/p&gt;
+&lt;p&gt;The impact summary operates on the current state of the rules on the &lt;em&gt;Rules&lt;/em&gt; tab whether saved or un-saved.
+This allows you to make a change to the rules and test its impact before saving it.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

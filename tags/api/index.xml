@@ -1,0 +1,353 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – api</title>
+    <link>/tags/api/</link>
+    <description>Recent content in api on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 16 Feb 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Application Programming Interfaces (API)</title>
+      <link>/docs/user-guide/api/</link>
+      <pubDate>Wed, 16 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/api/</guid>
+      <description>
+        
+        
+        &lt;p&gt;&lt;em&gt;Stroom&lt;/em&gt; has many public REST APIs to allow other systems to interact with &lt;em&gt;Stroom&lt;/em&gt;.
+Everything that can be done via the user interface can also be done using the API.&lt;/p&gt;
+&lt;h2 id=&#34;swagger&#34;&gt;Swagger&lt;/h2&gt;
+&lt;p&gt;The APIs are available as a &lt;em&gt;Swagger&lt;/em&gt; Open API specification in the following forms:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JSON - 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://gchq.github.io/stroom/v7.1/stroom.json&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom.json (external link)&#34;&gt;
+    &lt;span&gt;stroom.json&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;YAML - 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://gchq.github.io/stroom/v7.1/stroom.yaml&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom.yaml (external link)&#34;&gt;
+    &lt;span&gt;stroom.yaml&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A dynamic 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://gchq.github.io/stroom/v7.1&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Swagger user interface (external link)&#34;&gt;
+    &lt;span&gt;Swagger user interface&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ is also available for viewing the API endpoints.&lt;/p&gt;
+&lt;h2 id=&#34;authentication&#34;&gt;Authentication&lt;/h2&gt;
+&lt;p&gt;In order to use the API endpoints you will need to authenticate.
+Authentication is achieved using an 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#api-key&#34; title=&#34;Glossary entry for API Key&#34;&gt;
+    &lt;span&gt;API Key&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;You will either need to create an API key for your personal Stroom user account or for a shared processing user account.
+Whichever user account you use it will need to have the necessary permissions for each API endpoint it is to be used with.&lt;/p&gt;
+&lt;p&gt;To create an API key for a user:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Select &lt;em&gt;Tools&lt;/em&gt; =&amp;gt; &lt;em&gt;API Keys&lt;/em&gt; from the top menu.&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;Create&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Enter a suitable expiration date.
+Short expiry periods are more secure in case the key is compromised.&lt;/li&gt;
+&lt;li&gt;Select the user account that you are creating the key for.&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Select the newly created API Key from the list of keys and double click it to open it.&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;Copy key&lt;/em&gt; to copy the key to the clipboard.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To make an authenticated API call using &lt;code&gt;curl&lt;/code&gt; do the following:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#39;eyJhbG...TRUNCATED...t3-Lw&amp;#39; \
+curl -s -k -H &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; https://localhost/api/node/v1/info/node1a
+(out){&amp;#34;discoverTime&amp;#34;:&amp;#34;2022-02-16T17:28:37.710Z&amp;#34;,&amp;#34;buildInfo&amp;#34;:{&amp;#34;buildDate&amp;#34;:&amp;#34;2022-01-19T15:27:25.024677714Z&amp;#34;,&amp;#34;buildVersion&amp;#34;:&amp;#34;7.0-beta.175&amp;#34;,&amp;#34;upDate&amp;#34;:&amp;#34;2022-02-16T09:28:11.733Z&amp;#34;},&amp;#34;nodeName&amp;#34;:&amp;#34;node1a&amp;#34;,&amp;#34;endpointUrl&amp;#34;:&amp;#34;http://192.168.1.64:8080&amp;#34;,&amp;#34;itemList&amp;#34;:[{&amp;#34;nodeName&amp;#34;:&amp;#34;node1a&amp;#34;,&amp;#34;active&amp;#34;:true,&amp;#34;master&amp;#34;:true}],&amp;#34;ping&amp;#34;:2}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;handling-json&#34;&gt;Handling JSON&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://stedolan.github.io/jq/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;jq (external link)&#34;&gt;
+    &lt;span&gt;jq&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ is a utility for processing JSON and is very useful when using the API methods.&lt;/p&gt;
+&lt;p&gt;For example to get just the build version from the node info endpoint:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#39;eyJhbG...TRUNCATED...t3-Lw&amp;#39; \
+curl -s -k -H &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; https://localhost/api/node/v1/info/node1a \
+| jq -r &amp;#39;.buildInfo.buildVersion&amp;#39;
+(out)7.0-beta.175&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Query APIs</title>
+      <link>/docs/user-guide/api/query-api/</link>
+      <pubDate>Wed, 16 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/api/query-api/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The Query APIs use common request/response models and end points for querying each type of data source held in &lt;em&gt;Stroom&lt;/em&gt;.
+The request/response models are defined in 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom-query&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom-query (external link)&#34;&gt;
+    &lt;span&gt;stroom-query&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;Currently &lt;em&gt;Stroom&lt;/em&gt; exposes a set of query endpoints for the following data source types.
+Each data source type will have its own endpoint due to differences in the way the data is queried and the restrictions imposed on the query terms.
+However they all share the same API definition.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/document/Index.svg&#34; 
+  title=&#34;Index&#34; 
+  alt=&#34;document/Index.svg&#34;&gt;
+
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://gchq.github.io/stroom/v7.1/#/Stroom-Index%20Queries&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom-index Queries (external link)&#34;&gt;
+    &lt;span&gt;stroom-index Queries&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ -
+The Lucene based search indexes.&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/document/StatisticStore.svg&#34; 
+  title=&#34;SQL Statistics&#34; 
+  alt=&#34;document/StatisticStore.svg&#34;&gt;
+
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://gchq.github.io/stroom/v7.1/#/Sql%20Statistics%20Query&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Sql Statistics Query (external link)&#34;&gt;
+    &lt;span&gt;Sql Statistics Query&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ -
+Stroom&amp;rsquo;s SQL Statistics store.&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+
+
+
+
+
+&lt;img 
+  class=&#34;stroom-icon &#34; 
+  src=&#34;../../images/stroom-ui/document/searchable.svg&#34; 
+  title=&#34;Searchable&#34; 
+  alt=&#34;document/searchable.svg&#34;&gt;
+
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://gchq.github.io/stroom/v7.1/#/Searchable&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Searchable (external link)&#34;&gt;
+    &lt;span&gt;Searchable&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ -
+Searchables are various data sources that allow you to search the internals of Stroom, e.g. local reference data store, annotations, processor tasks, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The detailed documentation for the request/responses is contained in the &lt;em&gt;Swagger&lt;/em&gt; definition linked to above.&lt;/p&gt;
+&lt;h2 id=&#34;common-endpoints&#34;&gt;Common endpoints&lt;/h2&gt;
+&lt;p&gt;The standard query endpoints are&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/&lt;a href=&#34;#datasource&#34;&gt;datasource&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;/&lt;a href=&#34;#destroy&#34;&gt;destroy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;/&lt;a href=&#34;#keepalive&#34;&gt;keepAlive&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;/&lt;a href=&#34;#search&#34;&gt;search&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;datasource&#34;&gt;Datasource&lt;/h3&gt;
+&lt;p&gt;The 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#data-source&#34; title=&#34;Glossary entry for Data Source&#34;&gt;
+    &lt;span&gt;Data Source&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ endpoint is used to query &lt;em&gt;Stroom&lt;/em&gt; for the details of a data source with a given 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#docref&#34; title=&#34;Glossary entry for DocRef&#34;&gt;
+    &lt;span&gt;DocRef&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.
+The details will include such things as the fields available and any restrictions on querying the data.&lt;/p&gt;
+&lt;h3 id=&#34;search&#34;&gt;Search&lt;/h3&gt;
+&lt;p&gt;The search endpoint is used to initiate a search against a data source or to request more data for an active search.
+A search request can be made using iterative mode, where it will perform the search and then only return the data it has immediately available.
+Subsequent requests for the same &lt;em&gt;queryKey&lt;/em&gt; will also return the data immediately available, expecting that more results will have been found by the query.
+Requesting a search in non-iterative mode will result in the response being returned when the query has completed and all known results have been found.&lt;/p&gt;
+&lt;p&gt;The SearchRequest model is fairly complicated and contains not only the query terms but also a definition of how the data should be returned.
+A single SearchRequest can include multiple ResultRequest sections to return the queried data in multiple ways, e.g. as flat data and in an alternative aggregated form.&lt;/p&gt;
+&lt;h4 id=&#34;_stroom_-as-a-query-builder&#34;&gt;&lt;em&gt;Stroom&lt;/em&gt; as a query builder&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;Stroom&lt;/em&gt; is able to export the json form of a SearchRequest model from its dashboards.
+This makes the dashboard a useful tool for building a query and the table settings to go with it.
+You can use the dashboard to defined the data source, define the query terms tree and build a table definition (or definitions) to describe how the data should be returned.
+The, clicking the download icon on the query pane of the dashboard will generate the SearchRequest json which can be immediately used with the /search API or modified to suit.&lt;/p&gt;
+&lt;h3 id=&#34;destroy&#34;&gt;Destroy&lt;/h3&gt;
+&lt;p&gt;This endpoint is used to kill an active query by supplying the &lt;em&gt;queryKey&lt;/em&gt; for query in question.&lt;/p&gt;
+&lt;h3 id=&#34;keep-alive&#34;&gt;Keep alive&lt;/h3&gt;
+&lt;p&gt;Stroom will only hold search results from completed queries for a certain lenght of time.
+It will also terminate running queries that are too old.
+In order to prevent queries being aged off you can hit this endpoint to indicate to Stroom that you still have an interest in a particular query by supplying the query key.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
