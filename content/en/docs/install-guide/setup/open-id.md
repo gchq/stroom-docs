@@ -19,7 +19,11 @@ In Stroom we have the concept of Users and Accounts, and it is important to unde
 
 ### Accounts
 
-Accounts are user identities in the internal {{< glossary "identity provider idp" "IDP" >}}.
+Accounts are user identities in the internal {{< glossary "identity provider idp" "Identity Provider (IDP)" >}}.
+The internal IDP is used when you want Stroom to manage all the authentication.
+The internal IDP is the default option and the simplest for test environments.
+Accounts are not applicable when using an external 3rd party IDP.
+
 Accounts are managed in Stroom using the _Manage Accounts_ screen available from the _Tools => _Users_ menu item.
 An administrator can create and manage user accounts allowing users to log in to Stroom.
 
@@ -28,14 +32,15 @@ A Stroom user account has a unique identity that will be associated with a Stroo
 
 When using a 3rd party IDP this screen is not available as all management of users with respect to authentication is done in the 3rd party IDP.
 
-Accounts are managed in the `account` database table.
+Accounts are stored in the `account` database table.
 
 
 ### Stroom Users
 
-A user in Stroom is used for managing permissions and group memberships.
+A user in Stroom is used for managing authorisation, i.e. permissions and group memberships.
 It plays no part in authentication.
-A user has a unique identifier that is provided by the IDP (internal or 3rd party) to identify it and link it to the account (internal or on a 3rd party IDP).
+A user has a unique identifier that is provided by the IDP (internal or 3rd party) to identify it.
+This ID is also the link it to the Stroom _Account_ in the case of the internal IDP or the identity on a 3rd party IDP.
 
 Stroom users and groups are managed in the `stroom_user` and `stroom_user_group` database tables respectively.
 
@@ -50,13 +55,14 @@ This admin user can be used to set up the other users on the system.
 
 ## 3rd Party IDP
 
-You may be running Stroom in an environment with an existing IDP (KeyCloak, Cognito, Google, etc.) and want to use that for authenticating users.
-Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Connect" "https://openid.net/connect/" >}}  specification.
+You may be running Stroom in an environment with an existing IDP (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
+Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Connect" "https://openid.net/connect/" >}} specification.
 
 The following is a guide to setting up a new stroom instance/cluster with KeyCloak as the 3rd party IDP.
 KeyCloak is an Open ID Connect IDP.
 Configuration for other IDPs will be very similar so these instructions will have to be adapted accordingly.
-It is assumed that you have deployed a new instance/cluster of stroom but have not yet started it.
+It is assumed that you have deployed a new instance/cluster of stroom AND have not yet started it.
+
 
 ### Running KeyCloak
 
@@ -79,6 +85,7 @@ docker create \
   start-dev
 {{</ command-line >}}
 
+This example maps KeyCloak's port to port `9999` to avoid any clash with Stroom that also runs on `8080`.
 This will create a docker container called `keycloak` that uses an embedded H2 database to hold its state.
 
 To start the container in the foreground, do:
@@ -139,10 +146,17 @@ Select the _Credentials_ tab and click _Set password_.
 
 Set the password to `admin` and set _Temporary_ to off.
 
+Repeat this process for the following user:
+
+* Username - `jbloggs`
+* First name - `Joe`
+* Last name - `Bloggs`
+* Password - `password`
+
 
 ### Configure Stroom for KeyCloak
 
-Edit the `config.yml` file and set the following:
+Edit the `config.yml` file and set the following values
 
 ```yaml
   security:
@@ -152,7 +166,7 @@ Edit the `config.yml` file and set the following:
         authEndpoint: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/auth"
         clientId: "StroomClient" # The realm created in KeyCloak
         clientSecret: "XwTPPudGZkDK2hu31MZkotzRUdBWfHO6" # The client secret copied from KeyCloak above
-        formTokenRequest: true # TODO not sure on this one, think false is ok.
+        formTokenRequest: false
         issuer: "http://localhost:9999/realms/StroomRealm"
         jwksUri: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/certs"
         logoutEndpoint: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/logout"
@@ -166,9 +180,10 @@ Edit the `config.yml` file and set the following:
 
 These values are obtained from the IDP.
 In the case of KeyCloak they can be found by clicking on _Realm settings_ => _Endpoints_ => _OpenID Endpoint Configuration_ and extracting the various values from the JSON response.
+Alternatively they can typically be found at this address on any Open ID Connect IDP, _https://host/.well-known/openid-configuration_.
 The values will reflect the host/port that the IDP is running on along with the name of the realm.
 
-This assumes _KeyCloak_ is running on `localhost:9999` and the _Realm_ name is `StroomRealm`.
+Setting the above values assumes _KeyCloak_ is running on `localhost:9999` and the _Realm_ name is `StroomRealm`.
 
 
 ### Setting up the admin user in Stroom
@@ -177,7 +192,8 @@ Now that the `admin` user exists in the IDP we need to grant it `Administrator` 
 
 In the _Users_ section of KeyCloak click on user `admin`.
 On the _Details_ tab copy the value of the _ID_ field.
-This ID will be used in stroom to uniquely identify the user.
+The ID is in the form of a {{< glossary "UUID" >}}
+This ID will be used in Stroom to uniquely identify the user and associate it with the identity in KeyCloak.
 
 To set up Stroom with this admin user run the following (**before** Stroom has been started for the first time):
 
@@ -199,13 +215,14 @@ See [Command Line Tools]({{< relref "command-line" >}}) for more details on usin
 
 This command will do the following:
 
-* Create an entry in the `stroom_user` database table for the IDP's `admin` user.
-* Create an entry in the `stroom_user` database table for the `Adminstrators` group.
-* Add the admin user to the group `Administrators`.
+* Create the Stroom User by creating an entry in the `stroom_user` database table for the IDP's `admin` user.
+* Ensure that an `Adminstrators` group exists (i.e. an entry in the `stroom_user` database table for the `Adminstrators` group).
+* Add the `admin` user to the group `Administrators`.
 * Grant the application permission `Administrator` to the group `Administrators`.
 
 {{% note %}}
 This process is only required to bootstrap the admin user to allow them to log in with administrator rights to be able to manage the permissions and group memberships of other users.
+It does not need to be done for every user.
 Whenever a user successfully logs in via the IDP, Stroom will automatically create an entry in the `stroom_user` table for that user.
 The user will have no permissions or group memberships so this will need to be applied by the administrator.
 This does mean that new users will need to login before the administrator can manage their permissions/memberships.
@@ -223,10 +240,9 @@ If the `manage_users` command is run while Stroom is running you will likely not
 Without Administrator rights you will not be able to clear the caches so you will need to restart Stroom.
 {{% /warning %}}
 
-
 Navigate to _http://<stroom fqdn>_ and Stroom should re-direct you to the IDP (KeyCloak) to authenticate.
 Enter the username of `admin` and password `admin`.
-You should be authenticated and re-directed back to stroom.
+You should be authenticated by KeyCloak and re-directed back to stroom.
 Your user ID is shown in the bottom right corner of the Welcome tab.
 
 As an administrator, the _Tools_ => _User Permissions_ menu item will be available to manage the permissions of any users that have logged on at least once.
@@ -234,19 +250,30 @@ As an administrator, the _Tools_ => _User Permissions_ menu item will be availab
 
 ### Fetch an API token for a user
 
-If a user wants to use the REST API they will need to create a token for authentication in API calls.
+{{% note %}}
+We strongly recommend you install _jq_ if you are working with JSON responses from the IDP.
+It allows you to parse and extract parts of the JSON response.
+{{< external-link "https://stedolan.github.io/jq/" >}}
+{{% /note %}}
+
+
+If a user wants to use the REST API they will need to create a token for authentication/authorisation in API calls.
 
 ```bash
-curl -s -L -X POST 'http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token' \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  --data-urlencode 'client_id=StroomClient' \
+curl \
+  --silent \
+  --request POST \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode 'client_id=admin-cli' \
   --data-urlencode 'grant_type=password' \
-  --data-urlencode 'client_secret=< client secret as obtained from IDP >' \
   --data-urlencode 'scope=openid' \
   --data-urlencode 'username=< username on IDP >' \
-  --data-urlencode 'password=< user password on IDP >min' \
+  --data-urlencode 'password=< user password on IDP >' \
+  'http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token' \
   | jq -r '.access_token'
  ```
+
+ This will request a token with the scope `openid` 
 
 > This assumes you have `jq` installed to extract the token from the JSON response.
 
