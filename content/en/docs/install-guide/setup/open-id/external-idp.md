@@ -1,59 +1,13 @@
 ---
-title: "Setting up Stroom with an Open ID Connect IDP"
-linkTitle: "Open ID Connect Setup"
-weight: 50
-date: 2022-11-21
-tags: 
-  - authentication
+title: "External IDP Setup"
+linkTitle: "External IDP Setup"
+weight: 30
+date: 2022-11-25
+tags:
 description: >
-  How to set up Stroom to use a 3rd party Identity Provider (e.g. KeyCloak, Cognito, etc.) for authentication.
+  How to setup KEyCloak as an external identity provider for Stroom.
+  
 ---
-
-Authentication in Stroom can be handed in two ways: using its own {{< glossary "identity provider idp" "Identity Provider (IDP)" >}} or using a 3rd part IDP such as {{< external-link "Amazon Cognito" "https://aws.amazon.com/cognito/" >}} or {{< external-link "KeyCloak" "https://www.keycloak.org" >}}.
-This allows stroom to be integrated into an existing IDP that is used for single sign on with multiple systems.
-
-## Accounts vs Stroom Users
-
-In Stroom we have the concept of Users and Accounts, and it is important to understand the distinction.
-
-
-### Accounts
-
-Accounts are user identities in the internal {{< glossary "identity provider idp" "Identity Provider (IDP)" >}}.
-The internal IDP is used when you want Stroom to manage all the authentication.
-The internal IDP is the default option and the simplest for test environments.
-Accounts are not applicable when using an external 3rd party IDP.
-
-Accounts are managed in Stroom using the _Manage Accounts_ screen available from the _Tools => _Users_ menu item.
-An administrator can create and manage user accounts allowing users to log in to Stroom.
-
-Accounts are for authentication only, and play no part in authorisation (permissions).
-A Stroom user account has a unique identity that will be associated with a Stroom User to link the two together.
-
-When using a 3rd party IDP this screen is not available as all management of users with respect to authentication is done in the 3rd party IDP.
-
-Accounts are stored in the `account` database table.
-
-
-### Stroom Users
-
-A user in Stroom is used for managing authorisation, i.e. permissions and group memberships.
-It plays no part in authentication.
-A user has a unique identifier that is provided by the IDP (internal or 3rd party) to identify it.
-This ID is also the link it to the Stroom _Account_ in the case of the internal IDP or the identity on a 3rd party IDP.
-
-Stroom users and groups are managed in the `stroom_user` and `stroom_user_group` database tables respectively.
-
-
-## Internal IDP
-
-By default a new Stroom instance/cluster will use its own internal IDP for authentication.
-A fresh install will come pre-loaded with a user account called `admin` with the password `admin`.
-This user is a member of a {{< glossary "group users" "group">}} called `Administrators` which has the `Administrator` application permission.
-This admin user can be used to set up the other users on the system.
-
-
-## 3rd Party IDP
 
 You may be running Stroom in an environment with an existing IDP (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
 Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Connect" "https://openid.net/connect/" >}} specification.
@@ -64,13 +18,13 @@ Configuration for other IDPs will be very similar so these instructions will hav
 It is assumed that you have deployed a new instance/cluster of stroom AND have not yet started it.
 
 
-### Running KeyCloak
+## Running KeyCloak
 
 > If you already have a KeyCloak instance running then move on to the next section.
 
 This section is not a definitive guide to running/administering KeyCloak.
-It describes how to run KeyClock using non-production settings for simplicity and to demonstrate using a 3rd party IDP.
-You should consult the KeyClock documentation on how to set up a production ready instance of KeyCloak.
+It describes how to run KeyCloak using non-production settings for simplicity and to demonstrate using a 3rd party IDP.
+You should consult the KeyCloak documentation on how to set up a production ready instance of KeyCloak.
 
 The easiest way to run KeyCloak is using Docker.
 To create a KeyCloak container do the following:
@@ -101,17 +55,17 @@ Log into KeyCloak using the username `admin` and password `admin` as specified i
 You should see the admin console.
 
 
-### Creating a realm
+## Creating a realm
 
 First you need to create a Realm.
 
-1. Click on the dropdown in the left pane that contains the word `master`.
+1. Click on the drop-down in the left pane that contains the word `master`.
 1. Click _Create Realm_.
 1. Set the _Realm name_ to `StroomRealm`.
 1. Click _Create_.
 
 
-### Creating a client
+## Creating a client
 
 In the new realm click on _Clients_ in the left pane, then _Create client_.
 
@@ -131,7 +85,7 @@ Open the new _Client_ and on the _Settings_ tab set:
 On the _Credentials_ tab copy the _Client secret_ for use later in Stroom config.
 
 
-### Creating users
+## Creating users
 
 Click on _Users_ in the left pane then _Add user_.
 Set the following:
@@ -146,6 +100,13 @@ Select the _Credentials_ tab and click _Set password_.
 
 Set the password to `admin` and set _Temporary_ to off.
 
+{{% note %}}
+Standard practice would be for there to be a number of administrators where each has their own identity (in their own name) on the IDP.
+Each would be granted the `Administrator` application permission (directly or via a group).
+For this example we are calling our administrator `admin`.
+{{% /note %}}
+
+
 Repeat this process for the following user:
 
 * Username - `jbloggs`
@@ -154,7 +115,7 @@ Repeat this process for the following user:
 * Password - `password`
 
 
-### Configure Stroom for KeyCloak
+## Configure Stroom for KeyCloak
 
 Edit the `config.yml` file and set the following values
 
@@ -186,7 +147,7 @@ The values will reflect the host/port that the IDP is running on along with the 
 Setting the above values assumes _KeyCloak_ is running on `localhost:9999` and the _Realm_ name is `StroomRealm`.
 
 
-### Setting up the admin user in Stroom
+## Setting up the admin user in Stroom
 
 Now that the `admin` user exists in the IDP we need to grant it `Administrator` rights in Stroom.
 
@@ -229,7 +190,9 @@ This does mean that new users will need to login before the administrator can ma
 {{% /note %}}
 
 
-### Logging into Stroom
+## Logging into Stroom
+
+### As the administrator
 
 Now that the user and permissions have been set up in Stroom, the administrator can log in.
 
@@ -246,40 +209,3 @@ You should be authenticated by KeyCloak and re-directed back to stroom.
 Your user ID is shown in the bottom right corner of the Welcome tab.
 
 As an administrator, the _Tools_ => _User Permissions_ menu item will be available to manage the permissions of any users that have logged on at least once.
-
-
-### Fetch an API token for a user
-
-{{% note %}}
-We strongly recommend you install _jq_ if you are working with JSON responses from the IDP.
-It allows you to parse and extract parts of the JSON response.
-{{< external-link "https://stedolan.github.io/jq/" >}}
-{{% /note %}}
-
-
-If a user wants to use the REST API they will need to create a token for authentication/authorisation in API calls.
-
-```bash
-curl \
-  --silent \
-  --request POST \
-  --header 'Content-Type: application/x-www-form-urlencoded' \
-  --data-urlencode 'client_id=admin-cli' \
-  --data-urlencode 'grant_type=password' \
-  --data-urlencode 'scope=openid' \
-  --data-urlencode 'username=< username on IDP >' \
-  --data-urlencode 'password=< user password on IDP >' \
-  'http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token' \
-  | jq -r '.access_token'
- ```
-
- This will request a token with the scope `openid` 
-
-> This assumes you have `jq` installed to extract the token from the JSON response.
-
-
-
-
-
-
-
