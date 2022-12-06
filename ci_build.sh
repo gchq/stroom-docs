@@ -445,7 +445,7 @@ copy_latest_to_root() {
   # This is to stop gh-pages treating the content as Jekyll content
   # in which case dirs prefixed with '_' are ignored breaking the print 
   # functionality
-  local no_jekyll_file="${NEW_GH_PAGES_DIR}/.nojeykll"
+  local no_jekyll_file="${NEW_GH_PAGES_DIR}/.nojekyll"
   echo -e "${GREEN}Ensuring presence of ${BLUE}${no_jekyll_file}/${NC}"
   touch "${no_jekyll_file}"
 
