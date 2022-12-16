@@ -1,7 +1,7 @@
 ---
 title: "Exploring Data in Kibana"
 linkTitle: "Kibana"
-#weight:
+weight: 4
 date: 2022-12-15
 tags:
   - search

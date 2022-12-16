@@ -1,7 +1,7 @@
 ---
 title: "Indexing data"
 linkTitle: "Indexing data"
-#weight:
+weight: 3
 date: 2022-12-15
 tags:
   - elastic

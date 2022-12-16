@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 linkTitle: "Getting Started"
-#weight:
+weight: 2
 date: 2022-12-15
 tags:
   - search
