@@ -12,11 +12,13 @@ description: >
   Searching an Elasticsearch index using a Stroom dashboard
 ---
 
+
 ## Searching using a Stroom dashboard
 
 Searching an Elasticsearch index (or data stream) using a Stroom dashboard is conceptually similar to the process described in [Dashboards]({{< relref "../../quick-start-guide/dashboard/" >}}).
 
 Before you set the dashboard's data source, you must first create an Elastic Index document to tell Stroom which index (or indices) you wish to query.
+
 
 ### Create an Elastic Index document
 
@@ -31,6 +33,7 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 9. Click `Test Connection`. A dialog will appear with the result, which will state `Connection Success` if the connection was successful and the index pattern matched one or more indices.
 9. Click {{< stroom-icon "save.svg" "Save" >}}.
 
+
 ### Set the Elastic Index document as the dashboard data source
 
 1. Open or create a dashboard.
@@ -39,6 +42,7 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 4. Select the Elastic Index document you created and click `OK`.
 5. Configure the query expression as explained in [Dashboards]({{< relref "../../quick-start-guide/dashboard/#configuring-the-query-expression" >}}). Note the [tips]({{< relref "#query-expression-tips" >}}) for particular Elasticsearch field mapping data types.
 6. [Configure the table]({{< relref "../../quick-start-guide/dashboard/#configuring-the-table" >}}).
+
 
 ## Query expression tips
 
@@ -51,6 +55,7 @@ To identify the field mapping type for a particular field:
 3. Note the blue data type indicator to the far right of the row. Common examples are: `keyword`, `text` and `number`.
 
 After you identify the field mapping type, move the mouse cursor over the mapping type indicator. A tooltip appears, explaining various types of queries you can perform against that particular field's type.
+
 
 ## Searching multiple indices
 
