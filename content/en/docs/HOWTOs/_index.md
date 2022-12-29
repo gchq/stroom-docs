@@ -61,7 +61,7 @@ The reference feed HOWTOs illustrate how to create reference feeds [Create Refer
 
 This section covers using Stroom to index and search data.
 
- * [Stroom API]({{< relref "Search/StroomApi.md" >}})
+ * [Stroom API]({{< relref "Search/stroom-api.md" >}})
  * [Elasticsearch]({{< relref "Search/Elasticsearch.md" >}})
  * [Solr]({{< relref "Search/Solr.md" >}})
 
