@@ -54,13 +54,20 @@ To identify the field mapping type for a particular field:
 1. Select the Elasticsearch field name in the drop-down list.
 1. Note the blue data type indicator to the far right of the row. Common examples are: `keyword`, `text` and `number`.
 
-After you identify the field mapping type, move the mouse cursor over the mapping type indicator. A tooltip appears, explaining various types of queries you can perform against that particular field's type.
+After you identify the field mapping type, move the mouse cursor over the mapping type indicator.
+A tooltip appears, explaining various types of queries you can perform against that particular field's type.
 
 
 ## Searching multiple indices
 
-Using data view (index pattern) syntax, you can create powerful dashboards that query multiple indices at a time. An example of this is where you have multiple indices covering different types of email systems. Let's assume these indices are named: `stroom-exchange-v1`, `stroom-domino-v1` and `stroom-mailu-v1`.
+Using data view (index pattern) syntax, you can create powerful dashboards that query multiple indices at a time.
+An example of this is where you have multiple indices covering different types of email systems.
+Let's assume these indices are named: `stroom-exchange-v1`, `stroom-domino-v1` and `stroom-mailu-v1`.
 
-There is a common set of fields across all three indices: `@timestamp`, `Subject`, `Sender` and `Recipient`. You want to allow search across all indices at once, in effect creating a unified *email* dashboard.
+There is a common set of fields across all three indices: `@timestamp`, `Subject`, `Sender` and `Recipient`.
+You want to allow search across all indices at once, in effect creating a unified *email* dashboard.
 
-You can achieve this by creating an Elastic Index document called (for example) `Elastic-Email-Combined` and setting the property `Index name or pattern` to: `stroom-exchange-v1,stroom-domino-v1,stroom-mailu-v1`. Click {{< stroom-icon "save.svg" "Save" >}} and re-open the dashboard. You'll notice that the available fields are a union of the fields across all three indices. You can now search by any of these - in particular, the fields common to all three.
+You can achieve this by creating an Elastic Index document called (for example) `Elastic-Email-Combined` and setting the property `Index name or pattern` to: `stroom-exchange-v1,stroom-domino-v1,stroom-mailu-v1`.
+Click {{< stroom-icon "save.svg" "Save" >}} and re-open the dashboard.
+You'll notice that the available fields are a union of the fields across all three indices.
+You can now search by any of these - in particular, the fields common to all three.

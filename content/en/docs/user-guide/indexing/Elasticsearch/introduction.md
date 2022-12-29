@@ -12,9 +12,11 @@ description: >
   Concepts, assumptions and key differences to Solr and built-in Lucene indexing
 ---
 
-Stroom supports using an external Elasticsearch cluster to index event data. This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.
+Stroom supports using an external Elasticsearch cluster to index event data.
+This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.
 
-With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store. For instance, you can deploy {{< external-link "Kibana" "https://www.elastic.co/kibana/" >}} to search and visualise Elasticsearch data.
+With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store.
+For instance, you can deploy {{< external-link "Kibana" "https://www.elastic.co/kibana/" >}} to search and visualise Elasticsearch data.
 
 Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.
 
@@ -23,8 +25,7 @@ This guide will walk you through configuring a Stroom indexing pipeline, creatin
 
 ## Assumptions
 
-1. You have created an Elasticsearch cluster. Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work.
-   For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the {{< external-link "Elasticsearch Docs" "https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode" >}}.
+1. You have created an Elasticsearch cluster. Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work. For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the {{< external-link "Elasticsearch Docs" "https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode" >}}.
 1. The Elasticsearch cluster is reachable via HTTPS from all Stroom nodes participating in [stream processing]({{< relref "../../../quick-start-guide/running.md" >}}).
 1. Elasticsearch security is enabled. This is mandatory and is enabled by default in Elasticsearch 8.x and above.
 1. The Elasticsearch HTTPS interface presents a trusted X.509 server certificate. The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.

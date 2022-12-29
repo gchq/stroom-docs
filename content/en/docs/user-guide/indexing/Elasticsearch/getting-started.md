@@ -15,7 +15,9 @@ description: >
 
 ## Establish an Elasticsearch cluster connection in Stroom
 
-The first step is to configure Stroom to connect to an Elasticsearch cluster. You can configure multiple cluster connections if required, such as a separate one for production and another for development. Each cluster connection is defined by an `Elastic Cluster` document within the Stroom UI.
+The first step is to configure Stroom to connect to an Elasticsearch cluster.
+You can configure multiple cluster connections if required, such as a separate one for production and another for development.
+Each cluster connection is defined by an `Elastic Cluster` document within the Stroom UI.
 
 1. In the Stroom Explorer pane ({{< stroom-icon "explorer.svg" "Explorer" >}}), right-click on the folder where you want to create the `Elastic Cluster` document.
 1. Select `New` -> `Elastic Cluster`.
@@ -25,7 +27,9 @@ The first step is to configure Stroom to connect to an Elasticsearch cluster. Yo
 1. Click {{< stroom-icon "save.svg" "Save" >}} to commit changes.
 
 {{% warning %}}
-Ensure you restrict permissions to the `Elastic Cluster` document. The `Read` privilege permits retrieval of the Elasticsearch API key and secret, granting the holder the same level of privilege as Stroom. Users authorised to search Elasticsearch indices via Stroom dashboards should only be assigned the `Use` privilege.
+Ensure you restrict permissions to the `Elastic Cluster` document.
+The `Read` privilege permits retrieval of the Elasticsearch API key and secret, granting the holder the same level of privilege as Stroom.
+Users authorised to search Elasticsearch indices via Stroom dashboards should only be assigned the `Use` privilege.
 {{% /warning %}}
 
 
@@ -39,7 +43,8 @@ Ensure you restrict permissions to the `Elastic Cluster` document. The `Read` pr
 
 ### Connection URLs
 
-Enter one or more node or cluster addresses, including protocol, hostname and port. Only HTTPS is supported; attempts to use plain-text HTTP will fail.
+Enter one or more node or cluster addresses, including protocol, hostname and port.
+Only HTTPS is supported; attempts to use plain-text HTTP will fail.
 
 
 #### Examples

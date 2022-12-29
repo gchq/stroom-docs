@@ -79,7 +79,8 @@ The following example creates a basic index template `stroom-events-v1` in a loc
 1. `Message` -- Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field `wildcard` {{< external-link "supports regexp queries" "https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" >}}.
 
 {{% note %}}
-Elasticsearch does not have a dedicated `array` field mapping data type. An Elasticsearch field may contain zero or more values by default. See: {{< external-link "Arrays" "https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" >}} in the Elastic documentation.
+Elasticsearch does not have a dedicated `array` field mapping data type. An Elasticsearch field may contain zero or more values by default.
+See: {{< external-link "Arrays" "https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" >}} in the Elastic documentation.
 {{% /note %}}
 
 In Kibana Dev Tools, execute the following query:
@@ -148,7 +149,8 @@ In Kibana Dev Tools, execute the following query:
 
 ## Create an Elasticsearch indexing pipeline template
 
-An Elasticsearch indexing pipeline is similar in structure to the built-in packaged `Indexing` template pipeline. It typically consists of the following pipeline elements:
+An Elasticsearch indexing pipeline is similar in structure to the built-in packaged `Indexing` template pipeline.
+It typically consists of the following pipeline elements:
 
 1. Source
 1. XML Parser
@@ -193,7 +195,8 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 
 ### Example 1: Single index or data stream
 
-This is the simplest use case and is suitable where you want to write to a single {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (for time-series data) or index. If your index template contains the property `data_stream: {}`, be sure to include a `string` field named `@timestamp` in the output JSON XML.
+This is the simplest use case and is suitable where you want to write to a single {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (for time-series data) or index.
+If your index template contains the property `data_stream: {}`, be sure to include a `string` field named `@timestamp` in the output JSON XML.
 
 If targeting a data stream, you may choose to use Elasticsearch {{< external-link "ILM" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" >}} to manage its lifecycle. 
 
@@ -204,7 +207,8 @@ indexBaseName: stroom-events-v1
 
 ### Example 2: Dynamic time-based data streams
 
-In this example, Stroom creates data streams as needed, named according to the value of a particular JSON date field and date pattern. This is useful when you need to roll over data streams manually, such as maintaining older data on slower storage tiers.
+In this example, Stroom creates data streams as needed, named according to the value of a particular JSON date field and date pattern.
+This is useful when you need to roll over data streams manually, such as maintaining older data on slower storage tiers.
 
 For instance, you may have data spanning many years and want to have Stroom create a separate data stream for each year, such as `stroom-events-v1-2020`, `stroom-events-v1-2021`, `stroom-events-v1-2022` and so on.
 
@@ -216,7 +220,8 @@ indexNameDateFormat: -yyyy
 
 
 ### Other options
-There are other options available for the Elastic Indexing Filter. These are documented in the UI.
+There are other options available for the Elastic Indexing Filter.
+These are documented in the UI.
 
 
 ## Create an indexing translation
@@ -261,7 +266,8 @@ In this example, let's assume you have event data that looks like the following:
 </Events>
 ```
 
-We need to write an XSL transform (XSLT) to form a JSON document for each stream processed. Each document must consist of an `array` element one or more `map` elements (each representing an `Event`), each with the necessary properties as per our index template.
+We need to write an XSL transform (XSLT) to form a JSON document for each stream processed.
+Each document must consist of an `array` element one or more `map` elements (each representing an `Event`), each with the necessary properties as per our index template.
 
 See [XSLT Conversion]({{< relref "../../pipelines/xslt/" >}}) for instructions on how to write an XSLT.
 
@@ -311,7 +317,8 @@ At this point, you will want to [step the pipeline]({{< relref "../../../quick-s
 
 ## Execute the pipeline
 
-Create a pipeline processor and filter to run the pipeline against one or more feeds. Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.
+Create a pipeline processor and filter to run the pipeline against one or more feeds.
+Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.
 
 You can monitor indexing status via your Elasticsearch monitoring tool of choice.
 
@@ -321,7 +328,8 @@ You can monitor indexing status via your Elasticsearch monitoring tool of choice
 If any errors occur while a stream is being indexed, an `Error` stream is created, containing details of each failure. `Error` streams can be found under the `Data` tab of either the indexing pipeline or receiving `Feed`.
 
 {{% note %}}
-You can filter the selected pipeline or feed to list only `Error` streams. Click {{< stroom-icon "filter.svg" "Filter" >}} then add a condition `Type` `=` `Error`.
+You can filter the selected pipeline or feed to list only `Error` streams.
+Click {{< stroom-icon "filter.svg" "Filter" >}} then add a condition `Type` `=` `Error`.
 {{% /note %}}
 
 Once you have addressed the underlying cause for a particular type of error (such as an incorrect field mapping), reprocess affected streams:
@@ -331,7 +339,8 @@ Once you have addressed the underlying cause for a particular type of error (suc
 1. In the dialog that appears, check `Reprocess data` and click `OK`.
 1. Click `OK` for any confirmation prompts that follow.
 
-Stroom will re-send data from the selected `Event` streams to Elasticsearch for indexing. Any existing documents matching the `StreamId` of the original `Event` stream are first deleted automatically to avoid duplication.
+Stroom will re-send data from the selected `Event` streams to Elasticsearch for indexing.
+Any existing documents matching the `StreamId` of the original `Event` stream are first deleted automatically to avoid duplication.
 
 
 ## Tips and tricks
@@ -339,9 +348,11 @@ Stroom will re-send data from the selected `Event` streams to Elasticsearch for 
 
 ### Use a common schema for your indices
 
-An example is {{< external-link "Elastic Common Schema (ECS)" "https://www.elastic.co/guide/en/ecs/current/ecs-reference.html" >}}. This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).
+An example is {{< external-link "Elastic Common Schema (ECS)" "https://www.elastic.co/guide/en/ecs/current/ecs-reference.html" >}}.
+This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).
 
-With this in mind, it is important that common fields also have the same data type in each index. Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single *component*.
+With this in mind, it is important that common fields also have the same data type in each index.
+Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single *component*.
 
 
 ### Use a version control system (such as git) to track index and component templates
@@ -351,7 +362,9 @@ This helps keep track of changes over time and can be an important resource for 
 
 ### Rebuilding an index
 
-Sometimes it is necessary to rebuild an index. This could be due to a change in field mapping, shard count or responding to a user feature request. To rebuild an index:
+Sometimes it is necessary to rebuild an index. This could be due to a change in field mapping, shard count or responding to a user feature request.
+
+To rebuild an index:
 
 1. Drain the indexing pipeline by deactivating any processor filters and waiting for any running tasks to complete.
 1. Delete the index or data stream via the Elasticsearch API or Kibana.
@@ -362,7 +375,10 @@ Sometimes it is necessary to rebuild an index. This could be due to a change in 
 
 ### Use a versioned index naming convention
 
-As with the earlier example `stroom-events-v1`, a version number is appended to the name of the index or data stream. If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime. This can be avoided by incrementing the version and performing the rebuild against a new index: `stroom-events-v2`. Users could continue querying `stroom-events-v1` until it is deleted. This approach involves the following steps:
+As with the earlier example `stroom-events-v1`, a version number is appended to the name of the index or data stream.
+If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
+This can be avoided by incrementing the version and performing the rebuild against a new index: `stroom-events-v2`. Users could continue querying `stroom-events-v1` until it is deleted.
+This approach involves the following steps:
 
 1. Create a new Elasticsearch index template targeting the new index name (in this case, `stroom-events-v2`).
 1. Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.
