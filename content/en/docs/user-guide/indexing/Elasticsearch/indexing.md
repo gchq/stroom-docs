@@ -72,11 +72,11 @@ When Elasticsearch first receives a document from Stroom targeting an index, who
 The following example creates a basic index template `stroom-events-v1` in a local Elasticsearch cluster, with the following explicit field mappings:
 
 1. `StreamId` -- mandatory, data type `long` or `keyword`.
-2. `EventId` -- mandatory, data type `long` or `keyword`.
-3. `@timestamp` -- required if the index is to be part of a {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (recommended).
-4. `User` -- An object containing properties `Id`, `Name` and `Active`, each with their own data type.
-5. `Tags` -- An array of one or more strings.
-6. `Message` -- Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field `wildcard` {{< external-link "supports regexp queries" "https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" >}}.
+1. `EventId` -- mandatory, data type `long` or `keyword`.
+1. `@timestamp` -- required if the index is to be part of a {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (recommended).
+1. `User` -- An object containing properties `Id`, `Name` and `Active`, each with their own data type.
+1. `Tags` -- An array of one or more strings.
+1. `Message` -- Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field `wildcard` {{< external-link "supports regexp queries" "https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" >}}.
 
 {{% note %}}
 Elasticsearch does not have a dedicated `array` field mapping data type. An Elasticsearch field may contain zero or more values by default. See: {{< external-link "Arrays" "https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" >}} in the Elastic documentation.
@@ -151,14 +151,14 @@ In Kibana Dev Tools, execute the following query:
 An Elasticsearch indexing pipeline is similar in structure to the built-in packaged `Indexing` template pipeline. It typically consists of the following pipeline elements:
 
 1. Source
-2. XML Parser
-3. Record count filter (read)
-4. Split Filter
-5. ID Enrichment Filter
-6. XSL Filter (contains the translation mapping `Events` to JSON `array`)
-7. Schema Filter (schema group `JSON`)
-8. Elastic Indexing Filter
-9. Record Count Filter (written)
+1. XML Parser
+1. Record count filter (read)
+1. Split Filter
+1. ID Enrichment Filter
+1. XSL Filter (contains the translation mapping `Events` to JSON `array`)
+1. Schema Filter (schema group `JSON`)
+1. Elastic Indexing Filter
+1. Record Count Filter (written)
 
 It is recommended to create a template Elasticsearch indexing pipeline, which can then be re-used.
 
@@ -166,13 +166,13 @@ It is recommended to create a template Elasticsearch indexing pipeline, which ca
 ### Procedure
 
 1. Right-click on the `Template Pipelines` folder in the Stroom Explorer pane ({{< stroom-icon "explorer.svg" "Explorer" >}}).
-2. Select `New` -> `Pipeline`.
-3. Enter the name `Indexing (Elasticsearch)` and click `OK`.
-4. Define the pipeline structure as above, and customise the following pipeline elements:
+1. Select `New` -> `Pipeline`.
+1. Enter the name `Indexing (Elasticsearch)` and click `OK`.
+1. Define the pipeline structure as above, and customise the following pipeline elements:
    1. Set the Split Filter `splitCount` property to a sensible default value, based on the expected source XML element count (e.g. `100`).
-   2. Set the Schema Filter `schemaGroup` property to `JSON`.
-   3. Set the Elastic Indexing Filter `cluster` property to point to the `Elastic Cluster` document you created [earlier]({{< relref "Getting-Started.md" >}}).
-   4. Set the Write Record Count filter `countRead` property to `false`.
+   1. Set the Schema Filter `schemaGroup` property to `JSON`.
+   1. Set the Elastic Indexing Filter `cluster` property to point to the `Elastic Cluster` document you created [earlier]({{< relref "Getting-Started.md" >}}).
+   1. Set the Write Record Count filter `countRead` property to `false`.
 
 Now you have created a template indexing pipeline, it's time to create a feed-specific pipeline that inherits this template.
 
@@ -183,12 +183,12 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 ### Procedure
 
 1. Right-click on a folder in the Stroom Explorer pane ({{< stroom-icon "explorer.svg" "Explorer" >}}).
-2. Select `New` -> `Pipeline`.
-3. Enter a name for your pipeline and click `OK`.
-4. Click the `Inherit From` {{< stroom-icon "ellipses-horizontal.svg" Ellipsis >}} button.
-5. In the dialog that appears, select the template pipeline you created named `Indexing (Elasticsearch)` and click `OK`.
-6. Select the Elastic Indexing Filter pipeline element.
-7. Set its properties as per one of the examples below.
+1. Select `New` -> `Pipeline`.
+1. Enter a name for your pipeline and click `OK`.
+1. Click the `Inherit From` {{< stroom-icon "ellipses-horizontal.svg" Ellipsis >}} button.
+1. In the dialog that appears, select the template pipeline you created named `Indexing (Elasticsearch)` and click `OK`.
+1. Select the Elastic Indexing Filter pipeline element.
+1. Set its properties as per one of the examples below.
 
 
 ### Example 1: Single index or data stream
@@ -297,11 +297,11 @@ The output from your XSLT should match the following:
 Having created your translation, you need to reference it in your indexing pipeline.
 
 1. Open the pipeline you created.
-2. Select the `Structure` tab.
-3. Select the XSLT Filter pipeline element.
-4. Double-click the `xslt` property value cell.
-5. Select the XSLT you created and click `OK`.
-6. Click {{< stroom-icon "save.svg" "Save" >}}.
+1. Select the `Structure` tab.
+1. Select the XSLT Filter pipeline element.
+1. Double-click the `xslt` property value cell.
+1. Select the XSLT you created and click `OK`.
+1. Click {{< stroom-icon "save.svg" "Save" >}}.
 
 
 ## Step the pipeline
@@ -327,9 +327,9 @@ You can filter the selected pipeline or feed to list only `Error` streams. Click
 Once you have addressed the underlying cause for a particular type of error (such as an incorrect field mapping), reprocess affected streams:
 
 1. Select any `Error` streams relating for reprocessing, by clicking the relevant checkboxes in the stream list (top pane).
-2. Click {{< stroom-icon "process.svg" "Process" >}}.
-3. In the dialog that appears, check `Reprocess data` and click `OK`.
-4. Click `OK` for any confirmation prompts that follow.
+1. Click {{< stroom-icon "process.svg" "Process" >}}.
+1. In the dialog that appears, check `Reprocess data` and click `OK`.
+1. Click `OK` for any confirmation prompts that follow.
 
 Stroom will re-send data from the selected `Event` streams to Elasticsearch for indexing. Any existing documents matching the `StreamId` of the original `Event` stream are first deleted automatically to avoid duplication.
 
@@ -354,10 +354,10 @@ This helps keep track of changes over time and can be an important resource for 
 Sometimes it is necessary to rebuild an index. This could be due to a change in field mapping, shard count or responding to a user feature request. To rebuild an index:
 
 1. Drain the indexing pipeline by deactivating any processor filters and waiting for any running tasks to complete.
-2. Delete the index or data stream via the Elasticsearch API or Kibana.
-3. Make the required changes to the index template and/or XSL translation.
-4. Create a new processor filter either from scratch or using the {{< stroom-icon "copy.svg" "Clone" >}} button.
-5. Activate the new processor filter.
+1. Delete the index or data stream via the Elasticsearch API or Kibana.
+1. Make the required changes to the index template and/or XSL translation.
+1. Create a new processor filter either from scratch or using the {{< stroom-icon "copy.svg" "Clone" >}} button.
+1. Activate the new processor filter.
 
 
 ### Use a versioned index naming convention
@@ -365,11 +365,11 @@ Sometimes it is necessary to rebuild an index. This could be due to a change in 
 As with the earlier example `stroom-events-v1`, a version number is appended to the name of the index or data stream. If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime. This can be avoided by incrementing the version and performing the rebuild against a new index: `stroom-events-v2`. Users could continue querying `stroom-events-v1` until it is deleted. This approach involves the following steps:
 
 1. Create a new Elasticsearch index template targeting the new index name (in this case, `stroom-events-v2`).
-2. Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.
-3. Create and activate a processing filter for the new pipeline.
-4. Once indexing is complete, update the Elastic Index document to point to `stroom-events-v2`. Users will now be searching against the new index.
-5. Drain any tasks for the original indexing pipeline and delete it.
-6. Delete index `stroom-events-v1` using either the Elasticsearch API or Kibana.
+1. Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.
+1. Create and activate a processing filter for the new pipeline.
+1. Once indexing is complete, update the Elastic Index document to point to `stroom-events-v2`. Users will now be searching against the new index.
+1. Drain any tasks for the original indexing pipeline and delete it.
+1. Delete index `stroom-events-v1` using either the Elasticsearch API or Kibana.
 
 If you created a data view in Kibana, you'll also want to update this to point to the new index / data stream.
 
@@ -377,4 +377,4 @@ If you created a data view in Kibana, you'll also want to update this to point t
 ## See also
 
 1. [Searching an Elasticsearch index in a Dashboard]({{< relref "../../dashboards/elasticsearch.md" >}})
-2. [Exploring data with Kibana]({{< relref "kibana.md" >}})
+1. [Exploring data with Kibana]({{< relref "kibana.md" >}})
