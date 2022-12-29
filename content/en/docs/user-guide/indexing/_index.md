@@ -1,6 +1,6 @@
 ---
-title: "Indexes"
-linkTitle: "Indexes"
+title: "Indexing data"
+linkTitle: "Indexing data"
 #weight:
 date: 2022-02-15
 tags: 
