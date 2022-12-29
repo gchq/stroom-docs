@@ -59,11 +59,11 @@ The reference feed HOWTOs illustrate how to create reference feeds [Create Refer
 
 ## Searches and Indexing
 
-This section covers Indexing and Searching for data in Stroom
+This section covers using Stroom to index and search data.
 
- * [Search using bash]({{< relref "Search/SearchFromBash.md" >}})
- * [Elasticsearch integration]({{< relref "Search/Elasticsearch.md" >}})
- * [Solr integration]({{< relref "Search/Solr.md" >}})
+ * [Stroom API]({{< relref "Search/stroom-api.md" >}})
+ * [Elasticsearch]({{< relref "Search/Elasticsearch.md" >}})
+ * [Solr]({{< relref "Search/Solr.md" >}})
 
 
 ## Event Post Processing
