@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../../docs/user-guide/indexing/elasticsearch/">
+<meta name="robots" content="index, follow">
+
+
+<link rel="shortcut icon" href="../../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Elasticsearch | Stroom</title>
+<meta name="description" content="Using Elasticsearch to index data
+">
+<meta property="og:title" content="Elasticsearch" />
+<meta property="og:description" content="Using Elasticsearch to index data
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/user-guide/indexing/elasticsearch/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Elasticsearch">
+<meta itemprop="description" content="Using Elasticsearch to index data
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch"/>
+<meta name="twitter:description" content="Using Elasticsearch to index data
+"/>
+
+
+
+
+<link rel="preload" href="../../../../../scss/main.min.a3071161b58f543881abc376bafc351c1990dece0d97fb76463bacd39540eb2b.css" as="style">
+<link href="../../../../../scss/main.min.a3071161b58f543881abc376bafc351c1990dece0d97fb76463bacd39540eb2b.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../../css/prism.css"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-00000000-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="../../../../../">
+		<span class="navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="font-weight-bold">Stroom</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../about/about/" ><span>About</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="../../../../../docs/" ><span class="active">Documentation</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../news/" ><span>News / Releases</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="../../../../../community/" ><span>Community</span></a>
+			</li>
+			
+			
+			<li class="nav-item dropdown mr-4 d-none d-lg-block">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.1)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="../../../../../">7.1 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../legacy">Legacy</a>
+	
+</div>
+
+			</li>
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"><input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; Search this site…"
+  aria-label="Search this site…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="../../../../../offline-search-index.73ec12b93067444a9d2418ce2a539be4.json"
+  data-offline-search-base-href="../../../../../"
+  data-offline-search-max-results="50"
+>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../../docs/user-guide/indexing/elasticsearch/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Elasticsearch</h1>
+<div class="lead">Using Elasticsearch to index data</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-11436d5ffb83982eadb55f38a48561a3">Introduction</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-b5819e4b2ace494747987012860d2763">Getting Started</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-980e3a2abc9b5cd93e9f884efa1f447e">Indexing data</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-3dade340d7a7982807466acc86bdfe8d">Exploring Data in Kibana</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-11436d5ffb83982eadb55f38a48561a3">1 - Introduction</h1>
+    <div class="lead">Concepts, assumptions and key differences to Solr and built-in Lucene indexing</div>
+	<p>Stroom supports using an external Elasticsearch cluster to index event data.
+This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.</p>
+<p>With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store.
+For instance, you can deploy 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/kibana/" target="_blank" class="" style="" title="Kibana (external link)">
+    <span>Kibana</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ to search and visualise Elasticsearch data.</p>
+<p>Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.</p>
+<p>This guide will walk you through configuring a Stroom indexing pipeline, creating an Elasticsearch index template, activating a stream processor and searching the indexed data in both Stroom and Kibana.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ol>
+<li>You have created an Elasticsearch cluster. Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work. For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode" target="_blank" class="" style="" title="Elasticsearch Docs (external link)">
+    <span>Elasticsearch Docs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
+<li>The Elasticsearch cluster is reachable via HTTPS from all Stroom nodes participating in <a href="../../../../../docs/quick-start-guide/running/">stream processing</a>.</li>
+<li>Elasticsearch security is enabled. This is mandatory and is enabled by default in Elasticsearch 8.x and above.</li>
+<li>The Elasticsearch HTTPS interface presents a trusted X.509 server certificate. The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.</li>
+<li>You have a feed containing <code>Event</code> streams to index.</li>
+</ol>
+<h2 id="key-differences">Key differences</h2>
+<p>Indexing data with Elasticsearch differs from Solr and built-in Lucene methods in a number of ways:</p>
+<ol>
+<li>Unlike with <a href="../../../../../docs/user-guide/indexing/solr/">Solr</a> and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" target="_blank" class="" style="" title="index and component templates (external link)">
+    <span>index and component templates</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+. These are normally created either via the Elasticsearch API, or interactively using Kibana.</li>
+<li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional. Elasticsearch will use 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html" target="_blank" class="" style="" title="dynamic mapping (external link)">
+    <span>dynamic mapping</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ by default, to infer each field&rsquo;s type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type <code>ip</code>).</li>
+</ol>
+<h2 id="next-topic">Next topic</h2>
+<p><a href="../../../../../docs/user-guide/indexing/elasticsearch/getting-started/">Getting Started</a></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-b5819e4b2ace494747987012860d2763">2 - Getting Started</h1>
+    <div class="lead">Establishing an Elasticsearch cluster connection</div>
+	<h2 id="establish-an-elasticsearch-cluster-connection-in-stroom">Establish an Elasticsearch cluster connection in Stroom</h2>
+<p>The first step is to configure Stroom to connect to an Elasticsearch cluster.
+You can configure multiple cluster connections if required, such as a separate one for production and another for development.
+Each cluster connection is defined by an <code>Elastic Cluster</code> document within the Stroom UI.</p>
+<ol>
+<li>In the Stroom Explorer pane (
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/explorer.svg" 
+  title="Explorer" 
+  alt="explorer.svg">
+), right-click on the folder where you want to create the <code>Elastic Cluster</code> document.</li>
+<li>Select <code>New</code> -&gt; <code>Elastic Cluster</code>.</li>
+<li>Give the cluster document a name and press <code>OK</code>.</li>
+<li>Complete the fields as explained in the <a href="#elastic-cluster-document-fields">section below</a>. Any fields not marked as &ldquo;Optional&rdquo; are mandatory.</li>
+<li>Click <code>Test Connection</code>. A dialog will display with the test result. If <code>Connection Success</code>, details of the target cluster will be displayed. Otherwise, error details will be displayed.</li>
+<li>Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/save.svg" 
+  title="Save" 
+  alt="save.svg">
+ to commit changes.</li>
+</ol>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Ensure you restrict permissions to the <code>Elastic Cluster</code> document.
+The <code>Read</code> privilege permits retrieval of the Elasticsearch API key and secret, granting the holder the same level of privilege as Stroom.
+Users authorised to search Elasticsearch indices via Stroom dashboards should only be assigned the <code>Use</code> privilege.
+
+</div>
+
+
+<h2 id="elastic-cluster-document-fields">Elastic Cluster document fields</h2>
+<h3 id="description">Description</h3>
+<p>(Optional) You might choose to enter the Elasticsearch cluster name or purpose here.</p>
+<h3 id="connection-urls">Connection URLs</h3>
+<p>Enter one or more node or cluster addresses, including protocol, hostname and port.
+Only HTTPS is supported; attempts to use plain-text HTTP will fail.</p>
+<h4 id="examples">Examples</h4>
+<ol>
+<li>Local development node: https://localhost:9200</li>
+<li>FQDN: <a href="https://elasticsearch.example.com:9200">https://elasticsearch.example.com:9200</a></li>
+<li>Kubernetes service: <a href="https://prod-es-http.elastic.svc:9200">https://prod-es-http.elastic.svc:9200</a></li>
+</ol>
+<h3 id="ca-certificate">CA certificate</h3>
+<p>PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface. This is usually your organisation&rsquo;s root enterprise CA certificate. For development, you can provide a self-signed certificate.</p>
+<h3 id="use-authentication">Use authentication</h3>
+<p>(Optional) Tick this box if Elasticsearch requires authentication. This is enabled by default from Elasticsearch version 8.0.</p>
+<h3 id="api-key-id">API key ID</h3>
+<p>Required if <code>Use authentication</code> is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account. This user requires at a minimum the following 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html" target="_blank" class="" style="" title="privileges (external link)">
+    <span>privileges</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+<h4 id="cluster-privileges">Cluster privileges</h4>
+<ol>
+<li>monitor</li>
+<li>manage_own_api_key</li>
+</ol>
+<h4 id="index-privileges">Index privileges</h4>
+<ol>
+<li>all</li>
+</ol>
+<h3 id="api-key-secret">API key secret</h3>
+<p>Required if <code>Use authentication</code> is checked.</p>
+<h3 id="socket-timeout-ms">Socket timeout (ms)</h3>
+<p>Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete. Set to <code>-1</code> (the default) to wait indefinitely, or until Elasticsearch closes the connection.</p>
+<h2 id="next-topic">Next topic</h2>
+<p><a href="../../../../../docs/user-guide/indexing/elasticsearch/indexing/">Indexing data</a></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-980e3a2abc9b5cd93e9f884efa1f447e">3 - Indexing data</h1>
+    <div class="lead">Indexing event data to Elasticsearch</div>
+	<p>A typical workflow is for a Stroom pipeline to convert XML <code>Event</code> elements into the XML equivalent of JSON, complying with the schema <code>http://www.w3.org/2005/xpath-functions</code>, using a format identical to the output of the XML function <code>xml-to-json()</code>.</p>
+<h2 id="understanding-json-xml-representation">Understanding JSON XML representation</h2>
+<p>In an Elasticsearch indexing pipeline translation, you model JSON documents in a compatible XML representation.</p>
+<p>Common JSON primitives and examples of their XML equivalents are outlined below.</p>
+<h3 id="arrays">Arrays</h3>
+<p>Array of maps</p>
+<pre><code class="language-xml">&lt;array key=&quot;users&quot; xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+  &lt;map&gt;
+    &lt;string key=&quot;name&quot;&gt;John Smith&lt;/string&gt;
+  &lt;/map&gt;
+&lt;/array&gt;
+</code></pre>
+<p>Array of strings</p>
+<pre><code class="language-xml">&lt;array key=&quot;userNames&quot; xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+  &lt;string&gt;John Smith&lt;/string&gt;
+  &lt;string&gt;Jane Doe&lt;/string&gt;
+&lt;/array&gt;
+</code></pre>
+<h3 id="maps-and-properties">Maps and properties</h3>
+<pre><code class="language-xml">&lt;map key=&quot;user&quot; xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+  &lt;string key=&quot;name&quot;&gt;John Smith&lt;/string&gt;
+  &lt;boolean key=&quot;active&quot;&gt;true&lt;/boolean&gt;
+  &lt;number key=&quot;daysSinceLastLogin&quot;&gt;42&lt;/number&gt;
+  &lt;string key=&quot;loginDate&quot;&gt;2022-12-25T01:59:01.000Z&lt;/string&gt;
+  &lt;null key=&quot;emailAddress&quot; /&gt;
+  &lt;array key=&quot;phoneNumbers&quot;&gt;
+    &lt;string&gt;1234567890&lt;/string&gt;
+  &lt;/array&gt;
+&lt;/map&gt;
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    It is recommended to insert a schema validation filter into your pipeline XML (with schema group <code>JSON</code>), to make it easier to diagnose JSON conversion errors.
+
+</div>
+
+
+<p>We will now explore how create an Elasticsearch <em>index template</em>, which specifies field mappings and settings for one or more indices.</p>
+<h2 id="create-an-elasticsearch-index-template">Create an Elasticsearch index template</h2>
+<p>For information on what index and component templates are, consult the Elastic 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" target="_blank" class="" style="" title="documentation (external link)">
+    <span>documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the <code>index_patterns</code> entries in the index template, Elasticsearch creates a new index using the <code>settings</code> and <code>mappings</code> properties from the template.</p>
+<p>The following example creates a basic index template <code>stroom-events-v1</code> in a local Elasticsearch cluster, with the following explicit field mappings:</p>
+<ol>
+<li><code>StreamId</code> &ndash; mandatory, data type <code>long</code> or <code>keyword</code>.</li>
+<li><code>EventId</code> &ndash; mandatory, data type <code>long</code> or <code>keyword</code>.</li>
+<li><code>@timestamp</code> &ndash; required if the index is to be part of a 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" target="_blank" class="" style="" title="data stream (external link)">
+    <span>data stream</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (recommended).</li>
+<li><code>User</code> &ndash; An object containing properties <code>Id</code>, <code>Name</code> and <code>Active</code>, each with their own data type.</li>
+<li><code>Tags</code> &ndash; An array of one or more strings.</li>
+<li><code>Message</code> &ndash; Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field <code>wildcard</code> 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" target="_blank" class="" style="" title="supports regexp queries (external link)">
+    <span>supports regexp queries</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
+</ol>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>Elasticsearch does not have a dedicated <code>array</code> field mapping data type. An Elasticsearch field may contain zero or more values by default.
+See:</p>
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" target="_blank" class="" style="" title="Arrays (external link)">
+    <span>Arrays</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ in the Elastic documentation.
+
+
+</div>
+
+
+<p>In Kibana Dev Tools, execute the following query:</p>
+<p><code>PUT _index_template/stroom-events-v1</code></p>
+<pre><code class="language-json">{
+  &quot;index_patterns&quot;: [
+    &quot;stroom-events-v1*&quot; // Apply this template to index names matching this pattern.
+  ],
+  &quot;data_stream&quot;: {}, // For time-series data. Recommended for event data.
+  &quot;template&quot;: {
+    &quot;settings&quot;: {
+      &quot;number_of_replicas&quot;: 1, // Replicas impact indexing throughput. This setting can be changed at any time.
+      &quot;number_of_shards&quot;: 10, // Consider the shard sizing guide: https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html#shard-size-recommendation
+      &quot;refresh_interval&quot;: &quot;10s&quot;, // How often to refresh the index. For high-throughput indices, it's recommended to increase this from the default of 1s
+      &quot;lifecycle&quot;: {
+        &quot;name&quot;: &quot;stroom_30d_retention_policy&quot; // (Optional) Apply an ILM policy https://www.elastic.co/guide/en/elasticsearch/reference/current/set-up-lifecycle-policy.html
+      }
+    },
+    &quot;mappings&quot;: {
+      &quot;dynamic_templates&quot;: [],
+      &quot;properties&quot;: {
+        &quot;StreamId&quot;: { // Required.
+          &quot;type&quot;: &quot;long&quot;
+        },
+        &quot;EventId&quot;: { // Required.
+          &quot;type&quot;: &quot;long&quot;
+        },
+        &quot;@timestamp&quot;: { // Required if the index is part of a data stream.
+          &quot;type&quot;: &quot;date&quot;
+        },
+        &quot;User&quot;: {
+          &quot;properties&quot;: {
+            &quot;Id&quot;: {
+              &quot;type&quot;: &quot;keyword&quot;
+            },
+            &quot;Name&quot;: {
+              &quot;type&quot;: &quot;keyword&quot;
+            },
+            &quot;Active&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          }
+        },
+        &quot;Tags&quot;: {
+          &quot;type&quot;: &quot;keyword&quot;
+        },
+        &quot;Message&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;fields&quot;: {
+            &quot;wildcard&quot;: {
+              &quot;type&quot;: &quot;wildcard&quot;
+            }
+          }
+        }
+      }
+    }
+  },
+  &quot;composed_of&quot;: [
+    // Optional array of component template names.
+  ]
+}
+</code></pre>
+<h2 id="create-an-elasticsearch-indexing-pipeline-template">Create an Elasticsearch indexing pipeline template</h2>
+<p>An Elasticsearch indexing pipeline is similar in structure to the built-in packaged <code>Indexing</code> template pipeline.
+It typically consists of the following pipeline elements:</p>
+<ol>
+<li>Source</li>
+<li>XML Parser</li>
+<li>Record count filter (read)</li>
+<li>Split Filter</li>
+<li>ID Enrichment Filter</li>
+<li>XSL Filter (contains the translation mapping <code>Events</code> to JSON <code>array</code>)</li>
+<li>Schema Filter (schema group <code>JSON</code>)</li>
+<li>Elastic Indexing Filter</li>
+<li>Record Count Filter (written)</li>
+</ol>
+<p>It is recommended to create a template Elasticsearch indexing pipeline, which can then be re-used.</p>
+<h3 id="procedure">Procedure</h3>
+<ol>
+<li>Right-click on the <code>Template Pipelines</code> folder in the Stroom Explorer pane (
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/explorer.svg" 
+  title="Explorer" 
+  alt="explorer.svg">
+).</li>
+<li>Select <code>New</code> -&gt; <code>Pipeline</code>.</li>
+<li>Enter the name <code>Indexing (Elasticsearch)</code> and click <code>OK</code>.</li>
+<li>Define the pipeline structure as above, and customise the following pipeline elements:
+<ol>
+<li>Set the Split Filter <code>splitCount</code> property to a sensible default value, based on the expected source XML element count (e.g. <code>100</code>).</li>
+<li>Set the Schema Filter <code>schemaGroup</code> property to <code>JSON</code>.</li>
+<li>Set the Elastic Indexing Filter <code>cluster</code> property to point to the <code>Elastic Cluster</code> document you created <a href="../../../../../docs/user-guide/indexing/elasticsearch/getting-started/">earlier</a>.</li>
+<li>Set the Write Record Count filter <code>countRead</code> property to <code>false</code>.</li>
+</ol>
+</li>
+</ol>
+<p>Now you have created a template indexing pipeline, it&rsquo;s time to create a feed-specific pipeline that inherits this template.</p>
+<h2 id="create-an-elasticsearch-indexing-pipeline">Create an Elasticsearch indexing pipeline</h2>
+<h3 id="procedure-1">Procedure</h3>
+<ol>
+<li>Right-click on a folder in the Stroom Explorer pane (
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/explorer.svg" 
+  title="Explorer" 
+  alt="explorer.svg">
+).</li>
+<li>Select <code>New</code> -&gt; <code>Pipeline</code>.</li>
+<li>Enter a name for your pipeline and click <code>OK</code>.</li>
+<li>Click the <code>Inherit From</code> 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/ellipses-horizontal.svg" 
+  title="Ellipsis" 
+  alt="ellipses-horizontal.svg">
+ button.</li>
+<li>In the dialog that appears, select the template pipeline you created named <code>Indexing (Elasticsearch)</code> and click <code>OK</code>.</li>
+<li>Select the Elastic Indexing Filter pipeline element.</li>
+<li>Set its properties as per one of the examples below.</li>
+</ol>
+<h3 id="example-1-single-index-or-data-stream">Example 1: Single index or data stream</h3>
+<p>This is the simplest use case and is suitable where you want to write to a single 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" target="_blank" class="" style="" title="data stream (external link)">
+    <span>data stream</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (for time-series data) or index.
+If your index template contains the property <code>data_stream: {}</code>, be sure to include a <code>string</code> field named <code>@timestamp</code> in the output JSON XML.</p>
+<p>If targeting a data stream, you may choose to use Elasticsearch 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" target="_blank" class="" style="" title="ILM (external link)">
+    <span>ILM</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ to manage its lifecycle.</p>
+<pre><code class="language-yaml">indexBaseName: stroom-events-v1
+</code></pre>
+<h3 id="example-2-dynamic-time-based-data-streams">Example 2: Dynamic time-based data streams</h3>
+<p>In this example, Stroom creates data streams as needed, named according to the value of a particular JSON date field and date pattern.
+This is useful when you need to roll over data streams manually, such as maintaining older data on slower storage tiers.</p>
+<p>For instance, you may have data spanning many years and want to have Stroom create a separate data stream for each year, such as <code>stroom-events-v1-2020</code>, <code>stroom-events-v1-2021</code>, <code>stroom-events-v1-2022</code> and so on.</p>
+<pre><code class="language-yaml">indexBaseName: stroom-events-v1
+indexNameDateFieldName: @timestamp
+indexNameDateFormat: -yyyy
+</code></pre>
+<h3 id="other-options">Other options</h3>
+<p>There are other options available for the Elastic Indexing Filter.
+These are documented in the UI.</p>
+<h2 id="create-an-indexing-translation">Create an indexing translation</h2>
+<p>In this example, let&rsquo;s assume you have event data that looks like the following:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Events xmlns=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.5.2.xsd&quot; Version=&quot;3.5.2&quot;&gt;
+  &lt;Event&gt;
+    &lt;EventTime&gt;
+      &lt;TimeCreated&gt;2022-12-16T02:46:29.218Z&lt;/TimeCreated&gt;
+    &lt;/EventTime&gt;
+    &lt;EventSource&gt;
+      &lt;System&gt;
+        &lt;Name&gt;Nginx&lt;/Name&gt;
+        &lt;Environment&gt;Development&lt;/Environment&gt;
+      &lt;/System&gt;
+      &lt;Generator&gt;Filebeat&lt;/Generator&gt;
+      &lt;Device&gt;
+        &lt;HostName&gt;localhost&lt;/HostName&gt;
+      &lt;/Device&gt;
+      &lt;User&gt;
+        &lt;Id&gt;john.smith1&lt;/Id&gt;
+        &lt;Name&gt;John Smith&lt;/Name&gt;
+        &lt;State&gt;active&lt;/State&gt;
+      &lt;/User&gt;
+    &lt;/EventSource&gt;
+    &lt;EventDetail&gt;
+      &lt;View&gt;
+        &lt;Resource&gt;
+          &lt;URL&gt;http://localhost:8080/index.html&lt;/URL&gt;
+        &lt;/Resource&gt;
+        &lt;Data Name=&quot;Tags&quot; Value=&quot;dev,testing&quot; /&gt;
+        &lt;Data Name=&quot;Message&quot; Value=&quot;TLSv1.2 AES128-SHA 1.1.1.1 &amp;quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&amp;quot;&quot; /&gt;
+      &lt;/View&gt;
+    &lt;/EventDetail&gt;
+  &lt;/Event&gt;
+  &lt;Event&gt;
+    ...
+  &lt;/Event&gt;
+&lt;/Events&gt;
+</code></pre>
+<p>We need to write an XSL transform (XSLT) to form a JSON document for each stream processed.
+Each document must consist of an <code>array</code> element one or more <code>map</code> elements (each representing an <code>Event</code>), each with the necessary properties as per our index template.</p>
+<p>See <a href="../../../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a> for instructions on how to write an XSLT.</p>
+<p>The output from your XSLT should match the following:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;array xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&quot;&gt;
+  &lt;map&gt;
+    &lt;number key=&quot;StreamId&quot;&gt;3045516&lt;/number&gt;
+    &lt;number key=&quot;EventId&quot;&gt;1&lt;/number&gt;
+    &lt;string key=&quot;@timestamp&quot;&gt;2022-12-16T02:46:29.218Z&lt;/string&gt;
+    &lt;map key=&quot;User&quot;&gt;
+      &lt;string key=&quot;Id&quot;&gt;john.smith1&lt;/string&gt;
+      &lt;string key=&quot;Name&quot;&gt;John Smith&lt;/string&gt;
+      &lt;boolean key=&quot;Active&quot;&gt;true&lt;/boolean&gt;
+    &lt;/map&gt;
+    &lt;array key=&quot;Tags&quot;&gt;
+      &lt;string&gt;dev&lt;/string&gt;
+      &lt;string&gt;testing&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;string key=&quot;Message&quot;&gt;TLSv1.2 AES128-SHA 1.1.1.1 &quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&quot;&lt;/string&gt;
+  &lt;/map&gt;
+  &lt;map&gt;
+    ...
+  &lt;/map&gt;
+&lt;/array&gt;
+</code></pre>
+<h2 id="assign-the-translation-to-the-indexing-pipeline">Assign the translation to the indexing pipeline</h2>
+<p>Having created your translation, you need to reference it in your indexing pipeline.</p>
+<ol>
+<li>Open the pipeline you created.</li>
+<li>Select the <code>Structure</code> tab.</li>
+<li>Select the XSLT Filter pipeline element.</li>
+<li>Double-click the <code>xslt</code> property value cell.</li>
+<li>Select the XSLT you created and click <code>OK</code>.</li>
+<li>Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/save.svg" 
+  title="Save" 
+  alt="save.svg">
+.</li>
+</ol>
+<h2 id="step-the-pipeline">Step the pipeline</h2>
+<p>At this point, you will want to <a href="../../../../../docs/quick-start-guide/process/">step the pipeline</a> to ensure there are no errors and that output looks as expected.</p>
+<h2 id="execute-the-pipeline">Execute the pipeline</h2>
+<p>Create a pipeline processor and filter to run the pipeline against one or more feeds.
+Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.</p>
+<p>You can monitor indexing status via your Elasticsearch monitoring tool of choice.</p>
+<h3 id="detecting-and-handling-errors">Detecting and handling errors</h3>
+<p>If any errors occur while a stream is being indexed, an <code>Error</code> stream is created, containing details of each failure. <code>Error</code> streams can be found under the <code>Data</code> tab of either the indexing pipeline or receiving <code>Feed</code>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <p>You can filter the selected pipeline or feed to list only <code>Error</code> streams.
+Click</p>
+<p><img 
+class="stroom-icon " 
+src="../../../../../images/stroom-ui/filter.svg" 
+title="Filter" 
+alt="filter.svg">
+then add a condition <code>Type</code> <code>=</code> <code>Error</code>.</p>
+
+
+</div>
+
+
+<p>Once you have addressed the underlying cause for a particular type of error (such as an incorrect field mapping), reprocess affected streams:</p>
+<ol>
+<li>Select any <code>Error</code> streams relating for reprocessing, by clicking the relevant checkboxes in the stream list (top pane).</li>
+<li>Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/process.svg" 
+  title="Process" 
+  alt="process.svg">
+.</li>
+<li>In the dialog that appears, check <code>Reprocess data</code> and click <code>OK</code>.</li>
+<li>Click <code>OK</code> for any confirmation prompts that follow.</li>
+</ol>
+<p>Stroom will re-send data from the selected <code>Event</code> streams to Elasticsearch for indexing.
+Any existing documents matching the <code>StreamId</code> of the original <code>Event</code> stream are first deleted automatically to avoid duplication.</p>
+<h2 id="tips-and-tricks">Tips and tricks</h2>
+<h3 id="use-a-common-schema-for-your-indices">Use a common schema for your indices</h3>
+<p>An example is 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/ecs/current/ecs-reference.html" target="_blank" class="" style="" title="Elastic Common Schema (ECS) (external link)">
+    <span>Elastic Common Schema (ECS)</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).</p>
+<p>With this in mind, it is important that common fields also have the same data type in each index.
+Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single <em>component</em>.</p>
+<h3 id="use-a-version-control-system-such-as-git-to-track-index-and-component-templates">Use a version control system (such as git) to track index and component templates</h3>
+<p>This helps keep track of changes over time and can be an important resource for both administrators and users.</p>
+<h3 id="rebuilding-an-index">Rebuilding an index</h3>
+<p>Sometimes it is necessary to rebuild an index. This could be due to a change in field mapping, shard count or responding to a user feature request.</p>
+<p>To rebuild an index:</p>
+<ol>
+<li>Drain the indexing pipeline by deactivating any processor filters and waiting for any running tasks to complete.</li>
+<li>Delete the index or data stream via the Elasticsearch API or Kibana.</li>
+<li>Make the required changes to the index template and/or XSL translation.</li>
+<li>Create a new processor filter either from scratch or using the 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../../images/stroom-ui/copy.svg" 
+  title="Clone" 
+  alt="copy.svg">
+ button.</li>
+<li>Activate the new processor filter.</li>
+</ol>
+<h3 id="use-a-versioned-index-naming-convention">Use a versioned index naming convention</h3>
+<p>As with the earlier example <code>stroom-events-v1</code>, a version number is appended to the name of the index or data stream.
+If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
+This can be avoided by incrementing the version and performing the rebuild against a new index: <code>stroom-events-v2</code>. Users could continue querying <code>stroom-events-v1</code> until it is deleted.
+This approach involves the following steps:</p>
+<ol>
+<li>Create a new Elasticsearch index template targeting the new index name (in this case, <code>stroom-events-v2</code>).</li>
+<li>Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.</li>
+<li>Create and activate a processing filter for the new pipeline.</li>
+<li>Once indexing is complete, update the Elastic Index document to point to <code>stroom-events-v2</code>. Users will now be searching against the new index.</li>
+<li>Drain any tasks for the original indexing pipeline and delete it.</li>
+<li>Delete index <code>stroom-events-v1</code> using either the Elasticsearch API or Kibana.</li>
+</ol>
+<p>If you created a data view in Kibana, you&rsquo;ll also want to update this to point to the new index / data stream.</p>
+<h2 id="see-also">See also</h2>
+<ol>
+<li><a href="../../../../../docs/user-guide/dashboards/elasticsearch/">Searching an Elasticsearch index in a Dashboard</a></li>
+<li><a href="../../../../../docs/user-guide/indexing/elasticsearch/kibana/">Exploring data with Kibana</a></li>
+</ol>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-3dade340d7a7982807466acc86bdfe8d">4 - Exploring Data in Kibana</h1>
+    <div class="lead">Using Kibana to search, aggregate and explore data indexed in Stroom</div>
+	<p>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/kibana/" target="_blank" class="" style="" title="Kibana (external link)">
+    <span>Kibana</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is part of the Elastic Stack and provides users with an interactive, visual way to query, visualise and explore data in Elasticsearch.</p>
+<p>It is highly customisable and provides users and teams with tools to create and share dashboards, searches, reports and other content.</p>
+<p>Once data has been indexed by Stroom into Elasticsearch, it can be explored in Kibana.
+You will first need to 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/data-views.html" target="_blank" class="" style="" title="create a *data view* (external link)">
+    <span>create a *data view*</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ in order to query your indices.</p>
+<h2 id="why-use-kibana">Why use Kibana?</h2>
+<p>There are several use cases that benefit from Kibana:</p>
+<ol>
+<li>Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens. Much more performant and easier to customise than built-in Stroom dashboard visualisations.</li>
+<li>Field statistics and value summaries with Kibana Discover. Great for doing initial audit data survey.</li>
+<li>Geospatial analysis and visualisation.</li>
+<li>Search field auto-completion.</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime.html" target="_blank" class="" style="" title="Runtime fields (external link)">
+    <span>Runtime fields</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+. Good for data exploration, at the cost of performance.</li>
+</ol>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../../js/popper.min.js'></script>
+<script src='../../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../../js/main.min.fc1551b8c1b40a6eaa08f3cb9c76f12ccd9aebc436cecdaf2341c890206d024a.js" integrity="sha256-/BVRuMG0Cm6qCPPLnHbxLM2a68Q2zs2vI0HIkCBtAko=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

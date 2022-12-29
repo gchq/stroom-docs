@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.95.0" />
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 
 
 <link rel="shortcut icon" href="../../../../favicons/favicon.ico" >
@@ -19,25 +19,25 @@
 <link rel="icon" type="image/png" href="../../../../favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
 
-<title>Search API | Stroom</title>
-<meta name="description" content="Stroom v6 introduced an API that allows a user to perform queries against Stroom resources such as indices and statistics. This is a guide to show how to perform a Stroom Query directly from bash using Stroom v7.
+<title>Elasticsearch | Stroom</title>
+<meta name="description" content="Searching an Elasticsearch index using a Stroom dashboard
 ">
-<meta property="og:title" content="Search API" />
-<meta property="og:description" content="Stroom v6 introduced an API that allows a user to perform queries against Stroom resources such as indices and statistics. This is a guide to show how to perform a Stroom Query directly from bash using Stroom v7.
+<meta property="og:title" content="Elasticsearch" />
+<meta property="og:description" content="Searching an Elasticsearch index using a Stroom dashboard
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/docs/howtos/search/searchfrombash/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-11-25T12:22:50+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="og:url" content="/docs/user-guide/dashboards/elasticsearch/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2022-12-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-29T10:46:54+00:00" /><meta property="og:site_name" content="Stroom" />
 
-<meta itemprop="name" content="Search API">
-<meta itemprop="description" content="Stroom v6 introduced an API that allows a user to perform queries against Stroom resources such as indices and statistics. This is a guide to show how to perform a Stroom Query directly from bash using Stroom v7.
-"><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-11-25T12:22:50+00:00" />
-<meta itemprop="wordCount" content="133">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Search API"/>
-<meta name="twitter:description" content="Stroom v6 introduced an API that allows a user to perform queries against Stroom resources such as indices and statistics. This is a guide to show how to perform a Stroom Query directly from bash using Stroom v7.
+<meta itemprop="name" content="Elasticsearch">
+<meta itemprop="description" content="Searching an Elasticsearch index using a Stroom dashboard
+"><meta itemprop="datePublished" content="2022-12-15T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-29T10:46:54+00:00" />
+<meta itemprop="wordCount" content="551">
+<meta itemprop="keywords" content="search,elastic,elasticsearch,kibana," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch"/>
+<meta name="twitter:description" content="Searching an Elasticsearch index using a Stroom dashboard
 "/>
 
 
@@ -152,7 +152,7 @@ if (!doNotTrack) {
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="../../../../offline-search-index.13533ca1a78cbdd844c9f5e05bf16e65.json"
+  data-offline-search-index-json-src="../../../../offline-search-index.73ec12b93067444a9d2418ce2a539be4.json"
   data-offline-search-base-href="../../../../"
   data-offline-search-max-results="50"
 >
@@ -174,7 +174,7 @@ if (!doNotTrack) {
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="../../../../offline-search-index.13533ca1a78cbdd844c9f5e05bf16e65.json"
+  data-offline-search-index-json-src="../../../../offline-search-index.73ec12b93067444a9d2418ce2a539be4.json"
   data-offline-search-base-href="../../../../"
   data-offline-search-max-results="50"
 >
@@ -277,10 +277,10 @@ if (!doNotTrack) {
   </ul>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshowtos-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtos-li">
   <a href="../../../../docs/howtos/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtos"><span class="">How Tos</span></a>
   <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtosgeneral-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosgeneral-li">
   <a href="../../../../docs/howtos/general/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosgeneral"><span class="">General</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosgeneralenablingprocessorshowto-li">
@@ -295,14 +295,14 @@ if (!doNotTrack) {
   <a href="../../../../docs/howtos/general/taskshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosgeneraltaskshowto"><span class="">Task Management</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtosadministration-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosadministration-li">
   <a href="../../../../docs/howtos/administration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosadministration"><span class="">Administration</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosadministrationsystemproperties-li">
   <a href="../../../../docs/howtos/administration/systemproperties/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosadministrationsystemproperties"><span class="">System Properties</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtosauthentication-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosauthentication-li">
   <a href="../../../../docs/howtos/authentication/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosauthentication"><span class="">Authentication</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosauthenticationcreateuserhowto-li">
@@ -313,7 +313,7 @@ if (!doNotTrack) {
   <a href="../../../../docs/howtos/authentication/userlogouthowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosauthenticationuserlogouthowto"><span class="">Logout</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtosinstall-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosinstall-li">
   <a href="../../../../docs/howtos/install/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosinstall"><span class="">Installation</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosinstallinstallhttpdhowto-li">
@@ -340,7 +340,7 @@ if (!doNotTrack) {
   <a href="../../../../docs/howtos/install/installvolumeshowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosinstallinstallvolumeshowto"><span class="">Volume Maintenance</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtoseventfeeds-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtoseventfeeds-li">
   <a href="../../../../docs/howtos/eventfeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtoseventfeeds"><span class="">Event Feeds</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtoseventfeedstranslation-how-to-li">
@@ -351,7 +351,7 @@ if (!doNotTrack) {
   <a href="../../../../docs/howtos/eventfeeds/processinghowto/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtoseventfeedsprocessinghowto"><span class="">Event Processing</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtosreferencefeeds-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtosreferencefeeds-li">
   <a href="../../../../docs/howtos/referencefeeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtosreferencefeeds"><span class="">Reference Feeds</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtosreferencefeedsusesimplereferencefeedhowto-li">
@@ -360,18 +360,18 @@ if (!doNotTrack) {
   <a href="../../../../docs/howtos/referencefeeds/createsimplereferencefeed/" title="Create a Simple Reference Feed" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtosreferencefeedscreatesimplereferencefeed"><span class="">Create a Reference Feed</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docshowtossearch-li">
-  <a href="../../../../docs/howtos/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtossearch"><span class="">Search</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtossearch-li">
+  <a href="../../../../docs/howtos/search/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtossearch"><span class="">Indexing and Search</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshowtossearchelasticsearch-li">
-  <a href="../../../../docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchelasticsearch"><span class="">Elasticsearch integration</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docshowtossearchsearchfrombash-li">
-  <a href="../../../../docs/howtos/search/searchfrombash/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchsearchfrombash"><span class="td-sidebar-nav-active-item">Search API</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshowtossearchsolr-li">
-  <a href="../../../../docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchsolr"><span class="">Solr integration</span></a>
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtossearchelasticsearch-li">
+  <a href="../../../../docs/howtos/search/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchelasticsearch"><span class="">Elasticsearch</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtossearchsolr-li">
+  <a href="../../../../docs/howtos/search/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchsolr"><span class="">Apache Solr</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtossearchstroom-api-li">
+  <a href="../../../../docs/howtos/search/stroom-api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docshowtossearchstroom-api"><span class="">Stroom Search API</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docshowtoseventpostprocessing-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docshowtoseventpostprocessing-li">
   <a href="../../../../docs/howtos/eventpostprocessing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docshowtoseventpostprocessing"><span class="">Event Post Processing</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docshowtoseventpostprocessingeventforwardinghowto-li">
@@ -380,40 +380,55 @@ if (!doNotTrack) {
   </ul>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guide-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guide-li">
   <a href="../../../../docs/user-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guide"><span class="">User Guide</span></a>
   <ul class="ul-2 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guideapi-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guideapi-li">
   <a href="../../../../docs/user-guide/api/" title="Application Programming Interfaces (API)" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideapi"><span class="">API</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideapiquery-api-li">
   <a href="../../../../docs/user-guide/api/query-api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideapiquery-api"><span class="">Query APIs</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guideindexing-li">
-  <a href="../../../../docs/user-guide/indexing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideindexing"><span class="">Indexes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guideindexing-li">
+  <a href="../../../../docs/user-guide/indexing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideindexing"><span class="">Indexing data</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexinglucene-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guideindexingelasticsearch-li">
+  <a href="../../../../docs/user-guide/indexing/elasticsearch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideindexingelasticsearch"><span class="">Elasticsearch</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingelasticsearchintroduction-li">
+  <a href="../../../../docs/user-guide/indexing/elasticsearch/introduction/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexingelasticsearchintroduction"><span class="">Introduction</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingelasticsearchgetting-started-li">
+  <a href="../../../../docs/user-guide/indexing/elasticsearch/getting-started/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexingelasticsearchgetting-started"><span class="">Getting Started</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingelasticsearchindexing-li">
+  <a href="../../../../docs/user-guide/indexing/elasticsearch/indexing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexingelasticsearchindexing"><span class="">Indexing data</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingelasticsearchkibana-li">
+  <a href="../../../../docs/user-guide/indexing/elasticsearch/kibana/" title="Exploring Data in Kibana" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexingelasticsearchkibana"><span class="">Kibana</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexinglucene-li">
   <a href="../../../../docs/user-guide/indexing/lucene/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexinglucene"><span class="">Lucene Indexes</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideindexingsolr-li">
   <a href="../../../../docs/user-guide/indexing/solr/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideindexingsolr"><span class="">Solr Integration</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidecontent-naming-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidecontent-naming-li">
   <a href="../../../../docs/user-guide/content-naming/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidecontent-naming"><span class="">Content Naming Conventions</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guideconcepts-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guideconcepts-li">
   <a href="../../../../docs/user-guide/concepts/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guideconcepts"><span class="">Concepts</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideconceptsstreams-li">
   <a href="../../../../docs/user-guide/concepts/streams/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideconceptsstreams"><span class="">Streams</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidedashboards-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guidedashboards-li">
   <a href="../../../../docs/user-guide/dashboards/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedashboards"><span class="">Dashboards</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedashboardssearch-extraction-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsuser-guidedashboardselasticsearch-li">
+  <a href="../../../../docs/user-guide/dashboards/elasticsearch/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardselasticsearch"><span class="td-sidebar-nav-active-item">Elasticsearch</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardssearch-extraction-li">
   <a href="../../../../docs/user-guide/dashboards/search-extraction/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardssearch-extraction"><span class="">Search Extraction</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidedashboardsexpressions-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidedashboardsexpressions-li">
   <a href="../../../../docs/user-guide/dashboards/expressions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedashboardsexpressions"><span class="">Dashboard Expressions</span></a>
   <ul class="ul-4 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedashboardsexpressionsaggregate-li">
@@ -442,17 +457,17 @@ if (!doNotTrack) {
   <a href="../../../../docs/user-guide/dashboards/expressions/value/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsexpressionsvalue"><span class="">Value Functions</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedashboardsdictionaries-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsdictionaries-li">
   <a href="../../../../docs/user-guide/dashboards/dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsdictionaries"><span class="">Dictionaries</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedashboardsdirect-urls-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsdirect-urls-li">
   <a href="../../../../docs/user-guide/dashboards/direct-urls/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsdirect-urls"><span class="">Direct URLs</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedashboardsqueries-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsqueries-li">
   <a href="../../../../docs/user-guide/dashboards/queries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsqueries"><span class="">Queries</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-retention-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedata-retention-li">
   <a href="../../../../docs/user-guide/data-retention/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedata-retention"><span class="">Data Retention</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidedata-splitter-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidedata-splitter-li">
   <a href="../../../../docs/user-guide/data-splitter/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidedata-splitter"><span class="">Data Splitter</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidedata-splitter1-1-simple-csv-example-li">
@@ -491,15 +506,15 @@ if (!doNotTrack) {
   </ul>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideediting-and-viewing-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideediting-and-viewing-li">
   <a href="../../../../docs/user-guide/editing-and-viewing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideediting-and-viewing"><span class="">Editing and Viewing Data</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidefeeds-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidefeeds-li">
   <a href="../../../../docs/user-guide/feeds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidefeeds"><span class="">Event Feeds</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidefinding-things-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidefinding-things-li">
   <a href="../../../../docs/user-guide/finding-things/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidefinding-things"><span class="">Finding Things</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidenodes-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidenodes-li">
   <a href="../../../../docs/user-guide/nodes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidenodes"><span class="">Nodes</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelines-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidepipelines-li">
   <a href="../../../../docs/user-guide/pipelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelines"><span class="">Pipelines</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesparser-li">
@@ -528,15 +543,15 @@ if (!doNotTrack) {
   <a href="../../../../docs/user-guide/pipelines/reference-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesreference-data"><span class="">Reference Data</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideproperties-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideproperties-li">
   <a href="../../../../docs/user-guide/properties/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideproperties"><span class="">Properties</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideroles-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideroles-li">
   <a href="../../../../docs/user-guide/roles/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideroles"><span class="">Roles</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidesecurity-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidesecurity-li">
   <a href="../../../../docs/user-guide/security/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidesecurity"><span class="">Security</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidejobs-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidejobs-li">
   <a href="../../../../docs/user-guide/jobs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidejobs"><span class="">Stroom Jobs</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidetools-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidetools-li">
   <a href="../../../../docs/user-guide/tools/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidetools"><span class="">Tools</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidetoolscommand-line-li">
@@ -545,7 +560,7 @@ if (!doNotTrack) {
   <a href="../../../../docs/user-guide/tools/stream-dump-tool/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidetoolsstream-dump-tool"><span class="">Stream Dump Tool</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidevolumes-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidevolumes-li">
   <a href="../../../../docs/user-guide/volumes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidevolumes"><span class="">Volumes</span></a>
 </li>
   </ul>
@@ -616,17 +631,30 @@ if (!doNotTrack) {
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
 <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/gchq/stroom-docs/tree/7.1/content/en/docs/HOWTOs/Search/SearchFromBash.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa fa-file-alt fa-fw"></i> View page source</a>
-  <a href="https://github.com/gchq/stroom-docs/edit/7.1/content/en/docs/HOWTOs/Search/SearchFromBash.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/gchq/stroom-docs/new/7.1/content/en/docs/HOWTOs/Search/SearchFromBash.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa fa-edit fa-fw"></i> Create child page</a>
-  <a href="https://github.com/gchq/stroom-docs/issues/new?title=Search%20API" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/gchq/stroom-docs/tree/7.1/content/en/docs/user-guide/dashboards/elasticsearch.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa fa-file-alt fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/7.1/content/en/docs/user-guide/dashboards/elasticsearch.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa fa-edit fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/7.1/content/en/docs/user-guide/dashboards/elasticsearch.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa fa-edit fa-fw"></i> Create child page</a>
+  <a href="https://github.com/gchq/stroom-docs/issues/new?title=Elasticsearch" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fab fa-github fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fas fa-tasks fa-fw"></i> Create project issue</a>
-  <a id="print" href="../../../../docs/howtos/search/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+  <a id="print" href="../../../../docs/user-guide/dashboards/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
 
 </div>
 
             
 
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#searching-using-a-stroom-dashboard">Searching using a Stroom dashboard</a>
+      <ul>
+        <li><a href="#create-an-elastic-index-document">Create an Elastic Index document</a></li>
+        <li><a href="#set-the-elastic-index-document-as-the-dashboard-data-source">Set the Elastic Index document as the dashboard data source</a></li>
+      </ul>
+    </li>
+    <li><a href="#query-expression-tips">Query expression tips</a></li>
+    <li><a href="#searching-multiple-indices">Searching multiple indices</a></li>
+  </ul>
+</nav></div>
 
 
 
@@ -679,7 +707,9 @@ if (!doNotTrack) {
         
           <li><a class="taxonomy-term" href="../../../../tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../tags/elastic/" data-taxonomy-term="elastic"><span class="taxonomy-label">elastic</span><span class="taxonomy-count">6</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../tags/elasticsearch/" data-taxonomy-term="elasticsearch"><span class="taxonomy-label">elasticsearch</span><span class="taxonomy-count">6</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../tags/event/" data-taxonomy-term="event"><span class="taxonomy-label">event</span><span class="taxonomy-count">1</span></a></li>
         
@@ -701,6 +731,8 @@ if (!doNotTrack) {
         
           <li><a class="taxonomy-term" href="../../../../tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../../tags/indexing/" data-taxonomy-term="indexing"><span class="taxonomy-label">indexing</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../../tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../tags/java/" data-taxonomy-term="java"><span class="taxonomy-label">java</span><span class="taxonomy-count">1</span></a></li>
@@ -708,6 +740,8 @@ if (!doNotTrack) {
           <li><a class="taxonomy-term" href="../../../../tags/job/" data-taxonomy-term="job"><span class="taxonomy-label">job</span><span class="taxonomy-count">2</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../tags/keystore/" data-taxonomy-term="keystore"><span class="taxonomy-label">keystore</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../../tags/kibana/" data-taxonomy-term="kibana"><span class="taxonomy-label">kibana</span><span class="taxonomy-count">4</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../tags/kubernetes/" data-taxonomy-term="kubernetes"><span class="taxonomy-label">kubernetes</span><span class="taxonomy-count">10</span></a></li>
         
@@ -739,7 +773,7 @@ if (!doNotTrack) {
         
           <li><a class="taxonomy-term" href="../../../../tags/role/" data-taxonomy-term="role"><span class="taxonomy-label">role</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">7</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../tags/security/" data-taxonomy-term="security"><span class="taxonomy-label">security</span><span class="taxonomy-count">1</span></a></li>
         
@@ -790,19 +824,19 @@ if (!doNotTrack) {
   <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="../../../../docs/">Documentation</a>
     </li>
-  <li class="breadcrumb-item"><a href="../../../../docs/howtos/">How Tos</a>
+  <li class="breadcrumb-item"><a href="../../../../docs/user-guide/">User Guide</a>
     </li>
-  <li class="breadcrumb-item"><a href="../../../../docs/howtos/search/">Search</a>
+  <li class="breadcrumb-item"><a href="../../../../docs/user-guide/dashboards/">Dashboards</a>
     </li>
   <li class="breadcrumb-item active">
-      <span>Search API</span>
+      <span>Elasticsearch</span>
     </li>
   </ol>
 </nav>
             
 <div class="td-content">
-	<h1>Search API</h1>
-	<div class="lead">Stroom v6 introduced an API that allows a user to perform queries against Stroom resources such as indices and statistics. This is a guide to show how to perform a Stroom Query directly from bash using Stroom v7.</div>
+	<h1>Elasticsearch</h1>
+	<div class="lead">Searching an Elasticsearch index using a Stroom dashboard</div>
 	<header class="article-meta">
 		
 
@@ -814,80 +848,202 @@ if (!doNotTrack) {
     
 
 
+<div class="taxonomy taxonomy-terms-article taxo-tags">
+  <h5 class="taxonomy-title">Tags:</h5>
+  <ul class="taxonomy-terms">
+    
+      <li><a class="taxonomy-term" href="../../../../tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span></a></li>
+    
+      <li><a class="taxonomy-term" href="../../../../tags/elastic/" data-taxonomy-term="elastic"><span class="taxonomy-label">elastic</span></a></li>
+    
+      <li><a class="taxonomy-term" href="../../../../tags/elasticsearch/" data-taxonomy-term="elasticsearch"><span class="taxonomy-label">elasticsearch</span></a></li>
+    
+      <li><a class="taxonomy-term" href="../../../../tags/kibana/" data-taxonomy-term="kibana"><span class="taxonomy-label">kibana</span></a></li>
+    
+  </ul>
+</div>
+
   
 
 		
 	</header>    
-	<ol>
-<li>
-<p>Create an API Key for yourself, this will allow the API to authenticate as you and run the query with your privileges.</p>
-</li>
-<li>
-<p>Create a Dashboard that extracts the data you are interested in. You should create a Query and Table.</p>
-</li>
-<li>
-<p>Download the JSON for your Query.
-Press the download icon in the Query Pane to generate a file containing the JSON.
-Save the JSON to a file named <em>query.json</em>.</p>
-</li>
-<li>
-<p>Use curl to send the query to Stroom.
+	<h2 id="searching-using-a-stroom-dashboard">Searching using a Stroom dashboard</h2>
+<p>Searching an Elasticsearch index (or data stream) using a Stroom dashboard is conceptually similar to the process described in <a href="../../../../docs/quick-start-guide/dashboard/">Dashboards</a>.</p>
+<p>Before you set the dashboard&rsquo;s data source, you must first create an Elastic Index document to tell Stroom which index (or indices) you wish to query.</p>
+<h3 id="create-an-elastic-index-document">Create an Elastic Index document</h3>
+<ol>
+<li>Right-click a folder in the Stroom Explorer pane (
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/explorer.svg" 
+  title="Explorer" 
+  alt="explorer.svg">
+).</li>
+<li>Select <code>New</code> -&gt; <code>Elastic Index</code>.</li>
+<li>Enter a name for the index document and click <code>OK</code>.</li>
+<li>Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/ellipses-horizontal.svg" 
+  title="Ellipsis" 
+  alt="ellipses-horizontal.svg">
+ next to the <code>Cluster configuration</code> field label.</li>
+<li>In the dialog that appears, select the Elastic Cluster document where the index exists, and click <code>OK</code>.</li>
+<li>Enter the name of an index or data stream in <code>Index name or pattern</code>. Data view (formerly known as <em>index pattern</em>) 
+
+
+
+
+
 
   
 
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="user" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">API_KEY=&#39;&lt;put your API Key here&#39; \
-URI=stroom.host/api/searchable/v2/search \
-curl \
--s \
---request POST \
-${URL} \
--o response.out \
--H &#34;Authorization:Bearer ${API_KEY}&#34; \
--H &#34;Content-Type: application/json&#34; \
---data-binary @query.json</code></pre>
-</div>
-</p>
-</li>
-<li>
-<p>The query response should be in a file named response.out.</p>
-</li>
-<li>
-<p>Optional step: reformat the response to csv using <code>jq</code>.</p>
-
-  
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern" target="_blank" class="" style="" title="syntax (external link)">
+    <span>syntax</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is supported, which enables you to query multiple indices or data streams at once. For example: <code>stroom-events-v1</code>.</li>
+<li>(Optional) Set <code>Search slices</code>, which is the number of parallel workers that will query the index. For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.</li>
+<li>(Optional) Set <code>Search scroll size</code>, which specifies the number of documents to return in each search response. Greater values generally increase efficiency. By default, Elasticsearch limits this number to <code>10,000</code>.</li>
+<li>Click <code>Test Connection</code>. A dialog will appear with the result, which will state <code>Connection Success</code> if the connection was successful and the index pattern matched one or more indices.</li>
+<li>Click 
 
 
 
 
 
 
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="user" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">cat response.out | jq &#39;.results[0].rows[].values | @csv&#39;</code></pre>
-</div>
 
-</li>
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/save.svg" 
+  title="Save" 
+  alt="save.svg">
+.</li>
 </ol>
+<h3 id="set-the-elastic-index-document-as-the-dashboard-data-source">Set the Elastic Index document as the dashboard data source</h3>
+<ol>
+<li>Open or create a dashboard.</li>
+<li>Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/settings.svg" 
+  title="Settings" 
+  alt="settings.svg">
+ in the <code>Query</code> panel.</li>
+<li>Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/ellipses-horizontal.svg" 
+  title="Ellipsis" 
+  alt="ellipses-horizontal.svg">
+ next to the <code>Data Source</code> field label.</li>
+<li>Select the Elastic Index document you created and click <code>OK</code>.</li>
+<li>Configure the query expression as explained in <a href="../../../../docs/quick-start-guide/dashboard/#configuring-the-query-expression">Dashboards</a>. Note the <a href="#query-expression-tips">tips</a> for particular Elasticsearch field mapping data types.</li>
+<li><a href="../../../../docs/quick-start-guide/dashboard/#configuring-the-table">Configure the table</a>.</li>
+</ol>
+<h2 id="query-expression-tips">Query expression tips</h2>
+<p>Certain Elasticsearch field mapping types support special syntax when used in a Stroom dashboard query expression.</p>
+<p>To identify the field mapping type for a particular field:</p>
+<ol>
+<li>Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/add.svg" 
+  title="Add" 
+  alt="add.svg">
+ in the <code>Query</code> panel to add a new expression item.</li>
+<li>Select the Elasticsearch field name in the drop-down list.</li>
+<li>Note the blue data type indicator to the far right of the row. Common examples are: <code>keyword</code>, <code>text</code> and <code>number</code>.</li>
+</ol>
+<p>After you identify the field mapping type, move the mouse cursor over the mapping type indicator.
+A tooltip appears, explaining various types of queries you can perform against that particular field&rsquo;s type.</p>
+<h2 id="searching-multiple-indices">Searching multiple indices</h2>
+<p>Using data view (index pattern) syntax, you can create powerful dashboards that query multiple indices at a time.
+An example of this is where you have multiple indices covering different types of email systems.
+Let&rsquo;s assume these indices are named: <code>stroom-exchange-v1</code>, <code>stroom-domino-v1</code> and <code>stroom-mailu-v1</code>.</p>
+<p>There is a common set of fields across all three indices: <code>@timestamp</code>, <code>Subject</code>, <code>Sender</code> and <code>Recipient</code>.
+You want to allow search across all indices at once, in effect creating a unified <em>email</em> dashboard.</p>
+<p>You can achieve this by creating an Elastic Index document called (for example) <code>Elastic-Email-Combined</code> and setting the property <code>Index name or pattern</code> to: <code>stroom-exchange-v1,stroom-domino-v1,stroom-mailu-v1</code>.
+Click 
+
+
+
+
+
+
+
+
+
+
+<img 
+  class="stroom-icon " 
+  src="../../../../images/stroom-ui/save.svg" 
+  title="Save" 
+  alt="save.svg">
+ and re-open the dashboard.
+You&rsquo;ll notice that the available fields are a union of the fields across all three indices.
+You can now search by any of these - in particular, the fields common to all three.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified November 25, 2022: <a href="https://github.com/gchq/stroom-docs/commit/a4f51bfdb3c856ee5300a0e9a95af036b6d86a3f">Merge branch &#39;7.0&#39; into 7.1 (a4f51bf)</a>
+  Last modified December 29, 2022: <a href="https://github.com/gchq/stroom-docs/commit/d1cb7eaa6d10c6bc47fbb72e59acfae0fa858f95">Merge pull request #76 from p-kimberley/elastic-docs (d1cb7ea)</a>
 </div>
 
 </div>
