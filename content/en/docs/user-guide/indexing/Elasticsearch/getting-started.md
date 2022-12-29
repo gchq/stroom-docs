@@ -53,7 +53,7 @@ PEM-format CA certificate chain used by Stroom to verify TLS connections to the 
 
 ### API key ID
 
-Required if `Use authentication` is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account. This user requires at a minimum the following [privileges](https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html):
+Required if `Use authentication` is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account. This user requires at a minimum the following {{< external-link "privileges" "https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html" >}}:
 
 #### Cluster privileges
 

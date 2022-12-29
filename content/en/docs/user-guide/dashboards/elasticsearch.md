@@ -25,7 +25,7 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 3. Enter a name for the index document and click `OK`.
 4. Click {{< stroom-icon "ellipses-horizontal.svg" "Ellipsis" >}} next to the `Cluster configuration` field label.
 5. In the dialog that appears, select the Elastic Cluster document where the index exists, and click `OK`.
-6. Enter the name of an index or data stream in `Index name or pattern`. Data view (formerly known as *index pattern*) [syntax](https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern) is supported, which enables you to query multiple indices or data streams at once. For example: `stroom-events-v1`.
+6. Enter the name of an index or data stream in `Index name or pattern`. Data view (formerly known as *index pattern*) {{< external-link "syntax" "https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern" >}} is supported, which enables you to query multiple indices or data streams at once. For example: `stroom-events-v1`.
 7. (Optional) Set `Search slices`, which is the number of parallel workers that will query the index. For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.
 8. (Optional) Set `Search scroll size`, which specifies the number of documents to return in each search response. Greater values generally increase efficiency. By default, Elasticsearch limits this number to `10,000`.
 9. Click `Test Connection`. A dialog will appear with the result, which will state `Connection Success` if the connection was successful and the index pattern matched one or more indices.

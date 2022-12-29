@@ -61,7 +61,7 @@ We will now explore how create an Elasticsearch *index template*, which specifie
 
 ## Create an Elasticsearch index template
 
-For information on what index and component templates are, consult the Elastic [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html).
+For information on what index and component templates are, consult the Elastic {{< external-link "documentation" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" >}}.
 
 When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the `index_patterns` entries in the index template, Elasticsearch creates a new index using the `settings` and `mappings` properties from the template.
 
@@ -69,13 +69,13 @@ The following example creates a basic index template `stroom-events-v1` in a loc
 
 1. `StreamId` -- mandatory, data type `long` or `keyword`.
 2. `EventId` -- mandatory, data type `long` or `keyword`.
-3. `@timestamp` -- required if the index is to be part of a [data stream](https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html) (recommended).
+3. `@timestamp` -- required if the index is to be part of a {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (recommended).
 4. `User` -- An object containing properties `Id`, `Name` and `Active`, each with their own data type.
 5. `Tags` -- An array of one or more strings.
-6. `Message` -- Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field `wildcard` [supports regexp queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type).
+6. `Message` -- Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field `wildcard` {{< external-link "supports regexp queries" "https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" >}}.
 
 {{% note %}}
-Elasticsearch does not have a dedicated `array` field mapping data type. An Elasticsearch field may contain zero or more values by default. See: [Arrays](https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html) in the Elastic documentation.
+Elasticsearch does not have a dedicated `array` field mapping data type. An Elasticsearch field may contain zero or more values by default. See: {{< external-link "Arrays" "https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" >}} in the Elastic documentation.
 {{% /note %}}
 
 In Kibana Dev Tools, execute the following query:
@@ -184,9 +184,9 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 
 ### Example 1: Single index or data stream
 
-This is the simplest use case and is suitable where you want to write to a single [data stream](https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html) (for time-series data) or index. If your index template contains the property `data_stream: {}`, be sure to include a `string` field named `@timestamp` in the output JSON XML.
+This is the simplest use case and is suitable where you want to write to a single {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (for time-series data) or index. If your index template contains the property `data_stream: {}`, be sure to include a `string` field named `@timestamp` in the output JSON XML.
 
-If targeting a data stream, you may choose to use Elasticsearch [ILM](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html) to manage its lifecycle. 
+If targeting a data stream, you may choose to use Elasticsearch {{< external-link "ILM" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" >}} to manage its lifecycle. 
 
 ```yaml
 indexBaseName: stroom-events-v1
@@ -321,7 +321,7 @@ Stroom will re-send data from the selected `Event` streams to Elasticsearch for 
 
 ### Use a common schema for your indices
 
-An example is [Elastic Common Schema (ECS)](https://www.elastic.co/guide/en/ecs/current/ecs-reference.html). This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).
+An example is {{< external-link "Elastic Common Schema (ECS)" "https://www.elastic.co/guide/en/ecs/current/ecs-reference.html" >}}. This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).
 
 With this in mind, it is important that common fields also have the same data type in each index. Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single *component*.
 

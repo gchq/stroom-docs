@@ -14,7 +14,7 @@ description: >
 
 Stroom supports using an external Elasticsearch cluster to index event data. This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.
 
-With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store. For instance, you can deploy [Kibana](https://www.elastic.co/kibana/) to search and visualise Elasticsearch data.
+With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store. For instance, you can deploy {{< external-link "Kibana" "https://www.elastic.co/kibana/" >}} to search and visualise Elasticsearch data.
 
 Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.
 
@@ -33,8 +33,8 @@ This guide will walk you through configuring a Stroom indexing pipeline, creatin
 
 Indexing data with Elasticsearch differs from Solr and built-in Lucene methods in a number of ways:
 
-1. Unlike with [Solr]({{< relref "../Solr.md" >}}) and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of [index and component templates](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html). These are normally created either via the Elasticsearch API, or interactively using Kibana.
-2. Aside from creating the mandatory `StreamId` and `EventId` field mappings, explicitly defining mappings for other fields is optional. Elasticsearch will use [dynamic mapping](https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html) by default, to infer each field's type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type `ip`).
+1. Unlike with [Solr]({{< relref "../Solr.md" >}}) and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of {{< external-link "index and component templates" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" >}}. These are normally created either via the Elasticsearch API, or interactively using Kibana.
+2. Aside from creating the mandatory `StreamId` and `EventId` field mappings, explicitly defining mappings for other fields is optional. Elasticsearch will use {{< external-link "dynamic mapping" "https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html" >}} by default, to infer each field's type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type `ip`).
 
 ## Next topic
 
