@@ -6,7 +6,6 @@ date: 2022-12-15
 tags:
   - search
   - elastic
-  - elasticsearch
   - kibana
 description: >
   Using Kibana to search, aggregate and explore data indexed in Stroom

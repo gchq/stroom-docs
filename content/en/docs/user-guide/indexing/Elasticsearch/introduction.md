@@ -6,7 +6,6 @@ date: 2022-12-15
 tags:
   - search
   - elastic
-  - elasticsearch
   - kibana
 description: >
   Concepts, assumptions and key differences to Solr and built-in Lucene indexing
@@ -39,7 +38,6 @@ Indexing data with Elasticsearch differs from Solr and built-in Lucene methods i
 1. Unlike with [Solr]({{< relref "../Solr.md" >}}) and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of {{< external-link "index and component templates" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" >}}. These are normally created either via the Elasticsearch API, or interactively using Kibana.
 1. Aside from creating the mandatory `StreamId` and `EventId` field mappings, explicitly defining mappings for other fields is optional. Elasticsearch will use {{< external-link "dynamic mapping" "https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html" >}} by default, to infer each field's type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type `ip`).
 
+---
 
-## Next topic
-
-[Getting Started]({{< relref "Getting-Started.md" >}})
+{{< next-page >}}
