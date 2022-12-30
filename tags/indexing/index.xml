@@ -104,7 +104,9 @@
  (recommended).&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;User&lt;/code&gt; &amp;ndash; An object containing properties &lt;code&gt;Id&lt;/code&gt;, &lt;code&gt;Name&lt;/code&gt; and &lt;code&gt;Active&lt;/code&gt;, each with their own data type.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Tags&lt;/code&gt; &amp;ndash; An array of one or more strings.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Message&lt;/code&gt; &amp;ndash; Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field &lt;code&gt;wildcard&lt;/code&gt; 
+&lt;li&gt;&lt;code&gt;Message&lt;/code&gt; &amp;ndash; Contains arbitrary content such as unstructured raw log data.
+Supports full-text search.
+Nested field &lt;code&gt;wildcard&lt;/code&gt; 
 
 
 
@@ -127,7 +129,8 @@
 
 
 
-    &lt;p&gt;Elasticsearch does not have a dedicated &lt;code&gt;array&lt;/code&gt; field mapping data type. An Elasticsearch field may contain zero or more values by default.
+    &lt;p&gt;Elasticsearch does not have a dedicated &lt;code&gt;array&lt;/code&gt; field mapping data type.
+An Elasticsearch field may contain zero or more values by default.
 See:&lt;/p&gt;
 &lt;span class=&#34;external-link&#34;&gt;
   &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Arrays (external link)&#34;&gt;
@@ -340,7 +343,11 @@ These are documented in the UI.&lt;/p&gt;
 &lt;h2 id=&#34;create-an-indexing-translation&#34;&gt;Create an indexing translation&lt;/h2&gt;
 &lt;p&gt;In this example, let&amp;rsquo;s assume you have event data that looks like the following:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
-&amp;lt;Events xmlns=&amp;quot;event-logging:3&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.5.2.xsd&amp;quot; Version=&amp;quot;3.5.2&amp;quot;&amp;gt;
+&amp;lt;Events
+    xmlns=&amp;quot;event-logging:3&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.5.2.xsd&amp;quot;
+    Version=&amp;quot;3.5.2&amp;quot;&amp;gt;
   &amp;lt;Event&amp;gt;
     &amp;lt;EventTime&amp;gt;
       &amp;lt;TimeCreated&amp;gt;2022-12-16T02:46:29.218Z&amp;lt;/TimeCreated&amp;gt;
@@ -380,7 +387,10 @@ Each document must consist of an &lt;code&gt;array&lt;/code&gt; element one or m
 &lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/pipelines/xslt/&#34;&gt;XSLT Conversion&lt;/a&gt; for instructions on how to write an XSLT.&lt;/p&gt;
 &lt;p&gt;The output from your XSLT should match the following:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
-&amp;lt;array xmlns=&amp;quot;http://www.w3.org/2005/xpath-functions&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xsi:schemaLocation=&amp;quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&amp;quot;&amp;gt;
+&amp;lt;array
+    xmlns=&amp;quot;http://www.w3.org/2005/xpath-functions&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&amp;quot;&amp;gt;
   &amp;lt;map&amp;gt;
     &amp;lt;number key=&amp;quot;StreamId&amp;quot;&amp;gt;3045516&amp;lt;/number&amp;gt;
     &amp;lt;number key=&amp;quot;EventId&amp;quot;&amp;gt;1&amp;lt;/number&amp;gt;
@@ -502,7 +512,8 @@ Component templates help make this easier and reduce the chance of error, by cen
 &lt;h3 id=&#34;use-a-version-control-system-such-as-git-to-track-index-and-component-templates&#34;&gt;Use a version control system (such as git) to track index and component templates&lt;/h3&gt;
 &lt;p&gt;This helps keep track of changes over time and can be an important resource for both administrators and users.&lt;/p&gt;
 &lt;h3 id=&#34;rebuilding-an-index&#34;&gt;Rebuilding an index&lt;/h3&gt;
-&lt;p&gt;Sometimes it is necessary to rebuild an index. This could be due to a change in field mapping, shard count or responding to a user feature request.&lt;/p&gt;
+&lt;p&gt;Sometimes it is necessary to rebuild an index.
+This could be due to a change in field mapping, shard count or responding to a user feature request.&lt;/p&gt;
 &lt;p&gt;To rebuild an index:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Drain the indexing pipeline by deactivating any processor filters and waiting for any running tasks to complete.&lt;/li&gt;
@@ -530,22 +541,33 @@ Component templates help make this easier and reduce the chance of error, by cen
 &lt;h3 id=&#34;use-a-versioned-index-naming-convention&#34;&gt;Use a versioned index naming convention&lt;/h3&gt;
 &lt;p&gt;As with the earlier example &lt;code&gt;stroom-events-v1&lt;/code&gt;, a version number is appended to the name of the index or data stream.
 If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
-This can be avoided by incrementing the version and performing the rebuild against a new index: &lt;code&gt;stroom-events-v2&lt;/code&gt;. Users could continue querying &lt;code&gt;stroom-events-v1&lt;/code&gt; until it is deleted.
+This can be avoided by incrementing the version and performing the rebuild against a new index: &lt;code&gt;stroom-events-v2&lt;/code&gt;.
+Users could continue querying &lt;code&gt;stroom-events-v1&lt;/code&gt; until it is deleted.
 This approach involves the following steps:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Create a new Elasticsearch index template targeting the new index name (in this case, &lt;code&gt;stroom-events-v2&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.&lt;/li&gt;
 &lt;li&gt;Create and activate a processing filter for the new pipeline.&lt;/li&gt;
-&lt;li&gt;Once indexing is complete, update the Elastic Index document to point to &lt;code&gt;stroom-events-v2&lt;/code&gt;. Users will now be searching against the new index.&lt;/li&gt;
+&lt;li&gt;Once indexing is complete, update the Elastic Index document to point to &lt;code&gt;stroom-events-v2&lt;/code&gt;.
+Users will now be searching against the new index.&lt;/li&gt;
 &lt;li&gt;Drain any tasks for the original indexing pipeline and delete it.&lt;/li&gt;
 &lt;li&gt;Delete index &lt;code&gt;stroom-events-v1&lt;/code&gt; using either the Elasticsearch API or Kibana.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;If you created a data view in Kibana, you&amp;rsquo;ll also want to update this to point to the new index / data stream.&lt;/p&gt;
-&lt;h2 id=&#34;see-also&#34;&gt;See also&lt;/h2&gt;
-&lt;ol&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+
+
+    &lt;ol&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/user-guide/dashboards/elasticsearch/&#34;&gt;Searching an Elasticsearch index in a Dashboard&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/kibana/&#34;&gt;Exploring data with Kibana&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
+
+
+&lt;/div&gt;
+
+
 
       </description>
     </item>

@@ -108,7 +108,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.ac928db09a2c84fdd18505cd96f388a7.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.8083be84cba42c5eddc87de12439bb37.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -294,8 +294,21 @@ For instance, you can deploy
 </span>
  by default, to infer each field&rsquo;s type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type <code>ip</code>).</li>
 </ol>
-<h2 id="next-topic">Next topic</h2>
-<p><a href="../../../../../docs/user-guide/indexing/elasticsearch/getting-started/">Getting Started</a></p>
+<hr>
+
+
+
+  
+    
+    <a href="../../../../../docs/user-guide/indexing/elasticsearch/getting-started/" class="" style="" title="Next page - Getting Started&#010;Establishing an Elasticsearch cluster connection
+">
+        <span>Next page - Getting Started</span>
+        <i class="next-page-icon fas fa-solid fa-circle-right fa-sm "></i>
+      </a>
+    
+  
+
+
 
 </div>
 
@@ -384,11 +397,13 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.</p>
 <li>Kubernetes service: <a href="https://prod-es-http.elastic.svc:9200">https://prod-es-http.elastic.svc:9200</a></li>
 </ol>
 <h3 id="ca-certificate">CA certificate</h3>
-<p>PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface. This is usually your organisation&rsquo;s root enterprise CA certificate. For development, you can provide a self-signed certificate.</p>
+<p>PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
+This is usually your organisation&rsquo;s root enterprise CA certificate. For development, you can provide a self-signed certificate.</p>
 <h3 id="use-authentication">Use authentication</h3>
 <p>(Optional) Tick this box if Elasticsearch requires authentication. This is enabled by default from Elasticsearch version 8.0.</p>
 <h3 id="api-key-id">API key ID</h3>
-<p>Required if <code>Use authentication</code> is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account. This user requires at a minimum the following 
+<p>Required if <code>Use authentication</code> is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
+This user requires at a minimum the following 
 
 
 
@@ -417,8 +432,21 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.</p>
 <p>Required if <code>Use authentication</code> is checked.</p>
 <h3 id="socket-timeout-ms">Socket timeout (ms)</h3>
 <p>Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete. Set to <code>-1</code> (the default) to wait indefinitely, or until Elasticsearch closes the connection.</p>
-<h2 id="next-topic">Next topic</h2>
-<p><a href="../../../../../docs/user-guide/indexing/elasticsearch/indexing/">Indexing data</a></p>
+<hr>
+
+
+
+  
+    
+    <a href="../../../../../docs/user-guide/indexing/elasticsearch/indexing/" class="" style="" title="Next page - Indexing data&#010;Indexing event data to Elasticsearch
+">
+        <span>Next page - Indexing data</span>
+        <i class="next-page-icon fas fa-solid fa-circle-right fa-sm "></i>
+      </a>
+    
+  
+
+
 
 </div>
 
@@ -520,7 +548,9 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.</p>
  (recommended).</li>
 <li><code>User</code> &ndash; An object containing properties <code>Id</code>, <code>Name</code> and <code>Active</code>, each with their own data type.</li>
 <li><code>Tags</code> &ndash; An array of one or more strings.</li>
-<li><code>Message</code> &ndash; Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field <code>wildcard</code> 
+<li><code>Message</code> &ndash; Contains arbitrary content such as unstructured raw log data.
+Supports full-text search.
+Nested field <code>wildcard</code> 
 
 
 
@@ -543,7 +573,8 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.</p>
 
 
 
-    <p>Elasticsearch does not have a dedicated <code>array</code> field mapping data type. An Elasticsearch field may contain zero or more values by default.
+    <p>Elasticsearch does not have a dedicated <code>array</code> field mapping data type.
+An Elasticsearch field may contain zero or more values by default.
 See:</p>
 <span class="external-link">
   <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" target="_blank" class="" style="" title="Arrays (external link)">
@@ -756,7 +787,11 @@ These are documented in the UI.</p>
 <h2 id="create-an-indexing-translation">Create an indexing translation</h2>
 <p>In this example, let&rsquo;s assume you have event data that looks like the following:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;Events xmlns=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.5.2.xsd&quot; Version=&quot;3.5.2&quot;&gt;
+&lt;Events
+    xmlns=&quot;event-logging:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.5.2.xsd&quot;
+    Version=&quot;3.5.2&quot;&gt;
   &lt;Event&gt;
     &lt;EventTime&gt;
       &lt;TimeCreated&gt;2022-12-16T02:46:29.218Z&lt;/TimeCreated&gt;
@@ -796,7 +831,10 @@ Each document must consist of an <code>array</code> element one or more <code>ma
 <p>See <a href="../../../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a> for instructions on how to write an XSLT.</p>
 <p>The output from your XSLT should match the following:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;array xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&quot;&gt;
+&lt;array
+    xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&quot;&gt;
   &lt;map&gt;
     &lt;number key=&quot;StreamId&quot;&gt;3045516&lt;/number&gt;
     &lt;number key=&quot;EventId&quot;&gt;1&lt;/number&gt;
@@ -918,7 +956,8 @@ Component templates help make this easier and reduce the chance of error, by cen
 <h3 id="use-a-version-control-system-such-as-git-to-track-index-and-component-templates">Use a version control system (such as git) to track index and component templates</h3>
 <p>This helps keep track of changes over time and can be an important resource for both administrators and users.</p>
 <h3 id="rebuilding-an-index">Rebuilding an index</h3>
-<p>Sometimes it is necessary to rebuild an index. This could be due to a change in field mapping, shard count or responding to a user feature request.</p>
+<p>Sometimes it is necessary to rebuild an index.
+This could be due to a change in field mapping, shard count or responding to a user feature request.</p>
 <p>To rebuild an index:</p>
 <ol>
 <li>Drain the indexing pipeline by deactivating any processor filters and waiting for any running tasks to complete.</li>
@@ -946,22 +985,33 @@ Component templates help make this easier and reduce the chance of error, by cen
 <h3 id="use-a-versioned-index-naming-convention">Use a versioned index naming convention</h3>
 <p>As with the earlier example <code>stroom-events-v1</code>, a version number is appended to the name of the index or data stream.
 If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
-This can be avoided by incrementing the version and performing the rebuild against a new index: <code>stroom-events-v2</code>. Users could continue querying <code>stroom-events-v1</code> until it is deleted.
+This can be avoided by incrementing the version and performing the rebuild against a new index: <code>stroom-events-v2</code>.
+Users could continue querying <code>stroom-events-v1</code> until it is deleted.
 This approach involves the following steps:</p>
 <ol>
 <li>Create a new Elasticsearch index template targeting the new index name (in this case, <code>stroom-events-v2</code>).</li>
 <li>Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.</li>
 <li>Create and activate a processing filter for the new pipeline.</li>
-<li>Once indexing is complete, update the Elastic Index document to point to <code>stroom-events-v2</code>. Users will now be searching against the new index.</li>
+<li>Once indexing is complete, update the Elastic Index document to point to <code>stroom-events-v2</code>.
+Users will now be searching against the new index.</li>
 <li>Drain any tasks for the original indexing pipeline and delete it.</li>
 <li>Delete index <code>stroom-events-v1</code> using either the Elasticsearch API or Kibana.</li>
 </ol>
 <p>If you created a data view in Kibana, you&rsquo;ll also want to update this to point to the new index / data stream.</p>
-<h2 id="see-also">See also</h2>
-<ol>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <ol>
 <li><a href="../../../../../docs/user-guide/dashboards/elasticsearch/">Searching an Elasticsearch index in a Dashboard</a></li>
 <li><a href="../../../../../docs/user-guide/indexing/elasticsearch/kibana/">Exploring data with Kibana</a></li>
 </ol>
+
+
+</div>
+
+
 
 </div>
 

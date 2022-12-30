@@ -103,8 +103,21 @@ For instance, you can deploy
 &lt;/span&gt;
  by default, to infer each field&amp;rsquo;s type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type &lt;code&gt;ip&lt;/code&gt;).&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;next-topic&#34;&gt;Next topic&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/getting-started/&#34;&gt;Getting Started&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+
+
+
+  
+    
+    &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/getting-started/&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Next page - Getting Started&amp;#010;Establishing an Elasticsearch cluster connection
+&#34;&gt;
+        &lt;span&gt;Next page - Getting Started&lt;/span&gt;
+        &lt;i class=&#34;next-page-icon fas fa-solid fa-circle-right fa-sm &#34;&gt;&lt;/i&gt;
+      &lt;/a&gt;
+    
+  
+
+
 
       </description>
     </item>
@@ -186,11 +199,13 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.&lt;/p&gt;
 &lt;li&gt;Kubernetes service: &lt;a href=&#34;https://prod-es-http.elastic.svc:9200&#34;&gt;https://prod-es-http.elastic.svc:9200&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;ca-certificate&#34;&gt;CA certificate&lt;/h3&gt;
-&lt;p&gt;PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface. This is usually your organisation&amp;rsquo;s root enterprise CA certificate. For development, you can provide a self-signed certificate.&lt;/p&gt;
+&lt;p&gt;PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
+This is usually your organisation&amp;rsquo;s root enterprise CA certificate. For development, you can provide a self-signed certificate.&lt;/p&gt;
 &lt;h3 id=&#34;use-authentication&#34;&gt;Use authentication&lt;/h3&gt;
 &lt;p&gt;(Optional) Tick this box if Elasticsearch requires authentication. This is enabled by default from Elasticsearch version 8.0.&lt;/p&gt;
 &lt;h3 id=&#34;api-key-id&#34;&gt;API key ID&lt;/h3&gt;
-&lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account. This user requires at a minimum the following 
+&lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
+This user requires at a minimum the following 
 
 
 
@@ -219,8 +234,21 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.&lt;/p&gt;
 &lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked.&lt;/p&gt;
 &lt;h3 id=&#34;socket-timeout-ms&#34;&gt;Socket timeout (ms)&lt;/h3&gt;
 &lt;p&gt;Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete. Set to &lt;code&gt;-1&lt;/code&gt; (the default) to wait indefinitely, or until Elasticsearch closes the connection.&lt;/p&gt;
-&lt;h2 id=&#34;next-topic&#34;&gt;Next topic&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/indexing/&#34;&gt;Indexing data&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+
+
+
+  
+    
+    &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/indexing/&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Next page - Indexing data&amp;#010;Indexing event data to Elasticsearch
+&#34;&gt;
+        &lt;span&gt;Next page - Indexing data&lt;/span&gt;
+        &lt;i class=&#34;next-page-icon fas fa-solid fa-circle-right fa-sm &#34;&gt;&lt;/i&gt;
+      &lt;/a&gt;
+    
+  
+
+
 
       </description>
     </item>
@@ -374,7 +402,8 @@ You will first need to
   alt=&#34;ellipses-horizontal.svg&#34;&gt;
  next to the &lt;code&gt;Cluster configuration&lt;/code&gt; field label.&lt;/li&gt;
 &lt;li&gt;In the dialog that appears, select the Elastic Cluster document where the index exists, and click &lt;code&gt;OK&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Enter the name of an index or data stream in &lt;code&gt;Index name or pattern&lt;/code&gt;. Data view (formerly known as &lt;em&gt;index pattern&lt;/em&gt;) 
+&lt;li&gt;Enter the name of an index or data stream in &lt;code&gt;Index name or pattern&lt;/code&gt;.
+Data view (formerly known as &lt;em&gt;index pattern&lt;/em&gt;) 
 
 
 
@@ -389,10 +418,15 @@ You will first need to
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
 &lt;/span&gt;
- is supported, which enables you to query multiple indices or data streams at once. For example: &lt;code&gt;stroom-events-v1&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;(Optional) Set &lt;code&gt;Search slices&lt;/code&gt;, which is the number of parallel workers that will query the index. For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.&lt;/li&gt;
-&lt;li&gt;(Optional) Set &lt;code&gt;Search scroll size&lt;/code&gt;, which specifies the number of documents to return in each search response. Greater values generally increase efficiency. By default, Elasticsearch limits this number to &lt;code&gt;10,000&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Click &lt;code&gt;Test Connection&lt;/code&gt;. A dialog will appear with the result, which will state &lt;code&gt;Connection Success&lt;/code&gt; if the connection was successful and the index pattern matched one or more indices.&lt;/li&gt;
+ is supported, which enables you to query multiple indices or data streams at once.
+For example: &lt;code&gt;stroom-events-v1&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;(Optional) Set &lt;code&gt;Search slices&lt;/code&gt;, which is the number of parallel workers that will query the index.
+For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.&lt;/li&gt;
+&lt;li&gt;(Optional) Set &lt;code&gt;Search scroll size&lt;/code&gt;, which specifies the number of documents to return in each search response.
+Greater values generally increase efficiency.
+By default, Elasticsearch limits this number to &lt;code&gt;10,000&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;code&gt;Test Connection&lt;/code&gt;.
+A dialog will appear with the result, which will state &lt;code&gt;Connection Success&lt;/code&gt; if the connection was successful and the index pattern matched one or more indices.&lt;/li&gt;
 &lt;li&gt;Click 
 
 
@@ -449,7 +483,8 @@ You will first need to
   alt=&#34;ellipses-horizontal.svg&#34;&gt;
  next to the &lt;code&gt;Data Source&lt;/code&gt; field label.&lt;/li&gt;
 &lt;li&gt;Select the Elastic Index document you created and click &lt;code&gt;OK&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Configure the query expression as explained in &lt;a href=&#34;../../docs/quick-start-guide/dashboard/#configuring-the-query-expression&#34;&gt;Dashboards&lt;/a&gt;. Note the &lt;a href=&#34;#query-expression-tips&#34;&gt;tips&lt;/a&gt; for particular Elasticsearch field mapping data types.&lt;/li&gt;
+&lt;li&gt;Configure the query expression as explained in &lt;a href=&#34;../../docs/quick-start-guide/dashboard/#configuring-the-query-expression&#34;&gt;Dashboards&lt;/a&gt;.
+Note the &lt;a href=&#34;#query-expression-tips&#34;&gt;tips&lt;/a&gt; for particular Elasticsearch field mapping data types.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;../../docs/quick-start-guide/dashboard/#configuring-the-table&#34;&gt;Configure the table&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;query-expression-tips&#34;&gt;Query expression tips&lt;/h2&gt;
@@ -474,7 +509,8 @@ You will first need to
   alt=&#34;add.svg&#34;&gt;
  in the &lt;code&gt;Query&lt;/code&gt; panel to add a new expression item.&lt;/li&gt;
 &lt;li&gt;Select the Elasticsearch field name in the drop-down list.&lt;/li&gt;
-&lt;li&gt;Note the blue data type indicator to the far right of the row. Common examples are: &lt;code&gt;keyword&lt;/code&gt;, &lt;code&gt;text&lt;/code&gt; and &lt;code&gt;number&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Note the blue data type indicator to the far right of the row.
+Common examples are: &lt;code&gt;keyword&lt;/code&gt;, &lt;code&gt;text&lt;/code&gt; and &lt;code&gt;number&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;After you identify the field mapping type, move the mouse cursor over the mapping type indicator.
 A tooltip appears, explaining various types of queries you can perform against that particular field&amp;rsquo;s type.&lt;/p&gt;
