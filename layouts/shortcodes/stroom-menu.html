@@ -1,0 +1,125 @@
+<!-- 
+{{/*
+Renders a selected menu item hierarchy.
+Takes as many args as there are levels in the hierarchy.
+If the name matches one in our map of icons then it will
+render the icon to the left of the name.
+It renders an arrow between each item, e.g.
+New => Folder
+
+e.g.
+menu "New" "Folder"
+menu "Tools" "Users"
+
+To see all known menu items do:
+menu "menu_demo"
+
+TODO Maybe hold the map in some kind of resource bundle file?
+*/}}
+-->
+
+{{ $param_count := len .Params }}
+
+{{ $icon_map := dict
+  "New" "add.svg"
+  "Info" "info.svg"
+  "Copy" "copy.svg"
+  "Move" "move.svg"
+  "Rename" "edit.svg"
+  "Delete" "delete.svg"
+  "Import" "upload.svg"
+  "Export" "download.svg"
+  "Permissions" "locked-amber.svg"
+  "Close" "close.svg"
+  "Close All" "close.svg"
+  "Save" "save.svg"
+  "Save All" "save.svg"
+  "User Permissions" "user.svg"
+  "Data Volumes" "volumes.svg"
+  "Index Volumes" "volumes.svg"
+  "API Keys" "key.svg"
+  "Users" "users.svg"
+  "Data Retention" "history.svg"
+  "Properties" "properties.svg"
+  "Dependencies" "dependencies.svg"
+  "Database Tables" "database.svg"
+  "Jobs" "jobs.svg"
+  "Nodes" "nodes.svg"
+  "Server Tasks" "jobs.svg"
+  "Caches" "monitoring.svg"
+  "Preferences" "settings-blue.svg"
+  "Logout" "logout.svg"
+  "Change password" "password.svg"
+  "Help" "help.svg"
+
+  "Folder" "folder.svg"
+  "Feed" "document/feed.svg"
+  "Pipeline" "document/pipeline.svg"
+  "Text Converter" "document/TextConverter.svg"
+  "XML Schema" "document/XMLSchema.svg"
+  "XSL Translation" "document/XSLT.svg"
+  "Dashboard" "document/Dashboard.svg"
+  "Elastic Index" "document/ElasticIndex.svg"
+  "Lucene Index" "document/Index.svg"
+  "Solr Index" "document/SolrIndex.svg"
+  "Statistic Store" "document/StatisticStore.svg"
+  "Stroom-Stats Store" "document/StroomStatsStore.svg"
+  "Dictionary" "document/Dictionary.svg"
+  "Elastic Cluster" "document/ElasticIndex.svg"
+  "Kafka Configuration" "document/KafkaConfig.svg"
+  "Rule Set" "document/ReceiveDataRuleSet.svg"
+  "Script" "document/Script.svg"
+  "Visualisation" "document/Visualisation.svg"
+}}
+
+{{- if eq (.Get 0) "menu_demo" }}
+  <div class="stroom-menu stroom-menu-demo row">
+    {{- range $item_name, $item_icon := $icon_map }}
+      <div class="stroom-menu-demo-item col-md-3">
+      {{ partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map) }}
+      </div>
+    {{- end }}
+  </div>
+{{ else }}
+  <span class="stroom-menu">
+    {{- range (seq 0 (sub (len .Params) 1) ) }}
+      {{- $item_name := $.Get . }}
+
+      {{- partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map) }}
+
+      {{- if lt . ( sub $param_count 1 )}}
+        <span class="stroom-menu-item-separator">
+        <i class="stroom-menu-item-separator fas fa-solid fa-arrow-right fa-sm "></i>
+        </span>
+      {{- end }}
+
+    {{- end }}
+  </span>
+{{- end }}
+
+{{- define "partials/stroom-menu-item.html" }}
+  <span class="stroom-menu-item-background">
+    <span class="stroom-menu-item">
+      {{- $item_name := .item_name }}
+      {{- $icon_map := .icon_map }}
+      {{- $item_icon := index .icon_map .item_name }}
+
+      {{- if $item_icon }}
+        {{- $icon_path := printf "/images/stroom-ui/%s" $item_icon }}
+        {{- $image := resources.Get (printf "%s" $icon_path) }}
+        {{- if $image }}
+        <span class="stroom-menu-item-icon">
+          <img 
+            class="stroom-icon" 
+            src="{{ $image.RelPermalink }}" 
+            alt="{{ $item_icon }}">
+        </span>
+        {{- else }}
+          {{- errorf "Unable to find file %s" $icon_path }}
+        {{- end }}
+      {{- end }}
+
+      {{- $item_name }}
+    </span>
+  </span>
+{{- end }}

@@ -52,6 +52,13 @@ Assorted images used in the user interface.
 {{< stroom-icons-gallery "images/stroom-ui/assorted/" >}}
 
 
+## Menu items
+
+Menu items with icons that are available for use with the [`stroom-menu` shortcode]({{< relref "using-images#stroom-selected-menu-items" >}}).
+
+{{< stroom-menu "menu_demo" >}}
+
+
 ## Updating this gallery
 
 This gallery of icons can be updated by running the following script which will copy all the icons from the stroom repository.
