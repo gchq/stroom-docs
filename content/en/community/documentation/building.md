@@ -188,3 +188,9 @@ The container has access to your local stroom-docs repository (from where you ra
 Inside the container the root of the repository is mounted as `/builder/shared`.
 
 To leave the container's shell type `exit`.
+
+Alternatively you can run a single command directly, e.g. to update Docsy to `0.6.0` do:
+
+{{< command-line >}}
+./container_build/runInHugoDocker.sh 'hugo mod get -u github.com/google/docsy@v0.6.0'
+{{</ command-line >}}
