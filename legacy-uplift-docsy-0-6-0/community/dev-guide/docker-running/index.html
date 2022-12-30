@@ -1,0 +1,612 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Running in Docker | Stroom</title>
+<meta name="description" content="This is how to run Stroom and its peripheral services using _Docker_.  Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running. 
+">
+<meta property="og:title" content="Running in Docker" />
+<meta property="og:description" content="This is how to run Stroom and its peripheral services using _Docker_.  Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running. 
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/community/dev-guide/docker-running/" /><meta property="article:section" content="community" />
+<meta property="article:published_time" content="2021-08-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-30T12:11:42+00:00" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Running in Docker">
+<meta itemprop="description" content="This is how to run Stroom and its peripheral services using _Docker_.  Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running. 
+"><meta itemprop="datePublished" content="2021-08-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-30T12:11:42+00:00" />
+<meta itemprop="wordCount" content="402">
+<meta itemprop="keywords" content="docker," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Running in Docker"/>
+<meta name="twitter:description" content="This is how to run Stroom and its peripheral services using _Docker_.  Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running. 
+"/>
+
+
+
+
+<link rel="preload" href="../../../scss/main.min.9960116ec6c512488799af4206cac972ac445a60be6cdb195b9231067d51cd99.css" as="style">
+<link href="../../../scss/main.min.9960116ec6c512488799af4206cac972ac445a60be6cdb195b9231067d51cd99.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../css/prism.css"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-00000000-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </head>
+  <body class="td-page">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../docs/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../community/"><span class="active">Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (Legacy)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../">7.1 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../offline-search-index.e162c17a863d8373b9d9709d27916dea.json"
+    data-offline-search-base-href="../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../offline-search-index.e162c17a863d8373b9d9709d27916dea.json"
+    data-offline-search-base-href="../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-community-li">
+  <a href="../../../community/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-community"><span class="">Community</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communityroadmap-li">
+  <a href="../../../community/roadmap/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communityroadmap"><span class="">Roadmap</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-communitydev-guide-li">
+  <a href="../../../community/dev-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-communitydev-guide"><span class="">Developer Guide</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydev-guidesetting-up-sonatype-li">
+  <a href="../../../community/dev-guide/setting-up-sonatype/" title="Setting up releases to Sonatype &amp; Maven Central" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydev-guidesetting-up-sonatype"><span class="">Setting up Sonatype</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydev-guidedocumentation-dev-li">
+  <a href="../../../community/dev-guide/documentation-dev/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydev-guidedocumentation-dev"><span class="">Building the documentation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydev-guidecomponents-li">
+  <a href="../../../community/dev-guide/components/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydev-guidecomponents"><span class="">Components</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydev-guidereleasing-li">
+  <a href="../../../community/dev-guide/releasing/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydev-guidereleasing"><span class="">Release Process</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-communitydev-guidedocker-running-li">
+  <a href="../../../community/dev-guide/docker-running/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-communitydev-guidedocker-running"><span class="td-sidebar-nav-active-item">Running in Docker</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitydev-guidestroom-in-an-ide-li">
+  <a href="../../../community/dev-guide/stroom-in-an-ide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydev-guidestroom-in-an-ide"><span class="">Running Stroom in an IDE</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-communitycontent-li">
+  <a href="../../../community/content/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-communitycontent"><span class="">Developing Content</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-communitydocumentation-li">
+  <a href="../../../community/documentation/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-communitydocumentation"><span class="">Documenting Stroom</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationbuilding-li">
+  <a href="../../../community/documentation/building/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationbuilding"><span class="">Building the Documentation</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationversions-li">
+  <a href="../../../community/documentation/versions/" title="Managing Stroom Versions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationversions"><span class="">Stroom Versions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-communitydocumentationstyle-guide-li">
+  <a href="../../../community/documentation/style-guide/" title="Documentation Style Guide" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-communitydocumentationstyle-guide"><span class="">Style Guide</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guidesite-structure-li">
+  <a href="../../../community/documentation/style-guide/site-structure/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidesite-structure"><span class="">Site Structure</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guidefront-matter-li">
+  <a href="../../../community/documentation/style-guide/front-matter/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidefront-matter"><span class="">Front Matter</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guidemarkdown-style-li">
+  <a href="../../../community/documentation/style-guide/markdown-style/" title="Markdown Style Conventions" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guidemarkdown-style"><span class="">Markdown Conventions</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guideadditional-elements-li">
+  <a href="../../../community/documentation/style-guide/additional-elements/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guideadditional-elements"><span class="">Additional Page Elements</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guideusing-images-li">
+  <a href="../../../community/documentation/style-guide/using-images/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guideusing-images"><span class="">Images</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-communitydocumentationstyle-guideicon-gallery-li">
+  <a href="../../../community/documentation/style-guide/icon-gallery/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-communitydocumentationstyle-guideicon-gallery"><span class="">Icon Gallery</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/gchq/stroom-docs/tree/legacy/content/en/community/dev-guide/docker-running.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/legacy/content/en/community/dev-guide/docker-running.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/legacy/content/en/community/dev-guide/docker-running.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/gchq/stroom-docs/issues/new?title=Running%20in%20Docker" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
+  <a id="print" href="../../../community/dev-guide/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
+
+</div>
+
+            <div class="td-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#stroom-v6x-release">Stroom v6.x release</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#install-steps">Install steps</a></li>
+      </ul>
+    </li>
+    <li><a href="#stroom-v5x-release">Stroom v5.x release</a>
+      <ul>
+        <li><a href="#prerequisites-1">Prerequisites</a></li>
+        <li><a href="#install-steps-1">Install steps</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-hub-links">Docker Hub links</a></li>
+  </ul>
+</nav>
+      </div>
+    
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+    <div class="taxonomy taxonomy-terms-cloud taxo-tags">
+      
+        <h5 class="taxonomy-title">Tags</h5>
+      
+      <ul class="taxonomy-terms">
+        
+          <li><a class="taxonomy-term" href="../../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/architecture/" data-taxonomy-term="architecture"><span class="taxonomy-label">architecture</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/authorisation/" data-taxonomy-term="authorisation"><span class="taxonomy-label">authorisation</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/certificate/" data-taxonomy-term="certificate"><span class="taxonomy-label">certificate</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/cluster/" data-taxonomy-term="cluster"><span class="taxonomy-label">cluster</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/data-splitter/" data-taxonomy-term="data-splitter"><span class="taxonomy-label">data-splitter</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/dictionary/" data-taxonomy-term="dictionary"><span class="taxonomy-label">dictionary</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/elastic-search/" data-taxonomy-term="elastic-search"><span class="taxonomy-label">elastic-search</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/expression/" data-taxonomy-term="expression"><span class="taxonomy-label">expression</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">6</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/file/" data-taxonomy-term="file"><span class="taxonomy-label">file</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/header/" data-taxonomy-term="header"><span class="taxonomy-label">header</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/http/" data-taxonomy-term="http"><span class="taxonomy-label">http</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/java/" data-taxonomy-term="java"><span class="taxonomy-label">java</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/job/" data-taxonomy-term="job"><span class="taxonomy-label">job</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/keystore/" data-taxonomy-term="keystore"><span class="taxonomy-label">keystore</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/log-sender/" data-taxonomy-term="log-sender"><span class="taxonomy-label">log-sender</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/mysql/" data-taxonomy-term="mysql"><span class="taxonomy-label">mysql</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">NFS</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/nginx/" data-taxonomy-term="nginx"><span class="taxonomy-label">nginx</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">5</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/property/" data-taxonomy-term="property"><span class="taxonomy-label">property</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">6</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/retention/" data-taxonomy-term="retention"><span class="taxonomy-label">retention</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/role/" data-taxonomy-term="role"><span class="taxonomy-label">role</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/security/" data-taxonomy-term="security"><span class="taxonomy-label">security</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/stream/" data-taxonomy-term="stream"><span class="taxonomy-label">stream</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/style/" data-taxonomy-term="style"><span class="taxonomy-label">style</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/task/" data-taxonomy-term="task"><span class="taxonomy-label">task</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">5</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/upgrade/" data-taxonomy-term="upgrade"><span class="taxonomy-label">upgrade</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/user/" data-taxonomy-term="user"><span class="taxonomy-label">user</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/v5/" data-taxonomy-term="v5"><span class="taxonomy-label">v5</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/visualisation/" data-taxonomy-term="visualisation"><span class="taxonomy-label">visualisation</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">2</span></a></li>
+        
+      </ul>
+    </div>
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+  
+  
+  
+  
+  
+  <div class="pageinfo pageinfo-secondary">
+    
+    <p>
+    The page that you are currently viewing is for an old version of Stroom (Legacy).
+      
+      The documentation for the latest version of Stroom (7.1)
+      can be found using the version drop-down at the top of the screen or by clicking
+        <a href="../../../../">here</a>.
+    </p>
+      
+    
+  </div>
+
+
+            
+
+
+<nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="../../../community/">Community</a>
+    </li>
+  <li class="breadcrumb-item"><a href="../../../community/dev-guide/">Developer Guide</a>
+    </li>
+  <li class="breadcrumb-item active">
+      <span>Running in Docker</span>
+    </li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>Running in Docker</h1>
+	<div class="lead">This is how to run Stroom and its peripheral services using <em>Docker</em>.  Running Stroom in <em>Docker</em> is the quickest and easiest way to get Stroom up and running.</div>
+	<header class="article-meta">
+		
+
+  
+    
+
+
+  
+    
+
+
+<div class="taxonomy taxonomy-terms-article taxo-tags">
+  <h5 class="taxonomy-title">Tags:</h5>
+  <ul class="taxonomy-terms">
+    
+      <li><a class="taxonomy-term" href="../../../tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span></a></li>
+    
+  </ul>
+</div>
+
+  
+
+		
+	</header>    
+	<blockquote>
+<p><em>NOTE</em>: The published docker images are intended for small scale testing or evaluation purposes and are currently un-tested in a production environment.</p>
+</blockquote>
+<h2 id="stroom-v6x-release">Stroom v6.x release</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>In order to run Stroom v6.x using Docker you will need the following installed on the machine you intend to run Stroom on:</p>
+<ul>
+<li>A Linux-like shell environment.</li>
+<li>docker CE (v17.12.0+) - e.g <a href="https://docs.docker.com/install/linux/docker-ce/centos/">docs.docker.com/install/linux/docker-ce/centos/ (external link)</a> for Centos</li>
+<li>docker-compose (v1.21.0+) - <a href="https://docs.docker.com/compose/install/">docs.docker.com/compose/install/ (external link)</a></li>
+<li>bash (v4+)</li>
+<li>jq - <a href="https://stedolan.github.io/jq/">stedolan.github.io/jq/ (external link)</a> e.g. <code>sudo yum install jq</code></li>
+<li>curl</li>
+</ul>
+<h3 id="install-steps">Install steps</h3>
+<p>This will install the core stack (Stroom and the peripheral services required to run Stroom).</p>
+<p>Visit <a href="https://github.com/gchq/stroom-resources/releases">stroom-resources/releases (external link)</a> and find the latest stroom_core release and copy the link to the associated <code>stroom_core*.tar.gz</code> archive file.</p>
+<p>Using <code>stroom_core-v6.0.19</code> as an example:</p>
+<pre><code class="language-bash"># Set the release version to download
+export STROOM_STACK_VER=&quot;stroom_core-v6.0.19&quot;
+
+# Make the stack directory
+mkdir ${STROOM_STACK_VER}
+
+# Download and extract the Stroom stack into the directory stroom_core-vX.Y.Z
+curl -sL https://github.com/gchq/stroom-resources/releases/download/${STROOM_STACK_VER}/${STROOM_STACK_VER}.tar.gz | tar xz -C ${STROOM_STACK_VER}
+
+# Navigate into the new stack directory, where xxxx is the directory that has just been created
+cd ${STROOM_STACK_VER}
+
+# Start the stack
+./start.sh
+</code></pre>
+<p>Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest release using:</p>
+<pre><code class="language-bash"># Download and extract the Stroom stack
+bash &lt;(curl -s https://gchq.github.io/stroom-resources/get_stroom.sh)
+
+# Navigate into the new stack directory
+cd stroom_core_test/stroom_core_test*
+
+# Start the stack
+./start.sh
+</code></pre>
+<p>On first run stroom will build the database schemas so this can take a minute or two.
+The <code>start.sh</code> script will provide details of the various URLs that are available.</p>
+<p>Open a browser (preferably Chrome) at <a href="https://localhost/stroom">https://localhost/stroom</a> and login with:</p>
+<ul>
+<li>username: <em>admin</em> (NOT an email address)</li>
+<li>password: <em>admin</em></li>
+</ul>
+<p>The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.</p>
+<h2 id="stroom-v5x-release">Stroom v5.x release</h2>
+<h3 id="prerequisites-1">Prerequisites</h3>
+<p>In order to run Stroom v5.x using Docker you will need the following installed on the machine you intend to run Stroom on:</p>
+<ul>
+<li>A Linux-like shell environment with bash and GNU sed/grep</li>
+<li>docker CE (v17.12.0+)</li>
+<li>docker-compose (v1.21.0+)</li>
+<li>git</li>
+</ul>
+<h3 id="install-steps-1">Install steps</h3>
+<pre><code class="language-bash"># Clone the stroom-resources git repository
+git clone https://github.com/gchq/stroom-resources.git
+
+# Navigate to the bin directory in the repository
+cd stroom-resources/bin
+
+# Start the stroom v5.x stack using docker/docker-compose
+./bounceIt.sh -f env/stroom5.env
+</code></pre>
+<p>Open a browser (preferably Chrome) at <a href="http://localhost:8080/stroom">http://localhost:8080/stroom</a> and login with:</p>
+<ul>
+<li>username: <em>admin</em></li>
+<li>password: <em>admin</em></li>
+</ul>
+<h2 id="docker-hub-links">Docker Hub links</h2>
+<p><a href="https://hub.docker.com/r/gchq/stroom/">The Stroom image (external link)</a></p>
+<p><a href="https://hub.docker.com/r/gchq/">The GCHQ organisation (external link)</a></p>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">
+  Last modified December 30, 2022: <a href="https://github.com/gchq/stroom-docs/commit/a1eb80a3d002cd7b6b9dcad530b992cd56ca0adc">Add next-page and prev-page shortcodes (a1eb80a)</a>
+</div>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../js/popper.min.js'></script>
+<script src='../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>
