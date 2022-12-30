@@ -14,7 +14,7 @@ In Stroom we have the concept of Users and Accounts, and it is important to unde
 
 ## Accounts
 
-Accounts are user identities in the internal {{< glossary "identity provider idp" "Identity Provider (IDP)" >}}.
+{{< glossary "Account" "Accounts" >}} are user identities in the internal {{< glossary "identity provider idp" "Identity Provider (IDP)" >}}.
 The internal IDP is used when you want Stroom to manage all the authentication.
 The internal IDP is the default option and the simplest for test environments.
 Accounts are not applicable when using an external 3rd party IDP.
@@ -32,7 +32,7 @@ Accounts are stored in the `account` database table.
 
 ## Stroom Users
 
-A user in Stroom is used for managing authorisation, i.e. permissions and group memberships.
+A {{< glossary "user" >}} in Stroom is used for managing authorisation, i.e. permissions and group memberships.
 It plays no part in authentication.
 A user has a unique identifier that is provided by the IDP (internal or 3rd party) to identify it.
 This ID is also the link it to the Stroom _Account_ in the case of the internal IDP or the identity on a 3rd party IDP.

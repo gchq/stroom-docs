@@ -1,7 +1,7 @@
 ---
 title: "Tokens for API use"
 linkTitle: "Tokens for API use"
-#weight:
+weight: 40
 date: 2022-11-25
 tags: 
   - token
@@ -72,6 +72,8 @@ echo -e "\nNew access token (expiry $( get_jwt_expiry "${access_token}")):\n${ac
 echo -e "\nNew refresh token (expiry $( get_jwt_expiry "${refresh_token}")):\n${refresh_token}"
 ```
 
+The above example assumes that you have created a user called `jbloggs` and a client ID `admin-cli`.
+
 Access tokens typically have a short life (of the order of minutes) while a refresh token will have a much longer life (maybe up to a year).
 Refreshing the token does not require re-authentication.
 
@@ -132,5 +134,3 @@ This access token can be refreshed in the same way as for a user access token, a
 
 Access tokens can be used in calls the Stroom's REST API or its datafeed API.
 The process of including the token in a HTTP request is described in [API Authentication]({{< relref "/docs/user-guide/api#authentication" >}})
-
-

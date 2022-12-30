@@ -27,7 +27,7 @@ A dynamic {{< external-link "Swagger user interface" "https://gchq.github.io/str
 ## Authentication
 
 In order to use the API endpoints you will need to authenticate.
-Authentication is achieved using an {{< glossary "API Key" >}}.
+Authentication is achieved using an {{< glossary "API Key" >}} or {{< glossary "Token" >}}.
 
 You will either need to create an API key for your personal Stroom user account or for a shared processing user account.
 Whichever user account you use it will need to have the necessary permissions for each API endpoint it is to be used with.

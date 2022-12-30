@@ -1,6 +1,6 @@
 ---
-title: "External IDP Setup"
-linkTitle: "External IDP Setup"
+title: "External IDP"
+linkTitle: "External IDP"
 weight: 30
 date: 2022-11-25
 tags:
@@ -9,7 +9,7 @@ description: >
   
 ---
 
-You may be running Stroom in an environment with an existing IDP (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
+You may be running Stroom in an environment with an existing {{< glossary "identity provider idp" "Identity Provider (IDP)" >}} (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
 Stroom supports 3rd party IDPs that conform to the {{< external-link "Open ID Connect" "https://openid.net/connect/" >}} specification.
 
 The following is a guide to setting up a new stroom instance/cluster with KeyCloak as the 3rd party IDP.
@@ -120,23 +120,25 @@ Repeat this process for the following user:
 Edit the `config.yml` file and set the following values
 
 ```yaml
+  receive:
+    # Set to true to require authenticatin for /datafeed requests
+    authenticationRequired: true
+    # Set to true to allow authentication using an Open ID token
+    tokenAuthenticationEnabled: true
   security:
     authentication:
       authenticationRequired: true
       openId:
-        authEndpoint: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/auth"
-        clientId: "StroomClient" # The realm created in KeyCloak
-        clientSecret: "XwTPPudGZkDK2hu31MZkotzRUdBWfHO6" # The client secret copied from KeyCloak above
-        formTokenRequest: false
-        issuer: "http://localhost:9999/realms/StroomRealm"
-        jwksUri: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/certs"
+        # The client ID created in KeyCloak
+        clientId: "StroomClient"
+        # The client secret copied from KeyCloak above
+        clientSecret: "XwTPPudGZkDK2hu31MZkotzRUdBWfHO6"
+        # Tells Stroom to use an external IDP for authentication
+        identityProviderType: EXTERNAL_IDP
+        # The URL on the IDP to redirect users to when logging out in Stroom
         logoutEndpoint: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/logout"
+        # The endpoint to obtain the rest of the IDPs configuration. Specific to the realm/issuer.
         openIdConfigurationEndpoint: "http://localhost:9999/realms/StroomRealm/.well-known/openid-configuration"
-        requestScope: null
-        tokenEndpoint: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token"
-        useInternal: false # Tells stroom to use an external 3rd party IDP
-    identity:
-      useDefaultOpenIdCredentials: false
 ```
 
 These values are obtained from the IDP.
@@ -169,6 +171,7 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 {{</ command-line >}}
 
 Where `XXX` is the user ID copied from the IDP as described above.
+This command is repeatable as it will skip any users/groups/memberships that already exist.
 
 {{% see-also %}}
 See [Command Line Tools]({{< relref "command-line" >}}) for more details on using the `manage_users` command.
@@ -200,12 +203,50 @@ First start the Stroom instance/cluster.
 
 {{% warning %}}
 If the `manage_users` command is run while Stroom is running you will likely not see the effect when logging in as the user permissions are cached.
-Without Administrator rights you will not be able to clear the caches so you will need to restart Stroom.
+Without Administrator rights you will not be able to clear the caches so you will need to wait for the cache entries to expire or restart Stroom.
 {{% /warning %}}
 
-Navigate to _http://<stroom fqdn>_ and Stroom should re-direct you to the IDP (KeyCloak) to authenticate.
+Navigate to _http://STROOM_FQDN_ and Stroom should re-direct you to the IDP (KeyCloak) to authenticate.
 Enter the username of `admin` and password `admin`.
 You should be authenticated by KeyCloak and re-directed back to stroom.
 Your user ID is shown in the bottom right corner of the Welcome tab.
 
 As an administrator, the _Tools_ => _User Permissions_ menu item will be available to manage the permissions of any users that have logged on at least once.
+
+Now select _User_ => _Logout_ to be re-directed to the IDP to logout.
+Once you logout of the IDP it should re-direct you back to the IDP login screen for Stroom to log back in again.
+
+
+### As an ordinary user
+
+On the IDP login screen, login as user `jbloggs` with the password `password`.
+You will be re-directed to Stroom however the explorer tree will be empty and most of the menu items will be disabled.
+In order to gain permissions to do anything in Stroom a Stroom administrator will need to grant application/document permissions and/or group memberships to the user via the _Tools_ => _User Permissions_ menu item.
+
+
+## Configure Stroom-Proxy for KeyCloak
+
+In order to user Stroom-Proxy with OIDC
+
+Edit the `config.yml` file and set the following values
+
+```yaml
+  receive:
+    # Set to true to require authenticatin for /datafeed requests
+    authenticationRequired: true
+    # Set to true to allow authentication using an Open ID token
+    tokenAuthenticationEnabled: true
+  security:
+    authentication:
+      openId:
+        # The client ID created in KeyCloak
+        clientId: "StroomClient"
+        # The client secret copied from KeyCloak above
+        clientSecret: "XwTPPudGZkDK2hu31MZkotzRUdBWfHO6"
+        # Tells Stroom to use an external IDP for authentication
+        identityProviderType: EXTERNAL_IDP
+        # The URL on the IDP to redirect users to when logging out in Stroom
+        logoutEndpoint: "http://localhost:9999/realms/StroomRealm/protocol/openid-connect/logout"
+        # The endpoint to obtain the rest of the IDPs configuration. Specific to the realm/issuer.
+        openIdConfigurationEndpoint: "http://localhost:9999/realms/StroomRealm/.well-known/openid-configuration"
+```

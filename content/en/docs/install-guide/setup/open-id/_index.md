@@ -1,6 +1,6 @@
 ---
 title: "Setting up Stroom with an Open ID Connect IDP"
-linkTitle: "Open ID Connect Setup"
+linkTitle: "Open ID Connect"
 #weight:
 date: 2022-11-25
 cascade:
