@@ -123,6 +123,38 @@ The following are some example of different links to internal content.
   ```
 
 
+#### Next page in section link
+
+* A link to the next page in the current section.
+  If the current page is the last page in the section then no link will be displayed.
+  What the next page is is defined by the [page weights]({{< relref "front-matter#weight" >}}) or the default ordering of pages in the section.
+
+  This is useful when you have a set of pages in a section that 
+  For example:
+
+  {{< next-page >}}
+
+  ```markdown
+  {{</* next-page */>}}
+  ```
+
+
+#### Previous page in section link
+
+* A link to the previous page in the current section.
+  If the current page is the last page in the section then no link will be displayed.
+  What the previous page is is defined by the [page weights]({{< relref "front-matter#weight" >}}) or the default ordering of pages in the section.
+
+  This is useful when you have a set of pages in a section that 
+  For example:
+
+  {{< prev-page >}}
+
+  ```markdown
+  {{</* prev-page */>}}
+  ```
+
+
 ### Markdown page link examples
 
 {{% warning %}}

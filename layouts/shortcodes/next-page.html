@@ -1,0 +1,20 @@
+<!-- 
+Adds a link to the next page in the current section if there is one.
+Relies on pages having set weights and means you can re-order pages
+without having to change the next links.
+Does nothing if there is no next page.
+
+For some reason we need to use PrevInSection not NextInSection.
+There is an open issue about it here: https://github.com/gohugoio/hugo/issues/1061
+-->
+
+{{ with .Page }}
+  {{ if .PrevInSection }}
+    {{ with .PrevInSection }}
+    <a href="{{ .RelPermalink }}" class="" style="" title="Next page - {{ .Title }}&#010;{{ .Description }}">
+        <span>Next page - {{ .Title }}</span>
+        <i class="next-page-icon fas fa-solid fa-circle-right fa-sm "></i>
+      </a>
+    {{ end }}
+  {{ end }}
+{{ end }}
