@@ -19,12 +19,13 @@ stroom-icon save.svg "Save" "disabled"
 {{ end }}
 {{ $path := printf "/images/stroom-ui/%s" $filename }}
 {{ $image := resources.Get (printf "%s" $path) }}
-{{ if not $image }}
-  {{ errorf "Unable to find file %s" $path }}
+{{ if $image }}
+  <img 
+    class="stroom-icon {{ $disabled_class }}" 
+    src="{{ $image.RelPermalink }}" 
+    title="{{ $title }}" 
+    alt="{{ $filename }}">
+{{ else }}
+  {{ errorf "Unable to find icon file %s" $path }}
 {{ end }}
 
-<img 
-  class="stroom-icon {{ $disabled_class }}" 
-  src="{{ $image.RelPermalink }}" 
-  title="{{ $title }}" 
-  alt="{{ $filename }}">
