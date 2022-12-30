@@ -250,3 +250,18 @@ Edit the `config.yml` file and set the following values
         # The endpoint to obtain the rest of the IDPs configuration. Specific to the realm/issuer.
         openIdConfigurationEndpoint: "http://localhost:9999/realms/StroomRealm/.well-known/openid-configuration"
 ```
+
+If Stroom-Proxy is configured to forward data onto another Stroom-Proxy or Stroom instance then it can use tokens when forwarding the data.
+This assumes the downstream Stroom or Stroom-Proxy is also configured to use the same external IDP.
+
+```yaml
+  forwardHttpDestinations:
+
+      # If true, adds a token for the service user to the request
+    - addOpenIdAccessToken: true
+      enabled: true
+      name: "downstream"
+      forwardUrl: "http://somehost/stroom/datafeed"
+```
+
+The token used will be for the service user account of the identity provider client used by Stroom-Proxy.
