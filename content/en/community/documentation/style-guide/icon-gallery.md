@@ -61,7 +61,16 @@ Assorted images used in the user interface.
 {{< stroom-icons-gallery "images/stroom-ui/assorted/" >}}
 
 
+## Menu items
+
+Menu items with icons that are available for use with the [`stroom-menu` shortcode]({{< relref "using-images#stroom-selected-menu-items" >}}).
+
+{{< stroom-menu "menu_demo" >}}
+
+
 ## Updating this gallery
+
+### Icons
 
 This gallery of icons can be updated by running the following script which will copy all the icons from the stroom repository.
 You should ensure your local stroom repository is up to date and on the correct branch before running this.
@@ -75,3 +84,8 @@ e.g.
 {{< command-line >}}
 ./update_stroom_icons.sh ../v7stroom/
 {{</ command-line >}}
+
+
+### Menu Items
+
+To update the available [menu items]({{< relref "#menu-items" >}}) edit the shortcode file `layouts/shortcodes/stroom-menu.html` and modify the `icon_map` variable..
