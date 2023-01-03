@@ -38,6 +38,9 @@ stroom-icon add.svg
 {{ else if eq (lower $elm_name) "dsparser" }}
   {{ $filename = "text.svg" }}
   {{ $elm_name = "dsParser" }}
+{{ else if eq (lower $elm_name) "elasticindexingfilter" }}
+  {{ $filename = "ElasticIndex.svg" }}
+  {{ $elm_name = "elasticIndexingFilter" }}
 {{ else if eq (lower $elm_name) "fileappender" }}
   {{ $filename = "file.svg" }}
   {{ $elm_name = "fileAppender" }}
@@ -150,14 +153,25 @@ stroom-icon add.svg
 {{ $path := printf "/images/stroom-ui/pipeline/%s" $filename }}
 {{ $image := resources.Get (printf "%s" $path) }}
 
-{{/* Surround the outer span with hyperlink tag to the appropriate anchor on the element reference page */}}
+{{ if $image }}
+  {{ $elm_ref_url := "docs/user-guide/pipelines/element-reference" | relURL}}
+  {{ $elm_ref_url = printf "%s#%s" $elm_ref_url (anchorize $elm_name) }}
+  {{ $title := printf "%s \"%s\"" $elm_name $display_name }}
 
-<span class="pipeline-element" title="{{ $display_name }}" >
-  <img
-    class="stroom-icon" 
-    style="max-width: 15px;"
-    src="{{ $image.RelPermalink }}" 
-    title="{{ $display_name }}" 
-    alt="{{ $filename }}">
-  <span>{{ $display_name }}</span>
-</span>
+  {{/* Surround the outer span with hyperlink tag to the appropriate anchor on the element reference page */}}
+
+  <a href="{{ $elm_ref_url }}" class="" style="" title="">
+    <span class="pipeline-element" title="{{ $title }}" >
+    <img
+      class="stroom-icon" 
+      style="max-width: 15px;"
+      src="{{ $image.RelPermalink }}" 
+      title="{{ $display_name }}" 
+      alt="{{ $filename }}">
+    <span>{{ $display_name }}</span>
+  </span>
+  </a>
+{{ else }}
+  {{ errorf "Unable to find pipe-elm icon file %s" $path }}
+{{ end }}
+

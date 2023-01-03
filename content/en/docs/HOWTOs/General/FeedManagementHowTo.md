@@ -28,7 +28,7 @@ Once you have logged in, move the cursor to the **System** folder within the `Ex
 Once selected, _right click_ to bring up the `New Item` selection sub-menu. By selecting the **System** folder we are
 requesting any  _new_ item created to be placed within it.
 
-Select {{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/Feed.svg" >}} _Feed_.
+Select {{< stroom-menu "New" "Feed" >}}
 
 You will be presented with a `New Feed` configuration window.
 
@@ -60,9 +60,7 @@ has disappeared from the `Feed` tab and the _Save_ icon {{< stroom-icon "save.sv
 
 In order to simplify the management of multiple event sources being processed by Stroom, it is suggested that an Event Source folder is created at the root of the **System** folder {{< stroom-icon "oo.svg" "System">}} in the `Explorer` tab.
 
-This can be achieved by right clicking on the {{< stroom-icon "oo.svg" "System">}} _System_ root folder and selecting 
-
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "folder.svg" >}} _Folder_
+This can be achieved by right clicking on the {{< stroom-icon "oo.svg" "System">}} _System_ root folder and selecting {{< stroom-menu "New" "Folder" >}}.
 
 You will be presented with a `New Folder` configuration window.
 
@@ -89,7 +87,7 @@ As we may eventually have multiple proxy event sources, we will first create a *
 
 So, right-click on the {{< stroom-icon "document/Folder.svg">}} _Event Sources_ folder in the Explorer tree and select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "folder.svg" >}} _Folder_
+{{< stroom-menu "New" "Folder" >}}
 
 You will be presented with a `New Folder` configuration window.
 

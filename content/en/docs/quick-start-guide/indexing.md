@@ -25,7 +25,7 @@ We can create an index by adding an index entity {{< stroom-icon "document/Index
 You do this in the same way you create any of the items.
 
 1. Right click on the _Stroom 101_ folder.
-1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/Index.svg" "Index" >}} Index.
+1. Click {{< stroom-menu "New" "Lucene Index" >}}.
 1. Call the index _Stroom 101_.
    Click OK.
 
@@ -89,7 +89,7 @@ This can be a simple 1:1 mapping from event field to index field or something mo
 To create the XSLT for the Index:
 
 1. Right click on the _Stroom 101_ folder {{< stroom-icon "folder.svg" "Folder" >}} in the explorer tree.
-1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/XSLT.svg" "XSLT" >}} XSLT.
+1. Click {{< stroom-menu "New" "XSL Translation" >}}.
 1. Name it `Stroom 101`.
 1. Click OK.
 
@@ -104,7 +104,7 @@ Typically in Stroom all {{< glossary "Raw Events" >}} are first processed into n
 We will create a pipeline to index the processed _Event_ streams containing XML data.
 
 1. Right click on the _Stroom 101_ folder {{< stroom-icon "folder.svg" "Folder" >}} in the explorer tree.
-1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/Pipeline.svg" >}} XSLT.
+1. Click {{< stroom-menu "New" "Pipeline" >}}.
 1. Name it `Stroom 101`.
 1. Click OK.
 

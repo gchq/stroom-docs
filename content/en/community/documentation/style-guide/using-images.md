@@ -308,13 +308,12 @@ To display a selected menu item you can use the `stroom-menu` shortcode.
 
 For example to demonstrate creating a folder using the context menu:
 
-{{< stroom-menu "New" "Folder" >}}
-<br/>
+{{< stroom-menu "New" "Folder" >}}<br/>
 
 The markdown for this example is:
 
 ```markdown
-{{</* stroom-menu "New" "Folder" */>}}
+{{</* stroom-menu "New" "Folder" */>}}<br/>
 ```
 
 The shortcode takes one argument per menu item.

@@ -205,6 +205,29 @@ Multiple filters can be used one after another with each using the output from t
 input.
 
 
+### ElasticIndexingFilter
+
+{{< pipe-elm "elasticIndexingFilter" >}}&nbsp;
+
+> TODO - Add description
+
+**Element properties:**
+
+| Name                         | Description                                                                                                                                                               | Default Value |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| batchSize                    | Maximum number of documents to index in each bulk request                                                                                                                 | 10000         |
+| cluster                      | Target Elasticsearch cluster                                                                                                                                              | -             |
+| indexBaseName                | Name of the Elasticsearch index                                                                                                                                           | -             |
+| indexNameDateFieldName       | Name of the field containing the `DateTime` value to use when determining the index date suffix                                                                           | @timestamp    |
+| indexNameDateFormat          | Format of the date to append to the index name (example: `-yyyy`). If unspecified, no date is appended.                                                                   | -             |
+| indexNameDateMaxFutureOffset | Do not append a time suffix to the index name for events occurring after the current time plus the specified offset                                                       | P1D           |
+| indexNameDateMin             | Do not append a time suffix to the index name for events occurring before this date. Date is assumed to be in UTC and of the format specified in `indexNameDateMinFormat` | -             |
+| indexNameDateMinFormat       | Date format of the supplied `indexNameDateMin` property                                                                                                                   | yyyy          |
+| ingestPipeline               | Name of the Elasticsearch ingest pipeline to execute when indexing                                                                                                        | -             |
+| purgeOnReprocess             | When reprocessing a stream, first delete any documents from the index matching the stream ID                                                                              | true          |
+| refreshAfterEachBatch        | Refresh the index after each batch is processed, making the indexed documents visible to searches                                                                         | false         |
+
+
 ### HttpPostFilter
 
 {{< pipe-elm "httpPostFilter" >}}&nbsp;
@@ -486,10 +509,12 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 
 | Name                   | Description                                                                                                                              | Default Value |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| filePermissions        | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             |
 | outputPaths            | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
 | rollSize               | When the current output file exceeds this size it will be closed and a new one created.                                                  | -             |
 | splitAggregatedStreams | Choose if you want to split aggregated streams into separate output files.                                                               | false         |
 | splitRecords           | Choose if you want to split individual records into separate output files.                                                               | false         |
+| useCompression         | Apply GZIP compression to output files                                                                                                   | false         |
 
 
 ### HDFSFileAppender
@@ -521,32 +546,32 @@ A destination used to write an output stream to a remote HTTP(s) server.
 
 **Element properties:**
 
-| Name                             | Description                                                                        | Default Value                                         |
-|----------------------------------|------------------------------------------------------------------------------------|-------------------------------------------------------|
-| connectionTimeout                | How long to wait before we abort sending data due to connection timeout            | -                                                     |
-| contentType                      | The content type                                                                   | application/json                                      |
-| forwardChunkSize                 | Should data be sent in chunks and if so how big should the chunks be               | -                                                     |
-| forwardUrl                       | The URL to send data to                                                            | -                                                     |
-| hostnameVerificationEnabled      | Verify host names                                                                  | true                                                  |
-| httpHeadersIncludeStreamMetaData | Provide stream metadata as HTTP headers                                            | true                                                  |
-| httpHeadersUserDefinedHeader1    | Additional HTTP Header 1, format is 'HeaderName: HeaderValue'                      | -                                                     |
-| httpHeadersUserDefinedHeader2    | Additional HTTP Header 2, format is 'HeaderName: HeaderValue'                      | -                                                     |
-| httpHeadersUserDefinedHeader3    | Additional HTTP Header 3, format is 'HeaderName: HeaderValue'                      | -                                                     |
-| keyStorePassword                 | The key store password                                                             | -                                                     |
-| keyStorePath                     | The key store file path on the server                                              | -                                                     |
-| keyStoreType                     | The key store type                                                                 | JKS                                                   |
-| logMetaKeys                      | Which meta data values will be logged in the send log                              | guid,feed,system,environment,remotehost,remoteaddress |
-| readTimeout                      | How long to wait for data to be available before closing the connection            | -                                                     |
-| requestMethod                    | The request method, e.g. POST                                                      | POST                                                  |
-| rollSize                         | When the current output exceeds this size it will be closed and a new one created. | -                                                     |
-| splitAggregatedStreams           | Choose if you want to split aggregated streams into separate output.               | false                                                 |
-| splitRecords                     | Choose if you want to split individual records into separate output.               | false                                                 |
-| sslProtocol                      | The SSL protocol to use                                                            | TLSv1.2                                               |
-| trustStorePassword               | The trust store password                                                           | -                                                     |
-| trustStorePath                   | The trust store file path on the server                                            | -                                                     |
-| trustStoreType                   | The trust store type                                                               | JKS                                                   |
-| useCompression                   | Should data be compressed when sending                                             | true                                                  |
-| useJvmSslConfig                  | Use JVM SSL config                                                                 | true                                                  |
+| Name                             | Description                                                                                                                                                                                                                                                   | Default Value                                         |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| connectionTimeout                | How long to wait before we abort sending data due to connection timeout                                                                                                                                                                                       | -                                                     |
+| contentType                      | The content type                                                                                                                                                                                                                                              | application/json                                      |
+| forwardChunkSize                 | Should data be sent in chunks and if so how big should the chunks be                                                                                                                                                                                          | -                                                     |
+| forwardUrl                       | The URL to send data to                                                                                                                                                                                                                                       | -                                                     |
+| hostnameVerificationEnabled      | Verify host names                                                                                                                                                                                                                                             | true                                                  |
+| httpHeadersIncludeStreamMetaData | Provide stream metadata as HTTP headers                                                                                                                                                                                                                       | true                                                  |
+| httpHeadersUserDefinedHeader1    | Additional HTTP Header 1, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
+| httpHeadersUserDefinedHeader2    | Additional HTTP Header 2, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
+| httpHeadersUserDefinedHeader3    | Additional HTTP Header 3, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
+| keyStorePassword                 | The key store password                                                                                                                                                                                                                                        | -                                                     |
+| keyStorePath                     | The key store file path on the server                                                                                                                                                                                                                         | -                                                     |
+| keyStoreType                     | The key store type                                                                                                                                                                                                                                            | JKS                                                   |
+| logMetaKeys                      | Which meta data values will be logged in the send log                                                                                                                                                                                                         | guid,feed,system,environment,remotehost,remoteaddress |
+| readTimeout                      | How long to wait for data to be available before closing the connection                                                                                                                                                                                       | -                                                     |
+| requestMethod                    | The request method, e.g. POST                                                                                                                                                                                                                                 | POST                                                  |
+| rollSize                         | When the current output exceeds this size it will be closed and a new one created.                                                                                                                                                                            | -                                                     |
+| splitAggregatedStreams           | Choose if you want to split aggregated streams into separate output.                                                                                                                                                                                          | false                                                 |
+| splitRecords                     | Choose if you want to split individual records into separate output.                                                                                                                                                                                          | false                                                 |
+| sslProtocol                      | The SSL protocol to use                                                                                                                                                                                                                                       | TLSv1.2                                               |
+| trustStorePassword               | The trust store password                                                                                                                                                                                                                                      | -                                                     |
+| trustStorePath                   | The trust store file path on the server                                                                                                                                                                                                                       | -                                                     |
+| trustStoreType                   | The trust store type                                                                                                                                                                                                                                          | JKS                                                   |
+| useCompression                   | Should data be compressed when sending                                                                                                                                                                                                                        | true                                                  |
+| useJvmSslConfig                  | Use JVM SSL config. Set this to true if the Stroom node has been configured with key/trust stores using java system properties like 'javax.net.ssl.keyStore'.Set this to false if you are explicitly setting key/trust store properties on this HttpAppender. | true                                                  |
 
 
 ### RollingFileAppender
@@ -561,14 +586,16 @@ This allows other processes to follow the changes to a single file path, e.g. wh
 
 **Element properties:**
 
-| Name           | Description                                                                                                                              | Default Value |
-|----------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| fileName       | Choose the name of the file to write.                                                                                                    | -             |
-| frequency      | Choose how frequently files are rolled.                                                                                                  | 1h            |
-| outputPaths    | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
-| rollSize       | When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.                                    | 100M          |
-| rolledFileName | Choose the name that files will be renamed to when they are rolled.                                                                      | -             |
-| schedule       | Provide a cron expression to determine when files are rolled.                                                                            | -             |
+| Name            | Description                                                                                                                              | Default Value |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| fileName        | Choose the name of the file to write.                                                                                                    | -             |
+| filePermissions | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             |
+| frequency       | Choose how frequently files are rolled.                                                                                                  | 1h            |
+| outputPaths     | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
+| rollSize        | When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.                                    | 100M          |
+| rolledFileName  | Choose the name that files will be renamed to when they are rolled.                                                                      | -             |
+| schedule        | Provide a cron expression to determine when files are rolled.                                                                            | -             |
+| useCompression  | Apply GZIP compression to output files                                                                                                   | false         |
 
 
 ### RollingStreamAppender
@@ -638,7 +665,3 @@ A new stream will be created after the size or age criteria has been met.
 | maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             |
 | statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             |
 
-
-
-
-Process finished with exit code 0

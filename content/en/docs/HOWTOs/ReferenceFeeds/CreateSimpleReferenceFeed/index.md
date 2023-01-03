@@ -387,7 +387,7 @@ More information can be found {{< external-link "here" "https://github.com/gchq/
 We first need to create an XSLT translation for our feed.
 Move back to the Explorer tree, right click on {{< stroom-icon "document/Folder.svg" >}} _Event Sources_ folder then select:
 
-{{< stroom-icon "add.svg" "New" >}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_.
+{{< stroom-menu "New" "XSL Translation" >}}<br/>
 
 When the **New XSLT** selection window comes up, navigate to the `Event Sources` system group and enter the name of the reference feed - GeoHost-V1.0-REFERENCE into the **Name:** text entry box as per 
 

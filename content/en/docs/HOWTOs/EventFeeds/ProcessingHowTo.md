@@ -69,7 +69,7 @@ See the [HOWTO on System Properties]({{< relref "../Administration/SystemPropert
 
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New" >}} _New_ => {{< stroom-icon "document/Feed.svg">}} _Feed_
+{{< stroom-menu "New" "Feed" >}}<br/>
 
 This will open the `New Feed` configuration window into which we enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box
 
@@ -120,7 +120,7 @@ has disappeared from the `Feed` tab and the the second is that the _Save_ icon {
 We now create the Text Converter for this `Feed` in a similar fashion to the `Event Feed`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select 
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/TextConverter.svg" >}} _Text Converter_
+{{< stroom-menu "New" "Text Converter" >}}<br/>
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the Text Converter tab
 
@@ -141,7 +141,7 @@ Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configur
 We now create the XSLT translation for this `Feed` in a similar fashion to the `Event Feed` or `Text Converter`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_
+{{< stroom-menu "New" "XSL Translation" >}}<br/>
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the XSLT Translation tab
 
@@ -161,7 +161,7 @@ Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configur
 We now create the Pipeline for this `Feed` in a similar fashion to the `Event Feed`, `Text Converter` or `XSLT Translation`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/Pipeline.svg" >}} _Pipeline_
+{{< stroom-menu "New" "Pipeline" >}}<br/>
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the Pipeline tab
 
