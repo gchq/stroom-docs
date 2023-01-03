@@ -592,7 +592,7 @@ populate_release_brances_arr() {
       --silent \
       --header "authorization: Bearer ${GITHUB_TOKEN}" \
       "${GIT_API_URL}/branches" \
-      | jq -r '.[] | select(.name | test("(^legacy|[0-9]+\\.[0-9]+$)")) | .name')
+      | jq -r '.[] | select(.name | test("^(legacy$|[0-9]+\\.[0-9]+$)")) | .name')
 
   echo -e "release_branches:      [${GREEN}${release_branches[*]}${NC}]"
 
@@ -603,7 +603,7 @@ populate_release_brances_arr() {
       --silent \
       --header "authorization: Bearer ${GITHUB_TOKEN}" \
       "${GIT_API_URL}/branches" \
-      | jq -r '.[] | select(.name | test("(^legacy|[0-9]+\\.[0-9]+$)")) | .name'
+      | jq -r '.[] | select(.name | test("^(legacy$|[0-9]+\\.[0-9]+$)")) | .name'
     echo "---------"
     exit 1
   fi

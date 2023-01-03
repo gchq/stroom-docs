@@ -300,3 +300,30 @@ Unsaved: {{</* stroom-tab "XSLT.svg" "My Translation" "active" "unsaved" */>}}
 ```
   {{< /card >}}
 {{< /cardpane >}}
+
+
+### Stroom selected menu items
+
+To display a selected menu item you can use the `stroom-menu` shortcode.
+
+For example to demonstrate creating a folder using the context menu:
+
+{{< stroom-menu "New" "Folder" >}}
+<br/>
+
+The markdown for this example is:
+
+```markdown
+{{</* stroom-menu "New" "Folder" */>}}
+```
+
+The shortcode takes one argument per menu item.
+The list of available menu items with an icon are in this [gallery]({{< relref "icon-gallery#menu-items" >}}).
+Menu item names are case-sensitive.
+If the menu item name is not in the gallery then it will be displayed without an icon, e.g.:
+
+{{< stroom-menu "New" "Banana" >}}
+<br/>
+
+This shortcode can be used in-line like {{< stroom-menu "Tools" "Users" >}} this.
+

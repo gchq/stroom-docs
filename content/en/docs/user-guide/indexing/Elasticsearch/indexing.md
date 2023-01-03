@@ -5,7 +5,6 @@ weight: 3
 date: 2022-12-15
 tags:
   - elastic
-  - elasticsearch
   - indexing
 description: >
   Indexing event data to Elasticsearch
@@ -76,16 +75,20 @@ The following example creates a basic index template `stroom-events-v1` in a loc
 1. `@timestamp` -- required if the index is to be part of a {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (recommended).
 1. `User` -- An object containing properties `Id`, `Name` and `Active`, each with their own data type.
 1. `Tags` -- An array of one or more strings.
-1. `Message` -- Contains arbitrary content such as unstructured raw log data. Supports full-text search. Nested field `wildcard` {{< external-link "supports regexp queries" "https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" >}}.
+1. `Message` -- Contains arbitrary content such as unstructured raw log data.
+   Supports full-text search.
+   Nested field `wildcard` {{< external-link "supports regexp queries" "https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" >}}.
 
 {{% note %}}
-Elasticsearch does not have a dedicated `array` field mapping data type. An Elasticsearch field may contain zero or more values by default.
+Elasticsearch does not have a dedicated `array` field mapping data type.
+An Elasticsearch field may contain zero or more values by default.
 See: {{< external-link "Arrays" "https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" >}} in the Elastic documentation.
 {{% /note %}}
 
 In Kibana Dev Tools, execute the following query:
 
 `PUT _index_template/stroom-events-v1`
+
 ```json
 {
   "index_patterns": [
@@ -220,6 +223,7 @@ indexNameDateFormat: -yyyy
 
 
 ### Other options
+
 There are other options available for the Elastic Indexing Filter.
 These are documented in the UI.
 
@@ -230,7 +234,11 @@ In this example, let's assume you have event data that looks like the following:
 
 ```xml
 <?xml version="1.1" encoding="UTF-8"?>
-<Events xmlns="event-logging:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="event-logging:3 file://event-logging-v3.5.2.xsd" Version="3.5.2">
+<Events
+    xmlns="event-logging:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="event-logging:3 file://event-logging-v3.5.2.xsd"
+    Version="3.5.2">
   <Event>
     <EventTime>
       <TimeCreated>2022-12-16T02:46:29.218Z</TimeCreated>
@@ -269,13 +277,16 @@ In this example, let's assume you have event data that looks like the following:
 We need to write an XSL transform (XSLT) to form a JSON document for each stream processed.
 Each document must consist of an `array` element one or more `map` elements (each representing an `Event`), each with the necessary properties as per our index template.
 
-See [XSLT Conversion]({{< relref "../../pipelines/xslt/" >}}) for instructions on how to write an XSLT.
+See [XSLT Conversion]({{< relref "../../pipelines/xslt" >}}) for instructions on how to write an XSLT.
 
 The output from your XSLT should match the following:
 
 ```xml
 <?xml version="1.1" encoding="UTF-8"?>
-<array xmlns="http://www.w3.org/2005/xpath-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd">
+<array
+    xmlns="http://www.w3.org/2005/xpath-functions"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd">
   <map>
     <number key="StreamId">3045516</number>
     <number key="EventId">1</number>
@@ -362,7 +373,8 @@ This helps keep track of changes over time and can be an important resource for 
 
 ### Rebuilding an index
 
-Sometimes it is necessary to rebuild an index. This could be due to a change in field mapping, shard count or responding to a user feature request.
+Sometimes it is necessary to rebuild an index.
+This could be due to a change in field mapping, shard count or responding to a user feature request.
 
 To rebuild an index:
 
@@ -377,20 +389,23 @@ To rebuild an index:
 
 As with the earlier example `stroom-events-v1`, a version number is appended to the name of the index or data stream.
 If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
-This can be avoided by incrementing the version and performing the rebuild against a new index: `stroom-events-v2`. Users could continue querying `stroom-events-v1` until it is deleted.
+This can be avoided by incrementing the version and performing the rebuild against a new index: `stroom-events-v2`.
+Users could continue querying `stroom-events-v1` until it is deleted.
 This approach involves the following steps:
 
 1. Create a new Elasticsearch index template targeting the new index name (in this case, `stroom-events-v2`).
 1. Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.
 1. Create and activate a processing filter for the new pipeline.
-1. Once indexing is complete, update the Elastic Index document to point to `stroom-events-v2`. Users will now be searching against the new index.
+1. Once indexing is complete, update the Elastic Index document to point to `stroom-events-v2`.
+   Users will now be searching against the new index.
 1. Drain any tasks for the original indexing pipeline and delete it.
 1. Delete index `stroom-events-v1` using either the Elasticsearch API or Kibana.
 
 If you created a data view in Kibana, you'll also want to update this to point to the new index / data stream.
 
 
-## See also
-
+{{% see-also %}}
 1. [Searching an Elasticsearch index in a Dashboard]({{< relref "../../dashboards/elasticsearch.md" >}})
 1. [Exploring data with Kibana]({{< relref "kibana.md" >}})
+{{% /see-also %}}
+

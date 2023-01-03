@@ -6,7 +6,6 @@ date: 2022-12-15
 tags:
   - search
   - elastic
-  - elasticsearch
   - kibana
 description: >
   Establishing an Elasticsearch cluster connection
@@ -56,7 +55,8 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.
 
 ### CA certificate
 
-PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface. This is usually your organisation's root enterprise CA certificate. For development, you can provide a self-signed certificate.
+PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
+This is usually your organisation's root enterprise CA certificate. For development, you can provide a self-signed certificate.
 
 
 ### Use authentication
@@ -66,7 +66,8 @@ PEM-format CA certificate chain used by Stroom to verify TLS connections to the 
 
 ### API key ID
 
-Required if `Use authentication` is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account. This user requires at a minimum the following {{< external-link "privileges" "https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html" >}}:
+Required if `Use authentication` is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
+This user requires at a minimum the following {{< external-link "privileges" "https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html" >}}:
 
 
 #### Cluster privileges
@@ -89,7 +90,7 @@ Required if `Use authentication` is checked.
 
 Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete. Set to `-1` (the default) to wait indefinitely, or until Elasticsearch closes the connection.
 
+---
 
-## Next topic
+{{< next-page >}}
 
-[Indexing data]({{< relref "indexing.md" >}})

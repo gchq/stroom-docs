@@ -6,7 +6,6 @@ date: 2022-12-15
 tags:
   - search
   - elastic
-  - elasticsearch
   - kibana
 description: >
   Searching an Elasticsearch index using a Stroom dashboard
@@ -27,10 +26,16 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 1. Enter a name for the index document and click `OK`.
 1. Click {{< stroom-icon "ellipses-horizontal.svg" "Ellipsis" >}} next to the `Cluster configuration` field label.
 1. In the dialog that appears, select the Elastic Cluster document where the index exists, and click `OK`.
-1. Enter the name of an index or data stream in `Index name or pattern`. Data view (formerly known as *index pattern*) {{< external-link "syntax" "https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern" >}} is supported, which enables you to query multiple indices or data streams at once. For example: `stroom-events-v1`.
-1. (Optional) Set `Search slices`, which is the number of parallel workers that will query the index. For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.
-1. (Optional) Set `Search scroll size`, which specifies the number of documents to return in each search response. Greater values generally increase efficiency. By default, Elasticsearch limits this number to `10,000`.
-1. Click `Test Connection`. A dialog will appear with the result, which will state `Connection Success` if the connection was successful and the index pattern matched one or more indices.
+1. Enter the name of an index or data stream in `Index name or pattern`.
+   Data view (formerly known as *index pattern*) {{< external-link "syntax" "https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern" >}} is supported, which enables you to query multiple indices or data streams at once.
+   For example: `stroom-events-v1`.
+1. (Optional) Set `Search slices`, which is the number of parallel workers that will query the index.
+   For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.
+1. (Optional) Set `Search scroll size`, which specifies the number of documents to return in each search response.
+   Greater values generally increase efficiency.
+   By default, Elasticsearch limits this number to `10,000`.
+1. Click `Test Connection`.
+   A dialog will appear with the result, which will state `Connection Success` if the connection was successful and the index pattern matched one or more indices.
 1. Click {{< stroom-icon "save.svg" "Save" >}}.
 
 
@@ -40,7 +45,8 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 1. Click {{< stroom-icon "settings.svg" "Settings" >}} in the `Query` panel.
 1. Click {{< stroom-icon "ellipses-horizontal.svg" "Ellipsis" >}} next to the `Data Source` field label.
 1. Select the Elastic Index document you created and click `OK`.
-1. Configure the query expression as explained in [Dashboards]({{< relref "../../quick-start-guide/dashboard/#configuring-the-query-expression" >}}). Note the [tips]({{< relref "#query-expression-tips" >}}) for particular Elasticsearch field mapping data types.
+1. Configure the query expression as explained in [Dashboards]({{< relref "../../quick-start-guide/dashboard/#configuring-the-query-expression" >}}).
+   Note the [tips]({{< relref "#query-expression-tips" >}}) for particular Elasticsearch field mapping data types.
 1. [Configure the table]({{< relref "../../quick-start-guide/dashboard/#configuring-the-table" >}}).
 
 
@@ -52,7 +58,8 @@ To identify the field mapping type for a particular field:
 
 1. Click {{< stroom-icon "add.svg" "Add" >}} in the `Query` panel to add a new expression item.
 1. Select the Elasticsearch field name in the drop-down list.
-1. Note the blue data type indicator to the far right of the row. Common examples are: `keyword`, `text` and `number`.
+1. Note the blue data type indicator to the far right of the row.
+   Common examples are: `keyword`, `text` and `number`.
 
 After you identify the field mapping type, move the mouse cursor over the mapping type indicator.
 A tooltip appears, explaining various types of queries you can perform against that particular field's type.
