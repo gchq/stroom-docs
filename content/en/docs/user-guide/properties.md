@@ -25,7 +25,7 @@ Property values can be defined in the following locations.
 The system defaults are hard-coded into the Stroom application code by the developers and can't be changed.
 These represent reasonable defaults, where applicable, but may need to be changed, e.g. to reflect the scale of the Stroom system or the specific environment.
 
-The default property values can either be viewed in the Stroom user interface (_Tools_ -> _Properties_) or in the file `config/config-defaults.yml` in the Stroom distribution.
+The default property values can either be viewed in the Stroom user interface ({{< stroom-menu "Tools" "Properties" >}}) or in the file `config/config-defaults.yml` in the Stroom distribution.
 
 
 ### Global Database Value
@@ -36,7 +36,7 @@ The global database value is defined as a record in the `config` table in the da
 The database record will only exist if a database value has explicitly been set.
 The database value will apply to all nodes in the cluster, overriding the default value, unless a node also has a value set in its YAML configuration.
 
-Database values can be set from the Stroom user interface using _Tools_ -> _Properties_.
+Database values can be set from the Stroom user interface using {{< stroom-menu "Tools" "Properties" >}}.
 Some properties are marked _Read Only_ which means they cannot have a database value set for them.
 These properties can only be altered via the YAML configuration file on each node.
 Such properties are typically used to configure values required for Stroom to be able to boot, so it does not make sense for them to be configurable from the User Interface.

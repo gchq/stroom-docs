@@ -162,14 +162,17 @@ stroom-icon add.svg
 
   <a href="{{ $elm_ref_url }}" class="" style="" title="">
     <span class="pipeline-element" title="{{ $title }}" >
-    <img
-      class="stroom-icon" 
-      style="max-width: 15px;"
-      src="{{ $image.RelPermalink }}" 
-      title="{{ $display_name }}" 
-      alt="{{ $filename }}">
-    <span>{{ $display_name }}</span>
-  </span>
+      <span class="pipeline-element-content" >
+        <span class="pipeline-element-icon">
+          <img
+            class="stroom-icon" 
+            src="{{ $image.RelPermalink }}" 
+            title="{{ $display_name }}" 
+            alt="{{ $filename }}">
+        </span>
+        <span class="pipeline-element-text">{{ $display_name }}</span>
+      </span>
+    </span>
   </a>
 {{ else }}
   {{ errorf "Unable to find pipe-elm icon file %s" $path }}
