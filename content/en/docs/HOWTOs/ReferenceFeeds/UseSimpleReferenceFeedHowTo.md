@@ -222,7 +222,7 @@ So, to associate our `GeoHost-V1.0-REFERENCE` reference feed with this translati
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-22.png" >}}Stroom UI CreateReferenceFeed - New Pipeline Reference{{< /screenshot >}}
 
-For **Pipeline:** use the menu selector {{< stroom-icon "assorted/popup.png" "Menu selection">}} and choose the Reference Loader pipeline and then press **OK**
+For **Pipeline:** use the menu selector {{< stroom-icon "popup.png" "Menu selection">}} and choose the Reference Loader pipeline and then press **OK**
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-23.png" >}}Stroom UI CreateReferenceFeed - Choose Pipeline{{< /screenshot >}} 
 

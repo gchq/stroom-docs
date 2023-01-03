@@ -58,11 +58,13 @@ copy_dir() {
 
   mkdir -p "${dest_dir}"
 
+  # We don't want any of the dark theme icons
   rsync \
     --verbose \
     --recursive \
     --delete \
-    --include='*/' \
+    --exclude='*/'\
+    --exclude='*-dark.*' \
     --include='*.svg' \
     --include='*.png' \
     --exclude='*' \
@@ -106,9 +108,7 @@ main() {
 
   local stroom_repo_root="$1"
   local images_base_dir="${stroom_repo_root}/stroom-app/src/main/resources/ui/images"
-  local dashboard_images_base_dir="${stroom_repo_root}/stroom-dashboard/stroom-dashboard-client/src/main/resources/stroom/dashboard/client/table"
   local dest="./assets/images/stroom-ui"
-  local assorted_dir="${dest}/assorted"
 
   if [ ! -d "${stroom_repo_root}" ]; then
     echo -e "${RED}ERROR${NC}: Can't find stroom repo root ${BLUE}${stroom_repo_root}${NC}"
@@ -123,10 +123,7 @@ main() {
   copy_dir "${images_base_dir}" "${dest}/"
   copy_dir "${images_base_dir}/document" "${dest}/document"
   copy_dir "${images_base_dir}/pipeline" "${dest}/pipeline"
-  copy_dir "${dashboard_images_base_dir}" "${dest}/dashboard"
-  copy_file \
-    "${stroom_repo_root}/stroom-core-client-widget/src/main/resources/stroom/widget/dropdowntree/client/view/popup.png" \
-    "${assorted_dir}"
+  copy_dir "${images_base_dir}/dashboard" "${dest}/dashboard"
   
   echo -e "${GREEN}Done${NC}"
 }

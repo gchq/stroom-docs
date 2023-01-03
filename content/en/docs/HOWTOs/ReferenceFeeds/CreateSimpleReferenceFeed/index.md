@@ -192,7 +192,7 @@ This is done by clicking on the **Structure** link, at which we will see
 
 As this pipeline will be processing reference data, we would use a `Reference Data` pipeline.
 This is done by inheriting it from a defined set of Standard Pipelines.
-To do this, click on the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu selection">}} to the right of the **Inherit From:** test display box.
+To do this, click on the menu selection icon {{< stroom-icon "popup.png" "Menu selection">}} to the right of the **Inherit From:** test display box.
 
 When the **Choose item** selection window appears, navigate to the `Template Pipelines` system group (if not already displayed), and select (left click) the {{< stroom-icon "document/Pipeline.svg" >}} `Reference Data` pipeline.
 You can find further information about the Template Pipelines {{< external-link "here" "https://github.com/gchq/stroom-content/blob/master/source/template-pipelines/README.md" >}}.
@@ -415,7 +415,7 @@ To associate our new translation with the pipeline, move the cursor to the _Prop
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-46.png" >}}xslt -property editor{{< /screenshot >}}
 
 We leave the Property **Source:** as _Inherit_ and we need to change the Property **Value:** from _None_ to be our newly created GeoHost-V1.0-REFERENCE XSL translation.
-To do this, position the cursor over the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu Selection">}} of the **Value:** chooser and right click, at which the `Choose item` selection window appears.
+To do this, position the cursor over the menu selection icon {{< stroom-icon "popup.png" "Menu Selection">}} of the **Value:** chooser and right click, at which the `Choose item` selection window appears.
 Navigate to the `Event Sources` system group then select the GeoHost-V1.0-REFERENCE xsl translation.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-47.png" >}}xslt - value selection{{< /screenshot >}}

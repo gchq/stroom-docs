@@ -240,7 +240,7 @@ Property** selection window that allows you to edit the given property
 
 We leave the Property **Source:** as Inherit but we need to change the Property **Value:** from _None_ to be our newly created Apache-SSLBlackBox-V2.0-EVENTS Text Converter.
 
-To do this, position the cursor over the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu selection">}} to the right of the **Value:** text display box and click to select.
+To do this, position the cursor over the menu selection icon {{< stroom-icon "popup.png" "Menu selection">}} to the right of the **Value:** text display box and click to select.
 Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V2.0-EVENTS text Converter
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-23.png" >}}New Pipeline textconverter association{{< /screenshot >}}

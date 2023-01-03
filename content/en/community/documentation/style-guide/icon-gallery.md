@@ -51,16 +51,6 @@ Icons used on the Dashboard
 {{< stroom-icons-gallery "images/stroom-ui/dashboard/" >}}
 
 
-## Assorted UI elements
-
-Assorted images used in the user interface.
-
-**Base path**: `assorted`  
-**Example**: {{< stroom-icon "assorted/popup.png" "Menu selection">}} `{{</* stroom-icon "assorted/popup.png" "Menu selection" */>}}`
-
-{{< stroom-icons-gallery "images/stroom-ui/assorted/" >}}
-
-
 ## Menu items
 
 Menu items with icons that are available for use with the [`stroom-menu` shortcode]({{< relref "using-images#stroom-selected-menu-items" >}}).

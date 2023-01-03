@@ -187,7 +187,7 @@ At this we see the `Pipeline Structure` configuration tab
 
 As noted in the Assumptions at the start, we have loaded the **Template Pipeline** content pack, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
-We find a template by selecting the **Inherit From:** _None_ {{< stroom-icon "assorted/popup.png" "Menu selection">}} entry box to reveal a **Choose Item** configuration item window.
+We find a template by selecting the **Inherit From:** _None_ {{< stroom-icon "popup.png" "Menu selection">}} entry box to reveal a **Choose Item** configuration item window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-08.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Inherit{{< /screenshot >}}
 
@@ -230,7 +230,7 @@ At this, the `Edit Property` configuration window is displayed.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-14.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property{{< /screenshot >}}
 
-We select the **Value:** _None_ {{< stroom-icon "assorted/popup.png" "Menu selection" >}} entry box labeled to reveal a **Choose Item** configuration item window.
+We select the **Value:** _None_ {{< stroom-icon "popup.png" "Menu selection" >}} entry box labeled to reveal a **Choose Item** configuration item window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-15.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item{{< /screenshot >}}
 
