@@ -18,9 +18,10 @@ The first step is to configure Stroom to connect to an Elasticsearch cluster.
 You can configure multiple cluster connections if required, such as a separate one for production and another for development.
 Each cluster connection is defined by an `Elastic Cluster` document within the Stroom UI.
 
-1. In the Stroom Explorer pane ({{< stroom-icon "explorer.svg" "Explorer" >}}), right-click on the folder where you want to create the `Elastic Cluster` document.
-1. Select `New` -> `Elastic Cluster`.
-1. Give the cluster document a name and press `OK`.
+1. In the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}), right-click on the folder where you want to create the `Elastic Cluster` document.
+1. Select:  
+   {{< stroom-menu "New" "Elastic Cluster" >}}
+1. Give the cluster document a name and press {{< stroom-btn "OK" >}}.
 1. Complete the fields as explained in the [section below]({{< relref "#elastic-cluster-document-fields" >}}). Any fields not marked as "Optional" are mandatory.
 1. Click `Test Connection`. A dialog will display with the test result. If `Connection Success`, details of the target cluster will be displayed. Otherwise, error details will be displayed.
 1. Click {{< stroom-icon "save.svg" "Save" >}} to commit changes.

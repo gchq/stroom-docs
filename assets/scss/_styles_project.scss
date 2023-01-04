@@ -325,17 +325,48 @@ pre[class*=language-] {
 //////////////////////////
 
 .pipeline-element {
-  background-color: $stroom-pipe-element-background;
-  border-radius: 6px;
-  border: 1px solid $stroom-pipe-element-border;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px;
-  display: inline-block;
-  padding: 0px 5px;
+  padding-right: 0.3em;
 
   span {
-    font-size: smaller;
+    display: inline-block;
+
+  }
+
+  .pipeline-element-content {
+    background-color: $stroom-pipe-element-background;
+    border-radius: 50px;
+    border: 1px solid $stroom-pipe-element-border;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px, rgba(0, 0, 0, 0.1) 0 0 3px;
+    padding: 0.1em 0em;
+  }
+
+  .pipeline-element-icon {
+    //max-width: 15px;
+    padding-left: 0.5em;
+    padding-right: 0.15em;
+
+    img.stroom-icon {
+      width: 16px;
+      height: 16px;
+      vertical-align: -0.15em;
+    }
+  }
+
+  .pipeline-element-text {
+    display: inline-block;
+    font-size: 95%;
     text-align: center;
     vertical-align: 0.12em;
+    color: $stroom-pipe-element-text;
+    padding-right: 0.5em;
+
+    //padding: 3px 10px;
+  }
+}
+
+div.pipeline-element-demo {
+  div.pipeline-element-demo-item {
+    padding-top: 0.8em;
   }
 }
 
@@ -441,48 +472,66 @@ img.stroom-icon-disabled {
 /////////////////////////////
 
 .stroom-menu {
-    padding-left: 0.3em;
-    padding-right: 0.3em;
+  padding-left: 0.3em;
+  padding-right: 0.5em;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  position: relative;
+  display: flex;
+  width: fit-content;
 
+  .stroom-menu-item-background:not(:first-child) {
+    // top-margin is set in style="" in shortcode
+    margin-left: -7px;
+  }
+
+  // Meant to represent the bit of menu that the selected item sits in
   .stroom-menu-item-background {
     background-color: white;
-
-    padding-left: 0.3em;
-    padding-right: 0.3em;
-
-    padding-top: 0.05em;
-    padding-bottom: 0.05em;
-
-    border-color: black;
-    border-width: 1px;
-
+    border-color: rgba(0, 0, 0, 0.45);
     border-left-style: solid;
+    border-radius: 2px;
     border-right-style: solid;
+    border-width: 1px;
+    box-shadow: rgba(0, 0, 0, 0.25) 1px 2px 5px;
+    flex-direction: column;
+    height: fit-content;
+    padding: 0.5rem 0.2rem;
+    width: fit-content;
+
+    //border: thin solid rgba(0,0,0,.2);
+    //box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+    //border-radius: 3px;
   }
 
+  // The selected item
   .stroom-menu-item {
-    background-color: #ebf6ff;
-    font-size: 95%;
+      background: rgba(129, 212, 250, 0.4);
+      display: flex;
+      line-height: 1.15;
+      min-width: 9rem;
 
-    span.stroom-menu-item-icon {
-      padding-right: 0.2em;
-
-      img.stroom-icon {
-        max-width: 16px;
-        vertical-align: -0.15em;
+      .stroom-menu-item-text {
+        padding-left: 0.3em;
+        padding-right: 0.3em;
       }
-    }
-  }
 
-  .stroom-menu-item-separator {
-    padding-left: 0.3em;
-    padding-right: 0.15em;
+      .stroom-menu-item-icon {
+        padding-left: 0.3em;
+        padding-right: 0em;
+
+        img.stroom-icon {
+          max-height: 18px;
+          max-width: 18px;
+          vertical-align: -0.15em;
+        }
+      }
   }
 }
 
 div.stroom-menu-demo {
   div.stroom-menu-demo-item {
-    padding-top: 0.2em;
+    padding-top: 0.8em;
   }
 }
 

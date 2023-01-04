@@ -21,11 +21,12 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 
 ### Create an Elastic Index document
 
-1. Right-click a folder in the Stroom Explorer pane ({{< stroom-icon "explorer.svg" "Explorer" >}}).
-1. Select `New` -> `Elastic Index`.
-1. Enter a name for the index document and click `OK`.
-1. Click {{< stroom-icon "ellipses-horizontal.svg" "Ellipsis" >}} next to the `Cluster configuration` field label.
-1. In the dialog that appears, select the Elastic Cluster document where the index exists, and click `OK`.
+1. Right-click a folder in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
+1. Select:  
+   {{< stroom-menu "New" "Elastic Index" >}}
+1. Enter a name for the index document and click {{< stroom-btn "OK" >}}.
+1. Click {{< stroom-icon "ellipses-grey.svg" "Ellipsis" >}} next to the `Cluster configuration` field label.
+1. In the dialog that appears, select the Elastic Cluster document where the index exists, and click {{< stroom-btn "OK" >}}.
 1. Enter the name of an index or data stream in `Index name or pattern`.
    Data view (formerly known as *index pattern*) {{< external-link "syntax" "https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern" >}} is supported, which enables you to query multiple indices or data streams at once.
    For example: `stroom-events-v1`.
@@ -43,8 +44,8 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 
 1. Open or create a dashboard.
 1. Click {{< stroom-icon "settings.svg" "Settings" >}} in the `Query` panel.
-1. Click {{< stroom-icon "ellipses-horizontal.svg" "Ellipsis" >}} next to the `Data Source` field label.
-1. Select the Elastic Index document you created and click `OK`.
+1. Click {{< stroom-icon "ellipses-grey.svg" "Ellipsis" >}} next to the `Data Source` field label.
+1. Select the Elastic Index document you created and click {{< stroom-btn "OK" >}}.
 1. Configure the query expression as explained in [Dashboards]({{< relref "../../quick-start-guide/dashboard/#configuring-the-query-expression" >}}).
    Note the [tips]({{< relref "#query-expression-tips" >}}) for particular Elasticsearch field mapping data types.
 1. [Configure the table]({{< relref "../../quick-start-guide/dashboard/#configuring-the-table" >}}).

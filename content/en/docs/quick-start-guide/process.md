@@ -20,9 +20,11 @@ We're not doing that now because we want to show how to create one from scratch.
 
 ## Create a pipeline
 
-{{< image "quick-start-guide/process/create-pipeline.png" >}}Creating a pipeline{{< /image >}}
+1. Create a pipeline by right-clicking our {{< stroom-icon "folder.svg" >}} `Stroom 101` folder and selecting:
 
-1. Create a pipeline by right-clicking our `Stroom 101` folder. Call it something like `CSV to XML pipeline`.
+   {{< stroom-menu "New" "Pipeline" >}}
+
+1. Call it something like `CSV to XML pipeline`.
 
 1. Select _Structure_ from the top of the new tab. This is the most important view for the pipeline because it shows what will actually happen on the pipeline.
 
@@ -53,9 +55,12 @@ This is a job for a _Data Splitter_.
 
 The splitter is actually a type of _Text Converter_ {{< stroom-icon "document/TextConverter.svg" >}}, so lets create one of those:
 
-{{< image "quick-start-guide/process/create-textConverter.png" >}}Create the CSV splitter{{< /image >}}
+1. Right click on our {{< stroom-icon "folder.svg" >}} `Stroom 101` folder and selecting:
 
-Call it something like `CSV splitter`.
+   {{< stroom-menu "New" "Text Converter" >}}
+
+1. Call it something like `CSV splitter`.
+
 In the new tab you need to tell the _Text Converter_ that it'll be a _Data Splitter_:
 
 Click the _Settings_ sub-tab then select _Data Splitter_ in the _Converter Type_ drop-down.
@@ -100,14 +105,15 @@ Save it by clicking the save button {{< stroom-icon "save.svg" >}}.
 So we now have a configured, re-usable data splitter for CSV files that have headers.
 We need to add this to our pipeline as a filter, so head back to the pipeline's Structure section and add a DSParser.
 
-1. Click the _Source_ element.
-1. Click the add button {{< stroom-icon "add.svg" "Add" >}}.
-1. From the menu select _Parser_ => {{< stroom-icon "document/TextConverter.svg" "DSParser" >}} _DSParser_.
+1. Right-click the {{< pipe-elm "Source" >}} element and select:
+
+   {{< stroom-menu "Add" "Parser" "DSParser" >}}
+
 1. Call it _CSV Parser_ and click OK.
 
 We need to tell the new _CSV parser_ to use the {{< stroom-icon "document/TextConverter.svg" >}} _TextConverter_ (_CSV splitter_) we created earlier.
 
-1. Click on the {{< stroom-icon "pipeline/text.svg" "DSParser" >}} _CSV parser_ element and the pane below will show it's properties.
+1. Click on the {{< pipe-elm "DSParser" "CSV Parser" >}} element and the pane below will show it's properties.
 1. Double click the `textConverter` property and change `Value` to our _CSV splitter_ entity.
 
 {{< image "quick-start-guide/process/configuring-dsSplitter.png" >}}Configuring the CSV splitter{{< /image >}}
@@ -176,8 +182,10 @@ This process is very similar to creating the `CSV splitter`:
 
 To create the new _XSLT_ entity do the following:
 
-1. Right click the _Stroom 101_ folder in the {{< glossary "Explorer Tree" >}}.
-1. Click _New_ => _XSLT_.
+1. Right click the {{< stroom-icon "folder.svg" >}} _Stroom 101_ folder in the {{< glossary "Explorer Tree" >}} and select:
+
+   {{< stroom-menu "New" "XSL Translation" >}}
+
 1. Name it _XSLT_.
 1. Click _OK_.
 
@@ -257,8 +265,10 @@ Our _XSLT filter_ element is outputting XML so we will create an _XMLWriter_.
 You don't need to create one outside the pipeline (in the way you did with the `CSV splitter` and the `XSLT` filter).
 Just do the following:
 
-1. Right click on the _XSLT filter_ element.
-1. Click _Add_ => _Writer_ => _XMLWriter_
+1. Right click on the {{< pipe-elm "XSLTFilter" "XSLT filter" >}} element and select:
+
+   {{< stroom-menu "Add" "Writer" "XMLWriter" >}}
+
 1. Name it _XML writer_.
 1. Click OK.
 
@@ -271,8 +281,10 @@ We need to do something with the serialised XML.
 We'll write it to a {{< glossary "Stream" >}}.
 To do this we create a {{< element "StreamAppender" >}}:
 
-1. Right click on the _XML Writer_ element.
-1. Click _Add_ => _Destination_ => _StreamAppender_
+1. Right click on the {{< pipe-elm "XMLWriter" "XML Writer" >}} element and select:
+
+   {{< stroom-menu "Add" "Destination" "StreamAppender" >}}
+
 1. Name it _Stream appender_.
 1. Click OK.
 

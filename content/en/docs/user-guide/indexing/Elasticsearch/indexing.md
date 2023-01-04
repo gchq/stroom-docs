@@ -155,24 +155,25 @@ In Kibana Dev Tools, execute the following query:
 An Elasticsearch indexing pipeline is similar in structure to the built-in packaged `Indexing` template pipeline.
 It typically consists of the following pipeline elements:
 
-1. Source
-1. XML Parser
-1. Record count filter (read)
-1. Split Filter
-1. ID Enrichment Filter
-1. XSL Filter (contains the translation mapping `Events` to JSON `array`)
-1. Schema Filter (schema group `JSON`)
-1. Elastic Indexing Filter
-1. Record Count Filter (written)
+1. {{< pipe-elm "Source" >}}
+1. {{< pipe-elm "XMLParser"  >}}
+1. {{< pipe-elm "RecordCountFilter" "recordCountFilter (read)">}}
+1. {{< pipe-elm "SplitFilter" >}}
+1. {{< pipe-elm "IdEnrichmentFilter" >}}
+1. {{< pipe-elm "XSLTFilter" >}} (contains the translation mapping `Events` to JSON `array`)
+1. {{< pipe-elm "SchemaFilter" >}} (schema group `JSON`)
+1. {{< pipe-elm "ElasticIndexingFilter" >}}
+1. {{< pipe-elm "RecordCountFilter" "recordCountFilter (written)">}}
 
 It is recommended to create a template Elasticsearch indexing pipeline, which can then be re-used.
 
 
 ### Procedure
 
-1. Right-click on the `Template Pipelines` folder in the Stroom Explorer pane ({{< stroom-icon "explorer.svg" "Explorer" >}}).
-1. Select `New` -> `Pipeline`.
-1. Enter the name `Indexing (Elasticsearch)` and click `OK`.
+1. Right-click on the {{< stroom-icon "folder.svg" >}}`Template Pipelines` folder in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
+1. Select:  
+   {{< stroom-menu "New" "Pipeline" >}}
+1. Enter the name `Indexing (Elasticsearch)` and click {{< stroom-btn "OK" >}}.
 1. Define the pipeline structure as above, and customise the following pipeline elements:
    1. Set the Split Filter `splitCount` property to a sensible default value, based on the expected source XML element count (e.g. `100`).
    1. Set the Schema Filter `schemaGroup` property to `JSON`.
@@ -187,11 +188,12 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 
 ### Procedure
 
-1. Right-click on a folder in the Stroom Explorer pane ({{< stroom-icon "explorer.svg" "Explorer" >}}).
-1. Select `New` -> `Pipeline`.
-1. Enter a name for your pipeline and click `OK`.
+1. Right-click on a folder ({{< stroom-icon "folder.svg">}}) in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
+1. Select:  
+   {{< stroom-menu "New" "Pipeline" >}}
+1. Enter a name for your pipeline and click {{< stroom-btn "OK" >}}.
 1. Click the `Inherit From` {{< stroom-icon "ellipses-horizontal.svg" Ellipsis >}} button.
-1. In the dialog that appears, select the template pipeline you created named `Indexing (Elasticsearch)` and click `OK`.
+1. In the dialog that appears, select the template pipeline you created named `Indexing (Elasticsearch)` and click {{< stroom-btn "OK" >}}.
 1. Select the Elastic Indexing Filter pipeline element.
 1. Set its properties as per one of the examples below.
 
@@ -264,7 +266,9 @@ In this example, let's assume you have event data that looks like the following:
           <URL>http://localhost:8080/index.html</URL>
         </Resource>
         <Data Name="Tags" Value="dev,testing" />
-        <Data Name="Message" Value="TLSv1.2 AES128-SHA 1.1.1.1 &quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&quot;" />
+        <Data 
+          Name="Message" 
+          Value="TLSv1.2 AES128-SHA 1.1.1.1 &quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&quot;" />
       </View>
     </EventDetail>
   </Event>
@@ -315,9 +319,9 @@ Having created your translation, you need to reference it in your indexing pipel
 
 1. Open the pipeline you created.
 1. Select the `Structure` tab.
-1. Select the XSLT Filter pipeline element.
+1. Select the {{< pipe-elm "XSLTFilter" >}} pipeline element.
 1. Double-click the `xslt` property value cell.
-1. Select the XSLT you created and click `OK`.
+1. Select the XSLT you created and click {{< stroom-btn "OK" >}}.
 1. Click {{< stroom-icon "save.svg" "Save" >}}.
 
 
@@ -347,8 +351,8 @@ Once you have addressed the underlying cause for a particular type of error (suc
 
 1. Select any `Error` streams relating for reprocessing, by clicking the relevant checkboxes in the stream list (top pane).
 1. Click {{< stroom-icon "process.svg" "Process" >}}.
-1. In the dialog that appears, check `Reprocess data` and click `OK`.
-1. Click `OK` for any confirmation prompts that follow.
+1. In the dialog that appears, check `Reprocess data` and click {{< stroom-btn "OK" >}}.
+1. Click {{< stroom-btn "OK" >}} for any confirmation prompts that follow.
 
 Stroom will re-send data from the selected `Event` streams to Elasticsearch for indexing.
 Any existing documents matching the `StreamId` of the original `Event` stream are first deleted automatically to avoid duplication.
