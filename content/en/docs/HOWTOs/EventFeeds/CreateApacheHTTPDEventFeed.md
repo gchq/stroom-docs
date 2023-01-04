@@ -128,7 +128,7 @@ Save the feed by clicking on the save icon {{< stroom-icon "save.svg" >}}.
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/TextConverter.svg" >}} _Text Converter_
+{{< stroom-menu "New" "Text Converter" >}}
 
 When the **New Text Converter** 
 
@@ -155,7 +155,7 @@ Save the text converter by clicking on the save icon {{< stroom-icon "save.svg" 
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_
+{{< stroom-menu "New" "XSL Translation" >}}
 
 When the **New XSLT** selection window comes up,
 
@@ -182,10 +182,9 @@ In the process of creating this pipeline we have assumed that the  **Template Pi
 
 Within the Explorer pane, and having selected the Apache HTTPD system group, right click to bring up object context menu, then select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/Pipeline.svg" >}} _Pipeline_
+{{< stroom-menu "New" "Pipeline" >}}
 
-When the **New Pipeline** selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS
-into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
+When the **New Pipeline** selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
 At this you will be presented with the new pipeline’s configuration tab
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-15.png" >}}New Pipeline tab{{< /screenshot >}}
@@ -241,7 +240,7 @@ Property** selection window that allows you to edit the given property
 
 We leave the Property **Source:** as Inherit but we need to change the Property **Value:** from _None_ to be our newly created Apache-SSLBlackBox-V2.0-EVENTS Text Converter.
 
-To do this, position the cursor over the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu selection">}} to the right of the **Value:** text display box and click to select.
+To do this, position the cursor over the menu selection icon {{< stroom-icon "popup.png" "Menu selection">}} to the right of the **Value:** text display box and click to select.
 Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V2.0-EVENTS text Converter
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-23.png" >}}New Pipeline textconverter association{{< /screenshot >}}
@@ -257,7 +256,7 @@ Again press {{< stroom-btn "Ok" >}} to finish editing this property and we see t
 
 We perform the same actions to associate the translation.
 
-First, we select the translation Filter’s {{< pipe-elm "xsltFilter" "translationFilter" >}} element and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**.
+First, we select the translation Filter’s {{< pipe-elm "XSLTFilter" "translationFilter" >}} element and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**.
 As before, bring up the **Choose item** selection window, navigate to the `Apache HTTPD` system group and select the
 Apache-SSLBlackBox-V2.0-EVENTS xslt Translation.
 
@@ -400,7 +399,7 @@ This is the Source display for the Event Pipeline.
 
 ### Step data through Pipeline - Text Converter
 
-We click on the {{< pipe-elm "dsParser" >}} element to enter the Text Converter stepping window.
+We click on the {{< pipe-elm "DSParser" >}} element to enter the Text Converter stepping window.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-46.png" >}}pipeline Stepping tab - Text Converter{{< /screenshot >}}
 
@@ -499,7 +498,7 @@ Note, you should now Save {{< stroom-icon "save.svg" >}} your edited Text Conver
 
 ### Step data through Pipeline - Translation
 
-To start authoring the xslt Translation Filter, press the {{< pipe-elm "xsltFilter" "translationFilter" >}} element which steps us to the xsl Translation Filter pane.
+To start authoring the xslt Translation Filter, press the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element which steps us to the xsl Translation Filter pane.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-54.png" >}}pipeline Stepping tab - Translation Initial{{< /screenshot >}}
 

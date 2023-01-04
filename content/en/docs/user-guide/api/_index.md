@@ -33,7 +33,8 @@ You will either need to create an API key for your personal Stroom user account 
 Whichever user account you use it will need to have the necessary permissions for each API endpoint it is to be used with.
 
 To create an API key for a user:
-1. Select _Tools_ => _API Keys_ from the top menu.
+1. From the top menu, select:  
+   {{< stroom-menu "Tools" "API Keys" >}}
 1. Click _Create_.
 1. Enter a suitable expiration date.
    Short expiry periods are more secure in case the key is compromised.

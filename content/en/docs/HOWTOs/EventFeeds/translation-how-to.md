@@ -46,7 +46,7 @@ It is not present in a vanilla stroom.
 The language can be quite complex so if non-standard format logs are being parsed, it may be worth speaking to your stroom sysadmin team to at least get an initial parser configured for your data.
 
 Stroom also has a built-in parser for JSON fragments.
-This can be set either by using the {{< pipe-elm "combinedParser" >}} and setting the `type` property to JSON or preferably by just using the {{< pipe-elm "jsonParser" >}}.
+This can be set either by using the {{< pipe-elm "CombinedParser" >}} and setting the `type` property to JSON or preferably by just using the {{< pipe-elm "JSONParser" >}}.
 
 The parser has several minor limitations.
 The most significant is that it's unable to deal with records that are interleaved.
@@ -648,7 +648,7 @@ Opening this filter gives choices such as:
 
 Each of these options can be used to move directly to the next/previous event that matches one of these attributes.
 
-A filter on e.g. the {{< pipe-elm "xsltFilter" >}} will still be active even if viewing the {{< pipe-elm "DSParser" >}} or any other pipeline entry, although the filter that's present in the parser step will not show any values.
+A filter on e.g. the {{< pipe-elm "XSLTFilter" >}} will still be active even if viewing the {{< pipe-elm "DSParser" >}} or any other pipeline entry, although the filter that's present in the parser step will not show any values.
 This may cause confusion if you lose track of which filters have been set on which steps.
 
 Filters can be entered for multiple pipeline elements, e.g. Empty output in translationFilter and Error in schemaFilter.

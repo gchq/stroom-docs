@@ -69,7 +69,7 @@ See the [HOWTO on System Properties]({{< relref "../Administration/SystemPropert
 
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New" >}} _New_ => {{< stroom-icon "document/Feed.svg">}} _Feed_
+{{< stroom-menu "New" "Feed" >}}
 
 This will open the `New Feed` configuration window into which we enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box
 
@@ -120,7 +120,7 @@ has disappeared from the `Feed` tab and the the second is that the _Save_ icon {
 We now create the Text Converter for this `Feed` in a similar fashion to the `Event Feed`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select 
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/TextConverter.svg" >}} _Text Converter_
+{{< stroom-menu "New" "Text Converter" >}}
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the Text Converter tab
 
@@ -141,7 +141,7 @@ Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configur
 We now create the XSLT translation for this `Feed` in a similar fashion to the `Event Feed` or `Text Converter`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_
+{{< stroom-menu "New" "XSL Translation" >}}
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the XSLT Translation tab
 
@@ -161,7 +161,7 @@ Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configur
 We now create the Pipeline for this `Feed` in a similar fashion to the `Event Feed`, `Text Converter` or `XSLT Translation`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/Pipeline.svg" >}} _Pipeline_
+{{< stroom-menu "New" "Pipeline" >}}
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the Pipeline tab
 
@@ -187,7 +187,7 @@ At this we see the `Pipeline Structure` configuration tab
 
 As noted in the Assumptions at the start, we have loaded the **Template Pipeline** content pack, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
-We find a template by selecting the **Inherit From:** _None_ {{< stroom-icon "assorted/popup.png" "Menu selection">}} entry box to reveal a **Choose Item** configuration item window.
+We find a template by selecting the **Inherit From:** _None_ {{< stroom-icon "popup.png" "Menu selection">}} entry box to reveal a **Choose Item** configuration item window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-08.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Inherit{{< /screenshot >}}
 
@@ -230,7 +230,7 @@ At this, the `Edit Property` configuration window is displayed.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-14.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property{{< /screenshot >}}
 
-We select the **Value:** _None_ {{< stroom-icon "assorted/popup.png" "Menu selection" >}} entry box labeled to reveal a **Choose Item** configuration item window.
+We select the **Value:** _None_ {{< stroom-icon "popup.png" "Menu selection" >}} entry box labeled to reveal a **Choose Item** configuration item window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-15.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item{{< /screenshot >}}
 

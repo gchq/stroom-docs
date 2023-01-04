@@ -18,88 +18,129 @@ TODO Maybe hold the map in some kind of resource bundle file?
 */}}
 -->
 
-{{ $param_count := len .Params }}
-
 {{ $icon_map := dict
-  "New" "add.svg"
-  "Info" "info.svg"
-  "Copy" "copy.svg"
-  "Move" "move.svg"
-  "Rename" "edit.svg"
-  "Delete" "delete.svg"
-  "Import" "upload.svg"
-  "Export" "download.svg"
-  "Permissions" "locked-amber.svg"
-  "Close" "close.svg"
-  "Close All" "close.svg"
-  "Save" "save.svg"
-  "Save All" "save.svg"
-  "User Permissions" "user.svg"
-  "Data Volumes" "volumes.svg"
-  "Index Volumes" "volumes.svg"
   "API Keys" "key.svg"
-  "Users" "users.svg"
-  "Data Retention" "history.svg"
-  "Properties" "properties.svg"
-  "Dependencies" "dependencies.svg"
-  "Database Tables" "database.svg"
-  "Jobs" "jobs.svg"
-  "Nodes" "nodes.svg"
-  "Server Tasks" "jobs.svg"
+  "Add" "add.svg"
   "Caches" "monitoring.svg"
-  "Preferences" "settings-blue.svg"
-  "Logout" "logout.svg"
   "Change password" "password.svg"
-  "Help" "help.svg"
-
+  "Close All" "close.svg"
+  "Close" "close.svg"
+  "Copy" "copy.svg"
+  "Data Retention" "history.svg"
+  "Data Volumes" "volumes.svg"
+  "Database Tables" "database.svg"
+  "Delete" "delete.svg"
+  "Dependencies" "dependencies.svg"
+  "Export" "download.svg"
   "Folder" "folder.svg"
-  "Feed" "document/Feed.svg"
-  "Pipeline" "document/Pipeline.svg"
-  "Text Converter" "document/TextConverter.svg"
-  "XML Schema" "document/XMLSchema.svg"
-  "XSL Translation" "document/XSLT.svg"
+  "Help" "help.svg"
+  "Import" "upload.svg"
+  "Index Volumes" "volumes.svg"
+  "Info" "info.svg"
+  "Jobs" "jobs.svg"
+  "Logout" "logout.svg"
+  "Move" "move.svg"
+  "New" "add.svg"
+  "Nodes" "nodes.svg"
+  "Permissions" "locked-amber.svg"
+  "Preferences" "settings-blue.svg"
+  "Properties" "properties.svg"
+  "Remove" "remove.svg"
+  "Rename" "edit.svg"
+  "Restore" "undo.svg"
+  "Save All" "save.svg"
+  "Save" "save.svg"
+  "Server Tasks" "jobs.svg"
+  "User Permissions" "user.svg"
+  "Users" "users.svg"
+
   "Dashboard" "document/Dashboard.svg"
+  "Dictionary" "document/Dictionary.svg"
+  "Elastic Cluster" "document/ElasticIndex.svg"
   "Elastic Index" "document/ElasticIndex.svg"
+  "Feed" "document/Feed.svg"
+  "Kafka Configuration" "document/KafkaConfig.svg"
   "Lucene Index" "document/Index.svg"
+  "Pipeline" "document/Pipeline.svg"
+  "Rule Set" "document/ReceiveDataRuleSet.svg"
+  "Script" "document/Script.svg"
   "Solr Index" "document/SolrIndex.svg"
   "Statistic Store" "document/StatisticStore.svg"
   "Stroom-Stats Store" "document/StroomStatsStore.svg"
-  "Dictionary" "document/Dictionary.svg"
-  "Elastic Cluster" "document/ElasticIndex.svg"
-  "Kafka Configuration" "document/KafkaConfig.svg"
-  "Rule Set" "document/ReceiveDataRuleSet.svg"
-  "Script" "document/Script.svg"
+  "Text Converter" "document/TextConverter.svg"
   "Visualisation" "document/Visualisation.svg"
+  "XML Schema" "document/XMLSchema.svg"
+  "XSL Translation" "document/XSLT.svg"
+
+  "AnnotationWriter" "pipeline/text.svg"
+  "CombinedParser" "pipeline/text.svg"
+  "DSParser" "pipeline/text.svg"
+  "ElasticIndexingFilter" "pipeline/ElasticIndex.svg"
+  "FileAppender" "pipeline/file.svg"
+  "HDFSFileAppender" "pipeline/hadoop-elephant-logo.svg"
+  "HttpAppender" "pipeline/stream.svg"
+  "IdEnrichmentFilter" "pipeline/id.svg"
+  "IndexingFilter" "pipeline/index.svg"
+  "JSONParser" "pipeline/json.svg"
+  "JSONWriter" "pipeline/json.svg"
+  "RecordCountFilter" "pipeline/recordCount.svg"
+  "RecordOutputFilter" "pipeline/recordOutput.svg"
+  "ReferenceDataFilter" "pipeline/referenceData.svg"
+  "RollingFileAppender" "pipeline/files.svg"
+  "RollingStreamAppender" "pipeline/stream.svg"
+  "SchemaFilter" "pipeline/xsd.svg"
+  "SearchResultsOutputFilter" "pipeline/search.svg"
+  "SolrIndexingFilter" "pipeline/solr.svg"
+  "SplitFilter" "pipeline/split.svg"
+  "StandardKafkaProducer" "pipeline/kafka.svg"
+  "StatisticsFilter" "pipeline/statistics.svg"
+  "StreamAppender" "pipeline/stream.svg"
+  "StroomStatsAppender" "pipeline/StroomStatsStore.svg"
+  "StroomStatsFilter" "pipeline/stroomStats.svg"
+  "TextWriter" "pipeline/text.svg"
+  "XMLFragmentParser" "pipeline/xml.svg"
+  "XMLParser" "pipeline/xml.svg"
+  "XMLWriter" "pipeline/xml.svg"
+  "XPathExtractionOutputFilter" "pipeline/xmlSearch.svg"
+  "XSLTFilter" "pipeline/xslt.svg"
 }}
+
+{{ $param_count := len .Params }}
 
 {{- if eq (.Get 0) "menu_demo" }}
   <div class="stroom-menu stroom-menu-demo row">
     {{- range $item_name, $item_icon := $icon_map }}
       <div class="stroom-menu-demo-item col-md-3">
-      {{ partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map) }}
+      {{ partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map "item_idx" 0 ) }}
       </div>
     {{- end }}
   </div>
 {{ else }}
-  <span class="stroom-menu">
+  <div class="stroom-menu">
+    {{/* Loop over all the args (i.e. menu item names) */}}
     {{- range (seq 0 (sub (len .Params) 1) ) }}
       {{- $item_name := $.Get . }}
 
-      {{- partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map) }}
+      {{ $item_idx := int . }}
 
-      {{- if lt . ( sub $param_count 1 )}}
-        <span class="stroom-menu-item-separator">
-        <i class="stroom-menu-item-separator fas fa-solid fa-arrow-right fa-sm "></i>
-        </span>
-      {{- end }}
+      {{/* Call the locally declared partial to render a single menu item */}}
+      {{- partial "stroom-menu-item.html" (dict 
+          "context" . 
+          "item_name" $item_name 
+          "icon_map" $icon_map 
+          "item_idx" $item_idx ) }}
 
     {{- end }}
-  </span>
+  </div>
 {{- end }}
 
+{{/* Locally defined partial to render a single menu item */}}
 {{- define "partials/stroom-menu-item.html" }}
-  <span class="stroom-menu-item-background">
-    <span class="stroom-menu-item">
+
+  {{/* Offset each child 7px vertically down from the previous one */}}
+  {{ $top_margin := mul .item_idx 7 }}
+  <div class="stroom-menu-item-background" style="margin-top: {{ $top_margin }}px;">
+    <div class="stroom-menu-item">
       {{- $item_name := .item_name }}
       {{- $icon_map := .icon_map }}
       {{- $item_icon := index .icon_map .item_name }}
@@ -108,18 +149,20 @@ TODO Maybe hold the map in some kind of resource bundle file?
         {{- $icon_path := printf "/images/stroom-ui/%s" $item_icon }}
         {{- $image := resources.Get (printf "%s" $icon_path) }}
         {{- if $image }}
-        <span class="stroom-menu-item-icon">
-          <img 
-            class="stroom-icon" 
-            src="{{ $image.RelPermalink }}" 
-            alt="{{ $item_icon }}">
-        </span>
+          <div class="stroom-menu-item-icon">
+            <img 
+              class="stroom-icon" 
+              src="{{ $image.RelPermalink }}" 
+              alt="{{ $item_icon }}">
+          </div>
         {{- else }}
           {{- errorf "Unable to find stroom-menu icon file %s" $icon_path }}
         {{- end }}
       {{- end }}
 
-      {{- $item_name }}
-    </span>
-  </span>
+      <div class="stroom-menu-item-text">
+        {{- $item_name }}
+      </div>
+    </div>
+  </div>
 {{- end }}

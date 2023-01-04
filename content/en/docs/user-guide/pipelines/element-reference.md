@@ -30,14 +30,14 @@ a structured form.
 
 ### BOMRemovalFilterInput
 
-{{< pipe-elm "bomRemovalFilterInput" >}}&nbsp;
+{{< pipe-elm "BOMRemovalFilterInput" >}}&nbsp;
 
 Removes the Byte Order Mark (if present) from the stream.
 
 
 ### BadTextXMLFilterReader
 
-{{< pipe-elm "badTextXMLFilterReader" >}}&nbsp;
+{{< pipe-elm "BadTextXMLFilterReader" >}}&nbsp;
 
 > TODO - Add description
 
@@ -50,7 +50,7 @@ Removes the Byte Order Mark (if present) from the stream.
 
 ### FindReplaceFilter
 
-{{< pipe-elm "findReplaceFilter" >}}&nbsp;
+{{< pipe-elm "FindReplaceFilter" >}}&nbsp;
 
 Replaces strings or regexes with new strings.
 
@@ -72,7 +72,7 @@ Replaces strings or regexes with new strings.
 
 ### InvalidCharFilterReader
 
-{{< pipe-elm "invalidCharFilterReader" >}}&nbsp;
+{{< pipe-elm "InvalidCharFilterReader" >}}&nbsp;
 
 > TODO - Add description
 
@@ -85,7 +85,7 @@ Replaces strings or regexes with new strings.
 
 ### InvalidXMLCharFilterReader
 
-{{< pipe-elm "invalidXMLCharFilterReader" >}}&nbsp;
+{{< pipe-elm "InvalidXMLCharFilterReader" >}}&nbsp;
 
 Strips out any characters that are not within the standard XML character set.
 
@@ -99,7 +99,7 @@ Strips out any characters that are not within the standard XML character set.
 
 ### Reader
 
-{{< pipe-elm "reader" >}}&nbsp;
+{{< pipe-elm "Reader" >}}&nbsp;
 
 > TODO - Add description
 
@@ -116,7 +116,7 @@ Parsers read the data using the character encoding defined on the feed.
 
 ### CombinedParser
 
-{{< pipe-elm "combinedParser" >}}&nbsp;
+{{< pipe-elm "CombinedParser" >}}&nbsp;
 
 The original general-purpose reader/parser that covers all source data types but provides less flexibility than the source format-specific parsers such as dsParser.
 
@@ -134,7 +134,7 @@ The original general-purpose reader/parser that covers all source data types but
 
 ### DSParser
 
-{{< pipe-elm "dsParser" >}}&nbsp;
+{{< pipe-elm "DSParser" >}}&nbsp;
 
 A parser for data that uses Data Splitter code.
 
@@ -150,7 +150,7 @@ A parser for data that uses Data Splitter code.
 
 ### JSONParser
 
-{{< pipe-elm "jsonParser" >}}&nbsp;
+{{< pipe-elm "JSONParser" >}}&nbsp;
 
 A built-in parser for JSON source data in JSON fragment format into an XML document.
 
@@ -174,7 +174,7 @@ A built-in parser for JSON source data in JSON fragment format into an XML docum
 
 ### XMLFragmentParser
 
-{{< pipe-elm "xmlFragmentParser" >}}&nbsp;
+{{< pipe-elm "XMLFragmentParser" >}}&nbsp;
 
 A parser to convert multiple XML fragments into an XML document.
 
@@ -190,7 +190,7 @@ A parser to convert multiple XML fragments into an XML document.
 
 ### XMLParser
 
-{{< pipe-elm "xmlParser" >}}&nbsp;
+{{< pipe-elm "XMLParser" >}}&nbsp;
 
 > TODO - Add description
 
@@ -205,9 +205,32 @@ Multiple filters can be used one after another with each using the output from t
 input.
 
 
+### ElasticIndexingFilter
+
+{{< pipe-elm "ElasticIndexingFilter" >}}&nbsp;
+
+> TODO - Add description
+
+**Element properties:**
+
+| Name                         | Description                                                                                                                                                               | Default Value |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| batchSize                    | Maximum number of documents to index in each bulk request                                                                                                                 | 10000         |
+| cluster                      | Target Elasticsearch cluster                                                                                                                                              | -             |
+| indexBaseName                | Name of the Elasticsearch index                                                                                                                                           | -             |
+| indexNameDateFieldName       | Name of the field containing the `DateTime` value to use when determining the index date suffix                                                                           | @timestamp    |
+| indexNameDateFormat          | Format of the date to append to the index name (example: `-yyyy`). If unspecified, no date is appended.                                                                   | -             |
+| indexNameDateMaxFutureOffset | Do not append a time suffix to the index name for events occurring after the current time plus the specified offset                                                       | P1D           |
+| indexNameDateMin             | Do not append a time suffix to the index name for events occurring before this date. Date is assumed to be in UTC and of the format specified in `indexNameDateMinFormat` | -             |
+| indexNameDateMinFormat       | Date format of the supplied `indexNameDateMin` property                                                                                                                   | yyyy          |
+| ingestPipeline               | Name of the Elasticsearch ingest pipeline to execute when indexing                                                                                                        | -             |
+| purgeOnReprocess             | When reprocessing a stream, first delete any documents from the index matching the stream ID                                                                              | true          |
+| refreshAfterEachBatch        | Refresh the index after each batch is processed, making the indexed documents visible to searches                                                                         | false         |
+
+
 ### HttpPostFilter
 
-{{< pipe-elm "httpPostFilter" >}}&nbsp;
+{{< pipe-elm "HTTPPostFilter" >}}&nbsp;
 
 > TODO - Add description
 
@@ -220,14 +243,14 @@ input.
 
 ### IdEnrichmentFilter
 
-{{< pipe-elm "idEnrichmentFilter" >}}&nbsp;
+{{< pipe-elm "IdEnrichmentFilter" >}}&nbsp;
 
 > TODO - Add description
 
 
 ### IndexingFilter
 
-{{< pipe-elm "indexingFilter" >}}&nbsp;
+{{< pipe-elm "IndexingFilter" >}}&nbsp;
 
 A filter to send source data to an index.
 
@@ -241,7 +264,7 @@ A filter to send source data to an index.
 
 ### RecordCountFilter
 
-{{< pipe-elm "recordCountFilter" >}}&nbsp;
+{{< pipe-elm "RecordCountFilter" >}}&nbsp;
 
 > TODO - Add description
 
@@ -254,14 +277,14 @@ A filter to send source data to an index.
 
 ### RecordOutputFilter
 
-{{< pipe-elm "recordOutputFilter" >}}&nbsp;
+{{< pipe-elm "RecordOutputFilter" >}}&nbsp;
 
 > TODO - Add description
 
 
 ### ReferenceDataFilter
 
-{{< pipe-elm "referenceDataFilter" >}}&nbsp;
+{{< pipe-elm "ReferenceDataFilter" >}}&nbsp;
 
 Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Reference Data Store.
 Reference data values can be either simple strings or XML fragments.
@@ -276,14 +299,14 @@ Reference data values can be either simple strings or XML fragments.
 
 ### SafeXMLFilter
 
-{{< pipe-elm "safeXMLFilter" >}}&nbsp;
+{{< pipe-elm "SafeXMLFilter" >}}&nbsp;
 
 > TODO - Add description
 
 
 ### SchemaFilter
 
-{{< pipe-elm "schemaFilter" >}}&nbsp;
+{{< pipe-elm "SchemaFilter" >}}&nbsp;
 
 Checks the format of the source data against one of a number of XML schemas.
 This ensures that if non-compliant data is generated, it will be flagged as in error and will not be passed to any subsequent processing elements.
@@ -302,14 +325,14 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 
 ### SearchResultOutputFilter
 
-{{< pipe-elm "searchResultOutputFilter" >}}&nbsp;
+{{< pipe-elm "SearchResultOutputFilter" >}}&nbsp;
 
 > TODO - Add description
 
 
 ### SolrIndexingFilter
 
-{{< pipe-elm "solrIndexingFilter" >}}&nbsp;
+{{< pipe-elm "SolrIndexingFilter" >}}&nbsp;
 
 Delivers source data to the specified index in an external Solr instance/cluster.
 
@@ -326,7 +349,7 @@ Delivers source data to the specified index in an external Solr instance/cluster
 
 ### SplitFilter
 
-{{< pipe-elm "splitFilter" >}}&nbsp;
+{{< pipe-elm "SplitFilter" >}}&nbsp;
 
 Splits multi-record source data into smaller groups of records prior to delivery to an XSLT.
 This allows the XSLT to process data more efficiently than loading a potentially huge input stream into memory.
@@ -343,7 +366,7 @@ This allows the XSLT to process data more efficiently than loading a potentially
 
 ### StatisticsFilter
 
-{{< pipe-elm "statisticsFilter" >}}&nbsp;
+{{< pipe-elm "StatisticsFilter" >}}&nbsp;
 
 An element to allow the source data (conforming to the `statistics` XML Schema) to be sent to the MySQL based statistics data store.
 
@@ -357,7 +380,7 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 
 ### StroomStatsFilter
 
-{{< pipe-elm "stroomStatsFilter" >}}&nbsp;
+{{< pipe-elm "StroomStatsFilter" >}}&nbsp;
 
 An element to allow the source data (conforming to the `statistics` XML Schema) to be sent to an external stroom-stats service.
 
@@ -373,7 +396,7 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 
 ### XPathExtractionOutputFilter
 
-{{< pipe-elm "xPathExtractionOutputFilter" >}}&nbsp;
+{{< pipe-elm "XPathExtractionOutputFilter" >}}&nbsp;
 
 > TODO - Add description
 
@@ -386,7 +409,7 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 
 ### XSLTFilter
 
-{{< pipe-elm "xsltFilter" >}}&nbsp;
+{{< pipe-elm "XSLTFilter" >}}&nbsp;
 
 An element used to transform XML data from one form to another using XSLT.
 The specified XSLT can be used to transform the input XML into XML conforming to another schema or into other forms such as JSON, plain text, etc.
@@ -413,7 +436,7 @@ The output data can then be fed to a Destination.
 
 ### JSONWriter
 
-{{< pipe-elm "jsonWriter" >}}&nbsp;
+{{< pipe-elm "JSONWriter" >}}&nbsp;
 
 Writer to convert XML data conforming to the http://www.w3.org/2013/XSL/json XML Schema into JSON format.
 
@@ -428,7 +451,7 @@ Writer to convert XML data conforming to the http://www.w3.org/2013/XSL/json XML
 
 ### TextWriter
 
-{{< pipe-elm "textWriter" >}}&nbsp;
+{{< pipe-elm "TextWriter" >}}&nbsp;
 
 Writer to convert XML character data events into plain text output.
 
@@ -444,7 +467,7 @@ Writer to convert XML character data events into plain text output.
 
 ### XMLWriter
 
-{{< pipe-elm "xmlWriter" >}}&nbsp;
+{{< pipe-elm "XMLWriter" >}}&nbsp;
 
 Writer to convert XML events data into XML output in the specified character encoding.
 
@@ -469,14 +492,14 @@ This could be a file on a file system or to Stroom's stream store.
 
 ### AnnotationWriter
 
-{{< pipe-elm "annotationWriter" >}}&nbsp;
+{{< pipe-elm "AnnotationWriter" >}}&nbsp;
 
 > TODO - Add description
 
 
 ### FileAppender
 
-{{< pipe-elm "fileAppender" >}}&nbsp;
+{{< pipe-elm "FileAppender" >}}&nbsp;
 
 A destination used to write an output stream to a file on the file system.
 If multiple paths are specified in the 'outputPaths' property it will pick one at random to write to.
@@ -486,15 +509,17 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 
 | Name                   | Description                                                                                                                              | Default Value |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| filePermissions        | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             |
 | outputPaths            | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
 | rollSize               | When the current output file exceeds this size it will be closed and a new one created.                                                  | -             |
 | splitAggregatedStreams | Choose if you want to split aggregated streams into separate output files.                                                               | false         |
 | splitRecords           | Choose if you want to split individual records into separate output files.                                                               | false         |
+| useCompression         | Apply GZIP compression to output files                                                                                                   | false         |
 
 
 ### HDFSFileAppender
 
-{{< pipe-elm "hdfsFileAppender" >}}&nbsp;
+{{< pipe-elm "HDFSFileAppender" >}}&nbsp;
 
 A destination used to write an output stream to a file on a Hadoop Distributed File System.
 If multiple paths are specified in the 'outputPaths' property it will pick one at random.
@@ -514,44 +539,44 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 
 ### HTTPAppender
 
-{{< pipe-elm "httpAppender" >}}&nbsp;
+{{< pipe-elm "HTTPAppender" >}}&nbsp;
 
 A destination used to write an output stream to a remote HTTP(s) server.
 
 
 **Element properties:**
 
-| Name                             | Description                                                                        | Default Value                                         |
-|----------------------------------|------------------------------------------------------------------------------------|-------------------------------------------------------|
-| connectionTimeout                | How long to wait before we abort sending data due to connection timeout            | -                                                     |
-| contentType                      | The content type                                                                   | application/json                                      |
-| forwardChunkSize                 | Should data be sent in chunks and if so how big should the chunks be               | -                                                     |
-| forwardUrl                       | The URL to send data to                                                            | -                                                     |
-| hostnameVerificationEnabled      | Verify host names                                                                  | true                                                  |
-| httpHeadersIncludeStreamMetaData | Provide stream metadata as HTTP headers                                            | true                                                  |
-| httpHeadersUserDefinedHeader1    | Additional HTTP Header 1, format is 'HeaderName: HeaderValue'                      | -                                                     |
-| httpHeadersUserDefinedHeader2    | Additional HTTP Header 2, format is 'HeaderName: HeaderValue'                      | -                                                     |
-| httpHeadersUserDefinedHeader3    | Additional HTTP Header 3, format is 'HeaderName: HeaderValue'                      | -                                                     |
-| keyStorePassword                 | The key store password                                                             | -                                                     |
-| keyStorePath                     | The key store file path on the server                                              | -                                                     |
-| keyStoreType                     | The key store type                                                                 | JKS                                                   |
-| logMetaKeys                      | Which meta data values will be logged in the send log                              | guid,feed,system,environment,remotehost,remoteaddress |
-| readTimeout                      | How long to wait for data to be available before closing the connection            | -                                                     |
-| requestMethod                    | The request method, e.g. POST                                                      | POST                                                  |
-| rollSize                         | When the current output exceeds this size it will be closed and a new one created. | -                                                     |
-| splitAggregatedStreams           | Choose if you want to split aggregated streams into separate output.               | false                                                 |
-| splitRecords                     | Choose if you want to split individual records into separate output.               | false                                                 |
-| sslProtocol                      | The SSL protocol to use                                                            | TLSv1.2                                               |
-| trustStorePassword               | The trust store password                                                           | -                                                     |
-| trustStorePath                   | The trust store file path on the server                                            | -                                                     |
-| trustStoreType                   | The trust store type                                                               | JKS                                                   |
-| useCompression                   | Should data be compressed when sending                                             | true                                                  |
-| useJvmSslConfig                  | Use JVM SSL config                                                                 | true                                                  |
+| Name                             | Description                                                                                                                                                                                                                                                   | Default Value                                         |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| connectionTimeout                | How long to wait before we abort sending data due to connection timeout                                                                                                                                                                                       | -                                                     |
+| contentType                      | The content type                                                                                                                                                                                                                                              | application/json                                      |
+| forwardChunkSize                 | Should data be sent in chunks and if so how big should the chunks be                                                                                                                                                                                          | -                                                     |
+| forwardUrl                       | The URL to send data to                                                                                                                                                                                                                                       | -                                                     |
+| hostnameVerificationEnabled      | Verify host names                                                                                                                                                                                                                                             | true                                                  |
+| httpHeadersIncludeStreamMetaData | Provide stream metadata as HTTP headers                                                                                                                                                                                                                       | true                                                  |
+| httpHeadersUserDefinedHeader1    | Additional HTTP Header 1, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
+| httpHeadersUserDefinedHeader2    | Additional HTTP Header 2, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
+| httpHeadersUserDefinedHeader3    | Additional HTTP Header 3, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
+| keyStorePassword                 | The key store password                                                                                                                                                                                                                                        | -                                                     |
+| keyStorePath                     | The key store file path on the server                                                                                                                                                                                                                         | -                                                     |
+| keyStoreType                     | The key store type                                                                                                                                                                                                                                            | JKS                                                   |
+| logMetaKeys                      | Which meta data values will be logged in the send log                                                                                                                                                                                                         | guid,feed,system,environment,remotehost,remoteaddress |
+| readTimeout                      | How long to wait for data to be available before closing the connection                                                                                                                                                                                       | -                                                     |
+| requestMethod                    | The request method, e.g. POST                                                                                                                                                                                                                                 | POST                                                  |
+| rollSize                         | When the current output exceeds this size it will be closed and a new one created.                                                                                                                                                                            | -                                                     |
+| splitAggregatedStreams           | Choose if you want to split aggregated streams into separate output.                                                                                                                                                                                          | false                                                 |
+| splitRecords                     | Choose if you want to split individual records into separate output.                                                                                                                                                                                          | false                                                 |
+| sslProtocol                      | The SSL protocol to use                                                                                                                                                                                                                                       | TLSv1.2                                               |
+| trustStorePassword               | The trust store password                                                                                                                                                                                                                                      | -                                                     |
+| trustStorePath                   | The trust store file path on the server                                                                                                                                                                                                                       | -                                                     |
+| trustStoreType                   | The trust store type                                                                                                                                                                                                                                          | JKS                                                   |
+| useCompression                   | Should data be compressed when sending                                                                                                                                                                                                                        | true                                                  |
+| useJvmSslConfig                  | Use JVM SSL config. Set this to true if the Stroom node has been configured with key/trust stores using java system properties like 'javax.net.ssl.keyStore'.Set this to false if you are explicitly setting key/trust store properties on this HttpAppender. | true                                                  |
 
 
 ### RollingFileAppender
 
-{{< pipe-elm "rollingFileAppender" >}}&nbsp;
+{{< pipe-elm "RollingFileAppender" >}}&nbsp;
 
 A destination used to write an output stream to a file on the file system.
 If multiple paths are specified in the 'outputPaths' property it will pick one at random to write to.
@@ -561,19 +586,21 @@ This allows other processes to follow the changes to a single file path, e.g. wh
 
 **Element properties:**
 
-| Name           | Description                                                                                                                              | Default Value |
-|----------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| fileName       | Choose the name of the file to write.                                                                                                    | -             |
-| frequency      | Choose how frequently files are rolled.                                                                                                  | 1h            |
-| outputPaths    | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
-| rollSize       | When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.                                    | 100M          |
-| rolledFileName | Choose the name that files will be renamed to when they are rolled.                                                                      | -             |
-| schedule       | Provide a cron expression to determine when files are rolled.                                                                            | -             |
+| Name            | Description                                                                                                                              | Default Value |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| fileName        | Choose the name of the file to write.                                                                                                    | -             |
+| filePermissions | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             |
+| frequency       | Choose how frequently files are rolled.                                                                                                  | 1h            |
+| outputPaths     | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
+| rollSize        | When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.                                    | 100M          |
+| rolledFileName  | Choose the name that files will be renamed to when they are rolled.                                                                      | -             |
+| schedule        | Provide a cron expression to determine when files are rolled.                                                                            | -             |
+| useCompression  | Apply GZIP compression to output files                                                                                                   | false         |
 
 
 ### RollingStreamAppender
 
-{{< pipe-elm "rollingStreamAppender" >}}&nbsp;
+{{< pipe-elm "RollingStreamAppender" >}}&nbsp;
 
 A destination used to write one or more output streams to a new stream which is then rolled when it reaches a certain size or age.
 A new stream will be created after the size or age criteria has been met.
@@ -593,7 +620,7 @@ A new stream will be created after the size or age criteria has been met.
 
 ### StandardKafkaProducer
 
-{{< pipe-elm "standardKafkaProducer" >}}&nbsp;
+{{< pipe-elm "StandardKafkaProducer" >}}&nbsp;
 
 > TODO - Add description
 
@@ -607,7 +634,7 @@ A new stream will be created after the size or age criteria has been met.
 
 ### StreamAppender
 
-{{< pipe-elm "streamAppender" >}}&nbsp;
+{{< pipe-elm "StreamAppender" >}}&nbsp;
 
 > TODO - Add description
 
@@ -625,7 +652,7 @@ A new stream will be created after the size or age criteria has been met.
 
 ### StroomStatsAppender
 
-{{< pipe-elm "stroomStatsAppender" >}}&nbsp;
+{{< pipe-elm "StroomStatsAppender" >}}&nbsp;
 
 > TODO - Add description
 
@@ -638,7 +665,3 @@ A new stream will be created after the size or age criteria has been met.
 | maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             |
 | statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             |
 
-
-
-
-Process finished with exit code 0
