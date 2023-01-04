@@ -65,7 +65,11 @@ If you decide to use the `admin` account as your normal account you might find y
 
 #### Change the API keys
 
-First generate new API keys. You can generate a new API key using Stroom, under {{< stroom-menu "Tools" "API Keys" >}}. The following need to be changed:
+First generate new API keys. You can generate a new API key using Stroom. From the top menu, select: 
+
+{{< stroom-menu "Tools" "API Keys" >}}
+
+The following need to be changed:
 
 - `STROOM_SECURITY_API_TOKEN`
 

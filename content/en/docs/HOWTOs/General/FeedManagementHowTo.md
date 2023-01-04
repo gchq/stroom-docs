@@ -60,7 +60,9 @@ has disappeared from the `Feed` tab and the _Save_ icon {{< stroom-icon "save.sv
 
 In order to simplify the management of multiple event sources being processed by Stroom, it is suggested that an Event Source folder is created at the root of the **System** folder {{< stroom-icon "oo.svg" "System">}} in the `Explorer` tab.
 
-This can be achieved by right clicking on the {{< stroom-icon "oo.svg" "System">}} _System_ root folder and selecting {{< stroom-menu "New" "Folder" >}}.
+This can be achieved by right clicking on the {{< stroom-icon "oo.svg" "System">}} _System_ root folder and selecting:
+
+{{< stroom-menu "New" "Folder" >}}
 
 You will be presented with a `New Folder` configuration window.
 

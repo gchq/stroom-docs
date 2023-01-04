@@ -18,8 +18,6 @@ TODO Maybe hold the map in some kind of resource bundle file?
 */}}
 -->
 
-{{ $param_count := len .Params }}
-
 {{ $icon_map := dict
   "API Keys" "key.svg"
   "Add" "add.svg"
@@ -107,34 +105,42 @@ TODO Maybe hold the map in some kind of resource bundle file?
   "XSLTFilter" "pipeline/xslt.svg"
 }}
 
+{{ $param_count := len .Params }}
+
 {{- if eq (.Get 0) "menu_demo" }}
   <div class="stroom-menu stroom-menu-demo row">
     {{- range $item_name, $item_icon := $icon_map }}
       <div class="stroom-menu-demo-item col-md-3">
-      {{ partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map) }}
+      {{ partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map "item_idx" 0 ) }}
       </div>
     {{- end }}
   </div>
 {{ else }}
-  <span class="stroom-menu">
+  <div class="stroom-menu">
+    {{/* Loop over all the args (i.e. menu item names) */}}
     {{- range (seq 0 (sub (len .Params) 1) ) }}
       {{- $item_name := $.Get . }}
 
-      {{- partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map) }}
+      {{ $item_idx := int . }}
 
-      {{- if lt . ( sub $param_count 1 )}}
-        <span class="stroom-menu-item-separator">
-        <i class="stroom-menu-item-separator fas fa-solid fa-arrow-right fa-sm "></i>
-        </span>
-      {{- end }}
+      {{/* Call the locally declared partial to render a single menu item */}}
+      {{- partial "stroom-menu-item.html" (dict 
+          "context" . 
+          "item_name" $item_name 
+          "icon_map" $icon_map 
+          "item_idx" $item_idx ) }}
 
     {{- end }}
-  </span>
+  </div>
 {{- end }}
 
+{{/* Locally defined partial to render a single menu item */}}
 {{- define "partials/stroom-menu-item.html" }}
-  <span class="stroom-menu-item-background">
-    <span class="stroom-menu-item">
+
+  {{/* Offset each child 7px vertically down from the previous one */}}
+  {{ $top_margin := mul .item_idx 7 }}
+  <div class="stroom-menu-item-background" style="margin-top: {{ $top_margin }}px;">
+    <div class="stroom-menu-item">
       {{- $item_name := .item_name }}
       {{- $icon_map := .icon_map }}
       {{- $item_icon := index .icon_map .item_name }}
@@ -143,20 +149,20 @@ TODO Maybe hold the map in some kind of resource bundle file?
         {{- $icon_path := printf "/images/stroom-ui/%s" $item_icon }}
         {{- $image := resources.Get (printf "%s" $icon_path) }}
         {{- if $image }}
-        <span class="stroom-menu-item-icon">
-          <img 
-            class="stroom-icon" 
-            src="{{ $image.RelPermalink }}" 
-            alt="{{ $item_icon }}">
-        </span>
+          <div class="stroom-menu-item-icon">
+            <img 
+              class="stroom-icon" 
+              src="{{ $image.RelPermalink }}" 
+              alt="{{ $item_icon }}">
+          </div>
         {{- else }}
           {{- errorf "Unable to find stroom-menu icon file %s" $icon_path }}
         {{- end }}
       {{- end }}
 
-      <span class="stroom-menu-item-text">
+      <div class="stroom-menu-item-text">
         {{- $item_name }}
-      </span>
-    </span>
-  </span>
+      </div>
+    </div>
+  </div>
 {{- end }}

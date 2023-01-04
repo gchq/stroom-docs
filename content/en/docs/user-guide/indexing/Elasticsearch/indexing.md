@@ -171,7 +171,8 @@ It is recommended to create a template Elasticsearch indexing pipeline, which ca
 ### Procedure
 
 1. Right-click on the {{< stroom-icon "folder.svg" >}}`Template Pipelines` folder in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
-1. Select {{< stroom-menu "New" "Pipeline" >}}.
+1. Select:  
+   {{< stroom-menu "New" "Pipeline" >}}
 1. Enter the name `Indexing (Elasticsearch)` and click {{< stroom-btn "OK" >}}.
 1. Define the pipeline structure as above, and customise the following pipeline elements:
    1. Set the Split Filter `splitCount` property to a sensible default value, based on the expected source XML element count (e.g. `100`).
@@ -188,7 +189,8 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 ### Procedure
 
 1. Right-click on a folder ({{< stroom-icon "folder.svg">}}) in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
-1. Select {{< stroom-menu "New" "Pipeline" >}}.
+1. Select:  
+   {{< stroom-menu "New" "Pipeline" >}}
 1. Enter a name for your pipeline and click {{< stroom-btn "OK" >}}.
 1. Click the `Inherit From` {{< stroom-icon "ellipses-horizontal.svg" Ellipsis >}} button.
 1. In the dialog that appears, select the template pipeline you created named `Indexing (Elasticsearch)` and click {{< stroom-btn "OK" >}}.

@@ -20,8 +20,10 @@ We're not doing that now because we want to show how to create one from scratch.
 
 ## Create a pipeline
 
-1. Create a pipeline by right-clicking our {{< stroom-icon "folder.svg" >}} `Stroom 101` folder. 
-1. Select {{< stroom-menu "New" "Pipeline" >}}.
+1. Create a pipeline by right-clicking our {{< stroom-icon "folder.svg" >}} `Stroom 101` folder and selecting:
+
+   {{< stroom-menu "New" "Pipeline" >}}
+
 1. Call it something like `CSV to XML pipeline`.
 
 1. Select _Structure_ from the top of the new tab. This is the most important view for the pipeline because it shows what will actually happen on the pipeline.
@@ -53,8 +55,10 @@ This is a job for a _Data Splitter_.
 
 The splitter is actually a type of _Text Converter_ {{< stroom-icon "document/TextConverter.svg" >}}, so lets create one of those:
 
-1. Right click on our {{< stroom-icon "folder.svg" >}} `Stroom 101` folder. 
-1. Select {{< stroom-menu "New" "Text Converter" >}}
+1. Right click on our {{< stroom-icon "folder.svg" >}} `Stroom 101` folder and selecting:
+
+   {{< stroom-menu "New" "Text Converter" >}}
+
 1. Call it something like `CSV splitter`.
 
 In the new tab you need to tell the _Text Converter_ that it'll be a _Data Splitter_:
@@ -101,8 +105,10 @@ Save it by clicking the save button {{< stroom-icon "save.svg" >}}.
 So we now have a configured, re-usable data splitter for CSV files that have headers.
 We need to add this to our pipeline as a filter, so head back to the pipeline's Structure section and add a DSParser.
 
-1. Right-click the {{< pipe-elm "Source" >}} element.
-1. Click {{< stroom-menu "Add" "Parser" "DSParser" >}}.
+1. Right-click the {{< pipe-elm "Source" >}} element and select:
+
+   {{< stroom-menu "Add" "Parser" "DSParser" >}}
+
 1. Call it _CSV Parser_ and click OK.
 
 We need to tell the new _CSV parser_ to use the {{< stroom-icon "document/TextConverter.svg" >}} _TextConverter_ (_CSV splitter_) we created earlier.
@@ -176,8 +182,10 @@ This process is very similar to creating the `CSV splitter`:
 
 To create the new _XSLT_ entity do the following:
 
-1. Right click the {{< stroom-icon "folder.svg" >}} _Stroom 101_ folder in the {{< glossary "Explorer Tree" >}}.
-1. Click {{< stroom-menu "New" "XSL Translation" >}}.
+1. Right click the {{< stroom-icon "folder.svg" >}} _Stroom 101_ folder in the {{< glossary "Explorer Tree" >}} and select:
+
+   {{< stroom-menu "New" "XSL Translation" >}}
+
 1. Name it _XSLT_.
 1. Click _OK_.
 
@@ -257,8 +265,10 @@ Our _XSLT filter_ element is outputting XML so we will create an _XMLWriter_.
 You don't need to create one outside the pipeline (in the way you did with the `CSV splitter` and the `XSLT` filter).
 Just do the following:
 
-1. Right click on the _XSLT filter_ element.
-1. Click {{< stroom-menu "Add" "Writer" "XMLWriter" >}}
+1. Right click on the {{< pipe-elm "xsltFilter" "XSLT filter" >}} element and select:
+
+   {{< stroom-menu "Add" "Writer" "XMLWriter" >}}
+
 1. Name it _XML writer_.
 1. Click OK.
 
@@ -271,8 +281,10 @@ We need to do something with the serialised XML.
 We'll write it to a {{< glossary "Stream" >}}.
 To do this we create a {{< element "StreamAppender" >}}:
 
-1. Right click on the _XML Writer_ element.
-1. Click {{< stroom-menu "Add" "Destination" "StreamAppender" >}}
+1. Right click on the {{< pipe-elm "xmlWriter" "XML Writer" >}} element and select:
+
+   {{< stroom-menu "Add" "Destination" "StreamAppender" >}}
+
 1. Name it _Stream appender_.
 1. Click OK.
 

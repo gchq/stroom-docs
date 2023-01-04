@@ -196,7 +196,7 @@ Filters can be enabled/disabled independently of their parent Processor to contr
 ## Property
 
 A configuration Property for configuring Stroom.
-Properties can be set via {{< stroom-menu "Tools" "Properties" >}} in the user interface or via the `config.yml` configuration file.
+Properties can be set via in the user interface or via the `config.yml` configuration file.
 
 See [Properties]({{< relref "Properties" >}}) for more detail.
 

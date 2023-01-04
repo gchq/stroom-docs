@@ -27,16 +27,20 @@ We think you will learn more by deleting this pre-loaded content and following a
 {{% /warning %}}
 
 1. A lot of Stroom's functionality is available through right-click context menus.
-   If you right-click  _System_ in the tree you can create new child items.
-   Create a new folder and call it something like `Stroom 101`:
+   If you right-click  {{< stroom-icon "oo.svg" "System">}} _System_ in the tree you can create new child items.
 
-   {{< image "quick-start-guide/feed/create-folder.png" >}}Creating a folder{{< /image >}}
+   Create a new folder by selecting:
 
-1. Right-click on the new _Stroom Quick Start_ folder then click {{< stroom-menu "New" "Feed" >}} to create a feed.
+   {{< stroom-menu "New" "Folder" >}}
+
+   Call it something like `Stroom 101`:
+
+1. Right-click on the new {{< stroom-icon "folder.svg" >}} _Stroom Quick Start_ folder then select this to create a feed:
+
+   {{< stroom-menu "New" "Feed" >}}
+
    The name needs to be capitalised and unique across all feeds.
    Name it `CSV_FEED`.
-
-   {{< image "quick-start-guide/feed/create-feed.png" >}}Creating a feed{{< /image >}}
 
    This will open a new tab for the feed.
 

@@ -128,7 +128,7 @@ Save the feed by clicking on the save icon {{< stroom-icon "save.svg" >}}.
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then select:
 
-{{< stroom-menu "New" "Text Converter" >}}<br/>
+{{< stroom-menu "New" "Text Converter" >}}
 
 When the **New Text Converter** 
 
@@ -155,7 +155,7 @@ Save the text converter by clicking on the save icon {{< stroom-icon "save.svg" 
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then select:
 
-{{< stroom-menu "New" "XSL Translation" >}}</br>
+{{< stroom-menu "New" "XSL Translation" >}}
 
 When the **New XSLT** selection window comes up,
 
@@ -182,7 +182,7 @@ In the process of creating this pipeline we have assumed that the  **Template Pi
 
 Within the Explorer pane, and having selected the Apache HTTPD system group, right click to bring up object context menu, then select:
 
-{{< stroom-menu "New" "Pipeline" >}}<br/>
+{{< stroom-menu "New" "Pipeline" >}}
 
 When the **New Pipeline** selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
 At this you will be presented with the new pipeline’s configuration tab
