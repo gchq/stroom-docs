@@ -159,7 +159,7 @@ It typically consists of the following pipeline elements:
 1. {{< pipe-elm "XMLParser"  >}}
 1. {{< pipe-elm "RecordCountFilter" "recordCountFilter (read)">}}
 1. {{< pipe-elm "SplitFilter" >}}
-1. {{< pipe-elm "IDEnrichmentFilter" >}}
+1. {{< pipe-elm "IdEnrichmentFilter" >}}
 1. {{< pipe-elm "XSLTFilter" >}} (contains the translation mapping `Events` to JSON `array`)
 1. {{< pipe-elm "SchemaFilter" >}} (schema group `JSON`)
 1. {{< pipe-elm "ElasticIndexingFilter" >}}

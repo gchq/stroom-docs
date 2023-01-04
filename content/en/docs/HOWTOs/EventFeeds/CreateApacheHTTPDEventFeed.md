@@ -256,7 +256,7 @@ Again press {{< stroom-btn "Ok" >}} to finish editing this property and we see t
 
 We perform the same actions to associate the translation.
 
-First, we select the translation Filter’s {{< pipe-elm "xsltFilter" "translationFilter" >}} element and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**.
+First, we select the translation Filter’s {{< pipe-elm "XSLTFilter" "translationFilter" >}} element and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**.
 As before, bring up the **Choose item** selection window, navigate to the `Apache HTTPD` system group and select the
 Apache-SSLBlackBox-V2.0-EVENTS xslt Translation.
 
@@ -399,7 +399,7 @@ This is the Source display for the Event Pipeline.
 
 ### Step data through Pipeline - Text Converter
 
-We click on the {{< pipe-elm "dsParser" >}} element to enter the Text Converter stepping window.
+We click on the {{< pipe-elm "DSParser" >}} element to enter the Text Converter stepping window.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-46.png" >}}pipeline Stepping tab - Text Converter{{< /screenshot >}}
 
@@ -498,7 +498,7 @@ Note, you should now Save {{< stroom-icon "save.svg" >}} your edited Text Conver
 
 ### Step data through Pipeline - Translation
 
-To start authoring the xslt Translation Filter, press the {{< pipe-elm "xsltFilter" "translationFilter" >}} element which steps us to the xsl Translation Filter pane.
+To start authoring the xslt Translation Filter, press the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element which steps us to the xsl Translation Filter pane.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-54.png" >}}pipeline Stepping tab - Translation Initial{{< /screenshot >}}
 

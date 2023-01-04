@@ -238,39 +238,36 @@ and
 
 ### Pipeline elements
 
-To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen), like {{< pipe-elm "splitFilter" >}}, you can use the shortcode `pipe-elm`.
+To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipeline screen), like {{< pipe-elm "SplitFilter" >}}, you can use the shortcode `pipe-elm`.
 
 **Arguments**:
-* `element_name` - The name of the pipeline element (case insensitive), e.g. `XsltFilter`.
+* `element_name` - The name of the pipeline element (case sensitive), e.g. `XsltFilter`.
 * `display_name` (optional) - The display name for the pipeline element.
-  If a display name is not provided then the lower camel case form of the element name will be used as the display name.
+  If a display name is not provided then the element name will be used as the display name.
+
+The list of available pipeline elements can be found in this [gallery]({{< relref "icon-gallery#pipeline-elements" >}}).
 
 The icon will be selected to match the element name provided.
 
-
-{{< cardpane >}}
-  {{< card header="Rendered" >}}
 This is an xsltFilter with its default name:
 
-{{< pipe-elm "xsltFilter" >}}
+{{< pipe-elm "XSLTFilter" >}}<br/>
 
 This is a splitFilter with a custom name:
 
-{{< pipe-elm "splitFilter" "My Split Filter" >}}
-  {{< /card >}}
-  {{< card header="Markdown" >}}
+{{< pipe-elm "SplitFilter" "My Split Filter" >}}<br/>
+
+The markdown for the two examples above is:
+
 ```markdown
 This is an xsltFilter with its default name:
 
-{{</* pipe-elm "xsltFilter" */>}}
+{{</* pipe-elm "XSLTFilter" */>}}<br/>
 
 This is a splitFilter with a custom name:
 
-{{</* pipe-elm "splitFilter" "My Split Filter" */>}}
+{{</* pipe-elm "SplitFilter" "My Split Filter" */>}}<br/>
 ```
-  {{< /card >}}
-{{< /cardpane >}}
-
 
 
 ### Stroom document tabs
@@ -310,19 +307,21 @@ For example to demonstrate creating a folder using the context menu:
 
 {{< stroom-menu "New" "Folder" >}}
 
-The markdown for this example is:
-
-```markdown
-{{</* stroom-menu "New" "Folder" */>}}
-```
-
 The shortcode takes one argument per menu item so you can have multiple levels of menu.
 
 {{< stroom-menu "Add" "Folder" "Feed" >}}
 
+The markdown for these examples is:
+
+```markdown
+{{</* stroom-menu "New" "Folder" */>}}
+
+{{</* stroom-menu "Add" "Folder" "Feed" */>}}
+```
+
 It cannot be used in-line in text, it needs to be on its own line.
 
-The list of available menu items with an icon are in this [gallery]({{< relref "icon-gallery#menu-items" >}}).
+The list of available menu items with an icon can be found in this [gallery]({{< relref "icon-gallery#menu-items" >}}).
 Menu item names are case-sensitive.
 If the menu item name is not an exact match to one in the gallery then it will be displayed without an icon, e.g.:
 

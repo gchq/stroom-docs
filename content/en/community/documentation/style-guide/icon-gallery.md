@@ -58,6 +58,13 @@ Menu items with icons that are available for use with the [`stroom-menu` shortco
 {{< stroom-menu "menu_demo" >}}
 
 
+## Pipeline elements
+
+Pipeline elements that are available for use with the [`pipe-elm` shortcode]({{< relref "using-images#pipeline-elements" >}}).
+
+{{< pipe-elm "pipe_elm_demo" >}}
+
+
 ## Updating this gallery
 
 ### Icons
@@ -78,4 +85,9 @@ e.g.
 
 ### Menu Items
 
-To update the available [menu items]({{< relref "#menu-items" >}}) edit the shortcode file `layouts/shortcodes/stroom-menu.html` and modify the `icon_map` variable..
+To update the available [menu items]({{< relref "#menu-items" >}}) edit the shortcode file `layouts/shortcodes/stroom-menu.html` and modify the `icon_map` variable.
+
+
+### Pipeline elements
+
+To update the available [pipeline elements]({{< relref "#pipeline-elements" >}}) edit the shortcode file `layouts/shortcodes/pipe-elm.html` and modify the `element_map` variable.

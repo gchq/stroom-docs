@@ -309,7 +309,7 @@ Select the `GeoHost-V1.0-REFERENCE` pipeline tab and then select the **Structure
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-27.png" >}}Associated text converter with pipeline{{< /screenshot >}}
 
-To associate our new Text Converter with the pipeline, click on the {{< pipe-elm "combinedParser" >}} pipeline element then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
+To associate our new Text Converter with the pipeline, click on the {{< pipe-elm "CombinedParser" >}} pipeline element then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-28.png" >}}textConverter Edit property{{< /screenshot >}}
 
@@ -352,7 +352,7 @@ At this point we enter the pipeline Stepping tab
 
 which initially displays the Raw Reference data from our stream.
 
-We click on the {{< pipe-elm "combinedParser" >}} icon, to display.
+We click on the {{< pipe-elm "CombinedParser" >}} icon, to display.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-36.png" >}}textConverter - stepping editor workspace{{< /screenshot >}}
 
@@ -405,7 +405,7 @@ At this point, rather than edit the translation in this editor and then assign t
 This is to demonstrate there are a number of ways to _develop a translation_.
 
 So, to start, save the XSLT by clicking on the {{< stroom-tab "Pipeline.svg" "GeoHost-V1.0-REFERENCE Pipeline" >}} tab to raise the GeoHost-V1.0-REFERENCE pipeline.
-Then select the **Structure** sub-item followed by selecting the {{< pipe-elm "xsltFilter" "translationFilter" >}} element.
+Then select the **Structure** sub-item followed by selecting the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element.
 We now see the  **XSL translationFilter** Property Table for our pipeline in the middle pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-45.png" >}}xslt translation element - property pane{{< /screenshot >}}
@@ -452,7 +452,7 @@ At this point we enter the pipeline through the Stepping tab {{< screenshot "HOW
 
 which initially displays the Raw Reference data from our stream.
 
-We click on the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to enter the _xslt Translation_ stepping window and all panes are empty.
+We click on the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element to enter the _xslt Translation_ stepping window and all panes are empty.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-51.png" >}}xslt Translation - editor{{< /screenshot >}}
 
@@ -472,7 +472,7 @@ But we also note if we move along the pipeline structure to the {{< stroom-icon 
 In essence, since the _translation_ has done nothing, and the data is simple _records_ XML, the system is indicating that it expects the _output_ data to be in the _reference-data v2.0.1_ format.
 
 We can correct this by adding the skeleton xslt translation for reference data into our translationFilter.
-Move back to the {{< pipe-elm "xsltFilter" "translationFilter" >}} element on the pipeline structure and add the following to the xsl window.
+Move back to the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element on the pipeline structure and add the following to the xsl window.
 
 ```xml
 <?xml version="1.1" encoding="UTF-8" ?>
@@ -507,7 +507,7 @@ And on pressing the refresh button {{< stroom-icon "refresh.svg" >}} we see that
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-54.png" >}}xslt Translation - null translation{{< /screenshot >}}
 
-Also note that if we move to the {{< pipe-elm "schemaFilter" >}} element on the pipeline structure, we no longer have an "Invalid Schema Location" error.
+Also note that if we move to the {{< pipe-elm "SchemaFilter" >}} element on the pipeline structure, we no longer have an "Invalid Schema Location" error.
 
 We next extend the translation to actually generate reference data.
 The translation will now look like

@@ -134,7 +134,7 @@ See the [Pipeline Element Reference]({{< relref "docs/user-guide/pipelines/eleme
 Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT document we created earlier and set the `index` property on the _indexFilter_ to point to the index we created.
 
 1. Assign the XSLT document
-   1. Click on the {{< pipe-elm "xsltFilter" >}} element.
+   1. Click on the {{< pipe-elm "XSLTFilter" >}} element.
    1. In the middle Properties pane double-click on the `xslt` row.
    1. Click the {{< stroom-icon "ellipses-grey.svg" "Ellipses">}}in the _Value_ document picker
    1. Select:  

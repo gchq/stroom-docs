@@ -126,7 +126,7 @@ Press **OK** to start the stepping which displays the pipeline stepping tab
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-08.png" >}}Stroom UI CreateReferenceFeed - Stepping pipeline source display{{< /screenshot >}}
 
-Select the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to reveal the translation we plan to modify.
+Select the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element to reveal the translation we plan to modify.
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-09.png" >}}Stroom UI CreateReferenceFeed - Stepping pipeline xslt translation filter selected{{< /screenshot >}}
 
@@ -207,7 +207,7 @@ then switch to the **Structure** sub-item
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-19.png" >}}Stroom UI CreateReferenceFeed - Pipeline display structure{{< /screenshot >}}
 
-and then select the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to reveal
+and then select the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element to reveal
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-20.png" >}}Stroom UI CreateReferenceFeed - Pipeline translationFilter structure{{< /screenshot >}}
 

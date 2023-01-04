@@ -265,7 +265,7 @@ Our _XSLT filter_ element is outputting XML so we will create an _XMLWriter_.
 You don't need to create one outside the pipeline (in the way you did with the `CSV splitter` and the `XSLT` filter).
 Just do the following:
 
-1. Right click on the {{< pipe-elm "xsltFilter" "XSLT filter" >}} element and select:
+1. Right click on the {{< pipe-elm "XSLTFilter" "XSLT filter" >}} element and select:
 
    {{< stroom-menu "Add" "Writer" "XMLWriter" >}}
 
@@ -281,7 +281,7 @@ We need to do something with the serialised XML.
 We'll write it to a {{< glossary "Stream" >}}.
 To do this we create a {{< element "StreamAppender" >}}:
 
-1. Right click on the {{< pipe-elm "xmlWriter" "XML Writer" >}} element and select:
+1. Right click on the {{< pipe-elm "XMLWriter" "XML Writer" >}} element and select:
 
    {{< stroom-menu "Add" "Destination" "StreamAppender" >}}
 
