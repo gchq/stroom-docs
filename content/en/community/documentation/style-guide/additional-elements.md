@@ -618,6 +618,13 @@ The css/js downloaded from the Prism site is taken from the head of their master
 
 ## Alerts
 
+Various page/block level quotes for drawing attention to things.
+
+{{% warning %}}
+Using shortcodes, e.g. `{{</* pipe-elm "SplitFilter" */>}}` inside an of these alerts is currently not fully supported so may not work.
+{{% /warning %}}
+
+
 ### Warning block Quote
 
 {{% warning %}}

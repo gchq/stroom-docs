@@ -155,15 +155,20 @@ In Kibana Dev Tools, execute the following query:
 An Elasticsearch indexing pipeline is similar in structure to the built-in packaged `Indexing` template pipeline.
 It typically consists of the following pipeline elements:
 
-1. {{< pipe-elm "Source" >}}
-1. {{< pipe-elm "XMLParser"  >}}
-1. {{< pipe-elm "RecordCountFilter" "recordCountFilter (read)">}}
-1. {{< pipe-elm "SplitFilter" >}}
-1. {{< pipe-elm "IdEnrichmentFilter" >}}
-1. {{< pipe-elm "XSLTFilter" >}} (contains the translation mapping `Events` to JSON `array`)
-1. {{< pipe-elm "SchemaFilter" >}} (schema group `JSON`)
-1. {{< pipe-elm "ElasticIndexingFilter" >}}
-1. {{< pipe-elm "RecordCountFilter" "recordCountFilter (written)">}}
+{{< pipe >}}
+ {{< pipe-elm "Source" >}}
+ {{< pipe-elm "XMLParser" >}}
+ {{< pipe-elm "RecordCountFilter" "recordCount (read)">}}
+ {{< pipe-elm "SplitFilter" >}}
+ {{< pipe-elm "IdEnrichmentFilter" >}}
+ {{< pipe-elm "XSLTFilter" >}}
+ {{< pipe-elm "SchemaFilter" >}}
+ {{< pipe-elm "ElasticIndexingFilter" >}}
+ {{< pipe-elm "RecordCountFilter" "recordCount (written)">}}
+{{< /pipe >}}
+
+* {{< pipe-elm "XSLTFilter" >}} contains the translation mapping `Events` to JSON `array`.
+* {{< pipe-elm "SchemaFilter" >}} uses schema group `JSON`.
 
 It is recommended to create a template Elasticsearch indexing pipeline, which can then be re-used.
 

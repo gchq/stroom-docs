@@ -60,7 +60,7 @@ Menu items with icons that are available for use with the [`stroom-menu` shortco
 
 ## Pipeline elements
 
-Pipeline elements that are available for use with the [`pipe-elm` shortcode]({{< relref "using-images#pipeline-elements" >}}).
+Pipeline elements that are available for use with the [`pipe-elm`]({{< relref "using-images#pipeline-elements" >}}) and [`pipe`]({{< relref "using-images#pipelines" >}}) shortcodes.
 
 {{< pipe-elm "pipe_elm_demo" >}}
 
