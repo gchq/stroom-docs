@@ -24,12 +24,14 @@ For this Quick Start Guide we are going to use Stroom's internal Lucence indexin
 We can create an index by adding an index entity {{< stroom-icon "document/Index.svg" "Index" >}}to the explorer tree.
 You do this in the same way you create any of the items.
 
-1. Right click on the _Stroom 101_ folder.
-1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/Index.svg" "Index" >}} Index.
+1. Right click on the {{< stroom-icon "folder.svg" >}} _Stroom 101_ folder and select:
+
+   {{< stroom-menu "New" "Lucene Index" >}}
+
 1. Call the index _Stroom 101_.
    Click OK.
 
-This will open the new _Stroom 101_ index as a new tab.
+This will open the new {{< stroom-icon "document/Index.svg" >}} _Stroom 101_ index as a new tab, {{< stroom-tab "Index.svg" "Stroom 101" >}}.
 
 
 ## Assign a volume group
@@ -88,8 +90,10 @@ This can be a simple 1:1 mapping from event field to index field or something mo
 
 To create the XSLT for the Index:
 
-1. Right click on the _Stroom 101_ folder {{< stroom-icon "folder.svg" "Folder" >}} in the explorer tree.
-1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/XSLT.svg" "XSLT" >}} XSLT.
+1. Right click on the {{< stroom-icon "folder.svg" >}} _Stroom 101_ folder in the explorer tree, then select:
+
+   {{< stroom-menu "New" "XSL Translation" >}}
+
 1. Name it `Stroom 101`.
 1. Click OK.
 
@@ -103,8 +107,10 @@ Typically in Stroom all {{< glossary "Raw Events" >}} are first processed into n
 
 We will create a pipeline to index the processed _Event_ streams containing XML data.
 
-1. Right click on the _Stroom 101_ folder {{< stroom-icon "folder.svg" "Folder" >}} in the explorer tree.
-1. Click {{< stroom-icon "add.svg" "New" >}} New => {{< stroom-icon "document/Pipeline.svg" >}} XSLT.
+1. Right click on the {{< stroom-icon "folder.svg" "Folder" >}} _Stroom 101_ folder in the explorer tree, then select:
+
+   {{< stroom-menu "New" "Pipeline" >}}
+
 1. Name it `Stroom 101`.
 1. Click OK.
 
@@ -113,7 +119,7 @@ Select the _Structure_ sub-tab to edit the structure of the pipeline.
 Pipelines can inherit from other pipelines in Stroom so that you can benefit from re-use.
 We will inherit from an existing indexing template pipeline and then modify it for our needs.
 
-1. On the _Structure_ sub tab, click the `...` in the _Inherit From_ entity picker.
+1. On the _Structure_ sub tab, click the {{< stroom-icon "ellipses-grey.svg" "Ellipses">}} in the _Inherit From_ entity picker.
 1. Select {{< stroom-icon "folder.svg">}} _Template Pipelines_ / {{< stroom-icon "document/pipeline.svg">}} _Indexing_
 
 You should now see the following structure:
@@ -128,19 +134,19 @@ See the [Pipeline Element Reference]({{< relref "docs/user-guide/pipelines/eleme
 Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT document we created earlier and set the `index` property on the _indexFilter_ to point to the index we created.
 
 1. Assign the XSLT document
-   1. Click on the {{< stroom-icon "pipeline/xslt.svg" "title" >}} _xsltFilter_ element.
+   1. Click on the {{< pipe-elm "XSLTFilter" >}} element.
    1. In the middle Properties pane double-click on the `xslt` row.
-   1. Click the `...` in the _Value_ document picker
+   1. Click the {{< stroom-icon "ellipses-grey.svg" "Ellipses">}}in the _Value_ document picker
    1. Select:  
       {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Xslt.svg">}} _Stroom 101_.
-   1. Click _OK_.
+   1. Click {{< stroom-btn "OK" >}}.
 1. Assign the Index document
-   1. Click on the {{< stroom-icon "pipeline/index.svg" "title" >}} _indexingFilter_ element.
+   1. Click on the {{< pipe-elm "IndexingFilter" >}} element.
    1. In the middle Properties pane double-click on the `index` row.
    1. Click the `...` in the _Value_ document picker
    1. Select:  
       {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_.
-   1. Click _OK_.
+   1. Click {{< stroom-btn "OK" >}}.
 
 Once that's done you can save your new pipeline by clicking the {{< stroom-icon "save.svg" >}} button.
 

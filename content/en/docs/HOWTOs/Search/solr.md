@@ -1,6 +1,6 @@
 ---
-title: "Solr integration"
-linkTitle: "Solr integration"
+title: "Apache Solr"
+linkTitle: "Apache Solr"
 #weight:
 date: 2021-07-12
 tags:

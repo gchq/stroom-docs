@@ -1,0 +1,34 @@
+<!-- 
+Short code to add a pipeline element (as seen on the Pipeline Structure
+sub-tab) to the page. It will appear as a rounded box containing the icon
+and the name.
+
+stroom icon (from /assets/images/stroom-ui/) to the page 
+with an optional hover title. If you don't supply a title it will make one from the
+filename.
+Usage:
+stroom-icon filename [title]
+e.g
+stroom-icon add.svg "Add"
+stroom-icon add.svg
+-->
+
+{{- $children := split .Inner "<span class=\"USED FOR SPLITTING\" ></span>" -}}
+{{ $child_count := len $children }}
+<div class="pipeline-container">
+  {{ range $idx, $child := $children }}
+    {{ if $child }}
+      {{ $child_html := trim ($child | safeHTML) "\n " }}
+      {{ if $child_html }}
+        {{ if gt $idx 0 }}
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        {{ end }}
+        <div class="pipeline-item">
+        {{ $child | safeHTML }}
+        </div>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</div>
+

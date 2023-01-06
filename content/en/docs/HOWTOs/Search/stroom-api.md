@@ -1,6 +1,6 @@
 ---
-title: "Search API"
-linkTitle: "Search API"
+title: "Stroom Search API"
+linkTitle: "Stroom Search API"
 #weight:
 date: 2021-07-12
 tags: 

@@ -123,6 +123,40 @@ The following are some example of different links to internal content.
   ```
 
 
+#### Next page in section link
+
+* A link to the next page in the current section.
+  If the current page is the last page in the section then no link will be displayed.
+  What the next page is is defined by the [page weights]({{< relref "front-matter#weight" >}}) or the default ordering of pages in the section.
+
+  This is useful when you have a set of pages in a section that have a natural flow, e.g. where the pages in a section are the sequential steps in an installation guide.
+
+  The link looks like this(with the page title in the link text and the hover tip showing both the page title and the description):
+
+  {{< next-page >}}
+
+  ```markdown
+  {{</* next-page */>}}
+  ```
+
+
+#### Previous page in section link
+
+* A link to the previous page in the current section.
+  If the current page is the last page in the section then no link will be displayed.
+  What the previous page is is defined by the [page weights]({{< relref "front-matter#weight" >}}) or the default ordering of pages in the section.
+
+  This is useful when you have a set of pages in a section that have a natural flow, e.g. where the pages in a section are the sequential steps in an installation guide.
+
+  The link looks like this(with the page title in the link text and the hover tip showing both the page title and the description):
+
+  {{< prev-page >}}
+
+  ```markdown
+  {{</* prev-page */>}}
+  ```
+
+
 ### Markdown page link examples
 
 {{% warning %}}
@@ -583,6 +617,13 @@ The css/js downloaded from the Prism site is taken from the head of their master
 
 
 ## Alerts
+
+Various page/block level quotes for drawing attention to things.
+
+{{% warning %}}
+Using shortcodes, e.g. `{{</* pipe-elm "SplitFilter" */>}}` inside an of these alerts is currently not fully supported so may not work.
+{{% /warning %}}
+
 
 ### Warning block Quote
 

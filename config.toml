@@ -120,7 +120,11 @@ latexDashes = true
 
   # A link to latest version of the docs. Used in the "version-banner" partial to
   # point people to the main doc site.
-  url_latest_version = "/../7.1"
+  url_latest_version = "/../"
+
+  # Custom stroom-docs param for use in the version-banner partial to tell people
+  # what the latest version number is.
+  latest_version = "7.1"
   
   # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
   github_repo = "https://github.com/gchq/stroom-docs"
@@ -149,8 +153,8 @@ latexDashes = true
   # This one is mutually exclusive with pygmentsCodeFences
   prism_syntax_highlighting = true
 
-  # The version urls assume we have a structure like:
-  # /master  # The latest version of the docs that are not yet linked to a stroom minor release
+  # The version urls assume we have a structure like (assuming we have versions 7.0, 7.1, 7.2):
+  # /  # The latest version brancy of the docs, in this case 7.2
   #   /content
   #   etc.
   # /7.1  # A release branch tied to the stroom 7.1 minor release
@@ -159,26 +163,32 @@ latexDashes = true
   # /7.0  # A release branch tied to a stroom 7.0 minor release
   #   /content
   #   etc.
+  # /legacy  # A branch containing all the jumbled legacy docs
+  #   /content
+  #   etc.
 
   # <<<VERSIONS_BLOCK_START>>> Used by ci_build.sh
 
-  [[params.versions]]
-    version = "Latest"
-    url = "/../latest"
+  # --- WARNING ---
+  # If this file is on the latest branch then you need to just go down a level to get to a
+  # another version.
+  # If this file is not on the latest branch then you need to go up one level then down to get to a non-latest
+  # version or up one level to get to the latest.
 
+  # latest version served from site root
   [[params.versions]]
-    version = "7.1"
-    url = "/../7.1"
+    version = "7.1 (Latest)"
+    url = "/" 
   
   [[params.versions]]
     version = "7.0"
-    url = "/../7.0"
+    url = "/7.0"
   
   # A branch of the docs covering all versions prior to 7.0. Essentially a jumbled mess
   # of historic documentation.
   [[params.versions]]
     version = "Legacy"
-    url = "/../legacy"
+    url = "/legacy"
 
   # <<<VERSIONS_BLOCK_END>>> Used by ci_build.sh
   
