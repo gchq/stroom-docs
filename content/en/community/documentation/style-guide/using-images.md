@@ -11,6 +11,42 @@ tags:
 exclude_search: true
 
 ---
+{{< pipe >}}
+{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
+{{< pipe-elm "Reader" "My Reader" >}}
+{{< pipe-elm "TextWriter" >}}
+{{< /pipe >}}
+
+{{< pipe >}}
+{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
+{{< pipe-elm "Reader" "My Reader" >}}
+{{< pipe-elm "TextWriter" >}}
+{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
+{{< pipe-elm "Reader" "My Reader" >}}
+{{< pipe-elm "TextWriter" >}}
+{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
+{{< pipe-elm "Reader" "My Reader" >}}
+{{< pipe-elm "TextWriter" >}}
+{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
+{{< pipe-elm "Reader" "My Reader" >}}
+{{< pipe-elm "TextWriter" >}}
+{{< /pipe >}}
+
+{{< pipe >}}
+ {{< pipe-elm "Source" >}}
+ {{< pipe-elm "XMLParser"  >}}
+ {{< pipe-elm "RecordCountFilter" "recordCountFilter (read)">}}
+ {{< pipe-elm "SplitFilter" >}}
+ {{< pipe-elm "IdEnrichmentFilter" >}}
+ {{< pipe-elm "XSLTFilter" >}}
+ {{< pipe-elm "SchemaFilter" >}}
+ {{< pipe-elm "ElasticIndexingFilter" >}}
+ {{< pipe-elm "RecordCountFilter" "recordCountFilter (written)">}}
+{{< /pipe >}}
+
+{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
+
+This is it {{< pipe-elm "JSONWriter" "My JSON Writer" >}} in line.
 
 ## Image assets
 
@@ -248,6 +284,7 @@ To display a pipeline element (as seen on the _Structure_ sub-tab on the Pipelin
 The list of available pipeline elements can be found in this [gallery]({{< relref "icon-gallery#pipeline-elements" >}}).
 
 The icon will be selected to match the element name provided.
+The element is a clickable link to the appropriate reference page for that element.
 
 This is an xsltFilter with its default name:
 
@@ -268,6 +305,61 @@ This is a splitFilter with a custom name:
 
 {{</* pipe-elm "SplitFilter" "My Split Filter" */>}}<br/>
 ```
+
+
+### Pipelines
+
+To display a pipeline consisting of multiple [pipeline elements]({{< relref "#pipeline-elements" >}}) (as seen on the _Structure_ sub-tab on the Pipeline screen) you can use the short code `pipe`.
+
+This shortcode takes no arguments.
+Instead, the inner content of the shortcode is populated with multiple `pipe-elm` shortcodes to describe each of the elements in the pipeline.
+This shortcode does not support any branching/forking in the pipeline.
+
+Here are some examples:
+
+{{< pipe >}}
+ {{< pipe-elm "Source" >}}
+ {{< pipe-elm "XMLParser" >}}
+ {{< pipe-elm "RecordCountFilter" "recordCount (read)">}}
+ {{< pipe-elm "SplitFilter" >}}
+ {{< pipe-elm "IdEnrichmentFilter" >}}
+ {{< pipe-elm "XSLTFilter" >}}
+ {{< pipe-elm "SchemaFilter" >}}
+ {{< pipe-elm "ElasticIndexingFilter" >}}
+ {{< pipe-elm "RecordCountFilter" "recordCount (written)">}}
+{{< /pipe >}}
+
+{{< pipe >}}
+ {{< pipe-elm "Source" >}}
+ {{< pipe-elm "DSParser" "Data Splitter" >}}
+{{< /pipe >}}
+
+The markdown for the two examples above is:
+
+```markdown
+{{</* pipe */>}}
+  {{</* pipe-elm "Source" */>}}
+  {{</* pipe-elm "XMLParser" */>}}
+  {{</* pipe-elm "RecordCountFilter" "recordCount (read)" */>}}
+  {{</* pipe-elm "SplitFilter" */>}}
+  {{</* pipe-elm "IdEnrichmentFilter" */>}}
+  {{</* pipe-elm "XSLTFilter" */>}}
+  {{</* pipe-elm "SchemaFilter" */>}}
+  {{</* pipe-elm "ElasticIndexingFilter" */>}}
+  {{</* pipe-elm "RecordCountFilter" "recordCount (written)" */>}}
+{{</* /pipe */>}}
+
+{{</* pipe */>}}
+ {{</* pipe-elm "Source" */>}}
+ {{</* pipe-elm "DSParser" "Data Splitter" */>}}
+{{</* /pipe */>}}
+```
+
+Each element is a clickable link to the appropriate reference page for that element.
+Pipelines cannot be used in-line in text.
+
+For details on how to use `pipe-elm` see [pipeline elements]({{< relref "#pipeline-elements" >}}) above.
+The list of available pipeline elements can be found in this [gallery]({{< relref "icon-gallery#pipeline-elements" >}}).
 
 
 ### Stroom document tabs
