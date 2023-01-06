@@ -195,45 +195,61 @@ The icon filenames and paths are case sensitive so ensure you have the correct c
 Also note the extension of the icon files as most are `.svg` but some are `.png`.
 {{% /warning %}}
 
-E.g:
+**Examples:**
 
-{{< cardpane >}}
-  {{< card header="Rendered" >}}
 Simple use: {{< stroom-icon "save.svg" >}}
-Custom name: {{< stroom-icon "key.svg" "Lock" >}}
-Disabled document icon: {{< stroom-icon "document/Feed.svg" "Feed" "disabled" >}}
-  {{< /card >}}
-  {{< card header="Markdown" >}}
+
+Custom hover tip name: {{< stroom-icon "key.svg" "Not a key" >}}
+
+A document icon: {{< stroom-icon "document/Feed.svg" >}}
+
+A pipeline icon: {{< stroom-icon "pipeline/Text.svg" >}}
+
+Enabled {{< stroom-icon "delete.svg" >}} vs disabled {{< stroom-icon "delete.svg" "Delete" "disabled" >}}
+
+**Markdown:**
+
+The markdown for the examples above is:
+
 ```markdown
 Simple use: {{</* stroom-icon "save.svg" */>}}
-Custom name: {{</* stroom-icon "key.svg" "Lock" */>}}
-Disabled document icon: {{</* stroom-icon "document/Feed.svg" "Feed" "disabled" */>}}
+
+Custom hover tip name: {{</* stroom-icon "key.svg" "Not a key" */>}}
+
+A document icon: {{</* stroom-icon "document/Feed.svg" */>}}
+
+A pipeline icon: {{</* stroom-icon "pipeline/Text.svg" */>}}
+
+Enabled {{</* stroom-icon "delete.svg" */>}} vs disabled {{</* stroom-icon "delete.svg" "Delete" "disabled" */>}}
 ```
-  {{< /card >}}
-{{< /cardpane >}}
 
 
 ### Buttons
 
-To display a UI button you can use the shortcode `stroom-btn` with the button title as its only argument.
+To display a user interface button you can use the shortcode `stroom-btn` with the button title as its only argument.
 
 **Arguments**:
 * `title` - The text to display on the button.
 
-{{< cardpane >}}
-  {{< card header="Rendered" >}}
-{{< stroom-btn "Ok" >}}
-and
-{{< stroom-btn "Cancel" >}}
-  {{< /card >}}
-  {{< card header="Markdown" >}}
+**Examples:**
+
+{{< stroom-btn "Ok" >}} and {{< stroom-btn "Cancel" >}}
+
+And not in line
+
+{{< stroom-btn "Save" >}}<br/>
+
+**Markdown:**
+
+The markdown for the examples above is:
+
 ```markdown
-{{</* stroom-btn "Ok" */>}}
-and
-{{</* stroom-btn "Cancel" */>}}
+{{</* stroom-btn "Ok" */>}} and {{</* stroom-btn "Cancel" */>}}
+
+And not in line
+
+{{</* stroom-btn "Save" */>}}<br/>
 ```
-  {{< /card >}}
-{{< /cardpane >}}
 
 
 ### Pipeline elements
@@ -400,6 +416,7 @@ It cannot be used in-line in text, it needs to be on its own line.
 
 The list of available menu items with an icon can be found in this [gallery]({{< relref "icon-gallery#menu-items" >}}).
 Menu item names are case-sensitive.
+
 If the menu item name is not an exact match to one in the gallery then it will be displayed without an icon, e.g.:
 
 {{< stroom-menu "New" "Banana" >}}
