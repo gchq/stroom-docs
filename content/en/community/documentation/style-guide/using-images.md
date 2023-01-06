@@ -251,7 +251,7 @@ Custom hover tip name: {{< stroom-icon "key.svg" "Not a key" >}}
 
 A document icon: {{< stroom-icon "document/Feed.svg" >}}
 
-A pipeline icon: {{< stroom-icon "pipeline/Text.svg" >}}
+A pipeline icon: {{< stroom-icon "pipeline/text.svg" >}}
 
 Enabled {{< stroom-icon "delete.svg" >}} vs disabled {{< stroom-icon "delete.svg" "Delete" "disabled" >}}
 
@@ -266,7 +266,7 @@ Custom hover tip name: {{</* stroom-icon "key.svg" "Not a key" */>}}
 
 A document icon: {{</* stroom-icon "document/Feed.svg" */>}}
 
-A pipeline icon: {{</* stroom-icon "pipeline/Text.svg" */>}}
+A pipeline icon: {{</* stroom-icon "pipeline/text.svg" */>}}
 
 Enabled {{</* stroom-icon "delete.svg" */>}} vs disabled {{</* stroom-icon "delete.svg" "Delete" "disabled" */>}}
 ```
