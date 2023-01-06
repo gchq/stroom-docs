@@ -11,42 +11,6 @@ tags:
 exclude_search: true
 
 ---
-{{< pipe >}}
-{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
-{{< pipe-elm "Reader" "My Reader" >}}
-{{< pipe-elm "TextWriter" >}}
-{{< /pipe >}}
-
-{{< pipe >}}
-{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
-{{< pipe-elm "Reader" "My Reader" >}}
-{{< pipe-elm "TextWriter" >}}
-{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
-{{< pipe-elm "Reader" "My Reader" >}}
-{{< pipe-elm "TextWriter" >}}
-{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
-{{< pipe-elm "Reader" "My Reader" >}}
-{{< pipe-elm "TextWriter" >}}
-{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
-{{< pipe-elm "Reader" "My Reader" >}}
-{{< pipe-elm "TextWriter" >}}
-{{< /pipe >}}
-
-{{< pipe >}}
- {{< pipe-elm "Source" >}}
- {{< pipe-elm "XMLParser"  >}}
- {{< pipe-elm "RecordCountFilter" "recordCountFilter (read)">}}
- {{< pipe-elm "SplitFilter" >}}
- {{< pipe-elm "IdEnrichmentFilter" >}}
- {{< pipe-elm "XSLTFilter" >}}
- {{< pipe-elm "SchemaFilter" >}}
- {{< pipe-elm "ElasticIndexingFilter" >}}
- {{< pipe-elm "RecordCountFilter" "recordCountFilter (written)">}}
-{{< /pipe >}}
-
-{{< pipe-elm "JSONWriter" "My JSON Writer" >}}
-
-This is it {{< pipe-elm "JSONWriter" "My JSON Writer" >}} in line.
 
 ## Image assets
 
@@ -286,6 +250,8 @@ The list of available pipeline elements can be found in this [gallery]({{< relre
 The icon will be selected to match the element name provided.
 The element is a clickable link to the appropriate reference page for that element.
 
+**Examples:**
+
 This is an xsltFilter with its default name:
 
 {{< pipe-elm "XSLTFilter" >}}<br/>
@@ -294,7 +260,11 @@ This is a splitFilter with a custom name:
 
 {{< pipe-elm "SplitFilter" "My Split Filter" >}}<br/>
 
-The markdown for the two examples above is:
+This is an {{< pipe-elm "IndexingFilter" >}} in line.
+
+**Markdown:**
+
+The markdown for the examples above is:
 
 ```markdown
 This is an xsltFilter with its default name:
@@ -304,6 +274,8 @@ This is an xsltFilter with its default name:
 This is a splitFilter with a custom name:
 
 {{</* pipe-elm "SplitFilter" "My Split Filter" */>}}<br/>
+
+This is an {{</* pipe-elm "IndexingFilter" */>}} in line.
 ```
 
 
@@ -315,7 +287,7 @@ This shortcode takes no arguments.
 Instead, the inner content of the shortcode is populated with multiple `pipe-elm` shortcodes to describe each of the elements in the pipeline.
 This shortcode does not support any branching/forking in the pipeline.
 
-Here are some examples:
+**Examples:**
 
 {{< pipe >}}
  {{< pipe-elm "Source" >}}
@@ -333,6 +305,8 @@ Here are some examples:
  {{< pipe-elm "Source" >}}
  {{< pipe-elm "DSParser" "Data Splitter" >}}
 {{< /pipe >}}
+
+**Markdown:**
 
 The markdown for the two examples above is:
 
@@ -395,6 +369,11 @@ Unsaved: {{</* stroom-tab "XSLT.svg" "My Translation" "active" "unsaved" */>}}
 
 To display the selection of a menu item you can use the `stroom-menu` shortcode.
 
+**Arguments**:
+* `menu_item_names...` - One argument per menu item name in the order root to leaf.
+
+**Examples:**
+
 For example to demonstrate creating a folder using the context menu:
 
 {{< stroom-menu "New" "Folder" >}}
@@ -403,10 +382,16 @@ The shortcode takes one argument per menu item so you can have multiple levels o
 
 {{< stroom-menu "Add" "Folder" "Feed" >}}
 
+**Markdown:**
+
 The markdown for these examples is:
 
 ```markdown
+For example to demonstrate creating a folder using the context menu:
+
 {{</* stroom-menu "New" "Folder" */>}}
+
+The shortcode takes one argument per menu item so you can have multiple levels of menu.
 
 {{</* stroom-menu "Add" "Folder" "Feed" */>}}
 ```
