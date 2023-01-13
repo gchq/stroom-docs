@@ -29,6 +29,7 @@ The arguments to functions can either be other functions, literal values, or the
   * [Count](aggregate#count)
   * [Count Groups](aggregate#count-groups)
   * [Count Unique](aggregate#count-unique)
+  * [Distinct](aggregate#distinct)
   * [Joining](aggregate#joining)
   * [Max](aggregate#max)
   * [Min](aggregate#min)
