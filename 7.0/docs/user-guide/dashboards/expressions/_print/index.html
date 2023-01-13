@@ -105,7 +105,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.c8f3e44a46864f0fc9aad41e59590f59.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.86ba5b9db16fbb6dc52f4618e382fbe5.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -276,6 +276,7 @@ as the arguments for other functions.</p>
 <li><a href="aggregate#count">Count</a></li>
 <li><a href="aggregate#count-groups">Count Groups</a></li>
 <li><a href="aggregate#count-unique">Count Unique</a></li>
+<li><a href="aggregate#distinct">Distinct</a></li>
 <li><a href="aggregate#joining">Joining</a></li>
 <li><a href="aggregate#max">Max</a></li>
 <li><a href="aggregate#min">Min</a></li>
@@ -684,7 +685,9 @@ as the arguments for other functions.</p>
     
   <h1 id="pg-463f96d6924865dbc630fbbc558a8327">1 - Aggregate Functions</h1>
     <div class="lead">Functions that produce aggregates over multiple data points.</div>
-	<h2 id="average">Average</h2>
+	<p>Aggregate functions require that the dashboard columns without aggregate functions have a grouping level applied.
+The aggregate function will then be evaluated against the values in the group.</p>
+<h2 id="average">Average</h2>
 <p>Takes an average value of the arguments</p>
 <pre><code class="language-clike">average(arg)
 mean(arg)
@@ -693,8 +696,8 @@ mean(arg)
 <pre><code class="language-clike">average(${val})
 ${val} = [10, 20, 30, 40]
 &gt; 25
-
-mean(${val})
+</code></pre>
+<pre><code class="language-clike">mean(${val})
 ${val} = [10, 20, 30, 40]
 &gt; 25
 </code></pre>
@@ -702,7 +705,7 @@ ${val} = [10, 20, 30, 40]
 <p>Counts the number of records that are passed through it. Doesn&rsquo;t take any notice of the values of any fields.</p>
 <pre><code class="language-clike">count()
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">Supplying 3 values...
 
 count()
@@ -724,40 +727,83 @@ For Example, a data set grouped as follows</p>
 <li>Group by Type</li>
 </ol>
 <p><code>countUnique()</code> could be used to count the number of distinct values of &rsquo;type&rsquo; for each value of &rsquo;name'</p>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">countUnique(${val})
 ${val} = ['bill', 'bob', 'fred', 'bill']
 &gt; 3
 </code></pre>
+<h2 id="distinct">Distinct</h2>
+<p>Concatenates all distinct (unique) values together into a single string.
+Works in the same way as <a href="#joining"><code>joining()</code></a> except that it discards duplicate values.
+Values are concatenated in the order that they are given to the function.
+If a delimiter is supplied then the delimiter is placed between each concatenated string.
+If a limit is supplied then it will only concatenate up to limit values.</p>
+<pre><code class="language-clike">distinct(values)
+distinct(values, delimiter)
+distinct(values, delimiter, limit)
+</code></pre>
+<p>Examples</p>
+<pre><code class="language-clike">distinct(${val}, ', ')
+${val} = ['bill', 'bill', 'bob', 'fred', 'bill']
+&gt; 'bill, bob, fred'
+</code></pre>
+<pre><code class="language-clike">distinct(${val}, '|', 2)
+${val} = ['bill', 'bill', 'bob', 'fred', 'bill']
+&gt; 'bill|bob'
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/expressions/selection/">Selection Functions</a> that work in a similar way to <code>distinct()</code>.</p>
+
+
+</div>
+
+
 <h2 id="joining">Joining</h2>
 <p>Concatenates all values together into a single string.
-If a delimter is supplied then the delimiter is placed bewteen each concatenated string.
+Works in the same way as <a href="#joining"><code>distinct()</code></a> except that duplicate values are included.
+Values are concatenated in the order that they are given to the function.
+If a delimiter is supplied then the delimiter is placed between each concatenated string.
 If a limit is supplied then it will only concatenate up to limit values.</p>
 <pre><code class="language-clike">joining(values)
 joining(values, delimiter)
 joining(values, delimiter, limit)
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">joining(${val}, ', ')
 ${val} = ['bill', 'bob', 'fred', 'bill']
 &gt; 'bill, bob, fred, bill'
 </code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/expressions/selection/">Selection Functions</a> that work in a similar way to <code>joining()</code>.</p>
+
+
+</div>
+
+
 <h2 id="max">Max</h2>
-<p>Determines the maximum value given in the args</p>
+<p>Determines the maximum value given in the args.</p>
 <pre><code class="language-clike">max(arg)
 </code></pre>
 <p>Examples</p>
 <pre><code class="language-clike">max(${val})
 ${val} = [100, 30, 45, 109]
 &gt; 109
-
-# They can be nested
+</code></pre>
+<pre><code class="language-clike"># They can be nested
 max(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 &gt; 1002
 </code></pre>
 <h2 id="min">Min</h2>
-<p>Determines the minimum value given in the args</p>
+<p>Determines the minimum value given in the args.</p>
 <pre><code class="language-clike">min(arg)
 </code></pre>
 <p>Examples</p>
@@ -765,8 +811,8 @@ ${val} = [20, 1002]
 ${val} = [100, 30, 45, 109]
 &gt; 30
 </code></pre>
-<p>They can be nested</p>
-<pre><code class="language-clike">min(max(${val}), 40, 67, 89)
+<pre><code class="language-clike"># They can be nested
+min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 &gt; 20
 </code></pre>
@@ -1459,7 +1505,19 @@ round(1.2237, 3)
     
   <h1 id="pg-900d9753fc9c5756cc2d2d6024592e98">8 - Selection Functions</h1>
     <div class="lead">Functions for selecting a sub-set of a set of data.</div>
-	<p>Selection functions are a form of aggregate function operating on grouped data.</p>
+	<p>Selection functions are a form of aggregate function operating on grouped data.
+They select a sub-set of the child values.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p>Aggregate functions <a href="../../../../../docs/user-guide/dashboards/expressions/aggregate/#joining"><code>joining()</code></a> and <a href="../../../../../docs/user-guide/dashboards/expressions/aggregate/#distinct"><code>distinct()</code></a> that work in a similar way to these selection functions.</p>
+
+
+</div>
+
+
 <h2 id="any">Any</h2>
 <p>Selects the first value found in the group that is not <code>null()</code> or <code>err()</code>.
 If no explicit ordering is set then the value selected is indeterminate.</p>
@@ -1474,7 +1532,7 @@ ${val} = [10, 20, 30, 40]
 <p>Selects the bottom N values and returns them as a delimited string in the order they are read.</p>
 <pre><code class="language-clike">bottom(${val}, delimiter, limit)
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">bottom(${val}, ', ', 2)
 ${val} = [10, 20, 30, 40]
 &gt; '30, 40'
@@ -1484,7 +1542,7 @@ ${val} = [10, 20, 30, 40]
 If no explicit ordering is set then the value selected is indeterminate.</p>
 <pre><code class="language-clike">first(${val})
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">first(${val})
 ${val} = [10, 20, 30, 40]
 &gt; 10
@@ -1494,7 +1552,7 @@ ${val} = [10, 20, 30, 40]
 If no explicit ordering is set then the value selected is indeterminate.</p>
 <pre><code class="language-clike">last(${val})
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">last(${val})
 ${val} = [10, 20, 30, 40]
 &gt; 40
@@ -1504,7 +1562,7 @@ ${val} = [10, 20, 30, 40]
 If there is no explicit ordering on the field selected then the value returned is indeterminate.</p>
 <pre><code class="language-clike">nth(${val}, position)
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">nth(${val}, 2)
 ${val} = [20, 40, 30, 10]
 &gt; 40
@@ -1513,7 +1571,7 @@ ${val} = [20, 40, 30, 10]
 <p>Selects the top N values and returns them as a delimited string in the order they are read.</p>
 <pre><code class="language-clike">top(${val}, delimiter, limit)
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">top(${val}, ', ', 2)
 ${val} = [10, 20, 30, 40]
 &gt; '10, 20'

@@ -27,14 +27,14 @@
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/dashboards/expressions/aggregate/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-01-06T15:41:35+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:published_time" content="2023-01-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-01-13T14:02:04+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Aggregate Functions">
 <meta itemprop="description" content="Functions that produce aggregates over multiple data points.
-"><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-01-06T15:41:35+00:00" />
-<meta itemprop="wordCount" content="367">
+"><meta itemprop="datePublished" content="2023-01-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-01-13T14:02:04+00:00" />
+<meta itemprop="wordCount" content="544">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Aggregate Functions"/>
 <meta name="twitter:description" content="Functions that produce aggregates over multiple data points.
@@ -112,7 +112,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.b22bde2e5dee6a4aab512c2c96ff32cb.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.0d5caaa6b3fc3c22ab7c28161b05d967.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -137,7 +137,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.b22bde2e5dee6a4aab512c2c96ff32cb.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.0d5caaa6b3fc3c22ab7c28161b05d967.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -611,6 +611,7 @@ if (!doNotTrack) {
     <li><a href="#count">Count</a></li>
     <li><a href="#count-groups">Count Groups</a></li>
     <li><a href="#count-unique">Count Unique</a></li>
+    <li><a href="#distinct">Distinct</a></li>
     <li><a href="#joining">Joining</a></li>
     <li><a href="#max">Max</a></li>
     <li><a href="#min">Min</a></li>
@@ -815,7 +816,9 @@ if (!doNotTrack) {
 
 		
 	</header>    
-	<h2 id="average">Average</h2>
+	<p>Aggregate functions require that the dashboard columns without aggregate functions have a grouping level applied.
+The aggregate function will then be evaluated against the values in the group.</p>
+<h2 id="average">Average</h2>
 <p>Takes an average value of the arguments</p>
 <pre><code class="language-clike">average(arg)
 mean(arg)
@@ -824,8 +827,8 @@ mean(arg)
 <pre><code class="language-clike">average(${val})
 ${val} = [10, 20, 30, 40]
 &gt; 25
-
-mean(${val})
+</code></pre>
+<pre><code class="language-clike">mean(${val})
 ${val} = [10, 20, 30, 40]
 &gt; 25
 </code></pre>
@@ -833,7 +836,7 @@ ${val} = [10, 20, 30, 40]
 <p>Counts the number of records that are passed through it. Doesn&rsquo;t take any notice of the values of any fields.</p>
 <pre><code class="language-clike">count()
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">Supplying 3 values...
 
 count()
@@ -855,40 +858,83 @@ For Example, a data set grouped as follows</p>
 <li>Group by Type</li>
 </ol>
 <p><code>countUnique()</code> could be used to count the number of distinct values of &rsquo;type&rsquo; for each value of &rsquo;name'</p>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">countUnique(${val})
 ${val} = ['bill', 'bob', 'fred', 'bill']
 &gt; 3
 </code></pre>
+<h2 id="distinct">Distinct</h2>
+<p>Concatenates all distinct (unique) values together into a single string.
+Works in the same way as <a href="#joining"><code>joining()</code></a> except that it discards duplicate values.
+Values are concatenated in the order that they are given to the function.
+If a delimiter is supplied then the delimiter is placed between each concatenated string.
+If a limit is supplied then it will only concatenate up to limit values.</p>
+<pre><code class="language-clike">distinct(values)
+distinct(values, delimiter)
+distinct(values, delimiter, limit)
+</code></pre>
+<p>Examples</p>
+<pre><code class="language-clike">distinct(${val}, ', ')
+${val} = ['bill', 'bill', 'bob', 'fred', 'bill']
+&gt; 'bill, bob, fred'
+</code></pre>
+<pre><code class="language-clike">distinct(${val}, '|', 2)
+${val} = ['bill', 'bill', 'bob', 'fred', 'bill']
+&gt; 'bill|bob'
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/expressions/selection/">Selection Functions</a> that work in a similar way to <code>distinct()</code>.</p>
+
+
+</div>
+
+
 <h2 id="joining">Joining</h2>
 <p>Concatenates all values together into a single string.
-If a delimter is supplied then the delimiter is placed bewteen each concatenated string.
+Works in the same way as <a href="#joining"><code>distinct()</code></a> except that duplicate values are included.
+Values are concatenated in the order that they are given to the function.
+If a delimiter is supplied then the delimiter is placed between each concatenated string.
 If a limit is supplied then it will only concatenate up to limit values.</p>
 <pre><code class="language-clike">joining(values)
 joining(values, delimiter)
 joining(values, delimiter, limit)
 </code></pre>
-<p>Examples</p>
+<p>Example</p>
 <pre><code class="language-clike">joining(${val}, ', ')
 ${val} = ['bill', 'bob', 'fred', 'bill']
 &gt; 'bill, bob, fred, bill'
 </code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/expressions/selection/">Selection Functions</a> that work in a similar way to <code>joining()</code>.</p>
+
+
+</div>
+
+
 <h2 id="max">Max</h2>
-<p>Determines the maximum value given in the args</p>
+<p>Determines the maximum value given in the args.</p>
 <pre><code class="language-clike">max(arg)
 </code></pre>
 <p>Examples</p>
 <pre><code class="language-clike">max(${val})
 ${val} = [100, 30, 45, 109]
 &gt; 109
-
-# They can be nested
+</code></pre>
+<pre><code class="language-clike"># They can be nested
 max(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 &gt; 1002
 </code></pre>
 <h2 id="min">Min</h2>
-<p>Determines the minimum value given in the args</p>
+<p>Determines the minimum value given in the args.</p>
 <pre><code class="language-clike">min(arg)
 </code></pre>
 <p>Examples</p>
@@ -896,8 +942,8 @@ ${val} = [20, 1002]
 ${val} = [100, 30, 45, 109]
 &gt; 30
 </code></pre>
-<p>They can be nested</p>
-<pre><code class="language-clike">min(max(${val}), 40, 67, 89)
+<pre><code class="language-clike"># They can be nested
+min(max(${val}), 40, 67, 89)
 ${val} = [20, 1002]
 &gt; 20
 </code></pre>
@@ -932,7 +978,7 @@ ${val} = [600, 470, 170, 430, 300]
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified January 6, 2023: <a href="https://github.com/gchq/stroom-docs/commit/42df79a9b0e5c8e80e1b43615d2a258ab6671e70">Fix typo (42df79a)</a>
+  Last modified January 13, 2023: <a href="https://github.com/gchq/stroom-docs/commit/c826e9fc8c154cb26c4566e1cc7396484b315ffc">Merge branch &#39;7.0&#39; into 7.1 (c826e9f)</a>
 </div>
 
 </div>
