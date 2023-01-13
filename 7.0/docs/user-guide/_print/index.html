@@ -105,7 +105,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.86ba5b9db16fbb6dc52f4618e382fbe5.json"
+    data-offline-search-index-json-src="../../../offline-search-index.2b169c107c45b70574a98653ba3fa5bb.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -10532,8 +10532,35 @@ This frequency should be at least as short as the most frequent rolling frequenc
 <h2 id="processor-task-queue-statistics">Processor Task Queue Statistics</h2>
 <p>How frequently statistics about the state of the stream processing task queue are captured.</p>
 <h2 id="processor-task-retention">Processor Task Retention</h2>
-<p>How frequently failed and completed tasks are checked to see if they are older than the delete age threshold set by <code>stroom.processor.deleteAge</code>.
-Any that are older than this threshold are deleted.</p>
+<p>This job is responsible for cleaning up redundant processors, tasks and filters.
+If it is not run then these will build up on the system consuming space in the database.</p>
+<p>This job relies on the property <code>stroom.processor.deleteAge</code> to govern what is deemed <em>old</em>.
+The <code>deleteAge</code> is used to derive the delete threshold, i.e. the current time minus <code>deleteAge</code>.</p>
+<p>When the job runs it executes the following steps:</p>
+<ol>
+<li>
+<p><strong>Logically Delete Processor Tasks</strong> - Logically delete all processor tasks belonging to processor filters that have been logically deleted.</p>
+</li>
+<li>
+<p><strong>Logically Delete Processor Filters</strong> - Logically delete old processor filters with a state of <code>COMPLETE</code> and no associated tasks.
+Filters are considered old if the last poll time is less than the delete threshold.</p>
+</li>
+<li>
+<p><strong>Physically Delete Processor Tasks</strong> - Physically delete all old processor tasks with a status of <code>COMPLETE</code> or <code>DELETED</code>.
+Tasks are considered old if they have no status time or the status time (the time the status was last changed) is less than the delete threshold.</p>
+</li>
+<li>
+<p><strong>Physically Delete Processor Filters</strong> - Physically delete all old processor filters that have already been logically deleted.
+Filters are considered old if the last update time is less than the delete threshold.
+A filter can be logically deleted either by the step above or explicitly by a user in the user interface.</p>
+</li>
+<li>
+<p><strong>Physically Delete Processors</strong> - Physically delete all old processors that have already been logically deleted.
+Processors are considered old if the last update time is less than the delete threshold.
+A processor can only be logically deleted by the user in the user interface.</p>
+</li>
+</ol>
+<p>Therefore for items not deleted by a user, there will be a delay equal to <code>deleteAge</code> before logical deletion, then another delay equal to <code>deleteAge</code> before final physical deletion.</p>
 <h2 id="property-cache-reload">Property Cache Reload</h2>
 <p>Stroom&rsquo;s configuration properties can each be configured globally in the database.
 This job controls the frequency that each node refreshes the values of its properties cache from the global database values.

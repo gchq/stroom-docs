@@ -100,8 +100,35 @@ This frequency should be at least as short as the most frequent rolling frequenc
 &lt;h2 id=&#34;processor-task-queue-statistics&#34;&gt;Processor Task Queue Statistics&lt;/h2&gt;
 &lt;p&gt;How frequently statistics about the state of the stream processing task queue are captured.&lt;/p&gt;
 &lt;h2 id=&#34;processor-task-retention&#34;&gt;Processor Task Retention&lt;/h2&gt;
-&lt;p&gt;How frequently failed and completed tasks are checked to see if they are older than the delete age threshold set by &lt;code&gt;stroom.processor.deleteAge&lt;/code&gt;.
-Any that are older than this threshold are deleted.&lt;/p&gt;
+&lt;p&gt;This job is responsible for cleaning up redundant processors, tasks and filters.
+If it is not run then these will build up on the system consuming space in the database.&lt;/p&gt;
+&lt;p&gt;This job relies on the property &lt;code&gt;stroom.processor.deleteAge&lt;/code&gt; to govern what is deemed &lt;em&gt;old&lt;/em&gt;.
+The &lt;code&gt;deleteAge&lt;/code&gt; is used to derive the delete threshold, i.e. the current time minus &lt;code&gt;deleteAge&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;When the job runs it executes the following steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Logically Delete Processor Tasks&lt;/strong&gt; - Logically delete all processor tasks belonging to processor filters that have been logically deleted.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Logically Delete Processor Filters&lt;/strong&gt; - Logically delete old processor filters with a state of &lt;code&gt;COMPLETE&lt;/code&gt; and no associated tasks.
+Filters are considered old if the last poll time is less than the delete threshold.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Physically Delete Processor Tasks&lt;/strong&gt; - Physically delete all old processor tasks with a status of &lt;code&gt;COMPLETE&lt;/code&gt; or &lt;code&gt;DELETED&lt;/code&gt;.
+Tasks are considered old if they have no status time or the status time (the time the status was last changed) is less than the delete threshold.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Physically Delete Processor Filters&lt;/strong&gt; - Physically delete all old processor filters that have already been logically deleted.
+Filters are considered old if the last update time is less than the delete threshold.
+A filter can be logically deleted either by the step above or explicitly by a user in the user interface.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Physically Delete Processors&lt;/strong&gt; - Physically delete all old processors that have already been logically deleted.
+Processors are considered old if the last update time is less than the delete threshold.
+A processor can only be logically deleted by the user in the user interface.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Therefore for items not deleted by a user, there will be a delay equal to &lt;code&gt;deleteAge&lt;/code&gt; before logical deletion, then another delay equal to &lt;code&gt;deleteAge&lt;/code&gt; before final physical deletion.&lt;/p&gt;
 &lt;h2 id=&#34;property-cache-reload&#34;&gt;Property Cache Reload&lt;/h2&gt;
 &lt;p&gt;Stroom&amp;rsquo;s configuration properties can each be configured globally in the database.
 This job controls the frequency that each node refreshes the values of its properties cache from the global database values.
