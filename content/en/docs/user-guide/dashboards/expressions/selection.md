@@ -9,6 +9,12 @@ description: >
 ---
 
 Selection functions are a form of aggregate function operating on grouped data.
+They select a sub-set of the child values.
+
+{{% see-also %}}
+Aggregate functions [`joining()`]({{< relref "./aggregate#joining" >}}) and [`distinct()`]({{< relref "./aggregate#distinct" >}}) that work in a similar way to these selection functions.
+{{% /see-also %}}
+
 
 ## Any
 
@@ -36,7 +42,7 @@ Selects the bottom N values and returns them as a delimited string in the order 
 bottom(${val}, delimiter, limit)
 ```
 
-Examples
+Example
 
 ```clike
 bottom(${val}, ', ', 2)
@@ -54,7 +60,7 @@ If no explicit ordering is set then the value selected is indeterminate.
 first(${val})
 ```
 
-Examples
+Example
 
 ```clike
 first(${val})
@@ -72,7 +78,8 @@ If no explicit ordering is set then the value selected is indeterminate.
 last(${val})
 ```
 
-Examples
+Example
+
 ```clike
 last(${val})
 ${val} = [10, 20, 30, 40]
@@ -89,7 +96,7 @@ If there is no explicit ordering on the field selected then the value returned i
 nth(${val}, position)
 ```
 
-Examples
+Example
 
 ```clike
 nth(${val}, 2)
@@ -106,7 +113,7 @@ Selects the top N values and returns them as a delimited string in the order the
 top(${val}, delimiter, limit)
 ```
 
-Examples
+Example
 
 ```clike
 top(${val}, ', ', 2)
