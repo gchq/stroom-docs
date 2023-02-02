@@ -1,10 +1,11 @@
 ---
-title: "Export Content"
-linkTitle: "Export Content"
-weight: 30
+title: "Export Content API"
+linkTitle: "Export Content API"
+weight: 40
 date: 2023-01-17
 tags:
   - api
+  - content
 description: >
   An API method for exporting all Stroom content to a zip file.
 ---

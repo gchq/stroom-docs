@@ -200,6 +200,7 @@ This is not an issue as the OS will evict pages when memory is needed for other 
 The Off-Heap store is intended to be located on local disk on the Stroom node.
 The location of the store is set using the property `stroom.pipeline.referenceData.localDir`.
 Using LMDB on remote storage is NOT advised, see http://www.lmdb.tech/doc.
+Using the fastest storage (i.g. fast SSDs) is advised to reduce load times and lookups of data that is not in memory.
 
 {{% warning %}}
 If you are running stroom on AWS EC2 instances then you will need to attach some local instance storage to the host, e.g. SSD, to use for the reference data store.
@@ -215,14 +216,19 @@ However any loss of the reference data store will mean that the next time Stroom
 LMDB is a transactional database with ACID semantics.
 All interaction with LMDB is done within a read or write transaction.
 There can only be one write transaction at a time so if there are a number of concurrent reference data loads then they will have to wait in line.
-Read transactions, i.e. lookups, are not blocked by each other or by write transactions so once the data is loaded and is in memory lookups can be performed very quickly.
+
+Read transactions, i.e. lookups, are not blocked by each other but may be blocked by a write transaction depending on the value of the system property `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter`.
+LMDB can operate such that readers are not blocked by writers but if there is an open read transaction while a write transaction is writing data to the store then it is unable to make use of free space (from previous deletes, see [Store Size & Compaction]({{< relref "#store-size--compaction" >}})) so will result in the store increasing in size.
+If read transactions are likely while writes are taking place then this can lead to excessive growth of the store.
+Setting  `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter` to `true` will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
+Use of this setting will depend on how likely it is that loads will clash with lookups and the store size should be monitored.
 
 
 #### Read-Ahead Mode
 
 When data is read from the store, if the data is not already in the page cache then it will be read from disk and added to the page cache by the OS.
-Read-ahead is the process of speculatively reading ahead to load more pages into the page cache then were requested.
-This is on the basis that future requests for data may need the pages speculatively read into memory.
+Read-ahead is the process of speculatively reading ahead to load more pages into the page cache than were requested.
+This is on the basis that future requests for data may need the pages speculatively read into memory as it is more efficient to read multiple pages at once.
 If the reference data store is very large or is larger than the available memory then it is recommended to turn read-ahead off as the result will be to evict hot reference data from the page cache to make room for speculative pages that may not be needed.
 It can be tuned off with the system property `stroom.pipeline.referenceData.readAheadEnabled`.
 
@@ -240,8 +246,9 @@ This is a limitation inherent to LMDB.
 The property `stroom.pipeline.referenceData.maxPutsBeforeCommit` controls the number of entries that are put into the store between each commit.
 As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
 There is a trade off though as reducing the number of entries put between each commit can seriously affect performance.
-For the fastest single process performance a value of zero should be used which means it will not commit mid-load.
+For the fastest single process performance a value of `0` should be used which means it will not commit mid-load.
 This however means all other processes wanting to write to the store will need to wait.
+Low values (e.g. in the hundreds) mean very frequent commits so will hamper performance.
 
 
 #### Cloning The Off Heap Store
@@ -375,16 +382,38 @@ It is possible for multiple effective streams to contain the same map/key so a f
 Also if you have some lookups that may not return a value and others that should always return a value then the feed/loader for the latter should be higher up the list so it is searched first.
 
 
+### Effective Streams
+
+Reference data lookups have the concept of _Effective Streams_.
+An effective stream is the most recent stream for a given {{< glossary "Feed" >}} that has an _effective date_ that is less than or equal to the date used for the lookup.
+When performing a lookup, Stroom will search the stream store to find all the effective streams in a time bucket that surrounds the lookup time.
+These sets of effective streams are cached so if a new reference stream is created it will not be used until the cached set has expired.
+To rectify this you can clear the cache `Reference Data - Effective Stream Cache` on the Caches screen accessed from:
+
+{{< stroom-menu "Monitoring" "Caches" >}}
+
+
 ### Standard Key/Value Lookups
 
 Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
 Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#lookup" >}}) XSLT function.
+
+{{% note %}}
+If the key is not found and the key is an integer then it will attempt a range lookup using the same key.
+This is to allow for maps that contain a mixture of key/value pairs and range/value pairs.
+{{% /note %}}
 
 
 ### Range Lookups
 
 Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
 For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#range-lookups" >}}).
+
+{{% note %}}
+The lookup will initially look for a single key that matches the lookup key.
+If an exact match is not found then it will look for a range that contains the key.
+This is to allow for maps that contain a mixture of key/value pairs and range/value pairs.
+{{% /note %}}
 
 
 ### Nested Map Lookups
@@ -414,46 +443,4 @@ Typically the reference loader for a context stream will include a translation s
 
 ## Reference Data API
 
-The reference data store has an API to allow other systems to access the reference data store.
-
-The `lookup` endpoint requires the caller to provide details of the reference feed and loader pipeline so if the effective stream is not in the store it can be loaded prior to performing the lookup.
-
-{{% note %}}
-As reference data stores are local to a node, it is best to send the request to a node that does processing as it is more likely to have already loaded the data.
-If you send it to a UI node it is likely to trigger a load.
-{{% /note %}}
-
-Below is an example of a lookup request file `req.json`.
-
-```json
-{
-  "mapName": "USER_ID_TO_LOCATION",
-  "effectiveTime": "2020-12-02T08:37:02.772Z",
-  "key": "jbloggs",
-  "referenceLoaders": [
-    {
-      "loaderPipeline" : {
-        "name" : "Reference Loader",
-        "uuid" : "da1c7351-086f-493b-866a-b42dbe990700",
-        "type" : "Pipeline"
-      },
-      "referenceFeed" : {
-        "name": "USER_ID_TOLOCATION-REFERENCE",
-        "uuid": "60f9f51d-e5d6-41f5-86b9-ae866b8c9fa3",
-        "type" : "Feed"
-      }
-    }
-  ]
-}
-```
-
-This is an example of how to perform the lookup on the local host.
-
-{{< command-line >}}
-curl \
-  --json @req.json \
-  --request POST \
-  --header "Authorization:Bearer ${TOKEN}" \
-  http://localhost:8080/api/refData/v1/lookup
-(out)staff2
-{{</ command-line >}}
+See [Reference Data API]({{< relref "/docs/user-guide/api/reference-data-api" >}}).

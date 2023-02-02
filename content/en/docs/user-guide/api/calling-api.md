@@ -1,15 +1,45 @@
 ---
-title: "Calling the API"
-linkTitle: "Calling the API"
+title: "Calling an API"
+linkTitle: "Calling an API"
 weight: 20
 date: 2023-01-17
-tags: 
+tags:
+  - api
+  - authentication
 description: >
-  How to call the Stroom API using curl.
+  How to call a method on the Stroom API using curl.
 ---
 
+## Authentication
 
-## Calling the API
+In order to use the API endpoints you will need to authenticate.
+Authentication is achieved using an {{< glossary "API Key" >}}.
+
+You will either need to create an API key for your personal Stroom user account or for a shared processing user account.
+Whichever user account you use it will need to have the necessary permissions for each API endpoint it is to be used with.
+
+
+To create an API key (token) for a user:
+1. In the top menu, select:
+
+{{< stroom-menu "Tools" "API Keys" >}}</br>
+
+1. Click _Create_.
+1. Enter a suitable expiration date.
+   Short expiry periods are more secure in case the key is compromised.
+1. Select the user account that you are creating the key for.
+1. Click {{< stroom-btn "OK" >}}
+1. Select the newly created API Key from the list of keys and double click it to open it.
+1. Click {{< stroom-btn "Copy Key" >}} to copy the key to the clipboard.
+
+To make an authenticated API call you need to provide a header of the form `Authorization:Bearer ${TOKEN}`, where `${TOKEN}` is your API Key as copied from Stroom.
+
+
+## Calling an API method with `curl`
+
+This section describes how to call an API method using the command line tool `curl` as an example client.
+Other clients can be used, e.g. using python, but these examples should provide enough help to get started using another client.
+
 
 ### HTTP Requests Without a Body
 
