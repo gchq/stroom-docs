@@ -4,7 +4,7 @@
     <link>/tags/reference-data/</link>
     <description>Recent content in reference-data on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 11 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/reference-data/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,78 @@
         
       
     
+    
+    <item>
+      <title>Docs: Reference Data</title>
+      <link>/docs/user-guide/api/reference-data-api/</link>
+      <pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/api/reference-data-api/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The reference data store has an API to allow other systems to access the reference data store.&lt;/p&gt;
+&lt;h2 id=&#34;apirefdatav1lookup&#34;&gt;&lt;code&gt;/api/refData/v1/lookup&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;/lookup&lt;/code&gt; endpoint requires the caller to provide details of the reference feed and loader pipeline so if the effective stream is not in the store it can be loaded prior to performing the lookup.
+It is useful for forcing a reference load into the store and for performing ad-hoc lookups.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    As reference data stores are local to a node, it is best to send the request to a node that does processing as it is more likely to have already loaded the data.
+If you send it to a UI node that does not do processing, it is likely to trigger a load as the data will not be there.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Below is an example of a lookup request file &lt;code&gt;req.json&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;mapName&amp;quot;: &amp;quot;USER_ID_TO_LOCATION&amp;quot;,
+  &amp;quot;effectiveTime&amp;quot;: &amp;quot;2020-12-02T08:37:02.772Z&amp;quot;,
+  &amp;quot;key&amp;quot;: &amp;quot;jbloggs&amp;quot;,
+  &amp;quot;referenceLoaders&amp;quot;: [
+    {
+      &amp;quot;loaderPipeline&amp;quot; : {
+        &amp;quot;name&amp;quot; : &amp;quot;Reference Loader&amp;quot;,
+        &amp;quot;uuid&amp;quot; : &amp;quot;da1c7351-086f-493b-866a-b42dbe990700&amp;quot;,
+        &amp;quot;type&amp;quot; : &amp;quot;Pipeline&amp;quot;
+      },
+      &amp;quot;referenceFeed&amp;quot; : {
+        &amp;quot;name&amp;quot;: &amp;quot;USER_ID_TOLOCATION-REFERENCE&amp;quot;,
+        &amp;quot;uuid&amp;quot;: &amp;quot;60f9f51d-e5d6-41f5-86b9-ae866b8c9fa3&amp;quot;,
+        &amp;quot;type&amp;quot; : &amp;quot;Feed&amp;quot;
+      }
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is an example of how to perform the lookup on the local host.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;curl \
+  --json @req.json \
+  --request POST \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  http://localhost:8080/api/refData/v1/lookup
+(out)staff2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
     
     <item>
       <title>Docs: Reference Feeds</title>

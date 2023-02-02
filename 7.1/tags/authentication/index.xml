@@ -4,7 +4,7 @@
     <link>/tags/authentication/</link>
     <description>Recent content in authentication on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Jan 2023 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/authentication/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,270 @@
         
       
     
+    
+    <item>
+      <title>Docs: Calling an API</title>
+      <link>/docs/user-guide/api/calling-api/</link>
+      <pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/api/calling-api/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;authentication&#34;&gt;Authentication&lt;/h2&gt;
+&lt;p&gt;In order to use the API endpoints you will need to authenticate.
+Authentication is achieved using an 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#api-key&#34; title=&#34;Glossary entry for API Key&#34;&gt;
+    &lt;span&gt;API Key&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;You will either need to create an API key for your personal Stroom user account or for a shared processing user account.
+Whichever user account you use it will need to have the necessary permissions for each API endpoint it is to be used with.&lt;/p&gt;
+&lt;p&gt;To create an API key (token) for a user:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;In the top menu, select:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+
+  &lt;div class=&#34;stroom-menu&#34;&gt;
+    
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Tools
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+          &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+            &lt;img 
+              class=&#34;stroom-icon&#34; 
+              src=&#34;../../images/stroom-ui/key.svg&#34; 
+              alt=&#34;key.svg&#34;&gt;
+          &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;API Keys
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+&lt;/br&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;em&gt;Create&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Enter a suitable expiration date.
+Short expiry periods are more secure in case the key is compromised.&lt;/li&gt;
+&lt;li&gt;Select the user account that you are creating the key for.&lt;/li&gt;
+&lt;li&gt;Click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;Select the newly created API Key from the list of keys and double click it to open it.&lt;/li&gt;
+&lt;li&gt;Click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;Copy Key button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;Copy Key&lt;/span&gt;
+&lt;/span&gt;
+ to copy the key to the clipboard.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To make an authenticated API call you need to provide a header of the form &lt;code&gt;Authorization:Bearer ${TOKEN}&lt;/code&gt;, where &lt;code&gt;${TOKEN}&lt;/code&gt; is your API Key as copied from Stroom.&lt;/p&gt;
+&lt;h2 id=&#34;calling-an-api-method-with-curl&#34;&gt;Calling an API method with &lt;code&gt;curl&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;This section describes how to call an API method using the command line tool &lt;code&gt;curl&lt;/code&gt; as an example client.
+Other clients can be used, e.g. using python, but these examples should provide enough help to get started using another client.&lt;/p&gt;
+&lt;h3 id=&#34;http-requests-without-a-body&#34;&gt;HTTP Requests Without a Body&lt;/h3&gt;
+&lt;p&gt;Typically HTTP &lt;code&gt;GET&lt;/code&gt; requests will have no body/payload
+Often &lt;code&gt;PUT&lt;/code&gt; and &lt;code&gt;DELETE&lt;/code&gt; requests will also have no body/payload.&lt;/p&gt;
+&lt;p&gt;The following is an example of how to call an HTTP GET method (i.e. a method that does not require a request body) on the API using &lt;code&gt;curl&lt;/code&gt;.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;somehost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#39;API KEY GOES IN HERE&amp;#39; \
+curl \
+  --silent \
+  --insecure \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  https://stroom-fqdn/api/node/v1/info/node1a
+(out){&amp;#34;discoverTime&amp;#34;:&amp;#34;2022-02-16T17:28:37.710Z&amp;#34;,&amp;#34;buildInfo&amp;#34;:{&amp;#34;buildDate&amp;#34;:&amp;#34;2022-01-19T15:27:25.024677714Z&amp;#34;,&amp;#34;buildVersion&amp;#34;:&amp;#34;7.0-beta.175&amp;#34;,&amp;#34;upDate&amp;#34;:&amp;#34;2022-02-16T09:28:11.733Z&amp;#34;},&amp;#34;nodeName&amp;#34;:&amp;#34;node1a&amp;#34;,&amp;#34;endpointUrl&amp;#34;:&amp;#34;http://192.168.1.64:8080&amp;#34;,&amp;#34;itemList&amp;#34;:[{&amp;#34;nodeName&amp;#34;:&amp;#34;node1a&amp;#34;,&amp;#34;active&amp;#34;:true,&amp;#34;master&amp;#34;:true}],&amp;#34;ping&amp;#34;:2}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    &lt;p&gt;The &lt;code&gt;--insecure&lt;/code&gt; argument is used in this example which means certificate verification will not take place.
+It is recommended not to use this argument and instead supply curl with client and certificate authority certificates to make a secure connection.&lt;/p&gt;
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#39;API KEY GOES IN HERE&amp;#39; \
+curl \
+  --silent \
+  --cert /path/to/client-cert \
+  --key /path/to/client-key \
+  --cacert /path/to/ca-cert \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  https://stroom-fqdn/api/some/path&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;You can either call the API via Nginx (or similar reverse proxy) at &lt;code&gt;https://stroom-fddn/api/some/path&lt;/code&gt; or if you are making the call from one of the stroom hosts you can go direct using &lt;code&gt;http://localhost:8080/api/some/path&lt;/code&gt;. The former is preferred as it is more secure.&lt;/p&gt;
+&lt;h3 id=&#34;requests-with-a-body&#34;&gt;Requests With a Body&lt;/h3&gt;
+&lt;p&gt;A lot of the API methods in Stroom require complex bodies/payloads for the request.
+The following example is an HTTP &lt;code&gt;POST&lt;/code&gt; to perform a reference data lookup on the local host.&lt;/p&gt;
+&lt;p&gt;Create a file &lt;code&gt;req.json&lt;/code&gt; containing:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;mapName&amp;quot;: &amp;quot;USER_ID_TO_STAFF_NO_MAP&amp;quot;,
+  &amp;quot;effectiveTime&amp;quot;: &amp;quot;2024-12-02T08:37:02.772Z&amp;quot;,
+  &amp;quot;key&amp;quot;: &amp;quot;user2&amp;quot;,
+  &amp;quot;referenceLoaders&amp;quot;: [
+    {
+      &amp;quot;loaderPipeline&amp;quot; : {
+        &amp;quot;name&amp;quot; : &amp;quot;Reference Loader&amp;quot;,
+        &amp;quot;uuid&amp;quot; : &amp;quot;da1c7351-086f-493b-866a-b42dbe990700&amp;quot;,
+        &amp;quot;type&amp;quot; : &amp;quot;Pipeline&amp;quot;
+      },
+      &amp;quot;referenceFeed&amp;quot; : {
+        &amp;quot;name&amp;quot;: &amp;quot;STAFF-NO-REFERENCE&amp;quot;,
+        &amp;quot;uuid&amp;quot;: &amp;quot;350003fe-2b6c-4c57-95ed-2e6018c5b3d5&amp;quot;,
+        &amp;quot;type&amp;quot; : &amp;quot;Feed&amp;quot;
+      }
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now send the request with &lt;code&gt;curl&lt;/code&gt;.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#39;API KEY GOES IN HERE&amp;#39; \
+curl \
+  --json @req.json \
+  --request POST \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  http://localhost:8080/api/refData/v1/lookup
+(out)staff2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This API method returns plain text or XML depending on the reference data value.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    &lt;p&gt;This assumes you are using &lt;code&gt;curl&lt;/code&gt; version &lt;code&gt;7.82.0&lt;/code&gt; or later that supports the &lt;code&gt;--json&lt;/code&gt; argument.
+If not you will need to replace &lt;code&gt;--json&lt;/code&gt; with &lt;code&gt;--data&lt;/code&gt; and add these arguments:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;--header &amp;quot;Content-Type: application/json&amp;quot;
+--header &amp;quot;Accept: application/json&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;handling-json&#34;&gt;Handling JSON&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://stedolan.github.io/jq/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;jq (external link)&#34;&gt;
+    &lt;span&gt;jq&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ is a utility for processing JSON and is very useful when using the API methods.&lt;/p&gt;
+&lt;p&gt;For example to get just the build version from the node info endpoint:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#39;API KEY GOES IN HERE&amp;#39; \
+curl \
+    --silent \
+    --insecure \
+    --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+    https://localhost/api/node/v1/info/node1a \
+  | jq -r &amp;#39;.buildInfo.buildVersion&amp;#39;
+(out)7.0-beta.175&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
     
     <item>
       <title>Docs: Authentication</title>

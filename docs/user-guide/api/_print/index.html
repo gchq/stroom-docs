@@ -108,7 +108,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.539cf78cd1460a4890dfa1fcfd775d00.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.1654e7068ff944797f4e029d4bf226a4.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -155,7 +155,39 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-ebfd226579200a398d8590ddcf775ace">Query APIs</a></li>
+<li>1: <a href="#pg-04cba67b7e546ca3a9e37430f4d89611">API Specification</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-6cf4fc9aeb992974c48bbc90aa44e2ed">Calling an API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-ebfd226579200a398d8590ddcf775ace">Query APIs</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-8ed196b75957dc22a07bf211c5127a88">Export Content API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-73fff410e6d154b348127ae441c14736">Reference Data</a></li>
 
 
     
@@ -165,9 +197,45 @@ This is the multi-page printable view of this section.
 
 
 <div class="content">
-      <p><em>Stroom</em> has many public REST APIs to allow other systems to interact with <em>Stroom</em>.
+      <p><em>Stroom</em> has many public REST 
+
+
+
+<span class="glossary-link">
+  <a href="../../../../docs/glossary/#api" title="Glossary entry for APIs">
+    <span>APIs</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ to allow other systems to interact with <em>Stroom</em>.
 Everything that can be done via the user interface can also be done using the API.</p>
-<h2 id="swagger">Swagger</h2>
+<p>All methods on the API will are authenticated and authorised, so the permissions will be exactly the same as if the API user is using the Stroom user interface directly.</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
+    
+  <h1 id="pg-04cba67b7e546ca3a9e37430f4d89611">1 - API Specification</h1>
+    <div class="lead">Details of the API specifcation and how to find what API endpoints are available.</div>
+	<h2 id="swagger-ui">Swagger UI</h2>
 <p>The APIs are available as a <em>Swagger</em> Open API specification in the following forms:</p>
 <ul>
 <li>JSON - 
@@ -203,7 +271,10 @@ Everything that can be done via the user interface can also be done using the AP
 </span>
 </li>
 </ul>
-<p>A dynamic 
+<p>A dynamic Swagger user interface is also available for viewing all the API endpoints with details of parameters and data types.
+This can be found in two places.</p>
+<ul>
+<li>Published on GitHub for each minor version 
 
 
 
@@ -218,8 +289,63 @@ Everything that can be done via the user interface can also be done using the AP
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- is also available for viewing the API endpoints.</p>
-<h2 id="authentication">Authentication</h2>
+.</li>
+<li>Published on a running stroom instance at the path <code>/stroom/noauth/swagger-ui</code>.</li>
+</ul>
+<h2 id="api-endpoints-in-application-logs">API Endpoints in Application Logs</h2>
+<p>The API methods are also all listed in the application logs when Stroom first boots up, e.g.</p>
+<pre><code class="language-text">INFO  2023-01-17T11:09:30.244Z main i.d.j.DropwizardResourceConfig The following paths were found for the configured resources:
+
+    GET     /api/account/v1/ (stroom.security.identity.account.AccountResourceImpl)
+    POST    /api/account/v1/ (stroom.security.identity.account.AccountResourceImpl)
+    POST    /api/account/v1/search (stroom.security.identity.account.AccountResourceImpl)
+    DELETE  /api/account/v1/{id} (stroom.security.identity.account.AccountResourceImpl)
+    GET     /api/account/v1/{id} (stroom.security.identity.account.AccountResourceImpl)
+    PUT     /api/account/v1/{id} (stroom.security.identity.account.AccountResourceImpl)
+    GET     /api/activity/v1 (stroom.activity.impl.ActivityResourceImpl)
+    POST    /api/activity/v1 (stroom.activity.impl.ActivityResourceImpl)
+    POST    /api/activity/v1/acknowledge (stroom.activity.impl.ActivityResourceImpl)
+    GET     /api/activity/v1/current (stroom.activity.impl.ActivityResourceImpl)
+    ...
+</code></pre>
+<p>You will also see entries in the logs for the various servlets exposed by Stroom, e.g.</p>
+<pre><code class="language-text">INFO  ... main s.d.common.Servlets            Adding servlets to application path/port: 
+INFO  ... main s.d.common.Servlets            	stroom.core.servlet.DashboardServlet          =&gt; /stroom/dashboard 
+INFO  ... main s.d.common.Servlets            	stroom.core.servlet.DynamicCSSServlet         =&gt; /stroom/dynamic.css 
+INFO  ... main s.d.common.Servlets            	stroom.data.store.impl.ImportFileServlet      =&gt; /stroom/importfile.rpc 
+INFO  ... main s.d.common.Servlets            	stroom.receive.common.ReceiveDataServlet      =&gt; /stroom/noauth/datafeed 
+INFO  ... main s.d.common.Servlets            	stroom.receive.common.ReceiveDataServlet      =&gt; /stroom/noauth/datafeed/* 
+INFO  ... main s.d.common.Servlets            	stroom.receive.common.DebugServlet            =&gt; /stroom/noauth/debug 
+INFO  ... main s.d.common.Servlets            	stroom.data.store.impl.fs.EchoServlet         =&gt; /stroom/noauth/echo 
+INFO  ... main s.d.common.Servlets            	stroom.receive.common.RemoteFeedServiceRPC    =&gt; /stroom/noauth/remoting/remotefeedservice.rpc 
+INFO  ... main s.d.common.Servlets            	stroom.core.servlet.StatusServlet             =&gt; /stroom/noauth/status 
+INFO  ... main s.d.common.Servlets            	stroom.core.servlet.SwaggerUiServlet          =&gt; /stroom/noauth/swagger-ui 
+INFO  ... main s.d.common.Servlets            	stroom.resource.impl.SessionResourceStoreImpl =&gt; /stroom/resourcestore/* 
+INFO  ... main s.d.common.Servlets            	stroom.dashboard.impl.script.ScriptServlet    =&gt; /stroom/script 
+INFO  ... main s.d.common.Servlets            	stroom.security.impl.SessionListServlet       =&gt; /stroom/sessionList 
+INFO  ... main s.d.common.Servlets            	stroom.core.servlet.StroomServlet             =&gt; /stroom/ui 
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-6cf4fc9aeb992974c48bbc90aa44e2ed">2 - Calling an API</h1>
+    <div class="lead">How to call a method on the Stroom API using curl.</div>
+	<h2 id="authentication">Authentication</h2>
 <p>In order to use the API endpoints you will need to authenticate.
 Authentication is achieved using an 
 
@@ -234,10 +360,11 @@ Authentication is achieved using an
 .</p>
 <p>You will either need to create an API key for your personal Stroom user account or for a shared processing user account.
 Whichever user account you use it will need to have the necessary permissions for each API endpoint it is to be used with.</p>
-<p>To create an API key for a user:</p>
+<p>To create an API key (token) for a user:</p>
 <ol>
-<li>From the top menu, select:<br>
-
+<li>In the top menu, select:</li>
+</ol>
+<p>
 
 
 
@@ -281,16 +408,113 @@ Whichever user account you use it will need to have the necessary permissions fo
   </div>
 
 
-</li>
+</br></p>
+<ol>
 <li>Click <em>Create</em>.</li>
 <li>Enter a suitable expiration date.
 Short expiry periods are more secure in case the key is compromised.</li>
 <li>Select the user account that you are creating the key for.</li>
-<li>Click <em>OK</em>.</li>
+<li>Click 
+
+
+
+<span class="stroom-button" title="OK button" >
+  <span class="stroom-button-text">OK</span>
+</span>
+</li>
 <li>Select the newly created API Key from the list of keys and double click it to open it.</li>
-<li>Click <em>Copy key</em> to copy the key to the clipboard.</li>
+<li>Click 
+
+
+
+<span class="stroom-button" title="Copy Key button" >
+  <span class="stroom-button-text">Copy Key</span>
+</span>
+ to copy the key to the clipboard.</li>
 </ol>
-<p>To make an authenticated API call using <code>curl</code> do the following:</p>
+<p>To make an authenticated API call you need to provide a header of the form <code>Authorization:Bearer ${TOKEN}</code>, where <code>${TOKEN}</code> is your API Key as copied from Stroom.</p>
+<h2 id="calling-an-api-method-with-curl">Calling an API method with <code>curl</code></h2>
+<p>This section describes how to call an API method using the command line tool <code>curl</code> as an example client.
+Other clients can be used, e.g. using python, but these examples should provide enough help to get started using another client.</p>
+<h3 id="http-requests-without-a-body">HTTP Requests Without a Body</h3>
+<p>Typically HTTP <code>GET</code> requests will have no body/payload
+Often <code>PUT</code> and <code>DELETE</code> requests will also have no body/payload.</p>
+<p>The following is an example of how to call an HTTP GET method (i.e. a method that does not require a request body) on the API using <code>curl</code>.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="somehost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#39;API KEY GOES IN HERE&#39; \
+curl \
+  --silent \
+  --insecure \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  https://stroom-fqdn/api/node/v1/info/node1a
+(out){&#34;discoverTime&#34;:&#34;2022-02-16T17:28:37.710Z&#34;,&#34;buildInfo&#34;:{&#34;buildDate&#34;:&#34;2022-01-19T15:27:25.024677714Z&#34;,&#34;buildVersion&#34;:&#34;7.0-beta.175&#34;,&#34;upDate&#34;:&#34;2022-02-16T09:28:11.733Z&#34;},&#34;nodeName&#34;:&#34;node1a&#34;,&#34;endpointUrl&#34;:&#34;http://192.168.1.64:8080&#34;,&#34;itemList&#34;:[{&#34;nodeName&#34;:&#34;node1a&#34;,&#34;active&#34;:true,&#34;master&#34;:true}],&#34;ping&#34;:2}</code></pre>
+</div>
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>The <code>--insecure</code> argument is used in this example which means certificate verification will not take place.
+It is recommended not to use this argument and instead supply curl with client and certificate authority certificates to make a secure connection.</p>
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#39;API KEY GOES IN HERE&#39; \
+curl \
+  --silent \
+  --cert /path/to/client-cert \
+  --key /path/to/client-key \
+  --cacert /path/to/ca-cert \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  https://stroom-fqdn/api/some/path</code></pre>
+</div>
+
+
+</div>
+
+
+<p>You can either call the API via Nginx (or similar reverse proxy) at <code>https://stroom-fddn/api/some/path</code> or if you are making the call from one of the stroom hosts you can go direct using <code>http://localhost:8080/api/some/path</code>. The former is preferred as it is more secure.</p>
+<h3 id="requests-with-a-body">Requests With a Body</h3>
+<p>A lot of the API methods in Stroom require complex bodies/payloads for the request.
+The following example is an HTTP <code>POST</code> to perform a reference data lookup on the local host.</p>
+<p>Create a file <code>req.json</code> containing:</p>
+<pre><code class="language-json">{
+  &quot;mapName&quot;: &quot;USER_ID_TO_STAFF_NO_MAP&quot;,
+  &quot;effectiveTime&quot;: &quot;2024-12-02T08:37:02.772Z&quot;,
+  &quot;key&quot;: &quot;user2&quot;,
+  &quot;referenceLoaders&quot;: [
+    {
+      &quot;loaderPipeline&quot; : {
+        &quot;name&quot; : &quot;Reference Loader&quot;,
+        &quot;uuid&quot; : &quot;da1c7351-086f-493b-866a-b42dbe990700&quot;,
+        &quot;type&quot; : &quot;Pipeline&quot;
+      },
+      &quot;referenceFeed&quot; : {
+        &quot;name&quot;: &quot;STAFF-NO-REFERENCE&quot;,
+        &quot;uuid&quot;: &quot;350003fe-2b6c-4c57-95ed-2e6018c5b3d5&quot;,
+        &quot;type&quot; : &quot;Feed&quot;
+      }
+    }
+  ]
+}
+</code></pre>
+<p>Now send the request with <code>curl</code>.</p>
 
   
 
@@ -305,10 +529,30 @@ Short expiry periods are more secure in case the key is compromised.</li>
     data-user="user" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">TOKEN=&#39;eyJhbG...TRUNCATED...t3-Lw&#39; \
-curl -s -k -H &#34;Authorization:Bearer ${TOKEN}&#34; https://localhost/api/node/v1/info/node1a
-(out){&#34;discoverTime&#34;:&#34;2022-02-16T17:28:37.710Z&#34;,&#34;buildInfo&#34;:{&#34;buildDate&#34;:&#34;2022-01-19T15:27:25.024677714Z&#34;,&#34;buildVersion&#34;:&#34;7.0-beta.175&#34;,&#34;upDate&#34;:&#34;2022-02-16T09:28:11.733Z&#34;},&#34;nodeName&#34;:&#34;node1a&#34;,&#34;endpointUrl&#34;:&#34;http://192.168.1.64:8080&#34;,&#34;itemList&#34;:[{&#34;nodeName&#34;:&#34;node1a&#34;,&#34;active&#34;:true,&#34;master&#34;:true}],&#34;ping&#34;:2}</code></pre>
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#39;API KEY GOES IN HERE&#39; \
+curl \
+  --json @req.json \
+  --request POST \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  http://localhost:8080/api/refData/v1/lookup
+(out)staff2</code></pre>
 </div>
+
+<p>This API method returns plain text or XML depending on the reference data value.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <p>This assumes you are using <code>curl</code> version <code>7.82.0</code> or later that supports the <code>--json</code> argument.
+If not you will need to replace <code>--json</code> with <code>--data</code> and add these arguments:</p>
+<pre><code class="language-text">--header &quot;Content-Type: application/json&quot;
+--header &quot;Accept: application/json&quot;
+</code></pre>
+
+
+</div>
+
 
 <h2 id="handling-json">Handling JSON</h2>
 <p>
@@ -342,25 +586,24 @@ curl -s -k -H &#34;Authorization:Bearer ${TOKEN}&#34; https://localhost/api/node
     data-user="user" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">TOKEN=&#39;eyJhbG...TRUNCATED...t3-Lw&#39; \
-curl -s -k -H &#34;Authorization:Bearer ${TOKEN}&#34; https://localhost/api/node/v1/info/node1a \
-| jq -r &#39;.buildInfo.buildVersion&#39;
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#39;API KEY GOES IN HERE&#39; \
+curl \
+    --silent \
+    --insecure \
+    --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+    https://localhost/api/node/v1/info/node1a \
+  | jq -r &#39;.buildInfo.buildVersion&#39;
 (out)7.0-beta.175</code></pre>
 </div>
 
 
 </div>
-</div>
 
 
-  
-  
-  
-  
 
-  
-  
 
+    
+	
   
     
     
@@ -369,9 +612,9 @@ curl -s -k -H &#34;Authorization:Bearer ${TOKEN}&#34; https://localhost/api/node
 
 
 
-<div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
     
-  <h1 id="pg-ebfd226579200a398d8590ddcf775ace">1 - Query APIs</h1>
+  <h1 id="pg-ebfd226579200a398d8590ddcf775ace">3 - Query APIs</h1>
     <div class="lead">The APIs to allow other systems to query the data held in Stroom.</div>
 	<p>The Query APIs use common request/response models and end points for querying each type of data source held in <em>Stroom</em>.
 The request/response models are defined in 
@@ -547,6 +790,234 @@ The, clicking the download icon on the query pane of the dashboard will generate
 <p>Stroom will only hold search results from completed queries for a certain lenght of time.
 It will also terminate running queries that are too old.
 In order to prevent queries being aged off you can hit this endpoint to indicate to Stroom that you still have an interest in a particular query by supplying the query key.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-8ed196b75957dc22a07bf211c5127a88">4 - Export Content API</h1>
+    <div class="lead">An API method for exporting all Stroom content to a zip file.</div>
+	<p>Stroom has 
+
+
+
+<span class="glossary-link">
+  <a href="../../../../docs/glossary/#api" title="Glossary entry for API">
+    <span>API</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ methods for exporting 
+
+
+
+<span class="glossary-link">
+  <a href="../../../../docs/glossary/#content" title="Glossary entry for content">
+    <span>content</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ in Stroom to a single zip file.</p>
+<h2 id="export-all---apiexportv1">Export All - <code>/api/export/v1</code></h2>
+<p>This method will export all content in Stroom to a single zip file.
+This is useful as an alternative backup of the content or where you need to export the content for import into another Stroom instance.</p>
+<p>In order to perform a full export, the user (identified by their API Key) performing the export will need to ensure the following:</p>
+<ul>
+<li>Have created an <a href="../../../../docs/user-guide/api/#authentication">API Key</a></li>
+<li>The system property <code>stroom.export.enabled</code> is set to <code>true</code>.</li>
+<li>The user has the application permission <code>Export Configuration</code> or <code>Administrator</code>.</li>
+</ul>
+<p>Only those items that the user has <code>Read</code> permission on will be exported, so to export all items, the user performing the export will need <code>Read</code> permission on all items or have the <code>Administrator</code> application permission.</p>
+<h3 id="performing-an-export">Performing an Export</h3>
+<p>To export all readable content to a file called <code>export.zip</code> do something like the following:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#34;API KEY GOES IN HERE&#34;
+curl \
+  --silent \
+  --request GET \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  --output export.zip \
+  https://stroom-fqdn/api/export/v1/</code></pre>
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If you encounter problems then replace <code>--silent</code> with <code>--verbose</code> to get more information.
+
+</div>
+
+
+<h2 id="export-zip-format">Export Zip Format</h2>
+<p>The export zip will contain a number of files for each 
+
+
+
+<span class="glossary-link">
+  <a href="../../../../docs/glossary/#document" title="Glossary entry for document">
+    <span>document</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+ exported.
+The number and type of these files will depend on the type of document, however every document will have the following two file types:</p>
+<ul>
+<li><code>.node</code> - This file represents the document&rsquo;s location in the explorer tree along with its name and UUID.</li>
+<li><code>.meta</code> - This is the metadata for the document independent of the explorer tree.
+It contains the name, type and UUID of the document along with the unique identifier for the version of the document.</li>
+</ul>
+<p>Documents may also have files like these (a non-exhaustive list):</p>
+<ul>
+<li><code>.json</code> - JSON data holding the content of the document, as used for Dashboards.</li>
+<li><code>.txt</code> - Plain text data holding the content of the document, as used for Dictionaries.</li>
+<li><code>.xml</code> - XML data holding the content of the document, as used for Pipelines.</li>
+<li><code>.xsd</code> - XML Schema content.</li>
+<li><code>.xsl</code> - XSLT content.</li>
+</ul>
+<p>The following is an example of the content of an export zip file:</p>
+<pre><code class="language-text">TEST_FEED_CERT.Feed.fcee4270-a479-4cc0-a79c-0e8f18a4bad8.meta
+TEST_FEED_CERT.Feed.fcee4270-a479-4cc0-a79c-0e8f18a4bad8.node
+TEST_FEED_PROXY.Feed.f06d4416-8b0e-4774-94a9-729adc5633aa.meta
+TEST_FEED_PROXY.Feed.f06d4416-8b0e-4774-94a9-729adc5633aa.node
+TEST_REFERENCE_DATA_EVENTS_XXX.XSLT.4f74999e-9d69-47c7-97f7-5e88cc7459f7.meta
+TEST_REFERENCE_DATA_EVENTS_XXX.XSLT.4f74999e-9d69-47c7-97f7-5e88cc7459f7.xsl
+TEST_REFERENCE_DATA_EVENTS_XXX.XSLT.4f74999e-9d69-47c7-97f7-5e88cc7459f7.node
+Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.xml
+Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.meta
+Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node
+</code></pre>
+<h3 id="filenames">Filenames</h3>
+<p>When documents are added to the zip, they are added with a directory structure that mirrors the explorer tree.</p>
+<p>The filenames are of the form:</p>
+<pre><code class="language-text">&lt;name&gt;.&lt;type&gt;.&lt;UUID&gt;.&lt;extension&gt;
+</code></pre>
+<p>As Stroom allows characters in document and folder names that would not be supported in operating system paths (or cause confusion), some characters in the name/directory parts are replaced by <code>_</code> to avoid this. e.g. <code>Dashboard 01/02/2020</code> would become <code>Dashboard_01_02_2020</code>.</p>
+<p>If you need to see the contents of the zip as if viewing it within Stroom you can run this bash script in the root of the extracted zip.</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+
+shopt -s globstar
+for node_file in **/*.node; do
+  name=
+  name=&quot;$(grep -o -P &quot;(?&lt;=name=).*&quot; &quot;${node_file}&quot; )&quot;
+  path=
+  path=&quot;$(grep -o -P &quot;(?&lt;=path=).*&quot; &quot;${node_file}&quot; )&quot;
+
+  echo &quot;./${path}/${name}   (./${node_file})&quot;
+done
+</code></pre>
+<p>This will output something like:</p>
+<pre><code class="language-text">./Standard Pipelines/Json/Events to JSON   (./Standard_Pipelines/Json/Events_to_JSON.XSLT.1c3d42c2-f512-423f-aa6a-050c5cad7c0f.node)
+./Standard Pipelines/Json/JSON Extraction   (./Standard_Pipelines/Json/JSON_Extraction.Pipeline.13143179-b494-4146-ac4b-9a6010cada89.node)
+./Standard Pipelines/Json/JSON Search Extraction   (./Standard_Pipelines/Json/JSON_Search_Extraction.XSLT.a8c1aa77-fb90-461a-a121-d4d87d2ff072.node)
+./Standard Pipelines/Reference Loader   (./Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node)
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-73fff410e6d154b348127ae441c14736">5 - Reference Data</h1>
+    <div class="lead">How to perform reference data loads and lookups using the API.</div>
+	<p>The reference data store has an API to allow other systems to access the reference data store.</p>
+<h2 id="apirefdatav1lookup"><code>/api/refData/v1/lookup</code></h2>
+<p>The <code>/lookup</code> endpoint requires the caller to provide details of the reference feed and loader pipeline so if the effective stream is not in the store it can be loaded prior to performing the lookup.
+It is useful for forcing a reference load into the store and for performing ad-hoc lookups.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    As reference data stores are local to a node, it is best to send the request to a node that does processing as it is more likely to have already loaded the data.
+If you send it to a UI node that does not do processing, it is likely to trigger a load as the data will not be there.
+
+</div>
+
+
+<p>Below is an example of a lookup request file <code>req.json</code>.</p>
+<pre><code class="language-json">{
+  &quot;mapName&quot;: &quot;USER_ID_TO_LOCATION&quot;,
+  &quot;effectiveTime&quot;: &quot;2020-12-02T08:37:02.772Z&quot;,
+  &quot;key&quot;: &quot;jbloggs&quot;,
+  &quot;referenceLoaders&quot;: [
+    {
+      &quot;loaderPipeline&quot; : {
+        &quot;name&quot; : &quot;Reference Loader&quot;,
+        &quot;uuid&quot; : &quot;da1c7351-086f-493b-866a-b42dbe990700&quot;,
+        &quot;type&quot; : &quot;Pipeline&quot;
+      },
+      &quot;referenceFeed&quot; : {
+        &quot;name&quot;: &quot;USER_ID_TOLOCATION-REFERENCE&quot;,
+        &quot;uuid&quot;: &quot;60f9f51d-e5d6-41f5-86b9-ae866b8c9fa3&quot;,
+        &quot;type&quot; : &quot;Feed&quot;
+      }
+    }
+  ]
+}
+</code></pre>
+<p>This is an example of how to perform the lookup on the local host.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl \
+  --json @req.json \
+  --request POST \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  http://localhost:8080/api/refData/v1/lookup
+(out)staff2</code></pre>
+</div>
+
 
 </div>
 

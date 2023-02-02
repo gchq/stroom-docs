@@ -4,7 +4,7 @@
     <link>/tags/content/</link>
     <description>Recent content in content on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 12 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Jan 2023 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/content/index.xml" rel="self" type="application/rss+xml" />
     
@@ -31,6 +31,148 @@
 
 &lt;/div&gt;
 
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Export Content API</title>
+      <link>/docs/user-guide/api/export-api/</link>
+      <pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/api/export-api/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom has 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#api&#34; title=&#34;Glossary entry for API&#34;&gt;
+    &lt;span&gt;API&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ methods for exporting 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#content&#34; title=&#34;Glossary entry for content&#34;&gt;
+    &lt;span&gt;content&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ in Stroom to a single zip file.&lt;/p&gt;
+&lt;h2 id=&#34;export-all---apiexportv1&#34;&gt;Export All - &lt;code&gt;/api/export/v1&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;This method will export all content in Stroom to a single zip file.
+This is useful as an alternative backup of the content or where you need to export the content for import into another Stroom instance.&lt;/p&gt;
+&lt;p&gt;In order to perform a full export, the user (identified by their API Key) performing the export will need to ensure the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Have created an &lt;a href=&#34;../../docs/user-guide/api/#authentication&#34;&gt;API Key&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The system property &lt;code&gt;stroom.export.enabled&lt;/code&gt; is set to &lt;code&gt;true&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The user has the application permission &lt;code&gt;Export Configuration&lt;/code&gt; or &lt;code&gt;Administrator&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Only those items that the user has &lt;code&gt;Read&lt;/code&gt; permission on will be exported, so to export all items, the user performing the export will need &lt;code&gt;Read&lt;/code&gt; permission on all items or have the &lt;code&gt;Administrator&lt;/code&gt; application permission.&lt;/p&gt;
+&lt;h3 id=&#34;performing-an-export&#34;&gt;Performing an Export&lt;/h3&gt;
+&lt;p&gt;To export all readable content to a file called &lt;code&gt;export.zip&lt;/code&gt; do something like the following:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;TOKEN=&amp;#34;API KEY GOES IN HERE&amp;#34;
+curl \
+  --silent \
+  --request GET \
+  --header &amp;#34;Authorization:Bearer ${TOKEN}&amp;#34; \
+  --output export.zip \
+  https://stroom-fqdn/api/export/v1/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    If you encounter problems then replace &lt;code&gt;--silent&lt;/code&gt; with &lt;code&gt;--verbose&lt;/code&gt; to get more information.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;export-zip-format&#34;&gt;Export Zip Format&lt;/h2&gt;
+&lt;p&gt;The export zip will contain a number of files for each 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#document&#34; title=&#34;Glossary entry for document&#34;&gt;
+    &lt;span&gt;document&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ exported.
+The number and type of these files will depend on the type of document, however every document will have the following two file types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.node&lt;/code&gt; - This file represents the document&amp;rsquo;s location in the explorer tree along with its name and UUID.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.meta&lt;/code&gt; - This is the metadata for the document independent of the explorer tree.
+It contains the name, type and UUID of the document along with the unique identifier for the version of the document.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Documents may also have files like these (a non-exhaustive list):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.json&lt;/code&gt; - JSON data holding the content of the document, as used for Dashboards.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.txt&lt;/code&gt; - Plain text data holding the content of the document, as used for Dictionaries.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.xml&lt;/code&gt; - XML data holding the content of the document, as used for Pipelines.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.xsd&lt;/code&gt; - XML Schema content.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.xsl&lt;/code&gt; - XSLT content.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The following is an example of the content of an export zip file:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;TEST_FEED_CERT.Feed.fcee4270-a479-4cc0-a79c-0e8f18a4bad8.meta
+TEST_FEED_CERT.Feed.fcee4270-a479-4cc0-a79c-0e8f18a4bad8.node
+TEST_FEED_PROXY.Feed.f06d4416-8b0e-4774-94a9-729adc5633aa.meta
+TEST_FEED_PROXY.Feed.f06d4416-8b0e-4774-94a9-729adc5633aa.node
+TEST_REFERENCE_DATA_EVENTS_XXX.XSLT.4f74999e-9d69-47c7-97f7-5e88cc7459f7.meta
+TEST_REFERENCE_DATA_EVENTS_XXX.XSLT.4f74999e-9d69-47c7-97f7-5e88cc7459f7.xsl
+TEST_REFERENCE_DATA_EVENTS_XXX.XSLT.4f74999e-9d69-47c7-97f7-5e88cc7459f7.node
+Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.xml
+Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.meta
+Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;filenames&#34;&gt;Filenames&lt;/h3&gt;
+&lt;p&gt;When documents are added to the zip, they are added with a directory structure that mirrors the explorer tree.&lt;/p&gt;
+&lt;p&gt;The filenames are of the form:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;&amp;lt;name&amp;gt;.&amp;lt;type&amp;gt;.&amp;lt;UUID&amp;gt;.&amp;lt;extension&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As Stroom allows characters in document and folder names that would not be supported in operating system paths (or cause confusion), some characters in the name/directory parts are replaced by &lt;code&gt;_&lt;/code&gt; to avoid this. e.g. &lt;code&gt;Dashboard 01/02/2020&lt;/code&gt; would become &lt;code&gt;Dashboard_01_02_2020&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If you need to see the contents of the zip as if viewing it within Stroom you can run this bash script in the root of the extracted zip.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/usr/bin/env bash
+
+shopt -s globstar
+for node_file in **/*.node; do
+  name=
+  name=&amp;quot;$(grep -o -P &amp;quot;(?&amp;lt;=name=).*&amp;quot; &amp;quot;${node_file}&amp;quot; )&amp;quot;
+  path=
+  path=&amp;quot;$(grep -o -P &amp;quot;(?&amp;lt;=path=).*&amp;quot; &amp;quot;${node_file}&amp;quot; )&amp;quot;
+
+  echo &amp;quot;./${path}/${name}   (./${node_file})&amp;quot;
+done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will output something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;./Standard Pipelines/Json/Events to JSON   (./Standard_Pipelines/Json/Events_to_JSON.XSLT.1c3d42c2-f512-423f-aa6a-050c5cad7c0f.node)
+./Standard Pipelines/Json/JSON Extraction   (./Standard_Pipelines/Json/JSON_Extraction.Pipeline.13143179-b494-4146-ac4b-9a6010cada89.node)
+./Standard Pipelines/Json/JSON Search Extraction   (./Standard_Pipelines/Json/JSON_Search_Extraction.XSLT.a8c1aa77-fb90-461a-a121-d4d87d2ff072.node)
+./Standard Pipelines/Reference Loader   (./Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node)
+&lt;/code&gt;&lt;/pre&gt;
 
       </description>
     </item>
