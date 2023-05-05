@@ -268,6 +268,11 @@ The parsers and translations can be edited while in the Stepper with the element
 The stepper will not write data to the file system or stream stores.
 
 
+## Transport Layer Security (TLS)
+
+TLS is the evolution of Secure Sockets Layer (SSL) and refers to the encryption of traffic between client and server.
+
+
 ## Tracker
 
 A Tracker is associated with a {{< glossary "Processor Filter" >}} and keeps track of the {{< glossary "Stream" "Streams" >}} that the Processor Filter has already processed.

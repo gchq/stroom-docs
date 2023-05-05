@@ -57,11 +57,12 @@ This file contains both the Drop Wizard configuration settings (settings for por
 The file is in YAML format and the Stroom properties are located under the `appConfig` key.
 For details of the Drop Wizard configuration structure, see {{< external-link "here" "https://www.dropwizard.io/en/latest/manual/configuration.html" >}}.
 
-The file is split into three sections using these keys:
+The file is split into sections using these keys:
 
 * `server` - Configuration of the web server, e.g. ports, paths, request logging.
 * `logging` - Configuration of application logging
-* `appConfig` - The stroom configuration properties
+* `jerseyClients` - Configuration of the various Jersey HTTP clients in use. See [Jersey HTTP Client Configuration]({{< relref "#jersey-http-client-configuration" >}}).
+* `appConfig` - The stroom configuration properties. These properties can be viewed/modified in the user interface.
 
 The following is an example of the YAML configuration file:
 
@@ -71,6 +72,10 @@ server:
   # e.g. ports and paths
 logging:
   # e.g. logging levels/appenders
+
+jerseyClients:
+  DEFAULT:
+    # Configuration of the named client
 
 # Stroom properties configuration section
 appConfig:
@@ -85,7 +90,9 @@ appConfig:
   ...
 ```
 
-In the Stroom user interface properties are named with a dot notation key, e.g. _stroom.contentPackImport.enabled_.
+The `appConfig` section is special as it maps to the Properties seen in the Stroom user interface so values can be managed in the file or via the Properties screen.
+The other sections of the file can only be managed via the YAML file.
+In the Stroom user interface, properties are named with a dot notation key, e.g. _stroom.contentPackImport.enabled_.
 Each part of the dot notation property name represents a key in the YAML file, e.g. for this example, the location in the YAML would be:
 
 ```yaml
@@ -122,6 +129,115 @@ Some properties will be represented differently in the user interface to the YAM
 This is due to how values are stored in the database and how the current user interface works.
 This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see [Data Types](#data-types).
+
+
+#### Jersey HTTP Client Configuration
+
+Stroom and Stroom Proxy use the {{< external-link "Jersey" "https://eclipse-ee4j.github.io/jersey/" >}} client for making HTTP connections with other nodes or other systems (e.g. Open ID Connect identity providers).
+In the YAML file, the `jerseyClients` key controls the configuration of the various clients in use.
+
+To allow complete control of the client configuration, Stroom uses the concept of named client configurations.
+Each named client will be unique to a destination (where a destination is typically a server or a cluster of functionally identical servers).
+Thus the configuration of the connections to each of those destinations can be configured independently.
+
+The client names are as follows:
+
+* `AWS_PUBLIC_KEYS` - Connections to fetch AWS public keys used in Open ID Connect authentication.
+* `CONTENT_SYNC` - Connections to downstream proxy/stroom instances to sync content. (Stroom Proxy only).
+* `DEFAULT` - The default client configuration used if a named configuration is not present.
+* `FEED_STATUS` - Connections to downstream proxy/stroom instances to check feed status. (Stroom Proxy only).
+* `OPEN_ID` - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.
+* `STROOM` - Inter-node communications within the Stroom cluster.
+
+{{% note %}}
+If a named configuration does not exist then the configuration for `DEFAULT` will be used.
+If `DEFAULT` is not defined in the configuration then the DropWizard defaults will be used.
+{{% /note %}}
+
+The following is an example of how the clients are configured in the YAML file:
+
+```yaml
+jerseyClients:
+  DEFAULT:
+    # Default client configuration, e.g.
+    timeout: 500ms
+  STROOM:
+    # Configuration items for stroom inter-node communications
+    timeout: 30s
+  # etc.
+```
+
+The configuration keys (along with their default values and descriptions) for each client can be found here:
+
+{{< external-link "Jersey Client" "https://www.dropwizard.io/en/latest/manual/configuration.html#jerseyclient" >}}  
+{{< external-link "Base HTTP Client" "https://www.dropwizard.io/en/latest/manual/configuration.html#httpclient" >}}  
+{{< external-link "Proxy server settings" "https://www.dropwizard.io/en/latest/manual/configuration.html#proxy" >}}  
+{{< external-link "TLS settings" "https://www.dropwizard.io/en/latest/manual/configuration.html#tls" >}}  
+
+The following is another example including most keys:
+
+```yaml
+jerseyClients:
+  DEFAULT:
+    minThreads: 1
+    maxThreads: 128
+    workQueueSize: 8
+    gzipEnabled: true
+    gzipEnabledForRequests: true
+    chunkedEncodingEnabled: true
+    timeout: 500ms
+    connectionTimeout: 500ms
+    timeToLive: 1h
+    cookiesEnabled: false
+    maxConnections: 1024
+    maxConnectionsPerRoute: 1024
+    keepAlive: 0ms
+    retries: 0
+    userAgent: <application name> (<client name>)
+    proxy:
+      host: 192.168.52.11
+      port: 8080
+      scheme : http
+      auth:
+        username: secret
+        password: stuff
+        authScheme: NTLM
+        realm: realm
+        hostname: host
+        domain: WINDOWSDOMAIN
+        credentialType: NT
+      nonProxyHosts:
+        - localhost
+        - '192.168.52.*'
+        - '*.example.com'
+    tls:
+      protocol: TLSv1.2
+      provider: SunJSSE
+      verifyHostname: true
+      keyStorePath: /path/to/file
+      keyStorePassword: changeit
+      keyStoreType: JKS
+      trustStorePath: /path/to/file
+      trustStorePassword: changeit
+      trustStoreType: JKS
+      trustSelfSignedCertificates: false
+      supportedProtocols: TLSv1.1,TLSv1.2
+      supportedCipherSuites: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+      certAlias: alias-of-specific-cert
+```
+
+
+{{% note %}}
+Duration values in the Jersey client configuration blocks are different to [Stroom Durations]({{< relref "#stroom-duration-data-type" >}}) defined in Stroom properties.
+They are defined as a numeric value and a unit suffix.
+Typical suffixes are (in ascending order): `ns`, `us`, `ms`, `s`, `m`, `h`, `d`.
+ISO 8601 duration strings are NOT supported, nor are values without a suffix.
+{{< external-link "Full list of duration suffixes and their aliases" "https://github.com/dropwizard/dropwizard/blob/master/dropwizard-util/src/main/java/io/dropwizard/util/Duration.java" >}}
+{{% /note %}}
+
+{{% note %}}
+The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e relative to `stroom.home` if relative and supporting variable substitution.
+{{% /note %}}
 
 
 ## Source Precedence
@@ -326,6 +442,15 @@ The following are the delimiter characters that can be used.
 `|`, `:`, `;`, `,`, `!`, `/`, `\`, `#`, `@`, `~`, `-`, `_`, `=`, `+`, `?`
 
 When Stroom records a property value to the database it may use a delimiter of its own choosing, ensuring that it picks a delimiter that is not used in the property value.
+
+
+### Paths
+
+File and directory paths can either be absolute (e.g. `/some/path/`) or relative (e.g. `some/path`).
+All relative paths will be resolved to an absolute path using the value of `stroom.home` as the base.
+
+Path values also support variable substitution.
+For full details on the possible variable substitution options, see [File Output]({{< relref "pipelines/file-output" >}}).
 
 
 ## Restart Required
