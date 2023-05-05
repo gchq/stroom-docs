@@ -1,0 +1,1562 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – indexing</title>
+    <link>/tags/indexing/</link>
+    <description>Recent content in indexing on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 15 Dec 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/indexing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Indexing data</title>
+      <link>/docs/user-guide/indexing/elasticsearch/indexing/</link>
+      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/indexing/elasticsearch/indexing/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A typical workflow is for a Stroom pipeline to convert XML &lt;code&gt;Event&lt;/code&gt; elements into the XML equivalent of JSON, complying with the schema &lt;code&gt;http://www.w3.org/2005/xpath-functions&lt;/code&gt;, using a format identical to the output of the XML function &lt;code&gt;xml-to-json()&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;understanding-json-xml-representation&#34;&gt;Understanding JSON XML representation&lt;/h2&gt;
+&lt;p&gt;In an Elasticsearch indexing pipeline translation, you model JSON documents in a compatible XML representation.&lt;/p&gt;
+&lt;p&gt;Common JSON primitives and examples of their XML equivalents are outlined below.&lt;/p&gt;
+&lt;h3 id=&#34;arrays&#34;&gt;Arrays&lt;/h3&gt;
+&lt;p&gt;Array of maps&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;array key=&amp;quot;users&amp;quot; xmlns=&amp;quot;http://www.w3.org/2005/xpath-functions&amp;quot;&amp;gt;
+  &amp;lt;map&amp;gt;
+    &amp;lt;string key=&amp;quot;name&amp;quot;&amp;gt;John Smith&amp;lt;/string&amp;gt;
+  &amp;lt;/map&amp;gt;
+&amp;lt;/array&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Array of strings&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;array key=&amp;quot;userNames&amp;quot; xmlns=&amp;quot;http://www.w3.org/2005/xpath-functions&amp;quot;&amp;gt;
+  &amp;lt;string&amp;gt;John Smith&amp;lt;/string&amp;gt;
+  &amp;lt;string&amp;gt;Jane Doe&amp;lt;/string&amp;gt;
+&amp;lt;/array&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;maps-and-properties&#34;&gt;Maps and properties&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;map key=&amp;quot;user&amp;quot; xmlns=&amp;quot;http://www.w3.org/2005/xpath-functions&amp;quot;&amp;gt;
+  &amp;lt;string key=&amp;quot;name&amp;quot;&amp;gt;John Smith&amp;lt;/string&amp;gt;
+  &amp;lt;boolean key=&amp;quot;active&amp;quot;&amp;gt;true&amp;lt;/boolean&amp;gt;
+  &amp;lt;number key=&amp;quot;daysSinceLastLogin&amp;quot;&amp;gt;42&amp;lt;/number&amp;gt;
+  &amp;lt;string key=&amp;quot;loginDate&amp;quot;&amp;gt;2022-12-25T01:59:01.000Z&amp;lt;/string&amp;gt;
+  &amp;lt;null key=&amp;quot;emailAddress&amp;quot; /&amp;gt;
+  &amp;lt;array key=&amp;quot;phoneNumbers&amp;quot;&amp;gt;
+    &amp;lt;string&amp;gt;1234567890&amp;lt;/string&amp;gt;
+  &amp;lt;/array&amp;gt;
+&amp;lt;/map&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    It is recommended to insert a schema validation filter into your pipeline XML (with schema group &lt;code&gt;JSON&lt;/code&gt;), to make it easier to diagnose JSON conversion errors.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;We will now explore how create an Elasticsearch &lt;em&gt;index template&lt;/em&gt;, which specifies field mappings and settings for one or more indices.&lt;/p&gt;
+&lt;h2 id=&#34;create-an-elasticsearch-index-template&#34;&gt;Create an Elasticsearch index template&lt;/h2&gt;
+&lt;p&gt;For information on what index and component templates are, consult the Elastic 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;documentation (external link)&#34;&gt;
+    &lt;span&gt;documentation&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the &lt;code&gt;index_patterns&lt;/code&gt; entries in the index template, Elasticsearch creates a new index using the &lt;code&gt;settings&lt;/code&gt; and &lt;code&gt;mappings&lt;/code&gt; properties from the template.&lt;/p&gt;
+&lt;p&gt;The following example creates a basic index template &lt;code&gt;stroom-events-v1&lt;/code&gt; in a local Elasticsearch cluster, with the following explicit field mappings:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;StreamId&lt;/code&gt; &amp;ndash; mandatory, data type &lt;code&gt;long&lt;/code&gt; or &lt;code&gt;keyword&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EventId&lt;/code&gt; &amp;ndash; mandatory, data type &lt;code&gt;long&lt;/code&gt; or &lt;code&gt;keyword&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@timestamp&lt;/code&gt; &amp;ndash; required if the index is to be part of a 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;data stream (external link)&#34;&gt;
+    &lt;span&gt;data stream&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ (recommended).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;User&lt;/code&gt; &amp;ndash; An object containing properties &lt;code&gt;Id&lt;/code&gt;, &lt;code&gt;Name&lt;/code&gt; and &lt;code&gt;Active&lt;/code&gt;, each with their own data type.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Tags&lt;/code&gt; &amp;ndash; An array of one or more strings.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Message&lt;/code&gt; &amp;ndash; Contains arbitrary content such as unstructured raw log data.
+Supports full-text search.
+Nested field &lt;code&gt;wildcard&lt;/code&gt; 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;supports regexp queries (external link)&#34;&gt;
+    &lt;span&gt;supports regexp queries&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+
+    &lt;p&gt;Elasticsearch does not have a dedicated &lt;code&gt;array&lt;/code&gt; field mapping data type.
+An Elasticsearch field may contain zero or more values by default.
+See:&lt;/p&gt;
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Arrays (external link)&#34;&gt;
+    &lt;span&gt;Arrays&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ in the Elastic documentation.
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;In Kibana Dev Tools, execute the following query:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PUT _index_template/stroom-events-v1&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;index_patterns&amp;quot;: [
+    &amp;quot;stroom-events-v1*&amp;quot; // Apply this template to index names matching this pattern.
+  ],
+  &amp;quot;data_stream&amp;quot;: {}, // For time-series data. Recommended for event data.
+  &amp;quot;template&amp;quot;: {
+    &amp;quot;settings&amp;quot;: {
+      &amp;quot;number_of_replicas&amp;quot;: 1, // Replicas impact indexing throughput. This setting can be changed at any time.
+      &amp;quot;number_of_shards&amp;quot;: 10, // Consider the shard sizing guide: https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html#shard-size-recommendation
+      &amp;quot;refresh_interval&amp;quot;: &amp;quot;10s&amp;quot;, // How often to refresh the index. For high-throughput indices, it&#39;s recommended to increase this from the default of 1s
+      &amp;quot;lifecycle&amp;quot;: {
+        &amp;quot;name&amp;quot;: &amp;quot;stroom_30d_retention_policy&amp;quot; // (Optional) Apply an ILM policy https://www.elastic.co/guide/en/elasticsearch/reference/current/set-up-lifecycle-policy.html
+      }
+    },
+    &amp;quot;mappings&amp;quot;: {
+      &amp;quot;dynamic_templates&amp;quot;: [],
+      &amp;quot;properties&amp;quot;: {
+        &amp;quot;StreamId&amp;quot;: { // Required.
+          &amp;quot;type&amp;quot;: &amp;quot;long&amp;quot;
+        },
+        &amp;quot;EventId&amp;quot;: { // Required.
+          &amp;quot;type&amp;quot;: &amp;quot;long&amp;quot;
+        },
+        &amp;quot;@timestamp&amp;quot;: { // Required if the index is part of a data stream.
+          &amp;quot;type&amp;quot;: &amp;quot;date&amp;quot;
+        },
+        &amp;quot;User&amp;quot;: {
+          &amp;quot;properties&amp;quot;: {
+            &amp;quot;Id&amp;quot;: {
+              &amp;quot;type&amp;quot;: &amp;quot;keyword&amp;quot;
+            },
+            &amp;quot;Name&amp;quot;: {
+              &amp;quot;type&amp;quot;: &amp;quot;keyword&amp;quot;
+            },
+            &amp;quot;Active&amp;quot;: {
+              &amp;quot;type&amp;quot;: &amp;quot;boolean&amp;quot;
+            }
+          }
+        },
+        &amp;quot;Tags&amp;quot;: {
+          &amp;quot;type&amp;quot;: &amp;quot;keyword&amp;quot;
+        },
+        &amp;quot;Message&amp;quot;: {
+          &amp;quot;type&amp;quot;: &amp;quot;text&amp;quot;,
+          &amp;quot;fields&amp;quot;: {
+            &amp;quot;wildcard&amp;quot;: {
+              &amp;quot;type&amp;quot;: &amp;quot;wildcard&amp;quot;
+            }
+          }
+        }
+      }
+    }
+  },
+  &amp;quot;composed_of&amp;quot;: [
+    // Optional array of component template names.
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-an-elasticsearch-indexing-pipeline-template&#34;&gt;Create an Elasticsearch indexing pipeline template&lt;/h2&gt;
+&lt;p&gt;An Elasticsearch indexing pipeline is similar in structure to the built-in packaged &lt;code&gt;Indexing&lt;/code&gt; template pipeline.
+It typically consists of the following pipeline elements:&lt;/p&gt;
+
+&lt;div class=&#34;pipeline-container&#34;&gt;
+  
+    
+      
+      
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#source&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;Source &amp;#34;Source&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;Source&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;Source&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xmlparser&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XMLParser &amp;#34;XMLParser&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xml.svg&#34; 
+                title=&#34;XMLParser&#34; 
+                alt=&#34;xml.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XMLParser&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#recordcountfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;RecordCountFilter &amp;#34;recordCount (read)&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/recordCount.svg&#34; 
+                title=&#34;recordCount (read)&#34; 
+                alt=&#34;recordCount.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;recordCount (read)&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#splitfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SplitFilter &amp;#34;SplitFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/split.svg&#34; 
+                title=&#34;SplitFilter&#34; 
+                alt=&#34;split.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SplitFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#idenrichmentfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;IdEnrichmentFilter &amp;#34;IdEnrichmentFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/id.svg&#34; 
+                title=&#34;IdEnrichmentFilter&#34; 
+                alt=&#34;id.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;IdEnrichmentFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xsltfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XSLTFilter &amp;#34;XSLTFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xslt.svg&#34; 
+                title=&#34;XSLTFilter&#34; 
+                alt=&#34;xslt.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XSLTFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#schemafilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SchemaFilter &amp;#34;SchemaFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xsd.svg&#34; 
+                title=&#34;SchemaFilter&#34; 
+                alt=&#34;xsd.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SchemaFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#elasticindexingfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;ElasticIndexingFilter &amp;#34;ElasticIndexingFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/ElasticIndex.svg&#34; 
+                title=&#34;ElasticIndexingFilter&#34; 
+                alt=&#34;ElasticIndex.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;ElasticIndexingFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+        
+          &lt;div class=&#34;pipeline-separator pipeline-item&#34;&gt;
+          &lt;/div&gt;
+        
+        &lt;div class=&#34;pipeline-item&#34;&gt;
+        
+
+    
+  
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#recordcountfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;RecordCountFilter &amp;#34;recordCount (written)&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/recordCount.svg&#34; 
+                title=&#34;recordCount (written)&#34; 
+                alt=&#34;recordCount.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;recordCount (written)&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      
+        &lt;/div&gt;
+      
+    
+  
+    
+      
+      
+    
+  
+&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xsltfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XSLTFilter &amp;#34;XSLTFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xslt.svg&#34; 
+                title=&#34;XSLTFilter&#34; 
+                alt=&#34;xslt.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XSLTFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ contains the translation mapping &lt;code&gt;Events&lt;/code&gt; to JSON &lt;code&gt;array&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#schemafilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SchemaFilter &amp;#34;SchemaFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xsd.svg&#34; 
+                title=&#34;SchemaFilter&#34; 
+                alt=&#34;xsd.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SchemaFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ uses schema group &lt;code&gt;JSON&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It is recommended to create a template Elasticsearch indexing pipeline, which can then be re-used.&lt;/p&gt;
+&lt;h3 id=&#34;procedure&#34;&gt;Procedure&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Right-click on the 
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/folder.svg&#34; 
+    title=&#34;Folder&#34; 
+    alt=&#34;folder.svg&#34;&gt;
+
+
+&lt;code&gt;Template Pipelines&lt;/code&gt; folder in the Stroom Explorer pane (
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/folder-tree.svg&#34; 
+    title=&#34;Explorer&#34; 
+    alt=&#34;folder-tree.svg&#34;&gt;
+
+
+).&lt;/li&gt;
+&lt;li&gt;Select:&lt;br&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-menu&#34;&gt;
+    
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+          &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+            &lt;img 
+              class=&#34;stroom-icon&#34; 
+              src=&#34;../../images/stroom-ui/add.svg&#34; 
+              alt=&#34;add.svg&#34;&gt;
+          &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;New
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+          &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+            &lt;img 
+              class=&#34;stroom-icon&#34; 
+              src=&#34;../../images/stroom-ui/document/Pipeline.svg&#34; 
+              alt=&#34;document/Pipeline.svg&#34;&gt;
+          &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Pipeline
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;Enter the name &lt;code&gt;Indexing (Elasticsearch)&lt;/code&gt; and click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Define the pipeline structure as above, and customise the following pipeline elements:
+&lt;ol&gt;
+&lt;li&gt;Set the Split Filter &lt;code&gt;splitCount&lt;/code&gt; property to a sensible default value, based on the expected source XML element count (e.g. &lt;code&gt;100&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Set the Schema Filter &lt;code&gt;schemaGroup&lt;/code&gt; property to &lt;code&gt;JSON&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Set the Elastic Indexing Filter &lt;code&gt;cluster&lt;/code&gt; property to point to the &lt;code&gt;Elastic Cluster&lt;/code&gt; document you created &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/getting-started/&#34;&gt;earlier&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Set the Write Record Count filter &lt;code&gt;countRead&lt;/code&gt; property to &lt;code&gt;false&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now you have created a template indexing pipeline, it&amp;rsquo;s time to create a feed-specific pipeline that inherits this template.&lt;/p&gt;
+&lt;h2 id=&#34;create-an-elasticsearch-indexing-pipeline&#34;&gt;Create an Elasticsearch indexing pipeline&lt;/h2&gt;
+&lt;h3 id=&#34;procedure-1&#34;&gt;Procedure&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Right-click on a folder (
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/folder.svg&#34; 
+    title=&#34;Folder&#34; 
+    alt=&#34;folder.svg&#34;&gt;
+
+
+) in the Stroom Explorer pane (
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/folder-tree.svg&#34; 
+    title=&#34;Explorer&#34; 
+    alt=&#34;folder-tree.svg&#34;&gt;
+
+
+).&lt;/li&gt;
+&lt;li&gt;Select:&lt;br&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-menu&#34;&gt;
+    
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+          &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+            &lt;img 
+              class=&#34;stroom-icon&#34; 
+              src=&#34;../../images/stroom-ui/add.svg&#34; 
+              alt=&#34;add.svg&#34;&gt;
+          &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;New
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+          &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+            &lt;img 
+              class=&#34;stroom-icon&#34; 
+              src=&#34;../../images/stroom-ui/document/Pipeline.svg&#34; 
+              alt=&#34;document/Pipeline.svg&#34;&gt;
+          &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Pipeline
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;Enter a name for your pipeline and click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Click the &lt;code&gt;Inherit From&lt;/code&gt; 
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/ellipses-horizontal.svg&#34; 
+    title=&#34;Ellipsis&#34; 
+    alt=&#34;ellipses-horizontal.svg&#34;&gt;
+
+
+ button.&lt;/li&gt;
+&lt;li&gt;In the dialog that appears, select the template pipeline you created named &lt;code&gt;Indexing (Elasticsearch)&lt;/code&gt; and click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Select the Elastic Indexing Filter pipeline element.&lt;/li&gt;
+&lt;li&gt;Set its properties as per one of the examples below.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;example-1-single-index-or-data-stream&#34;&gt;Example 1: Single index or data stream&lt;/h3&gt;
+&lt;p&gt;This is the simplest use case and is suitable where you want to write to a single 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;data stream (external link)&#34;&gt;
+    &lt;span&gt;data stream&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ (for time-series data) or index.
+If your index template contains the property &lt;code&gt;data_stream: {}&lt;/code&gt;, be sure to include a &lt;code&gt;string&lt;/code&gt; field named &lt;code&gt;@timestamp&lt;/code&gt; in the output JSON XML.&lt;/p&gt;
+&lt;p&gt;If targeting a data stream, you may choose to use Elasticsearch 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;ILM (external link)&#34;&gt;
+    &lt;span&gt;ILM&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ to manage its lifecycle.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;indexBaseName: stroom-events-v1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;example-2-dynamic-time-based-data-streams&#34;&gt;Example 2: Dynamic time-based data streams&lt;/h3&gt;
+&lt;p&gt;In this example, Stroom creates data streams as needed, named according to the value of a particular JSON date field and date pattern.
+This is useful when you need to roll over data streams manually, such as maintaining older data on slower storage tiers.&lt;/p&gt;
+&lt;p&gt;For instance, you may have data spanning many years and want to have Stroom create a separate data stream for each year, such as &lt;code&gt;stroom-events-v1-2020&lt;/code&gt;, &lt;code&gt;stroom-events-v1-2021&lt;/code&gt;, &lt;code&gt;stroom-events-v1-2022&lt;/code&gt; and so on.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;indexBaseName: stroom-events-v1
+indexNameDateFieldName: @timestamp
+indexNameDateFormat: -yyyy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;other-options&#34;&gt;Other options&lt;/h3&gt;
+&lt;p&gt;There are other options available for the Elastic Indexing Filter.
+These are documented in the UI.&lt;/p&gt;
+&lt;h2 id=&#34;create-an-indexing-translation&#34;&gt;Create an indexing translation&lt;/h2&gt;
+&lt;p&gt;In this example, let&amp;rsquo;s assume you have event data that looks like the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;Events
+    xmlns=&amp;quot;event-logging:3&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;event-logging:3 file://event-logging-v3.5.2.xsd&amp;quot;
+    Version=&amp;quot;3.5.2&amp;quot;&amp;gt;
+  &amp;lt;Event&amp;gt;
+    &amp;lt;EventTime&amp;gt;
+      &amp;lt;TimeCreated&amp;gt;2022-12-16T02:46:29.218Z&amp;lt;/TimeCreated&amp;gt;
+    &amp;lt;/EventTime&amp;gt;
+    &amp;lt;EventSource&amp;gt;
+      &amp;lt;System&amp;gt;
+        &amp;lt;Name&amp;gt;Nginx&amp;lt;/Name&amp;gt;
+        &amp;lt;Environment&amp;gt;Development&amp;lt;/Environment&amp;gt;
+      &amp;lt;/System&amp;gt;
+      &amp;lt;Generator&amp;gt;Filebeat&amp;lt;/Generator&amp;gt;
+      &amp;lt;Device&amp;gt;
+        &amp;lt;HostName&amp;gt;localhost&amp;lt;/HostName&amp;gt;
+      &amp;lt;/Device&amp;gt;
+      &amp;lt;User&amp;gt;
+        &amp;lt;Id&amp;gt;john.smith1&amp;lt;/Id&amp;gt;
+        &amp;lt;Name&amp;gt;John Smith&amp;lt;/Name&amp;gt;
+        &amp;lt;State&amp;gt;active&amp;lt;/State&amp;gt;
+      &amp;lt;/User&amp;gt;
+    &amp;lt;/EventSource&amp;gt;
+    &amp;lt;EventDetail&amp;gt;
+      &amp;lt;View&amp;gt;
+        &amp;lt;Resource&amp;gt;
+          &amp;lt;URL&amp;gt;http://localhost:8080/index.html&amp;lt;/URL&amp;gt;
+        &amp;lt;/Resource&amp;gt;
+        &amp;lt;Data Name=&amp;quot;Tags&amp;quot; Value=&amp;quot;dev,testing&amp;quot; /&amp;gt;
+        &amp;lt;Data 
+          Name=&amp;quot;Message&amp;quot; 
+          Value=&amp;quot;TLSv1.2 AES128-SHA 1.1.1.1 &amp;amp;quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&amp;amp;quot;&amp;quot; /&amp;gt;
+      &amp;lt;/View&amp;gt;
+    &amp;lt;/EventDetail&amp;gt;
+  &amp;lt;/Event&amp;gt;
+  &amp;lt;Event&amp;gt;
+    ...
+  &amp;lt;/Event&amp;gt;
+&amp;lt;/Events&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We need to write an XSL transform (XSLT) to form a JSON document for each stream processed.
+Each document must consist of an &lt;code&gt;array&lt;/code&gt; element one or more &lt;code&gt;map&lt;/code&gt; elements (each representing an &lt;code&gt;Event&lt;/code&gt;), each with the necessary properties as per our index template.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;../../docs/user-guide/pipelines/xslt/&#34;&gt;XSLT Conversion&lt;/a&gt; for instructions on how to write an XSLT.&lt;/p&gt;
+&lt;p&gt;The output from your XSLT should match the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.1&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;array
+    xmlns=&amp;quot;http://www.w3.org/2005/xpath-functions&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&amp;quot;&amp;gt;
+  &amp;lt;map&amp;gt;
+    &amp;lt;number key=&amp;quot;StreamId&amp;quot;&amp;gt;3045516&amp;lt;/number&amp;gt;
+    &amp;lt;number key=&amp;quot;EventId&amp;quot;&amp;gt;1&amp;lt;/number&amp;gt;
+    &amp;lt;string key=&amp;quot;@timestamp&amp;quot;&amp;gt;2022-12-16T02:46:29.218Z&amp;lt;/string&amp;gt;
+    &amp;lt;map key=&amp;quot;User&amp;quot;&amp;gt;
+      &amp;lt;string key=&amp;quot;Id&amp;quot;&amp;gt;john.smith1&amp;lt;/string&amp;gt;
+      &amp;lt;string key=&amp;quot;Name&amp;quot;&amp;gt;John Smith&amp;lt;/string&amp;gt;
+      &amp;lt;boolean key=&amp;quot;Active&amp;quot;&amp;gt;true&amp;lt;/boolean&amp;gt;
+    &amp;lt;/map&amp;gt;
+    &amp;lt;array key=&amp;quot;Tags&amp;quot;&amp;gt;
+      &amp;lt;string&amp;gt;dev&amp;lt;/string&amp;gt;
+      &amp;lt;string&amp;gt;testing&amp;lt;/string&amp;gt;
+    &amp;lt;/array&amp;gt;
+    &amp;lt;string key=&amp;quot;Message&amp;quot;&amp;gt;TLSv1.2 AES128-SHA 1.1.1.1 &amp;quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&amp;quot;&amp;lt;/string&amp;gt;
+  &amp;lt;/map&amp;gt;
+  &amp;lt;map&amp;gt;
+    ...
+  &amp;lt;/map&amp;gt;
+&amp;lt;/array&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;assign-the-translation-to-the-indexing-pipeline&#34;&gt;Assign the translation to the indexing pipeline&lt;/h2&gt;
+&lt;p&gt;Having created your translation, you need to reference it in your indexing pipeline.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open the pipeline you created.&lt;/li&gt;
+&lt;li&gt;Select the &lt;code&gt;Structure&lt;/code&gt; tab.&lt;/li&gt;
+&lt;li&gt;Select the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xsltfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XSLTFilter &amp;#34;XSLTFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xslt.svg&#34; 
+                title=&#34;XSLTFilter&#34; 
+                alt=&#34;xslt.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XSLTFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ pipeline element.&lt;/li&gt;
+&lt;li&gt;Double-click the &lt;code&gt;xslt&lt;/code&gt; property value cell.&lt;/li&gt;
+&lt;li&gt;Select the XSLT you created and click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Click 
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/save.svg&#34; 
+    title=&#34;Save&#34; 
+    alt=&#34;save.svg&#34;&gt;
+
+
+.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;step-the-pipeline&#34;&gt;Step the pipeline&lt;/h2&gt;
+&lt;p&gt;At this point, you will want to &lt;a href=&#34;../../docs/quick-start-guide/process/&#34;&gt;step the pipeline&lt;/a&gt; to ensure there are no errors and that output looks as expected.&lt;/p&gt;
+&lt;h2 id=&#34;execute-the-pipeline&#34;&gt;Execute the pipeline&lt;/h2&gt;
+&lt;p&gt;Create a pipeline processor and filter to run the pipeline against one or more feeds.
+Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.&lt;/p&gt;
+&lt;p&gt;You can monitor indexing status via your Elasticsearch monitoring tool of choice.&lt;/p&gt;
+&lt;h3 id=&#34;detecting-and-handling-errors&#34;&gt;Detecting and handling errors&lt;/h3&gt;
+&lt;p&gt;If any errors occur while a stream is being indexed, an &lt;code&gt;Error&lt;/code&gt; stream is created, containing details of each failure. &lt;code&gt;Error&lt;/code&gt; streams can be found under the &lt;code&gt;Data&lt;/code&gt; tab of either the indexing pipeline or receiving &lt;code&gt;Feed&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    &lt;p&gt;You can filter the selected pipeline or feed to list only &lt;code&gt;Error&lt;/code&gt; streams.
+Click&lt;/p&gt;
+&lt;p&gt;&lt;img 
+class=&#34;stroom-icon &#34; 
+src=&#34;../../images/stroom-ui/filter.svg&#34; 
+title=&#34;Filter&#34; 
+alt=&#34;filter.svg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;then add a condition &lt;code&gt;Type&lt;/code&gt; &lt;code&gt;=&lt;/code&gt; &lt;code&gt;Error&lt;/code&gt;.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Once you have addressed the underlying cause for a particular type of error (such as an incorrect field mapping), reprocess affected streams:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Select any &lt;code&gt;Error&lt;/code&gt; streams relating for reprocessing, by clicking the relevant checkboxes in the stream list (top pane).&lt;/li&gt;
+&lt;li&gt;Click 
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/process.svg&#34; 
+    title=&#34;Process&#34; 
+    alt=&#34;process.svg&#34;&gt;
+
+
+.&lt;/li&gt;
+&lt;li&gt;In the dialog that appears, check &lt;code&gt;Reprocess data&lt;/code&gt; and click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Click 
+
+
+
+&lt;span class=&#34;stroom-button&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+ for any confirmation prompts that follow.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Stroom will re-send data from the selected &lt;code&gt;Event&lt;/code&gt; streams to Elasticsearch for indexing.
+Any existing documents matching the &lt;code&gt;StreamId&lt;/code&gt; of the original &lt;code&gt;Event&lt;/code&gt; stream are first deleted automatically to avoid duplication.&lt;/p&gt;
+&lt;h2 id=&#34;tips-and-tricks&#34;&gt;Tips and tricks&lt;/h2&gt;
+&lt;h3 id=&#34;use-a-common-schema-for-your-indices&#34;&gt;Use a common schema for your indices&lt;/h3&gt;
+&lt;p&gt;An example is 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/ecs/current/ecs-reference.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Elastic Common Schema (ECS) (external link)&#34;&gt;
+    &lt;span&gt;Elastic Common Schema (ECS)&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.
+This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).&lt;/p&gt;
+&lt;p&gt;With this in mind, it is important that common fields also have the same data type in each index.
+Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single &lt;em&gt;component&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;use-a-version-control-system-such-as-git-to-track-index-and-component-templates&#34;&gt;Use a version control system (such as git) to track index and component templates&lt;/h3&gt;
+&lt;p&gt;This helps keep track of changes over time and can be an important resource for both administrators and users.&lt;/p&gt;
+&lt;h3 id=&#34;rebuilding-an-index&#34;&gt;Rebuilding an index&lt;/h3&gt;
+&lt;p&gt;Sometimes it is necessary to rebuild an index.
+This could be due to a change in field mapping, shard count or responding to a user feature request.&lt;/p&gt;
+&lt;p&gt;To rebuild an index:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Drain the indexing pipeline by deactivating any processor filters and waiting for any running tasks to complete.&lt;/li&gt;
+&lt;li&gt;Delete the index or data stream via the Elasticsearch API or Kibana.&lt;/li&gt;
+&lt;li&gt;Make the required changes to the index template and/or XSL translation.&lt;/li&gt;
+&lt;li&gt;Create a new processor filter either from scratch or using the 
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/copy.svg&#34; 
+    title=&#34;Clone&#34; 
+    alt=&#34;copy.svg&#34;&gt;
+
+
+ button.&lt;/li&gt;
+&lt;li&gt;Activate the new processor filter.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;use-a-versioned-index-naming-convention&#34;&gt;Use a versioned index naming convention&lt;/h3&gt;
+&lt;p&gt;As with the earlier example &lt;code&gt;stroom-events-v1&lt;/code&gt;, a version number is appended to the name of the index or data stream.
+If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
+This can be avoided by incrementing the version and performing the rebuild against a new index: &lt;code&gt;stroom-events-v2&lt;/code&gt;.
+Users could continue querying &lt;code&gt;stroom-events-v1&lt;/code&gt; until it is deleted.
+This approach involves the following steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create a new Elasticsearch index template targeting the new index name (in this case, &lt;code&gt;stroom-events-v2&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.&lt;/li&gt;
+&lt;li&gt;Create and activate a processing filter for the new pipeline.&lt;/li&gt;
+&lt;li&gt;Once indexing is complete, update the Elastic Index document to point to &lt;code&gt;stroom-events-v2&lt;/code&gt;.
+Users will now be searching against the new index.&lt;/li&gt;
+&lt;li&gt;Drain any tasks for the original indexing pipeline and delete it.&lt;/li&gt;
+&lt;li&gt;Delete index &lt;code&gt;stroom-events-v1&lt;/code&gt; using either the Elasticsearch API or Kibana.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you created a data view in Kibana, you&amp;rsquo;ll also want to update this to point to the new index / data stream.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+
+
+    &lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/dashboards/elasticsearch/&#34;&gt;Searching an Elasticsearch index in a Dashboard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/kibana/&#34;&gt;Exploring data with Kibana&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;/div&gt;
+
+
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

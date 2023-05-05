@@ -1,0 +1,1582 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../community/dev-guide/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Developer Guide | Stroom</title>
+<meta name="description" content="This section is intended for developers contributing to the development of the Stroom software (and its related applications). It describes how to do some common tasks, such as releasing and building documentation. It also covers the development of any supporting scripts or utilities for running/administering Stroom, e.g. Ansible playbooks, Helm charts, etc.
+">
+<meta property="og:title" content="Developer Guide" />
+<meta property="og:description" content="This section is intended for developers contributing to the development of the Stroom software (and its related applications). It describes how to do some common tasks, such as releasing and building documentation. It also covers the development of any supporting scripts or utilities for running/administering Stroom, e.g. Ansible playbooks, Helm charts, etc.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/community/dev-guide/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Developer Guide">
+<meta itemprop="description" content="This section is intended for developers contributing to the development of the Stroom software (and its related applications). It describes how to do some common tasks, such as releasing and building documentation. It also covers the development of any supporting scripts or utilities for running/administering Stroom, e.g. Ansible playbooks, Helm charts, etc.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Developer Guide"/>
+<meta name="twitter:description" content="This section is intended for developers contributing to the development of the Stroom software (and its related applications). It describes how to do some common tasks, such as releasing and building documentation. It also covers the development of any supporting scripts or utilities for running/administering Stroom, e.g. Ansible playbooks, Helm charts, etc.
+"/>
+
+
+
+
+<link rel="preload" href="../../../scss/main.min.2e61f3e70d0ef56da625d708444e9dc04314bc725456d7699d808b006bb8778c.css" as="style">
+<link href="../../../scss/main.min.2e61f3e70d0ef56da625d708444e9dc04314bc725456d7699d808b006bb8778c.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../css/prism.css"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-00000000-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../docs/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../news/"><span>News / Releases</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../community/"><span class="active">Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.2)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../">7.2 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../offline-search-index.8e671fef4d8eb9d7178507d577d3549c.json"
+    data-offline-search-base-href="../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../community/dev-guide/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Developer Guide</h1>
+<div class="lead">This section is intended for developers contributing to the development of the Stroom software (and its related applications). It describes how to do some common tasks, such as releasing and building documentation. It also covers the development of any supporting scripts or utilities for running/administering Stroom, e.g. Ansible playbooks, Helm charts, etc.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-9a6ff862aaf64e4ab34c45850c230345">Software Stack</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-79d4366bac87fa33ffb2e3a174e4b00d">Running Stroom in an IDE</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-e3d591a492d4d476636d1f49df61cb42">Components</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-1862834127654fba28e03f73eee5bdff">Contributing</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-1c7db1c6286aa0823401c030c365a9c3">Release Process</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>5.1: <a href="#pg-ab04a4b5e3a8bf14e1879f1cf73e88bc">Releasing Stroom</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-5a9f12742247f34e84592c0994a38c0f">Setting up releases to Sonatype &amp; Maven Central</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-9a6ff862aaf64e4ab34c45850c230345">1 - Software Stack</h1>
+    <div class="lead">The software stack used by the Stroom family of products.</div>
+	<h2 id="stroom-and-stroom-proxy">Stroom and Stroom Proxy</h2>
+<p>Stroom and Stroom Proxy live in the same repository, share some common code and are built by the same Gradle build.</p>
+<h3 id="languages-and-key-frameworks">Languages and key frameworks</h3>
+<ul>
+<li>Java 15 - The language for the core application
+<ul>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.dropwizard.io/en/latest/#" target="_blank" class="" style="" title="Dropwizard (external link)">
+    <span>Dropwizard</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ - A RESTful framework incorporating embedded Jetty.</li>
+<li>Junit 5</li>
+<li>SLF4j and Logback</li>
+<li>Mockito</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.jooq.org" target="_blank" class="" style="" title="Jooq (external link)">
+    <span>Jooq</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ - Generates Java code for type safe SQL.</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://lucene.apache.org" target="_blank" class="" style="" title="Apache Lucene (external link)">
+    <span>Apache Lucene</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ - The search library used by Stroom&rsquo;s indexes and dashboard queries.</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="http://www.lmdb.tech/doc/" target="_blank" class="" style="" title="Lightning Memory Mapped Database (external link)">
+    <span>Lightning Memory Mapped Database</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ - Used for memory mapped persistent reference and search data stores.</li>
+</ul>
+</li>
+<li>React - Some of the new UI screens.
+<ul>
+<li>Typescript</li>
+</ul>
+</li>
+</ul>
+<h3 id="build-and-development-tools">Build and development tools</h3>
+<ul>
+<li>Gradle - Building the java application and orcestrating related sub-builds, e.g. npm.</li>
+<li>Github Actions - The CI build and release.</li>
+<li>Bash - Various utility shell scripts.</li>
+<li>Docker - Building the stroom and stroom-proxy docker images.</li>
+<li>Docker Compose -</li>
+<li>Docker containers - Provide consistent build environments for
+<ul>
+<li>Java</li>
+<li>npm</li>
+<li>Plant UML</li>
+</ul>
+</li>
+<li>npm - For the build of the new React based UI screens.</li>
+</ul>
+<h3 id="services">Services</h3>
+<ul>
+<li>Nginx - Used for SSL termination, load balancing and reverse proxying.</li>
+<li>MySQL - Database for persistence in Stroom.</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-79d4366bac87fa33ffb2e3a174e4b00d">2 - Running Stroom in an IDE</h1>
+    <div class="lead">How to run Stroom in an Integrated Development Environment, e.g. IntelliJ</div>
+	<p>We tend to use IntelliJ as our Java IDE of choice.
+This is a guide for running Stroom in IntelliJ for the purposes of developing/debugging Stroom.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>In order to build/run/debug Stroom you will need the following:</p>
+<ul>
+<li>OpenJDK 15</li>
+<li>Git</li>
+<li>Gradle</li>
+<li>IntelliJ</li>
+<li>Docker CE</li>
+<li>Docker Compose</li>
+</ul>
+<p>These instructions assume that all servcies will either run in the IDE or in Docker containers.</p>
+<p>We develop on Linux so if you are running on a Mac you may experience issues with some of our shell scripts.
+For running the various shell scripts in our repositories you are advised to install</p>
+<ul>
+<li>bash 4+</li>
+<li>jq</li>
+<li>GNU grep</li>
+<li>GNU sed</li>
+</ul>
+<h2 id="stroom-git-repositories">Stroom git repositories</h2>
+<p>To develop Stroom you will need to clone/fork multiple git repositories.
+To quickly clone all of the Stroom repositories you can use the helper script described in 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/blob/master/README.md" target="_blank" class="" style="" title="stroom-resource (external link)">
+    <span>stroom-resource</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<h2 id="database-setup">Database setup</h2>
+<p>Stroom requires a MySQL database to run.
+You can either point stroom at a local MySQL server or use the MySQL Docker container from <em>stroom-resources</em>.</p>
+<h3 id="mysql-in-a-docker-container">MySQL in a Docker container</h3>
+<p>See the section below on <a href="#stroom-resources">stroom-resources</a>.</p>
+<h3 id="host-based-mysql-server">Host based MySQL server</h3>
+<p>With an instance of MySQL server 8.0 running on your local machine do the following to create the <em>stroom</em> database:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># log into your MySQL server using your root credentials
+mysql --user=root --password=myrootpassword</code></pre>
+</div>
+
+<p>Then run the following commands in the MySQL shell:</p>
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-sql" 
+    data-prompt="mysql>" 
+    data-filter-output="(out)"
+    data-continuation-prompt="->"
+    data-filter-continuation="(con)"><code class="language-sql">drop database stroom;
+create database stroom;
+grant all privileges on stroom.* to stroomuser@localhost identified by &#39;stroompassword1&#39;;
+quit;</code></pre>
+</div>
+
+<h2 id="local-configuration-file">Local configuration file</h2>
+<p>When running stroom in an IDE you need to have a local configuration file to allow you to change settings locally without affecting the repository.
+The local configuration file live in the root of the <em>Stroom</em> repository <code>./local.yml</code>.</p>
+<p>To create a default version of this file run this script from within the root of the stroom git repository.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./local.yml.sh</code></pre>
+</div>
+
+<p>This will create <code>./local.yml</code> using <code>stroom-app/dev.yml</code> as a template.
+So that you can run a multi-node cluster it will also create <code>./local2.yml</code> and <code>./local3.yml</code> as well.
+These files are not source controlled so you can make any changes you like to them, e.g. setting log levels or altering stroom property <a href="../../../docs/install-guide/configuration/configuring-stroom/">property values</a>  values.</p>
+<h2 id="stroom-resources">stroom-resources</h2>
+<p>As a minimum to develop stroom you will need clones of the <code>stroom</code> and <code>stroom-resources</code> git repositories.
+<code>stroom-resources</code> provides the docker-compose configuration for running the many docker containers needed.</p>
+<p>Having cloned <code>stroom-resources</code> navigate to the directory <code>stroom-resources/bin</code> and run the script</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./bounceIt.sh -y</code></pre>
+</div>
+
+<p>On first run this will create a default version of the git-ignored file <code>stroom-resources/bin/local.env</code> which is intended for use by developers to configure the docker stacks to run.</p>
+<p>This file is used to set a number of environment variables that docker compose will use to configure the various containers.
+The key variable in there is <code>SERVICE_LIST</code>.
+This is a bash array that sets the services to run.
+By default it is set to run <code>stroom-all-dbs</code> (MySQL + database init scripts) and <code>nginx</code> which are sufficient for running Stroom in an IDE.</p>
+<h2 id="verify-the-gradle-build">Verify the Gradle build</h2>
+<p>Before trying to run Stroom in an IDE it is worth performing a Gradle build to verify the code compiles and all dependencies are present.
+This command will run all parts of the build except for the tests which can take 20+mins to run.
+Some parts of the build are run inside docker containers (to remove the need to install additional dependencies) so on first run there will be an overhead of building the docker image layers.
+These layers will be cached which will speed up future builds.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./gradlew clean build -x test</code></pre>
+</div>
+
+<h2 id="local-or-embedded-mysql">Local or embedded MySQL</h2>
+<p>The Junit integration tests that need a database can either be run against the local MySQL (i.e. <code>stroom-all-dbs</code>) or an embedded MySQL instance.</p>
+<p>Configuring the database used can be done with the JVM argument <code>-DuseEmbeddedMySql=false</code>, which can be set in <em>Run/Debug Configurations</em> =&gt; <em>Edit configuration templates&hellip;</em> =&gt; <em>JUnit</em> =&gt; <em>VM options</em> in Intellij.
+False will use your local MySQL instance, true with use the embedded one.
+The CI build uses the embedded MySQL.</p>
+<p>The pros/cons of using the embedded instance are:</p>
+<div class="td-card-deck card-deck mb-4">
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        Pros
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <ul>
+<li>No dependency on <em>stroom-resources</em> to run the full build.</li>
+</ul>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        Cons
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <ul>
+<li>Requires the MySQL binaries to be downloaded, sometimes multiple times.</li>
+<li>Consumes a lot of disk space if multiple instances are run.</li>
+<li>Harder to debug tests as the database is destroyed at the end of the test.</li>
+</ul>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
+<h2 id="clearing-down-your-environment">Clearing down your environment</h2>
+<p>If you need to work from a clean slate and you are using the container based MySQL you can run the following:</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>This script will delete ALL containers running/stopped whether related to Stroom or not.
+It is essentially a clean slate for your docker environment.
+If you are running other unrelated containers, don&rsquo;t run this.</p>
+<p>It will also delete all stroom state held on the filesystem, i.e. the stream store and lucene index shards.</p>
+
+
+</div>
+
+
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">pwd
+(out)/home/dev/git_work/stroom-resources/bin
+(out)
+./clean.sh \
+&amp;&amp; rm -rf ~/tmp/stroom \
+&amp;&amp; rm -rf /tmp/stroom \
+&amp;&amp; rm -rf ~/.stroom/volumes \
+&amp;&amp; rm -rf ~/.stroom/temp \
+&amp;&amp; rm -rf ~/.stroom/logs \
+&amp;&amp; rm -rf ~/.stroom/v7</code></pre>
+</div>
+
+<h2 id="sample-data">Sample Data</h2>
+<p>When developing Stroom it is helpful to have Stroom run with pre-loaded content and data as by default it will be completely empty.
+<code>SetupSampleData.java</code> is a class that loads pre-defined content and data into the database and file system so that Stroom can begin processing data on boot.
+This sample data/content is very useful for manually testing and exercising the application in development.
+This class assumes that the database being used for Stroom is completely empty.</p>
+<p>To run <em>SetupSampleData</em> use the pre-defined Run Configuration in IntelliJ called <em>SetupSampleData</em>.
+This will load content (e.g. XSLTs, Pipelines, etc.), create Feeds and load data into the Feeds.</p>
+<p>You should now have a database and stream store populated with tables and data, providing you with some predefined feeds, data, translations, pipelines, dashboards, etc.</p>
+<p>When Stroom is next started it will begin to process the data using the pre-defined pipelines.</p>
+<h2 id="running-stroom-from-the-ide">Running Stroom from the IDE</h2>
+<p>The user interface for Stroom is built using GWT (see <a href="http://www.gwtproject.org/">GWT Project</a> for more information or GWT specific documentation).
+As a result Stroom needs to be started up with GWT <em>Super Dev Mode</em>.
+<em>Super Dev Mode</em> handles the on-the-fly compilation of the Java user interface source into JavaScript and the source map that links client JavaScript back to Java source for client side debugging.</p>
+<p>The following steps for running and debugging Stroom in IDEA assume you have a MySQL database running on <code>localhost:3307</code>, with a database <code>stroom</code> and user <code>stroomuser</code> already created.</p>
+<h3 id="java_home">JAVA_HOME</h3>
+<p>Ensure environment variable <code>JAVA_HOME</code> is set and points to a valid JDK 15 directory</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">export JAVA_HOME=~/.jdks/openjdk-15.0.2</code></pre>
+</div>
+
+<p>Alternatively to simplify the process of installing and managing Java JDKs consider using 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://sdkman.io/install" target="_blank" class="" style="" title="SDKMan (external link)">
+    <span>SDKMan</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<h3 id="build-stroom-app">Build <code>stroom-app</code></h3>
+<p>NOTE: During development, it is helpful to skip running unit and integration tests, to speed up the build process:
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./gradlew clean build -x test</code></pre>
+</div>
+</p>
+<h3 id="start-a-single-stroom-node">Start a single Stroom node</h3>
+<ol>
+<li>Select the IDEA run configuration named <code>Stroom GWT SuperDevMode</code></li>
+<li>Click <code>Debug</code>.
+Stroom will start, with log output displayed in the <code>Run</code> pane at the bottom of the window.</li>
+</ol>
+<p>This run configuration essentially sets the JVM argument <code>-DgwtSuperDevMode=true</code> to run the application in Super Dev Mode.</p>
+<p>Watch the log output. Once you see a log INFO message containing the text &ldquo;Started&rdquo;, you will be able to launch the app in a browser from: https://localhost.</p>
+<p>You will see the Stroom blue background, with a username/password prompt.
+Enter the following default credentials:</p>
+<ul>
+<li>Username: <code>admin</code></li>
+<li>Password: <code>admin</code></li>
+</ul>
+<p>You can now interact with Stroom and set breakpoints in Java code.
+Note that setting breakpoints in any of the java code in modules suffixed with <code>-client</code> (i.e. client side GWT Java code) does not have any effect, as these components are compiled to static JavaScript.
+Breakpoints in modules ending <code>-shared</code> will only have an effect <strong>if</strong> you are debugging server side code.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Stroom has been written with Google&rsquo;s Chrome browser in mind so has only been tested on Chrome.
+Behaviour in other browsers may vary.
+We would like to improve cross-browser support so please let us know about any browser incompatibilities that you find.
+
+</div>
+
+
+<h3 id="starting-the-super-dev-mode-compiler">Starting the Super Dev Mode Compiler</h3>
+<p>With the Stroom application running you need to also run a draft GWT compile and run the Super Dev Mode compiler.</p>
+<p>On first use it is recomended to run:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./gradlew gwtClean :stroom-app-gwt:gwtDraftCompile :stroom-app-gwt:gwtSuperDevMode</code></pre>
+</div>
+
+<p>This will ensure a clean state of the GWT compiled javascript.
+It may be necessary to re-run the clean, and draft compile if there have been significant changes to the Java code or if there are problems running Stroom in Super Dev Mode.</p>
+<p>Normally however you can just run:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./gradlew :stroom-app-gwt:gwtSuperDevMode</code></pre>
+</div>
+
+<p>When this gradle task runs it will echo some instructions for how to set up your browser.
+Once the browser is all set up with the dev mode favorites you can visit Stroom at</p>
+<ul>
+<li>http://localhost:8080 (bypassing Nginx)</li>
+<li>https//localhost (via Nginx)</li>
+</ul>
+<p>Running without Nginx is simpler but can hide problems with the Stroom/Nginx configuration/integration.</p>
+<h3 id="authentication">Authentication</h3>
+<p>In development you can either run Stroom with authentication on or off.
+It is a quicker development experience with authentication turned off but this can hide any problems with authentication flow.</p>
+<p>To run Stroom with authentication turned off set the following in <code>local.yml</code>:</p>
+<pre><code class="language-yaml">stroom:
+  security:
+    authentication:
+      authenticationRequired: false
+</code></pre>
+<p>If you want to run with authentication but don&rsquo;t want to be prompted to change the password on first boot you can set:</p>
+<pre><code class="language-yaml">stroom:
+  security:
+    identity:
+      passwordPolicy:
+        forcePasswordChangeOnFirstLogin: false
+</code></pre>
+<p>Alternatively you can run the IntelliJ Run Configuration <em>Stroom Reset Admin Password</em>, which will reset the password to <code>admin</code> and prevent further prompts to change it.</p>
+<h3 id="right-click-behaviour">Right click behaviour</h3>
+<p>Stroom overrides the default right click behaviour in the browser with its own context menu.
+For UI development it is often required to have access to the browser&rsquo;s context menu for example to inspect elements.
+To enable the browser&rsquo;s context menu you need to ensure this is property is set to null in <code>dev.yml</code>:</p>
+<pre><code class="language-yaml">stroom:
+  ui:
+    oncontextmenu: null
+</code></pre>
+<p>To return it to its defualt value, set it to <code>&quot;return false;&quot;</code>.</p>
+<h3 id="hot-loading-gwt-ui-code-changes">Hot loading GWT UI code changes</h3>
+<p>If you make any changes to the Java code in <code>-client</code> or <code>-shared</code> modules then in order for them to be hot loaded into the Javascript code you simply need to refresh the brower.
+This will trigger Super Dev Mode to recompile any changed code.</p>
+<p>If you have make significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the <em>gwtDraftCompile</em> and/or <em>gwtClean</em> gradle tasks followed by <em>gwtSuperDevMode</em>.</p>
+<h3 id="debugging-gwt-ui-code">Debugging GWT UI code</h3>
+<p>To debug the GWT UI code you will need to use Chrome Dev Tools (<code>shift-ctrl-I</code>).
+Setting breakpoints in the UI code in IntelliJ will have no effect.
+SuperDevMode creates source maps that link the running javascript back to Java code that you can set break points in.</p>
+<p>To find the Java source in Chrome Dev Tools open the <em>Sources</em> tab then in the left hand navigator pane (<em>Page</em> tab) select:</p>
+<p><em>Top</em> =&gt; <em>ui</em> =&gt; <em>stroom (ui)</em> =&gt; <em>127.0.0.1:9876</em> =&gt; <em>sourcemaps/stroom</em> =&gt; <em>stroom</em></p>
+<p>This folder then contains all the stroom java packages.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-e3d591a492d4d476636d1f49df61cb42">3 - Components</h1>
+    <div class="lead">Stroom is broken down into separate components. Each component encapsulates a specific area of Stroom functionality and aids development by providing a single area of focus for new features and ensures separate components remain as loosely coupled as possible. Components can be tested in isolation and their interaction with other components easily understood by only allowing dependencies via minimal APIs.</div>
+	<p>Some examples of components in Stroom include</p>
+<ul>
+<li>stroom-activity - Component for recording a users actions against a current activity</li>
+<li>stroom-dictionary - Component for storing lists of words.</li>
+<li>stroom-statistics - Component for recording statistical data, e.g. amount of data received in X minutes.</li>
+</ul>
+<p>In the project structure a component appears as a first level subdirectory of the root project folder.
+Components have further subdirectories (modules) that make up the various parts of the component, e.g.</p>
+<ul>
+<li><code>stroom</code> - Root project
+<ul>
+<li><code>stroom-activity</code> - The component
+<ul>
+<li><code>stroom-activity-api</code> - API module for <code>stroom-activity</code></li>
+<li><code>stroom-activity-impl</code> - Implementation of the API and other module implementation code</li>
+<li><code>stroom-activity-impl-db</code> - Database persistence implementation used by impl</li>
+<li><code>stroom-activity-impl-db-jooq</code> - JOOQ generated classes used by <code>stroom-activity-impl-db</code></li>
+<li><code>stroom-activity-mock</code> - Mock implementation for the <code>stroom-activity</code> API</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="dependencies-between-a-modules-components">Dependencies between a modules components</h2>
+<p>The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the <code>impl</code> module.
+The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
+Tests can bind mock implementations of a components API just by using the Guice module within the mock module.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/dev-guide/module-dependencies.puml.svg" href="../../../images/dev-guide/module-dependencies.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/dev-guide/module-dependencies.puml.svg" style="max-width: fit-content" alt="images/dev-guide/module-dependencies.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Internal Component Dependencies</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h2 id="dependencies-between-components">Dependencies between components</h2>
+<p>Typically a component will need to call out to other components to apply security constraints and to log user activity.
+These typical relationships are shown in the diagram below.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/dev-guide/external-dependencies.puml.svg" href="../../../images/dev-guide/external-dependencies.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/dev-guide/external-dependencies.puml.svg" style="max-width: fit-content" alt="images/dev-guide/external-dependencies.puml.svg">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">External Component Dependencies</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h2 id="component-api-eg-modules-ending-in--api">Component API, e.g. modules ending in <code>-api</code></h2>
+<h3 id="api-layer">API layer</h3>
+<p>All communication between components in stroom must be made via a component&rsquo;s API.
+The API provides the minimum surface area for communication between components and decouples dependencies between components to just the API code.
+For component testing purposes mock implementations of these APIs can be used to limit testing to just a single component.</p>
+<h2 id="component-api-and-service-implementation-eg-modules-ending-in--impl">Component API and service implementation, e.g. modules ending in <code>-impl</code></h2>
+<h3 id="client-interaction---rest-services-and-gwt-action-handlers">Client interaction - REST services and GWT Action Handlers</h3>
+<p>The uppermost layer of the server side code services requests from the client.
+The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.</p>
+<p>Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc.
+No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.</p>
+<p>The client interaction layer adds no logic and asks the underlying service layer to service the encapsulated request away from the REST endpoint wrapping code or GWT action handler code.
+This allows multiple types of endpoint to use the same underlying service layer.
+If a request requires the use of multiple services to form a response, this must be handled within the service layer by the primary service which will be responsible for any such orchestration.</p>
+<h3 id="service-layer">Service layer</h3>
+<p>The service layer applies permission constraints to any requests being made so that only calls from identified and permitted users are allowed to proceed.
+The service layer performs all orchestration and business logic, and is responsible for all mutations of objects that will be persisted by the underlying persistence layer such as stamping objects to be updated with the current user and update time.</p>
+<p>The service layer provides implementations for any API that the component may have.</p>
+<p>The service layer provides the DAO (Data Access Object) API for the persistence layer to implement but maintains no knowledge of underlying persistence implementation, e.g. database queries.</p>
+<h2 id="persistence-implementation-eg-modules-ending-in--impl-db">Persistence implementation, e.g. modules ending in <code>-impl-db</code></h2>
+<h3 id="persistence-layer---daos">Persistence layer - DAOs</h3>
+<p>The persistence layer is an implementation of one or more DAOs specified in the service layer.
+The persistence layer provides no logic, it just stores and retrieves objects in a database or other persistence technology.
+If serialisation/de-serialisation is required in order to persist the object then that should also be performed by this layer so that no code above this layer has to care about this implementation detail.</p>
+<p>The persistence layer does not apply security or permissions checking so should not need to reference the security API.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-1862834127654fba28e03f73eee5bdff">4 - Contributing</h1>
+    <div class="lead">How to make contributions to the Stroom GitHub repositories.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    <ul>
+<li>Feature branches
+<ul>
+<li>Branch name</li>
+</ul>
+</li>
+<li>Change log</li>
+<li>Checkstyle</li>
+<li>PR conventions
+<ul>
+<li>Link to issue</li>
+</ul>
+</li>
+</ul>
+
+
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-1c7db1c6286aa0823401c030c365a9c3">5 - Release Process</h1>
+    <div class="lead">How to release new versions of the software.</div>
+	
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.1.'; ">
+    
+  <h1 id="pg-ab04a4b5e3a8bf14e1879f1cf73e88bc">5.1 - Releasing Stroom</h1>
+    <div class="lead">How to release a new version of Stroom</div>
+	<h2 id="pre-requisites-for-a-release">Pre-requisites for a release</h2>
+<p>The follow need to be completed before a release is made.</p>
+<h3 id="logging-changes">Logging changes</h3>
+<p>Stroom and its related repositories all have a <code>CHANGELOG.md</code> file for recording changes made between releases.
+Before making a release you should ensure that all changes have been recorded in the <em>CHANGELOG</em>.
+This is not done by directly editing the file but instead using the script <code>./log_change.sh</code>.</p>
+<p><em>log_change</em> creates change entry files in the directory <code>./unreleased_changes/</code>.
+This prevents merge conflicts that would happen with multiple people editing the <em>CHANGELOG</em> file.</p>
+<p>The following examples show you how to use the <em>log_change</em> script.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Log a change for the issue number in your current branch (e.g. branch: gh-1234-fix-dead-locks)
+./log_change auto &#34;Fix database dead locks during purge job&#34;
+(out)
+# Log a change for the issue number in your current branch (e.g. branch: gh-1234-fix-dead-locks)
+# Your default editor will open the created skeleton change file
+./log_change auto
+(out)
+# Log a change with no associated issue
+./log_change 0 &#34;Fix typo on about screen&#34;
+(out)
+# Log a change for issue #1234
+./log_change 1234 &#34;Fix database dead locks during purge job&#34;
+(out)
+# Log a change for issue #1234
+# Your default editor will open the created skeleton change file
+./log_change 1234
+(out)
+# Log a change for an issue in a different repository
+./log_change gchq/stroom#2424 &#34;Fix database dead locks during purge job&#34;
+(out)
+# Log a change for an issue in a different repository
+# Your default editor will open the created skeleton change file
+./log_change gchq/stroom#2424
+(out)
+# List all unreleased changes
+./log_change list</code></pre>
+</div>
+
+<h3 id="commit-and-push-all-changes">Commit and push all changes</h3>
+<p>Before releasing all local changes that you want in the release should be committed and pushed.
+Commits that you want in a release should be merged down to a release branch, e.g. <code>7.0</code> or <code>master</code>.
+Once pushed and merged ensure that the branch passes the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/actions" target="_blank" class="" style="" title="CI build (external link)">
+    <span>CI build</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<h3 id="decide-on-the-next-version-number">Decide on the next version number</h3>
+<p>Stroom versioning follows 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://semver.org" target="_blank" class="" style="" title="Semantic Versioning (external link)">
+    <span>Semantic Versioning</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>Given a version number <em>MAJOR</em>.<em>MINOR</em>.<em>PATCH</em>:</p>
+<ul>
+<li><em>MAJOR</em> is incremented when there are major or breaking changes.</li>
+<li><em>MINOR</em> is incremented when functionality is added in a backwards compatible manner.</li>
+<li><em>PATCH</em> is incremented when bugs are fixed.</li>
+</ul>
+<p>Based on the changes since the last release establish if it is a major, minor or patch release to determine the next version number.</p>
+<h2 id="performing-a-named-release-of-stroom">Performing a named release of Stroom</h2>
+<p>Once all the above pre-requisites have been met you can trigger the release by running this command:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./tag_release.sh</code></pre>
+</div>
+
+<p>This script will do the following:</p>
+<ul>
+<li>Adds the content of the unreleased change entry files (created by <code>log_change.sh</code>) to the <em>CHANGELOG</em>.</li>
+<li>Prompts for (and suggests) the next version based on the previous release.</li>
+<li>Adds a new version heading to <em>CHANGELOG</em>.</li>
+<li>Adds/updates the version compare links in the <em>CHANGELOG</em>.</li>
+<li>Commits and pushes the change log changes.</li>
+<li>Creates an annotated git tag using the release version number and change entries.</li>
+</ul>
+<p>The tagged git commit will trigger a CI build that includes additional release elements such as:</p>
+<ul>
+<li>Pushing the built docker images to DockerHub.</li>
+<li>Creating a release for the git tag in GitHub with all the release artefacts.</li>
+<li>Publishing any libraries to Sonatype and Maven Central.</li>
+</ul>
+<h2 id="performing-a-named-release-of-the-docker-stacks">Performing a named release of the docker stacks</h2>
+<p>Once the <em>Stroom</em> release build has finished and the artefacts are available on 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/releases" target="_blank" class="" style="" title="GitHub Releases (external link)">
+    <span>GitHub Releases</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://hub.docker.com/r/gchq/stroom/tags" target="_blank" class="" style="" title="DockerHub (external link)">
+    <span>DockerHub</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ you can create an associated release of the Stroom docker stacks.</p>
+<p>In the following examples we will assume that you have just released <em>Stroom</em> <code>v7.0.1</code> on branch <code>7.0</code>, and the previous release was <code>v7.0.0</code>.</p>
+<p>Checkout and pull the corresponding release branch in the <em>stroom-resources</em> repository.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd stroom-resources
+(out)
+git checkout 7.0
+(out)
+git pull</code></pre>
+</div>
+
+<p>Now edit the file <code>bin/stack/container_versions.env</code> and edit the following line, setting it to the version of stroom you have just released:</p>
+<div class="td-card-deck card-deck mb-4">
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        Before
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-bash">  STROOM_TAG=&quot;v7.0.0&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        After
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-bash">  STROOM_TAG=&quot;v7.0.1&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
+<p>If any of the other docker image versions need updating then do it at this point.</p>
+<p>Now add/commit/push the change.
+Check the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/actions" target="_blank" class="" style="" title="CI build (external link)">
+    <span>CI build</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is successful for the new Stroom image.</p>
+<p>If the build is green then tag the stacks release as follows:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">pwd
+(out)/home/dev/git_work/stroom-resources
+(out)
+# Clear out any previous build
+rm -rf ./bin/stack/build
+(out)
+./tag_release-stroom-stacks.sh stroom-stacks-v7.0.1</code></pre>
+</div>
+
+<p>This script will build all the stack variants locally to ensure they will build successfully, though it does not test them.
+If the local build is successful it will then create an annotated git tag which will trigger a release CI build.
+The release CI build will create an archive for each stack variant and add them as a release artefacts.</p>
+<h2 id="snapshot-releases">SNAPSHOT releases</h2>
+<p>SNAPSHOT releases should not be released to Sonatype or Maven Central.
+If a development version of a library needs to be shared between projects then you can either use the Gradle task <code>publishToMavenLocal</code> to publish a <code>SNAPSHOT</code> version to your local Maven repository and change your dependency version to <code>SNAPSHOT</code>, or perform a named release along the lines of <code>vx.y.z-alpha.n</code>.</p>
+<h2 id="release-versioning-conventions">Release Versioning conventions</h2>
+<p>Semantic versioning is used, and this should be adhered to, see 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://semver.org/" target="_blank" class="" style="" title="SemVer (external link)">
+    <span>SemVer</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+. The following are examples of valid version names</p>
+<ul>
+<li><code>SNAPSHOT</code> - Used only for local development, never to be published publicly.</li>
+<li><code>v3.3.0</code> - Initial release of v3.3, with an associated <code>3.3</code> branch.</li>
+<li><code>v3.3.1</code> - A patch release to v3.3 on the <code>3.3</code> branch.</li>
+<li><code>v3.4.0-alpha.1</code> - An alpha release of v3.4, either on <code>master</code> or a <code>3.4</code> branch</li>
+<li><code>v3.4.0-beta.1</code> - An beta release of v3.4, either on <code>master</code> or a <code>3.4</code> branch</li>
+</ul>
+<h2 id="to-perform-a-local-build">To Perform a Local Build</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="dev" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Full build:
+./gradlew clean build
+(out)
+# Build without unit tests
+./gradlew clean build -x test
+(out)
+# Build without any tests or GWT compilation (GWT compilation applies to stroom only)
+./gradlew clean build -x test -x gwtCompile</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
+    
+  <h1 id="pg-5a9f12742247f34e84592c0994a38c0f">6 - Setting up releases to Sonatype &amp; Maven Central</h1>
+    <div class="lead">This is a rough guide to what was done to set it up.  Some bits may be missing.</div>
+	<h2 id="create-a-sonatype-account">Create a Sonatype account</h2>
+<p>You need to create an account on Sonatype and you will need to raise a jira ticket on Sonatype&rsquo;s jira to get approved on the uk.gov.gchq group.
+This will require an existing user approved for the group to approve you on the ticket.</p>
+<h2 id="setting-up-a-gpg-key">Setting up a GPG key</h2>
+<p>You can use the following commands for setting up a GPG2 key for signing.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Generate the GPG2 key
+gpg2 --gen-key
+
+# To list all keys
+gpg2 --list-keys
+
+# To get the key ID
+gpg2  --list-secret-keys | grep &#34;\[SC\]&#34; | tr -s &#39; &#39; | cut -d&#39; &#39; -f2 | cut -d&#39;/&#39; -f2
+
+# To send the public keys to a key server
+gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys &lt;key id&gt;
+gpg2 --keyserver hkp://keyserver.ubuntu.com --send-keys &lt;key id&gt;
+gpg2 --keyserver hkp://pgp.mit.edu --send-keys &lt;key id&gt;
+
+# To display the secret key in base64 form, for use in GH actions
+key=&#34;$(gpg2 --armor --export-secret-keys &lt;key id&gt; | base64 -w0)&#34;; \
+echo -e &#34;-------\n$key\n-------&#34;; \
+key=&#34;&#34;</code></pre>
+</div>
+
+<h2 id="setting-up-the-gradle-build">Setting up the gradle build</h2>
+<p>The signing and release to Sonatype is done by various gradle plugins.</p>
+<pre><code class="language-groovy">id &quot;io.github.gradle-nexus.publish-plugin&quot; version &quot;1.0.0&quot;
+id &quot;signing&quot;
+id &quot;maven-publish&quot;
+</code></pre>
+<p>See the <em>root</em> and <em>event-logging-api</em> gradle build files (in the <em>event-logging</em> repo) for an example of how to set up gradle.</p>
+<p>The credentials can be passed to the gradle build using special gradle env vars <a href="https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties">Project Properties (external)</a>.
+The credentials required are:</p>
+<ul>
+<li><code>ORG_GRADLE_PROJECT_SIGNINGKEY</code> - The key as produced by the <code>gpg2 --armor</code> command.</li>
+<li><code>ORG_GRADLE_PROJECT_SIGNINGPASSWORD</code> - The password for the GPG key.</li>
+<li><code>ORG_GRADLE_PROJECT_SONATYPEUSERNAME</code> - The account username on Sonatype.</li>
+<li><code>ORG_GRADLE_PROJECT_SONATYPEPASSWORD</code> - The account password on Sonatype.</li>
+</ul>
+<h2 id="setting-up-github-actions">Setting up Github Actions</h2>
+<p>You will need to provide Github with the four secrets listed above by setting them as repository secrets at <a href="https://github.com/gchq/">https://github.com/gchq/</a><repo>/settings/secrets/actions.
+For each one create a secret with the <code>ORG_GRADLE_...</code> bit as the name.</p>
+<p>So that the action can create the Github release you will also need to set up an SSH key pair and provide it with the public and private key.
+To generate the key pair do:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">ssh-keygen -t rsa -b 4096 -f &lt;repo&gt;_deploy_key</code></pre>
+</div>
+
+<p>The key pair will be created in <code>~/.ssh/</code>.</p>
+<p>Create a repo deploy key with the public key, named &lsquo;Actions Deploy Key&rsquo; and with write access at <a href="https://github.com/">https://github.com/</a><namespace>/<repo>/settings/keys/new.
+Create a repo secret with the private key, named &lsquo;SSH_DEPLOY_KEY&rsquo; at <a href="https://github.com/">https://github.com/</a><namespace>/<repo>/settings/secrets/actions/new.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2023 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../js/popper.min.js'></script>
+<script src='../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

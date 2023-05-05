@@ -82,13 +82,15 @@ if (!doNotTrack) {
       </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Stroom Version (7.1)
+	Stroom Version (7.2)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
 	
 	
-	<a class="dropdown-item" href="../../../">7.1 (Latest)</a>
+	<a class="dropdown-item" href="../../../../">7.2 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
 	
 	<a class="dropdown-item" href="../../../7.0">7.0</a>
 	
@@ -108,7 +110,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.1654e7068ff944797f4e029d4bf226a4.json"
+    data-offline-search-index-json-src="../../../offline-search-index.8e671fef4d8eb9d7178507d577d3549c.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -971,7 +973,7 @@ Everything that can be done via the user interface can also be done using the AP
   
 
 <span class="external-link">
-  <a href="https://gchq.github.io/stroom/v7.1/stroom.json" target="_blank" class="" style="" title="stroom.json (external link)">
+  <a href="https://gchq.github.io/stroom/v7.2/stroom.json" target="_blank" class="" style="" title="stroom.json (external link)">
     <span>stroom.json</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -987,7 +989,7 @@ Everything that can be done via the user interface can also be done using the AP
   
 
 <span class="external-link">
-  <a href="https://gchq.github.io/stroom/v7.1/stroom.yaml" target="_blank" class="" style="" title="stroom.yaml (external link)">
+  <a href="https://gchq.github.io/stroom/v7.2/stroom.yaml" target="_blank" class="" style="" title="stroom.yaml (external link)">
     <span>stroom.yaml</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -1007,7 +1009,7 @@ This can be found in two places.</p>
   
 
 <span class="external-link">
-  <a href="https://gchq.github.io/stroom/v7.1" target="_blank" class="" style="" title="Swagger user interface (external link)">
+  <a href="https://gchq.github.io/stroom/v7.2" target="_blank" class="" style="" title="Swagger user interface (external link)">
     <span>Swagger user interface</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -1387,7 +1389,7 @@ However they all share the same API definition.</p>
   
 
 <span class="external-link">
-  <a href="https://gchq.github.io/stroom/v7.1/#/Stroom-Index%20Queries" target="_blank" class="" style="" title="stroom-index Queries (external link)">
+  <a href="https://gchq.github.io/stroom/v7.2/#/Stroom-Index%20Queries" target="_blank" class="" style="" title="stroom-index Queries (external link)">
     <span>stroom-index Queries</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -1421,7 +1423,7 @@ The Lucene based search indexes.</li>
   
 
 <span class="external-link">
-  <a href="https://gchq.github.io/stroom/v7.1/#/Sql%20Statistics%20Query" target="_blank" class="" style="" title="Sql Statistics Query (external link)">
+  <a href="https://gchq.github.io/stroom/v7.2/#/Sql%20Statistics%20Query" target="_blank" class="" style="" title="Sql Statistics Query (external link)">
     <span>Sql Statistics Query</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -1455,7 +1457,7 @@ Stroom&rsquo;s SQL Statistics store.</li>
   
 
 <span class="external-link">
-  <a href="https://gchq.github.io/stroom/v7.1/#/Searchable" target="_blank" class="" style="" title="Searchable (external link)">
+  <a href="https://gchq.github.io/stroom/v7.2/#/Searchable" target="_blank" class="" style="" title="Searchable (external link)">
     <span>Searchable</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
@@ -14138,11 +14140,12 @@ For details of the Drop Wizard configuration structure, see
   </a>
 </span>
 .</p>
-<p>The file is split into three sections using these keys:</p>
+<p>The file is split into sections using these keys:</p>
 <ul>
 <li><code>server</code> - Configuration of the web server, e.g. ports, paths, request logging.</li>
 <li><code>logging</code> - Configuration of application logging</li>
-<li><code>appConfig</code> - The stroom configuration properties</li>
+<li><code>jerseyClients</code> - Configuration of the various Jersey HTTP clients in use. See <a href="#jersey-http-client-configuration">Jersey HTTP Client Configuration</a>.</li>
+<li><code>appConfig</code> - The stroom configuration properties. These properties can be viewed/modified in the user interface.</li>
 </ul>
 <p>The following is an example of the YAML configuration file:</p>
 <pre><code class="language-yaml"># Drop Wizard configuration section
@@ -14150,6 +14153,10 @@ server:
   # e.g. ports and paths
 logging:
   # e.g. logging levels/appenders
+
+jerseyClients:
+  DEFAULT:
+    # Configuration of the named client
 
 # Stroom properties configuration section
 appConfig:
@@ -14163,7 +14170,9 @@ appConfig:
     enabled: true
   ...
 </code></pre>
-<p>In the Stroom user interface properties are named with a dot notation key, e.g. <em>stroom.contentPackImport.enabled</em>.
+<p>The <code>appConfig</code> section is special as it maps to the Properties seen in the Stroom user interface so values can be managed in the file or via the Properties screen.
+The other sections of the file can only be managed via the YAML file.
+In the Stroom user interface, properties are named with a dot notation key, e.g. <em>stroom.contentPackImport.enabled</em>.
 Each part of the dot notation property name represents a key in the YAML file, e.g. for this example, the location in the YAML would be:</p>
 <pre><code class="language-yaml">appConfig:
   contentPackImport:
@@ -14185,6 +14194,202 @@ Some properties will be represented differently in the user interface to the YAM
 This is due to how values are stored in the database and how the current user interface works.
 This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see <a href="#data-types">Data Types</a>.</p>
+<h4 id="jersey-http-client-configuration">Jersey HTTP Client Configuration</h4>
+<p>Stroom and Stroom Proxy use the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://eclipse-ee4j.github.io/jersey/" target="_blank" class="" style="" title="Jersey (external link)">
+    <span>Jersey</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ client for making HTTP connections with other nodes or other systems (e.g. Open ID Connect identity providers).
+In the YAML file, the <code>jerseyClients</code> key controls the configuration of the various clients in use.</p>
+<p>To allow complete control of the client configuration, Stroom uses the concept of named client configurations.
+Each named client will be unique to a destination (where a destination is typically a server or a cluster of functionally identical servers).
+Thus the configuration of the connections to each of those destinations can be configured independently.</p>
+<p>The client names are as follows:</p>
+<ul>
+<li><code>AWS_PUBLIC_KEYS</code> - Connections to fetch AWS public keys used in Open ID Connect authentication.</li>
+<li><code>CONTENT_SYNC</code> - Connections to downstream proxy/stroom instances to sync content. (Stroom Proxy only).</li>
+<li><code>DEFAULT</code> - The default client configuration used if a named configuration is not present.</li>
+<li><code>FEED_STATUS</code> - Connections to downstream proxy/stroom instances to check feed status. (Stroom Proxy only).</li>
+<li><code>OPEN_ID</code> - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.</li>
+<li><code>STROOM</code> - Inter-node communications within the Stroom cluster.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If a named configuration does not exist then the configuration for <code>DEFAULT</code> will be used.
+If <code>DEFAULT</code> is not defined in the configuration then the DropWizard defaults will be used.
+
+</div>
+
+
+<p>The following is an example of how the clients are configured in the YAML file:</p>
+<pre><code class="language-yaml">jerseyClients:
+  DEFAULT:
+    # Default client configuration, e.g.
+    timeout: 500ms
+  STROOM:
+    # Configuration items for stroom inter-node communications
+    timeout: 30s
+  # etc.
+</code></pre>
+<p>The configuration keys (along with their default values and descriptions) for each client can be found here:</p>
+<p>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.dropwizard.io/en/latest/manual/configuration.html#jerseyclient" target="_blank" class="" style="" title="Jersey Client (external link)">
+    <span>Jersey Client</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+<br>
+
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.dropwizard.io/en/latest/manual/configuration.html#httpclient" target="_blank" class="" style="" title="Base HTTP Client (external link)">
+    <span>Base HTTP Client</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+<br>
+
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.dropwizard.io/en/latest/manual/configuration.html#proxy" target="_blank" class="" style="" title="Proxy server settings (external link)">
+    <span>Proxy server settings</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+<br>
+
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://www.dropwizard.io/en/latest/manual/configuration.html#tls" target="_blank" class="" style="" title="TLS settings (external link)">
+    <span>TLS settings</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+<p>The following is another example including most keys:</p>
+<pre><code class="language-yaml">jerseyClients:
+  DEFAULT:
+    minThreads: 1
+    maxThreads: 128
+    workQueueSize: 8
+    gzipEnabled: true
+    gzipEnabledForRequests: true
+    chunkedEncodingEnabled: true
+    timeout: 500ms
+    connectionTimeout: 500ms
+    timeToLive: 1h
+    cookiesEnabled: false
+    maxConnections: 1024
+    maxConnectionsPerRoute: 1024
+    keepAlive: 0ms
+    retries: 0
+    userAgent: &lt;application name&gt; (&lt;client name&gt;)
+    proxy:
+      host: 192.168.52.11
+      port: 8080
+      scheme : http
+      auth:
+        username: secret
+        password: stuff
+        authScheme: NTLM
+        realm: realm
+        hostname: host
+        domain: WINDOWSDOMAIN
+        credentialType: NT
+      nonProxyHosts:
+        - localhost
+        - '192.168.52.*'
+        - '*.example.com'
+    tls:
+      protocol: TLSv1.2
+      provider: SunJSSE
+      verifyHostname: true
+      keyStorePath: /path/to/file
+      keyStorePassword: changeit
+      keyStoreType: JKS
+      trustStorePath: /path/to/file
+      trustStorePassword: changeit
+      trustStoreType: JKS
+      trustSelfSignedCertificates: false
+      supportedProtocols: TLSv1.1,TLSv1.2
+      supportedCipherSuites: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+      certAlias: alias-of-specific-cert
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>Duration values in the Jersey client configuration blocks are different to <a href="#stroom-duration-data-type">Stroom Durations</a> defined in Stroom properties.
+They are defined as a numeric value and a unit suffix.
+Typical suffixes are (in ascending order): <code>ns</code>, <code>us</code>, <code>ms</code>, <code>s</code>, <code>m</code>, <code>h</code>, <code>d</code>.
+ISO 8601 duration strings are NOT supported, nor are values without a suffix.</p>
+<span class="external-link">
+  <a href="https://github.com/dropwizard/dropwizard/blob/master/dropwizard-util/src/main/java/io/dropwizard/util/Duration.java" target="_blank" class="" style="" title="Full list of duration suffixes and their aliases (external link)">
+    <span>Full list of duration suffixes and their aliases</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e relative to <code>stroom.home</code> if relative and supporting variable substitution.
+
+</div>
+
+
 <h2 id="source-precedence">Source Precedence</h2>
 <p>The three sources (<em>Default</em>, <em>Database</em> &amp; <em>YAML</em>) are listed in increasing priority, i.e <em>YAML</em> trumps <em>Database</em>, which trumps <em>Default</em>.</p>
 <p>For example, in a two node cluster, this table shows the effective value of a property on each node.
@@ -14511,6 +14716,11 @@ It is possible to use a number of different delimiters to allow for delimiter ch
 The following are the delimiter characters that can be used.</p>
 <p><code>|</code>, <code>:</code>, <code>;</code>, <code>,</code>, <code>!</code>, <code>/</code>, <code>\</code>, <code>#</code>, <code>@</code>, <code>~</code>, <code>-</code>, <code>_</code>, <code>=</code>, <code>+</code>, <code>?</code></p>
 <p>When Stroom records a property value to the database it may use a delimiter of its own choosing, ensuring that it picks a delimiter that is not used in the property value.</p>
+<h3 id="paths">Paths</h3>
+<p>File and directory paths can either be absolute (e.g. <code>/some/path/</code>) or relative (e.g. <code>some/path</code>).
+All relative paths will be resolved to an absolute path using the value of <code>stroom.home</code> as the base.</p>
+<p>Path values also support variable substitution.
+For full details on the possible variable substitution options, see <a href="../../../docs/user-guide/pipelines/file-output/">File Output</a>.</p>
 <h2 id="restart-required">Restart Required</h2>
 <p>Some properties are marked as requiring a restart.
 There are two scopes for this:</p>

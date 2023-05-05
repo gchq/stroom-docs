@@ -1,0 +1,183 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – security</title>
+    <link>/tags/security/</link>
+    <description>Recent content in security on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Security</title>
+      <link>/docs/user-guide/security/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/security/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;shared-storage&#34;&gt;Shared Storage&lt;/h2&gt;
+&lt;p&gt;For most large installations Stroom uses shared storage for its data store. This storage could be a CIFS, NFS or similar shared file system. It is recommended that access to this shared storage is protected so that only the application can access it. This could be achieved by placing the storage and application behind a firewall and by requiring appropriate authentication to the shared storage. It should be noted that NFS is unauthenticated so should be used with appropriate safeguards.&lt;/p&gt;
+&lt;h2 id=&#34;mysql&#34;&gt;MySQL&lt;/h2&gt;
+&lt;h3 id=&#34;accounts&#34;&gt;Accounts&lt;/h3&gt;
+&lt;p&gt;It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install. Official guidance for doing this can be found 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/5.6/en/security.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;here (external link)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;h3 id=&#34;communication&#34;&gt;Communication&lt;/h3&gt;
+&lt;p&gt;Communication between MySQL and the application should be secured. This can be achieved in one of the following ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Placing MySQL and the application behind a firewall&lt;/li&gt;
+&lt;li&gt;Securing communication through the use of iptables&lt;/li&gt;
+&lt;li&gt;Making MySQL and the application communicate over SSL (see 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;here (external link)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ for instructions)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The above options are not mutually exclusive and may be combined to better secure communication.&lt;/p&gt;
+&lt;h2 id=&#34;application&#34;&gt;Application&lt;/h2&gt;
+&lt;h3 id=&#34;node-to-node-communication&#34;&gt;Node to node communication&lt;/h3&gt;
+&lt;p&gt;In a multi node Stroom deployment each node communicates with the master node. This can be configured securely in one of several ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Direct communication to Tomcat on port 8080 - Secured by being behind a firewall or using iptables&lt;/li&gt;
+&lt;li&gt;Direct communication to Tomcat on port 8443 - Secured using SSL and certificates&lt;/li&gt;
+&lt;li&gt;Removal of Tomcat connectors other than AJP and configuration of Apache to communicate on port 443 using SSL and certificates&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;application-to-stroom-proxy-communication&#34;&gt;Application to Stroom Proxy Communication&lt;/h3&gt;
+&lt;p&gt;The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or it&amp;rsquo;s reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.&lt;/p&gt;
+&lt;h3 id=&#34;admin-port&#34;&gt;Admin port&lt;/h3&gt;
+&lt;p&gt;Stroom (v6 and above) and its associated family of stroom-* DropWizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.&lt;/p&gt;
+&lt;h3 id=&#34;servlets&#34;&gt;Servlets&lt;/h3&gt;
+&lt;p&gt;There are several servlets in Stroom that are accessible by certain URLs. Considerations should be made about what URLs are made available via Apache and who can access them. The servlets, path and function are described below:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Servlet&lt;/th&gt;
+&lt;th&gt;Path&lt;/th&gt;
+&lt;th&gt;Function&lt;/th&gt;
+&lt;th&gt;Risk&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;DataFeed&lt;/td&gt;
+&lt;td&gt;/datafeed or /datafeed/*&lt;/td&gt;
+&lt;td&gt;Used to receive data&lt;/td&gt;
+&lt;td&gt;Possible denial of service attack by posting too much data/noise&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;RemoteFeedService&lt;/td&gt;
+&lt;td&gt;/remoting/remotefeedservice.rpc&lt;/td&gt;
+&lt;td&gt;Used by proxy to ask application about feed status (described in previous section)&lt;/td&gt;
+&lt;td&gt;Possible to systematically discover which feeds are available. Communication with this service should be secured over SSL discussed above&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DynamicCSSServlet&lt;/td&gt;
+&lt;td&gt;/stroom/dynamic.css&lt;/td&gt;
+&lt;td&gt;Serves dynamic CSS based on theme configuration&lt;/td&gt;
+&lt;td&gt;Low risk as no important data is made available by this servlet&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DispatchService&lt;/td&gt;
+&lt;td&gt;/stroom/dispatch.rpc&lt;/td&gt;
+&lt;td&gt;Service for UI and server communication&lt;/td&gt;
+&lt;td&gt;All back-end services accessed by this umbrella service are secured appropriately by the application&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ImportFileServlet&lt;/td&gt;
+&lt;td&gt;/stroom/importfile.rpc&lt;/td&gt;
+&lt;td&gt;Used during configuration upload&lt;/td&gt;
+&lt;td&gt;Users must be authenticated and have appropriate permissions to import configuration&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ScriptServlet&lt;/td&gt;
+&lt;td&gt;/stroom/script&lt;/td&gt;
+&lt;td&gt;Serves user defined visualisation scripts to the UI&lt;/td&gt;
+&lt;td&gt;The visualisation script is considered to be part of the application just as the CSS so is not secured&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ClusterCallService&lt;/td&gt;
+&lt;td&gt;/clustercall.rpc&lt;/td&gt;
+&lt;td&gt;Used for node to node communication as discussed above&lt;/td&gt;
+&lt;td&gt;Communication must be secured as discussed above&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ExportConfig&lt;/td&gt;
+&lt;td&gt;/export/*&lt;/td&gt;
+&lt;td&gt;Servlet used to export configuration data&lt;/td&gt;
+&lt;td&gt;Servlet access must be restricted with Apache to prevent configuration data being made available to unauthenticated users&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Status&lt;/td&gt;
+&lt;td&gt;/status&lt;/td&gt;
+&lt;td&gt;Shows the application status including volume usage&lt;/td&gt;
+&lt;td&gt;Needs to be secured so that only appropriate users can see the application status&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Echo&lt;/td&gt;
+&lt;td&gt;/echo&lt;/td&gt;
+&lt;td&gt;Block GZIP data posted to the echo servlet is sent back uncompressed. This is a utility servlet for decompression of external data&lt;/td&gt;
+&lt;td&gt;URL should be secured or not made available&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Debug&lt;/td&gt;
+&lt;td&gt;/debug&lt;/td&gt;
+&lt;td&gt;Servlet for echoing HTTP header arguments including certificate details&lt;/td&gt;
+&lt;td&gt;Should be secured in production environments&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SessionList&lt;/td&gt;
+&lt;td&gt;/sessionList&lt;/td&gt;
+&lt;td&gt;Lists the logged in users&lt;/td&gt;
+&lt;td&gt;Needs to be secured so that only appropriate users can see who is logged in&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SessionResourceStore&lt;/td&gt;
+&lt;td&gt;/resourcestore/*&lt;/td&gt;
+&lt;td&gt;Used to create, download and delete temporary files liked to a users session such as data for export&lt;/td&gt;
+&lt;td&gt;This is secured by using the users session and requiring authentication&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;hdfs-kafka-hbase-zookeeper&#34;&gt;HDFS, Kafka, HBase, Zookeeper&lt;/h2&gt;
+&lt;p&gt;Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be careful controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.&lt;/p&gt;
+&lt;h2 id=&#34;content&#34;&gt;Content&lt;/h2&gt;
+&lt;p&gt;It may be possible for a user to write XSLT, Data Splitter or other content that may expose data that we do not wish to or to cause the application some harm. At present processing operations are not isolated processes and so it is easy to cripple processing performance with a badly written translation whether written accidentally or on purpose. To mitigate this risk it is recommended that users that are given permission to create XSLT, Data Splitter and Pipeline configurations are trusted to do so.&lt;/p&gt;
+&lt;p&gt;Visualisations can be completely customised with javascript. The javascript that is added is executed in a clients browser potentially opening up the possibility of XSS attacks, an attack on the application to access data that a user shouldn&amp;rsquo;t be able to access, an attack to destroy data or simply failure/incorrect operation of the user interface. To mitigate this risk all user defined javascript is executed within a separate browser IFrame. In addition all javascript should be examined before being added to a production system unless the author is trusted. This may necessitate the creation of a separate development and testing environment for user content.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

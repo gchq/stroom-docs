@@ -1,0 +1,349 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – docker</title>
+    <link>/tags/docker/</link>
+    <description>Recent content in docker on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 18 Oct 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Single Node Docker Installation</title>
+      <link>/docs/install-guide/single-node-docker/</link>
+      <pubDate>Tue, 18 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/single-node-docker/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Running Stroom in &lt;em&gt;Docker&lt;/em&gt; is the quickest and easiest way to get Stroom up and running.
+Using Docker means you don&amp;rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured corectly for Stroom.&lt;/p&gt;
+&lt;h2 id=&#34;stroom-docker-stacks&#34;&gt;Stroom Docker stacks&lt;/h2&gt;
+&lt;p&gt;Stroom has a number of predefined &lt;em&gt;stacks&lt;/em&gt; that combine multiple docker containers into a fully functioning Stroom.
+The docker stacks are aimed primarily at single node instances or for evaluation/test.
+If you want to deploy a Stroom cluster using containers then you should use Kubernetes.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Add Kubernetes install link.
+
+&lt;/div&gt;
+
+&lt;p&gt;At the moment the usable stacks are:&lt;/p&gt;
+&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_core&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;A production single node stroom.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom&lt;br&gt;
+stroom-proxy-local&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;br&gt;
+mysql&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_core_test&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;A single node stroom for test/evalutaion, pre-loaded with content.
+Also includes a &lt;em&gt;remote&lt;/em&gt; proxy for demonstration purposes.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom&lt;br&gt;
+stroom-proxy-local&lt;br&gt;
+stroom-proxy-remote&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;br&gt;
+mysql&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_proxy&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;A remote proxy stack for aggregating and forwarding logs to stroom(-proxy).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom-proxy-remote&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_services&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;An Nginx instance for running stroom without Docker.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;In order to run Stroom using Docker you will need the following installed on the machine you intend to run Stroom on:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;An internet connection. If you don&amp;rsquo;t have one see &lt;a href=&#34;../../docs/install-guide/air-gapped/#docker-images&#34;&gt;Air Gapped Environments&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;A Linux-like shell environment.&lt;/li&gt;
+&lt;li&gt;Docker CE (v17.12.0+) - e.g 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://docs.docker.com/install/linux/docker-ce/centos/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;docs.docker.com/install/linux/docker-ce/centos/ (external link)&#34;&gt;
+    &lt;span&gt;docs.docker.com/install/linux/docker-ce/centos/&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ for Centos&lt;/li&gt;
+&lt;li&gt;docker-compose (v1.21.0+) - 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://docs.docker.com/compose/install/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;docs.docker.com/compose/install/ (external link)&#34;&gt;
+    &lt;span&gt;docs.docker.com/compose/install/&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;bash (v4+)&lt;/li&gt;
+&lt;li&gt;jq - 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://stedolan.github.io/jq/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stedolan.github.io/jq/ (external link)&#34;&gt;
+    &lt;span&gt;stedolan.github.io/jq/&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ e.g. &lt;code&gt;sudo yum install jq&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;curl&lt;/li&gt;
+&lt;li&gt;A non-root user to perform the install as, e.g. &lt;code&gt;stroomuser&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    &lt;code&gt;jq&lt;/code&gt; is not a hard requirement but improves the functionality of the health checks.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;install-steps&#34;&gt;Install steps&lt;/h2&gt;
+&lt;p&gt;This will install the core stack (Stroom and the peripheral services required to run Stroom).&lt;/p&gt;
+&lt;p&gt;Visit 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom-resources/releases (external link)&#34;&gt;
+    &lt;span&gt;stroom-resources/releases&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ to find the latest stack release.
+The Stroom stack comes in a number of different variants:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;stroom_core_test&lt;/strong&gt; - If you are just evaluating Stroom or just want to see it running then download the &lt;code&gt;stroom_core_test*.tar.gz&lt;/code&gt; stack which includes some pre-loaded content.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;stroom_core&lt;/strong&gt; - If it is for an actual deployment of Stroom then download &lt;code&gt;stroom_core*.tar.gz&lt;/code&gt;, which has no content and requires some configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Using &lt;code&gt;stroom_core_test-v7.1-beta.15.tar.gz&lt;/code&gt; as an example:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Define the version to download
+VERSION=&amp;#34;v7.1-beta.15&amp;#34;; STACK=&amp;#34;stroom_core_test&amp;#34;
+(out)
+# Download and extract the Stroom stack
+curl -sL &amp;#34;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz&amp;#34; | tar xz
+(out)
+# Navigate into the new stack directory, where xxxx is the directory that has just been created
+cd &amp;#34;${STACK}-${VERSION}&amp;#34;
+(out)
+# Start the stack
+./start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest &lt;code&gt;stroom_core_test&lt;/code&gt; release using:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Download and extract the laStroom stack
+bash &amp;lt;(curl -s https://gchq.github.io/stroom-resources/v7.1/get_stroom.sh)
+(out)
+# Navigate into the new stack directory
+cd stroom_core_test/stroom_core_test*
+(out)
+# Start the stack
+./start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;On first run stroom will build the database schemas so this can take a minute or two.
+The &lt;code&gt;start.sh&lt;/code&gt; script will provide details of the various URLs that are available.&lt;/p&gt;
+&lt;p&gt;Open a browser (preferably Chrome) at &lt;a href=&#34;https://localhost&#34;&gt;https://localhost&lt;/a&gt; and login with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;username: &lt;em&gt;admin&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;password: &lt;em&gt;admin&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;To configure your new instance see &lt;a href=&#34;../../docs/install-guide/configuration/&#34;&gt;Configuration&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;docker-hub-links&#34;&gt;Docker Hub links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://hub.docker.com/r/gchq/stroom/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;The Stroom image (external link)&#34;&gt;
+    &lt;span&gt;The Stroom image&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://hub.docker.com/r/gchq/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;The GCHQ organisation (external link)&#34;&gt;
+    &lt;span&gt;The GCHQ organisation&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

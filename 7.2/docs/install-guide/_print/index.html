@@ -1,0 +1,4416 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../docs/install-guide/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Installation Guide | Stroom</title>
+<meta name="description" content="This section describes how to install Stroom, its dependencies and related applications.
+">
+<meta property="og:title" content="Installation Guide" />
+<meta property="og:description" content="This section describes how to install Stroom, its dependencies and related applications.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/install-guide/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Installation Guide">
+<meta itemprop="description" content="This section describes how to install Stroom, its dependencies and related applications.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Installation Guide"/>
+<meta name="twitter:description" content="This section describes how to install Stroom, its dependencies and related applications.
+"/>
+
+
+
+
+<link rel="preload" href="../../../scss/main.min.2e61f3e70d0ef56da625d708444e9dc04314bc725456d7699d808b006bb8778c.css" as="style">
+<link href="../../../scss/main.min.2e61f3e70d0ef56da625d708444e9dc04314bc725456d7699d808b006bb8778c.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../css/prism.css"/>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-00000000-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../news/"><span>News / Releases</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.2)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../">7.2 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../offline-search-index.8e671fef4d8eb9d7178507d577d3549c.json"
+    data-offline-search-base-href="../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../docs/install-guide/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Installation Guide</h1>
+<div class="lead">This section describes how to install Stroom, its dependencies and related applications.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-a8789330e91ee81ec2fa253fe654c363">Single Node Docker Installation</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-c89e5b17a07204690526a16417c9dd50">Configuration</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>2.1: <a href="#pg-a53a193cf4abc0b6dfa8fa20a2fda8e2">Nginx Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2.2: <a href="#pg-f67b02c1954e1e3755f22565ea9c45a2">Stroom Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2.3: <a href="#pg-2fbd4f6015742d6292564c2fec48dde8">Stroom Proxy Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2.4: <a href="#pg-cea106477cd6590d5c2f583e39fc1d53">Stroom Log Sender Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2.5: <a href="#pg-c55274dc8017978026995b0c30172626">MySQL Configuration</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-30fadd57efe49fc7fcc426efaebd46bc">Installing in an Air Gapped Environment</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-f6ffd8d1b01a0988e33029f1507960c6">Upgrades</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>4.1: <a href="#pg-3343397eca2385c268b1e77ebc0c4e41">Minor Upgrades and Patches</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4.2: <a href="#pg-0a1127f5aa5f66d848408d2c8caefecc">Upgrade from v5 to v7</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4.3: <a href="#pg-63dfce89305ebda417758285ed429726">Upgrade from v6 to v7</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-4539c9eea16d100709bb0c63eb985376">Setup</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>5.1: <a href="#pg-83516d1c6898776469e61e1639643937">Processing Users</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5.2: <a href="#pg-1423b5de8658215848877b76e270e0c7">Securing Stroom</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5.3: <a href="#pg-06d5f6643ea3f5b645b70260fb32e360">Java Key Store Setup</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5.4: <a href="#pg-2ca84eb0d1a73aaef4a9d836a7d0b0be">MySQL Setup</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-b8704340a0ac9246d13f2c84c3c850b0">Stroom 6 Installation</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7: <a href="#pg-43cbc5a96873e16a7583c1067cb267aa">Kubernetes Cluster</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>7.1: <a href="#pg-ca95eefd1a4d9ee57e159bf1e8628042">Introduction</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.2: <a href="#pg-05f10dc925729e909b808bad4073ad2b">Install Operator</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.3: <a href="#pg-0507fe5566061e6ceaad9054e4e5d301">Upgrade Operator</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.4: <a href="#pg-c8eeddcab75a955590d58d0c4350b4bc">Remove Operator</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.5: <a href="#pg-721b26717d1f73ea1eb3ecfc16a7a16d">Configure Database</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.6: <a href="#pg-fb65f82f056e9f1601c353119678b6a6">Configure a cluster</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.7: <a href="#pg-27477f3276848d8ef7a8896dec8ac3f9">Auto Scaler</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.8: <a href="#pg-f1fcf284925090030b347c6d04e9d8a0">Stop Stroom Cluster</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.9: <a href="#pg-3603d04935fa22b34e672359e6b24a4a">Restart Node</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-a8789330e91ee81ec2fa253fe654c363">1 - Single Node Docker Installation</h1>
+    <div class="lead">How to install a Single node instance of Stroom using Docker containers.</div>
+	<p>Running Stroom in <em>Docker</em> is the quickest and easiest way to get Stroom up and running.
+Using Docker means you don&rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured corectly for Stroom.</p>
+<h2 id="stroom-docker-stacks">Stroom Docker stacks</h2>
+<p>Stroom has a number of predefined <em>stacks</em> that combine multiple docker containers into a fully functioning Stroom.
+The docker stacks are aimed primarily at single node instances or for evaluation/test.
+If you want to deploy a Stroom cluster using containers then you should use Kubernetes.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Add Kubernetes install link.
+
+</div>
+
+<p>At the moment the usable stacks are:</p>
+<div class="td-card-deck card-deck mb-4">
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        <code>stroom_core</code>
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <p>A production single node stroom.</p>
+<p><strong>Services:</strong><br>
+stroom<br>
+stroom-proxy-local<br>
+stroom-log-sender<br>
+nginx<br>
+mysql</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        <code>stroom_core_test</code>
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <p>A single node stroom for test/evalutaion, pre-loaded with content.
+Also includes a <em>remote</em> proxy for demonstration purposes.</p>
+<p><strong>Services:</strong><br>
+stroom<br>
+stroom-proxy-local<br>
+stroom-proxy-remote<br>
+stroom-log-sender<br>
+nginx<br>
+mysql</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        <code>stroom_proxy</code>
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <p>A remote proxy stack for aggregating and forwarding logs to stroom(-proxy).</p>
+<p><strong>Services:</strong><br>
+stroom-proxy-remote<br>
+stroom-log-sender<br>
+nginx</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        <code>stroom_services</code>
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <p>An Nginx instance for running stroom without Docker.</p>
+<p><strong>Services:</strong><br>
+stroom-log-sender<br>
+nginx</p>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+</div>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>In order to run Stroom using Docker you will need the following installed on the machine you intend to run Stroom on:</p>
+<ul>
+<li>An internet connection. If you don&rsquo;t have one see <a href="../../../docs/install-guide/air-gapped/#docker-images">Air Gapped Environments</a>.</li>
+<li>A Linux-like shell environment.</li>
+<li>Docker CE (v17.12.0+) - e.g 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" class="" style="" title="docs.docker.com/install/linux/docker-ce/centos/ (external link)">
+    <span>docs.docker.com/install/linux/docker-ce/centos/</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for Centos</li>
+<li>docker-compose (v1.21.0+) - 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://docs.docker.com/compose/install/" target="_blank" class="" style="" title="docs.docker.com/compose/install/ (external link)">
+    <span>docs.docker.com/compose/install/</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
+<li>bash (v4+)</li>
+<li>jq - 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://stedolan.github.io/jq/" target="_blank" class="" style="" title="stedolan.github.io/jq/ (external link)">
+    <span>stedolan.github.io/jq/</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ e.g. <code>sudo yum install jq</code></li>
+<li>curl</li>
+<li>A non-root user to perform the install as, e.g. <code>stroomuser</code></li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <code>jq</code> is not a hard requirement but improves the functionality of the health checks.
+
+</div>
+
+
+<h2 id="install-steps">Install steps</h2>
+<p>This will install the core stack (Stroom and the peripheral services required to run Stroom).</p>
+<p>Visit 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/releases" target="_blank" class="" style="" title="stroom-resources/releases (external link)">
+    <span>stroom-resources/releases</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ to find the latest stack release.
+The Stroom stack comes in a number of different variants:</p>
+<ul>
+<li><strong>stroom_core_test</strong> - If you are just evaluating Stroom or just want to see it running then download the <code>stroom_core_test*.tar.gz</code> stack which includes some pre-loaded content.</li>
+<li><strong>stroom_core</strong> - If it is for an actual deployment of Stroom then download <code>stroom_core*.tar.gz</code>, which has no content and requires some configuration.</li>
+</ul>
+<p>Using <code>stroom_core_test-v7.1-beta.15.tar.gz</code> as an example:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Define the version to download
+VERSION=&#34;v7.1-beta.15&#34;; STACK=&#34;stroom_core_test&#34;
+(out)
+# Download and extract the Stroom stack
+curl -sL &#34;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz&#34; | tar xz
+(out)
+# Navigate into the new stack directory, where xxxx is the directory that has just been created
+cd &#34;${STACK}-${VERSION}&#34;
+(out)
+# Start the stack
+./start.sh</code></pre>
+</div>
+
+<p>Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest <code>stroom_core_test</code> release using:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Download and extract the laStroom stack
+bash &lt;(curl -s https://gchq.github.io/stroom-resources/v7.1/get_stroom.sh)
+(out)
+# Navigate into the new stack directory
+cd stroom_core_test/stroom_core_test*
+(out)
+# Start the stack
+./start.sh</code></pre>
+</div>
+
+<p>On first run stroom will build the database schemas so this can take a minute or two.
+The <code>start.sh</code> script will provide details of the various URLs that are available.</p>
+<p>Open a browser (preferably Chrome) at <a href="https://localhost">https://localhost</a> and login with:</p>
+<ul>
+<li>username: <em>admin</em></li>
+<li>password: <em>admin</em></li>
+</ul>
+<p>The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.</p>
+<h2 id="configuration">Configuration</h2>
+<p>To configure your new instance see <a href="../../../docs/install-guide/configuration/">Configuration</a>.</p>
+<h2 id="docker-hub-links">Docker Hub links</h2>
+<ul>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://hub.docker.com/r/gchq/stroom/" target="_blank" class="" style="" title="The Stroom image (external link)">
+    <span>The Stroom image</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://hub.docker.com/r/gchq/" target="_blank" class="" style="" title="The GCHQ organisation (external link)">
+    <span>The GCHQ organisation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
+</ul>
+
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-c89e5b17a07204690526a16417c9dd50">2 - Configuration</h1>
+    
+	<p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+This document will cover two types of deployment:</p>
+<ul>
+<li>Single node stroom_core docker stack.</li>
+<li>A mixed deployment with nginx in docker and stroom, stroom-proxy and the database not in docker.</li>
+</ul>
+<p>This document will explain how each application/service is configured and where its configuration files live.</p>
+<h2 id="application-configuration">Application Configuration</h2>
+<p>The following sections provide links to how to configure each application.</p>
+<ul>
+<li>
+<p><a href="../../../docs/install-guide/configuration/configuring-stroom/">Stroom Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../docs/install-guide/configuration/configuring-stroom-proxy/">Stroom Proxy Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../docs/install-guide/configuration/configuring-mysql/">MySQL Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../docs/install-guide/configuration/configuring-nginx/">Nginx Configuration</a></p>
+</li>
+<li>
+<p><a href="../../../docs/install-guide/configuration/configuring-stroom-log-sender/">Stroom log sender Configuration</a></p>
+</li>
+</ul>
+<h2 id="general-configuration-of-docker-stacks">General configuration of docker stacks</h2>
+<h3 id="environment-variables">Environment variables</h3>
+<p>The stroom docker stacks have a single env file <code>&lt;stack name&gt;.env</code> that acts as a single point to configure some aspects of the stack.
+Setting values in the env file can be useful when the value is shared between multiple containers.
+This env file sets environment variables that are then used for variable substitution in the docker compose YAML files, e.g.</p>
+<pre><code class="language-yaml">    environment:
+      - MYSQL_ROOT_PASSWORD=${STROOM_DB_ROOT_PASSWORD:-my-secret-pw}
+</code></pre>
+<p>In this example the environment variable <code>STROOM_DB_ROOT_PASSWORD</code> is read and used to set the environment variable <code>MYSQL_ROOT_PASSWORD</code> in the docker container.
+If <code>STROOM_DB_ROOT_PASSWORD</code> is not set then the value <code>my-secret-pw</code> is used instead.</p>
+<p>The environment variables set in the env file are <em>NOT</em> automatically visible <em>inside</em> the containers.
+Only those environment variables defined in the <code>environment</code> section of the docker-compose YAML files are visible.
+These <code>environment</code> entries can either be hard coded values or use environment variables from <em>outside</em> the container.
+In some case the names in the env file and the names of the environment variables set in the containers are the same, in some they are different.</p>
+<p>The environment variables set in the containers can then be used by the application running in each container to set its configuration.
+For example, stroom&rsquo;s <code>config.yml</code> file also uses variable substitution, e.g.</p>
+<pre><code class="language-yaml">appConfig:
+  commonDbDetails:
+    connection:
+    jdbcDriverClassName: &quot;${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}&quot;
+</code></pre>
+<p>In this example <code>jdbcDriverUrl</code> will be set to the value of environment variable <code>STROOM_JDBC_DRIVER_CLASS_NAME</code> or <code>com.mysql.cj.jdbc.Driver</code> if that is not set.</p>
+<p>The following example shows how setting <code>MY_ENV_VAR=123</code> means <code>myProperty</code> will ultimately get a value of <code>123</code> and not its default of <code>789</code>.</p>
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env) - MY_ENV_VAR=123
+                |
+                |
+                | environment variable substitution
+                |
+                v
+docker compose YAML (01_stroom.yml) - STROOM_ENV_VAR=${MY_ENV_VAR:-456}
+                |
+                |
+                | environment variable substitution
+                |
+                v
+Stroom configuration file (config.yml) - myProperty: &quot;${STROOM_ENV_VAR:-789}&quot;
+</code></pre>
+<p>Note that environment variables are only set into the container on start.
+Any changes to the env file will not take effect until the container is (re)started.</p>
+<h3 id="configuration-files">Configuration files</h3>
+<p>The following shows the basic structure of a stack with respect to the location of the configuration files:</p>
+<pre><code class="language-text">── stroom_core_test-vX.Y.Z
+   ├── config                [stack env file and docker compose YAML files]
+   └── volumes
+       └── &lt;service&gt;
+           └── conf/config   [service specifc configuration files]
+</code></pre>
+<p>Some aspects of configuration do not lend themselves to environment variable substitution, e.g. deeply nested parts of stroom&rsquo;s <code>config.yml</code>.
+In these instances it may be necessary to have static configuration files that have no connection to the env file or only use environment variables for some values.</p>
+<h3 id="bind-mounts">Bind mounts</h3>
+<p>Everything in the stack <code>volumes</code> directory is bind-mounted into the named docker container but is mounted read-only to the container.
+This allows configuration files to be read by the container but not modified.</p>
+<p>Typically the bind mounts mount a directory into the container, though in the case of the <code>stroom-all-dbs.cnf</code> file, the file is mounted.
+The mounts are done using the inode of the file/directory rather than the name, so docker will mount whatever the inode points to even if the name changes.
+If for instance the <code>stroom-all-dbs.cnf</code> file is renamed to <code>stroom-all-dbs.cnf.old</code> then copied to <code>stroom-all-dbs.cnf</code> and then the new version modified, the container would still see the old file.</p>
+<h3 id="docker-managed-volumes">Docker managed volumes</h3>
+<p>When stroom is running various forms of data are persisted, e.g. stroom&rsquo;s stream store, stroom-all-dbs database files, etc.
+All this data is stored in docker managed volumes.
+By default these will be located in <code>/var/lib/docker/volumes/&lt;volume name&gt;/_data</code> and root/sudo access will be needed to access these directories.</p>
+<h4 id="docker-data-root">Docker data root</h4>
+<blockquote>
+<p><strong>IMPORTANT</strong></p>
+</blockquote>
+<p>By default Docker stores all its images, container layers and managed volumes in its default data root directory which defaults to <code>/var/lib/docker</code>.
+It is typical in server deployments for the root file system to be kept fairly small and this is likely to result in the root file system running out of space due to the growth in docker images/layers/volumes in <code>/var/lib/docker</code>.
+It is therefore strongly recommended to move the docker data root to another location with more space.</p>
+<p>There are various options for achieving this.
+In all cases the docker daemon should be stopped prior to making the changes, e.g. <code>service docker stop</code>, then started afterwards.</p>
+<ul>
+<li>
+<p><strong>Symlink</strong> - One option is to move the <code>var/lib/docker</code> directory to a new location then create a symlink to it.
+For example:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">ln -s /large_mount/docker_data_root /var/lib/docker</code></pre>
+</div>
+
+<p>This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.</p>
+</li>
+<li>
+<p><strong>Configuration</strong> - The location can be changed by adding this key to the file <code>/etc/docker/daemon.json</code> (or creating this file if it doesn&rsquo;t exist.</p>
+<pre><code class="language-json">{
+  &quot;data-root&quot;: &quot;/mnt/docker&quot;
+}
+</code></pre>
+</li>
+<li>
+<p><strong>Mount</strong> - If your intention is to use a whole storage device for the docker data root then you can mount that device to <code>/var/lib/docker</code>.
+You will need to make a copy of the <code>/var/lib/docker</code> directory prior to doing this then copy it mount once created.
+The process for setting up this mount will be OS dependent and is outside the scope of this document.</p>
+</li>
+</ul>
+<h3 id="active-services">Active services</h3>
+<p>Each stroom docker stack comes pre-built with a number of different services, e.g. the <em>stroom_core</em> stack contains the following:</p>
+<ul>
+<li>stroom</li>
+<li>stroom-proxy-local</li>
+<li>stroom-all-dbs</li>
+<li>nginx</li>
+<li>stroom-log-sender</li>
+</ul>
+<p>While you can pass a set of service names to the commands like <code>start.sh</code> and <code>stop.sh</code>, it may sometimes be required to configure the stack instance to only have a set of services active.
+You can set the active services like so:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./set_services.sh stroom stroom-all-dbs nginx</code></pre>
+</div>
+
+<p>In the above example and subsequent use of commands like <code>start.sh</code> and <code>stop.sh</code> with no named services would only act upon the active services set by <code>set_services.sh</code>.
+This list of active services is held in <code>ACTIVE_SERVICES.txt</code> and the full list of available services is held in <code>ALL_SERVICES.txt</code>.</p>
+<h3 id="certificates">Certificates</h3>
+<p>A number of the services in the docker stacks will make use of SSL certificates/keys in various forms.
+The certificate/key files are typically found in the directories <code>volumes/&lt;service&gt;/certs/</code>.</p>
+<p>The stacks come with a set of client/server certificates that can be used for demo/test purposes.
+For production deployments these should be replaced with the actual certificates/keys for your environment.</p>
+<p>In general the best approach to configuring the certificates/keys is to replace the existing files with symlinks to the actual files.
+For example in the case of the server certificates for nginx (found in <code>volumes/nginx/certs/</code>) the directory would look like:</p>
+<pre><code class="language-text">ca.pem.crt -&gt; /some/path/to/certificate_authority.pem.crt
+server.pem.crt -&gt; /some/path/to/host123.pem.crt
+server.unencrypted.key -&gt; /some/path/to/host123.key
+</code></pre>
+<p>This approach avoids the need to change any configuration files to reference differently named certificate/key files and avoids having to copy your real certificates/keys into multiple places.</p>
+<p>For examples of how to create certificates, keys and keystores see 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh" target="_blank" class="" style="" title="creatCerts.sh (external link)">
+    <span>creatCerts.sh</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.1.'; page-break-before: always">
+    
+  <h1 id="pg-a53a193cf4abc0b6dfa8fa20a2fda8e2">2.1 - Nginx Configuration</h1>
+    <div class="lead">Configuring Nginx for use with Stroom and Stroom Proxy.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <span class="external-link">
+  <a href="https://nginx.org/en/docs/" target="_blank" class="" style="" title="Nginx documentation (external link)">
+    <span>Nginx documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+
+</div>
+
+
+<p>Nginx is the standard web server used by stroom.
+Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
+It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance.
+Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.</p>
+<h2 id="without-docker">Without Docker</h2>
+<p>The standard way of deploying Nginx with stroom running without docker involves running Nginx as part of the <em>services</em> stack.
+See below for details of how to configure it.
+If you want to deploy Nginx without docker then you can but that is outside the scope of the this documentation.</p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>Nginx is included in all the stroom docker stacks.
+Nginx is configured using multiple configuration files to aid clarity and allow reuse of sections of configuration.
+The main file for configuring Nginx is <code>nginx.conf.template</code> and this makes use of other files via <code>include</code> statements.</p>
+<p>The purpose of the various files is as follows:</p>
+<ul>
+<li><code>nginx.conf.template</code> - Top level configuration file that orchestrate the other files.</li>
+<li><code>logging.conf.template</code> - Configures the logging output, its content and format.</li>
+<li><code>server.conf.template</code> - Configures things like SSL settings, timeouts, ports, buffering, etc.</li>
+<li>Upstream configuration
+<ul>
+<li><code>upstreams.stroom.ui.conf.template</code> - Defines the upstream host(s) for stroom node(s) that are dedicated to serving the user interface.</li>
+<li><code>upstreams.stroom.processing.conf.template</code> - Defines the upstream host(s) for stroom node(s) that are dedicated to stream processing and direct data receipt.</li>
+<li><code>upstreams.proxy.conf.template</code> - Defines the upstream host(s) for local stroom-proxy node(s).</li>
+</ul>
+</li>
+<li>Location configuration
+<ul>
+<li><code>locations_defaults.conf.template</code> - Defines some default directives (e.g. headers) for configuring stroom paths.</li>
+<li><code>proxy_location_defaults.conf.template</code> - Defines some default directives (e.g. headers) for configuring stroom-proxy paths.</li>
+<li><code>locations.proxy.conf.template</code> - Defines the various paths (e.g/ <code>/datafeed</code>) that will be reverse proxied to stroom-proxy hosts.</li>
+<li><code>locations.stroom.conf.template</code> - Defines the various paths (e.g/ <code>/datafeeddirect</code>) that will be reverse proxied to stroom hosts.</li>
+</ul>
+</li>
+</ul>
+<h3 id="templating">Templating</h3>
+<p>The nginx container has been configured to support using environment variables passed into it to set values in the Nginx configuration files.
+It should be noted that recent versions of Nginx have templating support built in.
+The templating mechanism used in stroom&rsquo;s Nginx container was set up before this existed but achieves the same result.</p>
+<p>All non-default configuration files for Nginx should be placed in <code>volumes/nginx/conf/</code> and named with the suffix <code>.template</code> (even if no templating is needed).
+When the container starts any variables in these templates will be substituted and the resulting files will be copied into <code>/etc/nginx</code>.
+The result of the template substitution is logged to help with debugging.</p>
+<p>The files can contain templating of the form:</p>
+<pre><code class="language-text">ssl_certificate             /stroom-nginx/certs/&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;;
+</code></pre>
+<p>In this example <code>&lt;&lt;&lt;NGINX_SSL_CERTIFICATE&gt;&gt;&gt;</code> will be replaced with the value of environment variable <code>NGINX_SSL_CERTIFICATE</code> when the container starts.</p>
+<h3 id="upstreams">Upstreams</h3>
+<p>When configuring a multi node cluster you will need to configure the upstream hosts.
+Nginx acts as a reverse proxy for the applications behind it so the lists of hosts for each application need to be configured.</p>
+<p>For example if you have a 10 node cluster and 2 of those nodes are dedicated for user interface use then the configuration would look like:</p>
+<p><strong>upstreams.stroom.ui.conf.template</strong></p>
+<pre><code class="language-conf">server node1.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node2.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+</code></pre>
+<p><strong>upstreams.stroom.processing.conf.template</strong></p>
+<pre><code class="language-conf">server node3.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node4.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node5.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node6.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node7.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node8.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node9.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node10.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+</code></pre>
+<p><strong>upstreams.proxy.conf.template</strong></p>
+<pre><code class="language-conf">server node3.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node4.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node5.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node6.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node7.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node8.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node9.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+server node10.stroomhosts:&lt;&lt;&lt;STROOM_PORT&gt;&gt;&gt;
+</code></pre>
+<p>In the above example the port is set using templating as it is the same for all nodes.
+Nodes 1 and 2 will receive all UI and REST API traffic.
+Nodes 8-10 will serve all datafeed(direct) requests.</p>
+<h3 id="certificates">Certificates</h3>
+<p>The stack comes with a default server certificate/key and CA certificate for demo/test purposes.
+The files are located in <code>volumes/nginx/certs/</code>.
+For a production deployment these will need to be changed, see <a href="../../../docs/install-guide/configuration/#certificates">Certificates</a></p>
+<h3 id="log-rotation">Log rotation</h3>
+<p>The Nginx container makes use of logrotate to rotate Nginx&rsquo;s log files after a period of time so that rotated logs can be sent to stroom.
+Logrotate is configured using the file <code>volumes/stroom-log-sender/logrotate.conf.template</code>.
+This file is templated in the same way as the Nginx configuration files, see <a href="#templating">above</a>.
+The number of rotated files that should be kept before deleting them can be controlled using the line.</p>
+<pre><code class="language-text">rotate 100
+</code></pre>
+<p>This should be set in conjunction with the frequency that logrotate is called, which is controlled by <code>volumes/stroom-log-sender/crontab.txt</code>.
+This crontab file drives the lograte process and by default is set to run every minute.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.2.'; page-break-before: always">
+    
+  <h1 id="pg-f67b02c1954e1e3755f22565ea9c45a2">2.2 - Stroom Configuration</h1>
+    <div class="lead">Describes how the Stroom application is configured.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../docs/user-guide/properties/">Properties</a>.</p>
+
+
+</div>
+
+
+<h2 id="general-configuration">General configuration</h2>
+<p>The Stroom application is essentially just an executable 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29" target="_blank" class="" style="" title="JAR (external link)">
+    <span>JAR</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ file that can be run when provided with a configuration file, <code>config.yml</code>.
+This config file is common to all forms of deployment.</p>
+<h3 id="configyml">config.yml</h3>
+<p>This file, sometimes known as the DropWizard configuration file (as DropWizard is the java framework on which Stroom runs) is the primary means of configuring stroom.
+As a minimum this file should be used to configure anything that needs to be set before stroom can start up, e.g. database connection details or is specific to a node in a stroom cluster.
+If you are using some form of scripted deployment, e.g. ansible then it can be used to set all stroom properties for the environment that stroom runs in.
+If you are not using scripted deployments then you can maintain stroom&rsquo;s node agnostic configuration properties via the user interface.</p>
+<p>For more details on the structure of the file, data types and property precedence see <a href="../../../docs/user-guide/properties/">Properties</a>.</p>
+<p>Stroom operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
+As a result <code>config.yml</code> only contains a minimal set of properties.
+The full tree of properties can be seen in <code>./config/config-defaults.yml</code> and a schema for the configuration tree (along with descriptions for each property) can be found in <code>./config/config-schema.yml</code>.
+These two files can be used as a reference when configuring stroom.</p>
+<h4 id="key-configuration-properties">Key Configuration Properties</h4>
+<p>The following are key properties that would typically be changed for a production deployment.
+All configuration branches are relative to the <code>appConfig</code> root.</p>
+<p>The database name(s), hostname(s), port(s), usernames(s) and password(s) should be configured using these properties.
+Typically stroom is configured to keep it statistics data in a separate database to the main stroom database, as is configured below.</p>
+<pre><code class="language-yaml">  commonDbDetails:
+    connection:
+      jdbcDriverUrl: &quot;jdbc:mysql://localhost:3307/stroom?useUnicode=yes&amp;characterEncoding=UTF-8&quot;
+      jdbcDriverUsername: &quot;stroomuser&quot;
+      jdbcDriverPassword: &quot;stroompassword1&quot;
+  statistics:
+    sql:
+      db:
+        connection:
+          jdbcDriverUrl: &quot;jdbc:mysql://localhost:3307/stats?useUnicode=yes&amp;characterEncoding=UTF-8&quot;
+          jdbcDriverUsername: &quot;statsuser&quot;
+          jdbcDriverPassword: &quot;stroompassword1&quot;
+</code></pre>
+<p>In a clustered deployment each node must be given a node name that is unique within the cluster.
+This is used to identify nodes in the Nodes screen.
+It could be the hostname of the node or follow some other naming convetion.</p>
+<pre><code class="language-yaml">  node:
+    name: &quot;node1a&quot;
+</code></pre>
+<p>Each node should have its identity on the network configured so that it uses the appropriate FQDNs.
+The <code>nodeUri</code> hostname is the FQDN of each node and used by nodes to communicate with each other, therefore it can be private to the cluster of nodes.
+The <code>publicUri</code> hostname is the public facing FQDN for stroom, i.e. the address of a load balancer or Nginx.
+This is the address that users will use in their browser.</p>
+<pre><code class="language-yaml">  nodeUri:
+    hostname: &quot;localhost&quot; # e.g. node5.stroomnodes.somedomain
+  publicUri:
+    hostname: &quot;localhost&quot; # e.g. stroom.somedomain
+</code></pre>
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>Stroom running without docker has two files to configure it.
+The following locations are relative to the stroom home directory, i.e. the root of the distribution zip.</p>
+<ul>
+<li><code>./config/config.yml</code> - Stroom configuration YAML file</li>
+<li><code>./config/scripts.env</code> - Stroom scripts configuration env file</li>
+</ul>
+<p>The distribution also includes these files which are helpful when it comes to configuring stroom.</p>
+<ul>
+<li><code>./config/config-defaults.yml</code> - Full version of the config.yml file containing all branches/leaves with default values set.
+Useful as a reference for the structure and the default values.</li>
+<li><code>./config/config-schema.yml</code> - The schema defining the structure of the <code>config.yml</code> file.</li>
+</ul>
+<h3 id="scriptsenv">scripts.env</h3>
+<p>This file is used by the various shell scripts like <code>start.sh</code>, <code>stop.sh</code>, etc.
+This file should not need to be unless you want to change the locations where certain log files are written to or need to change the java memory settings.</p>
+<p>In a production system it is highly likely that you will need to increase the java heap size as the default is only 2G.
+The heap size settings and any other java command line options can be set by changing:</p>
+<pre><code class="language-sh">JAVA_OPTS=&quot;-Xms512m -Xmx2048m&quot;
+</code></pre>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>When stroom is run as part of one of our docker stacks, e.g. <em>stroom_core</em> there are some additional layers of configuration to take into account, but the configuration is still primarily done using the <code>config.yml</code> file.</p>
+<p>Stroom&rsquo;s <code>config.yml</code> file is found in the stack in <code>./volumes/stroom/config/</code> and this is the primary means of configuring Stroom.</p>
+<p>The stack also ships with a default <code>config.yml</code> file baked into the docker image.
+This minimal fallback file (located in <code>/stroom/config-fallback/</code> inside the container) will be used in the absence of one provided in the docker stack configuration (<code>./volumes/stroom/config/</code>).</p>
+<p>The default <code>config.yml</code> file uses <a href="../../../docs/install-guide/configuration/#environment-variables">environment variable substitution</a> so some configuration items will be set by environment variables set into the container by the stack <em>env</em> file and the docker-compose YAML.
+This approach is useful for configuration values that need to be used by multiple containers, e.g. the public FQDN of Nginx, so it can be configured in one place.</p>
+<p>If you need to further customise the stroom configuration then it is recommended to edit the <code>./volumes/stroom/config/config.yml</code> file.
+This can either be a simple file with hard coded values or one that uses environment variables for some of its
+configuration items.</p>
+<p>The configuration works as follows:</p>
+<pre><code class="language-text">env file (stroom&lt;stack name&gt;.env)
+                |
+                |
+                | environment variable substitution
+                |
+                v
+docker compose YAML (01_stroom.yml)
+                |
+                |
+                | environment variable substitution
+                |
+                v
+Stroom configuration file (config.yml)
+</code></pre>
+<h3 id="ansible">Ansible</h3>
+<p>If you are using Ansible to deploy a stack then it is recommended that all of stroom&rsquo;s configuration properties are set directly in the <code>config.yml</code> file using a templated version of the file and to NOT use any environment variable substitution.
+When using Ansible, the Ansible inventory is the single source of truth for your configuration so not using environment variable substitution for stroom simplifies the configuration and makes it clearer when looking at deployed configuration files.</p>
+<p><a href="https://github.com/gchq/stroom-ansible">Stroom-ansible</a> has an example inventory for a single node stroom stack deployment.
+The <a href="https://github.com/gchq/stroom-ansible/blob/master/config/single_node_stroom_core_stack/example_inventory/group_vars/all">group_vars/all</a> file shows how values can be set into the <em>env</em> file.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.3.'; page-break-before: always">
+    
+  <h1 id="pg-2fbd4f6015742d6292564c2fec48dde8">2.3 - Stroom Proxy Configuration</h1>
+    
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a><br>
+<a href="../../../docs/user-guide/properties/">Properties</a></p>
+
+
+</div>
+
+
+<p>The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the <code>config.yml</code> file.
+Stroom-proxy has a <code>proxyConfig</code> key in the YAML while Stroom has <code>appConfig</code>.
+It is recommended to first read <a href="../../../docs/install-guide/configuration/configuring-stroom/">Stroom Application Configuration</a> to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.</p>
+<h2 id="general-configuration">General configuration</h2>
+<p>The Stroom-proxy application is essentially just an executable 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/JAR_%28file_format%29" target="_blank" class="" style="" title="JAR (external link)">
+    <span>JAR</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ file that can be run when provided with a configuration file, <code>config.yml</code>.
+This configuration file is common to all forms of deployment.</p>
+<h3 id="configyml">config.yml</h3>
+<p>Stroom-proxy does not have a user interface so the <code>config.yml</code> file is the only way of configuring stroom-proxy.
+As with stroom, the <code>config.yml</code> file is split into three sections using these keys:</p>
+<ul>
+<li><code>server</code> - Configuration of the web server, e.g. ports, paths, request logging.</li>
+<li><code>logging</code> - Configuration of application logging</li>
+<li><code>proxyConfig</code> - Configuration of stroom-proxy</li>
+</ul>
+<p>See also <a href="../../../docs/user-guide/properties/">Properties</a> for more details on structure of the config.yml file and supported data types.</p>
+<p>Stroom-proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
+As a result <code>config.yml</code> only contains a minimal set of properties.
+The full tree of properties can be seen in <code>./config/config-defaults.yml</code> and a schema for the configuration tree (along with descriptions for each property) can be found in <code>./config/config-schema.yml</code>.
+These two files can be used as a reference when configuring stroom.</p>
+<h4 id="key-configuration-properties">Key Configuration Properties</h4>
+<p>Stroom-proxy has two main functions, storing and forwarding.
+It can be configured to do either or both of these functions.
+These functions are enabled/disabled using:</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  forwardStreamConfig:
+    forwardingEnabled: true
+
+  proxyRepositoryConfig:
+    storingEnabled: true
+</code></pre>
+<p>Stroom-proxy should be configured to check the receipt status of feeds on receipt of data.
+This is done by configuring the end point of a downstream stroom-proxy or stroom.</p>
+<pre><code class="language-yaml">  feedStatus:
+    url: &quot;http://stroom:8080/api/feedStatus/v1&quot;
+    apiKey: &quot;&quot;
+</code></pre>
+<p>The <code>url</code> should be the url for the feed status API on the downstream stroom(-proxy).
+If this is on the same host then you can use the http endpoint, however if it is on a remote host then you should use https and the host of its nginx, e.g. <code>https://downstream-instance/api/feedStatus/v1</code>.</p>
+<p>In order to use the API, the proxy must have a configured <code>apiKey</code>.
+The API key must be created in the downstream stroom instance and then copied into this configuration.</p>
+<p>If the proxy is configured to forward data then the forward destination(s) should be set.
+This is the <code>datafeed</code> endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
+This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
+See also <a href="#feed-status-certificate-configuration">Feed status certificate configuration</a>.</p>
+<pre><code class="language-yaml">  forwardStreamConfig:
+    forwardDestinations:
+      - forwardUrl: &quot;https://nginx/stroom/datafeed&quot;
+</code></pre>
+<p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
+Each forward location can use a different key/trust store pair.
+See also <a href="#forwarding-certificate-configuration">Forwarding certificate configuration</a>.</p>
+<p>If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.</p>
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>Apart from the structure of the <code>config.yml</code> file, the configuration in a non-docker environment is the same as for <a href="../../../docs/install-guide/configuration/configuring-stroom-proxy/#deploying-without-docker">stroom</a></p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>The way stroom-proxy is configured is essentially the same as for <a href="../../../docs/install-guide/configuration/configuring-stroom-proxy/#as-part-of-a-docker-stack">stroom</a> with the only real difference being the structure of the <code>config.yml</code> file as note <a href="#configyml">above</a> .
+As with stroom the docker stack comes with a <code>./volumes/stroom-proxy-*/config/config.yml</code> file that will be used in the absence of a provided one.
+Also as with stroom, the <code>config.yml</code> file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files.</p>
+<h3 id="certificates">Certificates</h3>
+<p>Stroom-proxy makes use of client certificates for two purposes:</p>
+<ul>
+<li>Communicating with a downstream stroom/stroom-proxy in order to establish the receipt status for the feeds it has received data for.</li>
+<li>When forwarding data to a downstream stroom/stroom-proxy</li>
+</ul>
+<p>The stack comes with the following files that can be used for demo/test purposes.</p>
+<pre><code class="language-text">volumes/stroom-proxy-*/certs/ca.jks
+volumes/stroom-proxy-*/certs/client.jks
+</code></pre>
+<p>For a production deployment these will need to be changed, see <a href="../../../docs/install-guide/configuration/#certificates">Certificates</a></p>
+<h4 id="feed-status-certificate-configuration">Feed status certificate configuration</h4>
+<p>The configuration of the client certificates for feed status checks is done using:</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  jerseyClient:
+    timeout: &quot;10s&quot;
+    connectionTimeout: &quot;10s&quot;
+    timeToLive: &quot;1h&quot;
+    cookiesEnabled: false
+    maxConnections: 1024
+    maxConnectionsPerRoute: &quot;1024&quot;
+    keepAlive: &quot;0ms&quot;
+    retries: 0
+    tls:
+      verifyHostname: true
+      keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+      keyStorePassword: &quot;password&quot;
+      keyStoreType: &quot;JKS&quot;
+      trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+      trustStorePassword: &quot;password&quot;
+      trustStoreType: &quot;JKS&quot;
+      trustSelfSignedCertificates: false
+</code></pre>
+<p>This configuration is also used for making any other REST API calls.</p>
+<h4 id="forwarding-certificate-configuration">Forwarding certificate configuration</h4>
+<p>Stroom-proxy can forward to multiple locations.
+The configuration of the certificate(s) for the forwarding locations is as follows:</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  forwardStreamConfig:
+    forwardingEnabled: true
+    forwardDestinations:
+      # If you want multiple forward destinations then you will need to edit this file directly
+      # instead of using env var substitution
+      - forwardUrl: &quot;https://nginx/stroom/datafeed&quot;
+        sslConfig:
+          keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+          keyStorePassword: &quot;password&quot;
+          keyStoreType: &quot;JKS&quot;
+          trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+          trustStorePassword: &quot;password&quot;
+          trustStoreType: &quot;JKS&quot;
+          hostnameVerificationEnabled: true
+</code></pre>
+<p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
+Each forward location can use a different key/trust store pair.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.4.'; page-break-before: always">
+    
+  <h1 id="pg-cea106477cd6590d5c2f583e39fc1d53">2.4 - Stroom Log Sender Configuration</h1>
+    
+	<p>Stroom log sender is a docker image used for sending application logs to stroom.
+It is essentially just a combination of the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/tree/master/bash" target="_blank" class="" style="" title="send_to_stroom.sh (external link)">
+    <span>send_to_stroom.sh</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ script and a set of crontab entries to call the script at intervals.</p>
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>When deploying without docker stroom and stroom-proxy nodes will need to be configured to send their logs to stroom.
+This can be done using the <code>./bin/send_to_stroom.sh</code> script in the stroom and stroom-proxy zip distributions and some crontab configuration.</p>
+<p>The crontab file for the user account running stroom should be edited (<code>crontab -e</code>) and set to something like:</p>
+<pre><code class="language-crontab"># stroom logs
+* * * * * STROOM_HOME=&lt;path to stroom home&gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/access STROOM-ACCESS-EVENTS &lt;datafeed URL&gt; --system STROOM --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * STROOM_HOME=&lt;path to stroom home&gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/app    STROOM-APP-EVENTS    &lt;datafeed URL&gt; --system STROOM --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * STROOM_HOME=&lt;path to stroom home&gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/user   STROOM-USER-EVENTS   &lt;datafeed URL&gt; --system STROOM --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+
+# stroom-proxy logs
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/access  STROOM_PROXY-ACCESS-EVENTS  &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/app     STROOM_PROXY-APP-EVENTS     &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/send    STROOM_PROXY-SEND-EVENTS    &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+* * * * * PROXY_HOME=&lt;path to proxy home&gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/receive STROOM_PROXY-RECEIVE-EVENTS &lt;datafeed URL&gt; --system STROOM-PROXY --environment &lt;environment&gt; --file-regex '.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log' --max-sleep 10 --key &lt;key file&gt; --cert &lt;cert file&gt; --cacert &lt;CA cert file&gt; --delete-after-sending --compress &gt;&gt; &lt;path to log&gt; 2&gt;&amp;1
+</code></pre>
+<p>where the environment specific values are:</p>
+<ul>
+<li><code>&lt;path to stroom home&gt;</code> - The absolute path to the stroom home, i.e. the location of the <code>start.sh</code> script.</li>
+<li><code>&lt;path to proxy home&gt;</code> - The absolute path to the stroom-proxy home, i.e. the location of the <code>start.sh</code> script.</li>
+<li><code>&lt;datafeed URL&gt;</code> - The URL that the logs will be sent to.
+This will typically be the nginx host or load balancer and the path will typically be <code>https://host/datafeeddirect</code> to bypass the proxy for faster access to the logs.</li>
+<li><code>&lt;environment&gt;</code> - The environment name that the stroom/proxy is deployed in, e.g. OPS, REF, DEV, etc.</li>
+<li><code>&lt;key file&gt;</code> - The absolute path to the SSL key file used by curl.</li>
+<li><code>&lt;cert file&gt;</code> - The absolute path to the SSL certificate file used by curl.</li>
+<li><code>&lt;CA cert file&gt;</code> - The absolute path to the SSL certificate authority file used by curl.</li>
+<li><code>&lt;path to log&gt;</code> - The absolute path to a log file to log all the send_to_stroom.sh output to.</li>
+</ul>
+<p>If your implementation of cron supports environment variables then you can define some of the common values at the top of the crontab file and use them in the entries.
+<code>cronie</code> as used by Centos does not support environment variables in the crontab file but variables can be defined at the line level as has been shown with STROOM_HOME and PROXY_HOME.</p>
+<p>The above crontab entries assume that stroom and stroom-proxy are running on the same host.
+If there are not then the entries can be split across the hosts accordingly.</p>
+<h3 id="service-hosts">Service host(s)</h3>
+<p>When deploying stroom/stroom-proxy without stroom you may still be deploying the service stack (nginx and stroom-log-sender) to a host.
+In this case see <a href="#as-part-of-a-docker-stack">As part of a docker stack</a> below for details of how to configure stroom-log-sender to send the nginx logs.</p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<h3 id="crontab">Crontab</h3>
+<p>The docker stacks include the stroom-log-sender docker image for sending the logs of all the other containers to stroom.
+Stroom-log-sender is configured using the crontab file <code>volumes/stroom-log-sender/conf/crontab.txt</code>.
+When the container starts this file will be read.
+Any variables in it will be substituted with the values from the corresponding environment variables that are present in the container.
+These common values can be set in the <code>config/&lt;stack name&gt;.env</code> file.</p>
+<p>As the variables are substituted on container start you will need to restart the container following any configuration change.</p>
+<h3 id="certificates">Certificates</h3>
+<p>The directory <code>volumes/stroom-log-sender/certs</code> contains the default client certificates used for the stack.
+These allow stroom-log-sender to send the log files over SSL which also provides stroom with details of the sender.
+These will need to be replaced in a production environment.</p>
+<pre><code class="language-text">volumes/stroom-log-sender/certs/ca.pem.crt
+volumes/stroom-log-sender/certs/client.pem.crt
+volumes/stroom-log-sender/certs/client.unencrypted.key
+</code></pre>
+<p>For a production deployment these will need to be changed, see <a href="../../../docs/install-guide/configuration/#certificates">Certificates</a></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.5.'; page-break-before: always">
+    
+  <h1 id="pg-c55274dc8017978026995b0c30172626">2.5 - MySQL Configuration</h1>
+    <div class="lead">Confnguring MySQl for use with Stroom.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../docs/install-guide/setup/mysql-server-setup/">MySQL Server Setup</a></p>
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/server-administration.html" target="_blank" class="" style="" title="MySQL Server Administration (external link)">
+    <span>MySQL Server Administration</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+
+</div>
+
+
+<h2 id="general-configuration">General configuration</h2>
+<p>MySQL is configured via the <code>.cnf</code> file which is typically located in one of these locations:</p>
+<ul>
+<li><code>/etc/my.cnf</code></li>
+<li><code>/etc/mysql/my.cnf</code></li>
+<li><code>$MYSQL_HOME/my.cnf</code></li>
+<li><code>&lt;data dir&gt;/my.cnf</code></li>
+<li><code>~/.my.cnf</code></li>
+</ul>
+<h3 id="key-configuration-properties">Key configuration properties</h3>
+<ul>
+<li>
+<p><code>lower_case_table_names</code> - This proerty controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
+A value of <code>0</code> means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
+This is the default in linux and is the preferred value for deployments of stroom of v7+.
+A value of <code>1</code> means tables are stored on the filesystem in lowercase but sql is case insensitive.
+See also 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html" target="_blank" class="" style="" title="Identifier Case Sensitivity (external link)">
+    <span>Identifier Case Sensitivity</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+</li>
+<li>
+<p><code>max_connections</code> - The maximum permitted number of simultaneous client connections.
+For a clustered deployment of stroom, the default value of 151 will typically be too low.
+Each stroom node will hold a pool of open database connections for its use, therefore with a large number of stroom nodes and a big connection pool the total number of connections can be very large.
+This property should be set taking into account the values of the stroom properties of the form <code>*.db.connectionPool.maxPoolSize</code>.
+See also 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html" target="_blank" class="" style="" title="Connection Interfaces (external link)">
+    <span>Connection Interfaces</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+</li>
+<li>
+<p><code>innodb_buffer_pool_size</code>/<code>innodb_buffer_pool_instances</code> - Controls the amount of memory availble to MySQL for caching table/index data.
+Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
+<em>Note</em>: <code>innodb_buffer_pool_size</code> must be set to a value that is equal to or a multiple of <code>innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances</code>.
+See also 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html" target="_blank" class="" style="" title="Configuring InnoDB Buffer Pool Size (external link)">
+    <span>Configuring InnoDB Buffer Pool Size</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+</li>
+</ul>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Add additional key configuration items
+
+</div>
+
+<h2 id="deploying-without-docker">Deploying without Docker</h2>
+<p>When MySQL is deployed without a docker stack then MySQL should be installed and configured according to the MySQL documentation.
+How MySQL is deployed and configured will depend on the requirements of the environment, e.g. clustered, primary/standby, etc.</p>
+<h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
+<p>Where a stroom docker stack includes stroom-all-dbs (MySQL) the MySQL instance is configured via the <code>.cnf</code> file.
+The <code>.cnf</code> file is located in <code>volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf</code>.
+This file is read-only to the container and will be read on container start.</p>
+<h3 id="database-initialisation">Database initialisation</h3>
+<p>When the container is started for the first time the database be initialised with the root user account.
+It will also then run any scripts found in <code>volumes/stroom-all-dbs/init/stroom</code>.
+The scripts in here will be run in alpabetical order.
+Scripts of the form <code>.sh</code>, <code>.sql</code>, <code>.sql.gz</code> and <code>.sql.template</code> are supported.</p>
+<p><code>.sql.template</code> files are proprietry to stroom stacks and are just templated <code>.sql</code> files.
+They can contain tags of the form <code>&lt;&lt;&lt;ENV_VAR_NAME&gt;&gt;&gt;</code> which will be replaced with the value of the named environment variable that has been set in the container.</p>
+<p>If you need to add additional database users then either add them to <code>volumes/stroom-all-dbs/init/stroom/001_create_databases.sql.template</code> or create additional scripts/templates in that directory.</p>
+<p>The script that controls this templating is <code>volumes/stroom-all-dbs/init/000_stroom_init.sh</code>.
+This script MUST not have its executable bit set else it will be executed rather than being sourced by the MySQL entry point scripts and will then not work.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-30fadd57efe49fc7fcc426efaebd46bc">3 - Installing in an Air Gapped Environment</h1>
+    <div class="lead">How to install Stroom when there is no internet connection.</div>
+	<h2 id="docker-images">Docker images</h2>
+<p>For those deployments of Stroom that use docker containers, by default docker will try to pull the docker images from DockerHub on the internet.
+If you do not have an internet connection then you will need to make these images availbe to the local docker binary in another way.</p>
+<h3 id="downloading-the-images">Downloading the images</h3>
+<p>Firstly you need to determine which images and which tags you need.
+Look at 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/releases" target="_blank" class="" style="" title="stroom-resources/releases (external link)">
+    <span>stroom-resources/releases</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and for each release and variant of the Stroom stacks you will see a manifest of the docker images/tags in that release/variant.
+For eaxmple, for <code>stroom-stacks-v7.0-beta.175</code> and stack variant <code>stroom_core</code> the list of images is:</p>
+<pre><code class="language-text">nginx gchq/stroom-nginx:v7.0-beta.2
+stroom gchq/stroom:v7.0-beta.175
+stroom-all-dbs mysql:8.0.23
+stroom-log-sender gchq/stroom-log-sender:v2.2.0
+stroom-proxy-local gchq/stroom-proxy:v7.0-beta.175
+</code></pre>
+<h4 id="with-the-_docker_-binary">With the <em>docker</em> binary</h4>
+<p>If you have access to an internet connected computer that has Docker installed on it then you can use Docker to pull the images.
+For each of the required images run a command like this:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker pull gchq/stroom-nginx:v7.0-beta.2
+docker save -o stroom-nginx.tar gchq/stroom-nginx:v7.0-beta.2</code></pre>
+</div>
+
+<h4 id="without-the-_docker_-binary">Without the <em>docker</em> binary</h4>
+<p>If you can&rsquo;t install Docker on the internet connected maching then this 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/moby/moby/blob/master/contrib/download-frozen-image-v2.sh" target="_blank" class="" style="" title="shell script (external link)">
+    <span>shell script</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ may help you to download and assemble the various layers of an image from DockerHub using only <em>bash</em>, <em>curl</em> and <em>jq</em>.
+This is a third party script so we cannot vouch for it in any way.
+As with all scripts you run that you find on the internet, look at and understand what they do before running them.</p>
+<h3 id="loading-the-images">Loading the images</h3>
+<p>Once you have downloaded the image tar files and transferred them over the air gap you will need to load them into your local docker repo.
+Either this will be the local repo on the maching where you will deploy Stroom (or one of its component containers) or you will have a central docker repository that many machines can access.
+Managing a central air-gapped repository is beyond the scope of this documentation.</p>
+<p>To load the images into your local repository use a command similar to this for each of the <code>.tar</code> files that you created using <code>docker save</code> above:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker load --input stroom-nginx.tar</code></pre>
+</div>
+
+<p>You can check the images are avialable using:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker image ls</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-f6ffd8d1b01a0988e33029f1507960c6">4 - Upgrades</h1>
+    
+	
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.1.'; ">
+    
+  <h1 id="pg-3343397eca2385c268b1e77ebc0c4e41">4.1 - Minor Upgrades and Patches</h1>
+    <div class="lead">How to upgrade to a new minor or patch release.</div>
+	<p>Stroom versioning follows 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://semver.org" target="_blank" class="" style="" title="Semantic Versioning (external link)">
+    <span>Semantic Versioning</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>Given a version number <em>MAJOR</em>.<em>MINOR</em>.<em>PATCH</em>:</p>
+<ul>
+<li><em>MAJOR</em> is incremented when there are major or breaking changes.</li>
+<li><em>MINOR</em> is incremented when functionality is added in a backwards compatible manner.</li>
+<li><em>PATCH</em> is incremented when bugs are fixed.</li>
+</ul>
+<p>Stroom is designed to detect the version of the existing database schema and to run any migrations necessary to bring it up to the version begin deployed.
+This means you can jump from say 7.0.0 =&gt; 7.2.0 or from 7.0.0 to 7.0.5.</p>
+<p>This document covers minor and patch upgrades only.</p>
+<h2 id="docker-stack-deployments">Docker stack deployments</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this
+
+</div>
+
+<h2 id="non-docker-deployments">Non-docker deployments</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this
+
+</div>
+
+<h2 id="major-version-upgrades">Major version upgrades</h2>
+<p>The following notes are specific for these major version upgrades</p>
+<ul>
+<li><a href="../../../docs/install-guide/upgrades/v6-to-v7/">v6 =&gt; v7</a></li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.2.'; page-break-before: always">
+    
+  <h1 id="pg-0a1127f5aa5f66d848408d2c8caefecc">4.2 - Upgrade from v5 to v7</h1>
+    <div class="lead">This document describes the process for upgrading Stroom from v5.x to v7.x.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    This page is currently work in progress and will evolve with further testing of v5 =&gt; v7 migrations.
+
+</div>
+
+
+
+<div class="pageinfo pageinfo-danger">
+<h4 class="text-danger alert-heading">Warning</h4>
+<p>Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor and patch version of v5.<br>
+At the time of writing the latest version of v5 is <code>v5.5.16</code>.</p>
+
+</div>
+
+
+<h2 id="differences-between-v5-and-v7">Differences between v5 and v7</h2>
+<p>Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.</p>
+<ul>
+<li>v5 handled authentication within the application.
+In v7 authentication is handled either internally in stroom (the default) or by an external identity provider such as google or AWS Cognito.</li>
+<li>v5 used the <code>~setup.xml</code>, <code>~env.sh</code> and <code>stroom.properties</code> files for configuration.
+In v7 stroom uses a config.yml file for its configuration (see <a href="../../../docs/user-guide/properties/">Properties</a>)</li>
+<li>v5 used upper case and heavily abbreviated names for its tables.
+In v7 clearer and lower case table names are used.
+As a result ALL v5 tables get renamed with the prefix <code>OLD_</code>, the new tables created and any content copied over.
+As the database will be holding two copies of most data you need to ensure you have space to accommodate it.</li>
+</ul>
+<h2 id="pre-upgrade-tasks">Pre-Upgrade tasks</h2>
+<p>Stroom can be upgraded straight from v5 to v7 without going via v6.
+There are however a few pre-migration steps that need to be followed.</p>
+<h3 id="upgrade-stroom-to-the-latest-v5-version">Upgrade Stroom to the latest v5 version</h3>
+<p>Follow your standard process for performing a minor upgrade to bring your v5 Stroom instance up to the latest v5 version.
+This ensures all v5 migrations are applying all the v6 and v7 migrations.</p>
+<h3 id="download-migration-scripts">Download migration scripts</h3>
+<p>Download the migration SQL scripts from <a href="https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts">https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts</a>
+e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.198/scripts">https://github.com/gchq/stroom/blob/v7.0-beta.198/scripts</a></p>
+<p>Some of these scripts will be used in the steps below.
+The unused scripts are not applicable to a v5=&gt;v7 upgrade.</p>
+<h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
+<p>Run the pre-migration checks script on the running database.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mysql --force --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
+&lt; v7_db_pre_migration_checks.sql \
+&gt; v7_db_pre_migration_checks.out \
+2&gt;&amp;1</code></pre>
+</div>
+
+<p>This will produce a report of items that will not be migrated or need attention before migration.</p>
+<h3 id="capture-non-default-stroom-properties">Capture non-default Stroom properties</h3>
+<p>Run the following script to capture the non-default system properties that are held in the database.
+This is a precaution in case they are needed following migration.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mysql --force --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
+&lt; v5_list_properties.sql \
+&gt; v5_list_properties.out \
+2&gt;&amp;1</code></pre>
+</div>
+
+<h3 id="stop-processing">Stop processing</h3>
+<p>Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.</p>
+<p><em>TODO</em> clarify steps for this.</p>
+<h3 id="stop-stroom">Stop Stroom</h3>
+<p>Stop the stack (stroom and the database) then start up the database.
+Do this using the v6 stack.
+This ensures that stroom is not trying to access the database.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh</code></pre>
+</div>
+
+<h3 id="backup-the-databases">Backup the databases</h3>
+<p>Backup all the databases for the different components.
+Typically these will be <code>stroom</code> and <code>stats</code> (or <code>statistics</code>).</p>
+<h3 id="stop-the-database">Stop the database</h3>
+<p>Stop the database using the v6 stack.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh</code></pre>
+</div>
+
+<h3 id="deploy-v7">Deploy v7</h3>
+<p>Deploy the latest version of Stroom but don&rsquo;t start it.</p>
+<p><em>TODO</em> - more detail</p>
+<h3 id="migrate-the-v5-configuration-into-v7">Migrate the v5 configuration into v7</h3>
+<p>The configuration properties held in the database and accessed for the <em>Properties</em> UI screen will be migrated automatically by Stroom where possible.</p>
+<p>Stroom v5 and v7 however are configured differently when it comes to the configuration files used to bootstrap the application, such as the database connection details.
+These properties will need to be manually migrated from the v5 instance to the v7 instance.
+The configuration to bootstrap Stroom v5 can be found in <code>instance/lib/stroom.properties</code>.
+The configuration for v7 can be found in the following places:</p>
+<ul>
+<li>Zip distribution - <code>config/config.yml</code>.</li>
+<li>Docker stack - <code>volumes/stroom/config/config.yml</code>.
+Note that this file uses variable substitution so values can be set in <code>config/&lt;stack_name&gt;.env</code> if suitably substituted.</li>
+</ul>
+<p>The following table shows the key configuration properties that need to be set to start the application and how they map between v5 and v7.</p>
+<table>
+<thead>
+<tr>
+<th>V5 property</th>
+<th>V7 property</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>stroom.temp</em></td>
+<td><em>appConfig.path.temp</em></td>
+<td>Set this if different from <code>$TEMP</code> env var.</td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.path.home</em></td>
+<td>By default all local state (e.g. reference data stores, search results) will live under this directory. Typically it should be in a different location to the stroom instance as it has a different lifecycle.</td>
+</tr>
+<tr>
+<td><em>stroom.node</em></td>
+<td><em>appConfig.node.name</em></td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.nodeUrl.hostname</em></td>
+<td>Set this to the FQDN of the node so other nodes can communicate with it.</td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.publicUrl.hostname</em></td>
+<td>Set this to the public FQDN of Stroom, typically a load balancer or Nginx instance.</td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverClassName</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverClassName</em></td>
+<td>Do not set this. Will get defaulted to <code>com.mysql.cj.jdbc.Driver</code></td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverUrl</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverUrl</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverUsername</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverUsername</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.jdbcDriverPassword</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverPassword</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.jpaDialect</em></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverClassName</em></td>
+<td><em>appConfig.commonDbDetails.connection.jdbcDriverClassName</em></td>
+<td>Do not set this. Will get defaulted to <code>com.mysql.cj.jdbc.Driver</code></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverUrl</em></td>
+<td><em>appConfig.statistics.sql.db.connection.jdbcDriverUrl</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverUsername</em></td>
+<td><em>appConfig.statistics.sql.db.connection.jdbcDriverUsername</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.sql.jdbcDriverPassword</em></td>
+<td><em>appConfig.statistics.sql.db.connection.jdbcDriverPassword</em></td>
+<td></td>
+</tr>
+<tr>
+<td><em>stroom.statistics.common.statisticEngines</em></td>
+<td><em>appConfig.statistics.internal.enabledStoreTypes</em></td>
+<td>Do not set this. Will get defaulted to <code>StatisticStore</code></td>
+</tr>
+<tr>
+<td>-</td>
+<td><em>appConfig.ui.helpUrl</em></td>
+<td>Set this to the URL of your locally published stroom-docs site.</td>
+</tr>
+<tr>
+<td><em>stroom.contentPackImportEnabled</em></td>
+<td><em>appConfig.contentPackImport.enabled</em></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    In the <code>config.yml</code> file, properties have a root of <code>appConfig.</code> which corresponds to a root of <code>stroom.</code> in the UI Properties screen.
+
+</div>
+
+
+<p>Some v5 properties, such as connection pool settings cannot be migrated to v7 equivalents.
+It is recommended to review the default values for v7 <code>appConfig.commonDbDetails.connectionPool.*</code> and <code>appConfig.statistics.sql.db.connectionPool.*</code> properties to ensure they are suitable for your environment.
+If they are not then set them in the <code>config.yml</code> file.
+The defaults can be found in <code>config-defaults.yml</code>.</p>
+<h3 id="upgrading-the-mysql-instance-and-database">Upgrading the MySQL instance and database</h3>
+<p>Stroom v5 ran on MySQL v5.6.
+Stroom v7 runs on MySQL v8.
+The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x (see 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/upgrade-paths.html" target="_blank" class="" style="" title="Upgrade Paths (external link)">
+    <span>Upgrade Paths</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+).</p>
+<p>To ensure the database is up to date <code>mysql_upgrade</code> needs to be run using the 5.7.33 binaries, see the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" target="_blank" class="" style="" title="MySQL documentation (external link)">
+    <span>MySQL documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>This is the process for upgrading the database.
+The exact steps will depend on how you have installed MySQL.</p>
+<ol>
+<li>Shutdown the database instance.</li>
+<li>Remove the MySQL 5.6 binaries, e.g. using your package manager.</li>
+<li>Install the MySQL 5.7.33 binaries.</li>
+<li>Start the database instance using the 5.7.33 binaries.</li>
+<li>Run <code>mysql_upgrade</code> to upgrade the database to 5.7 specification.</li>
+<li>Shutdown the database instance.</li>
+<li>Remove the MySQL 5.7.33 binaries.</li>
+<li>Install the latest MySQL 8.0 binaries.</li>
+<li>Start the database instance.
+On start up MySQL 8 will detect a v5.7 instance and upgrade it to 8.0 spec automatically without the need to run <code>mysql_upgrade</code>.</li>
+</ol>
+<h2 id="performing-the-stroom-upgrade">Performing the Stroom upgrade</h2>
+<p>To perform the stroom schema upgrade to v7 run the <em>migrate</em> command (on a single node) which will migrate the database then exit.
+For a large upgrade like this is it is preferable to run the <em>migrate</em> command rather than just starting Stroom as Stroom will only migrate the parts of the schema as it needs to use them so some parts of the database may not be migrated initially.
+Running the migrate command ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./migrate.sh</code></pre>
+</div>
+
+<h2 id="post-upgrade-tasks">Post-Upgrade tasks</h2>
+<p><em>TODO</em></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.3.'; page-break-before: always">
+    
+  <h1 id="pg-63dfce89305ebda417758285ed429726">4.3 - Upgrade from v6 to v7</h1>
+    <div class="lead">This document describes the process for upgrading a Stroom single node docker stack from v6.x to v7.x.</div>
+	
+<div class="pageinfo pageinfo-danger">
+<h4 class="text-danger alert-heading">Warning</h4>
+<p>Before comencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.</p>
+
+</div>
+
+
+<h2 id="differences-between-v6-and-v7">Differences between v6 and v7</h2>
+<p>Stroom v7 has significant differences to v6 which make the upgrade process a little more complicated.</p>
+<ul>
+<li>v6 handled authentication using a separate application, <em>stroom-auth-service</em>, with its own database.
+In v7 authentication is handled either internally in stroom (the default) or by an external identity provider such as google or AWS Cognito.</li>
+<li>v6 used a stroom.conf file or environment variables for configuration.
+In v7 stroom uses a config.yml file for its configuration (see <a href="../../../docs/user-guide/properties/">Properties</a>)</li>
+<li>v6 used upper case and heavily abbreviated names for its tables.
+In v7 clearer and lower case table names are used.
+As a result ALL v6 tables get renamed with the prefix <code>OLD_</code>, the new tables created and any content copied over.
+As the database will be holding two copies of most data you need to ensure you have space to accomodate it.</li>
+</ul>
+<h2 id="pre-upgrade-tasks">Pre-Upgrade tasks</h2>
+<p>The following steps are required to be performed before migrating from v6 to v7.</p>
+<h3 id="download-migration-scripts">Download migration scripts</h3>
+<p>Download the migration SQL scripts from <a href="https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts">https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts</a>
+e.g. <a href="https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts">https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts</a></p>
+<p>These scripts will be used in the steps below.</p>
+<h3 id="pre-migration-database-checks">Pre-migration database checks</h3>
+<p>Run the pre-migration checks script on the running database.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
+&lt; v7_db_pre_migration_checks.sql</code></pre>
+</div>
+
+<p>This will produce a report of items that will not be migrated or need attention before migration.</p>
+<h3 id="stop-processing">Stop processing</h3>
+<p>Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.</p>
+<p><em>TODO</em> clairfy steps for this.</p>
+<h3 id="stop-the-stack">Stop the stack</h3>
+<p>Stop the stack (stroom and the database) then start up the database.
+Do this using the v6 stack.
+This ensures that stroom is not trying to access the database.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh
+./start.sh stroom-all-dbs</code></pre>
+</div>
+
+<h3 id="backup-the-databases">Backup the databases</h3>
+<p>Backup all the databases for the different components.
+Typically these will be <code>stroom</code>, <code>stats</code> and <code>auth</code>.</p>
+<p>If you are running in a docker stack then you can run the <code>./backup_databases.sh</code> script.</p>
+<h3 id="stop-the-database">Stop the database</h3>
+<p>Stop the database using the v6 stack.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./stop.sh</code></pre>
+</div>
+
+<h3 id="deploy-and-configure-v7">Deploy and configure v7</h3>
+<p>Deploy the v7 stack.
+<em>TODO</em> - more detail</p>
+<p>Verify the database connection configuration for the stroom and stats databases.
+Ensure that there is NOT any configuration for a separate auth database as this will now be in stroom.</p>
+<h3 id="running-mysql_upgrade">Running <code>mysql_upgrade</code></h3>
+<p>Stroom v6 ran on mysql v5.6.
+Stroom v7 runs on mysql v8.
+The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x</p>
+<p>To ensure the database is up to date <code>mysql_upgrade</code> neeeds to be run using the 5.7.33 binaries, see the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" target="_blank" class="" style="" title="MySQL documentation (external link)">
+    <span>MySQL documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>This is the process for upgrading the database. All of these commands are using the v7 stack.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Set the version of the MySQL docker image to use
+export MYSQL_TAG=5.7.33
+(out)
+# Start MySQL at v5.7, this will recreate the container
+./start.sh stroom-all-dbs
+(out)
+# Run the upgrade from 5.6 =&gt; 5.7.33
+docker exec -it stroom-all-dbs mysql_upgrade -u&#34;root&#34; -p&#34;my-secret-pw&#34;
+(out)
+# Stop MySQL
+./stop.sh
+(out)
+# Unset the tag variable so that it now uses the default from the stack (8.x)
+unset MYSQL_TAG
+(out)
+# Start MySQL at v8.x, this will recreate the container and run the upgrade from 5.7.33=&gt;8
+./start.sh stroom-all-dbs
+(out)
+./stop.sh</code></pre>
+</div>
+
+<h3 id="rename-legacy-stroom-auth-tables">Rename legacy stroom-auth tables</h3>
+<p>Run this command to connect to the <code>auth</code> database and run the pre-migration SQL script.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --table -u&#34;authuser&#34; -p&#34;stroompassword1&#34; auth \
+&lt; v7_auth_db_table_rename.sql</code></pre>
+</div>
+
+<p>This will rename all but one of the tables in the <code>auth</code> database.</p>
+<h3 id="copy-the-auth-database-content-to-stroom">Copy the <code>auth</code> database content to <code>stroom</code></h3>
+<p>Having run the table rename perform another backup of just the <code>auth</code> database.</p>
+<p>
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./backup_databases.sh . auth</code></pre>
+</div>
+
+Now restore this backup into the <code>stroom</code> database.
+You can use the v7 stack scripts to do this.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./restore_database.sh stroom auth_20210312143513.sql.gz</code></pre>
+</div>
+
+<p>You should now see the following tables in the <code>stroom</code> database:</p>
+<pre><code class="language-text">OLD_AUTH_json_web_key
+OLD_AUTH_schema_version
+OLD_AUTH_token_types
+OLD_AUTH_tokens
+OLD_AUTH_users
+</code></pre>
+<p>This can be checked by running the following in the v7 stack.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#39;select table_name from information_schema.tables where table_name like &#34;OLD_AUTH%&#34;&#39; \
+| ./database_shell.sh</code></pre>
+</div>
+
+<h3 id="drop-unused-databases">Drop unused databases</h3>
+<p>There may be a number of databases that are no longer used that can be dropped prior to the upgrade.
+Note the use of the <code>--force</code> argument so it copes with users that are not there.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker exec \
+-i \
+stroom-all-dbs \
+mysql --force -u&#34;root&#34; -p&#34;my-secret-pw&#34; \
+&lt; v7_drop_unused_databases.sql</code></pre>
+</div>
+
+<p>Verify it worked with:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#39;show databases;&#39; | docker exec -i stroom-all-dbs mysql -u&#34;root&#34; -p&#34;my-secret-pw&#34;</code></pre>
+</div>
+
+<h2 id="performing-the-upgrade">Performing the upgrade</h2>
+<p>To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
+For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
+Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./migrate.sh</code></pre>
+</div>
+
+<h2 id="post-upgrade-tasks">Post-Upgrade tasks</h2>
+<p><em>TODO</em> remove auth* containers,images,volumes</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-4539c9eea16d100709bb0c63eb985376">5 - Setup</h1>
+    
+	
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.1.'; ">
+    
+  <h1 id="pg-83516d1c6898776469e61e1639643937">5.1 - Processing Users</h1>
+    
+	<h2 id="processing-user-setup">Processing User Setup</h2>
+<p>Stroom and Stroom Proxy should be run under a processing user (we assume <em>stroomuser</em> below).</p>
+<h2 id="create-user">Create user</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">/usr/sbin/adduser --system stroomuser</code></pre>
+</div>
+
+<p>You may want to allow normal accounts to sudo to this account for maintenance (visudo).</p>
+<h2 id="create-service-script">Create service script</h2>
+<p>Create a service script to start/stop on server startup (as root).</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">vi /etc/init.d/stroomuser</code></pre>
+</div>
+
+<p>Paste/type the following content into vi.</p>
+<pre><code class="language-bash">#!/bin/bash
+#
+# stroomuser       This shell script takes care of starting and stopping
+#               the stroomuser subsystem (tomcat6, etc)
+#
+# chkconfig: - 86 14
+# description: stroomuser is the stroomuser sub system
+
+STROOM_USER=stroomuser
+DEPLOY_DIR=/home/${STROOM_USER}/stroom-deploy
+
+case $1 in
+start)
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/start.sh
+;;
+stop)
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/stop.sh
+;;
+restart)
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/stop.sh
+/bin/su ${STROOM_USER} ${DEPLOY_DIR}/stroom-deploy/start.sh
+;;
+esac
+exit 0
+</code></pre>
+<p>Now initialise the script.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">/bin/chmod &#43;x /etc/init.d/stroomuser
+/sbin/chkconfig --level 345 stroomuser on</code></pre>
+</div>
+
+<h3 id="setup-users-environment">Setup user&rsquo;s environment</h3>
+<p>Setup <code>env.sh</code> to include <code>JAVA_HOME</code> to point to the installed directory of the JDK (this will be platform specific).</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">vi ~/env.sh</code></pre>
+</div>
+
+<p>In vi add the following lines.</p>
+<pre><code class="language-bash"># User specific aliases and functions
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0
+export PATH=${JAVA_HOME}/bin:${PATH}
+</code></pre>
+<p>Setup the user&rsquo;s profile to include source the env script.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">vi ~/.bashrc</code></pre>
+</div>
+
+<p>In vi add the following lines.</p>
+<pre><code class="language-bash"># User specific aliases and functions
+. ~/env.sh
+</code></pre>
+<h3 id="verify-java-installation">Verify Java installation</h3>
+<p>Assuming you are using Stroom without using docker and have installed Java, verify that the processing user can use the Java installation.</p>
+<blockquote>
+<p>The shell output below may show a different version of Java to the one you are using.</p>
+</blockquote>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">. .bashrc
+which java
+(out)/usr/lib/jvm/java-1.8.0/bin/java
+
+which javac
+(out)/usr/lib/jvm/java-1.8.0/bin/javac
+
+java -version
+(out)openjdk version &#34;1.8.0_65&#34;
+(out)OpenJDK Runtime Environment (build 1.8.0_65-b17)
+(out)OpenJDK 64-Bit Server VM (build 25.65-b01, mixed mode)</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.2.'; page-break-before: always">
+    
+  <h1 id="pg-1423b5de8658215848877b76e270e0c7">5.2 - Securing Stroom</h1>
+    <div class="lead">How to secure Stroom and the cluster</div>
+	<blockquote>
+<p><em>NOTE</em> This document was written for stroom v4/5. Some parts may not be applicable for v6+.</p>
+</blockquote>
+<h2 id="firewall">Firewall</h2>
+<p>The following firewall configuration is recommended:</p>
+<ul>
+<li>Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc</li>
+<li>Within cluster allow all access</li>
+</ul>
+<p>This will enable nodes within the cluster to communicate on:</p>
+<ul>
+<li>8080 - Stroom HTTP.</li>
+<li>8081 - Stroom HTTP (admin).</li>
+<li>8090 - Stroom Proxy HTTP.</li>
+<li>8091 - Stroom Proxy HTTP (admin).</li>
+<li>3306 - MySQL</li>
+</ul>
+<h2 id="mysql">MySQL</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Update this for MySQL 8
+
+</div>
+
+<p>It is recommended that you run mysql_secure_installation to set a root password and remove test database:</p>
+<pre><code class="language-bash">mysql_secure_installation (provide a root password)
+- Set root password? [Y/n] Y
+- Remove anonymous users? [Y/n] Y 
+- Disallow root login remotely? [Y/n] Y
+- Remove test database and access to it? [Y/n] Y
+- Reload privilege tables now? [Y/n] Y
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.3.'; page-break-before: always">
+    
+  <h1 id="pg-06d5f6643ea3f5b645b70260fb32e360">5.3 - Java Key Store Setup</h1>
+    
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    This is out of date for stroom 7.
+
+</div>
+
+<p>In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore&rsquo;s setting up.</p>
+<p>As the processing user copy the following files to a directory stroom-jks in the processing user home directory :</p>
+<ul>
+<li>CA.crt     - Certificate Authority</li>
+<li>SERVER.crt - Server certificate with client authentication attributes</li>
+<li>SERVER.key - Server private key</li>
+</ul>
+<p>As the processing user perform the following:</p>
+<ul>
+<li>First turn your keys into der format:</li>
+</ul>
+<pre><code class="language-bash">cd ~/stroom-jks
+
+SERVER=&lt;SERVER crt/key PREFIX&gt;
+AUTHORITY=CA
+
+openssl x509 -in ${SERVER}.crt -inform PEM -out ${SERVER}.crt.der -outform DER
+openssl pkcs8 -topk8 -nocrypt -in ${SERVER}.key -inform PEM -out ${SERVER}.key.der -outform DER
+</code></pre>
+<ul>
+<li>Import Keys into the Key Stores:</li>
+</ul>
+<pre><code class="language-bash">Stroom_UTIL_JAR=`find ~/*app -name 'stroom-util*.jar' -print | head -1`
+
+java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${SERVER}.jks keypass=${SERVER} alias=${SERVER} keyfile=${SERVER}.key.der certfile=${SERVER}.crt.der
+keytool -import -noprompt -alias ${AUTHORITY} -file ${AUTHORITY}.crt -keystore ${AUTHORITY}.jks -storepass ${AUTHORITY}
+</code></pre>
+<ul>
+<li>Update Processing User Global Java Settings:</li>
+</ul>
+<pre><code class="language-bash">PWD=`pwd`
+echo &quot;export JAVA_OPTS=\&quot;-Djavax.net.ssl.trustStore=${PWD}/${AUTHORITY}.jks -Djavax.net.ssl.trustStorePassword=${AUTHORITY} -Djavax.net.ssl.keyStore=${PWD}/${SERVER}.jks -Djavax.net.ssl.keyStorePassword=${SERVER}\&quot;&quot; &gt;&gt; ~/env.sh  
+</code></pre>
+<p>Any Stroom or Stroom Proxy instance will now additionally pickup the above JAVA_OPTS settings.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.4.'; page-break-before: always">
+    
+  <h1 id="pg-2ca84eb0d1a73aaef4a9d836a7d0b0be">5.4 - MySQL Setup</h1>
+    
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
+
+</div>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>MySQL 8.0.x server installed (e.g. yum install mysql-server)</li>
+<li>Processing User Setup</li>
+</ul>
+<p>A single MySQL database is required for each Stroom instance.
+You do not need to setup a MySQL instance per node in your cluster.</p>
+<h2 id="check-database-installed-and-running">Check Database installed and running</h2>
+<pre><code class="language-bash">[root@stroomdb ~]# /sbin/chkconfig --list mysqld
+mysqld          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+[root@stroomdb ~]# mysql --user=root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+...
+mysql&gt; quit      
+</code></pre>
+<p>The following commands can be used to auto start mysql if required:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="stroomdb" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">/sbin/chkconfig –level 345 mysqld on
+/sbin/service httpd start</code></pre>
+</div>
+
+<h2 id="overview">Overview</h2>
+<p>MySQL configuration can be simple to complex depending on your requirements.<br>
+For a very simple configuration you simply need an out-of-the-box mysql
+install and create a database user account.</p>
+<p>Things get more complicated when considering:</p>
+<ul>
+<li>Security</li>
+<li>Master Slave Replication</li>
+<li>Tuning memory usage</li>
+<li>Running Stroom Stats in a different database to Stroom</li>
+<li>Performance Monitoring</li>
+</ul>
+<h2 id="simple-install">Simple Install</h2>
+<p>Ensure the database is running, create the database and access to it</p>
+<pre><code class="language-bash">[stroomuser@host stroom-setup]$ mysql --user=root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+...
+
+mysql&gt; create database stroom;
+Query OK, 1 row affected (0.02 sec)
+
+mysql&gt; grant all privileges on stroom.* to 'stroomuser'@'host' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; create database stroom_stats;
+Query OK, 1 row affected (0.02 sec)
+
+mysql&gt; grant all privileges on stroom_stats.* to 'stroomuser'@'host' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre>
+<h2 id="advanced-security">Advanced Security</h2>
+<p>It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.</p>
+<p>./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
+cluster (or single node setup).  Run to see the options:</p>
+<pre><code class="language-bash">[stroomuser@host stroom-setup]$ ./mysql_grant.sh
+usage : --name=&lt;instance name (defaults to my for /etc/my.cnf)&gt;
+        --user=&lt;the stroom user for the db&gt;
+        --password=&lt;the stroom password for the db&gt;
+        --cluster=&lt;the file with a line per node in the cluster&gt;
+--user=&lt;db user&gt; Must be set
+</code></pre>
+<p>N.B. name is used when multiple mysql instances are setup (see below).</p>
+<p>You need to create a file cluster.txt with a line for each member of your cluster
+(or single line in the case of a one node Stroom install).
+Then run the utility script to lock down the server access.</p>
+<pre><code class="language-bash">[stroomuser@host ~]$ hostname &gt;&gt; cluster.txt
+[stroomuser@host ~]$ ./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
+Enter root mysql password :
+--------------
+flush privileges
+--------------
+
+--------------
+delete from mysql.user where user = 'stroomuser'
+--------------
+...
+...
+...
+--------------
+flush privileges
+--------------
+
+[stroomuser@host ~]$
+</code></pre>
+<h2 id="advanced-install">Advanced Install</h2>
+<p>The below example uses the utility scripts to create 3 custom mysql server instances on 2 servers:</p>
+<ul>
+<li>server1 - master stroom,</li>
+<li>server2 - slave stroom, stroom_stats</li>
+</ul>
+<p>As root on server1:</p>
+<pre><code class="language-bash">yum install &quot;mysql56-mysql-server&quot;
+</code></pre>
+<p>Create the master database:</p>
+<pre><code class="language-bash">[root@node1 stroomuser]# ./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6
+
+--master not set ... assuming master database
+Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+[root@node1 stroomuser]# cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+[root@node1 stroomuser]# /etc/init.d/mysqld56_stroom start
+
+Initializing MySQL database:  Installing MySQL system tables...
+OK
+Filling help tables...
+...
+...
+Starting mysql56-mysqld:                                   [  OK  ]
+</code></pre>
+<p>Check Start up Settings Correct</p>
+<pre><code class="language-bash">[root@node2 stroomuser]# chkconfig mysqld off
+[root@node2 stroomuser]# chkconfig mysql56-mysqld off
+[root@node1 stroomuser]# chkconfig --add mysqld56_stroom
+[root@node1 stroomuser]# chkconfig mysqld56_stroom on
+
+[root@node2 stroomuser]# chkconfig --list | grep mysql
+mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off
+mysqld56_stats  0:off   1:off   2:on    3:on    4:on    5:on    6:off
+</code></pre>
+<p>Create a text file will all members of the cluster:</p>
+<pre><code class="language-bash">[root@node1 stroomuser]# vi cluster.txt
+
+node1.my.org
+node2.my.org
+node3.my.org
+node4.my.org 
+</code></pre>
+<p>Create the grants:</p>
+<pre><code class="language-bash">[root@node1 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt
+</code></pre>
+<p>As root on server2:</p>
+<pre><code class="language-bash">[root@node2 stroomuser]# yum install &quot;mysql56-mysql-server&quot;
+
+
+[root@node2 stroomuser]# ./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6 --master=node1.my.org --user=stroomuser --password=password
+
+--master set ... assuming slave database
+Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+[root@node2 stroomuser]# cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+[root@node1 stroomuser]# /etc/init.d/mysqld56_stroom start
+
+Initializing MySQL database:  Installing MySQL system tables...
+OK
+Filling help tables...
+...
+...
+Starting mysql56-mysqld:                                   [  OK  ]
+</code></pre>
+<p>Check Start up Settings Correct</p>
+<pre><code class="language-bash">[root@node2 stroomuser]# chkconfig mysqld off
+[root@node2 stroomuser]# chkconfig mysql56-mysqld off
+[root@node1 stroomuser]# chkconfig --add mysqld56_stroom
+[root@node1 stroomuser]# chkconfig mysqld56_stroom on
+
+[root@node2 stroomuser]# chkconfig --list | grep mysql
+mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off
+</code></pre>
+<p>Create the grants:</p>
+<pre><code class="language-bash">[root@node1 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt
+</code></pre>
+<p>Make the slave database start to follow:</p>
+<pre><code class="language-bash">[root@node2 stroomuser]# cat /etc/mysqld56_stroom.cnf | grep &quot;change master&quot;
+# change master to MASTER_HOST='node1.my.org', MASTER_PORT=3106, MASTER_USER='stroomuser', MASTER_PASSWORD='password';
+
+[root@node2 stroomuser]# mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+mysql&gt; change master to MASTER_HOST='node1.my.org', MASTER_PORT=3106, MASTER_USER='stroomuser', MASTER_PASSWORD='password';
+mysql&gt; start slave; 
+</code></pre>
+<p>As processing user on server1:</p>
+<pre><code class="language-bash">[stroomuser@node1 ~]$ mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password
+
+mysql&gt; create database stroom;
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; use stroom;
+Database changed
+
+mysql&gt; create table test (a int);
+Query OK, 0 rows affected (0.05 sec)
+</code></pre>
+<p>As processing user on server2 check server replicating OK:</p>
+<pre><code class="language-bash">[stroomuser@node2 ~]$ mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password
+
+mysql&gt; show create table test;
++-------+----------------------------------------------------------------------------------------+
+| Table | Create Table                                                                           |
++-------+----------------------------------------------------------------------------------------+
+| test  | CREATE TABLE `test` (`a` int(11) DEFAULT NULL  ) ENGINE=InnoDB DEFAULT CHARSET=latin1  |
++-------+----------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<p>As root on server2:</p>
+<pre><code class="language-bash">[root@node2 stroomuser]# /home/stroomuser/stroom-setup/mysqld_instance.sh --name=mysqld56_stats --port=3206 --server=mysqld56 --os=rhel6 --user=statsuser --password=password
+[root@node2 stroomuser]# cp /tmp/mysqld56_stats /etc/init.d/mysqld56_stats; cp /tmp/mysqld56_stats.cnf /etc/mysqld56_stats.cnf
+[root@node2 stroomuser]# /etc/init.d/mysqld56_stats start
+[root@node2 stroomuser]# chkconfig mysqld56_stats on
+</code></pre>
+<p>Create the grants:</p>
+<pre><code class="language-bash">[root@node2 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stats --database=stats  --user=stroomstats --password=password --cluster=cluster.txt
+</code></pre>
+<p>As processing user create the database:</p>
+<pre><code class="language-bash">[stroomuser@node2 ~]$ mysql --defaults-file=/etc/mysqld56_stats.cnf --user=stroomstats --password=password
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+....
+mysql&gt; create database stats;
+Query OK, 1 row affected (0.00 sec)
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
+    
+  <h1 id="pg-b8704340a0ac9246d13f2c84c3c850b0">6 - Stroom 6 Installation</h1>
+    
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Update this for Stroom 7.
+
+</div>
+
+<p>We would welcome feedback on this documentation.</p>
+<h2 id="running-on-a-single-box">Running on a single box</h2>
+<h3 id="running-a-release">Running a release</h3>
+<p>Download a 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/releases" target="_blank" class="" style="" title="release (external link)">
+    <span>release</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, for example 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/releases/download/stroom_core-v6.0-beta.3/stroom_core_v6.0-beta.3.tar.gz" target="_blank" class="" style="" title="Stroom Core v6.0 Beta 3 (external link)">
+    <span>Stroom Core v6.0 Beta 3</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, unpack it, and run the <code>start.sh</code> script. When you&rsquo;ve given it some time to start up go to <code>http://localhost/stroom</code>. There&rsquo;s a <code>README.md</code> file inside the tar.gz with more information.</p>
+<h2 id="post-install-hardening">Post-install hardening</h2>
+<h3 id="before-first-run">Before first run</h3>
+<h4 id="change-database-passwords">Change database passwords</h4>
+<p>If you don&rsquo;t do this before the first run of Stroom then the passwords will already be set and you&rsquo;ll have to change them on the database manually, and then change the <code>.env</code>.</p>
+<p>This change should be made in the <code>.env</code> configuration file. If the values are not there then this service is not included in your Stroom stack and there is nothing to change.</p>
+<ul>
+<li>
+<p><code>STROOM_DB_PASSWORD</code></p>
+</li>
+<li>
+<p><code>STROOM_DB_ROOT_PASSWORD</code></p>
+</li>
+<li>
+<p><code>STROOM_STATS_DB_ROOT_PASSWORD</code></p>
+</li>
+<li>
+<p><code>STROOM_STATS_DB_PASSWORD</code></p>
+</li>
+<li>
+<p><code>STROOM_AUTH_DB_PASSWORD</code></p>
+</li>
+<li>
+<p><code>STROOM_AUTH_DB_ROOT_PASSWORD</code></p>
+</li>
+<li>
+<p><code>STROOM_ANNOTATIONS_DB_PASSWORD</code></p>
+</li>
+<li>
+<p><code>STROOM_ANNOTATIONS_DB_ROOT_PASSWORD</code></p>
+</li>
+</ul>
+<h3 id="on-first-run">On first run</h3>
+<h4 id="create-yourself-an-account">Create yourself an account</h4>
+<p>After first logging in as <code>admin</code> you should create yourself a normal account (using your email address) and add yourself to the <code>Administrators</code> group. You should then log out of <code>admin</code>, log in with your new administrator account and then disable the <code>admin</code> account.</p>
+<p>If you decide to use the <code>admin</code> account as your normal account you might find yourself locked out. The <code>admin</code> account has no associated email address, so the Reset Password feature will not work if your account is locked. It might become locked if you enter your password incorrectly too many times.</p>
+<h4 id="delete-un-used-users-and-api-keys">Delete un-used users and API keys</h4>
+<ul>
+<li>If you&rsquo;re not using stats you can delete or disable the following:
+<ul>
+<li>the user <code>statsServiceUser</code></li>
+<li>the API key for <code>statsServiceUser</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="change-the-api-keys">Change the API keys</h4>
+<p>First generate new API keys. You can generate a new API key using Stroom. From the top menu, select:</p>
+
+
+
+
+
+  <div class="stroom-menu">
+    
+
+      
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    <div class="stroom-menu-item">
+
+      <div class="stroom-menu-item-text">Tools
+      </div>
+    </div>
+  </div>
+
+      
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    <div class="stroom-menu-item">
+          <div class="stroom-menu-item-icon">
+            <img 
+              class="stroom-icon" 
+              src="../../../images/stroom-ui/key.svg" 
+              alt="key.svg">
+          </div>
+
+      <div class="stroom-menu-item-text">API Keys
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>The following need to be changed:</p>
+<ul>
+<li>
+<p><code>STROOM_SECURITY_API_TOKEN</code></p>
+<ul>
+<li>This is the API token for user <code>stroomServiceUser</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Then stop Stroom and update the API key in the <code>.env</code> configuration file with the new value.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="im-trying-to-use-certificate-logins-pki-but-i-keep-being-prompted-for-the-username-and-password">I&rsquo;m trying to use certificate logins (PKI) but I keep being prompted for the username and password!</h3>
+<p>You need to be sure of several things:</p>
+<ul>
+<li>When a user arrives at Stroom the first thing Stroom does is redirect the user to the authentication service. This is when the certificate is checked. If this redirect doesn&rsquo;t use HTTPS then nginx will not get the cert and will not send it onwards to the authentication service. Remember that all of this stuff, apart from back-channel/service-to-service chatter, goes through nginx. The env var that needs to use HTTPS is STROOM_AUTHENTICATION_SERVICE_URL. Note that this is the var Stroom looks for, not the var as set in the stack, so you&rsquo;ll find it in the stack YAML.</li>
+<li>Are your certs configured properly? If nginx isn&rsquo;t able to decode the incoming cert for some reason then it won&rsquo;t pass anything on to the service.</li>
+<li>Is your browser sending certificates?</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
+    
+  <h1 id="pg-43cbc5a96873e16a7583c1067cb267aa">7 - Kubernetes Cluster</h1>
+    <div class="lead">How to deploy and administer a container based Stroom cluster using Kubernetes.</div>
+	
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.1.'; ">
+    
+  <h1 id="pg-ca95eefd1a4d9ee57e159bf1e8628042">7.1 - Introduction</h1>
+    <div class="lead">Introduction to using Stroom on Kubernetes.</div>
+	<p>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://kubernetes.io/" target="_blank" class="" style="" title="Kubernetes (external link)">
+    <span>Kubernetes</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is an open-source system for automating deployment scaling and management of containerised applications.</p>
+<p>Stroom is a distributed application designed to handle large-scale dataflows.
+As such, it is ideally suited to a Kubernetes deployment, especially when operated at scale.
+Features standard to Kubernetes, like 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank" class="" style="" title="Ingress (external link)">
+    <span>Ingress</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/" target="_blank" class="" style="" title="Cluster Networking (external link)">
+    <span>Cluster Networking</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+, simplify the installation and ongoing operation of Stroom.</p>
+<p>Running applications in K8s can be challenging for applications not designed to operate in a K8s cluster natively.
+A purpose-built Kubernetes Operator (
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/p-kimberley/stroom-k8s-operator" target="_blank" class="" style="" title="stroom-k8s-operator (external link)">
+    <span>stroom-k8s-operator</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+) has been developed to make deployment easier, while taking advantage of several key Kubernetes features to further automate Stroom cluster management.</p>
+<p>The concept of Kubernetes operators is discussed 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<h2 id="key-features">Key features</h2>
+<p>The Stroom K8s Operator provides the following key features:</p>
+<h3 id="deployment">Deployment</h3>
+<ol>
+<li>Simplified configuration, enabling administrators to define the entire state of a Stroom cluster in one file</li>
+<li>Designate separate processing and UI nodes, to ensure the Stroom user interface remains responsive, regardless of processing load</li>
+<li>Automatic secrets management</li>
+</ol>
+<h3 id="operations">Operations</h3>
+<ol>
+<li>Scheduled database backups</li>
+<li>Stroom node audit log shipping</li>
+<li>Automatically drain Stroom tasks before node shutdown</li>
+<li>Automatic Stroom task limit tuning, to attempt to keep CPU usage within configured parameters</li>
+<li>Rolling Stroom version upgrades</li>
+</ol>
+<h2 id="next-steps">Next steps</h2>
+<p>Install the <a href="../../../docs/install-guide/kubernetes/install-operator/">Stroom K8s Operator</a></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.2.'; page-break-before: always">
+    
+  <h1 id="pg-05f10dc925729e909b808bad4073ad2b">7.2 - Install Operator</h1>
+    <div class="lead">How to install the Stroom Kubernetes operator.</div>
+	<h2 id="prerequisites">Prerequisites</h2>
+<ol>
+<li>Kubernetes cluster, version &gt;= 1.20.2</li>
+<li>
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/kubernetes-sigs/metrics-server" target="_blank" class="" style="" title="metrics-server (external link)">
+    <span>metrics-server</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (pre-installed with some K8s distributions)</li>
+<li><code>kubectl</code> and cluster-wide admin access</li>
+</ol>
+<h2 id="preparation">Preparation</h2>
+<p>Stage the following images in a locally-accessible container registry:</p>
+<ol>
+<li>All images listed in: 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/deploy/images.txt" target="_blank" class="" style="" title="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/deploy/images.txt (external link)">
+    <span>https://github.com/p-kimberley/stroom-k8s-operator/blob/master/deploy/images.txt</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
+<li>MySQL (e.g. <code>mysql/mysql-server:8.0.25</code>)</li>
+<li>Stroom (e.g. <code>gchq/stroom:v7-LATEST</code>)</li>
+<li><code>gchq/stroom-log-sender:v2.2.0</code> (only required if log forwarding is enabled)</li>
+</ol>
+<h2 id="install-the-stroom-k8s-operator">Install the Stroom K8s Operator</h2>
+<ol>
+<li>
+<p>Clone the repository</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">git clone https://github.com/p-kimberley/stroom-k8s-operator.git</code></pre>
+</div>
+
+</li>
+<li>
+<p>Edit <code>./deploy/all-in-one.yaml</code>, prefixing any referenced images with your private registry URL.
+For example, if your private registry is <code>my-registry.example.com</code>, the image <code>gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0</code> will become: <code>my-registry.example.com:5000/gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0</code>.</p>
+</li>
+<li>
+<p>Deploy the Operator</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl apply -f ./deploy/all-in-one.yaml</code></pre>
+</div>
+
+</li>
+</ol>
+<p>The Stroom K8s Operator is now deployed to namespace <code>stroom-operator-system</code>.
+You can monitor its progress by watching the Pod named <code>stroom-operator-controller-manager</code>.
+Once it reaches <code>Ready</code> state, you can deploy a Stroom cluster.</p>
+<h2 id="allocating-more-resources">Allocating more resources</h2>
+<p>If the Operator Pod is killed due to running out of memory, you may want to increase the amount allocated to it.</p>
+<p>This can be done by:</p>
+<ol>
+<li>Editing the <code>resources.limits</code> settings of the controller Pod in <code>all-in-one.yaml</code></li>
+<li><code>kubectl apply -f all-in-one.yaml</code></li>
+</ol>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    The Operator retains CPU and memory metrics for all <code>StroomCluster</code> Pods for a 60-minute window.
+In very large deployments, this may cause it to run out of memory.
+
+</div>
+
+
+<h2 id="next-steps">Next steps</h2>
+<p><a href="../../../docs/install-guide/kubernetes/configure-database-server/">Configure</a> a Stroom database server<br>
+<a href="../../../docs/install-guide/kubernetes/upgrade-operator/">Upgrade</a><br>
+<a href="../../../docs/install-guide/kubernetes/remove-operator/">Remove</a></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.3.'; page-break-before: always">
+    
+  <h1 id="pg-0507fe5566061e6ceaad9054e4e5d301">7.3 - Upgrade Operator</h1>
+    <div class="lead">How to upgrade the Stroom Kubernetes Operator.</div>
+	<p>Upgrading the Operator can be performed without disrupting any resources it controls, including Stroom clusters.</p>
+<p>To perform the upgrade, follow the same steps in <a href="../../../docs/install-guide/kubernetes/install-operator/">Installing the Stroom K8s Operator</a>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Ensure you do NOT delete the operator first (i.e. <code>kubectl delete ...</code>)
+
+</div>
+
+
+<p>Once you have initiated the update (by executing <code>kubectl apply -f all-in-one.yaml</code>), an instance of the new Operator version will be created.
+Once it starts up successfully, the old instance will be removed.</p>
+<p>You can check whether the update succeeded by inspecting the image tag of the Operator Pod: <code>stroom-operator-system/stroom-operator-controller-manager</code>.
+The tag should correspond to the release number that was downloaded (e.g. <code>1.0.0</code>)</p>
+<p>If the upgrade failed, the existing Operator should still be running.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.4.'; page-break-before: always">
+    
+  <h1 id="pg-c8eeddcab75a955590d58d0c4350b4bc">7.4 - Remove Operator</h1>
+    <div class="lead">How to remove the Stroom Kubernetes operator.</div>
+	<p>Removing the Stroom K8s Operator must be done with caution, as it causes all resources it manages, including <code>StroomCluster</code>, <code>DatabaseServer</code> and <code>StroomTaskAutoscaler</code> to be deleted.</p>
+<p>While the Stroom clusters under its control <em>will</em> be gracefully terminated, they will become inaccessible until re-deployed.</p>
+<p>It is good practice to first delete any dependent resources <em>before</em> deleting the Operator.</p>
+<h2 id="deleting-the-operator">Deleting the Operator</h2>
+<p>Execute this command against the <strong>same version</strong> of manifest that was used to deploy the Operator currently running.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl delete -f all-in-one.yaml</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.5.'; page-break-before: always">
+    
+  <h1 id="pg-721b26717d1f73ea1eb3ecfc16a7a16d">7.5 - Configure Database</h1>
+    <div class="lead">How to configure the database server for a Stroom cluster.</div>
+	<p>Before creating a Stroom cluster, a database server must first be configured.</p>
+<p>There are two options for deploying a MySQL database for Stroom:</p>
+<h2 id="managed-by-stroom-k8s-operator">Managed by Stroom K8s Operator</h2>
+<p>A Database server can be created and managed by the Operator.
+This is the recommended option, as the Operator will take care of the creation and storage of database credentials, which are shared securely with the Pod via the use of a <code>Secret</code> cluster resource.</p>
+<h3 id="create-a-databaseserver-resource-manifest">Create a <code>DatabaseServer</code> resource manifest</h3>
+<p>Use the example at 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml" target="_blank" class="" style="" title="database-server.yaml (external link)">
+    <span>database-server.yaml</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>See the <code>DatabaseServer</code> Custom Resource Definition (CRD) 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1" target="_blank" class="" style="" title="API documentation (external link)">
+    <span>API documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for an explanation of the various CRD fields.</p>
+<p>By default, MySQL imposes a limit of 151 concurrent connections.
+If your Stroom cluster is larger than a few nodes, it is likely you will exceed this limit.
+Therefore, it is recommended to set the MySQL property <code>max_connections</code> to a suitable value.</p>
+<p>Bear in mind the Operator generally consumes one connection per <code>StroomCluster</code> it manages, so be sure to include some headroom in your allocation.</p>
+<p>You can specify this value via the <code>spec.additionalConfig</code> property as in the example below:</p>
+<pre><code class="language-yaml">apiVersion: stroom.gchq.github.io/v1
+kind: DatabaseServer
+...
+spec:
+  additionalConfig:
+    - max_connections=1000
+...
+</code></pre>
+<h3 id="provision-a-persistentvolume-for-the-databaseserver">Provision a <code>PersistentVolume</code> for the <code>DatabaseServer</code></h3>
+<p>General instructions on creating a Kubernetes Persistent Volume (PV) are explained 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>The Operator will create <code>StatefulSet</code> when the <code>DatabaseServer</code> is deployed, which will attempt to claim a <code>PersistentVolume</code> matching the specification provided in <code>DatabaseServer.spec.volumeClaim</code>.</p>
+<p>Fast, low-latency storage should be used for the Stroom database</p>
+<h3 id="deploy-the-databaseserver-to-the-cluster">Deploy the <code>DatabaseServer</code> to the cluster</h3>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl apply -f database-server.yaml</code></pre>
+</div>
+
+<p>Observe the Pod <code>stroom-&lt;database server name&gt;-db</code> start up.
+Once it&rsquo;s reached <code>Ready</code> state, the server has started, and the databases you specified have been created.</p>
+<h3 id="backup-the-created-credentials">Backup the created credentials</h3>
+<p>The Operator generates a <code>Secret</code> containing the passwords of the users <code>root</code> and <code>stroomuser</code> when it initially creates the <code>DatabaseServer</code> resource.
+These credentials should be backed up to a secure location, in the event the <code>Secret</code> is inadvertently deleted.</p>
+<p>The <code>Secret</code> is named using the format: <code>stroom-&lt;db server name&gt;-db</code> (e.g. <code>stroom-dev-db</code>).</p>
+<h2 id="external">External</h2>
+<p>You may alternatively provide the connection details of an existing MySQL (or compatible) database server.
+This may be desirable if you have for instance, a replication-enabled MySQL InnoDB cluster.</p>
+<h3 id="provision-the-server-and-stroom-databases">Provision the server and Stroom databases</h3>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this secion.
+
+</div>
+
+<h3 id="store-credentials-in-a-secret">Store credentials in a <code>Secret</code></h3>
+<p>Create a <code>Secret</code> in the same namespace as the <code>StroomCluster</code>, containing the key <code>stroomuser</code>, with the value set to the password of that user.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    If at any time the MySQL password is updated, the value of the <code>Secret</code> must also be changed.
+Otherwise, Stroom will stop functioning.
+
+</div>
+
+
+<h2 id="upgrading-or-removing-a-databaseserver">Upgrading or removing a <code>DatabaseServer</code></h2>
+<p>A <code>DatabaseServer</code> cannot shut down while its dependent <code>StroomCluster</code> is running.
+This is a necessary safeguard to prevent database connectivity from being lost.</p>
+<p>Upgrading or removing a <code>DatabaseServer</code> requires the <code>StroomCluster</code> be <a href="../../../docs/install-guide/kubernetes/stop-stroom-cluster/">removed</a> first.</p>
+<h2 id="next-steps">Next steps</h2>
+<p><a href="configure-stroom-cluster.md">Configure</a> a Stroom cluster</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.6.'; page-break-before: always">
+    
+  <h1 id="pg-fb65f82f056e9f1601c353119678b6a6">7.6 - Configure a cluster</h1>
+    <div class="lead">How to configure a Stroom cluster.</div>
+	<p>A <code>StroomCluster</code> resource defines the topology and behaviour of a collection of Stroom nodes.</p>
+<p>The following key concepts should be understood in order to optimally configure a cluster.</p>
+<h2 id="concepts">Concepts</h2>
+<h3 id="nodeset">NodeSet</h3>
+<p>A logical grouping of nodes intended to together, fulfil a common role.
+There are three possible roles, as defined by <code>ProcessingNodeRole</code>:</p>
+<ol>
+<li>Undefined (default).
+Each node in the <code>NodeSet</code> can receive and process data, as well as service web frontend requests.</li>
+<li><code>Processing</code>
+Node can receive and process data, but not service web frontend requests.</li>
+<li><code>Frontend</code>
+Node services web frontend requests only.</li>
+</ol>
+<p>There is no imposed limit to the number of <code>NodeSet</code>s, however it generally doesn&rsquo;t make sense to have more than one assigned to either <code>Processing</code> or <code>Frontend</code> roles.
+In clusters where nodes are not very busy, it should not be necessary to have dedicated <code>Frontend</code> nodes.
+In cases where load is prone to spikes, such nodes can greatly help improve the responsiveness of the Stroom user interface.</p>
+<blockquote>
+<p>It is important to ensure there is at least one <code>NodeSet</code> for each role in the <code>StroomCluster</code>
+The Operator automatically wires up traffic routing to ensure that only non-<code>Frontend</code> nodes receive event data.
+Additionally, <code>Frontend</code>-only nodes have server tasks disabled automatically on startup, effectively preventing them from participating in stream processing.</p>
+</blockquote>
+<h3 id="ingress">Ingress</h3>
+<p>Kubernetes <code>Ingress</code> resources determine how requests are routed to an application.
+<code>Ingress</code> resources are configured by the Operator based on the <code>NodeSet</code> roles and the provided <code>StroomCluster.spec.ingress</code> parameters.</p>
+<p>It is possible to disable <code>Ingress</code> for a given <code>NodeSet</code>, which excludes nodes within that group from receiving any traffic via the public endpoint.
+This can be useful when creating nodes dedicated to data processing, which do not receive data.</p>
+<h3 id="stroomtaskautoscaler">StroomTaskAutoscaler</h3>
+<p><code>StroomTaskAutoscaler</code> is an optional resource that if defined, activates &ldquo;auto-pilot&rdquo; features for an associated <code>StroomCluster</code>.
+See <a href="../../../docs/install-guide/kubernetes/configure-stroomtaskautoscaler/">this guide</a> on how to configure.</p>
+<h2 id="creating-a-stroom-cluster">Creating a Stroom cluster</h2>
+<h3 id="create-a-stroomcluster-resource-manifest">Create a <code>StroomCluster</code> resource manifest</h3>
+<p>Use the example 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml" target="_blank" class="" style="" title="stroom-cluster.yaml (external link)">
+    <span>stroom-cluster.yaml</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>If you chose to create an Operator-managed <code>DatabaseServer</code>, the <code>StroomCluster.spec.databaseServerRef</code> should point to the name of the <code>DatabaseServer</code>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p>See the <code>StroomCluster</code> Custom Resource Definition (CRD)</p>
+<span class="external-link">
+  <a href="https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1" target="_blank" class="" style="" title="API documentation (external link)">
+    <span>API documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for an explanation of the various CRD fields
+
+
+</div>
+
+
+<h3 id="provision-a-persistentvolume-for-each-stroom-node">Provision a <code>PersistentVolume</code> for each Stroom node</h3>
+<p>Each <code>PersistentVolume</code> provides persistent local storage for a Stroom node.
+The amount of storage doesn&rsquo;t generally need to be large, as stream data is stored on another volume.
+When deciding on a storage quota, be sure to consider the needs of log and reference data, in particular.</p>
+<p>This volume should ideally be backed by fast, low-latency storage in order to maximise the performance of LMDB.</p>
+<h3 id="deploy-the-stroomcluster-resource">Deploy the <code>StroomCluster</code> resource</h3>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl apply -f stroom-cluster.yaml</code></pre>
+</div>
+
+<p>If the <code>StroomCluster</code> configuration is valid, the Operator will deploy a <code>StatefulSet</code> for each <code>NodeSet</code> defined in <code>StroomCluster.spec.nodeSets</code>.
+Once these <code>StatefulSet</code>s reach <code>Ready</code> state, you are ready to access the Stroom UI.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If the <code>StatefulSet</code>s don&rsquo;t deploy, there is probably something wrong with your configuration. Check the logs of the pod <code>stroom-operator-system/stroom-operator-controller-manager</code> for any errors.
+
+</div>
+
+
+<h3 id="log-into-stroom">Log into Stroom</h3>
+<p>Access the Stroom UI at: <code>https://&lt;ingress hostname&gt;</code>.
+The initial credentials are:</p>
+<ul>
+<li>Username: <code>admin</code></li>
+<li>Password: <code>admin</code></li>
+</ul>
+<h2 id="further-customisation-optional">Further customisation (optional)</h2>
+<p>The configuration bundled with the Operator provides enough customisation for most use cases, via explicit properties and environment variables.</p>
+<p>If you need to further customise Stroom, you have the following methods available:</p>
+<h3 id="override-the-stroom-configuration-file">Override the Stroom configuration file</h3>
+<p>Deploy a <code>ConfigMap</code> separately.
+You can then specify the <code>ConfigMap</code> <code>name</code> and key (<code>itemName</code>) containing the configuration file to be mounted into each Stroom node container.</p>
+<h3 id="provide-additional-environment-variables">Provide additional environment variables</h3>
+<p>Specify custom environment variables in <code>StroomCluster.spec.extraEnv</code>.
+You can reference these in the Stroom configuration file.</p>
+<h3 id="mount-additional-files">Mount additional files</h3>
+<p>You can also define additional <code>Volume</code>s and <code>VolumeMount</code>s to be injected into each Stroom node.
+This can be useful when providing files like certificates for Kafka integration.</p>
+<h2 id="reconfiguring-the-cluster">Reconfiguring the cluster</h2>
+<p>Some <code>StroomCluster</code> configuration properties can be reconfigured while the cluster is still running:</p>
+<ol>
+<li><code>spec.image</code> Change this to deploy a newer (or different) Stroom version</li>
+<li><code>spec.terminationGracePeriodSecs</code> Applies the next time a node or cluster is deleted</li>
+<li><code>spec.nodeSets.count</code> If changed, the <code>NodeSet</code>&rsquo;s <code>StatefulSet</code> will be scaled (up or down) to match the corresponding number of replicas</li>
+</ol>
+<p>After changing any of the above properties, re-apply the manifest:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl apply -f stroom-cluster.yaml</code></pre>
+</div>
+
+<p>If any other changes need to be made, <a href="../../../docs/install-guide/kubernetes/stop-stroom-cluster/">delete</a> then <a href="../../../docs/install-guide/kubernetes/configure-stroom-cluster/">re-create</a> the <code>StroomCluster</code>.</p>
+<h2 id="next-steps">Next steps</h2>
+<p><a href="../../../docs/install-guide/kubernetes/configure-stroomtaskautoscaler/">Configure Stroom task autoscaling</a><br>
+<a href="../../../docs/install-guide/kubernetes/stop-stroom-cluster/">Stop</a> a Stroom cluster</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.7.'; page-break-before: always">
+    
+  <h1 id="pg-27477f3276848d8ef7a8896dec8ac3f9">7.7 - Auto Scaler</h1>
+    <div class="lead">How to configure Stroom task auto scaling.</div>
+	<h2 id="motivation">Motivation</h2>
+<p>Setting optimal Stroom stream processor task limits is a crucial factor in running a healthy, performant cluster.
+If a node is allocated too many tasks, it may become unresponsive or crash.
+Conversely, if allocated too few tasks, it may have CPU cycles to spare.</p>
+<p>The optimal number of tasks is often time-dependent, as load will usually fluctuate during the day and night.
+In large deployments, it&rsquo;s not ideal to set static limits, as doing so risks over-committing nodes during intense spikes in activity (such as backlog processing or multiple concurrent searches).
+Therefore an automated solution, factoring in system load, is called for.</p>
+<h2 id="stroom-task-autoscaling">Stroom task autoscaling</h2>
+<p>When a <code>StroomTaskAutoscaler</code> resource is deployed to a linked <code>StroomCluster</code>, the Operator will periodically compare each Stroom node&rsquo;s average Pod CPU usage against user-defined thresholds.</p>
+<h2 id="enabling-autoscaling">Enabling autoscaling</h2>
+<h3 id="create-an-stroomtaskautoscaler-resource-manifest">Create an <code>StroomTaskAutoscaler</code> resource manifest</h3>
+<p>Use the example 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml" target="_blank" class="" style="" title="autoscaler.yaml (external link)">
+    <span>autoscaler.yaml</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>Below is an explanation of some of the main parameters.
+The rest are documented 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1" target="_blank" class="" style="" title="here (external link)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<ul>
+<li><code>adjustmentIntervalMins</code> Determines how often the Operator will check whether a node has exceeded its CPU parameters.
+It should be often enough to catch brief load spikes, but not too often as to overload the Operator and Kubernetes cluster through excessive API calls and other overhead.</li>
+<li><code>metricsSlidingWindowMin</code> is the window of time over which CPU usage is averaged.
+Should not be too small, otherwise momentary load spikes could cause task limits to be reduced unnecessarily.
+Too large and spikes may not cause throttling to occur.</li>
+<li><code>minCpuPercent</code> and <code>maxCpuPercent</code> should be set to a reasonably tight range, in order to keep the task limit as close to optimal as possible.</li>
+<li><code>minTaskLimit</code> and <code>maxTaskLimit</code> are considered safeguards to avoid nodes ever being allocated an unreasonable number of task.
+Setting <code>maxTaskLimit</code> to be equal to the number of assigned CPUs would be a reasonable starting point.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    A node&rsquo;s task limits will only be adjusted while its task queue is full.
+That is, unless a node is fully-committed, it will not be scaled.
+This is to avoid continually downscaling each node to the minimum during periods of inactivity.
+Because of this, be realistic with setting <code>maxTaskLimit</code> to ensure the node is actually capable of hitting that maximum.
+If it can&rsquo;t, the autoscaler will continue adjusting upwards, potentially causing the node to become unresponsive.
+
+</div>
+
+
+<h3 id="deploy-the-resource-manifest">Deploy the resource manifest</h3>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl apply -f autoscaler.yaml</code></pre>
+</div>
+
+<h2 id="disable-autoscaling">Disable autoscaling</h2>
+<p>Delete the <code>StroomTaskAutoscaler</code> resource</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl delete -f autoscaler.yaml</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.8.'; page-break-before: always">
+    
+  <h1 id="pg-f1fcf284925090030b347c6d04e9d8a0">7.8 - Stop Stroom Cluster</h1>
+    <div class="lead">How to stop the whole Stroom cluster.</div>
+	<p>A Stroom cluster can be stopped by deleting the <code>StroomCluster</code> resource that was deployed.
+When this occurs, the Operator will perform the following actions for each node, in sequence:</p>
+<ol>
+<li>Disable processing of all tasks.</li>
+<li>Wait for all processing tasks to be completed.
+This check is performed once every minute, so there may be a brief delay between a node completed its tasks before being shut down.</li>
+<li>Terminate the container.</li>
+</ol>
+<p>The <code>StroomCluster</code> resource will be removed from the Kubernetes cluster once all nodes have finished processing tasks.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    The <code>StroomCluster.spec.nodeTerminationGracePeriodSecs</code> is an important setting that determines how long the Operator will wait for each node&rsquo;s tasks to complete before terminating it.
+Ensure this is set to a reasonable value, otherwise long-running tasks may not have enough time to finish if the <code>StroomCluster</code> is taken down (e.g. for maintenance).
+
+</div>
+
+
+<h2 id="stopping-the-cluster">Stopping the cluster</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl delete -f stroom-cluster.yaml
+kubectl delete -f database-server.yaml</code></pre>
+</div>
+
+<p>If a <code>StroomTaskAutoscaler</code> was created, remove that as well.</p>
+<p>If any of these commands appear to hang with no response, that&rsquo;s normal; the Operator is likely waiting for tasks to drain.
+You may press <code>Ctrl+C</code> to return to the shell and task termination will continue in the background.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If the <code>StroomCluster</code> deletion appears to be hung, you can inspect the Operator logs to see which nodes are holding up deletion due to outstanding tasks.
+You will see a list of one or more node names, with the number of tasks outstanding in brackets (e.g. <code>StroomCluster deletion waiting on task completing for 1 nodes: stroom-dev-node-data-0 (5)</code>).
+
+</div>
+
+
+<p>Once the <code>StroomCluster</code> is removed, it can be reconfigured (if required) and redeployed, using the same process as in <a href="../../../docs/install-guide/kubernetes/configure-stroom-cluster/">Configure a Stroom cluster</a>.</p>
+<h2 id="persistentvolumeclaim-deletion"><code>PersistentVolumeClaim</code> deletion</h2>
+<p>When a Stroom node is shut down, by default its <code>PersistentVolumeClaim</code> will remain.
+This ensures it gets re-assigned the same <code>PersistentVolume</code> when it starts up again.</p>
+<p>This behaviour should satisfy most use cases.
+However the operator may be configured to delete the PVC in certain situations, by specifying the <code>StroomCluster.spec.volumeClaimDeletePolicy</code>:</p>
+<ol>
+<li><code>DeleteOnScaledownOnly</code> deletes a node&rsquo;s PVC where the number of nodes in the <code>NodeSet</code> is reduced and as a result, the node Pod is no longer part of the <code>NodeSet</code></li>
+<li><code>DeleteOnScaledownAndClusterDeletion</code> deletes the PVC if the node Pod is removed.</li>
+</ol>
+<h2 id="next-steps">Next steps</h2>
+<p><a href="../../../docs/install-guide/kubernetes/remove-operator/">Removing</a> the Stroom K8s Operator</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.9.'; page-break-before: always">
+    
+  <h1 id="pg-3603d04935fa22b34e672359e6b24a4a">7.9 - Restart Node</h1>
+    <div class="lead">How to restart a Stroom node.</div>
+	<p>Stroom nodes may occasionally hang or become unresponsive.
+In these situations, it may be necessary to terminate the Pod.</p>
+<p>After you identify the unresponsive Pod (e.g. by finding a node not responding to cluster ping):</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl delete pod -n &lt;Stroom cluster namespace&gt; &lt;pod name&gt;</code></pre>
+</div>
+
+<p>This will attempt to drain tasks for the node.
+After the termination grace period has elapsed, the Pod will be killed and a new one will automatically respawn to take its place.
+Once the new Pod finishes starting up, if functioning correct it should begin responding to cluster ping.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Prior to a Stroom node being stopped (for whatever reason), task processing for that node is disabled and it is drained of all active tasks.
+Task processing is resumed once the node starts up again.
+
+</div>
+
+
+<h2 id="force-deletion">Force deletion</h2>
+<p>If waiting for the grace period to elapse is unacceptable and you are willing to risk shutting down the node without draining it first (or you are <strong>sure</strong> it has no active tasks), you can force delete the Pod using the procedure outline in the 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/" target="_blank" class="" style="" title="Kubernetes documentation (external link)">
+    <span>Kubernetes documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">kubectl delete pod -n &lt;Stroom cluster namespace&gt; &lt;pod name&gt; --grace-period=0 --force</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2023 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../js/popper.min.js'></script>
+<script src='../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

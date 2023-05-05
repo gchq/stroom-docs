@@ -1,0 +1,5133 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – TODO</title>
+    <link>/tags/todo/</link>
+    <description>Recent content in TODO on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 18 Oct 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/todo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Single Node Docker Installation</title>
+      <link>/docs/install-guide/single-node-docker/</link>
+      <pubDate>Tue, 18 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/single-node-docker/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Running Stroom in &lt;em&gt;Docker&lt;/em&gt; is the quickest and easiest way to get Stroom up and running.
+Using Docker means you don&amp;rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured corectly for Stroom.&lt;/p&gt;
+&lt;h2 id=&#34;stroom-docker-stacks&#34;&gt;Stroom Docker stacks&lt;/h2&gt;
+&lt;p&gt;Stroom has a number of predefined &lt;em&gt;stacks&lt;/em&gt; that combine multiple docker containers into a fully functioning Stroom.
+The docker stacks are aimed primarily at single node instances or for evaluation/test.
+If you want to deploy a Stroom cluster using containers then you should use Kubernetes.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Add Kubernetes install link.
+
+&lt;/div&gt;
+
+&lt;p&gt;At the moment the usable stacks are:&lt;/p&gt;
+&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_core&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;A production single node stroom.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom&lt;br&gt;
+stroom-proxy-local&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;br&gt;
+mysql&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_core_test&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;A single node stroom for test/evalutaion, pre-loaded with content.
+Also includes a &lt;em&gt;remote&lt;/em&gt; proxy for demonstration purposes.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom&lt;br&gt;
+stroom-proxy-local&lt;br&gt;
+stroom-proxy-remote&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;br&gt;
+mysql&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_proxy&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;A remote proxy stack for aggregating and forwarding logs to stroom(-proxy).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom-proxy-remote&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        &lt;code&gt;stroom_services&lt;/code&gt;
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;p&gt;An Nginx instance for running stroom without Docker.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
+stroom-log-sender&lt;br&gt;
+nginx&lt;/p&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;In order to run Stroom using Docker you will need the following installed on the machine you intend to run Stroom on:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;An internet connection. If you don&amp;rsquo;t have one see &lt;a href=&#34;../../docs/install-guide/air-gapped/#docker-images&#34;&gt;Air Gapped Environments&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;A Linux-like shell environment.&lt;/li&gt;
+&lt;li&gt;Docker CE (v17.12.0+) - e.g 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://docs.docker.com/install/linux/docker-ce/centos/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;docs.docker.com/install/linux/docker-ce/centos/ (external link)&#34;&gt;
+    &lt;span&gt;docs.docker.com/install/linux/docker-ce/centos/&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ for Centos&lt;/li&gt;
+&lt;li&gt;docker-compose (v1.21.0+) - 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://docs.docker.com/compose/install/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;docs.docker.com/compose/install/ (external link)&#34;&gt;
+    &lt;span&gt;docs.docker.com/compose/install/&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;bash (v4+)&lt;/li&gt;
+&lt;li&gt;jq - 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://stedolan.github.io/jq/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stedolan.github.io/jq/ (external link)&#34;&gt;
+    &lt;span&gt;stedolan.github.io/jq/&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ e.g. &lt;code&gt;sudo yum install jq&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;curl&lt;/li&gt;
+&lt;li&gt;A non-root user to perform the install as, e.g. &lt;code&gt;stroomuser&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    &lt;code&gt;jq&lt;/code&gt; is not a hard requirement but improves the functionality of the health checks.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;install-steps&#34;&gt;Install steps&lt;/h2&gt;
+&lt;p&gt;This will install the core stack (Stroom and the peripheral services required to run Stroom).&lt;/p&gt;
+&lt;p&gt;Visit 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom-resources/releases (external link)&#34;&gt;
+    &lt;span&gt;stroom-resources/releases&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ to find the latest stack release.
+The Stroom stack comes in a number of different variants:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;stroom_core_test&lt;/strong&gt; - If you are just evaluating Stroom or just want to see it running then download the &lt;code&gt;stroom_core_test*.tar.gz&lt;/code&gt; stack which includes some pre-loaded content.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;stroom_core&lt;/strong&gt; - If it is for an actual deployment of Stroom then download &lt;code&gt;stroom_core*.tar.gz&lt;/code&gt;, which has no content and requires some configuration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Using &lt;code&gt;stroom_core_test-v7.1-beta.15.tar.gz&lt;/code&gt; as an example:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Define the version to download
+VERSION=&amp;#34;v7.1-beta.15&amp;#34;; STACK=&amp;#34;stroom_core_test&amp;#34;
+(out)
+# Download and extract the Stroom stack
+curl -sL &amp;#34;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz&amp;#34; | tar xz
+(out)
+# Navigate into the new stack directory, where xxxx is the directory that has just been created
+cd &amp;#34;${STACK}-${VERSION}&amp;#34;
+(out)
+# Start the stack
+./start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Alternatively if you understand the risks of redirecting web sourced content direct to bash, you can get the latest &lt;code&gt;stroom_core_test&lt;/code&gt; release using:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Download and extract the laStroom stack
+bash &amp;lt;(curl -s https://gchq.github.io/stroom-resources/v7.1/get_stroom.sh)
+(out)
+# Navigate into the new stack directory
+cd stroom_core_test/stroom_core_test*
+(out)
+# Start the stack
+./start.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;On first run stroom will build the database schemas so this can take a minute or two.
+The &lt;code&gt;start.sh&lt;/code&gt; script will provide details of the various URLs that are available.&lt;/p&gt;
+&lt;p&gt;Open a browser (preferably Chrome) at &lt;a href=&#34;https://localhost&#34;&gt;https://localhost&lt;/a&gt; and login with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;username: &lt;em&gt;admin&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;password: &lt;em&gt;admin&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;To configure your new instance see &lt;a href=&#34;../../docs/install-guide/configuration/&#34;&gt;Configuration&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;docker-hub-links&#34;&gt;Docker Hub links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://hub.docker.com/r/gchq/stroom/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;The Stroom image (external link)&#34;&gt;
+    &lt;span&gt;The Stroom image&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://hub.docker.com/r/gchq/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;The GCHQ organisation (external link)&#34;&gt;
+    &lt;span&gt;The GCHQ organisation&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Community: Developing Content</title>
+      <link>/community/content/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/community/content/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Add content
+
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Element Reference</title>
+      <link>/docs/user-guide/pipelines/element-reference/</link>
+      <pubDate>Thu, 03 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/pipelines/element-reference/</guid>
+      <description>
+        
+        
+        &lt;!-- 
+********************************************************************************
+
+                           ****** IMPORTANT ******
+
+The content in this page was generated by stroom.app.docs.GeneratePipelineElementsDoc
+therefore don&#39;t change the order so when you need to regenerate the structure using 
+that class you can easily diff the new output with this file which contains added
+descriptive text.
+********************************************************************************
+--&gt;
+&lt;h2 id=&#34;reader&#34;&gt;Reader&lt;/h2&gt;
+&lt;p&gt;Reader elements read and transform the data at the character level before they are parsed into
+a structured form.&lt;/p&gt;
+&lt;h3 id=&#34;bomremovalfilterinput&#34;&gt;BOMRemovalFilterInput&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#bomremovalfilterinput&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;BOMRemovalFilterInput &amp;#34;BOMRemovalFilterInput&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;BOMRemovalFilterInput&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;BOMRemovalFilterInput&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Removes the Byte Order Mark (if present) from the stream.&lt;/p&gt;
+&lt;h3 id=&#34;badtextxmlfilterreader&#34;&gt;BadTextXMLFilterReader&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#badtextxmlfilterreader&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;BadTextXMLFilterReader &amp;#34;BadTextXMLFilterReader&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;BadTextXMLFilterReader&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;BadTextXMLFilterReader&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;tags&lt;/td&gt;
+&lt;td&gt;A comma separated list of XML elements between which non-escaped characters will be escaped.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;findreplacefilter&#34;&gt;FindReplaceFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#findreplacefilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;FindReplaceFilter &amp;#34;FindReplaceFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;FindReplaceFilter&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;FindReplaceFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Replaces strings or regexes with new strings.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;bufferSize&lt;/td&gt;
+&lt;td&gt;The number of characters to buffer when matching the regex.&lt;/td&gt;
+&lt;td&gt;1000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dotAll&lt;/td&gt;
+&lt;td&gt;Let &amp;lsquo;.&amp;rsquo; match all characters in a regex.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;escapeFind&lt;/td&gt;
+&lt;td&gt;Whether or not to escape find pattern or text.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;escapeReplacement&lt;/td&gt;
+&lt;td&gt;Whether or not to escape replacement text.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;find&lt;/td&gt;
+&lt;td&gt;The text or regex pattern to find and replace.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxReplacements&lt;/td&gt;
+&lt;td&gt;The maximum number of times to try and replace text. There is no limit by default.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;regex&lt;/td&gt;
+&lt;td&gt;Whether the pattern should be treated as a literal or a regex.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;replacement&lt;/td&gt;
+&lt;td&gt;The replacement text.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;showReplacementCount&lt;/td&gt;
+&lt;td&gt;Show total replacement count&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;invalidcharfilterreader&#34;&gt;InvalidCharFilterReader&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#invalidcharfilterreader&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;InvalidCharFilterReader &amp;#34;InvalidCharFilterReader&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;InvalidCharFilterReader&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;InvalidCharFilterReader&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;xmlVersion&lt;/td&gt;
+&lt;td&gt;XML version, e.g. 1.0 or 1.1&lt;/td&gt;
+&lt;td&gt;1.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;invalidxmlcharfilterreader&#34;&gt;InvalidXMLCharFilterReader&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#invalidxmlcharfilterreader&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;InvalidXMLCharFilterReader &amp;#34;InvalidXMLCharFilterReader&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;InvalidXMLCharFilterReader&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;InvalidXMLCharFilterReader&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Strips out any characters that are not within the standard XML character set.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;xmlVersion&lt;/td&gt;
+&lt;td&gt;XML version, e.g. 1.0 or 1.1&lt;/td&gt;
+&lt;td&gt;1.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;reader-1&#34;&gt;Reader&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#reader&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;Reader &amp;#34;Reader&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;Reader&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;Reader&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;parser&#34;&gt;Parser&lt;/h2&gt;
+&lt;p&gt;Parser elements parse raw text data that conforms to some kind of structure (e.g. XML, JSON, CSV)
+into XML events (elements, attributes, text, etc) that can be further validated or transformed
+using.
+The choice of Parser will be dictated by the structure of the data.
+Parsers read the data using the character encoding defined on the feed.&lt;/p&gt;
+&lt;h3 id=&#34;combinedparser&#34;&gt;CombinedParser&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#combinedparser&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;CombinedParser &amp;#34;CombinedParser&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/text.svg&#34; 
+                title=&#34;CombinedParser&#34; 
+                alt=&#34;text.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;CombinedParser&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;The original general-purpose reader/parser that covers all source data types but provides less flexibility than the source format-specific parsers such as dsParser.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;fixInvalidChars&lt;/td&gt;
+&lt;td&gt;Fix invalid XML characters from the input stream.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;namePattern&lt;/td&gt;
+&lt;td&gt;A name pattern to load a text converter dynamically.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;suppressDocumentNotFoundWarnings&lt;/td&gt;
+&lt;td&gt;If the text converter cannot be found to match the name pattern suppress warnings.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;textConverter&lt;/td&gt;
+&lt;td&gt;The text converter configuration that should be used to parse the input data.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;type&lt;/td&gt;
+&lt;td&gt;The parser type, e.g. &amp;lsquo;JSON&amp;rsquo;, &amp;lsquo;XML&amp;rsquo;, &amp;lsquo;Data Splitter&amp;rsquo;.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;dsparser&#34;&gt;DSParser&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#dsparser&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;DSParser &amp;#34;DSParser&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/text.svg&#34; 
+                title=&#34;DSParser&#34; 
+                alt=&#34;text.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;DSParser&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A parser for data that uses Data Splitter code.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;namePattern&lt;/td&gt;
+&lt;td&gt;A name pattern to load a data splitter dynamically.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;suppressDocumentNotFoundWarnings&lt;/td&gt;
+&lt;td&gt;If the data splitter cannot be found to match the name pattern suppress warnings.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;textConverter&lt;/td&gt;
+&lt;td&gt;The data splitter configuration that should be used to parse the input data.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;jsonparser&#34;&gt;JSONParser&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#jsonparser&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;JSONParser &amp;#34;JSONParser&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/json.svg&#34; 
+                title=&#34;JSONParser&#34; 
+                alt=&#34;json.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;JSONParser&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A built-in parser for JSON source data in JSON fragment format into an XML document.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;addRootObject&lt;/td&gt;
+&lt;td&gt;Add a root map element.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowBackslashEscapingAnyCharacter&lt;/td&gt;
+&lt;td&gt;Feature that can be enabled to accept quoting of all character using backslash quoting mechanism: if not enabled, only characters that are explicitly listed by JSON specification can be thus escaped (see JSON spec for small list of these characters)&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowComments&lt;/td&gt;
+&lt;td&gt;Feature that determines whether parser will allow use  of Java/C++ style comments (both &amp;lsquo;/&amp;rsquo;+&amp;rsquo;*&amp;rsquo; and &amp;lsquo;//&amp;rsquo; varieties) within parsed content or not.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowMissingValues&lt;/td&gt;
+&lt;td&gt;Feature allows the support for &amp;ldquo;missing&amp;rdquo; values in a JSON array: missing value meaning sequence of two commas, without value in-between but only optional white space.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowNonNumericNumbers&lt;/td&gt;
+&lt;td&gt;Feature that allows parser to recognize set of &amp;ldquo;Not-a-Number&amp;rdquo; (NaN) tokens as legal floating number values (similar to how many other data formats and programming language source code allows it).&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowNumericLeadingZeros&lt;/td&gt;
+&lt;td&gt;Feature that determines whether parser will allow JSON integral numbers to start with additional (ignorable) zeroes (like: 000001).&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowSingleQuotes&lt;/td&gt;
+&lt;td&gt;Feature that determines whether parser will allow use of single quotes (apostrophe, character &amp;lsquo;&#39;&amp;rsquo;) for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowTrailingComma&lt;/td&gt;
+&lt;td&gt;Feature that determines whether we will allow for a single trailing comma following the final value (in an Array) or member (in an Object). These commas will simply be ignored.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowUnquotedControlChars&lt;/td&gt;
+&lt;td&gt;Feature that determines whether parser will allow JSON Strings to contain unquoted control characters (ASCII characters with value less than 32, including tab and line feed characters) or not. If feature is set false, an exception is thrown if such a character is encountered.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowUnquotedFieldNames&lt;/td&gt;
+&lt;td&gt;Feature that determines whether parser will allow use of unquoted field names (which is allowed by Javascript, but not by JSON specification).&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;allowYamlComments&lt;/td&gt;
+&lt;td&gt;Feature that determines whether parser will allow use of YAML comments, ones starting with &amp;lsquo;#&amp;rsquo; and continuing until the end of the line. This commenting style is common with scripting languages as well.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;xmlfragmentparser&#34;&gt;XMLFragmentParser&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xmlfragmentparser&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XMLFragmentParser &amp;#34;XMLFragmentParser&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xml.svg&#34; 
+                title=&#34;XMLFragmentParser&#34; 
+                alt=&#34;xml.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XMLFragmentParser&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A parser to convert multiple XML fragments into an XML document.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;namePattern&lt;/td&gt;
+&lt;td&gt;A name pattern to load a text converter dynamically.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;suppressDocumentNotFoundWarnings&lt;/td&gt;
+&lt;td&gt;If the text converter cannot be found to match the name pattern suppress warnings.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;textConverter&lt;/td&gt;
+&lt;td&gt;The XML fragment wrapper that should be used to wrap the input XML.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;xmlparser&#34;&gt;XMLParser&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xmlparser&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XMLParser &amp;#34;XMLParser&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xml.svg&#34; 
+                title=&#34;XMLParser&#34; 
+                alt=&#34;xml.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XMLParser&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;filter&#34;&gt;Filter&lt;/h2&gt;
+&lt;p&gt;Filter elements work with XML events that have been generated by a &lt;em&gt;parser&lt;/em&gt;.
+They can consume the events without modifying them, e.g. &lt;em&gt;RecordCountFilter&lt;/em&gt; or modify them in
+some way, e.g. &lt;em&gt;XSLTFilter&lt;/em&gt;.
+Multiple filters can be used one after another with each using the output from the last as its
+input.&lt;/p&gt;
+&lt;h3 id=&#34;elasticindexingfilter&#34;&gt;ElasticIndexingFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#elasticindexingfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;ElasticIndexingFilter &amp;#34;ElasticIndexingFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/ElasticIndex.svg&#34; 
+                title=&#34;ElasticIndexingFilter&#34; 
+                alt=&#34;ElasticIndex.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;ElasticIndexingFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;batchSize&lt;/td&gt;
+&lt;td&gt;Maximum number of documents to index in each bulk request&lt;/td&gt;
+&lt;td&gt;10000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cluster&lt;/td&gt;
+&lt;td&gt;Target Elasticsearch cluster&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indexBaseName&lt;/td&gt;
+&lt;td&gt;Name of the Elasticsearch index&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indexNameDateFieldName&lt;/td&gt;
+&lt;td&gt;Name of the field containing the &lt;code&gt;DateTime&lt;/code&gt; value to use when determining the index date suffix&lt;/td&gt;
+&lt;td&gt;@timestamp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indexNameDateFormat&lt;/td&gt;
+&lt;td&gt;Format of the date to append to the index name (example: &lt;code&gt;-yyyy&lt;/code&gt;). If unspecified, no date is appended.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indexNameDateMaxFutureOffset&lt;/td&gt;
+&lt;td&gt;Do not append a time suffix to the index name for events occurring after the current time plus the specified offset&lt;/td&gt;
+&lt;td&gt;P1D&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indexNameDateMin&lt;/td&gt;
+&lt;td&gt;Do not append a time suffix to the index name for events occurring before this date. Date is assumed to be in UTC and of the format specified in &lt;code&gt;indexNameDateMinFormat&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indexNameDateMinFormat&lt;/td&gt;
+&lt;td&gt;Date format of the supplied &lt;code&gt;indexNameDateMin&lt;/code&gt; property&lt;/td&gt;
+&lt;td&gt;yyyy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ingestPipeline&lt;/td&gt;
+&lt;td&gt;Name of the Elasticsearch ingest pipeline to execute when indexing&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;purgeOnReprocess&lt;/td&gt;
+&lt;td&gt;When reprocessing a stream, first delete any documents from the index matching the stream ID&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;refreshAfterEachBatch&lt;/td&gt;
+&lt;td&gt;Refresh the index after each batch is processed, making the indexed documents visible to searches&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;httppostfilter&#34;&gt;HttpPostFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#httppostfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;HTTPPostFilter &amp;#34;HTTPPostFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;HTTPPostFilter&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;HTTPPostFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;receivingApiUrl&lt;/td&gt;
+&lt;td&gt;The URL of the receiving API.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;idenrichmentfilter&#34;&gt;IdEnrichmentFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#idenrichmentfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;IdEnrichmentFilter &amp;#34;IdEnrichmentFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/id.svg&#34; 
+                title=&#34;IdEnrichmentFilter&#34; 
+                alt=&#34;id.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;IdEnrichmentFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;indexingfilter&#34;&gt;IndexingFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#indexingfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;IndexingFilter &amp;#34;IndexingFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/index.svg&#34; 
+                title=&#34;IndexingFilter&#34; 
+                alt=&#34;index.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;IndexingFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A filter to send source data to an index.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;index&lt;/td&gt;
+&lt;td&gt;The index to send records to.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;recordcountfilter&#34;&gt;RecordCountFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#recordcountfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;RecordCountFilter &amp;#34;RecordCountFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/recordCount.svg&#34; 
+                title=&#34;RecordCountFilter&#34; 
+                alt=&#34;recordCount.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;RecordCountFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;countRead&lt;/td&gt;
+&lt;td&gt;Is this filter counting records read or records written?&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;recordoutputfilter&#34;&gt;RecordOutputFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#recordoutputfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;RecordOutputFilter &amp;#34;RecordOutputFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/recordOutput.svg&#34; 
+                title=&#34;RecordOutputFilter&#34; 
+                alt=&#34;recordOutput.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;RecordOutputFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;referencedatafilter&#34;&gt;ReferenceDataFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#referencedatafilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;ReferenceDataFilter &amp;#34;ReferenceDataFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/referenceData.svg&#34; 
+                title=&#34;ReferenceDataFilter&#34; 
+                alt=&#34;referenceData.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;ReferenceDataFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Takes XML input (conforming to the reference-data:2 schema) and loads the data into the Reference Data Store.
+Reference data values can be either simple strings or XML fragments.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;overrideExistingValues&lt;/td&gt;
+&lt;td&gt;Allow duplicate keys to override existing values?&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;warnOnDuplicateKeys&lt;/td&gt;
+&lt;td&gt;Warn if there are duplicate keys found in the reference data?&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;safexmlfilter&#34;&gt;SafeXMLFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#safexmlfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SafeXMLFilter &amp;#34;SafeXMLFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/recordOutput.svg&#34; 
+                title=&#34;SafeXMLFilter&#34; 
+                alt=&#34;recordOutput.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SafeXMLFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;schemafilter&#34;&gt;SchemaFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#schemafilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SchemaFilter &amp;#34;SchemaFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xsd.svg&#34; 
+                title=&#34;SchemaFilter&#34; 
+                alt=&#34;xsd.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SchemaFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Checks the format of the source data against one of a number of XML schemas.
+This ensures that if non-compliant data is generated, it will be flagged as in error and will not be passed to any subsequent processing elements.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;namespaceURI&lt;/td&gt;
+&lt;td&gt;Limits the schemas that can be used to validate data to those with a matching namespace URI.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;schemaGroup&lt;/td&gt;
+&lt;td&gt;Limits the schemas that can be used to validate data to those with a matching schema group name.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;schemaLanguage&lt;/td&gt;
+&lt;td&gt;The schema language that the schema is written in.&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://www.w3.org/2001/XMLSchema&#34;&gt;http://www.w3.org/2001/XMLSchema&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;schemaValidation&lt;/td&gt;
+&lt;td&gt;Should schema validation be performed?&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;systemId&lt;/td&gt;
+&lt;td&gt;Limits the schemas that can be used to validate data to those with a matching system id.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;searchresultoutputfilter&#34;&gt;SearchResultOutputFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#searchresultoutputfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SearchResultOutputFilter &amp;#34;SearchResultOutputFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/search.svg&#34; 
+                title=&#34;SearchResultOutputFilter&#34; 
+                alt=&#34;search.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SearchResultOutputFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;solrindexingfilter&#34;&gt;SolrIndexingFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#solrindexingfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SolrIndexingFilter &amp;#34;SolrIndexingFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/solr.svg&#34; 
+                title=&#34;SolrIndexingFilter&#34; 
+                alt=&#34;solr.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SolrIndexingFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Delivers source data to the specified index in an external Solr instance/cluster.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;batchSize&lt;/td&gt;
+&lt;td&gt;How many documents to send to the index in a single post.&lt;/td&gt;
+&lt;td&gt;1000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;commitWithinMs&lt;/td&gt;
+&lt;td&gt;Commit indexed documents within the specified number of milliseconds.&lt;/td&gt;
+&lt;td&gt;-1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;index&lt;/td&gt;
+&lt;td&gt;The index to send records to.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;softCommit&lt;/td&gt;
+&lt;td&gt;Perform a soft commit after every batch so that docs are available for searching immediately (if using NRT replicas).&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;splitfilter&#34;&gt;SplitFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#splitfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;SplitFilter &amp;#34;SplitFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/split.svg&#34; 
+                title=&#34;SplitFilter&#34; 
+                alt=&#34;split.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;SplitFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Splits multi-record source data into smaller groups of records prior to delivery to an XSLT.
+This allows the XSLT to process data more efficiently than loading a potentially huge input stream into memory.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;splitCount&lt;/td&gt;
+&lt;td&gt;The number of elements at the split depth to count before the XML is split.&lt;/td&gt;
+&lt;td&gt;10000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitDepth&lt;/td&gt;
+&lt;td&gt;The depth of XML elements to split at.&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;storeLocations&lt;/td&gt;
+&lt;td&gt;Should this split filter store processing locations.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;statisticsfilter&#34;&gt;StatisticsFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#statisticsfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;StatisticsFilter &amp;#34;StatisticsFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/statistics.svg&#34; 
+                title=&#34;StatisticsFilter&#34; 
+                alt=&#34;statistics.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;StatisticsFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;An element to allow the source data (conforming to the &lt;code&gt;statistics&lt;/code&gt; XML Schema) to be sent to the MySQL based statistics data store.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;statisticsDataSource&lt;/td&gt;
+&lt;td&gt;The statistics data source to record statistics against.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;stroomstatsfilter&#34;&gt;StroomStatsFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#stroomstatsfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;StroomStatsFilter &amp;#34;StroomStatsFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/StroomStatsStore.svg&#34; 
+                title=&#34;StroomStatsFilter&#34; 
+                alt=&#34;StroomStatsStore.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;StroomStatsFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;An element to allow the source data (conforming to the &lt;code&gt;statistics&lt;/code&gt; XML Schema) to be sent to an external stroom-stats service.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;flushOnSend&lt;/td&gt;
+&lt;td&gt;At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;kafkaConfig&lt;/td&gt;
+&lt;td&gt;The Kafka config to use.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;statisticsDataSource&lt;/td&gt;
+&lt;td&gt;The stroom-stats data source to record statistics against.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;xpathextractionoutputfilter&#34;&gt;XPathExtractionOutputFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xpathextractionoutputfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XPathExtractionOutputFilter &amp;#34;XPathExtractionOutputFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xmlSearch.svg&#34; 
+                title=&#34;XPathExtractionOutputFilter&#34; 
+                alt=&#34;xmlSearch.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XPathExtractionOutputFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;multipleValueDelimiter&lt;/td&gt;
+&lt;td&gt;The string to delimit multiple simple values.&lt;/td&gt;
+&lt;td&gt;,&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;xsltfilter&#34;&gt;XSLTFilter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xsltfilter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XSLTFilter &amp;#34;XSLTFilter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xslt.svg&#34; 
+                title=&#34;XSLTFilter&#34; 
+                alt=&#34;xslt.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XSLTFilter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;An element used to transform XML data from one form to another using XSLT.
+The specified XSLT can be used to transform the input XML into XML conforming to another schema or into other forms such as JSON, plain text, etc.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;pipelineReference&lt;/td&gt;
+&lt;td&gt;A list of places to load reference data from if required.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;suppressXSLTNotFoundWarnings&lt;/td&gt;
+&lt;td&gt;If XSLT cannot be found to match the name pattern suppress warnings.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;usePool&lt;/td&gt;
+&lt;td&gt;Advanced: Choose whether or not you want to use cached XSLT templates to improve performance.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;xslt&lt;/td&gt;
+&lt;td&gt;The XSLT to use.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;xsltNamePattern&lt;/td&gt;
+&lt;td&gt;A name pattern to load XSLT dynamically.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;writer&#34;&gt;Writer&lt;/h2&gt;
+&lt;p&gt;Writers consume XML events (from &lt;em&gt;Parsers&lt;/em&gt; and &lt;em&gt;Filters&lt;/em&gt;) and convert them into a stream of bytes
+using the character encoding configured on the &lt;em&gt;Writer&lt;/em&gt; (if applicable).
+The output data can then be fed to a Destination.&lt;/p&gt;
+&lt;h3 id=&#34;jsonwriter&#34;&gt;JSONWriter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#jsonwriter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;JSONWriter &amp;#34;JSONWriter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/json.svg&#34; 
+                title=&#34;JSONWriter&#34; 
+                alt=&#34;json.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;JSONWriter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Writer to convert XML data conforming to the &lt;a href=&#34;http://www.w3.org/2013/XSL/json&#34;&gt;http://www.w3.org/2013/XSL/json&lt;/a&gt; XML Schema into JSON format.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;encoding&lt;/td&gt;
+&lt;td&gt;The output character encoding to use.&lt;/td&gt;
+&lt;td&gt;UTF-8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indentOutput&lt;/td&gt;
+&lt;td&gt;Should output JSON be indented and include new lines (pretty printed)?&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;textwriter&#34;&gt;TextWriter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#textwriter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;TextWriter &amp;#34;TextWriter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/text.svg&#34; 
+                title=&#34;TextWriter&#34; 
+                alt=&#34;text.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;TextWriter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Writer to convert XML character data events into plain text output.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;encoding&lt;/td&gt;
+&lt;td&gt;The output character encoding to use.&lt;/td&gt;
+&lt;td&gt;UTF-8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;footer&lt;/td&gt;
+&lt;td&gt;Footer text that can be added to the output at the end.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;header&lt;/td&gt;
+&lt;td&gt;Header text that can be added to the output at the start.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;xmlwriter&#34;&gt;XMLWriter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#xmlwriter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;XMLWriter &amp;#34;XMLWriter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/xml.svg&#34; 
+                title=&#34;XMLWriter&#34; 
+                alt=&#34;xml.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;XMLWriter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;Writer to convert XML events data into XML output in the specified character encoding.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;encoding&lt;/td&gt;
+&lt;td&gt;The output character encoding to use.&lt;/td&gt;
+&lt;td&gt;UTF-8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;indentOutput&lt;/td&gt;
+&lt;td&gt;Should output XML be indented and include new lines (pretty printed)?&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;suppressXSLTNotFoundWarnings&lt;/td&gt;
+&lt;td&gt;If XSLT cannot be found to match the name pattern suppress warnings.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;xslt&lt;/td&gt;
+&lt;td&gt;A previously saved XSLT, used to modify the output via xsl:output attributes.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;xsltNamePattern&lt;/td&gt;
+&lt;td&gt;A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;destination&#34;&gt;Destination&lt;/h2&gt;
+&lt;p&gt;Destination elements consume a stream of bytes from a &lt;em&gt;Writer&lt;/em&gt; and persist then to a destination.
+This could be a file on a file system or to Stroom&amp;rsquo;s stream store.&lt;/p&gt;
+&lt;h3 id=&#34;annotationwriter&#34;&gt;AnnotationWriter&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#annotationwriter&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;AnnotationWriter &amp;#34;AnnotationWriter&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/text.svg&#34; 
+                title=&#34;AnnotationWriter&#34; 
+                alt=&#34;text.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;AnnotationWriter&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;fileappender&#34;&gt;FileAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#fileappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;FileAppender &amp;#34;FileAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/file.svg&#34; 
+                title=&#34;FileAppender&#34; 
+                alt=&#34;file.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;FileAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A destination used to write an output stream to a file on the file system.
+If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; property it will pick one at random to write to.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;filePermissions&lt;/td&gt;
+&lt;td&gt;Set file system permissions of finished files (example: &amp;lsquo;rwxr&amp;ndash;r&amp;ndash;&amp;rsquo;)&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;outputPaths&lt;/td&gt;
+&lt;td&gt;One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rollSize&lt;/td&gt;
+&lt;td&gt;When the current output file exceeds this size it will be closed and a new one created.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitAggregatedStreams&lt;/td&gt;
+&lt;td&gt;Choose if you want to split aggregated streams into separate output files.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitRecords&lt;/td&gt;
+&lt;td&gt;Choose if you want to split individual records into separate output files.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;useCompression&lt;/td&gt;
+&lt;td&gt;Apply GZIP compression to output files&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;hdfsfileappender&#34;&gt;HDFSFileAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#hdfsfileappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;HDFSFileAppender &amp;#34;HDFSFileAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/hadoop-elephant-logo.svg&#34; 
+                title=&#34;HDFSFileAppender&#34; 
+                alt=&#34;hadoop-elephant-logo.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;HDFSFileAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A destination used to write an output stream to a file on a Hadoop Distributed File System.
+If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; property it will pick one at random.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;fileSystemUri&lt;/td&gt;
+&lt;td&gt;URI for the Hadoop Distributed File System (HDFS) to connect to, e.g. hdfs://mynamenode.mydomain.com:8020&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;outputPaths&lt;/td&gt;
+&lt;td&gt;One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rollSize&lt;/td&gt;
+&lt;td&gt;When the current output file exceeds this size it will be closed and a new one created.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;runAsUser&lt;/td&gt;
+&lt;td&gt;The user to connect to HDFS as&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitAggregatedStreams&lt;/td&gt;
+&lt;td&gt;Choose if you want to split aggregated streams into separate output files.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitRecords&lt;/td&gt;
+&lt;td&gt;Choose if you want to split individual records into separate output files.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;httpappender&#34;&gt;HTTPAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#httpappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;HTTPAppender &amp;#34;HTTPAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;HTTPAppender&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;HTTPAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A destination used to write an output stream to a remote HTTP(s) server.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;connectionTimeout&lt;/td&gt;
+&lt;td&gt;How long to wait before we abort sending data due to connection timeout&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;contentType&lt;/td&gt;
+&lt;td&gt;The content type&lt;/td&gt;
+&lt;td&gt;application/json&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forwardChunkSize&lt;/td&gt;
+&lt;td&gt;Should data be sent in chunks and if so how big should the chunks be&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;forwardUrl&lt;/td&gt;
+&lt;td&gt;The URL to send data to&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;hostnameVerificationEnabled&lt;/td&gt;
+&lt;td&gt;Verify host names&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;httpHeadersIncludeStreamMetaData&lt;/td&gt;
+&lt;td&gt;Provide stream metadata as HTTP headers&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;httpHeadersUserDefinedHeader1&lt;/td&gt;
+&lt;td&gt;Additional HTTP Header 1, format is &amp;lsquo;HeaderName: HeaderValue&amp;rsquo;&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;httpHeadersUserDefinedHeader2&lt;/td&gt;
+&lt;td&gt;Additional HTTP Header 2, format is &amp;lsquo;HeaderName: HeaderValue&amp;rsquo;&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;httpHeadersUserDefinedHeader3&lt;/td&gt;
+&lt;td&gt;Additional HTTP Header 3, format is &amp;lsquo;HeaderName: HeaderValue&amp;rsquo;&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;keyStorePassword&lt;/td&gt;
+&lt;td&gt;The key store password&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;keyStorePath&lt;/td&gt;
+&lt;td&gt;The key store file path on the server&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;keyStoreType&lt;/td&gt;
+&lt;td&gt;The key store type&lt;/td&gt;
+&lt;td&gt;JKS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;logMetaKeys&lt;/td&gt;
+&lt;td&gt;Which meta data values will be logged in the send log&lt;/td&gt;
+&lt;td&gt;guid,feed,system,environment,remotehost,remoteaddress&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;readTimeout&lt;/td&gt;
+&lt;td&gt;How long to wait for data to be available before closing the connection&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;requestMethod&lt;/td&gt;
+&lt;td&gt;The request method, e.g. POST&lt;/td&gt;
+&lt;td&gt;POST&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rollSize&lt;/td&gt;
+&lt;td&gt;When the current output exceeds this size it will be closed and a new one created.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitAggregatedStreams&lt;/td&gt;
+&lt;td&gt;Choose if you want to split aggregated streams into separate output.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitRecords&lt;/td&gt;
+&lt;td&gt;Choose if you want to split individual records into separate output.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;sslProtocol&lt;/td&gt;
+&lt;td&gt;The SSL protocol to use&lt;/td&gt;
+&lt;td&gt;TLSv1.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;trustStorePassword&lt;/td&gt;
+&lt;td&gt;The trust store password&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;trustStorePath&lt;/td&gt;
+&lt;td&gt;The trust store file path on the server&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;trustStoreType&lt;/td&gt;
+&lt;td&gt;The trust store type&lt;/td&gt;
+&lt;td&gt;JKS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;useCompression&lt;/td&gt;
+&lt;td&gt;Should data be compressed when sending&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;useJvmSslConfig&lt;/td&gt;
+&lt;td&gt;Use JVM SSL config. Set this to true if the Stroom node has been configured with key/trust stores using java system properties like &amp;lsquo;javax.net.ssl.keyStore&amp;rsquo;.Set this to false if you are explicitly setting key/trust store properties on this HttpAppender.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;rollingfileappender&#34;&gt;RollingFileAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#rollingfileappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;RollingFileAppender &amp;#34;RollingFileAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/files.svg&#34; 
+                title=&#34;RollingFileAppender&#34; 
+                alt=&#34;files.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;RollingFileAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A destination used to write an output stream to a file on the file system.
+If multiple paths are specified in the &amp;lsquo;outputPaths&amp;rsquo; property it will pick one at random to write to.
+This is distinct from the FileAppender in that when the &lt;code&gt;rollSize&lt;/code&gt; is reached it will move the current file to the path specified in &lt;code&gt;rolledFileName&lt;/code&gt; and resume writing to the original path.
+This allows other processes to follow the changes to a single file path, e.g. when using &lt;code&gt;tail&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;fileName&lt;/td&gt;
+&lt;td&gt;Choose the name of the file to write.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;filePermissions&lt;/td&gt;
+&lt;td&gt;Set file system permissions of finished files (example: &amp;lsquo;rwxr&amp;ndash;r&amp;ndash;&amp;rsquo;)&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;frequency&lt;/td&gt;
+&lt;td&gt;Choose how frequently files are rolled.&lt;/td&gt;
+&lt;td&gt;1h&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;outputPaths&lt;/td&gt;
+&lt;td&gt;One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rollSize&lt;/td&gt;
+&lt;td&gt;When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.&lt;/td&gt;
+&lt;td&gt;100M&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rolledFileName&lt;/td&gt;
+&lt;td&gt;Choose the name that files will be renamed to when they are rolled.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;schedule&lt;/td&gt;
+&lt;td&gt;Provide a cron expression to determine when files are rolled.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;useCompression&lt;/td&gt;
+&lt;td&gt;Apply GZIP compression to output files&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;rollingstreamappender&#34;&gt;RollingStreamAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#rollingstreamappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;RollingStreamAppender &amp;#34;RollingStreamAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;RollingStreamAppender&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;RollingStreamAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;p&gt;A destination used to write one or more output streams to a new stream which is then rolled when it reaches a certain size or age.
+A new stream will be created after the size or age criteria has been met.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;feed&lt;/td&gt;
+&lt;td&gt;The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;frequency&lt;/td&gt;
+&lt;td&gt;Choose how frequently streams are rolled.&lt;/td&gt;
+&lt;td&gt;1h&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rollSize&lt;/td&gt;
+&lt;td&gt;Choose the maximum size that a stream can be before it is rolled.&lt;/td&gt;
+&lt;td&gt;100M&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;schedule&lt;/td&gt;
+&lt;td&gt;Provide a cron expression to determine when streams are rolled.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;segmentOutput&lt;/td&gt;
+&lt;td&gt;Should the output stream be marked with indexed segments to allow fast access to individual records?&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;streamType&lt;/td&gt;
+&lt;td&gt;The stream type that the output stream should be written as. This must be specified.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;standardkafkaproducer&#34;&gt;StandardKafkaProducer&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#standardkafkaproducer&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;StandardKafkaProducer &amp;#34;StandardKafkaProducer&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/kafka.svg&#34; 
+                title=&#34;StandardKafkaProducer&#34; 
+                alt=&#34;kafka.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;StandardKafkaProducer&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;flushOnSend&lt;/td&gt;
+&lt;td&gt;At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;kafkaConfig&lt;/td&gt;
+&lt;td&gt;Kafka configuration details relating to where and how to send Kafka messages.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;streamappender&#34;&gt;StreamAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#streamappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;StreamAppender &amp;#34;StreamAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/stream.svg&#34; 
+                title=&#34;StreamAppender&#34; 
+                alt=&#34;stream.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;StreamAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;feed&lt;/td&gt;
+&lt;td&gt;The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rollSize&lt;/td&gt;
+&lt;td&gt;When the current output stream exceeds this size it will be closed and a new one created.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;segmentOutput&lt;/td&gt;
+&lt;td&gt;Should the output stream be marked with indexed segments to allow fast access to individual records?&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitAggregatedStreams&lt;/td&gt;
+&lt;td&gt;Choose if you want to split aggregated streams into separate output streams.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splitRecords&lt;/td&gt;
+&lt;td&gt;Choose if you want to split individual records into separate output streams.&lt;/td&gt;
+&lt;td&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;streamType&lt;/td&gt;
+&lt;td&gt;The stream type that the output stream should be written as. This must be specified.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;stroomstatsappender&#34;&gt;StroomStatsAppender&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      &lt;a href=&#34;../../docs/user-guide/pipelines/element-reference#stroomstatsappender&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;&#34;&gt;
+        &lt;span class=&#34;pipeline-element&#34; title=&#34;StroomStatsAppender &amp;#34;StroomStatsAppender&amp;#34;&#34; &gt;
+          &lt;span class=&#34;pipeline-element-content&#34; &gt;
+            &lt;span class=&#34;pipeline-element-icon&#34;&gt;
+              &lt;img
+                class=&#34;stroom-icon&#34; 
+                src=&#34;../../images/stroom-ui/pipeline/StroomStatsStore.svg&#34; 
+                title=&#34;StroomStatsAppender&#34; 
+                alt=&#34;StroomStatsStore.svg&#34;&gt;
+            &lt;/span&gt;
+            &lt;span class=&#34;pipeline-element-text&#34;&gt;StroomStatsAppender&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/a&gt;
+
+      
+      &lt;span class=&#34;USED FOR SPLITTING&#34; &gt;&lt;/span&gt;
+
+    
+  
+
+
+
+
+
+
+
+ &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TODO - Add description&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Default Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;flushOnSend&lt;/td&gt;
+&lt;td&gt;At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;kafkaConfig&lt;/td&gt;
+&lt;td&gt;The Kafka config to use.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxRecordCount&lt;/td&gt;
+&lt;td&gt;Choose the maximum number of records or events that a message will contain&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;statisticsDataSource&lt;/td&gt;
+&lt;td&gt;The stroom-stats data source to record statistics against.&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Stroom 6 Installation</title>
+      <link>/docs/install-guide/stroom-6-installation/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/stroom-6-installation/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Update this for Stroom 7.
+
+&lt;/div&gt;
+
+&lt;p&gt;We would welcome feedback on this documentation.&lt;/p&gt;
+&lt;h2 id=&#34;running-on-a-single-box&#34;&gt;Running on a single box&lt;/h2&gt;
+&lt;h3 id=&#34;running-a-release&#34;&gt;Running a release&lt;/h3&gt;
+&lt;p&gt;Download a 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;release (external link)&#34;&gt;
+    &lt;span&gt;release&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+, for example 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases/download/stroom_core-v6.0-beta.3/stroom_core_v6.0-beta.3.tar.gz&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Stroom Core v6.0 Beta 3 (external link)&#34;&gt;
+    &lt;span&gt;Stroom Core v6.0 Beta 3&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+, unpack it, and run the &lt;code&gt;start.sh&lt;/code&gt; script. When you&amp;rsquo;ve given it some time to start up go to &lt;code&gt;http://localhost/stroom&lt;/code&gt;. There&amp;rsquo;s a &lt;code&gt;README.md&lt;/code&gt; file inside the tar.gz with more information.&lt;/p&gt;
+&lt;h2 id=&#34;post-install-hardening&#34;&gt;Post-install hardening&lt;/h2&gt;
+&lt;h3 id=&#34;before-first-run&#34;&gt;Before first run&lt;/h3&gt;
+&lt;h4 id=&#34;change-database-passwords&#34;&gt;Change database passwords&lt;/h4&gt;
+&lt;p&gt;If you don&amp;rsquo;t do this before the first run of Stroom then the passwords will already be set and you&amp;rsquo;ll have to change them on the database manually, and then change the &lt;code&gt;.env&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This change should be made in the &lt;code&gt;.env&lt;/code&gt; configuration file. If the values are not there then this service is not included in your Stroom stack and there is nothing to change.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_DB_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_DB_ROOT_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_STATS_DB_ROOT_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_STATS_DB_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_AUTH_DB_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_AUTH_DB_ROOT_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_ANNOTATIONS_DB_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_ANNOTATIONS_DB_ROOT_PASSWORD&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;on-first-run&#34;&gt;On first run&lt;/h3&gt;
+&lt;h4 id=&#34;create-yourself-an-account&#34;&gt;Create yourself an account&lt;/h4&gt;
+&lt;p&gt;After first logging in as &lt;code&gt;admin&lt;/code&gt; you should create yourself a normal account (using your email address) and add yourself to the &lt;code&gt;Administrators&lt;/code&gt; group. You should then log out of &lt;code&gt;admin&lt;/code&gt;, log in with your new administrator account and then disable the &lt;code&gt;admin&lt;/code&gt; account.&lt;/p&gt;
+&lt;p&gt;If you decide to use the &lt;code&gt;admin&lt;/code&gt; account as your normal account you might find yourself locked out. The &lt;code&gt;admin&lt;/code&gt; account has no associated email address, so the Reset Password feature will not work if your account is locked. It might become locked if you enter your password incorrectly too many times.&lt;/p&gt;
+&lt;h4 id=&#34;delete-un-used-users-and-api-keys&#34;&gt;Delete un-used users and API keys&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;If you&amp;rsquo;re not using stats you can delete or disable the following:
+&lt;ul&gt;
+&lt;li&gt;the user &lt;code&gt;statsServiceUser&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;the API key for &lt;code&gt;statsServiceUser&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;change-the-api-keys&#34;&gt;Change the API keys&lt;/h4&gt;
+&lt;p&gt;First generate new API keys. You can generate a new API key using Stroom. From the top menu, select:&lt;/p&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-menu&#34;&gt;
+    
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Tools
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    &lt;div class=&#34;stroom-menu-item&#34;&gt;
+          &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+            &lt;img 
+              class=&#34;stroom-icon&#34; 
+              src=&#34;../../images/stroom-ui/key.svg&#34; 
+              alt=&#34;key.svg&#34;&gt;
+          &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;API Keys
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+
+&lt;p&gt;The following need to be changed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;STROOM_SECURITY_API_TOKEN&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;This is the API token for user &lt;code&gt;stroomServiceUser&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Then stop Stroom and update the API key in the &lt;code&gt;.env&lt;/code&gt; configuration file with the new value.&lt;/p&gt;
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+&lt;h3 id=&#34;im-trying-to-use-certificate-logins-pki-but-i-keep-being-prompted-for-the-username-and-password&#34;&gt;I&amp;rsquo;m trying to use certificate logins (PKI) but I keep being prompted for the username and password!&lt;/h3&gt;
+&lt;p&gt;You need to be sure of several things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;When a user arrives at Stroom the first thing Stroom does is redirect the user to the authentication service. This is when the certificate is checked. If this redirect doesn&amp;rsquo;t use HTTPS then nginx will not get the cert and will not send it onwards to the authentication service. Remember that all of this stuff, apart from back-channel/service-to-service chatter, goes through nginx. The env var that needs to use HTTPS is STROOM_AUTHENTICATION_SERVICE_URL. Note that this is the var Stroom looks for, not the var as set in the stack, so you&amp;rsquo;ll find it in the stack YAML.&lt;/li&gt;
+&lt;li&gt;Are your certs configured properly? If nginx isn&amp;rsquo;t able to decode the incoming cert for some reason then it won&amp;rsquo;t pass anything on to the service.&lt;/li&gt;
+&lt;li&gt;Is your browser sending certificates?&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Stroom Proxy Installation</title>
+      <link>/docs/proxy/stroom-7-proxy-installation/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/proxy/stroom-7-proxy-installation/</guid>
+      <description>
+        
+        
+        &lt;p&gt;There are 2 versions of the stroom software availble for building a proxy server.
+There is an &lt;em&gt;app&lt;/em&gt; version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.
+The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database.
+The document will cover the installation and configuration of the stroom proxy software for both the docker and &amp;lsquo;app&amp;rsquo; versions.&lt;/p&gt;
+&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;p&gt;The following assumptions are used in this document.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the user has reasonable RHEL/CentOS System administration skills.&lt;/li&gt;
+&lt;li&gt;installation is on a fully patched minimal CentOS 7 instance.&lt;/li&gt;
+&lt;li&gt;the Stroom database has been created and resides on the host &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt; listening on port 3307.&lt;/li&gt;
+&lt;li&gt;the Stroom database user is &lt;code&gt;stroomuser&lt;/code&gt; with a password of &lt;code&gt;Stroompassword1@&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;the application user &lt;code&gt;stroomuser&lt;/code&gt; has been created.&lt;/li&gt;
+&lt;li&gt;the user is or has deployed the two node Stroom cluster described &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;the user has set up the Stroom processing user as described &lt;a href=&#34;../../docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;the prerequisite software has been installed.&lt;/li&gt;
+&lt;li&gt;when a screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;stroom-remote-proxy-docker-version&#34;&gt;Stroom Remote Proxy (docker version)&lt;/h2&gt;
+&lt;p&gt;The build of a stroom proxy where the stroom applications are running in docker containers.
+The operating system (OS) build for a &amp;lsquo;dockerised&amp;rsquo; stroom proxy is minimal RHEL/CentOS 7 plus the docker-ce &amp;amp; docker-compose packages.
+Neither of the pre-requisites are available from the CentOS ditribution.
+It will also be necessary to open additional ports on the system firewall (where appropriate).&lt;/p&gt;
+&lt;h3 id=&#34;download-and-install-docker&#34;&gt;Download and install docker&lt;/h3&gt;
+&lt;p&gt;To download and install - docker-ce - from the internet, a new &amp;lsquo;repo&amp;rsquo; file is downloaded first, that provides access to the docker.com repository.
+e.g. as &lt;em&gt;root&lt;/em&gt; user:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;wget &lt;a href=&#34;https://download.docker.com/linux/centos/docker-ce.repo&#34;&gt;https://download.docker.com/linux/centos/docker-ce.repo&lt;/a&gt; -O /etc/yum.repos.d/docker-ce.repo&lt;/li&gt;
+&lt;li&gt;yum install docker-ce.x86_64&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The packages - docker-ce docker-ce-cli &amp;amp; containerd.io - will be installed&lt;/p&gt;
+&lt;p&gt;The docker-compose software can de downloaded from github
+e.g. as &lt;em&gt;root&lt;/em&gt; user to download docker-compose version 1.25.4 and save it to -  /usr/local/bin/docker-compose&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;curl -L &lt;a href=&#34;https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64&#34;&gt;https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64&lt;/a&gt; -o /usr/local/bin/docker-compose&lt;/li&gt;
+&lt;li&gt;chmod 755 /usr/local/bin/docker-compose&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;firewall-configuration&#34;&gt;Firewall Configuration&lt;/h3&gt;
+&lt;p&gt;If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
+Currently these ports are:&lt;/p&gt;
+&lt;p&gt;80
+443&lt;br&gt;
+2888&lt;br&gt;
+3307&lt;br&gt;
+5000&lt;br&gt;
+8080&lt;br&gt;
+8081&lt;br&gt;
+8090&lt;br&gt;
+8091&lt;br&gt;
+8543&lt;/p&gt;
+&lt;p&gt;For example on a RHEL/CentOS server using &lt;code&gt;firewalld&lt;/code&gt; the commands would be as &lt;em&gt;root&lt;/em&gt; user:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --permanent --add-port=80/tcp
+firewall-cmd --zone=public --permanent --add-port=443/tcp
+firewall-cmd --zone=public --permanent --add-port=2888/tcp
+firewall-cmd --zone=public --permanent --add-port=3307/tcp
+firewall-cmd --zone=public --permanent --add-port=5000/tcp
+firewall-cmd --zone=public --permanent --add-port=8080/tcp
+firewall-cmd --zone=public --permanent --add-port=8081/tcp
+firewall-cmd --zone=public --permanent --add-port=8090/tcp
+firewall-cmd --zone=public --permanent --add-port=8091/tcp
+firewall-cmd --zone=public --permanent --add-port=8099/tcp
+firewall-cmd --reload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;download-and-install-stroom-v7-docker-version&#34;&gt;Download and install Stroom v7 (docker version)&lt;/h3&gt;
+&lt;p&gt;The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.
+As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;wget &lt;a href=&#34;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.0-beta.41/stroom_proxy-v7.0-beta.45.tar.gz&#34;&gt;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.0-beta.41/stroom_proxy-v7.0-beta.45.tar.gz&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;tar zxf stroom-stacks…………..&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a stroom proxy, the configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env needs to be edited, with the connection details of the stroom server that data files will be sent to.
+The default network port for connection to the stroom server is 8080.&lt;/p&gt;
+&lt;p&gt;The values that need to be set are:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY  
+STROOM_PROXY_REMOTE_FEED_STATUS_URL  
+STROOM_PROXY_REMOTE_FORWARD_URL  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &amp;lsquo;API key&amp;rsquo; is generated on the stroom server and is related to a specific user e.g. proxyServiceUser.
+The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.&lt;/p&gt;
+&lt;p&gt;e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&amp;quot;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&amp;quot;
+export STROOM_PROXY_REMOTE_FORWARD_URL=&amp;quot;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;to-start-stroom-proxy&#34;&gt;To Start Stroom Proxy&lt;/h3&gt;
+&lt;p&gt;As the stroom user, run the &amp;lsquo;start.sh&amp;rsquo; script found in the stroom install:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;cd ~/stroom_proxy/stroom_proxy-v7.0-beta.45/&lt;/li&gt;
+&lt;li&gt;./start.sh&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The first time the script is ran it will download from github the docker containers for a stroom proxy
+these are - stroom-proxy-remote, stroom-log-sender and nginx.
+Once the script has completed the stroom proxy server should be running.
+There are additional scripts - status.sh - that will show the status of the docker containers (stroom-proxy-remote, stroom-log-sender and nginx)
+and - logs.sh - that will tail all of the stroom message files to the screen.&lt;/p&gt;
+&lt;h2 id=&#34;stroom-remote-proxy-app-version&#34;&gt;Stroom Remote Proxy (app version)&lt;/h2&gt;
+&lt;p&gt;The build of a stroom proxy server, where the stroom application is running locally as a Java ARchive (jar) file.
+The operating system (OS) build for an &amp;lsquo;application&amp;rsquo; stroom proxy is minimal RHEL/CentOS 7 plus Java.&lt;/p&gt;
+&lt;p&gt;The Java version required for stroom v7 is 15+.
+This version of Java is not available from the RHEL/CentOS distribution.
+The version of Java used below is the &amp;lsquo;openJDK&amp;rsquo; version as opposed to Oracle&amp;rsquo;s version.
+This can be downloaded from the internet.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Needs updating for java 15.
+
+&lt;/div&gt;
+
+&lt;p&gt;Version 12.0.1
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_linux-x64_bin.tar.gz&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Or version 14.0.2 &lt;a href=&#34;https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz&#34;&gt;https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The gzipped tar file needs to be untarred and moved to a suitable location.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;tar xvf openjdk-12.0.1_linux-x64_bin.tar.gz
+mv jdk-12.0.1 /opt/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Create a shell script that will define the Java variables	OR add the statements to .bash_profile.
+e.g. vi /etc/profile.d/jdk12.sh&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export JAVA_HOME=/opt/jdk-12.0.1
+export PATH=$PATH:$JAVA_HOME/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;source /etc/profile.d/jdk12.sh
+echo $JAVA_HOME
+(out)/opt/jdk-12.0.1
+
+java --version
+(out)*openjdk version &amp;#34;12.0.1&amp;#34; 2019-04-16*
+(out)*OpenJDK Runtime Environment (build 12.0.1&amp;#43;12)*
+(out)*OpenJDK 64-Bit Server VM (build 12.0.1&amp;#43;12, mixed mode, sharing)*&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Disable selinux to avoid issues with access and file permissions.&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;firewall-configuration-1&#34;&gt;Firewall Configuration&lt;/h3&gt;
+&lt;p&gt;If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
+Currently these ports are:&lt;/p&gt;
+&lt;p&gt;80
+443
+2888
+3307
+5000
+8080
+8081
+8090
+8091
+8543&lt;/p&gt;
+&lt;p&gt;For example on a RHEL/CentOS server using &lt;code&gt;firewalld&lt;/code&gt; the commands would be as &lt;em&gt;root&lt;/em&gt; user:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;firewall-cmd --zone=public --permanent --add-port=80/tcp
+firewall-cmd --zone=public --permanent --add-port=443/tcp
+firewall-cmd --zone=public --permanent --add-port=2888/tcp
+firewall-cmd --zone=public --permanent --add-port=3307/tcp
+firewall-cmd --zone=public --permanent --add-port=5000/tcp
+firewall-cmd --zone=public --permanent --add-port=8080/tcp
+firewall-cmd --zone=public --permanent --add-port=8081/tcp
+firewall-cmd --zone=public --permanent --add-port=8090/tcp
+firewall-cmd --zone=public --permanent --add-port=8091/tcp
+firewall-cmd --zone=public --permanent --add-port=8099/tcp
+firewall-cmd --reload&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;download-and-install-stroom-v7-app-version&#34;&gt;Download and install Stroom v7 (app version)&lt;/h3&gt;
+&lt;p&gt;The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.
+As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;stroomuser&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
+unzip stroom-proxy-app..............&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The configuration file – &lt;code&gt;stroom-proxy/config/config.yml&lt;/code&gt; – is the principal file to be edited, as it contains&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;connection details to the stroom server&lt;/li&gt;
+&lt;li&gt;the locations of the proxy server log files&lt;/li&gt;
+&lt;li&gt;the directory on the proxy server, where data files will be stored prior to forwarding onot stroom&lt;/li&gt;
+&lt;li&gt;the location of the PKI Java keystore (jks) files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The log file locations are changed to be relative to where stroom is started i.e. &lt;code&gt;~stroomuser/stroom-proxy/logs/…&lt;/code&gt;..&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;server:
+  requestLog:
+    appenders:
+    - currentLogFilename: logs/access/access.log		
+      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd&#39;T&#39;HH:mm}.log
+logging:
+  loggers:
+    &amp;quot;receive&amp;quot;:
+      appenders:
+      - currentLogFilename: logs/receive/receive.log
+        archivedLogFilenamePattern: logs/receive/receive-%d{yyyy-MM-dd&#39;T&#39;HH:mm}.log
+    &amp;quot;send&amp;quot;:
+      appenders:
+      - currentLogFilename: logs/send/send.log
+        archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd&#39;T&#39;HH:mm}.log.gz
+  appenders:
+      - currentLogFilename: logs/app/app.log
+        archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd&#39;T&#39;HH:mm}.log.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;An API key created on the stroom server for a special proxy user is added to the configuration file.
+The API key is used to validate access to the application&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyConfig:
+  useDefaultOpenIdCredentials: false
+  proxyContentDir: &amp;quot;/stroom-proxy/content&amp;quot;
+
+  feedStatus:
+    url: “http://stroomserver.somewhere.co.uk:8080/api/feedStatus/v1&amp;quot;
+    apiKey: &amp;quot;eyJhbGciOiJSUz...ScdPX0qai5UwlBA&amp;quot;
+  forwardStreamConfig:
+    forwardingEnabled: true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The location of the jks files has to be set, or comment all of the lines that have &lt;strong&gt;sslConfig: and tls:&lt;/strong&gt; sections out to not use jks checking.&lt;/p&gt;
+&lt;p&gt;Stroom also needs the client and ca ‘jks’ files and by default are located in - &lt;code&gt;/stroom-proxy/certs/ca.jks&lt;/code&gt; and &lt;code&gt;client.jks&lt;/code&gt;.
+Their location can be changed in the &lt;code&gt;config.yml&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;
+trustStorePath: &amp;quot;/stroom-proxy/certs/ca.jks&amp;quot;
+keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;
+trustStorePath: &amp;quot;/stroom-proxy/certs/ca.jks&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Change to reflect use of proxy home.
+
+&lt;/div&gt;
+
+&lt;p&gt;Could be changed to&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;keyStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/client.jks&amp;quot;
+trustStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/ca.jks&amp;quot;
+keyStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/client.jks&amp;quot;
+trustStorePath: &amp;quot;/home/stroomuser/stroom-proxy/certs/ca.jks&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create a directory - &lt;code&gt;/stroom-proxy&lt;/code&gt; – and ensure that stroom can write to it.
+This is where the proxy data files are stored - &lt;code&gt;/stroom-proxy/repo&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyRepositoryConfig:
+  storingEnabled: true
+  repoDir: &amp;quot;/stroom-proxy/repo&amp;quot;
+  format: &amp;quot;${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Lucene Indexes</title>
+      <link>/docs/user-guide/indexing/lucene/</link>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/indexing/lucene/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom uses 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://lucene.apache.org&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Apache Lucene (external link)&#34;&gt;
+    &lt;span&gt;Apache Lucene&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ for its built-in indexing solution.
+Index documents are stored in a 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#volume&#34; title=&#34;Glossary entry for Volume&#34;&gt;
+    &lt;span&gt;Volume&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this page.
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;field-configuration&#34;&gt;Field configuration&lt;/h2&gt;
+&lt;h3 id=&#34;field-types&#34;&gt;Field Types&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Id&lt;/code&gt; - Treated as a &lt;code&gt;Long&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Boolean&lt;/code&gt; - True/False values.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Integer&lt;/code&gt; - Whole numbers from -2,147,483,648 to 2,147,483,647.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Long&lt;/code&gt; - Whole numbers from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Float&lt;/code&gt; - Fractional numbers.
+Sufficient for storing 6 to 7 decimal digits.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Double&lt;/code&gt; - Fractional numbers.
+Sufficient for storing 15 decimal digits.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Date&lt;/code&gt; - Date and time values.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Text&lt;/code&gt; - Text data.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Number&lt;/code&gt; - An alias for &lt;code&gt;Long&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;stored-fields&#34;&gt;Stored fields&lt;/h3&gt;
+&lt;p&gt;If a field is &lt;em&gt;Stored&lt;/em&gt; then it means the complete field value will be stored in the index.
+This means the value can be retrieved from the index when building search results rather than using the slower &lt;a href=&#34;../../tags/extraction/&#34;&gt;Search Extraction&lt;/a&gt; process.
+Storing field values comes at the cost of hight storage requirements for the index.
+If storage space is not an issue then storing all fields that you want to return in search results is the optimum.&lt;/p&gt;
+&lt;h3 id=&#34;indexed-fields&#34;&gt;Indexed fields&lt;/h3&gt;
+&lt;p&gt;An &lt;em&gt;Indexed&lt;/em&gt; field is one that will be processed by Lucene so that the field can be queried.
+How the field is indexed will depend on the Field type and the Analyser used.&lt;/p&gt;
+&lt;p&gt;If you have fields that you do not want to be able to filter (i.e. that you won&amp;rsquo;t use as a query term) then you can include them as non-Indexed fields.
+Including a non-indexed field means it will be available for the user to select in the 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#dashboard&#34; title=&#34;Glossary entry for Dashboard&#34;&gt;
+    &lt;span&gt;Dashboard&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ table.
+A non-indexed field would either need to be &lt;em&gt;Stored&lt;/em&gt; in the index or added via Search Extraction to be available in the search results.&lt;/p&gt;
+&lt;h3 id=&#34;positions&#34;&gt;Positions&lt;/h3&gt;
+&lt;p&gt;If &lt;em&gt;Positions&lt;/em&gt; is selected then Lucene will store the positions of all the field terms in the document.&lt;/p&gt;
+&lt;h3 id=&#34;analyser-types&#34;&gt;Analyser types&lt;/h3&gt;
+&lt;p&gt;The Analyser determines how Lucene reads the fields value and extracts tokens from it.
+The choice of Analyser will depend on the date in the field and how you want to search it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Keyword&lt;/code&gt; - Treats the whole field value as one token.
+Useful for things like IDs and post codes.
+Supports the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Alpha&lt;/code&gt; - Tokenises on any non-letter characters, e.g. &lt;code&gt;one1 two2 three 3&lt;/code&gt; =&amp;gt; &lt;code&gt;one&lt;/code&gt; &lt;code&gt;two&lt;/code&gt; &lt;code&gt;three&lt;/code&gt;.
+Strips non-letter characters.
+Supports the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Numeric&lt;/code&gt; -&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Alpha numeric&lt;/code&gt; - Tokenises on any non-letter/digit characters, e.g. &lt;code&gt;one1 two2 three 3&lt;/code&gt; =&amp;gt; &lt;code&gt;one1&lt;/code&gt; &lt;code&gt;two2&lt;/code&gt; &lt;code&gt;three&lt;/code&gt; &lt;code&gt;3&lt;/code&gt;.
+Supports the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Whitespace&lt;/code&gt; - Tokenises only on white space.
+Not affected by the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;, case sensitive.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Stop words&lt;/code&gt; - Tokenises bases on non-letter characters and removes &lt;a href=&#34;#stop-words&#34;&gt;Stop Words&lt;/a&gt;, e.g. &lt;code&gt;and&lt;/code&gt;.
+Not affected by the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.
+Case insensitive.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Standard&lt;/code&gt; - The most common analyser.
+Tokenises the value on spaces and punctuation but recognises URLs and email addresses.
+Removes &lt;a href=&#34;#stop-words&#34;&gt;Stop Words&lt;/a&gt;, e.g. &lt;code&gt;and&lt;/code&gt;.
+Not affected by the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.
+Case insensitive.
+e.g. &lt;code&gt;Find Stroom at github.com/stroom&lt;/code&gt; =&amp;gt; &lt;code&gt;Find&lt;/code&gt; &lt;code&gt;Stroom&lt;/code&gt; &lt;code&gt;at&lt;/code&gt; &lt;code&gt;github.com/stroom&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;stop-words&#34;&gt;Stop words&lt;/h4&gt;
+&lt;p&gt;Some of the Analysers use a set of stop words for the tokenisers.
+This is the list of stop words that will not be indexed.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;a&lt;/code&gt;, &lt;code&gt;an&lt;/code&gt;, &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;are&lt;/code&gt;, &lt;code&gt;as&lt;/code&gt;, &lt;code&gt;at&lt;/code&gt;, &lt;code&gt;be&lt;/code&gt;, &lt;code&gt;but&lt;/code&gt;, &lt;code&gt;by&lt;/code&gt;, &lt;code&gt;for&lt;/code&gt;, &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;in&lt;/code&gt;, &lt;code&gt;into&lt;/code&gt;, &lt;code&gt;is&lt;/code&gt;, &lt;code&gt;it&lt;/code&gt;, &lt;code&gt;no&lt;/code&gt;, &lt;code&gt;not&lt;/code&gt;, &lt;code&gt;of&lt;/code&gt;, &lt;code&gt;on&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt;, &lt;code&gt;such&lt;/code&gt;, &lt;code&gt;that&lt;/code&gt;, &lt;code&gt;the&lt;/code&gt;, &lt;code&gt;their&lt;/code&gt;, &lt;code&gt;then&lt;/code&gt;, &lt;code&gt;there&lt;/code&gt;, &lt;code&gt;these&lt;/code&gt;, &lt;code&gt;they&lt;/code&gt;, &lt;code&gt;this&lt;/code&gt;, &lt;code&gt;to&lt;/code&gt;, &lt;code&gt;was&lt;/code&gt;, &lt;code&gt;will&lt;/code&gt;, &lt;code&gt;with&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;case-sensitivity&#34;&gt;Case sensitivity&lt;/h3&gt;
+&lt;p&gt;Some of the Analyser types support case (in)sensitivity.
+For example if the Analyser supports it the value &lt;code&gt;TWO two&lt;/code&gt; would either be tokenised as &lt;code&gt;TWO&lt;/code&gt; &lt;code&gt;two&lt;/code&gt; or &lt;code&gt;two&lt;/code&gt; &lt;code&gt;two&lt;/code&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Solr Integration</title>
+      <link>/docs/user-guide/indexing/solr/</link>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/indexing/solr/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this section.
+
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Content Naming Conventions</title>
+      <link>/docs/user-guide/content-naming/</link>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/content-naming/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom has been in use by GCHQ for many years and is used to process logs from a large number of different systems.
+This sections aims to provide some guidelines on how to name and organise your content, e.g. Feeds, XSLTs, Pipelines, Folders, etc.
+These are not hard rules and you do not have to follow them, however it may help when it comes to sharing content.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this
+
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Securing Stroom</title>
+      <link>/docs/install-guide/setup/securing-stroom/</link>
+      <pubDate>Fri, 04 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/setup/securing-stroom/</guid>
+      <description>
+        
+        
+        &lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;NOTE&lt;/em&gt; This document was written for stroom v4/5. Some parts may not be applicable for v6+.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;firewall&#34;&gt;Firewall&lt;/h2&gt;
+&lt;p&gt;The following firewall configuration is recommended:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc&lt;/li&gt;
+&lt;li&gt;Within cluster allow all access&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This will enable nodes within the cluster to communicate on:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;8080 - Stroom HTTP.&lt;/li&gt;
+&lt;li&gt;8081 - Stroom HTTP (admin).&lt;/li&gt;
+&lt;li&gt;8090 - Stroom Proxy HTTP.&lt;/li&gt;
+&lt;li&gt;8091 - Stroom Proxy HTTP (admin).&lt;/li&gt;
+&lt;li&gt;3306 - MySQL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;mysql&#34;&gt;MySQL&lt;/h2&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Update this for MySQL 8
+
+&lt;/div&gt;
+
+&lt;p&gt;It is recommended that you run mysql_secure_installation to set a root password and remove test database:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql_secure_installation (provide a root password)
+- Set root password? [Y/n] Y
+- Remove anonymous users? [Y/n] Y 
+- Disallow root login remotely? [Y/n] Y
+- Remove test database and access to it? [Y/n] Y
+- Reload privilege tables now? [Y/n] Y
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Java Key Store Setup</title>
+      <link>/docs/install-guide/setup/java-key-store-setup/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/setup/java-key-store-setup/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    This is out of date for stroom 7.
+
+&lt;/div&gt;
+
+&lt;p&gt;In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore&amp;rsquo;s setting up.&lt;/p&gt;
+&lt;p&gt;As the processing user copy the following files to a directory stroom-jks in the processing user home directory :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CA.crt     - Certificate Authority&lt;/li&gt;
+&lt;li&gt;SERVER.crt - Server certificate with client authentication attributes&lt;/li&gt;
+&lt;li&gt;SERVER.key - Server private key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As the processing user perform the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;First turn your keys into der format:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~/stroom-jks
+
+SERVER=&amp;lt;SERVER crt/key PREFIX&amp;gt;
+AUTHORITY=CA
+
+openssl x509 -in ${SERVER}.crt -inform PEM -out ${SERVER}.crt.der -outform DER
+openssl pkcs8 -topk8 -nocrypt -in ${SERVER}.key -inform PEM -out ${SERVER}.key.der -outform DER
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Import Keys into the Key Stores:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Stroom_UTIL_JAR=`find ~/*app -name &#39;stroom-util*.jar&#39; -print | head -1`
+
+java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${SERVER}.jks keypass=${SERVER} alias=${SERVER} keyfile=${SERVER}.key.der certfile=${SERVER}.crt.der
+keytool -import -noprompt -alias ${AUTHORITY} -file ${AUTHORITY}.crt -keystore ${AUTHORITY}.jks -storepass ${AUTHORITY}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Update Processing User Global Java Settings:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;PWD=`pwd`
+echo &amp;quot;export JAVA_OPTS=\&amp;quot;-Djavax.net.ssl.trustStore=${PWD}/${AUTHORITY}.jks -Djavax.net.ssl.trustStorePassword=${AUTHORITY} -Djavax.net.ssl.keyStore=${PWD}/${SERVER}.jks -Djavax.net.ssl.keyStorePassword=${SERVER}\&amp;quot;&amp;quot; &amp;gt;&amp;gt; ~/env.sh  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Any Stroom or Stroom Proxy instance will now additionally pickup the above JAVA_OPTS settings.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: MySQL Setup</title>
+      <link>/docs/install-guide/setup/mysql-server-setup/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/setup/mysql-server-setup/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;MySQL 8.0.x server installed (e.g. yum install mysql-server)&lt;/li&gt;
+&lt;li&gt;Processing User Setup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A single MySQL database is required for each Stroom instance.
+You do not need to setup a MySQL instance per node in your cluster.&lt;/p&gt;
+&lt;h2 id=&#34;check-database-installed-and-running&#34;&gt;Check Database installed and running&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@stroomdb ~]# /sbin/chkconfig --list mysqld
+mysqld          0:off   1:off   2:on    3:on    4:on    5:on    6:off
+[root@stroomdb ~]# mysql --user=root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+...
+mysql&amp;gt; quit      
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The following commands can be used to auto start mysql if required:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;root&#34; 
+    data-host=&#34;stroomdb&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;/sbin/chkconfig –level 345 mysqld on
+/sbin/service httpd start&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;MySQL configuration can be simple to complex depending on your requirements.&lt;br&gt;
+For a very simple configuration you simply need an out-of-the-box mysql
+install and create a database user account.&lt;/p&gt;
+&lt;p&gt;Things get more complicated when considering:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Security&lt;/li&gt;
+&lt;li&gt;Master Slave Replication&lt;/li&gt;
+&lt;li&gt;Tuning memory usage&lt;/li&gt;
+&lt;li&gt;Running Stroom Stats in a different database to Stroom&lt;/li&gt;
+&lt;li&gt;Performance Monitoring&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;simple-install&#34;&gt;Simple Install&lt;/h2&gt;
+&lt;p&gt;Ensure the database is running, create the database and access to it&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@host stroom-setup]$ mysql --user=root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+...
+
+mysql&amp;gt; create database stroom;
+Query OK, 1 row affected (0.02 sec)
+
+mysql&amp;gt; grant all privileges on stroom.* to &#39;stroomuser&#39;@&#39;host&#39; identified by &#39;password&#39;;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&amp;gt; create database stroom_stats;
+Query OK, 1 row affected (0.02 sec)
+
+mysql&amp;gt; grant all privileges on stroom_stats.* to &#39;stroomuser&#39;@&#39;host&#39; identified by &#39;password&#39;;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&amp;gt; flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;advanced-security&#34;&gt;Advanced Security&lt;/h2&gt;
+&lt;p&gt;It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.&lt;/p&gt;
+&lt;p&gt;./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
+cluster (or single node setup).  Run to see the options:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@host stroom-setup]$ ./mysql_grant.sh
+usage : --name=&amp;lt;instance name (defaults to my for /etc/my.cnf)&amp;gt;
+        --user=&amp;lt;the stroom user for the db&amp;gt;
+        --password=&amp;lt;the stroom password for the db&amp;gt;
+        --cluster=&amp;lt;the file with a line per node in the cluster&amp;gt;
+--user=&amp;lt;db user&amp;gt; Must be set
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;N.B. name is used when multiple mysql instances are setup (see below).&lt;/p&gt;
+&lt;p&gt;You need to create a file cluster.txt with a line for each member of your cluster
+(or single line in the case of a one node Stroom install).
+Then run the utility script to lock down the server access.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@host ~]$ hostname &amp;gt;&amp;gt; cluster.txt
+[stroomuser@host ~]$ ./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
+Enter root mysql password :
+--------------
+flush privileges
+--------------
+
+--------------
+delete from mysql.user where user = &#39;stroomuser&#39;
+--------------
+...
+...
+...
+--------------
+flush privileges
+--------------
+
+[stroomuser@host ~]$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;advanced-install&#34;&gt;Advanced Install&lt;/h2&gt;
+&lt;p&gt;The below example uses the utility scripts to create 3 custom mysql server instances on 2 servers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;server1 - master stroom,&lt;/li&gt;
+&lt;li&gt;server2 - slave stroom, stroom_stats&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As root on server1:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install &amp;quot;mysql56-mysql-server&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the master database:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# ./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6
+
+--master not set ... assuming master database
+Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+[root@node1 stroomuser]# cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+[root@node1 stroomuser]# /etc/init.d/mysqld56_stroom start
+
+Initializing MySQL database:  Installing MySQL system tables...
+OK
+Filling help tables...
+...
+...
+Starting mysql56-mysqld:                                   [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check Start up Settings Correct&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# chkconfig mysqld off
+[root@node2 stroomuser]# chkconfig mysql56-mysqld off
+[root@node1 stroomuser]# chkconfig --add mysqld56_stroom
+[root@node1 stroomuser]# chkconfig mysqld56_stroom on
+
+[root@node2 stroomuser]# chkconfig --list | grep mysql
+mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off
+mysqld56_stats  0:off   1:off   2:on    3:on    4:on    5:on    6:off
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create a text file will all members of the cluster:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# vi cluster.txt
+
+node1.my.org
+node2.my.org
+node3.my.org
+node4.my.org 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the grants:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As root on server2:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# yum install &amp;quot;mysql56-mysql-server&amp;quot;
+
+
+[root@node2 stroomuser]# ./stroom-setup/mysqld_instance.sh --name=mysqld56_stroom --port=3106 --server=mysqld56 --os=rhel6 --master=node1.my.org --user=stroomuser --password=password
+
+--master set ... assuming slave database
+Wrote base files in tmp (You need to move them as root).  cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+Run mysql client with mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+[root@node2 stroomuser]# cp /tmp/mysqld56_stroom /etc/init.d/mysqld56_stroom; cp /tmp/mysqld56_stroom.cnf /etc/mysqld56_stroom.cnf
+[root@node1 stroomuser]# /etc/init.d/mysqld56_stroom start
+
+Initializing MySQL database:  Installing MySQL system tables...
+OK
+Filling help tables...
+...
+...
+Starting mysql56-mysqld:                                   [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check Start up Settings Correct&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# chkconfig mysqld off
+[root@node2 stroomuser]# chkconfig mysql56-mysqld off
+[root@node1 stroomuser]# chkconfig --add mysqld56_stroom
+[root@node1 stroomuser]# chkconfig mysqld56_stroom on
+
+[root@node2 stroomuser]# chkconfig --list | grep mysql
+mysql56-mysqld  0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld          0:off   1:off   2:off   3:off   4:off   5:off   6:off
+mysqld56_stroom    0:off   1:off   2:on    3:on    4:on    5:on    6:off
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the grants:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node1 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Make the slave database start to follow:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# cat /etc/mysqld56_stroom.cnf | grep &amp;quot;change master&amp;quot;
+# change master to MASTER_HOST=&#39;node1.my.org&#39;, MASTER_PORT=3106, MASTER_USER=&#39;stroomuser&#39;, MASTER_PASSWORD=&#39;password&#39;;
+
+[root@node2 stroomuser]# mysql --defaults-file=/etc/mysqld56_stroom.cnf
+
+mysql&amp;gt; change master to MASTER_HOST=&#39;node1.my.org&#39;, MASTER_PORT=3106, MASTER_USER=&#39;stroomuser&#39;, MASTER_PASSWORD=&#39;password&#39;;
+mysql&amp;gt; start slave; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As processing user on server1:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node1 ~]$ mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password
+
+mysql&amp;gt; create database stroom;
+Query OK, 1 row affected (0.00 sec)
+
+mysql&amp;gt; use stroom;
+Database changed
+
+mysql&amp;gt; create table test (a int);
+Query OK, 0 rows affected (0.05 sec)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As processing user on server2 check server replicating OK:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node2 ~]$ mysql --defaults-file=/etc/mysqld56_stroom.cnf --user=stroomuser --password=password
+
+mysql&amp;gt; show create table test;
++-------+----------------------------------------------------------------------------------------+
+| Table | Create Table                                                                           |
++-------+----------------------------------------------------------------------------------------+
+| test  | CREATE TABLE `test` (`a` int(11) DEFAULT NULL  ) ENGINE=InnoDB DEFAULT CHARSET=latin1  |
++-------+----------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As root on server2:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# /home/stroomuser/stroom-setup/mysqld_instance.sh --name=mysqld56_stats --port=3206 --server=mysqld56 --os=rhel6 --user=statsuser --password=password
+[root@node2 stroomuser]# cp /tmp/mysqld56_stats /etc/init.d/mysqld56_stats; cp /tmp/mysqld56_stats.cnf /etc/mysqld56_stats.cnf
+[root@node2 stroomuser]# /etc/init.d/mysqld56_stats start
+[root@node2 stroomuser]# chkconfig mysqld56_stats on
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create the grants:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@node2 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stats --database=stats  --user=stroomstats --password=password --cluster=cluster.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As processing user create the database:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@node2 ~]$ mysql --defaults-file=/etc/mysqld56_stats.cnf --user=stroomstats --password=password
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+....
+mysql&amp;gt; create database stats;
+Query OK, 1 row affected (0.00 sec)
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Dictionaries</title>
+      <link>/docs/user-guide/dashboards/dictionaries/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/dashboards/dictionaries/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;creating&#34;&gt;Creating&lt;/h2&gt;
+&lt;p&gt;Right click on a folder in the explorer tree that you want to create a dictionary in. Choose ‘New/Dictionary’ from the popup menu:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;TODO&lt;/strong&gt;: Fix image&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Call the dictionary something like ‘My Dictionary’ and click OK.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;TODO&lt;/strong&gt;: Fix image&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now just add any search terms you want to the newly created dictionary and click save.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;TODO&lt;/strong&gt;: Fix image&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You can add multiple terms.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Terms on separate lines act as if they are part of an &amp;lsquo;OR&amp;rsquo; expression when used in a search.&lt;/li&gt;
+&lt;li&gt;Terms on a single line separated by spaces act as if they are part of an &amp;lsquo;AND&amp;rsquo; expression when used in a search.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;using&#34;&gt;Using&lt;/h2&gt;
+&lt;p&gt;To perform a search using your dictionary, just choose the newly created dictionary as part of your search expression:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;TODO&lt;/strong&gt;: Fix image&lt;/p&gt;
+&lt;/blockquote&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Nodes</title>
+      <link>/docs/user-guide/nodes/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/nodes/</guid>
+      <description>
+        
+        
+        &lt;p&gt;All nodes in an Stroom cluster must be configured correctly for them to communicate with each other.&lt;/p&gt;
+&lt;h2 id=&#34;configuring-nodes&#34;&gt;Configuring nodes&lt;/h2&gt;
+&lt;p&gt;Open Monitoring/Nodes from the top menu. The nodes screen looks like this:&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Screenshot
+
+&lt;/div&gt;
+
+&lt;p&gt;You need to edit each line by selecting it and then clicking the edit 
+
+
+
+
+
+
+
+
+
+  &lt;img 
+    class=&#34;stroom-icon &#34; 
+    src=&#34;../../images/stroom-ui/edit.svg&#34; 
+    title=&#34;Edit&#34; 
+    alt=&#34;edit.svg&#34;&gt;
+
+
+ icon at the bottom.
+The URL for each node needs to be set as above but obviously substituting in the host name of the individual node, e.g. &lt;code&gt;http://&amp;lt;HOST_NAME&amp;gt;:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Nodes are expected communicate with each other on port 8080 over http.
+Ensure you have configured your firewall to allow nodes to talk to each other over this port.
+You can configure the URL to use a different port and possibly HTTPS but performance will be better with HTTP as no SSL termination is required.&lt;/p&gt;
+&lt;p&gt;Once you have set the URLs of each node you should also set the master assignment priority for each node to be different to all of the others.
+In the image above the priorities have been set in a random fashion to ensure that node3 assumes the role of master node for as long as it is enabled.
+You also need to check all of the nodes are enabled that you want to take part in processing or any other jobs.&lt;/p&gt;
+&lt;p&gt;Keep refreshing the table until all nodes show healthy pings as above.
+If you do not get ping results for each node then they are not configured correctly.&lt;/p&gt;
+&lt;p&gt;Once a cluster is configured correctly you will get proper distribution of processing tasks and search will be able to access all nodes to take part in a distributed query.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Roles</title>
+      <link>/docs/user-guide/roles/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/roles/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Describe application level permissions and how users and groups behave
+
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: MySQL Configuration</title>
+      <link>/docs/install-guide/configuration/configuring-mysql/</link>
+      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/configuration/configuring-mysql/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+
+
+    &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/setup/mysql-server-setup/&#34;&gt;MySQL Server Setup&lt;/a&gt;&lt;/p&gt;
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/server-administration.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;MySQL Server Administration (external link)&#34;&gt;
+    &lt;span&gt;MySQL Server Administration&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;general-configuration&#34;&gt;General configuration&lt;/h2&gt;
+&lt;p&gt;MySQL is configured via the &lt;code&gt;.cnf&lt;/code&gt; file which is typically located in one of these locations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/etc/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/etc/mysql/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$MYSQL_HOME/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;data dir&amp;gt;/my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;~/.my.cnf&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;key-configuration-properties&#34;&gt;Key configuration properties&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;lower_case_table_names&lt;/code&gt; - This proerty controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
+A value of &lt;code&gt;0&lt;/code&gt; means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
+This is the default in linux and is the preferred value for deployments of stroom of v7+.
+A value of &lt;code&gt;1&lt;/code&gt; means tables are stored on the filesystem in lowercase but sql is case insensitive.
+See also 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Identifier Case Sensitivity (external link)&#34;&gt;
+    &lt;span&gt;Identifier Case Sensitivity&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;max_connections&lt;/code&gt; - The maximum permitted number of simultaneous client connections.
+For a clustered deployment of stroom, the default value of 151 will typically be too low.
+Each stroom node will hold a pool of open database connections for its use, therefore with a large number of stroom nodes and a big connection pool the total number of connections can be very large.
+This property should be set taking into account the values of the stroom properties of the form &lt;code&gt;*.db.connectionPool.maxPoolSize&lt;/code&gt;.
+See also 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/connection-interfaces.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Connection Interfaces (external link)&#34;&gt;
+    &lt;span&gt;Connection Interfaces&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;innodb_buffer_pool_size&lt;/code&gt;/&lt;code&gt;innodb_buffer_pool_instances&lt;/code&gt; - Controls the amount of memory availble to MySQL for caching table/index data.
+Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
+&lt;em&gt;Note&lt;/em&gt;: &lt;code&gt;innodb_buffer_pool_size&lt;/code&gt; must be set to a value that is equal to or a multiple of &lt;code&gt;innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances&lt;/code&gt;.
+See also 
+
+
+
+
+
+
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/innodb-buffer-pool-resize.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Configuring InnoDB Buffer Pool Size (external link)&#34;&gt;
+    &lt;span&gt;Configuring InnoDB Buffer Pool Size&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Add additional key configuration items
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;deploying-without-docker&#34;&gt;Deploying without Docker&lt;/h2&gt;
+&lt;p&gt;When MySQL is deployed without a docker stack then MySQL should be installed and configured according to the MySQL documentation.
+How MySQL is deployed and configured will depend on the requirements of the environment, e.g. clustered, primary/standby, etc.&lt;/p&gt;
+&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/h2&gt;
+&lt;p&gt;Where a stroom docker stack includes stroom-all-dbs (MySQL) the MySQL instance is configured via the &lt;code&gt;.cnf&lt;/code&gt; file.
+The &lt;code&gt;.cnf&lt;/code&gt; file is located in &lt;code&gt;volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf&lt;/code&gt;.
+This file is read-only to the container and will be read on container start.&lt;/p&gt;
+&lt;h3 id=&#34;database-initialisation&#34;&gt;Database initialisation&lt;/h3&gt;
+&lt;p&gt;When the container is started for the first time the database be initialised with the root user account.
+It will also then run any scripts found in &lt;code&gt;volumes/stroom-all-dbs/init/stroom&lt;/code&gt;.
+The scripts in here will be run in alpabetical order.
+Scripts of the form &lt;code&gt;.sh&lt;/code&gt;, &lt;code&gt;.sql&lt;/code&gt;, &lt;code&gt;.sql.gz&lt;/code&gt; and &lt;code&gt;.sql.template&lt;/code&gt; are supported.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.sql.template&lt;/code&gt; files are proprietry to stroom stacks and are just templated &lt;code&gt;.sql&lt;/code&gt; files.
+They can contain tags of the form &lt;code&gt;&amp;lt;&amp;lt;&amp;lt;ENV_VAR_NAME&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; which will be replaced with the value of the named environment variable that has been set in the container.&lt;/p&gt;
+&lt;p&gt;If you need to add additional database users then either add them to &lt;code&gt;volumes/stroom-all-dbs/init/stroom/001_create_databases.sql.template&lt;/code&gt; or create additional scripts/templates in that directory.&lt;/p&gt;
+&lt;p&gt;The script that controls this templating is &lt;code&gt;volumes/stroom-all-dbs/init/000_stroom_init.sh&lt;/code&gt;.
+This script MUST not have its executable bit set else it will be executed rather than being sourced by the MySQL entry point scripts and will then not work.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
