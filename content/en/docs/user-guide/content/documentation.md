@@ -51,7 +51,7 @@ This is at level 4.
 
 ## Text Styles
 
-**bold**, *italic*, ***bold and italic***, ~~strike-through~~
+**bold**, __bold__, *italic*, _italic_, ***bold and italic***, ~~strike-through~~
 
 
 ## Bullets and Numbered Lists
@@ -180,7 +180,7 @@ echo "Computer name : $computer_name"
 ```
 ````
 
-## Code syntax highlighting
+## Code Syntax Highlighting
 
 Stroom supports the following languages for fenced blocks.
 If you require additional languages then please raised a ticket {{< external-link "here" "https://github.com/gchq/stroom/issues" >}}.
@@ -200,4 +200,8 @@ If you require additional languages then please raised a ticket {{< external-lin
 * properties
 * toml
 
+## Escaping Characters
+
+It is common to use `_` characters in {{< glossary "Feed" >}} names, however if there are two of these in a word then the markdown processor will interpret them as _italic_ markup.
+To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a `\`, i.e. `THIS\_IS\_MY\_FEED`. THIS_IS_MY_FEED.
 
