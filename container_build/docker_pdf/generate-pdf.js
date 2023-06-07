@@ -8,7 +8,7 @@ console.log('Generating stroom-docs.pdf for url: ', url);
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
     // TODO should not be running with no-sandbox really, see
     // https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox
     args: [
