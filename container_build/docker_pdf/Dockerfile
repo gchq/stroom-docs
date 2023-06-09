@@ -1,6 +1,6 @@
 # See this link for details of how this is put together
 # https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
-FROM node:14.19.3-buster-slim
+FROM node:20.2.0-buster-slim
 
 WORKDIR /builder
 
@@ -29,7 +29,7 @@ RUN apt-get update \
 RUN npm init -y \
     && echo "installing npm packages" \
     && npm install \
-      puppeteer \
+      puppeteer@20.5.0 \
       html2canvas \
       jspdf \
     && mkdir -p /builder/repo
