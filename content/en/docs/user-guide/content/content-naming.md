@@ -1,14 +1,12 @@
 ---
-title: "Content Naming Conventions"
-linkTitle: "Content Naming Conventions"
+title: "Naming Conventions"
+linkTitle: "Naming Conventions"
 #weight:
 date: 2022-02-14
 tags:
   - TODO
 description: >
-  
   A set of guidelines for how to name and organise your content.
-
 ---
 
 Stroom has been in use by GCHQ for many years and is used to process logs from a large number of different systems.
