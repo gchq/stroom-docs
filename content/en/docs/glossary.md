@@ -152,6 +152,17 @@ In Stroom Fields can be the Fields in an {{< glossary "Index" >}} (or other quer
 See {{< glossary "Processor Filter" >}}.
 
 
+## Markdown
+
+*Markdown* is a markup language for creating formatted text using a simple text editor.
+Stroom uses the {{< external-link "Showdown" "https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax" >}} markdown converter to render users' markdown content into formatted text.
+
+{{% note %}}
+Markdown is a somewhat loose standard so different markdown processors support different amounts of markdown syntax.
+For a definitive guide to the syntax supported in Stroom, see the above link.
+{{% /note %}}
+
+
 ## Parser
 
 A Parser is a {{< glossary "Pipeline" >}} element for parsing {{< glossary "Raw Events" >}} into a structured form.
