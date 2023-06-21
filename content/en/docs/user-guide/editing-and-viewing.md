@@ -135,10 +135,15 @@ See {{< external-link "here" "https://github.com/ajaxorg/ace/wiki/Default-Keyboa
 #### Vim key bindings
 
 If you are familiar with the Vi/Vim text editors then it is possible to enable Vim key bindings in Stroom.
-This is currently done by enabling Vim bindings in the editor context menu in each editor screen.
-In future versions of Stroom it will be possible to store these preferences on a per user basis.
+This can be done in two ways.
 
-The _Ace_ editor does not support all features of Vim however the core navigation/editing key bindings are present.
+Either globally by setting _Editor Key Bindings_ to `Vim` in your user preferences:
+{{< stroom-menu "User" "Preferences" >}}
+
+Or within an editor using the context menu.
+This latter option allows you to temporarily change your bindings.
+
+The _Ace_ editor does not support all features of _Vim_ however the core navigation/editing key bindings are present.
 The key supported features of Vim are:
 
 * Visual mode and visual block mode.
@@ -160,6 +165,13 @@ Notable features not supported by the _Ace_ editor:
 * Splits
 
 For a list of useful Vim key bindings see this {{< external-link "cheat sheet" "https://vim.rtorr.com" >}}, though not all bindings will be available in Stroom's _Ace_ editor.
+
+##### Use of `Esc` key
+
+The `Esc` key is bound to the close action in Stroom, so pressing `Esc` will typically close a popup, dialog, selection box, etc.
+Dialogs will not be closed if the Ace editor has focus but as `Esc` is used so frequently with Vim bindings it may be advisable to use an alternative key to exit insert mode to avoid accidental closure.
+You can use the standard Vim binding of `ctrl-[` or the custom binding of `jk` as alternatives to `Esc`.
+
 
 ### Auto-Completion And Snippets
 
