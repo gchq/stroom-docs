@@ -13,18 +13,21 @@ The screen for each {{< glossary "Entity" >}} in Stroom has a *Documentation* su
 The purpose of this sub-tab is to allow the user to provide any documentation about the {{< glossary "entity" >}} that is relevant.
 For example a user might want to provide information about the system that a {{< glossary "Feed" >}} receives data from, or document the purpose of a complex XSLT translation.
 
-In previous versions this documentation was a small and simple *Description* text field, however now it is a full screen of rich text.
+In previous versions of stroom this documentation was a small and simple *Description* text field, however now it is a full screen of rich text.
 This screen defaults to its read-only preview mode, but the user can toggle it to the edit mode to edit the content.
 In the edit mode, the documentation can be created/edited using plain text, or {{< glossary "Markdown" >}}.
 Markdown is a fairly simple markup language for producing richly formatted text from plain text.
 
+There are many variants of markdown that all have subtly different features or syntax.
 Stroom uses the {{< external-link "Showdown" "https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax" >}} markdown converter to render users' markdown content into formatted text.
 This link is the definitive source for supported markdown syntax.
 
 {{% note %}}
-The _Showdown_ markdown processor used in stroom is not the same as the markdown processor used within this *stroom-docs* documentation site, so there may be some differences in syntax.
+The _Showdown_ markdown processor used in stroom is **not** the same as the markdown processor used within this  documentation site (*stroom-docs*), so there may be some subtle differences in syntax.
 {{% /note %}}
 
+
+## Example Markdown Content
 
 The following is a brief guide to the most common formatting that can be done with markdown and that is supported in Stroom.
 
@@ -54,7 +57,7 @@ This is at level 4.
 **bold**, __bold__, *italic*, _italic_, ***bold and italic***, ~~strike-through~~
 
 
-## Bullets and Numbered Lists
+## Bullets 
 
 Use four spaces to indent a sub-item.
 
@@ -62,6 +65,11 @@ Use four spaces to indent a sub-item.
     * Bullet 1a
 * Bullet 2
     * Bullet 2a
+
+## Numbered Lists
+
+Use four spaces to indent a sub-item.
+Using `1` for all items means the makrdown processor will replace them with the correct number, making it easier to re-order items.
 
 1. Item 1
     1. Item 1a
@@ -77,7 +85,7 @@ Use four spaces to indent a sub-item.
 Text
 
 > This is another quote.  
-> And it has multiple lines...
+> It has multiple lines...
 >
 > ...and gaps and bullets
 > * Item 1
@@ -97,7 +105,7 @@ Note `---:` to right align a column, `:---:` to center align it.
 
 Table using `<br>` for multi-line cells.
 
-| Name      | Description                                                                                                                  |
+| Name      | Description     |
 |-----------|-----------------|
 | Row 1     | Line 1<br>Line2 |
 | Row 2     | Line 1<br>Line2 |
@@ -109,6 +117,8 @@ Line: [title](https://www.example.com)
 
 
 ## Simple Lists
+
+Add two spaces to the end of each line to stop each line being treated as a paragraph.
 
 One  
 Two  
@@ -148,9 +158,9 @@ This is a horizontal rule separator
 
 ## Code
 
-Code can be represented in-line like this `echo "hello world"` by surround it with back-ticks.
+Code can be represented in-line like this `echo "hello world"` by surround it with single back-ticks.
 
-Blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
+Multi-line blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
 Specify the language after the first set of three back ticks, or `text` for plain text.
 Only certain languages are supported in Stroom.
 
@@ -180,10 +190,29 @@ echo "Computer name : $computer_name"
 ```
 ````
 
+
+## Wrapping
+
+Long paragraphs will be wrapped
+
+
+
 ## Code Syntax Highlighting
 
-Stroom supports the following languages for fenced blocks.
-If you require additional languages then please raised a ticket {{< external-link "here" "https://github.com/gchq/stroom/issues" >}}.
+This is an example of a fenced code block.
+
+````markdown
+```xml
+  <record>
+    <data name="dateTime" value="2020-09-28T14:30:33.476" />
+  </record>
+```
+````
+
+In this example, `xml` defines the language used within the fenced block.
+
+Stroom supports the following languages for fenced code blocks.
+If you require additional languages then please raised a ticket {{< external-link "here" "https://github.com/gchq/stroom/issues" >}}. If your language is not currently supported or is just plain text then use `text`.
 
 * text
 * sh
@@ -200,8 +229,21 @@ If you require additional languages then please raised a ticket {{< external-lin
 * properties
 * toml
 
+Fenced blocks with content that is wider than the pane will result in the fenced block having its own horizontal scroll bar.
+
+
 ## Escaping Characters
 
 It is common to use `_` characters in {{< glossary "Feed" >}} names, however if there are two of these in a word then the markdown processor will interpret them as _italic_ markup.
 To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a `\`, i.e. `THIS\_IS\_MY\_FEED`. THIS_IS_MY_FEED.
+
+
+## HTML
+
+While it is possible to use HTML in the documentation, its use is not recomended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
+Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be prefereable.
+
+{{% note %}}
+No form of HTML scripting (i.e. Javascript) is supported within the documentation content.
+{{% /note %}}
 
