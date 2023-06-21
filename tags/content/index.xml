@@ -219,7 +219,7 @@ For example a user might want to provide information about the system that a
   &lt;/a&gt;
 &lt;/span&gt;
  receives data from, or document the purpose of a complex XSLT translation.&lt;/p&gt;
-&lt;p&gt;In previous versions this documentation was a small and simple &lt;em&gt;Description&lt;/em&gt; text field, however now it is a full screen of rich text.
+&lt;p&gt;In previous versions of stroom this documentation was a small and simple &lt;em&gt;Description&lt;/em&gt; text field, however now it is a full screen of rich text.
 This screen defaults to its read-only preview mode, but the user can toggle it to the edit mode to edit the content.
 In the edit mode, the documentation can be created/edited using plain text, or 
 
@@ -233,7 +233,8 @@ In the edit mode, the documentation can be created/edited using plain text, or
 &lt;/span&gt;
 .
 Markdown is a fairly simple markup language for producing richly formatted text from plain text.&lt;/p&gt;
-&lt;p&gt;Stroom uses the 
+&lt;p&gt;There are many variants of markdown that all have subtly different features or syntax.
+Stroom uses the 
 
 
 
@@ -255,11 +256,12 @@ This link is the definitive source for supported markdown syntax.&lt;/p&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
 
 
-    The &lt;em&gt;Showdown&lt;/em&gt; markdown processor used in stroom is not the same as the markdown processor used within this &lt;em&gt;stroom-docs&lt;/em&gt; documentation site, so there may be some differences in syntax.
+    The &lt;em&gt;Showdown&lt;/em&gt; markdown processor used in stroom is &lt;strong&gt;not&lt;/strong&gt; the same as the markdown processor used within this  documentation site (&lt;em&gt;stroom-docs&lt;/em&gt;), so there may be some subtle differences in syntax.
 
 &lt;/div&gt;
 
 
+&lt;h2 id=&#34;example-markdown-content&#34;&gt;Example Markdown Content&lt;/h2&gt;
 &lt;p&gt;The following is a brief guide to the most common formatting that can be done with markdown and that is supported in Stroom.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;# Markdown Example
 
@@ -286,7 +288,7 @@ This is at level 4.
 **bold**, __bold__, *italic*, _italic_, ***bold and italic***, ~~strike-through~~
 
 
-## Bullets and Numbered Lists
+## Bullets 
 
 Use four spaces to indent a sub-item.
 
@@ -294,6 +296,11 @@ Use four spaces to indent a sub-item.
     * Bullet 1a
 * Bullet 2
     * Bullet 2a
+
+## Numbered Lists
+
+Use four spaces to indent a sub-item.
+Using `1` for all items means the makrdown processor will replace them with the correct number, making it easier to re-order items.
 
 1. Item 1
     1. Item 1a
@@ -309,7 +316,7 @@ Use four spaces to indent a sub-item.
 Text
 
 &amp;gt; This is another quote.  
-&amp;gt; And it has multiple lines...
+&amp;gt; It has multiple lines...
 &amp;gt;
 &amp;gt; ...and gaps and bullets
 &amp;gt; * Item 1
@@ -329,7 +336,7 @@ Note `---:` to right align a column, `:---:` to center align it.
 
 Table using `&amp;lt;br&amp;gt;` for multi-line cells.
 
-| Name      | Description                                                                                                                  |
+| Name      | Description     |
 |-----------|-----------------|
 | Row 1     | Line 1&amp;lt;br&amp;gt;Line2 |
 | Row 2     | Line 1&amp;lt;br&amp;gt;Line2 |
@@ -341,6 +348,8 @@ Line: [title](https://www.example.com)
 
 
 ## Simple Lists
+
+Add two spaces to the end of each line to stop each line being treated as a paragraph.
 
 One  
 Two  
@@ -380,9 +389,9 @@ This is a horizontal rule separator
 
 ## Code
 
-Code can be represented in-line like this `echo &amp;quot;hello world&amp;quot;` by surround it with back-ticks.
+Code can be represented in-line like this `echo &amp;quot;hello world&amp;quot;` by surround it with single back-ticks.
 
-Blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
+Multi-line blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
 Specify the language after the first set of three back ticks, or `text` for plain text.
 Only certain languages are supported in Stroom.
 
@@ -411,8 +420,18 @@ echo &amp;quot;Current date and time : $now&amp;quot;
 echo &amp;quot;Computer name : $computer_name&amp;quot;
 ```
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;wrapping&#34;&gt;Wrapping&lt;/h2&gt;
+&lt;p&gt;Long paragraphs will be wrapped&lt;/p&gt;
 &lt;h2 id=&#34;code-syntax-highlighting&#34;&gt;Code Syntax Highlighting&lt;/h2&gt;
-&lt;p&gt;Stroom supports the following languages for fenced blocks.
+&lt;p&gt;This is an example of a fenced code block.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;```xml
+  &amp;lt;record&amp;gt;
+    &amp;lt;data name=&amp;quot;dateTime&amp;quot; value=&amp;quot;2020-09-28T14:30:33.476&amp;quot; /&amp;gt;
+  &amp;lt;/record&amp;gt;
+```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this example, &lt;code&gt;xml&lt;/code&gt; defines the language used within the fenced block.&lt;/p&gt;
+&lt;p&gt;Stroom supports the following languages for fenced code blocks.
 If you require additional languages then please raised a ticket 
 
 
@@ -428,7 +447,7 @@ If you require additional languages then please raised a ticket
     &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
   &lt;/a&gt;
 &lt;/span&gt;
-.&lt;/p&gt;
+. If your language is not currently supported or is just plain text then use &lt;code&gt;text&lt;/code&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;text&lt;/li&gt;
 &lt;li&gt;sh&lt;/li&gt;
@@ -445,6 +464,7 @@ If you require additional languages then please raised a ticket
 &lt;li&gt;properties&lt;/li&gt;
 &lt;li&gt;toml&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;Fenced blocks with content that is wider than the pane will result in the fenced block having its own horizontal scroll bar.&lt;/p&gt;
 &lt;h2 id=&#34;escaping-characters&#34;&gt;Escaping Characters&lt;/h2&gt;
 &lt;p&gt;It is common to use &lt;code&gt;_&lt;/code&gt; characters in 
 
@@ -458,6 +478,19 @@ If you require additional languages then please raised a ticket
 &lt;/span&gt;
  names, however if there are two of these in a word then the markdown processor will interpret them as &lt;em&gt;italic&lt;/em&gt; markup.
 To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a &lt;code&gt;\&lt;/code&gt;, i.e. &lt;code&gt;THIS\_IS\_MY\_FEED&lt;/code&gt;. THIS_IS_MY_FEED.&lt;/p&gt;
+&lt;h2 id=&#34;html&#34;&gt;HTML&lt;/h2&gt;
+&lt;p&gt;While it is possible to use HTML in the documentation, its use is not recomended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
+Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be prefereable.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    No form of HTML scripting (i.e. Javascript) is supported within the documentation content.
+
+&lt;/div&gt;
+
+
 
       </description>
     </item>

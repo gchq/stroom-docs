@@ -110,7 +110,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.3964978e632ab8d97fa36f75f4d48761.json"
+    data-offline-search-index-json-src="../../offline-search-index.7b943e5bb650b569907a24dea1f6fa4c.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -1941,8 +1941,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.2</strong>&rdquo;<br>
-Documentation generated on: <strong>12 Jun 2023, 13:28 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v1577</strong></p>
+Documentation generated on: <strong>21 Jun 2023, 23:37 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v1590</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -44226,7 +44226,7 @@ For example a user might want to provide information about the system that a
   </a>
 </span>
  receives data from, or document the purpose of a complex XSLT translation.</p>
-<p>In previous versions this documentation was a small and simple <em>Description</em> text field, however now it is a full screen of rich text.
+<p>In previous versions of stroom this documentation was a small and simple <em>Description</em> text field, however now it is a full screen of rich text.
 This screen defaults to its read-only preview mode, but the user can toggle it to the edit mode to edit the content.
 In the edit mode, the documentation can be created/edited using plain text, or 
 
@@ -44240,7 +44240,8 @@ In the edit mode, the documentation can be created/edited using plain text, or
 </span>
 .
 Markdown is a fairly simple markup language for producing richly formatted text from plain text.</p>
-<p>Stroom uses the 
+<p>There are many variants of markdown that all have subtly different features or syntax.
+Stroom uses the 
 
 
 
@@ -44262,11 +44263,12 @@ This link is the definitive source for supported markdown syntax.</p>
 <h4 class="alert-heading">Note</h4>
 
 
-    The <em>Showdown</em> markdown processor used in stroom is not the same as the markdown processor used within this <em>stroom-docs</em> documentation site, so there may be some differences in syntax.
+    The <em>Showdown</em> markdown processor used in stroom is <strong>not</strong> the same as the markdown processor used within this  documentation site (<em>stroom-docs</em>), so there may be some subtle differences in syntax.
 
 </div>
 
 
+<h2 id="example-markdown-content">Example Markdown Content</h2>
 <p>The following is a brief guide to the most common formatting that can be done with markdown and that is supported in Stroom.</p>
 <pre><code class="language-text"># Markdown Example
 
@@ -44293,7 +44295,7 @@ This is at level 4.
 **bold**, __bold__, *italic*, _italic_, ***bold and italic***, ~~strike-through~~
 
 
-## Bullets and Numbered Lists
+## Bullets 
 
 Use four spaces to indent a sub-item.
 
@@ -44301,6 +44303,11 @@ Use four spaces to indent a sub-item.
     * Bullet 1a
 * Bullet 2
     * Bullet 2a
+
+## Numbered Lists
+
+Use four spaces to indent a sub-item.
+Using `1` for all items means the makrdown processor will replace them with the correct number, making it easier to re-order items.
 
 1. Item 1
     1. Item 1a
@@ -44316,7 +44323,7 @@ Use four spaces to indent a sub-item.
 Text
 
 &gt; This is another quote.  
-&gt; And it has multiple lines...
+&gt; It has multiple lines...
 &gt;
 &gt; ...and gaps and bullets
 &gt; * Item 1
@@ -44336,7 +44343,7 @@ Note `---:` to right align a column, `:---:` to center align it.
 
 Table using `&lt;br&gt;` for multi-line cells.
 
-| Name      | Description                                                                                                                  |
+| Name      | Description     |
 |-----------|-----------------|
 | Row 1     | Line 1&lt;br&gt;Line2 |
 | Row 2     | Line 1&lt;br&gt;Line2 |
@@ -44348,6 +44355,8 @@ Line: [title](https://www.example.com)
 
 
 ## Simple Lists
+
+Add two spaces to the end of each line to stop each line being treated as a paragraph.
 
 One  
 Two  
@@ -44387,9 +44396,9 @@ This is a horizontal rule separator
 
 ## Code
 
-Code can be represented in-line like this `echo &quot;hello world&quot;` by surround it with back-ticks.
+Code can be represented in-line like this `echo &quot;hello world&quot;` by surround it with single back-ticks.
 
-Blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
+Multi-line blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
 Specify the language after the first set of three back ticks, or `text` for plain text.
 Only certain languages are supported in Stroom.
 
@@ -44418,8 +44427,18 @@ echo &quot;Current date and time : $now&quot;
 echo &quot;Computer name : $computer_name&quot;
 ```
 </code></pre>
+<h2 id="wrapping">Wrapping</h2>
+<p>Long paragraphs will be wrapped</p>
 <h2 id="code-syntax-highlighting">Code Syntax Highlighting</h2>
-<p>Stroom supports the following languages for fenced blocks.
+<p>This is an example of a fenced code block.</p>
+<pre><code class="language-markdown">```xml
+  &lt;record&gt;
+    &lt;data name=&quot;dateTime&quot; value=&quot;2020-09-28T14:30:33.476&quot; /&gt;
+  &lt;/record&gt;
+```
+</code></pre>
+<p>In this example, <code>xml</code> defines the language used within the fenced block.</p>
+<p>Stroom supports the following languages for fenced code blocks.
 If you require additional languages then please raised a ticket 
 
 
@@ -44435,7 +44454,7 @@ If you require additional languages then please raised a ticket
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-.</p>
+. If your language is not currently supported or is just plain text then use <code>text</code>.</p>
 <ul>
 <li>text</li>
 <li>sh</li>
@@ -44452,6 +44471,7 @@ If you require additional languages then please raised a ticket
 <li>properties</li>
 <li>toml</li>
 </ul>
+<p>Fenced blocks with content that is wider than the pane will result in the fenced block having its own horizontal scroll bar.</p>
 <h2 id="escaping-characters">Escaping Characters</h2>
 <p>It is common to use <code>_</code> characters in 
 
@@ -44465,6 +44485,19 @@ If you require additional languages then please raised a ticket
 </span>
  names, however if there are two of these in a word then the markdown processor will interpret them as <em>italic</em> markup.
 To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a <code>\</code>, i.e. <code>THIS\_IS\_MY\_FEED</code>. THIS_IS_MY_FEED.</p>
+<h2 id="html">HTML</h2>
+<p>While it is possible to use HTML in the documentation, its use is not recomended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
+Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be prefereable.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    No form of HTML scripting (i.e. Javascript) is supported within the documentation content.
+
+</div>
+
+
 
 </div>
 
@@ -51822,9 +51855,56 @@ If only some of the data is visible then the bar will be blue and the coloured p
  for more.</p>
 <h4 id="vim-key-bindings">Vim key bindings</h4>
 <p>If you are familiar with the Vi/Vim text editors then it is possible to enable Vim key bindings in Stroom.
-This is currently done by enabling Vim bindings in the editor context menu in each editor screen.
-In future versions of Stroom it will be possible to store these preferences on a per user basis.</p>
-<p>The <em>Ace</em> editor does not support all features of Vim however the core navigation/editing key bindings are present.
+This can be done in two ways.</p>
+<p>Either globally by setting <em>Editor Key Bindings</em> to <code>Vim</code> in your user preferences:
+
+
+
+
+
+  <div class="stroom-menu">
+    
+
+      
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    <div class="stroom-menu-item">
+
+      <div class="stroom-menu-item-text">User
+      </div>
+    </div>
+  </div>
+
+      
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    <div class="stroom-menu-item">
+          <div class="stroom-menu-item-icon">
+            <img 
+              class="stroom-icon" 
+              src="../../images/stroom-ui/settings-blue.svg" 
+              alt="settings-blue.svg">
+          </div>
+
+      <div class="stroom-menu-item-text">Preferences
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</p>
+<p>Or within an editor using the context menu.
+This latter option allows you to temporarily change your bindings.</p>
+<p>The <em>Ace</em> editor does not support all features of <em>Vim</em> however the core navigation/editing key bindings are present.
 The key supported features of Vim are:</p>
 <ul>
 <li>Visual mode and visual block mode.</li>
@@ -51864,6 +51944,10 @@ The key supported features of Vim are:</p>
   </a>
 </span>
 , though not all bindings will be available in Stroom&rsquo;s <em>Ace</em> editor.</p>
+<h5 id="use-of-esc-key">Use of <code>Esc</code> key</h5>
+<p>The <code>Esc</code> key is bound to the close action in Stroom, so pressing <code>Esc</code> will typically close a popup, dialog, selection box, etc.
+Dialogs will not be closed if the Ace editor has focus but as <code>Esc</code> is used so frequently with Vim bindings it may be advisable to use an alternative key to exit insert mode to avoid accidental closure.
+You can use the standard Vim binding of <code>ctrl-[</code> or the custom binding of <code>jk</code> as alternatives to <code>Esc</code>.</p>
 <h3 id="auto-completion-and-snippets">Auto-Completion And Snippets</h3>
 <p>The editor supports a number of different types of auto-completion of text.
 Completion suggestions are triggered by the following mechanisms:</p>

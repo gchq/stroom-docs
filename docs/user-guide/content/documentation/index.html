@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/content/documentation/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2023-06-07T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-06-12T14:18:57+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2023-06-21T19:13:08+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Documenting content">
 <meta itemprop="description" content="The ability to document each entity created in Stroom.
 "><meta itemprop="datePublished" content="2023-06-07T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-06-12T14:18:57+01:00" />
-<meta itemprop="wordCount" content="807">
+<meta itemprop="dateModified" content="2023-06-21T19:13:08+01:00" />
+<meta itemprop="wordCount" content="1015">
 <meta itemprop="keywords" content="content," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Documenting content"/>
 <meta name="twitter:description" content="The ability to document each entity created in Stroom.
@@ -114,7 +114,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.3964978e632ab8d97fa36f75f4d48761.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.7b943e5bb650b569907a24dea1f6fa4c.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -139,7 +139,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.3964978e632ab8d97fa36f75f4d48761.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.7b943e5bb650b569907a24dea1f6fa4c.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -624,8 +624,11 @@ if (!doNotTrack) {
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
+    <li><a href="#example-markdown-content">Example Markdown Content</a></li>
+    <li><a href="#wrapping">Wrapping</a></li>
     <li><a href="#code-syntax-highlighting">Code Syntax Highlighting</a></li>
     <li><a href="#escaping-characters">Escaping Characters</a></li>
+    <li><a href="#html">HTML</a></li>
   </ul>
 </nav>
       </div>
@@ -864,7 +867,7 @@ For example a user might want to provide information about the system that a
   </a>
 </span>
  receives data from, or document the purpose of a complex XSLT translation.</p>
-<p>In previous versions this documentation was a small and simple <em>Description</em> text field, however now it is a full screen of rich text.
+<p>In previous versions of stroom this documentation was a small and simple <em>Description</em> text field, however now it is a full screen of rich text.
 This screen defaults to its read-only preview mode, but the user can toggle it to the edit mode to edit the content.
 In the edit mode, the documentation can be created/edited using plain text, or 
 
@@ -878,7 +881,8 @@ In the edit mode, the documentation can be created/edited using plain text, or
 </span>
 .
 Markdown is a fairly simple markup language for producing richly formatted text from plain text.</p>
-<p>Stroom uses the 
+<p>There are many variants of markdown that all have subtly different features or syntax.
+Stroom uses the 
 
 
 
@@ -900,11 +904,12 @@ This link is the definitive source for supported markdown syntax.</p>
 <h4 class="alert-heading">Note</h4>
 
 
-    The <em>Showdown</em> markdown processor used in stroom is not the same as the markdown processor used within this <em>stroom-docs</em> documentation site, so there may be some differences in syntax.
+    The <em>Showdown</em> markdown processor used in stroom is <strong>not</strong> the same as the markdown processor used within this  documentation site (<em>stroom-docs</em>), so there may be some subtle differences in syntax.
 
 </div>
 
 
+<h2 id="example-markdown-content">Example Markdown Content</h2>
 <p>The following is a brief guide to the most common formatting that can be done with markdown and that is supported in Stroom.</p>
 <pre><code class="language-text"># Markdown Example
 
@@ -931,7 +936,7 @@ This is at level 4.
 **bold**, __bold__, *italic*, _italic_, ***bold and italic***, ~~strike-through~~
 
 
-## Bullets and Numbered Lists
+## Bullets 
 
 Use four spaces to indent a sub-item.
 
@@ -939,6 +944,11 @@ Use four spaces to indent a sub-item.
     * Bullet 1a
 * Bullet 2
     * Bullet 2a
+
+## Numbered Lists
+
+Use four spaces to indent a sub-item.
+Using `1` for all items means the makrdown processor will replace them with the correct number, making it easier to re-order items.
 
 1. Item 1
     1. Item 1a
@@ -954,7 +964,7 @@ Use four spaces to indent a sub-item.
 Text
 
 &gt; This is another quote.  
-&gt; And it has multiple lines...
+&gt; It has multiple lines...
 &gt;
 &gt; ...and gaps and bullets
 &gt; * Item 1
@@ -974,7 +984,7 @@ Note `---:` to right align a column, `:---:` to center align it.
 
 Table using `&lt;br&gt;` for multi-line cells.
 
-| Name      | Description                                                                                                                  |
+| Name      | Description     |
 |-----------|-----------------|
 | Row 1     | Line 1&lt;br&gt;Line2 |
 | Row 2     | Line 1&lt;br&gt;Line2 |
@@ -986,6 +996,8 @@ Line: [title](https://www.example.com)
 
 
 ## Simple Lists
+
+Add two spaces to the end of each line to stop each line being treated as a paragraph.
 
 One  
 Two  
@@ -1025,9 +1037,9 @@ This is a horizontal rule separator
 
 ## Code
 
-Code can be represented in-line like this `echo &quot;hello world&quot;` by surround it with back-ticks.
+Code can be represented in-line like this `echo &quot;hello world&quot;` by surround it with single back-ticks.
 
-Blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
+Multi-line blocks of code can rendered with the appropriate syntax highlighting using a fenced block comprising three back-ticks.
 Specify the language after the first set of three back ticks, or `text` for plain text.
 Only certain languages are supported in Stroom.
 
@@ -1056,8 +1068,18 @@ echo &quot;Current date and time : $now&quot;
 echo &quot;Computer name : $computer_name&quot;
 ```
 </code></pre>
+<h2 id="wrapping">Wrapping</h2>
+<p>Long paragraphs will be wrapped</p>
 <h2 id="code-syntax-highlighting">Code Syntax Highlighting</h2>
-<p>Stroom supports the following languages for fenced blocks.
+<p>This is an example of a fenced code block.</p>
+<pre><code class="language-markdown">```xml
+  &lt;record&gt;
+    &lt;data name=&quot;dateTime&quot; value=&quot;2020-09-28T14:30:33.476&quot; /&gt;
+  &lt;/record&gt;
+```
+</code></pre>
+<p>In this example, <code>xml</code> defines the language used within the fenced block.</p>
+<p>Stroom supports the following languages for fenced code blocks.
 If you require additional languages then please raised a ticket 
 
 
@@ -1073,7 +1095,7 @@ If you require additional languages then please raised a ticket
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-.</p>
+. If your language is not currently supported or is just plain text then use <code>text</code>.</p>
 <ul>
 <li>text</li>
 <li>sh</li>
@@ -1090,6 +1112,7 @@ If you require additional languages then please raised a ticket
 <li>properties</li>
 <li>toml</li>
 </ul>
+<p>Fenced blocks with content that is wider than the pane will result in the fenced block having its own horizontal scroll bar.</p>
 <h2 id="escaping-characters">Escaping Characters</h2>
 <p>It is common to use <code>_</code> characters in 
 
@@ -1103,11 +1126,24 @@ If you require additional languages then please raised a ticket
 </span>
  names, however if there are two of these in a word then the markdown processor will interpret them as <em>italic</em> markup.
 To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a <code>\</code>, i.e. <code>THIS\_IS\_MY\_FEED</code>. THIS_IS_MY_FEED.</p>
+<h2 id="html">HTML</h2>
+<p>While it is possible to use HTML in the documentation, its use is not recomended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
+Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be prefereable.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    No form of HTML scripting (i.e. Javascript) is supported within the documentation content.
+
+</div>
+
+
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified June 12, 2023: <a href="https://github.com/gchq/stroom-docs/commit/4699e2cd21fa6bc3b599b3f1c83607def2106a01">Merge pull request #85 from gchq/add-markdown-stuff (4699e2c)</a>
+  Last modified June 21, 2023: <a href="https://github.com/gchq/stroom-docs/commit/7108e6c4404be4c014d7c24f272677f142075501">Update vim bindings section (7108e6c)</a>
 </div>
 
 </div>
