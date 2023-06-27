@@ -1,7 +1,7 @@
 ---
 title: "Queries"
 linkTitle: "Queries"
-#weight:
+weight: 10
 date: 2021-07-27
 tags:
   - query

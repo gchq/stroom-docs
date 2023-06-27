@@ -191,7 +191,7 @@ ${val} = [20, 1002]
 ```
 
 
-## Standard Deviation
+## StDev (Standard Deviation)
 
 Calculate the standard deviation for a set of input values.
 
