@@ -1,7 +1,7 @@
 ---
 title: "Elasticsearch"
 linkTitle: "Elasticsearch"
-#weight:
+weight: 60
 date: 2022-12-15
 tags:
   - search

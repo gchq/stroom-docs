@@ -1,7 +1,7 @@
 ---
 title: "Search Extraction"
 linkTitle: "Search Extraction"
-#weight:
+weight: 30
 date: 2022-02-18
 tags:
   - extraction
