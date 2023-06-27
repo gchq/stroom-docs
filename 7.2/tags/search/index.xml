@@ -4,7 +4,7 @@
     <link>/tags/search/</link>
     <description>Recent content in search on Stroom</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 15 Dec 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Jun 2023 00:00:00 +0000</lastBuildDate>
     
 	  <atom:link href="/tags/search/index.xml" rel="self" type="application/rss+xml" />
     
@@ -385,33 +385,6 @@ You will first need to
     </item>
     
     <item>
-      <title>Docs: Indexing and Search</title>
-      <link>/docs/howtos/search/</link>
-      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/howtos/search/</guid>
-      <description>
-        
-        
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: Elasticsearch</title>
-      <link>/docs/howtos/search/elasticsearch/</link>
-      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/howtos/search/elasticsearch/</guid>
-      <description>
-        
-        
-        &lt;p&gt;See: &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/&#34;&gt;Elasticsearch indexing in the User Guide&lt;/a&gt;.&lt;/p&gt;
-
-      </description>
-    </item>
-    
-    <item>
       <title>Docs: Elasticsearch</title>
       <link>/docs/user-guide/dashboards/elasticsearch/</link>
       <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
@@ -679,6 +652,305 @@ Click
  and re-open the dashboard.
 You&amp;rsquo;ll notice that the available fields are a union of the fields across all three indices.
 You can now search by any of these - in particular, the fields common to all three.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Stroom Query Language</title>
+      <link>/docs/user-guide/dashboards/stroom-query-language/</link>
+      <pubDate>Mon, 26 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/dashboards/stroom-query-language/</guid>
+      <description>
+        
+        
+        &lt;!--
+NOTE:
+Stroom has hard coded anchors to link to the keyword headings on this page so don&#39;t
+change the headings without changing the anchors in Stroom.
+--&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    Stroom Query Language is an experimental feature that is currently in Beta so is subject to change without warning.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;query-format&#34;&gt;Query Format&lt;/h2&gt;
+&lt;p&gt;Stroom Query Language (StroomQL) is a text based replacement for the existing 
+
+
+
+&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#dashboard&#34; title=&#34;Glossary entry for Dashboard&#34;&gt;
+    &lt;span&gt;Dashboard&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ query builder and allows you to express the same queries in text form as well as providing additional functionality.
+It is currently used on the &lt;em&gt;Query&lt;/em&gt; entity as the means of defining a query.&lt;/p&gt;
+&lt;p&gt;The following shows the supported syntax for a StroomQL query.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;lt;DATA_SOURCE&amp;gt;
+where &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and|or|not]
+[and|or|not]
+[window] &amp;lt;TIME_FIELD&amp;gt; by &amp;lt;WINDOW_SIZE&amp;gt; [advance &amp;lt;ADVANCE_WINDOW_SIZE&amp;gt;]
+[filter] &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and|or|not]
+[and|or|not]
+[eval...] &amp;lt;FIELD&amp;gt; = &amp;lt;EXPRESSION&amp;gt;
+[having] &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and|or|not]
+[group by] &amp;lt;FIELD&amp;gt;
+[sort by] &amp;lt;FIELD&amp;gt; [desc|asc] // asc by default
+select &amp;lt;FIELD&amp;gt; [as &amp;lt;COLUMN NAME&amp;gt;], ...
+[limit] &amp;lt;MAX_ROWS&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;keywords&#34;&gt;Keywords&lt;/h2&gt;
+&lt;h3 id=&#34;from&#34;&gt;From&lt;/h3&gt;
+&lt;p&gt;The first part of a StroomQL expression is the &lt;code&gt;from&lt;/code&gt; clause that defines the single data source to query.&lt;/p&gt;
+&lt;p&gt;Select the data source to query, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from my_source
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the name of the data source contains whitespace then it must be quoted, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;my source&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;where&#34;&gt;Where&lt;/h3&gt;
+&lt;p&gt;Use &lt;code&gt;where&lt;/code&gt; to construct query criteria, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;where feed = &amp;quot;my feed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add boolean logic with &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt; and &lt;code&gt;not&lt;/code&gt; to build complex criteria, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;where feed = &amp;quot;my feed&amp;quot;
+or feed = &amp;quot;other feed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use brackets to group logical sub expressions, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;where user = &amp;quot;bob&amp;quot;
+and (feed = &amp;quot;my feed&amp;quot; or feed = &amp;quot;other feed&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;conditions&#34;&gt;Conditions&lt;/h4&gt;
+&lt;p&gt;Supported conditions are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;=&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;!=&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;=&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;=&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;is null&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;is not null&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;andornot&#34;&gt;And|Or|Not&lt;/h4&gt;
+&lt;p&gt;Logical operators to add to where and filter clauses.&lt;/p&gt;
+&lt;h4 id=&#34;bracket-groups&#34;&gt;Bracket groups&lt;/h4&gt;
+&lt;p&gt;You can force evaluation of items in a specific order using bracketed groups.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;and X = 5 OR (name = foo and surname = bar)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;window&#34;&gt;Window&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;window &amp;lt;TIME_FIELD&amp;gt; by &amp;lt;WINDOW_SIZE&amp;gt; [advance &amp;lt;ADVANCE_WINDOW_SIZE&amp;gt;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Windowing groups data by a specified window size applied to a time field.
+A window inserts additional rows for future periods so that rows for future periods contain count columns for previous periods.&lt;/p&gt;
+&lt;p&gt;Specify the field to window by and a duration.
+Durations are specified in simple terms e.g. &lt;code&gt;1d&lt;/code&gt;, &lt;code&gt;2w&lt;/code&gt; etc.&lt;/p&gt;
+&lt;p&gt;By default, a window will insert a count into the next period row.
+This is because by default we advance by the specified window size.
+If you wish to advance by a different duration you can specify the advance amount which will insert counts into multiple future rows.&lt;/p&gt;
+&lt;h3 id=&#34;filter&#34;&gt;Filter&lt;/h3&gt;
+&lt;p&gt;Use &lt;code&gt;filter&lt;/code&gt; to filter values that have not been indexed during search retrieval.
+This is used the same way as the &lt;code&gt;where&lt;/code&gt; clause but applies to data after being retrieved from the index, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;filter obscure_field = &amp;quot;some value&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add boolean logic with &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt; and &lt;code&gt;not&lt;/code&gt; to build complex criteria as supported by the &lt;code&gt;where&lt;/code&gt; clause.
+Use brackets to group logical sub expressions as supported by the &lt;code&gt;where&lt;/code&gt; clause.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    As filters do not make use of the index they can be considerably slower than a &lt;code&gt;where&lt;/code&gt; clause, however they allow filtering on fields that have not been indexed for some reason.
+Frequent use of &lt;code&gt;filter&lt;/code&gt; on a field suggests you may want to consider including that field in an index.
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;eval&#34;&gt;Eval&lt;/h3&gt;
+&lt;p&gt;Use &lt;code&gt;eval&lt;/code&gt; to assign the value returned from a function to a named variable, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;eval my_count = count()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here the result of the &lt;code&gt;count()&lt;/code&gt; function is being stored in a variable called &lt;code&gt;my_count&lt;/code&gt;.
+Functions can be nested and applied to variables, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;eval new_name = concat(
+  substring(name, 3, 5),
+  substring(name, 8, 9))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that all fields in the data source selected using &lt;code&gt;from&lt;/code&gt; will be available as variables by default.&lt;/p&gt;
+&lt;p&gt;Multiple &lt;code&gt;eval&lt;/code&gt; statements can also be used to breakup complex function expressions and make it easier to comment out individual evaluations, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;eval name_prefix = substring(name, 3, 5)
+eval name_suffix = substring(name, 8, 9)
+eval new_name = concat(
+  name_prefix,
+  name_suffix)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Variables can be reused, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;eval name_prefix = substring(name, 3, 5)
+eval new_name = substring(name, 8, 9)
+eval new_name = concat(
+  name_prefix,
+  new_name)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this example, the second assignment of &lt;code&gt;new_name&lt;/code&gt; will override the value initially assigned to it.
+Note that that when reusing a variable name, the assignment can depend on the previous value assigned to that variable.&lt;/p&gt;
+&lt;p&gt;Add boolean logic with &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt; and &lt;code&gt;not&lt;/code&gt; to build complex criteria, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;where feed = &amp;quot;my feed&amp;quot; or feed = &amp;quot;other feed&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use brackets to group logical sub expressions, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;where user = &amp;quot;bob&amp;quot; and (feed = &amp;quot;my feed&amp;quot; or feed = &amp;quot;other feed&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;having&#34;&gt;Having&lt;/h3&gt;
+&lt;p&gt;A post aggregate filter that is applied at query time to return only rows that match the &lt;code&gt;having&lt;/code&gt; conditions.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;having count &amp;gt; 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;group-by&#34;&gt;Group By&lt;/h3&gt;
+&lt;p&gt;Use to group by columns, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;group by feed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can group across multiple columns, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;group by feed, name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can create nested groups, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;group by feed
+group by name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sort-by&#34;&gt;Sort By&lt;/h3&gt;
+&lt;p&gt;Use to sort by columns, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;sort by feed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can sort across multiple columns, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;sort by feed, name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can change the sort direction, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;sort by feed asc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;sort by feed desc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;select&#34;&gt;Select&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;select&lt;/code&gt; keyword is used to define the fields that will be selected out of the data source (and any &lt;code&gt;eval&lt;/code&gt;&amp;rsquo;d fields) for display in the table output.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;select feed, name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can optionally rename the fields so that they appear in the table with more human friendly names.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;select feed as &#39;my feed column&#39;,
+  name as &#39;my name column&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;limit&#34;&gt;Limit&lt;/h3&gt;
+&lt;p&gt;Limit the number of results, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;limit 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;comments&#34;&gt;Comments&lt;/h2&gt;
+&lt;h3 id=&#34;single-line&#34;&gt;Single line&lt;/h3&gt;
+&lt;p&gt;StroomQL supports single line comments using &lt;code&gt;//&lt;/code&gt;.
+For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;index_view&amp;quot; // view
+where EventTime &amp;gt; now() - 1227d
+// and StreamId = 1210
+select StreamId as &amp;quot;Stream Id&amp;quot;, EventTime as &amp;quot;Event Time&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;multi-line&#34;&gt;Multi line&lt;/h3&gt;
+&lt;p&gt;Multiple lines can be commented by surrounding sections with &lt;code&gt;/*&lt;/code&gt; and &lt;code&gt;*/&lt;/code&gt;.
+For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;index_view&amp;quot; // view
+where EventTime &amp;gt; now() - 1227d
+/*
+eval FirstName = lowerCase(substringBefore(UserId, &#39;.&#39;))
+eval FirstName = any(FirstName)
+*/
+select StreamId as &amp;quot;Stream Id&amp;quot;, EventTime as &amp;quot;Event Time&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
+&lt;p&gt;The following are various example queries.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;// add a where
+from &amp;quot;index_view&amp;quot; // view
+where EventTime &amp;gt; now() - 1227d
+// and StreamId = 1210
+eval UserId = any(upperCase(UserId))
+eval FirstName = lowerCase(substringBefore(UserId, &#39;.&#39;))
+eval FirstName = any(FirstName)
+eval Sl = stringLength(FirstName)
+eval count = count()
+group by StreamId
+sort by Sl desc
+select Sl, StreamId as &amp;quot;Stream Id&amp;quot;, EventId as &amp;quot;Event Id&amp;quot;, EventTime as &amp;quot;Event Time&amp;quot;, UserId as &amp;quot;User Id&amp;quot;, FirstName, count
+limit 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;index_view&amp;quot; // view
+// add a where
+where EventTime &amp;gt; now() - 1227d
+// and StreamId = 1210
+eval UserId = any(upperCase(UserId))
+eval FirstName = lowerCase(substringBefore(UserId, &#39;.&#39;))
+eval FirstName = any(FirstName)
+eval Sl = stringLength(FirstName)
+eval count = count()
+group by StreamId
+sort by Sl desc
+select Sl, StreamId as &amp;quot;Stream Id&amp;quot;, EventId as &amp;quot;Event Id&amp;quot;, EventTime as &amp;quot;Event Time&amp;quot;, UserId as &amp;quot;User Id&amp;quot;, FirstName, count
+limit 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;index_view&amp;quot; // view
+// add a where
+where EventTime &amp;gt; now() - 1227d
+// and StreamId = 1210
+eval UserId = any(upperCase(UserId))
+eval FirstName = lowerCase(substringBefore(UserId, &#39;.&#39;))
+eval FirstName = any(FirstName)
+eval Sl = stringLength(FirstName)
+// eval count = count()
+// group by StreamId
+// sort by Sl desc
+select StreamId as &amp;quot;Stream Id&amp;quot;, EventId as &amp;quot;Event Id&amp;quot;
+// limit 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;from &amp;quot;index_view&amp;quot; // view
+// add a where
+where EventTime &amp;gt; now() - 1227d
+// and StreamId = 1210
+eval UserId = any(upperCase(UserId))
+eval FirstName = lowerCase(substringBefore(UserId, &#39;.&#39;))
+eval FirstName = any(FirstName)
+eval Sl = stringLength(FirstName)
+eval count = count()
+group by StreamId
+sort by Sl desc
+select Sl, StreamId as &amp;quot;Stream Id&amp;quot;, EventId as &amp;quot;Event Id&amp;quot;, EventTime as &amp;quot;Event Time&amp;quot;, UserId as &amp;quot;User Id&amp;quot;, FirstName, count
+limit 10
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Indexing and Search</title>
+      <link>/docs/howtos/search/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/howtos/search/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Elasticsearch</title>
+      <link>/docs/howtos/search/elasticsearch/</link>
+      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/howtos/search/elasticsearch/</guid>
+      <description>
+        
+        
+        &lt;p&gt;See: &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/&#34;&gt;Elasticsearch indexing in the User Guide&lt;/a&gt;.&lt;/p&gt;
 
       </description>
     </item>

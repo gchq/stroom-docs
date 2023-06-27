@@ -15,6 +15,102 @@
     
     
     <item>
+      <title>Docs: Queries</title>
+      <link>/docs/user-guide/dashboards/queries/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/dashboards/queries/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Dashboard queries are created with the query expression builder. The expression builder allows for complex boolean logic to be created across multiple index fields. The way in which different index fields may be queried depends on the type of data that the index field contains.&lt;/p&gt;
+&lt;h2 id=&#34;date-time-fields&#34;&gt;Date Time Fields&lt;/h2&gt;
+&lt;p&gt;Time fields can be queried for times equal, greater than, greater than or equal, less than, less than or equal or between two times.&lt;/p&gt;
+&lt;p&gt;Times can be specified in two ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Absolute times&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Relative times&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;absolute-times&#34;&gt;Absolute Times&lt;/h3&gt;
+&lt;p&gt;An absolute time is specified in ISO 8601 date time format, e.g.  &lt;code&gt;2016-01-23T12:34:11.844Z&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;relative-times&#34;&gt;Relative Times&lt;/h3&gt;
+&lt;p&gt;In addition to absolute times it is possible to specify times using expressions. Relative time expressions create a date time that is relative to the execution time of the query. Supported expressons are as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;now() - The current execution time of the query.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;second() - The current execution time of the query rounded down to the nearest second.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;minute() - The current execution time of the query rounded down to the nearest minute.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;hour() - The current execution time of the query rounded down to the nearest hour.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;day() - The current execution time of the query rounded down to the nearest day.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;week() - The current execution time of the query rounded down to the first day of the week (Monday).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;month() - The current execution time of the query rounded down to the start of the current month.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;year() - The current execution time of the query rounded down to the start of the current year.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;addingsubtracting-durations&#34;&gt;Adding/Subtracting Durations&lt;/h3&gt;
+&lt;p&gt;With relative times it is possible to add or subtract durations so that queries can be constructed to provide for example, the last week of data, the last hour of data etc.&lt;/p&gt;
+&lt;p&gt;To add/subtract a duration from a query term the duration is simply appended after the relative time, e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;now() + 2d&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Multiple durations can be combined in the expression, e.g.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;now() + 2d - 10h&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;now() + 2w - 1d10h&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Durations consist of a number and duration unit. Supported duration units are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;s - Seconds&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;m - Minutes&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;h - Hours&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;d - Days&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;w - Weeks&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;M - Months&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;y - Years&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Using these durations a query to get the last weeks data could be as follows:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;between now() - 1w and now()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Or midnight a week ago to midnight today:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;between day() - 1w and day()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Or if you just wanted data for the week so far:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;greater than week()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Or all data for the previous year:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;between year() - 1y and year()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Or this year so far:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;greater than year()&lt;/code&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
       <title>Docs: Dashboards</title>
       <link>/docs/quick-start-guide/dashboard/</link>
       <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
@@ -718,102 +814,6 @@ You will see a purple rectangle showing where the pane will be moved to.&lt;/li&
   &lt;/a&gt;
 &lt;/div&gt;
 
-
-      </description>
-    </item>
-    
-    <item>
-      <title>Docs: Queries</title>
-      <link>/docs/user-guide/dashboards/queries/</link>
-      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/docs/user-guide/dashboards/queries/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Dashboard queries are created with the query expression builder. The expression builder allows for complex boolean logic to be created across multiple index fields. The way in which different index fields may be queried depends on the type of data that the index field contains.&lt;/p&gt;
-&lt;h2 id=&#34;date-time-fields&#34;&gt;Date Time Fields&lt;/h2&gt;
-&lt;p&gt;Time fields can be queried for times equal, greater than, greater than or equal, less than, less than or equal or between two times.&lt;/p&gt;
-&lt;p&gt;Times can be specified in two ways:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Absolute times&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Relative times&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;absolute-times&#34;&gt;Absolute Times&lt;/h3&gt;
-&lt;p&gt;An absolute time is specified in ISO 8601 date time format, e.g.  &lt;code&gt;2016-01-23T12:34:11.844Z&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;relative-times&#34;&gt;Relative Times&lt;/h3&gt;
-&lt;p&gt;In addition to absolute times it is possible to specify times using expressions. Relative time expressions create a date time that is relative to the execution time of the query. Supported expressons are as follows:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;now() - The current execution time of the query.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;second() - The current execution time of the query rounded down to the nearest second.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;minute() - The current execution time of the query rounded down to the nearest minute.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;hour() - The current execution time of the query rounded down to the nearest hour.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;day() - The current execution time of the query rounded down to the nearest day.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;week() - The current execution time of the query rounded down to the first day of the week (Monday).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;month() - The current execution time of the query rounded down to the start of the current month.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;year() - The current execution time of the query rounded down to the start of the current year.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addingsubtracting-durations&#34;&gt;Adding/Subtracting Durations&lt;/h3&gt;
-&lt;p&gt;With relative times it is possible to add or subtract durations so that queries can be constructed to provide for example, the last week of data, the last hour of data etc.&lt;/p&gt;
-&lt;p&gt;To add/subtract a duration from a query term the duration is simply appended after the relative time, e.g.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;now() + 2d&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Multiple durations can be combined in the expression, e.g.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;now() + 2d - 10h&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;now() + 2w - 1d10h&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Durations consist of a number and duration unit. Supported duration units are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;s - Seconds&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;m - Minutes&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;h - Hours&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;d - Days&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;w - Weeks&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;M - Months&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;y - Years&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Using these durations a query to get the last weeks data could be as follows:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;between now() - 1w and now()&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Or midnight a week ago to midnight today:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;between day() - 1w and day()&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Or if you just wanted data for the week so far:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;greater than week()&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Or all data for the previous year:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;between year() - 1y and year()&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Or this year so far:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;greater than year()&lt;/code&gt;&lt;/p&gt;
 
       </description>
     </item>
