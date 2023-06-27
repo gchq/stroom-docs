@@ -1,7 +1,7 @@
 ---
 title: "Direct URLs"
 linkTitle: "Direct URLs"
-#weight:
+weight: 50
 date: 2021-07-27
 tags: 
   - dashboard
