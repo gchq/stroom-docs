@@ -230,7 +230,7 @@ input.
 
 ### HttpPostFilter
 
-{{< pipe-elm "HTTPPostFilter" >}}&nbsp;
+{{< pipe-elm "HttpPostFilter" >}}&nbsp;
 
 > TODO - Add description
 

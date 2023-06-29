@@ -92,7 +92,7 @@ The final structure is seen below
 {{< screenshot "HOWTOs/v6/UI-ExplorerMgmt-13.png" >}}Stroom UI CreateReferenceFeed - Organise Resources - finished{{< /screenshot >}}
 
 Note that when a folder contains child objects this is indicated by a folder icon with an arrow to the left of the folder.
-Whether the arrow is pointing right {{< stroom-icon "tree-closed.svg" "Tree branch closed">}} or down {{< stroom-icon "tree-open.svg" "Tree branch open">}} indicates whether or not the folder is expanded.
+Whether the arrow is pointing right {{< stroom-icon "arrow-right.svg" "Tree branch closed">}} or down {{< stroom-icon "arrow-down.svg" "Tree branch open">}} indicates whether or not the folder is expanded.
 
 {{< screenshot "HOWTOs/v6/UI-ExplorerMgmt-14.png" >}}Stroom UI CreateReferenceFeed - Organise Resources - finished{{< /screenshot >}}
 

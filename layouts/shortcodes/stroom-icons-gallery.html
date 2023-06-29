@@ -4,9 +4,10 @@ Short code to display all stroom icons
 
 {{ $pathPrefix := (.Get 0) }}
 {{ with resources.Match (printf "%s*" $pathPrefix) }}
-  <div class="row bg-light">
+  <div class="row bg-light stroom-icon-gallery">
   {{ range . }}
     {{ $filename := strings.TrimPrefix $pathPrefix .Name }}
+    {{ $rel_path := strings.TrimPrefix "images/stroom-ui" .Name }}
     {{ if and
     (not (or
       (eq $filename "tabBackground.png")
@@ -16,15 +17,23 @@ Short code to display all stroom icons
     (or 
       (eq (path.Ext $filename) ".svg") 
       (eq (path.Ext $filename) ".png")) }}
-    <!--{{ printf "%s%" .Name }}-->
-    <div style="padding-top: 10px;" class="col-md-4">
-      <img 
-        style="max-width: 25px; vertical-align: -0.5em;" 
-        class="" 
-        src="{{ .RelPermalink }}" 
-        title="{{ .Name }}" 
-        alt="{{ .Name }}">
-      <span style="padding-left: 10px; padding-top: 5px">{{ strings.TrimPrefix $pathPrefix .Name }}</span>
+    <!--{{ printf "%s %s" .Name $filename }}-->
+    <div style="" class="col-md-4 stroom-icon-gallery-row">
+
+      {{ partial "stroom-icon.partial.html" (dict 
+          "context" . 
+          "file" (printf "%s" $rel_path ) ) }}
+
+          {{/*
+      <span class="stroom-icon inline-svg-button icon-button " >
+        <span class="face" >
+          {{ readFile (printf "%s/%s" $ $filename ) | safeHTML }}
+        </span>
+      </span>
+        */}}
+      <span class="stroom-icon-galler-text" style="">
+        {{ strings.TrimPrefix $pathPrefix .Name }}
+      </span>
     </div>
     {{ end }}
   {{ end }}

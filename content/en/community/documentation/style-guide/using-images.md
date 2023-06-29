@@ -255,6 +255,13 @@ A pipeline icon: {{< stroom-icon "pipeline/text.svg" >}}
 
 Enabled {{< stroom-icon "delete.svg" >}} vs disabled {{< stroom-icon "delete.svg" "Delete" "disabled" >}}
 
+An icon in its different colour states:
+* Default (no colour specified) {{< stroom-icon name="settings.svg" >}}
+* `blue` {{< stroom-icon name="settings.svg" colour="blue" >}}
+* `brey` {{< stroom-icon name="settings.svg" colour="grey" >}}
+* `green` {{< stroom-icon name="settings.svg" colour="green" >}}
+* `red` {{< stroom-icon name="settings.svg" colour="red" >}}
+
 **Markdown:**
 
 The markdown for the examples above is:

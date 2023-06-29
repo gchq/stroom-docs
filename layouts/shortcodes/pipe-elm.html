@@ -26,46 +26,48 @@ stroom-icon add.svg
   */}}
 
 {{ $element_map := dict
-  "AnnotationWriter" "text.svg"
-  "BOMRemovalFilterInput" "stream.svg"
-  "BadTextXMLFilterReader" "stream.svg"
-  "CombinedParser" "text.svg"
-  "DSParser" "text.svg"
-  "ElasticIndexingFilter" "ElasticIndex.svg"
-  "FileAppender" "file.svg"
-  "FindReplaceFilter" "stream.svg"
-  "HDFSFileAppender" "hadoop-elephant-logo.svg"
-  "HTTPAppender" "stream.svg"
-  "HTTPPostFilter" "stream.svg"
-  "IdEnrichmentFilter" "id.svg"
-  "IndexingFilter" "index.svg"
-  "InvalidCharFilterReader" "stream.svg"
-  "InvalidXMLCharFilterReader" "stream.svg"
-  "JSONParser" "json.svg"
-  "JSONWriter" "json.svg"
-  "Reader" "stream.svg"
-  "RecordCountFilter" "recordCount.svg"
-  "RecordOutputFilter" "recordOutput.svg"
-  "ReferenceDataFilter" "referenceData.svg"
-  "RollingFileAppender" "files.svg"
-  "RollingStreamAppender" "stream.svg"
-  "SafeXMLFilter" "recordOutput.svg"
-  "SchemaFilter" "xsd.svg"
-  "SearchResultOutputFilter" "search.svg"
-  "SolrIndexingFilter" "solr.svg"
-  "Source" "stream.svg"
-  "SplitFilter" "split.svg"
-  "StandardKafkaProducer" "kafka.svg"
-  "StatisticsFilter" "statistics.svg"
-  "StreamAppender" "stream.svg"
-  "StroomStatsAppender" "StroomStatsStore.svg"
-  "StroomStatsFilter" "StroomStatsStore.svg"
-  "TextWriter" "text.svg"
-  "XMLFragmentParser" "xml.svg"
-  "XMLParser" "xml.svg"
-  "XMLWriter" "xml.svg"
-  "XPathExtractionOutputFilter" "xmlSearch.svg"
-  "XSLTFilter" "xslt.svg"
+"AnnotationWriter" "pipeline/text.svg"
+"BOMRemovalFilterInput" "pipeline/stream.svg"
+"BadTextXMLFilterReader" "pipeline/stream.svg"
+"CombinedParser" "pipeline/text.svg"
+"DSParser" "pipeline/text.svg"
+"DynamicIndexingFilter" "pipeline/index.svg"
+"DynamicSearchResultOutputFilter" "pipeline/search_output.svg"
+"ElasticIndexingFilter" "pipeline/elastic_index.svg"
+"FileAppender" "pipeline/file.svg"
+"FindReplaceFilter" "pipeline/stream.svg"
+"HDFSFileAppender" "pipeline/hadoop.svg"
+"HTTPAppender" "pipeline/stream.svg"
+"HttpPostFilter" "pipeline/stream.svg"
+"IdEnrichmentFilter" "pipeline/id.svg"
+"IndexingFilter" "pipeline/index.svg"
+"InvalidCharFilterReader" "pipeline/stream.svg"
+"InvalidXMLCharFilterReader" "pipeline/stream.svg"
+"JSONParser" "pipeline/json.svg"
+"JSONWriter" "pipeline/json.svg"
+"Reader" "pipeline/stream.svg"
+"RecordCountFilter" "pipeline/record_count.svg"
+"RecordOutputFilter" "pipeline/record_output.svg"
+"ReferenceDataFilter" "pipeline/reference_data.svg"
+"RollingFileAppender" "pipeline/files.svg"
+"RollingStreamAppender" "pipeline/stream.svg"
+"SafeXMLFilter" "pipeline/record_output.svg"
+"SchemaFilter" "pipeline/xsd.svg"
+"SearchResultOutputFilter" "pipeline/search_output.svg"
+"SolrIndexingFilter" "pipeline/solr.svg"
+"Source" "pipeline/stream.svg"
+"SplitFilter" "pipeline/split.svg"
+"StandardKafkaProducer" "pipeline/kafka.svg"
+"StatisticsFilter" "pipeline/statistics.svg"
+"StreamAppender" "pipeline/stream.svg"
+"StroomStatsAppender" "pipeline/stroom_stats.svg"
+"StroomStatsFilter" "pipeline/stroom_stats.svg"
+"TextWriter" "pipeline/text.svg"
+"XMLFragmentParser" "pipeline/xml.svg"
+"XMLParser" "pipeline/xml.svg"
+"XMLWriter" "pipeline/xml.svg"
+"XPathExtractionOutputFilter" "pipeline/xml_search.svg"
+"XSLTFilter" "pipeline/xslt.svg"
 }}
 
 {{- if eq (.Get 0) "pipe_elm_demo" }}
@@ -111,9 +113,16 @@ stroom-icon add.svg
   {{ $filename := "" }}
   {{ $filename = index $element_map $elm_name | default nil }}
 
+  {{/* Allow for user not using the full icon path, i.e. text.svg vs pipeline/text.svg */}}
+  {{/*
+  {{ if not hasPrefix $filename "pipeline/" }}
+    {{ $filename := printf "%s/%s" "pipeline" $filename }}
+  {{ end }}
+  */}}
+
   {{ if $filename }}
 
-    {{ $path := printf "/images/stroom-ui/pipeline/%s" $filename }}
+    {{ $path := printf "/images/stroom-ui/%s" $filename }}
     {{ $image := resources.Get (printf "%s" $path) }}
 
     {{ if $image }}

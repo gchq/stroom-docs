@@ -3,29 +3,68 @@ Short code to add a stroom icon (from /assets/images/stroom-ui/) to the page
 with an optional hover title. If you don't supply a title it will make one from the
 filename.
 Usage:
-stroom-icon filename [title] [enabled|disabled]
+stroom-icon filename [title] [enabled|disabled] [colour variant]
 e.g
 stroom-icon add.svg "Add"
 stroom-icon add.svg
 stroom-icon save.svg "Save" "disabled"
+stroom-icon save.svg "Save" "disabled" "green"
+stroom-icon name="save.svg" colour="green"
 -->
 
+{{ $colour_map := dict
+  "blue" "icon-colour__blue"
+  "grey" "icon-colour__grey"
+  "green" "icon-colour__green"
+  "red" "icon-colour__red"
+}}
+
 {{/* First try to get the resource from the page resources */}}
-{{ $filename := (.Get 0) }}
-{{ $title := (.Get 1) | default (humanize (strings.TrimSuffix (path.Ext $filename) (path.Base $filename))) }}
-{{ $disabled_class := "" }}
-{{ if eq ( lower (.Get 2 | default "enabled" )) "disabled" }}
-  {{ $disabled_class = "stroom-icon-disabled" }}
+
+{{ $filename := "" }}
+{{ $title_arg := "" }}
+{{ $enabled_arg := "" }}
+{{ $colour_arg := "" }}
+
+{{ if .IsNamedParams }}
+  {{ $filename = (.Get "name" ) }}
+  {{ $title_arg = (.Get "title") }}
+  {{ $enabled_arg = (.Get "enabled") }}
+  {{ $colour_arg = (.Get "colour") }}
+{{ else }}
+  {{ $filename = (.Get 0) }}
+  {{ $title_arg = (.Get 1) }}
+  {{ $enabled_arg = (.Get 2) }}
+  {{ $colour_arg = (.Get 3) }}
 {{ end }}
-{{ $path := printf "/images/stroom-ui/%s" $filename }}
-{{ $image := resources.Get (printf "%s" $path) }}
-{{ if $image }}
-  <img 
-    class="stroom-icon {{ $disabled_class }}" 
-    src="{{ $image.RelPermalink }}" 
-    title="{{ $title }}" 
-    alt="{{ $filename }}">
+
+{{/* Now call the partial to render the icon */}}
+
+{{ partial "stroom-icon.partial.html" (dict 
+    "context" . 
+    "file" $filename 
+    "title" $title_arg
+    "enabled" $enabled_arg 
+    "colour" $colour_arg ) }}
+
+{{/*
+{{ $title := $title_arg | default (humanize (strings.TrimSuffix (path.Ext $filename) (path.Base $filename))) }}
+{{ $disabled_class := "" }}
+{{ if eq ( lower ($enabled_arg | default "enabled" )) "disabled" }}
+  {{ $disabled_class = "disabled" }}
+{{ end }}
+{{ $path := printf "assets/images/stroom-ui/%s" $filename }}
+{{ if $colour_arg }}
+  {{ $colour_class = index $colour_map ( lower $colour_arg ) | default "" }}
+{{ end }}
+
+{{ if $path }}
+  <xspan class="stroom-icon inline-svg-button icon-button {{ $disabled_class }} {{ $colour_class }}" >
+    <span class="face" >
+      {{ readFile $path | safeHTML }}
+    </span>
+  </span>
 {{ else }}
   {{ errorf "Unable to find stroom-icon icon file %s" $path }}
 {{ end }}
-
+*/}}

@@ -316,7 +316,7 @@ and we will choose the {{< stroom-icon "document/Pipeline.svg">}} _MultiGeoFwd_ 
 We are now presented with the _Stepping_ tab positioned at the start
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-36.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline start{{< /screenshot >}}
 
-If we step forward by clicking on the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon we will see that our first event in our source stream has a Client Country location of USA.
+If we step forward by clicking on the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon we will see that our first event in our source stream has a Client Country location of USA.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-37.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test first record{{< /screenshot >}}
 
@@ -331,16 +331,16 @@ This is because this Event's Client/Location/Country value is the string _AUS_.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-39.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test fifth record output{{< /screenshot >}}
 
-Note, that you can move to the 5th Event on the pipeline by clicking on the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon repeatedly until you get to the 5th event, or you can insert your cursor into the **recordNo** of the stepping key to manually change the recordNo from 1 to 5
+Note, that you can move to the 5th Event on the pipeline by clicking on the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon repeatedly until you get to the 5th event, or you can insert your cursor into the **recordNo** of the stepping key to manually change the recordNo from 1 to 5
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-40.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline stepping key{{< /screenshot >}} and then press **Enter**.
 This jumps the stepping process to the RecordNo you specify, in this particular case "5". 
 
-If you repeatedly click on the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon seven more times you will continue to see Events in the _output_ pane, as our stream source Client/Location/Country value is _AUS_ for Events 5-11.
+If you repeatedly click on the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon seven more times you will continue to see Events in the _output_ pane, as our stream source Client/Location/Country value is _AUS_ for Events 5-11.
 
 Now, double click on the {{< pipe-elm "XSLTFilter" "ClientGBRxsltFilter" >}} element.
 The _output_ pane will once again be empty as the Client/Location/Country value of this Event (AUS) does not match what your translation is filtering on (GBR).
 
-If you now step forward one event using the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon, you will see the ClientGBR translation _output_ pane populate as Events 12-16 have a Client/Location/Country of GRC.
+If you now step forward one event using the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon, you will see the ClientGBR translation _output_ pane populate as Events 12-16 have a Client/Location/Country of GRC.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-42.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline ClientGBR populated{{< /screenshot >}}
 

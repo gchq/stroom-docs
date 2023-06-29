@@ -47,9 +47,6 @@
   min-height: 3em;
 }
 
-.stroom-icon {
-  vertical-align: -0.08em;
-}
 
 
 ///////////////////
@@ -352,7 +349,7 @@ pre[class*=language-] {
     .pipeline-element-icon {
       padding-left: 0.2em;
       padding-right: 0.1em;
-      img.stroom-icon {
+      .stroom-icon svg {
         height: 15px;
         width: 15px;
       }
@@ -384,7 +381,7 @@ pre[class*=language-] {
     padding-left: 0.5em;
     padding-right: 0.25em;
 
-    img.stroom-icon {
+    .stroom-icon svg {
       width: 16px;
       height: 16px;
     }
@@ -409,17 +406,53 @@ div.pipeline-element-demo {
 //  stroom-icon shortcode  //
 ////////////////////////////
 
-img.stroom-icon {
-  max-width: 16px;
+// Copied from stroom-button.css
+.icon-button .face {    
+  color: var(--icon-button__color);
+}
 
-  .stroom-icon-disabled {
-    opacity: 0.5;
+// Copied from stroom-button.css
+.icon-button.disabled {
+    opacity: .4;
+}
+
+.stroom-icon span {
+  vertical-align: 0.05em;
+}
+
+.stroom-icon svg{
+  //max-width: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.stroom-icon-disabled svg {
+  opacity: 0.5;
+}
+
+
+/////////////////////////////////////
+//  stroom-icon-gallery shortcode  //
+/////////////////////////////////////
+
+.stroom-icon-gallery {
+  width: 100%;
+  padding-bottom: 10px;
+
+  .stroom-icon-gallery-row {
+    padding-top: 10px;
+  }
+
+  .stroom-icon-gallery-text {
+    padding-left: 10px;
+  }
+
+  .stroom-icon svg{
+    width: 25px;
+    height: 25px;
   }
 }
 
-img.stroom-icon-disabled {
-  opacity: 0.5;
-}
 
 
 ///////////////////////////
@@ -554,9 +587,12 @@ img.stroom-icon-disabled {
         padding-left: 0.3em;
         padding-right: 0em;
 
-        img.stroom-icon {
+        .stroom-icon svg {
           height: 18px;
           width: 18px;
+        }
+
+        span.stroom-icon {
           vertical-align: -0.15em;
         }
       }
