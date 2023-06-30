@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Update icons and UI elements for Stroom 7.2.
+
 * Add missing functions to `mathematics.md` and fix headings.
 
 * Add section on Stroom Query Language.
