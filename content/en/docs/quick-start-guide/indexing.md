@@ -119,8 +119,8 @@ Select the _Structure_ sub-tab to edit the structure of the pipeline.
 Pipelines can inherit from other pipelines in Stroom so that you can benefit from re-use.
 We will inherit from an existing indexing template pipeline and then modify it for our needs.
 
-1. On the _Structure_ sub tab, click the {{< stroom-icon "ellipses-grey.svg" "Ellipses">}} in the _Inherit From_ entity picker.
-1. Select {{< stroom-icon "folder.svg">}} _Template Pipelines_ / {{< stroom-icon "document/pipeline.svg">}} _Indexing_
+1. On the _Structure_ sub tab, click the {{< stroom-icon "ellipses-horizontal.svg" "Ellipses">}} in the _Inherit From_ entity picker.
+1. Select {{< stroom-icon "folder.svg">}} _Template Pipelines_ / {{< stroom-icon "document/Pipeline.svg">}} _Indexing_
 
 You should now see the following structure:
 
@@ -136,9 +136,9 @@ Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT 
 1. Assign the XSLT document
    1. Click on the {{< pipe-elm "XSLTFilter" >}} element.
    1. In the middle Properties pane double-click on the `xslt` row.
-   1. Click the {{< stroom-icon "ellipses-grey.svg" "Ellipses">}}in the _Value_ document picker
+   1. Click the {{< stroom-icon "ellipses-horizontal.svg" "Ellipses">}}in the _Value_ document picker
    1. Select:  
-      {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Xslt.svg">}} _Stroom 101_.
+      {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/XSLT.svg">}} _Stroom 101_.
    1. Click {{< stroom-btn "OK" >}}.
 1. Assign the Index document
    1. Click on the {{< pipe-elm "IndexingFilter" >}} element.
@@ -162,7 +162,7 @@ Open the {{< stroom-icon "feed.svg" >}} _CSV_FEED_ {{< glossary "Feed" >}} we cr
 1. In the bottom pane you will see the XML data the you processed earlier.
 1. Click the {{< stroom-icon "stepping.svg" >}} button to open the Stepper.
 1. In the _Choose Pipeline To Step With_ dialog select our index pipeline:  
-   {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/pipeline.svg">}} _Stroom 101_.
+   {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Pipeline.svg">}} _Stroom 101_.
 
 This will open a Stepper tab showing only the elements of the selected pipeline that can be stepped.
 The data pane of the _Source_ element will show the first event in the stream.
@@ -262,7 +262,7 @@ The _IndexingFilter_ expects a set of `Record` elements wrapped in a `Records` e
 Each `Record` element needs to contain one `Data` element for each Field in the Index.
 Each `Data` element needs a `Name` attribute (the Index Field name) and a `Value` attribute (the value from the event to index).
 
-Now click the {{< stroom-icon "refresh-green.svg" "Refresh">}} refresh button to refresh the step with the new XSLT content.
+Now click the {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}} refresh button to refresh the step with the new XSLT content.
 
 The Output should have changed so that the Input and Output now look like this:
 
@@ -304,7 +304,7 @@ The Output should have changed so that the Input and Output now look like this:
   {{< /card >}}
 {{< /cardpane >}}
 
-You can use the stepping controls ({{< stroom-icon "fast-backward-green.svg" "Fast Backward" >}}{{< stroom-icon "step-backward-green.svg" "Step Backward" >}}{{< stroom-icon "step-forward-green.svg" "Step Forward" >}}{{< stroom-icon "fast-forward-green.svg" "Fast Forward" >}}) to check that the ouput is correct for other input events.
+You can use the stepping controls ({{< stroom-icon name="fast-backward.svg" title="Fast Backward" colour="green" >}}{{< stroom-icon name="step-backward.svg" title="Step Backward" colour="green" >}}{{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}}{{< stroom-icon name="fast-forward.svg" title="Fast Forward" colour="green" >}}) to check that the ouput is correct for other input events.
 
 Once you are happy with your translation click the {{< stroom-icon "save.svg" >}} button to save the XSLT content to the _Stroom 101_ XSLT document.
 
@@ -313,7 +313,7 @@ Once you are happy with your translation click the {{< stroom-icon "save.svg" >}
 
 To get our indexing pipeline processing data we need to create a {{< glossary "Processor Filter" >}} to select the data to process through the pipeline.
 
-Go back to your {{< stroom-icon "document/pipeline.svg">}} _Stroom 101_ pipeline and go to the Processors sub-tab.
+Go back to your {{< stroom-icon "document/Pipeline.svg">}} _Stroom 101_ pipeline and go to the Processors sub-tab.
 
 Click the add button {{< stroom-icon "add.svg" >}} and you will be presented with a Filter {{< glossary "Expression Tree" >}} in the _Add Filter_ dialog.
 To configure the filter do the following:
@@ -330,7 +330,7 @@ To configure the filter do the following:
     1. Value: `Events`
 
 This filter will process all Streams of type `Events` in the Feed `CSV_FEED`.
-Enable processing for the {{< stroom-icon "document/pipeline.svg">}} Pipeline and the {{< stroom-icon "filter.svg" "Processor Filter">}} Processor Filter by clicking the checkboxes in the _Enabled_ column.
+Enable processing for the {{< stroom-icon "document/Pipeline.svg">}} Pipeline and the {{< stroom-icon "filter.svg" "Processor Filter">}} Processor Filter by clicking the checkboxes in the _Enabled_ column.
 
 Stroom should then index the data, assuming everything is correct.
 

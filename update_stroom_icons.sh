@@ -107,23 +107,32 @@ main() {
   fi
 
   local stroom_repo_root="$1"
-  local images_base_dir="${stroom_repo_root}/stroom-app/src/main/resources/ui/images"
-  local dest="./assets/images/stroom-ui"
+  local stroom_app_resources_ui_dir="${stroom_repo_root}/stroom-app/src/main/resources/ui"
+  local images_base_dir="${stroom_app_resources_ui_dir}/images"
+  local css_base_dir="${stroom_app_resources_ui_dir}/css"
+  local images_dest_dir="./assets/images/stroom-ui"
+  local css_dest_dir="./static/css/stroom-ui"
 
   if [ ! -d "${stroom_repo_root}" ]; then
     echo -e "${RED}ERROR${NC}: Can't find stroom repo root ${BLUE}${stroom_repo_root}${NC}"
     exit 1
   fi
 
-  if [ ! -d "${dest}" ]; then
-    echo -e "${RED}ERROR${NC}: Can't find destination directory ${BLUE}${dest}/${NC}"
+  if [ ! -d "${images_dest_dir}" ]; then
+    echo -e "${RED}ERROR${NC}: Can't find destination directory ${BLUE}${images_dest_dir}/${NC}"
     exit 1
   fi
 
-  copy_dir "${images_base_dir}" "${dest}/"
-  copy_dir "${images_base_dir}/document" "${dest}/document"
-  copy_dir "${images_base_dir}/pipeline" "${dest}/pipeline"
-  copy_dir "${images_base_dir}/dashboard" "${dest}/dashboard"
+  copy_dir "${images_base_dir}" "${images_dest_dir}/"
+  copy_dir "${images_base_dir}/document" "${images_dest_dir}/document"
+  copy_dir "${images_base_dir}/pipeline" "${images_dest_dir}/pipeline"
+  copy_dir "${images_base_dir}/fields" "${images_dest_dir}/fields"
+
+  # Any files copied here also need a link adding in layouts/partials/head.html
+  # These are needed for the styling of stroom ui elements, e.g. icons
+  copy_file "${css_base_dir}/material_design_colors.css" "${css_dest_dir}/"
+  copy_file "${css_base_dir}/icon-colours.css" "${css_dest_dir}/"
+  copy_file "${css_base_dir}/theme-root.css" "${css_dest_dir}/"
   
   echo -e "${GREEN}Done${NC}"
 }

@@ -50,7 +50,13 @@ We think you will learn more by deleting this pre-loaded content and following a
    Then open a terminal session and change directory to the location of the downloaded file.
 
    {{< command-line >}}
-curl -k --data-binary @mock_stroom_data.csv "https://localhost/stroom/datafeeddirect" -H "Feed:CSV_FEED" -H "System:TEST_SYSTEM" -H "Environment:TEST"
+curl \
+-k \
+--data-binary @mock_stroom_data.csv \
+"https://localhost/stroom/datafeeddirect" \
+-H "Feed:CSV_FEED" \
+-H "System:TEST_SYSTEM" \
+-H "Environment:TEST"
    {{</ command-line >}}
 
 The `-H` arguments add HTTP headers to the HTTP POST request.

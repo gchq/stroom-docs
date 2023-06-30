@@ -227,20 +227,24 @@ By using shortcodes, any change to the look of the Stroom UI means only the shor
 
 ### Stroom icons
 
-Stroom UI icons such as {{< stroom-icon "add.svg" "Add" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line using the shortcode `stroom-icon`.
+Stroom UI icons such as {{< stroom-icon "add.svg" >}} or {{< stroom-icon "explorer.svg" "Explorer Tree" >}} can be added in line using the shortcode `stroom-icon`.
 
 **Arguments**:
-* `icon_file_path` - The filename (and path) of the icon file.
-  The path is relative to `/assets/images/stroom-ui/`.
+* `name` - The filename (and relative path) of the icon file.
+  The path is relative to `/assets/images/stroom-ui/`, e.g. `documents/Feed.svg`.
 * `title` (optional) - The hover tip title that will be given to the icon.
-* `state` (optional) [`enabled`|`disabled`] - Whether the button is enabled or disabled.
-  Defaults to enabled.
+  If not supplied, the filename (minus extension) will be converted to sentence case and used as the title.
+* `enabled` (optional) [`enabled`|`disabled`] - Whether the button is enabled or disabled.
+  Defaults to `enabled`.
+* `colour` (optional) - The colour variant to use for the icon.
+  Not all icons support colour variants.
+  If not supplied, and where the icon supports colour variants, then the default colour is blue.
+  See below for the list of colour variants.
 
 The full list of available icons can be found in the [Icon Gallery]({{< relref "icon-gallery" >}}).
 
 {{% warning %}}
 The icon filenames and paths are case sensitive so ensure you have the correct case, e.g. most `document` icons are in upper sentence case.
-Also note the extension of the icon files as most are `.svg` but some are `.png`.
 {{% /warning %}}
 
 **Examples:**
@@ -254,6 +258,13 @@ A document icon: {{< stroom-icon "document/Feed.svg" >}}
 A pipeline icon: {{< stroom-icon "pipeline/text.svg" >}}
 
 Enabled {{< stroom-icon "delete.svg" >}} vs disabled {{< stroom-icon "delete.svg" "Delete" "disabled" >}}
+
+An icon in its different colour states:
+* Default (no colour specified) {{< stroom-icon name="settings.svg" >}}
+* `blue` {{< stroom-icon name="settings.svg" colour="blue" >}}
+* `brey` {{< stroom-icon name="settings.svg" colour="grey" >}}
+* `green` {{< stroom-icon name="settings.svg" colour="green" >}}
+* `red` {{< stroom-icon name="settings.svg" colour="red" >}}
 
 **Markdown:**
 
@@ -269,6 +280,13 @@ A document icon: {{</* stroom-icon "document/Feed.svg" */>}}
 A pipeline icon: {{</* stroom-icon "pipeline/text.svg" */>}}
 
 Enabled {{</* stroom-icon "delete.svg" */>}} vs disabled {{</* stroom-icon "delete.svg" "Delete" "disabled" */>}}
+
+An icon in its different colour states:
+* Default (no colour specified) {{</* stroom-icon name="settings.svg" */>}}
+* `blue` {{</* stroom-icon name="settings.svg" colour="blue" */>}}
+* `brey` {{</* stroom-icon name="settings.svg" colour="grey" */>}}
+* `green` {{</* stroom-icon name="settings.svg" colour="green" */>}}
+* `red` {{</* stroom-icon name="settings.svg" colour="red" */>}}
 ```
 
 
