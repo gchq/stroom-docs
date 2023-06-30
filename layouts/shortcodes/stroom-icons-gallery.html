@@ -19,18 +19,10 @@ Short code to display all stroom icons
       (eq (path.Ext $filename) ".png")) }}
     <!--{{ printf "%s %s" .Name $filename }}-->
     <div style="" class="col-md-4 stroom-icon-gallery-row">
-
+      {{/* This partial renders the icon */}}
       {{ partial "stroom-icon.partial.html" (dict 
           "context" . 
-          "file" (printf "%s" $rel_path ) ) }}
-
-          {{/*
-      <span class="stroom-icon inline-svg-button icon-button " >
-        <span class="face" >
-          {{ readFile (printf "%s/%s" $ $filename ) | safeHTML }}
-        </span>
-      </span>
-        */}}
+          "file" $rel_path ) }}
       <span class="stroom-icon-galler-text" style="">
         {{ strings.TrimPrefix $pathPrefix .Name }}
       </span>

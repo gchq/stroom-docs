@@ -349,9 +349,14 @@ pre[class*=language-] {
     .pipeline-element-icon {
       padding-left: 0.2em;
       padding-right: 0.1em;
+
       .stroom-icon svg {
         height: 15px;
         width: 15px;
+      }
+
+      .stroom-icon span {
+        vertical-align: 0.2em;
       }
     }
   }
@@ -363,13 +368,14 @@ pre[class*=language-] {
 //////////////////////////
 
 .pipeline-element {
+  // Adapted from stroom-app/src/main/resources/ui/css/PipelineElementBox.css
 
   .pipeline-element-content {
     align-items:center;
-    background-color: $stroom-pipe-element-background;
+    background-color: var(--pipeline-element-box__background-color);
     border-radius: 50px;
-    border: 1px solid $stroom-pipe-element-border;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px, rgba(0, 0, 0, 0.1) 0 0 3px;
+    border: 1px solid var(--pipeline-element-box__border-color);
+    box-shadow: rgba(0, 0, 0, 0.0980392) 0 2px 4px, rgba(0, 0, 0, 0.0980392) 0 0 3px;
     display: inline-flex;
     padding: 0.1em 0em;
     width: fit-content;
@@ -385,10 +391,16 @@ pre[class*=language-] {
       width: 16px;
       height: 16px;
     }
+
+    .stroom-icon span {
+      vertical-align: 0.2em;
+    }
   }
 
   .pipeline-element-text {
-    color: $stroom-pipe-element-text;
+    //color: var(--pipeline-element-box__text-color);
+    // The UI colour is a bit feint for the docs so make it darker
+    color: #333;
     font-size: 95%;
     padding-right: 0.5em;
     text-align: center;
@@ -421,7 +433,6 @@ div.pipeline-element-demo {
 }
 
 .stroom-icon svg{
-  //max-width: 16px;
   width: 16px;
   height: 16px;
 }
@@ -480,35 +491,46 @@ div.pipeline-element-demo {
 ////////////////////////////
 
 .stroom-tab {
-  background-color: $stroom-tab-background;
-  border-radius: 6px 6px 0 0;
-  border: solid 1px $stroom-tab-border;
-  border-bottom: 0;
-  //box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px;
   display: inline-block;
   padding: 0px 5px;
   text-align: center;
   line-height: 1.3em;
+  border-bottom: 1px solid var(--splitter__background-color);
 
-  .stroom-icon {
-    max-width: 15px;
+  .stroom-tab-icon span {
+    vertical-align: 0.06em;
+    .stroom-icon svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 
   .stroom-tab-name {
     font-size: smaller;
     vertical-align: 0.12em;
   }
-  .stroom-tab-cross {
-    color: #7795b0;
-    font-weight: 700;
-    font-size: 120%;
-    vertical-align: -0.08em;
-    line-height: 0.5em;
+
+  .stroom-tab-cross span {
+    vertical-align: 0.07em;
+
+    .stroom-tab-icon {
+      .stroom-icon svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    svg {
+      color: var(--curve-tab__svg-color);
+      opacity: 0.8;
+    }
   }
 }
 
 .stroom-tab.stroom-tab-active {
-  background-color: $stroom-tab-background-active;
+  //background-color: $stroom-tab-background-active;
+  background: var(--curve-tab__background-color--hover);
+  border-bottom: solid 3px var(--blue-300);
 }
 
 
@@ -541,15 +563,16 @@ div.pipeline-element-demo {
 .stroom-menu {
   padding-left: 0.3em;
   padding-right: 0.5em;
-  padding-top: 0.6em;
-  padding-bottom: 0.6em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   position: relative;
   display: flex;
   width: fit-content;
 
   .stroom-menu-item-background:not(:first-child) {
     // top-margin is set in style="" in shortcode
-    margin-left: -7px;
+    // Make them overlap a tiny bit
+    margin-left: -3px;
   }
 
   // Meant to represent the bit of menu that the selected item sits in
@@ -562,40 +585,52 @@ div.pipeline-element-demo {
     border-width: 1px;
     box-shadow: rgba(0, 0, 0, 0.25) 1px 2px 5px;
     flex-direction: column;
-    height: fit-content;
-    padding: 0.5rem 0.2rem;
     width: fit-content;
+    height: fit-content;
+    padding: 0.5rem 0.3rem;
+    display: flex;
+    align-items: center;
+  }
 
-    //border: thin solid rgba(0,0,0,.2);
-    //box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
-    //border-radius: 3px;
+  .stroom-menu-item.stroom-menu-item-leaf {
+    background: var(--row__background-color--selected--focussed);
   }
 
   // The selected item
   .stroom-menu-item {
-      background: rgba(129, 212, 250, 0.4);
+    border-radius: 5px;
+    background: var(--row__background-color--selected);
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    line-height: 1.15;
+    min-width: 180px;
+    //height: 30px;
+    padding: 0.2em 0.2em;
+
+    .stroom-menu-item-text {
+      flex-grow: 1;
+    }
+
+    .stroom-menu-item-icon span {
+      vertical-align: 0.25em;
       display: flex;
-      line-height: 1.15;
-      min-width: 9rem;
 
-      .stroom-menu-item-text {
-        padding-left: 0.3em;
-        padding-right: 0.3em;
+      svg {
+        height: 18px;
+        width: 18px;
       }
+    }
+    .stroom-menu-item-arrow span {
+      vertical-align: 0.25em;
+      display: flex;
+      color: black;
 
-      .stroom-menu-item-icon {
-        padding-left: 0.3em;
-        padding-right: 0em;
-
-        .stroom-icon svg {
-          height: 18px;
-          width: 18px;
-        }
-
-        span.stroom-icon {
-          vertical-align: -0.15em;
-        }
+      svg {
+        height: 10px;
+        width: 10px;
       }
+    }
   }
 }
 

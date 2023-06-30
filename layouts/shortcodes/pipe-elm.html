@@ -135,11 +135,9 @@ stroom-icon add.svg
         <span class="pipeline-element" title="{{ $title }}" >
           <span class="pipeline-element-content" >
             <span class="pipeline-element-icon">
-              <img
-                class="stroom-icon" 
-                src="{{ $image.RelPermalink }}" 
-                title="{{ $display_name }}" 
-                alt="{{ $filename }}">
+              {{ partial "stroom-icon.partial.html" (dict 
+                  "context" . 
+                  "file" $filename ) }}
             </span>
             <span class="pipeline-element-text">{{ $display_name }}</span>
           </span>

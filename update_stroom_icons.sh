@@ -129,6 +129,7 @@ main() {
   copy_dir "${images_base_dir}/fields" "${images_dest_dir}/fields"
 
   # Any files copied here also need a link adding in layouts/partials/head.html
+  # These are needed for the styling of stroom ui elements, e.g. icons
   copy_file "${css_base_dir}/material_design_colors.css" "${css_dest_dir}/"
   copy_file "${css_base_dir}/icon-colours.css" "${css_dest_dir}/"
   copy_file "${css_base_dir}/theme-root.css" "${css_dest_dir}/"

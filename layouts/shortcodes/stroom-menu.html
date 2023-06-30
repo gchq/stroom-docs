@@ -121,25 +121,38 @@ TODO Maybe hold the map in some kind of resource bundle file?
 {{- if eq (.Get 0) "menu_demo" }}
   <div class="stroom-menu stroom-menu-demo row">
     {{- range $item_name, $item_icon := $icon_map }}
-      <div class="stroom-menu-demo-item col-md-3">
-      {{ partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map "item_idx" 0 ) }}
+      <div class="stroom-menu-demo-item col-md-4">
+      {{ partial "stroom-menu-item.html" (dict 
+        "context" . 
+        "item_name" $item_name 
+        "icon_map" $icon_map 
+        "item_idx" 0 
+        "is_leaf" false ) }}
       </div>
     {{- end }}
   </div>
 {{ else }}
   <div class="stroom-menu">
     {{/* Loop over all the args (i.e. menu item names) */}}
-    {{- range (seq 0 (sub (len .Params) 1) ) }}
+    {{ $last_idx := sub (len .Params) 1 }}
+    {{- range (seq 0 $last_idx ) }}
       {{- $item_name := $.Get . }}
 
       {{ $item_idx := int . }}
+
+      {{ $is_leaf := false }}
+      {{ if eq $item_idx $last_idx }}
+        {{ $is_leaf = true }}
+      {{ end }}
+
 
       {{/* Call the locally declared partial to render a single menu item */}}
       {{- partial "stroom-menu-item.html" (dict 
           "context" . 
           "item_name" $item_name 
           "icon_map" $icon_map 
-          "item_idx" $item_idx ) }}
+          "item_idx" $item_idx 
+          "is_leaf" $is_leaf ) }}
 
     {{- end }}
   </div>
@@ -151,29 +164,31 @@ TODO Maybe hold the map in some kind of resource bundle file?
   {{/* Offset each child 7px vertically down from the previous one */}}
   {{ $top_margin := mul .item_idx 7 }}
   <div class="stroom-menu-item-background" style="margin-top: {{ $top_margin }}px;">
-    <div class="stroom-menu-item">
+    {{ $leaf_class := cond .is_leaf "stroom-menu-item-leaf" "" }}
+    <div class="stroom-menu-item {{ $leaf_class }}" >
       {{- $item_name := .item_name }}
       {{- $icon_map := .icon_map }}
       {{- $item_icon := index .icon_map .item_name }}
 
       {{- if $item_icon }}
-        {{- $icon_path := printf "/images/stroom-ui/%s" $item_icon }}
-        {{- $image := resources.Get (printf "%s" $icon_path) }}
-        {{- if $image }}
-          <div class="stroom-menu-item-icon">
-            <img 
-              class="stroom-icon" 
-              src="{{ $image.RelPermalink }}" 
-              alt="{{ $item_icon }}">
-          </div>
-        {{- else }}
-          {{- errorf "Unable to find stroom-menu icon file %s" $icon_path }}
-        {{- end }}
+        <div class="stroom-menu-item-icon">
+          {{ partial "stroom-icon.partial.html" (dict 
+              "context" . 
+              "file" $item_icon ) }}
+        </div>
       {{- end }}
 
       <div class="stroom-menu-item-text">
         {{- $item_name }}
       </div>
+      
+      {{- if not .is_leaf }}
+        <div class="stroom-menu-item-arrow">
+          {{ partial "stroom-icon.partial.html" (dict 
+              "context" . 
+              "file" "arrow-right.svg" ) }}
+        </div>
+      {{- end }}
     </div>
   </div>
 {{- end }}

@@ -32,9 +32,9 @@ stroom-icon save.svg "Save" "disabled"
   {{ $colour_class = index $colour_map ( lower .colour ) | default "" }}
 {{ end }}
 
-{{ if $path }}
+{{ if fileExists $path }}
   <span class="stroom-icon inline-svg-button icon-button {{ $disabled_class }} {{ $colour_class }}" >
-    <span class="face" >
+    <span class="face" title="{{ $title }}">
       {{ readFile $path | safeHTML }}
     </span>
   </span>
