@@ -42,13 +42,13 @@ Icons used for the different _document_ entity types, i.e. those seen in the exp
 {{< stroom-icons-gallery "images/stroom-ui/document/" >}}
 
 
-## Dashboard icons
+## Table column icons
 
-Icons used on the Dashboard
+Icons used on the Dashboard and Query table columns.
 
-**Base path**: `dashboard`.
+**Base path**: `fields`.
 
-{{< stroom-icons-gallery "images/stroom-ui/dashboard/" >}}
+{{< stroom-icons-gallery "images/stroom-ui/fields/" >}}
 
 
 ## Menu items

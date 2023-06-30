@@ -53,18 +53,43 @@ To maintain a degree of consistency in the documentation you should use this sec
 
 ## Shortcodes
 
-The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
-Shortcodes make it easy to change how a page element is styled by just changing the shortcode.
+The documentation makes heavy use of Hugo _shortcodes_ for adding page elements such as links, icons, images, etc.
+Shortcodes are a compact way of inserting reusable content into a page and make it easy to change how a page element is styled by just changing the shortcode in one place.
 
-Hugo includes many {{< external-link "shortcodes" "https://gohugo.io/content-management/shortcodes/" >}}, the Docsy theme adds some {{< external-link "more" "https://www.docsy.dev/docs/adding-content/shortcodes/" >}} and there are some bespoke _stroom-docs_ ones in `layouts/shortcodes/`.
+There are numerous shortcodes available to use:
 
-To make your life easier when editing the documentation it is highly recomended to use an editor that supports text snippets.
+* {{< external-link "Hugo built in shortcodes" "https://gohugo.io/content-management/shortcodes/" >}}
+* {{< external-link "Docsy theme shortcodes" "https://www.docsy.dev/docs/adding-content/shortcodes/" >}}
+* [Bespoke _stroom-docs_ shortcodes]({{< relref "./using-images/#stroom-user-interface-components" >}}).
+  These can be found in `layouts/shortcodes/`.
+
+An example of using a short code in your markdown is:
+
+```text
+Click the {{</* stroom-icon "save.svg" "Save Document" */>}} icon.
+```
+
+This calls the shortcode _stroom-icon_ with the positional arguments `save.svg` and `Save Document`.
+Shortcodes can either use positional arguments or named arguments depending on how they have been written.
+
+This is an example of calling a shortcode with named arguments:
+
+```text
+Click the {{</* stroom-icon name="settings.svg" colour="red" */>}} icon.
+```
+
+Check the documentation for specific shortcode to see how to call it.
+
+
+### Editor snippets and shortcodes
+
+To make your life easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.
 
-For example the following snippet adds a skeleton front matter to a page.
+For example the following {{< external-link "UltiSnips (for Vim)" "https://github.com/SirVer/ultisnips" >}} and {{< external-link "VS Code" "https://code.visualstudio.com/docs/editor/userdefinedsnippets" >}} snippets adds a skeleton front matter to a page.
 
 {{< cardpane >}}
-  {{< card header="Ultisnips" >}}
+  {{< card header="UltiSnips (for Vim)" >}}
 ```snippets
 snippet hfront "Hugo markdown metadata front matter" b
 ---
@@ -104,7 +129,6 @@ endsnippet
   }
 }
 ```
-
   {{< /card >}}
 {{< /cardpane >}}
 

@@ -42,8 +42,8 @@ TODO Maybe hold the map in some kind of resource bundle file?
   "Move" "move.svg"
   "New" "add.svg"
   "Nodes" "nodes.svg"
-  "Permissions" "locked-amber.svg"
-  "Preferences" "settings-blue.svg"
+  "Permissions" "locked.svg"
+  "Preferences" "settings.svg"
   "Properties" "properties.svg"
   "Remove" "remove.svg"
   "Rename" "edit.svg"
@@ -73,35 +73,46 @@ TODO Maybe hold the map in some kind of resource bundle file?
   "XSL Translation" "document/XSLT.svg"
 
   "AnnotationWriter" "pipeline/text.svg"
+  "BOMRemovalFilterInput" "pipeline/stream.svg"
+  "BadTextXMLFilterReader" "pipeline/stream.svg"
   "CombinedParser" "pipeline/text.svg"
   "DSParser" "pipeline/text.svg"
-  "ElasticIndexingFilter" "pipeline/ElasticIndex.svg"
+  "DynamicIndexingFilter" "pipeline/index.svg"
+  "DynamicSearchResultOutputFilter" "pipeline/search_output.svg"
+  "ElasticIndexingFilter" "pipeline/elastic_index.svg"
   "FileAppender" "pipeline/file.svg"
-  "HDFSFileAppender" "pipeline/hadoop-elephant-logo.svg"
-  "HttpAppender" "pipeline/stream.svg"
+  "FindReplaceFilter" "pipeline/stream.svg"
+  "HDFSFileAppender" "pipeline/hadoop.svg"
+  "HTTPAppender" "pipeline/stream.svg"
+  "HttpPostFilter" "pipeline/stream.svg"
   "IdEnrichmentFilter" "pipeline/id.svg"
   "IndexingFilter" "pipeline/index.svg"
+  "InvalidCharFilterReader" "pipeline/stream.svg"
+  "InvalidXMLCharFilterReader" "pipeline/stream.svg"
   "JSONParser" "pipeline/json.svg"
   "JSONWriter" "pipeline/json.svg"
-  "RecordCountFilter" "pipeline/recordCount.svg"
-  "RecordOutputFilter" "pipeline/recordOutput.svg"
-  "ReferenceDataFilter" "pipeline/referenceData.svg"
+  "Reader" "pipeline/stream.svg"
+  "RecordCountFilter" "pipeline/record_count.svg"
+  "RecordOutputFilter" "pipeline/record_output.svg"
+  "ReferenceDataFilter" "pipeline/reference_data.svg"
   "RollingFileAppender" "pipeline/files.svg"
   "RollingStreamAppender" "pipeline/stream.svg"
+  "SafeXMLFilter" "pipeline/record_output.svg"
   "SchemaFilter" "pipeline/xsd.svg"
-  "SearchResultsOutputFilter" "pipeline/search.svg"
+  "SearchResultOutputFilter" "pipeline/search_output.svg"
   "SolrIndexingFilter" "pipeline/solr.svg"
+  "Source" "pipeline/stream.svg"
   "SplitFilter" "pipeline/split.svg"
   "StandardKafkaProducer" "pipeline/kafka.svg"
   "StatisticsFilter" "pipeline/statistics.svg"
   "StreamAppender" "pipeline/stream.svg"
-  "StroomStatsAppender" "pipeline/StroomStatsStore.svg"
-  "StroomStatsFilter" "pipeline/stroomStats.svg"
+  "StroomStatsAppender" "pipeline/stroom_stats.svg"
+  "StroomStatsFilter" "pipeline/stroom_stats.svg"
   "TextWriter" "pipeline/text.svg"
   "XMLFragmentParser" "pipeline/xml.svg"
   "XMLParser" "pipeline/xml.svg"
   "XMLWriter" "pipeline/xml.svg"
-  "XPathExtractionOutputFilter" "pipeline/xmlSearch.svg"
+  "XPathExtractionOutputFilter" "pipeline/xml_search.svg"
   "XSLTFilter" "pipeline/xslt.svg"
 }}
 
@@ -110,25 +121,38 @@ TODO Maybe hold the map in some kind of resource bundle file?
 {{- if eq (.Get 0) "menu_demo" }}
   <div class="stroom-menu stroom-menu-demo row">
     {{- range $item_name, $item_icon := $icon_map }}
-      <div class="stroom-menu-demo-item col-md-3">
-      {{ partial "stroom-menu-item.html" (dict "context" . "item_name" $item_name "icon_map" $icon_map "item_idx" 0 ) }}
+      <div class="stroom-menu-demo-item col-md-4">
+      {{ partial "stroom-menu-item.html" (dict 
+        "context" . 
+        "item_name" $item_name 
+        "icon_map" $icon_map 
+        "item_idx" 0 
+        "is_leaf" false ) }}
       </div>
     {{- end }}
   </div>
 {{ else }}
   <div class="stroom-menu">
     {{/* Loop over all the args (i.e. menu item names) */}}
-    {{- range (seq 0 (sub (len .Params) 1) ) }}
+    {{ $last_idx := sub (len .Params) 1 }}
+    {{- range (seq 0 $last_idx ) }}
       {{- $item_name := $.Get . }}
 
       {{ $item_idx := int . }}
+
+      {{ $is_leaf := false }}
+      {{ if eq $item_idx $last_idx }}
+        {{ $is_leaf = true }}
+      {{ end }}
+
 
       {{/* Call the locally declared partial to render a single menu item */}}
       {{- partial "stroom-menu-item.html" (dict 
           "context" . 
           "item_name" $item_name 
           "icon_map" $icon_map 
-          "item_idx" $item_idx ) }}
+          "item_idx" $item_idx 
+          "is_leaf" $is_leaf ) }}
 
     {{- end }}
   </div>
@@ -140,29 +164,31 @@ TODO Maybe hold the map in some kind of resource bundle file?
   {{/* Offset each child 7px vertically down from the previous one */}}
   {{ $top_margin := mul .item_idx 7 }}
   <div class="stroom-menu-item-background" style="margin-top: {{ $top_margin }}px;">
-    <div class="stroom-menu-item">
+    {{ $leaf_class := cond .is_leaf "stroom-menu-item-leaf" "" }}
+    <div class="stroom-menu-item {{ $leaf_class }}" >
       {{- $item_name := .item_name }}
       {{- $icon_map := .icon_map }}
       {{- $item_icon := index .icon_map .item_name }}
 
       {{- if $item_icon }}
-        {{- $icon_path := printf "/images/stroom-ui/%s" $item_icon }}
-        {{- $image := resources.Get (printf "%s" $icon_path) }}
-        {{- if $image }}
-          <div class="stroom-menu-item-icon">
-            <img 
-              class="stroom-icon" 
-              src="{{ $image.RelPermalink }}" 
-              alt="{{ $item_icon }}">
-          </div>
-        {{- else }}
-          {{- errorf "Unable to find stroom-menu icon file %s" $icon_path }}
-        {{- end }}
+        <div class="stroom-menu-item-icon">
+          {{ partial "stroom-icon.partial.html" (dict 
+              "context" . 
+              "file" $item_icon ) }}
+        </div>
       {{- end }}
 
       <div class="stroom-menu-item-text">
         {{- $item_name }}
       </div>
+      
+      {{- if not .is_leaf }}
+        <div class="stroom-menu-item-arrow">
+          {{ partial "stroom-icon.partial.html" (dict 
+              "context" . 
+              "file" "arrow-right.svg" ) }}
+        </div>
+      {{- end }}
     </div>
   </div>
 {{- end }}
