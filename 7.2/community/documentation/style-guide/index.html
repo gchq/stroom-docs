@@ -39,8 +39,8 @@
 
 
 
-<link rel="preload" href="../../../scss/main.min.2e61f3e70d0ef56da625d708444e9dc04314bc725456d7699d808b006bb8778c.css" as="style">
-<link href="../../../scss/main.min.2e61f3e70d0ef56da625d708444e9dc04314bc725456d7699d808b006bb8778c.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" as="style">
+<link href="../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../js/jquery-3.6.0.min.js'></script>
@@ -49,6 +49,10 @@
 <script src='../../../js/lunr.min.js'></script>
   
 <link rel="stylesheet" href="../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-root.css"/>
+
 
 <script type="application/javascript">
 var doNotTrack = false;
@@ -110,7 +114,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.66b4aaf8b3a7307a5824c36081e07741.json"
+    data-offline-search-index-json-src="../../../offline-search-index.3d869242846c06cc1014874db8acacfa.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -135,7 +139,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.66b4aaf8b3a7307a5824c36081e07741.json"
+    data-offline-search-index-json-src="../../../offline-search-index.3d869242846c06cc1014874db8acacfa.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -225,7 +229,11 @@ if (!doNotTrack) {
         <nav id="TableOfContents">
   <ul>
     <li><a href="#overview">Overview</a></li>
-    <li><a href="#shortcodes">Shortcodes</a></li>
+    <li><a href="#shortcodes">Shortcodes</a>
+      <ul>
+        <li><a href="#editor-snippets-and-shortcodes">Editor snippets and shortcodes</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
       </div>
@@ -500,9 +508,11 @@ The <em>Docsy</em> theme provides a lot of the styling but also adds other featu
 You should consult the <em>Docsy</em> documentation in the first instance.</p>
 <p>To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.</p>
 <h2 id="shortcodes">Shortcodes</h2>
-<p>The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
-Shortcodes make it easy to change how a page element is styled by just changing the shortcode.</p>
-<p>Hugo includes many 
+<p>The documentation makes heavy use of Hugo <em>shortcodes</em> for adding page elements such as links, icons, images, etc.
+Shortcodes are a compact way of inserting reusable content into a page and make it easy to change how a page element is styled by just changing the shortcode in one place.</p>
+<p>There are numerous shortcodes available to use:</p>
+<ul>
+<li>
 
 
 
@@ -512,12 +522,13 @@ Shortcodes make it easy to change how a page element is styled by just changing 
   
 
 <span class="external-link">
-  <a href="https://gohugo.io/content-management/shortcodes/" target="_blank" class="" style="" title="shortcodes (external link)">
-    <span>shortcodes</span>
+  <a href="https://gohugo.io/content-management/shortcodes/" target="_blank" class="" style="" title="Hugo built in shortcodes (external link)">
+    <span>Hugo built in shortcodes</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-, the Docsy theme adds some 
+</li>
+<li>
 
 
 
@@ -527,21 +538,64 @@ Shortcodes make it easy to change how a page element is styled by just changing 
   
 
 <span class="external-link">
-  <a href="https://www.docsy.dev/docs/adding-content/shortcodes/" target="_blank" class="" style="" title="more (external link)">
-    <span>more</span>
+  <a href="https://www.docsy.dev/docs/adding-content/shortcodes/" target="_blank" class="" style="" title="Docsy theme shortcodes (external link)">
+    <span>Docsy theme shortcodes</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- and there are some bespoke <em>stroom-docs</em> ones in <code>layouts/shortcodes/</code>.</p>
-<p>To make your life easier when editing the documentation it is highly recomended to use an editor that supports text snippets.
+</li>
+<li><a href="../../../community/documentation/style-guide/using-images/#stroom-user-interface-components">Bespoke <em>stroom-docs</em> shortcodes</a>.
+These can be found in <code>layouts/shortcodes/</code>.</li>
+</ul>
+<p>An example of using a short code in your markdown is:</p>
+<pre><code class="language-text">Click the {{&lt; stroom-icon &quot;save.svg&quot; &quot;Save Document&quot; &gt;}} icon.
+</code></pre>
+<p>This calls the shortcode <em>stroom-icon</em> with the positional arguments <code>save.svg</code> and <code>Save Document</code>.
+Shortcodes can either use positional arguments or named arguments depending on how they have been written.</p>
+<p>This is an example of calling a shortcode with named arguments:</p>
+<pre><code class="language-text">Click the {{&lt; stroom-icon name=&quot;settings.svg&quot; colour=&quot;red&quot; &gt;}} icon.
+</code></pre>
+<p>Check the documentation for specific shortcode to see how to call it.</p>
+<h3 id="editor-snippets-and-shortcodes">Editor snippets and shortcodes</h3>
+<p>To make your life easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.</p>
-<p>For example the following snippet adds a skeleton front matter to a page.</p>
+<p>For example the following 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/SirVer/ultisnips" target="_blank" class="" style="" title="UltiSnips (for Vim) (external link)">
+    <span>UltiSnips (for Vim)</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets" target="_blank" class="" style="" title="VS Code (external link)">
+    <span>VS Code</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ snippets adds a skeleton front matter to a page.</p>
 <div class="td-card-deck card-deck mb-4">
   <div class="td-card card mb-4">
   
     <div class="card-header">
       
-        Ultisnips
+        UltiSnips (for Vim)
       
     </div>
   
@@ -690,7 +744,7 @@ endsnippet
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified June 27, 2023: <a href="https://github.com/gchq/stroom-docs/commit/446dba57cf338ab69a0ee406c780ca3d2343c536">Add missing functions to mathematics.md (446dba5)</a>
+  Last modified June 30, 2023: <a href="https://github.com/gchq/stroom-docs/commit/d6fd4e50cdac4d04891a39c821827427057ba004">Merge pull request #88 from gchq/7.2-styled-svgs (d6fd4e5)</a>
 </div>
 
 </div>
