@@ -620,10 +620,10 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
     
     <item>
       <title>Docs: Stroom Proxy Configuration</title>
-      <link>/docs/install-guide/configuration/configuring-stroom-proxy/</link>
+      <link>/docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/</link>
       <pubDate>Wed, 23 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/docs/install-guide/configuration/configuring-stroom-proxy/</guid>
+      <guid>/docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/</guid>
       <description>
         
         
@@ -632,16 +632,15 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 &lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
 
 
-    &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/configuration/configuring-stroom/&#34;&gt;Stroom Application Configuration&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;../../docs/user-guide/properties/&#34;&gt;Properties&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/&#34;&gt;Stroom and Stroom-Proxy Common Configuration&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;../../docs/user-guide/properties/&#34;&gt;Stroom Properties&lt;/a&gt;&lt;/p&gt;
 
 
 &lt;/div&gt;
 
 
-&lt;p&gt;The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the &lt;code&gt;config.yml&lt;/code&gt; file.
-Stroom-proxy has a &lt;code&gt;proxyConfig&lt;/code&gt; key in the YAML while Stroom has &lt;code&gt;appConfig&lt;/code&gt;.
-It is recommended to first read &lt;a href=&#34;../../docs/install-guide/configuration/configuring-stroom/&#34;&gt;Stroom Application Configuration&lt;/a&gt; to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.&lt;/p&gt;
+&lt;p&gt;The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the application specific part of the &lt;code&gt;config.yml&lt;/code&gt; file.
+Stroom-proxy has a &lt;code&gt;proxyConfig&lt;/code&gt; key in the YAML while Stroom has &lt;code&gt;appConfig&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;general-configuration&#34;&gt;General configuration&lt;/h2&gt;
 &lt;p&gt;The Stroom-proxy application is essentially just an executable 
 
@@ -666,10 +665,10 @@ As with stroom, the &lt;code&gt;config.yml&lt;/code&gt; file is split into three
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;server&lt;/code&gt; - Configuration of the web server, e.g. ports, paths, request logging.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;logging&lt;/code&gt; - Configuration of application logging&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;proxyConfig&lt;/code&gt; - Configuration of stroom-proxy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;proxyConfig&lt;/code&gt; - Stroom-Proxy specific configuration&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;See also &lt;a href=&#34;../../docs/user-guide/properties/&#34;&gt;Properties&lt;/a&gt; for more details on structure of the config.yml file and supported data types.&lt;/p&gt;
-&lt;p&gt;Stroom-proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
+&lt;p&gt;Stroom-Proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
 As a result &lt;code&gt;config.yml&lt;/code&gt; only contains a minimal set of properties.
 The full tree of properties can be seen in &lt;code&gt;./config/config-defaults.yml&lt;/code&gt; and a schema for the configuration tree (along with descriptions for each property) can be found in &lt;code&gt;./config/config-schema.yml&lt;/code&gt;.
 These two files can be used as a reference when configuring stroom.&lt;/p&gt;
@@ -679,11 +678,23 @@ It can be configured to do either or both of these functions.
 These functions are enabled/disabled using:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyConfig:
 
-  forwardStreamConfig:
-    forwardingEnabled: true
+  # The list of named destinations that Stroom-Proxy will forward to
+  forwardDestinations:
+    - type: &amp;quot;post&amp;quot;
+      enabled: true
+      name: &amp;quot;downstream&amp;quot;
+      forwardUrl: &amp;quot;https://some-host/stroom/datafeed&amp;quot;
 
-  proxyRepositoryConfig:
+  # Whether to store received data in a repository
+  repository:
     storingEnabled: true
+
+  # If we are storing data in a proxy repository we can aggregate it before forwarding.
+  aggregator:
+    maxItemsPerAggregate: 1000
+    maxUncompressedByteSize: &amp;quot;1G&amp;quot;
+    maxAggregateAge: 10m
+    aggregationFrequency: 1m
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Stroom-proxy should be configured to check the receipt status of feeds on receipt of data.
 This is done by configuring the end point of a downstream stroom-proxy or stroom.&lt;/p&gt;
@@ -699,18 +710,20 @@ The API key must be created in the downstream stroom instance and then copied in
 This is the &lt;code&gt;datafeed&lt;/code&gt; endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
 This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
 See also &lt;a href=&#34;#feed-status-certificate-configuration&#34;&gt;Feed status certificate configuration&lt;/a&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  forwardStreamConfig:
-    forwardDestinations:
-      - forwardUrl: &amp;quot;https://nginx/stroom/datafeed&amp;quot;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  forwardDestinations:
+    - type: &amp;quot;post&amp;quot;
+      enabled: true
+      name: &amp;quot;downstream&amp;quot;
+      forwardUrl: &amp;quot;https://some-host/stroom/datafeed&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;forwardUrl&lt;/code&gt; specifies the URL of the &lt;em&gt;datafeed&lt;/em&gt; endpoint on the destination host.
 Each forward location can use a different key/trust store pair.
 See also &lt;a href=&#34;#forwarding-certificate-configuration&#34;&gt;Forwarding certificate configuration&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.&lt;/p&gt;
 &lt;h2 id=&#34;deploying-without-docker&#34;&gt;Deploying without Docker&lt;/h2&gt;
-&lt;p&gt;Apart from the structure of the &lt;code&gt;config.yml&lt;/code&gt; file, the configuration in a non-docker environment is the same as for &lt;a href=&#34;../../docs/install-guide/configuration/configuring-stroom-proxy/#deploying-without-docker&#34;&gt;stroom&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Apart from the structure of the &lt;code&gt;config.yml&lt;/code&gt; file, the configuration in a non-docker environment is the same as for &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#deploying-without-docker&#34;&gt;stroom&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/h2&gt;
-&lt;p&gt;The way stroom-proxy is configured is essentially the same as for &lt;a href=&#34;../../docs/install-guide/configuration/configuring-stroom-proxy/#as-part-of-a-docker-stack&#34;&gt;stroom&lt;/a&gt; with the only real difference being the structure of the &lt;code&gt;config.yml&lt;/code&gt; file as note &lt;a href=&#34;#configyml&#34;&gt;above&lt;/a&gt; .
+&lt;p&gt;The way stroom-proxy is configured is essentially the same as for &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#as-part-of-a-docker-stack&#34;&gt;stroom&lt;/a&gt; with the only real difference being the structure of the &lt;code&gt;config.yml&lt;/code&gt; file as note &lt;a href=&#34;#configyml&#34;&gt;above&lt;/a&gt; .
 As with stroom the docker stack comes with a &lt;code&gt;./volumes/stroom-proxy-*/config/config.yml&lt;/code&gt; file that will be used in the absence of a provided one.
 Also as with stroom, the &lt;code&gt;config.yml&lt;/code&gt; file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files.&lt;/p&gt;
 &lt;h3 id=&#34;certificates&#34;&gt;Certificates&lt;/h3&gt;
@@ -723,50 +736,28 @@ Also as with stroom, the &lt;code&gt;config.yml&lt;/code&gt; file supports envir
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For a production deployment these will need to be changed, see &lt;a href=&#34;../../docs/install-guide/configuration/#certificates&#34;&gt;Certificates&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For a production deployment these will need to be changed, see &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/#certificates&#34;&gt;Certificates&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&#34;feed-status-certificate-configuration&#34;&gt;Feed status certificate configuration&lt;/h4&gt;
-&lt;p&gt;The configuration of the client certificates for feed status checks is done using:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyConfig:
-
-  jerseyClient:
-    timeout: &amp;quot;10s&amp;quot;
-    connectionTimeout: &amp;quot;10s&amp;quot;
-    timeToLive: &amp;quot;1h&amp;quot;
-    cookiesEnabled: false
-    maxConnections: 1024
-    maxConnectionsPerRoute: &amp;quot;1024&amp;quot;
-    keepAlive: &amp;quot;0ms&amp;quot;
-    retries: 0
-    tls:
-      verifyHostname: true
-      keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;
-      keyStorePassword: &amp;quot;password&amp;quot;
-      keyStoreType: &amp;quot;JKS&amp;quot;
-      trustStorePath: &amp;quot;/stroom-proxy/certs/ca.jks&amp;quot;
-      trustStorePassword: &amp;quot;password&amp;quot;
-      trustStoreType: &amp;quot;JKS&amp;quot;
-      trustSelfSignedCertificates: false
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This configuration is also used for making any other REST API calls.&lt;/p&gt;
+&lt;p&gt;The configuration of the client certificates for feed status checks is done using the &lt;code&gt;FEED_STATUS&lt;/code&gt; jersey client configuration.
+See &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#jersey-http-client-configuration&#34;&gt;Stroom and Stroom-Proxy Common Configuration&lt;/a&gt;.&lt;/p&gt;
 &lt;h4 id=&#34;forwarding-certificate-configuration&#34;&gt;Forwarding certificate configuration&lt;/h4&gt;
 &lt;p&gt;Stroom-proxy can forward to multiple locations.
 The configuration of the certificate(s) for the forwarding locations is as follows:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyConfig:
 
-  forwardStreamConfig:
-    forwardingEnabled: true
-    forwardDestinations:
-      # If you want multiple forward destinations then you will need to edit this file directly
-      # instead of using env var substitution
-      - forwardUrl: &amp;quot;https://nginx/stroom/datafeed&amp;quot;
-        sslConfig:
-          keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;
-          keyStorePassword: &amp;quot;password&amp;quot;
-          keyStoreType: &amp;quot;JKS&amp;quot;
-          trustStorePath: &amp;quot;/stroom-proxy/certs/ca.jks&amp;quot;
-          trustStorePassword: &amp;quot;password&amp;quot;
-          trustStoreType: &amp;quot;JKS&amp;quot;
-          hostnameVerificationEnabled: true
+  forwardDestinations:
+    - type: &amp;quot;post&amp;quot;
+      enabled: true
+      name: &amp;quot;downstream&amp;quot;
+      forwardUrl: &amp;quot;https://some-host/stroom/datafeed&amp;quot;
+      sslConfig:
+        keyStorePath: &amp;quot;/stroom-proxy/certs/client.jks&amp;quot;
+        keyStorePassword: &amp;quot;password&amp;quot;
+        keyStoreType: &amp;quot;JKS&amp;quot;
+        trustStorePath: &amp;quot;/stroom-proxy/certs/ca.jks&amp;quot;
+        trustStorePassword: &amp;quot;password&amp;quot;
+        trustStoreType: &amp;quot;JKS&amp;quot;
+        hostnameVerificationEnabled: true
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;forwardUrl&lt;/code&gt; specifies the URL of the &lt;em&gt;datafeed&lt;/em&gt; endpoint on the destination host.
 Each forward location can use a different key/trust store pair.&lt;/p&gt;
