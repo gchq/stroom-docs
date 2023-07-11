@@ -9,7 +9,8 @@ description: >
 ---
 
 {{% see-also %}}
-[Properties]({{< relref "../../user-guide/properties.md" >}}).
+[Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration" >}})  
+[Stroom Properties]({{< relref "/docs/user-guide/properties.md" >}})
 {{% /see-also %}}
 
 
@@ -20,13 +21,6 @@ This config file is common to all forms of deployment.
 
 
 ### config.yml
-
-This file, sometimes known as the DropWizard configuration file (as DropWizard is the java framework on which Stroom runs) is the primary means of configuring stroom.
-As a minimum this file should be used to configure anything that needs to be set before stroom can start up, e.g. database connection details or is specific to a node in a stroom cluster.
-If you are using some form of scripted deployment, e.g. ansible then it can be used to set all stroom properties for the environment that stroom runs in.
-If you are not using scripted deployments then you can maintain stroom's node agnostic configuration properties via the user interface.
-
-For more details on the structure of the file, data types and property precedence see [Properties]({{< relref "../../user-guide/properties.md" >}}).
 
 Stroom operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
 As a result `config.yml` only contains a minimal set of properties.

@@ -24,9 +24,9 @@ This document will explain how each application/service is configured and where 
 
 The following sections provide links to how to configure each application.
 
-* [Stroom Configuration]({{< relref "./configuring-stroom.md" >}})
+* [Stroom Configuration]({{< relref "./stroom-and-proxy/configuring-stroom.md" >}})
 
-* [Stroom Proxy Configuration]({{< relref "./configuring-stroom-proxy.md" >}})
+* [Stroom Proxy Configuration]({{< relref "./stroom-and-proxy/configuring-stroom-proxy.md" >}})
 
 * [MySQL Configuration]({{< relref "./configuring-mysql.md" >}})
 

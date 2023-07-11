@@ -6,18 +6,17 @@ date: 2021-06-23
 tags: 
   - proxy
 description: >
-  
+  Describes how the Stroom-Proxy application is configured.
 ---
 
 {{% see-also %}}
-[Stroom Application Configuration]({{< relref "./configuring-stroom.md" >}})  
-[Properties]({{< relref "../../user-guide/properties.md" >}})
+[Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration" >}})  
+[Stroom Properties]({{< relref "/docs/user-guide/properties.md" >}})
 {{% /see-also %}}
 
 
-The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the `config.yml` file.
+The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the application specific part of the `config.yml` file.
 Stroom-proxy has a `proxyConfig` key in the YAML while Stroom has `appConfig`.
-It is recommended to first read [Stroom Application Configuration]({{< relref "./configuring-stroom.md" >}}) to understand the general mechanics of the stroom configuration as this will largely apply to stroom-proxy.
 
 
 ## General configuration
@@ -33,11 +32,11 @@ As with stroom, the `config.yml` file is split into three sections using these k
 
 * `server` - Configuration of the web server, e.g. ports, paths, request logging.
 * `logging` - Configuration of application logging
-* `proxyConfig` - Configuration of stroom-proxy
+* `proxyConfig` - Stroom-Proxy specific configuration
 
-See also [Properties]({{< relref "../../user-guide/properties.md" >}}) for more details on structure of the config.yml file and supported data types.
+See also [Properties]({{< relref "/docs/user-guide/properties.md" >}}) for more details on structure of the config.yml file and supported data types.
 
-Stroom-proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
+Stroom-Proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
 As a result `config.yml` only contains a minimal set of properties.
 The full tree of properties can be seen in `./config/config-defaults.yml` and a schema for the configuration tree (along with descriptions for each property) can be found in `./config/config-schema.yml`.
 These two files can be used as a reference when configuring stroom.
@@ -52,11 +51,23 @@ These functions are enabled/disabled using:
 ```yaml
 proxyConfig:
 
-  forwardStreamConfig:
-    forwardingEnabled: true
+  # The list of named destinations that Stroom-Proxy will forward to
+  forwardDestinations:
+    - type: "post"
+      enabled: true
+      name: "downstream"
+      forwardUrl: "https://some-host/stroom/datafeed"
 
-  proxyRepositoryConfig:
+  # Whether to store received data in a repository
+  repository:
     storingEnabled: true
+
+  # If we are storing data in a proxy repository we can aggregate it before forwarding.
+  aggregator:
+    maxItemsPerAggregate: 1000
+    maxUncompressedByteSize: "1G"
+    maxAggregateAge: 10m
+    aggregationFrequency: 1m
 ```
 
 Stroom-proxy should be configured to check the receipt status of feeds on receipt of data.
@@ -80,9 +91,11 @@ This may also be te address of a load balancer or similar that is fronting a clu
 See also [Feed status certificate configuration](#feed-status-certificate-configuration).
 
 ```yaml
-  forwardStreamConfig:
-    forwardDestinations:
-      - forwardUrl: "https://nginx/stroom/datafeed"
+  forwardDestinations:
+    - type: "post"
+      enabled: true
+      name: "downstream"
+      forwardUrl: "https://some-host/stroom/datafeed"
 ```
 
 `forwardUrl` specifies the URL of the _datafeed_ endpoint on the destination host.
@@ -123,32 +136,8 @@ For a production deployment these will need to be changed, see [Certificates]({{
 
 #### Feed status certificate configuration
 
-The configuration of the client certificates for feed status checks is done using: 
-
-```yaml
-proxyConfig:
-
-  jerseyClient:
-    timeout: "10s"
-    connectionTimeout: "10s"
-    timeToLive: "1h"
-    cookiesEnabled: false
-    maxConnections: 1024
-    maxConnectionsPerRoute: "1024"
-    keepAlive: "0ms"
-    retries: 0
-    tls:
-      verifyHostname: true
-      keyStorePath: "/stroom-proxy/certs/client.jks"
-      keyStorePassword: "password"
-      keyStoreType: "JKS"
-      trustStorePath: "/stroom-proxy/certs/ca.jks"
-      trustStorePassword: "password"
-      trustStoreType: "JKS"
-      trustSelfSignedCertificates: false
-```
-
-This configuration is also used for making any other REST API calls.
+The configuration of the client certificates for feed status checks is done using the `FEED_STATUS` jersey client configuration.
+See [Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration#jersey-http-client-configuration" >}}).
 
 
 #### Forwarding certificate configuration
@@ -159,20 +148,19 @@ The configuration of the certificate(s) for the forwarding locations is as follo
 ```yaml
 proxyConfig:
 
-  forwardStreamConfig:
-    forwardingEnabled: true
-    forwardDestinations:
-      # If you want multiple forward destinations then you will need to edit this file directly
-      # instead of using env var substitution
-      - forwardUrl: "https://nginx/stroom/datafeed"
-        sslConfig:
-          keyStorePath: "/stroom-proxy/certs/client.jks"
-          keyStorePassword: "password"
-          keyStoreType: "JKS"
-          trustStorePath: "/stroom-proxy/certs/ca.jks"
-          trustStorePassword: "password"
-          trustStoreType: "JKS"
-          hostnameVerificationEnabled: true
+  forwardDestinations:
+    - type: "post"
+      enabled: true
+      name: "downstream"
+      forwardUrl: "https://some-host/stroom/datafeed"
+      sslConfig:
+        keyStorePath: "/stroom-proxy/certs/client.jks"
+        keyStorePassword: "password"
+        keyStoreType: "JKS"
+        trustStorePath: "/stroom-proxy/certs/ca.jks"
+        trustStorePassword: "password"
+        trustStoreType: "JKS"
+        hostnameVerificationEnabled: true
 ```
 
 `forwardUrl` specifies the URL of the _datafeed_ endpoint on the destination host.
