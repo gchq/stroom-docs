@@ -85,6 +85,11 @@ data('Quick View', ${StreamId}, 1)
 > [Quick View]?id=1234&&partNo=1)
 ```
 
+{{% warning %}}
+The `displayType` value `tab` is not supported if the dashboard is viewed via a [Direct URL]({{< relref "../direct-urls" >}}). This is because a direct URL displays only the dashboard without Stroom's top level tab bar so it is not possible to open it as a top level tab.
+{{% /warning %}}
+
+
 ## Link
 
 Create a string that represents a hyperlink for display in a dashboard table.
