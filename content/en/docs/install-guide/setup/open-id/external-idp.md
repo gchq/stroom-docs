@@ -161,12 +161,13 @@ This ID will be used in Stroom to uniquely identify the user and associate it wi
 To set up Stroom with this admin user run the following (**before** Stroom has been started for the first time):
 
 {{< command-line >}}
+subject_id="XXX"; \
 java -jar /absolute/path/to/stroom-app-all.jar \
   manage_users \
   ../local.yml \
-  --createUser XXX \
+  --createUser "${subject_id}" \
   --createGroup Administrators \
-  --addToGroup XXX Administrators \
+  --addToGroup "${subject_id}" Administrators \
   --grantPermission Administrators "Administrator"
 {{</ command-line >}}
 
