@@ -52,9 +52,8 @@ These functions are enabled/disabled using:
 proxyConfig:
 
   # The list of named destinations that Stroom-Proxy will forward to
-  forwardDestinations:
-    - type: "post"
-      enabled: true
+  forwardHttpDestinations:
+    - enabled: true
       name: "downstream"
       forwardUrl: "https://some-host/stroom/datafeed"
 
@@ -91,9 +90,8 @@ This may also be te address of a load balancer or similar that is fronting a clu
 See also [Feed status certificate configuration](#feed-status-certificate-configuration).
 
 ```yaml
-  forwardDestinations:
-    - type: "post"
-      enabled: true
+  forwardHttpDestinations:
+    - enabled: true
       name: "downstream"
       forwardUrl: "https://some-host/stroom/datafeed"
 ```
@@ -148,9 +146,8 @@ The configuration of the certificate(s) for the forwarding locations is as follo
 ```yaml
 proxyConfig:
 
-  forwardDestinations:
-    - type: "post"
-      enabled: true
+  forwardHttpDestinations:
+    - enabled: true
       name: "downstream"
       forwardUrl: "https://some-host/stroom/datafeed"
       sslConfig:
