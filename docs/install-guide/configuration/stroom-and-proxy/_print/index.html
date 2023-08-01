@@ -114,7 +114,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.9c7b2294a2ecf5183f012cb413d4968f.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.7dc079ac506af3a3886691b529ab62a2.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -981,9 +981,8 @@ These functions are enabled/disabled using:</p>
 <pre><code class="language-yaml">proxyConfig:
 
   # The list of named destinations that Stroom-Proxy will forward to
-  forwardDestinations:
-    - type: &quot;post&quot;
-      enabled: true
+  forwardHttpDestinations:
+    - enabled: true
       name: &quot;downstream&quot;
       forwardUrl: &quot;https://some-host/stroom/datafeed&quot;
 
@@ -1012,9 +1011,8 @@ The API key must be created in the downstream stroom instance and then copied in
 This is the <code>datafeed</code> endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
 This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
 See also <a href="#feed-status-certificate-configuration">Feed status certificate configuration</a>.</p>
-<pre><code class="language-yaml">  forwardDestinations:
-    - type: &quot;post&quot;
-      enabled: true
+<pre><code class="language-yaml">  forwardHttpDestinations:
+    - enabled: true
       name: &quot;downstream&quot;
       forwardUrl: &quot;https://some-host/stroom/datafeed&quot;
 </code></pre>
@@ -1047,9 +1045,8 @@ See <a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/co
 The configuration of the certificate(s) for the forwarding locations is as follows:</p>
 <pre><code class="language-yaml">proxyConfig:
 
-  forwardDestinations:
-    - type: &quot;post&quot;
-      enabled: true
+  forwardHttpDestinations:
+    - enabled: true
       name: &quot;downstream&quot;
       forwardUrl: &quot;https://some-host/stroom/datafeed&quot;
       sslConfig:

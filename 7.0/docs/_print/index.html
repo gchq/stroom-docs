@@ -107,7 +107,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.cd3ec98ff275938cdb45ea719497e443.json"
+    data-offline-search-index-json-src="../../offline-search-index.45bf80982c0a94b25dec86a1a02b0ae8.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -1761,8 +1761,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.0</strong>&rdquo;<br>
-Documentation generated on: <strong>07 Jun 2023, 23:36 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v1568</strong></p>
+Documentation generated on: <strong>01 Aug 2023, 15:19 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v1655</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -44176,23 +44176,64 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 &gt; [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&amp;params=userId%3Duser1){dashboard}
 </code></pre>
 <h2 id="data">Data</h2>
-<p>Creates a link to open a source for data for viewing.</p>
+<p>Creates a clickable link to open a sub-set of a source of data (i.e. part of a stream) for viewing.
+The data can either be opened in a popup dialog (<code>dialog</code>) or in another stroom tab (<code>tab</code>).
+It can also be display in <code>preview</code> form (with formatting and syntax highlighting) or unaltered <code>source</code> form.</p>
 <pre><code class="language-clike">data(text, id, partNo, [recordNo, lineFrom, colFrom, lineTo, colTo, viewType, displayType])
 </code></pre>
-<p><em>viewType</em> can be one of:</p>
+<p>Stroom deals in two main types of stream, segmented and non-segmented (see <a href="../../docs/user-guide/concepts/streams/">Streams</a>).
+Data in a non-segmented (i.e. raw) stream is identified by an <code>id</code>, a <code>partNo</code> and optionally line and column positions to define the sub-set of that stream part to display.
+Data in a segmented (i.e. cooked) stream is identified by an <code>id</code>, a <code>recordNo</code> and optionally line and column positions to define the sub-set of that record (i.e. event) within that stream.</p>
+<p>The line and column positions will define a highlight block of text within the part/record.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>text</code> - The link text that will be displayed in the table.</li>
+<li><code>id</code> - The stream ID.</li>
+<li><code>partNo</code> - The part number of the stream (one based).
+Always <code>1</code> for segmented (cooked) streams.</li>
+<li><code>recordNo</code> - The record number within a segmented stream (optional).
+Not applicable for non-segmented streams so use <code>null()</code> instead.</li>
+<li><code>lineFrom</code> - The line number of the start of the sub-set of data (optional, one based).</li>
+<li><code>colFrom</code> - The column number of the start of the sub-set of data (optional, one based).</li>
+<li><code>lineTo</code> - The line number of the end of the sub-set of data (optional, one based).</li>
+<li><code>colTo</code> - The column number of the end of the sub-set of data (optional, one based).</li>
+<li><code>viewType</code> - The type of view of the data (optional, defaults to <code>preview</code>):
 <ul>
 <li><code>preview</code> : Display the data as a formatted preview of a limited portion of the data.</li>
 <li><code>source</code> : Display the un-formatted data in its original form with the ability to navigate around all of the data source.</li>
 </ul>
-<p><em>displayType</em> can be one of:</p>
+</li>
+<li><code>displayType</code> - The way of displaying the data (optional, defaults to <code>dialog</code>):
 <ul>
 <li><code>dialog</code> : Open as a modal popup dialog.</li>
 <li><code>tab</code> : Open as a top level tab within the Stroom browser tab.</li>
 </ul>
-<p>Example</p>
+</li>
+</ul>
 <pre><code class="language-clike">data('Quick View', ${StreamId}, 1)
 &gt; [Quick View]?id=1234&amp;&amp;partNo=1)
 </code></pre>
+<p>Example of non-segmented raw data section, viewed un-formatted in a stroom tab:</p>
+<pre><code class="language-clike">data('View Raw', ${StreamId}, ${partNo}, null(), 5, 1, 5, 342, 'source', 'tab')
+</code></pre>
+<p>Example of a single record (event) from a segmented stream, viewed formatted in a popup dialog:</p>
+<pre><code class="language-clike">data('View Cooked', ${StreamId}, 1, ${eventId})
+</code></pre>
+<p>Example of a single record (event) from a segmented stream, viewed formatted in a stroom tab:</p>
+<pre><code class="language-clike">data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'preview', 'tab')
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>To make full use of the <code>data()</code> function foe viewing raw data, you need to use the <code>stroom:source()</code> <a href="../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Function</a> to decorate an event with the details of the source location it derived from.</p>
+
+
+</div>
+
+
 <h2 id="link">Link</h2>
 <p>Create a string that represents a hyperlink for display in a dashboard table.</p>
 <pre><code class="language-clike">link(url)

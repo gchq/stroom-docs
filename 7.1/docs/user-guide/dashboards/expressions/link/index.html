@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/dashboards/expressions/link/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-06-07T18:26:59+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2023-08-01T16:04:55+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Link Functions">
 <meta itemprop="description" content="Functions for linking to other screens in Stroom and/or to particular sets of data.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-06-07T18:26:59+01:00" />
-<meta itemprop="wordCount" content="481">
+<meta itemprop="dateModified" content="2023-08-01T16:04:55+01:00" />
+<meta itemprop="wordCount" content="851">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Link Functions"/>
 <meta name="twitter:description" content="Functions for linking to other screens in Stroom and/or to particular sets of data.
@@ -111,7 +111,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.a4a7eba8902025a397cb4b1d25467489.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.2e91af68c3ac62c3537fd0c9a5093293.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -136,7 +136,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.a4a7eba8902025a397cb4b1d25467489.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.2e91af68c3ac62c3537fd0c9a5093293.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -851,23 +851,64 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 &gt; [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&amp;params=userId%3Duser1){dashboard}
 </code></pre>
 <h2 id="data">Data</h2>
-<p>Creates a link to open a source for data for viewing.</p>
+<p>Creates a clickable link to open a sub-set of a source of data (i.e. part of a stream) for viewing.
+The data can either be opened in a popup dialog (<code>dialog</code>) or in another stroom tab (<code>tab</code>).
+It can also be display in <code>preview</code> form (with formatting and syntax highlighting) or unaltered <code>source</code> form.</p>
 <pre><code class="language-clike">data(text, id, partNo, [recordNo, lineFrom, colFrom, lineTo, colTo, viewType, displayType])
 </code></pre>
-<p><em>viewType</em> can be one of:</p>
+<p>Stroom deals in two main types of stream, segmented and non-segmented (see <a href="../../../../../docs/user-guide/concepts/streams/">Streams</a>).
+Data in a non-segmented (i.e. raw) stream is identified by an <code>id</code>, a <code>partNo</code> and optionally line and column positions to define the sub-set of that stream part to display.
+Data in a segmented (i.e. cooked) stream is identified by an <code>id</code>, a <code>recordNo</code> and optionally line and column positions to define the sub-set of that record (i.e. event) within that stream.</p>
+<p>The line and column positions will define a highlight block of text within the part/record.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>text</code> - The link text that will be displayed in the table.</li>
+<li><code>id</code> - The stream ID.</li>
+<li><code>partNo</code> - The part number of the stream (one based).
+Always <code>1</code> for segmented (cooked) streams.</li>
+<li><code>recordNo</code> - The record number within a segmented stream (optional).
+Not applicable for non-segmented streams so use <code>null()</code> instead.</li>
+<li><code>lineFrom</code> - The line number of the start of the sub-set of data (optional, one based).</li>
+<li><code>colFrom</code> - The column number of the start of the sub-set of data (optional, one based).</li>
+<li><code>lineTo</code> - The line number of the end of the sub-set of data (optional, one based).</li>
+<li><code>colTo</code> - The column number of the end of the sub-set of data (optional, one based).</li>
+<li><code>viewType</code> - The type of view of the data (optional, defaults to <code>preview</code>):
 <ul>
 <li><code>preview</code> : Display the data as a formatted preview of a limited portion of the data.</li>
 <li><code>source</code> : Display the un-formatted data in its original form with the ability to navigate around all of the data source.</li>
 </ul>
-<p><em>displayType</em> can be one of:</p>
+</li>
+<li><code>displayType</code> - The way of displaying the data (optional, defaults to <code>dialog</code>):
 <ul>
 <li><code>dialog</code> : Open as a modal popup dialog.</li>
 <li><code>tab</code> : Open as a top level tab within the Stroom browser tab.</li>
 </ul>
-<p>Example</p>
+</li>
+</ul>
 <pre><code class="language-clike">data('Quick View', ${StreamId}, 1)
 &gt; [Quick View]?id=1234&amp;&amp;partNo=1)
 </code></pre>
+<p>Example of non-segmented raw data section, viewed un-formatted in a stroom tab:</p>
+<pre><code class="language-clike">data('View Raw', ${StreamId}, ${partNo}, null(), 5, 1, 5, 342, 'source', 'tab')
+</code></pre>
+<p>Example of a single record (event) from a segmented stream, viewed formatted in a popup dialog:</p>
+<pre><code class="language-clike">data('View Cooked', ${StreamId}, 1, ${eventId})
+</code></pre>
+<p>Example of a single record (event) from a segmented stream, viewed formatted in a stroom tab:</p>
+<pre><code class="language-clike">data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'preview', 'tab')
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>To make full use of the <code>data()</code> function foe viewing raw data, you need to use the <code>stroom:source()</code> <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Function</a> to decorate an event with the details of the source location it derived from.</p>
+
+
+</div>
+
+
 <h2 id="link">Link</h2>
 <p>Create a string that represents a hyperlink for display in a dashboard table.</p>
 <pre><code class="language-clike">link(url)
@@ -906,7 +947,7 @@ stepping(text, id, partNo, recordNo)
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified June 7, 2023: <a href="https://github.com/gchq/stroom-docs/commit/2ddc4ba6a758c57ad3000948cba37c2883595a17">Merge branch &#39;7.0&#39; into 7.1 (2ddc4ba)</a>
+  Last modified August 1, 2023: <a href="https://github.com/gchq/stroom-docs/commit/bc8ab668aa20452e824414b796cea9c0fa95106c">Merge branch &#39;7.0&#39; into 7.1 (bc8ab66)</a>
 </div>
 
 </div>
