@@ -204,6 +204,26 @@ some way, e.g. _XSLTFilter_.
 Multiple filters can be used one after another with each using the output from the last as its
 input.
 
+### DynamicIndexingFilter
+
+{{< pipe-elm "DynamicIndexingFilter" >}}&nbsp;
+
+A filter to send source data to an index.
+
+
+**Element properties:**
+
+| Name  | Description                   | Default Value |
+|-------|-------------------------------|---------------|
+| index | The index to send records to. | -             |
+
+
+### DynamicSearchResultOutputFilter
+
+{{< pipe-elm "DynamicSearchResultOutputFilter" >}}&nbsp;
+
+> TODO - Add description
+
 
 ### ElasticIndexingFilter
 
@@ -213,19 +233,14 @@ input.
 
 **Element properties:**
 
-| Name                         | Description                                                                                                                                                               | Default Value |
-|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| batchSize                    | Maximum number of documents to index in each bulk request                                                                                                                 | 10000         |
-| cluster                      | Target Elasticsearch cluster                                                                                                                                              | -             |
-| indexBaseName                | Name of the Elasticsearch index                                                                                                                                           | -             |
-| indexNameDateFieldName       | Name of the field containing the `DateTime` value to use when determining the index date suffix                                                                           | @timestamp    |
-| indexNameDateFormat          | Format of the date to append to the index name (example: `-yyyy`). If unspecified, no date is appended.                                                                   | -             |
-| indexNameDateMaxFutureOffset | Do not append a time suffix to the index name for events occurring after the current time plus the specified offset                                                       | P1D           |
-| indexNameDateMin             | Do not append a time suffix to the index name for events occurring before this date. Date is assumed to be in UTC and of the format specified in `indexNameDateMinFormat` | -             |
-| indexNameDateMinFormat       | Date format of the supplied `indexNameDateMin` property                                                                                                                   | yyyy          |
-| ingestPipeline               | Name of the Elasticsearch ingest pipeline to execute when indexing                                                                                                        | -             |
-| purgeOnReprocess             | When reprocessing a stream, first delete any documents from the index matching the stream ID                                                                              | true          |
-| refreshAfterEachBatch        | Refresh the index after each batch is processed, making the indexed documents visible to searches                                                                         | false         |
+| Name                  | Description                                                                                                                                                                                                                                                                  | Default Value |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| batchSize             | Maximum number of documents to index in each bulk request.                                                                                                                                                                                                                   | 10000         |
+| cluster               | Target Elasticsearch cluster.                                                                                                                                                                                                                                                | -             |
+| indexName             | Name of the Elasticsearch index. Variables specified such as `{year}` are replaced with the corresponding field values contained in the document root. Field names beginning with an underscore are not written to the document and are only used in the index name pattern. | -             |
+| ingestPipeline        | Name of the Elasticsearch ingest pipeline to execute when indexing.                                                                                                                                                                                                          | -             |
+| purgeOnReprocess      | When reprocessing a stream, first delete any documents from the index matching the source stream ID.                                                                                                                                                                         | true          |
+| refreshAfterEachBatch | Refresh the index after each batch is processed, making the indexed documents visible to searches.                                                                                                                                                                           | false         |
 
 
 ### HttpPostFilter
@@ -582,6 +597,7 @@ A destination used to write an output stream to a file on the file system.
 If multiple paths are specified in the 'outputPaths' property it will pick one at random to write to.
 This is distinct from the FileAppender in that when the `rollSize` is reached it will move the current file to the path specified in `rolledFileName` and resume writing to the original path.
 This allows other processes to follow the changes to a single file path, e.g. when using `tail`.
+On system shutdown all active files will be rolled.
 
 
 **Element properties:**
@@ -604,6 +620,7 @@ This allows other processes to follow the changes to a single file path, e.g. wh
 
 A destination used to write one or more output streams to a new stream which is then rolled when it reaches a certain size or age.
 A new stream will be created after the size or age criteria has been met.
+On system shutdown all active streams will be rolled.
 
 
 **Element properties:**
