@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/tools/command-line/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-08-01T16:06:41+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2023-09-06T17:03:10+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Command Line Tools">
 <meta itemprop="description" content="Command line actions for administering Stroom.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-08-01T16:06:41+01:00" />
-<meta itemprop="wordCount" content="1282">
+<meta itemprop="dateModified" content="2023-09-06T17:03:10+01:00" />
+<meta itemprop="wordCount" content="1779">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Command Line Tools"/>
 <meta name="twitter:description" content="Command line actions for administering Stroom.
@@ -118,7 +118,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.7dc079ac506af3a3886691b529ab62a2.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.7473b05640f7110f41cb9fea14e138de.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -143,7 +143,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.7dc079ac506af3a3886691b529ab62a2.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.7473b05640f7110f41cb9fea14e138de.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -651,7 +651,11 @@ if (!doNotTrack) {
           </ul>
         </li>
         <li><a href="#reset_password"><code>reset_password</code></a></li>
-        <li><a href="#manage_users"><code>manage_users</code></a></li>
+        <li><a href="#manage_users"><code>manage_users</code></a>
+          <ul>
+            <li><a href="#external-identity-providers">External Identity Providers</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -1055,7 +1059,7 @@ path/to/config.yml</code></pre>
 <li><code>--neverExpires</code> - If set, the account will never expire.</li>
 </ul>
 <p>This command will create an account in the internal identity provider within Stroom.
-Stroom is able to use third party OpenID identity providers such as Google or AWS Cognito but by default will use its own.
+Stroom is able to use an external OpenID identity providers such as Google or AWS Cognito but by default will use its own.
 When configured to use its own (the default) it will auto create an admin account when starting up a fresh instance.
 There are times when you may wish to create this account manually which this command allows.</p>
 <h4 id="authentication-accounts-and-stroom-users">Authentication Accounts and Stroom Users</h4>
@@ -1064,7 +1068,7 @@ If an external IDP is used then the mechanism for creating the authentication ac
 If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged used or using this command.
 In either case a Stroom user will need to exist with the same username as the authentication account.</p>
 <p>The command will fail if the user already exists.
-This command should NOT be run if you are using a third party identity provider.</p>
+This command should NOT be run if you are using an external identity provider.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h3 id="reset_password"><code>reset_password</code></h3>
 
@@ -1095,7 +1099,7 @@ path/to/config.yml</code></pre>
 </ul>
 <p>This command is used for changing the password of an existing account in stroom&rsquo;s internal identity provider.
 It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.
-This command should NOT be run if you are using a third party identity provider.
+This command should NOT be run if you are using an external identity provider.
 It will fail if the account does not exist.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h3 id="manage_users"><code>manage_users</code></h3>
@@ -1121,16 +1125,16 @@ path/to/config.yml</code></pre>
 
 <p>Where the named arguments are:</p>
 <ul>
-<li><code>--createUser USER_NAME</code> - Creates a Stroom user with the supplied username.</li>
-<li><code>--greateGroup GROUP_NAME</code> - Creates a Stroom user group with the supplied group name.</li>
-<li><code>--addToGroup USER_OR_GROUP_NAME TARGET_GROUP</code> - Adds a user/group to an existing group.</li>
-<li><code>--removeFromGroup USER_OR_GROUP_NAME TARGET_GROUP</code> - Removes a user/group from an existing group.</li>
-<li><code>--grantPermission USER_OR_GROUP_NAME PERMISSION_NAME</code> - Grants the named application permission to the user/group.</li>
-<li><code>--revokePermission USER_OR_GROUP_NAME PERMISSION_NAME</code> - Revokes the named application permission from the user/group.</li>
+<li><code>--createUser</code> <code>USER_IDENTIFIER</code> - Creates a Stroom user with the supplied user identifier.</li>
+<li><code>--greateGroup</code> <code>GROUP_IDENTIFIER</code> - Creates a Stroom user group with the supplied group name.</li>
+<li><code>--addToGroup</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>TARGET_GROUP</code> - Adds a user/group to an existing group.</li>
+<li><code>--removeFromGroup</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>TARGET_GROUP</code> - Removes a user/group from an existing group.</li>
+<li><code>--grantPermission</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>PERMISSION_IDENTIFIER</code> - Grants the named application permission to the user/group.</li>
+<li><code>--revokePermission</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>PERMISSION_IDENTIFIER</code> - Revokes the named application permission from the user/group.</li>
 <li><code>--listPermissions</code> - Lists all the valid permission names.</li>
 </ul>
-<p>This command allows you to manage the account permissions within stroom regardless of whether the internal identity provider or a 3rd party one is used.
-A typical use case for this is when using a third party identity provider.
+<p>This command allows you to manage the account permissions within stroom regardless of whether the internal identity provider or an external party is used.
+A typical use case for this is when using a external identity provider.
 In this instance Stroom has no way of auto creating an admin account when first started so the association between the account on the 3rd party IDP and the stroom user account needs to be made manually.
 To set up an admin account to enable you to login to stroom you can do:</p>
 <p>This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
@@ -1147,6 +1151,8 @@ If you want to automate actions that can be performed in the UI then you can mak
 </div>
 
 
+<p>The following is an example command to create a new stroom user <code>jbloggs</code>, create a group called <code>Administrators</code> with the <em>Administrator</em> application permission and then add <code>jbloggs</code> to the <code>Administrators</code> group.
+This is a typical command to bootstrap a stroom instance with one admin user so they can login to stroom with full privileges to manage other users from within the application.</p>
 
   
 
@@ -1170,7 +1176,7 @@ manage_users \
 path/to/config.yml</code></pre>
 </div>
 
-<p>Where <em>jbloggs</em> is the user name of the account on the 3rd party IDP.</p>
+<p>Where <em>jbloggs</em> is the user name of the account on the identity provider.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <p>The named arguments can be used as many times as you like so you can create multiple users/groups/grants/etc.
 Regardless of the order of the arguments, the changes are executed in the following order:</p>
@@ -1182,11 +1188,103 @@ Regardless of the order of the arguments, the changes are executed in the follow
 <li>Grant permissions to users/groups</li>
 <li>Revoke permissions from users/groups</li>
 </ol>
+<h4 id="external-identity-providers">External Identity Providers</h4>
+<p>The <code>manageUsers</code> command is particularly useful when using stroom with an external identity provider.
+In order to use a new install of stroom that is configured with an external identity provider you must first set up a user with the <em>Administrator</em> system permission.
+If this is not done, users will be able to log in to stroom but will have no permissions to do anything.
+You can optionally set up other groups/users with other permissions to bootstrap the stroom instance.</p>
+<p>External OIDC identity providers have a unique identifier for each user (this may be called <code>sub</code> or <code>oid</code>) and this often takes the form of a 
+
+
+
+<span class="glossary-link">
+  <a href="../../../../docs/glossary/#uuid" title="Glossary entry for UUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.
+Stroom stores this unique identifier (know as a <em>Subject ID</em> in stroom) against a user so it is able to associate the stroom user with the identity provider user.
+Identity providers may also have a more friendly <em>display name</em> and <em>full name</em> for the user, though these may not be unique.</p>
+<h5 id="user_identifier"><code>USER_IDENTIFIER</code></h5>
+<p>The <code>USER_IDENTIFIER</code> is of the form <code>subject_id[,display_name[,full_name]]</code> e.g.:</p>
+<ul>
+<li><code>eaddac6e-6762-404c-9778-4b74338d4a17</code></li>
+<li><code>eaddac6e-6762-404c-9778-4b74338d4a17,jbloggs</code></li>
+<li><code>eaddac6e-6762-404c-9778-4b74338d4a17,jbloggs,Joe Bloggs</code></li>
+</ul>
+<p>The optional parts are so that stroom can display more human friendly identifiers for a user.
+They are only initial values and will always be over written with the values from the identity provider when the user logs in.</p>
+<p>The following are examples of various uses of the <code>--createUser</code> argument group.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># Create a user using their unique IDP identifier and add them to group Administrators
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser &#34;45744aee-0b4c-414b-a82a-8b8b134cc201&#34; \
+--addToGroup &#34;45744aee-0b4c-414b-a82a-8b8b134cc201&#34;  Administrators \
+path/to/config.yml
+
+# Create a user using their unique IDP identifier, display name and full name
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser &#34;45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs&#34; \
+--addToGroup &#34;jbloggs&#34;  Administrators \
+path/to/config.yml
+
+# Create multiple users at once, adding them to appropriate groups
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser &#34;45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs&#34; \
+--createUser &#34;37fb1eb4-f59c-4040-8e1d-57485e0f912f,jdoe,John Doe&#34; \
+--addToGroup &#34;jbloggs&#34;  Administrators \
+--addToGroup &#34;jdoe&#34;  Analysts \
+path/to/config.yml</code></pre>
+</div>
+
+<h5 id="group_identifier"><code>GROUP_IDENTIFIER</code></h5>
+<p>The <code>GROUP_IDENTIFIER</code> is the name of the group in stroom, e.g. <code>Administrators</code>, <code>Analysts</code>, etc.
+Groups are created by an admin to help manage permissions for large number of similar users.
+Groups relate only to stroom and have nothing to do with the identity provider.</p>
+<h5 id="user_or_group_identifier"><code>USER_OR_GROUP_IDENTIFIER</code></h5>
+<p>The <code>USER_OR_GROUP_IDENTIFIER</code> can either be the identifier for a user or a group, e.g. when granting a permission to a user/group.</p>
+<p>It takes the following forms (with examples for each):</p>
+<ul>
+<li><code>user_subject_id</code>
+<ul>
+<li><code>eaddac6e-6762-404c-9778-4b74338d4a17</code></li>
+</ul>
+</li>
+<li><code>user_display_name</code>
+<ul>
+<li><code>jbloggs</code></li>
+</ul>
+</li>
+<li><code>group_name</code>
+<ul>
+<li><code>Administrators</code></li>
+</ul>
+</li>
+</ul>
+<p>The value for the argument will first be treated as a unique identifier (i.e. the subject ID or group name).
+If the user cannot be found it will fall back to using the display name to find the user.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified August 1, 2023: <a href="https://github.com/gchq/stroom-docs/commit/4e8015f9fb77138e11a085fbb3d66f25bcb0a2fa">Merge branch &#39;7.1&#39; into 7.2 (4e8015f)</a>
+  Last modified September 6, 2023: <a href="https://github.com/gchq/stroom-docs/commit/d12f5348bb2136eea9c3d8d7daf877524fe3b468">Merge pull request #89 from gchq/7.2-stroom-3729-cli-changes (d12f534)</a>
 </div>
 
 </div>
