@@ -128,7 +128,7 @@ Where the named arguments are:
 * `--neverExpires` - If set, the account will never expire.
 
 This command will create an account in the internal identity provider within Stroom.
-Stroom is able to use third party OpenID identity providers such as Google or AWS Cognito but by default will use its own.
+Stroom is able to use an external OpenID identity providers such as Google or AWS Cognito but by default will use its own.
 When configured to use its own (the default) it will auto create an admin account when starting up a fresh instance.
 There are times when you may wish to create this account manually which this command allows.
 
@@ -141,7 +141,7 @@ If using the default internal Stroom IDP then an account must be created in orde
 In either case a Stroom user will need to exist with the same username as the authentication account.
 
 The command will fail if the user already exists.
-This command should NOT be run if you are using a third party identity provider.
+This command should NOT be run if you are using an external identity provider.
 
 This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
 
@@ -163,7 +163,7 @@ Where the named arguments are:
 
 This command is used for changing the password of an existing account in stroom's internal identity provider.
 It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.
-This command should NOT be run if you are using a third party identity provider.
+This command should NOT be run if you are using an external identity provider.
 It will fail if the account does not exist.
 
 This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
@@ -180,16 +180,16 @@ path/to/config.yml
 
 Where the named arguments are:
 
-* `--createUser USER_NAME` - Creates a Stroom user with the supplied username.
-* `--greateGroup GROUP_NAME` - Creates a Stroom user group with the supplied group name.
-* `--addToGroup USER_OR_GROUP_NAME TARGET_GROUP` - Adds a user/group to an existing group.
-* `--removeFromGroup USER_OR_GROUP_NAME TARGET_GROUP` - Removes a user/group from an existing group.
-* `--grantPermission USER_OR_GROUP_NAME PERMISSION_NAME` - Grants the named application permission to the user/group.
-* `--revokePermission USER_OR_GROUP_NAME PERMISSION_NAME` - Revokes the named application permission from the user/group.
+* `--createUser` `USER_IDENTIFIER` - Creates a Stroom user with the supplied user identifier.
+* `--greateGroup` `GROUP_IDENTIFIER` - Creates a Stroom user group with the supplied group name.
+* `--addToGroup` `USER_OR_GROUP_IDENTIFIER` `TARGET_GROUP` - Adds a user/group to an existing group.
+* `--removeFromGroup` `USER_OR_GROUP_IDENTIFIER` `TARGET_GROUP` - Removes a user/group from an existing group.
+* `--grantPermission` `USER_OR_GROUP_IDENTIFIER` `PERMISSION_IDENTIFIER` - Grants the named application permission to the user/group.
+* `--revokePermission` `USER_OR_GROUP_IDENTIFIER` `PERMISSION_IDENTIFIER` - Revokes the named application permission from the user/group.
 * `--listPermissions` - Lists all the valid permission names.
 
-This command allows you to manage the account permissions within stroom regardless of whether the internal identity provider or a 3rd party one is used.
-A typical use case for this is when using a third party identity provider.
+This command allows you to manage the account permissions within stroom regardless of whether the internal identity provider or an external party is used.
+A typical use case for this is when using a external identity provider.
 In this instance Stroom has no way of auto creating an admin account when first started so the association between the account on the 3rd party IDP and the stroom user account needs to be made manually.
 To set up an admin account to enable you to login to stroom you can do:
 
@@ -201,6 +201,8 @@ If you want to automate actions that can be performed in the UI then you can mak
 See the [section](#authentication-accounts-and-stroom-users) above about the distinction between authentication accounts and stroom users.
 {{% /warning %}}
 
+The following is an example command to create a new stroom user `jbloggs`, create a group called `Administrators` with the _Administrator_ application permission and then add `jbloggs` to the `Administrators` group.
+This is a typical command to bootstrap a stroom instance with one admin user so they can login to stroom with full privileges to manage other users from within the application.
 
 {{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app.jar \
@@ -212,7 +214,7 @@ manage_users \
 path/to/config.yml
 {{</ command-line >}}
 
-Where _jbloggs_ is the user name of the account on the 3rd party IDP.
+Where _jbloggs_ is the user name of the account on the identity provider.
 
 This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
 
@@ -225,3 +227,78 @@ Regardless of the order of the arguments, the changes are executed in the follow
 1. Remove users/groups from a group
 1. Grant permissions to users/groups
 1. Revoke permissions from users/groups
+
+
+#### External Identity Providers
+
+The `manageUsers` command is particularly useful when using stroom with an external identity provider.
+In order to use a new install of stroom that is configured with an external identity provider you must first set up a user with the _Administrator_ system permission.
+If this is not done, users will be able to log in to stroom but will have no permissions to do anything.
+You can optionally set up other groups/users with other permissions to bootstrap the stroom instance.
+
+External OIDC identity providers have a unique identifier for each user (this may be called `sub` or `oid`) and this often takes the form of a {{< glossary "UUID" >}}.
+Stroom stores this unique identifier (know as a _Subject ID_ in stroom) against a user so it is able to associate the stroom user with the identity provider user.
+Identity providers may also have a more friendly _display name_ and _full name_ for the user, though these may not be unique.
+
+
+##### `USER_IDENTIFIER`
+
+The `USER_IDENTIFIER` is of the form `subject_id[,display_name[,full_name]]` e.g.:
+
+* `eaddac6e-6762-404c-9778-4b74338d4a17`
+* `eaddac6e-6762-404c-9778-4b74338d4a17,jbloggs`
+* `eaddac6e-6762-404c-9778-4b74338d4a17,jbloggs,Joe Bloggs`
+
+The optional parts are so that stroom can display more human friendly identifiers for a user.
+They are only initial values and will always be over written with the values from the identity provider when the user logs in.
+
+The following are examples of various uses of the `--createUser` argument group.
+
+{{< command-line "stroomuser" "localhost" >}}
+# Create a user using their unique IDP identifier and add them to group Administrators
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser "45744aee-0b4c-414b-a82a-8b8b134cc201" \
+--addToGroup "45744aee-0b4c-414b-a82a-8b8b134cc201"  Administrators \
+path/to/config.yml
+
+# Create a user using their unique IDP identifier, display name and full name
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser "45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs" \
+--addToGroup "jbloggs"  Administrators \
+path/to/config.yml
+
+# Create multiple users at once, adding them to appropriate groups
+java -jar /absolute/path/to/stroom-app.jar \
+manage_users \
+--createUser "45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs" \
+--createUser "37fb1eb4-f59c-4040-8e1d-57485e0f912f,jdoe,John Doe" \
+--addToGroup "jbloggs"  Administrators \
+--addToGroup "jdoe"  Analysts \
+path/to/config.yml
+{{</ command-line >}}
+
+
+##### `GROUP_IDENTIFIER`
+
+The `GROUP_IDENTIFIER` is the name of the group in stroom, e.g. `Administrators`, `Analysts`, etc.
+Groups are created by an admin to help manage permissions for large number of similar users.
+Groups relate only to stroom and have nothing to do with the identity provider.
+
+
+##### `USER_OR_GROUP_IDENTIFIER`
+
+The `USER_OR_GROUP_IDENTIFIER` can either be the identifier for a user or a group, e.g. when granting a permission to a user/group.
+
+It takes the following forms (with examples for each):
+
+* `user_subject_id` 
+    * `eaddac6e-6762-404c-9778-4b74338d4a17`
+* `user_display_name` 
+    * `jbloggs`
+* `group_name`
+    * `Administrators`
+
+The value for the argument will first be treated as a unique identifier (i.e. the subject ID or group name).
+If the user cannot be found it will fall back to using the display name to find the user.
