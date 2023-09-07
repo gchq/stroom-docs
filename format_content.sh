@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -44,7 +44,7 @@ debug() {
 }
 
 main() {
-  IS_DEBUG=false
+  IS_DEBUG=${IS_DEBUG:=false}
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
   CONTENT_DIR="${SCRIPT_DIR}/content"
 
@@ -54,17 +54,20 @@ main() {
   # rg -t md --pcre2 '\[.*\]\([^{].*\)' ./content
 
   # Array allows us to easily comment bits out for testing
-  local extra_sed_args=()
+  local extra_args=()
 
   # Add new line between sentences
-  #extra_sed_args+=('-e' 's/(?<=\.)(?<!(?:[Ee]\.[Gg]|[Ii]\.[Ee])\.) +([A-Z])/\n\1/g')
+  #extra_args+=('-e' 's/(?<=\.)(?<!(?:[Ee]\.[Gg]|[Ii]\.[Ee])\.) +([A-Z])/\n\1/g')
 
   # Ensure two blank lines before heading
-  #extra_sed_args+=('e' 's/(^[^#\n]*$)\n+(^#+ .*$)/\1\n\n\n\2/g')
+  # shellcheck disable=SC2016
+  extra_args+=('e' 's/(^[^#\n]*$)\n+(^#+ .*$)/$1\n\n\n$2/g')
 
   # Ensure one blank line between consequtive headings
   # Must be run after the ensure two lines one above
-  extra_sed_args+=('-e' 's/(^#+ .*$)\n*(^#+ .*$)/\1\n\n\2/g')
+  #extra_args+=('-e' 's/(^#+ .*$)\n*(^#+ .*$)/\1\n\n\2/g')
+  # shellcheck disable=SC2016
+  extra_args+=('-e' 's/(^#+ .*$)\n*?(?=^(#+ .*)$)/$1\n\n$2/gm')
 
   # Ensure one blank line after heading
   # Ensure all fenced blocks have a language
@@ -80,9 +83,10 @@ main() {
     -print0 \
     | xargs \
       -0 \
-      sed -E \
-      -i '' \
-      "${extra_sed_args[@]}"
+      sed \
+        -E \
+        -i'' \
+        "${extra_args[@]}"
 }
 
 main "$@"
