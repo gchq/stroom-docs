@@ -131,7 +131,7 @@ AND (
 ```
 Expression Trees are used in {{< glossary "Processor Filter" "Processor Filters" >}} and {{< glossary "Query" >}} expressions.
 
-See also [Dashboard Expressions]({{< relref "expressions" >}}).
+See also [Dashboard Expressions]({{< relref "docs/user-guide/dashboards/expressions" >}}).
 
 
 ## Feed

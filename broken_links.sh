@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# NOTE: This script was written before the content moved to Hugo/Docsy
+# so don't run it. Keeping it for now as some of it may be useful
+# for content validation in a Hugo/Docsy world.
+
 # Requires bash >=4.3
 # Requires realpath
 
