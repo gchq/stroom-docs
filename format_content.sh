@@ -61,13 +61,13 @@ main() {
 
   # Ensure two blank lines before heading
   # shellcheck disable=SC2016
-  extra_args+=('e' 's/(^[^#\n]*$)\n+(^#+ .*$)/$1\n\n\n$2/g')
+  extra_args+=('-e' 's/(^[^#\n]*$)\n+(^#+ .*$)/$1\n\n\n$2/gm;')
 
   # Ensure one blank line between consequtive headings
   # Must be run after the ensure two lines one above
   #extra_args+=('-e' 's/(^#+ .*$)\n*(^#+ .*$)/\1\n\n\2/g')
   # shellcheck disable=SC2016
-  extra_args+=('-e' 's/(^#+ .*$)\n*?(?=^(#+ .*)$)/$1\n\n$2/gm')
+  extra_args+=('-e' 's/(^#+ .*$)\n*(?=^(#+ .*)$)/$1\n\n$2/gm;')
 
   # Ensure one blank line after heading
   # Ensure all fenced blocks have a language
@@ -81,11 +81,10 @@ main() {
     -type f \
     -name "*.md" \
     -print0 \
-    | xargs \
-      -0 \
-      sed \
-        -E \
-        -i'' \
+      | xargs -0 \
+      perl \
+        -0777 \
+        -pi \
         "${extra_args[@]}"
 }
 
