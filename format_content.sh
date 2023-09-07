@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -56,18 +56,23 @@ main() {
   # Array allows us to easily comment bits out for testing
   local extra_args=()
 
+  # NOTE: This one is commented out because it risks matching lines in
+  # fenced blocks and there are two many edge cases.
   # Add new line between sentences
-  #extra_args+=('-e' 's/(?<=\.)(?<!(?:[Ee]\.[Gg]|[Ii]\.[Ee])\.) +([A-Z])/\n\1/g')
+  # shellcheck disable=SC2016
+  #extra_args+=('-e' 's/(?<=\.)(?<!(?:[Ee]\.[Gg]|[Ii]\.[Ee])\.) +([A-Z])/\n$1/gm')
 
   # Ensure two blank lines before heading
   # shellcheck disable=SC2016
-  extra_args+=('-e' 's/(^[^#\n]*$)\n+(^#+ .*$)/$1\n\n\n$2/gm;')
+  extra_args+=('-e' 's/(^[^#\n]*$)\n+(^##+ .*$)/$1\n\n\n$2/gm;')
 
   # Ensure one blank line between consequtive headings
   # Must be run after the ensure two lines one above
-  #extra_args+=('-e' 's/(^#+ .*$)\n*(^#+ .*$)/\1\n\n\2/g')
   # shellcheck disable=SC2016
-  extra_args+=('-e' 's/(^#+ .*$)\n*(?=^(#+ .*)$)/$1\n\n$2/gm;')
+  extra_args+=('-e' 's/(^##+ .*$)\n*?(?=^##+ .*$)/$1\n\n/gm;')
+
+  # Ensure first heading after front matter has one line between
+  extra_args+=('-e' 's/---\n+##/---\n\n##/gm;')
 
   # Ensure one blank line after heading
   # Ensure all fenced blocks have a language
