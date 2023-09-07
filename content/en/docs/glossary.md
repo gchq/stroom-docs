@@ -106,7 +106,7 @@ Typically refers to an item that can be created in the Explorer Tree, e.g. a Fee
 
 This is a {{< glossary "Stream Type" >}} in Stroom.
 An _Events_ stream consists of processed/cooked data that has been demarcated into individual Events.
-Typically in Stroom an _Events_ stream will contain data conforming to the {{< external-link "event-logging XML Schema" "https://github.com/gchq/event-logging-schema">}} which provides a normalised form for all {{< glossary "Raw Events" >}} to be transformed into.
+Typically in Stroom an _Events_ stream will contain data conforming to the {{< external-link "event-logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} which provides a normalised form for all {{< glossary "Raw Events" >}} to be transformed into.
 
 
 ## Explorer Tree
