@@ -240,6 +240,13 @@ This is a {{< glossary "Stream Type" >}} for {{< glossary "Stream" "Streams" >}}
 It also refers more generally to XML conforming to the `records:2` XML Schema which is used in a number of places in Stroom, including as the output format for the {{< element "DSParser" >}} and input for the {{< element "IndexingFilter" >}}.
 
 
+## Searchable
+
+A _Searchable_ is the term given the special searchable data sources that appear at the root of the explorer tree picker when selecting a data source.
+These data sources are special internal data sources that are not user managed content, unlike an {{< glossary "Index" >}}.
+They provide the means to search various aspects of Stroom's internals, such as the _Meta Store_ or _Processor Tasks_.
+
+
 ## Search Extraction
 
 The process of extracting un-indexed {{< glossary "Field" >}} values from the source {{< glossary "Event" >}}/Record to be used in search results.
