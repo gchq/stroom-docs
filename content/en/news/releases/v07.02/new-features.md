@@ -102,6 +102,8 @@ It defines the location and authentication details for connecting to an elastic 
 [Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}) and [searching an Elasticsearch index]({{< relref "/docs/user-guide/dashboards/elasticsearch" >}})
 {{% /see-also %}}
 
+Thanks to Pete K for his help adding the new Elasticsearch integration features.
+
 
 ### _Elastic Index_
 
