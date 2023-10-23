@@ -12,18 +12,22 @@ The following example uses a real world Apache log and demonstrates the use of r
 
 This example also demonstrates that the names and values that are output can be hard coded in the absence of field name information to make XSLT conversion easier later on. Also shown is that any match can be divided into further fields with additional expressions and the ability to nest data elements to provide structure if needed.
 
-## <a name="sec_1_3_1"></a>Input
+## Input
 
 ```text
 192.168.1.100 - "-" [12/Jul/2012:11:57:07 +0000] "GET /doc.htm HTTP/1.1" 200 4235 "-" "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"
 192.168.1.100 - "-" [12/Jul/2012:11:57:07 +0000] "GET /default.css HTTP/1.1" 200 3494 "http://some.server:8080/doc.htm" "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)"
 ```
 
-## <a name="sec_1_3_2"></a>Configuration
+## Configuration
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd" version="3.0">
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
 
   <!--
   Standard Apache Format
@@ -75,11 +79,15 @@ This example also demonstrates that the names and values that are output can be 
 </dataSplitter>
 ```
 
-## <a name="sec_1_3_3"></a>Output
+## Output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<records xmlns="records:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="records:2 file://records-v2.0.xsd" version="3.0">
+<records
+    xmlns="records:2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="records:2 file://records-v2.0.xsd"
+    version="3.0">
   <record>
     <data name="host" value="192.168.1.100" />
     <data name="log" value="-" />

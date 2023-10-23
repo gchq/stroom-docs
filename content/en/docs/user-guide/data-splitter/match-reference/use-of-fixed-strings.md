@@ -1,7 +1,7 @@
 ---
 title: "Use of fixed strings"
 linkTitle: "Use of fixed strings"
-#weight:
+weight: 30
 date: 2021-07-27
 tags: 
 description: >
