@@ -55,7 +55,7 @@ jobs:
       - name: Generate buildx cache key
         id: generate_buildx_cache_key
         run: |
-          echo "::set-output name=cache_key::$(./container_build/generate_buildx_cache_key.sh)"
+          echo "cache_key=$(./container_build/generate_buildx_cache_key.sh)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Cache Hugo Docker layers
