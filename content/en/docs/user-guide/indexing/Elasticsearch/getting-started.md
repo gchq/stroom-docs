@@ -19,7 +19,7 @@ You can configure multiple cluster connections if required, such as a separate o
 Each cluster connection is defined by an `Elastic Cluster` document within the Stroom UI.
 
 1. In the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}), right-click on the folder where you want to create the `Elastic Cluster` document.
-1. Select:  
+1. Select:
    {{< stroom-menu "New" "Elastic Cluster" >}}
 1. Give the cluster document a name and press {{< stroom-btn "OK" >}}.
 1. Complete the fields as explained in the [section below]({{< relref "#elastic-cluster-document-fields" >}}). Any fields not marked as "Optional" are mandatory.
@@ -35,7 +35,6 @@ Users authorised to search Elasticsearch indices via Stroom dashboards should on
 
 ## Elastic Cluster document fields
 
-
 ### Description
 
 (Optional) You might choose to enter the Elasticsearch cluster name or purpose here.
@@ -49,9 +48,9 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.
 
 #### Examples
 
-1. Local development node: https://localhost:9200
-1. FQDN: https://elasticsearch.example.com:9200
-1. Kubernetes service: https://prod-es-http.elastic.svc:9200
+1. Local development node: `https://localhost:9200`
+1. FQDN: `https://elasticsearch.example.com:9200`
+1. Kubernetes service: `https://prod-es-http.elastic.svc:9200`
 
 
 ### CA certificate
