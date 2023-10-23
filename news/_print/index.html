@@ -112,7 +112,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.7473b05640f7110f41cb9fea14e138de.json"
+    data-offline-search-index-json-src="../../offline-search-index.d5e891033f1f6d65069e8743ac707195.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -256,6 +256,77 @@ This is the multi-page printable view of this section.
 
 
 
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-4f6799a4125e6805deab5fd8aec1aac5">7.2</a></li>
+
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+
+    <li><a href="#pg-5f496e898b3219ca9a605c40537785a0">New Features</a></li>
+
+
+
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-dcb07534127d5e59bbafb900b6f83c09">Other Changes</a></li>
+
+
+
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-4604bddc18f1ccb3d8d12ee1f10d8ad8">Breaking Changes</a></li>
+
+
+
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-0d79261bffaa165200a0d11c6deee9b8">Upgrade Notes</a></li>
+
+
+
+    
+  
+    
+    
+	
+
+    <li><a href="#pg-c1f274fb632a7b7bf56c38c16a78b291">Change Log</a></li>
+
+
+
+    
+  
+
+    </ul>
     
   
 
@@ -807,6 +878,2609 @@ This provides more options for using Stroom&rsquo;s data in other systems.</p>
 
 
 
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-4f6799a4125e6805deab5fd8aec1aac5">7.2</h1>
+	<div class="lead">Key new features and changes present in v7.2 of Stroom and Stroom-Proxy.</div>
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2023-10-20" class="text-muted">Friday, October 20, 2023</time>
+        
+	</div>
+	<p>Stroom v7.1 was not widely adopted so this section may describe features or changes that were part of the v7.1 release.</p>
+
+</div>
+
+
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+
+  
+
+<div class="td-content" style="">
+    <h1 id="pg-5f496e898b3219ca9a605c40537785a0">New Features</h1>
+	<div class="lead">New features in Stroom version 7.2.</div>
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2023-10-20" class="text-muted">Friday, October 20, 2023</time>
+        
+	</div>
+	<h2 id="new-document-types">New Document types</h2>
+<p>The following new types of document can be created and managed in the explorer tree.</p>
+<h3 id="_view_"><em>View</em></h3>
+<p>A View <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="View"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg> </span>
+  </span> is a document type that has been added in to make using Dashboards and Queries easier.
+It encapsulates the data source and an optional extraction pipeline.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/view.png" href="../../images/releases/07.02/view.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/view.png" style="max-width:300" alt="images/releases/07.02/view.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>Previously a user wanting to create a Dashboard to query Stroom&rsquo;s indexes would need to first select the Index to use as the data source then select an extraction pipeline.
+The indexes do not typically store the full event, so extraction pipelines retrieve the full event from the stream store for each matching event returned by the index.
+Users should not need to understand the distinction between what is held in the index and what has to be exacted, nor should they need to know how to do that extraction.</p>
+<p>A View abstracts the user from this process.
+They can be configured by an admin or more senior user so that a standard user can just select an appropriate View as the data source in a Dashboard or Query and the View will silently handle the retrieval/extraction of data.</p>
+<p>Views are also used by <em>Analytic Rules</em> so need to define a Meta filter that controls the streams that will be processed by the analytic.
+This filer should mirror the processor filter expression used to control data processed by the Index that the View is using.
+These two filters may be amalgamated in a future version of Stroom.</p>
+<h3 id="_analytic-rule_"><em>Analytic Rule</em></h3>
+<p>Analytics is a new experimental feature in Stroom that is functional but still evolving so may well not perform well at scale.
+It allows the user to create scheduled or streaming Analytic Rule <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Analytic rule"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z"/></svg></span>
+  </span> that will fire alerts when events matching the rule are seen.</p>
+<div class="td-card-deck card-deck mb-4">
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/analytic-rule.png" href="../../images/releases/07.02/analytic-rule.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/analytic-rule.png" style="max-width:300" alt="images/releases/07.02/analytic-rule.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
+
+  <a title="images/releases/07.02/analytic-rule-notification.png" href="../../images/releases/07.02/analytic-rule-notification.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/analytic-rule-notification.png" style="max-width:200" alt="images/releases/07.02/analytic-rule-notification.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+</div>
+<p>Analytic rules rely on the new <a href="#stroom-query-language-stroomql">Stroom Query Language</a> to define what events will match the rule.
+An <em>Analytic Rule</em> can be created directly from a <em>Query</em> by clicking the Create Analytic Rule <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Create Analytic Rule"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z"/></svg></span>
+  </span> icon.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Add more content to this section
+
+</div>
+
+<h3 id="_query_"><em>Query</em></h3>
+<p>The Query <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span> entity provides a new way to query data in Stroom.
+It is a functional but evolving feature that is likely to be enhanced further in future versions.</p>
+<p>Rather than using the query expression builder and table column expressions as used in Dashboards, it uses the new text based <a href="../../docs/user-guide/dashboards/stroom-query-language/">Stroom Query Language</a> to define the query.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/query.png" href="../../images/releases/07.02/query.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/query.png" style="max-width:300" alt="images/releases/07.02/query.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<h4 id="stroom-query-language-stroomql">Stroom Query Language (StroomQL)</h4>
+<p>This is an example of a StroomQL query.
+It replaces the old dashboard expression &rsquo;tree&rsquo; and table column expressions.
+StroomQL has the advantage of being quicker to construct and is easier to copy from one query to another (whole or in part) as it is just plain text.</p>
+<pre><code class="language-sql">FROM &quot;Example View&quot;                           // Define the View to use as the data source
+WHERE Action IN(&quot;Search&quot;, &quot;View&quot;)             // Equivalent to the Dashboard expression tree
+EVAL hour = floorHour(EventTime)              // Define named fields based on function expressions
+EVAL event_count = count()
+GROUP BY Feed, Action                         // Equivalent to Dashboard table column grouping
+SELECT Feed, Action, event_count AS &quot;Count&quot;   // Equivalent to adding columns to a Dashboard table
+</code></pre>
+<p>Editing StroomQL queries in the editor is also made easier by the code completion (using <code>ctrl-space</code>) to suggest data sources, fields, functions and StroomQL language terms.</p>
+<h3 id="_documentation_"><em>Documentation</em></h3>
+<p>It is now possible to create a <em>Dcoumentation</em> <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Documentation"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:var(--icon-colour__blue)" d="m 311.60754,227.97375 c -92.11457,0 -167.00657,74.892 -167.00657,167.00656 V 1397.0197 c 0,92.1146 74.892,167.0065 167.00657,167.0065 h 668.02617 c 92.11459,0 167.00659,-74.8919 167.00659,-167.0065 v -50.3629 c -7.0457,2.8703 -14.0912,5.2189 -21.3977,7.0456 l -156.82959,39.1421 c -7.8284,1.8267 -15.6569,3.1313 -23.4853,3.6533 -2.3485,0.261 -4.6971,0.5218 -7.0456,0.5218 H 770.87557 c -15.91782,0 -30.26994,-8.8723 -37.31554,-22.9633 l -22.9634,-46.1877 c -4.43611,-8.8723 -13.30833,-14.3523 -22.9634,-14.3523 -9.65506,0 -18.78824,5.48 -22.9634,14.3523 l -22.9634,46.1877 c -7.56748,15.3959 -24.00719,24.5292 -40.96879,22.9633 -16.96161,-1.5656 -31.57469,-13.3082 -36.27174,-29.4872 l -44.10017,-145.3478 -25.57288,85.5908 c -15.91781,52.9724 -64.71504,89.2442 -120.03596,89.2442 h -21.39772 c -22.9634,0 -41.75163,-18.7882 -41.75163,-41.7516 0,-22.9635 18.78823,-41.7517 41.75163,-41.7517 h 21.39772 c 18.52729,0 34.70604,-12.0037 39.925,-29.7481 l 38.88122,-129.1691 c 8.87222,-29.4871 36.01079,-49.841 66.80262,-49.841 30.79184,0 57.9304,20.3539 66.80262,49.841 l 30.26994,100.7258 c 19.31013,-16.1788 43.83922,-25.3119 69.93399,-25.3119 41.4907,0 79.32812,23.4853 97.85541,60.5399 l 11.4817,22.9634 h 23.22435 c -8.08938,-22.9634 -9.65507,-48.0144 -3.65327,-72.5435 l 39.14217,-156.8296 c 7.30653,-29.4871 22.4415,-56.1036 43.83917,-77.5014 L 1146.6403,759.26336 V 645.49014 H 812.62721 c -46.18775,0 -83.50329,-37.31553 -83.50329,-83.50328 V 227.97375 Z m 501.01967,0 v 334.01311 h 334.01309 z m 766.66449,364.544 c -40.7079,-40.70785 -106.7277,-40.70785 -147.6965,0 l -76.7186,76.71863 185.2729,185.27291 76.7186,-76.71864 c 40.7079,-40.70785 40.7079,-106.72763 0,-147.69642 z M 958.49701,1065.6161 c -10.6989,10.6989 -18.2664,24.007 -21.9196,38.8811 l -39.1422,156.8296 c -3.6533,14.3522 0.5219,29.2263 10.9598,39.6641 10.4379,10.4379 25.312,14.6131 39.6641,10.9599 l 156.82949,-39.1422 c 14.6131,-3.6532 28.1824,-11.2208 38.8812,-21.9196 L 1480.9143,913.48345 1295.6415,728.21058 Z" /></svg> </span>
+  </span> entity in the explorer tree.
+This is designed to hold any text or documentation that the user chooses to write in <span class="glossary-link">
+  <a href="../../docs/glossary/#markdown" title="Glossary entry forMarkdown">
+    <span>Markdown</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> format.
+These can be useful for providing documentation within a folder in the tree to collectively describe all the items in that folder, or to provide a useful README type document.
+It is not possible to add documentation to a folder entity itself, so this is useful substitute.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p>See <a href="../../docs/user-guide/content/documentation/">Documenting Content</a> for details on the Markdown syntax.</p>
+
+
+</div>
+
+
+<h3 id="_elastic-cluster_"><em>Elastic Cluster</em></h3>
+<p><em>Elastic Cluster</em> <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Elastic cluster"><svg width="2500" height="2500" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"><path d="M255.96 134.393c0-21.521-13.373-40.117-33.223-47.43a75.239 75.239 0 0 0 1.253-13.791c0-39.909-32.386-72.295-72.295-72.295-23.193 0-44.923 11.074-58.505 30.088-6.686-5.224-14.835-7.94-23.402-7.94-21.104 0-38.446 17.133-38.446 38.446 0 4.597.836 9.194 2.298 13.373C13.582 81.739 0 100.962 0 122.274c0 21.522 13.373 40.327 33.431 47.64-.835 4.388-1.253 8.985-1.253 13.79 0 39.7 32.386 72.087 72.086 72.087 23.402 0 44.924-11.283 58.505-30.088 6.686 5.223 15.044 8.149 23.611 8.149 21.104 0 38.446-17.134 38.446-38.446 0-4.597-.836-9.194-2.298-13.373 19.64-7.104 33.431-26.327 33.431-47.64z" fill="#FFF"/><path d="M100.085 110.364l57.043 26.119 57.669-50.565a64.312 64.312 0 0 0 1.253-12.746c0-35.52-28.834-64.355-64.355-64.355-21.313 0-41.162 10.447-53.072 27.998l-9.612 49.73 11.074 23.82z" fill="#F4BD19"/><path d="M40.953 170.75c-.835 4.179-1.253 8.567-1.253 12.955 0 35.52 29.043 64.564 64.564 64.564 21.522 0 41.372-10.656 53.49-28.208l9.403-49.729-12.746-24.238-57.251-26.118-56.207 50.774z" fill="#3CBEB1"/><path d="M40.536 71.918l39.073 9.194 8.775-44.506c-5.432-4.179-11.91-6.268-18.805-6.268-16.925 0-30.924 13.79-30.924 30.924 0 3.552.627 7.313 1.88 10.656z" fill="#E9478C"/><path d="M37.192 81.32c-17.551 5.642-29.67 22.567-29.67 40.954 0 17.97 11.074 34.059 27.79 40.327l54.953-49.73-10.03-21.52-43.043-10.03z" fill="#2C458F"/><path d="M167.784 219.852c5.432 4.18 11.91 6.478 18.596 6.478 16.925 0 30.924-13.79 30.924-30.924 0-3.761-.627-7.314-1.88-10.657l-39.073-9.193-8.567 44.296z" fill="#95C63D"/><path d="M175.724 165.317l43.043 10.03c17.551-5.85 29.67-22.566 29.67-40.954 0-17.97-11.074-33.849-27.79-40.326l-56.415 49.311 11.492 21.94z" fill="#176655"/></svg></span>
+  </span> provides a means to define a connection to an <span class="glossary-link">
+  <a href="../../docs/glossary/#elastic-serarch" title="Glossary entry forElastic Serarch">
+    <span>Elastic Serarch</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> Cluster.
+You would create one of these documents for each Elasticsearch cluster that you want to connect to.
+It defines the location and authentication details for connecting to an elastic cluster.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
+
+  <a title="images/releases/07.02/elastic-cluster.png" href="../../images/releases/07.02/elastic-cluster.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/elastic-cluster.png" style="max-width:200" alt="images/releases/07.02/elastic-cluster.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../docs/user-guide/indexing/elasticsearch/">Using Elasticsearch to index data</a> and <a href="../../docs/user-guide/dashboards/elasticsearch/">searching an Elasticsearch index</a></p>
+
+
+</div>
+
+
+<h3 id="_elastic-index_"><em>Elastic Index</em></h3>
+<p>An <em>Elastic Index</em> <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Elastic index"><!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 2500 2500" style="enable-background:new 0 0 2500 2500;" xml:space="preserve"><style type="text/css"> .st0{fill:#4A4B4C;} .st1{fill:var(--icon-colour__white);} .st2{fill:#F4BD19;} .st3{fill:#3CBEB1;} .st4{fill:#E9478C;} .st5{fill:#2C458F;} .st6{fill:#95C63D;} .st7{fill:#176655;} </style><g><path class="st0" d="M1240,1071.5c220.3,0,426.2-20,617.7-60c191.5-40,80.9,38.1,191.5-40l114,129.1c0,64.1,99.8,94.5,4,149.3 s-225.9,98.3-390.4,130.4s-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237 c110.6,78.1,261.7,137.1,453.2,177.1C813.8,1051.5,1019.7,1071.5,1240,1071.5z M1240,2499.4c-193.4,0-372.3-16-536.8-48.1 s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237c110.6,78.1,261.7,137.1,453.2,177.1c191.5,40,397.4,60,617.7,60 M1776.8,1915.8c-164.5,32.1-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4 S169.1,1671.1,169.1,1607v-237C279.7,1448,430.8,1507,622.3,1547c191.5,40,397.4,60,617.7,60s426.2-20,617.7-60 c191.5-40,163.5-99,274.1-177.1l179.1,237c0,64.1-47.9,123.6-143.6,178.5 M1240,0.6c193.4,0,372.3,16,536.8,48.1 s294.7,75.5,390.4,130.4s143.6,114.3,143.6,178.5v178.5c0,64.1-47.9,123.6-143.6,178.5s-225.9,98.3-390.4,130.4 C1612.3,877,1433.4,893,1240,893s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4S169.1,600.2,169.1,536.1V357.6 c0-64.1,47.9-123.6,143.6-178.5S538.6,80.8,703.2,48.8S1046.6,0.6,1240,0.6z"/></g><path class="st1" d="M2518.6,1692.2c0-151.6-94.2-282.5-234-334c5.9-32,8.9-64.5,8.8-97.1c0-281-228.1-509.1-509.1-509.1 c-163.3,0-316.3,78-412,211.9c-47.1-36.8-104.5-55.9-164.8-55.9c-148.6,0-270.7,120.7-270.7,270.7c0,32.4,5.9,64.7,16.2,94.2 c-141.2,48.6-236.9,183.9-236.9,334c0,151.6,94.2,284,235.4,335.5c-5.9,30.9-8.8,63.3-8.8,97.1c0,279.6,228.1,507.6,507.6,507.6 c164.8,0,316.4-79.5,412-211.9c47.1,36.8,105.9,57.4,166.3,57.4c148.6,0,270.7-120.7,270.7-270.7c0-32.4-5.9-64.7-16.2-94.2 C2421.4,1977.6,2518.5,1842.2,2518.6,1692.2L2518.6,1692.2z"/><path class="st2" d="M1420.9,1522.9l401.7,183.9l406.1-356.1c5.9-29.6,8.9-59.6,8.8-89.8c0-250.1-203-453.2-453.2-453.2 c-150.1,0-289.9,73.6-373.7,197.2l-67.7,350.2L1420.9,1522.9L1420.9,1522.9z"/><path class="st3" d="M1004.5,1948.2c-5.9,29.4-8.8,60.3-8.8,91.2c0,250.1,204.5,454.7,454.7,454.7c151.6,0,291.3-75,376.7-198.6 l66.2-350.2l-89.8-170.7l-403.2-183.9L1004.5,1948.2L1004.5,1948.2z"/><path class="st4" d="M1001.5,1252.2l275.2,64.7l61.8-313.4c-38.3-29.4-83.9-44.1-132.4-44.1c-119.2,0-217.8,97.1-217.8,217.8 C988.3,1202.2,992.7,1228.7,1001.5,1252.2L1001.5,1252.2z"/><path class="st5" d="M978,1318.4c-123.6,39.7-208.9,158.9-208.9,288.4c0,126.5,78,239.8,195.7,284l387-350.2l-70.6-151.5L978,1318.4 L978,1318.4z"/><path class="st6" d="M1897.6,2294c38.3,29.4,83.9,45.6,131,45.6c119.2,0,217.8-97.1,217.8-217.8c0-26.5-4.4-51.5-13.2-75 l-275.2-64.7L1897.6,2294L1897.6,2294z"/><path class="st7" d="M1953.5,1909.9l303.1,70.6c123.6-41.2,208.9-158.9,208.9-288.4c0-126.5-78-238.4-195.7-284l-397.3,347.2 L1953.5,1909.9L1953.5,1909.9z"/></svg> </span>
+  </span> document is a data source for searching one or more indexes on Elasticsearch.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
+
+  <a title="images/releases/07.02/elastic-index.png" href="../../images/releases/07.02/elastic-index.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/elastic-index.png" style="max-width:200" alt="images/releases/07.02/elastic-index.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../docs/user-guide/dashboards/elasticsearch/">Searching an Elasticsearch index</a></p>
+
+
+</div>
+
+
+<h2 id="new-searchables">New Searchables</h2>
+<p>A <span class="glossary-link">
+  <a href="../../docs/glossary/#searchable" title="Glossary entry forSearchable">
+    <span>Searchable</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> is one of the data sources that appear at the top level of the tree pickers but not in the explorer tree.</p>
+<h3 id="_analytics_"><em>Analytics</em></h3>
+<p>Adds the ability to query data from <em>Table Builder</em> type <em>Analytic Rules</em>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section
+
+</div>
+
+<h2 id="new-pipeline-elements">New Pipeline Elements</h2>
+<h3 id="_dynamicindexingfilter_"><em>DynamicIndexingFilter</em></h3>
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../docs/user-guide/pipelines/element-reference#dynamicindexingfilter" class="" style="" title="">
+        <span class="pipeline-element" title="DynamicIndexingFilter &#34;DynamicIndexingFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Index"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">DynamicIndexingFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Needs filling in
+
+</div>
+
+<h3 id="_dynamicsearchresultoutputfilter_"><em>DynamicSearchResultOutputFilter</em></h3>
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../docs/user-guide/pipelines/element-reference#dynamicsearchresultoutputfilter" class="" style="" title="">
+        <span class="pipeline-element" title="DynamicSearchResultOutputFilter &#34;DynamicSearchResultOutputFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Search output"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">DynamicSearchResultOutputFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Needs filling in
+
+</div>
+
+<h3 id="_elasticindexingfilter_"><em>ElasticIndexingFilter</em></h3>
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../docs/user-guide/pipelines/element-reference#elasticindexingfilter" class="" style="" title="">
+        <span class="pipeline-element" title="ElasticIndexingFilter &#34;ElasticIndexingFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Elastic index"><!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2500 2500" style="enable-background:new 0 0 2500 2500;" xml:space="preserve"><style type="text/css"> .st0{fill:var(--icon-colour__grey);} .st1{fill:#FFF;} .st2{fill:#F4BD19;} .st3{fill:#3CBEB1;} .st4{fill:#E9478C;} .st5{fill:#2C458F;} .st6{fill:#95C63D;} .st7{fill:#176655;} </style><g><path class="st0" d="M1240,1071.5c220.3,0,426.2-20,617.7-60c191.5-40,80.9,38.1,191.5-40l114,129.1c0,64.1,99.8,94.5,4,149.3 s-225.9,98.3-390.4,130.4s-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237 c110.6,78.1,261.7,137.1,453.2,177.1C813.8,1051.5,1019.7,1071.5,1240,1071.5z M1240,2499.4c-193.4,0-372.3-16-536.8-48.1 s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237c110.6,78.1,261.7,137.1,453.2,177.1c191.5,40,397.4,60,617.7,60 M1776.8,1915.8c-164.5,32.1-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4 S169.1,1671.1,169.1,1607v-237C279.7,1448,430.8,1507,622.3,1547c191.5,40,397.4,60,617.7,60s426.2-20,617.7-60 c191.5-40,163.5-99,274.1-177.1l179.1,237c0,64.1-47.9,123.6-143.6,178.5 M1240,0.6c193.4,0,372.3,16,536.8,48.1 s294.7,75.5,390.4,130.4s143.6,114.3,143.6,178.5v178.5c0,64.1-47.9,123.6-143.6,178.5s-225.9,98.3-390.4,130.4 C1612.3,877,1433.4,893,1240,893s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4S169.1,600.2,169.1,536.1V357.6 c0-64.1,47.9-123.6,143.6-178.5S538.6,80.8,703.2,48.8S1046.6,0.6,1240,0.6z"/></g><path class="st1" d="M2518.6,1692.2c0-151.6-94.2-282.5-234-334c5.9-32,8.9-64.5,8.8-97.1c0-281-228.1-509.1-509.1-509.1 c-163.3,0-316.3,78-412,211.9c-47.1-36.8-104.5-55.9-164.8-55.9c-148.6,0-270.7,120.7-270.7,270.7c0,32.4,5.9,64.7,16.2,94.2 c-141.2,48.6-236.9,183.9-236.9,334c0,151.6,94.2,284,235.4,335.5c-5.9,30.9-8.8,63.3-8.8,97.1c0,279.6,228.1,507.6,507.6,507.6 c164.8,0,316.4-79.5,412-211.9c47.1,36.8,105.9,57.4,166.3,57.4c148.6,0,270.7-120.7,270.7-270.7c0-32.4-5.9-64.7-16.2-94.2 C2421.4,1977.6,2518.5,1842.2,2518.6,1692.2L2518.6,1692.2z"/><path class="st2" d="M1420.9,1522.9l401.7,183.9l406.1-356.1c5.9-29.6,8.9-59.6,8.8-89.8c0-250.1-203-453.2-453.2-453.2 c-150.1,0-289.9,73.6-373.7,197.2l-67.7,350.2L1420.9,1522.9L1420.9,1522.9z"/><path class="st3" d="M1004.5,1948.2c-5.9,29.4-8.8,60.3-8.8,91.2c0,250.1,204.5,454.7,454.7,454.7c151.6,0,291.3-75,376.7-198.6 l66.2-350.2l-89.8-170.7l-403.2-183.9L1004.5,1948.2L1004.5,1948.2z"/><path class="st4" d="M1001.5,1252.2l275.2,64.7l61.8-313.4c-38.3-29.4-83.9-44.1-132.4-44.1c-119.2,0-217.8,97.1-217.8,217.8 C988.3,1202.2,992.7,1228.7,1001.5,1252.2L1001.5,1252.2z"/><path class="st5" d="M978,1318.4c-123.6,39.7-208.9,158.9-208.9,288.4c0,126.5,78,239.8,195.7,284l387-350.2l-70.6-151.5L978,1318.4 L978,1318.4z"/><path class="st6" d="M1897.6,2294c38.3,29.4,83.9,45.6,131,45.6c119.2,0,217.8-97.1,217.8-217.8c0-26.5-4.4-51.5-13.2-75 l-275.2-64.7L1897.6,2294L1897.6,2294z"/><path class="st7" d="M1953.5,1909.9l303.1,70.6c123.6-41.2,208.9-158.9,208.9-288.4c0-126.5-78-238.4-195.7-284l-397.3,347.2 L1953.5,1909.9L1953.5,1909.9z"/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">ElasticIndexingFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+
+<p><em>ElasticIndexingFilter</em> is used to pass fields from an event to an Elasticsearch cluster to index.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../docs/user-guide/indexing/elasticsearch/">Using Elasticsearch to index data</a>.</p>
+
+
+</div>
+
+
+<h2 id="explorer-tree">Explorer Tree</h2>
+<p>Various enhancements have been made to the explorer tree.</p>
+<h3 id="favourites">Favourites</h3>
+<p>Users now have the ability to mark explorer tree entities as favourites.
+Favourites are user specific so each user can define their own favourites.
+This feature is useful for quick access to commonly used entities.
+Any entity or Folder at any level in the explorer tree can be set as a favourite.
+Favourites are also visible in the various entity pickers used in Stroom, e.g. Feed pickers.</p>
+<p>An entity/folder can be added or removed from the favourites section using the context menu items :</p>
+<p>
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Favourites"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__orange)" stroke="var(--icon-colour__orange)" stroke-width="100" d="M 1649.449 663.853 C 1649.449 677.135 1641.6 691.624 1625.903 707.321 L 1297.175 1027.899 L 1375.056 1480.692 C 1375.659 1484.919 1375.961 1490.956 1375.961 1498.804 C 1375.961 1511.482 1372.792 1522.199 1366.453 1530.953 C 1360.114 1539.707 1350.907 1544.084 1338.832 1544.084 C 1327.361 1544.084 1315.287 1540.461 1302.609 1533.217 L 896 1319.498 L 489.391 1533.217 C 476.109 1540.461 464.035 1544.084 453.168 1544.084 C 440.49 1544.084 430.981 1539.707 424.642 1530.953 C 418.303 1522.199 415.133 1511.482 415.133 1498.804 C 415.133 1495.182 415.737 1489.145 416.944 1480.692 L 494.825 1027.899 L 165.191 707.321 C 150.098 691.02 142.551 676.531 142.551 663.853 C 142.551 641.515 159.456 627.629 193.264 622.196 L 647.869 556.088 L 851.626 144.045 C 863.097 119.293 877.888 106.916 896 106.916 C 914.112 106.916 928.903 119.293 940.374 144.045 L 1144.131 556.088 L 1598.736 622.196 C 1632.544 627.629 1649.449 641.515 1649.449 663.853 Z" style=""/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Add to Favourites
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Favourites outline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path fill="transparent" stroke="var(--icon-colour__orange)" stroke-width="100" d="M 1649.449 663.853 C 1649.449 677.135 1641.6 691.624 1625.903 707.321 L 1297.175 1027.899 L 1375.056 1480.692 C 1375.659 1484.919 1375.961 1490.956 1375.961 1498.804 C 1375.961 1511.482 1372.792 1522.199 1366.453 1530.953 C 1360.114 1539.707 1350.907 1544.084 1338.832 1544.084 C 1327.361 1544.084 1315.287 1540.461 1302.609 1533.217 L 896 1319.498 L 489.391 1533.217 C 476.109 1540.461 464.035 1544.084 453.168 1544.084 C 440.49 1544.084 430.981 1539.707 424.642 1530.953 C 418.303 1522.199 415.133 1511.482 415.133 1498.804 C 415.133 1495.182 415.737 1489.145 416.944 1480.692 L 494.825 1027.899 L 165.191 707.321 C 150.098 691.02 142.551 676.531 142.551 663.853 C 142.551 641.515 159.456 627.629 193.264 622.196 L 647.869 556.088 L 851.626 144.045 C 863.097 119.293 877.888 106.916 896 106.916 C 914.112 106.916 928.903 119.293 940.374 144.045 L 1144.131 556.088 L 1598.736 622.196 C 1632.544 627.629 1649.449 641.515 1649.449 663.853 Z" style=""/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Remove from Favourites
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</p>
+<p>An entity that is a favourite is marked with a <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Favourites"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__orange)" stroke="var(--icon-colour__orange)" stroke-width="100" d="M 1649.449 663.853 C 1649.449 677.135 1641.6 691.624 1625.903 707.321 L 1297.175 1027.899 L 1375.056 1480.692 C 1375.659 1484.919 1375.961 1490.956 1375.961 1498.804 C 1375.961 1511.482 1372.792 1522.199 1366.453 1530.953 C 1360.114 1539.707 1350.907 1544.084 1338.832 1544.084 C 1327.361 1544.084 1315.287 1540.461 1302.609 1533.217 L 896 1319.498 L 489.391 1533.217 C 476.109 1540.461 464.035 1544.084 453.168 1544.084 C 440.49 1544.084 430.981 1539.707 424.642 1530.953 C 418.303 1522.199 415.133 1511.482 415.133 1498.804 C 415.133 1495.182 415.737 1489.145 416.944 1480.692 L 494.825 1027.899 L 165.191 707.321 C 150.098 691.02 142.551 676.531 142.551 663.853 C 142.551 641.515 159.456 627.629 193.264 622.196 L 647.869 556.088 L 851.626 144.045 C 863.097 119.293 877.888 106.916 896 106.916 C 914.112 106.916 928.903 119.293 940.374 144.045 L 1144.131 556.088 L 1598.736 622.196 C 1632.544 627.629 1649.449 641.515 1649.449 663.853 Z" style=""/></svg></span>
+  </span> in the main tree.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
+
+  <a title="images/releases/07.02/favourites.png" href="../../images/releases/07.02/favourites.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/favourites.png" style="max-width:200" alt="images/releases/07.02/favourites.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>A change to a child item of a folder marked as a favourite will be reflected in both the main tree and the favourites section.
+All items marked as a favourite <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Favourites"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__orange)" stroke="var(--icon-colour__orange)" stroke-width="100" d="M 1649.449 663.853 C 1649.449 677.135 1641.6 691.624 1625.903 707.321 L 1297.175 1027.899 L 1375.056 1480.692 C 1375.659 1484.919 1375.961 1490.956 1375.961 1498.804 C 1375.961 1511.482 1372.792 1522.199 1366.453 1530.953 C 1360.114 1539.707 1350.907 1544.084 1338.832 1544.084 C 1327.361 1544.084 1315.287 1540.461 1302.609 1533.217 L 896 1319.498 L 489.391 1533.217 C 476.109 1540.461 464.035 1544.084 453.168 1544.084 C 440.49 1544.084 430.981 1539.707 424.642 1530.953 C 418.303 1522.199 415.133 1511.482 415.133 1498.804 C 415.133 1495.182 415.737 1489.145 416.944 1480.692 L 494.825 1027.899 L 165.191 707.321 C 150.098 691.02 142.551 676.531 142.551 663.853 C 142.551 641.515 159.456 627.629 193.264 622.196 L 647.869 556.088 L 851.626 144.045 C 863.097 119.293 877.888 106.916 896 106.916 C 914.112 106.916 928.903 119.293 940.374 144.045 L 1144.131 556.088 L 1598.736 622.196 C 1632.544 627.629 1649.449 641.515 1649.449 663.853 Z" style=""/></svg></span>
+  </span> will appear as a top level item underneath the <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Favourites"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__orange)" stroke="var(--icon-colour__orange)" stroke-width="100" d="M 1649.449 663.853 C 1649.449 677.135 1641.6 691.624 1625.903 707.321 L 1297.175 1027.899 L 1375.056 1480.692 C 1375.659 1484.919 1375.961 1490.956 1375.961 1498.804 C 1375.961 1511.482 1372.792 1522.199 1366.453 1530.953 C 1360.114 1539.707 1350.907 1544.084 1338.832 1544.084 C 1327.361 1544.084 1315.287 1540.461 1302.609 1533.217 L 896 1319.498 L 489.391 1533.217 C 476.109 1540.461 464.035 1544.084 453.168 1544.084 C 440.49 1544.084 430.981 1539.707 424.642 1530.953 C 418.303 1522.199 415.133 1511.482 415.133 1498.804 C 415.133 1495.182 415.737 1489.145 416.944 1480.692 L 494.825 1027.899 L 165.191 707.321 C 150.098 691.02 142.551 676.531 142.551 663.853 C 142.551 641.515 159.456 627.629 193.264 622.196 L 647.869 556.088 L 851.626 144.045 C 863.097 119.293 877.888 106.916 896 106.916 C 914.112 106.916 928.903 119.293 940.374 144.045 L 1144.131 556.088 L 1598.736 622.196 C 1632.544 627.629 1649.449 641.515 1649.449 663.853 Z" style=""/></svg></span>
+  </span> Favourites root, even if they have an ancestor folder that is also a favourite.</p>
+<p>Thanks to Pete K for adding this new feature.</p>
+<h3 id="document-tagging">Document Tagging</h3>
+<p>You can now add tags to entities or folders in the explorer tree.
+Tags provide an additional means of searching for entities or folders.
+It allows entities/folders that reside in different folders to be associated together in one or more ways.</p>
+<p>The tags on an entity/folder can be managed from the explorer tree context menu item :</p>
+
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Tags"><svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor" d="m 1172.2976,222.24238 396.974,401.63326 c 162.7656,164.62925 162.7656,429.27856 0,593.90786 l -347.8957,351.9339 c -28.8879,29.1984 -76.1024,29.509 -105.3008,0.6212 -29.1984,-28.8878 -29.509,-76.1022 -0.6212,-105.3006 l 347.5853,-351.9339 c 105.3006,-106.543 105.3006,-277.6954 0,-384.23849 L 1066.3757,327.23236 c -28.8877,-29.1984 -28.5771,-76.41283 0.6213,-105.3006 29.1984,-28.88778 76.4128,-28.57716 105.3006,0.62124 z M 100.65423,813.66521 V 349.28646 c 0,-82.31462 66.78357,-149.09819 149.09819,-149.09819 h 464.37875 c 52.80561,0 103.43687,20.81162 140.71142,58.08617 l 521.84391,521.84368 c 77.6553,77.65531 77.6553,203.45703 0,281.11228 l -414.67958,414.6793 c -77.65531,77.6554 -203.45691,77.6554 -281.11222,0 L 159.05102,954.06613 C 121.46585,916.79146 100.65423,866.47082 100.65423,813.66521 Z M 547.94881,548.08405 a 99.398795,99.398795 0 1 0 -198.79759,0 99.398795,99.398795 0 1 0 198.79759,0 z" id="path1"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Tags
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<div class="td-card-deck card-deck mb-4">
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/manage-tags.png" href="../../images/releases/07.02/manage-tags.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/manage-tags.png" style="max-width:300" alt="images/releases/07.02/manage-tags.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/tree-tag-filter.png" href="../../images/releases/07.02/tree-tag-filter.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/tree-tag-filter.png" style="max-width:300" alt="images/releases/07.02/tree-tag-filter.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/tree-picker-tag-filter.png" href="../../images/releases/07.02/tree-picker-tag-filter.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/tree-picker-tag-filter.png" style="max-width:300" alt="images/releases/07.02/tree-picker-tag-filter.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+</div>
+<p>Stroom comes pre-configured with some default tags.
+The property that sets these is <code>stroom.explorer.suggestedTags</code>.
+The defaults for this property are <code>dynamic</code>, <code>extraction</code> and <code>reference-loader</code></p>
+<p>These pre-configured tags are also used in some of the tree pickers in stroom to provide extra filtering of entities in the picker.
+For example when selecting a Pipeline on an XSLT Filter the filter on the tree picker to select the pipeline will be pre-populated with <code>tag:reference-loader</code> so only reference loader pipelines are included.</p>
+<p>The following properties control the tags used to pre-populate tree picker filters:</p>
+<ul>
+<li><code>stroom.ui.query.dashboardPipelineSelectorIncludedTags</code></li>
+<li><code>stroom.ui.query.viewPipelineSelectorIncludedTags</code></li>
+<li><code>stroom.ui.referencePipelineSelectorIncludedTags</code></li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p>See the migration task <a href="../../news/releases/v07.02/upgrade-notes/#tagging-entities">Tagging Entities</a> for details on how to set up these pre-configured tags.</p>
+
+
+</div>
+
+
+<h3 id="copy-link-to-clipboard">Copy Link to Clipboard</h3>
+<p>It is not possible to easily copy a direct link to a Document from the explorer tree.
+Direct links are useful if for example you want to share a link to a particular stroom dashboard.</p>
+<p>To create a direct link, right click on the document you want a link for in the explorer tree and select:</p>
+
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Share"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path fill="currentColor" d="M 1440.207 1768.614 C 1371.954 1768.614 1313.505 1744.29 1264.857 1695.642 C 1216.209 1646.994 1191.885 1588.545 1191.885 1520.292 C 1191.885 1510.127 1192.974 1498.147 1195.152 1484.35 C 1197.33 1470.554 1200.597 1457.848 1204.955 1446.231 L 544.94 1062.856 C 523.157 1087.543 496.291 1107.509 464.344 1122.758 C 432.396 1138.006 399.722 1145.63 366.322 1145.63 C 298.069 1145.63 239.619 1121.306 190.971 1072.658 C 142.324 1024.01 118 965.559 118 897.308 C 118 827.602 142.324 768.79 190.971 720.868 C 239.619 672.946 298.069 648.986 366.322 648.986 C 399.722 648.986 431.671 655.519 462.165 668.59 C 492.66 681.66 520.252 700.537 544.94 725.224 L 1204.955 346.206 C 1200.597 336.042 1197.33 324.423 1195.152 311.354 C 1192.974 298.284 1191.885 285.94 1191.885 274.324 C 1191.885 204.618 1216.209 145.806 1264.857 97.884 C 1313.505 49.962 1371.954 26 1440.207 26 C 1509.911 26 1568.724 49.962 1616.646 97.884 C 1664.569 145.806 1688.529 204.618 1688.529 274.324 C 1688.529 342.575 1664.569 401.026 1616.646 449.674 C 1568.724 498.322 1509.911 522.646 1440.207 522.646 C 1406.807 522.646 1374.496 517.199 1343.274 506.309 C 1312.052 495.418 1285.55 477.627 1263.767 452.942 L 603.752 818.89 C 606.657 830.507 609.199 843.94 611.377 859.188 C 613.555 874.436 614.644 887.143 614.644 897.308 C 614.644 907.473 613.555 918.364 611.377 929.981 C 609.199 941.598 606.657 953.217 603.752 964.834 L 1263.767 1339.495 C 1285.55 1319.165 1310.964 1302.827 1340.007 1290.485 C 1369.05 1278.142 1402.451 1271.97 1440.207 1271.97 C 1509.911 1271.97 1568.724 1295.93 1616.646 1343.852 C 1664.569 1391.774 1688.529 1450.586 1688.529 1520.292 C 1688.529 1588.545 1664.569 1646.994 1616.646 1695.642 C 1568.724 1744.29 1509.911 1768.614 1440.207 1768.614 Z M 1440.207 391.95 C 1473.608 391.95 1501.561 380.696 1524.071 358.186 C 1546.579 335.678 1557.834 307.723 1557.834 274.324 C 1557.834 240.923 1546.579 212.968 1524.071 190.46 C 1501.561 167.951 1473.608 156.696 1440.207 156.696 C 1406.807 156.696 1378.852 167.951 1356.343 190.46 C 1333.835 212.968 1322.581 240.923 1322.581 274.324 C 1322.581 307.723 1333.835 335.678 1356.343 358.186 C 1378.852 380.696 1406.807 391.95 1440.207 391.95 Z M 366.322 1014.934 C 399.722 1014.934 427.677 1003.68 450.185 981.17 C 472.694 958.662 483.948 930.707 483.948 897.308 C 483.948 863.907 472.694 835.954 450.185 813.444 C 427.677 790.935 399.722 779.68 366.322 779.68 C 332.921 779.68 304.968 790.935 282.458 813.444 C 259.951 835.954 248.695 863.907 248.695 897.308 C 248.695 930.707 259.951 958.662 282.458 981.17 C 304.968 1003.68 332.921 1014.934 366.322 1014.934 Z M 1440.207 1637.918 C 1473.608 1637.918 1501.561 1626.664 1524.071 1604.154 C 1546.579 1581.646 1557.834 1553.691 1557.834 1520.292 C 1557.834 1486.891 1546.579 1458.938 1524.071 1436.428 C 1501.561 1413.92 1473.608 1402.664 1440.207 1402.664 C 1406.807 1402.664 1378.852 1413.92 1356.343 1436.428 C 1333.835 1458.938 1322.581 1486.891 1322.581 1520.292 C 1322.581 1553.691 1333.835 1581.646 1356.343 1604.154 C 1378.852 1626.664 1406.807 1637.918 1440.207 1637.918 Z M 1440.207 274.324 Z M 366.322 897.308 Z M 1440.207 1520.292 Z" /></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Copy Link to Clipboard
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>You can then paste the link into a browser to jump directly to that document (authenticating as required).</p>
+<h3 id="dependencies">Dependencies</h3>
+<p>It is not possible to jump to the Dependencies screen to see the dependencies or dependants of a particular document.
+In the explorer tree right click on a document and select one of:</p>
+<p>
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Dependencies"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1520,1216 q 0,-40 -28,-68 L 1284,940 q -28,-28 -68,-28 -42,0 -72,32 3,3 19,18.5 16,15.5 21.5,21.5 5.5,6 15,19 9.5,13 13,25.5 3.5,12.5 3.5,27.5 0,40 -28,68 -28,28 -68,28 -15,0 -27.5,-3.5 -12.5,-3.5 -25.5,-13 -13,-9.5 -19,-15 -6,-5.5 -21.5,-21.5 -15.5,-16 -18.5,-19 -33,31 -33,73 0,40 28,68 l 206,207 q 27,27 68,27 40,0 68,-26 l 147,-146 q 28,-28 28,-67 z M 817,511 q 0,-40 -28,-68 L 583,236 q -28,-28 -68,-28 -39,0 -68,27 L 300,381 q -28,28 -28,67 0,40 28,68 l 208,208 q 27,27 68,27 42,0 72,-31 -3,-3 -19,-18.5 Q 613,686 607.5,680 602,674 592.5,661 583,648 579.5,635.5 576,623 576,608 q 0,-40 28,-68 28,-28 68,-28 15,0 27.5,3.5 12.5,3.5 25.5,13 13,9.5 19,15 6,5.5 21.5,21.5 15.5,16 18.5,19 33,-31 33,-73 z m 895,705 q 0,120 -85,203 l -147,146 q -83,83 -203,83 -121,0 -204,-85 L 867,1356 q -83,-83 -83,-203 0,-123 88,-209 l -88,-88 q -86,88 -208,88 -120,0 -204,-84 L 164,652 Q 80,568 80,448 80,328 165,245 L 312,99 q 83,-83 203,-83 121,0 204,85 l 206,207 q 83,83 83,203 0,123 -88,209 l 88,88 q 86,-88 208,-88 120,0 204,84 l 208,208 q 84,84 84,204 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Dependencies
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+This will open the Dependencies screen with a filter pre-populated to show all documents that are dependencies of the selected document.</p>
+<p>
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Dependencies"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1520,1216 q 0,-40 -28,-68 L 1284,940 q -28,-28 -68,-28 -42,0 -72,32 3,3 19,18.5 16,15.5 21.5,21.5 5.5,6 15,19 9.5,13 13,25.5 3.5,12.5 3.5,27.5 0,40 -28,68 -28,28 -68,28 -15,0 -27.5,-3.5 -12.5,-3.5 -25.5,-13 -13,-9.5 -19,-15 -6,-5.5 -21.5,-21.5 -15.5,-16 -18.5,-19 -33,31 -33,73 0,40 28,68 l 206,207 q 27,27 68,27 40,0 68,-26 l 147,-146 q 28,-28 28,-67 z M 817,511 q 0,-40 -28,-68 L 583,236 q -28,-28 -68,-28 -39,0 -68,27 L 300,381 q -28,28 -28,67 0,40 28,68 l 208,208 q 27,27 68,27 42,0 72,-31 -3,-3 -19,-18.5 Q 613,686 607.5,680 602,674 592.5,661 583,648 579.5,635.5 576,623 576,608 q 0,-40 28,-68 28,-28 68,-28 15,0 27.5,3.5 12.5,3.5 25.5,13 13,9.5 19,15 6,5.5 21.5,21.5 15.5,16 18.5,19 33,-31 33,-73 z m 895,705 q 0,120 -85,203 l -147,146 q -83,83 -203,83 -121,0 -204,-85 L 867,1356 q -83,-83 -83,-203 0,-123 88,-209 l -88,-88 q -86,88 -208,88 -120,0 -204,-84 L 164,652 Q 80,568 80,448 80,328 165,245 L 312,99 q 83,-83 203,-83 121,0 204,85 l 206,207 q 83,83 83,203 0,123 -88,209 l 88,88 q 86,-88 208,-88 120,0 204,84 l 208,208 q 84,84 84,204 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Dependants
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+This will open the Dependencies screen with a filter pre-populated to show all documents that depend on the selected document.</p>
+<h2 id="entity-documentation">Entity Documentation</h2>
+<p>It is now possible to add documentation to all <span class="glossary-link">
+  <a href="../../docs/glossary/#entity" title="Glossary entry forentities">
+    <span>entities</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>/<span class="glossary-link">
+  <a href="../../docs/glossary/#document" title="Glossary entry fordocuments">
+    <span>documents</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> in the explorer tree, e.g. adding documentation on a <em>Feed</em>.
+Each entity now has a <em>Documentation</em> sub-tab where the user can enter any documentation they choose about that entity.
+The documentation is written in <span class="glossary-link">
+  <a href="../../docs/glossary/#markdown" title="Glossary entry forMarkdown">
+    <span>Markdown</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> syntax.
+It is not possible to add documentation to a <em>Folder</em> but you can create one or more a <em>Documentation</em> entities as a child item of that folder, see <a href="#_documentation_">Documentation</a>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p>See <a href="../../docs/user-guide/content/documentation/">Documenting Content</a> for details on the Markdown syntax.</p>
+
+
+</div>
+
+
+<h2 id="find-content">Find Content</h2>
+<p>You can now search the content of entities in the explorer tree, e.g. searching within XSLTs, Dictionaries, Pipeline structure, etc.
+This feature is available from the main menu <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Main Menu"><svg xmlns="http://www.w3.org/2000/svg" width="122.879" height="103.609" viewBox="0 0 122.879 103.609"><g style="fill:currentColor"><path d="M10.368,0h102.144c5.703,0,10.367,4.665,10.367,10.367v0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,20.735,0,16.07,0,10.368v0C0,4.665,4.666,0,10.368,0L10.368,0z M10.368,82.875 h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0c0,5.702-4.664,10.367-10.367,10.367H10.368C4.666,103.609,0,98.944,0,93.242l0,0 C0,87.54,4.666,82.875,10.368,82.875L10.368,82.875z M10.368,41.438h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,62.173,0,57.507,0,51.805l0,0C0,46.103,4.666,41.438,10.368,41.438 L10.368,41.438z"/></g></svg></span>
+  </span>:</p>
+
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Navigation
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+
+      <div class="stroom-menu-item-text">Find Content
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>It can also be accessed by hitting <code>&lt;ctrl&gt;-&lt;shift&gt;-f</code> (unless an editor pane has focus).</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/find-content.png" href="../../images/releases/07.02/find-content.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/find-content.png" style="max-width:300" alt="images/releases/07.02/find-content.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>It is useful for finding which pipelines are using a certain element, or what XSLTs are using a certain <code>stroom:</code> function.</p>
+<p>This is an early evolution of this feature and it is likely to be improved with time.</p>
+<h2 id="search-result-stores">Search Result Stores</h2>
+<p>When a Dashboard/Query search is run, the results are written to a Search Results Store for that query.
+This stores reside on disk to reduce the memory used by queries.
+The Search Result Stores are stored on a single Stroom node and get created when a query is executed in a <em>Dashboard</em>, <em>Query</em> or <em>Analytic Rule</em>.</p>
+<p>This screen provides an administrator with an overview of all the stores currently in existence in the Stroom cluster, showing details on their state and size.
+It can also be used to stop queries that are currently running or to delete the store entirely.
+Stores get deleted when the user closes the <em>Dashboard</em> or <em>Query</em> that created them.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/search-result-stores.png" href="../../images/releases/07.02/search-result-stores.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/search-result-stores.png" style="max-width:300" alt="images/releases/07.02/search-result-stores.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<h2 id="pipeline-stepper-improvements">Pipeline Stepper Improvements</h2>
+<p>The pipeline stepper has had a few user interface tweaks to make it easier to use.</p>
+<h3 id="log-pane">Log Pane</h3>
+<p>When there are errors, warnings or info messages on a pipeline element they will now also be displayed in a pane at the bottom.
+This makes it easer to see all messages in one place.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/stepper-log-pane.png" href="../../images/releases/07.02/stepper-log-pane.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/stepper-log-pane.png" style="max-width:300" alt="images/releases/07.02/stepper-log-pane.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>The editor still displays icons with hover tips in the gutter on the appropriate line where the message has an associated line number.</p>
+<p>The log pane can be hidden by clicking the <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Toggle Log Pane"><svg width="1792" height="1792" viewBox="0 0 1792 1792" version="1.1" xmlns="http://www.w3.org/2000/svg"><path style="fill:currentColor" d="M 896 128 C 756.66681 128 628.16655 162.3334 510.5 231 C 392.83345 299.6666 299.6666 392.83345 231 510.5 C 162.3334 628.16655 128 756.66681 128 896 C 128 1035.3332 162.3334 1163.8335 231 1281.5 C 299.6666 1399.1665 392.83345 1492.3334 510.5 1561 C 628.16655 1629.6666 756.66681 1664 896 1664 C 1035.3332 1664 1163.8335 1629.6666 1281.5 1561 C 1399.1665 1492.3334 1492.3334 1399.1665 1561 1281.5 C 1629.6666 1163.8335 1664 1035.3332 1664 896 C 1664 756.66681 1629.6666 628.16655 1561 510.5 C 1492.3334 392.83345 1399.1665 299.6666 1281.5 231 C 1163.8335 162.3334 1035.3332 128 896 128 z M 896 352 C 994.66657 352 1085.6668 376.33338 1169 425 C 1252.3332 473.66662 1318.3334 539.66675 1367 623 C 1415.6666 706.33325 1440 797.33343 1440 896 C 1440 994.66657 1415.6666 1085.6668 1367 1169 C 1318.3334 1252.3332 1252.3332 1318.3334 1169 1367 C 1085.6668 1415.6666 994.66657 1440 896 1440 C 797.33343 1440 706.33325 1415.6666 623 1367 C 539.66675 1318.3334 473.66662 1252.3332 425 1169 C 376.33338 1085.6668 352 994.66657 352 896 C 352 797.33343 376.33338 706.33325 425 623 C 473.66662 539.66675 539.66675 473.66662 623 425 C 706.33325 376.33338 797.33343 352 896 352 z " /><path style="fill:currentColor;fill-opacity:1;stroke-width:3.40204" d="m 896.00009,460.51434 c 45.24717,0 81.64911,36.40193 81.64911,81.6492 v 381.02962 c 0,45.24728 -36.40194,81.64914 -81.64911,81.64914 -45.24734,0 -81.64922,-36.40186 -81.64922,-81.64914 V 542.16353 c 0,-45.24726 36.40188,-81.6492 81.64922,-81.64919 z M 787.13438,1222.5734 a 108.86562,108.86562 0 1 1 217.73122,0 108.86562,108.86562 0 1 1 -217.73122,0 z" /></svg> </span>
+  </span> icon.</p>
+<h3 id="highlighting">Highlighting</h3>
+<p>The pipeline displayed at the top of the stepper now highlights elements that have log messages against them.
+This makes it easier to see when there is a problem with an element as you step through the data.
+The elements are given a coloured border according to the highest severity message on that element:</p>
+<ul>
+<li>Info - Blue</li>
+<li>Warning - Yellow</li>
+<li>Error - Red</li>
+<li>Fatal Error - Red (pulsating)</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.02/stepper-element-highlight.png" href="../../images/releases/07.02/stepper-element-highlight.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/stepper-element-highlight.png" style="max-width:500" alt="images/releases/07.02/stepper-element-highlight.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<h3 id="filtering">Filtering</h3>
+<p>Stroom has always had the ability to filter the data being stepped, however the feature was a little hidden (the Mange Step Filters <span class="stroom-icon inline-svg-button icon-buttonicon-colour__green" >
+    <span class="face" title="Manage Step Filters"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg></span>
+  </span> icon).</p>
+<p>Now you can right click on a pipeline element to manage the filters on that element.
+You can also clear its filters or the filters on all elements.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/stepper-context-menu.png" href="../../images/releases/07.02/stepper-context-menu.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/stepper-context-menu.png" style="max-width:300" alt="images/releases/07.02/stepper-context-menu.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>The pipeline now shows which elements have an active filter by displaying a filter <span class="stroom-icon inline-svg-button icon-buttonicon-colour__green" >
+    <span class="face" title="Manage Step Filters"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg></span>
+  </span> icon.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.02/stepper-element-filter-icons.png" href="../../images/releases/07.02/stepper-element-filter-icons.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/stepper-element-filter-icons.png" style="max-width:400" alt="images/releases/07.02/stepper-element-filter-icons.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+
+</div>
+
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-dcb07534127d5e59bbafb900b6f83c09">Other Changes</h1>
+	<div class="lead">Other changes in Stroom version 7.2. Changes may be user interface changes, or changes to existing functionality or non-functional performance improvements.</div>
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2023-10-20" class="text-muted">Friday, October 20, 2023</time>
+        
+	</div>
+	<h2 id="look-and-feel">Look and Feel</h2>
+<h3 id="new-user-interface-design">New User Interface Design</h3>
+<p>The user interface has had a bit of a re-design to give it a more modern look and to make it conform to accessibility standards.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.02/new-look.png" href="../../images/releases/07.02/new-look.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/new-look.png" style="max-width:400" alt="images/releases/07.02/new-look.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<h3 id="user-preferences">User Preferences</h3>
+<p>Now you can customise Stroom with your own personal preferences.
+From the main menu <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Main Menu"><svg xmlns="http://www.w3.org/2000/svg" width="122.879" height="103.609" viewBox="0 0 122.879 103.609"><g style="fill:currentColor"><path d="M10.368,0h102.144c5.703,0,10.367,4.665,10.367,10.367v0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,20.735,0,16.07,0,10.368v0C0,4.665,4.666,0,10.368,0L10.368,0z M10.368,82.875 h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0c0,5.702-4.664,10.367-10.367,10.367H10.368C4.666,103.609,0,98.944,0,93.242l0,0 C0,87.54,4.666,82.875,10.368,82.875L10.368,82.875z M10.368,41.438h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,62.173,0,57.507,0,51.805l0,0C0,46.103,4.666,41.438,10.368,41.438 L10.368,41.438z"/></g></svg></span>
+  </span>, select:</p>
+
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">User
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Settings"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Preferences
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>You can also change the following:</p>
+<ul>
+<li>
+<p><strong>Layout Density</strong> - This controls the layout spacing to fit more or less user interface elements in the available space.</p>
+</li>
+<li>
+<p><strong>Font</strong> - Change font used in Stroom.</p>
+</li>
+<li>
+<p><strong>Font Size</strong> - Change the font size used in Stroom.</p>
+</li>
+<li>
+<p><strong>Transparency</strong> - Enables partial transparency of dialog windows.
+Entirely cosmetic.</p>
+</li>
+</ul>
+<h4 id="theme">Theme</h4>
+<p>Choose between the traditional light theme and a new dark theme with light text on a dark background.</p>
+<div class="td-card-deck card-deck mb-4">
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 260px">
+
+  <a title="images/releases/07.02/theme-light.png" href="../../images/releases/07.02/theme-light.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/theme-light.png" style="max-width:250" alt="images/releases/07.02/theme-light.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 260px">
+
+  <a title="images/releases/07.02/theme-dark.png" href="../../images/releases/07.02/theme-dark.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/theme-dark.png" style="max-width:250" alt="images/releases/07.02/theme-dark.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+</div>
+<h4 id="editor-preferences">Editor Preferences</h4>
+<p>The Ace text editor used within Stroom is used for editing things like XSLTs and viewing stream data.
+It can now be personalised with the following options:</p>
+<ul>
+<li>
+<p><strong>Theme</strong> - The colour theme for the editor.
+The theme options will be applicable to the main user interface theme, i.e. light/dark editor themes.
+The theme affects the colours used for the syntax highlight content.</p>
+</li>
+<li>
+<p><strong>Key Bindings</strong> - Allows you to set the editor to use 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/Vim_%28text_editor%29" target="_blank" class="" style="" title="Vim (external link)">
+    <span>Vim</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ key bindings for more powerful text editing.
+If you don&rsquo;t know what Vim is then it is best to stick to <em>Standard</em>.
+If you would like to learn how to use Vim, install <code>vimtutor</code>.
+Note: The Ace editor does not fully emulate Vim, not all Vim key bindings work and there is limited command mode support.</p>
+</li>
+<li>
+<p><strong>Live Auto Completion</strong> - Set this to <em>On</em> if you want the editor code completion to make suggestions as you type.
+When set to <em>Off</em> you need to press <code>&lt;ctrl&gt;-&lt;space&gt;</code> to show the suggestion dialog.</p>
+</li>
+</ul>
+<h4 id="date-and-time">Date and Time</h4>
+<p>You can not change the format used for displaying the date and time in the user interface.
+You can also set the time zone used for displaying the date and time in the user interface.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>Stroom works in <span class="glossary-link">
+<a href="../../docs/glossary/#utc" title="Glossary entry forUTC">
+<span>UTC</span>
+<i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+</a>
+</span> time internally.
+Changing the time zone only affects display of dates/times, not how data is stored or the dates/times in events.</p>
+
+
+</div>
+
+
+<h3 id="dashboard-changes">Dashboard Changes</h3>
+<h4 id="design-mode">Design Mode</h4>
+<p>A Design Mode has been introduced to <span class="glossary-link">
+  <a href="../../docs/glossary/#dashboard" title="Glossary entry forDashboards">
+    <span>Dashboards</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> and is toggled using the button <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Enter/Exit Design Mode"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/></svg></span>
+  </span>.
+When a <em>Dashboard</em> is in design mode, the following functionality is enabled:</p>
+<ul>
+<li>Adding components to the <em>Dashboard</em>.</li>
+<li>Removing components from the <em>Dashboard</em>.</li>
+<li>Moving <em>Dashboard</em> components within panes, to new panes or to existing panes.</li>
+<li>Changing the constraints of the <em>Dashboard</em>.</li>
+</ul>
+<p>On creation of a new <em>Dashboard</em>, Design Mode will be on so the user has full functionality.
+On opening an existing <em>Dashboard</em>, Design Mode will be off.
+This is because typically, <em>Dashboards</em> are viewed more than they are modified.</p>
+<h4 id="visual-constraints">Visual Constraints</h4>
+<p>Now it is possible to control the horizontal and vertical constraints of a <em>Dashboard</em>.
+In Stroom 7.0, a dashboard would always scale to fit the user&rsquo;s screen.
+Sometimes it is desirable for the dashboard canvas area to be larger than the screen so that you have to scroll to see it all.
+For example you may have a dashboard with a large number of component panes and rather than squashing them all into the available space you want to be able to scroll vertically in order to see them all.</p>
+<p>It is now possible to change the horizontal and/or vertical constraints to fit the available width/height or to be fixed by clicking the <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Set Constraints"><svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 23 23"><path style="fill: currentColor" d="M 5 5 L 5 6 L 5 7 L 6 7 L 7 7 L 7 6 L 7 5 L 6 5 L 5 5 z M 9 5 L 9 7 L 11 7 L 11 5 L 9 5 z M 13 5 L 13 7 L 15 7 L 15 5 L 13 5 z M 17 5 L 17 7 L 19 7 L 19 5 L 17 5 z M 21 5 L 21 7 L 23 7 L 23 5 L 21 5 z M 25 5 L 25 6 L 25 7 L 26 7 L 27 7 L 27 6 L 27 5 L 26 5 L 25 5 z M 5 9 L 5 11 L 7 11 L 7 9 L 5 9 z M 25 9 L 25 11 L 27 11 L 27 9 L 25 9 z M 14 11 L 14 13 L 17.5625 13 L 13.5625 17 L 7 17 L 5 17 L 5 18 L 5 19 L 5 21 L 5 23 L 5 25 L 5 26 L 5 27 L 6 27 L 7 27 L 14 27 L 15 27 L 15 26 L 15 18.4375 L 19 14.4375 L 19 18 L 21 18 L 21 12 L 21 11 L 20 11 L 14 11 z M 5 13 L 5 15 L 7 15 L 7 13 L 5 13 z M 25 13 L 25 15 L 27 15 L 27 13 L 25 13 z M 25 17 L 25 19 L 27 19 L 27 17 L 25 17 z M 7 19 L 13 19 L 13 25 L 7 25 L 7 23 L 7 21 L 7 19 z M 25 21 L 25 23 L 27 23 L 27 21 L 25 21 z M 17 25 L 17 27 L 19 27 L 19 25 L 17 25 z M 21 25 L 21 27 L 23 27 L 23 25 L 21 25 z M 25 25 L 25 26 L 25 27 L 26 27 L 27 27 L 27 26 L 27 25 L 26 25 L 25 25 z"/></svg></span>
+  </span> button.</p>
+<div class="td-card-deck card-deck mb-4">
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/dashboard-canvas.png" href="../../images/releases/07.02/dashboard-canvas.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/dashboard-canvas.png" style="max-width:300" alt="images/releases/07.02/dashboard-canvas.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 110px">
+
+  <a title="images/releases/07.02/dashboard-set-constraints.png" href="../../images/releases/07.02/dashboard-set-constraints.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/dashboard-set-constraints.png" style="max-width:100" alt="images/releases/07.02/dashboard-set-constraints.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+</div>
+<p>The edges of the canvas can be moved to shrink/grow it.</p>
+<h3 id="explorer-filter-matches">Explorer Filter Matches</h3>
+<p>Filtering in the explorer has been changed to highlight the filter matches and to search in folders that themselves are a match.
+In Stroom v7.0 folders that matched were not expanded.
+Match highlighting makes it clearer what items have matched.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 210px">
+
+  <a title="images/releases/07.02/explorer-filter-matches.png" href="../../images/releases/07.02/explorer-filter-matches.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/explorer-filter-matches.png" style="max-width:200" alt="images/releases/07.02/explorer-filter-matches.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<h3 id="document-permissions-screen">Document Permissions Screen</h3>
+<p>The document and folder permissions screens have been re-designed with a better layout and item highlighting to make it clearer which permissions have been selected.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/folder-permissions.png" href="../../images/releases/07.02/folder-permissions.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/folder-permissions.png" style="max-width:300" alt="images/releases/07.02/folder-permissions.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<h2 id="partitioned-reference-data-stores">Partitioned Reference Data Stores</h2>
+<p>In Stroom v7.0 reference data is loaded using a reference loader pipeline and the key/value pairs are stored in a single disk backed reference data store on each Stroom node for fast lookup.
+This single store approach has led to high contention and performance problems when purge operations are running against it at the same time or multiple reference <em>Feeds</em> are being loaded at the same time.</p>
+<p>In Stroom v7.2 the reference data key/value pairs are now stored in multiple reference data stores on each node, with one store per <em>Feed</em>.
+This reduces contention as reference data for one <em>Feed</em> can be loading while a purge operation is running on the store for another <em>Feed</em> or reference data for multiple <em>Feeds</em> can be loaded concurrently.
+Performance is still limited by the file system that the stores are hosted on.</p>
+<p>All reference data stores are stored in the directory defined by <code>stroom.pipeline.referenceData.lmdb.localDir</code>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p>See the <a href="../../news/releases/v07.02/upgrade-notes/#reference-data-store">upgrade notes</a> for the reference data stores.</p>
+
+
+</div>
+
+
+<h2 id="improved-oauth20openid-connect-support">Improved OAuth2.0/OpenID Connect Support</h2>
+<p>The support for Open ID Connect (OIDC) authentication has been improved in v7.2.
+Stroom can be integrated with AWS Cognito, MS Azure AD, KeyCloak and other OIDC <span class="glossary-link">
+  <a href="../../docs/glossary/#idp" title="Glossary entry forIdentity Providers (IDPs)">
+    <span>Identity Providers (IDPs)</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+<p>Data receipt in Stroom and Stroom-Proxy can now enforce OIDC token authentication as well as certificate authentication.
+The data receipt authentication is configured via the properties:</p>
+<ul>
+<li><code>stroom.receive.authenticationRequired</code></li>
+<li><code>stroom.receive.certificateAuthenticationEnabled</code></li>
+<li><code>stroom.receive.tokenAuthenticationEnabled</code></li>
+</ul>
+<p>Stroom and Stroom-Proxy have also been changed to use OIDC tokens for API endpoints and inter-node communications.
+This currently requires the OIDC IDP to support the client credentials flow.</p>
+<p>Stroom can still be used with its own internal IDP if you do not have an external IDP available.</p>
+<h3 id="user-naming-changes">User Naming Changes</h3>
+<p>The changes to add integration with external OAuth 2.0/OpenID Connect identity provides has required some changes to the way users in Stroom are identified.</p>
+<p>Previously in Stroom a user would have a unique username that would be set when creating the account in Stroom.
+This would typically by a human friendly name like <code>jbloggs</code> or similar.
+It would be used in all the user/permission management screens to identify the user, for functions like <code>current-user()</code>, for simple audit columns in the database (<code>create_user</code> and <code>update_user</code>) and for the audit events stroom produces.</p>
+<p>With the integration to external identity providers this has had to change a little.
+Typically in OpenID Connect IDPs the unique identity of a principle (user) is fairly unfriendly <span class="glossary-link">
+  <a href="../../docs/glossary/#uuid" title="Glossary entry forUUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+The user will likely also have a more human friendly identity (sometimes called the <code>preferred_username</code>) that may be something like <code>jblogs</code> or <code>jblogs@somedomain.x</code>.
+As per the OpenID Connect specification, this friendly identity may not be unique within the IDP, so Stroom has to assume this also.
+In reality this identity is typically unique on the IDP though.
+The IDP will often also have a full name for the user, e.g. <code>Joe Bloggs</code>.</p>
+<p>Stroom now stores and can display all of these identities.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.02/application-permissions.png" href="../../images/releases/07.02/application-permissions.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/application-permissions.png" style="max-width:500" alt="images/releases/07.02/application-permissions.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<ul>
+<li><strong>Display Name</strong> - This is the (potentially non-unique) preferred user name held by the IDP, e.g. <code>jbloggs</code> or  <code>jblogs@somedomain.x</code>.</li>
+<li><strong>Full Name</strong> - The user&rsquo;s full name, e.g. <code>Joe Bloggs</code>, if known by the IDP.</li>
+<li><strong>Unique User Identity</strong> - The unique identity of the user on the IDP, which may look like <code>ca650638-b52c-45af-948c-3f34aeeb6f86</code>.</li>
+</ul>
+<p>In most screens, Stroom will display the <em>Display Name</em>.
+This will also be used for any audit purposes.
+The permissions screen show all three identities so an admin can be sure which user they are dealing with and be able to correlate it with one on the IDP.</p>
+<h3 id="user-creation">User Creation</h3>
+<p>When using an external IDP, a user visiting Stroom for the first time will result in the creation of a Stroom User record for them.
+This Stroom User will have no permissions associated with it.
+To improve the experience for a new user it is preferable for the Stroom administrator to pre-create the Stroom User account in Stroom with the necessary permissions.</p>
+<p>This can be done from the Application Permissions screen accessed from the Main menu (<span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Main Menu"><svg xmlns="http://www.w3.org/2000/svg" width="122.879" height="103.609" viewBox="0 0 122.879 103.609"><g style="fill:currentColor"><path d="M10.368,0h102.144c5.703,0,10.367,4.665,10.367,10.367v0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,20.735,0,16.07,0,10.368v0C0,4.665,4.666,0,10.368,0L10.368,0z M10.368,82.875 h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0c0,5.702-4.664,10.367-10.367,10.367H10.368C4.666,103.609,0,98.944,0,93.242l0,0 C0,87.54,4.666,82.875,10.368,82.875L10.368,82.875z M10.368,41.438h102.144c5.703,0,10.367,4.665,10.367,10.367l0,0 c0,5.702-4.664,10.368-10.367,10.368H10.368C4.666,62.173,0,57.507,0,51.805l0,0C0,46.103,4.666,41.438,10.368,41.438 L10.368,41.438z"/></g></svg></span>
+  </span>).</p>
+
+
+
+
+
+  <div class="stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Security
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="User"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Application Permissions
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>You can create a single Stroom User by clicking the <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Add User"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span> button.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/create-single-user.png" href="../../images/releases/07.02/create-single-user.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/create-single-user.png" style="max-width:300" alt="images/releases/07.02/create-single-user.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>Or you can create multiple Stroom Users by clicking the <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Add Multiple Users"><svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path style="fill:currentColor" d="M 1408,160 V 320 H 1280 V 160 q 0,-13 -9.5,-22.5 Q 1261,128 1248,128 H 160 q -13,0 -22.5,9.5 Q 128,147 128,160 v 1088 q 0,13 9.5,22.5 9.5,9.5 22.5,9.5 h 160 v 128 H 160 Q 94,1408 47,1361 0,1314 0,1248 V 160 Q 0,94 47,47 94,0 160,0 h 1088 q 66,0 113,47 47,47 47,113 z" id="path594" /><path id="path592" style="fill:currentColor" d="M 544 384 C 500.00004 384 462.3333 399.6667 431 431 C 399.6667 462.3333 384 500.00004 384 544 L 384 1632 C 384 1676 399.6667 1713.6667 431 1745 C 462.3333 1776.3333 500.00004 1792 544 1792 L 1632 1792 C 1676 1792 1713.6667 1776.3333 1745 1745 C 1776.3333 1713.6667 1792 1676 1792 1632 L 1792 544 C 1792 500.00004 1776.3333 462.3333 1745 431 C 1713.6667 399.6667 1676 384 1632 384 L 544 384 z M 544 512 L 1632 512 C 1640.6667 512 1648.1667 515.16667 1654.5 521.5 C 1660.8333 527.83333 1664 535.33334 1664 544 L 1664 1632 C 1664 1640.6667 1660.8333 1648.1667 1654.5 1654.5 C 1648.1667 1660.8333 1640.6667 1664 1632 1664 L 544 1664 C 535.33334 1664 527.83333 1660.8333 521.5 1654.5 C 515.16667 1648.1667 512 1640.6667 512 1632 L 512 544 C 512 535.33334 515.16667 527.83333 521.5 521.5 C 527.83333 515.16667 535.33334 512 544 512 z " /><path style="fill:currentColor;stroke-width:0.65685" d="m 1550.4219,1024.9425 v 126.1151 q 0,26.274 -18.3918,44.6658 -18.3917,18.3917 -44.6657,18.3917 H 1214.115 v 273.2494 q 0,26.274 -18.3917,44.6657 -18.3918,18.3918 -44.6658,18.3918 h -126.1151 q -26.27392,0 -44.6657,-18.3918 -18.39176,-18.3917 -18.39176,-44.6657 V 1214.1151 H 688.6356 q -26.274,0 -44.66577,-18.3917 -18.39177,-18.3918 -18.39177,-44.6658 v -126.1151 q 0,-26.27406 18.39177,-44.66583 18.39177,-18.39176 44.66577,-18.39176 H 961.88494 V 688.63557 q 0,-26.274 18.39176,-44.66577 18.39178,-18.39177 44.6657,-18.39177 h 126.1151 q 26.274,0 44.6658,18.39177 18.3917,18.39177 18.3917,44.66577 v 273.24934 h 273.2494 q 26.274,0 44.6657,18.39176 18.3918,18.39177 18.3918,44.66583 z" id="path172" /></svg> </span>
+  </span> button.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.02/create-multiple-users.png" href="../../images/releases/07.02/create-multiple-users.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/releases/07.02/create-multiple-users.png" style="max-width:300" alt="images/releases/07.02/create-multiple-users.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<p>In both cases the <em>Unique User ID</em> is mandatory, and this must be obtained from the IDP.
+The <em>Display Name</em> and <em>Full Name</em> are optional, as these will be obtained automatically from the IDP by Stroom on login.
+It can be useful to populate them initially to make it easier for the administrator to see who is who in the list of users.</p>
+<p>Once the user(s) are created, the appropriate permissions/groups can be assigned to them so that when they log in for the first time they will be able to see the required content and be able to use Stroom.</p>
+<h2 id="proxy">Proxy</h2>
+<p>Stroom-Proxy v7.2 has undergone a significant re-write in an attempt to address certain performance issues, make it more flexible and to allow data to be forked to many destinations.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    There are some known performance issues with Stroom-Proxy v7.2 so it is not yet production ready, therefore until these are addressed you are advised to continue using Stroom-Proxy v7.0.
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-4604bddc18f1ccb3d8d12ee1f10d8ad8">Breaking Changes</h1>
+	<div class="lead">Changes in Stroom version 7.2 that may break existing processing or ways of working.</div>
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2023-10-20" class="text-muted">Friday, October 20, 2023</time>
+        
+	</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Please read this section carefully in case any of the changes affect you.
+
+</div>
+
+
+<h2 id="search-api-change">Search API Change</h2>
+<p>The APIs for running searches against Stroom data sources have changed in a breaking way.
+This is due to a change in the way running queries are identified.</p>
+<p>Previously the client calling the API would provide generate a unique <code>key</code> for the query and included it in the <code>searchRequest</code> object.
+This key would then be used again if the client wanted to make further requests for results for the same running query.</p>
+<pre><code class="language-json">  &quot;key&quot; : {
+    &quot;uuid&quot;: &quot;e244d45c-4086-463b-b1a8-10c8c7d7d6c7&quot;
+  },
+</code></pre>
+<p>In v7.2 the query <code>key</code> is now generated by Stroom rather than the client.
+In the first search request for a query, the client should now <strong>omit</strong> the <code>key</code> field from the request.
+Stroom will generate a unique key for the running query and return it in the response.
+However, in any subsequent requests for that running query, the client should <strong>include</strong> the <code>key</code> field, using the value from the previous response.</p>
+<p>If you have static request JSON files then you can easily remove the <code>key</code> field using 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://jqlang.github.io/jq/" target="_blank" class="" style="" title="jq (external link)">
+    <span>jq</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ as follows:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">jq &#39;del(.key)&#39; req.json &gt; req.new.json</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-0d79261bffaa165200a0d11c6deee9b8">Upgrade Notes</h1>
+	<div class="lead">Required actions and information relating to upgrading to Stroom version 7.2.</div>
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2023-10-20" class="text-muted">Friday, October 20, 2023</time>
+        
+	</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Please read this section carefully in case any of it is relevant to your Stroom instance.
+
+</div>
+
+
+<h2 id="regex-performance-issue-in-xslts">Regex Performance Issue in XSLTs</h2>
+<p>v7.2 of Stroom uses a newer version of the Saxon XML processing library.
+There is a bug in this and all newer Saxon versions that means that case insensitive regular expression matching performs very badly (can be orders of magnitude slower than a case sensitive regex).
+The performance issue will show itself when multiple pipelines with effected XSLTs are being processed concurrently.
+This impacts XSLT/Xpath functions like <code>matches()</code> that use the <code>i</code> flag for case insensitive matching.</p>
+<p>Until this bug is fixed in Saxon you will have to change the XSLTs that use the <code>i</code> in one of the following ways:</p>
+<ul>
+<li>Re-write the regular expression to use case sensitive matching
+E.g. <code>matches('CATHODE', 'cat', 'i')</code> =&gt; <code>matches('CATHODE', '[cC][aA][tT])</code>.</li>
+<li>Add the flag <code>;j</code> to force Saxon to use the Java regular expression engine instead of the Saxon one.
+E.g. <code>matches('CATHODE', 'cat', 'i')</code> =&gt; <code>matches('CATHODE', 'cat', 'i;j')</code>.</li>
+</ul>
+<h2 id="tagging-entities">Tagging Entities</h2>
+<p>As described in <a href="../../news/releases/v07.02/new-features/#document-tagging">Document Tagging</a> Stroom now pre-populates the filter of some of the tree pickers with pre-configured tags to limit the entities returned.
+If you do nothing then after upgrade these tree pickers will show no matching entities to the user.</p>
+<p>You have two options:</p>
+<ol>
+<li>
+<p>Tag entities with the pre-configured tags so they are visible in the tree pickers.</p>
+<p>To do this you need to find and tag the following entities:</p>
+<ul>
+<li>Tag all reference loader pipelines (those using the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../docs/user-guide/pipelines/element-reference#referencedatafilter" class="" style="" title="">
+        <span class="pipeline-element" title="ReferenceDataFilter &#34;ReferenceDataFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Reference data"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1205.3507,897.46166 q 0,20.9696 -14.368,35.3376 L 938.18285,1185.5992 q -15.14469,14.368 -35.33761,14.368 -19.80459,0 -34.94929,-14.368 l -29.1244,-29.1244 q -14.75637,-14.7564 -14.75637,-35.3377 0,-20.5812 14.75637,-35.3376 l 113.77934,-113.77934 -273.38109,0 q -20.19292,0 -32.81349,-14.5622 -12.62058,-14.5622 -12.62058,-35.1435 l 0,-49.7056 q 0,-20.5813 12.62058,-35.1435 12.62057,-14.5622 32.81349,-14.5622 l 273.38109,0 -113.77934,-114.1676 q -14.75637,-13.9798 -14.75637,-34.9493 0,-20.9696 14.75637,-34.9493 l 29.1244,-29.1244 q 14.75637,-14.7564 34.94929,-14.7564 20.58125,0 35.33761,14.7564 l 252.79985,252.7998 q 14.368,13.5914 14.368,34.9493 z"/><path style="fill:var(--icon-colour__blue)" d="M 155.66211 541.10742 L 377.63672 873.35547 L 123.20117 1253.8164 L 227.26758 1253.8164 L 429.19336 950.6875 L 629.6875 1253.8164 L 733.27734 1253.8164 L 488.86523 883.37891 L 718 541.10742 L 614.41211 541.10742 L 436.35352 806.04492 L 259.25 541.10742 L 155.66211 541.10742 z M 1073.6406 541.10742 L 1325.6895 914.4082 L 1325.6895 1253.8164 L 1422.5957 1253.8164 L 1422.5957 914.4082 L 1674.6465 541.10742 L 1571.0566 541.10742 L 1374.8594 834.21094 L 1177.2285 541.10742 L 1073.6406 541.10742 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">ReferenceDataFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ pipeline element) with <code>reference-loader</code> (or whatever value(s) is/are set in <code>stroom.ui.referencePipelineSelectorIncludedTags</code>).</li>
+<li>Tag all extraction pipelines (those using the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../docs/user-guide/pipelines/element-reference#searchresultoutputfilter" class="" style="" title="">
+        <span class="pipeline-element" title="SearchResultOutputFilter &#34;SearchResultOutputFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Search output"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">SearchResultOutputFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ pipeline element) with <code>extraction</code> (or whatever value(s) is/are set in <code>stroom.ui.query.dashboardPipelineSelectorIncludedTags</code>).</li>
+</ul>
+<p>Any new entities matching the above criteria also need to be tagged in this way to ensure users see the correct entities.
+The new <a href="../../news/releases/v07.02/new-features/#find-content">Find Content</a> is useful for tracking down <em>Pipelines</em> that contain a certain element.</p>
+<p>The property <code>stroom.ui.query.viewPipelineSelectorIncludedTags</code> is not an issue for an upgrade to v7.2 as <em>Views</em> did not exist prior to this version.
+All new dynamic extraction pipeline entities (those using the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../docs/user-guide/pipelines/element-reference#dynamicsearchresultoutputfilter" class="" style="" title="">
+        <span class="pipeline-element" title="DynamicSearchResultOutputFilter &#34;DynamicSearchResultOutputFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button" >
+    <span class="face" title="Search output"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">DynamicSearchResultOutputFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ pipeline element) need to be tagged with <code>dynamic</code> and <code>extraction</code> (or whatever value(s) is/are set in <code>stroom.ui.query.viewPipelineSelectorIncludedTags</code>)</p>
+</li>
+<li>
+<p>Change the system properties to not pre-populate the filters.
+If you do not want to use this feature then you can just clear the values of the following properties:</p>
+<ul>
+<li><code>stroom.ui.query.dashboardPipelineSelectorIncludedTags</code></li>
+<li><code>stroom.ui.query.viewPipelineSelectorIncludedTags</code></li>
+<li><code>stroom.ui.referencePipelineSelectorIncludedTags</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="reference-data-store">Reference Data Store</h2>
+<p>See <a href="../../news/releases/v07.02/other-changes/#partitioned-reference-data-stores">Partitioned Reference Data Stores</a> for details of the changes to reference data stores.</p>
+<p>No intervention is required on upgrade for this change, this section is for information purposes only.</p>
+<p>Stroom will automatically migrate reference data from the legacy single data store into multiple <em>Feed</em> specific stores.
+The legacy store exists in the directory configured by <code>stroom.pipeline.referenceData.lmdb.localDir</code>.
+Each feed specific store will be in a sub-directory with a name like <code>USER-DETAILS-REFERENCE___309e1ca0-7a5f-4f05-847b-b706805d758c</code> (i.e. a file system safe version of the <em>Feed</em> name and the <em>Feed&rsquo;s</em> <span class="glossary-link">
+  <a href="../../docs/glossary/#uuid" title="Glossary entry forUUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+<p>The migration happens on an as-needed basis.
+When a <a href="../../docs/user-guide/pipelines/xslt/xslt-functions/#lookup">lookup</a> is called from an XSLT, if the required reference stream is found to exist in the legacy store then it will be copied into the appropriate <em>Feed</em> specific store (creating the store if required).
+After being copied, the stream in the legacy store will be marked as available for purge so will get purged on the next run of the job <em>Ref Data Off-heap Store Purge</em>.</p>
+<p>When Stroom boots it will delete a legacy store if it is found to be empty, so eventually the legacy store will cease to exist.</p>
+<p>Depending on the speed of the local storage used for the reference data stores, the migration of streams and the subsequent purge from the legacy store may slow down processing until all the required migrations have happened.
+The migration is a trade-off between the additional time it would take to re-load all the reference streams (rather than just copying them from the legacy store) and the dedicated lock on the legacy store that all migrations need to acquire.</p>
+<p>If you experience performance problems with reference data migrations or would prefer not to migrate the date then you can simply delete the legacy stores prior to running Stroom v7.2 for the first time.
+The legacy store can be found in the directory configured by <code>stroom.pipeline.referenceData.lmdb.localDir</code>.
+Simply delete the files <code>data.mdb</code> and <code>lock.mdb</code> (if present).
+With the store deleted, stroom will simply load all reference streams as required with no migration.</p>
+<h2 id="database-migrations">Database Migrations</h2>
+<p>For information purposes only, the following is a list of all the database migrations that will be run when upgrading from v7.0 to v7.2.0.
+The migration script files can be viewed at 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom" target="_blank" class="" style="" title="github.com/gchq/stroom (external link)">
+    <span>github.com/gchq/stroom</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<!-- This list was produced by stroom.db.migration.TestListDbMigrations#listDbMigrationsByVersion -->
+<pre><code class="language-text">7.1.0
+  stroom-config
+    V07_01_00_001__preferences.sql                                 - stroom-config/stroom-config-global-impl-db/src/main/resources/stroom/config/global/impl/db/migration/V07_01_00_001__preferences.sql
+  stroom-explorer
+    V07_01_00_005__explorer_favourite.sql                          - stroom-explorer/stroom-explorer-impl-db/src/main/resources/stroom/explorer/impl/db/migration/V07_01_00_005__explorer_favourite.sql
+  stroom-security
+    V07_01_00_001__add_stroom_user_cols.sql                        - stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_01_00_001__add_stroom_user_cols.sql
+    V07_01_00_002__rename_preferred_username_col.sql               - stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_01_00_002__rename_preferred_username_col.sql
+7.2.0
+  stroom-analytics
+    V07_02_00_001__analytics.sql                                   - stroom-analytics/stroom-analytics-impl-db/src/main/resources/stroom/analytics/impl/db/migration/V07_02_00_001__analytics.sql
+  stroom-annotation
+    V07_02_00_005__annotation_assigned_migration_to_uuid.sql       - stroom-annotation/stroom-annotation-impl-db/src/main/resources/stroom/annotation/impl/db/migration/V07_02_00_005__annotation_assigned_migration_to_uuid.sql
+    V07_02_00_010__annotation_entry_assigned_migration_to_uuid.sql - stroom-annotation/stroom-annotation-impl-db/src/main/resources/stroom/annotation/impl/db/migration/V07_02_00_010__annotation_entry_assigned_migration_to_uuid.sql
+  stroom-config
+    V07_02_00_005__preferences_column_rename.sql                   - stroom-config/stroom-config-global-impl-db/src/main/resources/stroom/config/global/impl/db/migration/V07_02_00_005__preferences_column_rename.sql
+  stroom-dashboard
+    V07_02_00_005__query_add_owner_uuid.sql                        - stroom-dashboard/stroom-storedquery-impl-db/src/main/resources/stroom/storedquery/impl/db/migration/V07_02_00_005__query_add_owner_uuid.sql
+    V07_02_00_006__query_add_uuid.sql                              - stroom-dashboard/stroom-storedquery-impl-db/src/main/resources/stroom/storedquery/impl/db/migration/V07_02_00_006__query_add_uuid.sql
+  stroom-explorer
+    V07_02_00_005__remove_datasource_tag.sql                       - stroom-explorer/stroom-explorer-impl-db/src/main/resources/stroom/explorer/impl/db/migration/V07_02_00_005__remove_datasource_tag.sql
+  stroom-security
+    V07_02_00_100__query_add_owners.sql                            - stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_02_00_100__query_add_owners.sql
+    V07_02_00_101__processor_filter_add_owners.sql                 - stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_02_00_101__processor_filter_add_owners.sql
+</code></pre>
+
+</div>
+
+
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+
+  
+
+<div class="td-content" style="page-break-before: always">
+    <h1 id="pg-c1f274fb632a7b7bf56c38c16a78b291">Change Log</h1>
+	<div class="lead">Link to the full CHANGELOG.</div>
+	<div class="td-byline mb-4">
+		
+        
+		<time datetime="2023-10-20" class="text-muted">Friday, October 20, 2023</time>
+        
+	</div>
+	<p>For a detailed list of all the changes in v7.2 see:
+
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/blob/7.2/CHANGELOG.md" target="_blank" class="" style="" title="v7.2 CHANGELOG (external link)">
+    <span>v7.2 CHANGELOG</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+
+</div>
+
+
+
+
+
+
+    
+	
+  
 
     
 	

@@ -107,7 +107,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.45bf80982c0a94b25dec86a1a02b0ae8.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.d0faa378f057b3f484da011375a9dae0.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1450,6 +1450,32 @@ The anchor for a heading is the heading text with:</p>
 </ul>
 <p>For example the heading <code>Mr O'Neil's 1st Event (something)</code> becomes as an anchor <code>#mr-oneils-1st-event-something</code>.</p>
 <p>See The link examples below that use anchors.</p>
+<h4 id="duplicate-anchors">Duplicate anchors</h4>
+<p>If you have two headings on the same page then Hugo will suffix the anchors with a sequential number to ensure uniqueness of the anchor.
+For example, with the following markdown:</p>
+<pre><code class="language-markdown">## Apples
+
+### Example
+
+## Oranges
+
+### Example
+</code></pre>
+<p>Hugo will create the following anchors:</p>
+<p><code>apples</code><br>
+<code>example</code><br>
+<code>oranges</code><br>
+<code>example-1</code></p>
+<p>If you want to avoid confusion and removed the risk of anchors breaking if new headings are added in the middle, then you can explicitly name anchors:</p>
+<pre><code class="language-markdown">## Apples
+
+### Example {#apples-example}
+
+## Oranges
+
+### Example {#oranges-example}
+</code></pre>
+<p>This is only worth doing if you want to link to these heading.</p>
 <h3 id="shortcode-internal-page-link-examples">Shortcode internal page link examples</h3>
 <p>Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.</p>
 <p>Hugo has <code>ref</code> and <code>relref</code> link shortcodes.

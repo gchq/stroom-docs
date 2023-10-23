@@ -326,6 +326,32 @@ The anchor for a heading is the heading text with:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;For example the heading &lt;code&gt;Mr O&#39;Neil&#39;s 1st Event (something)&lt;/code&gt; becomes as an anchor &lt;code&gt;#mr-oneils-1st-event-something&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;See The link examples below that use anchors.&lt;/p&gt;
+&lt;h4 id=&#34;duplicate-anchors&#34;&gt;Duplicate anchors&lt;/h4&gt;
+&lt;p&gt;If you have two headings on the same page then Hugo will suffix the anchors with a sequential number to ensure uniqueness of the anchor.
+For example, with the following markdown:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Apples
+
+### Example
+
+## Oranges
+
+### Example
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hugo will create the following anchors:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;apples&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;example&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;oranges&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;example-1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If you want to avoid confusion and removed the risk of anchors breaking if new headings are added in the middle, then you can explicitly name anchors:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;## Apples
+
+### Example {#apples-example}
+
+## Oranges
+
+### Example {#oranges-example}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is only worth doing if you want to link to these heading.&lt;/p&gt;
 &lt;h3 id=&#34;shortcode-internal-page-link-examples&#34;&gt;Shortcode internal page link examples&lt;/h3&gt;
 &lt;p&gt;Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.&lt;/p&gt;
 &lt;p&gt;Hugo has &lt;code&gt;ref&lt;/code&gt; and &lt;code&gt;relref&lt;/code&gt; link shortcodes.
