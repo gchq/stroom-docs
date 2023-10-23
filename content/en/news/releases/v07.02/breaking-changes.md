@@ -5,7 +5,7 @@ weight: 30
 date: 2023-10-20
 tags: 
 description: >
-  Changes in this version of Stroom that may break existing processing or ways of working.
+  Changes in Stroom version 7.2 that may break existing processing or ways of working.
 ---
 
 {{% warning %}}

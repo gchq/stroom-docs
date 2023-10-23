@@ -5,7 +5,7 @@ weight: 10
 date: 2023-10-20
 tags: 
 description: >
-  New features in this version of Stroom.
+  New features in Stroom version 7.2.
 ---
 
 ## New Document types

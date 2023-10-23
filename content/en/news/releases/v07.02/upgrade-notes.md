@@ -5,7 +5,7 @@ weight: 40
 date: 2023-10-20
 tags: 
 description: >
-  Required actions and information relating to upgrading to this version of Stroom.
+  Required actions and information relating to upgrading to Stroom version 7.2.
 ---
 
 {{% warning %}}

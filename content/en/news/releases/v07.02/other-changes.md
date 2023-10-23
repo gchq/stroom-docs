@@ -5,7 +5,7 @@ weight: 20
 date: 2023-10-20
 tags: 
 description: >
-  Other changes in this version of Stroom.
+  Other changes in Stroom version 7.2.
   Changes may be user interface changes, or changes to existing functionality or non-functional performance improvements.
 ---
 
