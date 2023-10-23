@@ -1,7 +1,7 @@
 ---
 title: "Concatenation of references"
 linkTitle: "Concatenation of references"
-#weight:
+weight: 40
 date: 2021-07-27
 tags: 
 description: >
@@ -42,7 +42,7 @@ As single quotes are used for this purpose, a single quote needs to be escaped w
 ‘this ‘’is quoted text’’’
 ```
 
-will result in:
+This will result in:
 
 ```text
 this ‘is quoted text’

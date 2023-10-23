@@ -637,9 +637,8 @@ main() {
     build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
   fi
 
-  # TODO get this working for hugo content
-  #echo -e "${GREEN}Checking all .md files for broken links${NC}"
-  #./broken_links.sh
+  echo -e "${GREEN}Checking all .md files for broken links${NC}"
+  ./broken_links.sh
 
   pushd "${GIT_WORK_DIR}"
 

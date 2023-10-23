@@ -20,7 +20,11 @@ The first thing we need to do is match each record. Each record in a CSV file is
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd" version="3.0">
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
   
   <!-- Match each line using a new line character as the delimiter -->
   <split delimiter="\n"/>
@@ -34,7 +38,11 @@ We can now add a `<group>` element within `<split>` to take content matched by t
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd" version="3.0">
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
 
   <!-- Match each line using a new line character as the delimiter -->
   <split delimiter="\n">
@@ -48,7 +56,7 @@ We can now add a `<group>` element within `<split>` to take content matched by t
 </dataSplitter>
 ```
 
-The `<group>` within the `<split>` chooses to take the content from the `<split>` without including the new line '\n' delimiter by using match group 1, see [expression match references]({{< relref "3-1-expression-match-references.md#sec-3-1-1" >}}) for details.
+The `<group>` within the `<split>` chooses to take the content from the `<split>` without including the new line '\n' delimiter by using match group 1, see [expression match references]({{< relref "expression-match-references.md#references-to-split-match-groups" >}}) for details.
 
 ```text
 01/01/2010,00:00:00,192.168.1.100,SOMEHOST.SOMEWHERE.COM,user1,logon,
@@ -58,7 +66,11 @@ The content selected by the `<group>` from its parent match can then be passed o
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd" version="3.0">
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
 
   <!-- Match each line using a new line character as the delimiter -->
   <split delimiter="\n">
@@ -82,7 +94,11 @@ The content matched by the inner `<split>` element can be passed to a `<data>` e
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd" version="3.0">
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
 
   <!-- Match each line using a new line character as the delimiter -->
   <split delimiter="\n">
@@ -104,13 +120,17 @@ The content matched by the inner `<split>` element can be passed to a `<data>` e
 </dataSplitter>
 ```
 
-In the above example each match from the inner `<split>` is made available to the inner `<data>` element that chooses to output content from match group 1, see [expression match references]({{< relref "3-1-expression-match-references.md#sec-3-1-1" >}}) for details.
+In the above example each match from the inner `<split>` is made available to the inner `<data>` element that chooses to output content from match group 1, see [expression match references]({{< relref "expression-match-references.md#references-to-split-match-groups" >}}) for details.
 
 The above configuration results in the following XML output for the whole input:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<records xmlns="records:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="records:2 file://records-v2.0.xsd" version="3.0">
+<records
+    xmlns="records:2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="records:2 file://records-v2.0.xsd"
+    version="3.0">
   <record>
     <data value="01/01/2010" />
     <data value="00:00:00" />
