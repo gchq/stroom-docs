@@ -45,14 +45,13 @@ debug() {
 
 create_release() {
   echo -e "${GREEN}Found release asssets${NC}"
+  local asset_files=()
   for asset_file in "${RELEASE_ARTEFACTS_DIR}/"*; do
     echo -e "${GREEN}Found asset file: ${BLUE}${asset_file}${NC}"
-    args+=(
-      "--attach"
-      "${asset_file}"
-    )
+    asset_files+=("${asset_file}")
   done
 
+  local args=()
   if [[ ${GITHUB_REF} =~ .*(beta|alpha).* ]]; then
     echo -e "${GREEN}Release is a pre-release${NC}"
     args+=("--prerelease")
@@ -73,11 +72,17 @@ create_release() {
   echo -e "${DGREY}${message}${NC}"
   echo -e "${DGREY}------------------------------------------------------------------------${NC}"
 
-  # Extract the subject/body from the annotated git tag
-  hub release create \
-    -m "${message}" \
+
+  # Create the release on GitHub using the annotated tag that triggered
+  # this build
+  # See https://cli.github.com/manual/gh_release_create
+  gh release create \
+    --title "${BUILD_TAG}" \
+    --notes "${message}" \
+    --verify-tag \
     "${args[@]}" \
-    "${BUILD_TAG}"
+    "${BUILD_TAG}" \
+    "${asset_files[@]}"
 
   #hub release create "${args[@]}" "$BUILD_TAG"
   echo -e "${GREEN}Release created for tag ${BLUE}${BUILD_TAG}${NC}"
@@ -94,7 +99,6 @@ main() {
   # Use Github's hub CLI to create our release
   # See https://github.com/github/hub
   echo -e "${GREEN}Finding asset files for release${NC}"
-  local args=()
 
   if compgen -G "${RELEASE_ARTEFACTS_DIR}/*" > /dev/null; then
     # The dir is non-empty so go ahead with the release
