@@ -15,7 +15,7 @@ In order to build and contribute to the documentation you will need the followin
 
 * bash
 * {{< external-link "Docker" "https://docs.docker.com/get-docker/" >}} 
-* {{< external-link "docker-buildx" "https://docs.docker.com/build/buildx/install/" >}}
+* {{< external-link "docker-buildx" "https://github.com/docker/buildx#installing" >}}
 
 Docker or Docker Desktop is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.
