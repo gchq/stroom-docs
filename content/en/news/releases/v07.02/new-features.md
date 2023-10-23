@@ -32,24 +32,6 @@ This filer should mirror the processor filter expression used to control data pr
 These two filters may be amalgamated in a future version of Stroom.
 
 
-### _Analytic Rule_
-
-Analytics is a new experimental feature in Stroom that is functional but still evolving so may well not perform well at scale.
-It allows the user to create scheduled or streaming Analytic Rule {{< stroom-icon "document/AnalyticRule.svg">}} that will fire alerts when events matching the rule are seen.
-
-{{< cardpane >}}
-  {{< image "releases/07.02/analytic-rule.png" "300x" />}}
-  {{< image "releases/07.02/analytic-rule-notification.png" "200x" />}}
-{{< /cardpane >}}
-
-Analytic rules rely on the new [Stroom Query Language]({{< relref "#stroom-query-language-stroomql" >}}) to define what events will match the rule.
-An _Analytic Rule_ can be created directly from a _Query_ by clicking the Create Analytic Rule {{< stroom-icon "ruleset.svg" "Create Analytic Rule">}} icon.
-
-{{% todo %}}
-Add more content to this section
-{{% /todo %}}
-
-
 ### _Query_
 
 The Query {{< stroom-icon "document/Query.svg">}} entity provides a new way to query data in Stroom.
@@ -76,6 +58,24 @@ SELECT Feed, Action, event_count AS "Count"   // Equivalent to adding columns to
 ```
 
 Editing StroomQL queries in the editor is also made easier by the code completion (using `ctrl-space`) to suggest data sources, fields, functions and StroomQL language terms.
+
+
+### _Analytic Rule_
+
+Analytics is a new experimental feature in Stroom that is functional but still evolving so may well not perform well at scale.
+It allows the user to create scheduled or streaming Analytic Rule {{< stroom-icon "document/AnalyticRule.svg">}} that will fire alerts when events matching the rule are seen.
+
+{{< cardpane >}}
+  {{< image "releases/07.02/analytic-rule.png" "300x" />}}
+  {{< image "releases/07.02/analytic-rule-notification.png" "200x" />}}
+{{< /cardpane >}}
+
+Analytic rules rely on the new [Stroom Query Language]({{< relref "#stroom-query-language-stroomql" >}}) to define what events will match the rule.
+An _Analytic Rule_ can be created directly from a _Query_ by clicking the Create Analytic Rule {{< stroom-icon "ruleset.svg" "Create Analytic Rule">}} icon.
+
+{{% todo %}}
+Add more content to this section
+{{% /todo %}}
 
 
 ### _Documentation_

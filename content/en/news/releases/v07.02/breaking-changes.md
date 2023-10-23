@@ -12,6 +12,21 @@ description: >
 Please read this section carefully in case any of the changes affect you.
 {{% /warning %}}
 
+## Quoted Strings in Dashboard Table Expressions
+
+Quoted strings in dashboard table expressions can now be expressed with single and double quotes.
+As part of this change apostrophes in text are no longer escaped with an additional apostrophe (`''`), but instead require a leading `\` before them if they are in a single quoted string, i.e:
+
+`'O''Neill'` must be changed to `'O\'Neill'`
+
+In many cases it is preferable to use double quotes if the string in question has an apostrophe.
+Note that the use of `\` as an escape character also means that any existing `\` characters will need to be escaped with a preceding `\` so `\` must now become `\\`, i.e:
+
+`c:\Windows\System32` must be changed to `c:\\Windows\\System32`
+
+The new [Find Content]({{< relref "./new-features#find-content" >}}) feature can be used to find affected Dashboards.
+
+
 ## Search API Change
 
 The APIs for running searches against Stroom data sources have changed in a breaking way.
