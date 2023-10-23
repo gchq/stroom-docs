@@ -1,7 +1,7 @@
 ---
-title: "7.2"
+title: "Version 7.2"
 linkTitle: "7.2"
-#weight:
+weight: 20
 date: 2023-10-20
 tags: 
 description: >
