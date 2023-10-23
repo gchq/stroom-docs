@@ -68,9 +68,17 @@ Each feed specific store will be in a sub-directory with a name like `USER-DETAI
 
 The migration happens on an as-needed basis.
 When a [lookup]({{< relref "/docs/user-guide/pipelines/xslt/xslt-functions#lookup" >}}) is called from an XSLT, if the required reference stream is found to exist in the legacy store then it will be copied into the appropriate _Feed_ specific store (creating the store if required).
-After being copied the stream in the legacy store will be marked as available for purge so will get purged on the next run of the job _Ref Data Off-heap Store Purge_.
+After being copied, the stream in the legacy store will be marked as available for purge so will get purged on the next run of the job _Ref Data Off-heap Store Purge_.
 
 When Stroom boots it will delete a legacy store if it is found to be empty, so eventually the legacy store will cease to exist.
+
+Depending on the speed of the local storage used for the reference data stores, the migration of streams and the subsequent purge from the legacy store may slow down processing until all the required migrations have happened.
+The migration is a trade-off between the additional time it would take to re-load all the reference streams (rather than just copying them from the legacy store) and the dedicated lock on the legacy store that all migrations need to acquire.
+
+If you experience performance problems with reference data migrations or would prefer not to migrate the date then you can simply delete the legacy stores prior to running Stroom v7.2 for the first time.
+The legacy store can be found in the directory configured by `stroom.pipeline.referenceData.lmdb.localDir`.
+Simply delete the files `data.mdb` and `lock.mdb` (if present).
+With the store deleted, stroom will simply load all reference streams as required with no migration.
 
 
 ## Database Migrations

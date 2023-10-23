@@ -97,6 +97,12 @@ DocRefs are used heavily in the [REST API]({{< relref "user-guide/api" >}}) for 
 Typically refers to an item that can be created in the Explorer Tree, e.g. a Feed, a Pipeline, a Dashboard, etc. May also be known as an {{< glossary "Entity" >}}.
 
 
+## Elasticsearch
+
+{{< external-link "Elasticsearch" "https://www.elastic.co/elasticsearch/" >}} is an Open Source and commercial search index product.
+Stroom can be connected to one or more Elasticsearch clusters so that event indexing and search is handled by Elasticsearch rather than internally.
+
+
 ## Entity
 
 Typically refers to an item that can be created in the Explorer Tree, e.g. a Feed, a Pipeline, a Dashboard, etc. May also be known as a {{< glossary "Document" >}}.
@@ -151,6 +157,12 @@ In Stroom Fields can be the Fields in an {{< glossary "Index" >}} (or other quer
 
 See {{< glossary "Processor Filter" >}}.
 
+
+## IDP
+
+An {{< external-link "Identiy Provider (IDP)" "https://en.wikipedia.org/wiki/Identity_provider" >}} is a system that manages the identity information of principles (typically users) and provides authentication services to systems (like Stroom).
+
+Examples of IDPs are Amazon Cognito, Microsoft Azure/Entra AD and Keycloak.
 
 ## Markdown
 
@@ -294,6 +306,16 @@ TLS is the evolution of Secure Sockets Layer (SSL) and refers to the encryption 
 ## Tracker
 
 A Tracker is associated with a {{< glossary "Processor Filter" >}} and keeps track of the {{< glossary "Stream" "Streams" >}} that the Processor Filter has already processed.
+
+
+## UTC
+
+{{< external-link "UTC (Coordinated Universal Time)" "https://en.wikipedia.org/wiki/Coordinated_Universal_Time" >}}, also known as Zulu time, is the international standard by which the world regulates clocks and time.
+It is essentially a successor to Greenwich Mean Time (GMT).
+UTC has the timezone offset of `+00:00`.
+All international time zones are relative to UTC.
+
+Stroom currently works internally in UTC, though it is possible to change the display time zone via User Preferences to display times in another timezone.
 
 
 ## UUID 

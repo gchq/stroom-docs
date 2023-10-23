@@ -37,17 +37,25 @@ These two filters may be amalgamated in a future version of Stroom.
 Analytics is a new experimental feature in Stroom that is functional but still evolving so may well not perform well at scale.
 It allows the user to create scheduled or streaming Analytic Rule {{< stroom-icon "document/AnalyticRule.svg">}} that will fire alerts when events matching the rule are seen.
 
-{{< image "releases/07.02/analytic-rule.png" "300x" />}}
+{{< cardpane >}}
+  {{< image "releases/07.02/analytic-rule.png" "300x" />}}
+  {{< image "releases/07.02/analytic-rule-notification.png" "200x" />}}
+{{< /cardpane >}}
 
 Analytic rules rely on the new [Stroom Query Language]({{< relref "#stroom-query-language-stroomql" >}}) to define what events will match the rule.
 An _Analytic Rule_ can be created directly from a _Query_ by clicking the Create Analytic Rule {{< stroom-icon "ruleset.svg" "Create Analytic Rule">}} icon.
+
+{{% todo %}}
+Add more content to this section
+{{% /todo %}}
 
 
 ### _Query_
 
 The Query {{< stroom-icon "document/Query.svg">}} entity provides a new way to query data in Stroom.
-It is functional but evolving feature that is likely to be enhanced further in future versions.
-Rather than using the query expression builder and table column expressions as used in Dashboards, it uses the new [Stroom Query Language]({{< relref "docs/user-guide/dashboards/stroom-query-language" >}}) to define the query.
+It is a functional but evolving feature that is likely to be enhanced further in future versions.
+
+Rather than using the query expression builder and table column expressions as used in Dashboards, it uses the new text based [Stroom Query Language]({{< relref "docs/user-guide/dashboards/stroom-query-language" >}}) to define the query.
 
 {{< image "releases/07.02/query.png" "300x" />}}
 
@@ -55,13 +63,13 @@ Rather than using the query expression builder and table column expressions as u
 #### Stroom Query Language (StroomQL)
 
 This is an example of a StroomQL query.
-It replaces the old expression 'tree' and table column expressions.
+It replaces the old dashboard expression 'tree' and table column expressions.
 StroomQL has the advantage of being quicker to construct and is easier to copy from one query to another (whole or in part) as it is just plain text.
 
 ```sql
 FROM "Example View"                           // Define the View to use as the data source
 WHERE Action IN("Search", "View")             // Equivalent to the Dashboard expression tree
-EVAL hour = floorHour(EventTime)              // Define named fields based on functions
+EVAL hour = floorHour(EventTime)              // Define named fields based on function expressions
 EVAL event_count = count()
 GROUP BY Feed, Action                         // Equivalent to Dashboard table column grouping
 SELECT Feed, Action, event_count AS "Count"   // Equivalent to adding columns to a Dashboard table
@@ -79,6 +87,30 @@ It is not possible to add documentation to a folder entity itself, so this is us
 
 {{% see-also %}}
 See [Documenting Content]({{< relref "/docs/user-guide/content/documentation" >}}) for details on the Markdown syntax.
+{{% /see-also %}}
+
+
+### _Elastic Cluster_
+
+_Elastic Cluster_ {{< stroom-icon "document/ElasticCluster.svg">}} provides a means to define a connection to an {{< glossary "Elastic Serarch" >}} Cluster.
+You would create one of these documents for each Elasticsearch cluster that you want to connect to.
+It defines the location and authentication details for connecting to an elastic cluster.
+
+{{< image "releases/07.02/elastic-cluster.png" "200x" />}}
+
+{{% see-also %}}
+[Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}) and [searching an Elasticsearch index]({{< relref "/docs/user-guide/dashboards/elasticsearch" >}})
+{{% /see-also %}}
+
+
+### _Elastic Index_
+
+An _Elastic Index_ {{< stroom-icon "document/ElasticIndex.svg">}} document is a data source for searching one or more indexes on Elasticsearch.
+
+{{< image "releases/07.02/elastic-index.png" "200x" />}}
+
+{{% see-also %}}
+[Searching an Elasticsearch index]({{< relref "/docs/user-guide/dashboards/elasticsearch" >}})
 {{% /see-also %}}
 
 
@@ -116,9 +148,20 @@ Needs filling in
 {{% /todo %}}
 
 
+### _ElasticIndexingFilter_
+
+{{< pipe-elm "ElasticIndexingFilter" >}}
+
+_ElasticIndexingFilter_ is used to pass fields from an event to an Elasticsearch cluster to index.
+
+{{% see-also %}}
+[Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}).
+{{% /see-also %}}
+
+
 ## Explorer Tree
 
-Various enhancements to the explorer tree.
+Various enhancements have been made to the explorer tree.
 
 
 ### Favourites
@@ -180,16 +223,26 @@ See the migration task [Tagging Entities]({{< relref "upgrade-notes#tagging-enti
 
 ### Copy Link to Clipboard
 
-{{% todo %}}
-Complete this section
-{{% /todo %}}
+It is not possible to easily copy a direct link to a Document from the explorer tree.
+Direct links are useful if for example you want to share a link to a particular stroom dashboard.
+
+To create a direct link, right click on the document you want a link for in the explorer tree and select:
+
+{{< stroom-menu "Copy Link to Clipboard" >}}
+
+You can then paste the link into a browser to jump directly to that document (authenticating as required).
 
 
 ### Dependencies
 
-{{% todo %}}
-Complete this section
-{{% /todo %}}
+It is not possible to jump to the Dependencies screen to see the dependencies or dependants of a particular document.
+In the explorer tree right click on a document and select one of:
+
+ {{< stroom-menu "Dependencies" >}}
+ This will open the Dependencies screen with a filter pre-populated to show all documents that are dependencies of the selected document.
+
+{{< stroom-menu "Dependants" >}}
+This will open the Dependencies screen with a filter pre-populated to show all documents that depend on the selected document.
 
 
 ## Entity Documentation
@@ -223,12 +276,14 @@ This is an early evolution of this feature and it is likely to be improved with 
 ## Search Result Stores
 
 When a Dashboard/Query search is run, the results are written to a Search Results Store for that query.
+This stores reside on disk to reduce the memory used by queries.
+The Search Result Stores are stored on a single Stroom node and get created when a query is executed in a _Dashboard_, _Query_ or _Analytic Rule_.
+
+This screen provides an administrator with an overview of all the stores currently in existence in the Stroom cluster, showing details on their state and size.
+It can also be used to stop queries that are currently running or to delete the store entirely.
+Stores get deleted when the user closes the _Dashboard_ or _Query_ that created them.
 
 {{< image "releases/07.02/search-result-stores.png" "300x" />}}
-
-{{% todo %}}
-Complete this section
-{{% /todo %}}
 
 
 ## Pipeline Stepper Improvements

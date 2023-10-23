@@ -9,8 +9,6 @@ description: >
   Changes may be user interface changes, or changes to existing functionality or non-functional performance improvements.
 ---
 
-
-
 ## Look and Feel
 
 ### New User Interface Design
@@ -73,7 +71,7 @@ You can not change the format used for displaying the date and time in the user 
 You can also set the time zone used for displaying the date and time in the user interface.
 
 {{% note %}}
-Stroom works in UTC internally.
+Stroom works in {{< glossary "UTC" >}} time internally.
 Changing the time zone only affects display of dates/times, not how data is stored or the dates/times in events.
 {{% /note %}}
 
@@ -93,6 +91,7 @@ When a _Dashboard_ is in design mode, the following functionality is enabled:
 On creation of a new _Dashboard_, Design Mode will be on so the user has full functionality.
 On opening an existing _Dashboard_, Design Mode will be off.
 This is because typically, _Dashboards_ are viewed more than they are modified.
+
 
 #### Visual Constraints
 
@@ -146,7 +145,7 @@ See the [upgrade notes]({{< relref "upgrade-notes#reference-data-store" >}}) for
 ## Improved OAuth2.0/OpenID Connect Support
 
 The support for Open ID Connect (OIDC) authentication has been improved in v7.2.
-Stroom can be integrated with AWS Cognito, MS Azure AD, KeyCloak and other OIDC identity providers (IDP).
+Stroom can be integrated with AWS Cognito, MS Azure AD, KeyCloak and other OIDC {{< glossary "IDP" "Identity Providers (IDPs)" >}}.
 
 Data receipt in Stroom and Stroom-Proxy can now enforce OIDC token authentication as well as certificate authentication.
 The data receipt authentication is configured via the properties:
@@ -163,13 +162,62 @@ Stroom can still be used with its own internal IDP if you do not have an externa
 
 ### User Naming Changes
 
-{{% todo %}}
-Complete this
-{{% /todo %}}
+The changes to add integration with external OAuth 2.0/OpenID Connect identity provides has required some changes to the way users in Stroom are identified.
+
+Previously in Stroom a user would have a unique username that would be set when creating the account in Stroom.
+This would typically by a human friendly name like `jbloggs` or similar.
+It would be used in all the user/permission management screens to identify the user, for functions like `current-user()`, for simple audit columns in the database (`create_user` and `update_user`) and for the audit events stroom produces.
+
+With the integration to external identity providers this has had to change a little.
+Typically in OpenID Connect IDPs the unique identity of a principle (user) is fairly unfriendly {{< glossary "UUID" >}}.
+The user will likely also have a more human friendly identity (sometimes called the `preferred_username`) that may be something like `jblogs` or `jblogs@somedomain.x`.
+As per the OpenID Connect specification, this friendly identity may not be unique within the IDP, so Stroom has to assume this also.
+In reality this identity is typically unique on the IDP though.
+The IDP will often also have a full name for the user, e.g. `Joe Bloggs`.
+
+Stroom now stores and can display all of these identities.
+
+{{< image "releases/07.02/application-permissions.png" "500" />}}
+
+* **Display Name** - This is the (potentially non-unique) preferred user name held by the IDP, e.g. `jbloggs` or  `jblogs@somedomain.x`.
+* **Full Name** - The user's full name, e.g. `Joe Bloggs`, if known by the IDP.
+* **Unique User Identity** - The unique identity of the user on the IDP, which may look like `ca650638-b52c-45af-948c-3f34aeeb6f86`.
+
+
+In most screens, Stroom will display the _Display Name_.
+This will also be used for any audit purposes.
+The permissions screen show all three identities so an admin can be sure which user they are dealing with and be able to correlate it with one on the IDP.
+
+
+### User Creation
+
+When using an external IDP, a user visiting Stroom for the first time will result in the creation of a Stroom User record for them.
+This Stroom User will have no permissions associated with it.
+To improve the experience for a new user it is preferable for the Stroom administrator to pre-create the Stroom User account in Stroom with the necessary permissions.
+
+This can be done from the Application Permissions screen accessed from the Main menu ({{< stroom-icon "menu.svg" "Main Menu">}}).
+
+{{< stroom-menu "Security" "Application Permissions" >}}
+
+You can create a single Stroom User by clicking the {{< stroom-icon "add.svg" "Add User">}} button.
+
+{{< image "releases/07.02/create-single-user.png" "300" />}}
+
+Or you can create multiple Stroom Users by clicking the {{< stroom-icon "add-multiple.svg" "Add Multiple Users">}} button.
+
+{{< image "releases/07.02/create-multiple-users.png" "300" />}}
+
+In both cases the _Unique User ID_ is mandatory, and this must be obtained from the IDP.
+The _Display Name_ and _Full Name_ are optional, as these will be obtained automatically from the IDP by Stroom on login.
+It can be useful to populate them initially to make it easier for the administrator to see who is who in the list of users.
+
+Once the user(s) are created, the appropriate permissions/groups can be assigned to them so that when they log in for the first time they will be able to see the required content and be able to use Stroom.
 
 
 ## Proxy
 
+Stroom-Proxy v7.2 has undergone a significant re-write in an attempt to address certain performance issues, make it more flexible and to allow data to be forked to many destinations.
+
 {{% warning %}}
-Stroom-Proxy v7.2 has a number of know performance issues and 
+There are some known performance issues with Stroom-Proxy v7.2 so it is not yet production ready, therefore until these are addressed you are advised to continue using Stroom-Proxy v7.0.
 {{% /warning %}}
