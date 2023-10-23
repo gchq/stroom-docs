@@ -24,9 +24,7 @@ descriptive text.
 
 ## Reader
 
-Reader elements read and transform the data at the character level before they are parsed into
-a structured form.
-
+Reader elements read and transform the data at the character level before they are parsed into a structured form.
 
 ### BOMRemovalFilterInput
 
@@ -112,7 +110,6 @@ into XML events (elements, attributes, text, etc) that can be further validated 
 using.
 The choice of Parser will be dictated by the structure of the data.
 Parsers read the data using the character encoding defined on the feed.
-
 
 ### CombinedParser
 
@@ -448,7 +445,6 @@ Writers consume XML events (from _Parsers_ and _Filters_) and convert them into 
 using the character encoding configured on the _Writer_ (if applicable).
 The output data can then be fed to a Destination.
 
-
 ### JSONWriter
 
 {{< pipe-elm "JSONWriter" >}}&nbsp;
@@ -503,7 +499,6 @@ Writer to convert XML events data into XML output in the specified character enc
 
 Destination elements consume a stream of bytes from a _Writer_ and persist then to a destination.
 This could be a file on a file system or to Stroom's stream store.
-
 
 ### AnnotationWriter
 
@@ -681,4 +676,5 @@ On system shutdown all active streams will be rolled.
 | kafkaConfig          | The Kafka config to use.                                                                                                                                    | -             |
 | maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             |
 | statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             |
+
 

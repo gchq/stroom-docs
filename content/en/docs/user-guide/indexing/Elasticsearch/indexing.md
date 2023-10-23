@@ -348,7 +348,7 @@ You can monitor indexing status via your Elasticsearch monitoring tool of choice
 If any errors occur while a stream is being indexed, an `Error` stream is created, containing details of each failure. `Error` streams can be found under the `Data` tab of either the indexing pipeline or receiving `Feed`.
 
 {{% note %}}
-You can filter the selected pipeline or feed to list only `Error` streams.
+You can filter the selected pipeline or feed to list only `Error` streams.  
 Click {{< stroom-icon "filter.svg" "Filter" >}} then add a condition `Type` `=` `Error`.
 {{% /note %}}
 
@@ -364,7 +364,6 @@ Any existing documents matching the `StreamId` of the original `Event` stream ar
 
 
 ## Tips and tricks
-
 
 ### Use a common schema for your indices
 
@@ -417,4 +416,3 @@ If you created a data view in Kibana, you'll also want to update this to point t
 1. [Searching an Elasticsearch index in a Dashboard]({{< relref "../../dashboards/elasticsearch.md" >}})
 1. [Exploring data with Kibana]({{< relref "kibana.md" >}})
 {{% /see-also %}}
-

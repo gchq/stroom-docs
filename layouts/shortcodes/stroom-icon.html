@@ -14,29 +14,29 @@ stroom-icon name="save.svg" colour="green"
 Wraps a partial so the partial can be re-used in other shortcodes.
 -->
 
-{{ $filename := "" }}
-{{ $title_arg := "" }}
-{{ $enabled_arg := "" }}
-{{ $colour_arg := "" }}
+{{- $filename := "" -}}
+{{- $title_arg := "" -}}
+{{- $enabled_arg := "" -}}
+{{- $colour_arg := "" -}}
 
-{{ if .IsNamedParams }}
-  {{ $filename = (.Get "name" ) }}
-  {{ $title_arg = (.Get "title") }}
-  {{ $enabled_arg = (.Get "enabled") }}
-  {{ $colour_arg = (.Get "colour") }}
-{{ else }}
-  {{ $filename = (.Get 0) }}
-  {{ $title_arg = (.Get 1) }}
-  {{ $enabled_arg = (.Get 2) }}
-  {{ $colour_arg = (.Get 3) }}
-{{ end }}
+{{- if .IsNamedParams -}}
+  {{- $filename = (.Get "name" ) -}}
+  {{- $title_arg = (.Get "title") -}}
+  {{- $enabled_arg = (.Get "enabled") -}}
+  {{- $colour_arg = (.Get "colour") -}}
+{{- else -}}
+  {{- $filename = (.Get 0) -}}
+  {{- $title_arg = (.Get 1) -}}
+  {{- $enabled_arg = (.Get 2) -}}
+  {{- $colour_arg = (.Get 3) -}}
+{{- end -}}
 
-{{/* Now call the partial to render the icon */}}
+{{- /* Now call the partial to render the icon */ -}}
 
-{{ partial "stroom-icon.partial.html" (dict 
+{{- partial "stroom-icon.partial.html" (dict 
     "context" . 
     "file" $filename 
     "title" $title_arg
     "enabled" $enabled_arg 
-    "colour" $colour_arg ) }}
-
+    "colour" $colour_arg ) -}}
+{{- /* Strip trailing newline. */ -}}
