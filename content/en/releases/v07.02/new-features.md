@@ -80,7 +80,7 @@ Add more content to this section
 
 ### _Documentation_
 
-It is now possible to create a _Dcoumentation_ {{< stroom-icon "document/Documentation.svg" >}} entity in the explorer tree.
+It is now possible to create a _Documentation_ {{< stroom-icon "document/Documentation.svg" >}} entity in the explorer tree.
 This is designed to hold any text or documentation that the user chooses to write in {{< glossary "Markdown" >}} format.
 These can be useful for providing documentation within a folder in the tree to collectively describe all the items in that folder, or to provide a useful README type document.
 It is not possible to add documentation to a folder entity itself, so this is useful substitute.
@@ -92,7 +92,7 @@ See [Documenting Content]({{< relref "/docs/user-guide/content/documentation" >}
 
 ### _Elastic Cluster_
 
-_Elastic Cluster_ {{< stroom-icon "document/ElasticCluster.svg">}} provides a means to define a connection to an {{< glossary "Elastic Serarch" >}} Cluster.
+_Elastic Cluster_ {{< stroom-icon "document/ElasticCluster.svg">}} provides a means to define a connection to an {{< glossary "Elasticsearch" >}} Cluster.
 You would create one of these documents for each Elasticsearch cluster that you want to connect to.
 It defines the location and authentication details for connecting to an elastic cluster.
 

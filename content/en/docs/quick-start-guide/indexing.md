@@ -14,7 +14,7 @@ description: >
 Before you can visualise your data with dashboards you have to {{< glossary "index" >}} the data.
 
 {{% note %}}
-Stroom uses Apache Lucene for indexing its data but can also can also integrate with Solr and Elastic Search.
+Stroom uses Apache Lucene for indexing its data but can also can also integrate with Solr and {{< glossary "Elasticsearch" >}}.
 For this Quick Start Guide we are going to use Stroom's internal Lucence indexing.
 {{% /note %}}
 
