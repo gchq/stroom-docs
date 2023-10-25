@@ -12,6 +12,13 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
+## Java Version
+
+Stroom v7.2 requires Java v17.
+Previous versions of Stroom used Java v15 or lower.
+You will need to upgrade Java on the Stroom and Stroom-Proxy hosts to the latest patch release of Java v17.
+
+
 ## Regex Performance Issue in XSLT Processing
 
 v7.2 of Stroom uses a newer version of the Saxon XML processing library.
