@@ -60,7 +60,9 @@ You have two options:
 
 See [Partitioned Reference Data Stores]({{< relref "other-changes#partitioned-reference-data-stores" >}}) for details of the changes to reference data stores.
 
-No intervention is required on upgrade for this change, this section is for information purposes only.
+No intervention is required on upgrade for this change, this section is for information purposes only, however it is recommended that you take a backup copy of the existing reference data store files before booting the new version of Stroom.
+To do this, make a copy of the files in the directory specified by `stroom.pipeline.referenceData.lmdb.localDir`.
+If there is a problem then you can replace the store with the copy and try again.
 
 Stroom will automatically migrate reference data from the legacy single data store into multiple _Feed_ specific stores.
 The legacy store exists in the directory configured by `stroom.pipeline.referenceData.lmdb.localDir`.
@@ -82,6 +84,25 @@ With the store deleted, stroom will simply load all reference streams as require
 
 
 ## Database Migrations
+
+When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.
+
+{{% warning %}}
+It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
+This is to mitigate against any problems with the migration.
+It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
+{{% /warning %}}
+
+On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
+This will be the node that reaches that point in the boot process first.
+All other nodes will wait until that is complete before proceeding with the boot process.
+
+It is recommended however to use a single node to execute the migration.
+To avoid Stroom starting up and beginning processing you can use the `migrage` command to just migrate the database and not fully boot Stroom.
+See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
+
+
+### Migration Scripts
 
 For information purposes only, the following is a list of all the database migrations that will be run when upgrading from v7.0 to v7.2.0.
 The migration script files can be viewed at {{< external-link "github.com/gchq/stroom" "https://github.com/gchq/stroom" >}}.
