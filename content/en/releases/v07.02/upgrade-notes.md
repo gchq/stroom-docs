@@ -12,20 +12,28 @@ description: >
 Please read this section carefully in case any of it is relevant to your Stroom instance.
 {{% /warning %}}
 
-
-## Regex Performance Issue in XSLTs
+## Regex Performance Issue in XSLT Processing
 
 v7.2 of Stroom uses a newer version of the Saxon XML processing library.
-There is a bug in this and all newer Saxon versions that means that case insensitive regular expression matching performs very badly (can be orders of magnitude slower than a case sensitive regex).
+Saxon is used for all pipeline processing.
+There is a bug in this version of Saxon which means that case insensitive regular expression matching performs **very** badly, i.e. it can be orders of magnitude slower than a case sensitive regex.
+This bug has been reported to Saxon and has been fixed but not yet released.
+It is likely a future release of Stroom will include a new version of Saxon that addresses this issue.
+
 The performance issue will show itself when multiple pipelines with effected XSLTs are being processed concurrently.
 This impacts XSLT/Xpath functions like `matches()` that use the `i` flag for case insensitive matching.
+If you don't not use any case-insensitive regular expressions in your XSLTs then you do not need to do anything.
 
-Until this bug is fixed in Saxon you will have to change the XSLTs that use the `i` in one of the following ways:
+Until Stroom is changed to used a new version of Saxon with a fix, you will have to change the XSLTs that use the `i` flag in one of the following ways:
 
-* Re-write the regular expression to use case sensitive matching
-  E.g. `matches('CATHODE', 'cat', 'i')` => `matches('CATHODE', '[cC][aA][tT])`.
-* Add the flag `;j` to force Saxon to use the Java regular expression engine instead of the Saxon one.
-  E.g. `matches('CATHODE', 'cat', 'i')` => `matches('CATHODE', 'cat', 'i;j')`.
+* Re-write the regular expression to use case sensitive matching, E.g:  
+  `matches('CATHODE', '^cat.*', 'i')` => `matches('CATHODE', '^[cC][aA][tT].*')`  
+  This is the preferred option, but may not be possible for all regular expressions.
+
+* Add the flag `;j` to force Saxon to use the Java regular expression engine instead of the Saxon one, E.g:  
+  `matches('CATHODE', '^cat.*', 'i')` => `matches('CATHODE', '^cat.*', 'i;j')`  
+  As this involves changing the regular expression engine it is possible that there will be subtle differences in the behaviour between the Saxon and Java engines.
+  Regular expression engines are notorious for having subtle differences as there is no one standard for regular expressions.
 
 
 ## Tagging Entities
