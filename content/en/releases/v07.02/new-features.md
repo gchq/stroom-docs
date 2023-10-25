@@ -247,6 +247,23 @@ In the explorer tree right click on a document and select one of:
 This will open the Dependencies screen with a filter pre-populated to show all documents that depend on the selected document.
 
 
+### Broken Dependency Alerts
+
+It is now possible to see alert icons {{< stroom-icon "alert-simple.svg" "Alert" >}} in the explorer tree to highlight documents that have broken dependencies.
+The user can hover over these icons to display more information about the broken dependency.
+The explorer tree will show the alert icon {{< stroom-icon "alert-simple.svg" "Alert" >}} against all documents with a broken dependency and all of its ancestor folders.
+
+{{< image "releases/07.02/explorer-dependency-alerts.png" "300x" />}}
+
+A broken dependency means a document (e.g. an XSLT) has a dependency on another document (e.g. a reference loader Pipeline) but that document does not exist.
+Broken dependencies can occur when a user deletes a document that other documents depend on, or by a partial import of content.
+
+This feature is disabled by default as it can have a significant effect on performance of the explorer tree with large trees.
+To enable this feature, set the property `stroom.explorer.dependencyWarningsEnabled` to `true`.
+
+Once enabled at the system level by the property, the display of alerts in the tree can be enabled/disabled by the user using the Toggle Alerts {{< stroom-icon "exclamation.svg" "Toggle Alerts">}} button.
+
+
 ## Entity Documentation
 
 It is now possible to add documentation to all {{< glossary "entity" "entities" >}}/{{< glossary "document" "documents">}} in the explorer tree, e.g. adding documentation on a _Feed_.
