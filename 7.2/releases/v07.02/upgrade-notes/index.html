@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.02/upgrade-notes/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2023-10-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-10-24T11:14:38+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2023-10-25T15:27:46+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Upgrade Notes">
 <meta itemprop="description" content="Required actions and information relating to upgrading to Stroom version 7.2.
 "><meta itemprop="datePublished" content="2023-10-20T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-10-24T11:14:38+01:00" />
-<meta itemprop="wordCount" content="821">
+<meta itemprop="dateModified" content="2023-10-25T15:27:46+01:00" />
+<meta itemprop="wordCount" content="1219">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Upgrade Notes"/>
 <meta name="twitter:description" content="Required actions and information relating to upgrading to Stroom version 7.2.
@@ -121,7 +121,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d431119bfb21c1efba52ed35090c9f36.json"
+    data-offline-search-index-json-src="../../../offline-search-index.654c7fb19beeb0dfe42584f3caaadbc0.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -146,7 +146,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d431119bfb21c1efba52ed35090c9f36.json"
+    data-offline-search-index-json-src="../../../offline-search-index.654c7fb19beeb0dfe42584f3caaadbc0.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -208,10 +208,15 @@ if (!doNotTrack) {
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#regex-performance-issue-in-xslts">Regex Performance Issue in XSLTs</a></li>
+    <li><a href="#java-version">Java Version</a></li>
+    <li><a href="#regex-performance-issue-in-xslt-processing">Regex Performance Issue in XSLT Processing</a></li>
     <li><a href="#tagging-entities">Tagging Entities</a></li>
     <li><a href="#reference-data-store">Reference Data Store</a></li>
-    <li><a href="#database-migrations">Database Migrations</a></li>
+    <li><a href="#database-migrations">Database Migrations</a>
+      <ul>
+        <li><a href="#migration-scripts">Migration Scripts</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
       </div>
@@ -415,17 +420,32 @@ if (!doNotTrack) {
 </div>
 
 
-<h2 id="regex-performance-issue-in-xslts">Regex Performance Issue in XSLTs</h2>
+<h2 id="java-version">Java Version</h2>
+<p>Stroom v7.2 requires Java v17.
+Previous versions of Stroom used Java v15 or lower.
+You will need to upgrade Java on the Stroom and Stroom-Proxy hosts to the latest patch release of Java v17.</p>
+<h2 id="regex-performance-issue-in-xslt-processing">Regex Performance Issue in XSLT Processing</h2>
 <p>v7.2 of Stroom uses a newer version of the Saxon XML processing library.
-There is a bug in this and all newer Saxon versions that means that case insensitive regular expression matching performs very badly (can be orders of magnitude slower than a case sensitive regex).
-The performance issue will show itself when multiple pipelines with effected XSLTs are being processed concurrently.
-This impacts XSLT/Xpath functions like <code>matches()</code> that use the <code>i</code> flag for case insensitive matching.</p>
-<p>Until this bug is fixed in Saxon you will have to change the XSLTs that use the <code>i</code> in one of the following ways:</p>
+Saxon is used for all pipeline processing.
+There is a bug in this version of Saxon which means that case insensitive regular expression matching performs <strong>very</strong> badly, i.e. it can be orders of magnitude slower than a case sensitive regex.
+This bug has been reported to Saxon and has been fixed but not yet released.
+It is likely a future release of Stroom will include a new version of Saxon that addresses this issue.</p>
+<p>The performance issue will show itself when multiple pipelines with effected XSLTs are being processed concurrently.
+This impacts XSLT/Xpath functions like <code>matches()</code> that use the <code>i</code> flag for case insensitive matching.
+If you don&rsquo;t not use any case-insensitive regular expressions in your XSLTs then you do not need to do anything.</p>
+<p>Until Stroom is changed to used a new version of Saxon with a fix, you will have to change the XSLTs that use the <code>i</code> flag in one of the following ways:</p>
 <ul>
-<li>Re-write the regular expression to use case sensitive matching
-E.g. <code>matches('CATHODE', 'cat', 'i')</code> =&gt; <code>matches('CATHODE', '[cC][aA][tT])</code>.</li>
-<li>Add the flag <code>;j</code> to force Saxon to use the Java regular expression engine instead of the Saxon one.
-E.g. <code>matches('CATHODE', 'cat', 'i')</code> =&gt; <code>matches('CATHODE', 'cat', 'i;j')</code>.</li>
+<li>
+<p>Re-write the regular expression to use case sensitive matching, E.g:<br>
+<code>matches('CATHODE', '^cat.*', 'i')</code> =&gt; <code>matches('CATHODE', '^[cC][aA][tT].*')</code><br>
+This is the preferred option, but may not be possible for all regular expressions.</p>
+</li>
+<li>
+<p>Add the flag <code>;j</code> to force Saxon to use the Java regular expression engine instead of the Saxon one, E.g:<br>
+<code>matches('CATHODE', '^cat.*', 'i')</code> =&gt; <code>matches('CATHODE', '^cat.*', 'i;j')</code><br>
+As this involves changing the regular expression engine it is possible that there will be subtle differences in the behaviour between the Saxon and Java engines.
+Regular expression engines are notorious for having subtle differences as there is no one standard for regular expressions.</p>
+</li>
 </ul>
 <h2 id="tagging-entities">Tagging Entities</h2>
 <p>As described in <a href="../../../releases/v07.02/new-features/#document-tagging">Document Tagging</a> Stroom now pre-populates the filter of some of the tree pickers with pre-configured tags to limit the entities returned.
@@ -473,7 +493,7 @@ If you do nothing then after upgrade these tree pickers will show no matching en
         <span class="pipeline-element" title="ReferenceDataFilter &#34;ReferenceDataFilter&#34;" >
           <span class="pipeline-element-content" >
             <span class="pipeline-element-icon">
-              <span class="stroom-icon inline-svg-button icon-button" >
+              <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Reference data"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1205.3507,897.46166 q 0,20.9696 -14.368,35.3376 L 938.18285,1185.5992 q -15.14469,14.368 -35.33761,14.368 -19.80459,0 -34.94929,-14.368 l -29.1244,-29.1244 q -14.75637,-14.7564 -14.75637,-35.3377 0,-20.5812 14.75637,-35.3376 l 113.77934,-113.77934 -273.38109,0 q -20.19292,0 -32.81349,-14.5622 -12.62058,-14.5622 -12.62058,-35.1435 l 0,-49.7056 q 0,-20.5813 12.62058,-35.1435 12.62057,-14.5622 32.81349,-14.5622 l 273.38109,0 -113.77934,-114.1676 q -14.75637,-13.9798 -14.75637,-34.9493 0,-20.9696 14.75637,-34.9493 l 29.1244,-29.1244 q 14.75637,-14.7564 34.94929,-14.7564 20.58125,0 35.33761,14.7564 l 252.79985,252.7998 q 14.368,13.5914 14.368,34.9493 z"/><path style="fill:var(--icon-colour__blue)" d="M 155.66211 541.10742 L 377.63672 873.35547 L 123.20117 1253.8164 L 227.26758 1253.8164 L 429.19336 950.6875 L 629.6875 1253.8164 L 733.27734 1253.8164 L 488.86523 883.37891 L 718 541.10742 L 614.41211 541.10742 L 436.35352 806.04492 L 259.25 541.10742 L 155.66211 541.10742 z M 1073.6406 541.10742 L 1325.6895 914.4082 L 1325.6895 1253.8164 L 1422.5957 1253.8164 L 1422.5957 914.4082 L 1674.6465 541.10742 L 1571.0566 541.10742 L 1374.8594 834.21094 L 1177.2285 541.10742 L 1073.6406 541.10742 z "/></svg></span>
   </span>
             </span>
@@ -532,7 +552,7 @@ If you do nothing then after upgrade these tree pickers will show no matching en
         <span class="pipeline-element" title="SearchResultOutputFilter &#34;SearchResultOutputFilter&#34;" >
           <span class="pipeline-element-content" >
             <span class="pipeline-element-icon">
-              <span class="stroom-icon inline-svg-button icon-button" >
+              <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Search output"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
   </span>
             </span>
@@ -595,7 +615,7 @@ All new dynamic extraction pipeline entities (those using the
         <span class="pipeline-element" title="DynamicSearchResultOutputFilter &#34;DynamicSearchResultOutputFilter&#34;" >
           <span class="pipeline-element-content" >
             <span class="pipeline-element-icon">
-              <span class="stroom-icon inline-svg-button icon-button" >
+              <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Search output"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
   </span>
             </span>
@@ -630,7 +650,9 @@ If you do not want to use this feature then you can just clear the values of the
 </ol>
 <h2 id="reference-data-store">Reference Data Store</h2>
 <p>See <a href="../../../releases/v07.02/other-changes/#partitioned-reference-data-stores">Partitioned Reference Data Stores</a> for details of the changes to reference data stores.</p>
-<p>No intervention is required on upgrade for this change, this section is for information purposes only.</p>
+<p>No intervention is required on upgrade for this change, this section is for information purposes only, however it is recommended that you take a backup copy of the existing reference data store files before booting the new version of Stroom.
+To do this, make a copy of the files in the directory specified by <code>stroom.pipeline.referenceData.lmdb.localDir</code>.
+If there is a problem then you can replace the store with the copy and try again.</p>
 <p>Stroom will automatically migrate reference data from the legacy single data store into multiple <em>Feed</em> specific stores.
 The legacy store exists in the directory configured by <code>stroom.pipeline.referenceData.lmdb.localDir</code>.
 Each feed specific store will be in a sub-directory with a name like <code>USER-DETAILS-REFERENCE___309e1ca0-7a5f-4f05-847b-b706805d758c</code> (i.e. a file system safe version of the <em>Feed</em> name and the <em>Feed&rsquo;s</em> <span class="glossary-link">
@@ -650,6 +672,25 @@ The legacy store can be found in the directory configured by <code>stroom.pipeli
 Simply delete the files <code>data.mdb</code> and <code>lock.mdb</code> (if present).
 With the store deleted, stroom will simply load all reference streams as required with no migration.</p>
 <h2 id="database-migrations">Database Migrations</h2>
+<p>When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
+This is to mitigate against any problems with the migration.
+It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
+
+</div>
+
+
+<p>On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
+This will be the node that reaches that point in the boot process first.
+All other nodes will wait until that is complete before proceeding with the boot process.</p>
+<p>It is recommended however to use a single node to execute the migration.
+To avoid Stroom starting up and beginning processing you can use the <code>migrage</code> command to just migrate the database and not fully boot Stroom.
+See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrage</code> command</a> for more details.</p>
+<h3 id="migration-scripts">Migration Scripts</h3>
 <p>For information purposes only, the following is a list of all the database migrations that will be run when upgrading from v7.0 to v7.2.0.
 The migration script files can be viewed at 
 
@@ -697,7 +738,7 @@ The migration script files can be viewed at
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 24, 2023: <a href="https://github.com/gchq/stroom-docs/commit/d957ac598f00cd8de02fc665c211a29f157d5c22">Fix typos. Fix missing space in glossary tooltip (d957ac5)</a>
+  Last modified October 25, 2023: <a href="https://github.com/gchq/stroom-docs/commit/128595b906c8a73b5559ed0fdb735039839af97d">Add section on broken deps (128595b)</a>
 </div>
 
 </div>
