@@ -331,3 +331,20 @@ You can also clear its filters or the filters on all elements.
 The pipeline now shows which elements have an active filter by displaying a filter {{< stroom-icon name="filter.svg" title="Manage Step Filters" colour="green" >}} icon.
 
 {{< image "releases/07.02/stepper-element-filter-icons.png" "400x" />}}
+
+
+## Server Tasks
+
+### Auto Refresh
+
+You can now enable/disable the auto-refreshing of the Server Tasks table using the {{< stroom-icon "auto-refresh.svg" "Turn Auto Refresh On/Off">}} button.
+Auto refresh is enabled by default.
+Disabling it is useful when you want to delete a task, as it will stop the table being refreshed just before you hit delete.
+
+### Info
+
+The Info column has been changed to wrap the text so long info messages can be read more easily.
+The task info has also been added to the Info {{< stroom-icon "info.svg" >}} popup.
+
+
+
