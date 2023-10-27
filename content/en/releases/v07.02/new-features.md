@@ -195,15 +195,30 @@ You can now add tags to entities or folders in the explorer tree.
 Tags provide an additional means of searching for entities or folders.
 It allows entities/folders that reside in different folders to be associated together in one or more ways.
 
-The tags on an entity/folder can be managed from the explorer tree context menu item :
+The tags on an entity/folder can be managed from the explorer tree context menu item:
 
-{{< stroom-menu "Tags" >}}
+{{< stroom-menu "Edit Tags" >}}
+
+The explorer tree can be filtered by tag using the field prefix `tag:`, i.e. `tag:extraction`.
 
 {{< cardpane >}}
   {{< image "releases/07.02/manage-tags.png" "300x" />}}
   {{< image "releases/07.02/tree-tag-filter.png" "300x" />}}
-  {{< image "releases/07.02/tree-picker-tag-filter.png" "300x" />}}
 {{< /cardpane >}}
+
+
+If multiple entities/folders are selected in the explorer tree then the following menu items are available:
+
+{{< stroom-menu "Add Tags" >}}
+{{< stroom-menu "Remove Tags" >}}
+
+{{< cardpane >}}
+  {{< image "releases/07.02/tags-add.png" "300x" />}}
+  {{< image "releases/07.02/tags-remove.png" "300x" />}}
+{{< /cardpane >}}
+
+
+#### Pre-populated Tag Filters
 
 Stroom comes pre-configured with some default tags.
 The property that sets these is `stroom.explorer.suggestedTags`.
@@ -211,6 +226,8 @@ The defaults for this property are `dynamic`, `extraction` and `reference-loader
 
 These pre-configured tags are also used in some of the tree pickers in stroom to provide extra filtering of entities in the picker.
 For example when selecting a Pipeline on an XSLT Filter the filter on the tree picker to select the pipeline will be pre-populated with `tag:reference-loader` so only reference loader pipelines are included.
+
+{{< image "releases/07.02/tree-picker-tag-filter.png" "300x" />}}
 
 The following properties control the tags used to pre-populate tree picker filters:
 
