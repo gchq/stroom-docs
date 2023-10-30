@@ -15,6 +15,10 @@ The following new types of document can be created and managed in the explorer t
 
 ### _View_
 
+{{% warning %}}
+Views are a new experimental feature and as such are subject to breaking changes that may result in created Views not being compatible with future Stroom versions.
+{{% /warning %}}
+
 A View {{< stroom-icon "document/View.svg">}} is a document type that has been added in to make using Dashboards and Queries easier.
 It encapsulates the data source and an optional extraction pipeline.
 
@@ -33,6 +37,10 @@ These two filters may be amalgamated in a future version of Stroom.
 
 
 ### _Query_
+
+{{% warning %}}
+Querys are a new experimental feature and as such are subject to breaking changes that may result in created Querys not being compatible with future Stroom versions.
+{{% /warning %}}
 
 The Query {{< stroom-icon "document/Query.svg">}} entity provides a new way to query data in Stroom.
 It is a functional but evolving feature that is likely to be enhanced further in future versions.
@@ -62,8 +70,11 @@ Editing StroomQL queries in the editor is also made easier by the code completio
 
 ### _Analytic Rule_
 
-Analytics is a new experimental feature in Stroom that is functional but still evolving so may well not perform well at scale.
-It allows the user to create scheduled or streaming Analytic Rule {{< stroom-icon "document/AnalyticRule.svg">}} that will fire alerts when events matching the rule are seen.
+{{% warning %}}
+Analytic Rules are a new experimental feature and as such are subject to breaking changes that may result in created Analytic Rules not being compatible with future Stroom versions.
+{{% /warning %}}
+
+Analytic Rules allow the user to create scheduled or streaming Analytic Rule {{< stroom-icon "document/AnalyticRule.svg">}} that will fire alerts when events matching the rule are seen.
 
 {{< cardpane >}}
   {{< image "releases/07.02/analytic-rule.png" "300x" />}}
@@ -72,10 +83,6 @@ It allows the user to create scheduled or streaming Analytic Rule {{< stroom-ico
 
 Analytic rules rely on the new [Stroom Query Language]({{< relref "#stroom-query-language-stroomql" >}}) to define what events will match the rule.
 An _Analytic Rule_ can be created directly from a _Query_ by clicking the Create Analytic Rule {{< stroom-icon "ruleset.svg" "Create Analytic Rule">}} icon.
-
-{{% todo %}}
-Add more content to this section
-{{% /todo %}}
 
 
 ### _Documentation_
@@ -125,10 +132,6 @@ A {{< glossary "Searchable" >}} is one of the data sources that appear at the to
 
 Adds the ability to query data from _Table Builder_ type _Analytic Rules_.
 
-{{% todo %}}
-Complete this section
-{{% /todo %}}
-
 
 ## New Pipeline Elements
 
@@ -136,18 +139,18 @@ Complete this section
 
 {{< pipe-elm "DynamicIndexingFilter" >}}
 
-{{% todo %}}
-Needs filling in
-{{% /todo %}}
+This filter element is used by [_Views_]({{< relref "#_view_" >}}) and [_Analytic Rules_]({{< relref "#_analytic-rule_" >}}).
+Unlike {{< pipe-elm "IndexingFilter" >}} where you have to specify all the fields in the index up front for them to visible to the user in a _Dashboard_, {{< pipe-elm "DynamicIndexingFilter" >}} allows fields to be dynamically created in the XSLT based on the event being indexed.
+These dynamic fields are then 'discovered' after the event has been added to the index.
 
 
 ### _DynamicSearchResultOutputFilter_
 
 {{< pipe-elm "DynamicSearchResultOutputFilter" >}}
 
-{{% todo %}}
-Needs filling in
-{{% /todo %}}
+This filter element is used by [_Views_]({{< relref "#_view_" >}}) and [_Analytic Rules_]({{< relref "#_analytic-rule_" >}}).
+Unlike {{< pipe-elm "SearchResultOutputFilter" >}} this element can discover the fields found in the extracted event when the extraction pipeline creates fields that are not present in the index.
+These discovered field are then available for the user to pick from in the _Dashboard_/_Query_.
 
 
 ### _ElasticIndexingFilter_
