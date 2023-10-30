@@ -13,6 +13,7 @@ Streams can either be created when data is directly POSTed in to Stroom or durin
 When data is directly POSTed to Stroom the content of the POST will be stored as one Stream.
 With proxy aggregation multiple files in the proxy repository will/can be aggregated together into a single Stream.
 
+
 ## Anatomy of a Stream
 
 A Stream is made up of a number of parts of which the raw or cooked data is just one.
@@ -40,15 +41,18 @@ Segmented means that the data has been demarcated into segments or records.
 
 This is the actual data of the stream, e.g. the XML events, raw CSV, JSON, etc.
 
+
 #### Context
 
 This is additional contextual data that can be sent with the data.
 Context data can be used for reference data lookups.
 
+
 #### Meta Data
 
 This is the data about the Stream (e.g. the feed name, receipt time, user agent, etc.).
 This meta data either comes from the HTTP headers when the data was POSTed to Stroom or is added by Stroom or Stroom-Proxy on receipt/processing.
+
 
 ### Non-Segmented Stream
 
@@ -64,15 +68,17 @@ The Stream may be single-part or multi-part depending on how it is received.
 If it is the product of proxy aggregation then it is likely to be multi-part.
 Each part will have its own context and meta data child streams, if applicable.
 
+
 ### Segmented Stream
 
-The following is a representation of a segmented stream that contains three records (i.e events) and has Meta Data and Context child streams.
+The following is a representation of a segmented stream that contains three records (i.e events) and the Meta Data.
 
 {{< image "user-guide/concepts/streams/segmented-stream.puml.svg" >}}Segmented Stream{{< /image >}}
 
 Cooked Events and Reference data are forms of segmented data.
 The raw data has been parsed and split into records/events and the resulting data is stored in a way that allows Stroom to know where each record/event starts/ends.
 These streams only have a single part.
+
 
 ### Error Stream
 
