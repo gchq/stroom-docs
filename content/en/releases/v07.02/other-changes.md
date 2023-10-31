@@ -67,7 +67,7 @@ It can now be personalised with the following options:
 
 #### Date and Time
 
-You can not change the format used for displaying the date and time in the user interface.
+You can now change the format used for displaying the date and time in the user interface.
 You can also set the time zone used for displaying the date and time in the user interface.
 
 {{% note %}}
