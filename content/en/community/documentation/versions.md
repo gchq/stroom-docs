@@ -166,6 +166,12 @@ Although the build is run on the `master` branch it will use the `HEAD` commit o
 The build and release can be forced by adding the text `[publish]` to the commit message on `master`.
 This is useful in testing, or if updated documentation is needed for any reason.
 
+For example you can run this on the `master` branch to for:
+
+{{< command-line >}}
+git commit --allow-empty -m "Empty commit to force [publish]" && git push
+{{</ command-line >}}
+
 
 ## Merging changes
 
