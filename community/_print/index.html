@@ -117,7 +117,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.3634475b14001978a950eb7c46abf695.json"
+    data-offline-search-index-json-src="../../offline-search-index.7bcdb31d7639c4171eff61f0319351cd.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -1045,7 +1045,7 @@ To enable the browser&rsquo;s context menu you need to ensure this is property i
 This will trigger Super Dev Mode to recompile any changed code.</p>
 <p>If you have make significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the <em>gwtDraftCompile</em> and/or <em>gwtClean</em> gradle tasks followed by <em>gwtSuperDevMode</em>.</p>
 <h3 id="debugging-gwt-ui-code">Debugging GWT UI code</h3>
-<p>To debug the GWT UI code you will need to use Chrome Dev Tools (<code>shift-ctrl-I</code>).
+<p>To debug the GWT UI code you will need to use Chrome Dev Tools (<code>shift+ctrl+i</code>).
 Setting breakpoints in the UI code in IntelliJ will have no effect.
 SuperDevMode creates source maps that link the running javascript back to Java code that you can set break points in.</p>
 <p>To find the Java source in Chrome Dev Tools open the <em>Sources</em> tab then in the left hand navigator pane (<em>Page</em> tab) select:</p>
@@ -1914,6 +1914,18 @@ The content is pre-dominantly authored in Markdown with some Hugo shortcodes.</p
 </span>
 </li>
 </ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>If you cannot or do not want to install Docker and buildx on your local machine see <a href="#developing-stroom-docs-on-github-codespaces">Developing Stroom-Docs on GitHub Codespaces</a> below.</p>
+
+
+</div>
+
+
 <p>Docker or Docker Desktop is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.</p>
 <p><code>docker-buildx</code> is a plugin for docker that allows caching of the docker images to speed up the build process.
@@ -2047,7 +2059,189 @@ A feature branch would typically be merged into the appropriate release branch b
 </div>
 
 <p>This will create the named branch and check it out in one step.</p>
-<h2 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h2>
+<h2 id="serving-the-site-on-a-local-server">Serving the site on a local server</h2>
+<p>To view the stroom-docs site in a browser you simply need to run:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./serve_site.sh</code></pre>
+</div>
+
+<p>This will execute the following steps:</p>
+<ul>
+<li><a href="#converting-the-plantuml-files-to-svg">Convert PlantUML files to SVG</a></li>
+<li><a href="#running-a-local-hugo-server">Run a local Hugo Server</a></li>
+</ul>
+<h2 id="developing-stroom-docs-on-github-codespaces">Developing Stroom-Docs on GitHub Codespaces</h2>
+<p>If you cannot or do not want to install docker and buildx on your local machine but need to work on the documentation then you can do it from within 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/features/codespaces" target="_blank" class="" style="" title="GitHub Codespaces (external link)">
+    <span>GitHub Codespaces</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Codespaces is a paid feature on GitHub, however it comes with 60hrs of free use per month so if you are only using it for stroom-docs development this should be ample.
+
+</div>
+
+
+<p>To develop Stroom-Docs with Codespaces do the following:</p>
+<ol>
+<li>Visit Stroom-Docs&rsquo; GitHub site at the desired version branch, e.g. 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-docs/tree/7.2" target="_blank" class="" style="" title="https://github.com/gchq/stroom-docs/tree/7.2 (external link)">
+    <span>https://github.com/gchq/stroom-docs/tree/7.2</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (or visit 
+
+
+
+
+
+
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-docs" target="_blank" class="" style="" title="https://github.com/gchq/stroom-docs (external link)">
+    <span>https://github.com/gchq/stroom-docs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ and switch branch using the branch/tag drop-down button).
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If you are developing on a fork then replace <code>gchq</code> in the URL with your github username.
+
+</div>
+
+</li>
+<li>Click on the green <em>Code</em> drop-down button.</li>
+<li>On the Codespaces tab click on <em>Create Codespace on <branch></em>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/documenting-stroom/github-codespaces.png" href="../../images/documenting-stroom/github-codespaces.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/documenting-stroom/github-codespaces.png" style="max-width:300" alt="images/documenting-stroom/github-codespaces.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+On first use of the Codespace it will take some time to do the initial setup of the development container.
+Subsequent uses will load more quickly.</li>
+<li>It will open Visual Studio Code in the browser with a terminal pane at the bottom.</li>
+<li>In the terminal pane enter:
+<code>./serve_site.sh</code>
+This will run the Hugo development server and Codespaces should detect the open port.
+You should see something like:
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/documenting-stroom/github-codespaces-open-port.png" href="../../images/documenting-stroom/github-codespaces-open-port.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../images/documenting-stroom/github-codespaces-open-port.png" style="max-width:300" alt="images/documenting-stroom/github-codespaces-open-port.png">
+      
+
+      
+    </figure>
+  </a>
+</div>
+</li>
+<li>Click <em>Open in Browser</em> and it will open a URL unique to your Codespace in the browser displaying the stroom-docs site.</li>
+</ol>
+<p>Within the Codespace you can use all the git commands to pull/push/commit changes.</p>
+<p>To stop the code space hit <code>ctrl+shift+p</code>, enter <code>stop</code> and then select <em>Codespaces: Stop current Codespace</em>.</p>
+<h2 id="additional-commands">Additional commands</h2>
+<h3 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h3>
 <p><em>stroom-docs</em> makes used of 
 
 
@@ -2078,7 +2272,7 @@ All PlantUML content should authored in <code>.puml</code> files and converted a
 </div>
 
 
-<p>To convert all <code>.puml</code> files into sibling <code>.puml.svg</code> files do the following:</p>
+<p>To convert all <code>.puml</code> files into sibling <code>.puml.svg</code> files, run this from the repository root:</p>
 
   
 
@@ -2126,9 +2320,9 @@ executing &quot;shortcodes/image.html&quot; at &lt;$image.Name&gt;: nil pointer 
 </div>
 
 
-<h2 id="running-a-local-server">Running a local server</h2>
+<h3 id="running-a-local-hugo-server">Running a local Hugo server</h3>
 <p>The documentation can be built and served locally while developing it.
-To build and serve the site run</p>
+To build and serve the site, run this from the repository root.</p>
 
   
 
@@ -2158,8 +2352,8 @@ When any source files are changed or added Hugo will detect this and rebuild the
 </div>
 
 
-<h2 id="building-the-site-locally">Building the site locally</h2>
-<p>To perform a full build of the static site run:</p>
+<h3 id="building-the-site-locally">Building the site locally</h3>
+<p>To perform a full build of the static site, run this from the repository root:</p>
 
   
 
@@ -2178,11 +2372,11 @@ When any source files are changed or added Hugo will detect this and rebuild the
 </div>
 
 <p>This will generate all the static content and place it in <code>public/</code>.</p>
-<h2 id="generating-the-pdf">Generating the PDF</h2>
+<h3 id="generating-the-pdf">Generating the PDF</h3>
 <p>Every page has a <em>Print entire section</em> link that will display a printable view of that section and its children.
 In addition to this the GitHub Actions we generate a PDF of the <code>docs</code> section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
 This makes the documentation available for offline use.</p>
-<p>To test the PDF generation do:</p>
+<p>To test the PDF generation, run this from the repository root:</p>
 
   
 
@@ -2480,6 +2674,24 @@ If any one of the hashes is different then the combined site will be assembled a
 <p>Although the build is run on the <code>master</code> branch it will use the <code>HEAD</code> commit of each of the release branches to build the site(s).</p>
 <p>The build and release can be forced by adding the text <code>[publish]</code> to the commit message on <code>master</code>.
 This is useful in testing, or if updated documentation is needed for any reason.</p>
+<p>For example you can run this on the <code>master</code> branch to for:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">git commit --allow-empty -m &#34;Empty commit to force [publish]&#34; &amp;&amp; git push</code></pre>
+</div>
+
 <h2 id="merging-changes">Merging changes</h2>
 <p>When you make changes to one of the version branches (<code>7.0</code>, <code>7.1</code>, etc.), either directly or with a pull request from a feature branch, you will need to merge the changes up through each of the versions until they reach <code>master</code>.
 Merging up through multiple branches is tedious when done manually so you can use the <code>merge_up.sh</code> script in the root of this repo.</p>
@@ -2505,7 +2717,7 @@ Alternatively you can supply the name of the branch to start from, e.g. <code>./
 (out)7.0 -&gt; 7.1 -&gt; master
 (out)
 (out)It will stop if there are merge conflicts.
-(out)Press [y|Y] to continue, or ctrl-c to exit...</code></pre>
+(out)Press [y|Y] to continue, or ctrl&#43;c to exit...</code></pre>
 </div>
 
 <p>When you run it, it will tell you the merge path and get you to confirm.
