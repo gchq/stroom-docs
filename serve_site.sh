@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# #############################################################################
+# Script to convert all .puml files into .puml.svg files then to serve the
+# site on a Hugo dev server running at localhost:1313.
+# Relies on docker and its buildx plugin to do the svg generation and to run
+# Hugo.
+# #############################################################################
+
 set -e
 
 setup_echo_colours() {
@@ -50,7 +57,7 @@ check_prerequisites() {
   fi
 
   if ! docker buildx version >/dev/null 2>&1; then
-    echo -e "${RED}ERROR: Docker buildx is not installed. Please install it.${NC}"
+    echo -e "${RED}ERROR: Docker buildx plugin is not installed. Please install it. See https://github.com/docker/buildx#installing${NC}"
     exit 1
   fi
 }
@@ -67,11 +74,8 @@ main() {
   local puml_svg_count
   puml_svg_count="$(find "${repo_root}" -name "*.puml.svg" | wc -l )"
 
-  if [[ "${puml_svg_count}" -eq 0 ]]; then
-    echo -e "${GREEN}No PlantUML SVG files found (*.puml.svg) so running SVG generation process.${NC}"
-
-    ./container_build/runInPumlDocker.sh SVG
-  fi
+  echo -e "${GREEN}No PlantUML SVG files found (*.puml.svg) so running SVG generation process.${NC}"
+  ./container_build/runInPumlDocker.sh SVG
 
   echo -e "${GREEN}Running the Hugo server on localhost:1313${NC}"
 
