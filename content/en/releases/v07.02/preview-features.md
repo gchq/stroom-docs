@@ -1,6 +1,6 @@
 ---
 title: "Preview Features (experimental)"
-linkTitle: "Preview Features (experimental)"
+linkTitle: "Preview Features"
 weight: 20
 date: 2023-10-31
 tags: 
