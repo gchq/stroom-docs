@@ -182,7 +182,7 @@ Alternatively you can supply the name of the branch to start from, e.g. `./merge
 (out)7.0 -> 7.1 -> master
 (out)
 (out)It will stop if there are merge conflicts.
-(out)Press [y|Y] to continue, or ctrl-c to exit...
+(out)Press [y|Y] to continue, or ctrl+c to exit...
 {{</ command-line >}}
 
 When you run it, it will tell you the merge path and get you to confirm.

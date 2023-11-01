@@ -73,7 +73,7 @@ You have two options:
 
 ## Reference Data Store
 
-See [Partitioned Reference Data Stores]({{< relref "other-changes#partitioned-reference-data-stores" >}}) for details of the changes to reference data stores.
+See [Partitioned Reference Data Stores]({{< relref "new-features#partitioned-reference-data-stores" >}}) for details of the changes to reference data stores.
 
 No intervention is required on upgrade for this change, this section is for information purposes only, however it is recommended that you take a backup copy of the existing reference data store files before booting the new version of Stroom.
 To do this, make a copy of the files in the directory specified by `stroom.pipeline.referenceData.lmdb.localDir`.
