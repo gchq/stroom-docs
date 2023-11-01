@@ -11,15 +11,12 @@ description: >
 
 ## New Document types
 
+{{% warning %}}
 The following features are usable but should be considered experimental at this point.
 The functionality may be subject to future changes that may break any content created with this version.  
-
+{{% /warning %}}
 
 ### _View_
-
-{{% warning %}}
-Views are a new experimental feature and as such are subject to breaking changes that may result in created Views not being compatible with future Stroom versions.
-{{% /warning %}}
 
 A View {{< stroom-icon "document/View.svg">}} is a document type that has been added in to make using Dashboards and Queries easier.
 It encapsulates the data source and an optional extraction pipeline.
@@ -39,10 +36,6 @@ These two filters may be amalgamated in a future version of Stroom.
 
 
 ### _Query_
-
-{{% warning %}}
-Queries are a new experimental feature and as such are subject to breaking changes that may result in created Queries not being compatible with future Stroom versions.
-{{% /warning %}}
 
 The Query {{< stroom-icon "document/Query.svg">}} feature provides a new way to query data in Stroom.
 It is a functional but evolving feature that is likely to be enhanced further in future versions.
@@ -72,10 +65,6 @@ StroomQl queries can be executed easily with `ctrl+enter` or `shift+enter`.
 
 
 ### _Analytic Rule_
-
-{{% warning %}}
-Analytic Rules are a new experimental feature and as such are subject to breaking changes that may result in created Analytic Rules not being compatible with future Stroom versions.
-{{% /warning %}}
 
 Analytic Rules allow the user to create scheduled or streaming Analytic Rule {{< stroom-icon "document/AnalyticRule.svg">}} that will fire alerts when events matching the rule are seen.
 
