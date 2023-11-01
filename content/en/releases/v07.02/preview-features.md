@@ -8,6 +8,8 @@ description: >
   Preview experimental features in Stroom version 7.2.
 ---
 
+## New Document types
+
 The following features are usable but should be considered experimental at this point.
 The functionality may be subject to future changes that may break any content created with this version.  
 
