@@ -17,6 +17,10 @@ In order to build and contribute to the documentation you will need the followin
 * {{< external-link "Docker" "https://docs.docker.com/get-docker/" >}} 
 * {{< external-link "docker-buildx" "https://github.com/docker/buildx#installing" >}}
 
+{{% note %}}
+If you cannot or do not want to install Docker and buildx on your local machine see [Developing Stroom-Docs on GitHub Codespaces]({{< relref "#developing-stroom-docs-on-github-codespaces" >}}) below.
+{{% /note %}}
+
 Docker or Docker Desktop is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
 It also ensures that the local build environment matches that used in GitHub actions.
 
@@ -99,7 +103,55 @@ git checkout -b add-properties-section
 This will create the named branch and check it out in one step.
 
 
-## Converting the PlantUML files to SVG
+## Serving the site on a local server
+
+To view the stroom-docs site in a browser you simply need to run:
+
+{{< command-line >}}
+./serve_site.sh
+{{</ command-line >}}
+
+This will execute the following steps:
+
+* [Convert PlantUML files to SVG]({{< relref "#converting-the-plantuml-files-to-svg" >}})
+* [Run a local Hugo Server]({{< relref "#running-a-local-hugo-server" >}})
+
+
+## Developing Stroom-Docs on GitHub Codespaces
+
+If you cannot or do not want to install docker and buildx on your local machine but need to work on the documentation then you can do it from within {{< external-link "GitHub Codespaces" "https://github.com/features/codespaces" >}}.
+
+{{% note %}}
+Codespaces is a paid feature on GitHub, however it comes with 60hrs of free use per month so if you are only using it for stroom-docs development this should be ample.
+{{% /note %}}
+
+To develop Stroom-Docs with Codespaces do the following:
+
+1. Visit Stroom-Docs' GitHub site at the desired version branch, e.g. {{< external-link "https://github.com/gchq/stroom-docs/tree/7.2" >}} (or visit {{< external-link "https://github.com/gchq/stroom-docs" >}} and switch branch using the branch/tag drop-down button).
+  {{% note %}}
+  If you are developing on a fork then replace `gchq` in the URL with your github username.
+  {{% /note %}}
+1. Click on the green _Code_ drop-down button.
+1. On the Codespaces tab click on _Create Codespace on <branch>_
+   {{< image "documenting-stroom/github-codespaces.png" "300x" />}}
+   On first use of the Codespace it will take some time to do the initial setup of the development container.
+   Subsequent uses will load more quickly.
+1. It will open Visual Studio Code in the browser with a terminal pane at the bottom.
+1. In the terminal pane enter:
+   `./serve_site.sh`
+   This will run the Hugo development server and Codespaces should detect the open port.
+   You should see something like:
+   {{< image "documenting-stroom/github-codespaces-open-port.png" "300x" />}}
+1. Click _Open in Browser_ and it will open a URL unique to your Codespace in the browser displaying the stroom-docs site.
+
+Within the Codespace you can use all the git commands to pull/push/commit changes.
+
+To stop the code space hit `ctrl+shift+p`, enter `stop` and then select _Codespaces: Stop current Codespace_.
+
+
+## Additional commands
+
+### Converting the PlantUML files to SVG
 
 _stroom-docs_ makes used of {{< external-link "PlantUML" "https://plantuml.com" >}} for a lot of its diagrams.
 These are stored in the repository as `.puml` text files.
@@ -111,7 +163,7 @@ This capability makes use of internet based servers to do the conversion therefo
 All PlantUML content should authored in `.puml` files and converted at build time.
 {{% /note %}}
 
-To convert all `.puml` files into sibling `.puml.svg` files do the following:
+To convert all `.puml` files into sibling `.puml.svg` files, run this from the repository root:
 
 {{< command-line >}}
 ./container_build/runInPumlDocker.sh SVG
@@ -140,10 +192,10 @@ In the build docker containers your local _stroom-docs_ repository is mounted in
 {{% /note %}}
 
 
-## Running a local server
+### Running a local Hugo server
 
 The documentation can be built and served locally while developing it.
-To build and serve the site run
+To build and serve the site, run this from the repository root.
 
 {{< command-line >}}
 ./container_build/runInHugoDocker.sh server
@@ -159,9 +211,9 @@ Sometimes changes made to the site source will not be re-loaded correctly so it 
 {{% /warning %}}
 
 
-## Building the site locally
+### Building the site locally
 
-To perform a full build of the static site run:
+To perform a full build of the static site, run this from the repository root:
 
 {{< command-line >}}
 ./container_build/runInHugoDocker.sh build
@@ -170,13 +222,13 @@ To perform a full build of the static site run:
 This will generate all the static content and place it in `public/`.
 
 
-## Generating the PDF
+### Generating the PDF
 
 Every page has a _Print entire section_ link that will display a printable view of that section and its children.
 In addition to this the GitHub Actions we generate a PDF of the `docs` section and all its children, i.e. all of the documentation (but not News/Releases or Community) in one PDF.
 This makes the documentation available for offline use.
 
-To test the PDF generation do:
+To test the PDF generation, run this from the repository root:
 
 {{< command-line >}}
 ./container_build/runInPupeteerDocker.sh PDF
