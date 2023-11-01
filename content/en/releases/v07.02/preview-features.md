@@ -8,9 +8,8 @@ description: >
   Preview experimental features in Stroom version 7.2.
 ---
 
-## Preview Features (experimental)
-
-The following features are usable but should be considered experimental at this point. The functionality may be subject to future changes that may break any content created with this version.  
+The following features are usable but should be considered experimental at this point.
+The functionality may be subject to future changes that may break any content created with this version.  
 
 
 ### _View_
@@ -39,10 +38,10 @@ These two filters may be amalgamated in a future version of Stroom.
 ### _Query_
 
 {{% warning %}}
-Querys are a new experimental feature and as such are subject to breaking changes that may result in created Querys not being compatible with future Stroom versions.
+Queries are a new experimental feature and as such are subject to breaking changes that may result in created Queries not being compatible with future Stroom versions.
 {{% /warning %}}
 
-The Query {{< stroom-icon "document/Query.svg">}} entity provides a new way to query data in Stroom.
+The Query {{< stroom-icon "document/Query.svg">}} feature provides a new way to query data in Stroom.
 It is a functional but evolving feature that is likely to be enhanced further in future versions.
 
 Rather than using the query expression builder and table column expressions as used in Dashboards, it uses the new text based [Stroom Query Language]({{< relref "docs/user-guide/dashboards/stroom-query-language" >}}) to define the query.
@@ -65,7 +64,8 @@ GROUP BY Feed, Action                         // Equivalent to Dashboard table c
 SELECT Feed, Action, event_count AS "Count"   // Equivalent to adding columns to a Dashboard table
 ```
 
-Editing StroomQL queries in the editor is also made easier by the code completion (using `ctrl-space`) to suggest data sources, fields, functions and StroomQL language terms.
+Editing StroomQL queries in the editor is also made easier by the code completion (using `ctrl+space`) to suggest data sources, fields, functions and StroomQL language terms.
+StroomQl queries can be executed easily with `ctrl+enter` or `shift+enter`.
 
 
 ### _Analytic Rule_
