@@ -315,7 +315,7 @@ If you have make significant code changes, e.g. moving/renaming classes then GWT
 
 ### Debugging GWT UI code
 
-To debug the GWT UI code you will need to use Chrome Dev Tools (`shift-ctrl-I`).
+To debug the GWT UI code you will need to use Chrome Dev Tools (`shift+ctrl+i`).
 Setting breakpoints in the UI code in IntelliJ will have no effect.
 SuperDevMode creates source maps that link the running javascript back to Java code that you can set break points in.
 

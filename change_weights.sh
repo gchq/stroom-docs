@@ -73,7 +73,7 @@ open_file_in_editor() {
     #"(${BLUE}${editor}${GREEN})${NC}"
 
   echo
-  read -e -n 1 -s -r -p "Press any key to modify the order in your editor (ctrl-c to cancel)"
+  read -e -n 1 -s -r -p "Press any key to modify the order in your editor (ctrl+c to cancel)"
   echo
 
   "${editor}" "${file_to_open}"

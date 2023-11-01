@@ -214,7 +214,7 @@ confirm_branches() {
   echo
   echo -e "${GREEN}It will stop if there are merge conflicts.${NC}"
 
-  read -rsp $'Press [y|Y] to continue, or ctrl-c to exit...\n' -n1 keyPressed
+  read -rsp $'Press [y|Y] to continue, or ctrl+c to exit...\n' -n1 keyPressed
 
   if [[ "${keyPressed}X" =~ ^(y|Y)?X$ ]] ; then
     echo
