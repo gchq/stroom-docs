@@ -74,6 +74,6 @@ Analytic Rules allow the user to create scheduled or streaming Analytic Rule {{<
 {{< /cardpane >}}
 
 Analytic rules rely on the new [Stroom Query Language]({{< relref "#stroom-query-language-stroomql" >}}) to define what events will match the rule.
-An _Analytic Rule_ can be created directly from a _Query_ by clicking the Create Analytic Rule {{< stroom-icon "ruleset.svg" "Create Analytic Rule">}} icon.
+An _Analytic Rule_ can be created directly from a _Query_ by clicking the Create Analytic Rule {{< stroom-icon "document/AnalyticRule.svg" "Create Analytic Rule">}} icon.
 
 
