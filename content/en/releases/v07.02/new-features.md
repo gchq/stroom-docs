@@ -510,10 +510,17 @@ You can now enable/disable the auto-refreshing of the Server Tasks table using t
 Auto refresh is enabled by default.
 Disabling it is useful when you want to delete a task, as it will stop the table being refreshed just before you hit delete.
 
-### Info
 
-The Info column has been changed to wrap the text so long info messages can be read more easily.
-The task info has also been added to the Info {{< stroom-icon "info.svg" >}} popup.
+### Line Wrapping
+
+You can now enable/disable line wrapping in the Name and Info cells using the {{< stroom-icon "text-wrap.svg" "Turn Cell Line Wrapping On/Off">}} button.
+Line wrapping is disable by default.
+Enabling this is useful to see long Info cell values.
+
+
+### Info Popup
+
+The Info {{< stroom-icon "info.svg" >}} popup has been changed to include the value from the Info column.
 
 
 ## Proxy
