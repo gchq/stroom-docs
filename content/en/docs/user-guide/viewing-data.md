@@ -123,7 +123,7 @@ If only some of the data is visible then the bar will be blue and the coloured p
 
 ## Editor
 
-Stroom uses the _Ace_ editor for editing and viewing text, such as XSLTs, raw data, cooked events, stepping, etc.
+Stroom uses the {{< external-link "Ace editor" "https://ace.c9.io" >}} editor for editing and viewing text, such as XSLTs, raw data, cooked events, stepping, etc.
 
 
 ### Keyboard shortcuts
@@ -203,20 +203,23 @@ When completion suggestions are triggered the follow types of completion may be 
 * _Keyword_ - A word/token that has been defined in the syntax highlighting rules for the text type, i.e. `function` is a keyword when editing Javascript.
 * _Snippet_ - A block of text that has been defined as a snippet for the editor mode (XML, Javascript, etc.).
 
+
 #### Snippets
 
-Snippets allow you to quickly entry pre-defined blocks of common text.
+Snippets allow you to quickly enter pre-defined blocks of common text into the editor.
 For example when editing an XSLT you may want to insert a call-template with parameters.
 To do this using snippets you can do the following:
 
 * Type `call` then hit `ctrl+space`.
 * In the list of options use the cursor keys to select `call-template with-param` then hit `enter` or `tab` to insert the snippet.
   The snippet will look like 
+
   ``` xslt
   <xsl:call-template name="template">
     <xsl:with-param name="param"></xsl:with-param>
   </xsl:call-template>
   ```
+
 * The cursor will be positioned on the first tab stop (the template name) with the tab stop text selected.
 * At this point you can type in your template name, e.g. `MyTemplate`, then hit `tab` to advance to the next tab stop (the param name)
 * Now type the name of the param, e.g. `MyParam`, then hit `tab` to advance to the last tab stop positioned within the `<with-param>` ready to enter the param value.
