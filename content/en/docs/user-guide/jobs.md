@@ -1,7 +1,7 @@
 ---
 title: "Stroom Jobs"
 linkTitle: "Stroom Jobs"
-#weight:
+weight: 140
 date: 2021-07-27
 tags:
   - job
