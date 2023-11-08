@@ -1,7 +1,7 @@
 ---
 title: "Documenting content"
 linkTitle: "Documenting content"
-#weight:
+weight: 30
 date: 2023-06-07
 tags: 
   - content

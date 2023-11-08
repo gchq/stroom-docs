@@ -125,6 +125,16 @@ The document and folder permissions screens have been re-designed with a better 
 {{< image "releases/07.02/folder-permissions.png" "300" />}}
 
 
+### Editor Completion snippets
+
+The number of available [editor completion snippets]({{< relref "docs/user-guide/content/editing-text/editing-text#auto-completion-and-snippets" >}}) has increased.
+For a list of the available completion snippets see the [Completion Snippet Reference]({{< relref "docs/user-guide/content/editing-text/snippet-reference" >}}).
+
+{{% note %}}
+Completion snippets are an evolving feature so if you have an requests for generic completion snippets then raise an issue on GitHub and we will consider adding them in.
+{{% /note %}}
+
+
 ## Partitioned Reference Data Stores
 
 In Stroom v7.0 reference data is loaded using a reference loader pipeline and the key/value pairs are stored in a single disk backed reference data store on each Stroom node for fast lookup.

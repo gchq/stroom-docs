@@ -1,7 +1,7 @@
 ---
 title: "Indexing data"
 linkTitle: "Indexing data"
-#weight:
+weight: 80
 date: 2022-02-15
 tags: 
 description: >
