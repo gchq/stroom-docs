@@ -22,13 +22,16 @@ e.g.:
 {{ $stroomVersion := $.Site.Params.version }}
 {{ $text := replace (.Get 0) $versionTag $stroomVersion }}
 {{ $url := "" }}
+{{ $title := "" }}
 {{ if not (.Get 1) }}
   {{ $url = $text }}
+  {{ $title = printf "External link to %s" $url }}
 {{ else }}
   {{ $url = replace (.Get 1) $versionTag $stroomVersion }}
+  {{ $title = printf "%s (external link to %s)" $text $url }}
 {{ end }}
 <span class="external-link">
-  <a href="{{ $url }}" target="_blank" class="" style="" title="{{- $text }} (external link)">
+  <a href="{{ $url }}" target="_blank" class="" style="" title="{{- $title }}">
     <span>{{- $text -}}</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
