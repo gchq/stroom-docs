@@ -9,6 +9,8 @@ description: >
 ---
 
 When data is sent to Stroom the character encoding of the data should be configured for the [Feed]({{< relref "docs/user-guide/feeds" >}}).
+This tells Stroom how to decode the data that has been sent.
+All data sent to a feed must be encoded in the character encode configured for that Feed.
 
 
 ## Supported Character Encodings
@@ -20,20 +22,21 @@ The currently supported character encodings are:
 
 This is the default character encoding 
 A variable width character encoding consisting of one to four bytes per 'character'.
+UTF-8 is supported with or without a [Byte Order Mark]({{< relref "#byte-order-mark-bom" >}}).
 
 
 ### UTF-16
 
 A variable width character encoding consisting of two or four bytes per 'character'.
 UTF-16 can be encoded with either Big (UTF16-BE) or Little (UTF16-LE) Endianness depending on the system that encoded it.
-The [Byte Order Mark]({{< relref "#byte-order-mark-bom" >}}) will specify the endianness.
+The [Byte Order Mark]({{< relref "#byte-order-mark-bom" >}}) will specify the endianness but is optional.
 
 
 ### UTF-32
 
 A fixed width character encoding consisting of four bytes per 'character'.
 UTF-32 can be encoded with either Big (UTF32-BE) or Little (UTF32-LE) Endianness depending on the system that encoded it.
-The [Byte Order Mark]({{< relref "#byte-order-mark-bom" >}}) will specify the endianness.
+The [Byte Order Mark]({{< relref "#byte-order-mark-bom" >}}) will specify the endianness but is optional.
 
 
 ### ASCII
