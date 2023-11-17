@@ -20,19 +20,19 @@
 <link rel="icon" type="image/png" href="../../../../favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
 
-<title>Data Formats | Stroom</title>
+<title>Event Data Formats | Stroom</title>
 <meta name="description" content="The data formats to use when sending data to Stroom.
 ">
-<meta property="og:title" content="Data Formats" />
+<meta property="og:title" content="Event Data Formats" />
 <meta property="og:description" content="The data formats to use when sending data to Stroom.
 " />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/docs/sending-data/data-formats/" /><meta property="og:site_name" content="Stroom" />
 
-<meta itemprop="name" content="Data Formats">
+<meta itemprop="name" content="Event Data Formats">
 <meta itemprop="description" content="The data formats to use when sending data to Stroom.
 "><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Data Formats"/>
+<meta name="twitter:title" content="Event Data Formats"/>
 <meta name="twitter:description" content="The data formats to use when sending data to Stroom.
 "/>
 
@@ -117,7 +117,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.78cd0483187ae670256e25b0b53cc26b.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.626c4b6bb2e4a7726ffe4059493578b3.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -147,7 +147,7 @@ This is the multi-page printable view of this section.
 
 
 
-<h1 class="title">Data Formats</h1>
+<h1 class="title">Event Data Formats</h1>
 <div class="lead">The data formats to use when sending data to Stroom.</div>
 
 
@@ -239,20 +239,23 @@ If data is sent in Events/Event XML then it will not require any additional tran
     
   <h1 id="pg-aede5fece9557c07ae4c3c40cfc4f738">1 - Character Encoding</h1>
     <div class="lead">Details of the character encodings supported by Stroom.</div>
-	<p>When data is sent to Stroom the character encoding of the data should be configured for the <a href="../../../../docs/user-guide/feeds/">Feed</a>.</p>
+	<p>When data is sent to Stroom the character encoding of the data should be configured for the <a href="../../../../docs/user-guide/feeds/">Feed</a>.
+This tells Stroom how to decode the data that has been sent.
+All data sent to a feed must be encoded in the character encode configured for that Feed.</p>
 <h2 id="supported-character-encodings">Supported Character Encodings</h2>
 <p>The currently supported character encodings are:</p>
 <h3 id="utf-8">UTF-8</h3>
 <p>This is the default character encoding
-A variable width character encoding consisting of one to four bytes per &lsquo;character&rsquo;.</p>
+A variable width character encoding consisting of one to four bytes per &lsquo;character&rsquo;.
+UTF-8 is supported with or without a <a href="#byte-order-mark-bom">Byte Order Mark</a>.</p>
 <h3 id="utf-16">UTF-16</h3>
 <p>A variable width character encoding consisting of two or four bytes per &lsquo;character&rsquo;.
 UTF-16 can be encoded with either Big (UTF16-BE) or Little (UTF16-LE) Endianness depending on the system that encoded it.
-The <a href="#byte-order-mark-bom">Byte Order Mark</a> will specify the endianness.</p>
+The <a href="#byte-order-mark-bom">Byte Order Mark</a> will specify the endianness but is optional.</p>
 <h3 id="utf-32">UTF-32</h3>
 <p>A fixed width character encoding consisting of four bytes per &lsquo;character&rsquo;.
 UTF-32 can be encoded with either Big (UTF32-BE) or Little (UTF32-LE) Endianness depending on the system that encoded it.
-The <a href="#byte-order-mark-bom">Byte Order Mark</a> will specify the endianness.</p>
+The <a href="#byte-order-mark-bom">Byte Order Mark</a> will specify the endianness but is optional.</p>
 <h3 id="ascii">ASCII</h3>
 <p>A single byte character encoding supporting only 128 characters.
 This character encoding has very limited use as it does not support accented characters or emojis so should be avoided for any logs that capture user input where these characters may occur.</p>
