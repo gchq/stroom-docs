@@ -97,11 +97,11 @@ Stroom has a standard set of reserved file extensions that are used for differen
 Any file without a reserved file extension (or without any file extension) will be assumed to be an event data file.
 For example the following ZIP archive contains four event data files and no sidecar files.
 
-```text
-2023-11-16.0001
-2023-11-16.0002
-2023-11-16.0003
-2023-11-16.0004
+```treeview
+|-- 2023-11-16.0001
+|-- 2023-11-16.0002
+|-- 2023-11-16.0003
+`-- 2023-11-16.0004
 ```
 
 
@@ -113,30 +113,30 @@ The base name is the part of the file name that is common to all files.
 The following is an example of two event data files with associated sidecar files.
 In this example, the base names are `001` and `002`.
 
-```text
-001.dat
-001.ctx
-001.meta
-002.dat
-002.ctx
-002.meta
+```treeview
+|-- 001.dat
+|-- 01.ctx
+|-- 01.meta
+|-- 02.dat
+|-- 02.ctx
+`-- 02.meta
 ```
 
 While it is very much preferred for all files to be given the appropriate reserved file extension, omitting the file extension for event data files is supported.
 
-```text
-2023-11-16.0001
-2023-11-16.0001.ctx
-2023-11-16.0002
-2023-11-16.0002.ctx
+```treeview
+|-- 023-11-16.0001
+|-- 023-11-16.0001.ctx
+|-- 023-11-16.0002
+`-- 023-11-16.0002.ctx
 ```
 
 {{% warning %}}
 If you had the following files:
-```text
-001.data1
-001.data2
-001.ctx
+```treeview
+|-- 01.data1
+|-- 01.data2
+`-- 01.ctx
 ```
 Then `001.data1` and `001.data2` would both be considered event data files for the base name `001` and Stroom does not allow multiple files of the same type for the same base name.
 Therefore the ZIP would be rejected with a _duplicate file_ error.
@@ -208,7 +208,7 @@ Meta files will be present when downloading data from Stroom or when aggregated 
 A Meta file contains key value pairs delimited by `:`.
 This is an example of a Meta file:
 
-```text
+```http
 content-type:application/x-www-form-urlencoded
 environment:example_environment
 feed:test_feed
@@ -236,7 +236,7 @@ Like Meta files they contain a simple list of key value pairs delimited by `:`.
 
 The following is an example of a manifest file:
 
-```text
+```http
 Create Time:1698149813565
 Effective Time:1698149813565
 Feed:TEST_FEED
