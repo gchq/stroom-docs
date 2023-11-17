@@ -1,6 +1,6 @@
 ---
-title: "Data Formats"
-linkTitle: "Data Formats"
+title: "Event Data Formats"
+linkTitle: "Event Data Formats"
 weight: 10
 date: 2022-05-17
 tags: 

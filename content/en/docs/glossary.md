@@ -158,11 +158,17 @@ In Stroom Fields can be the Fields in an {{< glossary "Index" >}} (or other quer
 See {{< glossary "Processor Filter" >}}.
 
 
+## FQDN
+
+The {{< external-link "Fully Qualified Domain Name" "https://en.wikipedia.org/wiki/Fully_qualified_domain_name" >}} of a device, i.e. `server57.some.domain.com`.
+
+
 ## IDP
 
 An {{< external-link "Identiy Provider (IDP)" "https://en.wikipedia.org/wiki/Identity_provider" >}} is a system that manages the identity information of principles (typically users) and provides authentication services to systems (like Stroom).
 
 Examples of IDPs are Amazon Cognito, Microsoft Azure/Entra AD and Keycloak.
+
 
 ## Markdown
 
