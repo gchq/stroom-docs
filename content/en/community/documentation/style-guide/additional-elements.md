@@ -626,6 +626,7 @@ The list of included language names are:
 `css`  
 `csv`  
 `groovy`  
+`http`  
 `java`  
 `javascript`  
 `jq`  
