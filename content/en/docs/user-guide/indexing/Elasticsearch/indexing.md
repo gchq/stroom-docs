@@ -66,7 +66,11 @@ We will now explore how create an Elasticsearch *index template*, which specifie
 
 For information on what index and component templates are, consult the Elastic {{< external-link "documentation" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" >}}.
 
-When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the `index_patterns` entries in the index template, Elasticsearch creates a new index using the `settings` and `mappings` properties from the template.
+When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the `index_patterns` entries in the index template, it will create a new index / data stream using the `settings` and `mappings` properties from the template. In this way, the index does _not_ need to be manually created in advance.
+
+{{% note %}}
+If an index doesn't match a template when it is created, data will still be indexed - with default mappings and settings. This may be appropriate for small indices, but with a default shard count of `5`, the indexing and search performance will likely be inadequate for large indices.
+{{% /note %}}
 
 The following example creates a basic index template `stroom-events-v1` in a local Elasticsearch cluster, with the following explicit field mappings:
 
@@ -193,46 +197,93 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 
 ### Procedure
 
-1. Right-click on a folder ({{< stroom-icon "folder.svg">}}) in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
-1. Select:  
-   {{< stroom-menu "New" "Pipeline" >}}
+1. Right-click on a folder {{< stroom-icon "folder.svg">}} in the Stroom Explorer pane {{< stroom-icon "folder-tree.svg" "Explorer" >}}.
+1. {{< stroom-menu "New" "Pipeline" >}}
 1. Enter a name for your pipeline and click {{< stroom-btn "OK" >}}.
 1. Click the `Inherit From` {{< stroom-icon "ellipses-horizontal.svg" Ellipsis >}} button.
 1. In the dialog that appears, select the template pipeline you created named `Indexing (Elasticsearch)` and click {{< stroom-btn "OK" >}}.
 1. Select the Elastic Indexing Filter pipeline element.
-1. Set its properties as per one of the examples below.
+1. Set the `indexName` property to the name of the destination index or data stream. `indexName` may be a simple string (static) or dynamic.
+1. If using dynamic index names, configure the translation to output named element(s) that will be interpolated into `indexName` for each document indexed.
 
 
-### Example 1: Single index or data stream
+### Choosing between simple and dynamic index names
 
-This is the simplest use case and is suitable where you want to write to a single {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} (for time-series data) or index.
-If your index template contains the property `data_stream: {}`, be sure to include a `string` field named `@timestamp` in the output JSON XML.
+Indexing data to a single, named data stream or index, is a simple and convenient way to manage data. There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).
+As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year. This use case is met by Stroom's dynamic index naming.
 
-If targeting a data stream, you may choose to use Elasticsearch {{< external-link "ILM" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" >}} to manage its lifecycle. 
+{{% note %}}
+An Elasticsearch {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} consists of one or more backing indices, which automatically roll over once a size or date threshold are met. This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).
+{{% /note %}}
 
-```yaml
-indexBaseName: stroom-events-v1
+
+#### Single named index or data stream
+
+This is the simplest use case and is suitable where you want to write all data for a particular pipeline, to a single data stream or index.
+Whether data is written to an actual _index_ or _data stream_ depends on your index template, specifically whether you have declared `data_stream: {}`.
+If this property exists in the index template matching `indexName`, a data stream is created when the first document is indexed.
+Data streams, amongst many other features, provide the option to use Elasticsearch {{< external-link "Index Lifecycle Management (ILM) policies" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" >}} to manage their lifecycle.
+
+{{% note %}}
+When indexing to a data stream, ensure to include a `string` field named `@timestamp` in the output JSON XML. This is mandatory and indexing will fail if this field isn't a valid `date` value.
+{{% /note %}}
+
+
+#### Dynamic data stream names
+
+With a dynamic stream name, `indexName` contains the names of elements, for example: `stroom-events-v1-{year}`. For each document, the final index name is computed based on the values of the corresponding elements within the resulting JSON XML.
+For example, if the JSON XML representation of an event consists of the following, the document will be indexed to the index or data stream named `stroom-events-v1-2022`:
+
+```xml
+<?xml version="1.1" encoding="UTF-8"?>
+<array
+        xmlns="http://www.w3.org/2005/xpath-functions"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd">
+    <map>
+        <number key="StreamId">3045516</number>
+        <number key="EventId">1</number>
+        <string key="@timestamp">2022-12-16T02:46:29.218Z</string>
+        <number key="year">2022</number>
+    </map>
+</array>
 ```
 
+This is due to the value of `/map/number[@key='year']` being `2022`.
+This approach can be useful when you need to apply different ILM policies, such as maintaining older data on slower storage tiers.
 
-### Example 2: Dynamic time-based data streams
+{{% warning %}}
+Any element names defined in `indexName` _must_ exist in the JSON XML (unless it is an empty document). If a blank value is desired, output an empty `string` element.
+{{% /warning %}}
 
-In this example, Stroom creates data streams as needed, named according to the value of a particular JSON date field and date pattern.
-This is useful when you need to roll over data streams manually, such as maintaining older data on slower storage tiers.
+{{% note %}}
+If an element name begins with `_` (underscore), its value is _only_ used for `indexName` interpolation, and it is **not** included in the final JSON.
+{{% /note %}}
 
-For instance, you may have data spanning many years and want to have Stroom create a separate data stream for each year, such as `stroom-events-v1-2020`, `stroom-events-v1-2021`, `stroom-events-v1-2022` and so on.
 
-```yaml
-indexBaseName: stroom-events-v1
-indexNameDateFieldName: @timestamp
-indexNameDateFormat: -yyyy
+##### Other applications for dynamic data stream names
+
+Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren't user-attributed after 12 months.
+While Stroom `ElasticIndex` support data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn't cause disk space to be freed (this requires an index to be force-merged, an expensive operation). A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.
+
+
+##### Migrating older data streams to other data tiers
+
+Say a feed is indexed, spanning data from 2020 through 2023. Assuming most searches only need to query data from the current year, the data streams `stroom-events-v1-2020` and `stroom-events-v1-2021` can be moved to cold storage.
+To achieve this, use {{< external-link "index-level shard allocation filtering" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-tier-shard-filtering.html" >}}.
+
+In Kibana Dev Tools, execute the following command:
+
+`PUT stroom-events-v1-2020,stroom-events-v1-2021/_settings`
+
+```json
+{
+  "index.routing.allocation.include._tier_preference": "data_cold"
+}
 ```
 
-
-### Other options
-
-There are other options available for the Elastic Indexing Filter.
-These are documented in the UI.
+This example assumes a cold data tier has been defined for the cluster.
+If the command executes successfully, shards from the specified data streams are gradually migrated to the nodes comprising the destination data tier.
 
 
 ## Create an indexing translation

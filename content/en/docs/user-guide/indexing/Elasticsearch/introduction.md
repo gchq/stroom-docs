@@ -15,7 +15,10 @@ Stroom supports using an external Elasticsearch cluster to index event data.
 This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.
 
 With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store.
-For instance, you can deploy {{< external-link "Kibana" "https://www.elastic.co/kibana/" >}} to search and visualise Elasticsearch data.
+For instance, you can:
+1. Deploy {{< external-link "Kibana" "https://www.elastic.co/kibana/" >}} to search and visualise Elasticsearch data.
+1. Index Stroom's stream meta and `Error` streams so monitoring systems can generate metrics and alerts.
+1. Use Apache Spark to perform stateful data processing and enrichment, through the use of the {{< external-link "Elasticsearch-Hadoop" "https://www.elastic.co/elasticsearch/hadoop" >}} connector.
 
 Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.
 
