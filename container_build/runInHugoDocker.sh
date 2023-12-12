@@ -102,6 +102,7 @@ main() {
         "-c"  \
         "hugo server" \
       )
+        #"hugo server --cleanDestinationDir --watch" \
         #"hugo server --baseURL 'localhost:1313/stroom-docs'" \
       if [[ $# -eq 2 ]] && [[ "${2}" = "detach" ]]; then
         extra_docker_args=( "--detach" )
@@ -113,6 +114,7 @@ main() {
         "-c"  \
         "hugo --environment production" \
       )
+        #"hugo --environment production --cleanDestinationDir" \
         #"hugo --buildDrafts --baseURL '/stroom-docs'" \
     elif [[ $# -ge 1 ]] && [[ "$1" = "build" ]]; then
       echo "Using baseUrl: $2"
@@ -188,6 +190,9 @@ main() {
   # on each run.
   hugo_cache_vol="builder-hugo-cache-vol"
   docker volume create "${hugo_cache_vol}"
+
+  npm_cache_vol="builder-npm-cache-vol"
+  docker volume create "${npm_cache_vol}"
 
   # So we are not rate limited, login before doing the build as this
   # will pull images
@@ -283,7 +288,12 @@ main() {
     "${YELLOW}${hugo_cache_vol}${GREEN}, use" \
     "${BLUE}docker volume rm ${hugo_cache_vol}${GREEN} to clear it.${NC}"
 
+  echo -e "${GREEN}NPM cache is in docker volume" \
+    "${YELLOW}${npm_cache_vol}${GREEN}, use" \
+    "${BLUE}docker volume rm ${npm_cache_vol}${GREEN} to clear it.${NC}"
+
   hudo_cache_dir="/hugo-cache"
+  npm_cache_dir="/npm-cache"
 
   docker run \
     "${tty_args[@]+"${tty_args[@]}"}" \
@@ -292,13 +302,15 @@ main() {
     --tmpfs /tmp:exec \
     --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
     --volume "${hugo_cache_vol}:${hudo_cache_dir}" \
+    --volume "${npm_cache_vol}:${npm_cache_dir}" \
     --read-only \
     --name "stroom-hugo-build-env" \
     --network "hugo-stroom" \
     --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
     --env "DOCKER_PASSWORD=${DOCKER_PASSWORD}" \
-    --env "HUGO_CACHEDIR=/${hudo_cache_dir}" \
+    --env "HUGO_CACHEDIR=${hudo_cache_dir}" \
+    --env "npm_config_cache=${npm_cache_dir}" \
     "${extra_docker_args[@]}" \
     "${image_tag}" \
     "${run_cmd[@]}"
