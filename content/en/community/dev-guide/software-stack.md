@@ -21,7 +21,7 @@ Stroom and Stroom Proxy live in the same repository, share some common code and 
   * Junit 5
   * SLF4j and Logback
   * Mockito
-  * {{< external-link "Jooq" "https://www.jooq.org" >}} - Generates Java code for type safe SQL.
+  * Jooq - Generates Java code for type safe SQL.
   * {{< external-link "Apache Lucene" "https://lucene.apache.org" >}} - The search library used by Stroom's indexes and dashboard queries.
   * {{< external-link "Lightning Memory Mapped Database" "http://www.lmdb.tech/doc/" >}} - Used for memory mapped persistent reference and search data stores.
 * React - Some of the new UI screens.
