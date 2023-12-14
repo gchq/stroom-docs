@@ -117,7 +117,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.2894ac7585edb3c6304552ef602ba419.json"
+    data-offline-search-index-json-src="../../offline-search-index.fe66eb520f0c4785eb53962454fd7768.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -2010,8 +2010,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.2</strong>&rdquo;<br>
-Documentation generated on: <strong>12 Dec 2023, 23:42 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v1918</strong></p>
+Documentation generated on: <strong>14 Dec 2023, 15:46 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v1925</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -43919,6 +43919,14 @@ lessThanOrEqualTo(50, 50)
 lessThanOrEqualTo(49, 50)
 &gt; true
 </code></pre>
+<h2 id="and">And</h2>
+<p>If all supplied arguments evaluate to true then return true, else false.</p>
+<pre><code class="language-clike">and(booleanValue, booleanValue)
+</code></pre>
+<h2 id="or">Or</h2>
+<p>If one or more of the supplied arguments evaluate to true then return true, else false.</p>
+<pre><code class="language-clike">or(booleanValue, booleanValue)
+</code></pre>
 <h2 id="not">Not</h2>
 <p>Inverts boolean values making true, false etc.</p>
 <pre><code class="language-clike">not(booleanValue)
@@ -47669,7 +47677,9 @@ E.g:</p>
 	<p>Stroom supports using an external Elasticsearch cluster to index event data.
 This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.</p>
 <p>With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store.
-For instance, you can deploy 
+For instance, you can:</p>
+<ol>
+<li>Deploy 
 
 
 
@@ -47686,12 +47696,34 @@ For instance, you can deploy
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- to search and visualise Elasticsearch data.</p>
+ to search and visualise Elasticsearch data.</li>
+<li>Index Stroom&rsquo;s stream meta and <code>Error</code> streams so monitoring systems can generate metrics and alerts.</li>
+<li>Use Apache Spark to perform stateful data processing and enrichment, through the use of the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/elasticsearch/hadoop" target="_blank" class="" style="" title="Elasticsearch-Hadoop (external link to https://www.elastic.co/elasticsearch/hadoop)">
+    <span>Elasticsearch-Hadoop</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ connector.</li>
+</ol>
 <p>Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.</p>
 <p>This guide will walk you through configuring a Stroom indexing pipeline, creating an Elasticsearch index template, activating a stream processor and searching the indexed data in both Stroom and Kibana.</p>
 <h2 id="assumptions">Assumptions</h2>
 <ol>
-<li>You have created an Elasticsearch cluster. Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work. For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
+<li>You have created an Elasticsearch cluster.
+Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work.
+For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
 
 
 
@@ -47710,8 +47742,10 @@ For instance, you can deploy
 </span>
 .</li>
 <li>The Elasticsearch cluster is reachable via HTTPS from all Stroom nodes participating in <a href="../../docs/quick-start-guide/running/">stream processing</a>.</li>
-<li>Elasticsearch security is enabled. This is mandatory and is enabled by default in Elasticsearch 8.x and above.</li>
-<li>The Elasticsearch HTTPS interface presents a trusted X.509 server certificate. The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.</li>
+<li>Elasticsearch security is enabled.
+This is mandatory and is enabled by default in Elasticsearch 8.x and above.</li>
+<li>The Elasticsearch HTTPS interface presents a trusted X.509 server certificate.
+The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.</li>
 <li>You have a feed containing <code>Event</code> streams to index.</li>
 </ol>
 <h2 id="key-differences">Key differences</h2>
@@ -47734,8 +47768,10 @@ For instance, you can deploy
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-. These are normally created either via the Elasticsearch API, or interactively using Kibana.</li>
-<li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional. Elasticsearch will use 
+.
+These are normally created either via the Elasticsearch API, or interactively using Kibana.</li>
+<li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional.
+Elasticsearch will use 
 
 
 
@@ -47752,7 +47788,8 @@ For instance, you can deploy
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- by default, to infer each field&rsquo;s type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type <code>ip</code>).</li>
+ by default, to infer each field&rsquo;s type at index time.
+Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type <code>ip</code>).</li>
 </ol>
 <hr>
 
@@ -47873,8 +47910,12 @@ Each cluster connection is defined by an <code>Elastic Cluster</code> document w
   <span class="stroom-button-text">OK</span>
 </span>
 .</li>
-<li>Complete the fields as explained in the <a href="#elastic-cluster-document-fields">section below</a>. Any fields not marked as &ldquo;Optional&rdquo; are mandatory.</li>
-<li>Click <code>Test Connection</code>. A dialog will display with the test result. If <code>Connection Success</code>, details of the target cluster will be displayed. Otherwise, error details will be displayed.</li>
+<li>Complete the fields as explained in the <a href="#elastic-cluster-document-fields">section below</a>.
+Any fields not marked as &ldquo;Optional&rdquo; are mandatory.</li>
+<li>Click <code>Test Connection</code>.
+A dialog will display with the test result.
+If <code>Connection Success</code>, details of the target cluster will be displayed.
+Otherwise, error details will be displayed.</li>
 <li>Click <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
   </span> to commit changes.</li>
@@ -47904,11 +47945,14 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.</p>
 </ol>
 <h3 id="ca-certificate">CA certificate</h3>
 <p>PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
-This is usually your organisation&rsquo;s root enterprise CA certificate. For development, you can provide a self-signed certificate.</p>
+This is usually your organisation&rsquo;s root enterprise CA certificate.
+For development, you can provide a self-signed certificate.</p>
 <h3 id="use-authentication">Use authentication</h3>
-<p>(Optional) Tick this box if Elasticsearch requires authentication. This is enabled by default from Elasticsearch version 8.0.</p>
+<p>(Optional) Tick this box if Elasticsearch requires authentication.
+This is enabled by default from Elasticsearch version 8.0.</p>
 <h3 id="api-key-id">API key ID</h3>
-<p>Required if <code>Use authentication</code> is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
+<p>Required if <code>Use authentication</code> is checked.
+Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
 This user requires at a minimum the following 
 
 
@@ -47939,7 +47983,8 @@ This user requires at a minimum the following
 <h3 id="api-key-secret">API key secret</h3>
 <p>Required if <code>Use authentication</code> is checked.</p>
 <h3 id="socket-timeout-ms">Socket timeout (ms)</h3>
-<p>Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete. Set to <code>-1</code> (the default) to wait indefinitely, or until Elasticsearch closes the connection.</p>
+<p>Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete.
+Set to <code>-1</code> (the default) to wait indefinitely, or until Elasticsearch closes the connection.</p>
 <hr>
 
 
@@ -48035,7 +48080,19 @@ This user requires at a minimum the following
   </a>
 </span>
 .</p>
-<p>When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the <code>index_patterns</code> entries in the index template, Elasticsearch creates a new index using the <code>settings</code> and <code>mappings</code> properties from the template.</p>
+<p>When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the <code>index_patterns</code> entries in the index template, it will create a new index / data stream using the <code>settings</code> and <code>mappings</code> properties from the template.
+In this way, the index does <em>not</em> need to be manually created in advance.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If an index doesn&rsquo;t match a template when it is created, data will still be indexed - with default mappings and settings.
+This may be appropriate for small indices, but with a default shard count of <code>5</code>, the indexing and search performance will likely be inadequate for large indices.
+
+</div>
+
+
 <p>The following example creates a basic index template <code>stroom-events-v1</code> in a local Elasticsearch cluster, with the following explicit field mappings:</p>
 <ol>
 <li><code>StreamId</code> &ndash; mandatory, data type <code>long</code> or <code>keyword</code>.</li>
@@ -49027,13 +49084,12 @@ It typically consists of the following pipeline elements:</p>
 <h2 id="create-an-elasticsearch-indexing-pipeline">Create an Elasticsearch indexing pipeline</h2>
 <h3 id="procedure-1">Procedure</h3>
 <ol>
-<li>Right-click on a folder (<span class="stroom-icon inline-svg-button icon-button  " >
+<li>Right-click on a folder <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
-  </span>) in the Stroom Explorer pane (<span class="stroom-icon inline-svg-button icon-button  " >
+  </span> in the Stroom Explorer pane <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Explorer"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><g fill="var(--icon-colour__blue)"><path d="m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/><path d="m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z"/><path d="m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/></g><path stroke-linejoin="round" d="m600.75 492.64v949.1h381.89" stroke="var(--icon-colour__blue)" stroke-width="71.125" fill="none"/><path d="m597.94 807.14h539.13" fill-rule="evenodd" stroke="var(--icon-colour__blue)" stroke-width="71.125"/></svg> </span>
-  </span>).</li>
-<li>Select:<br>
-
+  </span>.</li>
+<li>
 
 
 
@@ -49120,29 +49176,39 @@ It typically consists of the following pipeline elements:</p>
 </span>
 .</li>
 <li>Select the Elastic Indexing Filter pipeline element.</li>
-<li>Set its properties as per one of the examples below.</li>
+<li>Set the <code>indexName</code> property to the name of the destination index or data stream. <code>indexName</code> may be a simple string (static) or dynamic.</li>
+<li>If using dynamic index names, configure the translation to output named element(s) that will be interpolated into <code>indexName</code> for each document indexed.</li>
 </ol>
-<h3 id="example-1-single-index-or-data-stream">Example 1: Single index or data stream</h3>
-<p>This is the simplest use case and is suitable where you want to write to a single 
+<h3 id="choosing-between-simple-and-dynamic-index-names">Choosing between simple and dynamic index names</h3>
+<p>Indexing data to a single, named data stream or index, is a simple and convenient way to manage data.
+There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).
+As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year.
+This use case is met by Stroom&rsquo;s dynamic index naming.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
 
 
 
-
-
-
-
-  
-  
-
+    <p>An Elasticsearch</p>
 <span class="external-link">
   <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" target="_blank" class="" style="" title="data stream (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html)">
     <span>data stream</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- (for time-series data) or index.
-If your index template contains the property <code>data_stream: {}</code>, be sure to include a <code>string</code> field named <code>@timestamp</code> in the output JSON XML.</p>
-<p>If targeting a data stream, you may choose to use Elasticsearch 
+ consists of one or more backing indices, which automatically roll over once a size or date threshold are met.
+This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).
+
+
+</div>
+
+
+<h4 id="single-named-index-or-data-stream">Single named index or data stream</h4>
+<p>This is the simplest use case and is suitable where you want to write all data for a particular pipeline, to a single data stream or index.
+Whether data is written to an actual <em>index</em> or <em>data stream</em> depends on your index template, specifically whether you have declared <code>data_stream: {}</code>.
+If this property exists in the index template matching <code>indexName</code>, a data stream is created when the first document is indexed.
+Data streams, amongst many other features, provide the option to use Elasticsearch 
 
 
 
@@ -49154,25 +49220,95 @@ If your index template contains the property <code>data_stream: {}</code>, be su
   
 
 <span class="external-link">
-  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" target="_blank" class="" style="" title="ILM (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html)">
-    <span>ILM</span>
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" target="_blank" class="" style="" title="Index Lifecycle Management (ILM) policies (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html)">
+    <span>Index Lifecycle Management (ILM) policies</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- to manage its lifecycle.</p>
-<pre><code class="language-yaml">indexBaseName: stroom-events-v1
+ to manage their lifecycle.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    When indexing to a data stream, ensure to include a <code>string</code> field named <code>@timestamp</code> in the output JSON XML.
+This is mandatory and indexing will fail if this field isn&rsquo;t a valid <code>date</code> value.
+
+</div>
+
+
+<h4 id="dynamic-data-stream-names">Dynamic data stream names</h4>
+<p>With a dynamic stream name, <code>indexName</code> contains the names of elements, for example: <code>stroom-events-v1-{year}</code>.
+For each document, the final index name is computed based on the values of the corresponding elements within the resulting JSON XML.
+For example, if the JSON XML representation of an event consists of the following, the document will be indexed to the index or data stream named <code>stroom-events-v1-2022</code>:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;array
+        xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+        xsi:schemaLocation=&quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&quot;&gt;
+    &lt;map&gt;
+        &lt;number key=&quot;StreamId&quot;&gt;3045516&lt;/number&gt;
+        &lt;number key=&quot;EventId&quot;&gt;1&lt;/number&gt;
+        &lt;string key=&quot;@timestamp&quot;&gt;2022-12-16T02:46:29.218Z&lt;/string&gt;
+        &lt;number key=&quot;year&quot;&gt;2022&lt;/number&gt;
+    &lt;/map&gt;
+&lt;/array&gt;
 </code></pre>
-<h3 id="example-2-dynamic-time-based-data-streams">Example 2: Dynamic time-based data streams</h3>
-<p>In this example, Stroom creates data streams as needed, named according to the value of a particular JSON date field and date pattern.
-This is useful when you need to roll over data streams manually, such as maintaining older data on slower storage tiers.</p>
-<p>For instance, you may have data spanning many years and want to have Stroom create a separate data stream for each year, such as <code>stroom-events-v1-2020</code>, <code>stroom-events-v1-2021</code>, <code>stroom-events-v1-2022</code> and so on.</p>
-<pre><code class="language-yaml">indexBaseName: stroom-events-v1
-indexNameDateFieldName: @timestamp
-indexNameDateFormat: -yyyy
+<p>This is due to the value of <code>/map/number[@key='year']</code> being <code>2022</code>.
+This approach can be useful when you need to apply different ILM policies, such as maintaining older data on slower storage tiers.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Any element names defined in <code>indexName</code> <em>must</em> exist in the JSON XML (unless it is an empty document).
+If a blank value is desired, output an empty <code>string</code> element.
+
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If an element name begins with <code>_</code> (underscore), its value is <em>only</em> used for <code>indexName</code> interpolation, and it is <strong>not</strong> included in the final JSON.
+
+</div>
+
+
+<h5 id="other-applications-for-dynamic-data-stream-names">Other applications for dynamic data stream names</h5>
+<p>Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren&rsquo;t user-attributed after 12 months.
+While Stroom <code>ElasticIndex</code> support data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn&rsquo;t cause disk space to be freed (this requires an index to be force-merged, an expensive operation).
+A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.</p>
+<h5 id="migrating-older-data-streams-to-other-data-tiers">Migrating older data streams to other data tiers</h5>
+<p>Say a feed is indexed, spanning data from 2020 through 2023.
+Assuming most searches only need to query data from the current year, the data streams <code>stroom-events-v1-2020</code> and <code>stroom-events-v1-2021</code> can be moved to cold storage.
+To achieve this, use 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-tier-shard-filtering.html" target="_blank" class="" style="" title="index-level shard allocation filtering (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/data-tier-shard-filtering.html)">
+    <span>index-level shard allocation filtering</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>In Kibana Dev Tools, execute the following command:</p>
+<p><code>PUT stroom-events-v1-2020,stroom-events-v1-2021/_settings</code></p>
+<pre><code class="language-json">{
+  &quot;index.routing.allocation.include._tier_preference&quot;: &quot;data_cold&quot;
+}
 </code></pre>
-<h3 id="other-options">Other options</h3>
-<p>There are other options available for the Elastic Indexing Filter.
-These are documented in the UI.</p>
+<p>This example assumes a cold data tier has been defined for the cluster.
+If the command executes successfully, shards from the specified data streams are gradually migrated to the nodes comprising the destination data tier.</p>
 <h2 id="create-an-indexing-translation">Create an indexing translation</h2>
 <p>In this example, let&rsquo;s assume you have event data that looks like the following:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -49330,14 +49466,15 @@ Each document must consist of an <code>array</code> element one or more <code>ma
 Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.</p>
 <p>You can monitor indexing status via your Elasticsearch monitoring tool of choice.</p>
 <h3 id="detecting-and-handling-errors">Detecting and handling errors</h3>
-<p>If any errors occur while a stream is being indexed, an <code>Error</code> stream is created, containing details of each failure. <code>Error</code> streams can be found under the <code>Data</code> tab of either the indexing pipeline or receiving <code>Feed</code>.</p>
+<p>If any errors occur while a stream is being indexed, an <code>Error</code> stream is created, containing details of each failure.
+<code>Error</code> streams can be found under the <code>Data</code> tab of either the indexing pipeline or receiving <code>Feed</code>.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
 
 
 
-    <p>You can filter the selected pipeline or feed to list only <code>Error</code> streams.<br>
+    <p>You can filter the selected pipeline or feed to list only <code>Error</code> streams.
 Click <span class="stroom-icon inline-svg-button icon-button  " >
 <span class="face" title="Filter"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg></span>
 </span> then add a condition <code>Type</code> <code>=</code> <code>Error</code>.</p>
@@ -49491,8 +49628,8 @@ You will first need to
   
 
 <span class="external-link">
-  <a href="https://www.elastic.co/guide/en/kibana/current/data-views.html" target="_blank" class="" style="" title="create a *data view* (external link to https://www.elastic.co/guide/en/kibana/current/data-views.html)">
-    <span>create a *data view*</span>
+  <a href="https://www.elastic.co/guide/en/kibana/current/data-views.html" target="_blank" class="" style="" title="create a data view (external link to https://www.elastic.co/guide/en/kibana/current/data-views.html)">
+    <span>create a data view</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
@@ -49500,8 +49637,10 @@ You will first need to
 <h2 id="why-use-kibana">Why use Kibana?</h2>
 <p>There are several use cases that benefit from Kibana:</p>
 <ol>
-<li>Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens. Much more performant and easier to customise than built-in Stroom dashboard visualisations.</li>
-<li>Field statistics and value summaries with Kibana Discover. Great for doing initial audit data survey.</li>
+<li>Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens.
+Much more performant and easier to customise than built-in Stroom dashboard visualisations.</li>
+<li>Field statistics and value summaries with Kibana Discover.
+Great for doing initial audit data survey.</li>
 <li>Geospatial analysis and visualisation.</li>
 <li>Search field auto-completion.</li>
 <li>
@@ -49521,7 +49660,8 @@ You will first need to
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-. Good for data exploration, at the cost of performance.</li>
+.
+Good for data exploration, at the cost of performance.</li>
 </ol>
 
 </div>

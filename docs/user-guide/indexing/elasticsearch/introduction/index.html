@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/indexing/elasticsearch/introduction/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2022-12-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-12-12T17:08:56+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2023-12-14T15:38:32+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Introduction">
 <meta itemprop="description" content="Concepts, assumptions and key differences to Solr and built-in Lucene indexing
 "><meta itemprop="datePublished" content="2022-12-15T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-12-12T17:08:56+00:00" />
-<meta itemprop="wordCount" content="357">
+<meta itemprop="dateModified" content="2023-12-14T15:38:32+00:00" />
+<meta itemprop="wordCount" content="389">
 <meta itemprop="keywords" content="search,elastic,kibana," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Introduction"/>
 <meta name="twitter:description" content="Concepts, assumptions and key differences to Solr and built-in Lucene indexing
@@ -121,7 +121,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.2894ac7585edb3c6304552ef602ba419.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.fe66eb520f0c4785eb53962454fd7768.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -146,7 +146,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.2894ac7585edb3c6304552ef602ba419.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.fe66eb520f0c4785eb53962454fd7768.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -863,7 +863,9 @@ if (!doNotTrack) {
 	<p>Stroom supports using an external Elasticsearch cluster to index event data.
 This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.</p>
 <p>With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store.
-For instance, you can deploy 
+For instance, you can:</p>
+<ol>
+<li>Deploy 
 
 
 
@@ -880,12 +882,34 @@ For instance, you can deploy
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- to search and visualise Elasticsearch data.</p>
+ to search and visualise Elasticsearch data.</li>
+<li>Index Stroom&rsquo;s stream meta and <code>Error</code> streams so monitoring systems can generate metrics and alerts.</li>
+<li>Use Apache Spark to perform stateful data processing and enrichment, through the use of the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/elasticsearch/hadoop" target="_blank" class="" style="" title="Elasticsearch-Hadoop (external link to https://www.elastic.co/elasticsearch/hadoop)">
+    <span>Elasticsearch-Hadoop</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ connector.</li>
+</ol>
 <p>Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.</p>
 <p>This guide will walk you through configuring a Stroom indexing pipeline, creating an Elasticsearch index template, activating a stream processor and searching the indexed data in both Stroom and Kibana.</p>
 <h2 id="assumptions">Assumptions</h2>
 <ol>
-<li>You have created an Elasticsearch cluster. Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work. For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
+<li>You have created an Elasticsearch cluster.
+Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work.
+For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
 
 
 
@@ -904,8 +928,10 @@ For instance, you can deploy
 </span>
 .</li>
 <li>The Elasticsearch cluster is reachable via HTTPS from all Stroom nodes participating in <a href="../../../../../docs/quick-start-guide/running/">stream processing</a>.</li>
-<li>Elasticsearch security is enabled. This is mandatory and is enabled by default in Elasticsearch 8.x and above.</li>
-<li>The Elasticsearch HTTPS interface presents a trusted X.509 server certificate. The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.</li>
+<li>Elasticsearch security is enabled.
+This is mandatory and is enabled by default in Elasticsearch 8.x and above.</li>
+<li>The Elasticsearch HTTPS interface presents a trusted X.509 server certificate.
+The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.</li>
 <li>You have a feed containing <code>Event</code> streams to index.</li>
 </ol>
 <h2 id="key-differences">Key differences</h2>
@@ -928,8 +954,10 @@ For instance, you can deploy
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
-. These are normally created either via the Elasticsearch API, or interactively using Kibana.</li>
-<li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional. Elasticsearch will use 
+.
+These are normally created either via the Elasticsearch API, or interactively using Kibana.</li>
+<li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional.
+Elasticsearch will use 
 
 
 
@@ -946,7 +974,8 @@ For instance, you can deploy
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- by default, to infer each field&rsquo;s type at index time. Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type <code>ip</code>).</li>
+ by default, to infer each field&rsquo;s type at index time.
+Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type <code>ip</code>).</li>
 </ol>
 <hr>
 
@@ -967,7 +996,7 @@ For instance, you can deploy
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified December 12, 2023: <a href="https://github.com/gchq/stroom-docs/commit/b0c021bbdd442c7b1f48d92b735e36136eb78767">Merge branch &#39;7.1&#39; into 7.2 (b0c021b)</a>
+  Last modified December 14, 2023: <a href="https://github.com/gchq/stroom-docs/commit/effcef6e277d7ac1d83d8424d00febc6ff168c35">Fix spacing (effcef6)</a>
 </div>
 
 </div>
