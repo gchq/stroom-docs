@@ -168,6 +168,22 @@ lessThanOrEqualTo(49, 50)
 > true
 ```
 
+## And
+
+If all supplied arguments evaluate to true then return true, else false.
+
+```clike
+and(booleanValue, booleanValue)
+```
+
+## Or
+
+If one or more of the supplied arguments evaluate to true then return true, else false.
+
+```clike
+or(booleanValue, booleanValue)
+```
+
 ## Not
 
 Inverts boolean values making true, false etc.
