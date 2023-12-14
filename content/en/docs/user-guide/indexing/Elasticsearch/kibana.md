@@ -23,8 +23,11 @@ You will first need to {{< external-link "create a data view" "https://www.elast
 
 There are several use cases that benefit from Kibana:
 
-1. Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens. Much more performant and easier to customise than built-in Stroom dashboard visualisations.
-1. Field statistics and value summaries with Kibana Discover. Great for doing initial audit data survey.
+1. Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens.
+   Much more performant and easier to customise than built-in Stroom dashboard visualisations.
+1. Field statistics and value summaries with Kibana Discover.
+   Great for doing initial audit data survey.
 1. Geospatial analysis and visualisation.
 1. Search field auto-completion.
-1. {{< external-link "Runtime fields" "https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime.html" >}}. Good for data exploration, at the cost of performance.
+1. {{< external-link "Runtime fields" "https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime.html" >}}.
+   Good for data exploration, at the cost of performance.

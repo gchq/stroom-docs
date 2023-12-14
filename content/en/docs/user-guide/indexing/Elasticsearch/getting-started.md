@@ -22,8 +22,12 @@ Each cluster connection is defined by an `Elastic Cluster` document within the S
 1. Select:
    {{< stroom-menu "New" "Elastic Cluster" >}}
 1. Give the cluster document a name and press {{< stroom-btn "OK" >}}.
-1. Complete the fields as explained in the [section below]({{< relref "#elastic-cluster-document-fields" >}}). Any fields not marked as "Optional" are mandatory.
-1. Click `Test Connection`. A dialog will display with the test result. If `Connection Success`, details of the target cluster will be displayed. Otherwise, error details will be displayed.
+1. Complete the fields as explained in the [section below]({{< relref "#elastic-cluster-document-fields" >}}).
+   Any fields not marked as "Optional" are mandatory.
+1. Click `Test Connection`.
+   A dialog will display with the test result.
+   If `Connection Success`, details of the target cluster will be displayed.
+   Otherwise, error details will be displayed.
 1. Click {{< stroom-icon "save.svg" "Save" >}} to commit changes.
 
 {{% warning %}}
@@ -56,17 +60,20 @@ Only HTTPS is supported; attempts to use plain-text HTTP will fail.
 ### CA certificate
 
 PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
-This is usually your organisation's root enterprise CA certificate. For development, you can provide a self-signed certificate.
+This is usually your organisation's root enterprise CA certificate.
+For development, you can provide a self-signed certificate.
 
 
 ### Use authentication
 
-(Optional) Tick this box if Elasticsearch requires authentication. This is enabled by default from Elasticsearch version 8.0.
+(Optional) Tick this box if Elasticsearch requires authentication.
+This is enabled by default from Elasticsearch version 8.0.
 
 
 ### API key ID
 
-Required if `Use authentication` is checked. Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
+Required if `Use authentication` is checked.
+Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
 This user requires at a minimum the following {{< external-link "privileges" "https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html" >}}:
 
 
@@ -88,7 +95,8 @@ Required if `Use authentication` is checked.
 
 ### Socket timeout (ms)
 
-Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete. Set to `-1` (the default) to wait indefinitely, or until Elasticsearch closes the connection.
+Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete.
+Set to `-1` (the default) to wait indefinitely, or until Elasticsearch closes the connection.
 
 ---
 

@@ -66,10 +66,12 @@ We will now explore how create an Elasticsearch *index template*, which specifie
 
 For information on what index and component templates are, consult the Elastic {{< external-link "documentation" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" >}}.
 
-When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the `index_patterns` entries in the index template, it will create a new index / data stream using the `settings` and `mappings` properties from the template. In this way, the index does _not_ need to be manually created in advance.
+When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the `index_patterns` entries in the index template, it will create a new index / data stream using the `settings` and `mappings` properties from the template.
+In this way, the index does _not_ need to be manually created in advance.
 
 {{% note %}}
-If an index doesn't match a template when it is created, data will still be indexed - with default mappings and settings. This may be appropriate for small indices, but with a default shard count of `5`, the indexing and search performance will likely be inadequate for large indices.
+If an index doesn't match a template when it is created, data will still be indexed - with default mappings and settings.
+This may be appropriate for small indices, but with a default shard count of `5`, the indexing and search performance will likely be inadequate for large indices.
 {{% /note %}}
 
 The following example creates a basic index template `stroom-events-v1` in a local Elasticsearch cluster, with the following explicit field mappings:
@@ -209,11 +211,14 @@ Now you have created a template indexing pipeline, it's time to create a feed-sp
 
 ### Choosing between simple and dynamic index names
 
-Indexing data to a single, named data stream or index, is a simple and convenient way to manage data. There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).
-As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year. This use case is met by Stroom's dynamic index naming.
+Indexing data to a single, named data stream or index, is a simple and convenient way to manage data.
+There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).
+As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year.
+This use case is met by Stroom's dynamic index naming.
 
 {{% note %}}
-An Elasticsearch {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} consists of one or more backing indices, which automatically roll over once a size or date threshold are met. This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).
+An Elasticsearch {{< external-link "data stream" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" >}} consists of one or more backing indices, which automatically roll over once a size or date threshold are met.
+This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).
 {{% /note %}}
 
 
@@ -225,13 +230,15 @@ If this property exists in the index template matching `indexName`, a data strea
 Data streams, amongst many other features, provide the option to use Elasticsearch {{< external-link "Index Lifecycle Management (ILM) policies" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" >}} to manage their lifecycle.
 
 {{% note %}}
-When indexing to a data stream, ensure to include a `string` field named `@timestamp` in the output JSON XML. This is mandatory and indexing will fail if this field isn't a valid `date` value.
+When indexing to a data stream, ensure to include a `string` field named `@timestamp` in the output JSON XML.
+This is mandatory and indexing will fail if this field isn't a valid `date` value.
 {{% /note %}}
 
 
 #### Dynamic data stream names
 
-With a dynamic stream name, `indexName` contains the names of elements, for example: `stroom-events-v1-{year}`. For each document, the final index name is computed based on the values of the corresponding elements within the resulting JSON XML.
+With a dynamic stream name, `indexName` contains the names of elements, for example: `stroom-events-v1-{year}`.
+For each document, the final index name is computed based on the values of the corresponding elements within the resulting JSON XML.
 For example, if the JSON XML representation of an event consists of the following, the document will be indexed to the index or data stream named `stroom-events-v1-2022`:
 
 ```xml
@@ -253,7 +260,8 @@ This is due to the value of `/map/number[@key='year']` being `2022`.
 This approach can be useful when you need to apply different ILM policies, such as maintaining older data on slower storage tiers.
 
 {{% warning %}}
-Any element names defined in `indexName` _must_ exist in the JSON XML (unless it is an empty document). If a blank value is desired, output an empty `string` element.
+Any element names defined in `indexName` _must_ exist in the JSON XML (unless it is an empty document).
+If a blank value is desired, output an empty `string` element.
 {{% /warning %}}
 
 {{% note %}}
@@ -264,12 +272,14 @@ If an element name begins with `_` (underscore), its value is _only_ used for `i
 ##### Other applications for dynamic data stream names
 
 Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren't user-attributed after 12 months.
-While Stroom `ElasticIndex` support data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn't cause disk space to be freed (this requires an index to be force-merged, an expensive operation). A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.
+While Stroom `ElasticIndex` support data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn't cause disk space to be freed (this requires an index to be force-merged, an expensive operation).
+A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.
 
 
 ##### Migrating older data streams to other data tiers
 
-Say a feed is indexed, spanning data from 2020 through 2023. Assuming most searches only need to query data from the current year, the data streams `stroom-events-v1-2020` and `stroom-events-v1-2021` can be moved to cold storage.
+Say a feed is indexed, spanning data from 2020 through 2023.
+Assuming most searches only need to query data from the current year, the data streams `stroom-events-v1-2020` and `stroom-events-v1-2021` can be moved to cold storage.
 To achieve this, use {{< external-link "index-level shard allocation filtering" "https://www.elastic.co/guide/en/elasticsearch/reference/current/data-tier-shard-filtering.html" >}}.
 
 In Kibana Dev Tools, execute the following command:
@@ -396,10 +406,11 @@ You can monitor indexing status via your Elasticsearch monitoring tool of choice
 
 ### Detecting and handling errors
 
-If any errors occur while a stream is being indexed, an `Error` stream is created, containing details of each failure. `Error` streams can be found under the `Data` tab of either the indexing pipeline or receiving `Feed`.
+If any errors occur while a stream is being indexed, an `Error` stream is created, containing details of each failure.
+`Error` streams can be found under the `Data` tab of either the indexing pipeline or receiving `Feed`.
 
 {{% note %}}
-You can filter the selected pipeline or feed to list only `Error` streams.  
+You can filter the selected pipeline or feed to list only `Error` streams.
 Click {{< stroom-icon "filter.svg" "Filter" >}} then add a condition `Type` `=` `Error`.
 {{% /note %}}
 
