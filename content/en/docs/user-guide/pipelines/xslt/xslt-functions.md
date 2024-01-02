@@ -66,6 +66,7 @@ The following functions are available to aid your translation:
 * `host-address(String hostname)` - Convert a hostname into an IP address.
 * `host-name(String ipAddress)` - Convert an IP address into a hostname.
 * [`http-call(String url, String headers, String mediaType, String data, String clientConfig)`](#http-call) - Makes an HTTP(S) request to a remote server.
+* `ip-in-cidr(String ipAddress, String cidr)` - Return whether an IPv4 address is within the specified CIDR (e.g. `192.168.1.0/24`).
 * `json-to-xml(String json)` - Returns an XML representation of the supplied JSON value for use in XPath expressions
 * `line-from()` - The line in the input that the current record begins on (1 based).
 * `line-to()` - The line in the input that the current record ends at.
