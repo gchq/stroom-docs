@@ -41,6 +41,7 @@ equals(50, 50)
 
 Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`]({{< relref "./type-checking.md#is-null" >}}) and [`isError()`]({{< relref "./type-checking.md#is-error" >}}) functions must be used instead.
 
+
 ## Greater Than
 
 Evaluates if arg1 is greater than to arg2
@@ -67,6 +68,7 @@ greaterThan(50, 50)
 greaterThan(49, 50)
 > false
 ```
+
 
 ## Greater Than or Equal To
 
@@ -95,6 +97,7 @@ greaterThanOrEqualTo(49, 50)
 > false
 ```
 
+
 ## If
 
 Evaluates the supplied boolean condition and returns one value if true or another if false
@@ -113,6 +116,7 @@ if(5 > 10, 'foo', 'bar')
 if(isNull(null()), 'foo', 'bar')
 > 'foo'
 ```
+
 
 ## Less Than
 
@@ -141,6 +145,7 @@ lessThan(49, 50)
 > true
 ```
 
+
 ## Less Than or Equal To
 
 Evaluates if arg1 is less than or equal to arg2
@@ -167,6 +172,25 @@ lessThanOrEqualTo(50, 50)
 lessThanOrEqualTo(49, 50)
 > true
 ```
+
+
+## And
+
+If all supplied arguments evaluate to true then return true, else false.
+
+```clike
+and(booleanValue, booleanValue)
+```
+
+
+## Or
+
+If one or more of the supplied arguments evaluate to true then return true, else false.
+
+```clike
+or(booleanValue, booleanValue)
+```
+
 
 ## Not
 

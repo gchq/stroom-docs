@@ -58,7 +58,7 @@ This selection window allows us to _filter_ what set of data streams we want our
 As our intent is to enable processing for all Apache-SSLBlackBox-V2.0-EVENT streams, both already received and yet to be received, then our filtering criteria is just to process all Raw Events streams for this feed, ignoring all other conditions.
 
 To do this, first click on the **Add Term** {{< stroom-icon "add.svg" >}} icon.
-Keep the term and operator at the default settings, and select the **Choose item** {{< stroom-icon "assorted/popup.png" "Select Feed">}} icon to navigate to the desired feed name (_Apache-SSLBlackBox-V2.0-EVENT_) object
+Keep the term and operator at the default settings, and select the **Choose item** {{< stroom-icon "ellipses-horizontal.svg" "Select Feed">}} icon to navigate to the desired feed name (_Apache-SSLBlackBox-V2.0-EVENT_) object
 
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-04.png" >}}Stroom UI EnableProcessors - pipeline Processors - choose feed name{{< /screenshot >}}
 

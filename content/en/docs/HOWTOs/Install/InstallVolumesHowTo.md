@@ -140,7 +140,7 @@ __NOTE__: At the time of writing there is an issue regarding volumes
 
 ##### Stroom Github Issue 84  - 
 
-Due to [Issue 84 (external link)](https://github.com/gchq/stroom/issues/84), if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster.
+Due to {{< external-link "Issue 84" "https://github.com/gchq/stroom/issues/84" >}}, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster.
 Thus if we attempted to use the volumes we would get a database error.
 The current _workaround_ is to restart all the Stroom applications which will cause a reload of all volume information.
 This **MUST** be done before sending any data to your multi-node Stroom cluster.

@@ -1,0 +1,24 @@
+<!-- 
+Short code to display a pipeline with multiple elements.
+The inner content of this shorcode is 2-* pipe-elm shortcode calls.
+-->
+
+{{- $children := split .Inner "<span class=\"USED FOR SPLITTING\" ></span>" -}}
+{{ $child_count := len $children }}
+<div class="pipeline-container">
+  {{ range $idx, $child := $children }}
+    {{ if $child }}
+      {{ $child_html := trim ($child | safeHTML) "\n " }}
+      {{ if $child_html }}
+        {{ if gt $idx 0 }}
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        {{ end }}
+        <div class="pipeline-item">
+        {{ $child | safeHTML }}
+        </div>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</div>
+

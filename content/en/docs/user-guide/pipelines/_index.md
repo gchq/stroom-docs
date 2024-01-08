@@ -1,13 +1,13 @@
 ---
 title: "Pipelines"
 linkTitle: "Pipelines"
-#weight:
+weight: 100
 date: 2021-07-27
 tags: 
   - pipeline
   - processing
 description: >
-  Pipelines are the mechanism for processin and transforming ingested data.
+  Pipelines are the mechanism for processing and transforming ingested data.
 ---
 
 # Pipelines

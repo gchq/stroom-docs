@@ -78,7 +78,7 @@ Stroom 5.x is a Java web application that runs on _Apache Tomcat_, with _Apache 
 It uses two _MySQL_ RDBMSs to persist application configuration and metadata. 
 
 Stroom v6.x uses a more service oriented architecture with a number of additional peripheral services such as stroom-auth, stroom-stats, stroom-query-elastic, stroom-annotations, etc.
-The core Stroom application and the majority of the services all run on _DropWizard_ using embedded _Jetty_.
+The core Stroom application and the majority of the services all run on _Dropwizard_ using embedded _Jetty_.
 
 Stroom v7.x maintains most of the core architecture of v6 but now has the authentication service and UI integrated into it to simplify the deployment.
 Some elements of the GWT based UI are being re-implemented using modern web frameworks (React/Typescript).

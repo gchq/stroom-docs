@@ -37,10 +37,9 @@ Most of the required software are packages available via standard repositories a
 sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
 sudo yum -y install tomcat-native
 ```
-The reason for the distinct `tomcat-native` installation is that this package is from the [EPEL (external link)](https://fedoraproject.org/wiki/EPEL "Extra Packages for Enterprise Linux (EPEL)") repository so it must be installed first.
+The reason for the distinct `tomcat-native` installation is that this package is from the {{< external-link "EPEL" "https://fedoraproject.org/wiki/EPEL" >}} repository so it must be installed first.
 
-For the Apache mod_jk Tomcat connector we need to acquire a recent
-[release (external link)](http://tomcat.apache.org/connectors-doc/ "The Apache Tomcat Connectors: mod_jk, ISAPI redirector, NSAPI redirector") and install it.
+For the Apache mod_jk Tomcat connector we need to acquire a recent {{< external-link "release" "http://tomcat.apache.org/connectors-doc/" >}} and install it.
 The following commands achieve this for the 1.2.42 release.
 ```bash
 sudo bash
@@ -352,7 +351,7 @@ JkMount /stroom* loadbalancer
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom/remoting* loadbalancer_proxy
-JkMount /stroom/datafeed/direct* loadbalancer
+JkMount /stroom/datafeeddirect* loadbalancer
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 ```
 That is, we change
@@ -382,7 +381,7 @@ JkMount /stroom* loadbalancer
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* loadbalancer_proxy
 JkMount /stroom/remoting* loadbalancer_proxy
-JkMount /stroom/datafeed/direct* loadbalancer
+JkMount /stroom/datafeeddirect* loadbalancer
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 # Stroom Change: End
 
@@ -439,7 +438,7 @@ JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* local_proxy
 JkMount /stroom/remoting* local_proxy
-JkMount /stroom/datafeed/direct* local
+JkMount /stroom/datafeeddirect* local
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 ```
 That is, we change
@@ -469,7 +468,7 @@ JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* local_proxy
 JkMount /stroom/remoting* local_proxy
-JkMount /stroom/datafeed/direct* local
+JkMount /stroom/datafeeddirect* local
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 # Stroom Change: End
 
@@ -703,7 +702,7 @@ printf 'JkMount /stroom* loadbalancer\n' >> ${F}
 printf 'JkMount /stroom/remoting/cluster* local\n' >> ${F}
 printf 'JkMount /stroom/datafeed* loadbalancer_proxy\n' >> ${F}
 printf 'JkMount /stroom/remoting* loadbalancer_proxy\n' >> ${F}
-printf 'JkMount /stroom/datafeed/direct* loadbalancer\n' >> ${F}
+printf 'JkMount /stroom/datafeeddirect* loadbalancer\n' >> ${F}
 printf '# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n' >> ${F}
 printf '# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n' >> ${F}
 printf '# The following makes use of the existing /run/httpd directory\n' >> ${F}
@@ -856,7 +855,7 @@ printf 'JkMount /stroom* local\n' >> ${F}
 printf 'JkMount /stroom/remoting/cluster* local\n' >> ${F}
 printf 'JkMount /stroom/datafeed* local_proxy\n' >> ${F}
 printf 'JkMount /stroom/remoting* local_proxy\n' >> ${F}
-printf 'JkMount /stroom/datafeed/direct* local\n' >> ${F}
+printf 'JkMount /stroom/datafeeddirect* local\n' >> ${F}
 printf '# Note: Replaced JkShmFile logs/jk.shm due to SELinux issues. Refer to\n' >> ${F}
 printf '# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=225452\n' >> ${F}
 printf '# The following makes use of the existing /run/httpd directory\n' >> ${F}

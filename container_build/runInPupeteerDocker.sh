@@ -225,6 +225,16 @@ main() {
   echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
   echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
 
+  if ! docker version >/dev/null 2>&1; then
+    echo -e "${RED}ERROR: Docker is not installed. Please install Docker or Docker Desktop.${NC}"
+    exit 1
+  fi
+
+  if ! docker buildx version >/dev/null 2>&1; then
+    echo -e "${RED}ERROR: Docker buildx is not installed. Please install it.${NC}"
+    exit 1
+  fi
+
   # So we are not rate limited, login before doing the build as this
   # will pull images
   docker_login

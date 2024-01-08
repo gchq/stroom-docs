@@ -1,0 +1,44 @@
+<!-- 
+Short code to add a stroom icon (from /assets/images/stroom-ui/) to the page 
+with an optional hover title. If you don't supply a title it will make one from the
+filename.
+Usage:
+stroom-icon filename [title] [enabled|disabled]
+e.g
+stroom-icon add.svg "Add"
+stroom-icon add.svg
+stroom-icon save.svg "Save" "disabled"
+-->
+
+{{- $colour_map := dict
+  "blue" "icon-colour__blue"
+  "grey" "icon-colour__grey"
+  "green" "icon-colour__green"
+  "red" "icon-colour__red"
+-}}
+
+{{- /* First try to get the resource from the page resources */ -}}
+
+{{- $title := .title | default (humanize (strings.TrimSuffix (path.Ext .file) (path.Base .file))) -}}
+{{- $path := printf "assets/images/stroom-ui/%s" .file -}}
+
+{{- $disabled_class := "" -}}
+{{- if eq ( lower ($.enabled | default "enabled" )) "disabled" -}}
+  {{- $disabled_class = "disabled" -}}
+{{- end -}}
+
+{{- $colour_class := "" -}}
+{{- if .colour -}}
+  {{- $colour_class = index $colour_map ( lower .colour ) | default "" -}}
+{{- end -}}
+
+{{- if fileExists $path -}}
+  <span class="stroom-icon inline-svg-button icon-button {{ $disabled_class }} {{ $colour_class }}" >
+    <span class="face" title="{{- $title -}}">
+      {{- readFile $path | safeHTML -}}
+    </span>
+  </span>
+{{- else -}}
+  {{- errorf "Unable to find stroom-icon icon file %s" $path -}}
+{{- end -}}
+

@@ -1,7 +1,7 @@
 ---
 title: "Security"
 linkTitle: "Security"
-#weight:
+weight: 130
 date: 2021-07-27
 tags:
   - security
@@ -17,14 +17,14 @@ For most large installations Stroom uses shared storage for its data store. This
 
 ### Accounts
 
-It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install. Official guidance for doing this can be found [here (external link)](https://dev.mysql.com/doc/refman/5.6/en/security.html).
+It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install. Official guidance for doing this can be found {{< external-link "here" "https://dev.mysql.com/doc/refman/5.6/en/security.html" >}}.
 
 ### Communication
 
 Communication between MySQL and the application should be secured. This can be achieved in one of the following ways:
 * Placing MySQL and the application behind a firewall
 * Securing communication through the use of iptables
-* Making MySQL and the application communicate over SSL (see [here (external link)](https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html) for instructions)
+* Making MySQL and the application communicate over SSL (see {{< external-link "here" "https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html" >}} for instructions)
 
 The above options are not mutually exclusive and may be combined to better secure communication.
 
@@ -43,7 +43,7 @@ The application can be configured to share some information with Stroom Proxy so
 
 ### Admin port
 
-Stroom (v6 and above) and its associated family of stroom-* DropWizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.
+Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.
 
 ### Servlets
 

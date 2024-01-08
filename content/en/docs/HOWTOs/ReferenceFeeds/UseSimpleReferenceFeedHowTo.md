@@ -126,11 +126,11 @@ Press **OK** to start the stepping which displays the pipeline stepping tab
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-08.png" >}}Stroom UI CreateReferenceFeed - Stepping pipeline source display{{< /screenshot >}}
 
-Select the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to reveal the translation we plan to modify.
+Select the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element to reveal the translation we plan to modify.
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-09.png" >}}Stroom UI CreateReferenceFeed - Stepping pipeline xslt translation filter selected{{< /screenshot >}}
 
-To bring up the first event from the stream, press the Step Forward button {{< stroom-icon "step-forward-green.svg" "Step forward">}} to show
+To bring up the first event from the stream, press the Step Forward button {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} to show
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-10.png" >}}Stroom UI CreateReferenceFeed - Stepping pipeline - first event{{< /screenshot >}}
 
@@ -176,7 +176,7 @@ to
     </Client>
 ```
 
-and then we press the Refresh Current Step icon {{< stroom-icon "refresh-green.svg" "Refresh">}}.
+and then we press the Refresh Current Step icon {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}}.
 
 BUT NOTHING CHANGES !!!
 
@@ -207,7 +207,7 @@ then switch to the **Structure** sub-item
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-19.png" >}}Stroom UI CreateReferenceFeed - Pipeline display structure{{< /screenshot >}}
 
-and then select the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to reveal
+and then select the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element to reveal
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-20.png" >}}Stroom UI CreateReferenceFeed - Pipeline translationFilter structure{{< /screenshot >}}
 
@@ -222,7 +222,7 @@ So, to associate our `GeoHost-V1.0-REFERENCE` reference feed with this translati
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-22.png" >}}Stroom UI CreateReferenceFeed - New Pipeline Reference{{< /screenshot >}}
 
-For **Pipeline:** use the menu selector {{< stroom-icon "assorted/popup.png" "Menu selection">}} and choose the Reference Loader pipeline and then press **OK**
+For **Pipeline:** use the menu selector {{< stroom-icon "ellipses-horizontal.svg" "Menu selection">}} and choose the Reference Loader pipeline and then press **OK**
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-23.png" >}}Stroom UI CreateReferenceFeed - Choose Pipeline{{< /screenshot >}} 
 
@@ -241,7 +241,7 @@ We now see
 
 Save these pipeline changes by pressing the {{< stroom-icon "save.svg" >}} icon in the top left then switch back to the APACHE-SSLBlackBox-V2.0-EVENTS stepping tab.
 
-Pressing the Refresh Current Step {{< stroom-icon "refresh-green.svg" "Refresh">}} icon will remove the warning and we now note that the output pane now shows the `<Client/HostName>` element.
+Pressing the Refresh Current Step {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}} icon will remove the warning and we now note that the output pane now shows the `<Client/HostName>` element.
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-27.png" >}}Stroom UI CreateReferenceFeed - output pane with Client/HostName element{{< /screenshot >}}
 
@@ -350,7 +350,7 @@ to
         <xsl:variable name="chost" select="stroom:lookup('IP_TO_FQDN', data[@name = 'clientip']/@value, $formattedDate, true(), true())" />
 ```
 
-and then we press the Refresh Current Step icon {{< stroom-icon "refresh-green.svg" "Refresh">}}
+and then we press the Refresh Current Step icon {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}}
 
 {{< screenshot "HOWTOs/v6/UI-UseReferenceFeed-30.png" >}}Stroom UI CreateReferenceFeed - lookup 5th argument{{< /screenshot >}}
 

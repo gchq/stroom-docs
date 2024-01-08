@@ -192,7 +192,7 @@ This is done by clicking on the **Structure** link, at which we will see
 
 As this pipeline will be processing reference data, we would use a `Reference Data` pipeline.
 This is done by inheriting it from a defined set of Standard Pipelines.
-To do this, click on the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu selection">}} to the right of the **Inherit From:** test display box.
+To do this, click on the menu selection icon {{< stroom-icon "ellipses-horizontal.svg" "Menu selection">}} to the right of the **Inherit From:** test display box.
 
 When the **Choose item** selection window appears, navigate to the `Template Pipelines` system group (if not already displayed), and select (left click) the {{< stroom-icon "document/Pipeline.svg" >}} `Reference Data` pipeline.
 You can find further information about the Template Pipelines {{< external-link "here" "https://github.com/gchq/stroom-content/blob/master/source/template-pipelines/README.md" >}}.
@@ -309,7 +309,7 @@ Select the `GeoHost-V1.0-REFERENCE` pipeline tab and then select the **Structure
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-27.png" >}}Associated text converter with pipeline{{< /screenshot >}}
 
-To associate our new Text Converter with the pipeline, click on the {{< pipe-elm "combinedParser" >}} pipeline element then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
+To associate our new Text Converter with the pipeline, click on the {{< pipe-elm "CombinedParser" >}} pipeline element then move the cursor to the _Property_ (middle) pane then double click on the **textConverter** Property Name to allow you to edit the property as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-28.png" >}}textConverter Edit property{{< /screenshot >}}
 
@@ -352,7 +352,7 @@ At this point we enter the pipeline Stepping tab
 
 which initially displays the Raw Reference data from our stream.
 
-We click on the {{< pipe-elm "combinedParser" >}} icon, to display.
+We click on the {{< pipe-elm "CombinedParser" >}} icon, to display.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-36.png" >}}textConverter - stepping editor workspace{{< /screenshot >}}
 
@@ -360,16 +360,16 @@ This _stepping_ window is divided into three sub-panes. the top one is the Text 
 The bottom left window displays the _input_ to the Text Converter.
 The bottom right window displays the _output_ from the Text Converter for the given input.
 
-We now click on the pipeline Step Forward button {{< stroom-icon "step-forward-green.svg" "Step Forward">}} to single step the Raw reference data throughout text converter.
+We now click on the pipeline Step Forward button {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}} to single step the Raw reference data throughout text converter.
 We see that the Stepping function has displayed the heading and first data line of our raw reference data in the _input_ sub-pane and the resultant simple _records_ XML (adhering to the Stroom **records v2.0** schema) in the _output_ pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-37.png" >}}textConverter - pipeline stepping - 1st record{{< /screenshot >}}
 
-If we again press the {{< stroom-icon "step-forward-green.svg" "Step Forward">}} button we see the second line in our raw reference data in the _input_ sub-pane and the resultant simple _records_ XML in the _output_ pane.
+If we again press the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}} button we see the second line in our raw reference data in the _input_ sub-pane and the resultant simple _records_ XML in the _output_ pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-38.png" >}}textConverter - pipeline stepping - 2nd record{{< /screenshot >}}
 
-Pressing the Step Forward button {{< stroom-icon "step-forward-green.svg" "Step Forward">}} again displays our third line of our raw and converted data.
+Pressing the Step Forward button {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}} again displays our third line of our raw and converted data.
 Repeat this process to view the fourth and fifth lines of converted data.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-39.png" >}}textConverter - pipeline stepping - 3rd record{{< /screenshot >}}
@@ -387,7 +387,7 @@ More information can be found {{< external-link "here" "https://github.com/gchq/
 We first need to create an XSLT translation for our feed.
 Move back to the Explorer tree, right click on {{< stroom-icon "document/Folder.svg" >}} _Event Sources_ folder then select:
 
-{{< stroom-icon "add.svg" "New" >}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_.
+{{< stroom-menu "New" "XSL Translation" >}}
 
 When the **New XSLT** selection window comes up, navigate to the `Event Sources` system group and enter the name of the reference feed - GeoHost-V1.0-REFERENCE into the **Name:** text entry box as per 
 
@@ -405,7 +405,7 @@ At this point, rather than edit the translation in this editor and then assign t
 This is to demonstrate there are a number of ways to _develop a translation_.
 
 So, to start, save the XSLT by clicking on the {{< stroom-tab "Pipeline.svg" "GeoHost-V1.0-REFERENCE Pipeline" >}} tab to raise the GeoHost-V1.0-REFERENCE pipeline.
-Then select the **Structure** sub-item followed by selecting the {{< pipe-elm "xsltFilter" "translationFilter" >}} element.
+Then select the **Structure** sub-item followed by selecting the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element.
 We now see the  **XSL translationFilter** Property Table for our pipeline in the middle pane.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-45.png" >}}xslt translation element - property pane{{< /screenshot >}}
@@ -415,7 +415,7 @@ To associate our new translation with the pipeline, move the cursor to the _Prop
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-46.png" >}}xslt -property editor{{< /screenshot >}}
 
 We leave the Property **Source:** as _Inherit_ and we need to change the Property **Value:** from _None_ to be our newly created GeoHost-V1.0-REFERENCE XSL translation.
-To do this, position the cursor over the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu Selection">}} of the **Value:** chooser and right click, at which the `Choose item` selection window appears.
+To do this, position the cursor over the menu selection icon {{< stroom-icon "ellipses-horizontal.svg" "Menu Selection">}} of the **Value:** chooser and right click, at which the `Choose item` selection window appears.
 Navigate to the `Event Sources` system group then select the GeoHost-V1.0-REFERENCE xsl translation.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-47.png" >}}xslt - value selection{{< /screenshot >}}
@@ -452,7 +452,7 @@ At this point we enter the pipeline through the Stepping tab {{< screenshot "HOW
 
 which initially displays the Raw Reference data from our stream.
 
-We click on the {{< pipe-elm "xsltFilter" "translationFilter" >}} element to enter the _xslt Translation_ stepping window and all panes are empty.
+We click on the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element to enter the _xslt Translation_ stepping window and all panes are empty.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-51.png" >}}xslt Translation - editor{{< /screenshot >}}
 
@@ -460,7 +460,7 @@ As for the Text Converter, this translation _stepping_ window is divided into th
 The top one is the XSLT Translation.
 The bottom right window displays the _output_ from the XSLT Translation for the given input.
 
-We now click on the pipeline Step Forward button {{< stroom-icon "step-forward-green.svg" "Step Forward">}} to single step the Raw reference data through our translation.
+We now click on the pipeline Step Forward button {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}} to single step the Raw reference data through our translation.
 We see that the Stepping function has displayed the first _records_ XML entry in the _input_ sub-pane and the same data is displayed in the _output_ sub-pane. 
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-52.png" >}}xslt Translation - editor 1st record{{< /screenshot >}}
@@ -472,7 +472,7 @@ But we also note if we move along the pipeline structure to the {{< stroom-icon 
 In essence, since the _translation_ has done nothing, and the data is simple _records_ XML, the system is indicating that it expects the _output_ data to be in the _reference-data v2.0.1_ format.
 
 We can correct this by adding the skeleton xslt translation for reference data into our translationFilter.
-Move back to the {{< pipe-elm "xsltFilter" "translationFilter" >}} element on the pipeline structure and add the following to the xsl window.
+Move back to the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element on the pipeline structure and add the following to the xsl window.
 
 ```xml
 <?xml version="1.1" encoding="UTF-8" ?>
@@ -507,7 +507,7 @@ And on pressing the refresh button {{< stroom-icon "refresh.svg" >}} we see that
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-54.png" >}}xslt Translation - null translation{{< /screenshot >}}
 
-Also note that if we move to the {{< pipe-elm "schemaFilter" >}} element on the pipeline structure, we no longer have an "Invalid Schema Location" error.
+Also note that if we move to the {{< pipe-elm "SchemaFilter" >}} element on the pipeline structure, we no longer have an "Invalid Schema Location" error.
 
 We next extend the translation to actually generate reference data.
 The translation will now look like
@@ -583,11 +583,11 @@ version="2.0">
 </xsl:stylesheet>
 ```
 
-and when we refresh, by pressing the _Refresh Current Step_ button {{< stroom-icon "refresh-green.svg" "Refresh Step" >}} we see that the _output_ window now has _Reference_ elements within the parent _ReferenceData_ element
+and when we refresh, by pressing the _Refresh Current Step_ button {{< stroom-icon name="refresh.svg" title="Refresh Step" colour="green"  >}} we see that the _output_ window now has _Reference_ elements within the parent _ReferenceData_ element
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-55.png" >}}xslt Translation - basic translation{{< /screenshot >}}
 
-If we press the Step Forward button {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} we see the second _record_ of our raw reference data in the _input_ sub-pane and the resultant _Reference_ elements
+If we press the Step Forward button {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} we see the second _record_ of our raw reference data in the _input_ sub-pane and the resultant _Reference_ elements
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-56.png" >}}xslt Translation - basic translation next record{{< /screenshot >}}
 

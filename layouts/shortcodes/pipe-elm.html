@@ -13,151 +13,145 @@ stroom-icon add.svg "Add"
 stroom-icon add.svg
 -->
 
-{{/* First try to get the resource from the page resources */}}
+{{/* 
+  This code is generated with the help of
+  stroom.app.docs.GeneratePipelineElementsDoc#generatePipeElmShortcodeNames
+  That method gives you the names and the icon class names so you need to
+  look up the class name in stroom-app/src/main/resources/ui/css/svg-icon.css
+  to find out the filename.
+  Since the icons got refactored in stroom 7.1 it is now not possible to
+  got from the element annotations to an icon path
+  without somehow parsing the css file to convert a css class into an icon
+  file path. For now we are stuck with maintaining this manually.
+  */}}
 
-{{ $filename := "" }}
-{{ $elm_name := .Get 0 }}
+{{ $element_map := dict
+"AnnotationWriter" "pipeline/text.svg"
+"BOMRemovalFilterInput" "pipeline/stream.svg"
+"BadTextXMLFilterReader" "pipeline/stream.svg"
+"CombinedParser" "pipeline/text.svg"
+"DSParser" "pipeline/text.svg"
+"DynamicIndexingFilter" "pipeline/index.svg"
+"DynamicSearchResultOutputFilter" "pipeline/search_output.svg"
+"ElasticIndexingFilter" "pipeline/elastic_index.svg"
+"FileAppender" "pipeline/file.svg"
+"FindReplaceFilter" "pipeline/stream.svg"
+"HDFSFileAppender" "pipeline/hadoop.svg"
+"HTTPAppender" "pipeline/stream.svg"
+"HttpPostFilter" "pipeline/stream.svg"
+"IdEnrichmentFilter" "pipeline/id.svg"
+"IndexingFilter" "pipeline/index.svg"
+"InvalidCharFilterReader" "pipeline/stream.svg"
+"InvalidXMLCharFilterReader" "pipeline/stream.svg"
+"JSONParser" "pipeline/json.svg"
+"JSONWriter" "pipeline/json.svg"
+"Reader" "pipeline/stream.svg"
+"RecordCountFilter" "pipeline/record_count.svg"
+"RecordOutputFilter" "pipeline/record_output.svg"
+"ReferenceDataFilter" "pipeline/reference_data.svg"
+"RollingFileAppender" "pipeline/files.svg"
+"RollingStreamAppender" "pipeline/stream.svg"
+"SafeXMLFilter" "pipeline/record_output.svg"
+"SchemaFilter" "pipeline/xsd.svg"
+"SearchResultOutputFilter" "pipeline/search_output.svg"
+"SolrIndexingFilter" "pipeline/solr.svg"
+"Source" "pipeline/stream.svg"
+"SplitFilter" "pipeline/split.svg"
+"StandardKafkaProducer" "pipeline/kafka.svg"
+"StatisticsFilter" "pipeline/statistics.svg"
+"StreamAppender" "pipeline/stream.svg"
+"StroomStatsAppender" "pipeline/stroom_stats.svg"
+"StroomStatsFilter" "pipeline/stroom_stats.svg"
+"TextWriter" "pipeline/text.svg"
+"XMLFragmentParser" "pipeline/xml.svg"
+"XMLParser" "pipeline/xml.svg"
+"XMLWriter" "pipeline/xml.svg"
+"XPathExtractionOutputFilter" "pipeline/xml_search.svg"
+"XSLTFilter" "pipeline/xslt.svg"
+}}
 
-{{/* This 1=0 here just to make the generation of all the else if blocks easier */}}
-{{ if eq 1 0 }}
+{{- if eq (.Get 0) "pipe_elm_demo" }}
 
-{{/* This code is generated in stroom.app.docs.GeneratePipelineElementsDoc */}}
-{{/* ------------START GENERATED CODE -------------*/}}
-{{ else if eq (lower $elm_name) "annotationwriter" }}
-  {{ $filename = "text.svg" }}
-  {{ $elm_name = "annotationWriter" }}
-{{ else if eq (lower $elm_name) "bomremovalfilterinput" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "bomRemovalFilterInputElement" }}
-{{ else if eq (lower $elm_name) "badtextxmlfilterreader" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "badTextXMLFilterReaderElement" }}
-{{ else if eq (lower $elm_name) "combinedparser" }}
-  {{ $filename = "text.svg" }}
-  {{ $elm_name = "combinedParser" }}
-{{ else if eq (lower $elm_name) "dsparser" }}
-  {{ $filename = "text.svg" }}
-  {{ $elm_name = "dsParser" }}
-{{ else if eq (lower $elm_name) "fileappender" }}
-  {{ $filename = "file.svg" }}
-  {{ $elm_name = "fileAppender" }}
-{{ else if eq (lower $elm_name) "findreplacefilter" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "findReplaceFilterElement" }}
-{{ else if eq (lower $elm_name) "hdfsfileappender" }}
-  {{ $filename = "hadoop-elephant-logo.svg" }}
-  {{ $elm_name = "hdfsFileAppender" }}
-{{ else if eq (lower $elm_name) "httpappender" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "httpAppender" }}
-{{ else if eq (lower $elm_name) "httppostfilter" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "httpPostFilter" }}
-{{ else if eq (lower $elm_name) "idenrichmentfilter" }}
-  {{ $filename = "id.svg" }}
-  {{ $elm_name = "idEnrichmentFilter" }}
-{{ else if eq (lower $elm_name) "indexingfilter" }}
-  {{ $filename = "index.svg" }}
-  {{ $elm_name = "indexingFilter" }}
-{{ else if eq (lower $elm_name) "invalidcharfilterreader" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "invalidCharFilterReaderElement" }}
-{{ else if eq (lower $elm_name) "invalidxmlcharfilterreader" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "invalidXMLCharFilterReaderElement" }}
-{{ else if eq (lower $elm_name) "jsonparser" }}
-  {{ $filename = "json.svg" }}
-  {{ $elm_name = "jsonParser" }}
-{{ else if eq (lower $elm_name) "jsonwriter" }}
-  {{ $filename = "json.svg" }}
-  {{ $elm_name = "jsonWriter" }}
-{{ else if eq (lower $elm_name) "reader" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "readerElement" }}
-{{ else if eq (lower $elm_name) "recordcountfilter" }}
-  {{ $filename = "recordCount.svg" }}
-  {{ $elm_name = "recordCountFilter" }}
-{{ else if eq (lower $elm_name) "recordoutputfilter" }}
-  {{ $filename = "recordOutput.svg" }}
-  {{ $elm_name = "recordOutputFilter" }}
-{{ else if eq (lower $elm_name) "referencedatafilter" }}
-  {{ $filename = "referenceData.svg" }}
-  {{ $elm_name = "referenceDataFilter" }}
-{{ else if eq (lower $elm_name) "rollingfileappender" }}
-  {{ $filename = "files.svg" }}
-  {{ $elm_name = "rollingFileAppender" }}
-{{ else if eq (lower $elm_name) "rollingstreamappender" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "rollingStreamAppender" }}
-{{ else if eq (lower $elm_name) "safexmlfilter" }}
-  {{ $filename = "recordOutput.svg" }}
-  {{ $elm_name = "safeXMLFilter" }}
-{{ else if eq (lower $elm_name) "schemafilter" }}
-  {{ $filename = "xsd.svg" }}
-  {{ $elm_name = "schemaFilterSplit" }}
-{{ else if eq (lower $elm_name) "searchresultoutputfilter" }}
-  {{ $filename = "search.svg" }}
-  {{ $elm_name = "searchResultOutputFilter" }}
-{{ else if eq (lower $elm_name) "solrindexingfilter" }}
-  {{ $filename = "solr.svg" }}
-  {{ $elm_name = "solrIndexingFilter" }}
-{{ else if eq (lower $elm_name) "source" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "sourceElement" }}
-{{ else if eq (lower $elm_name) "splitfilter" }}
-  {{ $filename = "split.svg" }}
-  {{ $elm_name = "splitFilter" }}
-{{ else if eq (lower $elm_name) "standardkafkaproducer" }}
-  {{ $filename = "apache_kafka-icon.svg" }}
-  {{ $elm_name = "standardKafkaProducer" }}
-{{ else if eq (lower $elm_name) "statisticsfilter" }}
-  {{ $filename = "statistics.svg" }}
-  {{ $elm_name = "statisticsFilter" }}
-{{ else if eq (lower $elm_name) "streamappender" }}
-  {{ $filename = "stream.svg" }}
-  {{ $elm_name = "streamAppender" }}
-{{ else if eq (lower $elm_name) "stroomstatsappender" }}
-  {{ $filename = "StroomStatsStore.svg" }}
-  {{ $elm_name = "stroomStatsAppender" }}
-{{ else if eq (lower $elm_name) "stroomstatsfilter" }}
-  {{ $filename = "StroomStatsStore.svg" }}
-  {{ $elm_name = "stroomStatsFilter" }}
-{{ else if eq (lower $elm_name) "textwriter" }}
-  {{ $filename = "text.svg" }}
-  {{ $elm_name = "textWriter" }}
-{{ else if eq (lower $elm_name) "xmlfragmentparser" }}
-  {{ $filename = "xml.svg" }}
-  {{ $elm_name = "xmlFragmentParser" }}
-{{ else if eq (lower $elm_name) "xmlparser" }}
-  {{ $filename = "xml.svg" }}
-  {{ $elm_name = "xmlParser" }}
-{{ else if eq (lower $elm_name) "xmlwriter" }}
-  {{ $filename = "xml.svg" }}
-  {{ $elm_name = "xmlWriter" }}
-{{ else if eq (lower $elm_name) "xpathextractionoutputfilter" }}
-  {{ $filename = "xmlSearch.svg" }}
-  {{ $elm_name = "xPathExtractionOutputFilter" }}
-{{ else if eq (lower $elm_name) "xsltfilter" }}
-  {{ $filename = "xslt.svg" }}
-  {{ $elm_name = "xsltFilter" }}
-{{/* ------------END GENERATED CODE -------------*/}}
+  {{/* Render all the elements for a gallery page */}}
+  <div class="pipeline-element-demo row">
+    {{- range $elm_name, $filename := $element_map }}
+      <div class="pipeline-element-demo-item col-md-3">
+      {{/* Call the locally declared partial to render a single element */}}
+      {{ partial "pipe-elm-item.html" (dict 
+          "context" . 
+          "elm_name" $elm_name 
+          "display_name" $elm_name
+          "element_map" $element_map ) }}
+      </div>
+    {{- end }}
+  </div>
 
 {{ else }}
-  {{ errorf "Unknown element name %s. See https://gchq.github.io/stroom-docs/7.1/docs/user-guide/pipelines/element-reference/" $elm_name }}
+
+  {{ $elm_name := .Get 0 }}
+  {{ $display_name := .Get 1 | default $elm_name }}
+
+  {{/* Call the locally declared partial to render a single element */}}
+  {{ partial "pipe-elm-item.html" (dict 
+      "context" . 
+      "elm_name" $elm_name 
+      "display_name" $display_name
+      "element_map" $element_map ) }}
+
 {{ end }}
 
-{{ $display_name := .Get 1 | default $elm_name }}
-{{ $path := printf "/images/stroom-ui/pipeline/%s" $filename }}
-{{ $image := resources.Get (printf "%s" $path) }}
 
-{{/* Surround the outer span with hyperlink tag to the appropriate anchor on the element reference page */}}
 
-<span class="pipeline-element" title="{{ $display_name }}" >
-  <img
-    class="stroom-icon" 
-    style="max-width: 15px;"
-    src="{{ $image.RelPermalink }}" 
-    title="{{ $display_name }}" 
-    alt="{{ $filename }}">
-  <span>{{ $display_name }}</span>
-</span>
+
+{{/* Locally defined partial to render a single menu item */}}
+{{- define "partials/pipe-elm-item.html" }}
+
+  {{ $elm_name := .elm_name }}
+  {{ $display_name := .display_name }}
+  {{ $element_map := .element_map }}
+
+  {{ $filename := "" }}
+  {{ $filename = index $element_map $elm_name | default nil }}
+
+  {{/* Allow for user not using the full icon path, i.e. text.svg vs pipeline/text.svg */}}
+  {{/*
+  {{ if not hasPrefix $filename "pipeline/" }}
+    {{ $filename := printf "%s/%s" "pipeline" $filename }}
+  {{ end }}
+  */}}
+
+  {{ if $filename }}
+
+    {{ $path := printf "/images/stroom-ui/%s" $filename }}
+    {{ $image := resources.Get (printf "%s" $path) }}
+
+    {{ if $image }}
+      {{ $elm_ref_url := "docs/user-guide/pipelines/element-reference" | relURL}}
+      {{ $elm_ref_url = printf "%s#%s" $elm_ref_url (anchorize $elm_name) }}
+      {{ $title := printf "%s \"%s\"" $elm_name $display_name }}
+
+      {{/* Surround the outer span with hyperlink tag to the appropriate anchor on the element reference page */}}
+      <a href="{{ $elm_ref_url }}" class="" style="" title="">
+        <span class="pipeline-element" title="{{ $title }}" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              {{ partial "stroom-icon.partial.html" (dict 
+                  "context" . 
+                  "file" $filename ) }}
+            </span>
+            <span class="pipeline-element-text">{{ $display_name }}</span>
+          </span>
+        </span>
+      </a>
+
+      {{/* DO NOT REMOVE THIS span. Required for delimiting elements in pipe.html shortcode */}}
+      <span class="USED FOR SPLITTING" ></span>
+
+    {{ else }}
+      {{ errorf "pipe-elm shortcode - Unable to find pipe-elm icon file %s" $path }}
+    {{ end }}
+  {{ else }}
+    {{ errorf "pipe-elm shortcode - Unknown element name %s" $elm_name }}
+  {{ end }}
+
+{{- end }}

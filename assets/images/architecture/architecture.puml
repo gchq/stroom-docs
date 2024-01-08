@@ -1,0 +1,94 @@
+@startuml
+
+title
+    =Stroom Architecture
+    ==Example Two-Node Cluster (non-containerised deployment)
+end title
+
+'Define the various application ports
+!stroom_port=8080
+!stroom_proxy_port=8090
+
+'Define all the nodes (services, actors, etc.)
+node "Event generator" as event_producer <<application>>
+node "User" as ui_client_browser <<web browser>>
+node "API client" as api_client_app <<application>>
+node "Upstream Stroom proxy" as remote_proxy <<application>>
+
+node "Nginx load balancer" as nginx <<web server>>
+
+rectangle "Stroom Cluster" {
+storage "Stroom Node #1" {
+    node "Stroom node" as stroom_node_1 <<java app>>
+    node "Local Stroom proxy" as stroom_proxy_local_1 <<java app>>
+    node "send_to_stroom.sh" as log_sender_script_1 <<script>>
+
+    'Inter-service REST calls to nginx api gateway
+    log_sender_script_1 --> nginx : <color:DarkRed>HTTPS:443</color>\n<color:DarkRed>Internal audit data</color>
+
+    'Reverse proxy connections
+    nginx -[#Green]-> stroom_node_1 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Reverse-proxied traffic</color>
+    nginx -[#Green]-> stroom_proxy_local_1 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Datafeed</color>
+
+    'Effective connections (i.e. ignoring ngix gateway)
+    stroom_proxy_local_1 -[#Grey]-> stroom_node_1 : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Feed status</color>
+}
+
+storage "Stroom Node #2" {
+    node "Stroom node" as stroom_node_2 <<java app>>
+    node "Local Stroom proxy" as stroom_proxy_local_2 <<java app>>
+    node "send_to_stroom.sh" as log_sender_script_2 <<script>>
+
+    ' Inter-service REST calls to nginx api gateway
+    log_sender_script_2 --> nginx : <color:DarkRed>HTTPS:443</color>\n<color:DarkRed>Internal audit data</color>
+
+    'Reverse proxy connections
+    nginx -[#Green]-> stroom_node_2 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Reverse-proxied traffic</color>
+    nginx -[#Green]-> stroom_proxy_local_2 : <color:Green>HTTP:stroom_port</color>\n<color:Green>Datafeed</color>
+
+    'Effective connections (i.e. ignoring ngix gateway)
+    stroom_proxy_local_2 -[#Grey]-> stroom_node_2 : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Feed status</color>
+}
+}
+
+'Intra-cluster communication
+stroom_node_1 <-[#Grey]-> stroom_node_2 : <color:Grey>HTTP:stroom_port</color>\n<color:Grey>Inter-node communication</color>
+
+storage "MySQL Server" as stroom_all_dbs {
+    database "stroom" as stroom_db
+    database "stats" as stroom_stats_db
+}
+
+'DB connections
+stroom_node_1 --> stroom_db : <color:DarkRed>TCP:3306</color>
+stroom_node_1 --> stroom_stats_db : <color:DarkRed>TCP:3306</color>
+stroom_node_2 --> stroom_db : <color:DarkRed>TCP:3306</color>
+stroom_node_2 --> stroom_stats_db : <color:DarkRed>TCP:3306</color>
+
+storage "Shared Storage" as shared_storage {
+    folder "stroom-node-2"
+    folder "stroom-node-1"
+}
+
+'Shared storage connections
+stroom_node_1 --> shared_storage : <color:DarkRed>NFS/SMB</color>
+stroom_node_2 --> shared_storage : <color:DarkRed>NFS/SMB</color>
+
+'Client connections
+ui_client_browser -[#Blue]-> nginx : <color:Blue>HTTPS</color>
+api_client_app -[#Blue]-> nginx : <color:Blue>HTTPS</color>\n<color:Blue>/api</color>
+event_producer -[#Blue]-> remote_proxy : <color:Blue>HTTPS</color>\n<color:Blue>Event data</color>
+remote_proxy -[#Blue]-> nginx : <color:Blue>HTTPS</color>\n<color:Blue>Feed status and event data</color>
+
+legend right
+  <b>Types of traffic</b>
+
+  <color:Blue>Client</color>
+  <color:DarkRed>Direct</color>
+  <color:Green>Reverse-proxied (unencrypted)</color>
+  <color:Grey>Internal (unencrypted)</color>
+endlegend
+
+'hide empty members
+
+@enduml

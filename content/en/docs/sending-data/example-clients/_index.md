@@ -1,7 +1,7 @@
 ---
 title: "Example Clients"
 linkTitle: "Example Clients"
-#weight:
+weight: 70
 date: 2022-01-13
 tags: 
 description: >
@@ -9,5 +9,5 @@ description: >
 ---
 
 The following article provides examples to help data providers send data to Stroom via the HTTPS interface.
-The code for the clients is in the _stroom-clients_ repository [stroom-clients (external link)](https://github.com/gchq/stroom-clients).
+The code for the clients is in the _stroom-clients_ repository {{< external-link "stroom-clients" "https://github.com/gchq/stroom-clients" >}}.
 

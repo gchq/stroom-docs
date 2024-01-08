@@ -6,6 +6,18 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Update icons and UI elements for Stroom 7.2.
+
+* Add missing functions to `mathematics.md` and fix headings.
+
+* Add section on Stroom Query Language.
+
+* Add section on jersey client configuration.
+
+* Mark `feed-attribute` XSLT function as deprecated.
+
+* Update `single-node-docker` for 7.1.
+
 * Add mention of `OLD_AUTH_schema_version` in `6_to_7_upgrade.md`.
 
 * Fix issues in `6_to_7_upgrade.md`.

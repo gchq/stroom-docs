@@ -38,13 +38,13 @@ description: >
 
 ## Overview
 
-Stroom's documentation is created using the static site generator [Hugo (external link)](https://gohugo.io/).
+Stroom's documentation is created using the static site generator {{< external-link "Hugo" "https://gohugo.io/" >}}.
 This converts markdown content into a rich HTML site.
 The markdown content in _stroom-docs_ is not intended to be read as-is in GitHub, it needs to be rendered first.
 
-The full documentation for _Hugo_ can be found [here (external link)](https://gohugo.io/documentation/).
-The site also uses the [Docsy (external link)](https://www.docsy.dev) theme for Hugo.
-The documentation for _Docsy_ can be found [here (external link)](https://www.docsy.dev/docs/).
+The full documentation for _Hugo_ can be found {{< external-link "here" "https://gohugo.io/documentation/" >}}.
+The site also uses the {{< external-link "Docsy" "https://www.docsy.dev" >}} theme for Hugo.
+The documentation for _Docsy_ can be found {{< external-link "here" "https://www.docsy.dev/docs/" >}}.
 The _Docsy_ theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the _Docsy_ documentation in the first instance.
 
@@ -53,18 +53,43 @@ To maintain a degree of consistency in the documentation you should use this sec
 
 ## Shortcodes
 
-The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
-Shortcodes make it easy to change how a page element is styled by just changing the shortcode.
+The documentation makes heavy use of Hugo _shortcodes_ for adding page elements such as links, icons, images, etc.
+Shortcodes are a compact way of inserting reusable content into a page and make it easy to change how a page element is styled by just changing the shortcode in one place.
 
-Hugo includes many [shortcodes (external link)](https://gohugo.io/content-management/shortcodes/), the Docsy theme adds some [more (external link)](https://www.docsy.dev/docs/adding-content/shortcodes/) and there are some bespoke _stroom-docs_ ones in `layouts/shortcodes/`.
+There are numerous shortcodes available to use:
 
-To make your life easier when editing the documentation it is recomended to use an editor that supports text snippets.
+* {{< external-link "Hugo built in shortcodes" "https://gohugo.io/content-management/shortcodes/" >}}
+* {{< external-link "Docsy theme shortcodes" "https://www.docsy.dev/docs/adding-content/shortcodes/" >}}
+* [Bespoke _stroom-docs_ shortcodes]({{< relref "./using-images/#stroom-user-interface-components" >}}).
+  These can be found in `layouts/shortcodes/`.
+
+An example of using a short code in your markdown is:
+
+```text
+Click the {{</* stroom-icon "save.svg" "Save Document" */>}} icon.
+```
+
+This calls the shortcode _stroom-icon_ with the positional arguments `save.svg` and `Save Document`.
+Shortcodes can either use positional arguments or named arguments depending on how they have been written.
+
+This is an example of calling a shortcode with named arguments:
+
+```text
+Click the {{</* stroom-icon name="settings.svg" colour="red" */>}} icon.
+```
+
+Check the documentation for specific shortcode to see how to call it.
+
+
+### Editor snippets and shortcodes
+
+To make your life easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.
 
-For example the following snippet adds a skeleton front matter to a page.
+For example the following {{< external-link "UltiSnips (for Vim)" "https://github.com/SirVer/ultisnips" >}} and {{< external-link "VS Code" "https://code.visualstudio.com/docs/editor/userdefinedsnippets" >}} snippets adds a skeleton front matter to a page.
 
 {{< cardpane >}}
-  {{< card header="Ultisnips" >}}
+  {{< card header="UltiSnips (for Vim)" >}}
 ```snippets
 snippet hfront "Hugo markdown metadata front matter" b
 ---
@@ -104,7 +129,6 @@ endsnippet
   }
 }
 ```
-
   {{< /card >}}
 {{< /cardpane >}}
 

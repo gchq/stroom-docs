@@ -1,15 +1,18 @@
 ---
 title: "Application Programming Interfaces (API)"
-linkTitle: "Application Programming Interfaces (API)"
-#weight:
-date: 2021-07-27
+linkTitle: "API"
+weight: 10
+date: 2022-02-16
 tags:
   - api
 description: >
-  Stroom' public APIs for querying and interacting with all aspects of Stroom.
+  Stroom' public REST APIs for querying and interacting with all aspects of Stroom.
+
 ---
 
-_Stroom_ has a number of public APIs to allow other systems to interact with _Stroom_.
-The APIs are defined by a _Swagger_ spec that can be viewed as [json (external link)](https://gchq.github.io/stroom/swagger.json) or [yaml (external link)](https://gchq.github.io/stroom/swagger.yaml).
-A dynamic [user interface (external link)](https://gchq.github.io/stroom/) is also available for viewing the APIs.
+_Stroom_ has many public REST {{< glossary "API" "APIs">}} to allow other systems to interact with _Stroom_.
+Everything that can be done via the user interface can also be done using the API.
+
+All methods on the API will are authenticated and authorised, so the permissions will be exactly the same as if the API user is using the Stroom user interface directly.
+
 

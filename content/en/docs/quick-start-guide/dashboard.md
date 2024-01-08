@@ -8,78 +8,138 @@ tags:
   - visualisation
   - query
 description: >
-  
+  Querying and visualising the indexed data.
+
 ---
 
-Create a new dashboard the same way you create anything else
+Create a new {{< stroom-icon "document/Dashboard.svg">}} {{< glossary "Dashboard" >}} in the _Stroom 101_ folder and call it _Stroom 101_.
 
-{{< image "quick-start-guide/dashboard/001_dashboard_new.png" >}}New dashboard{{< /image >}}
+{{< image "quick-start-guide/dashboard/001_dashboard_new.png" "500" >}}New Dashboard{{< /image >}}
 
-On the query pane click the settings {{< stroom-icon "settings-grey.svg" "Dashboard settings" >}}
- button on the top right of the panel.
+By default a new Dashboard opens with two panes; a {{< glossary "Query" >}} pane at the top to build the query; and a {{< glossary "Table" >}} pane at the bottom to display the results.
+Dashboards are highly configurable; panes can be added and resized; they can contain multiple queries; and a query pane can provide data for multiple output panes (such as {{< glossary "Visualisation" "Visualisations">}}).
 
-Choose the index you just created as your data source.
 
-{{< image "quick-start-guide/dashboard/002_dashboard_query_settings.png" >}}Dashboard settings{{< /image >}}
+## Configuring the query data source
 
-Now add a term to the query to get a handle on the data
+On the query pane click the settings {{< stroom-icon name="settings.svg" title="Dashboard settings" colour="grey"  >}} button on the top right of the panel.
 
-{{< image "quick-start-guide/dashboard/002_dashboard_query_add_term.png" >}}Dashboard query add term{{< /image >}}
+{{< image "quick-start-guide/dashboard/002_dashboard_query_settings.png" "350" >}}Dashboard settings{{< /image >}}
 
-For our simple example we’re using a wildcard that captures all documents with an Id set.
+1. Click on the _Data Source_ document picker.
+1. Select the index you created earlier:  
+   {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_
 
-{{< image "quick-start-guide/dashboard/003_dashboard_query_edit_term.png" >}}Dashboard query edit term{{< /image >}}
+{{% note %}}
+Dashboards can be made to automatically run all queries when they are opened and/or to keep refreshing the query every N seconds.
+This can be done in the Query settings dialog you used above.
+{{% /note %}}
 
-Within the table panel we now need to set a few defaults.  On the table pane click the settings {{< stroom-icon "settings-grey.svg" "Dashboard settings" >}}
- button on the top right of the panel.  `Extract Values` needs to be ticked.  If grouping is to be used and the content of the groups is to be viewed then `Show Group Detail` should also be ticked.  The `Maximum Results` field may also be changed from default if required to limit the results or if more results are expected than the default value.  Be aware that setting this value too high may result in excessive memory being used by the query process though.
 
-We now need to select a pipeline to display the results in the table by setting `Extraction Pipeline`.  The simplest way is to create and save a new pipeline based on the existing `Search Extraction` template pipeline.  Within this new pipeline, use either the XSLT used for indexing the data or preferably a copy of this XSLT saved elsewhere.  The extraction pipeline and the dashboard itself should then be saved.
+## Configuring the query expression
 
-In the table panel we can add the fields we are interested in, in this case we wanted to sort the application field and count how many time the application name appears.
+Now add a term to the query to filter the data.
 
-{{< image "quick-start-guide/dashboard/004_dashboard_table_fields.png" >}}Dashboard table fields{{< /image >}}
+1. Right click on the root AND operator and click {{< stroom-icon "add.svg" "Add Term" >}} Add Term.
+  A new expression is added to the tree as a child of the operator and it has three dropdowns in it ({{< glossary "Field" >}}, {{< glossary "Condition" >}} and value).
+1. Create an expression term for the _Application_ field:
+    1. Field: `Application`
+    1. Condition: `=`
+    1. Value: `*b*`
 
-If at this point, we decide that we'd like to see additional fields in the table extracted from each record then the Extraction Pipeline XSLT can be modified to extract them from the Event:
+This will find any records with `b` in the _Application_ field value.
 
-```xml
-...
-  <xsl:template match="/xpath/to/usefulField">
-    <data name="UsefulField">
-      <xsl:attribute name="value" select="text()" />
-    </data>
-  </xsl:template>
-...
-```
 
-To be able to select this new field from the table drop-down, it needs to be added back into the list of fields in the original index:
+## Configuring the table
 
-| Name         | Type   | Store  | Index  | Positions  | Analyser       | Case Sensitive
-| ----         | ----   | -----  | -----  | ---------  | --------       | --------------
-| UsefulField  | Text   | No     | No     | No         | Keyword        | false
+All fields are [stored]({{< relref "/docs/user-guide/indexing/lucene#stored-fields" >}}) in our index so we do not need to worry about configuring {{< glossary "Search Extraction" >}}.
 
-If any additionals are made at this point, the index must first be saved and then the dashboard closed and reopened. `UsefulField` will then be available as a drop-down option in the table.
+We first need to add some columns to our table.
+Using the {{< stroom-icon "add.svg" "Add Field">}} button on the Table pane, add the following columns to the table.
+We want a count of records grouped by _Application_.
 
-Start the query and we should get this
+* _Application_
+* _Count_
 
-{{< image "quick-start-guide/dashboard/005_dashboard_table.png" >}}Dashboard table{{< /image >}}
+{{% note %}}
+_Count_ is a special column (not in the index) that applies the aggregate function `count()`.
+All columns are actually just an expression which may be a simple field like `${Application}` or a function.
+Stroom has a rich library of functions for aggregating and mutating query results.
+See [Expressions]({{< relref "/docs/user-guide/dashboards/expressions" >}}).
+{{% /note %}}
 
-Then we can add an element from the top again and this time use visualisation
+To group our data by _Application_ we need to apply a group level to the _Application_ column.
 
-{{< image "quick-start-guide/dashboard/006_dashboard_add_visualisation.png" >}}Dashboard add visualisation{{< /image >}}
+1. Click on the _Application_ column
+1. Click  
+   {{< stroom-icon "fields/group.svg">}} _Group_ => {{< stroom-icon "fields/group.svg">}} _Level 1_
 
-In the visualisation panel that has been added to the bottom, click the settings {{< stroom-icon "settings-grey.svg" "Dashboard settings" >}}
- button on the top right of the panel.
+Now we can reverse sort the data in the table by the count.
 
-In our example we have used the Bubble visualisation
+1. Click on the _Count_ column.
+1. Click  
+   {{< stroom-icon "fields/sortaz.svg">}} _Sort_ => {{< stroom-icon "fields/sortza.svg">}} _Sort Z to A_
 
-{{< image "quick-start-guide/dashboard/008_visualisation_settings_basic.png" >}}Visualisation settings - basic{{< /image >}}
+Now click the large green and white play button to run the query.
+You should see 15 _Applications_ and their counts returned in the table.
 
-{{< image "quick-start-guide/dashboard/009_visualisation_settings_data.png" >}}Visualisation settings data{{< /image >}}
+Now we are going to add a custom column to show the lowest EventId for each _Application_ group.
 
-Which gives us this visualisation when the query is executed
+1. Click on the {{< stroom-icon "add.svg" "Add Field">}} button on the Table pane.
+1. Select _Custom_ (at the bottom of the list).
+1. Click on the new _Custom_ column.
+1. Click  
+   {{< stroom-icon "fields/expression.svg">}} _Expression_
+1. In the _Set Expression For 'Custom'_ dialog enter the following:  
+   `first(${EventId})`
+1. Click _OK_.
 
-{{< image "quick-start-guide/dashboard/010_visualisation_bubbles.png" >}}Bubble visualisation{{< /image >}}
+Instead of typing out the expression you can use the {{< stroom-icon "function.svg">}} and {{< stroom-icon "field.svg">}} buttons to pick from a list to add expressions and fields respectively.
+You can also use `ctrl+<space>` to auto-complete your expressions.
 
-Where you can hover over elements and get a summary of that representation.
+To rename the _Custom_ column:
 
-{{< image "quick-start-guide/dashboard/011_visualisation_bubbles_legend.png" >}}Bubble visualisation legends{{< /image >}}
+1. Click on the _Custom_ column.
+1. Click  
+   {{< stroom-icon "edit.svg" "Rename">}} _Rename_
+1. Enter the text `First Event ID`.
+1. Clico _OK_.
+
+Now run the query again to see the results with the added column.
+
+ 
+## Add a visualisation
+
+We will add a new pane to the dashboard to display a {{< glossary "Visualisation" >}}.
+
+1. Click on the {{< stroom-icon "add.svg" "Add Component">}} button at the top left of the Dashboard.
+1. Select Visualisation.
+
+A new empty _Visualisation_ pane will be added at the bottom of the Dashboard.
+
+To configure the visualisation:
+
+1. Click on the {{< stroom-icon name="settings.svg" title="Settings" colour="grey"  >}} button at the top right of the _Visualisation_ pane.
+1. In the _Visualisation_ document picker select  
+   {{< stroom-icon "folder.svg">}} _Visualisations_ / {{< stroom-icon "folder.svg">}} _Version3_ / {{< stroom-icon "document/Visualisation.svg" >}} _Bubble_
+1. Click _OK_.
+1. On the _Data_ tab that has now appeared in the dialog, assign the following table fields to the visualisation:
+   1. _Name_: `Application`
+   1. _Value_: `Count`
+   1. _Series_: `Application`
+1. On the _Bubble_ tab on the dialog, set the following:
+   1. _Show Labels_: `True`
+1. Click _OK_.
+
+To change the look of your Dashboard you can drag the different panes around into different positons.
+
+1. Click and hold on the `Visualisation` text in the top left of the _Visualisation_ pane.
+1. Drag the cursor to the right hand side of the _Table_ pane.
+   You will see a purple rectangle showing where the pane will be moved to.
+1. Once you are happy with the position release the mouse button.
+1. Click and hold the mouse button on the borders between the panes to resize the panes to suit.
+1. Click {{< stroom-icon "save.svg" >}} to save the Dashboard.
+
+You should now see something like this:
+
+{{< image "quick-start-guide/dashboard/010_visualisation_bubbles.png" "400" >}}Bubble visualisation{{< /image >}}

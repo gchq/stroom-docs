@@ -1,7 +1,7 @@
 ---
 title: "Dashboard Expressions"
 linkTitle: "Dashboard Expressions"
-#weight:
+weight: 20
 date: 2021-07-27
 tags:
   - dashboard
@@ -29,6 +29,7 @@ The arguments to functions can either be other functions, literal values, or the
   * [Count](aggregate#count)
   * [Count Groups](aggregate#count-groups)
   * [Count Unique](aggregate#count-unique)
+  * [Distinct](aggregate#distinct)
   * [Joining](aggregate#joining)
   * [Max](aggregate#max)
   * [Min](aggregate#min)

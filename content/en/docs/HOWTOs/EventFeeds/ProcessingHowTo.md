@@ -69,7 +69,7 @@ See the [HOWTO on System Properties]({{< relref "../Administration/SystemPropert
 
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New" >}} _New_ => {{< stroom-icon "document/Feed.svg">}} _Feed_
+{{< stroom-menu "New" "Feed" >}}
 
 This will open the `New Feed` configuration window into which we enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box
 
@@ -120,7 +120,7 @@ has disappeared from the `Feed` tab and the the second is that the _Save_ icon {
 We now create the Text Converter for this `Feed` in a similar fashion to the `Event Feed`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select 
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/TextConverter.svg" >}} _Text Converter_
+{{< stroom-menu "New" "Text Converter" >}}
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the Text Converter tab
 
@@ -141,7 +141,7 @@ Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configur
 We now create the XSLT translation for this `Feed` in a similar fashion to the `Event Feed` or `Text Converter`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_
+{{< stroom-menu "New" "XSL Translation" >}}
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the XSLT Translation tab
 
@@ -161,7 +161,7 @@ Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configur
 We now create the Pipeline for this `Feed` in a similar fashion to the `Event Feed`, `Text Converter` or `XSLT Translation`.
 We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/Pipeline.svg" >}} _Pipeline_
+{{< stroom-menu "New" "Pipeline" >}}
 
 Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{< stroom-btn "Ok" >}} which results in the creation of the Pipeline tab
 
@@ -187,11 +187,11 @@ At this we see the `Pipeline Structure` configuration tab
 
 As noted in the Assumptions at the start, we have loaded the **Template Pipeline** content pack, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
-We find a template by selecting the **Inherit From:** _None_ {{< stroom-icon "assorted/popup.png" "Menu selection">}} entry box to reveal a **Choose Item** configuration item window.
+We find a template by selecting the **Inherit From:** _None_ {{< stroom-icon "ellipses-horizontal.svg" "Menu selection">}} entry box to reveal a **Choose Item** configuration item window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-08.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Inherit{{< /screenshot >}}
 
-Select the **Template Pipelines** folder by pressing the {{< stroom-icon "tree-closed.svg" "Open tree branch">}} icon to the left of the folder to reveal the choice of available templates.
+Select the **Template Pipelines** folder by pressing the {{< stroom-icon "arrow-right.svg" "Open tree branch">}} icon to the left of the folder to reveal the choice of available templates.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-09.png" >}}Stroom UI Create Feed - Pipeline Structure tab - Templates{{< /screenshot >}}
 
@@ -230,7 +230,7 @@ At this, the `Edit Property` configuration window is displayed.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-14.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property{{< /screenshot >}}
 
-We select the **Value:** _None_ {{< stroom-icon "assorted/popup.png" "Menu selection" >}} entry box labeled to reveal a **Choose Item** configuration item window.
+We select the **Value:** _None_ {{< stroom-icon "ellipses-horizontal.svg" "Menu selection" >}} entry box labeled to reveal a **Choose Item** configuration item window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-15.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item{{< /screenshot >}}
 
@@ -399,13 +399,13 @@ As mentioned earlier, to _step_ the translation, one uses the green  _Stepping A
 
 The actions are
 
-   * {{< stroom-icon "fast-backward-green.svg" "Step First" >}} - progress the transformation to the first line of the translation input
-   * {{< stroom-icon "step-backward-green.svg" "Step back" >}} - progress the transformation one step backward
-   * {{< stroom-icon "step-forward-green.svg" "Step forward" >}} - progress the transformation one step forward
-   * {{< stroom-icon "fast-forward-green.svg" "Step last" >}} - progress the transformation to the end of the translation input
-   * {{< stroom-icon "refresh-green.svg" "Refresh step" >}} - refresh the transformation based on the current translation input
+   * {{< stroom-icon name="fast-backward.svg" title="Step First" colour="green" >}} - progress the transformation to the first line of the translation input
+   * {{< stroom-icon name="step-backward.svg" title="Step back" colour="green" >}} - progress the transformation one step backward
+   * {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} - progress the transformation one step forward
+   * {{< stroom-icon name="fast-forward.svg" title="Step last" colour="green" >}} - progress the transformation to the end of the translation input
+   * {{< stroom-icon name="refresh.svg" title="Refresh step" colour="green" >}} - refresh the transformation based on the current translation input
 
-So, if one was to press the {{< stroom-icon "step-forward-green.svg" "Step forward" >}} _stepping action_ we would be presented with
+So, if one was to press the {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} _stepping action_ we would be presented with
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-33.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1{{< /screenshot >}}
 
@@ -421,7 +421,7 @@ This is the result of the code in our editor
 </regex>
 ```
 
-If one presses the {{< stroom-icon "step-forward-green.svg" "Step forward">}} _stepping action_ again, we see that we have moved to the second line of the input file with the resultant output of a **data** element with the _name_ attribute of _bc_version_ and it's _value_ attribute of _1.0_.
+If one presses the {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} _stepping action_ again, we see that we have moved to the second line of the input file with the resultant output of a **data** element with the _name_ attribute of _bc_version_ and it's _value_ attribute of _1.0_.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-34.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 2{{< /screenshot >}}
 
@@ -459,7 +459,7 @@ You will see the display change from
 to
 {{< screenshot "HOWTOs/UI-FeedProcessing-37.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 2{{< /screenshot >}}
 
-If we change the record number from __3__ to __12__ then either press Enter or press the {{< stroom-icon "refresh-green.svg" "Refresh">}} action we see
+If we change the record number from __3__ to __12__ then either press Enter or press the {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}} action we see
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-38.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 3{{< /screenshot >}}
 
@@ -470,7 +470,7 @@ Also noted that the #Date and #Fields lines are not considered processed data, a
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-39.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 4{{< /screenshot >}}
 
-If we select the `dsParser` pipeline element then press the {{< stroom-icon "fast-forward-green.svg" "Step last">}} action we see the `recordNo` jump to 31 which is the last processed line of our sample log file.
+If we select the `dsParser` pipeline element then press the {{< stroom-icon name="fast-forward.svg" title="Step last" colour="green" >}} action we see the `recordNo` jump to 31 which is the last processed line of our sample log file.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-40.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 5{{< /screenshot >}}
 
@@ -553,11 +553,11 @@ This code segment is
 </xsl:stylesheet>
 ```
 
-After entering this translation and pressing the {{< stroom-icon "refresh-green.svg" "Refresh">}} action shows the display
+After entering this translation and pressing the {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}} action shows the display
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-42.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 1{{< /screenshot >}}
 
-Note that this is the 31st record, so if we were to jump to the first record using the {{< stroom-icon "fast-backward-green.svg" "Step first">}} action, we see that the _input_ and _output_ change appropriately.
+Note that this is the 31st record, so if we were to jump to the first record using the {{< stroom-icon name="fast-backward.svg" title="Step first" colour="green" >}} action, we see that the _input_ and _output_ change appropriately.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-43.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 2{{< /screenshot >}}
 
@@ -844,8 +844,7 @@ Do not forget to Save {{< stroom-icon "save.svg" >}} the translation as we are c
 One last point, validating the use of the Stroom Event Logging Schema is performed in the `schemaFilter` component of the pipeline.
 Had our translation resulted in a malformed Event, this pipeline component displays any errors.
 In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd`.
-If one selects the `schemaFilter` component and then Refresh {{< stroom-icon "refresh-green.svg" "Refresh step">}} the current step, we will see that
-
+If one selects the `schemaFilter` component and then Refresh {{< stroom-icon name="refresh.svg" title="Refresh step" colour="green" >}} the current step, we will see that
 
 * there is an error as indicated by a square **Red** box {{< stroom-icon "../HOWTOs/icons/errorIndicator.png" "Error indicator">}} in the top right hand corner
 

@@ -1,7 +1,7 @@
 ---
 title: "How Tos"
 linkTitle: "How Tos"
-weight: 30
+weight: 40
 date: 2021-07-09
 tags: 
 description: >
@@ -16,7 +16,6 @@ cascade:
 These *HOWTOs* will match the development of Stroom and as a result, various elements will be updated over time, including screen captures.
 In some instances, screen captures will contain timestamps and so you may note inconsistent date or time movements within a complete HOWTO, although if a sequence of captures is contained within a section of a document, they all will be replaced.
 {{% /note %}}
-
 
 ## General
 
@@ -60,11 +59,11 @@ The reference feed HOWTOs illustrate how to create reference feeds [Create Refer
 
 ## Searches and Indexing
 
-This section covers Indexing and Searching for data in Stroom
+This section covers using Stroom to index and search data.
 
- * [Search using bash]({{< relref "Search/SearchFromBash.md" >}})
- * [Elasticsearch integration]({{< relref "Search/Elasticsearch.md" >}})
- * [Solr integration]({{< relref "Search/Solr.md" >}})
+ * [Stroom API]({{< relref "Search/stroom-api.md" >}})
+ * [Elasticsearch]({{< relref "Search/Elasticsearch.md" >}})
+ * [Solr]({{< relref "Search/Solr.md" >}})
 
 
 ## Event Post Processing

@@ -47,9 +47,6 @@
   min-height: 3em;
 }
 
-.stroom-icon {
-  vertical-align: -0.08em;
-}
 
 
 ///////////////////
@@ -244,7 +241,6 @@ pre[class*=language-] {
   font-size: small !important;
 }
 
-
 // Stop selection of command line output
 .command-line span.token.output {
 	user-select: none;
@@ -316,55 +312,177 @@ pre[class*=language-] {
   overflow-wrap: anywhere;
 }
 
+.glossary-link-icon {
+  opacity: 0.8;
+}
+
+
+//////////////////////////
+//  pipeline shortcode  //
+//////////////////////////
+
+.pipeline-container {
+  align-items:center;
+  display: flex;
+  padding-bottom: 1.0em;
+  padding-top: 1.0em;
+  width: fit-content;
+
+  .pipeline-item {
+    flex-direction: row;
+  }
+
+  .pipeline-separator {
+    background-color: $stroom-pipe-element-border;
+    height: 2px;
+    width: 10px;
+  }
+
+  .pipeline-element {
+    padding-right: 0;
+
+    .pipeline-element-text {
+      font-size: 75%;
+      padding-left: 0.0em;
+    }
+
+    .pipeline-element-icon {
+      padding-left: 0.2em;
+      padding-right: 0.1em;
+
+      .stroom-icon svg {
+        height: 15px;
+        width: 15px;
+      }
+
+      .stroom-icon span {
+        vertical-align: 0.2em;
+      }
+    }
+  }
+}
+
+
 //////////////////////////
 //  pipe-elm shortcode  //
 //////////////////////////
 
 .pipeline-element {
-  background-color: $stroom-pipe-element-background;
-  border-radius: 6px;
-  border: 1px solid $stroom-pipe-element-border;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px;
-  display: inline-block;
-  padding: 0px 5px;
+  // Adapted from stroom-app/src/main/resources/ui/css/PipelineElementBox.css
 
-  span {
-    font-size: smaller;
+  .pipeline-element-content {
+    align-items:center;
+    background-color: var(--pipeline-element-box__background-color);
+    border-radius: 50px;
+    border: 1px solid var(--pipeline-element-box__border-color);
+    box-shadow: rgba(0, 0, 0, 0.0980392) 0 2px 4px, rgba(0, 0, 0, 0.0980392) 0 0 3px;
+    display: inline-flex;
+    padding: 0.1em 0em;
+    width: fit-content;
+  }
+
+  .pipeline-element-icon {
+    align-items:center;
+    display: inline-flex;
+    padding-left: 0.5em;
+    padding-right: 0.25em;
+
+    .stroom-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .stroom-icon span {
+      vertical-align: 0.2em;
+    }
+  }
+
+  .pipeline-element-text {
+    //color: var(--pipeline-element-box__text-color);
+    // The UI colour is a bit feint for the docs so make it darker
+    color: #333;
+    font-size: 95%;
+    padding-right: 0.5em;
     text-align: center;
-    vertical-align: 0.12em;
   }
 }
+
+div.pipeline-element-demo {
+  div.pipeline-element-demo-item {
+    padding-top: 0.8em;
+  }
+}
+
 
 ////////////////////////////
 //  stroom-icon shortcode  //
 ////////////////////////////
 
-img.stroom-icon {
-  max-width: 16px;
+// Copied from stroom-button.css
+.icon-button .face {    
+  color: var(--icon-button__color);
+}
 
-  .stroom-icon-disabled {
-    opacity: 0.5;
+// Copied from stroom-button.css
+.icon-button.disabled {
+    opacity: .4;
+}
+
+.stroom-icon span {
+  vertical-align: 0.05em;
+}
+
+.stroom-icon svg{
+  width: 16px;
+  height: 16px;
+}
+
+.stroom-icon-disabled svg {
+  opacity: 0.5;
+}
+
+
+/////////////////////////////////////
+//  stroom-icon-gallery shortcode  //
+/////////////////////////////////////
+
+.stroom-icon-gallery {
+  width: 100%;
+  padding-bottom: 10px;
+
+  .stroom-icon-gallery-row {
+    padding-top: 10px;
+  }
+
+  .stroom-icon-gallery-text {
+    padding-left: 10px;
+  }
+
+  .stroom-icon svg{
+    width: 25px;
+    height: 25px;
   }
 }
 
-img.stroom-icon-disabled {
-  opacity: 0.5;
-}
+
 
 ///////////////////////////
 //  next-page shortcode  //
 ///////////////////////////
 
 .next-page-icon {
-  vertical-align: middle;
+  // Seems to need this in legacy but not here
+  //vertical-align: middle;
 }
+
 
 ///////////////////////////
 //  prev-page shortcode  //
 ///////////////////////////
 
 .prev-page-text {
-  vertical-align: text-top;
+  // Seems to need this in legacy but not here
+  //vertical-align: text-top;
 }
 
 
@@ -373,41 +491,52 @@ img.stroom-icon-disabled {
 ////////////////////////////
 
 .stroom-tab {
-  background-color: $stroom-tab-background;
-  border-radius: 6px 6px 0 0;
-  border: solid 1px $stroom-tab-border;
-  border-bottom: 0;
-  //box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px;
   display: inline-block;
   padding: 0px 5px;
   text-align: center;
   line-height: 1.3em;
+  border-bottom: 1px solid var(--splitter__background-color);
 
-  .stroom-icon {
-    max-width: 15px;
+  .stroom-tab-icon span {
+    vertical-align: 0.06em;
+    .stroom-icon svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 
   .stroom-tab-name {
     font-size: smaller;
     vertical-align: 0.12em;
   }
-  .stroom-tab-cross {
-    color: #7795b0;
-    font-weight: 700;
-    font-size: 120%;
-    vertical-align: -0.08em;
-    line-height: 0.5em;
+
+  .stroom-tab-cross span {
+    vertical-align: 0.07em;
+
+    .stroom-tab-icon {
+      .stroom-icon svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    svg {
+      color: var(--curve-tab__svg-color);
+      opacity: 0.8;
+    }
   }
 }
 
 .stroom-tab.stroom-tab-active {
-  background-color: $stroom-tab-background-active;
+  //background-color: $stroom-tab-background-active;
+  background: var(--curve-tab__background-color--hover);
+  border-bottom: solid 3px var(--blue-300);
 }
+
 
 ///////////////////////////////
 //  stroom-button shortcode  //
 ///////////////////////////////
-
 
 .stroom-button {
   background-color: $stroom-button-background;
@@ -431,69 +560,78 @@ img.stroom-icon-disabled {
 //  stroom-menu shortcode  //
 /////////////////////////////
 
-
 .stroom-menu {
   padding-left: 0.3em;
   padding-right: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  position: relative;
+  display: flex;
+  width: fit-content;
+
+  .stroom-menu-item-background:not(:first-child) {
+    // top-margin is set in style="" in shortcode
+    // Make them overlap a tiny bit
+    margin-left: -3px;
+  }
 
   // Meant to represent the bit of menu that the selected item sits in
   .stroom-menu-item-background {
-    border-color: rgba(0, 0, 0, 0.15);
+    background-color: white;
+    border-color: rgba(0, 0, 0, 0.45);
     border-left-style: solid;
     border-radius: 2px;
     border-right-style: solid;
     border-width: 1px;
     box-shadow: rgba(0, 0, 0, 0.25) 1px 2px 5px;
-    padding: 0.15rem 0.3rem;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem 0.3rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .stroom-menu-item.stroom-menu-item-leaf {
+    background: var(--row__background-color--selected--focussed);
   }
 
   // The selected item
   .stroom-menu-item {
-      background: rgba(129, 212, 250, 0.4);
-      font-size: 95%;
-      line-height: 1.05;
-      padding: 0 0.4rem;
+    border-radius: 5px;
+    background: var(--row__background-color--selected);
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    line-height: 1.15;
+    min-width: 180px;
+    //height: 30px;
+    padding: 0.2em 0.2em;
 
-      .stroom-menu-item-text {
-        display: inline-block;
-        min-width: 7rem;
+    .stroom-menu-item-text {
+      flex-grow: 1;
+    }
+
+    .stroom-menu-item-icon span {
+      vertical-align: 0.25em;
+      display: flex;
+
+      svg {
+        height: 18px;
+        width: 18px;
       }
+    }
+    .stroom-menu-item-arrow span {
+      vertical-align: 0.25em;
+      display: flex;
+      color: black;
 
-      .stroom-menu-item-icon {
-        padding-right: 0.1em;
-
-        img.stroom-icon {
-          max-width: 16px;
-          max-height: 16px;
-          vertical-align: -0.15em;
-        }
+      svg {
+        height: 10px;
+        width: 10px;
       }
+    }
   }
-
-  // Arrow between items
-  .stroom-menu-item-separator {
-    //color: #4a4a4a;
-    color: rgba(0, 0, 0, 0.65);
-    padding-left: 0.35em;
-    padding-right: 0.2em;
-  }
-
-  // These two blocks are 66's suggestion for how it should look
-  //.stroom-menu-item-background {
-      //border: thin solid rgba(0,0,0,.2);
-      //padding: .1rem;
-      //box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
-      //border-radius: 3px;
-  //}
-
-  //.stroom-menu-item {
-      //font-size: 95%;
-      //gap: .4rem;
-      //background: rgba(129, 212, 250, .8);
-      //display: inline-block;
-      //min-width: 7rem;
-      //padding: 0 .4rem;
-  //}
 }
 
 div.stroom-menu-demo {

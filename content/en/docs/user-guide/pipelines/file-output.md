@@ -1,12 +1,13 @@
 ---
 title: "File Output"
 linkTitle: "File Output"
-#weight:
+weight: 40
 date: 2021-07-27
 tags: 
   - file
 description: >
-  
+  Substitution variables for use in output file names and paths.
+
 ---
 When outputting files with Stroom, the output file names and paths can include various substitution variables to form the file and path names.
 

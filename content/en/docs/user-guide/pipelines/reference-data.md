@@ -13,9 +13,6 @@ description: >
 * [XSLT Functions]({{< relref "./xslt/xslt-functions.md" >}})
 {{% /see-also %}}
 
-
-> **See Also:**  
-
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
 For example you may have reference data feed that associates the FQDN of a device to the physical location.
 You can then perform a `stroom:lookup()` in the XSLT to decorate an event with the physical location of a device by looking up the FQDN found in the event.
@@ -33,6 +30,7 @@ Using reference data involves the following steps/processes:
 * Processing the raw events through the event pipeline.
 
 The process of creating a reference data pipeline is described in the HOWTO linked at the top of this document.
+
 
 ## Reference Data Structure
 
@@ -108,6 +106,7 @@ Two of the entries are simple text values and the last has an XML value.
 </referenceData>
 ```
 
+
 ### Reference Data Namespaces
 
 When XML reference data values are created, as in the example XML above, the XML values must be qualified with a namespace to distinguish them from the `reference-data:2` XML that surrounds them.
@@ -166,6 +165,7 @@ This reference data will be injected into event XML exactly as it, i.e.:
       </Location>
 ```
 
+
 ## Reference Data Storage
 
 Reference data is stored in two different places on a Stroom node.
@@ -173,11 +173,13 @@ All reference data is only visible to the node where it is located.
 Each node that is performing reference data lookups will need to load and store its own reference data.
 While this will result in duplicate data being held by nodes it makes the storage of reference data and its subsequent lookup very performant.
 
+
 ### On-Heap Store
 
 The On-Heap store is the reference data store that is held in memory in the Java Heap.
 This store is volatile and will be lost on shut down of the node.
 The On-Heap store is only used for storage of context data.
+
 
 ### Off-Heap Store
 
@@ -192,31 +194,44 @@ Given that LMDB utilises the page cache for holding reference data in memory the
 When storing large amounts of data you may experience the OS reporting very little free memory as a large amount will be in use by the page cache.
 This is not an issue as the OS will evict pages when memory is needed for other applications, e.g. the Java Heap.
 
+
 #### Local Disk
 
 The Off-Heap store is intended to be located on local disk on the Stroom node.
 The location of the store is set using the property `stroom.pipeline.referenceData.localDir`.
 Using LMDB on remote storage is NOT advised, see http://www.lmdb.tech/doc.
+Using the fastest storage (i.g. fast SSDs) is advised to reduce load times and lookups of data that is not in memory.
 
+{{% warning %}}
 If you are running stroom on AWS EC2 instances then you will need to attach some local instance storage to the host, e.g. SSD, to use for the reference data store.
 In tests EBS storage was found to be VERY slow.
+
 It should be noted that AWS instance storage is not persistent between instance stops, terminations and hardware failure.
 However any loss of the reference data store will mean that the next time Stroom boots a new store will be created and reference data will be loaded on demand as normal.
+{{% /warning %}}
+
 
 #### Transactions
 
 LMDB is a transactional database with ACID semantics.
 All interaction with LMDB is done within a read or write transaction.
 There can only be one write transaction at a time so if there are a number of concurrent reference data loads then they will have to wait in line.
-Read transactions, i.e. lookups, are not blocked by each other or by write transactions so once the data is loaded and is in memory lookups can be performed very quickly.
+
+Read transactions, i.e. lookups, are not blocked by each other but may be blocked by a write transaction depending on the value of the system property `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter`.
+LMDB can operate such that readers are not blocked by writers but if there is an open read transaction while a write transaction is writing data to the store then it is unable to make use of free space (from previous deletes, see [Store Size & Compaction]({{< relref "#store-size--compaction" >}})) so will result in the store increasing in size.
+If read transactions are likely while writes are taking place then this can lead to excessive growth of the store.
+Setting  `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter` to `true` will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
+Use of this setting will depend on how likely it is that loads will clash with lookups and the store size should be monitored.
+
 
 #### Read-Ahead Mode
 
 When data is read from the store, if the data is not already in the page cache then it will be read from disk and added to the page cache by the OS.
-Read-ahead is the process of speculatively reading ahead to load more pages into the page cache then were requested.
-This is on the basis that future requests for data may need the pages speculatively read into memory.
+Read-ahead is the process of speculatively reading ahead to load more pages into the page cache than were requested.
+This is on the basis that future requests for data may need the pages speculatively read into memory as it is more efficient to read multiple pages at once.
 If the reference data store is very large or is larger than the available memory then it is recommended to turn read-ahead off as the result will be to evict hot reference data from the page cache to make room for speculative pages that may not be needed.
 It can be tuned off with the system property `stroom.pipeline.referenceData.readAheadEnabled`.
+
 
 #### Key Size
 
@@ -225,13 +240,16 @@ For simple ASCII characters then this means less than 507 characters.
 If non-ASCII characters are in the key then these will take up more than one byte per character so the length of the key in characters will be less.
 This is a limitation inherent to LMDB.
 
+
 #### Commit intervals
 
 The property `stroom.pipeline.referenceData.maxPutsBeforeCommit` controls the number of entries that are put into the store between each commit.
 As there can be only one transaction writing to the store at a time, committing periodically allows other process to jump in and make writes.
 There is a trade off though as reducing the number of entries put between each commit can seriously affect performance.
-For the fastest single process performance a value of zero should be used which means it will not commit mid-load.
+For the fastest single process performance a value of `0` should be used which means it will not commit mid-load.
 This however means all other processes wanting to write to the store will need to wait.
+Low values (e.g. in the hundreds) mean very frequent commits so will hamper performance.
+
 
 #### Cloning The Off Heap Store
 
@@ -240,18 +258,46 @@ Stroom should not be running on the node being copied from.
 Simply copy the contents of `stroom.pipeline.referenceData.localDir` into the same configured location on the other node.
 The new node will use the copied store and have access to its reference data.
 
+
 #### Store Size & Compaction
 
-Due to the way LMDB works the store can only grow in size, it will never shrink, even if data is deleted.
-Deleted data frees up space for new writes to the store so will be reused but never freed. 
+Due to the way LMDB works the store can only grow in size, it will **never** shrink, even if reference data is deleted.
+Deleted data frees up space for new writes to the store so will be reused but will never be freed back to the operating system. 
 If there is a regular process of purging old data and adding new reference data then this should not be an issue as the new reference data will use the space made available by the purged data.
 
-If store size becomes an issue then it is possible to compact the store.
-`lmdb-utils` is available on some package managers and this has an `mdb_copy` command that can be used with the `-c` switch to copy the LMDB environment to a new one, compacting it in the process.
+If store size becomes an issue then it is possible to _compact_ the store.
+`lmdb-utils` is package that is available on some package managers and this has an `mdb_copy` command that can be used with the `-c` switch to copy the LMDB environment to a new one, compacting it in the process.
 This should be done when Stroom is down to avoid writes happening to the store while the copy is happening.
 
-Given that the store is essentially a cache and all data can be re-loaded another option is to delete the contents of `stroom.pipeline.referenceData.localDir` when Stroom is not running.
-On boot Stroom will create a brand new store and reference data will be re-loaded as required.
+The following is an example of how to compact the store assuming Stroom has been shut down first.
+
+{{< command-line >}}
+# Navigate to the 'stroom.pipeline.referenceData.localDir' directory
+cd /some/path/to/reference_data
+# Verify contents
+ls
+(out) data.mdb  lock.mdb
+# Create a directory to write the compacted file to
+mkdir compacted
+# Run the compaction, writing the new data.mdb file to the new sub-dir
+mdb_copy -c ./ ./compacted
+# Delete the existing store
+rm data.mdb lock.mdb
+# Copy the compacted store back in (note a lock file gets created as needed)
+mv compacted/data.mdb ./
+# Remove the created directory
+rmdir compacted
+{{</ command-line >}}
+
+Now you can re-start Stroom and it will use the new compacted store, creating a lock file for it.
+
+The compaction process is fast.
+A test compaction of a 4Gb store, compacted down to 1.6Gb took about 7s on non-flash HDD storage.
+
+Alternatively, given that the store is essentially a cache and all data can be re-loaded another option is to delete the contents of `stroom.pipeline.referenceData.localDir` when Stroom is not running.
+On boot Stroom will create a brand new empty store and reference data will be re-loaded as required.
+This approach will result in all data having to be re-loaded so will slow lookups down until it has been loaded.
+
 
 ## The Loading Process
 
@@ -276,12 +322,14 @@ The reference loader is then only concerned with reading cooked `reference:2` in
 
 In instances where reference data streams are infrequently used it may be preferable to not convert the raw reference on receipt but instead to do it in the reference loader pipeline.
 
+
 ### Duplicate Keys
 
 The Reference Data Filter pipeline element has a property `overrideExistingValues` which if set to _true_ means if an entry is found in an effective stream with the same key as an entry already loaded then it will overwrite the existing one.
 Entries are loaded in the order they are found in the `reference:2` XML document.
 If set to _false_ then the existing entry will be kept.
 If `warnOnDuplicateKeys` is set to _true_ then a warning will be logged for any duplicate keys, whether an overwrite happens or not.
+
 
 ### Value De-Duplication
 
@@ -290,12 +338,14 @@ This is useful given that typically, reference data updates may be received dail
 As a result this can mean many copies of the same value being loaded into the store.
 The store will only hold the first instance of duplicate values.
 
+
 ## Querying the Reference Data Store
 
 The reference data store can be queried within a Dashboard in Stroom by selecting `Reference Data Store` in the data source selection pop-up.
 Querying the store is currently an experimental feature and is mostly intended for use in fault finding.
 Given the localised nature of the reference data store the dashboard can currently only query the store on the node that the user interface is being served from.
 In a multi-node environment where some nodes are UI only and most are processing only, the UI nodes will have no reference data in their store.
+
 
 ## Purging Old Reference Data
 
@@ -310,11 +360,13 @@ When the purge job is run it checks the time since each reference stream was acc
 The purge age is configured via the property `stroom.pipeline.referenceData.purgeAge`.
 It is advised to schedule this job for quiet times when it is unlikely to conflict with reference loading operations as they will fight for access to the single write transaction.
 
+
 ## Lookups
 
 Lookups are performed in XSLT Filters using the XSLT functions.
 In order to perform a lookup one or more reference feeds must be specified on the XSLT Filter pipeline element.
 Each reference feed is specified along with a reference loader pipeline that will ingest the specified feed (optional convert it into `reference:2` XML if it is not already) and pass it into a Reference Data Filter pipeline element.
+
 
 ### Reference Feeds & Loaders
 
@@ -329,20 +381,46 @@ For this reason if you have multiple feed/loader combinations then order is impo
 It is possible for multiple effective streams to contain the same map/key so a feed/loader combination higher up the list will trump one lower down with the same map/key.
 Also if you have some lookups that may not return a value and others that should always return a value then the feed/loader for the latter should be higher up the list so it is searched first.
 
+
+### Effective Streams
+
+Reference data lookups have the concept of _Effective Streams_.
+An effective stream is the most recent stream for a given {{< glossary "Feed" >}} that has an _effective date_ that is less than or equal to the date used for the lookup.
+When performing a lookup, Stroom will search the stream store to find all the effective streams in a time bucket that surrounds the lookup time.
+These sets of effective streams are cached so if a new reference stream is created it will not be used until the cached set has expired.
+To rectify this you can clear the cache `Reference Data - Effective Stream Cache` on the Caches screen accessed from:
+
+{{< stroom-menu "Monitoring" "Caches" >}}
+
+
 ### Standard Key/Value Lookups
 
 Standard key/value lookups consist of a simple string key and a value that is either a simple string or an XML fragment.
 Standard lookups are performed using the various forms of the [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#lookup" >}}) XSLT function.
+
+{{% note %}}
+If the key is not found and the key is an integer then it will attempt a range lookup using the same key.
+This is to allow for maps that contain a mixture of key/value pairs and range/value pairs.
+{{% /note %}}
+
 
 ### Range Lookups
 
 Range lookups consist of a key that is an integer and a value that is either a simple string or an XML fragment.
 For more detail on range lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#range-lookups" >}}).
 
+{{% note %}}
+The lookup will initially look for a single key that matches the lookup key.
+If an exact match is not found then it will look for a range that contains the key.
+This is to allow for maps that contain a mixture of key/value pairs and range/value pairs.
+{{% /note %}}
+
+
 ### Nested Map Lookups
 
 Nested map lookups involve chaining a number of lookups with the value of each map being used as the key for the next.
 For more detail on nested lookups see the XSLT function [`stroom:lookup()`]({{< relref "./xslt/xslt-functions.md#nested-maps" >}}).
+
 
 ### Bitmap Lookups
 
@@ -350,6 +428,7 @@ A bitmap lookup is a special kind of lookup that actually performs a lookup for 
 For more detail on bitmap lookups see the XSLT function [`stroom:bitmap-lookup()`]({{< relref "./xslt/xslt-functions.md#bitmap-lookup" >}}).
 
 Values can either be a simple string or an XML fragment.
+
 
 ### Context data lookups
 
@@ -361,31 +440,7 @@ Context reference data is specific to a single event stream so is transient in n
 
 Typically the reference loader for a context stream will include a translation step to convert the raw context data into `reference:2` XML.
 
+
 ## Reference Data API
 
-The reference data store has an API to allow other systems to access the reference data store.
-The `lookup` endpoint requires the caller to provide details of the reference feed and loader pipeline so if the effective stream is not in the store it can be loaded prior to performing the lookup.
-
-Below is an example of a lookup request.
-
-```json
-{
-  "mapName": "USER_ID_TO_LOCATION",
-  "effectiveTime": "2020-12-02T08:37:02.772Z",
-  "key": "jbloggs",
-  "referenceLoaders": [
-    {
-      "loaderPipeline" : {
-        "name" : "Reference Loader",
-        "uuid" : "da1c7351-086f-493b-866a-b42dbe990700",
-        "type" : "Pipeline"
-      },
-      "referenceFeed" : {
-        "name": "USER_ID_TOLOCATION-REFERENCE",
-        "uuid": "60f9f51d-e5d6-41f5-86b9-ae866b8c9fa3",
-        "type" : "Feed"
-      }
-    }
-  ]
-}
-```
+See [Reference Data API]({{< relref "/docs/user-guide/api/reference-data-api" >}}).

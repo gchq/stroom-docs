@@ -251,7 +251,7 @@ In this test we will use the direct feed interface of the Stroom application, ra
 One would normally use this interface for time sensitive data which shouldn't aggregate in a proxy waiting for
 the Stroom application to collect it. In this situation we use the command
 ```bash
-curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeed/direct" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
+curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeeddirect" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
 ```
 
 To prepare for this test, we monitor the Stroom application log using the `T` bash alias on each node. So on each node run the command

@@ -11,11 +11,45 @@ tags:
 
 ## Links
 
-Links can be added using either standard markdown link syntax or using a Hugo shortcode.
-The advantage of the shortcode is that hugo will check for broken links when building the site so there are preferred.
+While links can be added using standard markdown link syntax you should use Hugo shortcodes to add them.
+The advantage of the shortcode is that Hugo will check for broken links when building the site.
 
-Links to external sites, i.e. on the internet, should have ` (external link)` appended to the link title.
-This makes it clear to readers which links are local and which are external and therefore possibly not available if there is no access to the internet.
+
+### External links
+
+As this site is deployed to environments with no internet connect and is also released in PDF form it is important that any links to locations outside of the this site (i.e. on the internet) are clearly marked.
+To include an external link do the following:
+
+* This is a link to {{< external-link "Stroom on Github" "https://github.com/gchq/stroom" >}} with a title.
+
+  ```markdown
+  This is a link to {{</* external-link "Stroom on Github" "https://github.com/gchq/stroom" */>}} with a title.
+  ```
+
+* This is the same link with no title, {{< external-link "https://github.com/gchq/stroom" >}}.
+
+  ```markdown
+  This is the same link with no title, {{</* external-link "https://github.com/gchq/stroom" */>}}.
+  ```
+
+
+#### Versioned URLs
+
+Some external links are to other Stroom URLs are versioned.
+If you need to link to a site external to this one that has the Stroom version in the URL then you can use the tag `@@VERSION@@` in the URL.
+This will be translated into the Stroom version of this site, as seen in the _Stroom Version (...)_ drop down at the top of the page.
+This saves you from having to update the URL on each release of Stroom.
+
+* This is a versioned URL {{< external-link "https://gchq.github.io/stroom/v@@VERSION@@" >}} 
+
+  ```markdown
+  This is a versioned URL {{</* external-link "https://gchq.github.io/stroom/v@@VERSION@@" */>}} 
+  ```
+
+{{% warning %}}
+This will not work for version `legacy` as that is not an actual Stroom version.
+{{% /warning %}}
+
 
 
 ### Anchors
@@ -30,8 +64,47 @@ The anchor for a heading is the heading text with:
 
 For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor `#mr-oneils-1st-event-something`.
 
+See The link examples below that use anchors.
 
-### Shortcode page link examples
+
+#### Duplicate anchors
+
+If you have two headings on the same page then Hugo will suffix the anchors with a sequential number to ensure uniqueness of the anchor.
+For example, with the following markdown:
+
+```markdown
+## Apples
+
+### Example
+
+## Oranges
+
+### Example
+```
+
+Hugo will create the following anchors:
+
+`apples`  
+`example`  
+`oranges`  
+`example-1`
+
+If you want to avoid confusion and removed the risk of anchors breaking if new headings are added in the middle, then you can explicitly name anchors:
+
+```markdown
+## Apples
+
+### Example {#apples-example}
+
+## Oranges
+
+### Example {#oranges-example}
+```
+
+This is only worth doing if you want to link to these heading.
+
+
+### Shortcode internal page link examples
 
 Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.
 
@@ -61,10 +134,10 @@ The following are some example of different links to internal content.
 
 #### Relative path
 
-* A [link]({{< relref "../../../docs/proxy/install.md#prerequisites" >}}) to a heading anchor on page above this one, using a relative path.
+* A [link]({{< relref "../versions" >}}) to a heading anchor on page above this one, using a relative path.
 
   ```markdown
-  [link]({{</* relref "../../../docs/proxy/install.md#prerequisites" */>}})
+  [link]({{</* relref "../versions" */>}})
   ```
 
 
@@ -179,13 +252,35 @@ in the rendered site.
 
 ### Download file links
 
-To create a link to download a file, {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}like this{{< /file-link >}}, that is served by this site you need to do:
+You can create a link to download a file, like these:
+
+* Download a {{< file-link "quick-start-guide/mock_stroom_data.csv" >}}file{{< /file-link >}}.
+
+* Download {{< file-link "quick-start-guide/mock_stroom_data.csv" />}}
 
 ```markdown
 {{</* file-link "quick-start-guide/mock_stroom_data.csv" */>}}Link Title{{</* /file-link */>}}
+
+{{</* file-link "quick-start-guide/mock_stroom_data.csv" /*/>}}
 ```
 
-Paths are relative to `/assets/files/`.
+All paths are relative to `/assets/files/`.
+
+
+### Glossary links
+
+If you need to create a link to an item in the [Glossary]({{< relref "docs/glossary" >}}) you can use the `glossary` shortcode.
+E.g.
+
+* A {{< glossary "feed" >}} is something you should know about, and so are {{< glossary "stream" "streams" >}}.
+
+  ```markdown
+  A {{</* glossary "feed" */>}} is something you should know about, and so are {{</* glossary "stream" "streams" */>}}.
+  ```
+
+The argument to the shortcode is the glossary term.
+This should match the heading text on the Glossary page exactly, ignoring case.
+It will be converted to an HTML anchor so that you can link directly to the heading for the term in question.
 
 
 ## Code
@@ -408,11 +503,17 @@ The shortcode takes the following positional arguments:
 
 If you want to display shell output then prefix each output line with `(out)`.
 It will then be displayed without a prompt.
+To display a blank line with no prompt then have a line with just `(out)` in it.
+
+If your shell command is very long then you can split it into multiple lines using the shell line continuation character `\` which must be the last character on the line.
+If this character is present then it will be rendered with a different prompt to indicate it is a continuation.
+Readers can then copy/past the muli-line command into a shell and run it.
 
 {{< cardpane >}}
   {{< card header="Rendered" >}}
 {{< command-line "david" "wopr" >}}
-echo "hello world"
+echo hello \
+world
 (out)hello world
 id
 (out)uid=1000(david) gid=1000(david)
@@ -421,11 +522,75 @@ id
   {{< card header="Markdown" >}}
 ```markdown
 {{</* command-line "david" "wopr" */>}}
-echo "hello world"
-(out)class
+echo hello \
+world
+(out)hello world
 id
 (out)uid=1000(david) gid=1000(david)
 {{</* command-line */>}}
+```
+  {{< /card >}}
+{{< /cardpane >}}
+
+
+### MySQL shell blocks
+
+To demonstrate commands being run in a MySQL shell you can use the `sql-shell` shortcode.
+This works in a similar way to the `command-line` shortcode but has a different prompt and no shortcode arguments.
+
+If you want to display shell output then prefix each output line with `(out)`.
+It will then be displayed without a prompt.
+
+If your sql statement is multi-line, prefix all lines except the first with `(con)` (for continuation).
+Continuation lines will be rendered with a continuation prompt (`->`).
+
+To display a blank line with no prompt then have a line with just `(out)` in it.
+
+{{< cardpane >}}
+  {{< card header="Rendered" >}}
+{{< sql-shell >}}
+select *
+(con)from token_type
+(con)limit 2;
+(out)+----+------+
+(out)| id | type |
+(out)+----+------+
+(out)|  1 | user |
+(out)|  2 | api  |
+(out)+----+------+
+(out)2 rows in set (0.00 sec)
+(out)
+select database();
+(out)+------------+
+(out)| database() |
+(out)+------------+
+(out)| stroom     |
+(out)+------------+
+(out)1 row in set (0.00 sec)
+{{</ sql-shell >}}
+  {{< /card >}}
+  {{< card header="Markdown" >}}
+```markdown
+{{</* sql-shell */>}}
+select *
+(con)from token_type
+(con)limit 2;
+(con)+----+------+
+(con)| id | type |
+(con)+----+------+
+(con)|  1 | user |
+(con)|  2 | api  |
+(con)+----+------+
+(out)2 rows in set (0.00 sec)
+(out)
+select database();
+(out)+------------+
+(out)| database() |
+(out)+------------+
+(out)| stroom     |
+(out)+------------+
+(out)1 row in set (0.00 sec)
+{{</* sql-shell */>}}
 ```
   {{< /card >}}
 {{< /cardpane >}}
@@ -477,15 +642,25 @@ The list of included language names are:
 
 To include extra languages in this site you need to build a new version of the `prism.js` and `prism.css` files.
 This can be done {{< external-link "here" "https://prismjs.com/index.html#supported-languages" >}}.
-When creating new versions of these file you must included the languages and plugins already included else you may break this site.
+When creating new versions of these file you must include the languages and plugins already included else you may break this site.
 The generated files are then copied over the top of `/static/css/prism.css` and `/static/js/prism.js`.
 Both files include a comment at the top with the link to the PrismJs download page with the currently included items selected.
 Use this link then add any additional items, bearing in mind the size of the download and its impact on page load times.
 
 An example of the download link is {{< external-link "https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+csv+groovy+java+jq+json+markdown+python+regex+scss+sql+toml+yaml&plugins=line-highlight+line-numbers+command-line+toolbar+copy-to-clipboard+treeview */" >}}
 
+{{% warning %}}
+The css/js downloaded from the Prism site is taken from the head of their master branch so even though the css/js mention a Prism version number this may be the same for downloads done at different times.
+{{% /warning %}}
+
 
 ## Alerts
+
+Various page/block level quotes for drawing attention to things.
+
+{{% warning %}}
+Using shortcodes, e.g. `{{</* pipe-elm "SplitFilter" */>}}` inside an of these alerts is currently not fully supported so may not work.
+{{% /warning %}}
 
 
 ### Warning block Quote
@@ -532,6 +707,26 @@ This is a note that can contain **markdown**.
 {{%/* /note */%}}
 ```
 
+
+### See also block Quote
+
+Useful for linking to other areas of the documentation or to external sites.
+
+{{% see-also %}}
+[Note block quote]({{< relref "#note-block-quote" >}})  
+[Warning block quote]({{< relref "#warning-block-quote" >}})
+{{% /see-also %}}
+
+The markdown for this is:
+
+```markdown
+{{%/* see-also */%}}
+[Note block quote]({{</* relref "#note-block-quote" */>}})  
+[Warning block quote]({{</* relref "#warning-block-quote" */>}})
+{{%/* /see-also */%}}
+```
+
+
 ### Page level info
 
 {{% pageinfo %}}
@@ -548,6 +743,8 @@ This is some info that can contain **markdown**.
 
 
 ### TODO block Quote
+
+Used to indicate areas of the documentation that are unfinished or incorrect.
 
 {{% todo %}}
 This is a TODO that can contain `markdown`.
@@ -610,4 +807,4 @@ root:
 
 ## Tabbed panes
 
-Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.
+Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.

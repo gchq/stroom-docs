@@ -151,6 +151,7 @@ Paragraph 2.
 
 * A heading line should be preceded by two blank lines and followed by one blank line.
   This makes the headings clearer in the markdown source.
+  The only exception to this is when one heading come immediately after its parent heading with no text in between.
 * A fenced code block should be surrounded by one blank line.
 * Paragraphs should be separated by one blank line.
 * Bulleted and numbered lists should be surrounded by one blank line.
@@ -163,7 +164,6 @@ The text belonging to the previous heading.
 
 
 ## A Heading
-
 
 ## A sub heading
 
@@ -191,6 +191,9 @@ Here are some numbered steps:
 1. Step 3.
 
 Another random line.
+
+
+## Another Heading
 ```
 
 
@@ -296,6 +299,7 @@ A simple paragraph block quote.
 > This is a simple block quote.
 > This is the second sentence on the same line.
 
+
 ### Multi line
 
 A pair of spaces at the end of a line can be used to force line breaks, e.g.:
@@ -312,7 +316,6 @@ A pair of spaces at the end of a line can be used to force line breaks, e.g.:
 
 
 ## Lists
-
 
 ### Bulleted list
 
@@ -363,7 +366,6 @@ This makes the file easier to edit and means the addition of one item in the mid
 ```
   {{< /card >}}
 {{< /cardpane >}}
-
 
 
 ### Check List
@@ -440,10 +442,35 @@ Tables should ideally have its columns aligned in the markdown for clarity in th
 | Beastie Boys | License to Ill | 1986 |
 ```
 
-Both will produce the same result but the latter can be harder to read in markdown form.
+Both will produce the same result.
+The latter can be harder to read in markdown form.
+The former is harder to create and update in markdown form.
 
 | Artist          | Album          | Year |
 |-----------------|----------------|------|
 | Michael Jackson | Thriller       | 1982 |
 | Prince          | Purple Rain    | 1984 |
 | Beastie Boys    | License to Ill | 1986 |
+
+
+## Comments
+
+As the Markdown content is procesed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
+This can be useful when you want to leave development comments in the content that are not for display in the rendered site.
+Comments are done with the HTML comment syntax, i.e.
+
+```html
+<!-- This is a comment -->
+
+<!--
+This is a
+mult-line comment
+-->
+```
+
+<!-- This is a comment -->
+
+<!--
+This is a
+mult-line comment
+-->

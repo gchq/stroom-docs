@@ -140,7 +140,7 @@ Clicking on the Pipeline **Settings** sub-item and add an appropriate descriptio
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-02.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline description{{< /screenshot >}}
 
-Now switch to the **Structure** sub-item and select the {{< pipe-elm "source" "Source" >}} element.
+Now switch to the **Structure** sub-item and select the {{< pipe-elm "Source" "Source" >}} element.
 
 Next click on the _Add New Pipeline Element_ icon {{< stroom-icon "add.svg" "Add pipeline element" >}}.
 
@@ -184,7 +184,7 @@ At this stage the Pipeline should look like
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-12.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline view{{< /screenshot >}}
 
-To continue building the Pipeline Structure, left click the {{< pipe-elm "xsltFilter" "ClientAUSxlstFilter" >}}
+To continue building the Pipeline Structure, left click the {{< pipe-elm "XSLTFilter" "ClientAUSxlstFilter" >}}
 
 ClientAUSxsltFilter element then left click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element" >}} to bring up the pipeline Element context menu and select the SchemaFilter item.
 
@@ -263,7 +263,7 @@ The completed Element should look like
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-29.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xmlWriter Edit Property completed{{< /screenshot >}}
 
-Next, select the {{< pipe-elm "rollingFileAppender" "AUSrollingFileAppender" >}} and change the Properties as per
+Next, select the {{< pipe-elm "RollingFileAppender" "AUSrollingFileAppender" >}} and change the Properties as per
 
 * fileName to be `fwd_${ms}.lock`
 * frequency to be `15m`
@@ -271,7 +271,7 @@ Next, select the {{< pipe-elm "rollingFileAppender" "AUSrollingFileAppender" >}}
 * rolledFileName to be `fwd_${ms}.ready`
 
 Note that these settings are for demonstration purposes only and will depend on your unique Stroom instance's configuration.
-The outputPath can contain replacement variables to provide more structure if desired. {{< external-link "File Output substitution variables" "https://gchq.github.io/stroom-docs/user-guide/pipelines/file-output.html" >}}
+The outputPath can contain replacement variables to provide more structure if desired. [File Output substitution variables]({{< relref "file-output" >}})
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-31.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline rollingFileAppender Edit Property completed{{< /screenshot >}}
 
@@ -316,11 +316,11 @@ and we will choose the {{< stroom-icon "document/Pipeline.svg">}} _MultiGeoFwd_ 
 We are now presented with the _Stepping_ tab positioned at the start
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-36.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline start{{< /screenshot >}}
 
-If we step forward by clicking on the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon we will see that our first event in our source stream has a Client Country location of USA.
+If we step forward by clicking on the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon we will see that our first event in our source stream has a Client Country location of USA.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-37.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test first record{{< /screenshot >}}
 
-If we now click on the {{< pipe-elm "xsltFilter" "ClientAUSxsltFilter" >}} element we will see the ClientAUS translation in the code pane.
+If we now click on the {{< pipe-elm "XSLTFilter" "ClientAUSxsltFilter" >}} element we will see the ClientAUS translation in the code pane.
 The first Event in the _input_ pane and an empty event in the _output_ pane.
 The output is empty as the Client/Location/Country is NOT the string _AUS_, which is what the translation is matching on.
 
@@ -331,16 +331,16 @@ This is because this Event's Client/Location/Country value is the string _AUS_.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-39.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test fifth record output{{< /screenshot >}}
 
-Note, that you can move to the 5th Event on the pipeline by clicking on the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon repeatedly until you get to the 5th event, or you can insert your cursor into the **recordNo** of the stepping key to manually change the recordNo from 1 to 5
+Note, that you can move to the 5th Event on the pipeline by clicking on the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon repeatedly until you get to the 5th event, or you can insert your cursor into the **recordNo** of the stepping key to manually change the recordNo from 1 to 5
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-40.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline stepping key{{< /screenshot >}} and then press **Enter**.
 This jumps the stepping process to the RecordNo you specify, in this particular case "5". 
 
-If you repeatedly click on the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon seven more times you will continue to see Events in the _output_ pane, as our stream source Client/Location/Country value is _AUS_ for Events 5-11.
+If you repeatedly click on the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon seven more times you will continue to see Events in the _output_ pane, as our stream source Client/Location/Country value is _AUS_ for Events 5-11.
 
-Now, double click on the {{< pipe-elm "xsltFilter" "ClientGBRxsltFilter" >}} element.
+Now, double click on the {{< pipe-elm "XSLTFilter" "ClientGBRxsltFilter" >}} element.
 The _output_ pane will once again be empty as the Client/Location/Country value of this Event (AUS) does not match what your translation is filtering on (GBR).
 
-If you now step forward one event using the {{< stroom-icon "step-forward-green.svg" "Step Forward" >}} icon, you will see the ClientGBR translation _output_ pane populate as Events 12-16 have a Client/Location/Country of GRC.
+If you now step forward one event using the {{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green"  >}} icon, you will see the ClientGBR translation _output_ pane populate as Events 12-16 have a Client/Location/Country of GRC.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-42.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline ClientGBR populated{{< /screenshot >}}
 

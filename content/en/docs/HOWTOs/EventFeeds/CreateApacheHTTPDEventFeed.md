@@ -128,7 +128,7 @@ Save the feed by clicking on the save icon {{< stroom-icon "save.svg" >}}.
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/TextConverter.svg" >}} _Text Converter_
+{{< stroom-menu "New" "Text Converter" >}}
 
 When the **New Text Converter** 
 
@@ -155,7 +155,7 @@ Save the text converter by clicking on the save icon {{< stroom-icon "save.svg" 
 
 Within the Explorer pane, and having selected the `Apache HTTPD` system group, right click to bring up object context menu, then select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/XSLT.svg" >}} _XSLT_
+{{< stroom-menu "New" "XSL Translation" >}}
 
 When the **New XSLT** selection window comes up,
 
@@ -182,10 +182,9 @@ In the process of creating this pipeline we have assumed that the  **Template Pi
 
 Within the Explorer pane, and having selected the Apache HTTPD system group, right click to bring up object context menu, then select:
 
-{{< stroom-icon "add.svg" "New">}} _New_ => {{< stroom-icon "document/Pipeline.svg" >}} _Pipeline_
+{{< stroom-menu "New" "Pipeline" >}}
 
-When the **New Pipeline** selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS
-into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
+When the **New Pipeline** selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
 At this you will be presented with the new pipeline’s configuration tab
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-15.png" >}}New Pipeline tab{{< /screenshot >}}
@@ -214,7 +213,7 @@ When the **Choose item**
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-18.png" >}}New Pipeline inherited from{{< /screenshot >}}
 
 selection window appears, select from the `Template Pipelines` system group.
-In this instance, as our input data is text, we select (left click) the {{< stroom-icon "Document/Pipeline.svg" >}} _Event Data (Text)_ pipeline
+In this instance, as our input data is text, we select (left click) the {{< stroom-icon "document/Pipeline.svg" >}} _Event Data (Text)_ pipeline
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-19.png" >}}New Pipeline inherited selection{{< /screenshot >}}
 
@@ -241,7 +240,7 @@ Property** selection window that allows you to edit the given property
 
 We leave the Property **Source:** as Inherit but we need to change the Property **Value:** from _None_ to be our newly created Apache-SSLBlackBox-V2.0-EVENTS Text Converter.
 
-To do this, position the cursor over the menu selection icon {{< stroom-icon "assorted/popup.png" "Menu selection">}} to the right of the **Value:** text display box and click to select.
+To do this, position the cursor over the menu selection icon {{< stroom-icon "ellipses-horizontal.svg" "Menu selection">}} to the right of the **Value:** text display box and click to select.
 Navigate to the `Apache HTTPD` system group then select the Apache-SSLBlackBox-V2.0-EVENTS text Converter
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-23.png" >}}New Pipeline textconverter association{{< /screenshot >}}
@@ -257,7 +256,7 @@ Again press {{< stroom-btn "Ok" >}} to finish editing this property and we see t
 
 We perform the same actions to associate the translation.
 
-First, we select the translation Filter’s {{< pipe-elm "xsltFilter" "translationFilter" >}} element and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**.
+First, we select the translation Filter’s {{< pipe-elm "XSLTFilter" "translationFilter" >}} element and then within translation Filter’s **Property** pane we double click on the _xslt_ Property Name to bring up the **Property Editor**.
 As before, bring up the **Choose item** selection window, navigate to the `Apache HTTPD` system group and select the
 Apache-SSLBlackBox-V2.0-EVENTS xslt Translation.
 
@@ -400,7 +399,7 @@ This is the Source display for the Event Pipeline.
 
 ### Step data through Pipeline - Text Converter
 
-We click on the {{< pipe-elm "dsParser" >}} element to enter the Text Converter stepping window.
+We click on the {{< pipe-elm "DSParser" >}} element to enter the Text Converter stepping window.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-46.png" >}}pipeline Stepping tab - Text Converter{{< /screenshot >}}
 
@@ -432,7 +431,7 @@ The minimum text converter contains
 </dataSplitter>
 ```
 
-If we now press the Step First {{< stroom-icon "fast-backward-green.svg" "Step first">}} icon the error will disappear and the stepping window will show.
+If we now press the Step First {{< stroom-icon name="fast-backward.svg" title="Step first" colour="green" >}} icon the error will disappear and the stepping window will show.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-48.png" >}}pipeline Stepping tab - Text Converter Simple A{{< /screenshot >}}
 
@@ -458,7 +457,7 @@ With the text converter containing
 </dataSplitter>
 ```
 
-and a click on the Refresh Current Step {{< stroom-icon "refresh-green.svg" "Refresh">}} icon we will see the _output_ pane contain
+and a click on the Refresh Current Step {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}} icon we will see the _output_ pane contain
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-49.png" >}}Text Converter Simple B{{< /screenshot >}}
 
@@ -468,15 +467,15 @@ The following is our complete Text Converter which generates xml records as defi
 
 {{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/ApacheHTTPDBlackBox-DataSplitter.txt" "xml" >}}ApacheHTTPD BlackBox - Data Splitter{{</textfile >}}
 
-If we now press the Step First {{< stroom-icon "fast-backward-green.svg" "Step first">}} icon we will see the complete parsed record
+If we now press the Step First {{< stroom-icon name="fast-backward.svg" title="Step first" colour="green" >}} icon we will see the complete parsed record
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-50.png" >}}pipeline Stepping tab - Text Converter Complete{{< /screenshot >}}
 
-If we click on the Step Forward {{< stroom-icon "step-forward-green.svg" "Step forward">}} icon we will see the next event displayed in both the _input_ and _output_ panes.
+If we click on the Step Forward {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} icon we will see the next event displayed in both the _input_ and _output_ panes.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-51.png" >}}pipeline Stepping tab - Text Converter Complete second event{{< /screenshot >}}
 
-we click on the Step Last {{< stroom-icon "fast-forward-green.svg" "Step last">}} icon we will see the last event displayed in both the _input_ and _output_ panes.
+we click on the Step Last {{< stroom-icon name="fast-forward.svg" title="Step last" colour="green" >}} icon we will see the last event displayed in both the _input_ and _output_ panes.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-52.png" >}}pipeline Stepping tab - Text Converter Complete last event{{< /screenshot >}}
 
@@ -499,13 +498,13 @@ Note, you should now Save {{< stroom-icon "save.svg" >}} your edited Text Conver
 
 ### Step data through Pipeline - Translation
 
-To start authoring the xslt Translation Filter, press the {{< pipe-elm "xsltFilter" "translationFilter" >}} element which steps us to the xsl Translation Filter pane.
+To start authoring the xslt Translation Filter, press the {{< pipe-elm "XSLTFilter" "translationFilter" >}} element which steps us to the xsl Translation Filter pane.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-54.png" >}}pipeline Stepping tab - Translation Initial{{< /screenshot >}}
 
 As for the _Text Converter_ stepping tab, this tab is divided into three sub-panes. The top one is the xslt translation editor and it will allow you to edit the xslt translation. The bottom left window displays the _input_ to the xslt translation (which is the output from the _Text Converter_). The bottom right window displays the _output_ from the xslt Translation filter for the given input.
 
-We now click on the pipeline Step Forward button {{< stroom-icon "step-forward-green.svg" "Step forward">}} to single step the Text Converter _records_ element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.
+We now click on the pipeline Step Forward button {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} to single step the Text Converter _records_ element data through our xslt Translation. We see no change as an empty translation will just perform a copy of the input data.
 
 To correct this, we will author our xslt translation. Like the Data Splitter this is also authored incrementally. A minimum xslt translation might contain
 
@@ -632,7 +631,7 @@ Adding in the EventSource elements (without ANY error checking!) as per
     </xsl:template>
 ```
 
-And after a Refresh Current Step {{< stroom-icon "refresh-green.svg" "Refresh">}} we see our output event ‘grow’ to
+And after a Refresh Current Step {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}} we see our output event ‘grow’ to
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-57.png" >}}Translation Minimal++{{< /screenshot >}}
 
@@ -640,7 +639,7 @@ We now complete our translation by expanding the _EventDetail_ elements to have 
 
 {{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/ApacheHTTPDBlackBox-TranslationXSLT.txt" "xml" >}}Apache BlackBox Translation XSLT{{</textfile >}}
 
-And after a Refresh Current Step {{< stroom-icon "refresh-green.svg" "Refresh">}} we see the completed `<EventDetail>` section of our output event
+And after a Refresh Current Step {{< stroom-icon name="refresh.svg" title="Refresh" colour="green" >}} we see the completed `<EventDetail>` section of our output event
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-58.png" >}}Translation Complete{{< /screenshot >}}
 

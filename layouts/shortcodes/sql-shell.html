@@ -1,0 +1,33 @@
+<!-- 
+{{/*
+Short code to add SQL shell input/output
+Usage:
+sql-shell username hostname language
+
+Prefix lines with '(out)' and it will render them as output lines
+
+See https://prismjs.com/plugins/command-line/
+
+e.g.:
+{{% command-line "jdoe" "bigserver" %}}
+echo "hello world"
+(out)hello world
+id
+(out)uid=1000(jdoe) gid=1000(jdoe)
+{{% /command-line %}}
+
+*/}}
+-->
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-sql" 
+    data-prompt="mysql>" 
+    data-filter-output="(out)"
+    data-continuation-prompt="->"
+    data-filter-continuation="(con)">
+  {{- with (.Inner | default "" ) -}}
+    <code class="language-sql">{{- trim . " \n" -}}</code>
+  {{- end -}}
+  </pre>
+</div>

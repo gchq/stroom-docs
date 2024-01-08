@@ -3,14 +3,20 @@ title: "MySQL Setup"
 linkTitle: "MySQL Setup"
 #weight:
 date: 2021-08-20
-tags: 
+tags:
+  - TODO
 description: >
   
 ---
 
+{{% todo %}}
+This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
+{{% /todo %}}
+
+
 ## Prerequisites
 
-- MySQL 5.5.y server installed (e.g. yum install mysql-server)
+- MySQL 8.0.x server installed (e.g. yum install mysql-server)
 - Processing User Setup
 
 A single MySQL database is required for each Stroom instance.
@@ -30,10 +36,11 @@ mysql> quit
 
 The following commands can be used to auto start mysql if required:
 
-```bash
-[root@stroomdb ~]# /sbin/chkconfig –level 345 mysqld on
-[root@stroomdb ~]# /sbin/service httpd start
-```
+{{< command-line "root" "stroomdb" >}}
+/sbin/chkconfig –level 345 mysqld on
+/sbin/service httpd start
+{{</ command-line >}}
+
 
 ## Overview
 
