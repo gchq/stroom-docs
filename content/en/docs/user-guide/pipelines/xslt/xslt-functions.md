@@ -157,7 +157,7 @@ The following are example lookups using the above reference data:
 
 Converts a CIDR IP address range to an array of numeric IP addresses representing the start and end (broadcast) of the range.
 
-When storing the result in a variable, ensure you indicate the type as an integer array (`xs:integer*`), as shown in the below example.
+When storing the result in a variable, ensure you indicate the type as a string array (`xs:string*`), as shown in the below example.
 
 ### Example XSLT
 
