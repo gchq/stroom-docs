@@ -1,0 +1,1959 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../docs/sending-data/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Sending Data to Stroom | Stroom</title>
+<meta name="description" content="How to send data (event logs) into Stroom or one of its proxies.
+">
+<meta property="og:title" content="Sending Data to Stroom" />
+<meta property="og:description" content="How to send data (event logs) into Stroom or one of its proxies.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/sending-data/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Sending Data to Stroom">
+<meta itemprop="description" content="How to send data (event logs) into Stroom or one of its proxies.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sending Data to Stroom"/>
+<meta name="twitter:description" content="How to send data (event logs) into Stroom or one of its proxies.
+"/>
+
+
+
+
+<link rel="preload" href="../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" as="style">
+<link href="../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-root.css"/>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-00000000-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../news/"><span>News</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.3)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../">7.3 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../offline-search-index.6a2b9234426023baf393a0ee35924679.json"
+    data-offline-search-base-href="../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../docs/sending-data/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Sending Data to Stroom</h1>
+<div class="lead">How to send data (event logs) into Stroom or one of its proxies.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-82fb8464f790ebfcccb229c9ed4ef42c">Event Data Formats</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1.1: <a href="#pg-aede5fece9557c07ae4c3c40cfc4f738">Character Encoding</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.2: <a href="#pg-f41830b8bde7c2f6191776e35b843cb9">Event XML Fragments</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-ea050b499963f2ad2cc8153ae264aabe">Header Arguments</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-2fd6390e6e6756f84779583c181fdbd4">Response Codes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-e3736768753160c52bfec0fc2cdcae40">Payload Formats</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-3531374684773e7f54ae3921e8c9c4fe">SSL Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-175e47591d90f91548b80141b6d7c4d2">Java Keystores</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7: <a href="#pg-e821565def705859aee784ad096c387f">Example Clients</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>7.1: <a href="#pg-f8a034cc20afebf36e739b2f5b101c66">curl (Linux)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.2: <a href="#pg-63790e65a84e97fcd55409e23aa7964b">curl (Windows)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.3: <a href="#pg-166a5e5a02228e4ece5fed9278250e81">event-logging (Java library)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.4: <a href="#pg-295b677760e8a81324ed677a90fafcb1">send_to_stroom.sh (Linux)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.5: <a href="#pg-12691c821995ef3fad858d48ad731b0c">Simple C# Client</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.6: <a href="#pg-1e4e762a6a08dea73db4452a6a130840">Simple Java Client</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.7: <a href="#pg-5816a31f40b44194fbd5c9e1249594ad">stroom-log-sender (Docker)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.8: <a href="#pg-c8c3de6aa6d5f3bfe0f2cc34d6e7e5c9">VBScript (Windows)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7.9: <a href="#pg-859ebc81ca735b3aef6548c958a0a8a4">wget (Windows)</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>Stroom and Stroom Proxy have a simple HTTP POST interface that requires HTTP header arguments to be supplied as described <a href="../../../docs/sending-data/header-arguments/">here</a>.</p>
+<p>Files are posted to Stroom and Stroom Proxy as described <a href="../../../docs/sending-data/payloads/">here</a>.</p>
+<p>Stroom will return a response code indicating the success or failure status of the post as described <a href="../../../docs/sending-data/response-codes/">here</a></p>
+<p>Data can be sent from any operating systems or applications.
+Some examples to aid in sending data can be found <a href="../../../docs/sending-data/example-clients/">here</a></p>
+<p>It is common practice for the developers/admins of a client system to write the translation to normalise their data as they&rsquo;re in the best position to understand their logging and to generate specific events as required.
+See <a href="../../../docs/howtos/eventfeeds/translation-how-to/">here</a> for further details.</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
+    
+  <h1 id="pg-82fb8464f790ebfcccb229c9ed4ef42c">1 - Event Data Formats</h1>
+    <div class="lead">The data formats to use when sending data to Stroom.</div>
+	<p>Stroom accepts data in many different forms as long as they are text data and are in one of the supported character encodings.
+The following is a non-exhaustive list of formats supported by Stroom:</p>
+<ul>
+<li>Event XML fragments</li>
+<li>Events XML</li>
+<li>JSON</li>
+<li>Delimited data, with and without a header row (e.g CSV, TSV, etc.)</li>
+<li>Fixed width text data</li>
+<li>Multi line data (where each line can be a different format), e.g. Auditd.</li>
+</ul>
+<h2 id="preferred-format">Preferred format</h2>
+<p>Where the system/application generating the logs is developed by you and the log format is under your control, the preferred format is Events XML or Event XML fragments.
+The reason for this is that all data in Stroom will be normalised into a standard form.
+This standard form is controlled by the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://gchq.github.io/event-logging-schema" target="_blank" class="" style="" title="event-logging XML Schema (external link to https://gchq.github.io/event-logging-schema)">
+    <span>event-logging XML Schema</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+If data is sent in Events/Event XML then it will not require any additional translation.</p>
+
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.1.'; page-break-before: always">
+    
+  <h1 id="pg-aede5fece9557c07ae4c3c40cfc4f738">1.1 - Character Encoding</h1>
+    <div class="lead">Details of the character encodings supported by Stroom.</div>
+	<p>When data is sent to Stroom the character encoding of the data should be configured for the <a href="../../../docs/user-guide/feeds/">Feed</a>.
+This tells Stroom how to decode the data that has been sent.
+All data sent to a feed must be encoded in the character encode configured for that Feed.</p>
+<h2 id="supported-character-encodings">Supported Character Encodings</h2>
+<p>The currently supported character encodings are:</p>
+<h3 id="utf-8">UTF-8</h3>
+<p>This is the default character encoding
+A variable width character encoding consisting of one to four bytes per &lsquo;character&rsquo;.
+UTF-8 is supported with or without a <a href="#byte-order-mark-bom">Byte Order Mark</a>.</p>
+<h3 id="utf-16">UTF-16</h3>
+<p>A variable width character encoding consisting of two or four bytes per &lsquo;character&rsquo;.
+UTF-16 can be encoded with either Big (UTF16-BE) or Little (UTF16-LE) Endianness depending on the system that encoded it.
+The <a href="#byte-order-mark-bom">Byte Order Mark</a> will specify the endianness but is optional.</p>
+<h3 id="utf-32">UTF-32</h3>
+<p>A fixed width character encoding consisting of four bytes per &lsquo;character&rsquo;.
+UTF-32 can be encoded with either Big (UTF32-BE) or Little (UTF32-LE) Endianness depending on the system that encoded it.
+The <a href="#byte-order-mark-bom">Byte Order Mark</a> will specify the endianness but is optional.</p>
+<h3 id="ascii">ASCII</h3>
+<p>A single byte character encoding supporting only 128 characters.
+This character encoding has very limited use as it does not support accented characters or emojis so should be avoided for any logs that capture user input where these characters may occur.</p>
+<h2 id="byte-order-mark-bom">Byte Order Mark (BOM)</h2>
+<p>A Byte Order Mark (BOM) is a special Unicode character at the start of a text stream that indicates the byte order (or endianness) of the stream.
+It can also be used to determine the character encoding of the stream.</p>
+<p>Stroom can handle the presence of BOMs in the stream and can use it to determine the character encoding.</p>
+<table>
+<thead>
+<tr>
+<th>Encoding</th>
+<th>BOM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UTF8</td>
+<td><code>EF</code> <code>BB</code> <code>BF</code></td>
+</tr>
+<tr>
+<td>UTF16-LE</td>
+<td><code>FF</code> <code>FE</code></td>
+</tr>
+<tr>
+<td>UTF16-BE</td>
+<td><code>FE</code> <code>FF</code></td>
+</tr>
+<tr>
+<td>UTF32-LE</td>
+<td><code>FF</code> <code>FE</code> <code>00</code> <code>00</code></td>
+</tr>
+<tr>
+<td>UTF32-BE</td>
+<td><code>00</code> <code>00</code> <code>FE</code> <code>FF</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.2.'; page-break-before: always">
+    
+  <h1 id="pg-f41830b8bde7c2f6191776e35b843cb9">1.2 - Event XML Fragments</h1>
+    <div class="lead">Description of the Event XML Fragments</div>
+	<p>This format is a file containing multiple <code>&lt;Event&gt;...&lt;/Event&gt;</code> element blocks but without any root element, or any XML processing instruction.
+For example, a file may look like:</p>
+<pre><code class="language-xml">&lt;Event&gt;
+  ...
+&lt;/Event&gt;
+&lt;Event&gt;
+  ...
+&lt;/Event&gt;
+&lt;Event&gt;
+  ...
+&lt;/Event&gt;
+</code></pre>
+<p>Each <code>&lt;Evemt&gt;</code> element is valid against the <em>event-logging</em> XML Schema but the file is not as it contains no root element.
+This is the output format used by the <a href="../../../docs/sending-data/example-clients/event-logging/"><em>event-logging</em> Java library</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-ea050b499963f2ad2cc8153ae264aabe">2 - Header Arguments</h1>
+    <div class="lead">The various HTTP headers that can be sent with data.</div>
+	<p>The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST. These arguments are case insensitive.</p>
+<ul>
+<li>
+<p><code>System</code> - The name by which the system is known within the organisation, e.g. <code>PAYROLL_SYSTEM</code>. This could be the name of a project/service or capability.</p>
+</li>
+<li>
+<p><code>Environment</code> - A means to identify the deployed instance of a system. This may indicate the deployment status, e.g. DEV, REF, LIVE, OPS, etc., and/or the location where the instance is deployed. An environment may be a combination of these attributes separated with an underscore.</p>
+</li>
+<li>
+<p><code>Feed</code> - The name of the feed this data relates to. This is mandatory and must match a feed defined within Stroom in order for Stroom to accept the data and know what to do with it.</p>
+</li>
+<li>
+<p><code>Compression</code> - This token is optionally used when the POST payload is compressed with either gzip of zip compression. Value of <code>ZIP</code> and <code>GZIP</code> are valid. <strong>Note</strong>: The <code>Compression</code> token MUST not be used in conjunction with the standard HTTP header token <code>Content-Encoding</code> otherwise stroom will be unable to un-compress the data. Use either <code>Compression:GZIP</code> or <code>Content-Encoding:gzip</code>, not both. Using <code>Compression</code> is preferred.</p>
+</li>
+<li>
+<p><code>EffectiveTime</code> - This is only applicable to reference data. It is used to indicate the point in time that the reference data is applicable to, i.e. all event data that uses the reference data that is created after the effective time will use the reference data until a new reference data item arrives with a later effective time. <strong>Note</strong>: This argument must be in <em>ISO 8601</em> date time format, i.e: <code>yyyy-MM-ddTHH:mm:ss.sssZ</code>.</p>
+</li>
+</ul>
+<p>Example header arguments for a feed called <em>MY_SYSTEM-EVENTS</em> from system <em>MY_SYSTEM</em> and environment <em>OPS</em></p>
+<pre><code class="language-text">System:MY_SYSTEM
+Environment:OPS
+Feed:MY_SYSTEM-EVENTS
+</code></pre>
+<p>The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found <a href="../../../docs/sending-data/payloads/">here</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-2fd6390e6e6756f84779583c181fdbd4">3 - Response Codes</h1>
+    <div class="lead">The HTTP response codes returned by stroom.</div>
+	<p>Stroom will return a HTTP response code to indicate success or failure.
+An additional response Header &ldquo;Stroom-Status&rdquo; will indicate a more precise error message code.
+A user readable message will appear in the response body.</p>
+<table>
+<thead>
+<tr>
+<th>HTTP Status</th>
+<th>Stroom-Status</th>
+<th>Message</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>0</td>
+<td>OK</td>
+<td>Post of data successful</td>
+</tr>
+<tr>
+<td>406</td>
+<td>100</td>
+<td>Feed must be specified</td>
+<td>You must provide Feed as a header argument in the request</td>
+</tr>
+<tr>
+<td>406</td>
+<td>110</td>
+<td>Feed is not set to receive data</td>
+<td>The feed you have provided is not setup to receive data (maybe does not exist or is set to reject)</td>
+</tr>
+<tr>
+<td>406</td>
+<td>200</td>
+<td>Unknown compression</td>
+<td>Compression argument must be one of ZIP, GZIP and NONE</td>
+</tr>
+<tr>
+<td>401</td>
+<td>300</td>
+<td>Client Certificate Required</td>
+<td>The feed you have provided requires a client HTTPS certificate to send data</td>
+</tr>
+<tr>
+<td>403</td>
+<td>310</td>
+<td>Client Certificate not authorised</td>
+<td>The feed you have provided does not allow your client certificate to send data</td>
+</tr>
+<tr>
+<td>500</td>
+<td>400</td>
+<td>Compressed stream invalid</td>
+<td>The stream of data sent does not form a valid compressed file.  Maybe it terminated unexpectedly or is corrupt.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>999</td>
+<td>Unknown error</td>
+<td>An unknown unexpected error occurred</td>
+</tr>
+</tbody>
+</table>
+<p>In the event that data is not successfully received by Stroom, i.e. the response code is not 200, the client system should buffer data and keep trying to re-send it.
+Data should only be removed from the client system when it has been sent successfully.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-e3736768753160c52bfec0fc2cdcae40">4 - Payload Formats</h1>
+    <div class="lead">Description of the format of the payloads when sending event (and optionally context data) data to stroom.</div>
+	<p>Stroom can support multiple payload formats with different compression applied.
+However all data once uncompressed must be text and not binary.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>This section covers the payload format rather than the format of the text based event/context data itself.
+For details on the format of the actual event/context data and details about character encoding, see <a href="../../../docs/sending-data/data-formats/">Event Data Formats</a>.</p>
+
+
+</div>
+
+
+<p>Stroom can receive data in the following formats:</p>
+<h2 id="uncompressed">Uncompressed</h2>
+<p>Text data is sent to Stroom and no compression flag is set in the header arguments.
+This format is only suitable for sending event data, if you need to send additional context data you will need to use the <a href="#zip">ZIP</a> format.
+This is not recommended for large volumes of data due to the amount of data that has to be sent over the network.</p>
+<p>The following is an example of sending uncompressed data to Stroom using 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://curl.se" target="_blank" class="" style="" title="cURL (external link to https://curl.se)">
+    <span>cURL</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
+<h2 id="gzip">gzip</h2>
+<p>Text data is 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/Gzip" target="_blank" class="" style="" title="gzip (external link to https://en.wikipedia.org/wiki/Gzip)">
+    <span>gzip</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ compressed and the <code>Compression</code> flag is set to <code>GZIP</code> in the <a href="../../../docs/sending-data/header-arguments/">Headers</a>.
+This format is only suitable for sending event data, if you need to send additional context data you will need to use the <a href="#zip">ZIP</a> format.</p>
+<p>The following is an example of sending gzipped data to Stroom using 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://curl.se" target="_blank" class="" style="" title="cURL (external link to https://curl.se)">
+    <span>cURL</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Compression:GZIP&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
+<h2 id="zip">ZIP</h2>
+<p>Data can be sent to Stroom as a 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/ZIP_%28file_format%29" target="_blank" class="" style="" title="ZIP (external link to https://en.wikipedia.org/wiki/ZIP_(file_format))">
+    <span>ZIP</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ archive.
+This allows one or more text files to be sent in one go.
+It allows allows additional 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://en.wikipedia.org/wiki/Sidecar_file" target="_blank" class="" style="" title="sidecar files (external link to https://en.wikipedia.org/wiki/Sidecar_file)">
+    <span>sidecar files</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ to be sent.</p>
+<p>A ZIP archive is sent to Stroom with the <code>Compression</code> flag set to <code>ZIP</code> in the <a href="../../../docs/sending-data/header-arguments/">Headers</a>.
+The contents of the ZIP archive is described below.</p>
+<p>The following is an example of sending a ZIP archive to Stroom using 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://curl.se" target="_blank" class="" style="" title="cURL (external link to https://curl.se)">
+    <span>cURL</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @data.zip &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Compression:ZIP&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
+<h3 id="stroom-zip-format">Stroom ZIP Format</h3>
+<p>Stroom has a standard for how to send/store data in ZIP archive.
+This format is used for:</p>
+<ul>
+<li>Receiving data from clients.</li>
+<li>Transferring data from a Stroom-Proxy to a downstream Stroom or Stroom-Proxy.</li>
+<li>Downloading a stream or streams from within Stroom.</li>
+</ul>
+<h4 id="sidecar-files-and-file-extensions">Sidecar Files and File Extensions</h4>
+<p>The ZIP format allows not only multiple event data files to be sent, but each event data file can be optionally accompanied by one or more sidecar files.</p>
+<p>Stroom has a standard set of reserved file extensions that are used for different types of sidecar file.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Extension</th>
+<th>Legacy Extensions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Event Data</td>
+<td><code>dat</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Context</td>
+<td><code>ctx</code></td>
+<td><code>context</code></td>
+</tr>
+<tr>
+<td>Manifest</td>
+<td><code>mf</code></td>
+<td><code>manifest</code></td>
+</tr>
+<tr>
+<td>Meta</td>
+<td><code>meta</code></td>
+<td><code>hdr</code>, <code>header</code>, <code>met</code></td>
+</tr>
+</tbody>
+</table>
+<p>Any file without a reserved file extension (or without any file extension) will be assumed to be an event data file.
+For example the following ZIP archive contains four event data files and no sidecar files.</p>
+<pre><code class="language-treeview">|-- 2023-11-16.0001
+|-- 2023-11-16.0002
+|-- 2023-11-16.0003
+`-- 2023-11-16.0004
+</code></pre>
+<h4 id="base-file-name">Base File Name</h4>
+<p>Event data files are associated with their sidecar files by the base name.
+The base name is the part of the file name that is common to all files.</p>
+<p>The following is an example of two event data files with associated sidecar files.
+In this example, the base names are <code>001</code> and <code>002</code>.</p>
+<pre><code class="language-treeview">|-- 001.dat
+|-- 01.ctx
+|-- 01.meta
+|-- 02.dat
+|-- 02.ctx
+`-- 02.meta
+</code></pre>
+<p>While it is very much preferred for all files to be given the appropriate reserved file extension, omitting the file extension for event data files is supported.</p>
+<pre><code class="language-treeview">|-- 023-11-16.0001
+|-- 023-11-16.0001.ctx
+|-- 023-11-16.0002
+`-- 023-11-16.0002.ctx
+</code></pre>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>If you had the following files:</p>
+<pre><code class="language-treeview">|-- 01.data1
+|-- 01.data2
+`-- 01.ctx
+</code></pre>
+<p>Then <code>001.data1</code> and <code>001.data2</code> would both be considered event data files for the base name <code>001</code> and Stroom does not allow multiple files of the same type for the same base name.
+Therefore the ZIP would be rejected with a <em>duplicate file</em> error.</p>
+
+
+</div>
+
+
+<h4 id="file-order">File Order</h4>
+<p>The order of files in the zip archive does not matter.</p>
+<h4 id="directories">Directories</h4>
+<p>Directories within the ZIP file are supported.</p>
+<p>A file&rsquo;s base name includes its full path within the ZIP file, so an event data file and its associated sidecar files <strong>must</strong> all reside in the same directory.</p>
+<p>The depth and names of the directories have no bearing on how Stroom processed the data.</p>
+<p>When downloading or aggregating large numbers of streams into a ZIP file, Stroom will split the files up into directories with multiple levels to limit the number of files in each directory.</p>
+<h4 id="_event-data_-files"><em>Event Data</em> Files</h4>
+<p>An event data file is the file containing the log/audit data and has the preferred extension of <code>.dat</code>.
+If the data is being sent to Stroom/Stroom-Proxy then this is Raw Event data.
+This data may be in a variety of <a href="../../../docs/sending-data/data-formats/">data formats</a>, however the ALL event data for a Feed should conform to the same format so that all the Feed&rsquo;s data can be processed in the same way.</p>
+<h4 id="_context_-files"><em>Context</em> Files</h4>
+<p>Context files are an optional file that provides additional context reference data for the event data file that it is associated with.
+They use the preferred extension <code>.ctx</code>.
+If provided, a context file can be used to provide a <a href="../../../docs/user-guide/pipelines/reference-data/">reference data</a> source that is specific to the data file that has been sent.</p>
+<p>Context data is supplementary information that is not contained within logged events.
+For example, a system may be collating and sending event logs from a large estate of machines, where the event logs only contain some local identifier for each machine.
+This may be the case where you have no control over the content/structure of the logs produced, e.g. when sending logs from a commercial product, rather than a bespoke system.
+The context file can contain a record for each machine that contains the local identifier along with richer device information such as the IP address and <span class="glossary-link">
+  <a href="../../../docs/glossary/#fqdn" title="Glossary entry for FQDN">
+    <span>FQDN</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+This context data can then be used in pipeline processing to perform lookups using the local identifier in the events to decorate them.</p>
+<p>Context data can be in a variety of <a href="../../../docs/sending-data/data-formats/">data formats</a> and does <strong>not</strong> need to be in the same format as the event data it is associated with.
+For example, the event data may be in CSV format, while the context data is in JSON format.</p>
+<pre><code class="language-json">[
+    {
+        &quot;localId&quot;: &quot;1001&quot;,
+        &quot;ip&quot;: &quot;10.212.33.1&quot;,
+        &quot;hostname&quot;: &quot;server1.somedomain.com&quot;
+    }, {
+        &quot;localId&quot;: &quot;1002&quot;,
+        &quot;ip&quot;: &quot;10.212.33.2&quot;,
+        &quot;hostname&quot;: &quot;server2.somedomain.com&quot;
+    },
+    ...
+]
+</code></pre>
+<h4 id="_meta_-files"><em>Meta</em> Files</h4>
+<p>Meta files contain meta data relevant to all events in the associated event data file and have the preferred extension <code>.meta</code>.
+Meta files are not typically supplied by client systems, instead, the HTTP headers are used to supply meta data that is applicable to all files in the ZIP.</p>
+<p>Meta files will be present when downloading data from Stroom or when aggregated data is sent from Stroom-Proxy to a downstream Stroom/Stroom-Proxy.</p>
+<p>A Meta file contains key value pairs delimited by <code>:</code>.
+This is an example of a Meta file:</p>
+<pre><code class="language-http">content-type:application/x-www-form-urlencoded
+environment:example_environment
+feed:test_feed
+guid:73254b1c-fadf-40c3-96a9-505d2e365e66
+host:localhost:8080
+receivedtime:2023-10-24t12:16:53.562z
+remoteaddress:[0:0:0:0:0:0:0:1]
+remotehost:[0:0:0:0:0:0:0:1]
+streamsize:35
+system:example_system
+uploaduserid:unauthenticated_user
+uploadusername:unauthenticated_user
+user-agent:curl/8.4.0
+</code></pre>
+<h4 id="_manifest_-files"><em>Manifest</em> Files</h4>
+<p>Manifest files contain a manifest of the associated event data file, with information relating to its storage location in Stroom.
+They have the preferred extension <code>.mf</code>.
+They are generated by Stroom and are <strong>not</strong> intended to be provided by client systems.
+A Manifest file will be present if a stream has been downloaded from Stroom.</p>
+<p>Like Meta files they contain a simple list of key value pairs delimited by <code>:</code>.</p>
+<p>The following is an example of a manifest file:</p>
+<pre><code class="language-http">Create Time:1698149813565
+Effective Time:1698149813565
+Feed:TEST_FEED
+File Size:123
+Files:/volumes/store/RAW_EVENTS/2023/10/24/004/TEST_FEED=004099.revt.bgz,/volumes/store/RAW_EVENTS/2023/10/24/004/TEST_FEED=004099.revt.meta.bgz,/volumes/store/RAW_EVENTS/2023/10/24/004/TEST_FEED=004099.revt.mf.dat
+Id:4099
+Raw Size:35
+Type:Raw Events
+</code></pre>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>If you download a stream (or streams) in Stroom, the Manifest file for each stream will contain the Feed that it came from in Stroom.
+If you upload this ZIP file into a different Feed in Stroom, Stroom will respect the <code>Feed</code> in the Manifest file so the data will be uploaded into its original Feed.
+To prevent this, you can remove the Manifest file from the zip as follows:</p>
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash"># List the contents of the ZIP
+unzip -t &#34;StroomData (20)&#34;.zip
+(out)Archive:  StroomData (20)_2.zip
+(out)    testing: 001.mf                   OK
+(out)    testing: 001.dat                  OK
+(out)    testing: 001.meta                 OK
+(out)No errors detected in compressed data of StroomData (20)_2.zip.
+# Remove the manifest file
+zip -d 001.mf &#34;StroomData (20)&#34;.zip</code></pre>
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-3531374684773e7f54ae3921e8c9c4fe">5 - SSL Configuration</h1>
+    <div class="lead">Configuring SSL with cURL.</div>
+	<p>This page provides a step by step guide to getting PKI authentication working correctly for Unix hosts so as to be able to sign deliveries from cURL.</p>
+<p>First make sure you have a copy of your organisations CA certificate.</p>
+<p>Check that the CA certificate works by running the following command:</p>
+<pre><code class="language-bash">echo &quot;Test&quot; | curl --cacert CA.crt --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
+</code></pre>
+<p>If the response starts with the line:</p>
+<pre><code class="language-bash">curl: (60) SSL certificate problem, verify that the CA cert is OK.
+</code></pre>
+<p>then you do not have the correct CA certificate.</p>
+<p>If the response contains the line</p>
+<pre><code class="language-bash">HTTP Status 406 - Stroom Status 100 - Feed must be specified
+</code></pre>
+<p>then one-way SSL authentication using the CA certificate is successful.</p>
+<p>The VBScript file to check windows certificates is <code>check-certs.vbs</code> (TODO link).</p>
+<p>#Final Testing</p>
+<p>Once one-way authentication has been tested, two-way authentication should be configured:</p>
+<p>The server certificate and private key should be concatenated to create a PEM file:</p>
+<pre><code class="language-bash">cat hostname.cert hostname.key &gt; hostname.pem
+</code></pre>
+<p>Finally, test for 2-way authentication:</p>
+<pre><code class="language-bash">echo &quot;Test&quot; | curl --cacert CA.crt --cert hostname.pem --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
+</code></pre>
+<p>If the response contains the line</p>
+<pre><code class="language-bash">HTTP Status 406 - Stroom Status 100 - Feed must be specified
+</code></pre>
+<p>then two-way SSL authentication is successful.</p>
+<p>#Final Tidy Up</p>
+<p>The files <code>ca.crt</code> and <code>hostname.pem</code> are the only files required for two-way authentication and should be stored permanently on the server; all other remaining files may be deleted or backed up if required.</p>
+<p>#Certificate Expiry</p>
+<p>PKI certificates expire after 2 years.  To check the expiry date of a certificate, run the following command:</p>
+<pre><code class="language-bash">openssl x509 -in /path/to/certificate.pem -noout -enddate
+</code></pre>
+<p>This will give a response looking similar to:</p>
+<pre><code class="language-bash">notAfter=Aug 15 10:01:42 2013 GMT
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
+    
+  <h1 id="pg-175e47591d90f91548b80141b6d7c4d2">6 - Java Keystores</h1>
+    <div class="lead">How to create java key/trust stores for use with Java client applications.</div>
+	<p>There are many times when you may wish to create a Java keystore from certificates and keys and vice versa. This guide aims to explain how this can be done.</p>
+<h2 id="import">Import</h2>
+<p>If you need to create a Java keystore from a .crt and .key then this is how to do it.</p>
+<h3 id="convert-your-keys-to-der-format">Convert your keys to der format</h3>
+<pre><code class="language-bash">openssl x509 -in &lt;YOUR KEY&gt;.crt -inform PEM -out &lt;YOUR KEY&gt;.crt.der -outform DER
+openssl pkcs8 -topk8 -nocrypt -in &lt;YOUR KEY&gt;.key -inform PEM -out &lt;YOUR KEY&gt;.key.der -outform DER
+</code></pre>
+<h3 id="importkey">ImportKey</h3>
+<p>Use the <code>ImportKey</code> class in the <code>stroom-java-client</code> library to import keys.</p>
+<p>For example:</p>
+<pre><code class="language-bash">java ImportKey keystore=&lt;YOUR KEY&gt;.jks keypass=&lt;YOUR PASSWORD&gt; alias=&lt;YOUR KEY&gt; keyfile=&lt;YOUR KEY&gt;.key.der certfile=&lt;YOUR KEY&gt;.crt.der
+keytool -import -noprompt -alias CA -file &lt;CA CERT&gt;.crt -keystore ca.jks -storepass ca
+</code></pre>
+<h2 id="export">Export</h2>
+<h3 id="exportkey">ExportKey</h3>
+<p>Use the <code>ExportKey</code> class in the <code>stroom-java-client</code> library to export keys. If you would like to use curl or similar application but only have keys contained within a Java keystore then they can be exported.</p>
+<p>For example:</p>
+<pre><code class="language-bash">java ExportKey keystore=&lt;YOUR KEY&gt;.jks keypass=&lt;YOUR PASSWORD&gt; alias=&lt;YOUR KEY&gt;
+</code></pre>
+<p>This will print both the key and certificate to standard out. This can then be copied into a PEM file for use with cURL or other similar application.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
+    
+  <h1 id="pg-e821565def705859aee784ad096c387f">7 - Example Clients</h1>
+    <div class="lead">A collection of example client applications for sending data to Stroom or one of its proxies.</div>
+	<p>The following article provides examples to help data providers send data to Stroom via the HTTPS interface.
+The code for the clients is in the <em>stroom-clients</em> repository 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients" target="_blank" class="" style="" title="stroom-clients (external link to https://github.com/gchq/stroom-clients)">
+    <span>stroom-clients</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.1.'; ">
+    
+  <h1 id="pg-f8a034cc20afebf36e739b2f5b101c66">7.1 - curl (Linux)</h1>
+    <div class="lead">How to use the <code>curl</code> command to send data to Stroom.</div>
+	<p>Curl is a standard unix tool to send data to or from a server.
+In the following examples -H is used to specify the header arguments required by Stroom, see <a href="../../../docs/sending-data/header-arguments/">Header Arguments</a>.</p>
+<p>Notes:</p>
+<ul>
+<li>The <code>@</code> character must be used in front of the file being posted.
+If it is not then curl will post the file name instead of it&rsquo;s contents.</li>
+<li>The <code>--data-binary</code> argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.</li>
+</ul>
+<h2 id="example-https-post-without-authentication">Example HTTPS post without authentication:</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -k --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
+<p>In the above example -k is required to stop curl from authenticating the server.
+The next example must be used to supply the necessary CA to authenticate the server if this is required.</p>
+<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl --cacert root_ca.crt --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
+<p>The above example verifies that the certificate presented by Stroom is signed by the CA.
+The CA is provided to curl using the &lsquo;&ndash;cacert root_ca.crt&rsquo; parameter.</p>
+<p>For step by step instructions for creating, configuring and testing the PKI authentication, see the <a href="../../../docs/sending-data/ssl/">SSL Guide</a></p>
+<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl --cert example.pem --cacert root_ca.crt --data-binary @file.dat &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34;</code></pre>
+</div>
+
+<p>The above example both verifies that the certificate presented by Stroom is signed by the CA and also provides a certificate to authenticate itself with Stroom.
+The data provider provides a certificate using the &lsquo;&ndash;cert example.pem&rsquo; parameter.</p>
+<p>If your input file is not compressed you should compress it as follows:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">gzip -c uncompressedfile.dat \
+| curl --cert example.pem --cacert root_ca.crt --data-binary @- &#34;https://&lt;Stroom_HOST&gt;/stroom/datafeed&#34; \
+-H &#34;Feed:EXAMPLE_FEED&#34; \
+-H &#34;System:EXAMPLE_SYSTEM&#34; \
+-H &#34;Environment:EXAMPLE_ENVIRONMENT&#34; \
+-H &#34;Compression:Gzip&#34;</code></pre>
+</div>
+
+<p>When delivering data from a RHEL4 host, an additional header argument must be added to specify the FQDN of the host:</p>
+<pre><code class="language-bash">-H &quot;Hostname:host.being.audited&quot;
+</code></pre>
+<p>The hostname being sent as a header argument may be resolved upon execution using the command <code>hostname -f</code>.</p>
+<h2 id="ssl-notes">SSL Notes</h2>
+<p>To create a .pem format key simply append the private key and certifcate.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cat &lt;NAME&gt;.key &gt;&gt; &lt;NAME&gt;.pem
+cat &lt;NAME&gt;.crt &gt;&gt; &lt;NAME&gt;.pem</code></pre>
+</div>
+
+<p>To remove the pass phrase from a openssl private key use.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">openssl rsa -in server.key -out server-clear.key</code></pre>
+</div>
+
+<p>The <code>send-logs.sh</code> script assumes the period start and end times are embedded in the file name (e.g. log_2010-01-01T12:00:00.000Z_2010-01-02T12:00:00.000Z.log).
+The certificates will need to be added to the script as above.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.2.'; page-break-before: always">
+    
+  <h1 id="pg-63790e65a84e97fcd55409e23aa7964b">7.2 - curl (Windows)</h1>
+    <div class="lead">Using Curl on Windows to send data to Stroom.</div>
+	<p>There is a version of curl for Windows</p>
+<p>Windows 10 is the latest desktop OS offering from Microsoft.
+From Windows 10 build 17063 and later, curl is now natively included - you can execute it directly from Cmd.exe or PowerShell.exe.
+Curl.exe is located at c:\windows\system32 (which is included in the standard PATH environment variable) - all you need to do is run Command Prompt with administrative rights and you can use Curl. You can execute it directly from Cmd.exe or PowerShell.exe.
+For older versions of Windows, the cURL project has Windows binaries.</p>
+<pre><code class="language-bash">curl -s -k --data-binary @file.dat &quot;https://stroomp.strmdev00.org/stroom/datafeed&quot; -H&quot;Feed:TEST-FEED-V1_0&quot; -H&quot;System:EXAMPLE_SYSTEM&quot; -H&quot;Environment:EXAMPLE_ENVIRONMENT&quot;
+</code></pre>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="width: fit-content;">
+
+  <a title="images/user-guide/sending-data/curl_windows.png" href="../../../images/user-guide/sending-data/curl_windows.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/user-guide/sending-data/curl_windows.png" style="max-width: fit-content" alt="images/user-guide/sending-data/curl_windows.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Windows curl CLI</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.3.'; page-break-before: always">
+    
+  <h1 id="pg-166a5e5a02228e4ece5fed9278250e81">7.3 - event-logging (Java library)</h1>
+    <div class="lead">A Java library for logging events in Java applications.</div>
+	<p>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging" target="_blank" class="" style="" title="event-logging (external link to https://github.com/gchq/event-logging)">
+    <span>event-logging</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is a Java API for logging audit events conforming to the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/event-logging-schema" target="_blank" class="" style="" title="Event Logging XML Schema (external link to https://github.com/gchq/event-logging-schema)">
+    <span>Event Logging XML Schema</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+The API uses a generated Java JAXB model of the <em>Event Logging XML Schema</em>.
+<em>Event Logging</em> can be incorporated into your Java application to provide a means of recording and outputting audit events or user actions for compliance, security or monitoring.</p>
+<p>This library only generates the events.
+By default XML events are written to a file using a logging appender.
+In order to send the events to Stroom either the logged files will need to be sent to stroom using one of the other <a href="../../../docs/sending-data/example-clients/">clients</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.4.'; page-break-before: always">
+    
+  <h1 id="pg-295b677760e8a81324ed677a90fafcb1">7.4 - send_to_stroom.sh (Linux)</h1>
+    <div class="lead">A shell script for sending logs to Stroom or one of its proxies</div>
+	<p>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/releases" target="_blank" class="" style="" title="send_to_stroom.sh (external link to https://github.com/gchq/stroom-clients/releases)">
+    <span>send_to_stroom.sh</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is a small bash script to make it easier to send data to <em>stroom</em>.
+To use it download the following files using wget or similar, replacing <code>SEND_TO_STROOM_VER</code> with the latest released version from 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/releases" target="_blank" class="" style="" title="here (external link to https://github.com/gchq/stroom-clients/releases)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">SEND_TO_STROOM_VER=&#34;send-to-stroom-v2.0&#34; &amp;&amp; \
+    wget &#34;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom.sh&#34; &amp;&amp; \
+    wget &#34;https://raw.githubusercontent.com/gchq/stroom-clients/${SEND_TO_STROOM_VER}/bash/send_to_stroom_args.sh&#34; &amp;&amp; \
+    chmod u&#43;x send_to_stroom*.sh</code></pre>
+</div>
+
+<p>To see the help for <em>send_to_stroom.sh</em>, enter <code>./send_to_stroom.sh --help</code></p>
+<p>The following is an example of using <em>send_to_stroom.sh</em> to send all logs in a directory:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">./send_to_stroom.sh \
+    --delete-after-sending \
+    --file-regex &#34;.*/access-[0-9]&#43;.*\.log(\.gz)?$&#34; \
+    --key ./client..key \
+    --cert ./client.pem.crt \
+    --cacert ./ca.pem.crt \
+    /some_directory/logs \
+    MY_FEED \
+    MY_SYSTEM \
+    DEV \
+    https://stroom-host/stroom/datafeed</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.5.'; page-break-before: always">
+    
+  <h1 id="pg-12691c821995ef3fad858d48ad731b0c">7.5 - Simple C# Client</h1>
+    <div class="lead">A simple C# client for sending data files to Stroom.</div>
+	<p>The <code>StroomCSharpClient</code> is a C# port of the Java client and behaves in the same way. Note that this is just an example, not a fully functional client.
+See 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClient" target="_blank" class="" style="" title="StroomCSharpClient (external link to https://github.com/gchq/stroom-clients/tree/master/StroomCSharpClient)">
+    <span>StroomCSharpClient</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.6.'; page-break-before: always">
+    
+  <h1 id="pg-1e4e762a6a08dea73db4452a6a130840">7.6 - Simple Java Client</h1>
+    <div class="lead">A simple Java client for sending data files to Stroom.</div>
+	<p>The <code>stroom-java-client</code> provides an example Java client that can:</p>
+<ul>
+<li>Read a zip, gzip or uncompressed an input file.</li>
+<li>Perform a HTTP post of data with zip, gzip or uncompressed compression.</li>
+<li>Pass down arguments on the command line as HTTP request arguments.</li>
+<li>Supports HTTP and HTTPS with 1 or 2 way authentication.</li>
+</ul>
+<p><em>(N.B. arguments must be in lower case).</em></p>
+<p>To use the example client first compile the Java code:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">javac DataFeedClient.java</code></pre>
+</div>
+
+<h2 id="example-http-post">Example HTTP Post:</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java \
+-classpath . \
+DataFeedClient \
+inputfile=datafeed \
+url=http://&lt;Stroom_HOST&gt;/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED</code></pre>
+</div>
+
+<h2 id="example-https-with-1-way-ssl-authentication">Example HTTPS With 1 way SSL authentication:</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java \
+-classpath . \
+-Djavax.net.ssl.trustStore=ca.jks \
+-Djavax.net.ssl.trustStorePassword=capass \
+DataFeedClient \
+inputfile=datafeed \
+url=https://&lt;Stroom_HOST&gt;/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED</code></pre>
+</div>
+
+<h2 id="example-https-with-2-way-ssl-authentication">Example HTTPS With 2 way SSL authentication:</h2>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java \
+-classpath . \
+-Djavax.net.ssl.trustStore=ca.jks \
+-Djavax.net.ssl.trustStorePassword=capass \
+-Djavax.net.ssl.keyStore=example.jks \
+-Djavax.net.ssl.keyStorePassword=&lt;PASSWORD&gt; \
+DataFeedClient \
+inputfile=datafeed url=https://&lt;Stroom_HOST&gt;/stroom/datafeed \
+system=EXAMPLE-SYSTEM \
+environment=DEV \
+feed=EXAMPLE-FEED</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.7.'; page-break-before: always">
+    
+  <h1 id="pg-5816a31f40b44194fbd5c9e1249594ad">7.7 - stroom-log-sender (Docker)</h1>
+    <div class="lead">A Docker image for peridoically sending log files generated by an application to Stroom.</div>
+	<p>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://hub.docker.com/r/gchq/stroom-log-sender/" target="_blank" class="" style="" title="stroom-log-sender (external link to https://hub.docker.com/r/gchq/stroom-log-sender/)">
+    <span>stroom-log-sender</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is a small Docker image for sending data to <em>Stroom</em>.</p>
+<p>This is the simplest way to get data into stroom if the data provider is itself running in docker.
+It can also be used for sending data to <em>Stroom</em> from data providers that are not running in Docker.
+<em>stroom-log-sender</em> makes use of the <em>send_to_stroom.sh</em> bash script that is described below.
+For details on how to use <em>stroom-log-sender</em>, see the Dockerhub link above.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.8.'; page-break-before: always">
+    
+  <h1 id="pg-c8c3de6aa6d5f3bfe0f2cc34d6e7e5c9">7.8 - VBScript (Windows)</h1>
+    <div class="lead">Using VBScript to send data to Stroom.</div>
+	<p><code>extract-data.vbs</code> uses wevtutil.exe to extract <strong>Security</strong> event information from the windows event log.
+This script has been tested on Windows 2008.</p>
+<p>This script is designed to run periodically (say every 10 minutes).
+The first time the script is run it stores the current time in UTC format in the registry.
+Subsequent calls then extract event information from the last run time to the new current time.
+The events are stored in a zip file with the period dates embedded.</p>
+<p>The script requires a working directory used as a buffer for the zip files.
+This can be set at the start of the script otherwise it will default to the working directory.</p>
+<p>The <code>send-data.vbs</code> script is designed to run periodically (say every 10 minutes). The script will scan for zip files and send them to Stroom.</p>
+<p>The script details several parameters that require setting per environment. Among these are the working directory that the zip files are stored in, the feed name and the URL of Stroom.</p>
+<h2 id="ssl">SSL</h2>
+<p>To send data over SSL (https) you must import a client certificate in p12 format into windows.
+To convert a certificate (.crt) and private key (.key) into a p12 format use the following command:</p>
+<pre><code class="language-text">openssl pkcs12 -export -in &lt;NAME&gt;.crt -inkey &lt;NAME&gt;.key -out &lt;NAME&gt;.p12 -name &quot;&lt;NAME&gt;&quot;
+</code></pre>
+<p>Once in p12 format use the windows certificate wizard to import the public private key.</p>
+<p>The <code>send-data-tree.vbs</code> script works through a directory for different feed types.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.9.'; page-break-before: always">
+    
+  <h1 id="pg-859ebc81ca735b3aef6548c958a0a8a4">7.9 - wget (Windows)</h1>
+    <div class="lead">Using <code>wget</code> on Windows to send data to Stroom.</div>
+	<p>There is a version of <code>wget</code> for windows</p>
+<ul>
+<li>Use <code>--post-file</code> argument to supply the data</li>
+<li>Use <code>--certificate</code> and <code>--certificate-type</code> arguments to specify your client certificate</li>
+<li>Use <code>--header</code> argument to inform Stroom which feed and environment your data relates to</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2024 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../js/popper.min.js'></script>
+<script src='../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

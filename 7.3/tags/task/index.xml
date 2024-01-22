@@ -1,0 +1,822 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – task</title>
+    <link>/tags/task/</link>
+    <description>Recent content in task on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/task/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Auto Scaler</title>
+      <link>/docs/install-guide/kubernetes/configure-stroomtaskautoscaler/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/configure-stroomtaskautoscaler/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;Setting optimal Stroom stream processor task limits is a crucial factor in running a healthy, performant cluster.
+If a node is allocated too many tasks, it may become unresponsive or crash.
+Conversely, if allocated too few tasks, it may have CPU cycles to spare.&lt;/p&gt;
+&lt;p&gt;The optimal number of tasks is often time-dependent, as load will usually fluctuate during the day and night.
+In large deployments, it&amp;rsquo;s not ideal to set static limits, as doing so risks over-committing nodes during intense spikes in activity (such as backlog processing or multiple concurrent searches).
+Therefore an automated solution, factoring in system load, is called for.&lt;/p&gt;
+&lt;h2 id=&#34;stroom-task-autoscaling&#34;&gt;Stroom task autoscaling&lt;/h2&gt;
+&lt;p&gt;When a &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; resource is deployed to a linked &lt;code&gt;StroomCluster&lt;/code&gt;, the Operator will periodically compare each Stroom node&amp;rsquo;s average Pod CPU usage against user-defined thresholds.&lt;/p&gt;
+&lt;h2 id=&#34;enabling-autoscaling&#34;&gt;Enabling autoscaling&lt;/h2&gt;
+&lt;h3 id=&#34;create-an-stroomtaskautoscaler-resource-manifest&#34;&gt;Create an &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; resource manifest&lt;/h3&gt;
+&lt;p&gt;Use the example 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;autoscaler.yaml (external link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml)&#34;&gt;
+    &lt;span&gt;autoscaler.yaml&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;Below is an explanation of some of the main parameters.
+The rest are documented 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;here (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;adjustmentIntervalMins&lt;/code&gt; Determines how often the Operator will check whether a node has exceeded its CPU parameters.
+It should be often enough to catch brief load spikes, but not too often as to overload the Operator and Kubernetes cluster through excessive API calls and other overhead.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metricsSlidingWindowMin&lt;/code&gt; is the window of time over which CPU usage is averaged.
+Should not be too small, otherwise momentary load spikes could cause task limits to be reduced unnecessarily.
+Too large and spikes may not cause throttling to occur.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;minCpuPercent&lt;/code&gt; and &lt;code&gt;maxCpuPercent&lt;/code&gt; should be set to a reasonably tight range, in order to keep the task limit as close to optimal as possible.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;minTaskLimit&lt;/code&gt; and &lt;code&gt;maxTaskLimit&lt;/code&gt; are considered safeguards to avoid nodes ever being allocated an unreasonable number of task.
+Setting &lt;code&gt;maxTaskLimit&lt;/code&gt; to be equal to the number of assigned CPUs would be a reasonable starting point.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    A node&amp;rsquo;s task limits will only be adjusted while its task queue is full.
+That is, unless a node is fully-committed, it will not be scaled.
+This is to avoid continually downscaling each node to the minimum during periods of inactivity.
+Because of this, be realistic with setting &lt;code&gt;maxTaskLimit&lt;/code&gt; to ensure the node is actually capable of hitting that maximum.
+If it can&amp;rsquo;t, the autoscaler will continue adjusting upwards, potentially causing the node to become unresponsive.
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;deploy-the-resource-manifest&#34;&gt;Deploy the resource manifest&lt;/h3&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl apply -f autoscaler.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;disable-autoscaling&#34;&gt;Disable autoscaling&lt;/h2&gt;
+&lt;p&gt;Delete the &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; resource&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl delete -f autoscaler.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Task Management</title>
+      <link>/docs/howtos/general/taskshowto/</link>
+      <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/howtos/general/taskshowto/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Various
+&lt;a href=&#34;../../docs/user-guide/jobs/&#34;&gt;Tasks&lt;/a&gt;
+run in the background within Stroom. This HOWTO demonstrates how to manage these tasks&lt;/p&gt;
+&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;All Sections
+&lt;ul&gt;
+&lt;li&gt;an account with the &lt;code&gt;Administrator&lt;/code&gt; Application &lt;a href=&#34;../../docs/user-guide/roles/&#34;&gt;Permission&lt;/a&gt; is currently logged in.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Proxy Aggregation Tasks
+&lt;ul&gt;
+&lt;li&gt;we have a multi node Stroom cluster with two nodes, &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp01&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Stream Processor Tasks
+&lt;ul&gt;
+&lt;li&gt;we have a multi node Stroom cluster with two nodes, &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp01&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;when demonstrating adding a new node to an existing cluster, the new node is &lt;code&gt;stroomp02&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;proxy-aggregation&#34;&gt;Proxy Aggregation&lt;/h2&gt;
+&lt;h2 id=&#34;turn-off-proxy-aggregation&#34;&gt;Turn Off Proxy Aggregation&lt;/h2&gt;
+&lt;p&gt;We first select the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; href=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Monitoring sub-menu&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;then move down and select the &lt;code&gt;Jobs&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Jobs&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-JobsTab-00.png&#34; href=&#34;../../images/HOWTOs/UI-JobsTab-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-JobsTab-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-JobsTab-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - management tab&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At this we can select the &lt;code&gt;Proxy Aggregation&lt;/code&gt; &lt;em&gt;Job&lt;/em&gt; whose check-box is selected and the tab will show the individual Stroom Processor nodes
+in the deployment.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-ProxyAggregation-00.png&#34; href=&#34;../../images/HOWTOs/UI-ProxyAggregation-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-ProxyAggregation-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-ProxyAggregation-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - Proxy Aggregation Job&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At this, uncheck the &lt;code&gt;Enabled&lt;/code&gt; check-boxes for both nodes and also the main Proxy Aggregation check-box to see.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-ProxyAggregation-01.png&#34; href=&#34;../../images/HOWTOs/UI-ProxyAggregation-01.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-ProxyAggregation-01.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-ProxyAggregation-01.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - Proxy Aggregation Job Off&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At this point, no new proxy aggregation will occur and any inbound files received by the Store Proxies will accumulate in the proxy storage area.&lt;/p&gt;
+&lt;h3 id=&#34;turn-on-proxy-aggregation&#34;&gt;Turn On Proxy Aggregation&lt;/h3&gt;
+&lt;p&gt;We first select the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; href=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Monitoring sub-menu&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;then move down and select the &lt;code&gt;Jobs&lt;/code&gt; sub-item then select the &lt;code&gt;Proxy Aggregation&lt;/code&gt; &lt;em&gt;Job&lt;/em&gt; to be presented with the &lt;code&gt;Jobs&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-ProxyAggregation-01.png&#34; href=&#34;../../images/HOWTOs/UI-ProxyAggregation-01.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-ProxyAggregation-01.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-ProxyAggregation-01.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - Proxy Aggregation Job Off&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, re-enable each node&amp;rsquo;s &lt;code&gt;Proxy Aggregation&lt;/code&gt; check-box and the main &lt;code&gt;Proxy Aggregation&lt;/code&gt; check-box.&lt;/p&gt;
+&lt;p&gt;After checking the check-boxes, perform a refresh of the display by pressing the &lt;em&gt;Refresh&lt;/em&gt; icon &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Refresh&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1639 1056q0 5-1 7-64 268-268 434.5t-478 166.5q-146 0-282.5-55t-243.5-157l-129 129q-19 19-45 19t-45-19-19-45v-448q0-26 19-45t45-19h448q26 0 45 19t19 45-19 45l-137 137q71 66 161 102t187 36q134 0 250-65t186-179q11-17 53-117 8-23 30-23h192q13 0 22.5 9.5t9.5 22.5zm25-800v448q0 26-19 45t-45 19h-448q-26 0-45-19t-19-45 19-45l138-138q-148-137-349-137-134 0-250 65t-186 179q-11 17-53 117-8 23-30 23h-199q-13 0-22.5-9.5t-9.5-22.5v-7q65-268 270-434.5t480-166.5q146 0 284 55.5t245 156.5l130-129q19-19 45-19t45 19 19 45z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;on the top right of the lower (node display) pane. You should note the &lt;code&gt;Last Executed&lt;/code&gt; date/time change to see&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-TestProxyAggregation-00.png&#34; href=&#34;../../images/HOWTOs/UI-TestProxyAggregation-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-TestProxyAggregation-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-TestProxyAggregation-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Test Feed - Re-enable Proxy Aggregation&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;stream-processors&#34;&gt;Stream Processors&lt;/h2&gt;
+&lt;h3 id=&#34;enable-stream-processors&#34;&gt;Enable Stream Processors&lt;/h3&gt;
+&lt;p&gt;To enable the &lt;code&gt;Stream Processors&lt;/code&gt; task, move to the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; href=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Monitoring sub-menu&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;then move down and select the &lt;code&gt;Jobs&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Jobs&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-NodeProcessors-00.png&#34; href=&#34;../../images/HOWTOs/UI-NodeProcessors-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-NodeProcessors-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-NodeProcessors-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - management tab&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At this, we select the &lt;code&gt;Stream Processor&lt;/code&gt; &lt;em&gt;Job&lt;/em&gt; whose check-box is not selected and the tab will show the individual Stroom Processor
+nodes in the Stroom deployment.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-NodeProcessors-01.png&#34; href=&#34;../../images/HOWTOs/UI-NodeProcessors-01.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-NodeProcessors-01.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-NodeProcessors-01.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - Stream Processor&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Clearly, if it was a single node Stroom deployment, you would only see the one node at the bottom of the &lt;code&gt;Jobs&lt;/code&gt; configuration tab.&lt;/p&gt;
+&lt;p&gt;We enable nodes nodes by selecting their check-boxes as well as the main &lt;code&gt;Stream Processors&lt;/code&gt; check-box. Do so.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-NodeProcessors-02.png&#34; href=&#34;../../images/HOWTOs/UI-NodeProcessors-02.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-NodeProcessors-02.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-NodeProcessors-02.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - Stream Processor enabled&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;That is it. Stroom will automatically take note of these changes and internally start each node&amp;rsquo;s Stroom Processor task.&lt;/p&gt;
+&lt;h3 id=&#34;enable-stream-processors-on-new-node&#34;&gt;Enable Stream Processors On New Node&lt;/h3&gt;
+&lt;p&gt;When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and
+services on the new node, we need to enable it&amp;rsquo;s &lt;code&gt;Stream Processors&lt;/code&gt; task.&lt;/p&gt;
+&lt;p&gt;To enable the &lt;code&gt;Stream Processors&lt;/code&gt; for this new node, move to the &lt;code&gt;Monitoring&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Monitoring&lt;/code&gt; sub-menu.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; href=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-MonitoringSubmenu-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-MonitoringSubmenu-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Monitoring sub-menu&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;then move down and select the &lt;code&gt;Jobs&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Jobs&lt;/code&gt; configuration tab as seen below.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-NodeProcessors-00.png&#34; href=&#34;../../images/HOWTOs/UI-NodeProcessors-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-NodeProcessors-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-NodeProcessors-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - management tab&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At this we select the &lt;code&gt;Stream Processor&lt;/code&gt; &lt;em&gt;Job&lt;/em&gt; whose check-box is selected&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-NewNodeProcessors-00.png&#34; href=&#34;../../images/HOWTOs/UI-NewNodeProcessors-00.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-NewNodeProcessors-00.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-NewNodeProcessors-00.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - Stream Processor new node&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We enable the new node by selecting it&amp;rsquo;s check-box.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;width: fit-content;&#34;&gt;
+
+  &lt;a title=&#34;images/HOWTOs/UI-NewNodeProcessors-01.png&#34; href=&#34;../../images/HOWTOs/UI-NewNodeProcessors-01.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/HOWTOs/UI-NewNodeProcessors-01.png&#34; style=&#34;max-width: fit-content&#34; alt=&#34;images/HOWTOs/UI-NewNodeProcessors-01.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Stroom UI Jobs Management - Stream Processor enabled on new node&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
