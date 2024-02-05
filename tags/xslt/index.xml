@@ -1228,8 +1228,9 @@ The map is in the scope of the current pipeline process so values do not live af
 &lt;li&gt;&lt;code&gt;hash(String value)&lt;/code&gt; - Hash a string value using the default &lt;code&gt;SHA-256&lt;/code&gt; algorithm and no salt&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;hash(String value, String algorithm, String salt)&lt;/code&gt; - Hash a string value using the specified hashing algorithm and supplied salt value.
 Supported hashing algorithms include &lt;code&gt;SHA-256&lt;/code&gt;, &lt;code&gt;SHA-512&lt;/code&gt;, &lt;code&gt;MD5&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;hex-to-dec(String hex)&lt;/code&gt; - Convert hex to dec representation&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;hex-to-oct(String hex)&lt;/code&gt; - Convert hex to oct representation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hex-to-dec(String hex)&lt;/code&gt; - Convert hex to dec representation.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hex-to-oct(String hex)&lt;/code&gt; - Convert hex to oct representation.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#hex-to-string&#34;&gt;&lt;code&gt;hex-to-string(String hex, String textEncoding)&lt;/code&gt;&lt;/a&gt; - Convert hex to string using the specified text encoding.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;host-address(String hostname)&lt;/code&gt; - Convert a hostname into an IP address.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;host-name(String ipAddress)&lt;/code&gt; - Convert an IP address into a hostname.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#http-call&#34;&gt;&lt;code&gt;http-call(String url, String headers, String mediaType, String data, String clientConfig)&lt;/code&gt;&lt;/a&gt; - Makes an HTTP(S) request to a remote server.&lt;/li&gt;
@@ -1408,6 +1409,17 @@ British Summer Time).&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;s:format-date(&#39;1269270011640&#39;)&amp;quot;/&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.&lt;/p&gt;
+&lt;h2 id=&#34;hex-to-string&#34;&gt;hex-to-string()&lt;/h2&gt;
+&lt;p&gt;For a hexadecimal input string, decode it using the specified character set to its original form.&lt;/p&gt;
+&lt;p&gt;Valid character set names are listed at: &lt;a href=&#34;https://www.iana.org/assignments/character-sets/character-sets.xhtml&#34;&gt;https://www.iana.org/assignments/character-sets/character-sets.xhtml&lt;/a&gt;.
+Common examples are: &lt;code&gt;ASCII&lt;/code&gt;, &lt;code&gt;UTF-8&lt;/code&gt; and &lt;code&gt;UTF-16&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+&lt;h4 id=&#34;input&#34;&gt;Input&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;string&amp;gt;&amp;lt;xsl:value-of select=&amp;quot;hex-to-string(&#39;74 65 73 74 69 6e 67 20 31 32 33&#39;, &#39;UTF-8&#39;)&amp;quot; /&amp;gt;&amp;lt;/string&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;output&#34;&gt;Output&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;string&amp;gt;testing 123&amp;lt;/string&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;http-call&#34;&gt;http-call()&lt;/h2&gt;
 &lt;p&gt;Executes an HTTP(S) request to a remote server and returns the response.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;http-call(String url, [String headers], [String mediaType], [String data], [String clientConfig])

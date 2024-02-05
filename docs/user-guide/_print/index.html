@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.54b65623d10d6d2edb15910ce918267a.json"
+    data-offline-search-index-json-src="../../../offline-search-index.abc0931d364e642eb2e1450d3ad432c2.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -9595,8 +9595,9 @@ The map is in the scope of the current pipeline process so values do not live af
 <li><code>hash(String value)</code> - Hash a string value using the default <code>SHA-256</code> algorithm and no salt</li>
 <li><code>hash(String value, String algorithm, String salt)</code> - Hash a string value using the specified hashing algorithm and supplied salt value.
 Supported hashing algorithms include <code>SHA-256</code>, <code>SHA-512</code>, <code>MD5</code>.</li>
-<li><code>hex-to-dec(String hex)</code> - Convert hex to dec representation</li>
-<li><code>hex-to-oct(String hex)</code> - Convert hex to oct representation</li>
+<li><code>hex-to-dec(String hex)</code> - Convert hex to dec representation.</li>
+<li><code>hex-to-oct(String hex)</code> - Convert hex to oct representation.</li>
+<li><a href="#hex-to-string"><code>hex-to-string(String hex, String textEncoding)</code></a> - Convert hex to string using the specified text encoding.</li>
 <li><code>host-address(String hostname)</code> - Convert a hostname into an IP address.</li>
 <li><code>host-name(String ipAddress)</code> - Convert an IP address into a hostname.</li>
 <li><a href="#http-call"><code>http-call(String url, String headers, String mediaType, String data, String clientConfig)</code></a> - Makes an HTTP(S) request to a remote server.</li>
@@ -9775,6 +9776,17 @@ British Summer Time).</p>
 <pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('1269270011640')&quot;/&gt;
 </code></pre>
 <p>Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.</p>
+<h2 id="hex-to-string">hex-to-string()</h2>
+<p>For a hexadecimal input string, decode it using the specified character set to its original form.</p>
+<p>Valid character set names are listed at: <a href="https://www.iana.org/assignments/character-sets/character-sets.xhtml">https://www.iana.org/assignments/character-sets/character-sets.xhtml</a>.
+Common examples are: <code>ASCII</code>, <code>UTF-8</code> and <code>UTF-16</code>.</p>
+<h3 id="example">Example</h3>
+<h4 id="input">Input</h4>
+<pre><code class="language-xml">&lt;string&gt;&lt;xsl:value-of select=&quot;hex-to-string('74 65 73 74 69 6e 67 20 31 32 33', 'UTF-8')&quot; /&gt;&lt;/string&gt;
+</code></pre>
+<h4 id="output">Output</h4>
+<pre><code class="language-xml">&lt;string&gt;testing 123&lt;/string&gt;
+</code></pre>
 <h2 id="http-call">http-call()</h2>
 <p>Executes an HTTP(S) request to a remote server and returns the response.</p>
 <pre><code class="language-text">http-call(String url, [String headers], [String mediaType], [String data], [String clientConfig])
