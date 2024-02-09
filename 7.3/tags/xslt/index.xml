@@ -1585,6 +1585,23 @@ The counts for RecWarn, RecError will be affected by warnings or errors generate
   &amp;lt;xsl:value-of select=&amp;quot;s:log(&#39;WARN&#39;, concat($sid, &#39; is not the correct length&#39;))&amp;quot;/&amp;gt;
 &amp;lt;/xsl:if&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The same functionality can also be achieved using the standard &lt;code&gt;xsl:message&lt;/code&gt; element.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Log a message using default severity of ERROR --&amp;gt;
+&amp;lt;xsl:message&amp;gt;Invalid length&amp;lt;/xsl:message&amp;gt;
+
+&amp;lt;!-- terminate=&amp;quot;yes&amp;quot; means log the message as a FATAL ERROR --&amp;gt;
+&amp;lt;xsl:message terminate=&amp;quot;yes&amp;quot;&amp;gt;Invalid length&amp;lt;/xsl:message&amp;gt;
+
+&amp;lt;!-- Log a message with a child element name specifying the severity (namespace doesn&#39;t matter). --&amp;gt;
+&amp;lt;xsl:message&amp;gt;
+  &amp;lt;warn&amp;gt;Invalid length&amp;lt;/warn&amp;gt;
+&amp;lt;/xsl:message&amp;gt;
+
+&amp;lt;!-- Log a message with a child element name specifying the severity (namespace doesn&#39;t matter). --&amp;gt;
+&amp;lt;xsl:message&amp;gt;
+  &amp;lt;info&amp;gt;Invalid length&amp;lt;/info&amp;gt;
+&amp;lt;/xsl:message&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;lookup&#34;&gt;lookup()&lt;/h2&gt;
 &lt;p&gt;The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;lookup(String map, String key)

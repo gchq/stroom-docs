@@ -653,8 +653,9 @@ where &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and
 [having] &amp;lt;FIELD&amp;gt; &amp;lt;CONDITION&amp;gt; &amp;lt;VALUE&amp;gt; [and|or|not]
 [group by] &amp;lt;FIELD&amp;gt;
 [sort by] &amp;lt;FIELD&amp;gt; [desc|asc] // asc by default
-select &amp;lt;FIELD&amp;gt; [as &amp;lt;COLUMN NAME&amp;gt;], ...
 [limit] &amp;lt;MAX_ROWS&amp;gt; 
+select &amp;lt;FIELD&amp;gt; [as &amp;lt;COLUMN NAME&amp;gt;], ...
+[vis as] &amp;lt;VIS_NAME&amp;gt; (&amp;lt;VIS_CONTROL_ID_1&amp;gt; = &amp;lt;COLUMN_1&amp;gt;, &amp;lt;VIS_CONTROL_ID_2&amp;gt; = &amp;lt;COLUMN_2&amp;gt;)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;keywords&#34;&gt;Keywords&lt;/h2&gt;
 &lt;h3 id=&#34;from&#34;&gt;From&lt;/h3&gt;
@@ -784,6 +785,10 @@ group by name
 &lt;p&gt;Or&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;sort by feed desc
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;limit&#34;&gt;Limit&lt;/h3&gt;
+&lt;p&gt;Limit the number of results, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;limit 10
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&#34;select&#34;&gt;Select&lt;/h3&gt;
 &lt;p&gt;The &lt;code&gt;select&lt;/code&gt; keyword is used to define the fields that will be selected out of the data source (and any &lt;code&gt;eval&lt;/code&gt;&amp;rsquo;d fields) for display in the table output.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;select feed, name
@@ -792,9 +797,11 @@ group by name
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;select feed as &#39;my feed column&#39;,
   name as &#39;my name column&#39;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;limit&#34;&gt;Limit&lt;/h3&gt;
-&lt;p&gt;Limit the number of results, e.g.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;limit 10
+&lt;h3 id=&#34;vis-as&#34;&gt;Vis As&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;vis as&lt;/code&gt; keyword is used to tell StroomQL how to visualise the data resulting from the &lt;code&gt;select&lt;/code&gt;.
+The Stroom visualisation can be specified and then passed column values from the &lt;code&gt;select&lt;/code&gt; for the visualisation control properties.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;vis as LineChart (x = EventTime, y = count)
+vis as Doughnut (names = Feed, values = count)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;comments&#34;&gt;Comments&lt;/h2&gt;
 &lt;h3 id=&#34;single-line&#34;&gt;Single line&lt;/h3&gt;

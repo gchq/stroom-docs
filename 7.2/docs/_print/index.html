@@ -116,7 +116,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.65b060df0eb7fe2146486383aa13afac.json"
+    data-offline-search-index-json-src="../../offline-search-index.4c8eeb6ebb91205db8366bfa671448c0.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -2009,8 +2009,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.2</strong>&rdquo;<br>
-Documentation generated on: <strong>22 Jan 2024, 11:21 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v2008</strong></p>
+Documentation generated on: <strong>09 Feb 2024, 23:36 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v2037</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -45152,8 +45152,9 @@ where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [having] &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [group by] &lt;FIELD&gt;
 [sort by] &lt;FIELD&gt; [desc|asc] // asc by default
-select &lt;FIELD&gt; [as &lt;COLUMN NAME&gt;], ...
 [limit] &lt;MAX_ROWS&gt; 
+select &lt;FIELD&gt; [as &lt;COLUMN NAME&gt;], ...
+[vis as] &lt;VIS_NAME&gt; (&lt;VIS_CONTROL_ID_1&gt; = &lt;COLUMN_1&gt;, &lt;VIS_CONTROL_ID_2&gt; = &lt;COLUMN_2&gt;)
 </code></pre>
 <h2 id="keywords">Keywords</h2>
 <h3 id="from">From</h3>
@@ -45283,6 +45284,10 @@ group by name
 <p>Or</p>
 <pre><code class="language-stroomql">sort by feed desc
 </code></pre>
+<h3 id="limit">Limit</h3>
+<p>Limit the number of results, e.g.</p>
+<pre><code class="language-stroomql">limit 10
+</code></pre>
 <h3 id="select">Select</h3>
 <p>The <code>select</code> keyword is used to define the fields that will be selected out of the data source (and any <code>eval</code>&rsquo;d fields) for display in the table output.</p>
 <pre><code class="language-stroomql">select feed, name
@@ -45291,9 +45296,11 @@ group by name
 <pre><code class="language-stroomql">select feed as 'my feed column',
   name as 'my name column'
 </code></pre>
-<h3 id="limit">Limit</h3>
-<p>Limit the number of results, e.g.</p>
-<pre><code class="language-stroomql">limit 10
+<h3 id="vis-as">Vis As</h3>
+<p>The <code>vis as</code> keyword is used to tell StroomQL how to visualise the data resulting from the <code>select</code>.
+The Stroom visualisation can be specified and then passed column values from the <code>select</code> for the visualisation control properties.</p>
+<pre><code class="language-stroomql">vis as LineChart (x = EventTime, y = count)
+vis as Doughnut (names = Feed, values = count)
 </code></pre>
 <h2 id="comments">Comments</h2>
 <h3 id="single-line">Single line</h3>
