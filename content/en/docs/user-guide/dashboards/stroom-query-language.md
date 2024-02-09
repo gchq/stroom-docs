@@ -37,8 +37,9 @@ where <FIELD> <CONDITION> <VALUE> [and|or|not]
 [having] <FIELD> <CONDITION> <VALUE> [and|or|not]
 [group by] <FIELD>
 [sort by] <FIELD> [desc|asc] // asc by default
-select <FIELD> [as <COLUMN NAME>], ...
 [limit] <MAX_ROWS> 
+select <FIELD> [as <COLUMN NAME>], ...
+[vis as] <VIS_NAME> (<VIS_CONTROL_ID_1> = <COLUMN_1>, <VIS_CONTROL_ID_2> = <COLUMN_2>)
 ```
 
 
@@ -251,6 +252,12 @@ Or
 sort by feed desc
 ```
 
+### Limit
+
+Limit the number of results, e.g.
+```stroomql
+limit 10
+```
 
 ### Select
 
@@ -267,14 +274,15 @@ select feed as 'my feed column',
   name as 'my name column'
 ```
 
+### Vis As
 
-### Limit
+The `vis as` keyword is used to tell StroomQL how to visualise the data resulting from the `select`.
+The Stroom visualisation can be specified and then passed column values from the `select` for the visualisation control properties.
 
-Limit the number of results, e.g.
 ```stroomql
-limit 10
+vis as LineChart (x = EventTime, y = count)
+vis as Doughnut (names = Feed, values = count)
 ```
-
 
 ## Comments
 
