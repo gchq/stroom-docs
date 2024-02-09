@@ -62,8 +62,9 @@ The following functions are available to aid your translation:
 * `hash(String value)` - Hash a string value using the default `SHA-256` algorithm and no salt
 * `hash(String value, String algorithm, String salt)` - Hash a string value using the specified hashing algorithm and supplied salt value.
   Supported hashing algorithms include `SHA-256`, `SHA-512`, `MD5`.
-* `hex-to-dec(String hex)` - Convert hex to dec representation
-* `hex-to-oct(String hex)` - Convert hex to oct representation
+* `hex-to-dec(String hex)` - Convert hex to dec representation.
+* `hex-to-oct(String hex)` - Convert hex to oct representation.
+* [`hex-to-string(String hex, String textEncoding)`](#hex-to-string) - Convert hex to string using the specified text encoding.
 * `host-address(String hostname)` - Convert a hostname into an IP address.
 * `host-name(String ipAddress)` - Convert an IP address into a hostname.
 * [`http-call(String url, String headers, String mediaType, String data, String clientConfig)`](#http-call) - Makes an HTTP(S) request to a remote server.
@@ -219,6 +220,27 @@ E.g. Convert a date time specified as milliseconds since the epoch "126927001164
 
 Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.
 
+
+## hex-to-string()
+
+For a hexadecimal input string, decode it using the specified character set to its original form.
+
+Valid character set names are listed at: https://www.iana.org/assignments/character-sets/character-sets.xhtml.
+Common examples are: `ASCII`, `UTF-8` and `UTF-16`.
+
+### Example
+
+#### Input
+
+```xml
+<string><xsl:value-of select="hex-to-string('74 65 73 74 69 6e 67 20 31 32 33', 'UTF-8')" /></string>
+```
+
+#### Output
+
+```xml
+<string>testing 123</string>
+```
 
 ## http-call()
 
@@ -412,6 +434,26 @@ E.g. Warn if a SID is not the correct length.
 <xsl:if test="string-length($sid) != 7">
   <xsl:value-of select="s:log('WARN', concat($sid, ' is not the correct length'))"/>
 </xsl:if>
+```
+
+The same functionality can also be achieved using the standard `xsl:message` element.
+
+```xml
+<!-- Log a message using default severity of ERROR -->
+<xsl:message>Invalid length</xsl:message>
+
+<!-- terminate="yes" means log the message as a FATAL ERROR -->
+<xsl:message terminate="yes">Invalid length</xsl:message>
+
+<!-- Log a message with a child element name specifying the severity (namespace doesn't matter). -->
+<xsl:message>
+  <warn>Invalid length</warn>
+</xsl:message>
+
+<!-- Log a message with a child element name specifying the severity (namespace doesn't matter). -->
+<xsl:message>
+  <info>Invalid length</info>
+</xsl:message>
 ```
 
 
