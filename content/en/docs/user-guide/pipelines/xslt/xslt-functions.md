@@ -436,6 +436,26 @@ E.g. Warn if a SID is not the correct length.
 </xsl:if>
 ```
 
+The same functionality can also be achieved using the standard `xsl:message` element.
+
+```xml
+<!-- Log a message using default severity of ERROR -->
+<xsl:message>Invalid length</xsl:message>
+
+<!-- terminate="yes" means log the message as a FATAL ERROR -->
+<xsl:message terminate="yes">Invalid length</xsl:message>
+
+<!-- Log a message with a child element name specifying the severity (namespace doesn't matter). -->
+<xsl:message>
+  <warn>Invalid length</warn>
+</xsl:message>
+
+<!-- Log a message with a child element name specifying the severity (namespace doesn't matter). -->
+<xsl:message>
+  <info>Invalid length</info>
+</xsl:message>
+```
+
 
 ## lookup()
 
