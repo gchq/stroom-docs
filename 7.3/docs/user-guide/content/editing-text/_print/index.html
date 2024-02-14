@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.abe871a6ffbd0bdd37be81ee37c91b14.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.f2d49b4498338c782bf96d23a587d5b9.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -516,312 +516,423 @@ The theme can be set <em>User Preferences</em>, from the main menu <span class="
     
   <h1 id="pg-9f254330d263eab7af1ab7d58af1a311">2 - Completion Snippet Reference</h1>
     <div class="lead">Reference for built in completion snippets.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    We have plans for improving how completion snippets are defined, i.e. allowing users to define their own.
-Therefore, available snippets may be subject to change.
-
-</div>
-
-
-<!--
-To semi-automate the process of creating these tables you can do the following:
-1. Open the snippet file, e.g. stroom-core-client-widget/src/main/java/edu/ycp/cs/dh/acegwt/public/ace/snippets/markdown.js
-1. Copy the `exports.snippets = [ ..... ];` array.
-1. Execute the following javascript (in a browser dev tools console or online js shell)
-
-exports.snippets = [ 
-..... 
-];
-console.log(JSON.stringify(exports.snippets));
-
-1. Copy the generated JSON into a file /tmp/json
-1. Run this jq command
-
-jq -r '.[] | "| " + .name + " | `" + .tabTrigger + "` | ` " + (.content | gsub("\n"; " `<br/>` ") | gsub("\\|"; "\\|")) + " ` | "' < /tmp/json
-
-1. Paste the output of that under the heading rows, or if you are in vim you can read the jq command output directly in, e.g.:
-
-:r !jq -r '.[] | "| " + .name + " | `" + .tabTrigger + "` | ` " + (.content | gsub("\n"; " `<br/>` ") | gsub("\\|"; "\\|")) + " ` | "' < /tmp/json
-
-Simples, sort of.
--->
+	<h2 id="overview">Overview</h2>
+<p>Completion snippets are a way to quickly insert snippets of text into the editor.
+This is very useful for example when editing XSLT documents as you can quickly insert common chunks of XSLT.</p>
+<p>This page lists all the snippets available in Stroom.
+Snippets are specific to the type of content being edited, e.g. When editing an XSLT, you will only be able to use <em>XML/XSLT</em> snippets.</p>
+<h3 id="tab-positions">Tab Positions</h3>
+<p>A snippet is not just a static block of text, it can contain various tab position placeholders.
+The following is an example of a snippet with multiple tab positions:</p>
+<pre><code class="language-xml">&lt;xsl:apply-templates select=&quot;${1:*}&quot;&gt;
+  &lt;xsl:with-param name=&quot;${2:param}&quot;&gt;${3}&lt;/xsl:with-param&gt;
+  ${0}
+&lt;/xsl:apply-templates&gt;
+</code></pre>
+<p>Tab positions are expressed like <code>${n}</code> or <code>${n:xxx}</code>, where <code>n</code> is a number indication the order of the tab position and <code>xxx</code> is the default value at that tab position. Sometimes <code>xxx</code> will not be a default value, but will instead be a string to hint at the kind of thing the user is expected to overtype with where no obvious default is available.
+<code>${0}</code> is a special tab position in that it defines the last tab position.</p>
 <p>To insert a snippet do one of the following:</p>
 <ul>
 <li>Type the whole Tab Trigger then hit <code>tab</code>.</li>
 <li>Type some characters from the Name then hit <code>ctrl+space</code> to select it from the list.</li>
 </ul>
-<h2 id="xmlxslt">XML/XSLT</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Tab Trigger</th>
-<th>Snippet Content</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>apply-templates with-param</td>
-<td><code>wapply</code></td>
-<td><code>&lt;xsl:apply-templates select=&quot;${1:*}&quot;&gt;</code><br/><code>  &lt;xsl:with-param name=&quot;${2:param}&quot;&gt;${3}&lt;/xsl:with-param&gt;</code><br/><code>  ${0}</code><br/><code>&lt;/xsl:apply-templates&gt;</code></td>
-</tr>
-<tr>
-<td>apply-templates sort-by</td>
-<td><code>applysort</code></td>
-<td><code>&lt;xsl:apply-templates select=&quot;${1:*}&quot;&gt;</code><br/><code>  &lt;xsl:sort select=&quot;${2:node}&quot; order=&quot;${3:ascending}&quot; data-type=&quot;${4:text}&quot;&gt;${5}</code><br/><code>&lt;/xsl:apply-templates&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>apply-templates plain</td>
-<td><code>apply</code></td>
-<td><code>&lt;xsl:apply-templates select=&quot;${1:*}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>attribute blank</td>
-<td><code>attr</code></td>
-<td><code>&lt;xsl:attribute name=&quot;${1:name}&quot;&gt;${2}&lt;/xsl:attribute&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>attribute value-of</td>
-<td><code>attrval</code></td>
-<td><code>&lt;xsl:attribute name=&quot;${1:name}&quot;&gt;</code><br/><code>  &lt;xsl:value-of select=&quot;${2:*}&quot; /&gt;</code><br/><code>&lt;/xsl:attribute&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>call-template</td>
-<td><code>call</code></td>
-<td><code>&lt;xsl:call-template name=&quot;${1:template}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>call-template with-param</td>
-<td><code>wcall</code></td>
-<td><code>&lt;xsl:call-template name=&quot;${1:template}&quot;&gt;</code><br/><code>  &lt;xsl:with-param name=&quot;${2:param}&quot;&gt;${3}&lt;/xsl:with-param&gt;${4}</code><br/><code>&lt;/xsl:call-template&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>choose</td>
-<td><code>choose</code></td>
-<td><code>&lt;xsl:choose&gt;</code><br/><code>  &lt;xsl:when test=&quot;${1:value}&quot;&gt;</code><br/><code>    ${2}</code><br/><code>  &lt;/xsl:when&gt;${3}</code><br/><code>&lt;/xsl:choose&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>copy-of</td>
-<td><code>copyof</code></td>
-<td><code>&lt;xsl:copy-of select=&quot;${1:*}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>for-each</td>
-<td><code>foreach</code></td>
-<td><code>&lt;xsl:for-each select=&quot;${1:*}&quot;&gt;</code><br/><code>  ${2}</code><br/><code>&lt;/xsl:for-each&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>if</td>
-<td><code>if</code></td>
-<td><code>&lt;xsl:if test=&quot;${1:test}&quot;&gt;</code><br/><code>  ${2}</code><br/><code>&lt;/xsl:if&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>import</td>
-<td><code>imp</code></td>
-<td><code>&lt;xsl:import href=&quot;${1:stylesheet}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>include</td>
-<td><code>inc</code></td>
-<td><code>&lt;xsl:include href=&quot;${1:stylesheet}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>otherwise</td>
-<td><code>otherwise</code></td>
-<td><code>&lt;xsl:otherwise&gt;</code><br/><code>  ${1}</code><br/><code>&lt;/xsl:otherwise&gt;</code><br/><code>$0</code></td>
-</tr>
-<tr>
-<td>param</td>
-<td><code>param</code></td>
-<td><code>&lt;xsl:param name=&quot;${1:name}&quot;&gt;</code><br/><code>  ${2}</code><br/><code>&lt;/xsl:param&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>stylesheet</td>
-<td><code>style</code></td>
-<td><code>&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns=&quot;${1}&quot; xpath-default-namespace=&quot;${2:${1}}&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;</code><br/><code>  ${0}</code><br/><code>&lt;/xsl:stylesheet&gt;</code></td>
-</tr>
-<tr>
-<td>template</td>
-<td><code>temp</code></td>
-<td><code>&lt;xsl:template match=&quot;${1:*}&quot;&gt;</code><br/><code>  ${2}</code><br/><code>&lt;/xsl:template&gt;</code><br/><code>$0</code></td>
-</tr>
-<tr>
-<td>template named</td>
-<td><code>ntemp</code></td>
-<td><code>&lt;xsl:template name=&quot;${1:name}&quot;&gt;</code><br/><code>  ${2}</code><br/><code>&lt;/xsl:template&gt;</code><br/><code>$0</code></td>
-</tr>
-<tr>
-<td>text</td>
-<td><code>text</code></td>
-<td><code>&lt;xsl:text&gt;${1}&lt;/xsl:text&gt;</code><br/><code>$0</code></td>
-</tr>
-<tr>
-<td>value-of</td>
-<td><code>valof</code></td>
-<td><code>&lt;xsl:value-of select=&quot;${1:*}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>variable blank</td>
-<td><code>var</code></td>
-<td><code>&lt;xsl:variable name=&quot;${1:name}&quot;&gt;</code><br/><code>  ${0}</code><br/><code>&lt;/xsl:variable&gt;</code></td>
-</tr>
-<tr>
-<td>variable select</td>
-<td><code>varsel</code></td>
-<td><code>&lt;xsl:variable select=&quot;${1:*}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>when</td>
-<td><code>when</code></td>
-<td><code>&lt;xsl:when test=&quot;${1:test}&quot;&gt;</code><br/><code>  ${0}</code><br/><code>&lt;/xsl:when&gt;</code></td>
-</tr>
-<tr>
-<td>with-param</td>
-<td><code>wparam</code></td>
-<td><code>&lt;xsl:with-param name=&quot;${1:name}&quot;&gt;${2}&lt;/xsl:with-param&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>with-param select</td>
-<td><code>wparamsel</code></td>
-<td><code>&lt;xsl:with-param name=&quot;${1:name}&quot; select=&quot;${2:*}&quot; /&gt;</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>identity skeleton</td>
-<td><code>ident</code></td>
-<td><code>&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;${1:event-logging:3}&quot; xmlns=&quot;${2:${1}}&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;</code><br/><code>  </code><br/><code>  &lt;!-- Whenever you match any node or any attribute --&gt;</code><br/><code>  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;</code><br/><code>  </code><br/><code>    &lt;!-- Copy the current node --&gt;</code><br/><code>    &lt;xsl:copy&gt;</code><br/><code>  </code><br/><code>      &lt;!-- Including any attributes it has and any child nodes --&gt;</code><br/><code>      &lt;xsl:apply-templates select=&quot;@*|node( )&quot;/&gt;</code><br/><code>    &lt;/xsl:copy&gt;</code><br/><code>  &lt;/xsl:template&gt;</code><br/><code>  </code><br/><code>  ${0}</code><br/><code>&lt;/xsl:stylesheet&gt;</code></td>
-</tr>
-<tr>
-<td>records identity skeleton</td>
-<td><code>recident</code></td>
-<td><code>&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;records:2&quot; xmlns=&quot;event-logging:3&quot; xmlns:stroom=&quot;stroom&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;</code><br/><code>  </code><br/><code>  &lt;!-- Match Root Object --&gt;</code><br/><code>  &lt;xsl:template match=&quot;records&quot;&gt;</code><br/><code>    &lt;Events xmlns=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.4.2.xsd&quot; Version=&quot;3.4.2&quot;&gt;</code><br/><code>      &lt;xsl:apply-templates /&gt;</code><br/><code>    &lt;/Events&gt;</code><br/><code>  &lt;/xsl:template&gt;</code><br/><code>  &lt;xsl:template match=&quot;record&quot;&gt;</code><br/><code>    &lt;Event&gt;</code><br/><code>      &lt;EventTime&gt;</code><br/><code>        &lt;TimeCreated&gt;${1:time}&lt;/TimeCreated&gt;</code><br/><code>      &lt;/EventTime&gt;</code><br/><code>      &lt;EventSource&gt;</code><br/><code>        &lt;System&gt;</code><br/><code>          &lt;Name&gt;${2:name}&lt;/Name&gt;</code><br/><code>          &lt;Environment&gt;${3:environment}&lt;/Environment&gt;</code><br/><code>        &lt;/System&gt;</code><br/><code>        &lt;Generator&gt;${4:generator}&lt;/Generator&gt;</code><br/><code>        &lt;Device&gt;${5:device}&lt;/Device&gt;</code><br/><code>      &lt;/EventSource&gt;</code><br/><code>      &lt;EventDetail&gt;</code><br/><code>        &lt;TypeId&gt;${6:type}&lt;/TypeId&gt;</code><br/><code>        ${0}</code><br/><code>        &lt;xsl:apply-templates /&gt;</code><br/><code>      &lt;/EventDetail&gt;</code><br/><code>    &lt;/Event&gt;</code><br/><code>  &lt;/xsl:template&gt;</code><br/><code>  </code><br/><code>  &lt;!-- Whenever you match any node or any attribute --&gt;</code><br/><code>  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;</code><br/><code>  </code><br/><code>    &lt;!-- Copy the current node --&gt;</code><br/><code>    &lt;xsl:copy&gt;</code><br/><code>  </code><br/><code>      &lt;!-- Including any attributes it has and any child nodes --&gt;</code><br/><code>      &lt;xsl:apply-templates select=&quot;@*|node( )&quot; /&gt;</code><br/><code>    &lt;/xsl:copy&gt;</code><br/><code>  &lt;/xsl:template&gt;</code><br/><code>&lt;/xsl:stylesheet&gt;</code></td>
-</tr>
-<tr>
-<td>events identity skeleton</td>
-<td><code>evtident</code></td>
-<td><code>&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;event-logging:3&quot; xmlns=&quot;event-logging:3&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;</code><br/><code>  </code><br/><code>  &lt;!-- Match Root Object --&gt;</code><br/><code>  &lt;xsl:template match=&quot;Events&quot;&gt;</code><br/><code>    &lt;Events xmlns=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.4.2.xsd&quot; Version=&quot;3.4.2&quot;&gt;</code><br/><code>      &lt;xsl:apply-templates /&gt;</code><br/><code>    &lt;/Events&gt;</code><br/><code>  &lt;/xsl:template&gt;</code><br/><code>  ${0}</code><br/><code>  </code><br/><code>  &lt;!-- Whenever you match any node or any attribute --&gt;</code><br/><code>  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;</code><br/><code>  </code><br/><code>    &lt;!-- Copy the current node --&gt;</code><br/><code>    &lt;xsl:copy&gt;</code><br/><code>  </code><br/><code>      &lt;!-- Including any attributes it has and any child nodes --&gt;</code><br/><code>      &lt;xsl:apply-templates select=&quot;@*|node( )&quot; /&gt;</code><br/><code>    &lt;/xsl:copy&gt;</code><br/><code>  &lt;/xsl:template&gt;</code><br/><code>&lt;/xsl:stylesheet&gt;</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="documentation-markdown">Documentation (Markdown)</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Tab Trigger</th>
-<th>Snippet Content</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Heading level 1</td>
-<td><code>h1</code></td>
-<td><code># ${1:heading}</code><br/><code>  </code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Heading level 2</td>
-<td><code>h2</code></td>
-<td><code>## ${1:heading}</code><br/><code>  </code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Heading level 3</td>
-<td><code>h3</code></td>
-<td><code>### ${1:heading}</code><br/><code>  </code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Heading level 4</td>
-<td><code>h4</code></td>
-<td><code>#### ${1:heading}</code><br/><code>  </code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Heading level 5</td>
-<td><code>h5</code></td>
-<td><code>##### ${1:heading}</code><br/><code>  </code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Heading level 6</td>
-<td><code>h6</code></td>
-<td><code>###### ${1:heading}</code><br/><code>  </code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Fenced Block</td>
-<td><code>fence</code></td>
-<td><code>```${1:language}</code><br/><code>${2}</code><br/><code>```</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Fenced block of XML</td>
-<td><code>fxml</code></td>
-<td><code>```xml</code><br/><code>${1}</code><br/><code>```</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Fenced block of plain text</td>
-<td><code>ftext</code></td>
-<td><code>```text</code><br/><code>${1}</code><br/><code>```</code><br/><code>${0}</code></td>
-</tr>
-<tr>
-<td>Inline code</td>
-<td><code>inline</code></td>
-<td><code> </code>${1:code}<code>${0} </code></td>
-</tr>
-<tr>
-<td>Bold text</td>
-<td><code>b</code></td>
-<td><code>**${1:bold_text}**${0}</code></td>
-</tr>
-<tr>
-<td>Italic text</td>
-<td><code>i</code></td>
-<td><code>_${1:italic_text}_${0}</code></td>
-</tr>
-<tr>
-<td>Strike-through text</td>
-<td><code>s</code></td>
-<td><code>~~${1:strikethrough_text}~~${0}</code></td>
-</tr>
-<tr>
-<td>Bold italic text</td>
-<td><code>bi</code></td>
-<td><code>***${1:bold_italic_text}***${0}</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="stroom-query-language">Stroom Query Language</h2>
+<p>The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be position on the first tab position (<code>${1}</code> if present, otherwise <code>${0}</code>).
+If the tab position has a default value then the whole of that default value will be selected allowing the user to quickly over type it.
+Once the user is happy with the first tab position (whether they inserted text, over typed or did nothing), they can hit <code>tab</code> to move to the next tab position.</p>
+<h3 id="advanced-tab-positions">Advanced Tab Positions</h3>
+<p>It is possible for a tab position to be used multiple times in a snippet, like in the following example.
+All subsequent uses of a tab stop will take the value entered by the user on the first use of it.
+The subsequent uses will not act as tab stops.</p>
+<pre><code class="language-xml">&lt;xsl:stylesheet xmlns=&quot;${1}&quot; xpath-default-namespace=&quot;${1}&quot;&gt;
+  ${0}
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>If you want a reused tab position to also be a tab stop so that the user can chose to override the re-used value, then you can nest the tab stops like in this example:</p>
+<pre><code class="language-xml">&lt;xsl:stylesheet xmlns=&quot;${1}&quot; xpath-default-namespace=&quot;${2:${1}}&quot;&gt;
+  ${0}
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h2 id="adding-snippets-to-stroom">Adding Snippets to Stroom</h2>
+<p>We have plans for improving how completion snippets are defined, i.e. allowing users to define their own.
+Therefore, available snippets may be subject to change.</p>
+<p>However, until then, if there are any generic snippets that you think would be useful to add to Stroom then please raise an issue on 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues" target="_blank" class="" style="" title="GitHub (external link to https://github.com/gchq/stroom/issues)">
+    <span>GitHub</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<!-- 
+******************* IMPORTANT *********************
+
+Everything below here is semi-auto-generated using
+
+stroom.app.docs.GenerateSnippetsDoc#main on 7.3+
+
+Run that main method then copy the content from the console
+and paste it below this message.
+
+******************* IMPORTANT ********************* 
+-->
+<h2 id="xmlxslt-snippets">XML/XSLT Snippets</h2>
+<h3 id="apply-templates-with-param">apply-templates with-param</h3>
+<p><strong>Tab Trigger</strong>: <code>wapply</code></p>
+<pre><code class="language-xml">&lt;xsl:apply-templates select=&quot;${1:*}&quot;&gt;
+  &lt;xsl:with-param name=&quot;${2:param}&quot;&gt;${3}&lt;/xsl:with-param&gt;
+  ${0}
+&lt;/xsl:apply-templates&gt;
+</code></pre>
+<h3 id="apply-templates-sort-by">apply-templates sort-by</h3>
+<p><strong>Tab Trigger</strong>: <code>applysort</code></p>
+<pre><code class="language-xml">&lt;xsl:apply-templates select=&quot;${1:*}&quot;&gt;
+  &lt;xsl:sort select=&quot;${2:node}&quot; order=&quot;${3:ascending}&quot; data-type=&quot;${4:text}&quot;&gt;${5}
+&lt;/xsl:apply-templates&gt;
+${0}
+</code></pre>
+<h3 id="apply-templates-plain">apply-templates plain</h3>
+<p><strong>Tab Trigger</strong>: <code>apply</code></p>
+<pre><code class="language-xml">&lt;xsl:apply-templates select=&quot;${1:*}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="attribute-blank">attribute blank</h3>
+<p><strong>Tab Trigger</strong>: <code>attr</code></p>
+<pre><code class="language-xml">&lt;xsl:attribute name=&quot;${1:name}&quot;&gt;${2}&lt;/xsl:attribute&gt;
+${0}
+</code></pre>
+<h3 id="attribute-value-of">attribute value-of</h3>
+<p><strong>Tab Trigger</strong>: <code>attrval</code></p>
+<pre><code class="language-xml">&lt;xsl:attribute name=&quot;${1:name}&quot;&gt;
+  &lt;xsl:value-of select=&quot;${2:*}&quot; /&gt;
+&lt;/xsl:attribute&gt;
+${0}
+</code></pre>
+<h3 id="call-template">call-template</h3>
+<p><strong>Tab Trigger</strong>: <code>call</code></p>
+<pre><code class="language-xml">&lt;xsl:call-template name=&quot;${1:template}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="call-template-with-param">call-template with-param</h3>
+<p><strong>Tab Trigger</strong>: <code>wcall</code></p>
+<pre><code class="language-xml">&lt;xsl:call-template name=&quot;${1:template}&quot;&gt;
+  &lt;xsl:with-param name=&quot;${2:param}&quot;&gt;${3}&lt;/xsl:with-param&gt;${4}
+&lt;/xsl:call-template&gt;
+${0}
+</code></pre>
+<h3 id="choose">choose</h3>
+<p><strong>Tab Trigger</strong>: <code>choose</code></p>
+<pre><code class="language-xml">&lt;xsl:choose&gt;
+  &lt;xsl:when test=&quot;${1:value}&quot;&gt;
+    ${2}
+  &lt;/xsl:when&gt;${3}
+&lt;/xsl:choose&gt;
+${0}
+</code></pre>
+<h3 id="copy-of">copy-of</h3>
+<p><strong>Tab Trigger</strong>: <code>copyof</code></p>
+<pre><code class="language-xml">&lt;xsl:copy-of select=&quot;${1:*}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="element-blank">element blank</h3>
+<p><strong>Tab Trigger</strong>: <code>elem</code></p>
+<pre><code class="language-xml">&lt;xsl:element name=&quot;${1:name}&quot;&gt;
+  ${2}
+&lt;/xsl:element&gt;
+${0}
+</code></pre>
+<h3 id="for-each">for-each</h3>
+<p><strong>Tab Trigger</strong>: <code>foreach</code></p>
+<pre><code class="language-xml">&lt;xsl:for-each select=&quot;${1:*}&quot;&gt;
+  ${2}
+&lt;/xsl:for-each&gt;
+${0}
+</code></pre>
+<h3 id="if">if</h3>
+<p><strong>Tab Trigger</strong>: <code>if</code></p>
+<pre><code class="language-xml">&lt;xsl:if test=&quot;${1:test}&quot;&gt;
+  ${2}
+&lt;/xsl:if&gt;
+${0}
+</code></pre>
+<h3 id="import">import</h3>
+<p><strong>Tab Trigger</strong>: <code>imp</code></p>
+<pre><code class="language-xml">&lt;xsl:import href=&quot;${1:stylesheet}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="include">include</h3>
+<p><strong>Tab Trigger</strong>: <code>inc</code></p>
+<pre><code class="language-xml">&lt;xsl:include href=&quot;${1:stylesheet}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="otherwise">otherwise</h3>
+<p><strong>Tab Trigger</strong>: <code>otherwise</code></p>
+<pre><code class="language-xml">&lt;xsl:otherwise&gt;
+  ${1}
+&lt;/xsl:otherwise&gt;
+$0
+</code></pre>
+<h3 id="param">param</h3>
+<p><strong>Tab Trigger</strong>: <code>param</code></p>
+<pre><code class="language-xml">&lt;xsl:param name=&quot;${1:name}&quot;&gt;
+  ${2}
+&lt;/xsl:param&gt;
+${0}
+</code></pre>
+<h3 id="stylesheet">stylesheet</h3>
+<p><strong>Tab Trigger</strong>: <code>style</code></p>
+<pre><code class="language-xml">&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns=&quot;${1}&quot; xpath-default-namespace=&quot;${2:${1}}&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+  ${0}
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h3 id="template">template</h3>
+<p><strong>Tab Trigger</strong>: <code>temp</code></p>
+<pre><code class="language-xml">&lt;xsl:template match=&quot;${1:*}&quot;&gt;
+  ${2}
+&lt;/xsl:template&gt;
+$0
+</code></pre>
+<h3 id="template-named">template named</h3>
+<p><strong>Tab Trigger</strong>: <code>ntemp</code></p>
+<pre><code class="language-xml">&lt;xsl:template name=&quot;${1:name}&quot;&gt;
+  ${2}
+&lt;/xsl:template&gt;
+$0
+</code></pre>
+<h3 id="text">text</h3>
+<p><strong>Tab Trigger</strong>: <code>text</code></p>
+<pre><code class="language-xml">&lt;xsl:text&gt;${1}&lt;/xsl:text&gt;
+$0
+</code></pre>
+<h3 id="value-of">value-of</h3>
+<p><strong>Tab Trigger</strong>: <code>valof</code></p>
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;${1:*}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="variable-blank">variable blank</h3>
+<p><strong>Tab Trigger</strong>: <code>var</code></p>
+<pre><code class="language-xml">&lt;xsl:variable name=&quot;${1:name}&quot;&gt;
+  ${0}
+&lt;/xsl:variable&gt;
+</code></pre>
+<h3 id="variable-select">variable select</h3>
+<p><strong>Tab Trigger</strong>: <code>varsel</code></p>
+<pre><code class="language-xml">&lt;xsl:variable select=&quot;${1:*}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="when">when</h3>
+<p><strong>Tab Trigger</strong>: <code>when</code></p>
+<pre><code class="language-xml">&lt;xsl:when test=&quot;${1:test}&quot;&gt;
+  ${0}
+&lt;/xsl:when&gt;
+</code></pre>
+<h3 id="with-param">with-param</h3>
+<p><strong>Tab Trigger</strong>: <code>wparam</code></p>
+<pre><code class="language-xml">&lt;xsl:with-param name=&quot;${1:name}&quot;&gt;${2}&lt;/xsl:with-param&gt;
+${0}
+</code></pre>
+<h3 id="with-param-select">with-param select</h3>
+<p><strong>Tab Trigger</strong>: <code>wparamsel</code></p>
+<pre><code class="language-xml">&lt;xsl:with-param name=&quot;${1:name}&quot; select=&quot;${2:*}&quot; /&gt;
+${0}
+</code></pre>
+<h3 id="identity-skeleton">identity skeleton</h3>
+<p><strong>Tab Trigger</strong>: <code>ident</code></p>
+<pre><code class="language-xml">&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;${1:event-logging:3}&quot; xmlns=&quot;${2:${1}}&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+
+  &lt;!-- Whenever you match any node or any attribute --&gt;
+  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;
+
+    &lt;!-- Copy the current node --&gt;
+    &lt;xsl:copy&gt;
+
+      &lt;!-- Including any attributes it has and any child nodes --&gt;
+      &lt;xsl:apply-templates select=&quot;@*|node( )&quot;/&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+
+  ${0}
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h3 id="records-identity-skeleton">records identity skeleton</h3>
+<p><strong>Tab Trigger</strong>: <code>recident</code></p>
+<pre><code class="language-xml">&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;records:2&quot; xmlns=&quot;event-logging:3&quot; xmlns:stroom=&quot;stroom&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+
+  &lt;!-- Match Root Object --&gt;
+  &lt;xsl:template match=&quot;records&quot;&gt;
+    &lt;Events xmlns=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.4.2.xsd&quot; Version=&quot;3.4.2&quot;&gt;
+      &lt;xsl:apply-templates /&gt;
+    &lt;/Events&gt;
+  &lt;/xsl:template&gt;
+  &lt;xsl:template match=&quot;record&quot;&gt;
+    &lt;Event&gt;
+      &lt;EventTime&gt;
+        &lt;TimeCreated&gt;${1:time}&lt;/TimeCreated&gt;
+      &lt;/EventTime&gt;
+      &lt;EventSource&gt;
+        &lt;System&gt;
+          &lt;Name&gt;${2:name}&lt;/Name&gt;
+          &lt;Environment&gt;${3:environment}&lt;/Environment&gt;
+        &lt;/System&gt;
+        &lt;Generator&gt;${4:generator}&lt;/Generator&gt;
+        &lt;Device&gt;${5:device}&lt;/Device&gt;
+      &lt;/EventSource&gt;
+      &lt;EventDetail&gt;
+        &lt;TypeId&gt;${6:type}&lt;/TypeId&gt;
+        ${0}
+        &lt;xsl:apply-templates /&gt;
+      &lt;/EventDetail&gt;
+    &lt;/Event&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;!-- Whenever you match any node or any attribute --&gt;
+  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;
+
+    &lt;!-- Copy the current node --&gt;
+    &lt;xsl:copy&gt;
+
+      &lt;!-- Including any attributes it has and any child nodes --&gt;
+      &lt;xsl:apply-templates select=&quot;@*|node( )&quot; /&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h3 id="events-identity-skeleton">events identity skeleton</h3>
+<p><strong>Tab Trigger</strong>: <code>evtident</code></p>
+<pre><code class="language-xml">&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;event-logging:3&quot; xmlns=&quot;event-logging:3&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+
+  &lt;!-- Match Root Object --&gt;
+  &lt;xsl:template match=&quot;Events&quot;&gt;
+    &lt;Events xmlns=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.4.2.xsd&quot; Version=&quot;3.4.2&quot;&gt;
+      &lt;xsl:apply-templates /&gt;
+    &lt;/Events&gt;
+  &lt;/xsl:template&gt;
+  ${0}
+
+  &lt;!-- Whenever you match any node or any attribute --&gt;
+  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;
+
+    &lt;!-- Copy the current node --&gt;
+    &lt;xsl:copy&gt;
+
+      &lt;!-- Including any attributes it has and any child nodes --&gt;
+      &lt;xsl:apply-templates select=&quot;@*|node( )&quot; /&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h2 id="documentation-markdown-snippets">Documentation (Markdown) Snippets</h2>
+<h3 id="heading-level-1">Heading level 1</h3>
+<p><strong>Tab Trigger</strong>: <code>h1</code></p>
+<pre><code class="language-markdown"># ${1:heading}
+
+${0}
+</code></pre>
+<h3 id="heading-level-2">Heading level 2</h3>
+<p><strong>Tab Trigger</strong>: <code>h2</code></p>
+<pre><code class="language-markdown">## ${1:heading}
+
+${0}
+</code></pre>
+<h3 id="heading-level-3">Heading level 3</h3>
+<p><strong>Tab Trigger</strong>: <code>h3</code></p>
+<pre><code class="language-markdown">### ${1:heading}
+
+${0}
+</code></pre>
+<h3 id="heading-level-4">Heading level 4</h3>
+<p><strong>Tab Trigger</strong>: <code>h4</code></p>
+<pre><code class="language-markdown">#### ${1:heading}
+
+${0}
+</code></pre>
+<h3 id="heading-level-5">Heading level 5</h3>
+<p><strong>Tab Trigger</strong>: <code>h5</code></p>
+<pre><code class="language-markdown">##### ${1:heading}
+
+${0}
+</code></pre>
+<h3 id="heading-level-6">Heading level 6</h3>
+<p><strong>Tab Trigger</strong>: <code>h6</code></p>
+<pre><code class="language-markdown">###### ${1:heading}
+
+${0}
+</code></pre>
+<h3 id="fenced-block">Fenced Block</h3>
+<p><strong>Tab Trigger</strong>: <code>fence</code></p>
+<pre><code class="language-markdown">```${1:language}
+${2}
+```
+${0}
+</code></pre>
+<h3 id="fenced-block-of-xml">Fenced block of XML</h3>
+<p><strong>Tab Trigger</strong>: <code>fxml</code></p>
+<pre><code class="language-markdown">```xml
+${1}
+```
+${0}
+</code></pre>
+<h3 id="fenced-block-of-plain-text">Fenced block of plain text</h3>
+<p><strong>Tab Trigger</strong>: <code>ftext</code></p>
+<pre><code class="language-markdown">```text
+${1}
+```
+${0}
+</code></pre>
+<h3 id="inline-code">Inline code</h3>
+<p><strong>Tab Trigger</strong>: <code>inline</code></p>
+<pre><code class="language-markdown">`${1:code}`${0}
+</code></pre>
+<h3 id="bold-text">Bold text</h3>
+<p><strong>Tab Trigger</strong>: <code>b</code></p>
+<pre><code class="language-markdown">**${1:bold_text}**${0}
+</code></pre>
+<h3 id="italic-text">Italic text</h3>
+<p><strong>Tab Trigger</strong>: <code>i</code></p>
+<pre><code class="language-markdown">_${1:italic_text}_${0}
+</code></pre>
+<h3 id="strike-through-text">Strike-through text</h3>
+<p><strong>Tab Trigger</strong>: <code>s</code></p>
+<pre><code class="language-markdown">~~${1:strikethrough_text}~~${0}
+</code></pre>
+<h3 id="bold-italic-text">Bold italic text</h3>
+<p><strong>Tab Trigger</strong>: <code>bi</code></p>
+<pre><code class="language-markdown">***${1:bold_italic_text}***${0}
+</code></pre>
+<h2 id="stroom-query-language-snippets">Stroom Query Language Snippets</h2>
 <p>All <a href="../../../../../docs/user-guide/dashboards/expressions/">Expression Functions</a> are available as snippets.
 They do not currently have <code>tab</code> triggers.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Tab Trigger</th>
-<th>Snippet Content</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Eval first StreamId</td>
-<td><code>str</code></td>
-<td><code>eval StreamId = first(StreamId)</code><br/><code>$0</code></td>
-</tr>
-<tr>
-<td>Eval first EventId</td>
-<td><code>evt</code></td>
-<td><code>eval EventId = first(EventId)</code><br/><code>$0</code></td>
-</tr>
-<tr>
-<td>Eval first Stream/EventIds</td>
-<td><code>ids</code></td>
-<td><code>eval StreamId = first(StreamId)</code><br/><code>eval EventId = first(EventId)</code><br/><code>$0</code></td>
-</tr>
-<tr>
-<td>Eval first first value</td>
-<td><code>first</code></td>
-<td><code>eval ${1:field_name} = first(${1})</code><br/><code>$0</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="dashboard-table-expression-editor">Dashboard Table Expression Editor</h2>
+<h3 id="eval-first-streamid">Eval first StreamId</h3>
+<p><strong>Tab Trigger</strong>: <code>str</code></p>
+<pre><code class="language-text">eval StreamId = first(StreamId)
+$0
+</code></pre>
+<h3 id="eval-first-eventid">Eval first EventId</h3>
+<p><strong>Tab Trigger</strong>: <code>evt</code></p>
+<pre><code class="language-text">eval EventId = first(EventId)
+$0
+</code></pre>
+<h3 id="eval-first-streameventids">Eval first Stream/EventIds</h3>
+<p><strong>Tab Trigger</strong>: <code>ids</code></p>
+<pre><code class="language-text">eval StreamId = first(StreamId)
+eval EventId = first(EventId)
+$0
+</code></pre>
+<h3 id="eval-first-first-value">Eval first first value</h3>
+<p><strong>Tab Trigger</strong>: <code>first</code></p>
+<pre><code class="language-text">eval ${1:field_name} = first(${1})
+$0
+</code></pre>
+<h2 id="dashboard-table-expression-editor-snippets">Dashboard Table Expression Editor Snippets</h2>
 <p>All <a href="../../../../../docs/user-guide/dashboards/expressions/">Expression Functions</a> are available as snippets.
 They do not currently have <code>tab</code> triggers.</p>
 
