@@ -39,8 +39,8 @@
 
 
 
-<link rel="preload" href="../../../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" as="style">
-<link href="../../../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../../scss/main.min.765b04cbdc0071bb743c30ce4aa315cc0c69d51f07488713db40b3ca40f82ba7.css" as="style">
+<link href="../../../../../scss/main.min.765b04cbdc0071bb743c30ce4aa315cc0c69d51f07488713db40b3ca40f82ba7.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../../js/jquery-3.6.0.min.js'></script>
@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.f2d49b4498338c782bf96d23a587d5b9.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.b5aa3bda3cb9a4f488e1350153feec56.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -166,15 +166,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-850da8228403d37fae63cefb4607865a">Context Data</a></li>
-
-
-    
-  
-    
-    
-	
-<li>2: <a href="#pg-59f866a6d2114dc2ea44119af58eff26">XML Fragments</a></li>
+<li>1: <a href="#pg-59f866a6d2114dc2ea44119af58eff26">XML Fragments</a></li>
 
 
     
@@ -213,191 +205,7 @@ This is the multi-page printable view of this section.
 
 <div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
-  <h1 id="pg-850da8228403d37fae63cefb4607865a">1 - Context Data</h1>
-    
-	<h2 id="context-file">Context File</h2>
-<h3 id="input-file">Input File:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeData&gt;
-	&lt;SomeEvent&gt;
-			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
-			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
-			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
-			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
-	&lt;/SomeEvent&gt;
-&lt;/SomeData&gt;
-</code></pre>
-<h3 id="context-file-1">Context File:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeContext&gt;
-	&lt;Machine&gt;MyMachine&lt;/Machine&gt;
-&lt;/SomeContext&gt;
-</code></pre>
-<h3 id="context-xslt">Context XSLT:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet
-	xmlns=&quot;reference-data:2&quot;
-	xmlns:evt=&quot;event-logging:3&quot;
-	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-	version=&quot;2.0&quot;&gt;
-		
-		&lt;xsl:template match=&quot;SomeContext&quot;&gt;
-			&lt;referenceData 
-					xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
-					version=&quot;2.0.1&quot;&gt;
-							
-					&lt;xsl:apply-templates/&gt;
-			&lt;/referenceData&gt;
-		&lt;/xsl:template&gt;
-
-		&lt;xsl:template match=&quot;Machine&quot;&gt;
-			&lt;reference&gt;
-					&lt;map&gt;CONTEXT&lt;/map&gt;
-					&lt;key&gt;Machine&lt;/key&gt;
-					&lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt;
-			&lt;/reference&gt;
-		&lt;/xsl:template&gt;
-		
-&lt;/xsl:stylesheet&gt;
-</code></pre>
-<h3 id="context-xml-translation">Context XML Translation:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;referenceData xmlns:evt=&quot;event-logging:3&quot;
-								xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-								xmlns=&quot;reference-data:2&quot;
-								xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
-								version=&quot;2.0.1&quot;&gt;
-		&lt;reference&gt;
-			&lt;map&gt;CONTEXT&lt;/map&gt;
-			&lt;key&gt;Machine&lt;/key&gt;
-			&lt;value&gt;MyMachine&lt;/value&gt;
-		&lt;/reference&gt;
-&lt;/referenceData&gt;
-</code></pre>
-<h3 id="input-file-1">Input File:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeData&gt;
-	&lt;SomeEvent&gt;
-			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
-			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
-			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
-			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
-	&lt;/SomeEvent&gt;
-&lt;/SomeData&gt;
-</code></pre>
-<h3 id="main-xslt-note-the-use-of-the-context-lookup">Main XSLT (Note the use of the context lookup):</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet
-	xmlns=&quot;event-logging:3&quot;
-	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
-	version=&quot;2.0&quot;&gt;
-	
-    &lt;xsl:template match=&quot;SomeData&quot;&gt;
-        &lt;Events xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot; Version=&quot;3.0.0&quot;&gt;
-            &lt;xsl:apply-templates/&gt;
-        &lt;/Events&gt;
-    &lt;/xsl:template&gt;
-    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
-        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
-            &lt;Event&gt;
-                &lt;EventTime&gt;
-                        &lt;TimeCreated&gt;
-                            &lt;xsl:value-of select=&quot;s:format-date(SomeTime, 'dd/MM/yyyy:hh:mm:ss')&quot;/&gt;
-                        &lt;/TimeCreated&gt;
-                &lt;/EventTime&gt;
-				&lt;EventSource&gt;
-					&lt;System&gt;Example&lt;/System&gt;
-					&lt;Environment&gt;Example&lt;/Environment&gt;
-					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
-					&lt;Device&gt;
-						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
-						&lt;Location&gt;
-							&lt;Country&gt;UK&lt;/Country&gt;
-							&lt;Site&gt;&lt;xsl:value-of select=&quot;s:lookup('CONTEXT', 'Machine')&quot;/&gt;&lt;/Site&gt;
-							&lt;Building&gt;Main&lt;/Building&gt;
-							&lt;Floor&gt;1&lt;/Floor&gt;              
-							&lt;Room&gt;1aaa&lt;/Room&gt;
-						&lt;/Location&gt;           
-					&lt;/Device&gt;
-					&lt;User&gt;&lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;&lt;/User&gt;
-				&lt;/EventSource&gt;
-				&lt;EventDetail&gt;
-					&lt;View&gt;
-						&lt;Document&gt;
-							&lt;Title&gt;UNKNOWN&lt;/Title&gt;
-							&lt;File&gt;
-								&lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
-							&lt;/File&gt;
-						&lt;/Document&gt;
-					&lt;/View&gt;
-				&lt;/EventDetail&gt;
-            &lt;/Event&gt;
-        &lt;/xsl:if&gt;
-    &lt;/xsl:template&gt;
-&lt;/xsl:stylesheet&gt;
-</code></pre>
-<h3 id="main-output-xml">Main Output XML:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-				xmlns=&quot;event-logging:3&quot;
-				xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
-				Version=&quot;3.0.0&quot;&gt;
-		&lt;Event Id=&quot;6:1&quot;&gt;
-			&lt;EventTime&gt;
-					&lt;TimeCreated&gt;2009-01-01T00:00:01.000Z&lt;/TimeCreated&gt;
-			&lt;/EventTime&gt;
-			&lt;EventSource&gt;
-					&lt;System&gt;Example&lt;/System&gt;
-					&lt;Environment&gt;Example&lt;/Environment&gt;
-					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
-					&lt;Device&gt;
-						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
-						&lt;Location&gt;
-								&lt;Country&gt;UK&lt;/Country&gt;
-								&lt;Site&gt;MyMachine&lt;/Site&gt;
-								&lt;Building&gt;Main&lt;/Building&gt;
-								&lt;Floor&gt;1&lt;/Floor&gt;
-								&lt;Room&gt;1aaa&lt;/Room&gt;
-						&lt;/Location&gt;
-					&lt;/Device&gt;
-					&lt;User&gt;
-						&lt;Id&gt;userone&lt;/Id&gt;
-					&lt;/User&gt;
-			&lt;/EventSource&gt;
-			&lt;EventDetail&gt;
-					&lt;View&gt;
-						&lt;Document&gt;
-								&lt;Title&gt;UNKNOWN&lt;/Title&gt;
-								&lt;File&gt;
-									&lt;Path&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/Path&gt;
-								&lt;/File&gt;
-						&lt;/Document&gt;
-					&lt;/View&gt;
-			&lt;/EventDetail&gt;
-		&lt;/Event&gt;
-&lt;/Events&gt;
-</code></pre>
-
-</div>
-
-
-
-
-    
-	
-  
-    
-    
-	
-    
-
-
-
-<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
-    
-  <h1 id="pg-59f866a6d2114dc2ea44119af58eff26">2 - XML Fragments</h1>
+  <h1 id="pg-59f866a6d2114dc2ea44119af58eff26">1 - XML Fragments</h1>
     <div class="lead">Handling XML data without root level elements.</div>
 	<p>Some input XML data may be missing an XML declaration and root level enclosing elements.
 This data is not a valid XML document and must be treated as an XML fragment.

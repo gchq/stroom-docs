@@ -19,32 +19,32 @@
 <link rel="icon" type="image/png" href="../../../../../favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
 
-<title>Context Data | Stroom</title>
-<meta name="description" content="Context File
-Input File:
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeData&gt;
-	&lt;SomeEvent&gt; …">
-<meta property="og:title" content="Context Data" />
-<meta property="og:description" content="Context File Input File: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;SomeData&gt; &lt;SomeEvent&gt; &lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt; &lt;SomeAction&gt;OPEN&lt;/SomeAction&gt; &lt;SomeUser&gt;userone&lt;/SomeUser&gt; &lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt; &lt;/SomeEvent&gt; &lt;/SomeData&gt;  Context File: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;SomeContext&gt; &lt;Machine&gt;MyMachine&lt;/Machine&gt; &lt;/SomeContext&gt;  Context XSLT: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; &lt;xsl:stylesheet xmlns=&quot;reference-data:2&quot; xmlns:evt=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; version=&quot;2.0&quot;&gt; &lt;xsl:template match=&quot;SomeContext&quot;&gt; &lt;referenceData xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot; version=&quot;2.0.1&quot;&gt; &lt;xsl:apply-templates/&gt; &lt;/referenceData&gt; &lt;/xsl:template&gt; &lt;xsl:template match=&quot;Machine&quot;&gt; &lt;reference&gt; &lt;map&gt;CONTEXT&lt;/map&gt; &lt;key&gt;Machine&lt;/key&gt; &lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt; &lt;/reference&gt; &lt;/xsl:template&gt; &lt;/xsl:stylesheet&gt;  Context XML Translation: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;referenceData xmlns:evt=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;reference-data:2&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3." />
+<title>XSLT Basics | Stroom</title>
+<meta name="description" content="The basics of using XSLT and the XSLTFilter element.
+">
+<meta property="og:title" content="XSLT Basics" />
+<meta property="og:description" content="The basics of using XSLT and the XSLTFilter element.
+" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/docs/user-guide/pipelines/parser/context-data/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-02-14T17:16:37+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="og:url" content="/docs/user-guide/pipelines/xslt/xslt-basics/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2024-02-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-02-15T17:21:24+00:00" /><meta property="og:site_name" content="Stroom" />
 
-<meta itemprop="name" content="Context Data">
-<meta itemprop="description" content="Context File Input File: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;SomeData&gt; &lt;SomeEvent&gt; &lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt; &lt;SomeAction&gt;OPEN&lt;/SomeAction&gt; &lt;SomeUser&gt;userone&lt;/SomeUser&gt; &lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt; &lt;/SomeEvent&gt; &lt;/SomeData&gt;  Context File: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;SomeContext&gt; &lt;Machine&gt;MyMachine&lt;/Machine&gt; &lt;/SomeContext&gt;  Context XSLT: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; &lt;xsl:stylesheet xmlns=&quot;reference-data:2&quot; xmlns:evt=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; version=&quot;2.0&quot;&gt; &lt;xsl:template match=&quot;SomeContext&quot;&gt; &lt;referenceData xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot; version=&quot;2.0.1&quot;&gt; &lt;xsl:apply-templates/&gt; &lt;/referenceData&gt; &lt;/xsl:template&gt; &lt;xsl:template match=&quot;Machine&quot;&gt; &lt;reference&gt; &lt;map&gt;CONTEXT&lt;/map&gt; &lt;key&gt;Machine&lt;/key&gt; &lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt; &lt;/reference&gt; &lt;/xsl:template&gt; &lt;/xsl:stylesheet&gt;  Context XML Translation: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;referenceData xmlns:evt=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;reference-data:2&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3."><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-02-14T17:16:37+00:00" />
-<meta itemprop="wordCount" content="216">
-<meta itemprop="keywords" content="context," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Context Data"/>
-<meta name="twitter:description" content="Context File Input File: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;SomeData&gt; &lt;SomeEvent&gt; &lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt; &lt;SomeAction&gt;OPEN&lt;/SomeAction&gt; &lt;SomeUser&gt;userone&lt;/SomeUser&gt; &lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt; &lt;/SomeEvent&gt; &lt;/SomeData&gt;  Context File: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;SomeContext&gt; &lt;Machine&gt;MyMachine&lt;/Machine&gt; &lt;/SomeContext&gt;  Context XSLT: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; &lt;xsl:stylesheet xmlns=&quot;reference-data:2&quot; xmlns:evt=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; version=&quot;2.0&quot;&gt; &lt;xsl:template match=&quot;SomeContext&quot;&gt; &lt;referenceData xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot; version=&quot;2.0.1&quot;&gt; &lt;xsl:apply-templates/&gt; &lt;/referenceData&gt; &lt;/xsl:template&gt; &lt;xsl:template match=&quot;Machine&quot;&gt; &lt;reference&gt; &lt;map&gt;CONTEXT&lt;/map&gt; &lt;key&gt;Machine&lt;/key&gt; &lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt; &lt;/reference&gt; &lt;/xsl:template&gt; &lt;/xsl:stylesheet&gt;  Context XML Translation: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;referenceData xmlns:evt=&quot;event-logging:3&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;reference-data:2&quot; xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3."/>
+<meta itemprop="name" content="XSLT Basics">
+<meta itemprop="description" content="The basics of using XSLT and the XSLTFilter element.
+"><meta itemprop="datePublished" content="2024-02-14T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-02-15T17:21:24+00:00" />
+<meta itemprop="wordCount" content="745">
+<meta itemprop="keywords" content="xslt," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="XSLT Basics"/>
+<meta name="twitter:description" content="The basics of using XSLT and the XSLTFilter element.
+"/>
 
 
 
 
-<link rel="preload" href="../../../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" as="style">
-<link href="../../../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../../scss/main.min.765b04cbdc0071bb743c30ce4aa315cc0c69d51f07488713db40b3ca40f82ba7.css" as="style">
+<link href="../../../../../scss/main.min.765b04cbdc0071bb743c30ce4aa315cc0c69d51f07488713db40b3ca40f82ba7.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../../js/jquery-3.6.0.min.js'></script>
@@ -123,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.f2d49b4498338c782bf96d23a587d5b9.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.b5aa3bda3cb9a4f488e1350153feec56.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -148,7 +148,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.f2d49b4498338c782bf96d23a587d5b9.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.b5aa3bda3cb9a4f488e1350153feec56.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -503,30 +503,34 @@ if (!doNotTrack) {
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guidepipelines-li">
   <a href="../../../../../docs/user-guide/pipelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelines"><span class="">Pipelines</span></a>
   <ul class="ul-3 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guidepipelinesparser-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinesrecipies-li">
+  <a href="../../../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipies</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidepipelinesparser-li">
   <a href="../../../../../docs/user-guide/pipelines/parser/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesparser"><span class="">Parser</span></a>
   <ul class="ul-4 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsuser-guidepipelinesparsercontext-data-li">
-  <a href="../../../../../docs/user-guide/pipelines/parser/context-data/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesparsercontext-data"><span class="td-sidebar-nav-active-item">Context Data</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinesparserxml-fragments-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesparserxml-fragments-li">
   <a href="../../../../../docs/user-guide/pipelines/parser/xml-fragments/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesparserxml-fragments"><span class="">XML Fragments</span></a>
 </li>
   </ul>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidepipelinesxslt-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsuser-guidepipelinesxslt-li">
   <a href="../../../../../docs/user-guide/pipelines/xslt/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesxslt"><span class="">XSLT Conversion</span></a>
   <ul class="ul-4 foldable">
-    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsuser-guidepipelinesxsltxslt-basics-li">
+  <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-basics/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-basics"><span class="td-sidebar-nav-active-item">XSLT Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinesxsltxslt-functions-li">
   <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-functions"><span class="">XSLT Functions</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesxsltxslt-includes-li">
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinesxsltxslt-includes-li">
   <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-includes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesxsltxslt-includes"><span class="">XSLT Includes</span></a>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinesfile-output-li">
   <a href="../../../../../docs/user-guide/pipelines/file-output/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesfile-output"><span class="">File Output</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelineselement-reference-li">
-  <a href="../../../../../docs/user-guide/pipelines/element-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelineselement-reference"><span class="">Element Reference</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinesreference-data-li">
   <a href="../../../../../docs/user-guide/pipelines/reference-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesreference-data"><span class="">Reference Data</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinescontext-data-li">
+  <a href="../../../../../docs/user-guide/pipelines/context-data/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinescontext-data"><span class="">Context Data</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelineselement-reference-li">
+  <a href="../../../../../docs/user-guide/pipelines/element-reference/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelineselement-reference"><span class="">Element Reference</span></a>
 </li>
   </ul>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guideproperties-li">
@@ -637,29 +641,26 @@ if (!doNotTrack) {
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
 <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/gchq/stroom-docs/tree/7.3/content/en/docs/user-guide/pipelines/parser/context-data.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
-  <a href="https://github.com/gchq/stroom-docs/edit/7.3/content/en/docs/user-guide/pipelines/parser/context-data.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/gchq/stroom-docs/new/7.3/content/en/docs/user-guide/pipelines/parser/context-data.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
-  <a href="https://github.com/gchq/stroom-docs/issues/new?title=Context%20Data" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+<a href="https://github.com/gchq/stroom-docs/tree/7.3/content/en/docs/user-guide/pipelines/xslt/xslt-basics.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/7.3/content/en/docs/user-guide/pipelines/xslt/xslt-basics.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/7.3/content/en/docs/user-guide/pipelines/xslt/xslt-basics.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/gchq/stroom-docs/issues/new?title=XSLT%20Basics" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
-  <a id="print" href="../../../../../docs/user-guide/pipelines/parser/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
+  <a id="print" href="../../../../../docs/user-guide/pipelines/xslt/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
 
 </div>
 
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#context-file">Context File</a>
+    <li><a href="#examples">Examples</a>
       <ul>
-        <li><a href="#input-file">Input File:</a></li>
-        <li><a href="#context-file-1">Context File:</a></li>
-        <li><a href="#context-xslt">Context XSLT:</a></li>
-        <li><a href="#context-xml-translation">Context XML Translation:</a></li>
-        <li><a href="#input-file-1">Input File:</a></li>
-        <li><a href="#main-xslt-note-the-use-of-the-context-lookup">Main XSLT (Note the use of the context lookup):</a></li>
-        <li><a href="#main-output-xml">Main Output XML:</a></li>
+        <li><a href="#event-normalisation">Event Normalisation</a></li>
+        <li><a href="#reference-data">Reference Data</a></li>
       </ul>
     </li>
+    <li><a href="#identity-transformation">Identity Transformation</a></li>
+    <li><a href="#xslmessage"><code>&lt;xsl:message&gt;</code></a></li>
   </ul>
 </nav>
       </div>
@@ -759,7 +760,7 @@ if (!doNotTrack) {
         
           <li><a class="taxonomy-term" href="../../../../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">2</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">3</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">5</span></a></li>
         
@@ -807,7 +808,7 @@ if (!doNotTrack) {
         
           <li><a class="taxonomy-term" href="../../../../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
         
-          <li><a class="taxonomy-term" href="../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">3</span></a></li>
+          <li><a class="taxonomy-term" href="../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
         
       </ul>
     </div>
@@ -832,17 +833,17 @@ if (!doNotTrack) {
     </li>
   <li class="breadcrumb-item"><a href="../../../../../docs/user-guide/pipelines/">Pipelines</a>
     </li>
-  <li class="breadcrumb-item"><a href="../../../../../docs/user-guide/pipelines/parser/">Parser</a>
+  <li class="breadcrumb-item"><a href="../../../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a>
     </li>
   <li class="breadcrumb-item active">
-      <span>Context Data</span>
+      <span>XSLT Basics</span>
     </li>
   </ol>
 </nav>
             
 <div class="td-content">
-	<h1>Context Data</h1>
-	
+	<h1>XSLT Basics</h1>
+	<div class="lead">The basics of using XSLT and the XSLTFilter element.</div>
 	<header class="article-meta">
 		
 
@@ -858,7 +859,7 @@ if (!doNotTrack) {
   <h5 class="taxonomy-title">Tags:</h5>
   <ul class="taxonomy-terms">
     
-      <li><a class="taxonomy-term" href="../../../../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span></a></li>
+      <li><a class="taxonomy-term" href="../../../../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span></a></li>
     
   </ul>
 </div>
@@ -867,175 +868,460 @@ if (!doNotTrack) {
 
 		
 	</header>    
-	<h2 id="context-file">Context File</h2>
-<h3 id="input-file">Input File:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeData&gt;
-	&lt;SomeEvent&gt;
-			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
-			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
-			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
-			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
-	&lt;/SomeEvent&gt;
-&lt;/SomeData&gt;
-</code></pre>
-<h3 id="context-file-1">Context File:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeContext&gt;
-	&lt;Machine&gt;MyMachine&lt;/Machine&gt;
-&lt;/SomeContext&gt;
-</code></pre>
-<h3 id="context-xslt">Context XSLT:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet
-	xmlns=&quot;reference-data:2&quot;
-	xmlns:evt=&quot;event-logging:3&quot;
-	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-	version=&quot;2.0&quot;&gt;
-		
-		&lt;xsl:template match=&quot;SomeContext&quot;&gt;
-			&lt;referenceData 
-					xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
-					version=&quot;2.0.1&quot;&gt;
-							
-					&lt;xsl:apply-templates/&gt;
-			&lt;/referenceData&gt;
-		&lt;/xsl:template&gt;
+	<p><span class="glossary-link">
+  <a href="../../../../../docs/glossary/#xslt" title="Glossary entry for XSLT">
+    <span>XSLT</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> is a very powerful language and allows the user to perform very complex transformations of XML data.
+This documentation does not aim to document how to write XSLT documents, for that, we strongly recommend you refer to online references (e.g. 
 
-		&lt;xsl:template match=&quot;Machine&quot;&gt;
-			&lt;reference&gt;
-					&lt;map&gt;CONTEXT&lt;/map&gt;
-					&lt;key&gt;Machine&lt;/key&gt;
-					&lt;value&gt;&lt;xsl:value-of select=&quot;.&quot;/&gt;&lt;/value&gt;
-			&lt;/reference&gt;
-		&lt;/xsl:template&gt;
-		
-&lt;/xsl:stylesheet&gt;
-</code></pre>
-<h3 id="context-xml-translation">Context XML Translation:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;referenceData xmlns:evt=&quot;event-logging:3&quot;
-								xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-								xmlns=&quot;reference-data:2&quot;
-								xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd reference-data:2 file://reference-data-v2.0.1.xsd&quot;
-								version=&quot;2.0.1&quot;&gt;
-		&lt;reference&gt;
-			&lt;map&gt;CONTEXT&lt;/map&gt;
-			&lt;key&gt;Machine&lt;/key&gt;
-			&lt;value&gt;MyMachine&lt;/value&gt;
-		&lt;/reference&gt;
-&lt;/referenceData&gt;
-</code></pre>
-<h3 id="input-file-1">Input File:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;SomeData&gt;
-	&lt;SomeEvent&gt;
-			&lt;SomeTime&gt;01/01/2009:12:00:01&lt;/SomeTime&gt;
-			&lt;SomeAction&gt;OPEN&lt;/SomeAction&gt;
-			&lt;SomeUser&gt;userone&lt;/SomeUser&gt;
-			&lt;SomeFile&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/SomeFile&gt;
-	&lt;/SomeEvent&gt;
-&lt;/SomeData&gt;
-</code></pre>
-<h3 id="main-xslt-note-the-use-of-the-context-lookup">Main XSLT (Note the use of the context lookup):</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet
-	xmlns=&quot;event-logging:3&quot;
-	xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
-	version=&quot;2.0&quot;&gt;
-	
-    &lt;xsl:template match=&quot;SomeData&quot;&gt;
-        &lt;Events xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot; Version=&quot;3.0.0&quot;&gt;
-            &lt;xsl:apply-templates/&gt;
-        &lt;/Events&gt;
-    &lt;/xsl:template&gt;
-    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
-        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
-            &lt;Event&gt;
-                &lt;EventTime&gt;
-                        &lt;TimeCreated&gt;
-                            &lt;xsl:value-of select=&quot;s:format-date(SomeTime, 'dd/MM/yyyy:hh:mm:ss')&quot;/&gt;
-                        &lt;/TimeCreated&gt;
-                &lt;/EventTime&gt;
-				&lt;EventSource&gt;
-					&lt;System&gt;Example&lt;/System&gt;
-					&lt;Environment&gt;Example&lt;/Environment&gt;
-					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
-					&lt;Device&gt;
-						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
-						&lt;Location&gt;
-							&lt;Country&gt;UK&lt;/Country&gt;
-							&lt;Site&gt;&lt;xsl:value-of select=&quot;s:lookup('CONTEXT', 'Machine')&quot;/&gt;&lt;/Site&gt;
-							&lt;Building&gt;Main&lt;/Building&gt;
-							&lt;Floor&gt;1&lt;/Floor&gt;              
-							&lt;Room&gt;1aaa&lt;/Room&gt;
-						&lt;/Location&gt;           
-					&lt;/Device&gt;
-					&lt;User&gt;&lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;&lt;/User&gt;
-				&lt;/EventSource&gt;
-				&lt;EventDetail&gt;
-					&lt;View&gt;
-						&lt;Document&gt;
-							&lt;Title&gt;UNKNOWN&lt;/Title&gt;
-							&lt;File&gt;
-								&lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
-							&lt;/File&gt;
-						&lt;/Document&gt;
-					&lt;/View&gt;
-				&lt;/EventDetail&gt;
-            &lt;/Event&gt;
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.w3schools.com/xml/xsl_intro.asp" target="_blank" class="" style="" title="W3Schools (external link to https://www.w3schools.com/xml/xsl_intro.asp)">
+    <span>W3Schools</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ or obtain a book covering XSLT 2.0 and <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#xpath" title="Glossary entry for XPath">
+    <span>XPath</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>).
+It does however aim to document aspects of XSLT that are specific to the use of XSLT in Stroom.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="event-normalisation">Event Normalisation</h3>
+<p>Here is an example XSLT document that transforms XML data in the <code>records:2</code> <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#namespace" title="Glossary entry for namespace">
+    <span>namespace</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (which is the output of the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../../docs/user-guide/pipelines/element-reference#dsparser" class="" style="" title="">
+        <span class="pipeline-element" title="DSParser &#34;DSParser&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Text"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__black)" d="m 1522.1543,129.30336 16.9536,359.41707 -42.9492,0 q -12.4327,-94.94036 -33.9073,-135.62908 -35.0375,-65.55406 -93.8101,-96.0706 -57.6424,-31.64679 -152.5827,-31.64679 l -215.8763,0 0,1170.93104 q 0,141.2803 30.5165,176.3178 42.9492,47.4702 132.2384,47.4702 l 53.1214,0 0,41.819 -649.88937,0 0,-41.819 54.25164,0 q 97.20084,0 137.88956,-58.7726 24.86533,-36.1677 24.86533,-165.0154 l 0,-1170.93104 -184.2295,0 q -107.37302,0 -152.58272,15.8234 -58.7726,21.4746 -100.59156,82.50769 -41.81897,61.03308 -49.73067,165.01538 l -42.94921,0 18.08388,-359.41707 1251.17832,0 z"/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">DSParser</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ element) into event XML in the <code>event-logging:3</code> namespace.
+It is an example of event normalisation from a bespoke format.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    This example aims to show some typical uses of XSLT in a typical Stroom use case.
+It does not necessarily represent best practice in terms of creation of a normalised event.
+
+</div>
+
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet 
+    xpath-default-namespace=&quot;records:2&quot; 
+    xmlns=&quot;event-logging:3&quot; 
+    xmlns:stroom=&quot;stroom&quot; 
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; 
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    version=&quot;2.0&quot;&gt;
+
+  &lt;!-- Match the root element --&gt;
+  &lt;xsl:template match=&quot;records&quot;&gt;
+    &lt;Events 
+        xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot; 
+        Version=&quot;3.0.0&quot;&gt;
+      &lt;xsl:apply-templates /&gt;
+    &lt;/Events&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;!-- Match each 'record' element --&gt;
+  &lt;xsl:template match=&quot;record&quot;&gt;
+    &lt;xsl:variable name=&quot;user&quot; select=&quot;data[@name='User']/@value&quot; /&gt;
+    &lt;Event&gt;
+      &lt;xsl:call-template name=&quot;header&quot; /&gt;
+      &lt;xsl:value-of select=&quot;stroom:log('info', concat('Processing user: ', $user))&quot;/&gt;
+      &lt;EventDetail&gt;
+        &lt;TypeId&gt;0001&lt;/TypeId&gt;
+        &lt;Description&gt;
+          &lt;xsl:value-of select=&quot;data[@name='Message']/@value&quot; /&gt;
+        &lt;/Description&gt;
+        &lt;Authenticate&gt;
+          &lt;Action&gt;Logon&lt;/Action&gt;
+          &lt;LogonType&gt;Interactive&lt;/LogonType&gt;
+          &lt;User&gt;
+            &lt;Id&gt;
+              &lt;xsl:value-of select=&quot;$user&quot; /&gt;
+            &lt;/Id&gt;
+          &lt;/User&gt;
+          &lt;Data Name=&quot;FileNo&quot;&gt;
+            &lt;xsl:attribute name=&quot;Value&quot; select=&quot;data[@name='FileNo']/@value&quot; /&gt;
+          &lt;/Data&gt;
+          &lt;Data Name=&quot;LineNo&quot;&gt;
+            &lt;xsl:attribute name=&quot;Value&quot; select=&quot;data[@name='LineNo']/@value&quot; /&gt;
+          &lt;/Data&gt;
+        &lt;/Authenticate&gt;
+      &lt;/EventDetail&gt;
+    &lt;/Event&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template name=&quot;header&quot;&gt;
+    &lt;xsl:variable name=&quot;date&quot; select=&quot;data[@name='Date']/@value&quot; /&gt;
+    &lt;xsl:variable name=&quot;time&quot; select=&quot;data[@name='Time']/@value&quot; /&gt;
+    &lt;xsl:variable name=&quot;dateTime&quot; select=&quot;concat($date, $time)&quot; /&gt;
+    &lt;xsl:variable name=&quot;formattedDateTime&quot; select=&quot;stroom:format-date($dateTime, 'dd/MM/yyyyHH:mm:ss')&quot; /&gt;
+    &lt;xsl:variable name=&quot;user&quot; select=&quot;data[@name='User']/@value&quot; /&gt;
+    &lt;EventTime&gt;
+      &lt;TimeCreated&gt;
+        &lt;xsl:value-of select=&quot;$formattedDateTime&quot; /&gt;
+      &lt;/TimeCreated&gt;
+    &lt;/EventTime&gt;
+    &lt;EventSource&gt;
+      &lt;System&gt;
+        &lt;Name&gt;Test&lt;/Name&gt;
+        &lt;Environment&gt;Test&lt;/Environment&gt;
+      &lt;/System&gt;
+      &lt;Generator&gt;CSV&lt;/Generator&gt;
+      &lt;Device&gt;
+        &lt;IPAddress&gt;1.1.1.1&lt;/IPAddress&gt;
+        &lt;MACAddress&gt;00-00-00-00-00-00&lt;/MACAddress&gt;
+        &lt;xsl:variable name=&quot;location&quot; select=&quot;stroom:lookup('FILENO_TO_LOCATION_MAP', data[@name='FileNo']/@value, $formattedDateTime)&quot; /&gt;
+        &lt;xsl:if test=&quot;$location&quot;&gt;
+          &lt;xsl:copy-of select=&quot;$location&quot; /&gt;
         &lt;/xsl:if&gt;
-    &lt;/xsl:template&gt;
+        &lt;Data Name=&quot;Zone1&quot;&gt;
+          &lt;xsl:attribute name=&quot;Value&quot; select=&quot;stroom:lookup('IPToLocation', stroom:numeric-ip('192.168.1.1'))&quot; /&gt;
+        &lt;/Data&gt;
+      &lt;/Device&gt;
+      &lt;User&gt;
+        &lt;Id&gt;
+          &lt;xsl:value-of select=&quot;$user&quot; /&gt;
+        &lt;/Id&gt;
+      &lt;/User&gt;
+    &lt;/EventSource&gt;
+  &lt;/xsl:template&gt;
 &lt;/xsl:stylesheet&gt;
 </code></pre>
-<h3 id="main-output-xml">Main Output XML:</h3>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;Events xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-				xmlns=&quot;event-logging:3&quot;
-				xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
-				Version=&quot;3.0.0&quot;&gt;
-		&lt;Event Id=&quot;6:1&quot;&gt;
-			&lt;EventTime&gt;
-					&lt;TimeCreated&gt;2009-01-01T00:00:01.000Z&lt;/TimeCreated&gt;
-			&lt;/EventTime&gt;
-			&lt;EventSource&gt;
-					&lt;System&gt;Example&lt;/System&gt;
-					&lt;Environment&gt;Example&lt;/Environment&gt;
-					&lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
-					&lt;Device&gt;
-						&lt;IPAddress&gt;182.80.32.132&lt;/IPAddress&gt;
-						&lt;Location&gt;
-								&lt;Country&gt;UK&lt;/Country&gt;
-								&lt;Site&gt;MyMachine&lt;/Site&gt;
-								&lt;Building&gt;Main&lt;/Building&gt;
-								&lt;Floor&gt;1&lt;/Floor&gt;
-								&lt;Room&gt;1aaa&lt;/Room&gt;
-						&lt;/Location&gt;
-					&lt;/Device&gt;
-					&lt;User&gt;
-						&lt;Id&gt;userone&lt;/Id&gt;
-					&lt;/User&gt;
-			&lt;/EventSource&gt;
-			&lt;EventDetail&gt;
-					&lt;View&gt;
-						&lt;Document&gt;
-								&lt;Title&gt;UNKNOWN&lt;/Title&gt;
-								&lt;File&gt;
-									&lt;Path&gt;D:\TranslationKit\example\VerySimple\OpenFileEvents.txt&lt;/Path&gt;
-								&lt;/File&gt;
-						&lt;/Document&gt;
-					&lt;/View&gt;
-			&lt;/EventDetail&gt;
-		&lt;/Event&gt;
-&lt;/Events&gt;
+<h3 id="reference-data">Reference Data</h3>
+<p>Here is an example of transforming <a href="../../../../../docs/user-guide/pipelines/reference-data/">Reference Data</a> in the <code>records:2</code> <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#namespace" title="Glossary entry for namespace">
+    <span>namespace</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (which is the output of the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../../docs/user-guide/pipelines/element-reference#dsparser" class="" style="" title="">
+        <span class="pipeline-element" title="DSParser &#34;DSParser&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Text"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__black)" d="m 1522.1543,129.30336 16.9536,359.41707 -42.9492,0 q -12.4327,-94.94036 -33.9073,-135.62908 -35.0375,-65.55406 -93.8101,-96.0706 -57.6424,-31.64679 -152.5827,-31.64679 l -215.8763,0 0,1170.93104 q 0,141.2803 30.5165,176.3178 42.9492,47.4702 132.2384,47.4702 l 53.1214,0 0,41.819 -649.88937,0 0,-41.819 54.25164,0 q 97.20084,0 137.88956,-58.7726 24.86533,-36.1677 24.86533,-165.0154 l 0,-1170.93104 -184.2295,0 q -107.37302,0 -152.58272,15.8234 -58.7726,21.4746 -100.59156,82.50769 -41.81897,61.03308 -49.73067,165.01538 l -42.94921,0 18.08388,-359.41707 1251.17832,0 z"/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">DSParser</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ element) into XML in the <code>reference-data:2</code> namespace that is suitable for loading using the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../../docs/user-guide/pipelines/element-reference#referencedatafilter" class="" style="" title="">
+        <span class="pipeline-element" title="ReferenceDataFilter &#34;ReferenceDataFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Reference data"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1205.3507,897.46166 q 0,20.9696 -14.368,35.3376 L 938.18285,1185.5992 q -15.14469,14.368 -35.33761,14.368 -19.80459,0 -34.94929,-14.368 l -29.1244,-29.1244 q -14.75637,-14.7564 -14.75637,-35.3377 0,-20.5812 14.75637,-35.3376 l 113.77934,-113.77934 -273.38109,0 q -20.19292,0 -32.81349,-14.5622 -12.62058,-14.5622 -12.62058,-35.1435 l 0,-49.7056 q 0,-20.5813 12.62058,-35.1435 12.62057,-14.5622 32.81349,-14.5622 l 273.38109,0 -113.77934,-114.1676 q -14.75637,-13.9798 -14.75637,-34.9493 0,-20.9696 14.75637,-34.9493 l 29.1244,-29.1244 q 14.75637,-14.7564 34.94929,-14.7564 20.58125,0 35.33761,14.7564 l 252.79985,252.7998 q 14.368,13.5914 14.368,34.9493 z"/><path style="fill:var(--icon-colour__blue)" d="M 155.66211 541.10742 L 377.63672 873.35547 L 123.20117 1253.8164 L 227.26758 1253.8164 L 429.19336 950.6875 L 629.6875 1253.8164 L 733.27734 1253.8164 L 488.86523 883.37891 L 718 541.10742 L 614.41211 541.10742 L 436.35352 806.04492 L 259.25 541.10742 L 155.66211 541.10742 z M 1073.6406 541.10742 L 1325.6895 914.4082 L 1325.6895 1253.8164 L 1422.5957 1253.8164 L 1422.5957 914.4082 L 1674.6465 541.10742 L 1571.0566 541.10742 L 1374.8594 834.21094 L 1177.2285 541.10742 L 1073.6406 541.10742 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">ReferenceDataFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet 
+    xpath-default-namespace=&quot;records:2&quot; 
+    xmlns=&quot;reference-data:2&quot; 
+    xmlns:evt=&quot;event-logging:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    version=&quot;2.0&quot;&gt;
+
+    &lt;xsl:template match=&quot;records&quot;&gt;
+        &lt;referenceData 
+           xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.1.xsd event-logging:3 file://event-logging-v3.0.0.xsd&quot;
+           version=&quot;2.0.1&quot;&gt;
+            &lt;xsl:apply-templates/&gt;
+        &lt;/referenceData&gt;
+    &lt;/xsl:template&gt;
+
+    &lt;xsl:template match=&quot;record&quot;&gt;
+        &lt;reference&gt;
+            &lt;map&gt;USER_ID_TO_STAFF_NO_MAP&lt;/map&gt;
+            &lt;key&gt;&lt;xsl:value-of select=&quot;data[@name='userId']/@value&quot;/&gt;&lt;/key&gt;
+            &lt;value&gt;&lt;xsl:value-of select=&quot;data[@name='staffNo']/@value&quot;/&gt;&lt;/value&gt;
+        &lt;/reference&gt;
+    &lt;/xsl:template&gt;
+    
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h2 id="identity-transformation">Identity Transformation</h2>
+<p>If you want an XSLT to decorate an Events XML document with some additional data or to change it slightly without changing its namespace then a good starting point is the identity transformation.</p>
+<pre><code class="language-xml">&lt;xsl:stylesheet 
+    version=&quot;1.0&quot; 
+    xpath-default-namespace=&quot;event-logging:3&quot; 
+    xmlns=&quot;event-logging:3&quot; 
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+
+  &lt;!-- Match Root Object --&gt;
+  &lt;xsl:template match=&quot;Events&quot;&gt;
+    &lt;Events 
+        xmlns=&quot;event-logging:3&quot; 
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+        xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.4.2.xsd&quot; 
+        Version=&quot;3.4.2&quot;&gt;
+
+      &lt;xsl:apply-templates /&gt;
+    &lt;/Events&gt;
+  &lt;/xsl:template&gt;
+  
+
+  &lt;!-- Whenever you match any node or any attribute --&gt;
+  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;
+
+    &lt;!-- Copy the current node --&gt;
+    &lt;xsl:copy&gt;
+
+      &lt;!-- Including any attributes it has and any child nodes --&gt;
+      &lt;xsl:apply-templates select=&quot;@*|node( )&quot; /&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>This XSLT will copy every node and attribute as they are, returning the input document completely un-changed.
+You can then add additional templates to match on specific elements and modify them, for example decorating a user&rsquo;s <code>UserDetails</code> elements with value obtained from a reference data lookup on a user ID.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>You can insert this identity skeleton into an XSLT editor using this editor <a href="../../../../../docs/user-guide/content/editing-text/snippet-reference/#events-identity-skeleton">snippet</a>.</p>
+
+
+</div>
+
+
+<h2 id="xslmessage"><code>&lt;xsl:message&gt;</code></h2>
+<p>Stroom supports the standard <code>&lt;xsl:message&gt;</code> element from the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="http://www.w3.org/1999/XSL/Transform" target="_blank" class="" style="" title="http://www.w3.org/1999/XSL/Transform (external link to http://www.w3.org/1999/XSL/Transform)">
+    <span>http://www.w3.org/1999/XSL/Transform</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+This element behaves in a similar way to the <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/#log"><code>stroom:log()</code></a> XSLT function.
+The element text is logged to the Error stream with a default severity of <code>ERROR</code>.</p>
+<p>A child element can optionally be used to set the severity level (one of <code>FATAL|ERROR|WARN|INFO</code>).
+The namespace of this element does not matter.
+You can also set the attribute <code>terminate=&quot;yes&quot;</code> to log the message at severity <code>FATAL</code> and halt processing of that stream part.
+If the stream is multi-part then processing will continue with the next part.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Setting <code>terminate=&quot;yes&quot;</code> will trump any severity defined by a child element.
+It will always be logged at <code>FATAL</code>.
+
+</div>
+
+
+<p>The following are some examples of using <code>&lt;xsl:message&gt;</code>.</p>
+<pre><code class="language-xml">&lt;!-- Log a message using default severity of ERROR --&gt;
+&lt;xsl:message&gt;Invalid length&lt;/xsl:message&gt;
+
+&lt;!-- terminate=&quot;yes&quot; means log the message as a FATAL ERROR and halt processing of the stream part --&gt;
+&lt;xsl:message terminate=&quot;yes&quot;&gt;Invalid length&lt;/xsl:message&gt;
+
+&lt;!-- Log a message with a child element name specifying the severity. --&gt;
+&lt;xsl:message&gt;
+  &lt;warn&gt;Invalid length&lt;/warn&gt;
+&lt;/xsl:message&gt;
+
+&lt;!-- Log a message with a child element name specifying the severity. --&gt;
+&lt;xsl:message&gt;
+  &lt;info&gt;Invalid length&lt;/info&gt;
+&lt;/xsl:message&gt;
+
+&lt;!-- Log a message, specifying the severity and using a dynamic value. --&gt;
+&lt;xsl:message&gt;
+  &lt;info&gt;
+    &lt;xsl:value-of select=&quot;concat('User ID ', $userId, ' is invalid')&quot; /&gt;
+  &lt;/info&gt;
+&lt;/xsl:message&gt;
 </code></pre>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 14, 2024: <a href="https://github.com/gchq/stroom-docs/commit/cbea43083832f4a7ab845ccb728228a521aac41e">Merge branch &#39;7.3&#39; of github.com-at055612:gchq/stroom-docs into 7.3 (cbea430)</a>
+  Last modified February 15, 2024: <a href="https://github.com/gchq/stroom-docs/commit/8a0c99dea1a70ee7db2a0c7819a7959fb9364c8a">Make the pipe elms a bit smaller (8a0c99d)</a>
 </div>
 
 </div>

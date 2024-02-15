@@ -39,8 +39,8 @@
 
 
 
-<link rel="preload" href="../../../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" as="style">
-<link href="../../../../../scss/main.min.7cb4dee93241f67b6c7428dfa726e02dafeee6283fbdc32ae0d83869b00c0a35.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../../scss/main.min.765b04cbdc0071bb743c30ce4aa315cc0c69d51f07488713db40b3ca40f82ba7.css" as="style">
+<link href="../../../../../scss/main.min.765b04cbdc0071bb743c30ce4aa315cc0c69d51f07488713db40b3ca40f82ba7.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../../js/jquery-3.6.0.min.js'></script>
@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.f2d49b4498338c782bf96d23a587d5b9.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.b5aa3bda3cb9a4f488e1350153feec56.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -166,7 +166,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-00fcef074a5fb84079d17e4049c5a7f8">XSLT Functions</a></li>
+<li>1: <a href="#pg-01b168d16afe2c59c3f89aa71a185926">XSLT Basics</a></li>
 
 
     
@@ -174,7 +174,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>2: <a href="#pg-3f52cd945d5eabe8bb9a84799caa130e">XSLT Includes</a></li>
+<li>2: <a href="#pg-00fcef074a5fb84079d17e4049c5a7f8">XSLT Functions</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-3f52cd945d5eabe8bb9a84799caa130e">XSLT Includes</a></li>
 
 
     
@@ -184,64 +192,86 @@ This is the multi-page printable view of this section.
 
 
 <div class="content">
-      <p>Once the text file has been converted into Intermediary XML (or the feed is already XML), XSLT is used to
-translate the XML into event logging XML format.</p>
-<p>Event Feeds must be translated into the events schema and Reference
-into the reference schema. You can browse documentation relating to the
-schemas within the application.</p>
-<p>Here is an example XSLT:</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;xsl:stylesheet
-    xmlns=&quot;event-logging:3&quot;
-    xmlns:s=&quot;stroom&quot;
-    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-    version=&quot;2.0&quot;&gt;
+      <p><span class="glossary-link">
+  <a href="../../../../../docs/glossary/#xslt" title="Glossary entry for XSLT">
+    <span>XSLT</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> is a language that is typically used for transforming XML documents into either a different XML document or plain text.
+XSLT is key part of Stroom&rsquo;s pipeline processing as it is used to normalise bespoke events into a common XML audit event document conforming to the <code>event-logging</code> <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#xml-schema" title="Glossary entry for XML Schema">
+    <span>XML Schema</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+<p>Once a text file has been converted into intermediary XML (or the feed is already XML), <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#xslt" title="Glossary entry for XSLT">
+    <span>XSLT</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> is used to
+translate the XML into the <code>event-logging</code> XML format.</p>
+<p>The 
 
-    &lt;xsl:template match=&quot;SomeData&quot;&gt;
-        &lt;Events
-        xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot;
-        Version=&quot;3.0.0&quot;&gt;
-            &lt;xsl:apply-templates/&gt;
-        &lt;/Events&gt;
-    &lt;/xsl:template&gt;
-    &lt;xsl:template match=&quot;SomeEvent&quot;&gt;
-        &lt;xsl:variable name=&quot;dateTime&quot; select=&quot;SomeTime&quot;/&gt;
-        &lt;xsl:variable name=&quot;formattedDateTime&quot; select=&quot;s:format-date($dateTime, 'dd/MM/yyyyhh:mm:ss')&quot;/&gt;
 
-        &lt;xsl:if test=&quot;SomeAction = 'OPEN'&quot;&gt;
-            &lt;Event&gt;
-            &lt;EventTime&gt;
-                &lt;TimeCreated&gt;
-                    &lt;xsl:value-of select=&quot;$formattedDateTime&quot;/&gt;
-                &lt;/TimeCreated&gt;
-            &lt;/EventTime&gt;
-            &lt;EventSource&gt;
-                &lt;System&gt;Example&lt;/System&gt;
-                &lt;Environment&gt;Example&lt;/Environment&gt;
-                &lt;Generator&gt;Very Simple Provider&lt;/Generator&gt;
-                &lt;Device&gt;
-                    &lt;IPAddress&gt;3.3.3.3&lt;/IPAddress&gt;
-                &lt;/Device&gt;
-                &lt;User&gt;
-                    &lt;Id&gt;&lt;xsl:value-of select=&quot;SomeUser&quot;/&gt;&lt;/Id&gt;
-                &lt;/User&gt;
-            &lt;/EventSource&gt;
-            &lt;EventDetail&gt;
-                &lt;View&gt;
-                    &lt;Document&gt;
-                        &lt;Title&gt;UNKNOWN&lt;/Title&gt;
-                        &lt;File&gt;
-                        &lt;Path&gt;&lt;xsl:value-of select=&quot;SomeFile&quot;/&gt;&lt;/Path&gt;
-                        &lt;File&gt;
-                    &lt;/Document&gt;
-                &lt;/View&gt;
-            &lt;/EventDetail&gt;
-            &lt;/Event&gt;
-        &lt;/xsl:if&gt;
-    &lt;/xsl:template&gt;
-&lt;/xsl:stylesheet&gt;
-</code></pre>
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../../docs/user-guide/pipelines/element-reference#xsltfilter" class="" style="" title="">
+        <span class="pipeline-element" title="XSLTFilter &#34;XSLTFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">XSLTFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ pipeline element defines the XSLT document and is used to do the transformation of the input XML into XML or plain text.
+You can have multiple XSLTFilter elements in a pipeline if you want to break the transformation into steps, or wish to have simpler XSLTs that can be reused.</p>
+<p><em>Raw Event</em> Feeds are typically translated into the <code>event-logging:3</code> schema and <em>Raw Reference</em> into the <code>reference-data:2</code> schema.</p>
 
 </div>
 </div>
@@ -265,7 +295,476 @@ schemas within the application.</p>
 
 <div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
-  <h1 id="pg-00fcef074a5fb84079d17e4049c5a7f8">1 - XSLT Functions</h1>
+  <h1 id="pg-01b168d16afe2c59c3f89aa71a185926">1 - XSLT Basics</h1>
+    <div class="lead">The basics of using XSLT and the XSLTFilter element.</div>
+	<p><span class="glossary-link">
+  <a href="../../../../../docs/glossary/#xslt" title="Glossary entry for XSLT">
+    <span>XSLT</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> is a very powerful language and allows the user to perform very complex transformations of XML data.
+This documentation does not aim to document how to write XSLT documents, for that, we strongly recommend you refer to online references (e.g. 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.w3schools.com/xml/xsl_intro.asp" target="_blank" class="" style="" title="W3Schools (external link to https://www.w3schools.com/xml/xsl_intro.asp)">
+    <span>W3Schools</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ or obtain a book covering XSLT 2.0 and <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#xpath" title="Glossary entry for XPath">
+    <span>XPath</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>).
+It does however aim to document aspects of XSLT that are specific to the use of XSLT in Stroom.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="event-normalisation">Event Normalisation</h3>
+<p>Here is an example XSLT document that transforms XML data in the <code>records:2</code> <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#namespace" title="Glossary entry for namespace">
+    <span>namespace</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (which is the output of the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../../docs/user-guide/pipelines/element-reference#dsparser" class="" style="" title="">
+        <span class="pipeline-element" title="DSParser &#34;DSParser&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Text"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__black)" d="m 1522.1543,129.30336 16.9536,359.41707 -42.9492,0 q -12.4327,-94.94036 -33.9073,-135.62908 -35.0375,-65.55406 -93.8101,-96.0706 -57.6424,-31.64679 -152.5827,-31.64679 l -215.8763,0 0,1170.93104 q 0,141.2803 30.5165,176.3178 42.9492,47.4702 132.2384,47.4702 l 53.1214,0 0,41.819 -649.88937,0 0,-41.819 54.25164,0 q 97.20084,0 137.88956,-58.7726 24.86533,-36.1677 24.86533,-165.0154 l 0,-1170.93104 -184.2295,0 q -107.37302,0 -152.58272,15.8234 -58.7726,21.4746 -100.59156,82.50769 -41.81897,61.03308 -49.73067,165.01538 l -42.94921,0 18.08388,-359.41707 1251.17832,0 z"/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">DSParser</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ element) into event XML in the <code>event-logging:3</code> namespace.
+It is an example of event normalisation from a bespoke format.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    This example aims to show some typical uses of XSLT in a typical Stroom use case.
+It does not necessarily represent best practice in terms of creation of a normalised event.
+
+</div>
+
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet 
+    xpath-default-namespace=&quot;records:2&quot; 
+    xmlns=&quot;event-logging:3&quot; 
+    xmlns:stroom=&quot;stroom&quot; 
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; 
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    version=&quot;2.0&quot;&gt;
+
+  &lt;!-- Match the root element --&gt;
+  &lt;xsl:template match=&quot;records&quot;&gt;
+    &lt;Events 
+        xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.0.0.xsd&quot; 
+        Version=&quot;3.0.0&quot;&gt;
+      &lt;xsl:apply-templates /&gt;
+    &lt;/Events&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;!-- Match each 'record' element --&gt;
+  &lt;xsl:template match=&quot;record&quot;&gt;
+    &lt;xsl:variable name=&quot;user&quot; select=&quot;data[@name='User']/@value&quot; /&gt;
+    &lt;Event&gt;
+      &lt;xsl:call-template name=&quot;header&quot; /&gt;
+      &lt;xsl:value-of select=&quot;stroom:log('info', concat('Processing user: ', $user))&quot;/&gt;
+      &lt;EventDetail&gt;
+        &lt;TypeId&gt;0001&lt;/TypeId&gt;
+        &lt;Description&gt;
+          &lt;xsl:value-of select=&quot;data[@name='Message']/@value&quot; /&gt;
+        &lt;/Description&gt;
+        &lt;Authenticate&gt;
+          &lt;Action&gt;Logon&lt;/Action&gt;
+          &lt;LogonType&gt;Interactive&lt;/LogonType&gt;
+          &lt;User&gt;
+            &lt;Id&gt;
+              &lt;xsl:value-of select=&quot;$user&quot; /&gt;
+            &lt;/Id&gt;
+          &lt;/User&gt;
+          &lt;Data Name=&quot;FileNo&quot;&gt;
+            &lt;xsl:attribute name=&quot;Value&quot; select=&quot;data[@name='FileNo']/@value&quot; /&gt;
+          &lt;/Data&gt;
+          &lt;Data Name=&quot;LineNo&quot;&gt;
+            &lt;xsl:attribute name=&quot;Value&quot; select=&quot;data[@name='LineNo']/@value&quot; /&gt;
+          &lt;/Data&gt;
+        &lt;/Authenticate&gt;
+      &lt;/EventDetail&gt;
+    &lt;/Event&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template name=&quot;header&quot;&gt;
+    &lt;xsl:variable name=&quot;date&quot; select=&quot;data[@name='Date']/@value&quot; /&gt;
+    &lt;xsl:variable name=&quot;time&quot; select=&quot;data[@name='Time']/@value&quot; /&gt;
+    &lt;xsl:variable name=&quot;dateTime&quot; select=&quot;concat($date, $time)&quot; /&gt;
+    &lt;xsl:variable name=&quot;formattedDateTime&quot; select=&quot;stroom:format-date($dateTime, 'dd/MM/yyyyHH:mm:ss')&quot; /&gt;
+    &lt;xsl:variable name=&quot;user&quot; select=&quot;data[@name='User']/@value&quot; /&gt;
+    &lt;EventTime&gt;
+      &lt;TimeCreated&gt;
+        &lt;xsl:value-of select=&quot;$formattedDateTime&quot; /&gt;
+      &lt;/TimeCreated&gt;
+    &lt;/EventTime&gt;
+    &lt;EventSource&gt;
+      &lt;System&gt;
+        &lt;Name&gt;Test&lt;/Name&gt;
+        &lt;Environment&gt;Test&lt;/Environment&gt;
+      &lt;/System&gt;
+      &lt;Generator&gt;CSV&lt;/Generator&gt;
+      &lt;Device&gt;
+        &lt;IPAddress&gt;1.1.1.1&lt;/IPAddress&gt;
+        &lt;MACAddress&gt;00-00-00-00-00-00&lt;/MACAddress&gt;
+        &lt;xsl:variable name=&quot;location&quot; select=&quot;stroom:lookup('FILENO_TO_LOCATION_MAP', data[@name='FileNo']/@value, $formattedDateTime)&quot; /&gt;
+        &lt;xsl:if test=&quot;$location&quot;&gt;
+          &lt;xsl:copy-of select=&quot;$location&quot; /&gt;
+        &lt;/xsl:if&gt;
+        &lt;Data Name=&quot;Zone1&quot;&gt;
+          &lt;xsl:attribute name=&quot;Value&quot; select=&quot;stroom:lookup('IPToLocation', stroom:numeric-ip('192.168.1.1'))&quot; /&gt;
+        &lt;/Data&gt;
+      &lt;/Device&gt;
+      &lt;User&gt;
+        &lt;Id&gt;
+          &lt;xsl:value-of select=&quot;$user&quot; /&gt;
+        &lt;/Id&gt;
+      &lt;/User&gt;
+    &lt;/EventSource&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h3 id="reference-data">Reference Data</h3>
+<p>Here is an example of transforming <a href="../../../../../docs/user-guide/pipelines/reference-data/">Reference Data</a> in the <code>records:2</code> <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#namespace" title="Glossary entry for namespace">
+    <span>namespace</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (which is the output of the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../../docs/user-guide/pipelines/element-reference#dsparser" class="" style="" title="">
+        <span class="pipeline-element" title="DSParser &#34;DSParser&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Text"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__black)" d="m 1522.1543,129.30336 16.9536,359.41707 -42.9492,0 q -12.4327,-94.94036 -33.9073,-135.62908 -35.0375,-65.55406 -93.8101,-96.0706 -57.6424,-31.64679 -152.5827,-31.64679 l -215.8763,0 0,1170.93104 q 0,141.2803 30.5165,176.3178 42.9492,47.4702 132.2384,47.4702 l 53.1214,0 0,41.819 -649.88937,0 0,-41.819 54.25164,0 q 97.20084,0 137.88956,-58.7726 24.86533,-36.1677 24.86533,-165.0154 l 0,-1170.93104 -184.2295,0 q -107.37302,0 -152.58272,15.8234 -58.7726,21.4746 -100.59156,82.50769 -41.81897,61.03308 -49.73067,165.01538 l -42.94921,0 18.08388,-359.41707 1251.17832,0 z"/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">DSParser</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+ element) into XML in the <code>reference-data:2</code> namespace that is suitable for loading using the 
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../../docs/user-guide/pipelines/element-reference#referencedatafilter" class="" style="" title="">
+        <span class="pipeline-element" title="ReferenceDataFilter &#34;ReferenceDataFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Reference data"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1205.3507,897.46166 q 0,20.9696 -14.368,35.3376 L 938.18285,1185.5992 q -15.14469,14.368 -35.33761,14.368 -19.80459,0 -34.94929,-14.368 l -29.1244,-29.1244 q -14.75637,-14.7564 -14.75637,-35.3377 0,-20.5812 14.75637,-35.3376 l 113.77934,-113.77934 -273.38109,0 q -20.19292,0 -32.81349,-14.5622 -12.62058,-14.5622 -12.62058,-35.1435 l 0,-49.7056 q 0,-20.5813 12.62058,-35.1435 12.62057,-14.5622 32.81349,-14.5622 l 273.38109,0 -113.77934,-114.1676 q -14.75637,-13.9798 -14.75637,-34.9493 0,-20.9696 14.75637,-34.9493 l 29.1244,-29.1244 q 14.75637,-14.7564 34.94929,-14.7564 20.58125,0 35.33761,14.7564 l 252.79985,252.7998 q 14.368,13.5914 14.368,34.9493 z"/><path style="fill:var(--icon-colour__blue)" d="M 155.66211 541.10742 L 377.63672 873.35547 L 123.20117 1253.8164 L 227.26758 1253.8164 L 429.19336 950.6875 L 629.6875 1253.8164 L 733.27734 1253.8164 L 488.86523 883.37891 L 718 541.10742 L 614.41211 541.10742 L 436.35352 806.04492 L 259.25 541.10742 L 155.66211 541.10742 z M 1073.6406 541.10742 L 1325.6895 914.4082 L 1325.6895 1253.8164 L 1422.5957 1253.8164 L 1422.5957 914.4082 L 1674.6465 541.10742 L 1571.0566 541.10742 L 1374.8594 834.21094 L 1177.2285 541.10742 L 1073.6406 541.10742 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">ReferenceDataFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;xsl:stylesheet 
+    xpath-default-namespace=&quot;records:2&quot; 
+    xmlns=&quot;reference-data:2&quot; 
+    xmlns:evt=&quot;event-logging:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+    version=&quot;2.0&quot;&gt;
+
+    &lt;xsl:template match=&quot;records&quot;&gt;
+        &lt;referenceData 
+           xsi:schemaLocation=&quot;reference-data:2 file://reference-data-v2.0.1.xsd event-logging:3 file://event-logging-v3.0.0.xsd&quot;
+           version=&quot;2.0.1&quot;&gt;
+            &lt;xsl:apply-templates/&gt;
+        &lt;/referenceData&gt;
+    &lt;/xsl:template&gt;
+
+    &lt;xsl:template match=&quot;record&quot;&gt;
+        &lt;reference&gt;
+            &lt;map&gt;USER_ID_TO_STAFF_NO_MAP&lt;/map&gt;
+            &lt;key&gt;&lt;xsl:value-of select=&quot;data[@name='userId']/@value&quot;/&gt;&lt;/key&gt;
+            &lt;value&gt;&lt;xsl:value-of select=&quot;data[@name='staffNo']/@value&quot;/&gt;&lt;/value&gt;
+        &lt;/reference&gt;
+    &lt;/xsl:template&gt;
+    
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<h2 id="identity-transformation">Identity Transformation</h2>
+<p>If you want an XSLT to decorate an Events XML document with some additional data or to change it slightly without changing its namespace then a good starting point is the identity transformation.</p>
+<pre><code class="language-xml">&lt;xsl:stylesheet 
+    version=&quot;1.0&quot; 
+    xpath-default-namespace=&quot;event-logging:3&quot; 
+    xmlns=&quot;event-logging:3&quot; 
+    xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+
+  &lt;!-- Match Root Object --&gt;
+  &lt;xsl:template match=&quot;Events&quot;&gt;
+    &lt;Events 
+        xmlns=&quot;event-logging:3&quot; 
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+        xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.4.2.xsd&quot; 
+        Version=&quot;3.4.2&quot;&gt;
+
+      &lt;xsl:apply-templates /&gt;
+    &lt;/Events&gt;
+  &lt;/xsl:template&gt;
+  
+
+  &lt;!-- Whenever you match any node or any attribute --&gt;
+  &lt;xsl:template match=&quot;node( )|@*&quot;&gt;
+
+    &lt;!-- Copy the current node --&gt;
+    &lt;xsl:copy&gt;
+
+      &lt;!-- Including any attributes it has and any child nodes --&gt;
+      &lt;xsl:apply-templates select=&quot;@*|node( )&quot; /&gt;
+    &lt;/xsl:copy&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+<p>This XSLT will copy every node and attribute as they are, returning the input document completely un-changed.
+You can then add additional templates to match on specific elements and modify them, for example decorating a user&rsquo;s <code>UserDetails</code> elements with value obtained from a reference data lookup on a user ID.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>You can insert this identity skeleton into an XSLT editor using this editor <a href="../../../../../docs/user-guide/content/editing-text/snippet-reference/#events-identity-skeleton">snippet</a>.</p>
+
+
+</div>
+
+
+<h2 id="xslmessage"><code>&lt;xsl:message&gt;</code></h2>
+<p>Stroom supports the standard <code>&lt;xsl:message&gt;</code> element from the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="http://www.w3.org/1999/XSL/Transform" target="_blank" class="" style="" title="http://www.w3.org/1999/XSL/Transform (external link to http://www.w3.org/1999/XSL/Transform)">
+    <span>http://www.w3.org/1999/XSL/Transform</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+This element behaves in a similar way to the <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/#log"><code>stroom:log()</code></a> XSLT function.
+The element text is logged to the Error stream with a default severity of <code>ERROR</code>.</p>
+<p>A child element can optionally be used to set the severity level (one of <code>FATAL|ERROR|WARN|INFO</code>).
+The namespace of this element does not matter.
+You can also set the attribute <code>terminate=&quot;yes&quot;</code> to log the message at severity <code>FATAL</code> and halt processing of that stream part.
+If the stream is multi-part then processing will continue with the next part.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Setting <code>terminate=&quot;yes&quot;</code> will trump any severity defined by a child element.
+It will always be logged at <code>FATAL</code>.
+
+</div>
+
+
+<p>The following are some examples of using <code>&lt;xsl:message&gt;</code>.</p>
+<pre><code class="language-xml">&lt;!-- Log a message using default severity of ERROR --&gt;
+&lt;xsl:message&gt;Invalid length&lt;/xsl:message&gt;
+
+&lt;!-- terminate=&quot;yes&quot; means log the message as a FATAL ERROR and halt processing of the stream part --&gt;
+&lt;xsl:message terminate=&quot;yes&quot;&gt;Invalid length&lt;/xsl:message&gt;
+
+&lt;!-- Log a message with a child element name specifying the severity. --&gt;
+&lt;xsl:message&gt;
+  &lt;warn&gt;Invalid length&lt;/warn&gt;
+&lt;/xsl:message&gt;
+
+&lt;!-- Log a message with a child element name specifying the severity. --&gt;
+&lt;xsl:message&gt;
+  &lt;info&gt;Invalid length&lt;/info&gt;
+&lt;/xsl:message&gt;
+
+&lt;!-- Log a message, specifying the severity and using a dynamic value. --&gt;
+&lt;xsl:message&gt;
+  &lt;info&gt;
+    &lt;xsl:value-of select=&quot;concat('User ID ', $userId, ' is invalid')&quot; /&gt;
+  &lt;/info&gt;
+&lt;/xsl:message&gt;
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-00fcef074a5fb84079d17e4049c5a7f8">2 - XSLT Functions</h1>
     <div class="lead">Custom XSLT functions available in Stroom.</div>
 	<!-- 
 TODO
@@ -273,13 +772,13 @@ This file needs splitting up with one file per function.
 These files can be generated from annotations in the Java code (see https://github.com/gchq/stroom/issues/2932)
 -->
 <p>By including the following namespace:</p>
-<pre><code class="language-xml">xmlns:s=&quot;stroom&quot;
+<pre><code class="language-xml">xmlns:stroom=&quot;stroom&quot;
 </code></pre>
 <p>E.g.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;xsl:stylesheet
     xmlns=&quot;event-logging:3&quot;
-    xmlns:s=&quot;stroom&quot;
+    xmlns:stroom=&quot;stroom&quot;
     xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
     version=&quot;2.0&quot;&gt;
@@ -367,7 +866,7 @@ Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-
 </ul>
 <p>If the look up fails no result will be returned.</p>
 <p>The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. <code>14</code>/<code>0xE</code> is <code>1110</code> as a binary bitmap.
-For each bit position that is set, (i.e. has a binary value of <code>1</code>)  a lookup will be performed using that bit position as the key.
+For each bit position that is set, (i.e. has a binary value of <code>1</code>) a lookup will be performed using that bit position as the key.
 In this example, positions <code>1</code>, <code>2</code> &amp; <code>3</code> are set so a lookup would be performed for these bit positions.
 The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.</p>
 <p>If <code>ignoreWarnings</code> is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.</p>
@@ -477,21 +976,20 @@ Thus a bitmap lookup with this value would return all the permissions held by th
 The main use for this function is to allow users to abstract the management of a set of keywords from the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used by some XSLT, without the need for the user to understand the complexities of XSLT.</p>
 <h2 id="format-date">format-date()</h2>
 <p>The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
-contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.  If the
-optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
-A special time zone value of &ldquo;GMT/BST&rdquo; can be used to guess the time based on the date (BST during
-British Summer Time).</p>
+contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.
+If the optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
+A special time zone value of &ldquo;GMT/BST&rdquo; can be used to guess the time based on the date (BST during British Summer Time).</p>
 <p>E.g. Convert a GMT date time &ldquo;2009/12/01 12:34:11&rdquo;</p>
-<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')&quot;/&gt;
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')&quot;/&gt;
 </code></pre>
 <p>E.g. Convert a GMT or BST date time &ldquo;2009/08/01 12:34:11&rdquo;</p>
-<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')&quot;/&gt;
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')&quot;/&gt;
 </code></pre>
 <p>E.g. Convert a GMT+1:00 date time &ldquo;2009/08/01 12:34:11&rdquo;</p>
-<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')&quot;/&gt;
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')&quot;/&gt;
 </code></pre>
 <p>E.g. Convert a date time specified as milliseconds since the epoch &ldquo;1269270011640&rdquo;</p>
-<pre><code class="language-xml">&lt;xsl:value-of select=&quot;s:format-date('1269270011640')&quot;/&gt;
+<pre><code class="language-xml">&lt;xsl:value-of select=&quot;stroom:format-date('1269270011640')&quot;/&gt;
 </code></pre>
 <p>Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.</p>
 <h2 id="hex-to-string">hex-to-string()</h2>
@@ -667,26 +1165,10 @@ Severities of ERROR and FATAL will result in records being omitted from the outp
 The counts for RecWarn, RecError will be affected by warnings or errors generated in this way therefore this function is useful for adding business rules to XML output.</p>
 <p>E.g. Warn if a SID is not the correct length.</p>
 <pre><code class="language-xml">&lt;xsl:if test=&quot;string-length($sid) != 7&quot;&gt;
-  &lt;xsl:value-of select=&quot;s:log('WARN', concat($sid, ' is not the correct length'))&quot;/&gt;
+  &lt;xsl:value-of select=&quot;stroom:log('WARN', concat($sid, ' is not the correct length'))&quot;/&gt;
 &lt;/xsl:if&gt;
 </code></pre>
-<p>The same functionality can also be achieved using the standard <code>xsl:message</code> element.</p>
-<pre><code class="language-xml">&lt;!-- Log a message using default severity of ERROR --&gt;
-&lt;xsl:message&gt;Invalid length&lt;/xsl:message&gt;
-
-&lt;!-- terminate=&quot;yes&quot; means log the message as a FATAL ERROR --&gt;
-&lt;xsl:message terminate=&quot;yes&quot;&gt;Invalid length&lt;/xsl:message&gt;
-
-&lt;!-- Log a message with a child element name specifying the severity (namespace doesn't matter). --&gt;
-&lt;xsl:message&gt;
-  &lt;warn&gt;Invalid length&lt;/warn&gt;
-&lt;/xsl:message&gt;
-
-&lt;!-- Log a message with a child element name specifying the severity (namespace doesn't matter). --&gt;
-&lt;xsl:message&gt;
-  &lt;info&gt;Invalid length&lt;/info&gt;
-&lt;/xsl:message&gt;
-</code></pre>
+<p>The same functionality can also be achieved using the standard <code>xsl:message</code> element, see <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-basics/#xslmessage"><code>&lt;xsl:message&gt;</code></a></p>
 <h2 id="lookup">lookup()</h2>
 <p>The lookup() function looks up from reference or context data a value (which can be an XML node set) and adds it to the resultant XML.</p>
 <pre><code class="language-text">lookup(String map, String key)
@@ -708,7 +1190,7 @@ By testing the result a default value may be output if no result is returned.</p
 <p>E.g. Look up a SID given a PF</p>
 <pre><code class="language-xml">&lt;xsl:variable name=&quot;pf&quot; select=&quot;PFNumber&quot;/&gt;
 &lt;xsl:if test=&quot;$pf&quot;&gt;
-   &lt;xsl:variable name=&quot;sid&quot; select=&quot;s:lookup('PF_TO_SID', $pf, $formattedDateTime)&quot;/&gt;
+   &lt;xsl:variable name=&quot;sid&quot; select=&quot;stroom:lookup('PF_TO_SID', $pf, $formattedDateTime)&quot;/&gt;
 
    &lt;xsl:choose&gt;
       &lt;xsl:when test=&quot;$sid&quot;&gt;
@@ -770,7 +1252,7 @@ Also, the map will only contain entries that were <code>put()</code> within the 
 &lt;/xsl:variable&gt;
 
 &lt;!-- Store the count for future retrieval --&gt;
-&lt;xsl:value-of select=&quot;s:put('count', $count)&quot; /&gt;
+&lt;xsl:value-of select=&quot;stroom:put('count', $count)&quot; /&gt;
 
 &lt;!-- Output the new count --&gt;
 &lt;data name=&quot;Count&quot;&gt;
@@ -793,7 +1275,7 @@ Also, the map will only contain entries that were <code>put()</code> within the 
 <p>The parse-uri() function takes a Uniform Resource Identifier (URI) in string form and returns an XML node with a namespace of <code>uri</code> containing the URI&rsquo;s individual components of <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code> and <code>userInfo</code>. See either <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2306: Uniform Resource Identifiers (URI): Generic Syntax</a> or Java&rsquo;s java.net.URI Class for details regarding the components.</p>
 <p>The following xml</p>
 <pre><code class="language-xml">&lt;!-- Display and parse the URI contained within the text of the rURI element --&gt;
-&lt;xsl:variable name=&quot;u&quot; select=&quot;s:parseUri(rURI)&quot; /&gt;
+&lt;xsl:variable name=&quot;u&quot; select=&quot;stroom:parseUri(rURI)&quot; /&gt;
 
 &lt;URI&gt;
   &lt;xsl:value-of select=&quot;rURI&quot; /&gt;
@@ -850,11 +1332,12 @@ The points that define the polygon must be provided in order, i.e. starting from
 
 
 
-<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
     
-  <h1 id="pg-3f52cd945d5eabe8bb9a84799caa130e">2 - XSLT Includes</h1>
+  <h1 id="pg-3f52cd945d5eabe8bb9a84799caa130e">3 - XSLT Includes</h1>
     <div class="lead">Using an XSLT import to include XSLT from another translation.</div>
-	<p>You can use an XSLT import to include XSLT from another translation.  E.g.</p>
+	<p>You can use an XSLT import to include XSLT from another translation.
+E.g.:</p>
 <pre><code class="language-xml">&lt;xsl:import href=&quot;ApacheAccessCommon&quot; /&gt;
 </code></pre>
 <p>This would include the XSLT from the ApacheAccessCommon translation.</p>
