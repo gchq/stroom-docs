@@ -1,7 +1,7 @@
 ---
 title: "XSLT Functions"
 linkTitle: "XSLT Functions"
-#weight:
+weight: 20
 date: 2021-07-27
 tags:
   - xslt
@@ -18,7 +18,7 @@ These files can be generated from annotations in the Java code (see https://gith
 By including the following namespace:
 
 ```xml
-xmlns:s="stroom"
+xmlns:stroom="stroom"
 ```
 
 E.g.
@@ -27,7 +27,7 @@ E.g.
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet
     xmlns="event-logging:3"
-    xmlns:s="stroom"
+    xmlns:stroom="stroom"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     version="2.0">
@@ -121,7 +121,7 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
 If the look up fails no result will be returned.
 
 The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. `14`/`0xE` is `1110` as a binary bitmap.
-For each bit position that is set, (i.e. has a binary value of `1`)  a lookup will be performed using that bit position as the key.
+For each bit position that is set, (i.e. has a binary value of `1`) a lookup will be performed using that bit position as the key.
 In this example, positions `1`, `2` & `3` are set so a lookup would be performed for these bit positions.
 The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.
 
@@ -160,6 +160,7 @@ Converts a CIDR IP address range to an array of numeric IP addresses representin
 
 When storing the result in a variable, ensure you indicate the type as a string array (`xs:string*`), as shown in the below example.
 
+
 ### Example XSLT
 
 ```xml
@@ -169,6 +170,7 @@ When storing the result in a variable, ensure you indicate the type as a string 
   <End><xsl:value-of select="$range[2]" /></End>
 </Range>
 ```
+
 
 ### Example output
 
@@ -189,33 +191,32 @@ The main use for this function is to allow users to abstract the management of a
 ## format-date()
 
 The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
-contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.  If the
-optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
-A special time zone value of "GMT/BST" can be used to guess the time based on the date (BST during
-British Summer Time).
+contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat.
+If the optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
+A special time zone value of "GMT/BST" can be used to guess the time based on the date (BST during British Summer Time).
 
 E.g. Convert a GMT date time "2009/12/01 12:34:11"
 
 ```xml
-<xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')"/>
+<xsl:value-of select="stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')"/>
 ```
 
 E.g. Convert a GMT or BST date time "2009/08/01 12:34:11"
 
 ```xml
-<xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')"/>
+<xsl:value-of select="stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')"/>
 ```
 
 E.g. Convert a GMT+1:00 date time "2009/08/01 12:34:11"
 
 ```xml
-<xsl:value-of select="s:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')"/>
+<xsl:value-of select="stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')"/>
 ```
 
 E.g. Convert a date time specified as milliseconds since the epoch "1269270011640"
 
 ```xml
-<xsl:value-of select="s:format-date('1269270011640')"/>
+<xsl:value-of select="stroom:format-date('1269270011640')"/>
 ```
 
 Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.
@@ -432,29 +433,11 @@ E.g. Warn if a SID is not the correct length.
 
 ```xml
 <xsl:if test="string-length($sid) != 7">
-  <xsl:value-of select="s:log('WARN', concat($sid, ' is not the correct length'))"/>
+  <xsl:value-of select="stroom:log('WARN', concat($sid, ' is not the correct length'))"/>
 </xsl:if>
 ```
 
-The same functionality can also be achieved using the standard `xsl:message` element.
-
-```xml
-<!-- Log a message using default severity of ERROR -->
-<xsl:message>Invalid length</xsl:message>
-
-<!-- terminate="yes" means log the message as a FATAL ERROR -->
-<xsl:message terminate="yes">Invalid length</xsl:message>
-
-<!-- Log a message with a child element name specifying the severity (namespace doesn't matter). -->
-<xsl:message>
-  <warn>Invalid length</warn>
-</xsl:message>
-
-<!-- Log a message with a child element name specifying the severity (namespace doesn't matter). -->
-<xsl:message>
-  <info>Invalid length</info>
-</xsl:message>
-```
+The same functionality can also be achieved using the standard `xsl:message` element, see [`<xsl:message>`]({{< relref "xslt-basics#xslmessage" >}})
 
 
 ## lookup()
@@ -484,7 +467,7 @@ E.g. Look up a SID given a PF
 ```xml
 <xsl:variable name="pf" select="PFNumber"/>
 <xsl:if test="$pf">
-   <xsl:variable name="sid" select="s:lookup('PF_TO_SID', $pf, $formattedDateTime)"/>
+   <xsl:variable name="sid" select="stroom:lookup('PF_TO_SID', $pf, $formattedDateTime)"/>
 
    <xsl:choose>
       <xsl:when test="$sid">
@@ -565,7 +548,7 @@ An example of how to count records is shown below:
 </xsl:variable>
 
 <!-- Store the count for future retrieval -->
-<xsl:value-of select="s:put('count', $count)" />
+<xsl:value-of select="stroom:put('count', $count)" />
 
 <!-- Output the new count -->
 <data name="Count">
@@ -600,7 +583,7 @@ The following xml
 
 ``` xml
 <!-- Display and parse the URI contained within the text of the rURI element -->
-<xsl:variable name="u" select="s:parseUri(rURI)" />
+<xsl:variable name="u" select="stroom:parseUri(rURI)" />
 
 <URI>
   <xsl:value-of select="rURI" />
@@ -609,11 +592,14 @@ The following xml
   <xsl:copy-of select="$v"/>
 </URIDetail>
 ```
+
 given the rURI text contains
 ```
    http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details
 ```
+
 would provide
+
 ``` xml
 <URL>http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details</URL>
 <URIDetail>

@@ -1,13 +1,18 @@
 ---
 title: "Context Data"
 linkTitle: "Context Data"
-#weight:
+weight: 60
 date: 2021-07-27
 tags:
   - context
 description: >
-  
+  Context data is additional contextual data Stream that is sent alongside the main event data Stream.
 ---
+
+{{% todo %}}
+This section needs some explanation.
+{{% /todo %}}
+
 
 ## Context File
 
