@@ -31,6 +31,17 @@ A special Unicode character at the start of a text stream that indicates the byt
 See [Byte Order Mark]({{< relref "docs/sending-data/data-formats/character-encoding" >}}) for more detail.
 
 
+## Character Encoding
+
+{{< external-link "Character encoding" "https://en.wikipedia.org/wiki/Character_encoding" >}} is the means of encoding character data (i.e. text) into binary form.
+Therefore to decode character date from a stream of bytes, the character encoding must be known (or guessed).
+
+Common examples of character encodings are `ASCII`, `UTF-8` and `UTF-16`.
+
+Each {{< glossary "feed" >}} has a defined character encoding for the data and {{< glossary "context data" "context">}}.
+This allows Stroom to decode the data sent into that Feed.
+
+
 ## Condition
 
 A Condition in an query expression term, e.g. `=`, `>`, `in`, etc.
@@ -40,6 +51,23 @@ A Condition in an query expression term, e.g. `=`, `>`, `in`, etc.
 
 Content in Stroom typically means the documents/entities created Stroom and as seen in the explorer tree.
 Content can be created/modified by Stroom users and imported/exported for sharing between different Stroom instances.
+
+
+## Context Data
+
+This is an additional stream of contextual data that is sent along side the main event stream.
+It provides a means for the sending system to send additional data that relates only to the event stream it is sent alongside.
+This can be useful where the sending system has no control over the data in the event stream and the event stream does contain contextual information such as what machine it is running on or the location of that machine.
+
+The contextual information (such as hostname, FQDN, physical location, etc.) can be sent in a Context Stream so that the two can be combined together during pipeline processing using `stroom:lookup()`.
+
+See [Context Data]({{< relref "context-data" >}}), [Stream Concepts]({{< relref "user-guide/concepts" >}}) and [`stroom:lookup()`]({{< relref "user-guide/pipelines/xslt/xslt-functions#lookup" >}}) for more details.
+
+
+## CSV
+
+**C**omma **S**eparated **V**alues is a file format with typically one record per line and fields delimited by a `,`.
+Field may be optionally enclosed with double quotes, though there is no fixed standard for CSV data, particularly when it comes to escaping of double quotes and/or commas.
 
 
 ## Dashboard
@@ -170,6 +198,15 @@ An {{< external-link "Identiy Provider (IDP)" "https://en.wikipedia.org/wiki/Ide
 Examples of IDPs are Amazon Cognito, Microsoft Azure/Entra AD and Keycloak.
 
 
+## JSON
+
+**J**ava**S**cript **O**bject **N**otation is a file/data format for storing/transmitting structured data.
+It has similarities to XML, is less verbose, but is more simplistic.
+Stroom accepts data in JSON format and can output to JSON.
+
+See {{< external-link "Wikipedia" "https://en.wikipedia.org/wiki/JSON" >}} for details.
+
+
 ## Markdown
 
 *Markdown* is a markup language for creating formatted text using a simple text editor.
@@ -179,6 +216,25 @@ Stroom uses the {{< external-link "Showdown" "https://github.com/showdownjs/show
 Markdown is a somewhat loose standard so different markdown processors support different amounts of markdown syntax.
 For a definitive guide to the syntax supported in Stroom, see the above link.
 {{% /note %}}
+
+
+## Namespace
+
+In Stroom _Namespace_ typically refers to an {{< external-link "XML Namespace" "https://www.w3schools.com/xml/xml_namespaces.asp" >}}.
+Namespaces are used in XML to distinguish different elements, e.g. where an {{< glossary "XSLT" >}} is transforming XML in the `records:2` _Namespace_ into XML in the `event-logging:3` _Namespace_.
+
+An XSLT will define short aliases for _Namespaces_ to make them easier to reference within the XSLT document, e.g. in this example the aliases `stroom`, `evt`, `xsl`, `xsi`:
+
+```xml
+<xsl:stylesheet
+  xmlns="event-logging:3"
+  xpath-default-namespace="records:2"
+  xmlns:stroom="stroom"
+  xmlns:evt="event-logging:3"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  version="2.0">
+```
 
 
 ## Parser
@@ -307,6 +363,7 @@ The stepper will not write data to the file system or stream stores.
 ## Transport Layer Security (TLS)
 
 TLS is the evolution of Secure Sockets Layer (SSL) and refers to the encryption of traffic between client and server.
+TLS is typically used in Stroom for communications between Stroom-Proxy and Stroom, between Stroom nodes and when communicating with external systems (e.g. an ElasticSearch cluster of a HttpPostFilter destination).
 
 
 ## Tracker
@@ -362,7 +419,28 @@ When Stroom is write data to a Volume Group it will choose which if the Volumes 
 See the [User Guide]({{< relref "user-guide/volumes" >}}) for more detail.
 
 
+## XML
+
+E**x**tensible **M**arkup **L**anguage is a markup language for storing/transmitting structured data.
+It is the working format for most {{< glossary "Pipeline" >}} processing in Stroom and is the standard normalised format for event data.
+
+
+## XML Schema
+
+{{< external-link "XML Schema" "https://en.wikipedia.org/wiki/XML_schema" >}} is a language used to define the permitted structure of an XML document.
+An XML Schema can be used to validate an XML document to ensure it conforms to that schema such that onward processing of the XML document can be done with confidence that the document is correct.
+
+The {{< external-link "event-logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} is an example of an XML Schema.
+
+
+## XPath
+
+{{< external-link "XPath" "https://en.wikipedia.org/wiki/XPath" >}} is an expression language for selecting a node or nodes in an XML document.
+It is used heavily in {{< glossary "XSLT" >}} to define the match criteria for templates and to select values.
+
+
 ## XSLT
+
 E**x**tensible **S**tylesheet **L**anguage **T**ransformations is a language for transforming XML documents into other XML documents.
 XSLTs are the primary means of transforming data in Stroom.
 All data is converted into a basic form of XML and then XSLTs are used to decorate and transform it into a common form.

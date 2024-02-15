@@ -214,17 +214,27 @@ Level one headings will be generated from the `title` in the document's front ma
 
 ## Heading level 2
 
+This heading level is effectively level 1 on the page and right hand pane, e.g. `1`.
+
 
 ### Heading level 3
+
+This heading level is effectively level 2 on the page and right hand pane, e.g. `1.1`.
 
 
 #### Heading level 4
 
+This heading level is effectively level 3 on the page and right hand pane, e.g. `1.1.1`.
+
 
 ##### Heading level 5
 
+This heading level is effectively level 4 on the page but not shown on the right hand pane.
+
 
 ###### Heading level 6
+
+This heading level is effectively level 5 on the page but not shown on the right hand pane.
 ```
 
 Markdown supports an alternate style for headings, as shown below.
