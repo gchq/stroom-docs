@@ -92,7 +92,7 @@ You can chain multiple Readers.
 A parser is designed to convert the character data into XML for processing.
 For example, the {{< pipe-elm "JSONParser" >}} will use a JSON parser to read the character data as JSON and convert it into XML elements and attributes that represent the JSON structure, so that it can be transformed downstream using XSLT.
 
-Parsers have a built in reader so if they are not preceded by a Reader they will decode the character data before parsing.
+Parsers have a built in reader so if they are not preceded by a Reader they will decode the raw bytes into character data before parsing.
 
 
 ### Filter

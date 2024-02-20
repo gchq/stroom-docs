@@ -331,6 +331,50 @@ The {{< pipe-elm "ElasticIndexingFilter">}} reads the `records` XML and loads ea
 * {{< pipe-elm "SchemaFilter" >}} - XMLSchema `records:2`
 
 
+## Search Extraction
+
+Search extraction is the process of combining the data held in the index with data obtained from the original indexed document, i.e. the event.
+Search extraction is useful when you do not want to store the whole of an event in the index (to reduce storage used) but still want to be able to access all the event data in a Dashboard/View.
+An extraction pipeline is required to combine data in this way.
+Search extraction pipelines are referenced in Dashboard and View settings.
+
+
+### Standard Lucene Index Extraction
+
+This is a non-dynamic search extraction pipeline for a Lucene index.
+
+{{< pipe >}}
+ {{< pipe-elm "Source" >}}
+ {{< pipe-elm "XMLParser" >}}
+ {{< pipe-elm "SplitFilter" "Split" >}}
+ {{< pipe-elm "IdEnrichmentFilter" "ID" >}}
+ {{< pipe-elm "XSLTFilter" >}}
+ {{< pipe-elm "SearchResultOutputFilter" >}}
+{{< /pipe >}}
+
+**Configured Content**
+
+* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming  `event-logging:3` => `records:2`.
+
+
+### Dynamic Lucene Index Extraction
+
+This is a dynamic search extraction pipeline for a Lucene index.
+
+{{< pipe >}}
+ {{< pipe-elm "Source" >}}
+ {{< pipe-elm "XMLParser" >}}
+ {{< pipe-elm "SplitFilter" "Split" >}}
+ {{< pipe-elm "IdEnrichmentFilter" "ID" >}}
+ {{< pipe-elm "XSLTFilter" >}}
+ {{< pipe-elm "DynamicSearchResultOutputFilter" >}}
+{{< /pipe >}}
+
+**Configured Content**
+
+* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming `event-logging:3` => `index-documents:1`.
+
+
 ## Data Egress
 
 ### XML to CSV File
