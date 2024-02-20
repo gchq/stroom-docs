@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/pipelines/element-reference/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2022-02-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-02-15T17:21:24+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-02-20T18:33:12+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Element Reference">
 <meta itemprop="description" content="A reference for all the pipeline elements.
 "><meta itemprop="datePublished" content="2022-02-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-02-15T17:21:24+00:00" />
-<meta itemprop="wordCount" content="3161">
+<meta itemprop="dateModified" content="2024-02-20T18:33:12+00:00" />
+<meta itemprop="wordCount" content="4110">
 <meta itemprop="keywords" content="TODO," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Element Reference"/>
 <meta name="twitter:description" content="A reference for all the pipeline elements.
@@ -123,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.b5aa3bda3cb9a4f488e1350153feec56.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.c1a4bcc64e36615498725b792b1252d7.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -148,7 +148,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.b5aa3bda3cb9a4f488e1350153feec56.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.c1a4bcc64e36615498725b792b1252d7.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -930,10 +930,14 @@ that class you can easily diff the new output with this file which contains adde
 descriptive text.
 ********************************************************************************
 -->
+<!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
 <h2 id="reader">Reader</h2>
-<p>Reader elements read and transform the data at the character level before they are parsed into a structured form.</p>
+<p>Reader elements decode the data in raw byte form using the Feed&rsquo;s configured character encoding.
+Some of them will also transform the data at the character level before the data are parsed into a structured form.</p>
 <h3 id="bomremovalfilterinput">BOMRemovalFilterInput</h3>
 <p>
+
+
 
 
 
@@ -1000,6 +1004,8 @@ descriptive text.
 
 
 
+
+
   
   
 
@@ -1053,9 +1059,8 @@ descriptive text.
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Escapes the content of a configured list of named XML elements that are know to potentially contain un-escaped XML reserved characters.
+For example the element <code>&lt;Expression&gt;$time &lt; now()&lt;/Expression&gt;</code> would be transformed to <code>&lt;Expression&gt;$time &amp;lt; now()&lt;/Expression&gt;</code> if property <code>leafList</code> is set to <code>Expression</code>.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -1063,18 +1068,22 @@ descriptive text.
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>tags</td>
-<td>A comma separated list of XML elements between which non-escaped characters will be escaped.</td>
+<td>A comma separated list of XML element names (case sensitive) between which non-escaped XML characters will be escaped, e.g. &lsquo;&gt;&rsquo; =&gt; &lsquo;&gt;&rsquo;.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="findreplacefilter">FindReplaceFilter</h3>
 <p>
+
+
 
 
 
@@ -1141,6 +1150,7 @@ descriptive text.
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -1148,51 +1158,62 @@ descriptive text.
 <td>bufferSize</td>
 <td>The number of characters to buffer when matching the regex.</td>
 <td>1000</td>
+<td>Integer</td>
 </tr>
 <tr>
 <td>dotAll</td>
 <td>Let &lsquo;.&rsquo; match all characters in a regex.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>escapeFind</td>
 <td>Whether or not to escape find pattern or text.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>escapeReplacement</td>
 <td>Whether or not to escape replacement text.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>find</td>
 <td>The text or regex pattern to find and replace.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>maxReplacements</td>
 <td>The maximum number of times to try and replace text. There is no limit by default.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>regex</td>
 <td>Whether the pattern should be treated as a literal or a regex.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>replacement</td>
 <td>The replacement text.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>showReplacementCount</td>
 <td>Show total replacement count</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="invalidcharfilterreader">InvalidCharFilterReader</h3>
 <p>
+
+
 
 
 
@@ -1251,9 +1272,8 @@ descriptive text.
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Removes any characters that are not in the standard XML character set.
+The version of XML (e.g. 1.0 or 1.1) can be set using the &lsquo;xmlVersion&rsquo; property.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -1261,18 +1281,28 @@ descriptive text.
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>warnOnRemoval</td>
+<td>Log a warning if any characters have been removed from the input stream.</td>
+<td>true</td>
+<td>Boolean</td>
+</tr>
+<tr>
 <td>xmlVersion</td>
-<td>XML version, e.g. 1.0 or 1.1</td>
+<td>XML version, e.g. &lsquo;1.0&rsquo; or &lsquo;1.1&rsquo;</td>
 <td>1.1</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="invalidxmlcharfilterreader">InvalidXMLCharFilterReader</h3>
 <p>
+
+
 
 
 
@@ -1331,7 +1361,8 @@ descriptive text.
 
 
  </p>
-<p>Strips out any characters that are not within the standard XML character set.</p>
+<p>Replaces any characters that are not in the standard XML character set with a &lsquo;�&rsquo;.
+The version of XML (e.g. 1.0 or 1.1) can be set using the &lsquo;xmlVersion&rsquo; property.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -1339,18 +1370,28 @@ descriptive text.
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>warnOnReplacement</td>
+<td>Log a warning if any characters have been replaced in the input stream.</td>
+<td>true</td>
+<td>Boolean</td>
+</tr>
+<tr>
 <td>xmlVersion</td>
-<td>XML version, e.g. 1.0 or 1.1</td>
+<td>XML version, e.g. &lsquo;1.0&rsquo; or &lsquo;1.1&rsquo;</td>
 <td>1.1</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="reader-1">Reader</h3>
 <p>
+
+
 
 
 
@@ -1409,17 +1450,18 @@ descriptive text.
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>A basic reader that simply decodes the raw bytes using the Feed&rsquo;s configured character encoding.
+It does not transform the data in any other way.</p>
 <h2 id="parser">Parser</h2>
-<p>Parser elements parse raw text data that conforms to some kind of structure (e.g. XML, JSON, CSV)
+<p>Parser elements parse raw text data that has an expected structure (e.g. XML, JSON, CSV)
 into XML events (elements, attributes, text, etc) that can be further validated or transformed
-using.
+using XSLT.
 The choice of Parser will be dictated by the structure of the data.
-Parsers read the data using the character encoding defined on the feed.</p>
+If no Reader is used before the Parser, the Parser will also do the job of a simple Reader and decode the raw bytes using the Feed&rsquo;s configured character encoding.</p>
 <h3 id="combinedparser">CombinedParser</h3>
 <p>
+
+
 
 
 
@@ -1478,7 +1520,11 @@ Parsers read the data using the character encoding defined on the feed.</p>
 
 
  </p>
-<p>The original general-purpose reader/parser that covers all source data types but provides less flexibility than the source format-specific parsers such as dsParser.</p>
+<p>The original general-purpose reader/parser that covers all source data types but provides less flexibility than the source format-specific parsers such as dsParser.
+It effectively combines a BOMRemovalFilterInput, an InvalidCharFilterReader and Parser (based on
+the <code>type</code> property.
+It is strongly recommended to instead use a combination of Readers and one of the type specific Parsers.
+This will make the intent of the pipeline much clearer and allow for much greater control.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -1486,6 +1532,7 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -1493,31 +1540,38 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <td>fixInvalidChars</td>
 <td>Fix invalid XML characters from the input stream.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>namePattern</td>
 <td>A name pattern to load a text converter dynamically.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>suppressDocumentNotFoundWarnings</td>
 <td>If the text converter cannot be found to match the name pattern suppress warnings.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>textConverter</td>
 <td>The text converter configuration that should be used to parse the input data.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>type</td>
 <td>The parser type, e.g. &lsquo;JSON&rsquo;, &lsquo;XML&rsquo;, &lsquo;Data Splitter&rsquo;.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="dsparser">DSParser</h3>
 <p>
+
+
 
 
 
@@ -1576,7 +1630,8 @@ Parsers read the data using the character encoding defined on the feed.</p>
 
 
  </p>
-<p>A parser for data that uses Data Splitter code.</p>
+<p>A parser for handling structured plain text data (e.g. CSV or fixed width fields) using the Data Splitter domain specific language.
+For more details see <a href="../../../../docs/user-guide/data-splitter/">Data Splitter</a>.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -1584,6 +1639,7 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -1591,21 +1647,26 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <td>namePattern</td>
 <td>A name pattern to load a data splitter dynamically.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>suppressDocumentNotFoundWarnings</td>
 <td>If the data splitter cannot be found to match the name pattern suppress warnings.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>textConverter</td>
 <td>The data splitter configuration that should be used to parse the input data.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
 <h3 id="jsonparser">JSONParser</h3>
 <p>
+
+
 
 
 
@@ -1664,7 +1725,8 @@ Parsers read the data using the character encoding defined on the feed.</p>
 
 
  </p>
-<p>A built-in parser for JSON source data in JSON fragment format into an XML document.</p>
+<p>A built-in parser for parsing JSON source data (in JSON fragment format) into an XML representation of the JSON.
+The Resulting XML will conform to the <a href="http://www.w3.org/2013/XSL/json">http://www.w3.org/2013/XSL/json</a> namespace.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -1672,6 +1734,7 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -1679,61 +1742,74 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <td>addRootObject</td>
 <td>Add a root map element.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowBackslashEscapingAnyCharacter</td>
 <td>Feature that can be enabled to accept quoting of all character using backslash quoting mechanism: if not enabled, only characters that are explicitly listed by JSON specification can be thus escaped (see JSON spec for small list of these characters)</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowComments</td>
 <td>Feature that determines whether parser will allow use  of Java/C++ style comments (both &lsquo;/&rsquo;+&rsquo;*&rsquo; and &lsquo;//&rsquo; varieties) within parsed content or not.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowMissingValues</td>
 <td>Feature allows the support for &ldquo;missing&rdquo; values in a JSON array: missing value meaning sequence of two commas, without value in-between but only optional white space.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowNonNumericNumbers</td>
 <td>Feature that allows parser to recognize set of &ldquo;Not-a-Number&rdquo; (NaN) tokens as legal floating number values (similar to how many other data formats and programming language source code allows it).</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowNumericLeadingZeros</td>
 <td>Feature that determines whether parser will allow JSON integral numbers to start with additional (ignorable) zeroes (like: 000001).</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowSingleQuotes</td>
 <td>Feature that determines whether parser will allow use of single quotes (apostrophe, character &lsquo;'&rsquo;) for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowTrailingComma</td>
 <td>Feature that determines whether we will allow for a single trailing comma following the final value (in an Array) or member (in an Object). These commas will simply be ignored.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowUnquotedControlChars</td>
 <td>Feature that determines whether parser will allow JSON Strings to contain unquoted control characters (ASCII characters with value less than 32, including tab and line feed characters) or not. If feature is set false, an exception is thrown if such a character is encountered.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowUnquotedFieldNames</td>
 <td>Feature that determines whether parser will allow use of unquoted field names (which is allowed by Javascript, but not by JSON specification).</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>allowYamlComments</td>
 <td>Feature that determines whether parser will allow use of YAML comments, ones starting with &lsquo;#&rsquo; and continuing until the end of the line. This commenting style is common with scripting languages as well.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="xmlfragmentparser">XMLFragmentParser</h3>
 <p>
+
+
 
 
 
@@ -1792,7 +1868,13 @@ Parsers read the data using the character encoding defined on the feed.</p>
 
 
  </p>
-<p>A parser to convert multiple XML fragments into an XML document.</p>
+<p>A parser to convert multiple XML fragments into an XML document.
+For example the data may contain:</p>
+<pre><code class="language-xml">&lt;Event&gt;...&lt;/Event&gt;
+&lt;Event&gt;...&lt;/Event&gt;
+</code></pre>
+<p>i.e. with no root element, so not valid XML.
+The XMLFragmentParser will wrap the fragments with a root element as defined in the TextConverter document configured with the <code>textConverterRef</code> property.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -1800,6 +1882,7 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -1807,21 +1890,26 @@ Parsers read the data using the character encoding defined on the feed.</p>
 <td>namePattern</td>
 <td>A name pattern to load a text converter dynamically.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>suppressDocumentNotFoundWarnings</td>
 <td>If the text converter cannot be found to match the name pattern suppress warnings.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>textConverter</td>
 <td>The XML fragment wrapper that should be used to wrap the input XML.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
 <h3 id="xmlparser">XMLParser</h3>
 <p>
+
+
 
 
 
@@ -1880,9 +1968,7 @@ Parsers read the data using the character encoding defined on the feed.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>A parser to parse data that is expected to be XML into a series of XML events that can be consumed by a Filter element.</p>
 <h2 id="filter">Filter</h2>
 <p>Filter elements work with XML events that have been generated by a <em>parser</em>.
 They can consume the events without modifying them, e.g. <em>RecordCountFilter</em> or modify them in
@@ -1891,6 +1977,8 @@ Multiple filters can be used one after another with each using the output from t
 input.</p>
 <h3 id="dynamicindexingfilter">DynamicIndexingFilter</h3>
 <p>
+
+
 
 
 
@@ -1957,6 +2045,7 @@ input.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -1964,11 +2053,14 @@ input.</p>
 <td>index</td>
 <td>The index to send records to.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
 <h3 id="dynamicsearchresultoutputfilter">DynamicSearchResultOutputFilter</h3>
 <p>
+
+
 
 
 
@@ -2027,11 +2119,12 @@ input.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the fields are dynamic and derived from the data rather than being defined in the Index settings.
+Consumes XML events in the <code>index-documents:1</code> namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.</p>
 <h3 id="elasticindexingfilter">ElasticIndexingFilter</h3>
 <p>
+
+
 
 
 
@@ -2090,9 +2183,8 @@ input.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>A filter consuming XML events in the <code>records:2</code> namespace to index/store the fields
+and their values in an ElasticSearch Index.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -2100,6 +2192,7 @@ input.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2107,36 +2200,44 @@ input.</p>
 <td>batchSize</td>
 <td>Maximum number of documents to index in each bulk request.</td>
 <td>10000</td>
+<td>Integer</td>
 </tr>
 <tr>
 <td>cluster</td>
 <td>Target Elasticsearch cluster.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>indexName</td>
 <td>Name of the Elasticsearch index. Variables specified such as <code>{year}</code> are replaced with the corresponding field values contained in the document root. Field names beginning with an underscore are not written to the document and are only used in the index name pattern.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>ingestPipeline</td>
 <td>Name of the Elasticsearch ingest pipeline to execute when indexing.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>purgeOnReprocess</td>
 <td>When reprocessing a stream, first delete any documents from the index matching the source stream ID.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>refreshAfterEachBatch</td>
 <td>Refresh the index after each batch is processed, making the indexed documents visible to searches.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="httppostfilter">HttpPostFilter</h3>
 <p>
+
+
 
 
 
@@ -2195,9 +2296,68 @@ input.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>This element is deprecated, you should instead use the much more flexible 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/user-guide/pipelines/element-reference#httpappender" class="" style="" title="">
+        <span class="pipeline-element" title="HTTPAppender &#34;HTTPAppender&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Stream"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M 499.42773 349.50586 C 471.2255 349.65535 443.05802 352.21777 415.25195 357.10156 C 314.29291 374.83377 218.08985 423.16111 142.17383 497.58398 C 120.16923 517.22845 82.017578 562.56836 82.017578 562.56836 L 17.439453 647.62891 C 11.715074 655.16906 9.4362619 663.20332 10.603516 671.73047 C 11.770779 680.25761 16.123954 687.38299 23.664062 693.10742 L 178.77539 810.86523 C 186.3155 816.58967 194.34977 818.87035 202.87695 817.70312 C 211.40415 816.53588 218.95139 812.4832 224.25391 804.64062 C 252.73415 758.03917 266.71282 735.64156 320.53711 677.81836 C 409.46174 596.02665 519.53665 566.34857 644.56055 635.73047 C 814.48739 738.37221 971.75585 900.37132 1180.918 905.55859 C 1209.7108 905.57829 1251.7809 901.38952 1283.5625 895.00391 C 1384.5214 877.27168 1480.7245 828.94644 1556.6406 754.52344 C 1578.6452 734.87902 1616.7969 689.53906 1616.7969 689.53906 L 1681.375 604.47852 C 1687.0993 596.93839 1689.3762 588.90409 1688.209 580.37695 C 1687.0417 571.8498 1682.6905 564.72444 1675.1504 559 L 1520.0391 441.24219 C 1512.499 435.51777 1504.4646 433.23706 1495.9375 434.4043 C 1487.4102 435.57155 1479.8631 439.62422 1474.5605 447.4668 C 1446.0803 494.06826 1432.1016 516.46587 1378.2773 574.28906 C 1348.8635 601.34351 1316.4063 622.69518 1281.6191 636.6543 C 1067.6463 709.61943 913.77105 505.66893 745.44531 415.86719 C 668.96293 370.33416 584.03444 349.05738 499.42773 349.50586 z M 594.88477 897.21094 C 566.68253 897.36043 538.51505 899.92285 510.70898 904.80664 C 409.74993 922.53885 313.54689 970.86407 237.63086 1045.2871 C 215.62627 1064.9315 177.47266 1110.2734 177.47266 1110.2734 L 112.89648 1195.332 C 107.1721 1202.8722 104.89329 1210.9084 106.06055 1219.4355 C 107.22781 1227.9627 111.58098 1235.086 119.12109 1240.8105 L 274.23242 1358.5684 C 281.77254 1364.2928 289.80483 1366.5734 298.33203 1365.4062 C 306.85921 1364.239 314.4084 1360.1864 319.71094 1352.3438 C 348.19118 1305.7423 362.16986 1283.3466 415.99414 1225.5234 C 504.91877 1143.7317 614.99368 1114.0536 740.01758 1183.4355 C 909.94442 1286.0772 1067.2128 1448.0744 1276.375 1453.2617 C 1305.1678 1453.2817 1347.2362 1449.0945 1379.0176 1442.709 C 1479.9765 1424.9767 1576.1817 1376.6515 1652.0977 1302.2285 C 1674.1023 1282.584 1712.2539 1237.2441 1712.2539 1237.2441 L 1776.832 1152.1836 C 1782.5562 1144.6434 1784.8333 1136.6091 1783.666 1128.082 C 1782.4987 1119.5548 1778.1456 1112.4295 1770.6055 1106.7051 L 1615.4941 988.94727 C 1607.9538 983.22287 1599.9217 980.94208 1591.3945 982.10938 C 1582.8673 983.27657 1575.3182 987.32927 1570.0156 995.17188 C 1541.5354 1041.7734 1527.5567 1064.169 1473.7324 1121.9922 C 1444.3187 1149.0467 1411.8635 1170.4003 1377.0762 1184.3594 C 1163.1036 1257.3246 1009.2262 1053.3739 840.90039 963.57227 C 764.41799 918.0392 679.49147 896.76246 594.88477 897.21094 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">HTTPAppender</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+.
+This element will simply POST the output of the XML events to the configured URL.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -2205,6 +2365,7 @@ input.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2212,11 +2373,14 @@ input.</p>
 <td>receivingApiUrl</td>
 <td>The URL of the receiving API.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="idenrichmentfilter">IdEnrichmentFilter</h3>
 <p>
+
+
 
 
 
@@ -2275,11 +2439,13 @@ input.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Adds the attributes &lsquo;StreamId&rsquo; and &lsquo;EventId&rsquo; to the &rsquo;event&rsquo; element to enrich the event with its ordinal number in the stream and the ID of the stream that it belongs to.
+ID enrichment is required to be able to index events as it provides them with an ID that is unique within Stroom.
+It assumes that an record/event is an XML element at the first level below the root element, i.e. for &rsquo;event-logging:3&rsquo; XML this means the <code>&lt;Event&gt;</code> element.</p>
 <h3 id="indexingfilter">IndexingFilter</h3>
 <p>
+
+
 
 
 
@@ -2338,7 +2504,8 @@ input.</p>
 
 
  </p>
-<p>A filter to send source data to an index.</p>
+<p>A filter consuming XML events in the <code>records:2</code> namespace to index/store the fields
+and their values in a Lucene Index.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -2346,6 +2513,7 @@ input.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2353,11 +2521,14 @@ input.</p>
 <td>index</td>
 <td>The index to send records to.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
 <h3 id="recordcountfilter">RecordCountFilter</h3>
 <p>
+
+
 
 
 
@@ -2416,9 +2587,8 @@ input.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Counts events/records in the stream.
+An event/record is taken to be an XML element that is at the first level below the root element, i.e. for &rsquo;event-logging:3&rsquo; XML this means the <code>&lt;Event&gt;</code> element.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -2426,6 +2596,7 @@ input.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2433,11 +2604,14 @@ input.</p>
 <td>countRead</td>
 <td>Is this filter counting records read or records written?</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="recordoutputfilter">RecordOutputFilter</h3>
 <p>
+
+
 
 
 
@@ -2496,11 +2670,14 @@ input.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Filters out records/events that have raised an Error or Fatal Error during processing.
+If all records/events have raised at least an Error then no XML events will be output.
+It assumes that an record/event is an XML element at the first level below the root element, i.e. <br>
+for &rsquo;event-logging:3&rsquo; XML this means the <code>&lt;Event&gt;</code> element.&quot;&quot;&quot;,</p>
 <h3 id="referencedatafilter">ReferenceDataFilter</h3>
 <p>
+
+
 
 
 
@@ -2568,6 +2745,7 @@ Reference data values can be either simple strings or XML fragments.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2575,16 +2753,20 @@ Reference data values can be either simple strings or XML fragments.</p>
 <td>overrideExistingValues</td>
 <td>Allow duplicate keys to override existing values?</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>warnOnDuplicateKeys</td>
 <td>Warn if there are duplicate keys found in the reference data?</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="safexmlfilter">SafeXMLFilter</h3>
 <p>
+
+
 
 
 
@@ -2643,11 +2825,12 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Restricts the characters to a very simple set consisting of <code>[a-zA-Z0-9]</code> and <code>[ .:-_/]</code>.
+All other characters are replaced by <code>~NNN</code>, where <code>NNN</code> is a three digit codepoint for the replaced character.</p>
 <h3 id="schemafilter">SchemaFilter</h3>
 <p>
+
+
 
 
 
@@ -2715,6 +2898,7 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2722,31 +2906,38 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 <td>namespaceURI</td>
 <td>Limits the schemas that can be used to validate data to those with a matching namespace URI.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>schemaGroup</td>
 <td>Limits the schemas that can be used to validate data to those with a matching schema group name.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>schemaLanguage</td>
 <td>The schema language that the schema is written in.</td>
 <td><a href="http://www.w3.org/2001/XMLSchema">http://www.w3.org/2001/XMLSchema</a></td>
+<td>String</td>
 </tr>
 <tr>
 <td>schemaValidation</td>
 <td>Should schema validation be performed?</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>systemId</td>
 <td>Limits the schemas that can be used to validate data to those with a matching system id.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="searchresultoutputfilter">SearchResultOutputFilter</h3>
 <p>
+
+
 
 
 
@@ -2805,11 +2996,12 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the field definitions are defined in the Index settings.
+Consumes XML events in the <code>records:2</code> namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.</p>
 <h3 id="solrindexingfilter">SolrIndexingFilter</h3>
 <p>
+
+
 
 
 
@@ -2876,6 +3068,7 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2883,26 +3076,32 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 <td>batchSize</td>
 <td>How many documents to send to the index in a single post.</td>
 <td>1000</td>
+<td>Integer</td>
 </tr>
 <tr>
 <td>commitWithinMs</td>
 <td>Commit indexed documents within the specified number of milliseconds.</td>
 <td>-1</td>
+<td>Integer</td>
 </tr>
 <tr>
 <td>index</td>
 <td>The index to send records to.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>softCommit</td>
 <td>Perform a soft commit after every batch so that docs are available for searching immediately (if using NRT replicas).</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="splitfilter">SplitFilter</h3>
 <p>
+
+
 
 
 
@@ -2970,6 +3169,7 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -2977,21 +3177,26 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <td>splitCount</td>
 <td>The number of elements at the split depth to count before the XML is split.</td>
 <td>10000</td>
+<td>Integer</td>
 </tr>
 <tr>
 <td>splitDepth</td>
 <td>The depth of XML elements to split at.</td>
 <td>1</td>
+<td>Integer</td>
 </tr>
 <tr>
 <td>storeLocations</td>
 <td>Should this split filter store processing locations.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="statisticsfilter">StatisticsFilter</h3>
 <p>
+
+
 
 
 
@@ -3058,6 +3263,7 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3065,11 +3271,14 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <td>statisticsDataSource</td>
 <td>The statistics data source to record statistics against.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
 <h3 id="stroomstatsfilter">StroomStatsFilter</h3>
 <p>
+
+
 
 
 
@@ -3136,6 +3345,7 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3143,21 +3353,26 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <td>flushOnSend</td>
 <td>At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>kafkaConfig</td>
 <td>The Kafka config to use.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>statisticsDataSource</td>
 <td>The stroom-stats data source to record statistics against.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
 <h3 id="xpathextractionoutputfilter">XPathExtractionOutputFilter</h3>
 <p>
+
+
 
 
 
@@ -3226,6 +3441,7 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3233,11 +3449,14 @@ This allows the XSLT to process data more efficiently than loading a potentially
 <td>multipleValueDelimiter</td>
 <td>The string to delimit multiple simple values.</td>
 <td>,</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="xsltfilter">XSLTFilter</h3>
 <p>
+
+
 
 
 
@@ -3305,33 +3524,33 @@ The specified XSLT can be used to transform the input XML into XML conforming to
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>pipelineReference</td>
-<td>A list of places to load reference data from if required.</td>
-<td>-</td>
-</tr>
-<tr>
 <td>suppressXSLTNotFoundWarnings</td>
 <td>If XSLT cannot be found to match the name pattern suppress warnings.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>usePool</td>
 <td>Advanced: Choose whether or not you want to use cached XSLT templates to improve performance.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>xslt</td>
 <td>The XSLT to use.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>xsltNamePattern</td>
 <td>A name pattern to load XSLT dynamically.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
@@ -3341,6 +3560,8 @@ using the character encoding configured on the <em>Writer</em> (if applicable).
 The output data can then be fed to a Destination.</p>
 <h3 id="jsonwriter">JSONWriter</h3>
 <p>
+
+
 
 
 
@@ -3407,6 +3628,7 @@ The output data can then be fed to a Destination.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3414,16 +3636,20 @@ The output data can then be fed to a Destination.</p>
 <td>encoding</td>
 <td>The output character encoding to use.</td>
 <td>UTF-8</td>
+<td>String</td>
 </tr>
 <tr>
 <td>indentOutput</td>
 <td>Should output JSON be indented and include new lines (pretty printed)?</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="textwriter">TextWriter</h3>
 <p>
+
+
 
 
 
@@ -3490,6 +3716,7 @@ The output data can then be fed to a Destination.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3497,21 +3724,26 @@ The output data can then be fed to a Destination.</p>
 <td>encoding</td>
 <td>The output character encoding to use.</td>
 <td>UTF-8</td>
+<td>String</td>
 </tr>
 <tr>
 <td>footer</td>
 <td>Footer text that can be added to the output at the end.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>header</td>
 <td>Header text that can be added to the output at the start.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="xmlwriter">XMLWriter</h3>
 <p>
+
+
 
 
 
@@ -3578,6 +3810,7 @@ The output data can then be fed to a Destination.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3585,26 +3818,31 @@ The output data can then be fed to a Destination.</p>
 <td>encoding</td>
 <td>The output character encoding to use.</td>
 <td>UTF-8</td>
+<td>String</td>
 </tr>
 <tr>
 <td>indentOutput</td>
 <td>Should output XML be indented and include new lines (pretty printed)?</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>suppressXSLTNotFoundWarnings</td>
 <td>If XSLT cannot be found to match the name pattern suppress warnings.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>xslt</td>
 <td>A previously saved XSLT, used to modify the output via xsl:output attributes.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>xsltNamePattern</td>
 <td>A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
@@ -3613,6 +3851,8 @@ The output data can then be fed to a Destination.</p>
 This could be a file on a file system or to Stroom&rsquo;s stream store.</p>
 <h3 id="annotationwriter">AnnotationWriter</h3>
 <p>
+
+
 
 
 
@@ -3671,11 +3911,12 @@ This could be a file on a file system or to Stroom&rsquo;s stream store.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Consume XML documents in the <code>annotation:1</code> namespace and writes them as Stroom Annotations.
+Allows for the annotating of events that meet some criteria.</p>
 <h3 id="fileappender">FileAppender</h3>
 <p>
+
+
 
 
 
@@ -3743,6 +3984,7 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3750,36 +3992,44 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <td>filePermissions</td>
 <td>Set file system permissions of finished files (example: &lsquo;rwxr&ndash;r&ndash;&rsquo;)</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>outputPaths</td>
 <td>One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>rollSize</td>
 <td>When the current output file exceeds this size it will be closed and a new one created.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>splitAggregatedStreams</td>
 <td>Choose if you want to split aggregated streams into separate output files.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>splitRecords</td>
 <td>Choose if you want to split individual records into separate output files.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>useCompression</td>
 <td>Apply GZIP compression to output files</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="hdfsfileappender">HDFSFileAppender</h3>
 <p>
+
+
 
 
 
@@ -3847,6 +4097,7 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3854,36 +4105,44 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <td>fileSystemUri</td>
 <td>URI for the Hadoop Distributed File System (HDFS) to connect to, e.g. hdfs://mynamenode.mydomain.com:8020</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>outputPaths</td>
 <td>One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>rollSize</td>
 <td>When the current output file exceeds this size it will be closed and a new one created.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>runAsUser</td>
 <td>The user to connect to HDFS as</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>splitAggregatedStreams</td>
 <td>Choose if you want to split aggregated streams into separate output files.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>splitRecords</td>
 <td>Choose if you want to split individual records into separate output files.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="httpappender">HTTPAppender</h3>
 <p>
+
+
 
 
 
@@ -3942,7 +4201,68 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 
 
  </p>
-<p>A destination used to write an output stream to a remote HTTP(s) server.</p>
+<p>A destination used to write an output stream to a remote HTTP(S) server.</p>
+<p>This element should be preferred over the deprecated 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/user-guide/pipelines/element-reference#httppostfilter" class="" style="" title="">
+        <span class="pipeline-element" title="HttpPostFilter &#34;HttpPostFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Stream"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M 499.42773 349.50586 C 471.2255 349.65535 443.05802 352.21777 415.25195 357.10156 C 314.29291 374.83377 218.08985 423.16111 142.17383 497.58398 C 120.16923 517.22845 82.017578 562.56836 82.017578 562.56836 L 17.439453 647.62891 C 11.715074 655.16906 9.4362619 663.20332 10.603516 671.73047 C 11.770779 680.25761 16.123954 687.38299 23.664062 693.10742 L 178.77539 810.86523 C 186.3155 816.58967 194.34977 818.87035 202.87695 817.70312 C 211.40415 816.53588 218.95139 812.4832 224.25391 804.64062 C 252.73415 758.03917 266.71282 735.64156 320.53711 677.81836 C 409.46174 596.02665 519.53665 566.34857 644.56055 635.73047 C 814.48739 738.37221 971.75585 900.37132 1180.918 905.55859 C 1209.7108 905.57829 1251.7809 901.38952 1283.5625 895.00391 C 1384.5214 877.27168 1480.7245 828.94644 1556.6406 754.52344 C 1578.6452 734.87902 1616.7969 689.53906 1616.7969 689.53906 L 1681.375 604.47852 C 1687.0993 596.93839 1689.3762 588.90409 1688.209 580.37695 C 1687.0417 571.8498 1682.6905 564.72444 1675.1504 559 L 1520.0391 441.24219 C 1512.499 435.51777 1504.4646 433.23706 1495.9375 434.4043 C 1487.4102 435.57155 1479.8631 439.62422 1474.5605 447.4668 C 1446.0803 494.06826 1432.1016 516.46587 1378.2773 574.28906 C 1348.8635 601.34351 1316.4063 622.69518 1281.6191 636.6543 C 1067.6463 709.61943 913.77105 505.66893 745.44531 415.86719 C 668.96293 370.33416 584.03444 349.05738 499.42773 349.50586 z M 594.88477 897.21094 C 566.68253 897.36043 538.51505 899.92285 510.70898 904.80664 C 409.74993 922.53885 313.54689 970.86407 237.63086 1045.2871 C 215.62627 1064.9315 177.47266 1110.2734 177.47266 1110.2734 L 112.89648 1195.332 C 107.1721 1202.8722 104.89329 1210.9084 106.06055 1219.4355 C 107.22781 1227.9627 111.58098 1235.086 119.12109 1240.8105 L 274.23242 1358.5684 C 281.77254 1364.2928 289.80483 1366.5734 298.33203 1365.4062 C 306.85921 1364.239 314.4084 1360.1864 319.71094 1352.3438 C 348.19118 1305.7423 362.16986 1283.3466 415.99414 1225.5234 C 504.91877 1143.7317 614.99368 1114.0536 740.01758 1183.4355 C 909.94442 1286.0772 1067.2128 1448.0744 1276.375 1453.2617 C 1305.1678 1453.2817 1347.2362 1449.0945 1379.0176 1442.709 C 1479.9765 1424.9767 1576.1817 1376.6515 1652.0977 1302.2285 C 1674.1023 1282.584 1712.2539 1237.2441 1712.2539 1237.2441 L 1776.832 1152.1836 C 1782.5562 1144.6434 1784.8333 1136.6091 1783.666 1128.082 C 1782.4987 1119.5548 1778.1456 1112.4295 1770.6055 1106.7051 L 1615.4941 988.94727 C 1607.9538 983.22287 1599.9217 980.94208 1591.3945 982.10938 C 1582.8673 983.27657 1575.3182 987.32927 1570.0156 995.17188 C 1541.5354 1041.7734 1527.5567 1064.169 1473.7324 1121.9922 C 1444.3187 1149.0467 1411.8635 1170.4003 1377.0762 1184.3594 C 1163.1036 1257.3246 1009.2262 1053.3739 840.90039 963.57227 C 764.41799 918.0392 679.49147 896.76246 594.88477 897.21094 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">HttpPostFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -3950,6 +4270,7 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -3957,126 +4278,152 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <td>connectionTimeout</td>
 <td>How long to wait before we abort sending data due to connection timeout</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>contentType</td>
 <td>The content type</td>
 <td>application/json</td>
+<td>String</td>
 </tr>
 <tr>
 <td>forwardChunkSize</td>
 <td>Should data be sent in chunks and if so how big should the chunks be</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>forwardUrl</td>
 <td>The URL to send data to</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>hostnameVerificationEnabled</td>
 <td>Verify host names</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>httpHeadersIncludeStreamMetaData</td>
 <td>Provide stream metadata as HTTP headers</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>httpHeadersUserDefinedHeader1</td>
 <td>Additional HTTP Header 1, format is &lsquo;HeaderName: HeaderValue&rsquo;</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>httpHeadersUserDefinedHeader2</td>
 <td>Additional HTTP Header 2, format is &lsquo;HeaderName: HeaderValue&rsquo;</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>httpHeadersUserDefinedHeader3</td>
 <td>Additional HTTP Header 3, format is &lsquo;HeaderName: HeaderValue&rsquo;</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>keyStorePassword</td>
 <td>The key store password</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>keyStorePath</td>
 <td>The key store file path on the server</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>keyStoreType</td>
 <td>The key store type</td>
 <td>JKS</td>
+<td>String</td>
 </tr>
 <tr>
 <td>logMetaKeys</td>
 <td>Which meta data values will be logged in the send log</td>
 <td>guid,feed,system,environment,remotehost,remoteaddress</td>
+<td>String</td>
 </tr>
 <tr>
 <td>readTimeout</td>
 <td>How long to wait for data to be available before closing the connection</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>requestMethod</td>
 <td>The request method, e.g. POST</td>
 <td>POST</td>
+<td>String</td>
 </tr>
 <tr>
 <td>rollSize</td>
 <td>When the current output exceeds this size it will be closed and a new one created.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>splitAggregatedStreams</td>
 <td>Choose if you want to split aggregated streams into separate output.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>splitRecords</td>
 <td>Choose if you want to split individual records into separate output.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>sslProtocol</td>
 <td>The SSL protocol to use</td>
 <td>TLSv1.2</td>
+<td>String</td>
 </tr>
 <tr>
 <td>trustStorePassword</td>
 <td>The trust store password</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>trustStorePath</td>
 <td>The trust store file path on the server</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>trustStoreType</td>
 <td>The trust store type</td>
 <td>JKS</td>
+<td>String</td>
 </tr>
 <tr>
 <td>useCompression</td>
 <td>Should data be compressed when sending</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>useJvmSslConfig</td>
 <td>Use JVM SSL config. Set this to true if the Stroom node has been configured with key/trust stores using java system properties like &lsquo;javax.net.ssl.keyStore&rsquo;.Set this to false if you are explicitly setting key/trust store properties on this HttpAppender.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="rollingfileappender">RollingFileAppender</h3>
 <p>
+
+
 
 
 
@@ -4147,6 +4494,7 @@ On system shutdown all active files will be rolled.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -4154,46 +4502,56 @@ On system shutdown all active files will be rolled.</p>
 <td>fileName</td>
 <td>Choose the name of the file to write.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>filePermissions</td>
 <td>Set file system permissions of finished files (example: &lsquo;rwxr&ndash;r&ndash;&rsquo;)</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>frequency</td>
 <td>Choose how frequently files are rolled.</td>
 <td>1h</td>
+<td>String</td>
 </tr>
 <tr>
 <td>outputPaths</td>
 <td>One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>rollSize</td>
 <td>When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.</td>
 <td>100M</td>
+<td>String</td>
 </tr>
 <tr>
 <td>rolledFileName</td>
 <td>Choose the name that files will be renamed to when they are rolled.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>schedule</td>
 <td>Provide a cron expression to determine when files are rolled.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>useCompression</td>
 <td>Apply GZIP compression to output files</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 </tbody>
 </table>
 <h3 id="rollingstreamappender">RollingStreamAppender</h3>
 <p>
+
+
 
 
 
@@ -4262,6 +4620,7 @@ On system shutdown all active streams will be rolled.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -4269,36 +4628,50 @@ On system shutdown all active streams will be rolled.</p>
 <td>feed</td>
 <td>The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>frequency</td>
 <td>Choose how frequently streams are rolled.</td>
 <td>1h</td>
+<td>String</td>
 </tr>
 <tr>
 <td>rollSize</td>
 <td>Choose the maximum size that a stream can be before it is rolled.</td>
 <td>100M</td>
+<td>String</td>
 </tr>
 <tr>
 <td>schedule</td>
 <td>Provide a cron expression to determine when streams are rolled.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>segmentOutput</td>
 <td>Should the output stream be marked with indexed segments to allow fast access to individual records?</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>streamType</td>
 <td>The stream type that the output stream should be written as. This must be specified.</td>
 <td>-</td>
+<td>String</td>
+</tr>
+<tr>
+<td>volumeGroup</td>
+<td>Optionally override the default volume group of the destination feed.</td>
+<td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="standardkafkaproducer">StandardKafkaProducer</h3>
 <p>
+
+
 
 
 
@@ -4357,9 +4730,8 @@ On system shutdown all active streams will be rolled.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>Consumes XML documents in the <code>kafka-records:2</code> namespace.
+For each <code>&lt;kafkaRecord&gt;</code> element converts it into a Kafka message that is passed to the Kafka producer defined by the <code>kafkaConfig</code> property</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -4367,6 +4739,7 @@ On system shutdown all active streams will be rolled.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -4374,16 +4747,20 @@ On system shutdown all active streams will be rolled.</p>
 <td>flushOnSend</td>
 <td>At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>kafkaConfig</td>
 <td>Kafka configuration details relating to where and how to send Kafka messages.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
 <h3 id="streamappender">StreamAppender</h3>
 <p>
+
+
 
 
 
@@ -4442,9 +4819,8 @@ On system shutdown all active streams will be rolled.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>A destination used to write the output stream to a new stream in the stream store.
+The configuration allows for starting a new stream once a size threshold is reached.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -4452,6 +4828,7 @@ On system shutdown all active streams will be rolled.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -4459,36 +4836,50 @@ On system shutdown all active streams will be rolled.</p>
 <td>feed</td>
 <td>The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>rollSize</td>
 <td>When the current output stream exceeds this size it will be closed and a new one created.</td>
 <td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>segmentOutput</td>
 <td>Should the output stream be marked with indexed segments to allow fast access to individual records?</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>splitAggregatedStreams</td>
 <td>Choose if you want to split aggregated streams into separate output streams.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>splitRecords</td>
 <td>Choose if you want to split individual records into separate output streams.</td>
 <td>false</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>streamType</td>
 <td>The stream type that the output stream should be written as. This must be specified.</td>
 <td>-</td>
+<td>String</td>
+</tr>
+<tr>
+<td>volumeGroup</td>
+<td>Optionally override the default volume group of the destination feed.</td>
+<td>-</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
 <h3 id="stroomstatsappender">StroomStatsAppender</h3>
 <p>
+
+
 
 
 
@@ -4547,9 +4938,7 @@ On system shutdown all active streams will be rolled.</p>
 
 
  </p>
-<blockquote>
-<p>TODO - Add description</p>
-</blockquote>
+<p>This element is deprecated and should not be used.</p>
 <p><strong>Element properties:</strong></p>
 <table>
 <thead>
@@ -4557,6 +4946,7 @@ On system shutdown all active streams will be rolled.</p>
 <th>Name</th>
 <th>Description</th>
 <th>Default Value</th>
+<th>Value Type</th>
 </tr>
 </thead>
 <tbody>
@@ -4564,21 +4954,25 @@ On system shutdown all active streams will be rolled.</p>
 <td>flushOnSend</td>
 <td>At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process.</td>
 <td>true</td>
+<td>Boolean</td>
 </tr>
 <tr>
 <td>kafkaConfig</td>
 <td>The Kafka config to use.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 <tr>
 <td>maxRecordCount</td>
 <td>Choose the maximum number of records or events that a message will contain</td>
 <td>1</td>
+<td>String</td>
 </tr>
 <tr>
 <td>statisticsDataSource</td>
 <td>The stroom-stats data source to record statistics against.</td>
 <td>-</td>
+<td>Document</td>
 </tr>
 </tbody>
 </table>
@@ -4586,7 +4980,7 @@ On system shutdown all active streams will be rolled.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 15, 2024: <a href="https://github.com/gchq/stroom-docs/commit/8a0c99dea1a70ee7db2a0c7819a7959fb9364c8a">Make the pipe elms a bit smaller (8a0c99d)</a>
+  Last modified February 20, 2024: <a href="https://github.com/gchq/stroom-docs/commit/c1287cbaa967addf6944404b69850635fc19220e">Update pipeline elm reference (c1287cb)</a>
 </div>
 
 </div>
