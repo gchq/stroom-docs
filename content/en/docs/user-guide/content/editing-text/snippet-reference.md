@@ -84,6 +84,7 @@ and paste it below this message.
 ******************* IMPORTANT ********************* 
 -->
 
+<!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
 ## XML/XSLT Snippets
 
 ### apply-templates with-param

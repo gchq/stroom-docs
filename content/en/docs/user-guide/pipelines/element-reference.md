@@ -22,9 +22,11 @@ descriptive text.
 ********************************************************************************
 -->
 
+<!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
 ## Reader
 
-Reader elements read and transform the data at the character level before they are parsed into a structured form.
+Reader elements decode the data in raw byte form using the Feed's configured character encoding.
+Some of them will also transform the data at the character level before the data are parsed into a structured form.
 
 ### BOMRemovalFilterInput
 
@@ -37,13 +39,14 @@ Removes the Byte Order Mark (if present) from the stream.
 
 {{< pipe-elm "BadTextXMLFilterReader" >}}&nbsp;
 
-> TODO - Add description
+Escapes the content of a configured list of named XML elements that are know to potentially contain un-escaped XML reserved characters.
+For example the element `<Expression>$time < now()</Expression>` would be transformed to `<Expression>$time &lt; now()</Expression>` if property `leafList` is set to `Expression`.
 
 **Element properties:**
 
-| Name | Description                                                                                  | Default Value |
-|------|----------------------------------------------------------------------------------------------|---------------|
-| tags | A comma separated list of XML elements between which non-escaped characters will be escaped. | -             |
+| Name | Description                                                                                                                                | Default Value | Value Type |
+|------|--------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| tags | A comma separated list of XML element names (case sensitive) between which non-escaped XML characters will be escaped, e.g. '>' => '&gt;'. | -             | String     |
 
 
 ### FindReplaceFilter
@@ -55,118 +58,130 @@ Replaces strings or regexes with new strings.
 
 **Element properties:**
 
-| Name                 | Description                                                                        | Default Value |
-|----------------------|------------------------------------------------------------------------------------|---------------|
-| bufferSize           | The number of characters to buffer when matching the regex.                        | 1000          |
-| dotAll               | Let '.' match all characters in a regex.                                           | false         |
-| escapeFind           | Whether or not to escape find pattern or text.                                     | true          |
-| escapeReplacement    | Whether or not to escape replacement text.                                         | true          |
-| find                 | The text or regex pattern to find and replace.                                     | -             |
-| maxReplacements      | The maximum number of times to try and replace text. There is no limit by default. | -             |
-| regex                | Whether the pattern should be treated as a literal or a regex.                     | false         |
-| replacement          | The replacement text.                                                              | -             |
-| showReplacementCount | Show total replacement count                                                       | true          |
+| Name                 | Description                                                                        | Default Value | Value Type |
+|----------------------|------------------------------------------------------------------------------------|---------------|------------|
+| bufferSize           | The number of characters to buffer when matching the regex.                        | 1000          | Integer    |
+| dotAll               | Let '.' match all characters in a regex.                                           | false         | Boolean    |
+| escapeFind           | Whether or not to escape find pattern or text.                                     | true          | Boolean    |
+| escapeReplacement    | Whether or not to escape replacement text.                                         | true          | Boolean    |
+| find                 | The text or regex pattern to find and replace.                                     | -             | String     |
+| maxReplacements      | The maximum number of times to try and replace text. There is no limit by default. | -             | String     |
+| regex                | Whether the pattern should be treated as a literal or a regex.                     | false         | Boolean    |
+| replacement          | The replacement text.                                                              | -             | String     |
+| showReplacementCount | Show total replacement count                                                       | true          | Boolean    |
 
 
 ### InvalidCharFilterReader
 
 {{< pipe-elm "InvalidCharFilterReader" >}}&nbsp;
 
-> TODO - Add description
+Removes any characters that are not in the standard XML character set.
+The version of XML (e.g. 1.0 or 1.1) can be set using the 'xmlVersion' property.
+
 
 **Element properties:**
 
-| Name       | Description                  | Default Value |
-|------------|------------------------------|---------------|
-| xmlVersion | XML version, e.g. 1.0 or 1.1 | 1.1           |
+| Name          | Description                                                              | Default Value | Value Type |
+|---------------|--------------------------------------------------------------------------|---------------|------------|
+| warnOnRemoval | Log a warning if any characters have been removed from the input stream. | true          | Boolean    |
+| xmlVersion    | XML version, e.g. '1.0' or '1.1'                                         | 1.1           | String     |
 
 
 ### InvalidXMLCharFilterReader
 
 {{< pipe-elm "InvalidXMLCharFilterReader" >}}&nbsp;
 
-Strips out any characters that are not within the standard XML character set.
+Replaces any characters that are not in the standard XML character set with a '�'.
+The version of XML (e.g. 1.0 or 1.1) can be set using the 'xmlVersion' property.
 
 
 **Element properties:**
 
-| Name       | Description                  | Default Value |
-|------------|------------------------------|---------------|
-| xmlVersion | XML version, e.g. 1.0 or 1.1 | 1.1           |
+| Name              | Description                                                             | Default Value | Value Type |
+|-------------------|-------------------------------------------------------------------------|---------------|------------|
+| warnOnReplacement | Log a warning if any characters have been replaced in the input stream. | true          | Boolean    |
+| xmlVersion        | XML version, e.g. '1.0' or '1.1'                                        | 1.1           | String     |
 
 
 ### Reader
 
 {{< pipe-elm "Reader" >}}&nbsp;
 
-> TODO - Add description
+A basic reader that simply decodes the raw bytes using the Feed's configured character encoding.
+It does not transform the data in any other way.
 
 
 
 ## Parser
 
-Parser elements parse raw text data that conforms to some kind of structure (e.g. XML, JSON, CSV)
-into XML events (elements, attributes, text, etc) that can be further validated or transformed
-using.
+Parser elements parse raw text data that has an expected structure (e.g. XML, JSON, CSV) into XML events (elements, attributes, text, etc) that can be further validated or transformed using XSLT.
 The choice of Parser will be dictated by the structure of the data.
-Parsers read the data using the character encoding defined on the feed.
+If no Reader is used before the Parser, the Parser will also do the job of a simple Reader and decode the raw bytes using the Feed's configured character encoding.
 
 ### CombinedParser
 
 {{< pipe-elm "CombinedParser" >}}&nbsp;
 
 The original general-purpose reader/parser that covers all source data types but provides less flexibility than the source format-specific parsers such as dsParser.
+It effectively combines a BOMRemovalFilterInput, an InvalidCharFilterReader and Parser (based on the `type` property.
+
+{{% warning %}}
+It is strongly recommended to instead use a combination of Readers and one of the type specific Parsers.
+This will make the intent of the pipeline much clearer and allow for much greater control.
+{{% /warning %}}
 
 
 **Element properties:**
 
-| Name                             | Description                                                                        | Default Value |
-|----------------------------------|------------------------------------------------------------------------------------|---------------|
-| fixInvalidChars                  | Fix invalid XML characters from the input stream.                                  | false         |
-| namePattern                      | A name pattern to load a text converter dynamically.                               | -             |
-| suppressDocumentNotFoundWarnings | If the text converter cannot be found to match the name pattern suppress warnings. | false         |
-| textConverter                    | The text converter configuration that should be used to parse the input data.      | -             |
-| type                             | The parser type, e.g. 'JSON', 'XML', 'Data Splitter'.                              | -             |
+| Name                             | Description                                                                        | Default Value | Value Type |
+|----------------------------------|------------------------------------------------------------------------------------|---------------|------------|
+| fixInvalidChars                  | Fix invalid XML characters from the input stream.                                  | false         | Boolean    |
+| namePattern                      | A name pattern to load a text converter dynamically.                               | -             | String     |
+| suppressDocumentNotFoundWarnings | If the text converter cannot be found to match the name pattern suppress warnings. | false         | Boolean    |
+| textConverter                    | The text converter configuration that should be used to parse the input data.      | -             | Document   |
+| type                             | The parser type, e.g. 'JSON', 'XML', 'Data Splitter'.                              | -             | String     |
 
 
 ### DSParser
 
 {{< pipe-elm "DSParser" >}}&nbsp;
 
-A parser for data that uses Data Splitter code.
+A parser for handling structured plain text data (e.g. CSV or fixed width fields) using the Data Splitter domain specific language.
+For more details see [Data Splitter]({{< relref "docs/user-guide/data-splitter" >}}).
 
 
 **Element properties:**
 
-| Name                             | Description                                                                       | Default Value |
-|----------------------------------|-----------------------------------------------------------------------------------|---------------|
-| namePattern                      | A name pattern to load a data splitter dynamically.                               | -             |
-| suppressDocumentNotFoundWarnings | If the data splitter cannot be found to match the name pattern suppress warnings. | false         |
-| textConverter                    | The data splitter configuration that should be used to parse the input data.      | -             |
+| Name                             | Description                                                                       | Default Value | Value Type |
+|----------------------------------|-----------------------------------------------------------------------------------|---------------|------------|
+| namePattern                      | A name pattern to load a data splitter dynamically.                               | -             | String     |
+| suppressDocumentNotFoundWarnings | If the data splitter cannot be found to match the name pattern suppress warnings. | false         | Boolean    |
+| textConverter                    | The data splitter configuration that should be used to parse the input data.      | -             | Document   |
 
 
 ### JSONParser
 
 {{< pipe-elm "JSONParser" >}}&nbsp;
 
-A built-in parser for JSON source data in JSON fragment format into an XML document.
+A built-in parser for parsing JSON source data (in JSON fragment format) into an XML representation of the JSON.
+The Resulting XML will conform to the http://www.w3.org/2013/XSL/json namespace.
 
 
 **Element properties:**
 
-| Name                               | Description                                                                                                                                                                                                                                                                          | Default Value |
-|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| addRootObject                      | Add a root map element.                                                                                                                                                                                                                                                              | true          |
-| allowBackslashEscapingAnyCharacter | Feature that can be enabled to accept quoting of all character using backslash quoting mechanism: if not enabled, only characters that are explicitly listed by JSON specification can be thus escaped (see JSON spec for small list of these characters)                            | false         |
-| allowComments                      | Feature that determines whether parser will allow use  of Java/C++ style comments (both '/'+'*' and '//' varieties) within parsed content or not.                                                                                                                                    | false         |
-| allowMissingValues                 | Feature allows the support for "missing" values in a JSON array: missing value meaning sequence of two commas, without value in-between but only optional white space.                                                                                                               | false         |
-| allowNonNumericNumbers             | Feature that allows parser to recognize set of "Not-a-Number" (NaN) tokens as legal floating number values (similar to how many other data formats and programming language source code allows it).                                                                                  | false         |
-| allowNumericLeadingZeros           | Feature that determines whether parser will allow JSON integral numbers to start with additional (ignorable) zeroes (like: 000001).                                                                                                                                                  | false         |
-| allowSingleQuotes                  | Feature that determines whether parser will allow use of single quotes (apostrophe, character '\'') for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).                                            | false         |
-| allowTrailingComma                 | Feature that determines whether we will allow for a single trailing comma following the final value (in an Array) or member (in an Object). These commas will simply be ignored.                                                                                                     | false         |
-| allowUnquotedControlChars          | Feature that determines whether parser will allow JSON Strings to contain unquoted control characters (ASCII characters with value less than 32, including tab and line feed characters) or not. If feature is set false, an exception is thrown if such a character is encountered. | false         |
-| allowUnquotedFieldNames            | Feature that determines whether parser will allow use of unquoted field names (which is allowed by Javascript, but not by JSON specification).                                                                                                                                       | false         |
-| allowYamlComments                  | Feature that determines whether parser will allow use of YAML comments, ones starting with '#' and continuing until the end of the line. This commenting style is common with scripting languages as well.                                                                           | false         |
+| Name                               | Description                                                                                                                                                                                                                                                                          | Default Value | Value Type |
+|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| addRootObject                      | Add a root map element.                                                                                                                                                                                                                                                              | true          | Boolean    |
+| allowBackslashEscapingAnyCharacter | Feature that can be enabled to accept quoting of all character using backslash quoting mechanism: if not enabled, only characters that are explicitly listed by JSON specification can be thus escaped (see JSON spec for small list of these characters)                            | false         | Boolean    |
+| allowComments                      | Feature that determines whether parser will allow use  of Java/C++ style comments (both '/'+'*' and '//' varieties) within parsed content or not.                                                                                                                                    | false         | Boolean    |
+| allowMissingValues                 | Feature allows the support for "missing" values in a JSON array: missing value meaning sequence of two commas, without value in-between but only optional white space.                                                                                                               | false         | Boolean    |
+| allowNonNumericNumbers             | Feature that allows parser to recognize set of "Not-a-Number" (NaN) tokens as legal floating number values (similar to how many other data formats and programming language source code allows it).                                                                                  | false         | Boolean    |
+| allowNumericLeadingZeros           | Feature that determines whether parser will allow JSON integral numbers to start with additional (ignorable) zeroes (like: 000001).                                                                                                                                                  | false         | Boolean    |
+| allowSingleQuotes                  | Feature that determines whether parser will allow use of single quotes (apostrophe, character '\'') for quoting Strings (names and String values). If so, this is in addition to other acceptable markers but not by JSON specification).                                            | false         | Boolean    |
+| allowTrailingComma                 | Feature that determines whether we will allow for a single trailing comma following the final value (in an Array) or member (in an Object). These commas will simply be ignored.                                                                                                     | false         | Boolean    |
+| allowUnquotedControlChars          | Feature that determines whether parser will allow JSON Strings to contain unquoted control characters (ASCII characters with value less than 32, including tab and line feed characters) or not. If feature is set false, an exception is thrown if such a character is encountered. | false         | Boolean    |
+| allowUnquotedFieldNames            | Feature that determines whether parser will allow use of unquoted field names (which is allowed by Javascript, but not by JSON specification).                                                                                                                                       | false         | Boolean    |
+| allowYamlComments                  | Feature that determines whether parser will allow use of YAML comments, ones starting with '#' and continuing until the end of the line. This commenting style is common with scripting languages as well.                                                                           | false         | Boolean    |
 
 
 ### XMLFragmentParser
@@ -174,32 +189,36 @@ A built-in parser for JSON source data in JSON fragment format into an XML docum
 {{< pipe-elm "XMLFragmentParser" >}}&nbsp;
 
 A parser to convert multiple XML fragments into an XML document.
-
+For example the data may contain:
+```xml
+<Event>...</Event>
+<Event>...</Event>
+```
+i.e. with no root element, so not valid XML.
+The XMLFragmentParser will wrap the fragments with a root element as defined in the TextConverter document configured with the `textConverterRef` property.
 
 **Element properties:**
 
-| Name                             | Description                                                                        | Default Value |
-|----------------------------------|------------------------------------------------------------------------------------|---------------|
-| namePattern                      | A name pattern to load a text converter dynamically.                               | -             |
-| suppressDocumentNotFoundWarnings | If the text converter cannot be found to match the name pattern suppress warnings. | false         |
-| textConverter                    | The XML fragment wrapper that should be used to wrap the input XML.                | -             |
+| Name                             | Description                                                                        | Default Value | Value Type |
+|----------------------------------|------------------------------------------------------------------------------------|---------------|------------|
+| namePattern                      | A name pattern to load a text converter dynamically.                               | -             | String     |
+| suppressDocumentNotFoundWarnings | If the text converter cannot be found to match the name pattern suppress warnings. | false         | Boolean    |
+| textConverter                    | The XML fragment wrapper that should be used to wrap the input XML.                | -             | Document   |
 
 
 ### XMLParser
 
 {{< pipe-elm "XMLParser" >}}&nbsp;
 
-> TODO - Add description
+A parser to parse data that is expected to be XML into a series of XML events that can be consumed by a Filter element.
 
 
 
 ## Filter
 
 Filter elements work with XML events that have been generated by a _parser_.
-They can consume the events without modifying them, e.g. _RecordCountFilter_ or modify them in
-some way, e.g. _XSLTFilter_.
-Multiple filters can be used one after another with each using the output from the last as its
-input.
+They can consume the events without modifying them, e.g. _RecordCountFilter_ or modify them in some way, e.g. _XSLTFilter_.
+Multiple filters can be used one after another with each using the output from the last as its input.
 
 ### DynamicIndexingFilter
 
@@ -210,88 +229,101 @@ A filter to send source data to an index.
 
 **Element properties:**
 
-| Name  | Description                   | Default Value |
-|-------|-------------------------------|---------------|
-| index | The index to send records to. | -             |
+| Name  | Description                   | Default Value | Value Type |
+|-------|-------------------------------|---------------|------------|
+| index | The index to send records to. | -             | Document   |
 
 
 ### DynamicSearchResultOutputFilter
 
 {{< pipe-elm "DynamicSearchResultOutputFilter" >}}&nbsp;
 
-> TODO - Add description
+Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the fields are dynamic and derived from the data rather than being defined in the Index settings.
+Consumes XML events in the `index-documents:1` namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.
 
 
 ### ElasticIndexingFilter
 
 {{< pipe-elm "ElasticIndexingFilter" >}}&nbsp;
 
-> TODO - Add description
+A filter consuming XML events in the `records:2` namespace to index/store the fields
+and their values in an Elasticsearch Index.
+
 
 **Element properties:**
 
-| Name                  | Description                                                                                                                                                                                                                                                                  | Default Value |
-|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| batchSize             | Maximum number of documents to index in each bulk request.                                                                                                                                                                                                                   | 10000         |
-| cluster               | Target Elasticsearch cluster.                                                                                                                                                                                                                                                | -             |
-| indexName             | Name of the Elasticsearch index. Variables specified such as `{year}` are replaced with the corresponding field values contained in the document root. Field names beginning with an underscore are not written to the document and are only used in the index name pattern. | -             |
-| ingestPipeline        | Name of the Elasticsearch ingest pipeline to execute when indexing.                                                                                                                                                                                                          | -             |
-| purgeOnReprocess      | When reprocessing a stream, first delete any documents from the index matching the source stream ID.                                                                                                                                                                         | true          |
-| refreshAfterEachBatch | Refresh the index after each batch is processed, making the indexed documents visible to searches.                                                                                                                                                                           | false         |
+| Name                  | Description                                                                                                                                                                                                                                                                  | Default Value | Value Type |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| batchSize             | Maximum number of documents to index in each bulk request.                                                                                                                                                                                                                   | 10000         | Integer    |
+| cluster               | Target Elasticsearch cluster.                                                                                                                                                                                                                                                | -             | Document   |
+| indexName             | Name of the Elasticsearch index. Variables specified such as `{year}` are replaced with the corresponding field values contained in the document root. Field names beginning with an underscore are not written to the document and are only used in the index name pattern. | -             | String     |
+| ingestPipeline        | Name of the Elasticsearch ingest pipeline to execute when indexing.                                                                                                                                                                                                          | -             | String     |
+| purgeOnReprocess      | When reprocessing a stream, first delete any documents from the index matching the source stream ID.                                                                                                                                                                         | true          | Boolean    |
+| refreshAfterEachBatch | Refresh the index after each batch is processed, making the indexed documents visible to searches.                                                                                                                                                                           | false         | Boolean    |
 
 
 ### HttpPostFilter
 
 {{< pipe-elm "HttpPostFilter" >}}&nbsp;
 
-> TODO - Add description
+This element is deprecated, you should instead use the much more flexible {{< pipe-elm "HTTPAppender" >}}.
+This element will simply POST the output of the XML events to the configured URL.
+
 
 **Element properties:**
 
-| Name            | Description                   | Default Value |
-|-----------------|-------------------------------|---------------|
-| receivingApiUrl | The URL of the receiving API. | -             |
+| Name            | Description                   | Default Value | Value Type |
+|-----------------|-------------------------------|---------------|------------|
+| receivingApiUrl | The URL of the receiving API. | -             | String     |
 
 
 ### IdEnrichmentFilter
 
 {{< pipe-elm "IdEnrichmentFilter" >}}&nbsp;
 
-> TODO - Add description
+Adds the attributes 'StreamId' and 'EventId' to the 'event' element to enrich the event with its ordinal number in the stream and the ID of the stream that it belongs to.
+ID enrichment is required to be able to index events as it provides them with an ID that is unique within Stroom.
+It assumes that an record/event is an XML element at the first level below the root element, i.e. for 'event-logging:3' XML this means the `<Event>` element.
 
 
 ### IndexingFilter
 
 {{< pipe-elm "IndexingFilter" >}}&nbsp;
 
-A filter to send source data to an index.
+A filter consuming XML events in the `records:2` namespace to index/store the fields
+and their values in a Lucene Index.
 
 
 **Element properties:**
 
-| Name  | Description                   | Default Value |
-|-------|-------------------------------|---------------|
-| index | The index to send records to. | -             |
+| Name  | Description                   | Default Value | Value Type |
+|-------|-------------------------------|---------------|------------|
+| index | The index to send records to. | -             | Document   |
 
 
 ### RecordCountFilter
 
 {{< pipe-elm "RecordCountFilter" >}}&nbsp;
 
-> TODO - Add description
+Counts events/records in the stream.
+An event/record is taken to be an XML element that is at the first level below the root element, i.e. for 'event-logging:3' XML this means the `<Event>` element.
 
 **Element properties:**
 
-| Name      | Description                                              | Default Value |
-|-----------|----------------------------------------------------------|---------------|
-| countRead | Is this filter counting records read or records written? | true          |
+| Name      | Description                                              | Default Value | Value Type |
+|-----------|----------------------------------------------------------|---------------|------------|
+| countRead | Is this filter counting records read or records written? | true          | Boolean    |
 
 
 ### RecordOutputFilter
 
 {{< pipe-elm "RecordOutputFilter" >}}&nbsp;
 
-> TODO - Add description
+Filters out records/events that have raised an Error or Fatal Error during processing.
+If all records/events have raised at least an Error then no XML events will be output.
+It assumes that an record/event is an XML element at the first level below the root element, i.e. \
+for 'event-logging:3' XML this means the `<Event>` element.""",
+
 
 
 ### ReferenceDataFilter
@@ -303,17 +335,18 @@ Reference data values can be either simple strings or XML fragments.
 
 **Element properties:**
 
-| Name                   | Description                                                   | Default Value |
-|------------------------|---------------------------------------------------------------|---------------|
-| overrideExistingValues | Allow duplicate keys to override existing values?             | true          |
-| warnOnDuplicateKeys    | Warn if there are duplicate keys found in the reference data? | false         |
+| Name                   | Description                                                   | Default Value | Value Type |
+|------------------------|---------------------------------------------------------------|---------------|------------|
+| overrideExistingValues | Allow duplicate keys to override existing values?             | true          | Boolean    |
+| warnOnDuplicateKeys    | Warn if there are duplicate keys found in the reference data? | false         | Boolean    |
 
 
 ### SafeXMLFilter
 
 {{< pipe-elm "SafeXMLFilter" >}}&nbsp;
 
-> TODO - Add description
+Restricts the characters to a very simple set consisting of `[a-zA-Z0-9]` and `[ .:-_/]`.
+All other characters are replaced by `~NNN`, where `NNN` is a three digit codepoint for the replaced character.
 
 
 ### SchemaFilter
@@ -326,20 +359,21 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 
 **Element properties:**
 
-| Name             | Description                                                                                      | Default Value                    |
-|------------------|--------------------------------------------------------------------------------------------------|----------------------------------|
-| namespaceURI     | Limits the schemas that can be used to validate data to those with a matching namespace URI.     | -                                |
-| schemaGroup      | Limits the schemas that can be used to validate data to those with a matching schema group name. | -                                |
-| schemaLanguage   | The schema language that the schema is written in.                                               | http://www.w3.org/2001/XMLSchema |
-| schemaValidation | Should schema validation be performed?                                                           | true                             |
-| systemId         | Limits the schemas that can be used to validate data to those with a matching system id.         | -                                |
+| Name             | Description                                                                                      | Default Value                    | Value Type |
+|------------------|--------------------------------------------------------------------------------------------------|----------------------------------|------------|
+| namespaceURI     | Limits the schemas that can be used to validate data to those with a matching namespace URI.     | -                                | String     |
+| schemaGroup      | Limits the schemas that can be used to validate data to those with a matching schema group name. | -                                | String     |
+| schemaLanguage   | The schema language that the schema is written in.                                               | http://www.w3.org/2001/XMLSchema | String     |
+| schemaValidation | Should schema validation be performed?                                                           | true                             | Boolean    |
+| systemId         | Limits the schemas that can be used to validate data to those with a matching system id.         | -                                | String     |
 
 
 ### SearchResultOutputFilter
 
 {{< pipe-elm "SearchResultOutputFilter" >}}&nbsp;
 
-> TODO - Add description
+Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the field definitions are defined in the Index settings.
+Consumes XML events in the `records:2` namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.
 
 
 ### SolrIndexingFilter
@@ -351,12 +385,12 @@ Delivers source data to the specified index in an external Solr instance/cluster
 
 **Element properties:**
 
-| Name           | Description                                                                                                           | Default Value |
-|----------------|-----------------------------------------------------------------------------------------------------------------------|---------------|
-| batchSize      | How many documents to send to the index in a single post.                                                             | 1000          |
-| commitWithinMs | Commit indexed documents within the specified number of milliseconds.                                                 | -1            |
-| index          | The index to send records to.                                                                                         | -             |
-| softCommit     | Perform a soft commit after every batch so that docs are available for searching immediately (if using NRT replicas). | true          |
+| Name           | Description                                                                                                           | Default Value | Value Type |
+|----------------|-----------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| batchSize      | How many documents to send to the index in a single post.                                                             | 1000          | Integer    |
+| commitWithinMs | Commit indexed documents within the specified number of milliseconds.                                                 | -1            | Integer    |
+| index          | The index to send records to.                                                                                         | -             | Document   |
+| softCommit     | Perform a soft commit after every batch so that docs are available for searching immediately (if using NRT replicas). | true          | Boolean    |
 
 
 ### SplitFilter
@@ -369,11 +403,11 @@ This allows the XSLT to process data more efficiently than loading a potentially
 
 **Element properties:**
 
-| Name           | Description                                                                 | Default Value |
-|----------------|-----------------------------------------------------------------------------|---------------|
-| splitCount     | The number of elements at the split depth to count before the XML is split. | 10000         |
-| splitDepth     | The depth of XML elements to split at.                                      | 1             |
-| storeLocations | Should this split filter store processing locations.                        | true          |
+| Name           | Description                                                                 | Default Value | Value Type |
+|----------------|-----------------------------------------------------------------------------|---------------|------------|
+| splitCount     | The number of elements at the split depth to count before the XML is split. | 10000         | Integer    |
+| splitDepth     | The depth of XML elements to split at.                                      | 1             | Integer    |
+| storeLocations | Should this split filter store processing locations.                        | true          | Boolean    |
 
 
 ### StatisticsFilter
@@ -385,9 +419,9 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 
 **Element properties:**
 
-| Name                 | Description                                              | Default Value |
-|----------------------|----------------------------------------------------------|---------------|
-| statisticsDataSource | The statistics data source to record statistics against. | -             |
+| Name                 | Description                                              | Default Value | Value Type |
+|----------------------|----------------------------------------------------------|---------------|------------|
+| statisticsDataSource | The statistics data source to record statistics against. | -             | Document   |
 
 
 ### StroomStatsFilter
@@ -399,11 +433,11 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 
 **Element properties:**
 
-| Name                 | Description                                                                                                                                                 | Default Value |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| flushOnSend          | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          |
-| kafkaConfig          | The Kafka config to use.                                                                                                                                    | -             |
-| statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             |
+| Name                 | Description                                                                                                                                                 | Default Value | Value Type |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| flushOnSend          | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          | Boolean    |
+| kafkaConfig          | The Kafka config to use.                                                                                                                                    | -             | Document   |
+| statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             | Document   |
 
 
 ### XPathExtractionOutputFilter
@@ -414,9 +448,9 @@ An element to allow the source data (conforming to the `statistics` XML Schema) 
 
 **Element properties:**
 
-| Name                   | Description                                   | Default Value |
-|------------------------|-----------------------------------------------|---------------|
-| multipleValueDelimiter | The string to delimit multiple simple values. | ,             |
+| Name                   | Description                                   | Default Value | Value Type |
+|------------------------|-----------------------------------------------|---------------|------------|
+| multipleValueDelimiter | The string to delimit multiple simple values. | ,             | String     |
 
 
 ### XSLTFilter
@@ -429,13 +463,12 @@ The specified XSLT can be used to transform the input XML into XML conforming to
 
 **Element properties:**
 
-| Name                         | Description                                                                                   | Default Value |
-|------------------------------|-----------------------------------------------------------------------------------------------|---------------|
-| pipelineReference            | A list of places to load reference data from if required.                                     | -             |
-| suppressXSLTNotFoundWarnings | If XSLT cannot be found to match the name pattern suppress warnings.                          | false         |
-| usePool                      | Advanced: Choose whether or not you want to use cached XSLT templates to improve performance. | true          |
-| xslt                         | The XSLT to use.                                                                              | -             |
-| xsltNamePattern              | A name pattern to load XSLT dynamically.                                                      | -             |
+| Name                         | Description                                                                                   | Default Value | Value Type |
+|------------------------------|-----------------------------------------------------------------------------------------------|---------------|------------|
+| suppressXSLTNotFoundWarnings | If XSLT cannot be found to match the name pattern suppress warnings.                          | false         | Boolean    |
+| usePool                      | Advanced: Choose whether or not you want to use cached XSLT templates to improve performance. | true          | Boolean    |
+| xslt                         | The XSLT to use.                                                                              | -             | Document   |
+| xsltNamePattern              | A name pattern to load XSLT dynamically.                                                      | -             | String     |
 
 
 
@@ -454,10 +487,10 @@ Writer to convert XML data conforming to the http://www.w3.org/2013/XSL/json XML
 
 **Element properties:**
 
-| Name         | Description                                                            | Default Value |
-|--------------|------------------------------------------------------------------------|---------------|
-| encoding     | The output character encoding to use.                                  | UTF-8         |
-| indentOutput | Should output JSON be indented and include new lines (pretty printed)? | false         |
+| Name         | Description                                                            | Default Value | Value Type |
+|--------------|------------------------------------------------------------------------|---------------|------------|
+| encoding     | The output character encoding to use.                                  | UTF-8         | String     |
+| indentOutput | Should output JSON be indented and include new lines (pretty printed)? | false         | Boolean    |
 
 
 ### TextWriter
@@ -469,11 +502,11 @@ Writer to convert XML character data events into plain text output.
 
 **Element properties:**
 
-| Name     | Description                                               | Default Value |
-|----------|-----------------------------------------------------------|---------------|
-| encoding | The output character encoding to use.                     | UTF-8         |
-| footer   | Footer text that can be added to the output at the end.   | -             |
-| header   | Header text that can be added to the output at the start. | -             |
+| Name     | Description                                               | Default Value | Value Type |
+|----------|-----------------------------------------------------------|---------------|------------|
+| encoding | The output character encoding to use.                     | UTF-8         | String     |
+| footer   | Footer text that can be added to the output at the end.   | -             | String     |
+| header   | Header text that can be added to the output at the start. | -             | String     |
 
 
 ### XMLWriter
@@ -485,13 +518,13 @@ Writer to convert XML events data into XML output in the specified character enc
 
 **Element properties:**
 
-| Name                         | Description                                                                                          | Default Value |
-|------------------------------|------------------------------------------------------------------------------------------------------|---------------|
-| encoding                     | The output character encoding to use.                                                                | UTF-8         |
-| indentOutput                 | Should output XML be indented and include new lines (pretty printed)?                                | false         |
-| suppressXSLTNotFoundWarnings | If XSLT cannot be found to match the name pattern suppress warnings.                                 | false         |
-| xslt                         | A previously saved XSLT, used to modify the output via xsl:output attributes.                        | -             |
-| xsltNamePattern              | A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes. | -             |
+| Name                         | Description                                                                                          | Default Value | Value Type |
+|------------------------------|------------------------------------------------------------------------------------------------------|---------------|------------|
+| encoding                     | The output character encoding to use.                                                                | UTF-8         | String     |
+| indentOutput                 | Should output XML be indented and include new lines (pretty printed)?                                | false         | Boolean    |
+| suppressXSLTNotFoundWarnings | If XSLT cannot be found to match the name pattern suppress warnings.                                 | false         | Boolean    |
+| xslt                         | A previously saved XSLT, used to modify the output via xsl:output attributes.                        | -             | Document   |
+| xsltNamePattern              | A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes. | -             | String     |
 
 
 
@@ -504,7 +537,8 @@ This could be a file on a file system or to Stroom's stream store.
 
 {{< pipe-elm "AnnotationWriter" >}}&nbsp;
 
-> TODO - Add description
+Consume XML documents in the `annotation:1` namespace and writes them as Stroom Annotations.
+Allows for the annotating of events that meet some criteria.
 
 
 ### FileAppender
@@ -517,14 +551,14 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 
 **Element properties:**
 
-| Name                   | Description                                                                                                                              | Default Value |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| filePermissions        | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             |
-| outputPaths            | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
-| rollSize               | When the current output file exceeds this size it will be closed and a new one created.                                                  | -             |
-| splitAggregatedStreams | Choose if you want to split aggregated streams into separate output files.                                                               | false         |
-| splitRecords           | Choose if you want to split individual records into separate output files.                                                               | false         |
-| useCompression         | Apply GZIP compression to output files                                                                                                   | false         |
+| Name                   | Description                                                                                                                              | Default Value | Value Type |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| filePermissions        | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             | String     |
+| outputPaths            | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             | String     |
+| rollSize               | When the current output file exceeds this size it will be closed and a new one created.                                                  | -             | String     |
+| splitAggregatedStreams | Choose if you want to split aggregated streams into separate output files.                                                               | false         | Boolean    |
+| splitRecords           | Choose if you want to split individual records into separate output files.                                                               | false         | Boolean    |
+| useCompression         | Apply GZIP compression to output files                                                                                                   | false         | Boolean    |
 
 
 ### HDFSFileAppender
@@ -537,51 +571,53 @@ If multiple paths are specified in the 'outputPaths' property it will pick one a
 
 **Element properties:**
 
-| Name                   | Description                                                                                                                              | Default Value |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| fileSystemUri          | URI for the Hadoop Distributed File System (HDFS) to connect to, e.g. hdfs://mynamenode.mydomain.com:8020                                | -             |
-| outputPaths            | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
-| rollSize               | When the current output file exceeds this size it will be closed and a new one created.                                                  | -             |
-| runAsUser              | The user to connect to HDFS as                                                                                                           | -             |
-| splitAggregatedStreams | Choose if you want to split aggregated streams into separate output files.                                                               | false         |
-| splitRecords           | Choose if you want to split individual records into separate output files.                                                               | false         |
+| Name                   | Description                                                                                                                              | Default Value | Value Type |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| fileSystemUri          | URI for the Hadoop Distributed File System (HDFS) to connect to, e.g. hdfs://mynamenode.mydomain.com:8020                                | -             | String     |
+| outputPaths            | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             | String     |
+| rollSize               | When the current output file exceeds this size it will be closed and a new one created.                                                  | -             | String     |
+| runAsUser              | The user to connect to HDFS as                                                                                                           | -             | String     |
+| splitAggregatedStreams | Choose if you want to split aggregated streams into separate output files.                                                               | false         | Boolean    |
+| splitRecords           | Choose if you want to split individual records into separate output files.                                                               | false         | Boolean    |
 
 
 ### HTTPAppender
 
 {{< pipe-elm "HTTPAppender" >}}&nbsp;
 
-A destination used to write an output stream to a remote HTTP(s) server.
+A destination used to write an output stream to a remote HTTP(S) server.
+
+This element should be preferred over the deprecated {{< pipe-elm "HttpPostFilter" >}}.
 
 
 **Element properties:**
 
-| Name                             | Description                                                                                                                                                                                                                                                   | Default Value                                         |
-|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| connectionTimeout                | How long to wait before we abort sending data due to connection timeout                                                                                                                                                                                       | -                                                     |
-| contentType                      | The content type                                                                                                                                                                                                                                              | application/json                                      |
-| forwardChunkSize                 | Should data be sent in chunks and if so how big should the chunks be                                                                                                                                                                                          | -                                                     |
-| forwardUrl                       | The URL to send data to                                                                                                                                                                                                                                       | -                                                     |
-| hostnameVerificationEnabled      | Verify host names                                                                                                                                                                                                                                             | true                                                  |
-| httpHeadersIncludeStreamMetaData | Provide stream metadata as HTTP headers                                                                                                                                                                                                                       | true                                                  |
-| httpHeadersUserDefinedHeader1    | Additional HTTP Header 1, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
-| httpHeadersUserDefinedHeader2    | Additional HTTP Header 2, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
-| httpHeadersUserDefinedHeader3    | Additional HTTP Header 3, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     |
-| keyStorePassword                 | The key store password                                                                                                                                                                                                                                        | -                                                     |
-| keyStorePath                     | The key store file path on the server                                                                                                                                                                                                                         | -                                                     |
-| keyStoreType                     | The key store type                                                                                                                                                                                                                                            | JKS                                                   |
-| logMetaKeys                      | Which meta data values will be logged in the send log                                                                                                                                                                                                         | guid,feed,system,environment,remotehost,remoteaddress |
-| readTimeout                      | How long to wait for data to be available before closing the connection                                                                                                                                                                                       | -                                                     |
-| requestMethod                    | The request method, e.g. POST                                                                                                                                                                                                                                 | POST                                                  |
-| rollSize                         | When the current output exceeds this size it will be closed and a new one created.                                                                                                                                                                            | -                                                     |
-| splitAggregatedStreams           | Choose if you want to split aggregated streams into separate output.                                                                                                                                                                                          | false                                                 |
-| splitRecords                     | Choose if you want to split individual records into separate output.                                                                                                                                                                                          | false                                                 |
-| sslProtocol                      | The SSL protocol to use                                                                                                                                                                                                                                       | TLSv1.2                                               |
-| trustStorePassword               | The trust store password                                                                                                                                                                                                                                      | -                                                     |
-| trustStorePath                   | The trust store file path on the server                                                                                                                                                                                                                       | -                                                     |
-| trustStoreType                   | The trust store type                                                                                                                                                                                                                                          | JKS                                                   |
-| useCompression                   | Should data be compressed when sending                                                                                                                                                                                                                        | true                                                  |
-| useJvmSslConfig                  | Use JVM SSL config. Set this to true if the Stroom node has been configured with key/trust stores using java system properties like 'javax.net.ssl.keyStore'.Set this to false if you are explicitly setting key/trust store properties on this HttpAppender. | true                                                  |
+| Name                             | Description                                                                                                                                                                                                                                                   | Default Value                                         | Value Type |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|------------|
+| connectionTimeout                | How long to wait before we abort sending data due to connection timeout                                                                                                                                                                                       | -                                                     | String     |
+| contentType                      | The content type                                                                                                                                                                                                                                              | application/json                                      | String     |
+| forwardChunkSize                 | Should data be sent in chunks and if so how big should the chunks be                                                                                                                                                                                          | -                                                     | String     |
+| forwardUrl                       | The URL to send data to                                                                                                                                                                                                                                       | -                                                     | String     |
+| hostnameVerificationEnabled      | Verify host names                                                                                                                                                                                                                                             | true                                                  | Boolean    |
+| httpHeadersIncludeStreamMetaData | Provide stream metadata as HTTP headers                                                                                                                                                                                                                       | true                                                  | Boolean    |
+| httpHeadersUserDefinedHeader1    | Additional HTTP Header 1, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     | String     |
+| httpHeadersUserDefinedHeader2    | Additional HTTP Header 2, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     | String     |
+| httpHeadersUserDefinedHeader3    | Additional HTTP Header 3, format is 'HeaderName: HeaderValue'                                                                                                                                                                                                 | -                                                     | String     |
+| keyStorePassword                 | The key store password                                                                                                                                                                                                                                        | -                                                     | String     |
+| keyStorePath                     | The key store file path on the server                                                                                                                                                                                                                         | -                                                     | String     |
+| keyStoreType                     | The key store type                                                                                                                                                                                                                                            | JKS                                                   | String     |
+| logMetaKeys                      | Which meta data values will be logged in the send log                                                                                                                                                                                                         | guid,feed,system,environment,remotehost,remoteaddress | String     |
+| readTimeout                      | How long to wait for data to be available before closing the connection                                                                                                                                                                                       | -                                                     | String     |
+| requestMethod                    | The request method, e.g. POST                                                                                                                                                                                                                                 | POST                                                  | String     |
+| rollSize                         | When the current output exceeds this size it will be closed and a new one created.                                                                                                                                                                            | -                                                     | String     |
+| splitAggregatedStreams           | Choose if you want to split aggregated streams into separate output.                                                                                                                                                                                          | false                                                 | Boolean    |
+| splitRecords                     | Choose if you want to split individual records into separate output.                                                                                                                                                                                          | false                                                 | Boolean    |
+| sslProtocol                      | The SSL protocol to use                                                                                                                                                                                                                                       | TLSv1.2                                               | String     |
+| trustStorePassword               | The trust store password                                                                                                                                                                                                                                      | -                                                     | String     |
+| trustStorePath                   | The trust store file path on the server                                                                                                                                                                                                                       | -                                                     | String     |
+| trustStoreType                   | The trust store type                                                                                                                                                                                                                                          | JKS                                                   | String     |
+| useCompression                   | Should data be compressed when sending                                                                                                                                                                                                                        | true                                                  | Boolean    |
+| useJvmSslConfig                  | Use JVM SSL config. Set this to true if the Stroom node has been configured with key/trust stores using java system properties like 'javax.net.ssl.keyStore'.Set this to false if you are explicitly setting key/trust store properties on this HttpAppender. | true                                                  | Boolean    |
 
 
 ### RollingFileAppender
@@ -597,16 +633,16 @@ On system shutdown all active files will be rolled.
 
 **Element properties:**
 
-| Name            | Description                                                                                                                              | Default Value |
-|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| fileName        | Choose the name of the file to write.                                                                                                    | -             |
-| filePermissions | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             |
-| frequency       | Choose how frequently files are rolled.                                                                                                  | 1h            |
-| outputPaths     | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             |
-| rollSize        | When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.                                    | 100M          |
-| rolledFileName  | Choose the name that files will be renamed to when they are rolled.                                                                      | -             |
-| schedule        | Provide a cron expression to determine when files are rolled.                                                                            | -             |
-| useCompression  | Apply GZIP compression to output files                                                                                                   | false         |
+| Name            | Description                                                                                                                              | Default Value | Value Type |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| fileName        | Choose the name of the file to write.                                                                                                    | -             | String     |
+| filePermissions | Set file system permissions of finished files (example: 'rwxr--r--')                                                                     | -             | String     |
+| frequency       | Choose how frequently files are rolled.                                                                                                  | 1h            | String     |
+| outputPaths     | One or more destination paths for output files separated with commas. Replacement variables can be used in path strings such as ${feed}. | -             | String     |
+| rollSize        | When the current output file exceeds this size it will be closed and a new one created, e.g. 10M, 1G.                                    | 100M          | String     |
+| rolledFileName  | Choose the name that files will be renamed to when they are rolled.                                                                      | -             | String     |
+| schedule        | Provide a cron expression to determine when files are rolled.                                                                            | -             | String     |
+| useCompression  | Apply GZIP compression to output files                                                                                                   | false         | Boolean    |
 
 
 ### RollingStreamAppender
@@ -620,61 +656,64 @@ On system shutdown all active streams will be rolled.
 
 **Element properties:**
 
-| Name          | Description                                                                                                           | Default Value |
-|---------------|-----------------------------------------------------------------------------------------------------------------------|---------------|
-| feed          | The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used. | -             |
-| frequency     | Choose how frequently streams are rolled.                                                                             | 1h            |
-| rollSize      | Choose the maximum size that a stream can be before it is rolled.                                                     | 100M          |
-| schedule      | Provide a cron expression to determine when streams are rolled.                                                       | -             |
-| segmentOutput | Should the output stream be marked with indexed segments to allow fast access to individual records?                  | true          |
-| streamType    | The stream type that the output stream should be written as. This must be specified.                                  | -             |
+| Name          | Description                                                                                                           | Default Value | Value Type |
+|---------------|-----------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| feed          | The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used. | -             | Document   |
+| frequency     | Choose how frequently streams are rolled.                                                                             | 1h            | String     |
+| rollSize      | Choose the maximum size that a stream can be before it is rolled.                                                     | 100M          | String     |
+| schedule      | Provide a cron expression to determine when streams are rolled.                                                       | -             | String     |
+| segmentOutput | Should the output stream be marked with indexed segments to allow fast access to individual records?                  | true          | Boolean    |
+| streamType    | The stream type that the output stream should be written as. This must be specified.                                  | -             | String     |
+| volumeGroup   | Optionally override the default volume group of the destination feed.                                                 | -             | String     |
 
 
 ### StandardKafkaProducer
 
 {{< pipe-elm "StandardKafkaProducer" >}}&nbsp;
 
-> TODO - Add description
+Consumes XML documents in the `kafka-records:2` namespace.
+For each `<kafkaRecord>` element converts it into a Kafka message that is passed to the Kafka producer defined by the `kafkaConfig` property
 
 **Element properties:**
 
-| Name        | Description                                                                                                                                                 | Default Value |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| flushOnSend | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          |
-| kafkaConfig | Kafka configuration details relating to where and how to send Kafka messages.                                                                               | -             |
+| Name        | Description                                                                                                                                                 | Default Value | Value Type |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| flushOnSend | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          | Boolean    |
+| kafkaConfig | Kafka configuration details relating to where and how to send Kafka messages.                                                                               | -             | Document   |
 
 
 ### StreamAppender
 
 {{< pipe-elm "StreamAppender" >}}&nbsp;
 
-> TODO - Add description
+A destination used to write the output stream to a new stream in the stream store.
+The configuration allows for starting a new stream once a size threshold is reached.
 
 **Element properties:**
 
-| Name                   | Description                                                                                                           | Default Value |
-|------------------------|-----------------------------------------------------------------------------------------------------------------------|---------------|
-| feed                   | The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used. | -             |
-| rollSize               | When the current output stream exceeds this size it will be closed and a new one created.                             | -             |
-| segmentOutput          | Should the output stream be marked with indexed segments to allow fast access to individual records?                  | true          |
-| splitAggregatedStreams | Choose if you want to split aggregated streams into separate output streams.                                          | false         |
-| splitRecords           | Choose if you want to split individual records into separate output streams.                                          | false         |
-| streamType             | The stream type that the output stream should be written as. This must be specified.                                  | -             |
+| Name                   | Description                                                                                                           | Default Value | Value Type |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| feed                   | The feed that output stream should be written to. If not specified the feed the input stream belongs to will be used. | -             | Document   |
+| rollSize               | When the current output stream exceeds this size it will be closed and a new one created.                             | -             | String     |
+| segmentOutput          | Should the output stream be marked with indexed segments to allow fast access to individual records?                  | true          | Boolean    |
+| splitAggregatedStreams | Choose if you want to split aggregated streams into separate output streams.                                          | false         | Boolean    |
+| splitRecords           | Choose if you want to split individual records into separate output streams.                                          | false         | Boolean    |
+| streamType             | The stream type that the output stream should be written as. This must be specified.                                  | -             | String     |
+| volumeGroup            | Optionally override the default volume group of the destination feed.                                                 | -             | String     |
 
 
 ### StroomStatsAppender
 
 {{< pipe-elm "StroomStatsAppender" >}}&nbsp;
 
-> TODO - Add description
+This element is deprecated and should not be used.
 
 **Element properties:**
 
-| Name                 | Description                                                                                                                                                 | Default Value |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| flushOnSend          | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          |
-| kafkaConfig          | The Kafka config to use.                                                                                                                                    | -             |
-| maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             |
-| statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             |
-
+| Name                 | Description                                                                                                                                                 | Default Value | Value Type |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|------------|
+| flushOnSend          | At the end of the stream, wait for acknowledgement from the Kafka broker for all the messages sent. This ensures errors are caught in the pipeline process. | true          | Boolean    |
+| kafkaConfig          | The Kafka config to use.                                                                                                                                    | -             | Document   |
+| maxRecordCount       | Choose the maximum number of records or events that a message will contain                                                                                  | 1             | String     |
+| statisticsDataSource | The stroom-stats data source to record statistics against.                                                                                                  | -             | Document   |
 
