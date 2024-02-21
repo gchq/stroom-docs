@@ -1,7 +1,7 @@
 ---
 title: "Naming Conventions"
 linkTitle: "Naming Conventions"
-weight: 10
+weight: 20
 date: 2022-02-14
 tags:
   - TODO

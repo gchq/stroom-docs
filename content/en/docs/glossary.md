@@ -352,6 +352,15 @@ Additional Stream Types can be added however the list of Stream Types must inclu
 Some Stream Types, such as `Meta` and `Context` only exist as [child streams]({{< relref "user-guide/concepts/streams#child-stream-types" >}}) within another Stream.
 
 
+## StroomQL
+
+**Stroom** **Q**uery **L**anguage is Stroom's own query language.
+It has similarities with Structured Query Language (SQL) as used in databases.
+StroomQL is sometimes referred to as _sQL_ to distinguish it from _SQL_.
+
+See [Stroom Query Language]({{< relref "user-guide/dashboards/stroom-query-language" >}})
+
+
 ## Stepper
 
 The Stepper is a tool in Stroom for developing and debugging a {{< glossary "Pipeline" >}}.
@@ -363,7 +372,7 @@ The stepper will not write data to the file system or stream stores.
 ## Transport Layer Security (TLS)
 
 TLS is the evolution of Secure Sockets Layer (SSL) and refers to the encryption of traffic between client and server.
-TLS is typically used in Stroom for communications between Stroom-Proxy and Stroom, between Stroom nodes and when communicating with external systems (e.g. an ElasticSearch cluster of a HttpPostFilter destination).
+TLS is typically used in Stroom for communications between Stroom-Proxy and Stroom, between Stroom nodes and when communicating with external systems (e.g. an Elasticsearch cluster of a HttpPostFilter destination).
 
 
 ## Tracker

@@ -311,7 +311,7 @@ The only difference with normal indexing in Stroom is that is uses the {{< pipe-
 
 This use case is for indexing XML event data that had already been normalised using one of the ingest pipelines above.
 The {{< pipe-elm "XSLTFilter">}} is used to transform the event into `records` format, extracting the fields to be indexed from the event.
-The {{< pipe-elm "ElasticIndexingFilter">}} reads the `records` XML and loads each one into an external ElasticSearch index {{< stroom-icon "document/ElasticIndex.svg">}}.
+The {{< pipe-elm "ElasticIndexingFilter">}} reads the `records` XML and loads each one into an external Elasticsearch index {{< stroom-icon "document/ElasticIndex.svg">}}.
 
 {{< pipe >}}
  {{< pipe-elm "Source" >}}
