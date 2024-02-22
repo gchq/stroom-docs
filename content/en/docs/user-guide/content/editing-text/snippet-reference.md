@@ -87,9 +87,9 @@ and paste it below this message.
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
 ## XML/XSLT Snippets
 
-### apply-templates with-param
+### Apply-templates with-param (`wapply`)
 
-**Tab Trigger**: `wapply`
+**Name**: `Apply-templates with-param`, **Tab Trigger**: `wapply`
 
 ```xml
 <xsl:apply-templates select="${1:*}">
@@ -99,9 +99,9 @@ and paste it below this message.
 ````
 
 
-### apply-templates sort-by
+### Apply-templates sort-by (`applysort`)
 
-**Tab Trigger**: `applysort`
+**Name**: `Apply-templates sort-by`, **Tab Trigger**: `applysort`
 
 ```xml
 <xsl:apply-templates select="${1:*}">
@@ -111,9 +111,9 @@ ${0}
 ````
 
 
-### apply-templates plain
+### Apply-templates plain (`apply`)
 
-**Tab Trigger**: `apply`
+**Name**: `Apply-templates plain`, **Tab Trigger**: `apply`
 
 ```xml
 <xsl:apply-templates select="${1:*}" />
@@ -121,9 +121,9 @@ ${0}
 ````
 
 
-### attribute blank
+### Attribute blank (`attr`)
 
-**Tab Trigger**: `attr`
+**Name**: `Attribute blank`, **Tab Trigger**: `attr`
 
 ```xml
 <xsl:attribute name="${1:name}">${2}</xsl:attribute>
@@ -131,9 +131,9 @@ ${0}
 ````
 
 
-### attribute value-of
+### Attribute value-of (`attrval`)
 
-**Tab Trigger**: `attrval`
+**Name**: `Attribute value-of`, **Tab Trigger**: `attrval`
 
 ```xml
 <xsl:attribute name="${1:name}">
@@ -143,9 +143,9 @@ ${0}
 ````
 
 
-### call-template
+### Call-template (`call`)
 
-**Tab Trigger**: `call`
+**Name**: `Call-template`, **Tab Trigger**: `call`
 
 ```xml
 <xsl:call-template name="${1:template}" />
@@ -153,9 +153,9 @@ ${0}
 ````
 
 
-### call-template with-param
+### Call-template with-param (`wcall`)
 
-**Tab Trigger**: `wcall`
+**Name**: `Call-template with-param`, **Tab Trigger**: `wcall`
 
 ```xml
 <xsl:call-template name="${1:template}">
@@ -165,9 +165,9 @@ ${0}
 ````
 
 
-### choose
+### Choose (`choose`)
 
-**Tab Trigger**: `choose`
+**Name**: `Choose`, **Tab Trigger**: `choose`
 
 ```xml
 <xsl:choose>
@@ -179,9 +179,9 @@ ${0}
 ````
 
 
-### copy-of
+### Copy-of (`copyof`)
 
-**Tab Trigger**: `copyof`
+**Name**: `Copy-of`, **Tab Trigger**: `copyof`
 
 ```xml
 <xsl:copy-of select="${1:*}" />
@@ -189,9 +189,9 @@ ${0}
 ````
 
 
-### element blank
+### Element blank (`elem`)
 
-**Tab Trigger**: `elem`
+**Name**: `Element blank`, **Tab Trigger**: `elem`
 
 ```xml
 <xsl:element name="${1:name}">
@@ -201,9 +201,9 @@ ${0}
 ````
 
 
-### for-each
+### For-each (`foreach`)
 
-**Tab Trigger**: `foreach`
+**Name**: `For-each`, **Tab Trigger**: `foreach`
 
 ```xml
 <xsl:for-each select="${1:*}">
@@ -213,9 +213,9 @@ ${0}
 ````
 
 
-### if
+### If (`if`)
 
-**Tab Trigger**: `if`
+**Name**: `If`, **Tab Trigger**: `if`
 
 ```xml
 <xsl:if test="${1:test}">
@@ -225,9 +225,9 @@ ${0}
 ````
 
 
-### import
+### Import (`imp`)
 
-**Tab Trigger**: `imp`
+**Name**: `Import`, **Tab Trigger**: `imp`
 
 ```xml
 <xsl:import href="${1:stylesheet}" />
@@ -235,9 +235,9 @@ ${0}
 ````
 
 
-### include
+### Include (`inc`)
 
-**Tab Trigger**: `inc`
+**Name**: `Include`, **Tab Trigger**: `inc`
 
 ```xml
 <xsl:include href="${1:stylesheet}" />
@@ -245,9 +245,9 @@ ${0}
 ````
 
 
-### otherwise
+### Otherwise (`otherwise`)
 
-**Tab Trigger**: `otherwise`
+**Name**: `Otherwise`, **Tab Trigger**: `otherwise`
 
 ```xml
 <xsl:otherwise>
@@ -257,9 +257,9 @@ $0
 ````
 
 
-### param
+### Param (`param`)
 
-**Tab Trigger**: `param`
+**Name**: `Param`, **Tab Trigger**: `param`
 
 ```xml
 <xsl:param name="${1:name}">
@@ -269,20 +269,24 @@ ${0}
 ````
 
 
-### stylesheet
+### Stylesheet (`style`)
 
-**Tab Trigger**: `style`
+**Name**: `Stylesheet`, **Tab Trigger**: `style`
 
 ```xml
-<xsl:stylesheet version="1.0" xmlns="${1}" xpath-default-namespace="${2:${1}}" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet
+    version="1.0"
+    xmlns="${1}"
+    xpath-default-namespace="${2:${1}}"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   ${0}
 </xsl:stylesheet>
 ````
 
 
-### template
+### Template (`temp`)
 
-**Tab Trigger**: `temp`
+**Name**: `Template`, **Tab Trigger**: `temp`
 
 ```xml
 <xsl:template match="${1:*}">
@@ -292,9 +296,9 @@ $0
 ````
 
 
-### template named
+### Template named (`ntemp`)
 
-**Tab Trigger**: `ntemp`
+**Name**: `Template named`, **Tab Trigger**: `ntemp`
 
 ```xml
 <xsl:template name="${1:name}">
@@ -304,9 +308,9 @@ $0
 ````
 
 
-### text
+### Text (`text`)
 
-**Tab Trigger**: `text`
+**Name**: `Text`, **Tab Trigger**: `text`
 
 ```xml
 <xsl:text>${1}</xsl:text>
@@ -314,9 +318,9 @@ $0
 ````
 
 
-### value-of
+### Value-of (`valof`)
 
-**Tab Trigger**: `valof`
+**Name**: `Value-of`, **Tab Trigger**: `valof`
 
 ```xml
 <xsl:value-of select="${1:*}" />
@@ -324,9 +328,9 @@ ${0}
 ````
 
 
-### variable blank
+### Variable blank (`var`)
 
-**Tab Trigger**: `var`
+**Name**: `Variable blank`, **Tab Trigger**: `var`
 
 ```xml
 <xsl:variable name="${1:name}">
@@ -335,9 +339,9 @@ ${0}
 ````
 
 
-### variable select
+### Variable select (`varsel`)
 
-**Tab Trigger**: `varsel`
+**Name**: `Variable select`, **Tab Trigger**: `varsel`
 
 ```xml
 <xsl:variable select="${1:*}" />
@@ -345,9 +349,9 @@ ${0}
 ````
 
 
-### when
+### When (`when`)
 
-**Tab Trigger**: `when`
+**Name**: `When`, **Tab Trigger**: `when`
 
 ```xml
 <xsl:when test="${1:test}">
@@ -356,9 +360,9 @@ ${0}
 ````
 
 
-### with-param
+### With-param (`wparam`)
 
-**Tab Trigger**: `wparam`
+**Name**: `With-param`, **Tab Trigger**: `wparam`
 
 ```xml
 <xsl:with-param name="${1:name}">${2}</xsl:with-param>
@@ -366,9 +370,9 @@ ${0}
 ````
 
 
-### with-param select
+### With-param select (`wparamsel`)
 
-**Tab Trigger**: `wparamsel`
+**Name**: `With-param select`, **Tab Trigger**: `wparamsel`
 
 ```xml
 <xsl:with-param name="${1:name}" select="${2:*}" />
@@ -376,9 +380,9 @@ ${0}
 ````
 
 
-### identity skeleton
+### Identity skeleton (`ident`)
 
-**Tab Trigger**: `ident`
+**Name**: `Identity skeleton`, **Tab Trigger**: `ident`
 
 ```xml
 <xsl:stylesheet version="1.0" xpath-default-namespace="${1:event-logging:3}" xmlns="${2:${1}}" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -399,9 +403,9 @@ ${0}
 ````
 
 
-### records identity skeleton
+### Records identity skeleton (`recident`)
 
-**Tab Trigger**: `recident`
+**Name**: `Records identity skeleton`, **Tab Trigger**: `recident`
 
 ```xml
 <xsl:stylesheet version="1.0" xpath-default-namespace="records:2" xmlns="event-logging:3" xmlns:stroom="stroom" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -447,9 +451,9 @@ ${0}
 ````
 
 
-### events identity skeleton
+### Events identity skeleton (`evtident`)
 
-**Tab Trigger**: `evtident`
+**Name**: `Events identity skeleton`, **Tab Trigger**: `evtident`
 
 ```xml
 <xsl:stylesheet version="1.0" xpath-default-namespace="event-logging:3" xmlns="event-logging:3" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -474,11 +478,186 @@ ${0}
   </xsl:template>
 </xsl:stylesheet>
 ````
+## Data Splitter Snippets
+
+### CSV Splitter (`csv`)
+
+**Name**: `CSV Splitter`, **Tab Trigger**: `csv`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
+
+  <!-- Match each line using a new line character as the delimiter -->
+  <split delimiter="\n">
+
+    <!-- Take the matched line (using group 1 ignores the delimiters,
+    without this each match would include the new line character) -->
+    <group value="\$1">
+
+    <!-- Match each value separated by a comma as the delimiter -->
+    <split delimiter=",">
+
+      <!-- Output the value from group 1 (as above using group 1
+        ignores the delimiters, without this each value would include
+      the comma) -->
+      <data value="\$1"/>
+      ${0}
+    </split>
+    </group>
+  </split>
+</dataSplitter>
+````
+
+
+### CSV Splitter with heading (`csvh`)
+
+**Name**: `CSV Splitter with heading`, **Tab Trigger**: `csvh`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
+
+  <!-- Match heading line (note that maxMatch="1" means that only the
+  first line will be matched by this splitter) -->
+  <split delimiter="\n" maxMatch="1">
+
+    <!-- Store each heading in a named list -->
+    <group>
+      <split delimiter=",">
+        <var id="heading" />
+      </split>
+    </group>
+  </split>
+
+  <!-- Match each record -->
+  <split delimiter="\n">
+
+    <!-- Take the matched line -->
+    <group value="\$1">
+
+      <!-- Split the line up -->
+      <split delimiter=",">
+
+        <!-- Output the stored heading for each iteration and the value
+        from group 1 -->
+        <data name="\$heading\$1" value="\$1" />
+        ${0}
+      </split>
+    </group>
+  </split>
+</dataSplitter>
+````
+
+
+### Data Splitter Template (`ds`)
+
+**Name**: `Data Splitter Template`, **Tab Trigger**: `ds`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
+  ${0}
+</dataSplitter>
+````
+
+
+### Data element with name attribute (`nval`)
+
+**Name**: `Data element with name attribute`, **Tab Trigger**: `nval`
+
+```xml
+<data name="${1}" value="${2}"/>
+${0}
+````
+
+
+### Data element without name attribute (`val`)
+
+**Name**: `Data element without name attribute`, **Tab Trigger**: `val`
+
+```xml
+<data value="${1}"/>
+${0}
+````
+
+
+### Var element (`var`)
+
+**Name**: `Var element`, **Tab Trigger**: `var`
+
+```xml
+<var id="${1}"/>
+${0}
+````
+
+
+### Split element (`spl`)
+
+**Name**: `Split element`, **Tab Trigger**: `spl`
+
+```xml
+<split delimiter="${1:\n}">
+  <group value="${2:\$1}">
+    ${3}
+  </group>
+</split>
+${0}
+````
+
+
+### Group element (`gr`)
+
+**Name**: `Group element`, **Tab Trigger**: `gr`
+
+```xml
+<group value="${1:\$1}">
+  ${2}
+</group>
+${0}
+````
+
+
+### All element (`all`)
+
+**Name**: `All element`, **Tab Trigger**: `all`
+
+```xml
+<all>
+  ${1}
+</all>
+${0}
+````
+
+
+### Regex element (`reg`)
+
+**Name**: `Regex element`, **Tab Trigger**: `reg`
+
+```xml
+<regex ${1:dotall="true" }${2:caseInsensitive="true" }pattern="${3}">
+  <group>
+    ${0}
+  </group>
+</regex>
+````
 ## Documentation (Markdown) Snippets
 
-### Heading level 1
+### Heading level 1 (`h1`)
 
-**Tab Trigger**: `h1`
+**Name**: `Heading level 1`, **Tab Trigger**: `h1`
 
 ```markdown
 # ${1:heading}
@@ -487,9 +666,9 @@ ${0}
 ````
 
 
-### Heading level 2
+### Heading level 2 (`h2`)
 
-**Tab Trigger**: `h2`
+**Name**: `Heading level 2`, **Tab Trigger**: `h2`
 
 ```markdown
 ## ${1:heading}
@@ -498,9 +677,9 @@ ${0}
 ````
 
 
-### Heading level 3
+### Heading level 3 (`h3`)
 
-**Tab Trigger**: `h3`
+**Name**: `Heading level 3`, **Tab Trigger**: `h3`
 
 ```markdown
 ### ${1:heading}
@@ -509,9 +688,9 @@ ${0}
 ````
 
 
-### Heading level 4
+### Heading level 4 (`h4`)
 
-**Tab Trigger**: `h4`
+**Name**: `Heading level 4`, **Tab Trigger**: `h4`
 
 ```markdown
 #### ${1:heading}
@@ -520,9 +699,9 @@ ${0}
 ````
 
 
-### Heading level 5
+### Heading level 5 (`h5`)
 
-**Tab Trigger**: `h5`
+**Name**: `Heading level 5`, **Tab Trigger**: `h5`
 
 ```markdown
 ##### ${1:heading}
@@ -531,9 +710,9 @@ ${0}
 ````
 
 
-### Heading level 6
+### Heading level 6 (`h6`)
 
-**Tab Trigger**: `h6`
+**Name**: `Heading level 6`, **Tab Trigger**: `h6`
 
 ```markdown
 ###### ${1:heading}
@@ -542,9 +721,9 @@ ${0}
 ````
 
 
-### Fenced Block
+### Fenced Block (`fence`)
 
-**Tab Trigger**: `fence`
+**Name**: `Fenced Block`, **Tab Trigger**: `fence`
 
 ````markdown
 ```${1:language}
@@ -554,9 +733,9 @@ ${0}
 `````
 
 
-### Fenced block of XML
+### Fenced block of XML (`fxml`)
 
-**Tab Trigger**: `fxml`
+**Name**: `Fenced block of XML`, **Tab Trigger**: `fxml`
 
 ````markdown
 ```xml
@@ -566,9 +745,9 @@ ${0}
 `````
 
 
-### Fenced block of plain text
+### Fenced block of plain text (`ftext`)
 
-**Tab Trigger**: `ftext`
+**Name**: `Fenced block of plain text`, **Tab Trigger**: `ftext`
 
 ````markdown
 ```text
@@ -578,45 +757,45 @@ ${0}
 `````
 
 
-### Inline code
+### Inline code (`inline`)
 
-**Tab Trigger**: `inline`
+**Name**: `Inline code`, **Tab Trigger**: `inline`
 
 ```markdown
 `${1:code}`${0}
 ````
 
 
-### Bold text
+### Bold text (`b`)
 
-**Tab Trigger**: `b`
+**Name**: `Bold text`, **Tab Trigger**: `b`
 
 ```markdown
 **${1:bold_text}**${0}
 ````
 
 
-### Italic text
+### Italic text (`i`)
 
-**Tab Trigger**: `i`
+**Name**: `Italic text`, **Tab Trigger**: `i`
 
 ```markdown
 _${1:italic_text}_${0}
 ````
 
 
-### Strike-through text
+### Strike-through text (`s`)
 
-**Tab Trigger**: `s`
+**Name**: `Strike-through text`, **Tab Trigger**: `s`
 
 ```markdown
 ~~${1:strikethrough_text}~~${0}
 ````
 
 
-### Bold italic text
+### Bold italic text (`bi`)
 
-**Tab Trigger**: `bi`
+**Name**: `Bold italic text`, **Tab Trigger**: `bi`
 
 ```markdown
 ***${1:bold_italic_text}***${0}
@@ -626,9 +805,9 @@ All [Expression Functions]({{< relref "docs/user-guide/dashboards/expressions" >
 They do not currently have `tab` triggers.
 
 
-### Eval first StreamId
+### Eval first StreamId (`str`)
 
-**Tab Trigger**: `str`
+**Name**: `Eval first StreamId`, **Tab Trigger**: `str`
 
 ```text
 eval StreamId = first(StreamId)
@@ -636,9 +815,9 @@ $0
 ````
 
 
-### Eval first EventId
+### Eval first EventId (`evt`)
 
-**Tab Trigger**: `evt`
+**Name**: `Eval first EventId`, **Tab Trigger**: `evt`
 
 ```text
 eval EventId = first(EventId)
@@ -646,9 +825,9 @@ $0
 ````
 
 
-### Eval first Stream/EventIds
+### Eval first Stream/EventIds (`ids`)
 
-**Tab Trigger**: `ids`
+**Name**: `Eval first Stream/EventIds`, **Tab Trigger**: `ids`
 
 ```text
 eval StreamId = first(StreamId)
@@ -657,9 +836,9 @@ $0
 ````
 
 
-### Eval first first value
+### Eval first first value (`first`)
 
-**Tab Trigger**: `first`
+**Name**: `Eval first first value`, **Tab Trigger**: `first`
 
 ```text
 eval ${1:field_name} = first(${1})
