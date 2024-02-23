@@ -380,6 +380,46 @@ ${0}
 ````
 
 
+### Fatal message (`fatal`)
+
+**Name**: `Fatal message`, **Tab Trigger**: `fatal`
+
+```xml
+<xsl:message terminate="yes">${1}</xsl:message>
+${0}
+````
+
+
+### Error message (`error`)
+
+**Name**: `Error message`, **Tab Trigger**: `error`
+
+```xml
+<xsl:message><error>${1}</error></xsl:message>
+${0}
+````
+
+
+### Warning message (`warn`)
+
+**Name**: `Warning message`, **Tab Trigger**: `warn`
+
+```xml
+<xsl:message><warn>${1}</warn></xsl:message>
+${0}
+````
+
+
+### Info message (`info`)
+
+**Name**: `Info message`, **Tab Trigger**: `info`
+
+```xml
+<xsl:message><info>${1}</info></xsl:message>
+${0}
+````
+
+
 ### Identity skeleton (`ident`)
 
 **Name**: `Identity skeleton`, **Tab Trigger**: `ident`
@@ -652,6 +692,44 @@ ${0}
     ${0}
   </group>
 </regex>
+````
+## XMLFragmentParser Snippets
+
+### Events fragment template (`evt`)
+
+**Name**: `Events fragment template`, **Tab Trigger**: `evt`
+
+```xml
+<?xml version="1.1" encoding="utf-8"?>
+<!DOCTYPE Events [
+<!ENTITY fragment SYSTEM "fragment">]>
+<Events
+    xmlns="event-logging:${1:3}"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="event-logging:${1} file://event-logging-v${2:3.4.2}.xsd"
+    version="${2}">
+&fragment;
+</records>
+${0}
+````
+
+
+### Records fragment template (`rec`)
+
+**Name**: `Records fragment template`, **Tab Trigger**: `rec`
+
+```xml
+<?xml version="1.1" encoding="utf-8"?>
+<!DOCTYPE Records [
+<!ENTITY fragment SYSTEM "fragment">]>
+<records
+    xmlns="records:${1:2}"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="records:${1} file://records-v${2:2.0}.xsd"
+    version="${2}">
+&fragment;
+</records>
+${0}
 ````
 ## Documentation (Markdown) Snippets
 

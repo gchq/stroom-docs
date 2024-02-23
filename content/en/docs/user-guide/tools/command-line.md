@@ -302,3 +302,33 @@ It takes the following forms (with examples for each):
 
 The value for the argument will first be treated as a unique identifier (i.e. the subject ID or group name).
 If the user cannot be found it will fall back to using the display name to find the user.
+
+
+### `create_api_key`
+
+The `create_api_key` command can be used to create an API Key for a user.
+This is useful if, when bootstrapping a cluster, you want to set up a user and associated API Key to allow an external process to monitor/manage that Stroom cluster, e.g. using an Operator in Kubernetes.
+
+{{< command-line >}}
+java -jar /absolute/path/to/stroom-app.jar \
+create_api_key \
+--user jbloggs \
+--expiresDays 365 \
+--keyName "Test key" \
+--outFile  /tmp/api_key.txt \
+path/to/config.yml
+{{</ command-line >}}
+
+The arguments to the command are as follows:
+
+* `u` `user` - The identity of the user to create the API Key for.
+  This is the unique subject ID of the user.
+* `n` `keyName` - The name of the key.
+  This must be unique for the user.
+* `e` `expiresDays` - Optional number of days after which the key should expire.
+  This must not be greater than the configured property `stroom.security.authentication.maxApiKeyExpiryAge`.
+  If not set, it will be defaulted to the maximum configured age.
+* `c` `comments` - Optional string to set the comments for the API Key.
+* `o` `outFile` - Optional path to use to output the API Key string to.
+  If not set, the API Key string will be output to _stdout_.
+
