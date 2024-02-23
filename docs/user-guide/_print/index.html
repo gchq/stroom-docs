@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.cb30754fc75c77551c7156d81564f361.json"
+    data-offline-search-index-json-src="../../../offline-search-index.f7b12f45e35d9840cccefe9980ef313c.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -30710,6 +30710,45 @@ Groups relate only to stroom and have nothing to do with the identity provider.<
 </ul>
 <p>The value for the argument will first be treated as a unique identifier (i.e. the subject ID or group name).
 If the user cannot be found it will fall back to using the display name to find the user.</p>
+<h3 id="create_api_key"><code>create_api_key</code></h3>
+<p>The <code>create_api_key</code> command can be used to create an API Key for a user.
+This is useful if, when bootstrapping a cluster, you want to set up a user and associated API Key to allow an external process to monitor/manage that Stroom cluster, e.g. using an Operator in Kubernetes.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+create_api_key \
+--user jbloggs \
+--expiresDays 365 \
+--keyName &#34;Test key&#34; \
+--outFile  /tmp/api_key.txt \
+path/to/config.yml</code></pre>
+</div>
+
+<p>The arguments to the command are as follows:</p>
+<ul>
+<li><code>u</code> <code>user</code> - The identity of the user to create the API Key for.
+This is the unique subject ID of the user.</li>
+<li><code>n</code> <code>keyName</code> - The name of the key.
+This must be unique for the user.</li>
+<li><code>e</code> <code>expiresDays</code> - Optional number of days after which the key should expire.
+This must not be greater than the configured property <code>stroom.security.authentication.maxApiKeyExpiryAge</code>.
+If not set, it will be defaulted to the maximum configured age.</li>
+<li><code>c</code> <code>comments</code> - Optional string to set the comments for the API Key.</li>
+<li><code>o</code> <code>outFile</code> - Optional path to use to output the API Key string to.
+If not set, the API Key string will be output to <em>stdout</em>.</li>
+</ul>
 
 </div>
 
@@ -32782,6 +32821,26 @@ ${0}
 <pre><code class="language-xml">&lt;xsl:with-param name=&quot;${1:name}&quot; select=&quot;${2:*}&quot; /&gt;
 ${0}
 </code></pre>
+<h3 id="fatal-message-fatal">Fatal message (<code>fatal</code>)</h3>
+<p><strong>Name</strong>: <code>Fatal message</code>, <strong>Tab Trigger</strong>: <code>fatal</code></p>
+<pre><code class="language-xml">&lt;xsl:message terminate=&quot;yes&quot;&gt;${1}&lt;/xsl:message&gt;
+${0}
+</code></pre>
+<h3 id="error-message-error">Error message (<code>error</code>)</h3>
+<p><strong>Name</strong>: <code>Error message</code>, <strong>Tab Trigger</strong>: <code>error</code></p>
+<pre><code class="language-xml">&lt;xsl:message&gt;&lt;error&gt;${1}&lt;/error&gt;&lt;/xsl:message&gt;
+${0}
+</code></pre>
+<h3 id="warning-message-warn">Warning message (<code>warn</code>)</h3>
+<p><strong>Name</strong>: <code>Warning message</code>, <strong>Tab Trigger</strong>: <code>warn</code></p>
+<pre><code class="language-xml">&lt;xsl:message&gt;&lt;warn&gt;${1}&lt;/warn&gt;&lt;/xsl:message&gt;
+${0}
+</code></pre>
+<h3 id="info-message-info">Info message (<code>info</code>)</h3>
+<p><strong>Name</strong>: <code>Info message</code>, <strong>Tab Trigger</strong>: <code>info</code></p>
+<pre><code class="language-xml">&lt;xsl:message&gt;&lt;info&gt;${1}&lt;/info&gt;&lt;/xsl:message&gt;
+${0}
+</code></pre>
 <h3 id="identity-skeleton-ident">Identity skeleton (<code>ident</code>)</h3>
 <p><strong>Name</strong>: <code>Identity skeleton</code>, <strong>Tab Trigger</strong>: <code>ident</code></p>
 <pre><code class="language-xml">&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;${1:event-logging:3}&quot; xmlns=&quot;${2:${1}}&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
@@ -32992,6 +33051,35 @@ ${0}
     ${0}
   &lt;/group&gt;
 &lt;/regex&gt;
+</code></pre>
+<h2 id="xmlfragmentparser-snippets">XMLFragmentParser Snippets</h2>
+<h3 id="events-fragment-template-evt">Events fragment template (<code>evt</code>)</h3>
+<p><strong>Name</strong>: <code>Events fragment template</code>, <strong>Tab Trigger</strong>: <code>evt</code></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE Events [
+&lt;!ENTITY fragment SYSTEM &quot;fragment&quot;&gt;]&gt;
+&lt;Events
+    xmlns=&quot;event-logging:${1:3}&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;event-logging:${1} file://event-logging-v${2:3.4.2}.xsd&quot;
+    version=&quot;${2}&quot;&gt;
+&amp;fragment;
+&lt;/records&gt;
+${0}
+</code></pre>
+<h3 id="records-fragment-template-rec">Records fragment template (<code>rec</code>)</h3>
+<p><strong>Name</strong>: <code>Records fragment template</code>, <strong>Tab Trigger</strong>: <code>rec</code></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE Records [
+&lt;!ENTITY fragment SYSTEM &quot;fragment&quot;&gt;]&gt;
+&lt;records
+    xmlns=&quot;records:${1:2}&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:${1} file://records-v${2:2.0}.xsd&quot;
+    version=&quot;${2}&quot;&gt;
+&amp;fragment;
+&lt;/records&gt;
+${0}
 </code></pre>
 <h2 id="documentation-markdown-snippets">Documentation (Markdown) Snippets</h2>
 <h3 id="heading-level-1-h1">Heading level 1 (<code>h1</code>)</h3>

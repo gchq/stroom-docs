@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/content/editing-text/snippet-reference/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2023-11-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-02-22T17:28:23+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-02-23T18:07:01+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Completion Snippet Reference">
 <meta itemprop="description" content="Reference for built in completion snippets.
 "><meta itemprop="datePublished" content="2023-11-08T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-02-22T17:28:23+00:00" />
-<meta itemprop="wordCount" content="1641">
+<meta itemprop="dateModified" content="2024-02-23T18:07:01+00:00" />
+<meta itemprop="wordCount" content="1748">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Completion Snippet Reference"/>
 <meta name="twitter:description" content="Reference for built in completion snippets.
@@ -123,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.cb30754fc75c77551c7156d81564f361.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.f7b12f45e35d9840cccefe9980ef313c.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -148,7 +148,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.cb30754fc75c77551c7156d81564f361.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.f7b12f45e35d9840cccefe9980ef313c.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -690,6 +690,10 @@ if (!doNotTrack) {
         <li><a href="#when-when">When (<code>when</code>)</a></li>
         <li><a href="#with-param-wparam">With-param (<code>wparam</code>)</a></li>
         <li><a href="#with-param-select-wparamsel">With-param select (<code>wparamsel</code>)</a></li>
+        <li><a href="#fatal-message-fatal">Fatal message (<code>fatal</code>)</a></li>
+        <li><a href="#error-message-error">Error message (<code>error</code>)</a></li>
+        <li><a href="#warning-message-warn">Warning message (<code>warn</code>)</a></li>
+        <li><a href="#info-message-info">Info message (<code>info</code>)</a></li>
         <li><a href="#identity-skeleton-ident">Identity skeleton (<code>ident</code>)</a></li>
         <li><a href="#records-identity-skeleton-recident">Records identity skeleton (<code>recident</code>)</a></li>
         <li><a href="#events-identity-skeleton-evtident">Events identity skeleton (<code>evtident</code>)</a></li>
@@ -707,6 +711,12 @@ if (!doNotTrack) {
         <li><a href="#group-element-gr">Group element (<code>gr</code>)</a></li>
         <li><a href="#all-element-all">All element (<code>all</code>)</a></li>
         <li><a href="#regex-element-reg">Regex element (<code>reg</code>)</a></li>
+      </ul>
+    </li>
+    <li><a href="#xmlfragmentparser-snippets">XMLFragmentParser Snippets</a>
+      <ul>
+        <li><a href="#events-fragment-template-evt">Events fragment template (<code>evt</code>)</a></li>
+        <li><a href="#records-fragment-template-rec">Records fragment template (<code>rec</code>)</a></li>
       </ul>
     </li>
     <li><a href="#documentation-markdown-snippets">Documentation (Markdown) Snippets</a>
@@ -1168,6 +1178,26 @@ ${0}
 <pre><code class="language-xml">&lt;xsl:with-param name=&quot;${1:name}&quot; select=&quot;${2:*}&quot; /&gt;
 ${0}
 </code></pre>
+<h3 id="fatal-message-fatal">Fatal message (<code>fatal</code>)</h3>
+<p><strong>Name</strong>: <code>Fatal message</code>, <strong>Tab Trigger</strong>: <code>fatal</code></p>
+<pre><code class="language-xml">&lt;xsl:message terminate=&quot;yes&quot;&gt;${1}&lt;/xsl:message&gt;
+${0}
+</code></pre>
+<h3 id="error-message-error">Error message (<code>error</code>)</h3>
+<p><strong>Name</strong>: <code>Error message</code>, <strong>Tab Trigger</strong>: <code>error</code></p>
+<pre><code class="language-xml">&lt;xsl:message&gt;&lt;error&gt;${1}&lt;/error&gt;&lt;/xsl:message&gt;
+${0}
+</code></pre>
+<h3 id="warning-message-warn">Warning message (<code>warn</code>)</h3>
+<p><strong>Name</strong>: <code>Warning message</code>, <strong>Tab Trigger</strong>: <code>warn</code></p>
+<pre><code class="language-xml">&lt;xsl:message&gt;&lt;warn&gt;${1}&lt;/warn&gt;&lt;/xsl:message&gt;
+${0}
+</code></pre>
+<h3 id="info-message-info">Info message (<code>info</code>)</h3>
+<p><strong>Name</strong>: <code>Info message</code>, <strong>Tab Trigger</strong>: <code>info</code></p>
+<pre><code class="language-xml">&lt;xsl:message&gt;&lt;info&gt;${1}&lt;/info&gt;&lt;/xsl:message&gt;
+${0}
+</code></pre>
 <h3 id="identity-skeleton-ident">Identity skeleton (<code>ident</code>)</h3>
 <p><strong>Name</strong>: <code>Identity skeleton</code>, <strong>Tab Trigger</strong>: <code>ident</code></p>
 <pre><code class="language-xml">&lt;xsl:stylesheet version=&quot;1.0&quot; xpath-default-namespace=&quot;${1:event-logging:3}&quot; xmlns=&quot;${2:${1}}&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
@@ -1379,6 +1409,35 @@ ${0}
   &lt;/group&gt;
 &lt;/regex&gt;
 </code></pre>
+<h2 id="xmlfragmentparser-snippets">XMLFragmentParser Snippets</h2>
+<h3 id="events-fragment-template-evt">Events fragment template (<code>evt</code>)</h3>
+<p><strong>Name</strong>: <code>Events fragment template</code>, <strong>Tab Trigger</strong>: <code>evt</code></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE Events [
+&lt;!ENTITY fragment SYSTEM &quot;fragment&quot;&gt;]&gt;
+&lt;Events
+    xmlns=&quot;event-logging:${1:3}&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;event-logging:${1} file://event-logging-v${2:3.4.2}.xsd&quot;
+    version=&quot;${2}&quot;&gt;
+&amp;fragment;
+&lt;/records&gt;
+${0}
+</code></pre>
+<h3 id="records-fragment-template-rec">Records fragment template (<code>rec</code>)</h3>
+<p><strong>Name</strong>: <code>Records fragment template</code>, <strong>Tab Trigger</strong>: <code>rec</code></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE Records [
+&lt;!ENTITY fragment SYSTEM &quot;fragment&quot;&gt;]&gt;
+&lt;records
+    xmlns=&quot;records:${1:2}&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:${1} file://records-v${2:2.0}.xsd&quot;
+    version=&quot;${2}&quot;&gt;
+&amp;fragment;
+&lt;/records&gt;
+${0}
+</code></pre>
 <h2 id="documentation-markdown-snippets">Documentation (Markdown) Snippets</h2>
 <h3 id="heading-level-1-h1">Heading level 1 (<code>h1</code>)</h3>
 <p><strong>Name</strong>: <code>Heading level 1</code>, <strong>Tab Trigger</strong>: <code>h1</code></p>
@@ -1488,7 +1547,7 @@ They do not currently have <code>tab</code> triggers.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 22, 2024: <a href="https://github.com/gchq/stroom-docs/commit/9781a0558327a7bdf2b4d561230cc4a0c0be58a5">Add DS and frag parser snippets (9781a05)</a>
+  Last modified February 23, 2024: <a href="https://github.com/gchq/stroom-docs/commit/a9e91dd91ad5ec15cb79f467125271009c5b0f17">Add v7.3 release notes (a9e91dd)</a>
 </div>
 
 </div>

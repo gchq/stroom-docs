@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.cb30754fc75c77551c7156d81564f361.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.f7b12f45e35d9840cccefe9980ef313c.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -630,6 +630,45 @@ Groups relate only to stroom and have nothing to do with the identity provider.<
 </ul>
 <p>The value for the argument will first be treated as a unique identifier (i.e. the subject ID or group name).
 If the user cannot be found it will fall back to using the display name to find the user.</p>
+<h3 id="create_api_key"><code>create_api_key</code></h3>
+<p>The <code>create_api_key</code> command can be used to create an API Key for a user.
+This is useful if, when bootstrapping a cluster, you want to set up a user and associated API Key to allow an external process to monitor/manage that Stroom cluster, e.g. using an Operator in Kubernetes.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+create_api_key \
+--user jbloggs \
+--expiresDays 365 \
+--keyName &#34;Test key&#34; \
+--outFile  /tmp/api_key.txt \
+path/to/config.yml</code></pre>
+</div>
+
+<p>The arguments to the command are as follows:</p>
+<ul>
+<li><code>u</code> <code>user</code> - The identity of the user to create the API Key for.
+This is the unique subject ID of the user.</li>
+<li><code>n</code> <code>keyName</code> - The name of the key.
+This must be unique for the user.</li>
+<li><code>e</code> <code>expiresDays</code> - Optional number of days after which the key should expire.
+This must not be greater than the configured property <code>stroom.security.authentication.maxApiKeyExpiryAge</code>.
+If not set, it will be defaulted to the maximum configured age.</li>
+<li><code>c</code> <code>comments</code> - Optional string to set the comments for the API Key.</li>
+<li><code>o</code> <code>outFile</code> - Optional path to use to output the API Key string to.
+If not set, the API Key string will be output to <em>stdout</em>.</li>
+</ul>
 
 </div>
 
