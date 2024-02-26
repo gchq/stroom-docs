@@ -69,7 +69,7 @@ Now accessible using `ctrl-shift-f` or
 #### Recent Items
 
 New screen for finding recently used documents.
-Accessed using `alt-shift-f` or
+Accessed using `ctrl-e` or
 
 {{< stroom-menu "Navigation" "Recent Items" >}}
 
