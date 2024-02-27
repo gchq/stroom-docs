@@ -192,18 +192,23 @@ The {{< pipe-elm "FindReplaceFilter" >}} can be used to remove/replace either a 
  {{< pipe-elm "FindReplaceFilter" >}}
  {{< pipe-elm "XMLParser" >}}
 {{< /pipe >}}
-[Truncated]
+[Pipeline truncated]
 
 
 ## Raw Streaming
 
-{{% todo %}}
-Complete this.
-{{% /todo %}}
+In cases where you want to export the raw (or cooked) data from a feed you can have a very simply pipeline to pipe the source data directly to an appender.
+This may be so that the raw data can be ingested into another system for analysis.
+In this case the data is being written to disk using a file appender.
 
 {{< pipe >}}
  {{< pipe-elm "Source" >}}
+ {{< pipe-elm "FileAppender" >}}
 {{< /pipe >}}
+
+{{% note %}}
+Be careful when specifying the directory structure for the _FileAppender_ so that you don’t end up with too many files in one folder, which can cause some OS issues.
+{{% /note %}}
 
 
 ## Indexing
