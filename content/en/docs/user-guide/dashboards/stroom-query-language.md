@@ -274,14 +274,19 @@ select feed as 'my feed column',
   name as 'my name column'
 ```
 
-### Vis As
+### Show
 
-The `vis as` keyword is used to tell StroomQL how to visualise the data resulting from the `select`.
-The Stroom visualisation can be specified and then passed column values from the `select` for the visualisation control properties.
+The `show` keyword is used to tell StroomQL how to show the data resulting from the `select`.
+A Stroom visualisation can be specified and then passed column values from the `select` for the visualisation control properties.
 
 ```stroomql
-vis as LineChart (x = EventTime, y = count)
-vis as Doughnut (names = Feed, values = count)
+show LineChart(x = EventTime, y = count)
+show Doughnut(names = Feed, values = count)
+```
+
+For visualisations that contain spaces in their names it is necessary to use quotes, e.g.
+```stroomql
+show "My Visualisation" (x = EventTime, y = count)
 ```
 
 ## Comments

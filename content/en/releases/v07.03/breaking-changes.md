@@ -14,3 +14,5 @@ Please read this section carefully in case any of the changes affect you.
 
 * The Hessian based feed status RPC service `/remoting/remotefeedservice.rpc` has been removed as it is using the legacy `javax.servlet` dependency that is incompatible with `jakarta.servlet` that is now in use in stroom.
   This was used by Stroom-Proxy up to v5.
+
+* The StroomQL keyword combination `vis as` has been replaced with `show`.
