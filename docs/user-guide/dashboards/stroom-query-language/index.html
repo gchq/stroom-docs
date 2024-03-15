@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/dashboards/stroom-query-language/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2023-06-26T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-02-29T15:39:33+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-03-15T13:52:01+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Stroom Query Language">
 <meta itemprop="description" content="Stroom Query Language (StroomQL) is a query language for retrieving data in Stroom.
 "><meta itemprop="datePublished" content="2023-06-26T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-02-29T15:39:33+00:00" />
-<meta itemprop="wordCount" content="1321">
+<meta itemprop="dateModified" content="2024-03-15T13:52:01+00:00" />
+<meta itemprop="wordCount" content="1339">
 <meta itemprop="keywords" content="search," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Stroom Query Language"/>
 <meta name="twitter:description" content="Stroom Query Language (StroomQL) is a query language for retrieving data in Stroom.
@@ -123,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0ec2b5d76487164706397253b1649d3d.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.d477c73d1dc9f66b8509d25b227ea13d.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -148,7 +148,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.0ec2b5d76487164706397253b1649d3d.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.d477c73d1dc9f66b8509d25b227ea13d.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -674,7 +674,7 @@ if (!doNotTrack) {
         <li><a href="#sort-by">Sort By</a></li>
         <li><a href="#limit">Limit</a></li>
         <li><a href="#select">Select</a></li>
-        <li><a href="#vis-as">Vis As</a></li>
+        <li><a href="#show">Show</a></li>
       </ul>
     </li>
     <li><a href="#comments">Comments</a>
@@ -1066,11 +1066,14 @@ group by name
 <pre><code class="language-stroomql">select feed as 'my feed column',
   name as 'my name column'
 </code></pre>
-<h3 id="vis-as">Vis As</h3>
-<p>The <code>vis as</code> keyword is used to tell StroomQL how to visualise the data resulting from the <code>select</code>.
-The Stroom visualisation can be specified and then passed column values from the <code>select</code> for the visualisation control properties.</p>
-<pre><code class="language-stroomql">vis as LineChart (x = EventTime, y = count)
-vis as Doughnut (names = Feed, values = count)
+<h3 id="show">Show</h3>
+<p>The <code>show</code> keyword is used to tell StroomQL how to show the data resulting from the <code>select</code>.
+A Stroom visualisation can be specified and then passed column values from the <code>select</code> for the visualisation control properties.</p>
+<pre><code class="language-stroomql">show LineChart(x = EventTime, y = count)
+show Doughnut(names = Feed, values = count)
+</code></pre>
+<p>For visualisations that contain spaces in their names it is necessary to use quotes, e.g.</p>
+<pre><code class="language-stroomql">show &quot;My Visualisation&quot; (x = EventTime, y = count)
 </code></pre>
 <h2 id="comments">Comments</h2>
 <h3 id="single-line">Single line</h3>
@@ -1154,7 +1157,7 @@ limit 10
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 29, 2024: <a href="https://github.com/gchq/stroom-docs/commit/e1774acfe37f33deee8b528fb5adf6c808eb47f2">Fix typo (e1774ac)</a>
+  Last modified March 15, 2024: <a href="https://github.com/gchq/stroom-docs/commit/7d7854760b35ecd9e27b4cdea9b22159335440f0">Fix broken link, speed up broken_links.sh (7d78547)</a>
 </div>
 
 </div>

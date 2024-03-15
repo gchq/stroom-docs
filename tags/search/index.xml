@@ -797,11 +797,14 @@ group by name
 &lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;select feed as &#39;my feed column&#39;,
   name as &#39;my name column&#39;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;vis-as&#34;&gt;Vis As&lt;/h3&gt;
-&lt;p&gt;The &lt;code&gt;vis as&lt;/code&gt; keyword is used to tell StroomQL how to visualise the data resulting from the &lt;code&gt;select&lt;/code&gt;.
-The Stroom visualisation can be specified and then passed column values from the &lt;code&gt;select&lt;/code&gt; for the visualisation control properties.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;vis as LineChart (x = EventTime, y = count)
-vis as Doughnut (names = Feed, values = count)
+&lt;h3 id=&#34;show&#34;&gt;Show&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;show&lt;/code&gt; keyword is used to tell StroomQL how to show the data resulting from the &lt;code&gt;select&lt;/code&gt;.
+A Stroom visualisation can be specified and then passed column values from the &lt;code&gt;select&lt;/code&gt; for the visualisation control properties.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;show LineChart(x = EventTime, y = count)
+show Doughnut(names = Feed, values = count)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For visualisations that contain spaces in their names it is necessary to use quotes, e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-stroomql&#34;&gt;show &amp;quot;My Visualisation&amp;quot; (x = EventTime, y = count)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;comments&#34;&gt;Comments&lt;/h2&gt;
 &lt;h3 id=&#34;single-line&#34;&gt;Single line&lt;/h3&gt;

@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0ec2b5d76487164706397253b1649d3d.json"
+    data-offline-search-index-json-src="../../../offline-search-index.d477c73d1dc9f66b8509d25b227ea13d.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -4612,11 +4612,14 @@ group by name
 <pre><code class="language-stroomql">select feed as 'my feed column',
   name as 'my name column'
 </code></pre>
-<h3 id="vis-as">Vis As</h3>
-<p>The <code>vis as</code> keyword is used to tell StroomQL how to visualise the data resulting from the <code>select</code>.
-The Stroom visualisation can be specified and then passed column values from the <code>select</code> for the visualisation control properties.</p>
-<pre><code class="language-stroomql">vis as LineChart (x = EventTime, y = count)
-vis as Doughnut (names = Feed, values = count)
+<h3 id="show">Show</h3>
+<p>The <code>show</code> keyword is used to tell StroomQL how to show the data resulting from the <code>select</code>.
+A Stroom visualisation can be specified and then passed column values from the <code>select</code> for the visualisation control properties.</p>
+<pre><code class="language-stroomql">show LineChart(x = EventTime, y = count)
+show Doughnut(names = Feed, values = count)
+</code></pre>
+<p>For visualisations that contain spaces in their names it is necessary to use quotes, e.g.</p>
+<pre><code class="language-stroomql">show &quot;My Visualisation&quot; (x = EventTime, y = count)
 </code></pre>
 <h2 id="comments">Comments</h2>
 <h3 id="single-line">Single line</h3>
