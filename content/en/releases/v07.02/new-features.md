@@ -61,7 +61,7 @@ It can now be personalised with the following options:
   Note: The Ace editor does not fully emulate Vim, not all Vim key bindings work and there is limited command mode support.
 
 * **Live Auto Completion** - Set this to _On_ if you want the editor code completion to make suggestions as you type.
-  When set to _Off_ you need to press `<ctrl>-<space>` to show the suggestion dialog.
+  When set to _Off_ you need to press {{< key-bind "ctrl+space" >}} to show the suggestion dialog.
 
 
 #### Date and Time
@@ -445,7 +445,7 @@ This feature is available from the main menu {{< stroom-icon "menu.svg" "Main Me
 
 {{< stroom-menu "Navigation" "Find Content" >}}
 
-It can also be accessed by hitting `<ctrl>-<shift>-f` (unless an editor pane has focus).
+It can also be accessed by hitting {{< key-bind "shift,ctrl,f" >}} (unless an editor pane has focus).
 
 {{< image "releases/07.02/find-content.png" "300x" />}}
 

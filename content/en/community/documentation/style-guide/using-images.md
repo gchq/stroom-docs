@@ -482,3 +482,33 @@ If the menu item name is not an exact match to one in the gallery then it will b
 
 {{< stroom-menu "New" "Banana" >}}
 
+
+### Keyboard Shortcuts
+
+To display a keyboard shortcut (AKA key binding) you can use the `key-bind` shortcode.
+
+**Arguments**:
+
+* `key_bind...` - One or more key bindings, whit keys in the key binding delimited by `,`, `-` or `+`.
+  The name and case of non-alphabet keys will be normalised, e.g. `del` => `Delete`.
+  The modifier keys `ctrl`, `shift`, `alt`, `meta` will be placed first and displayed in a consistent order.
+
+Each argument is one of more keys that are pressed at the same time, e.g. `"ctrl,c"` for {{< key-bind "ctrl,c" >}}.
+Chord key bindings where multiple key binds are pressed and released in sequence have one argument for each step in the chord, e.g. pressing `g` then `p` has arguments `"g"` and `"p"`, producing {{< key-bind "g" "p" >}}.
+
+**Examples:**
+
+This is a key binding with modifiers {{< key-bind "ctrl,shift,f" >}} and this is chord type key binding {{< key-bind "g" "p" >}}.
+
+If the key is a `,` then use `+` or `-` as the delimiter, e.g. {{< key-bind "ctrl+alt+," >}}, {{< key-bind "ctrl,+" >}} or {{< key-bind "alt+-" >}}.
+
+**Markdown:**
+
+The markdown for these examples is:
+
+```markdown
+This is a key binding with modifiers {{</* key-bind "ctrl,shift,f" */>}}  and this is chord type key binding {{</* key-bind "g" "p" */>}}.
+
+If the key is a `,` then use `+` or `-` as the delimiter, e.g. {{</* key-bind "ctrl+alt+," */>}}, {{</* key-bind "ctrl,+" */>}} or {{</* key-bind "alt+-" */>}}.
+```
+

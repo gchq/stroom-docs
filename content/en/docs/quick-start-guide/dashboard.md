@@ -95,7 +95,7 @@ Now we are going to add a custom column to show the lowest EventId for each _App
 1. Click _OK_.
 
 Instead of typing out the expression you can use the {{< stroom-icon "function.svg">}} and {{< stroom-icon "field.svg">}} buttons to pick from a list to add expressions and fields respectively.
-You can also use `ctrl+<space>` to auto-complete your expressions.
+You can also use {{< key-bind "ctrl,space" >}} to auto-complete your expressions.
 
 To rename the _Custom_ column:
 

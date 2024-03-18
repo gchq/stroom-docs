@@ -20,22 +20,7 @@ The editor provides various useful features:
 
 ## Keyboard shortcuts
 
-The following are some useful keyboard shortcuts in the editor:
-
-* `ctrl+z` - Undo last action.
-* `ctrl+shift+z` - Redo previously undone action.
-* `ctrl+/` - Toggle commenting of current line/selection. Applies when editing XML, XSLT or Javascript.
-* `alt+up`/`alt+down` - Move line/selection up/down respectively
-* `ctrl+d` - Delete current line.
-* `ctrl+f` - Open find dialog.
-* `ctrl+h` - Open find/replace dialog.
-* `ctrl+k` - Find next match.
-* `ctrl+shift+k` - Find previous match.
-* `tab` - Indent selection.
-* `shift+tab` - Outdent selection.
-* `ctrl+u` - Make selection upper-case.
-
-See {{< external-link "Default keyboard shortcuts" "https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" >}} for more.
+See [Keyboard Shortcuts]({{< relref "/docs/user-guide/keyboard-shortcuts#text-editor" >}}) for details of the keyboard shortcuts available when using the Ace editor.
 
 
 ### Vim key bindings
@@ -55,8 +40,8 @@ The key supported features of Vim are:
 * Visual mode and visual block mode.
 * Searching with `/` (javascript flavour regex)
 * Search/replace with commands like `:%s/foo/bar/g`
-* Incrementing/decrementing numbers with `ctrl+a`/`ctrl+x`
-* Code (un-)folding with `zo`, `zc`, etc.
+* Incrementing/decrementing numbers with {{< key-bind "ctrl,a" >}} / {{< key-bind "ctrl,b" >}}
+* Code (un-)folding with {{< key-bind "z" "o" >}}, {{< key-bind "z" "c" >}}, etc.
 * Text objects, e.g. `>`, `)`, `]`, `'`, `"`, `p` paragraph, `w` word.
 * Repetition with the `.` command.
 * Jumping to a line with `:<line no>`.
@@ -75,9 +60,9 @@ For a list of useful Vim key bindings see this {{< external-link "cheat sheet" "
 
 #### Use of `Esc` key in Vim mode
 
-The `Esc` key is bound to the close action in Stroom, so pressing `Esc` will typically close a popup, dialog, selection box, etc.
-Dialogs will not be closed if the Ace editor has focus but as `Esc` is used so frequently with Vim bindings it may be advisable to use an alternative key to exit insert mode to avoid accidental closure.
-You can use the standard Vim binding of `ctrl+[` or the custom binding of `jk` as alternatives to `Esc`.
+The {{< key-bind "esc" >}} key is bound to the close action in Stroom, so pressing {{< key-bind "esc" >}} will typically close a popup, dialog, selection box, etc.
+Dialogs will not be closed if the Ace editor has focus but as {{< key-bind "esc" >}} is used so frequently with Vim bindings it may be advisable to use an alternative key to exit insert mode to avoid accidental closure.
+You can use the standard Vim binding of {{< key-bind "ctrl,[" >}} or the custom binding of {{< key-bind "k" "b" >}} as alternatives to {{< key-bind "esc" >}}.
 
 
 ## Auto-Completion And Snippets
@@ -85,7 +70,7 @@ You can use the standard Vim binding of `ctrl+[` or the custom binding of `jk` a
 The editor supports a number of different types of auto-completion of text.
 Completion suggestions are triggered by the following mechanisms:
 
-* `ctrl+space` - when live auto-complete is disabled.
+* {{< key-bind "ctrl,space" >}} - when live auto-complete is disabled.
 * Typing - when live auto-complete is enabled.
 
 When completion suggestions are triggered the follow types of completion may be available depending on the text being edited.
@@ -102,8 +87,8 @@ Snippets allow you to quickly enter pre-defined blocks of common text into the e
 For example when editing an XSLT you may want to insert a `call-template` with parameters.
 To do this using snippets you can do the following:
 
-* Type `call` then hit `ctrl+space`.
-* In the list of options use the cursor keys to select `call-template with-param` then hit `enter` or `tab` to insert the snippet.
+* Type `call` then hit {{< key-bind "ctrl,space" >}}.
+* In the list of options use the cursor keys to select `call-template with-param` then hit {{< key-bind "enter" >}} or {{< key-bind "tab" >}} to insert the snippet.
   The snippet will look like 
 
   ``` xslt
@@ -113,15 +98,15 @@ To do this using snippets you can do the following:
   ```
 
 * The cursor will be positioned on the first tab stop (the template name) with the tab stop text selected.
-* At this point you can type in your template name, e.g. `MyTemplate`, then hit `tab` to advance to the next tab stop (the param name)
-* Now type the name of the param, e.g. `MyParam`, then hit `tab` to advance to the last tab stop positioned within the `<with-param>` ready to enter the param value.
+* At this point you can type in your template name, e.g. `MyTemplate`, then hit {{< key-bind "tab" >}} to advance to the next tab stop (the param name)
+* Now type the name of the param, e.g. `MyParam`, then hit {{< key-bind "tab" >}} to advance to the last tab stop positioned within the `<with-param>` ready to enter the param value.
 
 Snippets can be disabled from the list of suggestions by selecting the option in the editor context menu.
 
 ### Tab triggers
 
-Some snippets can be triggered by typing an abbreviation and then hitting `tab` to insert the snippet.
-This mechanism is faster than hitting `ctrl+space` and selecting the snippet, if you can remember the snippet tab trigger abbreviations.
+Some snippets can be triggered by typing an abbreviation and then hitting {{< key-bind "tab" >}} to insert the snippet.
+This mechanism is faster than hitting {{< key-bind "ctrl,space" >}} and selecting the snippet, if you can remember the snippet tab trigger abbreviations.
 
 
 ### Available snippets
