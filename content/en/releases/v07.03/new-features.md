@@ -48,7 +48,7 @@ description: >
 #### Find
 
 New screen for finding documents by name.
-Accessed using `alt-shift-f` or
+Accessed using {{< key-bind "shift,alt,f" >}} or
 
 {{< stroom-menu "Navigation" "Find" >}}
 
@@ -58,7 +58,7 @@ Accessed using `alt-shift-f` or
 #### Find In Content
 
 Improvements to the Find In Content screen so that it now shows the content of the document and highlights the matched terms.
-Now accessible using `ctrl-shift-f` or 
+Now accessible using {{< key-bind "shift,ctrl-f" >}} or 
 
 {{< stroom-menu "Navigation" "Find In Content" >}}
 
@@ -69,7 +69,7 @@ Now accessible using `ctrl-shift-f` or
 #### Recent Items
 
 New screen for finding recently used documents.
-Accessed using `ctrl-e` or
+Accessed using {{< key-bind "ctrl,e" >}} or
 
 {{< stroom-menu "Navigation" "Recent Items" >}}
 
@@ -230,5 +230,4 @@ For details of the new functions, see [XSLT Functions]({{< relref "docs/user-gui
 * Add the un-authenticated API method `/api/authproxy/v1/noauth/fetchClientCredsToken` to effectively proxy for the {{< glossary "IDP" "IDP's" >}} token endpoint to obtain an access token using the client credentials flow.
   The request contains the client credentials and looks like `{ "clientId": "a-client", "clientSecret": "BR9m.....KNQO" }`.
   The response media type is `text/plain` and contains the access token.
-
 

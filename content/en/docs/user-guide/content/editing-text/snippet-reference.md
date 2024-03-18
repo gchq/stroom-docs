@@ -35,8 +35,8 @@ Tab positions are expressed like `${n}` or `${n:xxx}`, where `n` is a number ind
 
 To insert a snippet do one of the following:
 
-* Type the whole Tab Trigger then hit `tab`.
-* Type some characters from the Name then hit `ctrl+space` to select it from the list.
+* Type the whole Tab Trigger then hit {{< key-bind "tab" >}}.
+* Type some characters from the Name then hit {{< key-bind "ctrl,space" >}} to select it from the list.
 
 The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be position on the first tab position (`${1}` if present, otherwise `${0}`).
 If the tab position has a default value then the whole of that default value will be selected allowing the user to quickly over type it.

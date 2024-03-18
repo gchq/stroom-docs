@@ -1,7 +1,7 @@
 ---
 title: "Finding Things"
 linkTitle: "Finding Things"
-weight: 80
+weight: 70
 date: 2021-07-27
 tags: 
 description: >
@@ -74,7 +74,7 @@ Clicking _Info_ displays the entities UUID.
 
 {{< image "user-guide/finding-things/entity_info.png" >}}Entity Info{{< /image >}}
 
-The UUID can be copied by selecting it and then pressing `ctrl+c`.
+The UUID can be copied by selecting it and then pressing {{< key-bind "ctrl+c" >}}.
 
 
 #### UUID Quick Filter Matching

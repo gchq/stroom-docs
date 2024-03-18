@@ -1,0 +1,104 @@
+<!--
+Short code to represent a key bind in a consistent way.
+
+Pass all the keys as a single comma/pipe dilimted argument.
+
+Usage:
+key-bind key...
+e.g.
+key-bind "ctrl,shift,x"
+key-bind "ctrl|alt|,"
+-->
+
+{{ $name_map := dict
+"alt" "Alt"
+"backspace" "Backspace ←"
+"context" "Menu ☰"
+"ctrl" "Ctrl ^"
+"del" "Delete"
+"delete" "Delete"
+"down" "⬇"
+"end" "End"
+"enter" "Enter ↵"
+"esc" "Esc"
+"f1" "F1"
+"f10" "F10"
+"f11" "F11"
+"f12" "F12"
+"f2" "F2"
+"f3" "F3"
+"f4" "F4"
+"f5" "F5"
+"f6" "F6"
+"f7" "F7"
+"f8" "F8"
+"f9" "F9"
+"home" "Home"
+"insert" "Insert"
+"left" "⬅"
+"menu" "Menu ☰"
+"meta" "Meta"
+"pagedown" "PageDown"
+"pageup" "PageUp"
+"pgdn" "PageDown"
+"pgup" "PageUp"
+"right" "➡"
+"shift" "Shift ⇧"
+"space" "space ␣"
+"tab" "Tab ↹"
+"up" "⬆"
+}}
+
+<span class="key-bind-chord">
+  {{- range (seq 0 (sub (len .Params) 1) ) -}}
+
+    {{ $param := $.Get . }}
+    {{ $keys := slice }}
+    {{ $lastChar := strings.Substr $param -1 }}
+    {{ if and (strings.Contains $param "+" ) (ne $lastChar "+") }}
+      {{ $keys = strings.Split $param "+" }}
+    {{ else if and (strings.Contains $param "-") (ne $lastChar "-") }}
+      {{ $keys = strings.Split $param "-" }}
+    {{ else }}
+      {{ $keys = strings.Split $param "," }}
+    {{ end }}
+
+    {{ $keys_sorted := slice }}
+
+    {{ if collections.In $keys "ctrl" }}
+      {{ $keys_sorted = collections.Append (collections.Index $name_map "ctrl") $keys_sorted }}
+    {{ end }}
+
+    {{ if collections.In $keys "shift" }}
+      {{ $keys_sorted = collections.Append (collections.Index $name_map "shift") $keys_sorted }}
+    {{ end }}
+
+    {{ if collections.In $keys "alt" }}
+      {{ $keys_sorted = collections.Append (collections.Index $name_map "alt") $keys_sorted }}
+    {{ end }}
+
+    {{ if collections.In $keys "meta" }}
+      {{ $keys_sorted = collections.Append (collections.Index $name_map "meta") $keys_sorted }}
+    {{ end }}
+
+    {{ range $keys }}
+      {{ $key := strings.ToLower . }}
+      {{ if eq (strings.FindRE "^(ctrl|shift|alt|meta)$" $key | len) 0 }}
+        {{ if collections.IsSet $name_map $key }}
+          {{/* Normalise the key using the value in the map */}}
+          {{ $key = collections.Index $name_map $key }}
+        {{ end }}
+        {{ $keys_sorted = collections.Append $key $keys_sorted }}
+      {{ end }}
+    {{ end }}
+
+    <span class="key-bind">
+    {{ range $keys_sorted }}
+      {{ $key := . }}
+      <span class="key-bind-key">{{- $key -}}</span>
+    {{ end }}
+    </span>
+    {{/* This is to deal with the space the browswer adds after a char if it is not on the end of the line.*/}}
+    &ZeroWidthSpace;
+  {{- end -}}
+</span>
