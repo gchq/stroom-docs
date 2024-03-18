@@ -14,9 +14,14 @@ Some shortcuts apply everywhere and some are specific to the screen that you are
 
 ## General Shortcuts
 
-* **Cancel** - {{< key-bind "esc" >}} - Closes/cancels an open popup or dialog.
-* **Execute** - {{< key-bind "enter" >}}.
-* **OK** - {{< key-bind "ctrl,enter" >}}.
+* **Cancel** - {{< key-bind "esc" >}} - Closes/cancels an open popup or dialog discarding any changes.
+  Equivalent to clicking {{< stroom-btn "Cancel" >}} on a dialog.
+* **Select / toggle** - {{< key-bind "space" >}} - Selects a row/item in a table, list, selection box or tab bar.
+ Toggles a focused checkbox.
+ Selects a radio button.
+* **Execute** - {{< key-bind "enter" >}} - Selects a row/item in a table, list, selection box or tab bar.
+  Opens a Document/Date picker dialog on a Document/Date field.
+* **OK** - {{< key-bind "ctrl,enter" >}}. Equivalent to clicking {{< stroom-btn "OK" >}} on a dialog, closes the dialog accepting any changes.
 * **Context Menu** - {{< key-bind "menu" >}} - Shows the context menu for the selected item, e.g. the selected item in the explorer tree.
 * **Select all** - {{< key-bind "ctrl,a" >}}.
 * **Save** - {{< key-bind "ctrl,s" >}} - Save the current tab.
