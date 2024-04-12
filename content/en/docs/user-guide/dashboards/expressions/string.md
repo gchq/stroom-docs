@@ -23,6 +23,22 @@ concat('this ', 'is ', 'how ', 'it ', 'works')
 > 'this is how it works'
 ```
 
+## Contains
+
+Tests if inputString contains subString.
+
+```clike
+contains(inputString, subString)
+```
+
+Example
+
+```clike
+contains('this', 'this')
+> true
+contains('this', 'that')
+> false
+```
 
 ## Current User
 
@@ -164,10 +180,10 @@ include('bye', 'hello', 'hi')
 
 ## Index Of
 
-Finds the first position of the second string within the first
+Finds the first position (zero based) of subString in inputString or `-1` if it cannot be found. Uses a simple literal match.
 
 ```clike
-indexOf(firstString, secondString)
+indexOf(inputString, subString)
 ```
 
 Example
@@ -179,10 +195,10 @@ indexOf('aa-bb-cc', '-')
 
 ## Last Index Of
 
-Finds the last position of the second string within the first
+Finds the last position (zero based) of subString in inputString or `-1` if it cannot be found. Uses a simple literal match.
 
 ```clike
-lastIndexOf(firstString, secondString)
+lastIndexOf(inputString, subString)
 ```
 
 Example
