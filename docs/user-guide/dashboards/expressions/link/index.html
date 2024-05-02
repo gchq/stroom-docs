@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/dashboards/expressions/link/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-04-25T15:09:21+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-05-02T17:39:27+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Link Functions">
 <meta itemprop="description" content="Functions for linking to other screens in Stroom and/or to particular sets of data.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-04-25T15:09:21+01:00" />
-<meta itemprop="wordCount" content="897">
+<meta itemprop="dateModified" content="2024-05-02T17:39:27+01:00" />
+<meta itemprop="wordCount" content="976">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Link Functions"/>
 <meta name="twitter:description" content="Functions for linking to other screens in Stroom and/or to particular sets of data.
@@ -123,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.7d0cff21276a083f50399f561d8e4f67.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.f413a5943dc7dd0b77b193c3d9204706.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -148,7 +148,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.7d0cff21276a083f50399f561d8e4f67.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.f413a5943dc7dd0b77b193c3d9204706.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -423,6 +423,8 @@ if (!doNotTrack) {
   <a href="../../../../../docs/user-guide/dashboards/search-extraction/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardssearch-extraction"><span class="">Search Extraction</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsdictionaries-li">
   <a href="../../../../../docs/user-guide/dashboards/dictionaries/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsdictionaries"><span class="">Dictionaries</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsinternal-links-li">
+  <a href="../../../../../docs/user-guide/dashboards/internal-links/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsinternal-links"><span class="">Internal Links</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardsdirect-urls-li">
   <a href="../../../../../docs/user-guide/dashboards/direct-urls/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidedashboardsdirect-urls"><span class="">Direct URLs</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidedashboardselasticsearch-li">
@@ -751,6 +753,8 @@ if (!doNotTrack) {
         
           <li><a class="taxonomy-term" href="../../../../../tags/kubernetes/" data-taxonomy-term="kubernetes"><span class="taxonomy-label">kubernetes</span><span class="taxonomy-count">10</span></a></li>
         
+          <li><a class="taxonomy-term" href="../../../../../tags/link/" data-taxonomy-term="link"><span class="taxonomy-label">link</span><span class="taxonomy-count">1</span></a></li>
+        
           <li><a class="taxonomy-term" href="../../../../../tags/log-sender/" data-taxonomy-term="log-sender"><span class="taxonomy-label">log-sender</span><span class="taxonomy-count">1</span></a></li>
         
           <li><a class="taxonomy-term" href="../../../../../tags/mysql/" data-taxonomy-term="mysql"><span class="taxonomy-label">mysql</span><span class="taxonomy-count">2</span></a></li>
@@ -860,7 +864,19 @@ if (!doNotTrack) {
 
 		
 	</header>    
-	<h2 id="annotation">Annotation</h2>
+	<p>Links can be inserted into dashboard tables using the <code>link</code> function. Links behave as described in <a href="../../../../../docs/user-guide/dashboards/internal-links/">Internal Links</a> and the <code>link</code> function is just a convenient way to add them to tables. In addition to the <code>link</code> function there are other functions such as <code>annotation</code>, <code>dashboard</code>, <code>data</code> and <code>stepping</code> that make it easier to supply the required link parameters.</p>
+<h2 id="annotation">Annotation</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Annotation">Annotation Links</a>.</p>
+
+
+</div>
+
+
 <p>A helper function to make forming links to annotations easier than using <a href="#link">Link</a>.
 The Annotation function allows you to create a link to open the Annotation editor, either to view an existing annotation or to begin creating one with pre-populated values.</p>
 <pre><code class="language-clike">annotation(text, annotationId)
@@ -883,6 +899,17 @@ If you don&rsquo;t need to pre-populate a value then you can use <code>''</code>
 &gt; [Create suspect event annotation](?streamId=123&amp;eventId=456&amp;title=Suspect%20Event&amp;assignedTo=jbloggs){annotation}
 </code></pre>
 <h2 id="dashboard">Dashboard</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Dashboard">Dashboard Links</a>.</p>
+
+
+</div>
+
+
 <p>A helper function to make forming links to dashboards easier than using <a href="#link">Link</a>.</p>
 <pre><code class="language-clike">dashboard(text, uuid)
 dashboard(text, uuid, params)
@@ -894,6 +921,17 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 &gt; [Click Here](?uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&amp;params=userId%3Duser1){dashboard}
 </code></pre>
 <h2 id="data">Data</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Data">Data Links</a>.</p>
+
+
+</div>
+
+
 <p>Creates a clickable link to open a sub-set of a source of data (i.e. part of a stream) for viewing.
 The data can either be opened in a popup dialog (<code>dialog</code>) or in another stroom tab (<code>tab</code>).
 It can also be display in <code>preview</code> form (with formatting and syntax highlighting) or unaltered <code>source</code> form.</p>
@@ -964,6 +1002,17 @@ Not applicable for non-segmented streams so use <code>null()</code> instead.</li
 
 
 <h2 id="link">Link</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/">Internal Links</a>.</p>
+
+
+</div>
+
+
 <p>Create a string that represents a hyperlink for display in a dashboard table.</p>
 <pre><code class="language-clike">link(url)
 link(text, url)
@@ -988,6 +1037,17 @@ link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
 </ul>
 <p>If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both <code>dialog</code> and <code>tab</code> types allow titles to be specified after a <code>|</code>, e.g. <code>dialog|My Title</code>.</p>
 <h2 id="stepping">Stepping</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Stepping">Stepping Links</a>.</p>
+
+
+</div>
+
+
 <p>Open the <em>Stepping</em> tab for the requested data source.</p>
 <pre><code class="language-clike">stepping(text, id)
 stepping(text, id, partNo)
@@ -1001,7 +1061,7 @@ stepping(text, id, partNo, recordNo)
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified April 25, 2024: <a href="https://github.com/gchq/stroom-docs/commit/f38e2e3eaa7447f95869f438acc78e8ff4033b78">Update 7.3 DB migs (f38e2e3)</a>
+  Last modified May 2, 2024: <a href="https://github.com/gchq/stroom-docs/commit/cd29165aeb9e64b1bfb2c2b4bc03d16f24d10b9b">Add docs on internal links. (cd29165)</a>
 </div>
 
 </div>
