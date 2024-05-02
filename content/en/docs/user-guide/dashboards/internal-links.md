@@ -43,15 +43,15 @@ Dialog links are used to embed any referenced URL in a Stroom popup Dialog. Dial
 ```html
 <div style="padding: 5px;">
     <span style="text-decoration:underline;color:blue;cursor:pointer" 
-          link="[Show Baeldung](https://www.baeldung.com){dialog|Embedded Baeldung In Stroom}">
-        Show Baeldung In Stroom Dialog
+          link="[Show](localhost:8080){dialog|Embedded In Stroom}">
+        Show In Stroom Dialog
     </span>
 </div>
 ```
 
 Note that the dialog title can be controlled by adding a `|` and required title after the type, e.g.
 ```clike
-{dialog|Embedded Baeldung In Stroom}
+{dialog|Embedded In Stroom}
 ```
 
 ## Tab
@@ -61,15 +61,15 @@ Tab links are similar to dialog links are used to embed any referenced URL in a 
 ```html
 <div style="padding: 5px;">
     <span style="text-decoration:underline;color:blue;cursor:pointer" 
-          link="[Show Baeldung](https://www.baeldung.com){tab|Embedded Baeldung In Stroom}">
-        Show Baeldung In Stroom Tab
+          link="[Show](localhost:8080){tab|Embedded In Stroom}">
+        Show In Stroom Tab
     </span>
 </div>
 ```
 
 Note that the tab title can be controlled by adding a `|` and required title after the type, e.g.
 ```clike
-{tab|Embedded Baeldung In Stroom}
+{tab|Embedded In Stroom}
 ```
 
 ## Browser
@@ -79,8 +79,8 @@ Browser links are used to open any referenced URL in a new browser tab. In most 
 ```html
 <div style="padding: 5px;">
     <span style="text-decoration:underline;color:blue;cursor:pointer" 
-          link="[Show Baeldung](https://www.baeldung.com){browser}">
-        Show Baeldung In Browser Tab
+          link="[Show](localhost:8080){browser}">
+        Show In Browser Tab
     </span>
 </div>
 ```
