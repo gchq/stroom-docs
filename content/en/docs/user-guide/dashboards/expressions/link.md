@@ -8,7 +8,13 @@ description: >
   Functions for linking to other screens in Stroom and/or to particular sets of data.
 ---
 
+Links can be inserted into dashboard tables using the `link` function. Links behave as described in [Internal Links]({{< relref "../internal-links" >}}) and the `link` function is just a convenient way to add them to tables. In addition to the `link` function there are other functions such as `annotation`, `dashboard`, `data` and `stepping` that make it easier to supply the required link parameters.
+
 ## Annotation
+
+{{% see-also %}}
+[Annotation Links]({{< relref "../internal-links#Annotation" >}}).
+{{% /see-also %}}
 
 A helper function to make forming links to annotations easier than using [Link](#link).
 The Annotation function allows you to create a link to open the Annotation editor, either to view an existing annotation or to begin creating one with pre-populated values.
@@ -45,6 +51,10 @@ annotation('Create suspect event annotation', null(), 123, 456, 'Suspect Event',
 
 ## Dashboard
 
+{{% see-also %}}
+[Dashboard Links]({{< relref "../internal-links#Dashboard" >}}).
+{{% /see-also %}}
+
 A helper function to make forming links to dashboards easier than using [Link](#link).
 
 ```clike
@@ -63,6 +73,10 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 
 
 ## Data
+
+{{% see-also %}}
+[Data Links]({{< relref "../internal-links#Data" >}}).
+{{% /see-also %}}
 
 Creates a clickable link to open a sub-set of a source of data (i.e. part of a stream) for viewing.
 The data can either be opened in a popup dialog (`dialog`) or in another stroom tab (`tab`).
@@ -131,6 +145,10 @@ To make full use of the `data()` function foe viewing raw data, you need to use 
 
 ## Link
 
+{{% see-also %}}
+[Internal Links]({{< relref "../internal-links" >}}).
+{{% /see-also %}}
+
 Create a string that represents a hyperlink for display in a dashboard table.
 
 ```clike
@@ -163,6 +181,10 @@ If you wish to override the default title or URL of the target link in either a 
 
 
 ## Stepping
+
+{{% see-also %}}
+[Stepping Links]({{< relref "../internal-links#Stepping" >}}).
+{{% /see-also %}}
 
 Open the _Stepping_ tab for the requested data source.
 
