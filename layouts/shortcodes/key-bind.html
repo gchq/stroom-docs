@@ -6,7 +6,7 @@ Pass all the keys as a single comma/pipe dilimted argument.
 Usage:
 key-bind key...
 e.g.
-key-bind "ctrl,shift,x"
+key-bind "ctrl+shift+x"
 key-bind "ctrl|alt|,"
 -->
 
@@ -49,7 +49,15 @@ key-bind "ctrl|alt|,"
 "up" "⬆"
 }}
 
-<span class="key-bind">
+{{ $paramCount := len .Params }}
+{{ $extra_classes := "" }}
+{{ if gt $paramCount 1 }}
+  {{ $extra_classes = "key-bind-multiple" }}
+{{ else }}
+  {{ $extra_classes = "key-bind-single" }}
+{{ end }}
+
+<span class="key-bind {{ $extra_classes}} ">
   {{ $group_no := 1 }}
   {{- range (seq 0 (sub (len .Params) 1) ) -}}
 
@@ -98,7 +106,7 @@ key-bind "ctrl|alt|,"
       {{ end }}
     {{ end }}
 
-    {{ $extra_classes := "" }}
+    {{ $extra_classes = "" }}
     {{ if gt ($keys_sorted | len) 1 }}
       {{ $extra_classes = "key-bind-multiple" }}
     {{ else }}

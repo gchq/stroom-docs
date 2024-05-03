@@ -133,6 +133,10 @@ main() {
   copy_file "${css_base_dir}/material_design_colors.css" "${css_dest_dir}/"
   copy_file "${css_base_dir}/icon-colours.css" "${css_dest_dir}/"
   copy_file "${css_base_dir}/theme-root.css" "${css_dest_dir}/"
+  copy_file "${css_base_dir}/theme-dark.css" "${css_dest_dir}/"
+
+  # Hack to make dark theme the default without having to alter the <body> tag
+  #sed -i 's/\.stroom-theme-dark /:root /'  "${css_dest_dir}/theme-dark.css"
   
   echo -e "${GREEN}Done${NC}"
 }

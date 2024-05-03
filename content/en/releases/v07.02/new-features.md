@@ -127,8 +127,8 @@ The document and folder permissions screens have been re-designed with a better 
 
 ### Editor Completion snippets
 
-The number of available [editor completion snippets]({{< relref "docs/user-guide/content/editing-text/editing-text#auto-completion-and-snippets" >}}) has increased.
-For a list of the available completion snippets see the [Completion Snippet Reference]({{< relref "docs/user-guide/content/editing-text/snippet-reference" >}}).
+The number of available [editor completion snippets]({{< relref "docs/user-guide/content/editing-text#auto-completion-and-snippets" >}}) has increased.
+For a list of the available completion snippets see the [Completion Snippet Reference]({{< relref "docs/reference-section/snippet-reference" >}}).
 
 {{% note %}}
 Completion snippets are an evolving feature so if you have an requests for generic completion snippets then raise an issue on GitHub and we will consider adding them in.
@@ -248,7 +248,7 @@ It defines the location and authentication details for connecting to an elastic 
 {{< image "releases/07.02/elastic-cluster.png" "200x" />}}
 
 {{% see-also %}}
-[Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}) and [searching an Elasticsearch index]({{< relref "/docs/user-guide/dashboards/elasticsearch" >}})
+[Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}) and [searching an Elasticsearch index]({{< relref "/docs/user-guide/search/elasticsearch" >}})
 {{% /see-also %}}
 
 Thanks to Pete K for his help adding the new Elasticsearch integration features.
@@ -261,7 +261,7 @@ An _Elastic Index_ {{< stroom-icon "document/ElasticIndex.svg">}} document is a 
 {{< image "releases/07.02/elastic-index.png" "200x" />}}
 
 {{% see-also %}}
-[Searching an Elasticsearch index]({{< relref "/docs/user-guide/dashboards/elasticsearch" >}})
+[Searching an Elasticsearch index]({{< relref "/docs/user-guide/search/elasticsearch" >}})
 {{% /see-also %}}
 
 

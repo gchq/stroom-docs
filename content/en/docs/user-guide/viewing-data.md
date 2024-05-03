@@ -1,7 +1,7 @@
 ---
 title: "Viewing Data"
 linkTitle: "Viewing Data"
-weight: 180
+weight: 170
 date: 2021-07-27
 tags: 
 description: >

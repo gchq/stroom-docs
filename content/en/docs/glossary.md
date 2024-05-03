@@ -1,7 +1,7 @@
 ---
 title: "Glossary"
 linkTitle: "Glossary"
-weight: 80
+weight: 90
 date: 2022-02-16
 tags: 
 description: >
@@ -64,6 +64,17 @@ The contextual information (such as hostname, FQDN, physical location, etc.) can
 See [Context Data]({{< relref "context-data" >}}), [Stream Concepts]({{< relref "user-guide/concepts" >}}) and [`stroom:lookup()`]({{< relref "user-guide/pipelines/xslt/xslt-functions#lookup" >}}) for more details.
 
 
+## Cron
+
+{{< external-link "cron" "https://en.wikipedia.org/wiki/Cron" >}} is a command line utility found on most linux/unix systems that is used for scheduling background tasks.
+Cron expressions (or variants of them) are widely used in other schedulers.
+
+Stroom uses a scheduler called Quartz which supports cron expressions for scheduling.
+The full details of the cron syntax supported by Quartz can be found {{< external-link "here" "https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html" >}}.
+
+See [Cron Syntax]({{< relref "docs/reference-section/cron" >}}) for more detail.
+
+
 ## CSV
 
 **C**omma **S**eparated **V**alues is a file format with typically one record per line and fields delimited by a `,`.
@@ -74,7 +85,7 @@ Field may be optionally enclosed with double quotes, though there is no fixed st
 
 A Dashboard is a configurable entity for querying one or more {{< glossary "Data Source" "Data Sources">}} and displaying the results as a table, a visualisation or some other form.
 
-See the [User Guide]({{< relref "docs/user-guide/dashboards" >}}) for more detail.
+See the [User Guide]({{< relref "docs/user-guide/search/dashboards" >}}) for more detail.
 
 
 ## Data Source
@@ -99,7 +110,7 @@ Each Field will have:
 
 Data Splitter is a {{< glossary "pipeline" >}} element for converting text data (e.g. CSV, fixed width, delimited, multi-line) into XML for onward processing.
 
-See the [User Guide]({{< relref "docs/user-guide/data-splitter" >}}) or the [Pipeline Element Reference]({{< relref "user-guide/pipelines/element-reference/#dsparser" >}}) for more detail.
+See the [User Guide]({{< relref "docs/user-guide/data-splitter" >}}) or the [Pipeline Element Reference]({{< relref "docs/reference-section/pipeline-elements#dsparser" >}}) for more detail.
 
 
 ## Dictionary
@@ -136,6 +147,16 @@ Stroom can be connected to one or more Elasticsearch clusters so that event inde
 Typically refers to an item that can be created in the Explorer Tree, e.g. a Feed, a Pipeline, a Dashboard, etc. May also be known as a {{< glossary "Document" >}}.
 
 
+## Event
+
+An event is a single auditable event, e.g. a user logging in to a system.
+A {{< glossary "Stream " >}} typically contains multiple events.
+
+In a {{< glossary "Raw Stream" >}} an event is typically represented as block of XML or JSON, a single line for CSV data.
+In an {{< glossary "Events" >}} {{< glossary "Stream" >}} an event is identified by its `Event ID` which its position in that stream (as a one-based number).
+The `Event ID` combined with a `Stream ID` provide a unique identifier for an event within a Stroom instance.
+
+
 ## Events
 
 This is a {{< glossary "Stream Type" >}} in Stroom.
@@ -165,7 +186,7 @@ AND (
 ```
 Expression Trees are used in {{< glossary "Processor Filter" "Processor Filters" >}} and {{< glossary "Query" >}} expressions.
 
-See also [Dashboard Expressions]({{< relref "docs/user-guide/dashboards/expressions" >}}).
+See also [Expression functions]({{< relref "docs/reference-section/expressions" >}}).
 
 
 ## Feed
@@ -242,7 +263,7 @@ An XSLT will define short aliases for _Namespaces_ to make them easier to refere
 A Parser is a {{< glossary "Pipeline" >}} element for parsing {{< glossary "Raw Events" >}} into a structured form.
 For example the Data Splitter Parser that parses text data into {{< glossary "Records" >}} and {{< glossary "Field" "Fields">}}.
 
-See the [Pipeline Element Reference]({{< relref "user-guide/pipelines/element-reference/#parser" >}}) for details.
+See the [Pipeline Element Reference]({{< relref "docs/reference-section/pipeline-elements#parser" >}}) for details.
 
 
 ## Pipeline
@@ -257,7 +278,7 @@ See the [User Guide]({{< relref "docs/user-guide/pipelines" >}}) for more detail
 
 An element within a {{< glossary "Pipeline" >}} that performs some action on the data flowing through it.
 
-See the [Pipeline Element Reference]({{< relref "user-guide/pipelines/element-reference" >}}) for more detail.
+See the [Pipeline Element Reference]({{< relref "docs/reference-section/pipeline-elements" >}}) for more detail.
 
 
 ## Processor
@@ -291,7 +312,7 @@ See [Properties]({{< relref "Properties" >}}) for more detail.
 The search Query in a {{< glossary "Dashboard" >}} that selects the data to display.
 The Query is constructed using an {{< glossary "Expression Tree" >}} of terms.
 
-See the [User Guide]({{< relref "user-guide/dashboards/queries" >}}) for more detail.
+See the [User Guide]({{< relref "user-guide/search/dashboards/queries" >}}) for more detail.
 
 
 ## Raw Events
@@ -325,7 +346,7 @@ They provide the means to search various aspects of Stroom's internals, such as 
 
 The process of extracting un-indexed {{< glossary "Field" >}} values from the source {{< glossary "Event" >}}/Record to be used in search results.
 
-See the [User Guide]({{< relref "docs/user-guide/dashboards/search-extraction" >}}) for more detail.
+See the [User Guide]({{< relref "docs/user-guide/search/search-extraction" >}}) for more detail.
 
 
 ## Stream
@@ -358,7 +379,7 @@ Some Stream Types, such as `Meta` and `Context` only exist as [child streams]({{
 It has similarities with Structured Query Language (SQL) as used in databases.
 StroomQL is sometimes referred to as _sQL_ to distinguish it from _SQL_.
 
-See [Stroom Query Language]({{< relref "user-guide/dashboards/stroom-query-language" >}})
+See [Stroom Query Language]({{< relref "user-guide/search/queries/stroom-query-language" >}})
 
 
 ## Stepper
@@ -396,7 +417,7 @@ A Universally Unique Identifier for uniquely identifying something.
 UUIDs are used as the identifier in {{< glossary "DocRef" "DocRefs" >}}.
 An example of a UUID is `4ffeb895-53c9-40d6-bf33-3ef025401ad3`.
 
-See the [User Guide]({{< relref "user-guide/dashboards" >}}) for more detail.
+See the [User Guide]({{< relref "user-guide/search/dashboards" >}}) for more detail.
 
 
 ## Visualisation

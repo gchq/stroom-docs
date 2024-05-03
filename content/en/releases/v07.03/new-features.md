@@ -78,20 +78,20 @@ Accessed using {{< key-bind "ctrl,e" >}} or
 
 ### Editor Snippets
 
-[Snippets]({{< relref "docs/user-guide/content/editing-text/editing-text#auto-completion-and-snippets" >}}) are a way of quickly adding snippets of pre-defined text into the text editors in Stroom.
+[Snippets]({{< relref "docs/user-guide/content/editing-text#auto-completion-and-snippets" >}}) are a way of quickly adding snippets of pre-defined text into the text editors in Stroom.
 Snippets have been available in previous versions of Stroom however there have been various additions to the library of snippets available which makes creating/editing content a lot easier.
 
 * Add snippets for [Data Splitter]({{< relref "docs/user-guide/data-splitter" >}}).
-  For the list of available snippets see [here]({{< relref "docs/user-guide/content/editing-text/snippet-reference#data-splitter-snippets" >}}).
+  For the list of available snippets see [here]({{< relref "docs/reference-section/snippet-reference#data-splitter-snippets" >}}).
 
-* Add snippets for [XMLFragmentParser]({{< relref "docs/user-guide/pipelines/element-reference#xmlfragmentparser" >}}).
-  For the list of available snippets see [here]({{< relref "docs/user-guide/content/editing-text/snippet-reference#xmlfragmentparser-snippets" >}}).
+* Add snippets for [XMLFragmentParser]({{< relref "docs/reference-section/pipeline-elements#xmlfragmentparser" >}}).
+  For the list of available snippets see [here]({{< relref "docs/reference-section/snippet-reference#xmlfragmentparser-snippets" >}}).
 
 * Add new XSLT snippets for `<xsl:element>` and `<xsl:message>`.
-  For the list of available snippets see [here]({{< relref "docs/user-guide/content/editing-text/snippet-reference#xmlxslt-snippets" >}}).
+  For the list of available snippets see [here]({{< relref "docs/reference-section/snippet-reference#xmlxslt-snippets" >}}).
 
 * Add snippets for {{< glossary "StroomQL" >}}.
-  For the list of available snippets see [here]({{< relref "docs/user-guide/content/editing-text/snippet-reference#stroom-query-language-snippets" >}}).
+  For the list of available snippets see [here]({{< relref "docs/reference-section/snippet-reference#stroom-query-language-snippets" >}}).
 
 
 ### API Keys

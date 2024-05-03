@@ -247,7 +247,7 @@ This time you should see the XSLT filter there too, as well as the basic XML bei
 
 {{< image "quick-start-guide/process/stepping-03.png" "500" >}}Stepping the XSLT filter{{< /image >}}
 
-There's a few more things to get this pipeline ready for doing this [task]({{< relref "../user-guide/jobs.md" >}}) for real.
+There's a few more things to get this pipeline ready for doing this [task]({{< relref "/docs/reference-section/jobs" >}}) for real.
 We need to get this data to a destination.
 
 

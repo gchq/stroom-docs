@@ -1,7 +1,7 @@
 ---
 title: "Data Splitter"
 linkTitle: "Data Splitter"
-weight: 50
+weight: 60
 date: 2021-07-27
 tags: 
 description: >

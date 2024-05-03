@@ -40,7 +40,7 @@ These two filters may be amalgamated in a future version of Stroom.
 The Query {{< stroom-icon "document/Query.svg">}} feature provides a new way to query data in Stroom.
 It is a functional but evolving feature that is likely to be enhanced further in future versions.
 
-Rather than using the query expression builder and table column expressions as used in Dashboards, it uses the new text based [Stroom Query Language]({{< relref "docs/user-guide/dashboards/stroom-query-language" >}}) to define the query.
+Rather than using the query expression builder and table column expressions as used in Dashboards, it uses the new text based [Stroom Query Language]({{< relref "docs/user-guide/search/queries/stroom-query-language" >}}) to define the query.
 
 {{< image "releases/07.02/query.png" "300x" />}}
 

@@ -9,8 +9,50 @@ stroom-btn "Ok"
 stroom-btn "Cancel"
 -->
 
-{{ $title := .Get 0 }}
+{{ $iconName := "" }}
+{{ $title := "" }}
+{{ $type := "" }}
+{{ $filename := "" }}
 
-<span class="stroom-button" title="{{ $title }} button" >
+{{- if .IsNamedParams -}}
+  {{- $title = (.Get "title" ) -}}
+  {{- $type = (.Get "type") -}}
+  {{- $filename = (.Get "filename") -}}
+{{- else -}}
+  {{- $title = (.Get 0) -}}
+  {{- $type = (.Get 1) -}}
+  {{- $filename = (.Get 2) -}}
+{{- end -}}
+
+{{ $extra_classes := "" }}
+{{ if eq (lower $title) "ok" }}
+  {{ $title = "OK" }}
+  {{ $extra_classes = "stroom-button-primary" }}
+  {{ $filename = "tick.svg" }}
+{{ else if eq (lower $title) "close" }}
+  {{ $title = "Close" }}
+  {{ $extra_classes = "stroom-button-primary" }}
+  {{ $filename = "close.svg" }}
+{{ else if eq (lower $title) "cancel" }}
+  {{ $title = "Cancel" }}
+  {{ $extra_classes = "stroom-button-secondary" }}
+  {{ $filename = "close.svg" }}
+{{ else if eq $type "primary" }}
+  {{ $extra_classes = "stroom-button-primary" }}
+{{ else if eq $type "secondary" }}
+  {{ $extra_classes = "stroom-button-secondary" }}
+{{ else }}
+  {{ $extra_classes = "key-bind-single" }}
+{{ end }}
+
+<span class="stroom-theme-dark stroom-button {{ $extra_classes}}" title="{{ $title }} button" >
+  {{ if $filename }}
+    {{- partial "stroom-icon.partial.html" (dict 
+        "context" . 
+        "file" $filename 
+        "title" $title
+        "enabled" true 
+        "colour" "grey" ) -}}
+  {{ end }}
   <span class="stroom-button-text">{{ $title }}</span>
 </span>

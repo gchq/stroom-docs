@@ -296,10 +296,21 @@ To display a user interface button you can use the shortcode `stroom-btn` with t
 
 **Arguments**:
 * `title` - The text to display on the button.
+* `type` - Optional.
+  (`primary`|`secondary`).
+  * `primary` results in a blue button.
+  * `secondary` results in a red button.
+  * _Not Set_ results in a standard grey button.
+* `filename` - Optional.
+  Filename of an icon to use next to the text, e.g. `undo.svg`.
+
+{{% note %}}
+If the _title_ is `OK`, `Close` or `Cancel` then the type and filename do not need to be set as they will be set automatically.
+{{% /note %}}
 
 **Examples:**
 
-{{< stroom-btn "Ok" >}} and {{< stroom-btn "Cancel" >}}
+{{< stroom-btn "Ok" >}}, {{< stroom-btn "Close" >}}, {{< stroom-btn "Cancel" >}} and {{< stroom-btn title="Undo" filename="undo.svg" >}}
 
 And not in line
 
@@ -310,7 +321,7 @@ And not in line
 The markdown for the examples above is:
 
 ```markdown
-{{</* stroom-btn "Ok" */>}} and {{</* stroom-btn "Cancel" */>}}
+{{</* stroom-btn "Ok" */>}}, {{</* stroom-btn "Close" */>}}, {{</* stroom-btn "Cancel" */>}} and {{</* stroom-btn title="Undo" filename="undo.svg" */>}}
 
 And not in line
 
@@ -426,7 +437,7 @@ Simple: {{< stroom-tab "Feed.svg" "MY_FEED" >}}
 
 Custom name: {{< stroom-tab "XSLT.svg" "My Translation" >}}
 
-Active: {{< stroom-tab "XSLT.svg" "My Translation" "active" >}}
+Active/Inactive: {{< stroom-tab "XSLT.svg" "My Translation" "active" >}} {{< stroom-tab "XSLT.svg" "My Translation" >}}
 
 Unsaved: {{< stroom-tab "XSLT.svg" "My Translation" "active" "unsaved" >}}
 
@@ -437,7 +448,7 @@ The markdown for these examples is:
 ```markdown
 Simple: {{</* stroom-tab "Feed.svg" "MY_FEED" */>}}
 Custom name: {{</* stroom-tab "XSLT.svg" "My Translation" */>}}
-Active: {{</* stroom-tab "XSLT.svg" "My Translation" "active" */>}}
+Active/Inactive: {{</* stroom-tab "XSLT.svg" "My Translation" "active" */>}} {{</* stroom-tab "XSLT.svg" "My Translation" */>}}
 Unsaved: {{</* stroom-tab "XSLT.svg" "My Translation" "active" "unsaved" */>}}
 ```
 

@@ -209,6 +209,27 @@ html {
   }
 }
 
+.td-content {
+  // Inline code
+  p code, li > code, table code {
+    background-color: $stroom-inline-code-background;
+  }
+}
+
+//////////////
+//  Tables  //
+//////////////
+
+.table {
+  //background-color: $table-bg; // Reset for nesting within parents with `background-color`.
+  th,
+  td {
+    // Default is 0.75rem which makes them too big
+    //padding: 0.3rem 0.6rem;
+  }
+}
+
+
 ////////////////////////////
 //  code-block shortcode  //
 ////////////////////////////
@@ -406,7 +427,8 @@ pre[class*=language-] {
   .pipeline-element-text {
     //color: var(--pipeline-element-box__text-color);
     // The UI colour is a bit feint for the docs so make it darker
-    color: #333;
+    //color: #333;
+    color: var(--text-color);
     font-size: 75%;
     padding-right: 0.5em;
     text-align: center;
@@ -503,6 +525,10 @@ div.pipeline-element-demo {
   text-align: center;
   line-height: 1.3em;
   border-bottom: 1px solid var(--splitter__background-color);
+  background-color: var(--app__background-color);
+  color: var(--text-color);
+  border-bottom: solid 3px var(--app__background-color);
+
 
   .stroom-tab-icon span {
     vertical-align: 0.06em;
@@ -536,7 +562,7 @@ div.pipeline-element-demo {
 
 .stroom-tab.stroom-tab-active {
   //background-color: $stroom-tab-background-active;
-  background: var(--curve-tab__background-color--hover);
+  background: var(--curve-tab__background-color--selected);
   border-bottom: solid 3px var(--blue-300);
 }
 
@@ -546,18 +572,41 @@ div.pipeline-element-demo {
 ///////////////////////////////
 
 .stroom-button {
+  color: $stroom-button-text-colour;
   background-color: $stroom-button-background;
+  font-weight: 400;
   border-radius: 7px;
   border: solid 1px $stroom-button-border;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.30) 1px 2px 4px;
   display: inline-block;
   padding: 0px 15px;
   text-align: center;
   min-width: 100px;
   line-height: 1.3em;
 
+  &.stroom-button-primary {
+    background-color: $stroom-button-primary-background;
+    //background-color: var(--button-contained-primary__background-color);
+    border: solid 1px $stroom-button-primary-border;
+    //border: solid 1px var(--button-contained-primary__background-color);
+    color: $stroom-button-primary-text-colour;
+  }
+
+  &.stroom-button-secondary {
+    background-color: $stroom-button-secondary-background;
+    //background-color: var(--button-contained-secondary__background-color);
+    border: solid 1px $stroom-button-secondary-border;
+    //border: solid 1px var(--button-contained-secondary__background-color);
+    color: $stroom-button-secondary-text-colour;
+  }
+
+  .stroom-icon svg {
+    color: $stroom-button-text-colour;
+    vertical-align: -0.1em;
+  }
+
   .stroom-button-text {
-    font-size: smaller;
+    font-size: 0.9rem;
     vertical-align: 0.12em;
   }
 }
@@ -575,6 +624,7 @@ div.pipeline-element-demo {
   position: relative;
   display: flex;
   width: fit-content;
+  color: var(--text-color);
 
   .stroom-menu-item-background:not(:first-child) {
     // top-margin is set in style="" in shortcode
@@ -584,13 +634,17 @@ div.pipeline-element-demo {
 
   // Meant to represent the bit of menu that the selected item sits in
   .stroom-menu-item-background {
-    background-color: white;
+    background-color: $stroom-app-background;
     border-color: rgba(0, 0, 0, 0.45);
+    border-color: $stroom-menu-border-colour;
     border-left-style: solid;
-    border-radius: 2px;
+    //border-radius: 2px;
+    border-radius: var(--dialog__border-radius);
     border-right-style: solid;
     border-width: 1px;
-    box-shadow: rgba(0, 0, 0, 0.25) 1px 2px 5px;
+    //box-shadow: rgba(0, 0, 0, 0.25) 1px 2px 5px;
+    box-shadow: rgba(0, 0, 0, .5) 0 0 5px 1px;
+    //box-shadow: var(--popup__shadow);
     flex-direction: column;
     width: fit-content;
     height: fit-content;
@@ -616,6 +670,7 @@ div.pipeline-element-demo {
     padding: 0.2em 0.2em;
 
     .stroom-menu-item-text {
+      font-size: 0.95rem;
       flex-grow: 1;
     }
 
@@ -658,6 +713,14 @@ span.key-bind {
     display: inline-flex;
     align-items: center;
 
+    &.key-bind-multiple {
+      padding: 0.05em 0.1em;
+      border-style: solid;
+      border-color: #dbdbdb;
+      border-radius: 6px;
+      border-width: 1px;
+    }
+
   span.key-bind-group {
     display: flex;
     align-items: center;
@@ -666,7 +729,7 @@ span.key-bind {
       padding: 0.05em 0.1em;
       border-style: solid;
       border-color: #dbdbdb;
-      border-radius: 6px;
+      border-radius: 4px;
       border-width: 1px;
     }
   }
@@ -693,8 +756,8 @@ span.key-bind {
 
   span.key-bind-key {
     font-weight: 600;
-    background-color: dimgrey;
-    border-radius: 6px;
+    //background-color: dimgrey;
+    border-radius: 4px;
     color: white;
     margin: 0.1em 0.1em;
     padding: 0 0.4em;
@@ -703,6 +766,7 @@ span.key-bind {
     justify-content: center;
     line-height:1.4em;
     box-shadow: rgba(0, 0, 0, 0.30) 1px 2px 4px;
+    background: radial-gradient(closest-side, #9e9e9e 0%, #7e7e7e 70%, #696969 100%);
   }
 }
 

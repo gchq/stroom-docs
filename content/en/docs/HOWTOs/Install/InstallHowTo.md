@@ -359,7 +359,7 @@ set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
-[Data Processors]({{< relref "../../user-guide/jobs.md#data-processor" >}})
+[Data Processors]({{< relref "/docs/reference-section/jobs#data-processor" >}})
 need to be enabled. There are NOT enabled by default on installation. The following
 [section]({{< relref "../General/TasksHowTo.md#enable-stream-processors" >}})
 in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.
@@ -409,7 +409,7 @@ We will test a number of features as part of our installation test. These are
 As part of our testing will check the presence of the inbound data, as files, within the proxy storage area.
 Now as the proxy storage area is also the location from which the Stroom application
 automatically aggregates then ingests the data stored by the proxy, we can either turn off the
-[Proxy Aggregation]({{< relref "../../user-guide/jobs.md#proxy-aggregation" >}}) task,
+[Proxy Aggregation]({{< relref "/docs/reference-section/jobs#proxy-aggregation" >}}) task,
 or attempt to
 perform our tests noting that proxy aggregation occurs every 10 minutes by default. For simplicity, we will
 [turn off the `Proxy Aggregation` task]({{< relref "../General/TasksHowTo.md#turn-off-proxy-aggregation" >}}).
@@ -823,7 +823,7 @@ set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
-[Data Processors]({{< relref "../../user-guide/jobs.md#data-processor" >}})
+[Data Processors]({{< relref "/docs/reference-section/jobs#data-processor" >}})
 need to be enabled. There are NOT enabled by default on installation. The following
 [section]({{< relref "../General/TasksHowTo.md#enable-stream-processors-on-new-node" >}})
 in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.

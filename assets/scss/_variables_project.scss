@@ -9,8 +9,11 @@ https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
 //$primary: #ff6f00; // dirty amber
 //$secondary: #2196f3; // stroom blue
 
-$primary: #2196f3; // stroom blue
-$secondary: #ff6f00; // dirty amber rgb(255,111,0)
+$stroom-blue: #2196f3;
+$stroom-dirty-amber: #ff6f00;
+
+$primary: $stroom-blue; // stroom blue
+$secondary: $stroom-dirty-amber; // dirty amber rgb(255,111,0)
 
 // sames as gray-200
 $light: #eee !default;
@@ -36,17 +39,45 @@ $box-shadow-stroom:
 // If we disable this we will get one less error when running the site offline
 //$td-enable-google-fonts: false;
 
+$stroom-app-background: rgb(34, 37, 44);
+
 $stroom-tab-border: #2d6495;
 $stroom-tab-background: #bbdbf7;
 $stroom-tab-background-active: #fff;
 
-$stroom-button-border: #908d8b;
-$stroom-button-background: #f6f5f5;
+$stroom-button-background: #373c47;
+//$stroom-button-text-colour: rgb(224, 224, 224); // grey 300
+$stroom-button-text-colour: var(--grey-300); // grey 300
+$stroom-button-border: $stroom-button-background;
+
+//$stroom-button-primary-background: #1976d2; // blue 700
+$stroom-button-primary-background: var(--blue-700);
+$stroom-button-primary-border: $stroom-button-primary-background;
+$stroom-button-primary-text-colour: white;
+
+//$stroom-button-secondary-background: #ad1457; // pink 800
+$stroom-button-secondary-background: var(--pink-800); // pink 800
+$stroom-button-secondary-border: $stroom-button-secondary-background;
+$stroom-button-secondary-text-colour: white;
 
 //$stroom-pipe-element-border: #c4c7ca;
 $stroom-pipe-element-border: #918e8c;
 $stroom-pipe-element-background: #f5f9fd;
 $stroom-pipe-element-text: #000;
 
+$stroom-menu-border-colour: #2c2f35;
+
 // Remove the feint blue background on the left side bar
 $td-sidebar-bg-color: #fff;
+
+// Default used alpha so looked odd against the table row bg
+$stroom-inline-code-background: #f1f1f1;
+
+//////////////
+//  Tables  //
+//////////////
+
+// Default is 0.75rem all round, which is too big
+$table-cell-padding: 0.3rem 0.6rem;
+// bg colour of alternating rows
+$table-accent-bg: rgba($primary, 0.08);

@@ -1,7 +1,7 @@
 ---
 title: "Pipelines"
 linkTitle: "Pipelines"
-weight: 110
+weight: 100
 date: 2021-07-27
 tags: 
   - pipeline
@@ -11,7 +11,7 @@ description: >
 ---
 
 Stroom uses Pipelines to process its data.
-A pipeline is a set of [pipeline elements]({{< relref "element-reference" >}}) connected together.
+A pipeline is a set of [pipeline elements]({{< relref "docs/reference-section/pipeline-elements" >}}) connected together.
 Pipelines are very powerful and flexible and allow the user to transform, index, store and forward data in a wide variety of ways.
 
 

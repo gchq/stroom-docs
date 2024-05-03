@@ -75,7 +75,7 @@ stroom-icon add.svg
 {{- if eq (.Get 0) "pipe_elm_demo" }}
 
   {{/* Render all the elements for a gallery page */}}
-  <div class="pipeline-element-demo row">
+  <div class="stroom-theme-dark pipeline-element-demo row">
     {{- range $elm_name, $filename := $element_map }}
       <div class="pipeline-element-demo-item col-md-3">
       {{/* Call the locally declared partial to render a single element */}}
@@ -128,13 +128,13 @@ stroom-icon add.svg
     {{ $image := resources.Get (printf "%s" $path) }}
 
     {{ if $image }}
-      {{ $elm_ref_url := "docs/user-guide/pipelines/element-reference" | relURL}}
+      {{ $elm_ref_url := "docs/reference-section/pipeline-elements" | relURL}}
       {{ $elm_ref_url = printf "%s#%s" $elm_ref_url (anchorize $elm_name) }}
       {{ $title := printf "%s \"%s\"" $elm_name $display_name }}
 
       {{/* Surround the outer span with hyperlink tag to the appropriate anchor on the element reference page */}}
       <a href="{{ $elm_ref_url }}" class="" style="" title="">
-        <span class="pipeline-element" title="{{ $title }}" >
+        <span class="stroom-theme-dark pipeline-element" title="{{ $title }}" >
           <span class="pipeline-element-content" >
             <span class="pipeline-element-icon">
               {{ partial "stroom-icon.partial.html" (dict 

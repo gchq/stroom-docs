@@ -475,6 +475,6 @@ If you created a data view in Kibana, you'll also want to update this to point t
 
 
 {{% see-also %}}
-1. [Searching an Elasticsearch index in a Dashboard]({{< relref "../../dashboards/elasticsearch.md" >}})
+1. [Searching an Elasticsearch index in a Dashboard]({{< relref "../../search/elasticsearch.md" >}})
 1. [Exploring data with Kibana]({{< relref "kibana.md" >}})
 {{% /see-also %}}

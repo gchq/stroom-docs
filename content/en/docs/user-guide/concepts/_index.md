@@ -1,7 +1,7 @@
 ---
 title: "Concepts"
 linkTitle: "Concepts"
-weight: 20
+weight: 30
 date: 2021-07-27
 tags: 
 description: >

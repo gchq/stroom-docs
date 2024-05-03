@@ -1,7 +1,7 @@
 ---
 title: "Event Feeds"
 linkTitle: "Event Feeds"
-weight: 60
+weight: 70
 date: 2021-07-27
 tags:
   - feed

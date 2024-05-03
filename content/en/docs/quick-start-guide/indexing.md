@@ -129,7 +129,7 @@ You should now see the following structure:
 Inheriting from another pipeline often means the structure is there but some properties may not have been set, e.g. `xslt` in the _xsltFilter_.
 If a property has been set in the partent pipeline then you can either use the inherited value or override it.
 
-See the [Pipeline Element Reference]({{< relref "docs/user-guide/pipelines/element-reference.md" >}}) for details of what each element does.
+See the [Pipeline Element Reference]({{< relref "docs/reference-section/pipeline-elements" >}}) for details of what each element does.
 
 Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT document we created earlier and set the `index` property on the _indexFilter_ to point to the index we created.
 

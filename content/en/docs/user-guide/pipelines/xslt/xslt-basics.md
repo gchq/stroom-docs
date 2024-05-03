@@ -190,7 +190,7 @@ This XSLT will copy every node and attribute as they are, returning the input do
 You can then add additional templates to match on specific elements and modify them, for example decorating a user's `UserDetails` elements with value obtained from a reference data lookup on a user ID.
 
 {{% note %}}
-You can insert this identity skeleton into an XSLT editor using this editor [snippet]({{< relref "/docs/user-guide/content/editing-text/snippet-reference#events-identity-skeleton" >}}).
+You can insert this identity skeleton into an XSLT editor using this editor [snippet]({{< relref "snippet-reference#events-identity-skeleton" >}}).
 {{% /note %}}
 
 

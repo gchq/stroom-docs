@@ -527,7 +527,7 @@ world
 (out)hello world
 id
 (out)uid=1000(david) gid=1000(david)
-{{</* command-line */>}}
+{{</*/ command-line */>}}
 ```
   {{< /card >}}
 {{< /cardpane >}}
@@ -590,7 +590,7 @@ select database();
 (out)| stroom     |
 (out)+------------+
 (out)1 row in set (0.00 sec)
-{{</* sql-shell */>}}
+{{</*/ sql-shell */>}}
 ```
   {{< /card >}}
 {{< /cardpane >}}

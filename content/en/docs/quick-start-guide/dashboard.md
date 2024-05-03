@@ -65,7 +65,7 @@ We want a count of records grouped by _Application_.
 _Count_ is a special column (not in the index) that applies the aggregate function `count()`.
 All columns are actually just an expression which may be a simple field like `${Application}` or a function.
 Stroom has a rich library of functions for aggregating and mutating query results.
-See [Expressions]({{< relref "/docs/user-guide/dashboards/expressions" >}}).
+See [Expressions]({{< relref "/docs/reference-section/expressions" >}}).
 {{% /note %}}
 
 To group our data by _Application_ we need to apply a group level to the _Application_ column.

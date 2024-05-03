@@ -11,7 +11,7 @@ description: >
 ---
 
 Various
-[Tasks]({{< relref "../../user-guide/jobs.md" >}})
+[Tasks]({{< relref "/docs/reference-section/jobs" >}})
 run in the background within Stroom. This HOWTO demonstrates how to manage these tasks
 
 
