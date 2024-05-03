@@ -119,7 +119,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.f413a5943dc7dd0b77b193c3d9204706.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.9e73f9f38c39e687ca6936b54c2ffc41.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1247,14 +1247,16 @@ roundYear(&quot;2014-02-22T12:12:12.888Z&quot;
     
   <h1 id="pg-96c7b8143cd6966fdf891df8863bd6c3">2.4 - Link Functions</h1>
     <div class="lead">Functions for linking to other screens in Stroom and/or to particular sets of data.</div>
-	<p>Links can be inserted into dashboard tables using the <code>link</code> function. Links behave as described in <a href="../../../../docs/user-guide/dashboards/internal-links/">Internal Links</a> and the <code>link</code> function is just a convenient way to add them to tables. In addition to the <code>link</code> function there are other functions such as <code>annotation</code>, <code>dashboard</code>, <code>data</code> and <code>stepping</code> that make it easier to supply the required link parameters.</p>
+	<p>Links can be inserted into dashboard tables using the <code>link</code> function.
+All link types described in <a href="../../../../docs/user-guide/dashboards/internal-links/">Internal Links</a> can be added to dashboard tables using the <code>link</code> function.
+In addition to the <code>link</code> function there are convenience functions such as <code>annotation</code>, <code>dashboard</code>, <code>data</code> and <code>stepping</code> that make it easier to supply the required link parameters.</p>
 <h2 id="annotation">Annotation</h2>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#Annotation">Annotation Links</a>.</p>
+    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#annotation">Annotation Links</a>.</p>
 
 
 </div>
@@ -1287,7 +1289,7 @@ If you don&rsquo;t need to pre-populate a value then you can use <code>''</code>
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#Dashboard">Dashboard Links</a>.</p>
+    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#dashboard">Dashboard Links</a>.</p>
 
 
 </div>
@@ -1309,57 +1311,16 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#Data">Data Links</a>.</p>
+    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#data">Data Links</a>.</p>
 
 
 </div>
 
 
-<p>Creates a clickable link to open a sub-set of a source of data (i.e. part of a stream) for viewing.
-The data can either be opened in a popup dialog (<code>dialog</code>) or in another stroom tab (<code>tab</code>).
-It can also be display in <code>preview</code> form (with formatting and syntax highlighting) or unaltered <code>source</code> form.</p>
+<p>A helper function to make forming links to data easier than using <a href="#link">Link</a>.</p>
 <pre><code class="language-clike">data(text, id, partNo, [recordNo, lineFrom, colFrom, lineTo, colTo, viewType, displayType])
 </code></pre>
-<p>Stroom deals in two main types of stream, segmented and non-segmented (see <a href="../../../../docs/user-guide/concepts/streams/">Streams</a>).
-Data in a non-segmented (i.e. raw) stream is identified by an <code>id</code>, a <code>partNo</code> and optionally line and column positions to define the sub-set of that stream part to display.
-Data in a segmented (i.e. cooked) stream is identified by an <code>id</code>, a <code>recordNo</code> and optionally line and column positions to define the sub-set of that record (i.e. event) within that stream.</p>
-<p>The line and column positions will define a highlight block of text within the part/record.</p>
-<p>Arguments:</p>
-<ul>
-<li><code>text</code> - The link text that will be displayed in the table.</li>
-<li><code>id</code> - The stream ID.</li>
-<li><code>partNo</code> - The part number of the stream (one based).
-Always <code>1</code> for segmented (cooked) streams.</li>
-<li><code>recordNo</code> - The record number within a segmented stream (optional).
-Not applicable for non-segmented streams so use <code>null()</code> instead.</li>
-<li><code>lineFrom</code> - The line number of the start of the sub-set of data (optional, one based).</li>
-<li><code>colFrom</code> - The column number of the start of the sub-set of data (optional, one based).</li>
-<li><code>lineTo</code> - The line number of the end of the sub-set of data (optional, one based).</li>
-<li><code>colTo</code> - The column number of the end of the sub-set of data (optional, one based).</li>
-<li><code>viewType</code> - The type of view of the data (optional, defaults to <code>preview</code>):
-<ul>
-<li><code>preview</code> : Display the data as a formatted preview of a limited portion of the data.</li>
-<li><code>source</code> : Display the un-formatted data in its original form with the ability to navigate around all of the data source.</li>
-</ul>
-</li>
-<li><code>displayType</code> - The way of displaying the data (optional, defaults to <code>dialog</code>):
-<ul>
-<li><code>dialog</code> : Open as a modal popup dialog.</li>
-<li><code>tab</code> : Open as a top level tab within the Stroom browser tab.</li>
-</ul>
-</li>
-</ul>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-
-    <p>The <code>displayType</code> value <code>tab</code> is not supported if the dashboard is viewed via a <a href="../../../../docs/user-guide/dashboards/direct-urls/">Direct URL</a>. This is because a direct URL displays only the dashboard without Stroom’s top level tab bar so it is not possible to open it as a top level tab.</p>
-
-
-</div>
-
-
+<p>Example</p>
 <pre><code class="language-clike">data('Quick View', ${StreamId}, 1)
 &gt; [Quick View]?id=1234&amp;&amp;partNo=1)
 </code></pre>
@@ -1372,18 +1333,6 @@ Not applicable for non-segmented streams so use <code>null()</code> instead.</li
 <p>Example of a single record (event) from a segmented stream, viewed formatted in a stroom tab:</p>
 <pre><code class="language-clike">data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'preview', 'tab')
 </code></pre>
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-
-
-    <p>To make full use of the <code>data()</code> function foe viewing raw data, you need to use the <code>stroom:source()</code> <a href="../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Function</a> to decorate an event with the details of the source location it derived from.</p>
-
-
-</div>
-
-
 <h2 id="link">Link</h2>
 
 <div class="alert alert-primary" role="alert">
@@ -1402,30 +1351,22 @@ link(text, url)
 link(text, url, type)
 </code></pre>
 <p>Example</p>
-<pre><code class="language-clike">link('http://www.somehost.com/somepath')
-&gt; [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath')
-&gt; [Click Here](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath', 'dialog')
-&gt; [Click Here](http://www.somehost.com/somepath){dialog}
-link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
-&gt; [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
+<pre><code class="language-clike">link('https://www.somehost.com/somepath')
+&gt; [https://www.somehost.com/somepath](https://www.somehost.com/somepath)
+link('Click Here','https://www.somehost.com/somepath')
+&gt; [Click Here](https://www.somehost.com/somepath)
+link('Click Here','https://www.somehost.com/somepath', 'dialog')
+&gt; [Click Here](https://www.somehost.com/somepath){dialog}
+link('Click Here','https://www.somehost.com/somepath', 'dialog|Dialog Title')
+&gt; [Click Here](https://www.somehost.com/somepath){dialog|Dialog Title}
 </code></pre>
-<p>Type can be one of:</p>
-<ul>
-<li><code>dialog</code> : Display the content of the link URL within a stroom popup dialog.</li>
-<li><code>tab</code> : Display the content of the link URL within a stroom tab.</li>
-<li><code>browser</code> : Display the content of the link URL within a new browser tab.</li>
-<li><code>dashboard</code> : Used to launch a stroom dashboard internally with parameters in the URL.</li>
-</ul>
-<p>If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both <code>dialog</code> and <code>tab</code> types allow titles to be specified after a <code>|</code>, e.g. <code>dialog|My Title</code>.</p>
 <h2 id="stepping">Stepping</h2>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#Stepping">Stepping Links</a>.</p>
+    <p><a href="../../../../docs/user-guide/dashboards/internal-links/#stepping">Stepping Links</a>.</p>
 
 
 </div>
@@ -2524,13 +2465,23 @@ Stroom can then used these two fields to locate the event in the stream store an
 <div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
     
   <h1 id="pg-bcfe35b40013cbccc4c70ea9442e8df8">5 - Internal Links</h1>
-    <div class="lead">Adding links within Stroom to internal items or external URLs.</div>
-	<p>Within Stroom links can be created in dashboard tables or dashboard text panes that will direct Stroom to display an item in various ways.</p>
+    <div class="lead">Adding links within Stroom to internal features/items or external URLs.</div>
+	<p>Within Stroom, links can be created in dashboard tables or dashboard text panes that will direct Stroom to display an item in various ways.</p>
 <p>Links are inserted in the form:</p>
 <pre><code class="language-clike">[Link Text](URL and parameters){Link Type}
 </code></pre>
-<p>In dashboard tables links can be inserted using the <a href="../../../../docs/user-guide/dashboards/expressions/link/#Link"><code>link()</code></a> function or more specialised functions such as <a href="../../../../docs/user-guide/dashboards/expressions/link/#Data"><code>data()</code></a> or <a href="../../../../docs/user-guide/dashboards/expressions/link/#Stepping"><code>stepping()</code></a>.</p>
-<p>In dashboard text panes, links can be inserted into the HTML as <code>link</code> attributes on elements. Note that the text pane must be set to <code>Show As HTML</code>.</p>
+<p>In dashboard tables links can be inserted using the <a href="../../../../docs/user-guide/dashboards/expressions/link/#link"><code>link()</code></a> function or more specialised functions such as <a href="../../../../docs/user-guide/dashboards/expressions/link/#data"><code>data()</code></a> or <a href="../../../../docs/user-guide/dashboards/expressions/link/#stepping"><code>stepping()</code></a>.</p>
+<p>In dashboard text panes, links can be inserted into the HTML as <code>link</code> attributes on elements.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    The text pane must be set to <code>Show As HTML</code> for links to operate.
+
+</div>
+
+
 <pre><code class="language-html">  &lt;div style=&quot;padding: 5px;&quot;&gt;
     &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; link=&quot;[link](uuid=e177cf16-da6c-4c7d-a19c-09a201f5a2da&amp;amp;params=user%3Duser1&amp;amp;title=Details%20For%20user1){dashboard}&quot;&gt;Details For user1&lt;/span&gt;
   &lt;/div&gt;
@@ -2546,43 +2497,93 @@ Stroom can then used these two fields to locate the event in the stream store an
 <li><code>annotation</code> : Used to show a Stroom annotation internally with parameters in the URL.</li>
 </ul>
 <h2 id="dialog">Dialog</h2>
-<p>Dialog links are used to embed any referenced URL in a Stroom popup Dialog. Dialog links look something like this in HTML:</p>
+<p>Dialog links are used to embed any referenced URL in a Stroom popup Dialog.
+Dialog links look something like this in HTML:</p>
 <pre><code class="language-html">&lt;div style=&quot;padding: 5px;&quot;&gt;
     &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; 
-          link=&quot;[Show](localhost:8080){dialog|Embedded In Stroom}&quot;&gt;
+          link=&quot;[Show](https://www.somehost.com/somepath){dialog|Embedded In Stroom}&quot;&gt;
         Show In Stroom Dialog
     &lt;/span&gt;
 &lt;/div&gt;
 </code></pre>
-<p>Note that the dialog title can be controlled by adding a <code>|</code> and required title after the type, e.g.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    The dialog title can be controlled by adding a <code>|</code> and required title after the type, e.g.
+
+</div>
+
+
 <pre><code class="language-clike">{dialog|Embedded In Stroom}
 </code></pre>
 <h2 id="tab">Tab</h2>
-<p>Tab links are similar to dialog links are used to embed any referenced URL in a Stroom tab. Tab links look something like this in HTML:</p>
+<p>Tab links are similar to dialog links are used to embed any referenced URL in a Stroom tab.
+Tab links look something like this in HTML:</p>
 <pre><code class="language-html">&lt;div style=&quot;padding: 5px;&quot;&gt;
     &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; 
-          link=&quot;[Show](localhost:8080){tab|Embedded In Stroom}&quot;&gt;
+          link=&quot;[Show](https://www.somehost.com/somepath){tab|Embedded In Stroom}&quot;&gt;
         Show In Stroom Tab
     &lt;/span&gt;
 &lt;/div&gt;
 </code></pre>
-<p>Note that the tab title can be controlled by adding a <code>|</code> and required title after the type, e.g.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    The tab title can be controlled by adding a <code>|</code> and required title after the type, e.g.
+
+</div>
+
+
 <pre><code class="language-clike">{tab|Embedded In Stroom}
 </code></pre>
 <h2 id="browser">Browser</h2>
-<p>Browser links are used to open any referenced URL in a new browser tab. In most cases this is easily accomplished via a normal hyperlink but Stroom also provides a mechanism to do this as a link event so that dashboard tables are able to open new browser tabs. Again this can be accomplished by using the <a href="../../../../docs/user-guide/dashboards/expressions/link/#Link"><code>link()</code></a> table function but in HTML this might look like:</p>
+<p>Browser links are used to open any referenced URL in a new browser tab.
+In most cases this is easily accomplished via a normal hyperlink but Stroom also provides a mechanism to do this as a link event so that dashboard tables are also able to open new browser tabs.
+This can be accomplished by using the <a href="../../../../docs/user-guide/dashboards/expressions/link/#link"><code>link()</code></a> table function.
+In a dashboard text pane the HTML could look like this:</p>
 <pre><code class="language-html">&lt;div style=&quot;padding: 5px;&quot;&gt;
     &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; 
-          link=&quot;[Show](localhost:8080){browser}&quot;&gt;
+          link=&quot;[Show](https://www.somehost.com/somepath){browser}&quot;&gt;
         Show In Browser Tab
     &lt;/span&gt;
 &lt;/div&gt;
 </code></pre>
-<p>Note that unlike the other link types there is no way to control the browser tab title.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Unlike the other link types there is no way to control the browser tab title.
+
+</div>
+
+
 <h2 id="dashboard">Dashboard</h2>
-<p>Instead of viewing/embedding external URLs Stroom links can be used to direct Stroom to show an internal page. The dashboard link type allows Stroom to open a new tab and show a dashboard with the specified parameters. The format for a dashboard link is as follows:</p>
+<p>In addition to viewing/embedding external URLs, Stroom links can be used to direct Stroom to show an internal item or feature.
+The <code>dashboard</code> link type allows Stroom to open a new tab and show a dashboard with the specified parameters.</p>
+<p>The format for a dashboard link is as follows:</p>
 <pre><code class="language-clike">[Link Text](uuid=&lt;UUID&gt;&amp;params=&lt;PARAMS&gt;&amp;title=&lt;CUSTOM_TITLE&gt;){dashboard}
 </code></pre>
+<p>The parameters for dashboard links are:</p>
+<ul>
+<li><code>uuid</code> - The UUID of the dashboard to open.</li>
+<li><code>params</code> - A URL encoded list of params to supply to the dashboard, e.g. <code>params=user%3Duser1</code>.</li>
+<li><code>title</code> - An optional URL encoded title to better identify the specific instance of the dashboard, e.g. <code>title=Details%20For%20user1</code>.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Parameter values can be URL encoded in XSLT using the <code>encode-for-uri</code> function.
+
+</div>
+
+
 <p>An example of this type of link in HTML:</p>
 <pre><code class="language-html">&lt;div style=&quot;padding: 5px;&quot;&gt;
     &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; 
@@ -2591,31 +2592,76 @@ Stroom can then used these two fields to locate the event in the stream store an
     &lt;/span&gt;
 &lt;/div&gt;
 </code></pre>
-<p>Note that using a pipeline with the appropriate XSLT it is possible to dynamically generate links in dashboard text panes that will be specific to the data being displayed.</p>
-<h2 id="stepping">Stepping</h2>
-<p>A stepping link can be used to launch the data stepping feature with the specified data. The format for a stepping link is as follows:</p>
-<pre><code class="language-clike">[Link Text](id=&lt;STREAM_ID&gt;&amp;partNo=&lt;PART_NO&gt;&amp;recordNo=&lt;RECORD_NO&gt;){stepping}
-</code></pre>
-<p>An example of this type of link in HTML:</p>
-<pre><code class="language-html">&lt;div style=&quot;padding: 5px;&quot;&gt;
-    &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; 
-          link=&quot;[link](id=1822&amp;amp;partNo=1&amp;amp;recordNo=1){stepping}&quot;&gt;
-        Step Source&lt;/span&gt;
-&lt;/div&gt;
-</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    By using a pipeline with the appropriate XSLT it is possible to dynamically generate links in dashboard text panes that will be specific to the data being displayed.
+
+</div>
+
+
 <h2 id="data">Data</h2>
-<p>A link can be used to display a specific portion of the data held by Stroom using a data link. The format for a data link is as follows:</p>
-<pre><code class="language-clike">[Link Text](id=&lt;STREAM_ID&gt;&amp;partNo=&lt;PART_NO&gt;&amp;recordNo=&lt;RECORD_NO&gt;&amp;lineFrom=&lt;LINE_FROM&gt;&amp;colFrom=&lt;COL_FROM&gt;&amp;lineTo=&lt;LINE_TO&gt;&amp;colTo=&lt;COL_TO&gt;){data}
+<p>A link can be created to open a sub-set of a source of data (i.e. part of a stream) for viewing.
+The data can either be opened in a popup dialog (<code>dialog</code>) or in another stroom tab (<code>tab</code>).
+It can also be display in <code>preview</code> form (with formatting and syntax highlighting) or unaltered <code>source</code> form.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>To make full use of data links for viewing raw data, you need to use the <code>stroom:source()</code> <a href="../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Function</a> to decorate an event with the details of the source location it derived from.</p>
+
+
+</div>
+
+
+<p>The format for a data link is as follows:</p>
+<pre><code class="language-clike">[Link Text](id=&lt;STREAM_ID&gt;&amp;partNo=&lt;PART_NO&gt;&amp;recordNo=&lt;RECORD_NO&gt;&amp;lineFrom=&lt;LINE_FROM&gt;&amp;colFrom=&lt;COL_FROM&gt;&amp;lineTo=&lt;LINE_TO&gt;&amp;colTo=&lt;COL_TO&gt;&amp;viewType=&lt;VIEW_TYPE&gt;&amp;displayType=&lt;DISPLAY_TYPE&gt;){data}
 </code></pre>
-<p>The parameters for data links are as follows:</p>
+<p>Stroom deals in two main types of stream, segmented and non-segmented (see <a href="../../../../docs/user-guide/concepts/streams/">Streams</a>).
+Data in a non-segmented (i.e. raw) stream is identified by an <code>id</code>, a <code>partNo</code> and optionally line and column positions to define the sub-set of that stream part to display.
+Data in a segmented (i.e. cooked) stream is identified by an <code>id</code>, a <code>recordNo</code> and optionally line and column positions to define the sub-set of that record (i.e. event) within that stream.</p>
+<p>The parameters for data links are:</p>
 <ul>
-<li>id - The id of the stream to display.</li>
-<li>partNo - The sub part no within the stream to display (usually 1).</li>
-<li>recordNo - The record or event number within the stream to display.</li>
-<li>viewType - Which type of data display to show, <code>preview</code> (default), or <code>source</code>.</li>
-<li>displayType - Choose whether to display the data in a <code>dialog</code> (default), or Stroom <code>tab</code>.</li>
-<li>lineFrom, colFrom, lineTo, colTo - In <code>preview</code> mode limit the data displayed to the specified selection. In <code>source</code> mode highlight the selection.</li>
+<li><code>id</code> - The stream ID.</li>
+<li><code>partNo</code> - The part number of the stream (one based).
+Always <code>1</code> for segmented (cooked) streams.</li>
+<li><code>recordNo</code> - The record number within a segmented stream (optional).
+Not applicable for non-segmented streams so use <code>null()</code> instead.</li>
+<li><code>lineFrom</code> - The line number of the start of the sub-set of data (optional, one based).</li>
+<li><code>colFrom</code> - The column number of the start of the sub-set of data (optional, one based).</li>
+<li><code>lineTo</code> - The line number of the end of the sub-set of data (optional, one based).</li>
+<li><code>colTo</code> - The column number of the end of the sub-set of data (optional, one based).</li>
+<li><code>viewType</code> - The type of view of the data (optional, defaults to <code>preview</code>):
+<ul>
+<li><code>preview</code> : Display the data as a formatted preview of a limited portion of the data.</li>
+<li><code>source</code> : Display the un-formatted data in its original form with the ability to navigate around all of the data source.</li>
 </ul>
+</li>
+<li><code>displayType</code> - The way of displaying the data (optional, defaults to <code>dialog</code>):
+<ul>
+<li><code>dialog</code> : Open as a modal popup dialog.</li>
+<li><code>tab</code> : Open as a top level tab within the Stroom browser tab.</li>
+</ul>
+</li>
+</ul>
+<p>In <code>preview</code> mode the line and column positions will limit the data displayed to the specified selection.
+In <code>source</code> mode the line and column positions define a highlight block of text within the part/record.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+
+    <p>The <code>displayType</code> value <code>tab</code> is not supported if the dashboard is viewed via a <a href="../../../../docs/user-guide/dashboards/direct-urls/">Direct URL</a>.
+This is because a direct URL displays only the dashboard without Stroom’s top level tab bar so it is not possible to open it as a top level tab.</p>
+
+
+</div>
+
+
 <p>An example of this type of link in HTML:</p>
 <pre><code class="language-html">&lt;div style=&quot;padding: 5px;&quot;&gt;
     &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; 
@@ -2643,8 +2689,29 @@ Stroom can then used these two fields to locate the event in the stream store an
 </code></pre>
 <h3 id="display-type">Display Type</h3>
 <p>Choose whether to display data in a <code>dialog</code> (default) or a Stroom <code>tab</code>.</p>
+<h2 id="stepping">Stepping</h2>
+<p>A stepping link can be used to launch the data stepping feature with the specified data.
+The format for a stepping link is as follows:</p>
+<pre><code class="language-clike">[Link Text](id=&lt;STREAM_ID&gt;&amp;partNo=&lt;PART_NO&gt;&amp;recordNo=&lt;RECORD_NO&gt;){stepping}
+</code></pre>
+<p>The parameters for stepping links are as follows:</p>
+<ul>
+<li>id - The id of the stream to step.</li>
+<li>partNo - The sub part no within the stream to step (usually 1).</li>
+<li>recordNo - The record or event number within the stream to step.</li>
+</ul>
+<p>An example of this type of link in HTML:</p>
+<pre><code class="language-html">&lt;div style=&quot;padding: 5px;&quot;&gt;
+    &lt;span style=&quot;text-decoration:underline;color:blue;cursor:pointer&quot; 
+          link=&quot;[link](id=1822&amp;amp;partNo=1&amp;amp;recordNo=1){stepping}&quot;&gt;
+        Step Source&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
 <h2 id="annotation">Annotation</h2>
-<p>A link can be used to edit or create annotations. To view or edit an existing annotation the id must be known or one can be found using a stream and event id. If all parameters are specified an annotation will either be created or edited depending on whether it exists or not. The format for an annotation link is as follows:</p>
+<p>A link can be used to edit or create annotations.
+To view or edit an existing annotation the id must be known or one can be found using a stream and event id.
+If all parameters are specified an annotation will either be created or edited depending on whether it exists or not.
+The format for an annotation link is as follows:</p>
 <pre><code class="language-clike">[Link Text](annotationId=&lt;ANNOTATION_ID&gt;&amp;streamId=&lt;STREAM_ID&gt;&amp;eventId=&lt;EVENT_ID&gt;&amp;title=&lt;TITLE&gt;&amp;subject=&lt;SUBJECT&gt;&amp;status=&lt;STATUS&gt;&amp;assignedTo=&lt;ASSIGNED_TO&gt;&amp;comment=&lt;COMMENT&gt;){annotation}
 </code></pre>
 <p>The parameters for annotation links are as follows:</p>

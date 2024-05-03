@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/dashboards/expressions/link/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-05-02T17:39:27+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-05-03T09:48:25+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Link Functions">
 <meta itemprop="description" content="Functions for linking to other screens in Stroom and/or to particular sets of data.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-05-02T17:39:27+01:00" />
-<meta itemprop="wordCount" content="976">
+<meta itemprop="dateModified" content="2024-05-03T09:48:25+01:00" />
+<meta itemprop="wordCount" content="463">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Link Functions"/>
 <meta name="twitter:description" content="Functions for linking to other screens in Stroom and/or to particular sets of data.
@@ -123,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.f413a5943dc7dd0b77b193c3d9204706.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.9e73f9f38c39e687ca6936b54c2ffc41.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -148,7 +148,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.f413a5943dc7dd0b77b193c3d9204706.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.9e73f9f38c39e687ca6936b54c2ffc41.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -864,14 +864,16 @@ if (!doNotTrack) {
 
 		
 	</header>    
-	<p>Links can be inserted into dashboard tables using the <code>link</code> function. Links behave as described in <a href="../../../../../docs/user-guide/dashboards/internal-links/">Internal Links</a> and the <code>link</code> function is just a convenient way to add them to tables. In addition to the <code>link</code> function there are other functions such as <code>annotation</code>, <code>dashboard</code>, <code>data</code> and <code>stepping</code> that make it easier to supply the required link parameters.</p>
+	<p>Links can be inserted into dashboard tables using the <code>link</code> function.
+All link types described in <a href="../../../../../docs/user-guide/dashboards/internal-links/">Internal Links</a> can be added to dashboard tables using the <code>link</code> function.
+In addition to the <code>link</code> function there are convenience functions such as <code>annotation</code>, <code>dashboard</code>, <code>data</code> and <code>stepping</code> that make it easier to supply the required link parameters.</p>
 <h2 id="annotation">Annotation</h2>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Annotation">Annotation Links</a>.</p>
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#annotation">Annotation Links</a>.</p>
 
 
 </div>
@@ -904,7 +906,7 @@ If you don&rsquo;t need to pre-populate a value then you can use <code>''</code>
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Dashboard">Dashboard Links</a>.</p>
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#dashboard">Dashboard Links</a>.</p>
 
 
 </div>
@@ -926,57 +928,16 @@ dashboard('Click Here','e177cf16-da6c-4c7d-a19c-09a201f5a2da', 'userId=user1')
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Data">Data Links</a>.</p>
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#data">Data Links</a>.</p>
 
 
 </div>
 
 
-<p>Creates a clickable link to open a sub-set of a source of data (i.e. part of a stream) for viewing.
-The data can either be opened in a popup dialog (<code>dialog</code>) or in another stroom tab (<code>tab</code>).
-It can also be display in <code>preview</code> form (with formatting and syntax highlighting) or unaltered <code>source</code> form.</p>
+<p>A helper function to make forming links to data easier than using <a href="#link">Link</a>.</p>
 <pre><code class="language-clike">data(text, id, partNo, [recordNo, lineFrom, colFrom, lineTo, colTo, viewType, displayType])
 </code></pre>
-<p>Stroom deals in two main types of stream, segmented and non-segmented (see <a href="../../../../../docs/user-guide/concepts/streams/">Streams</a>).
-Data in a non-segmented (i.e. raw) stream is identified by an <code>id</code>, a <code>partNo</code> and optionally line and column positions to define the sub-set of that stream part to display.
-Data in a segmented (i.e. cooked) stream is identified by an <code>id</code>, a <code>recordNo</code> and optionally line and column positions to define the sub-set of that record (i.e. event) within that stream.</p>
-<p>The line and column positions will define a highlight block of text within the part/record.</p>
-<p>Arguments:</p>
-<ul>
-<li><code>text</code> - The link text that will be displayed in the table.</li>
-<li><code>id</code> - The stream ID.</li>
-<li><code>partNo</code> - The part number of the stream (one based).
-Always <code>1</code> for segmented (cooked) streams.</li>
-<li><code>recordNo</code> - The record number within a segmented stream (optional).
-Not applicable for non-segmented streams so use <code>null()</code> instead.</li>
-<li><code>lineFrom</code> - The line number of the start of the sub-set of data (optional, one based).</li>
-<li><code>colFrom</code> - The column number of the start of the sub-set of data (optional, one based).</li>
-<li><code>lineTo</code> - The line number of the end of the sub-set of data (optional, one based).</li>
-<li><code>colTo</code> - The column number of the end of the sub-set of data (optional, one based).</li>
-<li><code>viewType</code> - The type of view of the data (optional, defaults to <code>preview</code>):
-<ul>
-<li><code>preview</code> : Display the data as a formatted preview of a limited portion of the data.</li>
-<li><code>source</code> : Display the un-formatted data in its original form with the ability to navigate around all of the data source.</li>
-</ul>
-</li>
-<li><code>displayType</code> - The way of displaying the data (optional, defaults to <code>dialog</code>):
-<ul>
-<li><code>dialog</code> : Open as a modal popup dialog.</li>
-<li><code>tab</code> : Open as a top level tab within the Stroom browser tab.</li>
-</ul>
-</li>
-</ul>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-
-    <p>The <code>displayType</code> value <code>tab</code> is not supported if the dashboard is viewed via a <a href="../../../../../docs/user-guide/dashboards/direct-urls/">Direct URL</a>. This is because a direct URL displays only the dashboard without Stroom’s top level tab bar so it is not possible to open it as a top level tab.</p>
-
-
-</div>
-
-
+<p>Example</p>
 <pre><code class="language-clike">data('Quick View', ${StreamId}, 1)
 &gt; [Quick View]?id=1234&amp;&amp;partNo=1)
 </code></pre>
@@ -989,18 +950,6 @@ Not applicable for non-segmented streams so use <code>null()</code> instead.</li
 <p>Example of a single record (event) from a segmented stream, viewed formatted in a stroom tab:</p>
 <pre><code class="language-clike">data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'preview', 'tab')
 </code></pre>
-
-<div class="alert alert-primary" role="alert">
-<h4 class="alert-heading">Note</h4>
-
-
-
-    <p>To make full use of the <code>data()</code> function foe viewing raw data, you need to use the <code>stroom:source()</code> <a href="../../../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Function</a> to decorate an event with the details of the source location it derived from.</p>
-
-
-</div>
-
-
 <h2 id="link">Link</h2>
 
 <div class="alert alert-primary" role="alert">
@@ -1019,30 +968,22 @@ link(text, url)
 link(text, url, type)
 </code></pre>
 <p>Example</p>
-<pre><code class="language-clike">link('http://www.somehost.com/somepath')
-&gt; [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath')
-&gt; [Click Here](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath', 'dialog')
-&gt; [Click Here](http://www.somehost.com/somepath){dialog}
-link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
-&gt; [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
+<pre><code class="language-clike">link('https://www.somehost.com/somepath')
+&gt; [https://www.somehost.com/somepath](https://www.somehost.com/somepath)
+link('Click Here','https://www.somehost.com/somepath')
+&gt; [Click Here](https://www.somehost.com/somepath)
+link('Click Here','https://www.somehost.com/somepath', 'dialog')
+&gt; [Click Here](https://www.somehost.com/somepath){dialog}
+link('Click Here','https://www.somehost.com/somepath', 'dialog|Dialog Title')
+&gt; [Click Here](https://www.somehost.com/somepath){dialog|Dialog Title}
 </code></pre>
-<p>Type can be one of:</p>
-<ul>
-<li><code>dialog</code> : Display the content of the link URL within a stroom popup dialog.</li>
-<li><code>tab</code> : Display the content of the link URL within a stroom tab.</li>
-<li><code>browser</code> : Display the content of the link URL within a new browser tab.</li>
-<li><code>dashboard</code> : Used to launch a stroom dashboard internally with parameters in the URL.</li>
-</ul>
-<p>If you wish to override the default title or URL of the target link in either a tab or dialog you can. Both <code>dialog</code> and <code>tab</code> types allow titles to be specified after a <code>|</code>, e.g. <code>dialog|My Title</code>.</p>
 <h2 id="stepping">Stepping</h2>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
 
 
-    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#Stepping">Stepping Links</a>.</p>
+    <p><a href="../../../../../docs/user-guide/dashboards/internal-links/#stepping">Stepping Links</a>.</p>
 
 
 </div>
@@ -1061,7 +1002,7 @@ stepping(text, id, partNo, recordNo)
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified May 2, 2024: <a href="https://github.com/gchq/stroom-docs/commit/cd29165aeb9e64b1bfb2c2b4bc03d16f24d10b9b">Add docs on internal links. (cd29165)</a>
+  Last modified May 3, 2024: <a href="https://github.com/gchq/stroom-docs/commit/8fbdbc8a80ea39c4d7b3bac39eb419823da1a414">Add docs on internal links. (8fbdbc8)</a>
 </div>
 
 </div>
