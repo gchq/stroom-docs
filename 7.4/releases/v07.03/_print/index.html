@@ -1,0 +1,2189 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../releases/v07.03/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Version 7.3 | Stroom</title>
+<meta name="description" content="Key new features and changes present in v7.3 of Stroom and Stroom-Proxy.
+">
+<meta property="og:title" content="Version 7.3" />
+<meta property="og:description" content="Key new features and changes present in v7.3 of Stroom and Stroom-Proxy.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/releases/v07.03/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Version 7.3">
+<meta itemprop="description" content="Key new features and changes present in v7.3 of Stroom and Stroom-Proxy.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Version 7.3"/>
+<meta name="twitter:description" content="Key new features and changes present in v7.3 of Stroom and Stroom-Proxy.
+"/>
+
+
+
+
+<link rel="preload" href="../../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" as="style">
+<link href="../../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-dark.css"/>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-00000000-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../docs/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../releases/"><span class="active">Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../news/"><span>News</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.4)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../">7.4 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../offline-search-index.84935892db1e0304cdff3e8888f16c9f.json"
+    data-offline-search-base-href="../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../releases/v07.03/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Version 7.3</h1>
+<div class="lead">Key new features and changes present in v7.3 of Stroom and Stroom-Proxy.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-dfcd046ddb96d24807a393379db9a699">New Features</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-19c88188f3dbf89c3a5a3fa974883433">Preview Features (experimental)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-a7a884b9277d2d1671812b8de5f4ae23">Breaking Changes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-e0a603b7f85bc86392f49c53a4d4e2c6">Upgrade Notes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-3557f878171ee03337ebbb97b108f394">Change Log</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-dfcd046ddb96d24807a393379db9a699">1 - New Features</h1>
+    <div class="lead">New features in Stroom version 7.3.</div>
+	<h2 id="user-interface">User Interface</h2>
+<ul>
+<li>
+<p>Add a Copy <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1664 1632v-1088q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h1088q13 0 22.5-9.5t9.5-22.5zm128-1088v1088q0 66-47 113t-113 47h-1088q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113zm-384-384v160h-128v-160q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h160v128h-160q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113z"/></svg></span>
+  </span> button to the Processors sub-tab on the Pipeline screen.
+This will create a duplicate of an existing filter.</p>
+</li>
+<li>
+<p>Add a Line Wrapping <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Text wrap"><svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" ><path style="stroke-width:32;fill:currentColor;stroke:currentColor;stroke-dasharray:none" d="m 55.939046,1336.0329 c 0,-33.1384 26.865158,-60.0043 60.004354,-60.0043 h 520.03774 c 33.1392,0 60.00435,26.8659 60.00435,60.0043 0,33.1384 -26.86515,60.0044 -60.00435,60.0044 H 115.9434 c -33.139196,0 -60.004354,-26.866 -60.004354,-60.0044 z M 115.9434,755.99082 c -33.139196,0 -60.004354,26.86595 -60.004354,60.00436 0,33.1384 26.865158,60.00435 60.004354,60.00435 h 1300.0944 c 110.4641,0 200.0145,89.5505 200.0145,200.01457 0,110.464 -89.5504,200.0145 -200.0145,200.0145 h -355.1697 l 57.5721,-57.5802 c 23.4337,-23.4337 23.4337,-61.4204 0,-84.8542 -23.4337,-23.4337 -61.4205,-23.4337 -84.8541,0 l -160.01172,160.0117 c -23.4337,23.4336 -23.4337,61.4205 0,84.8541 l 160.01172,160.0116 c 23.4336,23.4338 61.4204,23.4338 84.8541,0 23.4337,-23.4337 23.4337,-61.4204 0,-84.8542 l -57.5721,-57.5801 h 355.1697 c 176.7409,0 320.0232,-143.2824 320.0232,-320.0232 0,-176.74088 -143.2823,-320.02328 -320.0232,-320.02328 z m 0,-520.03774 c -33.139196,0 -60.004354,26.86515 -60.004354,60.00436 0,33.1392 26.865158,60.00435 60.004354,60.00435 h 1480.1074 c 33.1385,0 60.0044,-26.86515 60.0044,-60.00435 0,-33.13921 -26.8659,-60.00436 -60.0044,-60.00436 z" /></svg> </span>
+  </span> toggle button to the Server Tasks screen.
+This will enable/disable line wrapping on the Name and Info cells.</p>
+</li>
+<li>
+<p>Allow pane resizing in dashboards without needing to be in design mode.</p>
+</li>
+<li>
+<p>Add Copy <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1664 1632v-1088q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h1088q13 0 22.5-9.5t9.5-22.5zm128-1088v1088q0 66-47 113t-113 47h-1088q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113zm-384-384v160h-128v-160q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h160v128h-160q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113z"/></svg></span>
+  </span> and Jump to <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path style="fill:currentColor" d="M17 17H3V3h5V1H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-2z"/><path style="fill:currentColor" d="M19 1h-8l3.29 3.29-5.73 5.73 1.42 1.42 5.73-5.73L19 9V1z"/></svg></span>
+  </span> hover buttons to the Stream Browser screen to copy the value of the cell or (if it is a document) jump to that document.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/meta-links.png" href="../../../images/releases/07.03/meta-links.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/meta-links.png" style="max-width:400" alt="images/releases/07.03/meta-links.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Copy and jump to links in the Data Browser screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+</li>
+<li>
+<p>Tagging of individual explorer nodes was introduced in <a href="../../../releases/v07.02/new-features/#document-tagging">v7.2</a>.
+v7.3 however adds support for adding/removing tags to/from multiple explorer tree nodes via the explorer context menu.</p>
+<div class="td-card-deck card-deck mb-4">
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/add-remove-tags.png" href="../../../images/releases/07.03/add-remove-tags.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/add-remove-tags.png" style="max-width:400" alt="images/releases/07.03/add-remove-tags.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Add/Remove tags on multiple items.</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/add-tags.png" href="../../../images/releases/07.03/add-tags.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/add-tags.png" style="max-width:400" alt="images/releases/07.03/add-tags.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Add tags to multiple nodes.</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/remove-tags.png" href="../../../images/releases/07.03/remove-tags.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/remove-tags.png" style="max-width:400" alt="images/releases/07.03/remove-tags.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Remove tags from multiple nodes.</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+  </div>
+</li>
+</ul>
+<h3 id="explorer-tree">Explorer Tree</h3>
+<ul>
+<li>
+<p>Additional buttons on the top of the explorer tree pane.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 310px">
+
+  <a title="images/releases/07.03/explorer-pane.png" href="../../../images/releases/07.03/explorer-pane.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/explorer-pane.png" style="max-width:300" alt="images/releases/07.03/explorer-pane.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Explorer Tree Pane</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<ul>
+<li>
+<p>Add Expand All <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Expand all"><svg width="1427.7665" height="2031.5197" viewBox="-300 -330 2027.7665 2631.5197" version="1.1" id="svg1" sodipodi:docname="expand.svg" inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs1" /><sodipodi:namedview id="namedview1" pagecolor="var(--icon-colour__white)" bordercolor="var(--icon-colour__black)" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:zoom="0.27501497" inkscape:cx="-125.44772" inkscape:cy="1319.9282" inkscape:window-width="2520" inkscape:window-height="1404" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg1" /><g style="stroke:currentColor;stroke-width:167.567" id="g1" transform="translate(0.03304027,-272.00435)"><path d="m 83.75224,1012.6366 c 0.4303,39.9266 48.3887,75.4147 81.9121,40.0468 183.0776,-192.5449 365.53292,-385.74845 548.20252,-578.72498 182.6695,192.97653 365.12474,386.18008 548.20224,578.72498 43.7856,46.1947 112.1966,-28.4881 67.1682,-76.05707 -185.823,-195.93558 -370.82484,-392.95261 -557.52754,-587.98689 -4.8034,-5.6117 -10.2473,-10.4633 -16.1231,-14.4855 -12.4844,-9.643 -27.0796,-13.9638 -41.7198,-13.6909 -14.6402,-0.2729 -29.2354,4.0479 -41.7198,13.6909 -5.8758,4.0222 -11.3198,8.8738 -16.1231,14.4855 -186.7028,195.03428 -371.70472,392.05131 -557.52782,587.98689 -10.5534,11.14898 -14.8757,23.78787 -14.7439,36.01027 z" id="path1" /></g><g style="stroke:currentColor;stroke-width:167.567" id="g2" transform="rotate(180,713.86671,1153.5801)"><path d="m 83.75224,1012.6366 c 0.4303,39.9266 48.3887,75.4147 81.9121,40.0468 183.0776,-192.5449 365.53292,-385.74845 548.20252,-578.72498 182.6695,192.97653 365.12474,386.18008 548.20224,578.72498 43.7856,46.1947 112.1966,-28.4881 67.1682,-76.05707 -185.823,-195.93558 -370.82484,-392.95261 -557.52754,-587.98689 -4.8034,-5.6117 -10.2473,-10.4633 -16.1231,-14.4855 -12.4844,-9.643 -27.0796,-13.9638 -41.7198,-13.6909 -14.6402,-0.2729 -29.2354,4.0479 -41.7198,13.6909 -5.8758,4.0222 -11.3198,8.8738 -16.1231,14.4855 -186.7028,195.03428 -371.70472,392.05131 -557.52782,587.98689 -10.5534,11.14898 -14.8757,23.78787 -14.7439,36.01027 z" id="path1-5" /></g></svg> </span>
+  </span> and Collapse All <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Collapse all"><svg width="1427.7665" height="2031.5197" viewBox="-300 -330 2027.7665 2631.5197" version="1.1" id="svg1" sodipodi:docname="collapse.svg" inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs1" /><sodipodi:namedview id="namedview1" pagecolor="var(--icon-colour__white)" bordercolor="var(--icon-colour__black)" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:zoom="0.27501497" inkscape:cx="-125.44772" inkscape:cy="1319.9282" inkscape:window-width="2520" inkscape:window-height="1404" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg1" /><g style="stroke:currentColor;stroke-width:167.567" id="g1" transform="translate(0.03304027,880.66019)"><path d="m 83.75224,1012.6366 c 0.4303,39.9266 48.3887,75.4147 81.9121,40.0468 183.0776,-192.5449 365.53292,-385.74845 548.20252,-578.72498 182.6695,192.97653 365.12474,386.18008 548.20224,578.72498 43.7856,46.1947 112.1966,-28.4881 67.1682,-76.05707 -185.823,-195.93558 -370.82484,-392.95261 -557.52754,-587.98689 -4.8034,-5.6117 -10.2473,-10.4633 -16.1231,-14.4855 -12.4844,-9.643 -27.0796,-13.9638 -41.7198,-13.6909 -14.6402,-0.2729 -29.2354,4.0479 -41.7198,13.6909 -5.8758,4.0222 -11.3198,8.8738 -16.1231,14.4855 -186.7028,195.03428 -371.70472,392.05131 -557.52782,587.98689 -10.5534,11.14898 -14.8757,23.78787 -14.7439,36.01027 z" id="path1" /></g><g style="stroke:currentColor;stroke-width:167.567" id="g2" transform="rotate(180,713.86671,575.42972)"><path d="m 83.75224,1012.6366 c 0.4303,39.9266 48.3887,75.4147 81.9121,40.0468 183.0776,-192.5449 365.53292,-385.74845 548.20252,-578.72498 182.6695,192.97653 365.12474,386.18008 548.20224,578.72498 43.7856,46.1947 112.1966,-28.4881 67.1682,-76.05707 -185.823,-195.93558 -370.82484,-392.95261 -557.52754,-587.98689 -4.8034,-5.6117 -10.2473,-10.4633 -16.1231,-14.4855 -12.4844,-9.643 -27.0796,-13.9638 -41.7198,-13.6909 -14.6402,-0.2729 -29.2354,4.0479 -41.7198,13.6909 -5.8758,4.0222 -11.3198,8.8738 -16.1231,14.4855 -186.7028,195.03428 -371.70472,392.05131 -557.52782,587.98689 -10.5534,11.14898 -14.8757,23.78787 -14.7439,36.01027 z" id="path1-5" /></g></svg> </span>
+  </span> buttons to the explorer pane to open or close all items in the tree respectively.</p>
+</li>
+<li>
+<p>Add a Locate Current Item <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Locate Current Item"><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --><svg width="800px" height="800px" viewBox="0 0 24 24" style="fill:none;stroke:currentColor" version="1.1" id="svg5" sodipodi:docname="locate.svg" inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs5" /><sodipodi:namedview id="namedview5" pagecolor="var(--icon-colour__white)" bordercolor="var(--icon-colour__black)" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:zoom="0.49469006" inkscape:cx="292.10209" inkscape:cy="320.40264" inkscape:window-width="1444" inkscape:window-height="1243" inkscape:window-x="934" inkscape:window-y="75" inkscape:window-maximized="0" inkscape:current-layer="svg5" /><g id="g6"><path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke-width="3" id="path1" /><path d="M 4.0618971,12 H 5.9096605" stroke-width="3" stroke-linecap="round" id="path2" style="stroke-linecap:square" sodipodi:nodetypes="cc" /><path d="m 18.09034,12 h 1.544543" stroke-width="3" stroke-linecap="round" id="path3" style="stroke-linecap:square" sodipodi:nodetypes="cc" /><path d="M 12,19.877459 V 18.09034" stroke-width="3" stroke-linecap="round" id="path4" style="stroke-linecap:square" sodipodi:nodetypes="cc" /><path d="M 12,5.9096605 V 4.2438292" stroke-width="3" stroke-linecap="round" id="path5" style="stroke-linecap:square" sodipodi:nodetypes="cc" /></g><!--<path d="M10 12H12H14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>--><!--<path d="M12 14L12 12L12 10" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>--></svg> </span>
+  </span> button to the explorer pane to locate the currently open document in the explorer tree.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="finding-things">Finding Things</h3>
+<h4 id="find">Find</h4>
+<p>New screen for finding documents by name.
+Accessed using 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+      
+    
+
+    
+      
+    
+
+    
+
+    
+      
+      
+    
+      
+      
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-multiple">
+    
+      <span class="key-bind-key">Shift ⇧</span>
+      <span class="key-bind-plus">+</span>
+      <span class="key-bind-key">Alt</span>
+      <span class="key-bind-plus">+</span>
+      <span class="key-bind-key">f</span>
+      </span>
+    </span>
+ or</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Navigation
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Find"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Find
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/find.png" href="../../../images/releases/07.03/find.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/find.png" style="max-width:400" alt="images/releases/07.03/find.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Find</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h4 id="find-in-content">Find In Content</h4>
+<p>Improvements to the Find In Content screen so that it now shows the content of the document and highlights the matched terms.
+Now accessible using 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+        
+      
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-multiple">
+    
+      <span class="key-bind-key">shift,ctrl</span>
+      <span class="key-bind-plus">+</span>
+      <span class="key-bind-key">f</span>
+      </span>
+    </span>
+ or</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Navigation
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Find"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Find In Content
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/find-in-content.png" href="../../../images/releases/07.03/find-in-content.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/find-in-content.png" style="max-width:400" alt="images/releases/07.03/find-in-content.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Find In Content</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h4 id="recent-items">Recent Items</h4>
+<p>New screen for finding recently used documents.
+Accessed using 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-single ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-multiple">
+    
+      <span class="key-bind-key">Ctrl ^</span>
+      <span class="key-bind-plus">+</span>
+      <span class="key-bind-key">e</span>
+      </span>
+    </span>
+ or</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Navigation
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="History"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1024 544v448q0 14-9 23t-23 9h-320q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h224v-352q0-14 9-23t23-9h64q14 0 23 9t9 23zm416 352q0-148-73-273t-198-198-273-73-273 73-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273zm224 0q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Recent Items
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/recent-items.png" href="../../../images/releases/07.03/recent-items.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/recent-items.png" style="max-width:400" alt="images/releases/07.03/recent-items.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Recent Items</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h3 id="editor-snippets">Editor Snippets</h3>
+<p><a href="../../../docs/user-guide/content/editing-text/#auto-completion-and-snippets">Snippets</a> are a way of quickly adding snippets of pre-defined text into the text editors in Stroom.
+Snippets have been available in previous versions of Stroom however there have been various additions to the library of snippets available which makes creating/editing content a lot easier.</p>
+<ul>
+<li>
+<p>Add snippets for <a href="../../../docs/user-guide/data-splitter/">Data Splitter</a>.
+For the list of available snippets see <a href="../../../docs/reference-section/snippet-reference/#data-splitter-snippets">here</a>.</p>
+</li>
+<li>
+<p>Add snippets for <a href="../../../docs/reference-section/pipeline-elements/#xmlfragmentparser">XMLFragmentParser</a>.
+For the list of available snippets see <a href="../../../docs/reference-section/snippet-reference/#xmlfragmentparser-snippets">here</a>.</p>
+</li>
+<li>
+<p>Add new XSLT snippets for <code>&lt;xsl:element&gt;</code> and <code>&lt;xsl:message&gt;</code>.
+For the list of available snippets see <a href="../../../docs/reference-section/snippet-reference/#xmlxslt-snippets">here</a>.</p>
+</li>
+<li>
+<p>Add snippets for <span class="glossary-link">
+  <a href="../../../docs/glossary/#stroomql" title="Glossary entry for StroomQL">
+    <span>StroomQL</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+For the list of available snippets see <a href="../../../docs/reference-section/snippet-reference/#stroom-query-language-snippets">here</a>.</p>
+</li>
+</ul>
+<h3 id="api-keys">API Keys</h3>
+<p>API Keys are a means for client systems to authenticate with Stroom.
+In v7.2 of Stroom, the ability to use API Keys was removed if you were using an <span class="glossary-link">
+  <a href="../../../docs/glossary/#idp" title="Glossary entry for external identity provider">
+    <span>external identity provider</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> as client systems could get tokens from the IDP themselves.
+In v7.3 the ability to use API Keys with an external IDP has returned as we felt it offered client systems a choice and removed the complexity of dealing with the IDP.</p>
+<p>The API Keys screen has undergone various improvements:</p>
+<ul>
+<li>Look/feel brought in line with other screens in Stroom.</li>
+<li>Ability to temporarily enable/disable API Keys.
+A key that is disabled in Stroom cannot be authenticated against.</li>
+<li>Deletion of an API Key prevents any future authentication against that key.</li>
+<li>Named API Keys to indicate purpose, e.g. naming a key with the client system&rsquo;s name.</li>
+<li>Comments for keys to add additional context/information for a key.</li>
+<li>API Key prefix to aid with identifying an API Key.</li>
+<li>The full API key string is no longer stored in Stroom and cannot be viewed after creation.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 810px">
+
+  <a title="images/releases/07.03/api-keys.png" href="../../../images/releases/07.03/api-keys.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/api-keys.png" style="max-width:800" alt="images/releases/07.03/api-keys.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">API Keys screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h4 id="key-creation">Key Creation</h4>
+<p>The screens for creating a new API Key are as follows:</p>
+<div class="td-card-deck card-deck mb-4">
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/create-api-key-1.png" href="../../../images/releases/07.03/create-api-key-1.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/create-api-key-1.png" style="max-width:400" alt="images/releases/07.03/create-api-key-1.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Create API Key (part 1)</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/create-api-key-2.png" href="../../../images/releases/07.03/create-api-key-2.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/create-api-key-2.png" style="max-width:400" alt="images/releases/07.03/create-api-key-2.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Create API Key (part 2)</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+</div>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Note that the actual API Key is <strong>ONLY</strong> visible on the second dialog.
+Once that dialog is closed Stroom cannot show you the API Key string as it does not store it.
+This is for security reasons.
+You must copy the created key and give it to the recipient at this point.
+
+</div>
+
+
+<h4 id="key-format">Key Format</h4>
+<p>We have also made changes to the format of the API Key itself.
+In v7.2, the API Key was an OAuth token so had data baked into it.
+In v7.3, the API Key is essentially just a <em>dumb</em> random string, like a very long and secure password.
+The following is an example of a new API Key:</p>
+<pre><code>sak_e1e78f6ee0_6CyT2Mpj2seVJzYtAXsqWwKJzyUqkYqTsammVerbJpvimtn4BpE9M5L2Sx6oeG5prhyzcA7U6fyV5EkwTxoXJPfDWLneQAq16i5P75qdQNbqJ99Wi7xzaDhryMdhVZhs
+</code></pre>
+<p>The structure of the key is as follows:</p>
+<ol>
+<li><code>sak</code> - The key type, <strong>S</strong>troom <strong>A</strong>PI <strong>K</strong>ey.</li>
+<li><code>_</code> - separator</li>
+<li>Truncated SHA2-256 hash (truncated to 10 chars) of the whole API Key.</li>
+<li><code>_</code> - separator</li>
+<li>128 crypto random chars in the Base58 character set.
+This character set ensures no awkward characters that might need escaping and removes some ambiguous characters (<code>0OIl</code>).</li>
+</ol>
+<p>Features of the new format are:</p>
+<ul>
+<li>Fixed length of 143 chars with fixed prefix (<code>sak_</code>) that make it easier to search for API Keys in config, e.g. to stop API Keys being leaked into online public repositories and the like.</li>
+<li>Unique prefix (e.g. <code>sak_e1e78f6ee0_</code>) to help link an API being used by a client with the API Key record stored in Stroom.
+This part of the key is stored and displayed in Stroom.</li>
+<li>The hash part acts as a checksum for the key to ensure it is correct.
+The following 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://gchq.github.io/CyberChef/#recipe=Register%28%27sak_%28.*%29_.*$%27,true,false,false%29Regular_expression%28%27User%20defined%27,%27sak_.*_%28.*%29$%27,true,true,false,false,false,false,%27List%20capture%20groups%27%29SHA2%28%27256%27,64,160%29Regular_expression%28%27User%20defined%27,%27%5E.%7B10%7D%27,true,true,false,false,false,false,%27List%20matches%27%29Regular_expression%28%27User%20defined%27,%27%5E$R0$%27,true,true,false,false,false,false,%27Highlight%20matches%27%29&amp;input=c2FrX2UxZTc4ZjZlZTBfNkN5VDJNcGoyc2VWSnpZdEFYc3FXd0tKenlVcWtZcVRzYW1tVmVyYkpwdmltdG40QnBFOU01TDJTeDZvZUc1cHJoeXpjQTdVNmZ5VjVFa3dUeG9YSlBmRFdMbmVRQXExNmk1UDc1cWRRTmJxSjk5V2k3eHphRGhyeU1kaFZaaHM" target="_blank" class="" style="" title="CyberChef recipe (external link to https://gchq.github.io/CyberChef/#recipe=Register(&#39;sak_(.*)_.*$&#39;,true,false,false)Regular_expression(&#39;User%20defined&#39;,&#39;sak_.*_(.*)$&#39;,true,true,false,false,false,false,&#39;List%20capture%20groups&#39;)SHA2(&#39;256&#39;,64,160)Regular_expression(&#39;User%20defined&#39;,&#39;%5E.%7B10%7D&#39;,true,true,false,false,false,false,&#39;List%20matches&#39;)Regular_expression(&#39;User%20defined&#39;,&#39;%5E$R0$&#39;,true,true,false,false,false,false,&#39;Highlight%20matches&#39;)&amp;input=c2FrX2UxZTc4ZjZlZTBfNkN5VDJNcGoyc2VWSnpZdEFYc3FXd0tKenlVcWtZcVRzYW1tVmVyYkpwdmltdG40QnBFOU01TDJTeDZvZUc1cHJoeXpjQTdVNmZ5VjVFa3dUeG9YSlBmRFdMbmVRQXExNmk1UDc1cWRRTmJxSjk5V2k3eHphRGhyeU1kaFZaaHM)">
+    <span>CyberChef recipe</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ shows how you can validate the hash part of a key.</li>
+</ul>
+<h2 id="analytics">Analytics</h2>
+<ul>
+<li>
+<p>Add distributed processing for streaming analytics.
+This means streaming analytics can now run on all nodes in the cluster rather than just one.</p>
+</li>
+<li>
+<p>Add multiple recipients to rule notification emails.
+Previously only one recipient could be added.</p>
+</li>
+</ul>
+<h2 id="search">Search</h2>
+<ul>
+<li>
+<p>Add support for Lucene 9.8.0 and supporting multiple version of Lucene.
+Stroom now stores the Lucene version used to create an index shard against the shard so that the correct Lucene version is used when reading/writing from that shard.
+This will allow Stroom to harness new Lucene features in future while maintaining backwards compatibility with older versions.</p>
+</li>
+<li>
+<p>Add support for <code>field in</code> and <code>field in dictionary</code> to <span class="glossary-link">
+  <a href="../../../docs/glossary/#stroomql" title="Glossary entry for StroomQL">
+    <span>StroomQL</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+</li>
+</ul>
+<h2 id="processing">Processing</h2>
+<ul>
+<li>
+<p>Improve the display of processor filter state.
+The columns <code>Tracker Ms</code> and <code>Tracker %</code> have been removed and the <code>Status</code> column has been improved better reflect the state of the filter tracker.</p>
+</li>
+<li>
+<p>Stroom now supports the XSLT standard element <code>&lt;xsl:message&gt;</code>.
+This element will be handled as follows:</p>
+<pre><code class="language-xml">&lt;!-- Log `some message` at severity `FATAL` and terminate processing of that stream part immediately.
+     Note that `terminate=&quot;yes&quot;` will trump any severity that is also set. --&gt;
+&lt;xsl:message terminate=&quot;yes&quot;&gt;some message&lt;/xsl:message&gt;
+
+&lt;!-- Log `some message` at severity `ERROR`. --&gt;
+&lt;xsl:message&gt;some message&lt;/xsl:message&gt;
+
+&lt;!-- Log `some message` at severity `FATAL`. --&gt;
+&lt;xsl:message&gt;&lt;fatal&gt;some message&lt;/fatal&gt;&lt;/xsl:message&gt;
+
+&lt;!-- Log `some message` at severity `ERROR`. --&gt;
+&lt;xsl:message&gt;&lt;error&gt;some message&lt;/error&gt;&lt;/xsl:message&gt;
+
+&lt;!-- Log `some message` at severity `WARNING`. --&gt;
+&lt;xsl:message&gt;&lt;warn&gt;some message&lt;/warn&gt;&lt;/xsl:message&gt;
+
+&lt;!-- Log `some message` at severity `INFO`. --&gt;
+&lt;xsl:message&gt;&lt;info&gt;some message&lt;/info&gt;&lt;/xsl:message&gt;
+
+&lt;!-- Log $msg at severity `ERROR`. --&gt;
+&lt;xsl:message&gt;&lt;xsl:value-of select=&quot;$msg&quot;&gt;&lt;/xsl:message&gt;
+</code></pre>
+<p>The namespace of the severity element (e.g. <code>&lt;info&gt;</code> is ignored.</p>
+</li>
+<li>
+<p>Add the following pipeline element properties to allow control of logged warnings for removal/replacement respectively.</p>
+<ul>
+<li>Add property <code>warnOnRemoval</code> to 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../docs/reference-section/pipeline-elements#invalidcharfilterreader" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="InvalidCharFilterReader &#34;InvalidCharFilterReader&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Stream"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M 499.42773 349.50586 C 471.2255 349.65535 443.05802 352.21777 415.25195 357.10156 C 314.29291 374.83377 218.08985 423.16111 142.17383 497.58398 C 120.16923 517.22845 82.017578 562.56836 82.017578 562.56836 L 17.439453 647.62891 C 11.715074 655.16906 9.4362619 663.20332 10.603516 671.73047 C 11.770779 680.25761 16.123954 687.38299 23.664062 693.10742 L 178.77539 810.86523 C 186.3155 816.58967 194.34977 818.87035 202.87695 817.70312 C 211.40415 816.53588 218.95139 812.4832 224.25391 804.64062 C 252.73415 758.03917 266.71282 735.64156 320.53711 677.81836 C 409.46174 596.02665 519.53665 566.34857 644.56055 635.73047 C 814.48739 738.37221 971.75585 900.37132 1180.918 905.55859 C 1209.7108 905.57829 1251.7809 901.38952 1283.5625 895.00391 C 1384.5214 877.27168 1480.7245 828.94644 1556.6406 754.52344 C 1578.6452 734.87902 1616.7969 689.53906 1616.7969 689.53906 L 1681.375 604.47852 C 1687.0993 596.93839 1689.3762 588.90409 1688.209 580.37695 C 1687.0417 571.8498 1682.6905 564.72444 1675.1504 559 L 1520.0391 441.24219 C 1512.499 435.51777 1504.4646 433.23706 1495.9375 434.4043 C 1487.4102 435.57155 1479.8631 439.62422 1474.5605 447.4668 C 1446.0803 494.06826 1432.1016 516.46587 1378.2773 574.28906 C 1348.8635 601.34351 1316.4063 622.69518 1281.6191 636.6543 C 1067.6463 709.61943 913.77105 505.66893 745.44531 415.86719 C 668.96293 370.33416 584.03444 349.05738 499.42773 349.50586 z M 594.88477 897.21094 C 566.68253 897.36043 538.51505 899.92285 510.70898 904.80664 C 409.74993 922.53885 313.54689 970.86407 237.63086 1045.2871 C 215.62627 1064.9315 177.47266 1110.2734 177.47266 1110.2734 L 112.89648 1195.332 C 107.1721 1202.8722 104.89329 1210.9084 106.06055 1219.4355 C 107.22781 1227.9627 111.58098 1235.086 119.12109 1240.8105 L 274.23242 1358.5684 C 281.77254 1364.2928 289.80483 1366.5734 298.33203 1365.4062 C 306.85921 1364.239 314.4084 1360.1864 319.71094 1352.3438 C 348.19118 1305.7423 362.16986 1283.3466 415.99414 1225.5234 C 504.91877 1143.7317 614.99368 1114.0536 740.01758 1183.4355 C 909.94442 1286.0772 1067.2128 1448.0744 1276.375 1453.2617 C 1305.1678 1453.2817 1347.2362 1449.0945 1379.0176 1442.709 C 1479.9765 1424.9767 1576.1817 1376.6515 1652.0977 1302.2285 C 1674.1023 1282.584 1712.2539 1237.2441 1712.2539 1237.2441 L 1776.832 1152.1836 C 1782.5562 1144.6434 1784.8333 1136.6091 1783.666 1128.082 C 1782.4987 1119.5548 1778.1456 1112.4295 1770.6055 1106.7051 L 1615.4941 988.94727 C 1607.9538 983.22287 1599.9217 980.94208 1591.3945 982.10938 C 1582.8673 983.27657 1575.3182 987.32927 1570.0156 995.17188 C 1541.5354 1041.7734 1527.5567 1064.169 1473.7324 1121.9922 C 1444.3187 1149.0467 1411.8635 1170.4003 1377.0762 1184.3594 C 1163.1036 1257.3246 1009.2262 1053.3739 840.90039 963.57227 C 764.41799 918.0392 679.49147 896.76246 594.88477 897.21094 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">InvalidCharFilterReader</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+.</li>
+<li>Add property <code>warnOnReplacement</code> to 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../docs/reference-section/pipeline-elements#invalidxmlcharfilterreader" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="InvalidXMLCharFilterReader &#34;InvalidXMLCharFilterReader&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Stream"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M 499.42773 349.50586 C 471.2255 349.65535 443.05802 352.21777 415.25195 357.10156 C 314.29291 374.83377 218.08985 423.16111 142.17383 497.58398 C 120.16923 517.22845 82.017578 562.56836 82.017578 562.56836 L 17.439453 647.62891 C 11.715074 655.16906 9.4362619 663.20332 10.603516 671.73047 C 11.770779 680.25761 16.123954 687.38299 23.664062 693.10742 L 178.77539 810.86523 C 186.3155 816.58967 194.34977 818.87035 202.87695 817.70312 C 211.40415 816.53588 218.95139 812.4832 224.25391 804.64062 C 252.73415 758.03917 266.71282 735.64156 320.53711 677.81836 C 409.46174 596.02665 519.53665 566.34857 644.56055 635.73047 C 814.48739 738.37221 971.75585 900.37132 1180.918 905.55859 C 1209.7108 905.57829 1251.7809 901.38952 1283.5625 895.00391 C 1384.5214 877.27168 1480.7245 828.94644 1556.6406 754.52344 C 1578.6452 734.87902 1616.7969 689.53906 1616.7969 689.53906 L 1681.375 604.47852 C 1687.0993 596.93839 1689.3762 588.90409 1688.209 580.37695 C 1687.0417 571.8498 1682.6905 564.72444 1675.1504 559 L 1520.0391 441.24219 C 1512.499 435.51777 1504.4646 433.23706 1495.9375 434.4043 C 1487.4102 435.57155 1479.8631 439.62422 1474.5605 447.4668 C 1446.0803 494.06826 1432.1016 516.46587 1378.2773 574.28906 C 1348.8635 601.34351 1316.4063 622.69518 1281.6191 636.6543 C 1067.6463 709.61943 913.77105 505.66893 745.44531 415.86719 C 668.96293 370.33416 584.03444 349.05738 499.42773 349.50586 z M 594.88477 897.21094 C 566.68253 897.36043 538.51505 899.92285 510.70898 904.80664 C 409.74993 922.53885 313.54689 970.86407 237.63086 1045.2871 C 215.62627 1064.9315 177.47266 1110.2734 177.47266 1110.2734 L 112.89648 1195.332 C 107.1721 1202.8722 104.89329 1210.9084 106.06055 1219.4355 C 107.22781 1227.9627 111.58098 1235.086 119.12109 1240.8105 L 274.23242 1358.5684 C 281.77254 1364.2928 289.80483 1366.5734 298.33203 1365.4062 C 306.85921 1364.239 314.4084 1360.1864 319.71094 1352.3438 C 348.19118 1305.7423 362.16986 1283.3466 415.99414 1225.5234 C 504.91877 1143.7317 614.99368 1114.0536 740.01758 1183.4355 C 909.94442 1286.0772 1067.2128 1448.0744 1276.375 1453.2617 C 1305.1678 1453.2817 1347.2362 1449.0945 1379.0176 1442.709 C 1479.9765 1424.9767 1576.1817 1376.6515 1652.0977 1302.2285 C 1674.1023 1282.584 1712.2539 1237.2441 1712.2539 1237.2441 L 1776.832 1152.1836 C 1782.5562 1144.6434 1784.8333 1136.6091 1783.666 1128.082 C 1782.4987 1119.5548 1778.1456 1112.4295 1770.6055 1106.7051 L 1615.4941 988.94727 C 1607.9538 983.22287 1599.9217 980.94208 1591.3945 982.10938 C 1582.8673 983.27657 1575.3182 987.32927 1570.0156 995.17188 C 1541.5354 1041.7734 1527.5567 1064.169 1473.7324 1121.9922 C 1444.3187 1149.0467 1411.8635 1170.4003 1377.0762 1184.3594 C 1163.1036 1257.3246 1009.2262 1053.3739 840.90039 963.57227 C 764.41799 918.0392 679.49147 896.76246 594.88477 897.21094 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">InvalidXMLCharFilterReader</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+
+.</li>
+</ul>
+</li>
+</ul>
+<h3 id="xslt-functions">XSLT Functions</h3>
+<ul>
+<li>Add XSLT function <code>stroom:hex-to-string(hex, charsetName)</code>.</li>
+<li>Add XSLT function <code>stroom:cidr-to-numeric-ip-range</code> XSLT function.</li>
+<li>Add XSLT function <code>stroom:ip-in-cidr</code> for testing whether an IP address is within the specified CIDR range.</li>
+</ul>
+<p>For details of the new functions, see <a href="../../../docs/user-guide/pipelines/xslt/xslt-functions/">XSLT Functions</a>.</p>
+<h2 id="api">API</h2>
+<ul>
+<li>Add the un-authenticated API method <code>/api/authproxy/v1/noauth/fetchClientCredsToken</code> to effectively proxy for the <span class="glossary-link">
+  <a href="../../../docs/glossary/#idp" title="Glossary entry for IDP&#39;s">
+    <span>IDP&#39;s</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> token endpoint to obtain an access token using the client credentials flow.
+The request contains the client credentials and looks like <code>{ &quot;clientId&quot;: &quot;a-client&quot;, &quot;clientSecret&quot;: &quot;BR9m.....KNQO&quot; }</code>.
+The response media type is <code>text/plain</code> and contains the access token.</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-19c88188f3dbf89c3a5a3fa974883433">2 - Preview Features (experimental)</h1>
+    <div class="lead">Preview experimental features in Stroom version 7.3.</div>
+	<h2 id="s3-storage">S3 Storage</h2>
+<p>Integration with S3 storage has been added to allow Stroom to read/write to/from S3 storage, e.g. S3 on AWS.
+A data volume can now be create as either <code>Standard</code> or <code>S3</code>.
+If configured as <code>S3</code> you need to supply the <code>S3</code> configuration data.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+
+  <a title="images/releases/07.03/add-volume.png" href="../../../images/releases/07.03/add-volume.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/add-volume.png" style="max-width:400" alt="images/releases/07.03/add-volume.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">Add Volume screen.</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This is an experimental feature at this stage and may be subject to change.
+The way Stroom reads and writes data has not been optimised for S3 so performance at scale is currently unknown.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-a7a884b9277d2d1671812b8de5f4ae23">3 - Breaking Changes</h1>
+    <div class="lead">Changes in Stroom version 7.3 that may break existing processing or ways of working.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Please read this section carefully in case any of the changes affect you.
+
+</div>
+
+
+<ul>
+<li>
+<p>The Hessian based feed status RPC service <code>/remoting/remotefeedservice.rpc</code> has been removed as it is using the legacy <code>javax.servlet</code> dependency that is incompatible with <code>jakarta.servlet</code> that is now in use in stroom.
+This was used by Stroom-Proxy up to v5.</p>
+</li>
+<li>
+<p>The StroomQL keyword combination <code>vis as</code> has been replaced with <code>show</code>.</p>
+</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-e0a603b7f85bc86392f49c53a4d4e2c6">4 - Upgrade Notes</h1>
+    <div class="lead">Required actions and information relating to upgrading to Stroom version 7.3.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Please read this section carefully in case any of it is relevant to your Stroom instance.
+
+</div>
+
+
+<h2 id="java-version">Java Version</h2>
+<p>Stroom v7.3 requires Java v21.
+Previous versions of Stroom used Java v17 or lower.
+You will need to upgrade Java on the Stroom and Stroom-Proxy hosts to the latest patch release of Java v21.</p>
+<h2 id="api-keys">API Keys</h2>
+<p>With the change to the format of API Keys (see <a href="../../../releases/v07.03/new-features/">here</a>), it is recommended to migrate legacy API Keys over to the new format.
+There is no hard requirement to do this as legacy keys will continue to work as is, however the new keys are easier to work with and Stroom has more control over the new format keys, making them more secure.
+You are encouraged to create new keys for client systems and ask them to change the keys over.</p>
+<h3 id="legacy-key-migration">Legacy Key Migration</h3>
+<p>The new API Keys are now stored in a new table <code>api_key</code>.
+Legacy keys will be migrated into this table and given a key name and prefix like <code>LEGACY_API_KEY_N</code>, where <code>N</code> is a unique number.
+As the whole API was previously visible in v7.2, the API Key string is migrated into the Comments field so remains visible in the UI.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 810px">
+
+  <a title="images/releases/07.03/api-keys.png" href="../../../images/releases/07.03/api-keys.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.03/api-keys.png" style="max-width:800" alt="images/releases/07.03/api-keys.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">API Keys screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<h2 id="database-migrations">Database Migrations</h2>
+<p>When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
+This is to mitigate against any problems with the migration.
+It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
+
+</div>
+
+
+<p>On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
+This will be the node that reaches that point in the boot process first.
+All other nodes will wait until that is complete before proceeding with the boot process.</p>
+<p>It is recommended however to use a single node to execute the migration.
+To avoid Stroom starting up and beginning processing you can use the <code>migrage</code> command to just migrate the database and not fully boot Stroom.
+See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrage</code> command</a> for more details.</p>
+<h3 id="migration-scripts">Migration Scripts</h3>
+<!-- This section is auto-generated by TestListDbMigrations.listDbMigrationsForLatestVersion -->
+<p>For information purposes only, the following are the database migrations that will be run when upgrading to 7.3.0 from the previous minor version.</p>
+<p>Note, the <code>legacy</code> module will run first (if present) then the other module will run in no particular order.</p>
+<h4 id="module-stroom-data">Module <code>stroom-data</code></h4>
+<h5 id="script-v07_03_00_001__fs_volume_s3sql">Script <code>V07_03_00_001__fs_volume_s3.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-data/stroom-data-store-impl-fs-db/src/main/resources/stroom/data/store/impl/fs/db/migration/V07_03_00_001__fs_volume_s3.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+CREATE TABLE IF NOT EXISTS fs_volume_group (
+  id                    int NOT NULL AUTO_INCREMENT,
+  version               int NOT NULL,
+  create_time_ms        bigint NOT NULL,
+  create_user           varchar(255) NOT NULL,
+  update_time_ms        bigint NOT NULL,
+  update_user           varchar(255) NOT NULL,
+  name                  varchar(255) NOT NULL,
+  -- 'name' needs to be unique because it is used as a reference
+  UNIQUE (name),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+
+DROP PROCEDURE IF EXISTS V07_03_00_001;
+
+DELIMITER $$
+
+CREATE PROCEDURE V07_03_00_001 ()
+BEGIN
+    DECLARE object_count integer;
+
+    -- Add volume type
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = 'fs_volume'
+    AND column_name = 'volume_type';
+
+    IF object_count = 0 THEN
+        ALTER TABLE `fs_volume` ADD COLUMN `volume_type` int NOT NULL;
+        ALTER TABLE `fs_volume` ADD COLUMN `data` longblob;
+        UPDATE `fs_volume` set `volume_type` = 0;
+    END IF;
+
+    -- Add default group
+    SELECT COUNT(*)
+    INTO object_count
+    FROM fs_volume_group
+    WHERE name = &quot;Default&quot;;
+
+    IF object_count = 0 THEN
+        INSERT INTO fs_volume_group (
+          version,
+          create_time_ms,
+          create_user,
+          update_time_ms,
+          update_user,
+          name)
+        VALUES (
+            1,
+            UNIX_TIMESTAMP() * 1000,
+            &quot;Flyway migration&quot;,
+            UNIX_TIMESTAMP() * 1000,
+            &quot;Flyway migration&quot;,
+            &quot;Default Volume Group&quot;);
+    END IF;
+
+    -- Add volume group
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = 'fs_volume'
+    AND column_name = 'fk_fs_volume_group_id';
+
+    IF object_count = 0 THEN
+        ALTER TABLE `fs_volume`
+        ADD COLUMN `fk_fs_volume_group_id` int NOT NULL;
+        UPDATE `fs_volume` SET `fk_fs_volume_group_id` = (SELECT `id` FROM `fs_volume_group` WHERE `name` = &quot;Default Volume Group&quot;);
+        ALTER TABLE fs_volume
+            ADD CONSTRAINT fs_volume_group_fk_fs_volume_group_id
+            FOREIGN KEY (fk_fs_volume_group_id)
+            REFERENCES fs_volume_group (id);
+    END IF;
+
+END $$
+
+DELIMITER ;
+
+CALL V07_03_00_001;
+
+DROP PROCEDURE IF EXISTS V07_03_00_001;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h4 id="module-stroom-index">Module <code>stroom-index</code></h4>
+<h5 id="script-v07_03_00_001__index_fieldsql">Script <code>V07_03_00_001__index_field.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-index/stroom-index-impl-db/src/main/resources/stroom/index/impl/db/migration/V07_03_00_001__index_field.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP PROCEDURE IF EXISTS drop_field_source;
+DELIMITER //
+CREATE PROCEDURE drop_field_source ()
+BEGIN
+    IF EXISTS (
+        SELECT NULL
+        FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = database()
+        AND TABLE_NAME = 'field_info') THEN
+        DROP TABLE field_info;
+    END IF;
+    IF EXISTS (
+        SELECT NULL
+        FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = database()
+        AND TABLE_NAME = 'field_source') THEN
+        DROP TABLE field_source;
+    END IF;
+    IF EXISTS (
+        SELECT NULL
+        FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = database()
+        AND TABLE_NAME = 'field_schema_history') THEN
+        DROP TABLE field_schema_history;
+    END IF;
+END//
+DELIMITER ;
+CALL drop_field_source();
+DROP PROCEDURE drop_field_source;
+
+--
+-- Create the field_source table
+--
+CREATE TABLE IF NOT EXISTS `index_field_source` (
+    `id`        int NOT NULL AUTO_INCREMENT,
+    `type`      varchar(255) NOT NULL,
+    `uuid`      varchar(255) NOT NULL,
+    `name`      varchar(255) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY  `index_field_source_type_uuid` (`type`, `uuid`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+--
+-- Create the index_field table
+--
+CREATE TABLE IF NOT EXISTS `index_field` (
+    `id`                        bigint NOT NULL AUTO_INCREMENT,
+    `fk_index_field_source_id`  int NOT NULL,
+    `type`                      tinyint NOT NULL,
+    `name`                      varchar(255) NOT NULL,
+    `analyzer`                  varchar(255) NOT NULL,
+    `indexed`                   tinyint NOT NULL DEFAULT '0',
+    `stored`                    tinyint NOT NULL DEFAULT '0',
+    `term_positions`            tinyint NOT NULL DEFAULT '0',
+    `case_sensitive`            tinyint NOT NULL DEFAULT '0',
+    PRIMARY KEY                 (`id`),
+    UNIQUE KEY                  `index_field_source_id_name` (`fk_index_field_source_id`, `name`),
+    CONSTRAINT `index_field_fk_index_field_source_id` FOREIGN KEY (`fk_index_field_source_id`) REFERENCES `index_field_source` (`id`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set tabstop=4 shiftwidth=4 expandtab:
+
+</code></pre>
+<h5 id="script-v07_03_00_005__index_field_change_pksql">Script <code>V07_03_00_005__index_field_change_pk.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-index/stroom-index-impl-db/src/main/resources/stroom/index/impl/db/migration/V07_03_00_005__index_field_change_pk.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS modify_field_source$$
+
+-- The surrogate PK results in fields from different indexes all being mixed together
+-- in the PK index, which causes deadlocks in batch upserts due to gap locks.
+-- Change the PK to be (fk_index_field_source_id, name) which should keep the fields
+-- together.
+
+CREATE PROCEDURE modify_field_source ()
+BEGIN
+
+    -- Remove existing PK
+    IF EXISTS (
+            SELECT NULL
+            FROM INFORMATION_SCHEMA.columns
+            WHERE TABLE_SCHEMA = database()
+            AND TABLE_NAME = 'index_field'
+            AND COLUMN_NAME = 'id') THEN
+
+        ALTER TABLE index_field DROP COLUMN id;
+    END IF;
+
+    -- Add the new PK
+    IF NOT EXISTS (
+            SELECT NULL
+            FROM INFORMATION_SCHEMA.table_constraints
+            WHERE TABLE_SCHEMA = database()
+            AND TABLE_NAME = 'index_field'
+            AND CONSTRAINT_NAME = 'PRIMARY') THEN
+
+        ALTER TABLE index_field ADD PRIMARY KEY (fk_index_field_source_id, name);
+    END IF;
+
+    -- Remove existing index that is now served by PK
+    IF EXISTS (
+            SELECT NULL
+            FROM INFORMATION_SCHEMA.table_constraints
+            WHERE TABLE_SCHEMA = database()
+            AND TABLE_NAME = 'index_field'
+            AND CONSTRAINT_NAME = 'index_field_source_id_name') THEN
+
+        ALTER TABLE index_field DROP INDEX index_field_source_id_name;
+    END IF;
+
+END $$
+
+DELIMITER ;
+
+CALL modify_field_source();
+
+DROP PROCEDURE IF EXISTS modify_field_source;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set tabstop=4 shiftwidth=4 expandtab:
+
+</code></pre>
+<h4 id="module-stroom-processor">Module <code>stroom-processor</code></h4>
+<h5 id="script-v07_03_00_001__processorsql">Script <code>V07_03_00_001__processor.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-processor/stroom-processor-impl-db/src/main/resources/stroom/processor/impl/db/migration/V07_03_00_001__processor.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP PROCEDURE IF EXISTS modify_processor;
+DELIMITER //
+CREATE PROCEDURE modify_processor ()
+BEGIN
+     DECLARE object_count integer;
+
+     SELECT COUNT(1)
+     INTO object_count
+     FROM information_schema.table_constraints
+     WHERE table_schema = database()
+     AND table_name = 'processor'
+     AND constraint_name = 'processor_pipeline_uuid';
+
+     IF object_count = 1 THEN
+         ALTER TABLE processor DROP INDEX processor_pipeline_uuid;
+     END IF;
+
+     SELECT COUNT(1)
+     INTO object_count
+     FROM information_schema.table_constraints
+     WHERE table_schema = database()
+     AND table_name = 'processor'
+     AND constraint_name = 'processor_task_type_pipeline_uuid';
+
+     IF object_count = 0 THEN
+         CREATE UNIQUE INDEX processor_task_type_pipeline_uuid ON processor (task_type, pipeline_uuid);
+     END IF;
+END//
+DELIMITER ;
+CALL modify_processor();
+DROP PROCEDURE modify_processor;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h5 id="script-v07_03_00_005__processor_filtersql">Script <code>V07_03_00_005__processor_filter.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-processor/stroom-processor-impl-db/src/main/resources/stroom/processor/impl/db/migration/V07_03_00_005__processor_filter.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+-- --------------------------------------------------
+
+DELIMITER $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS processor_run_sql_v1 $$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE processor_run_sql_v1 (
+    p_sql_stmt varchar(1000)
+)
+BEGIN
+
+    SET @sqlstmt = p_sql_stmt;
+
+    SELECT CONCAT('Running sql: ', @sqlstmt);
+
+    PREPARE stmt FROM @sqlstmt;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS processor_add_column_v1$$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE processor_add_column_v1 (
+    p_table_name varchar(64),
+    p_column_name varchar(64),
+    p_column_type_info varchar(64) -- e.g. 'varchar(255) default NULL'
+)
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = p_table_name
+    AND column_name = p_column_name;
+
+    IF object_count = 0 THEN
+        CALL processor_run_sql_v1(CONCAT(
+            'alter table ', database(), '.', p_table_name,
+            ' add column ', p_column_name, ' ', p_column_type_info));
+    ELSE
+        SELECT CONCAT(
+            'Column ',
+            p_column_name,
+            ' already exists on table ',
+            database(),
+            '.',
+            p_table_name);
+    END IF;
+END $$
+
+-- idempotent
+CALL processor_add_column_v1(
+        'processor_filter',
+        'max_processing_tasks',
+        'int NOT NULL DEFAULT 0');
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-3557f878171ee03337ebbb97b108f394">5 - Change Log</h1>
+    <div class="lead">Link to the full CHANGELOG.</div>
+	<p>For a detailed list of all the changes in v7.3 see:
+
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/blob/7.3/CHANGELOG.md" target="_blank" class="" style="" title="v7.3 CHANGELOG (external link to https://github.com/gchq/stroom/blob/7.3/CHANGELOG.md)">
+    <span>v7.3 CHANGELOG</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2024 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../js/popper.min.js'></script>
+<script src='../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>
