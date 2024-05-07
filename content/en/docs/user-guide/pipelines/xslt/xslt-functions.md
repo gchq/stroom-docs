@@ -403,14 +403,14 @@ link(title, url, type)
 
 Example
 ```
-link('http://www.somehost.com/somepath')
-> [http://www.somehost.com/somepath](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath')
-> [Click Here](http://www.somehost.com/somepath)
-link('Click Here','http://www.somehost.com/somepath', 'dialog')
-> [Click Here](http://www.somehost.com/somepath){dialog}
-link('Click Here','http://www.somehost.com/somepath', 'dialog|Dialog Title')
-> [Click Here](http://www.somehost.com/somepath){dialog|Dialog Title}
+link('https://www.somehost.com/somepath')
+> [https://www.somehost.com/somepath](https://www.somehost.com/somepath)
+link('Click Here','https://www.somehost.com/somepath')
+> [Click Here](https://www.somehost.com/somepath)
+link('Click Here','https://www.somehost.com/somepath', 'dialog')
+> [Click Here](https://www.somehost.com/somepath){dialog}
+link('Click Here','https://www.somehost.com/somepath', 'dialog|Dialog Title')
+> [Click Here](https://www.somehost.com/somepath){dialog|Dialog Title}
 ```
 
 Type can be one of:

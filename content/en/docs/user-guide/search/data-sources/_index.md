@@ -7,6 +7,6 @@ tags:
   - data-source
   - search
 description: >
-  Data sources are sources of data that can be queried by Stroom using Dashboards, Queries and Analytic Rules.
+  Stroom has multiple different types of data sources that can be queried by Stroom using Dashboards, Queries and Analytic Rules.
 ---
 
