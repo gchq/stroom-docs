@@ -248,7 +248,7 @@ It defines the location and authentication details for connecting to an elastic 
 {{< image "releases/07.02/elastic-cluster.png" "200x" />}}
 
 {{% see-also %}}
-[Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}) and [searching an Elasticsearch index]({{< relref "/docs/user-guide/search/elasticsearch" >}})
+[Using Elasticsearch to index data]({{< relref "/docs/user-guide/indexing/elasticsearch" >}}) and [searching an Elasticsearch index]({{< relref "/docs/user-guide/search/data-sources/elastic-data-source" >}})
 {{% /see-also %}}
 
 Thanks to Pete K for his help adding the new Elasticsearch integration features.
@@ -261,7 +261,7 @@ An _Elastic Index_ {{< stroom-icon "document/ElasticIndex.svg">}} document is a 
 {{< image "releases/07.02/elastic-index.png" "200x" />}}
 
 {{% see-also %}}
-[Searching an Elasticsearch index]({{< relref "/docs/user-guide/search/elasticsearch" >}})
+[Searching an Elasticsearch index]({{< relref "/docs/user-guide/search/data-sources/elastic-data-source" >}})
 {{% /see-also %}}
 
 
