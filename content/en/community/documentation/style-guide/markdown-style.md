@@ -10,7 +10,6 @@ description: >
 
 ## Line breaks
 
-
 ### Sentence per line
 
 Each sentence must start on a new line, even in numbered/bulleted lists.
@@ -443,6 +442,14 @@ Tables should ideally have its columns aligned in the markdown for clarity in th
 | Prince          | Purple Rain    | 1984 |
 | Beastie Boys    | License to Ill | 1986 |
 
+## Or this
+
+Artist          | Album          | Year
+----------------|----------------|-----
+Michael Jackson | Thriller       | 1982
+Prince          | Purple Rain    | 1984
+Beastie Boys    | License to Ill | 1986
+
 ## But this is acceptable
 
 | Artist | Album | Year |
@@ -452,20 +459,27 @@ Tables should ideally have its columns aligned in the markdown for clarity in th
 | Beastie Boys | License to Ill | 1986 |
 ```
 
-Both will produce the same result.
-The latter can be harder to read in markdown form.
-The former is harder to create and update in markdown form.
+All  will produce the same result, however, the latter can be harder to read in markdown form.
+The first two are harder to create and update in markdown form.
 
-| Artist          | Album          | Year |
-|-----------------|----------------|------|
-| Michael Jackson | Thriller       | 1982 |
-| Prince          | Purple Rain    | 1984 |
-| Beastie Boys    | License to Ill | 1986 |
+| Artist            | Album            | Year   |
+| ----------------- | ---------------- | ------ |
+| Michael Jackson   | Thriller         | 1982   |
+| Prince            | Purple Rain      | 1984   |
+| Beastie Boys      | License to Ill   | 1986   |
+
+If you are editing the documentation with Vim then the plugin {{< external-link "tabular" "https://github.com/godlygeek/tabular" >}} is very useful for auto aligning markdown tables.
+Simply position the cursor somewhere in the table and do `:Tabularize\|` to _tabularize_ on the `|` character.
+
+
+### Line breaks in cells
+
+If you need a line break in a table cell then use `<br>`.
 
 
 ## Comments
 
-As the Markdown content is procesed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
+As the Markdown content is processed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
 This can be useful when you want to leave development comments in the content that are not for display in the rendered site.
 Comments are done with the HTML comment syntax, i.e.
 

@@ -135,7 +135,7 @@ To develop Stroom-Docs with Codespaces do the following:
 1. On the Codespaces tab click on _Create Codespace on <branch>_
    {{< image "documenting-stroom/github-codespaces.png" "300x" />}}
    On first use of the Codespace it will take some time to do the initial setup of the development container.
-   Subsequent uses will load more quickly.
+   Subsequent uses of the Codespace will load more quickly.
 1. It will open Visual Studio Code in the browser with a terminal pane at the bottom.
 1. In the terminal pane enter:
    `./serve_site.sh`
@@ -143,10 +143,16 @@ To develop Stroom-Docs with Codespaces do the following:
    You should see something like:
    {{< image "documenting-stroom/github-codespaces-open-port.png" "300x" />}}
 1. Click _Open in Browser_ and it will open a URL unique to your Codespace in the browser displaying the stroom-docs site.
+   If this doesn't appear then open the _PORTS_ tab in VSCode and click the _Open in Browser_ icon in the _Forwarded Addresses_ column to open the served site in the browser.
 
 Within the Codespace you can use all the git commands to pull/push/commit changes.
 
 To stop the code space hit `ctrl+shift+p`, enter `stop` and then select _Codespaces: Stop current Codespace_.
+
+{{% warning %}}
+When editing the documentation using Codespaces you need to manually refresh the browser tab with the served site.
+It does not auto-refresh like it does when running `./serve-site.sh` on your local machine.
+{{% /warning %}}
 
 
 ## Additional commands

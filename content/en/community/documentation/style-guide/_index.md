@@ -83,7 +83,7 @@ Check the documentation for specific shortcode to see how to call it.
 
 ### Editor snippets and shortcodes
 
-To make your life easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
+To make your life much easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.
 
 For example the following {{< external-link "UltiSnips (for Vim)" "https://github.com/SirVer/ultisnips" >}} and {{< external-link "VS Code" "https://code.visualstudio.com/docs/editor/userdefinedsnippets" >}} snippets adds a skeleton front matter to a page.
@@ -131,7 +131,6 @@ endsnippet
 ```
   {{< /card >}}
 {{< /cardpane >}}
-
 
 
 {{% todo %}}

@@ -1,6 +1,6 @@
 ---
-title: "Job Reference"
-linkTitle: "Job Reference"
+title: "Background Jobs"
+linkTitle: "Background Jobs"
 weight: 60
 date: 2021-07-27
 tags:
@@ -41,6 +41,7 @@ Create Processor Tasks from Processor Filters.
 ## Query History Clean
 
 How frequently items in the query history are removed from the history if their age is older than `stroom.history.daysRetention` or if the number of items in the history exceeds `stroom.history.itemsRetention`.
+
 
 ---
 

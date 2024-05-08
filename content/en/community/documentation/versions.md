@@ -12,8 +12,11 @@ description: >
 The _Docsy_ theme supports site versioning so that multiple versions of the site/documentation can exist and link between each other.
 For this documentation site, each version of the site is tied to a minor release of Stroom, e.g. `7.0`, `7.1`, `7.2`, `8.0` etc.
 Each Stroom version is represented by a git branch with the same name.
+
 There is an additional git branch `legacy` that is for all Stroom versions prior to `7.0` and will be removed once the versions prior to `7.0` are no longer supported.
-Documentation changes for an as yet unreleased Stroom version would be performed on the `master` branch.
+
+Documentation changes for an as yet unreleased Stroom version would be performed on the `master` branch which **does not** get published.
+When it is ready for publishing then create a version branch from `master`.
 
 When the combined site is built, each version will exist within a directory as siblings of each other, i.e.
 
@@ -58,6 +61,7 @@ This example is from the _7.1_ branch and is based on there being versions _lega
   # A link to latest version of the docs. Used in the
   # "version-banner" partial to point people to the main
   # doc site. Ignored for the latest version
+  # Should be the same on all version branches.
   url_latest_version = "/../"
 
   # The version number of the latest version. Used in the
@@ -74,7 +78,7 @@ This example is from the _7.1_ branch and is based on there being versions _lega
   # A set of all the versions that are available.
   [[params.versions]]
     version = "7.1 (Latest)"
-    url = "/../"
+    url = "/"
   [[params.versions]]
     version = "7.0"
     url = "/../7.0"
@@ -122,12 +126,84 @@ This example is from the _7.1_ branch and is based on there being versions _lega
     url = "/"
   [[params.versions]]
     version = "7.0"
-    url = "/7.0"
+    url = "/../7.0"
   [[params.versions]]
     version = "Legacy"
-    url = "/legacy"
+    url = "/../legacy"
 ```
   {{< /card >}}
+{{< /cardpane >}}
+
+
+### `params.versions`
+
+Setting the `params.versions` values is somewhat confusing.
+The `url` property will result in a relative `href` in the built site that is relative to the site root for that version.
+The following is the built HTML for v7.1 which is the latest.
+
+```html
+<a class="dropdown-item" href="./">7.1 (Latest)</a> <!-- 7.1 is located at the site root -->
+<a class="dropdown-item" href="./7.0">7.0</a> <!-- 7.0 is located in the 7.0 sub-directory of the site root -->
+<a class="dropdown-item" href="./legacy">Legacy</a>
+```
+
+The following shows how `params.versions` are set in each version branch, assuming that 7.1 is the latest version.
+
+{{< cardpane >}}
+  {{< card header="legacy" >}}
+```toml
+# Versioned root is /legacy
+# Latest is parent
+# Other versions are siblings
+ 
+[[params.versions]]
+  version = "7.1 (Latest)"
+  url = "/../"
+[[params.versions]]
+  version = "7.0"
+  url = "/../7.0"
+[[params.versions]]
+  version = "Legacy"
+  url = "/"
+```
+  {{< /card >}}
+
+  {{< card header="7.0" >}}
+```toml
+# Versioned root is /7.0
+# Latest is parent
+# Other versions are siblings
+
+[[params.versions]]
+  version = "7.1 (Latest)"
+  url = "/../"
+[[params.versions]]
+  version = "7.0"
+  url = "/"
+[[params.versions]]
+  version = "Legacy"
+  url = "/../legacy"
+```
+  {{< /card >}}
+
+  {{< card header="7.1" >}}
+```toml
+# Versioned root is /
+# Latest is site root
+# Other versions are children
+
+[[params.versions]]
+  version = "7.1 (Latest)"
+  url = "/"
+[[params.versions]]
+  version = "7.0"
+  url = "/7.0"
+[[params.versions]]
+  version = "Legacy"
+  url = "/legacy"
+```
+  {{< /card >}}
+
 {{< /cardpane >}}
 
 
@@ -230,6 +306,12 @@ The decision on how best to tackle these situations will have to be on a case by
 If the change impacts the building of a single version then it needs to be done on the oldest version and merge up.
 
 If the change only impacts the preparation of release artefacts then it can be performed on the `master` branch.
+
+
+### Adding a new version branch
+
+The change to `config.toml` needs to be done on all version branches.
+Unfortunately you cannot just add the new `[[params.versions]]` block into `legacy` and merge up as each version branch will need editing so the `url` values are applicable to version branch being edited, see [above]({{< relref "#paramsversions" >}}).
 
 
 ## Building a mock multi-version site
