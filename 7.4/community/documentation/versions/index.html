@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/versions/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2022-01-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-05-07T18:32:00+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-05-08T11:29:40+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Managing Stroom Versions">
 <meta itemprop="description" content="How to manage documentation for different versions of Stroom.
 "><meta itemprop="datePublished" content="2022-01-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-05-07T18:32:00+01:00" />
-<meta itemprop="wordCount" content="1733">
+<meta itemprop="dateModified" content="2024-05-08T11:29:40+01:00" />
+<meta itemprop="wordCount" content="2016">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Managing Stroom Versions"/>
 <meta name="twitter:description" content="How to manage documentation for different versions of Stroom.
@@ -43,8 +43,8 @@
 
 
 
-<link rel="preload" href="../../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" as="style">
-<link href="../../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" as="style">
+<link href="../../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../js/jquery-3.6.0.min.js'></script>
@@ -126,7 +126,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.f1f1ce9ea53433854fbe96fbce3f4e2e.json"
+    data-offline-search-index-json-src="../../../offline-search-index.e212ea349c625b4068afe8f3cb4bf5f7.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -151,7 +151,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.f1f1ce9ea53433854fbe96fbce3f4e2e.json"
+    data-offline-search-index-json-src="../../../offline-search-index.e212ea349c625b4068afe8f3cb4bf5f7.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -240,7 +240,11 @@ if (!doNotTrack) {
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#versioned-site-configuration">Versioned Site Configuration</a></li>
+    <li><a href="#versioned-site-configuration">Versioned Site Configuration</a>
+      <ul>
+        <li><a href="#paramsversions"><code>params.versions</code></a></li>
+      </ul>
+    </li>
     <li><a href="#automated-build-process">Automated build process</a></li>
     <li><a href="#merging-changes">Merging changes</a></li>
     <li><a href="#where-to-make-changes">Where to make changes</a>
@@ -249,6 +253,7 @@ if (!doNotTrack) {
         <li><a href="#changes-to-the-newsreleases">Changes to the News/Releases</a></li>
         <li><a href="#changing-the-site-look">Changing the site look</a></li>
         <li><a href="#changing-the-github-actions-build-process">Changing the GitHub Actions build process</a></li>
+        <li><a href="#adding-a-new-version-branch">Adding a new version branch</a></li>
       </ul>
     </li>
     <li><a href="#building-a-mock-multi-version-site">Building a mock multi-version site</a></li>
@@ -454,9 +459,10 @@ if (!doNotTrack) {
 	</header>    
 	<p>The <em>Docsy</em> theme supports site versioning so that multiple versions of the site/documentation can exist and link between each other.
 For this documentation site, each version of the site is tied to a minor release of Stroom, e.g. <code>7.0</code>, <code>7.1</code>, <code>7.2</code>, <code>8.0</code> etc.
-Each Stroom version is represented by a git branch with the same name.
-There is an additional git branch <code>legacy</code> that is for all Stroom versions prior to <code>7.0</code> and will be removed once the versions prior to <code>7.0</code> are no longer supported.
-Documentation changes for an as yet unreleased Stroom version would be performed on the <code>master</code> branch.</p>
+Each Stroom version is represented by a git branch with the same name.</p>
+<p>There is an additional git branch <code>legacy</code> that is for all Stroom versions prior to <code>7.0</code> and will be removed once the versions prior to <code>7.0</code> are no longer supported.</p>
+<p>Documentation changes for an as yet unreleased Stroom version would be performed on the <code>master</code> branch which <strong>does not</strong> get published.
+When it is ready for publishing then create a version branch from <code>master</code>.</p>
 <p>When the combined site is built, each version will exist within a directory as siblings of each other, i.e.</p>
 <pre><code class="language-bash">/         # Latest version content lives here (i.e. copy of v8.0)
 /7.0/
@@ -504,6 +510,7 @@ This example is from the <em>7.1</em> branch and is based on there being version
   # A link to latest version of the docs. Used in the
   # &quot;version-banner&quot; partial to point people to the main
   # doc site. Ignored for the latest version
+  # Should be the same on all version branches.
   url_latest_version = &quot;/../&quot;
 
   # The version number of the latest version. Used in the
@@ -520,7 +527,7 @@ This example is from the <em>7.1</em> branch and is based on there being version
   # A set of all the versions that are available.
   [[params.versions]]
     version = &quot;7.1 (Latest)&quot;
-    url = &quot;/../&quot;
+    url = &quot;/&quot;
   [[params.versions]]
     version = &quot;7.0&quot;
     url = &quot;/../7.0&quot;
@@ -587,10 +594,10 @@ This example is from the <em>7.1</em> branch and is based on there being version
     url = &quot;/&quot;
   [[params.versions]]
     version = &quot;7.0&quot;
-    url = &quot;/7.0&quot;
+    url = &quot;/../7.0&quot;
   [[params.versions]]
     version = &quot;Legacy&quot;
-    url = &quot;/legacy&quot;
+    url = &quot;/../legacy&quot;
 </code></pre>
 
         
@@ -599,6 +606,128 @@ This example is from the <em>7.1</em> branch and is based on there being version
   </div>
   
 </div>
+
+</div>
+<h3 id="paramsversions"><code>params.versions</code></h3>
+<p>Setting the <code>params.versions</code> values is somewhat confusing.
+The <code>url</code> property will result in a relative <code>href</code> in the built site that is relative to the site root for that version.
+The following is the built HTML for v7.1 which is the latest.</p>
+<pre><code class="language-html">&lt;a class=&quot;dropdown-item&quot; href=&quot;./&quot;&gt;7.1 (Latest)&lt;/a&gt; &lt;!-- 7.1 is located at the site root --&gt;
+&lt;a class=&quot;dropdown-item&quot; href=&quot;./7.0&quot;&gt;7.0&lt;/a&gt; &lt;!-- 7.0 is located in the 7.0 sub-directory of the site root --&gt;
+&lt;a class=&quot;dropdown-item&quot; href=&quot;./legacy&quot;&gt;Legacy&lt;/a&gt;
+</code></pre>
+<p>The following shows how <code>params.versions</code> are set in each version branch, assuming that 7.1 is the latest version.</p>
+<div class="td-card-deck card-deck mb-4">
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        legacy
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml"># Versioned root is /legacy
+# Latest is parent
+# Other versions are siblings
+ 
+[[params.versions]]
+  version = &quot;7.1 (Latest)&quot;
+  url = &quot;/../&quot;
+[[params.versions]]
+  version = &quot;7.0&quot;
+  url = &quot;/../7.0&quot;
+[[params.versions]]
+  version = &quot;Legacy&quot;
+  url = &quot;/&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        7.0
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml"># Versioned root is /7.0
+# Latest is parent
+# Other versions are siblings
+
+[[params.versions]]
+  version = &quot;7.1 (Latest)&quot;
+  url = &quot;/../&quot;
+[[params.versions]]
+  version = &quot;7.0&quot;
+  url = &quot;/&quot;
+[[params.versions]]
+  version = &quot;Legacy&quot;
+  url = &quot;/../legacy&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        7.1
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml"># Versioned root is /
+# Latest is site root
+# Other versions are children
+
+[[params.versions]]
+  version = &quot;7.1 (Latest)&quot;
+  url = &quot;/&quot;
+[[params.versions]]
+  version = &quot;7.0&quot;
+  url = &quot;/7.0&quot;
+[[params.versions]]
+  version = &quot;Legacy&quot;
+  url = &quot;/legacy&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
 
 </div>
 <h2 id="automated-build-process">Automated build process</h2>
@@ -725,6 +854,9 @@ The decision on how best to tackle these situations will have to be on a case by
 <h3 id="changing-the-github-actions-build-process">Changing the GitHub Actions build process</h3>
 <p>If the change impacts the building of a single version then it needs to be done on the oldest version and merge up.</p>
 <p>If the change only impacts the preparation of release artefacts then it can be performed on the <code>master</code> branch.</p>
+<h3 id="adding-a-new-version-branch">Adding a new version branch</h3>
+<p>The change to <code>config.toml</code> needs to be done on all version branches.
+Unfortunately you cannot just add the new <code>[[params.versions]]</code> block into <code>legacy</code> and merge up as each version branch will need editing so the <code>url</code> values are applicable to version branch being edited, see <a href="#paramsversions">above</a>.</p>
 <h2 id="building-a-mock-multi-version-site">Building a mock multi-version site</h2>
 <p>To make it easier to test how the combined site will look with multiple versions the following script can be run to mock up a multi-version site.
 It does the following:</p>
@@ -747,7 +879,7 @@ python -m SimpleHTTPServer 8888
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified May 7, 2024: <a href="https://github.com/gchq/stroom-docs/commit/5c1f775f7c9964b75c05d46666c0ab5a2046278d">Fix version links (5c1f775)</a>
+  Last modified May 8, 2024: <a href="https://github.com/gchq/stroom-docs/commit/007cb3c9b421bb674b518d5d79b63728ec049de7">Make 7.4 not an archived_version (007cb3c)</a>
 </div>
 
 </div>

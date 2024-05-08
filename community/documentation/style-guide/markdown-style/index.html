@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/community/documentation/style-guide/markdown-style/" /><meta property="article:section" content="community" />
 <meta property="article:published_time" content="2022-01-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-05-07T18:32:00+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-05-08T11:29:40+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Markdown Style Conventions">
 <meta itemprop="description" content="House style conventions for basic Markdown use.
 "><meta itemprop="datePublished" content="2022-01-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-05-07T18:32:00+01:00" />
-<meta itemprop="wordCount" content="1651">
+<meta itemprop="dateModified" content="2024-05-08T11:29:40+01:00" />
+<meta itemprop="wordCount" content="1736">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Markdown Style Conventions"/>
 <meta name="twitter:description" content="House style conventions for basic Markdown use.
@@ -43,8 +43,8 @@
 
 
 
-<link rel="preload" href="../../../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" as="style">
-<link href="../../../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" as="style">
+<link href="../../../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" rel="stylesheet" integrity="">
 
 
 <script src='../../../../js/jquery-3.6.0.min.js'></script>
@@ -126,7 +126,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.f1f1ce9ea53433854fbe96fbce3f4e2e.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.e212ea349c625b4068afe8f3cb4bf5f7.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -151,7 +151,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.f1f1ce9ea53433854fbe96fbce3f4e2e.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.e212ea349c625b4068afe8f3cb4bf5f7.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -276,7 +276,11 @@ if (!doNotTrack) {
         <li><a href="#definition-list">Definition list</a></li>
       </ul>
     </li>
-    <li><a href="#tables">Tables</a></li>
+    <li><a href="#tables">Tables</a>
+      <ul>
+        <li><a href="#line-breaks-in-cells">Line breaks in cells</a></li>
+      </ul>
+    </li>
     <li><a href="#comments">Comments</a></li>
   </ul>
 </nav>
@@ -1105,6 +1109,14 @@ Color
 | Prince          | Purple Rain    | 1984 |
 | Beastie Boys    | License to Ill | 1986 |
 
+## Or this
+
+Artist          | Album          | Year
+----------------|----------------|-----
+Michael Jackson | Thriller       | 1982
+Prince          | Purple Rain    | 1984
+Beastie Boys    | License to Ill | 1986
+
 ## But this is acceptable
 
 | Artist | Album | Year |
@@ -1113,9 +1125,8 @@ Color
 | Prince | Purple Rain | 1984 |
 | Beastie Boys | License to Ill | 1986 |
 </code></pre>
-<p>Both will produce the same result.
-The latter can be harder to read in markdown form.
-The former is harder to create and update in markdown form.</p>
+<p>All  will produce the same result, however, the latter can be harder to read in markdown form.
+The first two are harder to create and update in markdown form.</p>
 <table>
 <thead>
 <tr>
@@ -1142,8 +1153,29 @@ The former is harder to create and update in markdown form.</p>
 </tr>
 </tbody>
 </table>
+<p>If you are editing the documentation with Vim then the plugin 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/godlygeek/tabular" target="_blank" class="" style="" title="tabular (external link to https://github.com/godlygeek/tabular)">
+    <span>tabular</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is very useful for auto aligning markdown tables.
+Simply position the cursor somewhere in the table and do <code>:Tabularize\|</code> to <em>tabularize</em> on the <code>|</code> character.</p>
+<h3 id="line-breaks-in-cells">Line breaks in cells</h3>
+<p>If you need a line break in a table cell then use <code>&lt;br&gt;</code>.</p>
 <h2 id="comments">Comments</h2>
-<p>As the Markdown content is procesed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
+<p>As the Markdown content is processed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
 This can be useful when you want to leave development comments in the content that are not for display in the rendered site.
 Comments are done with the HTML comment syntax, i.e.</p>
 <pre><code class="language-html">&lt;!-- This is a comment --&gt;
@@ -1162,7 +1194,7 @@ mult-line comment
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified May 7, 2024: <a href="https://github.com/gchq/stroom-docs/commit/5c1f775f7c9964b75c05d46666c0ab5a2046278d">Fix version links (5c1f775)</a>
+  Last modified May 8, 2024: <a href="https://github.com/gchq/stroom-docs/commit/007cb3c9b421bb674b518d5d79b63728ec049de7">Make 7.4 not an archived_version (007cb3c)</a>
 </div>
 
 </div>

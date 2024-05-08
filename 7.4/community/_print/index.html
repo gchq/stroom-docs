@@ -39,8 +39,8 @@
 
 
 
-<link rel="preload" href="../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" as="style">
-<link href="../../scss/main.min.bf6aa1e179032c6997ff62da908971726bb664ad67989d5767558d761a6a4f59.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" as="style">
+<link href="../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" rel="stylesheet" integrity="">
 
 
 <script src='../../js/jquery-3.6.0.min.js'></script>
@@ -122,7 +122,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.f1f1ce9ea53433854fbe96fbce3f4e2e.json"
+    data-offline-search-index-json-src="../../offline-search-index.e212ea349c625b4068afe8f3cb4bf5f7.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -2221,7 +2221,7 @@ A feature branch would typically be merged into the appropriate release branch b
 </div>
 
 On first use of the Codespace it will take some time to do the initial setup of the development container.
-Subsequent uses will load more quickly.</li>
+Subsequent uses of the Codespace will load more quickly.</li>
 <li>It will open Visual Studio Code in the browser with a terminal pane at the bottom.</li>
 <li>In the terminal pane enter:
 <code>./serve_site.sh</code>
@@ -2264,10 +2264,21 @@ You should see something like:
   </a>
 </div>
 </li>
-<li>Click <em>Open in Browser</em> and it will open a URL unique to your Codespace in the browser displaying the stroom-docs site.</li>
+<li>Click <em>Open in Browser</em> and it will open a URL unique to your Codespace in the browser displaying the stroom-docs site.
+If this doesn&rsquo;t appear then open the <em>PORTS</em> tab in VSCode and click the <em>Open in Browser</em> icon in the <em>Forwarded Addresses</em> column to open the served site in the browser.</li>
 </ol>
 <p>Within the Codespace you can use all the git commands to pull/push/commit changes.</p>
 <p>To stop the code space hit <code>ctrl+shift+p</code>, enter <code>stop</code> and then select <em>Codespaces: Stop current Codespace</em>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    When editing the documentation using Codespaces you need to manually refresh the browser tab with the served site.
+It does not auto-refresh like it does when running <code>./serve-site.sh</code> on your local machine.
+
+</div>
+
+
 <h2 id="additional-commands">Additional commands</h2>
 <h3 id="converting-the-plantuml-files-to-svg">Converting the PlantUML files to SVG</h3>
 <p><em>stroom-docs</em> makes used of 
@@ -2505,9 +2516,10 @@ Inside the container the root of the repository is mounted as <code>/builder/sha
     <div class="lead">How to manage documentation for different versions of Stroom.</div>
 	<p>The <em>Docsy</em> theme supports site versioning so that multiple versions of the site/documentation can exist and link between each other.
 For this documentation site, each version of the site is tied to a minor release of Stroom, e.g. <code>7.0</code>, <code>7.1</code>, <code>7.2</code>, <code>8.0</code> etc.
-Each Stroom version is represented by a git branch with the same name.
-There is an additional git branch <code>legacy</code> that is for all Stroom versions prior to <code>7.0</code> and will be removed once the versions prior to <code>7.0</code> are no longer supported.
-Documentation changes for an as yet unreleased Stroom version would be performed on the <code>master</code> branch.</p>
+Each Stroom version is represented by a git branch with the same name.</p>
+<p>There is an additional git branch <code>legacy</code> that is for all Stroom versions prior to <code>7.0</code> and will be removed once the versions prior to <code>7.0</code> are no longer supported.</p>
+<p>Documentation changes for an as yet unreleased Stroom version would be performed on the <code>master</code> branch which <strong>does not</strong> get published.
+When it is ready for publishing then create a version branch from <code>master</code>.</p>
 <p>When the combined site is built, each version will exist within a directory as siblings of each other, i.e.</p>
 <pre><code class="language-bash">/         # Latest version content lives here (i.e. copy of v8.0)
 /7.0/
@@ -2555,6 +2567,7 @@ This example is from the <em>7.1</em> branch and is based on there being version
   # A link to latest version of the docs. Used in the
   # &quot;version-banner&quot; partial to point people to the main
   # doc site. Ignored for the latest version
+  # Should be the same on all version branches.
   url_latest_version = &quot;/../&quot;
 
   # The version number of the latest version. Used in the
@@ -2571,7 +2584,7 @@ This example is from the <em>7.1</em> branch and is based on there being version
   # A set of all the versions that are available.
   [[params.versions]]
     version = &quot;7.1 (Latest)&quot;
-    url = &quot;/../&quot;
+    url = &quot;/&quot;
   [[params.versions]]
     version = &quot;7.0&quot;
     url = &quot;/../7.0&quot;
@@ -2638,10 +2651,10 @@ This example is from the <em>7.1</em> branch and is based on there being version
     url = &quot;/&quot;
   [[params.versions]]
     version = &quot;7.0&quot;
-    url = &quot;/7.0&quot;
+    url = &quot;/../7.0&quot;
   [[params.versions]]
     version = &quot;Legacy&quot;
-    url = &quot;/legacy&quot;
+    url = &quot;/../legacy&quot;
 </code></pre>
 
         
@@ -2650,6 +2663,128 @@ This example is from the <em>7.1</em> branch and is based on there being version
   </div>
   
 </div>
+
+</div>
+<h3 id="paramsversions"><code>params.versions</code></h3>
+<p>Setting the <code>params.versions</code> values is somewhat confusing.
+The <code>url</code> property will result in a relative <code>href</code> in the built site that is relative to the site root for that version.
+The following is the built HTML for v7.1 which is the latest.</p>
+<pre><code class="language-html">&lt;a class=&quot;dropdown-item&quot; href=&quot;./&quot;&gt;7.1 (Latest)&lt;/a&gt; &lt;!-- 7.1 is located at the site root --&gt;
+&lt;a class=&quot;dropdown-item&quot; href=&quot;./7.0&quot;&gt;7.0&lt;/a&gt; &lt;!-- 7.0 is located in the 7.0 sub-directory of the site root --&gt;
+&lt;a class=&quot;dropdown-item&quot; href=&quot;./legacy&quot;&gt;Legacy&lt;/a&gt;
+</code></pre>
+<p>The following shows how <code>params.versions</code> are set in each version branch, assuming that 7.1 is the latest version.</p>
+<div class="td-card-deck card-deck mb-4">
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        legacy
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml"># Versioned root is /legacy
+# Latest is parent
+# Other versions are siblings
+ 
+[[params.versions]]
+  version = &quot;7.1 (Latest)&quot;
+  url = &quot;/../&quot;
+[[params.versions]]
+  version = &quot;7.0&quot;
+  url = &quot;/../7.0&quot;
+[[params.versions]]
+  version = &quot;Legacy&quot;
+  url = &quot;/&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        7.0
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml"># Versioned root is /7.0
+# Latest is parent
+# Other versions are siblings
+
+[[params.versions]]
+  version = &quot;7.1 (Latest)&quot;
+  url = &quot;/../&quot;
+[[params.versions]]
+  version = &quot;7.0&quot;
+  url = &quot;/&quot;
+[[params.versions]]
+  version = &quot;Legacy&quot;
+  url = &quot;/../legacy&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
+
+  <div class="td-card card mb-4">
+  
+    <div class="card-header">
+      
+        7.1
+      
+    </div>
+  
+  <div class="card-body">
+    
+    
+    
+      <p class="card-text">
+        
+          <pre><code class="language-toml"># Versioned root is /
+# Latest is site root
+# Other versions are children
+
+[[params.versions]]
+  version = &quot;7.1 (Latest)&quot;
+  url = &quot;/&quot;
+[[params.versions]]
+  version = &quot;7.0&quot;
+  url = &quot;/7.0&quot;
+[[params.versions]]
+  version = &quot;Legacy&quot;
+  url = &quot;/legacy&quot;
+</code></pre>
+
+        
+      </p>
+    
+  </div>
+  
+</div>
+
 
 </div>
 <h2 id="automated-build-process">Automated build process</h2>
@@ -2776,6 +2911,9 @@ The decision on how best to tackle these situations will have to be on a case by
 <h3 id="changing-the-github-actions-build-process">Changing the GitHub Actions build process</h3>
 <p>If the change impacts the building of a single version then it needs to be done on the oldest version and merge up.</p>
 <p>If the change only impacts the preparation of release artefacts then it can be performed on the <code>master</code> branch.</p>
+<h3 id="adding-a-new-version-branch">Adding a new version branch</h3>
+<p>The change to <code>config.toml</code> needs to be done on all version branches.
+Unfortunately you cannot just add the new <code>[[params.versions]]</code> block into <code>legacy</code> and merge up as each version branch will need editing so the <code>url</code> values are applicable to version branch being edited, see <a href="#paramsversions">above</a>.</p>
 <h2 id="building-a-mock-multi-version-site">Building a mock multi-version site</h2>
 <p>To make it easier to test how the combined site will look with multiple versions the following script can be run to mock up a multi-version site.
 It does the following:</p>
@@ -2946,7 +3084,7 @@ Shortcodes can either use positional arguments or named arguments depending on h
 </code></pre>
 <p>Check the documentation for specific shortcode to see how to call it.</p>
 <h3 id="editor-snippets-and-shortcodes">Editor snippets and shortcodes</h3>
-<p>To make your life easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
+<p>To make your life much easier when editing the documentation it is highly recommended to use a text editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.</p>
 <p>For example the following 
 
@@ -3971,6 +4109,14 @@ Color
 | Prince          | Purple Rain    | 1984 |
 | Beastie Boys    | License to Ill | 1986 |
 
+## Or this
+
+Artist          | Album          | Year
+----------------|----------------|-----
+Michael Jackson | Thriller       | 1982
+Prince          | Purple Rain    | 1984
+Beastie Boys    | License to Ill | 1986
+
 ## But this is acceptable
 
 | Artist | Album | Year |
@@ -3979,9 +4125,8 @@ Color
 | Prince | Purple Rain | 1984 |
 | Beastie Boys | License to Ill | 1986 |
 </code></pre>
-<p>Both will produce the same result.
-The latter can be harder to read in markdown form.
-The former is harder to create and update in markdown form.</p>
+<p>All  will produce the same result, however, the latter can be harder to read in markdown form.
+The first two are harder to create and update in markdown form.</p>
 <table>
 <thead>
 <tr>
@@ -4008,8 +4153,29 @@ The former is harder to create and update in markdown form.</p>
 </tr>
 </tbody>
 </table>
+<p>If you are editing the documentation with Vim then the plugin 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/godlygeek/tabular" target="_blank" class="" style="" title="tabular (external link to https://github.com/godlygeek/tabular)">
+    <span>tabular</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is very useful for auto aligning markdown tables.
+Simply position the cursor somewhere in the table and do <code>:Tabularize\|</code> to <em>tabularize</em> on the <code>|</code> character.</p>
+<h3 id="line-breaks-in-cells">Line breaks in cells</h3>
+<p>If you need a line break in a table cell then use <code>&lt;br&gt;</code>.</p>
 <h2 id="comments">Comments</h2>
-<p>As the Markdown content is procesed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
+<p>As the Markdown content is processed by Hugo and is not intended to be read in its raw Markdown form it means it is possible to include comments in the content.
 This can be useful when you want to leave development comments in the content that are not for display in the rendered site.
 Comments are done with the HTML comment syntax, i.e.</p>
 <pre><code class="language-html">&lt;!-- This is a comment --&gt;
