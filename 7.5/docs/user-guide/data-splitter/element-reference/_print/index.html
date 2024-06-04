@@ -1,0 +1,958 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../../docs/user-guide/data-splitter/element-reference/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="../../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Element Reference | Stroom</title>
+<meta name="description" content="There are various elements used in a Data Splitter configuration to control behaviour. Each of these elements can be categorised as one of the …">
+<meta property="og:title" content="Element Reference" />
+<meta property="og:description" content="Stroom documentation, release notes, news and open source community information" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/user-guide/data-splitter/element-reference/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Element Reference">
+<meta itemprop="description" content="Stroom documentation, release notes, news and open source community information"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Element Reference"/>
+<meta name="twitter:description" content="Stroom documentation, release notes, news and open source community information"/>
+
+
+
+
+<link rel="preload" href="../../../../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" as="style">
+<link href="../../../../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-dark.css"/>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-00000000-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../news/"><span>News</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.4)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../../">7.5 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../../../offline-search-index.e56c95c8e9f95c7ebbe16e09435c741a.json"
+    data-offline-search-base-href="../../../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../../docs/user-guide/data-splitter/element-reference/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Element Reference</h1>
+
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-3b94862152f92b7fd7eb1e3afc4f058c">Content Providers</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-9b99cb3c0d29293a4ae50e9e6c059521">Expressions</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-62988f31b8e48fba7fc903c016fd2cf5">Variables</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-88ce4c68f62c723b57c420be2c5cdb8e">Output</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>There are various elements used in a Data Splitter configuration to control behaviour. Each of these elements can be categorised as one of the following:</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-3b94862152f92b7fd7eb1e3afc4f058c">1 - Content Providers</h1>
+    
+	<p>Content providers take some content from the input source or elsewhere (see <a href="../../../../../docs/user-guide/data-splitter/match-reference/use-of-fixed-strings/">fixed strings</a> and provide it to one or more expressions.
+Both the root element <code>&lt;dataSplitter&gt;</code> and <code>&lt;group&gt;</code> elements are content providers.</p>
+<h2 id="root-element-datasplitter">Root element <code>&lt;dataSplitter&gt;</code></h2>
+<p>The root element of a Data Splitter configuration is <code>&lt;dataSplitter&gt;</code>.
+It supplies content from the input source to one or more expressions defined within it.
+The way that content is buffered is controlled by the root element and the way that errors are handled as a result of child expressions not matching all of the content it supplies.</p>
+<h3 id="attributes">Attributes</h3>
+<p>The following attributes can be added to the <code>&lt;dataSplitter&gt;</code> root element:</p>
+<ul>
+<li><a href="#datasplitter-ignoreerrors"><code>ignoreErrors</code></a></li>
+<li><a href="#buffersize-advanced"><code>bufferSize</code></a></li>
+</ul>
+<h4 id="datasplitter-ignoreerrors"><code>ignoreErrors</code></h4>
+<p>Data Splitter generates errors if not all of the content is matched by the regular expressions beneath the <code>&lt;dataSplitter&gt;</code> or within <code>&lt;group&gt;</code> elements.
+The error messages are intended to aid the user in writing good Data Splitter configurations.
+The intent is to indicate when the input data is not being matched fully and therefore possibly skipping some important data.
+Despite this, in some cases it is laborious to have to write expressions to match all content.
+In these cases it is preferable to add this attribute to ignore these errors.
+However it is often better to write expressions that capture all of the supplied content and discard unwanted characters.
+This attribute also affects errors generated by the use of the <code>minMatch</code> attribute on <code>&lt;regex&gt;</code> which is described later on.</p>
+<p>Take the following example input:</p>
+<pre><code class="language-text">Name1,Name2,Name3
+value1,value2,value3 # a useless comment
+value1,value2,value3 # a useless comment 
+</code></pre>
+<p>This could be matched with the following configuration:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;regex id=&quot;heading&quot; pattern=&quot;.+&quot; maxMatch=&quot;1&quot;&gt;
+…
+  &lt;/regex&gt;
+  &lt;regex id=&quot;body&quot; pattern=&quot;\n[^#]+&quot;&gt;
+…
+  &lt;/regex&gt;
+&lt;/dataSplitter&gt;
+</code></pre>
+<p>The above configuration would only match up to a comment for each record line, e.g.</p>
+<pre><code class="language-text">Name1,Name2,Name3
+value1,value2,value3 # a useless comment
+value1,value2,value3 # a useless comment
+</code></pre>
+<p>This may well be the desired functionality but if there was useful content within the comment it would be lost.
+Because of this Data Splitter warns you when expressions are failing to match all of the content presented so that you can make sure that you aren&rsquo;t missing anything important.
+In the above example it is obvious that this is the required behaviour but in more complex cases you might be otherwise unaware that your expressions were losing data.</p>
+<p>To maintain this assurance that you are handling all content it is usually best to write expressions to explicitly match all content even though you may do nothing with some matches, e.g.</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;regex id=&quot;heading&quot; pattern=&quot;.+&quot; maxMatch=&quot;1&quot;&gt;
+…
+  &lt;/regex&gt;
+  &lt;regex id=&quot;body&quot; pattern=&quot;\n([^#]+)#.+&quot;&gt;
+…
+  &lt;/regex&gt;
+&lt;/dataSplitter&gt;
+</code></pre>
+<p>The above example would match all of the content and would therefore not generate warnings.
+Sub-expressions of &lsquo;body&rsquo; could use match group 1 and ignore the comment.</p>
+<p>However as previously stated it might often be difficult to write expressions that will just match content that is to be discarded.
+In these cases <code>ignoreErrors</code> can be used to suppress errors caused by unmatched content.</p>
+<h4 id="buffersize-advanced"><code>bufferSize</code> (Advanced)</h4>
+<p>This is an optional attribute used to tune the size of the character buffer used by Data Splitter.
+The default size is 20000 characters and should be fine for most translations.
+The minimum value that this can be set to is 20000 characters and the maximum is 1000000000.
+The only reason to specify this attribute is when individual records are bigger than 10000 characters which is rarely the case.</p>
+<h2 id="group-element-group">Group element <code>&lt;group&gt;</code></h2>
+<p>Groups behave in a similar way to the root element in that they provide content for one or more inner expressions to deal with, e.g.</p>
+<pre><code class="language-xml">&lt;group value=&quot;$1&quot;&gt;
+  &lt;regex pattern=&quot;([^\t]*)\t([^\t]*)[\t]*([^=:]*)[=:]*(.*)&quot; maxMatch=&quot;1&quot;&gt;
+  ...
+  &lt;regex pattern=&quot;([^\t]*)\t([^\t]*)[\t]*([^=:]*)[=:]*(.*)&quot;&gt;
+  ...
+</code></pre>
+<h3 id="attributes-1">Attributes</h3>
+<p>As the <code>&lt;group&gt;</code> element is a content provider it also includes the same <code>ignoreErrors</code> attribute which behaves in the same way.
+The complete list of attributes for the <code>&lt;group&gt;</code> element is as follows:</p>
+<ul>
+<li><a href="#id"><code>id</code></a></li>
+<li><a href="#value"><code>value</code></a></li>
+<li><a href="#group-ignoreerrors"><code>ignoreErrors</code></a></li>
+<li><a href="#matchorder"><code>matchOrder</code></a></li>
+<li><a href="#reverse"><code>reverse</code></a></li>
+</ul>
+<h4 id="id"><code>id</code></h4>
+<p>When Data Splitter reports errors it outputs an XPath to describe the part of the configuration that generated the error, e.g.</p>
+<pre><code class="language-text">DSParser [2:1] ERROR: Expressions failed to match all of the content provided by group: regex[0]/group[0]/regex[3]/group[1] : &lt;group&gt;
+</code></pre>
+<p>It is often a little difficult to identify the configuration element that generated the error by looking at the path and the element description, particularly when multiple elements are the same, e.g. many <code>&lt;group&gt;</code> elements without attributes.
+To make identification easier you can add an &lsquo;id&rsquo; attribute to any element in the configuration resulting in error descriptions as follows:</p>
+<pre><code class="language-text">DSParser [2:1] ERROR: Expressions failed to match all of the content provided by group: regex[0]/group[0]/regex[3]/group[1] : &lt;group id=&quot;myGroupId&quot;&gt;
+</code></pre>
+<h4 id="value"><code>value</code></h4>
+<p>This attribute determines what content to present to child expressions.
+By default the entire content matched by a group’s parent expression is passed on by the group to child expressions.
+If required, content from a specific match group in the parent expression can be passed to child expressions using the value attribute, e.g. <code>value=&quot;$1&quot;</code>.
+In addition to this content can be composed in the same way as it is for data names and values.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p><a href="../../../../../docs/user-guide/data-splitter/match-reference/">Match references</a> for a full description of match references.</p>
+
+
+</div>
+
+
+<h4 id="group-ignoreerrors"><code>ignoreErrors</code></h4>
+<p>This behaves in the same way as for the root element.</p>
+<h4 id="matchorder"><code>matchOrder</code></h4>
+<p>This is an optional attribute used to control how content is consumed by expression matches.
+Content can be consumed in sequence or in any order using <code>matchOrder=&quot;sequence&quot;</code> or <code>matchOrder=&quot;any&quot;</code>.
+If the attribute is not specified, Data Splitter will default to matching in sequence.</p>
+<p>When matching in sequence, each match consumes some content and the content position is moved beyond the match ready for the subsequent match.
+However, in some cases the order of these constructs is not predictable, e.g. we may sometimes be presented with:</p>
+<pre><code class="language-text">Value1=1 Value2=2
+</code></pre>
+<p>… or sometimes with:</p>
+<pre><code class="language-text">Value2=2 Value1=1
+</code></pre>
+<p>Using a sequential match order the following example would work to find both values in <code>Value1=1 Value2=2</code></p>
+<pre><code class="language-xml">&lt;group&gt;
+  &lt;regex pattern=&quot;Value1=([^ ]*)&quot;&gt;
+  ...
+  &lt;regex pattern=&quot;Value2=([^ ]*)&quot;&gt;
+  ...
+</code></pre>
+<p>… but this example would skip over Value2 and only find the value of Value1 if the input was <code>Value2=2 Value1=1</code>.</p>
+<p>To be able to deal with content that contains these constructs in either order we need to change the match order to <code>any</code>.</p>
+<p>When matching in any order, each match removes the matched section from the content rather than moving the position past the match so that all remaining content can be matched by subsequent expressions.
+In the following example the first expression would match and remove <code>Value1=1</code> from the supplied content and the second expression would be presented with <code> Value2=2</code> which it could also match.</p>
+<pre><code class="language-xml">&lt;group matchOrder=&quot;any&quot;&gt;
+  &lt;regex pattern=&quot;Value1=([^ ]*)&quot;&gt;
+  ...
+  &lt;regex pattern=&quot;Value2=([^ ]*)&quot;&gt;
+  ...
+</code></pre>
+<p>If the attribute is omitted by default the match order will be sequential.
+This is the default behaviour as tokens are most often in sequence and consuming content in this way is more efficient as content does not need to be copied by the parser to chop out sections as is required for matching in any order.
+It is only necessary to use this feature when fields that are identifiable with a specific match can occur in any order.</p>
+<h4 id="reverse"><code>reverse</code></h4>
+<p>Occasionally it is desirable to reverse the content presented by a group to child expressions. This is because it is sometimes easier to form a pattern by matching content in reverse.</p>
+<p>Take the following example content of name, value pairs delimited by <code>=</code> but with no spaces between names, multiple spaces between values and only a space between subsequent pairs:</p>
+<pre><code class="language-text">ipAddress=123.123.123.123 zones=Zone 1, Zone 2, Zone 3 location=loc1 A user=An end user serverName=bigserver
+</code></pre>
+<p>We could write a pattern that matches each name value pair by matching up to the start of the next name, e.g.</p>
+<pre><code class="language-xml">&lt;regex pattern=&quot;([^=]+)=(.+?)( [^=]+=)&quot;&gt;
+</code></pre>
+<p>This would match the following:</p>
+<pre><code class="language-text">ipAddress=123.123.123.123 zones=
+</code></pre>
+<p>Here we are capturing the name and value for each pair in separate groups but the pattern has to also match the name from the next name value pair to find the end of the value. By default Data Splitter will move the content buffer to the end of the match ready for subsequent matches so the next name will not be available for matching.</p>
+<p>In addition to matching too much content the above example also uses a reluctant qualifier <code>.+?</code>. Use of reluctant qualifiers almost always impacts performance so they are to be avoided if at all possible.</p>
+<p>A better way to match the example content is to match the input in reverse, reading characters from right to left.</p>
+<p>The following example demonstrates this:</p>
+<pre><code class="language-xml">&lt;group reverse=&quot;true&quot;&gt;
+  &lt;regex pattern=&quot;([^=]+)=([^ ]+)&quot;&gt;
+    &lt;data name=&quot;$2&quot; value=&quot;$1&quot; /&gt;
+  &lt;/regex&gt;
+&lt;/group&gt;
+</code></pre>
+<p>Using the reverse attribute on the parent group causes content to be supplied to all child expressions in reverse order. In the above example this allows the pattern to match values followed by names which enables us to cope with the fact that values have multiple spaces but names have no spaces.</p>
+<p>Content is only presented to child regular expressions in reverse. When referencing values from match groups the content is returned in the correct order, e.g. the above example would return:</p>
+<pre><code class="language-xml">&lt;data name=&quot;ipAddress&quot; value=&quot;123.123.123.123&quot; /&gt;
+&lt;data name=&quot;zones&quot; value=&quot;Zone 1, Zone 2, Zone 3&quot; /&gt;
+&lt;data name=&quot;location&quot; value=&quot;loc1&quot; /&gt;
+&lt;data name=&quot;user&quot; value=&quot;An end user&quot; /&gt;
+&lt;data name=&quot;serverName&quot; value=&quot;bigserver&quot; /&gt;
+</code></pre>
+<p>The reverse feature isn&rsquo;t needed very often but there are a few cases where it really helps produce the desired output without the complexity and performance overhead of a reluctant match.</p>
+<p>An alternative to using the reverse attribute is to use the original reluctant expression example but tell Data Splitter to make the subsequent name available for the next match by not advancing the content beyond the end of the previous value. This is done by using the <a href="../../../../../docs/user-guide/data-splitter/element-reference/expressions/#regex-advance">advance attribute</a> on the <code>&lt;regex&gt;</code>. However, the reverse attribute represents a better way to solve this particular problem and allows a simpler and more efficient regular expression to be used.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-9b99cb3c0d29293a4ae50e9e6c059521">2 - Expressions</h1>
+    
+	<p>Expressions match some data supplied by a parent content provider.
+The content matched by an expression depends on the type of expression and how it is configured.</p>
+<p>The <code>&lt;split&gt;</code>, <code>&lt;regex&gt;</code> and <code>&lt;all&gt;</code> elements are all expressions and match content as described below.</p>
+<h2 id="the-split-element">The <code>&lt;split&gt;</code> element</h2>
+<p>The <code>&lt;split&gt;</code> element directs Data Splitter to break up content using a specified character sequence as a delimiter.
+In addition to this it is possible to specify characters that are used to escape the delimiter as well as characters that contain or &ldquo;quote&rdquo; a value that may include the delimiter sequence but allow it to be ignored.</p>
+<h3 id="attributes">Attributes</h3>
+<p>The <code>&lt;split&gt;</code> element has the following attributes:</p>
+<ul>
+<li><a href="#split-id"><code>id</code></a></li>
+<li><a href="#split-delimiter"><code>delimiter</code></a></li>
+<li><a href="#split-escape"><code>escape</code></a></li>
+<li><a href="#split-containerstart"><code>containerStart</code></a></li>
+<li><a href="#split-containerend"><code>containerEnd</code></a></li>
+<li><a href="#split-maxmatch"><code>maxMatch</code></a></li>
+<li><a href="#split-minmatch"><code>minMatch</code></a></li>
+<li><a href="#split-onlymatch"><code>onlyMatch</code></a></li>
+</ul>
+<h4 id="split-id"><code>id</code></h4>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="../../../../../docs/user-guide/data-splitter/element-reference/content-providers/#id">id</a>.</p>
+<h4 id="split-delimiter"><code>delimiter</code></h4>
+<p>A required attribute used to specify the character string that will be used as a delimiter to split the supplied content unless it is preceded by an escape character or within a container if specified.
+Several of the previous examples use this attribute.</p>
+<h4 id="split-escape"><code>escape</code></h4>
+<p>An optional attribute used to specify a character sequence that is used to escape the delimiter.
+Many delimited text formats have an escape character that is used to tell any parser that the following delimiter should be ignored, e.g. often a character such as &lsquo;' is used to escape the character that follows it so that it is not treated as a delimiter.
+When specified this escape sequence also applies to any container characters that may be specified.</p>
+<h4 id="split-containerstart"><code>containerStart</code></h4>
+<p>An optional attribute used to specify a character sequence that will make this expression ignore the presence of delimiters until an end container is found.
+If the character is preceded by the specified escape sequence then this container sequence will be ignored and the expression will continue matching characters up to a delimiter.</p>
+<p>If used <code>containerEnd</code> must also be specified.
+If the container characters are to be ignored from the match then match group 1 must be used instead of 0.</p>
+<h4 id="split-containerend"><code>containerEnd</code></h4>
+<p>An optional attribute used to specify a character sequence that will make this expression stop ignoring the presence of delimiters if it believes it is currently in a container.
+If the character is preceded by the specified escape sequence then this container sequence will be ignored and the expression will continue matching characters while ignoring the presence of any delimiter.</p>
+<p>If used <code>containerStart</code> must also be specified.
+If the container characters are to be ignored from the match then match group 1 must be used instead of 0.</p>
+<h4 id="split-maxmatch"><code>maxMatch</code></h4>
+<p>An optional attribute used to specify the maximum number of times this expression is allowed to match the supplied content.
+If you do not supply this attribute then the Data Splitter will keep matching the supplied content until it reaches the end.
+If specified Data Splitter will stop matching the supplied content when it has matched it the specified number of times.</p>
+<p>This attribute is used in the <a href="../../../../../docs/user-guide/data-splitter/simple-csv-example-with-heading/">&lsquo;CSV with header line&rsquo;</a> example to ensure that only the first line is treated as a header line.</p>
+<h4 id="split-minmatch"><code>minMatch</code></h4>
+<p>An optional attribute used to specify the minimum number of times this expression should match the supplied content.
+If you do not supply this attribute then Data Splitter will not enforce that the expression matches the supplied content.
+If specified Data Splitter will generate an error if the expression does not match the supplied content at least as many times as specified.</p>
+<p>Unlike <code>maxMatch</code>, <code>minMatch</code> does not control the matching process but instead controls the production of error messages generated if the parser is not seeing the expected input.</p>
+<h4 id="split-onlymatch"><code>onlyMatch</code></h4>
+<p>Optional attribute to use this expression only for specific instances of a match of the parent expression, e.g. on the 4th, 5th and 8th matches of the parent expression specified by &lsquo;4,5,8&rsquo;.
+This is used when this expression should only be used to subdivide content from certain parent matches.</p>
+<h2 id="the-regex-element">The <code>&lt;regex&gt;</code> element</h2>
+<p>The <code>&lt;regex&gt;</code> element directs Data Splitter to match content using the specified regular expression pattern.
+In addition to this the same match control attributes that are available on the <code>&lt;split&gt;</code> element are also present as well as attributes to alter the way the pattern works.</p>
+<h3 id="attributes-1">Attributes</h3>
+<p>The <code>&lt;regex&gt;</code> element has the following attributes:</p>
+<ul>
+<li><a href="#regex-id"><code>id</code></a></li>
+<li><a href="#regex-pattern"><code>pattern</code></a></li>
+<li><a href="#regex-dotall"><code>dotAll</code></a></li>
+<li><a href="#regex-caseinsensitive"><code>caseInsensitive</code></a></li>
+<li><a href="#regex-maxmatch"><code>maxMatch</code></a></li>
+<li><a href="#regex-minmatch"><code>minMatch</code></a></li>
+<li><a href="#regex-onlymatch"><code>onlyMatch</code></a></li>
+<li><a href="#regex-advance"><code>advance</code></a></li>
+</ul>
+<h4 id="regex-id"><code>id</code></h4>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="../../../../../docs/user-guide/data-splitter/element-reference/content-providers/#id">id</a>.</p>
+<h4 id="regex-pattern"><code>pattern</code></h4>
+<p>This is a required attribute used to specify a regular expression to use to match on the supplied content.
+The pattern is used to match the content multiple times until the end of the content is reached while the <code>maxMatch</code> and <code>onlyMatch</code> conditions are satisfied.</p>
+<h4 id="regex-dotall"><code>dotAll</code></h4>
+<p>An optional attribute used to specify if the use of &lsquo;.&rsquo; in the supplied pattern matches all characters including new lines.
+If &rsquo;true&rsquo; &lsquo;.&rsquo; will match all characters including new lines, if &lsquo;false&rsquo; it will only match up to a new line.
+If this attribute is not specified it defaults to &lsquo;false&rsquo; and will only match up to a new line.</p>
+<p>This attribute is used in many of the multi-line examples above.</p>
+<h4 id="regex-caseinsensitive"><code>caseInsensitive</code></h4>
+<p>An optional attribute used to specify if the supplied pattern should match content in a case insensitive way.
+If &rsquo;true&rsquo; the expression will match content in a case insensitive manner, if &lsquo;false&rsquo; it will match the content in a case sensitive manner.
+If this attribute is not specified it defaults to &lsquo;false&rsquo; and will match the content in a case sensitive manner.</p>
+<h4 id="regex-maxmatch"><code>maxMatch</code></h4>
+<p>This is used in the same way it is on the <code>&lt;split&gt;</code> element, see <a href="#split-maxmatch"><code>maxMatch</code></a>.</p>
+<h4 id="regex-minmatch"><code>minMatch</code></h4>
+<p>This is used in the same way it is on the <code>&lt;split&gt;</code> element, see <a href="#split-minmatch"><code>minMatch</code></a>.</p>
+<h4 id="regex-onlymatch"><code>onlyMatch</code></h4>
+<p>This is used in the same way it is on the <code>&lt;split&gt;</code> element, see <a href="#split-onlymatch"><code>onlyMatch</code></a>.</p>
+<h4 id="regex-advance"><code>advance</code></h4>
+<p>After an expression has matched content in the buffer, the buffer start position is advanced so that it moves to the end of the entire match.
+This means that subsequent expressions operating on the content buffer will not see the previously matched content again.
+This is normally required behaviour, but in some cases some of the content from a match is still required for subsequent matches.
+Take the following example of name value pairs:</p>
+<pre><code class="language-text">name1=some value 1 name2=some value 2 name3=some value 3
+</code></pre>
+<p>The first name value pair could be matched with the following expression:</p>
+<pre><code class="language-xml">&lt;regex pattern=&quot;([^=]+)=(.+?) [^= ]+=&quot;&gt;
+</code></pre>
+<p>The above expression would match as follows:</p>
+<pre><code class="language-text">name1=some value 1 name2=some value 2 name3=some value 3
+</code></pre>
+<p>In this example we have had to do a reluctant match to extract the value in group 2 and not include the subsequent name.
+Because the reluctant match requires us to specify what we are reluctantly matching up to, we have had to include an expression after it that matches the next name.</p>
+<p>By default the parser will move the character buffer to the end of the entire match so the next expression will be presented with the following:</p>
+<pre><code class="language-text">some value 2 name3=some value 3
+</code></pre>
+<p>Therefore <code>name2</code> will have been lost from the content buffer and will not be available for matching.</p>
+<p>This behaviour can be altered by telling the expression how far to advance the character buffer after matching.
+This is done with the advance attribute and is used to specify the match group whose end position should be treated as the point the content buffer should advance to, e.g.</p>
+<pre><code class="language-xml">&lt;regex pattern=&quot;([^=]+)=(.+?) [^= ]+=&quot; advance=&quot;2&quot;&gt;
+</code></pre>
+<p>In this example the content buffer will only advance to the end of match group 2 and subsequent expressions will be presented with the following content:</p>
+<pre><code class="language-text">name2=some value 2 name3=some value 3
+</code></pre>
+<p>Therefore <code>name2</code> will still be available in the content buffer.</p>
+<p>It is likely that the advance feature will only be useful in cases where a reluctant match is performed.
+Reluctant matches are discouraged for performance reasons so this feature should rarely be used.
+A better way to tackle the above example would be to present the content in <a href="../../../../../docs/user-guide/data-splitter/element-reference/content-providers/#reverse">reverse</a>, however this is only possible if the expression is within a group, i.e. is not a root expression.
+There may also be more complex cases where reversal is not an option and the use of a reluctant match is the only option.</p>
+<h2 id="the-all-element">The <code>&lt;all&gt;</code> element</h2>
+<p>The <code>&lt;all&gt;</code> element matches the entire content of the parent group and makes it available to child groups or <code>&lt;data&gt;</code> elements.
+The purpose of <code>&lt;all&gt;</code> is to act as a catch all expression to deal with content that is not handled by a more specific expression, e.g. to output some other unknown, unrecognised or unexpected data.</p>
+<pre><code class="language-xml">&lt;group&gt;
+  &lt;regex pattern=&quot;^\s*([^=]+)=([^=]+)\s*&quot;&gt;
+    &lt;data name=&quot;$1&quot; value=&quot;$2&quot; /&gt;
+  &lt;/regex&gt;
+
+  &lt;!-- Output unexpected data --&gt;
+  &lt;all&gt;
+    &lt;data name=&quot;unknown&quot; value=&quot;$&quot; /&gt;
+  &lt;/all&gt;
+&lt;/group&gt;
+</code></pre>
+<p>The <code>&lt;all&gt;</code> element provides the same functionality as using <code>.*</code> as a pattern in a <code>&lt;regex&gt;</code> element and where <code>dotAll</code> is set to true, e.g. <code>&lt;regex pattern=&quot;.*&quot; dotAll=&quot;true&quot;&gt;</code>.
+However it performs much faster as it doesn&rsquo;t require pattern matching logic and is therefore always preferred.</p>
+<h3 id="attributes-2">Attributes</h3>
+<p>The <code>&lt;all&gt;</code> element has the following attributes:</p>
+<ul>
+<li><a href="#all-id"><code>id</code></a></li>
+</ul>
+<h4 id="id"><code>id</code></h4>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="../../../../../docs/user-guide/data-splitter/element-reference/content-providers/#id">id</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-62988f31b8e48fba7fc903c016fd2cf5">3 - Variables</h1>
+    
+	<p>A variable is added to Data Splitter using the <code>&lt;var&gt;</code> element. A variable is used to store matches from a parent expression for use in a reference elsewhere in the configuration, see <a href="../../../../../docs/user-guide/data-splitter/match-reference/variable-reference/">variable reference</a>.</p>
+<p>The most recent matches are stored for use in local references, i.e. references that are in the same match scope as the variable. Multiple matches are stored for use in references that are in a separate match scope. The concept of different variable scopes is described in <a href="../../../../../docs/user-guide/data-splitter/match-reference/variable-reference/#scopes">scopes</a>.</p>
+<h2 id="the-var-element">The <code>&lt;var&gt;</code> element</h2>
+<p>The <code>&lt;var&gt;</code> element is used to tell Data Splitter to store matches from a parent expression for use in a reference.</p>
+<h3 id="attributes">Attributes</h3>
+<p>The <code>&lt;var&gt;</code> element has the following attributes:</p>
+<ul>
+<li><a href="#id"><code>id</code></a></li>
+</ul>
+<h4 id="id"><code>id</code></h4>
+<p>Mandatory attribute used to uniquely identify it within the configuration (see <a href="../../../../../docs/user-guide/data-splitter/element-reference/content-providers/#id"><code>id</code></a>) and is the means by which a variable is referenced, e.g. <code>$VAR_ID$</code>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-88ce4c68f62c723b57c420be2c5cdb8e">4 - Output</h1>
+    
+	<p>As with all other aspects of Data Splitter, output XML is determined by adding certain elements to the Data Splitter configuration.</p>
+<h2 id="the-data-element">The <code>&lt;data&gt;</code> element</h2>
+<p>Output is created by Data Splitter using one or more <code>&lt;data&gt;</code> elements in the configuration.
+The first <code>&lt;data&gt;</code> element that is encountered within a matched expression will result in parent <code>&lt;record&gt;</code> elements being produced in the output.</p>
+<h3 id="attributes">Attributes</h3>
+<p>The <code>&lt;data&gt;</code> element has the following attributes:</p>
+<ul>
+<li><a href="#id"><code>id</code></a></li>
+<li><a href="#name"><code>name</code></a></li>
+<li><a href="#value"><code>value</code></a></li>
+</ul>
+<h4 id="id"><code>id</code></h4>
+<p>Optional attribute used to debug the location of expressions causing errors, see <a href="../../../../../docs/user-guide/data-splitter/element-reference/content-providers/#id">id</a>.</p>
+<h4 id="name"><code>name</code></h4>
+<p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="../../../../../docs/user-guide/data-splitter/match-reference/">match references</a>.</p>
+<h4 id="value"><code>value</code></h4>
+<p>Both the name and value attributes of the <code>&lt;data&gt;</code> element can be specified using <a href="../../../../../docs/user-guide/data-splitter/match-reference/">match references</a>.</p>
+<h3 id="single-data-element-example">Single <code>&lt;data&gt;</code> element example</h3>
+<p>The simplest example that can be provided uses a single <code>&lt;data&gt;</code> element within a <code>&lt;split&gt;</code> expression.</p>
+<p>Given the following input:</p>
+<pre><code class="language-text">This is line 1
+This is line 2
+This is line 3
+</code></pre>
+<p>… and the following configuration:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter 
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;split delimiter=&quot;\n&quot; &gt;
+    &lt;data value=&quot;$1&quot;/&gt;
+  &lt;/split&gt;
+&lt;/dataSplitter&gt;
+</code></pre>
+<p>… you would get the following output:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;records
+    xmlns=&quot;records:2&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;record&gt;
+    &lt;data value=&quot;This is line 1&quot; /&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data value=&quot;This is line 2&quot; /&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data value=&quot;This is line 3&quot; /&gt;
+  &lt;/record&gt;
+&lt;/records&gt;
+</code></pre>
+<h3 id="multiple-data-element-example">Multiple <code>&lt;data&gt;</code> element example</h3>
+<p>You could also output multiple <code>&lt;data&gt;</code> elements for the same <code>&lt;record&gt;</code> by adding multiple elements within the same expression:</p>
+<p>Given the following input:</p>
+<pre><code class="language-text">ip=1.1.1.1 user=user1
+ip=2.2.2.2 user=user2
+ip=3.3.3.3 user=user3
+</code></pre>
+<p>… and the following configuration:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;regex pattern=&quot;ip=([^ ]+) user=([^ ]+)\s*&quot;&gt;
+    &lt;data name=&quot;ip&quot; value=&quot;$1&quot;/&gt;
+    &lt;data name=&quot;user&quot; value=&quot;$2&quot;/&gt;
+  &lt;/split&gt;
+&lt;/dataSplitter&gt;
+</code></pre>
+<p>… you would get the following output:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;records
+    xmlns=&quot;records:2&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;ip&quot; value=&quot;1.1.1.1&quot; /&gt;
+    &lt;data name=&quot;user&quot; value=&quot;user1&quot; /&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;ip&quot; value=&quot;2.2.2.2&quot; /&gt;
+    &lt;data name=&quot;user&quot; value=&quot;user2&quot; /&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;ip&quot; value=&quot;3.3.3.3&quot; /&gt;
+    &lt;data name=&quot;user&quot; value=&quot;user3&quot; /&gt;
+  &lt;/record&gt;
+&lt;/records&gt;
+</code></pre>
+<h3 id="multi-level-data-elements">Multi level <code>&lt;data&gt;</code> elements</h3>
+<p>As long as all data elements occur within the same parent/ancestor expression, all data elements will be output within the same record.</p>
+<p>Given the following input:</p>
+<pre><code class="language-text">ip=1.1.1.1 user=user1
+ip=2.2.2.2 user=user2
+ip=3.3.3.3 user=user3
+</code></pre>
+<p>… and the following configuration:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;split delimiter=&quot;\n&quot; &gt;
+    &lt;data name=&quot;line&quot; value=&quot;$1&quot;/&gt;
+
+    &lt;group value=&quot;$1&quot;&gt;
+      &lt;regex pattern=&quot;ip=([^ ]+) user=([^ ]+)&quot;&gt;
+        &lt;data name=&quot;ip&quot; value=&quot;$1&quot;/&gt;
+        &lt;data name=&quot;user&quot; value=&quot;$2&quot;/&gt;
+      &lt;/regex&gt;
+    &lt;/group&gt;
+  &lt;/split&gt;
+&lt;/dataSplitter&gt;
+</code></pre>
+<p>… you would get the following output:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;records
+    xmlns=&quot;records:2&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=1.1.1.1 user=user1&quot; /&gt;
+    &lt;data name=&quot;ip&quot; value=&quot;1.1.1.1&quot; /&gt;
+    &lt;data name=&quot;user&quot; value=&quot;user1&quot; /&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=2.2.2.2 user=user2&quot; /&gt;
+    &lt;data name=&quot;ip&quot; value=&quot;2.2.2.2&quot; /&gt;
+    &lt;data name=&quot;user&quot; value=&quot;user2&quot; /&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=3.3.3.3 user=user3&quot; /&gt;
+    &lt;data name=&quot;ip&quot; value=&quot;3.3.3.3&quot; /&gt;
+    &lt;data name=&quot;user&quot; value=&quot;user3&quot; /&gt;
+  &lt;/record&gt;
+&lt;/records&gt;
+</code></pre>
+<h3 id="nesting-data-elements">Nesting <code>&lt;data&gt;</code> elements</h3>
+<p>Rather than having <code>&lt;data&gt;</code> elements all appear as children of <code>&lt;record&gt;</code> it is possible to nest them either as direct children or within child groups.</p>
+<h4 id="direct-children">Direct children</h4>
+<p>Given the following input:</p>
+<pre><code class="language-text">ip=1.1.1.1 user=user1
+ip=2.2.2.2 user=user2
+ip=3.3.3.3 user=user3
+</code></pre>
+<p>… and the following configuration:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;regex pattern=&quot;ip=([^ ]+) user=([^ ]+)\s*&quot;&gt;
+    &lt;data name=&quot;line&quot; value=&quot;$&quot;&gt;
+      &lt;data name=&quot;ip&quot; value=&quot;$1&quot;/&gt;
+      &lt;data name=&quot;user&quot; value=&quot;$2&quot;/&gt;
+    &lt;/data&gt;
+  &lt;/split&gt;
+&lt;/dataSplitter&gt;
+</code></pre>
+<p>… you would get the following output:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;record
+    xmlns=&quot;records:2&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=1.1.1.1 user=user1&quot;&gt;
+      &lt;data name=&quot;ip&quot; value=&quot;1.1.1.1&quot; /&gt;
+      &lt;data name=&quot;user&quot; value=&quot;user1&quot; /&gt;
+    &lt;/data&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=2.2.2.2 user=user2&quot;&gt;
+      &lt;data name=&quot;ip&quot; value=&quot;2.2.2.2&quot; /&gt;
+      &lt;data name=&quot;user&quot; value=&quot;user2&quot; /&gt;
+    &lt;/data&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=3.3.3.3 user=user3&quot;&gt;
+      &lt;data name=&quot;ip&quot; value=&quot;3.3.3.3&quot; /&gt;
+      &lt;data name=&quot;user&quot; value=&quot;user3&quot; /&gt;
+    &lt;/data&gt;
+  &lt;/record&gt;
+&lt;/records&gt;
+</code></pre>
+<h4 id="within-child-groups">Within child groups</h4>
+<p>Given the following input:</p>
+<pre><code class="language-text">ip=1.1.1.1 user=user1
+ip=2.2.2.2 user=user2
+ip=3.3.3.3 user=user3
+</code></pre>
+<p>… and the following configuration:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataSplitter
+    xmlns=&quot;data-splitter:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;data-splitter:3 file://data-splitter-v3.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;split delimiter=&quot;\n&quot; &gt;
+    &lt;data name=&quot;line&quot; value=&quot;$1&quot;&gt;
+      &lt;group value=&quot;$1&quot;&gt;
+        &lt;regex pattern=&quot;ip=([^ ]+) user=([^ ]+)&quot;&gt;
+          &lt;data name=&quot;ip&quot; value=&quot;$1&quot;/&gt;
+          &lt;data name=&quot;user&quot; value=&quot;$2&quot;/&gt;
+        &lt;/regex&gt;
+      &lt;/group&gt;
+    &lt;/data&gt;
+  &lt;/split&gt;
+&lt;/dataSplitter&gt;
+</code></pre>
+<p>… you would get the following output:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;records
+    xmlns=&quot;records:2&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;records:2 file://records-v2.0.xsd&quot;
+    version=&quot;3.0&quot;&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=1.1.1.1 user=user1&quot;&gt;
+      &lt;data name=&quot;ip&quot; value=&quot;1.1.1.1&quot; /&gt;
+      &lt;data name=&quot;user&quot; value=&quot;user1&quot; /&gt;
+    &lt;/data&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=2.2.2.2 user=user2&quot;&gt;
+      &lt;data name=&quot;ip&quot; value=&quot;2.2.2.2&quot; /&gt;
+      &lt;data name=&quot;user&quot; value=&quot;user2&quot; /&gt;
+    &lt;/data&gt;
+  &lt;/record&gt;
+  &lt;record&gt;
+    &lt;data name=&quot;line&quot; value=&quot;ip=3.3.3.3 user=user3&quot;&gt;
+      &lt;data name=&quot;ip&quot; value=&quot;3.3.3.3&quot; /&gt;
+      &lt;data name=&quot;user&quot; value=&quot;user3&quot; /&gt;
+    &lt;/data&gt;
+  &lt;/record&gt;
+&lt;/records&gt;
+</code></pre>
+<p>The above example produces the same output as the previous but could be used to apply much more complex expression logic to produce the child <code>&lt;data&gt;</code> elements, e.g. the inclusion of multiple child expressions to deal with different types of lines.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2024 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../../js/popper.min.js'></script>
+<script src='../../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>
