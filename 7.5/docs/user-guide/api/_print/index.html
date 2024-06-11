@@ -124,7 +124,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.c6964d80c77e2aa44a7f3f8b9a8f405a.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.8fe45505ac336919f6213446ae0c1404.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -203,7 +203,23 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>5: <a href="#pg-73fff410e6d154b348127ae441c14736">Reference Data</a></li>
+<li>5: <a href="#pg-73fff410e6d154b348127ae441c14736">Reference Data API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>7: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
 
 
     
@@ -944,7 +960,7 @@ done
 
 <div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
     
-  <h1 id="pg-73fff410e6d154b348127ae441c14736">5 - Reference Data</h1>
+  <h1 id="pg-73fff410e6d154b348127ae441c14736">5 - Reference Data API</h1>
     <div class="lead">How to perform reference data loads and lookups using the API.</div>
 	<p>The reference data store has an API to allow other systems to access the reference data store.</p>
 <h2 id="apirefdatav1lookup"><code>/api/refData/v1/lookup</code></h2>
@@ -1005,6 +1021,244 @@ If you send it to a UI node that does not do processing, it is likely to trigger
 (out)staff2</code></pre>
 </div>
 
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
+    
+  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">6 - Explorer API</h1>
+    <div class="lead">The API for managing the folders and documents in the explorer tree.</div>
+	<h2 id="creating-a-new-document">Creating a New Document</h2>
+<p>The explorer API is responsible for creation of all document types.
+The explorer API is used to create the initial skeleton of a document then the API specific to the document type in question is used to update the document skeleton with additional settings/content.</p>
+<p>This is an example request file <code>req.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;docType&quot;: &quot;Feed&quot;,
+  &quot;docName&quot;: &quot;MY_FEED&quot;,
+  &quot;destinationFolder&quot;: {
+    &quot;type&quot;: &quot;Folder&quot;,
+    &quot;uuid&quot;: &quot;3dfab6a2-dbd5-46ee-b6e9-6df45f90cd85&quot;,
+    &quot;name&quot;: &quot;My Folder&quot;,
+    &quot;rootNodeUuid&quot;: &quot;0&quot;
+  },
+  &quot;permissionInheritance&quot;: &quot;DESTINATION&quot;
+}
+</code></pre>
+<p>You need to set the following properties in the JSON:</p>
+<ul>
+<li><code>docType</code> - The type of the document being created, see <a href="../../../../docs/reference-section/documents/">Documents</a>.</li>
+<li><code>docName</code> - The name of the new document.</li>
+<li><code>destinationFolder.uuid</code> - The <span class="glossary-link">
+  <a href="../../../../docs/glossary/#uuid" title="Glossary entry for UUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> of the destination folder (or <code>0</code> if the document is being created in the <em>System</em> root.</li>
+<li><code>rootNodeUuid</code> - This is always <code>0</code> for the <em>System</em> root.</li>
+</ul>
+<p>To create the skeleton document run the following:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl \
+  -s \
+  -X POST \
+  -H &#34;Authorization:Bearer ${TOKEN}&#34; \
+  -H &#39;Content-Type: application/json&#39; \
+  --data @&#34;req.json&#34; \
+  http://localhost:8080/api/explorer/v2/create/ \
+| jq -r &#39;.uuid&#39;</code></pre>
+</div>
+
+<p>This will create the document and return its new UUID to <em>stdout</em>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
+    
+  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">7 - Feed API</h1>
+    <div class="lead">The API for fetching and updating feeds.</div>
+	<h2 id="creating-a-feed">Creating a Feed</h2>
+<p>In order to create a Feed you must first <a href="../../../../docs/user-guide/api/explorer-api/">create the skeleton document</a> using the Explorer API.</p>
+<h2 id="updating-a-feed">Updating a Feed</h2>
+<p>To modify a feed you must first fetch the existing Feed document.
+This is done as follows:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl \
+  -s \
+  -H &#34;Authorization:Bearer ${TOKEN}&#34; \
+  &#34;http://localhost:8080/api/feed/v1/${feed_uuid}&#34; \</code></pre>
+</div>
+
+<p>Where <code>${feed_uuid}</code> is the <span class="glossary-link">
+  <a href="../../../../docs/glossary/#uuid" title="Glossary entry for UUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> of the feed in question.</p>
+<p>This will return the Feed document JSON.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;Feed&quot;,
+  &quot;uuid&quot;: &quot;0dafc9c2-dcd8-4bb6-88ce-5ee228babe78&quot;,
+  &quot;name&quot;: &quot;MY_FEED&quot;,
+  &quot;version&quot;: &quot;32dae12f-a696-4e0e-8acb-47cf0ad3c77f&quot;,
+  &quot;createTimeMs&quot;: 1718103980225,
+  &quot;updateTimeMs&quot;: 1718103980225,
+  &quot;createUser&quot;: &quot;admin&quot;,
+  &quot;updateUser&quot;: &quot;admin&quot;,
+  &quot;reference&quot;: false,
+  &quot;streamType&quot;: &quot;Raw Events&quot;,
+  &quot;status&quot;: &quot;RECEIVE&quot;
+}
+</code></pre>
+<p>You can use <code>jq</code> to modify this JSON to add/change any of the document settings.</p>
+<h3 id="example-script">Example Script</h3>
+<p>The following is an example <code>bash</code> script for creating and modifying multiple Feeds.
+It requires <code>curl</code> and <code>jq</code> to run.</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+
+set -e -o pipefail
+
+main() {
+
+  # Your API key
+  local TOKEN=&quot;sak_d5752a32b2_mv1JYUYUuvRUDpikW75G5w4kQUq7EEjShQ9DiRjN14yEFonKTW42KbeQogui52gTjq9RDRufNEz2MXt1PRCThudzHU5RVpLMbZKThCgyyEX2y2sBrk31rYMJRKNg2yMG&quot;
+  # UUID of the dest folder
+  local FOLDER_UUID=&quot;fc617580-8cf0-4ac3-93dd-93604603aef0&quot;
+
+  local feed_name
+  local create_feed_req
+  local feed_uuid
+  local feed_doc
+
+  for i in {1..2}; do
+    # Use date to make a unique name for the test
+    feed_name=&quot;MY_FEED_$(date +%s)_${i}&quot;
+
+    # Set the feed name and its destination
+    create_feed_req=$(cat &lt;&lt;-END
+      {
+        &quot;docType&quot;: &quot;Feed&quot;,
+        &quot;docName&quot;: &quot;${feed_name}&quot;,
+        &quot;destinationFolder&quot;: {
+          &quot;type&quot;: &quot;Folder&quot;,
+          &quot;uuid&quot;: &quot;${FOLDER_UUID}&quot;,
+          &quot;rootNodeUuid&quot;: &quot;0&quot;
+        },
+        &quot;permissionInheritance&quot;: &quot;DESTINATION&quot;
+      }
+END
+    )
+
+    # Create the skeleton feed and extract its new UUID from the response
+    feed_uuid=$( \
+      curl \
+        -s \
+        -X POST \
+        -H &quot;Authorization:Bearer ${TOKEN}&quot; \
+        -H 'Content-Type: application/json' \
+        --data &quot;${create_feed_req}&quot; \
+        http://localhost:8080/api/explorer/v2/create/ \
+      | jq -r '.uuid'
+    )
+
+    echo &quot;Created feed $i with name '${feed_name}' and UUID '${feed_uuid}'&quot;
+
+    # Fetch the created feed
+    feed_doc=$( \
+      curl \
+        -s \
+        -H &quot;Authorization:Bearer ${TOKEN}&quot; \
+        &quot;http://localhost:8080/api/feed/v1/${feed_uuid}&quot; \
+      )
+
+    echo -e &quot;Skeleton Feed doc for '${feed_name}'\n$(jq '.' &lt;&lt;&lt; &quot;${feed_doc}&quot;)&quot;
+
+    # Add/modify propeties on the feed doc
+    feed_doc=$(jq '
+      .classification=&quot;HUSH HUSH&quot; 
+      | .encoding=&quot;UTF8&quot; 
+      | .contextEncoding=&quot;ASCII&quot; 
+      | .streamType=&quot;Events&quot;
+      | .volumeGroup=&quot;Default Volume Group&quot;' &lt;&lt;&lt; &quot;${feed_doc}&quot;)
+
+    #echo -e &quot;Updated feed doc for '${feed_name}'\n$(jq '.' &lt;&lt;&lt; &quot;${feed_doc}&quot;)&quot;
+
+    # Update the feed with the new properties
+    curl \
+      -s \
+      -X PUT \
+      -H &quot;Authorization:Bearer ${TOKEN}&quot; \
+      -H 'Content-Type: application/json' \
+      --data &quot;${feed_doc}&quot; \
+      &quot;http://localhost:8080/api/feed/v1/${feed_uuid}&quot; \
+    &gt; /dev/null
+
+    # Fetch the created feed
+    feed_doc=$( \
+      curl \
+        -s \
+        -H &quot;Authorization:Bearer ${TOKEN}&quot; \
+        &quot;http://localhost:8080/api/feed/v1/${feed_uuid}&quot; \
+      )
+
+    echo -e &quot;Updated Feed doc for '${feed_name}'\n$(jq '.' &lt;&lt;&lt; &quot;${feed_doc}&quot;)&quot;
+    echo
+  done
+}
+
+main &quot;$@&quot;
+</code></pre>
 
 </div>
 
