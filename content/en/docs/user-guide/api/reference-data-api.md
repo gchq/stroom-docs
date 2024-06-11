@@ -1,6 +1,6 @@
 ---
-title: "Reference Data"
-linkTitle: "Reference Data"
+title: "Reference Data API"
+linkTitle: "Reference Data API"
 weight: 50
 date: 2023-02-01
 tags:
