@@ -10,14 +10,14 @@ description: >
 ---
 
 <!--
+!!! IMPORTANT !!!
+
 NOTE:
 Stroom has hard coded anchors to link to the keyword headings on this page so don't
 change the headings without changing the anchors in Stroom.
--->
 
-{{% warning %}}
-Stroom Query Language is an experimental feature that is currently in Beta so is subject to change without warning.
-{{% /warning %}}
+!!! IMPORTANT !!!
+-->
 
 ## Query Format
 
@@ -39,7 +39,7 @@ where <FIELD> <CONDITION> <VALUE> [and|or|not]
 [sort by] <FIELD> [desc|asc] // asc by default
 [limit] <MAX_ROWS> 
 select <FIELD> [as <COLUMN NAME>], ...
-[vis as] <VIS_NAME> (<VIS_CONTROL_ID_1> = <COLUMN_1>, <VIS_CONTROL_ID_2> = <COLUMN_2>)
+[show as] <VIS_NAME> (<VIS_CONTROL_ID_1> = <COLUMN_1>, <VIS_CONTROL_ID_2> = <COLUMN_2>)
 ```
 
 
@@ -48,13 +48,14 @@ select <FIELD> [as <COLUMN NAME>], ...
 ### From
 
 The first part of a StroomQL expression is the `from` clause that defines the single data source to query.
+All queries must include the `from` clause.
 
 Select the data source to query, e.g.
 ```stroomql
 from my_source
 ```
 
-If the name of the data source contains whitespace then it must be quoted, e.g.
+If the name of the data source contains white space then it must be quoted, e.g.
 ```stroomql
 from "my source"
 ```
@@ -285,6 +286,7 @@ show Doughnut(names = Feed, values = count)
 ```
 
 For visualisations that contain spaces in their names it is necessary to use quotes, e.g.
+
 ```stroomql
 show "My Visualisation" (x = EventTime, y = count)
 ```
