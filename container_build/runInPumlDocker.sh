@@ -106,10 +106,6 @@ image_tag="java-build-env"
 # on where this script is called from
 local_repo_root="$(git rev-parse --show-toplevel)"
 
-# This script may be running inside a container so first check if
-# the env var has been set in the container
-host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
-
 dest_dir="/builder/shared"
 
 if [[ "${is_mac_os}" = true ]]; then
@@ -122,7 +118,7 @@ fi
 echo -e "${GREEN}HOME ${BLUE}${HOME}${NC}"
 echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
 echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
-echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
+echo -e "${GREEN}Local repo root dir ${BLUE}${local_repo_root}${NC}"
 echo -e "${GREEN}Docker group id ${BLUE}${docker_group_id}${NC}"
 
 # So we are not rate limited, login before doing the build as this
@@ -211,7 +207,7 @@ docker run \
   "${tty_args[@]+"${tty_args[@]}"}" \
   --rm \
   --tmpfs /tmp:exec \
-  --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
+  --mount "type=bind,src=${local_repo_root},dst=${dest_dir}" \
   --read-only \
   --name "puml-build-env" \
   --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
