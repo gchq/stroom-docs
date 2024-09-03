@@ -12,9 +12,7 @@ description: >
 Please read this section carefully in case any of the changes affect you.
 {{% /warning %}}
 
-{{% todo %}}
-Work in progress
-{{% /todo %}}
+There are no breaking changes in v7.5.
 
 
 

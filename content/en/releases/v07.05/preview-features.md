@@ -9,6 +9,10 @@ description: >
   Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.
 ---
 
+## State Store
+
 {{% todo %}}
 Work in progress
 {{% /todo %}}
+
+* Issue **{{< external-link "#2126" "https://github.com/gchq/stroom/issues/2126" >}}** : Add experimental state store.
