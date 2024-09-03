@@ -111,7 +111,11 @@ verify_http_link() {
     )"
 
     if [[ ! "${response_code}" =~ ^2 ]]; then
-      log_broken_http_link "${source_file}" "${link_name}" "${link_url}"
+      log_broken_http_link \
+        "${source_file}" \
+        "${link_name}" \
+        "${link_url}" \
+        "${response_code}"
     else
       # Link is good so add to our set/map so we don't have to hit it again
       checked_links_map["${link_url}"]=1
@@ -182,31 +186,34 @@ verify_http_link() {
 #}
 
 # shellcheck disable=SC2317
-log_broken_link() {
-  local source_file="$1"; shift
-  local line_no="$1"; shift
-  local link_name="$1"; shift
-  local rel_link_path="$1"; shift
-  local effective_link_path="$1"; shift
+#log_broken_link() {
+  #local source_file="$1"; shift
+  #local line_no="$1"; shift
+  #local link_name="$1"; shift
+  #local rel_link_path="$1"; shift
+  #local effective_link_path="$1"; shift
 
-  problem_count=$((problem_count + 1))
-  echo -e "${indent}${RED}Error${NC}: Found broken link in file" \
-    "${BLUE}${source_file}:${line_no}${NC}" \
-    "with name ${BLUE}${link_name}${NC}, link path" \
-    "${BLUE}${rel_link_path}${NC} and effective link path" \
-    "${BLUE}${effective_link_path}${NC}"
-}
+  #problem_count=$((problem_count + 1))
+  #echo -e "${indent}${RED}Error${NC}: Found broken link in file" \
+    #"${BLUE}${source_file}:${line_no}${NC}" \
+    #"with name ${BLUE}${link_name}${NC}, link path" \
+    #"${BLUE}${rel_link_path}${NC} and effective link path" \
+    #"${BLUE}${effective_link_path}${NC}"
+#}
 
 log_broken_http_link() {
   local source_file="$1"; shift
   local link_name="$1"; shift
   local url="$1"; shift
+  local response_code="$1"; shift
 
-  problem_count=$((problem_count + 1))
-  echo -e "${indent}${RED}Error${NC}: Found broken link in file" \
-    "${BLUE}${source_file}${NC}" \
-    "with name ${BLUE}${link_name}${NC} and link URL" \
-    "${BLUE}${url}${NC}"
+  #problem_count=$((problem_count + 1))
+  local msg="Found broken link in file ${BLUE}${source_file}${NC} \
+with name ${BLUE}${link_name}${NC} and link URL \
+${BLUE}${url}${NC}, response: ${BLUE}${response_code}${NC}"
+
+  echo -e "${indent}${RED}Error${NC}: ${msg}"
+  error_messages+=( "${msg}" )
 }
 
 verify_link() {
@@ -512,7 +519,8 @@ main() {
 
   debug_value "PWD" "${PWD}"
 
-  local problem_count=0
+  #local problem_count=0
+  local error_messages=()
   #declare -A file_and_anchor_map
 
   local file_count=0
@@ -571,9 +579,17 @@ main() {
   echo -e "${GREEN}Link count: ${BLUE}${link_count}${NC}"
   #echo -e "${GREEN}Heading count: ${BLUE}${#file_and_anchor_map[@]}${NC}"
 
+  # Test array size
+  local problem_count="${#error_messages[@]}" 
   if [[ "${problem_count}" -gt 0 ]]; then
     echo -e "${indent}${RED}ERROR${NC}: Found ${BLUE}${problem_count}${NC}" \
-      "problems with links and anchors. See output above.${NC}"
+      "problems with links and anchors. See details below:${NC}"
+
+    for msg in "${error_messages[@]}"; do
+      echo
+      echo -e "${indent}${msg}"
+    done
+
     exit 1
   else
     echo -e "${GREEN}All checks completed with no problems found${NC}"
