@@ -1,0 +1,971 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – dashboard</title>
+    <link>/tags/dashboard/</link>
+    <description>Recent content in dashboard on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 30 Apr 2024 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/dashboard/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Dashboards</title>
+      <link>/docs/user-guide/search/dashboards/</link>
+      <pubDate>Tue, 30 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/dashboards/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Direct URLs</title>
+      <link>/docs/user-guide/search/dashboards/direct-urls/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/dashboards/direct-urls/</guid>
+      <description>
+        
+        
+        &lt;p&gt;It is possible to navigate directly to a specific &lt;em&gt;Stroom&lt;/em&gt; dashboard using a direct URL.
+This can be useful when you have a dashboard that needs to be viewed by users that would otherwise not be using the &lt;em&gt;Stroom&lt;/em&gt; user interface.&lt;/p&gt;
+&lt;h2 id=&#34;url-format&#34;&gt;URL format&lt;/h2&gt;
+&lt;p&gt;The format for the URL is as follows:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://&amp;lt;HOST&amp;gt;/stroom/dashboard?type=Dashboard&amp;amp;uuid=&amp;lt;DASHBOARD UUID&amp;gt;[&amp;amp;title=&amp;lt;DASHBOARD TITLE&amp;gt;][&amp;amp;params=&amp;lt;DASHBOARD PARAMETERS&amp;gt;]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://localhost/stroom/dashboard?type=Dashboard&amp;amp;uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09&amp;amp;title=My%20Dash&amp;amp;params=userId%3DFred%20Bloggs&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;host-and-path&#34;&gt;Host and path&lt;/h3&gt;
+&lt;p&gt;The host and path are typically &lt;code&gt;https://&amp;lt;HOST&amp;gt;/stroom/dashboard&lt;/code&gt; where &lt;code&gt;&amp;lt;HOST&amp;gt;&lt;/code&gt; is the hostname/IP for &lt;em&gt;Stroom&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;type&#34;&gt;type&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;type&lt;/code&gt; is a required parameter and must always be &lt;code&gt;Dashboard&lt;/code&gt; since we are opening a dashboard.&lt;/p&gt;
+&lt;h3 id=&#34;uuid&#34;&gt;uuid&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;uuid&lt;/code&gt; is a required parameter where &lt;code&gt;&amp;lt;DASHBOARD UUID&amp;gt;&lt;/code&gt; is the UUID for the dashboard you want a direct URL to, e.g. &lt;code&gt;uuid=c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The UUID for the dashboard that you want to link to can be found by right clicking on the dashboard icon in the explorer tree and selecting Info.&lt;/p&gt;
+&lt;p&gt;The Info dialog will display something like this and the UUID can be copied from it:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;DB ID: 4
+UUID: c7c6b03c-5d47-4b8b-b84e-e4dfc6c84a09
+Type: Dashboard
+Name: Stroom Family App Events Dashboard
+Created By: INTERNAL
+Created On: 2018-12-10T06:33:03.275Z
+Updated By: admin
+Updated On: 2018-12-10T07:47:06.841Z
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;title-optional&#34;&gt;title (Optional)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;title&lt;/code&gt; is an optional URL parameter where &lt;code&gt;&amp;lt;DASHBOARD TITLE&amp;gt;&lt;/code&gt; allows the specification of a specific title for the opened dashboard instead of the default dashboard name.&lt;/p&gt;
+&lt;p&gt;The inclusion of &lt;code&gt;${name}&lt;/code&gt; in the title allows the default dashboard name to be used and appended with other values, e.g. &lt;code&gt;&#39;title=${name}%20-%20&#39; + param.name&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;params-optional&#34;&gt;params (Optional)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;params&lt;/code&gt; is an optional URL parameter where &lt;code&gt;&amp;lt;DASHBOARD PARAMETERS&amp;gt;&lt;/code&gt; includes any parameters that have been defined for the dashboard in any of the expressions, e.g. &lt;code&gt;params=userId%3DFred%20Bloggs&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;permissions&#34;&gt;Permissions&lt;/h2&gt;
+&lt;p&gt;In order for as user to view a dashboard they will need the necessary permission on the various entities that make up the dashboard.&lt;/p&gt;
+&lt;p&gt;For a Lucene index query and associated table the following permissions will be required:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Read&lt;/em&gt; permission on the &lt;em&gt;Dashboard&lt;/em&gt; entity.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Use&lt;/em&gt; permission on any &lt;em&gt;Indexe&lt;/em&gt; entities being queried in the dashboard.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Use&lt;/em&gt; permission on any &lt;em&gt;Pipeline&lt;/em&gt; entities set as search extraction &lt;em&gt;Pipelines&lt;/em&gt; in any of the dashboard&amp;rsquo;s tables.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Use&lt;/em&gt; permission on any &lt;em&gt;XSLT&lt;/em&gt; entities used by the above search extraction &lt;em&gt;Pipeline&lt;/em&gt; entites.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Use&lt;/em&gt; permission on any ancestor pipelines of any of the above search extraction &lt;em&gt;Pipeline&lt;/em&gt; entites (if applicable).&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Use&lt;/em&gt; permission on any &lt;em&gt;Feed&lt;/em&gt; entities that you want the user to be able to see data for.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a SQL Statistics query and associated table the following permissions will be required:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Read&lt;/em&gt; permission on the &lt;em&gt;Dashboard&lt;/em&gt; entity.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Use&lt;/em&gt; permission on the &lt;em&gt;StatisticStore&lt;/em&gt; entity being queried.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a visualisation the following permissions will be required:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Read&lt;/em&gt; permission on any &lt;em&gt;Visualiation&lt;/em&gt; entities used in the dashboard.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Read&lt;/em&gt; permission on any &lt;em&gt;Script&lt;/em&gt; entities used by the above &lt;em&gt;Visualiation&lt;/em&gt; entities.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Read&lt;/em&gt; permission on any &lt;em&gt;Script&lt;/em&gt; entities used by the above &lt;em&gt;Script&lt;/em&gt; entities.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Expression functions</title>
+      <link>/docs/reference-section/expressions/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/reference-section/expressions/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Expressions can be used to manipulate data on Stroom Dashboards and Queries.&lt;/p&gt;
+&lt;p&gt;Each function has a name, and some have additional aliases.&lt;/p&gt;
+&lt;p&gt;In some cases, functions can be nested.
+The return value for some functions being used
+as the arguments for other functions.&lt;/p&gt;
+&lt;p&gt;The arguments to functions can either be other functions, literal values, or they can refer to fields on the input data using the field reference &lt;code&gt;${val}&lt;/code&gt; syntax.&lt;/p&gt;
+&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Aggregate Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#average&#34;&gt;Average&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#count&#34;&gt;Count&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#count-groups&#34;&gt;Count Groups&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#count-unique&#34;&gt;Count Unique&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#distinct&#34;&gt;Distinct&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#joining&#34;&gt;Joining&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#max&#34;&gt;Max&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#min&#34;&gt;Min&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#standard-deviation&#34;&gt;Standard Deviation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#sum&#34;&gt;Sum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;aggregate#variance&#34;&gt;Variance&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        String Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;string#concat&#34;&gt;Concat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#current-user&#34;&gt;Current User&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#decode&#34;&gt;Decode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#decodeurl&#34;&gt;DecodeUrl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#encodeurl&#34;&gt;EncodeUrl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#exclude&#34;&gt;Exclude&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#hash&#34;&gt;Hash&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#include&#34;&gt;Include&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#index-of&#34;&gt;Index Of&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#last-index-of&#34;&gt;Last Index Of&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#lower-case&#34;&gt;Lower Case&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#match&#34;&gt;Match&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#query-param&#34;&gt;Query Param&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#query-params&#34;&gt;Query Params&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#replace&#34;&gt;Replace&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#string-length&#34;&gt;String Length&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#substring&#34;&gt;Substring&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#substring-after&#34;&gt;Substring After&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#substring-before&#34;&gt;Substring Before&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;string#upper-case&#34;&gt;Upper Case&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Mathematics Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#add&#34;&gt;Add&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#average&#34;&gt;Average&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#divide&#34;&gt;Divide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#max&#34;&gt;Max&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#min&#34;&gt;Min&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#modulo&#34;&gt;Modulo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#multiply&#34;&gt;Multiply&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#negate&#34;&gt;Negate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#power&#34;&gt;Power&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#random&#34;&gt;Random&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#subtract&#34;&gt;Subtract&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;mathematics#sum&#34;&gt;Sum&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Type Checking Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-boolean&#34;&gt;Is Boolean&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-double&#34;&gt;Is Double&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-error&#34;&gt;Is Error&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-integer&#34;&gt;Is Integer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-long&#34;&gt;Is Long&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-null&#34;&gt;Is Null&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-number&#34;&gt;Is Number&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-string&#34;&gt;Is String&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#is-value&#34;&gt;Is Value&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;type-checking#type-of&#34;&gt;Type Of&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+&lt;/div&gt;
+&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Link Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;link#annotation&#34;&gt;Annotation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link#dashboard&#34;&gt;Dashboard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link#data&#34;&gt;Data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link#link&#34;&gt;Link&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;link#stepping&#34;&gt;Stepping&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Cast Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;cast#to-boolean&#34;&gt;To Boolean&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast#to-double&#34;&gt;To Double&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast#to-integer&#34;&gt;To Integer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast#to-long&#34;&gt;To Long&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;cast#to-string&#34;&gt;To String&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Date Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;date#format-date&#34;&gt;Format Date&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#parse-date&#34;&gt;Parse Date&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#ceiling-yearmonthdayhourminutesecond&#34;&gt;Ceiling Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#floor-yearmonthdayhourminutesecond&#34;&gt;Floor Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;date#round-yearmonthdayhourminutesecond&#34;&gt;Round Functions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Logic Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;logic#equals&#34;&gt;Equals&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#greater-than&#34;&gt;Greater Than&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#greater-than-or-equal-to&#34;&gt;Greater Than or Equal To&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#if&#34;&gt;If&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#less-than&#34;&gt;Less Than&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#less-than-or-equal-to&#34;&gt;Less Than or Equal To&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;logic#not&#34;&gt;Not&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+&lt;/div&gt;
+&lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Rounding Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;rounding#ceiling&#34;&gt;Ceiling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;rounding#floor&#34;&gt;Floor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;rounding#round&#34;&gt;Round&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Selection Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;selection#any&#34;&gt;Any&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection#bottom&#34;&gt;Bottom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection#first&#34;&gt;First&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection#last&#34;&gt;Last&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection#nth&#34;&gt;Nth&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;selection#top&#34;&gt;Top&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        URI Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractauthorityfromuri&#34;&gt;extractAuthorityFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractfragmentfromuri&#34;&gt;extractFragmentFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extracthostfromuri&#34;&gt;extractHostFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractpathfromuri&#34;&gt;extractPathFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractportfromuri&#34;&gt;extractPortFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractqueryfromuri&#34;&gt;extractQueryFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractschemefromuri&#34;&gt;extractSchemeFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractschemespecificpartfromuri&#34;&gt;extractSchemeSpecificPartFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;uri#extractuserinfofromuri&#34;&gt;extractUserInfoFromUri&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+  &lt;div class=&#34;td-card card mb-4&#34;&gt;
+  
+    &lt;div class=&#34;card-header&#34;&gt;
+      
+        Value Functions
+      
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;card-body&#34;&gt;
+    
+    
+    
+      &lt;p class=&#34;card-text&#34;&gt;
+        
+          &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;value#err&#34;&gt;Err&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value#false&#34;&gt;False&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value#null&#34;&gt;Null&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;value#true&#34;&gt;True&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      &lt;/p&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+
+
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Dashboards</title>
+      <link>/docs/quick-start-guide/dashboard/</link>
+      <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/quick-start-guide/dashboard/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Create a new &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Dashboard&#34;&gt;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg version=&#34;1.1&#34; id=&#34;svg4591&#34; width=&#34;512&#34; height=&#34;512&#34; viewBox=&#34;0 0 512 512&#34; sodipodi:docname=&#34;Dashboard.svg&#34; inkscape:version=&#34;1.2.1 (9c6d41e410, 2022-07-14, custom)&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:svg=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;defs id=&#34;defs4595&#34; /&gt;&lt;sodipodi:namedview id=&#34;namedview4593&#34; pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1.0&#34; inkscape:showpageshadow=&#34;2&#34; inkscape:pageopacity=&#34;0.0&#34; inkscape:pagecheckerboard=&#34;0&#34; inkscape:deskcolor=&#34;#d1d1d1&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;0.35458919&#34; inkscape:cx=&#34;530.191&#34; inkscape:cy=&#34;589.41447&#34; inkscape:window-width=&#34;2560&#34; inkscape:window-height=&#34;1403&#34; inkscape:window-x=&#34;2560&#34; inkscape:window-y=&#34;0&#34; inkscape:window-maximized=&#34;1&#34; inkscape:current-layer=&#34;g4597&#34; /&gt;&lt;g inkscape:groupmode=&#34;layer&#34; inkscape:label=&#34;Image&#34; id=&#34;g4597&#34;&gt;&lt;rect style=&#34;fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655&#34; width=&#34;151.83469&#34; height=&#34;195.54515&#34; x=&#34;73.71109&#34; y=&#34;73.244606&#34; transform=&#34;matrix(1,0,-0.00232161,0.99999731,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5&#34; width=&#34;151.83469&#34; height=&#34;195.54515&#34; x=&#34;287.34845&#34; y=&#34;243.71935&#34; transform=&#34;matrix(1,0,-0.00232161,0.99999731,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5-9&#34; width=&#34;155.95563&#34; height=&#34;108.24628&#34; x=&#34;285.01883&#34; y=&#34;71.178368&#34; transform=&#34;matrix(1,0,-0.00408154,0.99999167,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5-9-2&#34; width=&#34;155.95563&#34; height=&#34;108.24628&#34; x=&#34;72.821693&#34; y=&#34;331.08734&#34; transform=&#34;matrix(1,0,-0.00408154,0.99999167,0,0)&#34; /&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#dashboard&#34; title=&#34;Glossary entry for Dashboard&#34;&gt;
+    &lt;span&gt;Dashboard&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; in the &lt;em&gt;Stroom 101&lt;/em&gt; folder and call it &lt;em&gt;Stroom 101&lt;/em&gt;.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;max-width: 510px&#34;&gt;
+
+  &lt;a title=&#34;images/quick-start-guide/dashboard/001_dashboard_new.png&#34; href=&#34;../../images/quick-start-guide/dashboard/001_dashboard_new.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/quick-start-guide/dashboard/001_dashboard_new.png&#34; style=&#34;max-width:500&#34; alt=&#34;images/quick-start-guide/dashboard/001_dashboard_new.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;New Dashboard&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;By default a new Dashboard opens with two panes; a &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#query&#34; title=&#34;Glossary entry for Query&#34;&gt;
+    &lt;span&gt;Query&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; pane at the top to build the query; and a &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#table&#34; title=&#34;Glossary entry for Table&#34;&gt;
+    &lt;span&gt;Table&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; pane at the bottom to display the results.
+Dashboards are highly configurable; panes can be added and resized; they can contain multiple queries; and a query pane can provide data for multiple output panes (such as &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#visualisation&#34; title=&#34;Glossary entry for Visualisations&#34;&gt;
+    &lt;span&gt;Visualisations&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;).&lt;/p&gt;
+&lt;h2 id=&#34;configuring-the-query-data-source&#34;&gt;Configuring the query data source&lt;/h2&gt;
+&lt;p&gt;On the query pane click the settings &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__grey&#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Dashboard settings&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; button on the top right of the panel.&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;max-width: 360px&#34;&gt;
+
+  &lt;a title=&#34;images/quick-start-guide/dashboard/002_dashboard_query_settings.png&#34; href=&#34;../../images/quick-start-guide/dashboard/002_dashboard_query_settings.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/quick-start-guide/dashboard/002_dashboard_query_settings.png&#34; style=&#34;max-width:350&#34; alt=&#34;images/quick-start-guide/dashboard/002_dashboard_query_settings.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Dashboard settings&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Click on the &lt;em&gt;Data Source&lt;/em&gt; document picker.&lt;/li&gt;
+&lt;li&gt;Select the index you created earlier:&lt;br&gt;
+&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Folder&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Stroom 101&lt;/em&gt; / &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Index&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Stroom 101&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    Dashboards can be made to automatically run all queries when they are opened and/or to keep refreshing the query every N seconds.
+This can be done in the Query settings dialog you used above.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;configuring-the-query-expression&#34;&gt;Configuring the query expression&lt;/h2&gt;
+&lt;p&gt;Now add a term to the query to filter the data.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Right click on the root AND operator and click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add Term&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; Add Term.
+A new expression is added to the tree as a child of the operator and it has three dropdowns in it (&lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#field&#34; title=&#34;Glossary entry for Field&#34;&gt;
+    &lt;span&gt;Field&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;, &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#condition&#34; title=&#34;Glossary entry for Condition&#34;&gt;
+    &lt;span&gt;Condition&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; and value).&lt;/li&gt;
+&lt;li&gt;Create an expression term for the &lt;em&gt;Application&lt;/em&gt; field:
+&lt;ol&gt;
+&lt;li&gt;Field: &lt;code&gt;Application&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Condition: &lt;code&gt;=&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Value: &lt;code&gt;*b*&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This will find any records with &lt;code&gt;b&lt;/code&gt; in the &lt;em&gt;Application&lt;/em&gt; field value.&lt;/p&gt;
+&lt;h2 id=&#34;configuring-the-table&#34;&gt;Configuring the table&lt;/h2&gt;
+&lt;p&gt;All fields are &lt;a href=&#34;../../docs/user-guide/indexing/lucene/#stored-fields&#34;&gt;stored&lt;/a&gt; in our index so we do not need to worry about configuring &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#search-extraction&#34; title=&#34;Glossary entry for Search Extraction&#34;&gt;
+    &lt;span&gt;Search Extraction&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;We first need to add some columns to our table.
+Using the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add Field&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; button on the Table pane, add the following columns to the table.
+We want a count of records grouped by &lt;em&gt;Application&lt;/em&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Application&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Count&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+
+    &lt;p&gt;&lt;em&gt;Count&lt;/em&gt; is a special column (not in the index) that applies the aggregate function &lt;code&gt;count()&lt;/code&gt;.
+All columns are actually just an expression which may be a simple field like &lt;code&gt;${Application}&lt;/code&gt; or a function.
+Stroom has a rich library of functions for aggregating and mutating query results.
+See &lt;a href=&#34;../../docs/reference-section/expressions/&#34;&gt;Expressions&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;p&gt;To group our data by &lt;em&gt;Application&lt;/em&gt; we need to apply a group level to the &lt;em&gt;Application&lt;/em&gt; column.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &lt;em&gt;Application&lt;/em&gt; column&lt;/li&gt;
+&lt;li&gt;Click&lt;br&gt;
+&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Group&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M 685.875 193.30859 C 600.92254 193.30859 538.96121 215.17246 499.99219 258.90234 C 461.02317 302.1353 441.53906 371.7057 441.53906 467.61328 L 441.53906 620.41992 C 441.53906 694.95949 431.01593 746.64092 409.97266 775.46289 C 388.92938 804.28486 350.7403 818.69531 295.4043 818.69531 L 259.74805 818.69531 L 259.74805 984.91797 L 295.4043 984.91797 C 350.7403 984.91797 388.92938 999.57756 409.97266 1028.8965 C 431.01593 1057.7184 441.53906 1109.3999 441.53906 1183.9395 L 441.53906 1327.0547 C 441.53906 1422.9623 461.02317 1492.7819 499.99219 1536.5117 C 538.96121 1580.2417 600.92254 1602.1055 685.875 1602.1055 L 812.71875 1602.1055 L 812.71875 1434.3926 L 772.38477 1434.3926 C 717.43844 1434.3926 681.58676 1423.4587 664.83008 1401.5938 C 648.46309 1380.2258 640.28125 1334.0123 640.28125 1262.9512 L 640.28125 1139.2148 C 640.28125 1061.6936 631.51262 1005.2918 613.97656 970.00977 C 596.8302 934.72771 566.62867 910.37806 523.37305 896.96094 C 566.23897 884.53767 596.4405 860.68636 613.97656 825.4043 C 631.51262 790.12224 640.28125 733.47121 640.28125 655.45312 L 640.28125 531.7168 C 640.28125 461.15268 648.46309 415.18833 664.83008 393.82031 C 681.58676 371.95537 717.43844 361.02148 772.38477 361.02148 L 812.71875 361.02148 L 812.71875 193.30859 L 685.875 193.30859 z M 979.28125 193.30859 L 979.28125 361.02148 L 1020.1992 361.02148 C 1074.7559 361.02148 1110.217 371.95537 1126.584 393.82031 C 1143.3407 415.18833 1151.7188 461.15268 1151.7188 531.7168 L 1151.7188 655.45312 C 1151.7188 733.47121 1160.4874 790.12224 1178.0234 825.4043 C 1195.5594 860.68636 1225.9553 884.53767 1269.2109 896.96094 C 1225.9553 910.37806 1195.5594 934.72771 1178.0234 970.00977 C 1160.4874 1005.2918 1151.7188 1061.6936 1151.7188 1139.2148 L 1151.7188 1262.9512 C 1151.7188 1334.0123 1143.3407 1380.2258 1126.584 1401.5938 C 1110.217 1423.4587 1074.7558 1434.3926 1020.1992 1434.3926 L 979.28125 1434.3926 L 979.28125 1602.1055 L 1106.125 1602.1055 C 1191.0774 1602.1055 1253.0387 1580.2417 1292.0078 1536.5117 C 1330.9769 1492.7819 1350.4609 1422.9623 1350.4609 1327.0547 L 1350.4609 1183.9395 C 1350.4609 1109.3999 1360.9841 1057.7184 1382.0273 1028.8965 C 1403.0706 999.57756 1441.2597 984.91797 1496.5957 984.91797 L 1532.252 984.91797 L 1532.252 818.69531 L 1496.5957 818.69531 C 1441.2597 818.69531 1403.0706 804.28486 1382.0273 775.46289 C 1360.9841 746.64092 1350.4609 694.95949 1350.4609 620.41992 L 1350.4609 467.61328 C 1350.4609 371.7057 1330.9769 302.1353 1292.0078 258.90234 C 1253.0387 215.17246 1191.0774 193.30859 1106.125 193.30859 L 979.28125 193.30859 z &#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Group&lt;/em&gt; =&amp;gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Group&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M 685.875 193.30859 C 600.92254 193.30859 538.96121 215.17246 499.99219 258.90234 C 461.02317 302.1353 441.53906 371.7057 441.53906 467.61328 L 441.53906 620.41992 C 441.53906 694.95949 431.01593 746.64092 409.97266 775.46289 C 388.92938 804.28486 350.7403 818.69531 295.4043 818.69531 L 259.74805 818.69531 L 259.74805 984.91797 L 295.4043 984.91797 C 350.7403 984.91797 388.92938 999.57756 409.97266 1028.8965 C 431.01593 1057.7184 441.53906 1109.3999 441.53906 1183.9395 L 441.53906 1327.0547 C 441.53906 1422.9623 461.02317 1492.7819 499.99219 1536.5117 C 538.96121 1580.2417 600.92254 1602.1055 685.875 1602.1055 L 812.71875 1602.1055 L 812.71875 1434.3926 L 772.38477 1434.3926 C 717.43844 1434.3926 681.58676 1423.4587 664.83008 1401.5938 C 648.46309 1380.2258 640.28125 1334.0123 640.28125 1262.9512 L 640.28125 1139.2148 C 640.28125 1061.6936 631.51262 1005.2918 613.97656 970.00977 C 596.8302 934.72771 566.62867 910.37806 523.37305 896.96094 C 566.23897 884.53767 596.4405 860.68636 613.97656 825.4043 C 631.51262 790.12224 640.28125 733.47121 640.28125 655.45312 L 640.28125 531.7168 C 640.28125 461.15268 648.46309 415.18833 664.83008 393.82031 C 681.58676 371.95537 717.43844 361.02148 772.38477 361.02148 L 812.71875 361.02148 L 812.71875 193.30859 L 685.875 193.30859 z M 979.28125 193.30859 L 979.28125 361.02148 L 1020.1992 361.02148 C 1074.7559 361.02148 1110.217 371.95537 1126.584 393.82031 C 1143.3407 415.18833 1151.7188 461.15268 1151.7188 531.7168 L 1151.7188 655.45312 C 1151.7188 733.47121 1160.4874 790.12224 1178.0234 825.4043 C 1195.5594 860.68636 1225.9553 884.53767 1269.2109 896.96094 C 1225.9553 910.37806 1195.5594 934.72771 1178.0234 970.00977 C 1160.4874 1005.2918 1151.7188 1061.6936 1151.7188 1139.2148 L 1151.7188 1262.9512 C 1151.7188 1334.0123 1143.3407 1380.2258 1126.584 1401.5938 C 1110.217 1423.4587 1074.7558 1434.3926 1020.1992 1434.3926 L 979.28125 1434.3926 L 979.28125 1602.1055 L 1106.125 1602.1055 C 1191.0774 1602.1055 1253.0387 1580.2417 1292.0078 1536.5117 C 1330.9769 1492.7819 1350.4609 1422.9623 1350.4609 1327.0547 L 1350.4609 1183.9395 C 1350.4609 1109.3999 1360.9841 1057.7184 1382.0273 1028.8965 C 1403.0706 999.57756 1441.2597 984.91797 1496.5957 984.91797 L 1532.252 984.91797 L 1532.252 818.69531 L 1496.5957 818.69531 C 1441.2597 818.69531 1403.0706 804.28486 1382.0273 775.46289 C 1360.9841 746.64092 1350.4609 694.95949 1350.4609 620.41992 L 1350.4609 467.61328 C 1350.4609 371.7057 1330.9769 302.1353 1292.0078 258.90234 C 1253.0387 215.17246 1191.0774 193.30859 1106.125 193.30859 L 979.28125 193.30859 z &#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Level 1&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now we can reverse sort the data in the table by the count.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &lt;em&gt;Count&lt;/em&gt; column.&lt;/li&gt;
+&lt;li&gt;Click&lt;br&gt;
+&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Sortaz&#34;&gt;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg version=&#34;1.1&#34; id=&#34;svg622&#34; width=&#34;16&#34; height=&#34;16&#34; viewBox=&#34;0 0 16 16&#34; sodipodi:docname=&#34;fields-sortaz.svg&#34; inkscape:version=&#34;1.2.2 (b0a8486541, 2022-12-01)&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:svg=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;defs id=&#34;defs626&#34; /&gt;&lt;sodipodi:namedview id=&#34;namedview624&#34; pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1.0&#34; inkscape:showpageshadow=&#34;2&#34; inkscape:pageopacity=&#34;0.0&#34; inkscape:pagecheckerboard=&#34;0&#34; inkscape:deskcolor=&#34;#d1d1d1&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;5.025983&#34; inkscape:cx=&#34;22.085232&#34; inkscape:cy=&#34;26.164036&#34; inkscape:window-width=&#34;1444&#34; inkscape:window-height=&#34;1236&#34; inkscape:window-x=&#34;5678&#34; inkscape:window-y=&#34;83&#34; inkscape:window-maximized=&#34;0&#34; inkscape:current-layer=&#34;g628&#34; /&gt;&lt;g inkscape:groupmode=&#34;layer&#34; inkscape:label=&#34;Image&#34; id=&#34;g628&#34;&gt;&lt;text xml:space=&#34;preserve&#34; style=&#34;font-style:normal;font-weight:normal;font-size:9.33333px;line-height:1.25;font-family:&#39;Droid Sans Mono&#39;;fill:currentColor;fill-opacity:1;stroke:none;-inkscape-font-specification:&#39;Droid Sans Mono&#39;;font-stretch:normal;font-variant:normal&#34; x=&#34;1.6919255&#34; y=&#34;6.984611&#34; id=&#34;text634&#34;&gt;&lt;tspan sodipodi:role=&#34;line&#34; id=&#34;tspan632&#34; x=&#34;1.6919255&#34; y=&#34;6.984611&#34; style=&#34;font-size:9.33333px;-inkscape-font-specification:&#39;Droid Sans Mono&#39;;font-family:&#39;Droid Sans Mono&#39;;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal&#34;&gt;a&lt;/tspan&gt;&lt;/text&gt;&lt;text xml:space=&#34;preserve&#34; style=&#34;font-style:normal;font-weight:normal;font-size:8.30671px;line-height:1.25;font-family:sans-serif;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.890005&#34; x=&#34;1.3740022&#34; y=&#34;16.11894&#34; id=&#34;text638&#34; transform=&#34;scale(1.1235889,0.89000524)&#34;&gt;&lt;tspan sodipodi:role=&#34;line&#34; id=&#34;tspan636&#34; x=&#34;1.3740022&#34; y=&#34;16.11894&#34; style=&#34;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.30671px;font-family:&#39;Droid Sans Mono&#39;;-inkscape-font-specification:&#39;Droid Sans Mono&#39;;stroke-width:0.890005&#34;&gt;Z&lt;/tspan&gt;&lt;/text&gt;&lt;path style=&#34;fill:currentColor;stroke:currentColor;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1&#34; d=&#34;m 8.8845943,11.021639 h 2.6812047 l 0.07387,2.828908 z&#34; id=&#34;path1487&#34; /&gt;&lt;path style=&#34;fill:currentColor;stroke:currentColor;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1&#34; d=&#34;m 14.394742,11.021639 h -2.681205 l -0.07387,2.828908 z&#34; id=&#34;path1487-8&#34; /&gt;&lt;path style=&#34;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1&#34; d=&#34;M 11.713537,11.021639 11.639669,2.8122217&#34; id=&#34;path1570&#34; sodipodi:nodetypes=&#34;cc&#34; /&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Sort&lt;/em&gt; =&amp;gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Sortza&#34;&gt;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg version=&#34;1.1&#34; id=&#34;svg622&#34; width=&#34;16&#34; height=&#34;16&#34; viewBox=&#34;0 0 16 16&#34; sodipodi:docname=&#34;fields-sortza.svg&#34; inkscape:version=&#34;1.2.2 (b0a8486541, 2022-12-01)&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:svg=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;defs id=&#34;defs626&#34; /&gt;&lt;sodipodi:namedview id=&#34;namedview624&#34; pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1.0&#34; inkscape:showpageshadow=&#34;2&#34; inkscape:pageopacity=&#34;0.0&#34; inkscape:pagecheckerboard=&#34;0&#34; inkscape:deskcolor=&#34;#d1d1d1&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;22.345395&#34; inkscape:cx=&#34;8.1896067&#34; inkscape:cy=&#34;11.165611&#34; inkscape:window-width=&#34;1444&#34; inkscape:window-height=&#34;1236&#34; inkscape:window-x=&#34;5678&#34; inkscape:window-y=&#34;83&#34; inkscape:window-maximized=&#34;0&#34; inkscape:current-layer=&#34;g628&#34; /&gt;&lt;g inkscape:groupmode=&#34;layer&#34; inkscape:label=&#34;Image&#34; id=&#34;g628&#34;&gt;&lt;text xml:space=&#34;preserve&#34; style=&#34;font-style:normal;font-weight:normal;font-size:8.30671px;line-height:1.25;font-family:sans-serif;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.890005&#34; x=&#34;1.3740022&#34; y=&#34;8.0016098&#34; id=&#34;text638&#34; transform=&#34;scale(1.1235889,0.89000524)&#34;&gt;&lt;tspan sodipodi:role=&#34;line&#34; id=&#34;tspan636&#34; x=&#34;1.3740022&#34; y=&#34;8.0016098&#34; style=&#34;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.30671px;font-family:&#39;Droid Sans Mono&#39;;-inkscape-font-specification:&#39;Droid Sans Mono&#39;;stroke-width:0.890005&#34;&gt;Z&lt;/tspan&gt;&lt;/text&gt;&lt;text xml:space=&#34;preserve&#34; style=&#34;font-style:normal;font-weight:normal;font-size:8.30671px;line-height:1.25;font-family:sans-serif;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.890005&#34; x=&#34;1.6919247&#34; y=&#34;14.423592&#34; id=&#34;text634&#34;&gt;&lt;tspan sodipodi:role=&#34;line&#34; id=&#34;tspan632&#34; x=&#34;1.6919247&#34; y=&#34;14.423592&#34; style=&#34;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.33333px;font-family:&#39;Droid Sans Mono&#39;;-inkscape-font-specification:&#39;Droid Sans Mono&#39;&#34;&gt;a&lt;/tspan&gt;&lt;/text&gt;&lt;path style=&#34;fill:currentColor;stroke:currentColor;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1&#34; d=&#34;m 8.8845943,11.021639 h 2.6812047 l 0.07387,2.828908 z&#34; id=&#34;path1487&#34; /&gt;&lt;path style=&#34;fill:currentColor;stroke:currentColor;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1&#34; d=&#34;m 14.394742,11.021639 h -2.681205 l -0.07387,2.828908 z&#34; id=&#34;path1487-8&#34; /&gt;&lt;path style=&#34;fill:currentColor;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1&#34; d=&#34;M 11.713537,11.021639 11.639669,2.8122217&#34; id=&#34;path1570&#34; sodipodi:nodetypes=&#34;cc&#34; /&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Sort Z to A&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now click the large green and white play button to run the query.
+You should see 15 &lt;em&gt;Applications&lt;/em&gt; and their counts returned in the table.&lt;/p&gt;
+&lt;p&gt;Now we are going to add a custom column to show the lowest EventId for each &lt;em&gt;Application&lt;/em&gt; group.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add Field&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; button on the Table pane.&lt;/li&gt;
+&lt;li&gt;Select &lt;em&gt;Custom&lt;/em&gt; (at the bottom of the list).&lt;/li&gt;
+&lt;li&gt;Click on the new &lt;em&gt;Custom&lt;/em&gt; column.&lt;/li&gt;
+&lt;li&gt;Click&lt;br&gt;
+&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Expression&#34;&gt;&lt;svg xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34; id=&#34;svg4184&#34; version=&#34;1.1&#34; inkscape:version=&#34;0.91 r13725&#34; sodipodi:docname=&#34;function.svg&#34;&gt;&lt;metadata id=&#34;metadata4192&#34;&gt;&lt;rdf:RDF&gt;&lt;cc:Work rdf:about=&#34;&#34;&gt;&lt;dc:format&gt;image/svg+xml&lt;/dc:format&gt;&lt;dc:type rdf:resource=&#34;http://purl.org/dc/dcmitype/StillImage&#34; /&gt;&lt;dc:title /&gt;&lt;/cc:Work&gt;&lt;/rdf:RDF&gt;&lt;/metadata&gt;&lt;defs id=&#34;defs4190&#34; /&gt;&lt;sodipodi:namedview pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1&#34; objecttolerance=&#34;10&#34; gridtolerance=&#34;10&#34; guidetolerance=&#34;10&#34; inkscape:pageopacity=&#34;0&#34; inkscape:pageshadow=&#34;2&#34; inkscape:window-width=&#34;1920&#34; inkscape:window-height=&#34;1137&#34; id=&#34;namedview4188&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;0.26478795&#34; inkscape:cx=&#34;270.41883&#34; inkscape:cy=&#34;572.402&#34; inkscape:window-x=&#34;0&#34; inkscape:window-y=&#34;0&#34; inkscape:window-maximized=&#34;1&#34; inkscape:current-layer=&#34;svg4184&#34; /&gt;&lt;g id=&#34;g4830&#34; transform=&#34;matrix(0.96593676,0,0,0.96593676,45.112514,30.520682)&#34; style=&#34;fill:currentColor;fill-opacity:1&#34;&gt;&lt;path d=&#34;m 123.97185,1625.5582 q -71.205453,0 -119.1321997,-17.7163 l 0,-171.4941 q 41.7647367,14.8818 78.7367977,14.8818 41.764732,0 73.259452,-28.3461 31.49472,-28.3462 44.50341,-92.125 l 139.67223,-683.85003 -111.60086,0 20.54004,-102.75468 125.29422,-59.52686 12.32402,-59.52684 q 28.07138,-134.64406 94.48416,-196.29687 67.09745,-62.36146 187.59898,-62.36146 89.69148,0 160.89694,34.72399 l -54.77343,158.73827 q -47.24208,-21.96824 -91.06082,-21.96824 -39.02606,0 -62.98943,28.34611 -23.96338,28.34612 -32.17939,74.40857 l -8.21602,43.93647 149.94225,0 -33.54872,162.28154 -150.62692,0 -147.20359,715.73943 q -52.71941,262.9103 -275.92112,262.9103 z&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; id=&#34;path4218&#34; inkscape:connector-curvature=&#34;0&#34; /&gt;&lt;g transform=&#34;matrix(0.87966516,0,0,0.9104814,184.84476,203.73334)&#34; id=&#34;g4813&#34; style=&#34;fill:currentColor;fill-opacity:1&#34;&gt;&lt;path inkscape:connector-curvature=&#34;0&#34; id=&#34;path4220&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; d=&#34;m 561.38701,1031.0562 q 0,-178.49534 64.23726,-329.61086 64.76379,-151.64206 201.13633,-292.22688 l 137.95214,0 Q 830.44634,555.59517 765.68256,711.4495 701.4453,866.7773 701.4453,1036.848 q 0,162.1728 61.60458,312.7618 l -123.20916,0 q -78.45371,-140.0583 -78.45371,-318.5536 z&#34; /&gt;&lt;path inkscape:connector-curvature=&#34;0&#34; id=&#34;path4222&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; d=&#34;m 1088.4484,877.308 -118.4703,-286.96153 169.0178,0 60.5514,175.86267 128.4745,-175.86267 186.3934,0 -245.8918,295.38608 128.4745,293.27995 -171.6503,0 -65.8169,-180.07494 -139.0052,180.07494 -184.28726,0 252.21016,-301.7045 z&#34; /&gt;&lt;path inkscape:connector-curvature=&#34;0&#34; id=&#34;path4224&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; d=&#34;m 1787.1604,727.24555 q 0,180.07494 -65.2903,332.24355 -65.2904,151.642 -199.5568,290.1207 l -137.9521,0 q 262.7408,-286.9615 262.7408,-627.6296 0,-161.64622 -61.078,-312.76174 l 122.6826,0 q 78.4538,139.00523 78.4538,318.02709 z&#34; /&gt;&lt;/g&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Expression&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;In the &lt;em&gt;Set Expression For &amp;lsquo;Custom&amp;rsquo;&lt;/em&gt; dialog enter the following:&lt;br&gt;
+&lt;code&gt;first(${EventId})&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Instead of typing out the expression you can use the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Function&#34;&gt;&lt;svg xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns:svg=&#34;http://www.w3.org/2000/svg&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34; id=&#34;svg4184&#34; version=&#34;1.1&#34; inkscape:version=&#34;0.91 r13725&#34; sodipodi:docname=&#34;function.svg&#34;&gt;&lt;metadata id=&#34;metadata4192&#34;&gt;&lt;rdf:RDF&gt;&lt;cc:Work rdf:about=&#34;&#34;&gt;&lt;dc:format&gt;image/svg+xml&lt;/dc:format&gt;&lt;dc:type rdf:resource=&#34;http://purl.org/dc/dcmitype/StillImage&#34; /&gt;&lt;dc:title /&gt;&lt;/cc:Work&gt;&lt;/rdf:RDF&gt;&lt;/metadata&gt;&lt;defs id=&#34;defs4190&#34; /&gt;&lt;sodipodi:namedview pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1&#34; objecttolerance=&#34;10&#34; gridtolerance=&#34;10&#34; guidetolerance=&#34;10&#34; inkscape:pageopacity=&#34;0&#34; inkscape:pageshadow=&#34;2&#34; inkscape:window-width=&#34;1920&#34; inkscape:window-height=&#34;1137&#34; id=&#34;namedview4188&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;0.26478795&#34; inkscape:cx=&#34;270.41883&#34; inkscape:cy=&#34;572.402&#34; inkscape:window-x=&#34;0&#34; inkscape:window-y=&#34;0&#34; inkscape:window-maximized=&#34;1&#34; inkscape:current-layer=&#34;svg4184&#34; /&gt;&lt;g id=&#34;g4830&#34; transform=&#34;matrix(0.96593676,0,0,0.96593676,45.112514,30.520682)&#34; style=&#34;fill:currentColor;fill-opacity:1&#34;&gt;&lt;path d=&#34;m 123.97185,1625.5582 q -71.205453,0 -119.1321997,-17.7163 l 0,-171.4941 q 41.7647367,14.8818 78.7367977,14.8818 41.764732,0 73.259452,-28.3461 31.49472,-28.3462 44.50341,-92.125 l 139.67223,-683.85003 -111.60086,0 20.54004,-102.75468 125.29422,-59.52686 12.32402,-59.52684 q 28.07138,-134.64406 94.48416,-196.29687 67.09745,-62.36146 187.59898,-62.36146 89.69148,0 160.89694,34.72399 l -54.77343,158.73827 q -47.24208,-21.96824 -91.06082,-21.96824 -39.02606,0 -62.98943,28.34611 -23.96338,28.34612 -32.17939,74.40857 l -8.21602,43.93647 149.94225,0 -33.54872,162.28154 -150.62692,0 -147.20359,715.73943 q -52.71941,262.9103 -275.92112,262.9103 z&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; id=&#34;path4218&#34; inkscape:connector-curvature=&#34;0&#34; /&gt;&lt;g transform=&#34;matrix(0.87966516,0,0,0.9104814,184.84476,203.73334)&#34; id=&#34;g4813&#34; style=&#34;fill:currentColor;fill-opacity:1&#34;&gt;&lt;path inkscape:connector-curvature=&#34;0&#34; id=&#34;path4220&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; d=&#34;m 561.38701,1031.0562 q 0,-178.49534 64.23726,-329.61086 64.76379,-151.64206 201.13633,-292.22688 l 137.95214,0 Q 830.44634,555.59517 765.68256,711.4495 701.4453,866.7773 701.4453,1036.848 q 0,162.1728 61.60458,312.7618 l -123.20916,0 q -78.45371,-140.0583 -78.45371,-318.5536 z&#34; /&gt;&lt;path inkscape:connector-curvature=&#34;0&#34; id=&#34;path4222&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; d=&#34;m 1088.4484,877.308 -118.4703,-286.96153 169.0178,0 60.5514,175.86267 128.4745,-175.86267 186.3934,0 -245.8918,295.38608 128.4745,293.27995 -171.6503,0 -65.8169,-180.07494 -139.0052,180.07494 -184.28726,0 252.21016,-301.7045 z&#34; /&gt;&lt;path inkscape:connector-curvature=&#34;0&#34; id=&#34;path4224&#34; style=&#34;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99700928px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold Italic&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; d=&#34;m 1787.1604,727.24555 q 0,180.07494 -65.2903,332.24355 -65.2904,151.642 -199.5568,290.1207 l -137.9521,0 q 262.7408,-286.9615 262.7408,-627.6296 0,-161.64622 -61.078,-312.76174 l 122.6826,0 q 78.4538,139.00523 78.4538,318.02709 z&#34; /&gt;&lt;/g&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; and &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Field&#34;&gt;&lt;svg xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns:svg=&#34;http://www.w3.org/2000/svg&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34; id=&#34;svg4184&#34; version=&#34;1.1&#34; inkscape:version=&#34;0.91 r13725&#34; sodipodi:docname=&#34;field.svg&#34;&gt;&lt;metadata id=&#34;metadata4192&#34;&gt;&lt;rdf:RDF&gt;&lt;cc:Work rdf:about=&#34;&#34;&gt;&lt;dc:format&gt;image/svg+xml&lt;/dc:format&gt;&lt;dc:type rdf:resource=&#34;http://purl.org/dc/dcmitype/StillImage&#34; /&gt;&lt;dc:title&gt;&lt;/dc:title&gt;&lt;/cc:Work&gt;&lt;/rdf:RDF&gt;&lt;/metadata&gt;&lt;defs id=&#34;defs4190&#34; /&gt;&lt;sodipodi:namedview pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1&#34; objecttolerance=&#34;10&#34; gridtolerance=&#34;10&#34; guidetolerance=&#34;10&#34; inkscape:pageopacity=&#34;0&#34; inkscape:pageshadow=&#34;2&#34; inkscape:window-width=&#34;1920&#34; inkscape:window-height=&#34;1137&#34; id=&#34;namedview4188&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;0.26478795&#34; inkscape:cx=&#34;889.78236&#34; inkscape:cy=&#34;572.402&#34; inkscape:window-x=&#34;0&#34; inkscape:window-y=&#34;0&#34; inkscape:window-maximized=&#34;1&#34; inkscape:current-layer=&#34;svg4184&#34; /&gt;&lt;g id=&#34;g4236&#34; transform=&#34;matrix(1.2768286,0,0,1.2768286,-147.71785,-248.03842)&#34; style=&#34;fill:currentColor;fill-opacity:1&#34;&gt;&lt;path d=&#34;m 652.75216,1025.9956 q 0,79.3447 -57.38769,127.75 -57.38769,47.9063 -160.68553,57.3877 l 0,102.2998 -68.36621,0 0,-100.3037 q -121.76171,-2.4951 -213.58202,-42.916 l 0,-131.7422 q 43.41504,21.458 104.29589,37.9258 61.37988,16.4677 109.28613,19.4619 l 0,-154.69728 -33.43457,-12.97461 Q 234.07153,889.26319 192.65258,843.85206 151.73266,797.9419 151.73266,730.57374 q 0,-72.35839 56.38965,-118.76757 56.88867,-46.9082 158.19042,-56.88867 l 0,-76.35058 68.36621,0 0,74.35449 q 114.27636,4.99023 206.59569,45.91015 l -46.9082,116.77148 q -77.84766,-31.9375 -159.68749,-38.92382 l 0,147.2119 q 97.30956,37.42676 138.22948,64.87304 41.41894,27.44629 60.38183,60.38184 19.46191,32.93554 19.46191,76.8496 z m -150.20604,7.4853 q 0,-20.9589 -16.9668,-35.43061 -16.96679,-14.47168 -50.90038,-29.9414 l 0,124.25681 q 67.86718,-11.4775 67.86718,-58.8848 z M 301.93871,730.57374 q 0,21.95703 14.9707,36.42871 15.46973,13.97266 49.40332,28.94336 l 0,-117.2705 q -64.37402,9.48144 -64.37402,51.89843 z&#34; style=&#34;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99993896px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; id=&#34;path4227&#34; inkscape:connector-curvature=&#34;0&#34; /&gt;&lt;path d=&#34;m 835.89373,1045.208 q 0,-48.40527 -32.93555,-68.86523 -32.43652,-20.45996 -94.81444,-20.45996 l 0,-119.2666 q 62.37792,0 94.81444,-19.96093 32.93555,-20.45996 32.93555,-68.86523 l 0,-158.68945 q 0,-55.39159 20.45996,-83.83593 20.45996,-28.44433 66.86914,-41.41894 46.9082,-13.47363 131.24317,-13.47363 l 0,112.28026 q -49.4033,0.99805 -68.36623,17.96485 -18.46386,16.46776 -18.46386,52.39745 l 0,149.208 q 0,93.31737 -116.77148,110.78319 l 0,5.98829 q 116.77148,17.46582 116.77148,110.28416 l 0,149.208 q 0,36.4287 18.96289,52.8965 18.9629,16.4678 67.8672,17.4658 l 0,112.7793 q -82.8379,0 -130.24513,-12.9746 -46.9082,-12.9746 -67.86718,-41.419 -20.45996,-28.4443 -20.45996,-84.8339 l 0,-157.1924 z&#34; style=&#34;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99993896px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; id=&#34;path4229&#34; inkscape:connector-curvature=&#34;0&#34; /&gt;&lt;path d=&#34;m 1355.3771,1202.4004 q 0,55.8906 -20.46,84.3349 -20.46,28.4444 -67.8672,41.419 -46.9082,13.4736 -130.2451,13.4736 l 0,-112.7793 q 49.4033,-0.998 67.8672,-18.4639 18.9629,-16.9668 18.9629,-51.8984 l 0,-149.208 q 0,-92.81835 116.2724,-110.28417 l 0,-5.98828 q -116.2724,-17.46582 -116.2724,-110.7832 l 0,-149.208 q 0,-34.93164 -18.4639,-51.89843 -18.4639,-16.9668 -68.3662,-18.46387 l 0,-112.28026 q 82.8379,0 129.7461,12.9746 47.4072,12.97461 67.8672,41.41895 20.959,28.44433 20.959,84.33495 l 0,158.68945 q 0,48.40527 32.4365,68.86523 32.9355,19.96093 95.3135,19.96093 l 0,119.2666 q -62.378,0 -95.3135,20.45996 -32.4365,20.45996 -32.4365,68.86524 l 0,157.1924 z&#34; style=&#34;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1021.99993896px;line-height:125%;font-family:&#39;Noto Sans&#39;;-inkscape-font-specification:&#39;Noto Sans, Bold&#39;;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1&#34; id=&#34;path4231&#34; inkscape:connector-curvature=&#34;0&#34; /&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; buttons to pick from a list to add expressions and fields respectively.
+You can also use 
+
+
+
+
+
+
+  
+
+
+&lt;span class=&#34;key-bind key-bind-single &#34;&gt;
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+    
+      
+      
+        
+          
+          
+        
+        
+      
+    
+
+    
+    
+      
+    
+    &lt;span class=&#34;key-bind-group key-bind-multiple&#34;&gt;
+    
+      &lt;span class=&#34;key-bind-key&#34;&gt;Ctrl ^&lt;/span&gt;
+      &lt;span class=&#34;key-bind-plus&#34;&gt;+&lt;/span&gt;
+      &lt;span class=&#34;key-bind-key&#34;&gt;Space ␣&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+ to auto-complete your expressions.&lt;/p&gt;
+&lt;p&gt;To rename the &lt;em&gt;Custom&lt;/em&gt; column:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &lt;em&gt;Custom&lt;/em&gt; column.&lt;/li&gt;
+&lt;li&gt;Click&lt;br&gt;
+&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Rename&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Rename&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Enter the text &lt;code&gt;First Event ID&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Clico &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now run the query again to see the results with the added column.&lt;/p&gt;
+&lt;h2 id=&#34;add-a-visualisation&#34;&gt;Add a visualisation&lt;/h2&gt;
+&lt;p&gt;We will add a new pane to the dashboard to display a &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#visualisation&#34; title=&#34;Glossary entry for Visualisation&#34;&gt;
+    &lt;span&gt;Visualisation&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add Component&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; button at the top left of the Dashboard.&lt;/li&gt;
+&lt;li&gt;Select Visualisation.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;A new empty &lt;em&gt;Visualisation&lt;/em&gt; pane will be added at the bottom of the Dashboard.&lt;/p&gt;
+&lt;p&gt;To configure the visualisation:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__grey&#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Settings&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; button at the top right of the &lt;em&gt;Visualisation&lt;/em&gt; pane.&lt;/li&gt;
+&lt;li&gt;In the &lt;em&gt;Visualisation&lt;/em&gt; document picker select&lt;br&gt;
+&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Folder&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Visualisations&lt;/em&gt; / &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Folder&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path fill=&#34;var(--icon-colour__blue)&#34; d=&#34;m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Version3&lt;/em&gt; / &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Visualisation&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;m 768,890 546,546 Q 1208,1544 1066.5,1604 925,1664 768,1664 559,1664 382.5,1561 206,1458 103,1281.5 0,1105 0,896 0,687 103,510.5 206,334 382.5,231 559,128 768,128 l 0,762 z&#34;/&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;m 955,896 773,0 q 0,157 -60,298.5 -60,141.5 -168,247.5 z&#34;/&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M 1664,768 896,768 896,0 Q 1105,0 1281.5,103 1458,206 1561,382.5 1664,559 1664,768 Z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; &lt;em&gt;Bubble&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;On the &lt;em&gt;Data&lt;/em&gt; tab that has now appeared in the dialog, assign the following table fields to the visualisation:
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Name&lt;/em&gt;: &lt;code&gt;Application&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Value&lt;/em&gt;: &lt;code&gt;Count&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Series&lt;/em&gt;: &lt;code&gt;Application&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;On the &lt;em&gt;Bubble&lt;/em&gt; tab on the dialog, set the following:
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Show Labels&lt;/em&gt;: &lt;code&gt;True&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To change the look of your Dashboard you can drag the different panes around into different positons.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click and hold on the &lt;code&gt;Visualisation&lt;/code&gt; text in the top left of the &lt;em&gt;Visualisation&lt;/em&gt; pane.&lt;/li&gt;
+&lt;li&gt;Drag the cursor to the right hand side of the &lt;em&gt;Table&lt;/em&gt; pane.
+You will see a purple rectangle showing where the pane will be moved to.&lt;/li&gt;
+&lt;li&gt;Once you are happy with the position release the mouse button.&lt;/li&gt;
+&lt;li&gt;Click and hold the mouse button on the borders between the panes to resize the panes to suit.&lt;/li&gt;
+&lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; to save the Dashboard.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You should now see something like this:&lt;/p&gt;
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+&lt;div class=&#34;card rounded shadow-stroom p-2 td-post-card mb-4 mt-4&#34; style=&#34;max-width: 410px&#34;&gt;
+
+  &lt;a title=&#34;images/quick-start-guide/dashboard/010_visualisation_bubbles.png&#34; href=&#34;../../images/quick-start-guide/dashboard/010_visualisation_bubbles.png&#34;&gt;
+    &lt;figure style=&#34;margin-block-end: 0px&#34; &gt;
+      
+      &lt;img class=&#34;card-img-top&#34; src=&#34;../../images/quick-start-guide/dashboard/010_visualisation_bubbles.png&#34; style=&#34;max-width:400&#34; alt=&#34;images/quick-start-guide/dashboard/010_visualisation_bubbles.png&#34;&gt;
+      
+
+      
+      &lt;div class=&#34;card-body px-0 pt-2 pb-0&#34;&gt;
+        &lt;hr style=&#34;border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;&#34;&gt;
+        &lt;figcaption class=&#34;card-text&#34; style=&#34;font-size: smaller; text-align: center;&#34;&gt;Bubble visualisation&lt;/figcaption&gt;
+      &lt;/div&gt;
+      
+    &lt;/figure&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Searching Data</title>
+      <link>/docs/user-guide/search/</link>
+      <pubDate>Mon, 29 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Data in stroom (and in external Elastic indexes) can be searched using a number of ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;../../docs/user-guide/search/dashboards/&#34;&gt;Dashboard&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Dashboard&#34;&gt;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg version=&#34;1.1&#34; id=&#34;svg4591&#34; width=&#34;512&#34; height=&#34;512&#34; viewBox=&#34;0 0 512 512&#34; sodipodi:docname=&#34;Dashboard.svg&#34; inkscape:version=&#34;1.2.1 (9c6d41e410, 2022-07-14, custom)&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; xmlns:svg=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;defs id=&#34;defs4595&#34; /&gt;&lt;sodipodi:namedview id=&#34;namedview4593&#34; pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1.0&#34; inkscape:showpageshadow=&#34;2&#34; inkscape:pageopacity=&#34;0.0&#34; inkscape:pagecheckerboard=&#34;0&#34; inkscape:deskcolor=&#34;#d1d1d1&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;0.35458919&#34; inkscape:cx=&#34;530.191&#34; inkscape:cy=&#34;589.41447&#34; inkscape:window-width=&#34;2560&#34; inkscape:window-height=&#34;1403&#34; inkscape:window-x=&#34;2560&#34; inkscape:window-y=&#34;0&#34; inkscape:window-maximized=&#34;1&#34; inkscape:current-layer=&#34;g4597&#34; /&gt;&lt;g inkscape:groupmode=&#34;layer&#34; inkscape:label=&#34;Image&#34; id=&#34;g4597&#34;&gt;&lt;rect style=&#34;fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655&#34; width=&#34;151.83469&#34; height=&#34;195.54515&#34; x=&#34;73.71109&#34; y=&#34;73.244606&#34; transform=&#34;matrix(1,0,-0.00232161,0.99999731,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5&#34; width=&#34;151.83469&#34; height=&#34;195.54515&#34; x=&#34;287.34845&#34; y=&#34;243.71935&#34; transform=&#34;matrix(1,0,-0.00232161,0.99999731,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5-9&#34; width=&#34;155.95563&#34; height=&#34;108.24628&#34; x=&#34;285.01883&#34; y=&#34;71.178368&#34; transform=&#34;matrix(1,0,-0.00408154,0.99999167,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5-9-2&#34; width=&#34;155.95563&#34; height=&#34;108.24628&#34; x=&#34;72.821693&#34; y=&#34;331.08734&#34; transform=&#34;matrix(1,0,-0.00408154,0.99999167,0,0)&#34; /&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+Combines multiple query expressions, result tables and visualisations in one configurable layout.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;../../docs/user-guide/search/queries/&#34;&gt;Query&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Query&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+Executes a single search query written in &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#stroomql&#34; title=&#34;Glossary entry for StroomQL&#34;&gt;
+    &lt;span&gt;StroomQL&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; and displays the results as a table or visualisation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;../../docs/user-guide/search/analytics/&#34;&gt;Analytic Rule&lt;/a&gt; &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Analytic rule&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__orange)&#34; d=&#34;M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;
+Executes a &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#stroomql&#34; title=&#34;Glossary entry for StroomQL&#34;&gt;
+    &lt;span&gt;StroomQL&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; search query either against data as it is ingested into Stroom or on a scheduled basis.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

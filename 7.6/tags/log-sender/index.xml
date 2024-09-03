@@ -1,0 +1,101 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – log-sender</title>
+    <link>/tags/log-sender/</link>
+    <description>Recent content in log-sender on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 14 Jun 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/log-sender/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Stroom Log Sender Configuration</title>
+      <link>/docs/install-guide/configuration/configuring-stroom-log-sender/</link>
+      <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/configuration/configuring-stroom-log-sender/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom log sender is a docker image used for sending application logs to stroom.
+It is essentially just a combination of the 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/gchq/stroom-clients/tree/master/bash&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;send_to_stroom.sh (external link to https://github.com/gchq/stroom-clients/tree/master/bash)&#34;&gt;
+    &lt;span&gt;send_to_stroom.sh&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ script and a set of crontab entries to call the script at intervals.&lt;/p&gt;
+&lt;h2 id=&#34;deploying-without-docker&#34;&gt;Deploying without Docker&lt;/h2&gt;
+&lt;p&gt;When deploying without docker stroom and stroom-proxy nodes will need to be configured to send their logs to stroom.
+This can be done using the &lt;code&gt;./bin/send_to_stroom.sh&lt;/code&gt; script in the stroom and stroom-proxy zip distributions and some crontab configuration.&lt;/p&gt;
+&lt;p&gt;The crontab file for the user account running stroom should be edited (&lt;code&gt;crontab -e&lt;/code&gt;) and set to something like:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-crontab&#34;&gt;# stroom logs
+* * * * * STROOM_HOME=&amp;lt;path to stroom home&amp;gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/access STROOM-ACCESS-EVENTS &amp;lt;datafeed URL&amp;gt; --system STROOM --environment &amp;lt;environment&amp;gt; --file-regex &#39;.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log&#39; --max-sleep 10 --key &amp;lt;key file&amp;gt; --cert &amp;lt;cert file&amp;gt; --cacert &amp;lt;CA cert file&amp;gt; --delete-after-sending --compress &amp;gt;&amp;gt; &amp;lt;path to log&amp;gt; 2&amp;gt;&amp;amp;1
+* * * * * STROOM_HOME=&amp;lt;path to stroom home&amp;gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/app    STROOM-APP-EVENTS    &amp;lt;datafeed URL&amp;gt; --system STROOM --environment &amp;lt;environment&amp;gt; --file-regex &#39;.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log&#39; --max-sleep 10 --key &amp;lt;key file&amp;gt; --cert &amp;lt;cert file&amp;gt; --cacert &amp;lt;CA cert file&amp;gt; --delete-after-sending --compress &amp;gt;&amp;gt; &amp;lt;path to log&amp;gt; 2&amp;gt;&amp;amp;1
+* * * * * STROOM_HOME=&amp;lt;path to stroom home&amp;gt; ${STROOM_HOME}/bin/send_to_stroom.sh ${STROOM_HOME}/logs/user   STROOM-USER-EVENTS   &amp;lt;datafeed URL&amp;gt; --system STROOM --environment &amp;lt;environment&amp;gt; --file-regex &#39;.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log&#39; --max-sleep 10 --key &amp;lt;key file&amp;gt; --cert &amp;lt;cert file&amp;gt; --cacert &amp;lt;CA cert file&amp;gt; --delete-after-sending --compress &amp;gt;&amp;gt; &amp;lt;path to log&amp;gt; 2&amp;gt;&amp;amp;1
+
+# stroom-proxy logs
+* * * * * PROXY_HOME=&amp;lt;path to proxy home&amp;gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/access  STROOM_PROXY-ACCESS-EVENTS  &amp;lt;datafeed URL&amp;gt; --system STROOM-PROXY --environment &amp;lt;environment&amp;gt; --file-regex &#39;.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log&#39; --max-sleep 10 --key &amp;lt;key file&amp;gt; --cert &amp;lt;cert file&amp;gt; --cacert &amp;lt;CA cert file&amp;gt; --delete-after-sending --compress &amp;gt;&amp;gt; &amp;lt;path to log&amp;gt; 2&amp;gt;&amp;amp;1
+* * * * * PROXY_HOME=&amp;lt;path to proxy home&amp;gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/app     STROOM_PROXY-APP-EVENTS     &amp;lt;datafeed URL&amp;gt; --system STROOM-PROXY --environment &amp;lt;environment&amp;gt; --file-regex &#39;.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log&#39; --max-sleep 10 --key &amp;lt;key file&amp;gt; --cert &amp;lt;cert file&amp;gt; --cacert &amp;lt;CA cert file&amp;gt; --delete-after-sending --compress &amp;gt;&amp;gt; &amp;lt;path to log&amp;gt; 2&amp;gt;&amp;amp;1
+* * * * * PROXY_HOME=&amp;lt;path to proxy home&amp;gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/send    STROOM_PROXY-SEND-EVENTS    &amp;lt;datafeed URL&amp;gt; --system STROOM-PROXY --environment &amp;lt;environment&amp;gt; --file-regex &#39;.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log&#39; --max-sleep 10 --key &amp;lt;key file&amp;gt; --cert &amp;lt;cert file&amp;gt; --cacert &amp;lt;CA cert file&amp;gt; --delete-after-sending --compress &amp;gt;&amp;gt; &amp;lt;path to log&amp;gt; 2&amp;gt;&amp;amp;1
+* * * * * PROXY_HOME=&amp;lt;path to proxy home&amp;gt; ${PROXY_HOME}/bin/send_to_stroom.sh ${PROXY_HOME}/logs/receive STROOM_PROXY-RECEIVE-EVENTS &amp;lt;datafeed URL&amp;gt; --system STROOM-PROXY --environment &amp;lt;environment&amp;gt; --file-regex &#39;.*/[a-z]+-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*\\.log&#39; --max-sleep 10 --key &amp;lt;key file&amp;gt; --cert &amp;lt;cert file&amp;gt; --cacert &amp;lt;CA cert file&amp;gt; --delete-after-sending --compress &amp;gt;&amp;gt; &amp;lt;path to log&amp;gt; 2&amp;gt;&amp;amp;1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;where the environment specific values are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;path to stroom home&amp;gt;&lt;/code&gt; - The absolute path to the stroom home, i.e. the location of the &lt;code&gt;start.sh&lt;/code&gt; script.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;path to proxy home&amp;gt;&lt;/code&gt; - The absolute path to the stroom-proxy home, i.e. the location of the &lt;code&gt;start.sh&lt;/code&gt; script.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;datafeed URL&amp;gt;&lt;/code&gt; - The URL that the logs will be sent to.
+This will typically be the nginx host or load balancer and the path will typically be &lt;code&gt;https://host/datafeeddirect&lt;/code&gt; to bypass the proxy for faster access to the logs.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;environment&amp;gt;&lt;/code&gt; - The environment name that the stroom/proxy is deployed in, e.g. OPS, REF, DEV, etc.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;key file&amp;gt;&lt;/code&gt; - The absolute path to the SSL key file used by curl.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;cert file&amp;gt;&lt;/code&gt; - The absolute path to the SSL certificate file used by curl.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;CA cert file&amp;gt;&lt;/code&gt; - The absolute path to the SSL certificate authority file used by curl.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;path to log&amp;gt;&lt;/code&gt; - The absolute path to a log file to log all the send_to_stroom.sh output to.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If your implementation of cron supports environment variables then you can define some of the common values at the top of the crontab file and use them in the entries.
+&lt;code&gt;cronie&lt;/code&gt; as used by Centos does not support environment variables in the crontab file but variables can be defined at the line level as has been shown with STROOM_HOME and PROXY_HOME.&lt;/p&gt;
+&lt;p&gt;The above crontab entries assume that stroom and stroom-proxy are running on the same host.
+If there are not then the entries can be split across the hosts accordingly.&lt;/p&gt;
+&lt;h3 id=&#34;service-hosts&#34;&gt;Service host(s)&lt;/h3&gt;
+&lt;p&gt;When deploying stroom/stroom-proxy without stroom you may still be deploying the service stack (nginx and stroom-log-sender) to a host.
+In this case see &lt;a href=&#34;#as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/a&gt; below for details of how to configure stroom-log-sender to send the nginx logs.&lt;/p&gt;
+&lt;h2 id=&#34;as-part-of-a-docker-stack&#34;&gt;As part of a docker stack&lt;/h2&gt;
+&lt;h3 id=&#34;crontab&#34;&gt;Crontab&lt;/h3&gt;
+&lt;p&gt;The docker stacks include the stroom-log-sender docker image for sending the logs of all the other containers to stroom.
+Stroom-log-sender is configured using the crontab file &lt;code&gt;volumes/stroom-log-sender/conf/crontab.txt&lt;/code&gt;.
+When the container starts this file will be read.
+Any variables in it will be substituted with the values from the corresponding environment variables that are present in the container.
+These common values can be set in the &lt;code&gt;config/&amp;lt;stack name&amp;gt;.env&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;As the variables are substituted on container start you will need to restart the container following any configuration change.&lt;/p&gt;
+&lt;h3 id=&#34;certificates&#34;&gt;Certificates&lt;/h3&gt;
+&lt;p&gt;The directory &lt;code&gt;volumes/stroom-log-sender/certs&lt;/code&gt; contains the default client certificates used for the stack.
+These allow stroom-log-sender to send the log files over SSL which also provides stroom with details of the sender.
+These will need to be replaced in a production environment.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;volumes/stroom-log-sender/certs/ca.pem.crt
+volumes/stroom-log-sender/certs/client.pem.crt
+volumes/stroom-log-sender/certs/client.unencrypted.key
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For a production deployment these will need to be changed, see &lt;a href=&#34;../../docs/install-guide/configuration/#certificates&#34;&gt;Certificates&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

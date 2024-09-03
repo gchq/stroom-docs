@@ -39,8 +39,8 @@
 
 
 
-<link rel="preload" href="../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" as="style">
-<link href="../../scss/main.min.3b6e69e7cc89c8276c76586be0d33ea26f06759dc5e79fb60f3d7487f7dc87bd.css" rel="stylesheet" integrity="">
+<link rel="preload" href="../../scss/main.min.e0f103177c6893f3d23285016a8c4130d32ae5054ca6b564c36a29102d219c3c.css" as="style">
+<link href="../../scss/main.min.e0f103177c6893f3d23285016a8c4130d32ae5054ca6b564c36a29102d219c3c.css" rel="stylesheet" integrity="">
 
 
 <script src='../../js/jquery-3.6.0.min.js'></script>
@@ -85,9 +85,6 @@ if (!doNotTrack) {
       <li class="nav-item mr-4 mb-2 mb-lg-0">
         <a class="nav-link" href="../../community/"><span>Community</span></a>
       </li>
-      <li class="nav-item mr-4 mb-2 mb-lg-0">
-        <a class="nav-link" href="../../news/"><span>News</span></a>
-      </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	Stroom Version (7.5)
@@ -96,19 +93,21 @@ if (!doNotTrack) {
 	
 	
 	
-	<a class="dropdown-item" href="../../">7.5 (Latest)</a>
+	<a class="dropdown-item" href="../../../">7.6 (Latest)</a>
 	
-	<a class="dropdown-item" href="../../7.4">7.4</a>
+	<a class="dropdown-item" href="../../">7.5</a>
 	
-	<a class="dropdown-item" href="../../7.3">7.3</a>
+	<a class="dropdown-item" href="../../../7.4">7.4</a>
 	
-	<a class="dropdown-item" href="../../7.2">7.2</a>
+	<a class="dropdown-item" href="../../../7.3">7.3</a>
 	
-	<a class="dropdown-item" href="../../7.1">7.1</a>
+	<a class="dropdown-item" href="../../../7.2">7.2</a>
 	
-	<a class="dropdown-item" href="../../7.0">7.0</a>
+	<a class="dropdown-item" href="../../../7.1">7.1</a>
 	
-	<a class="dropdown-item" href="../../legacy">Legacy</a>
+	<a class="dropdown-item" href="../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../legacy">Legacy</a>
 	
 </div>
 </li>
@@ -124,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.8fe45505ac336919f6213446ae0c1404.json"
+    data-offline-search-index-json-src="../../offline-search-index.7b97c65c5e6dcef4d5ccd60e9cee2c4d.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -2224,8 +2223,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.5</strong>&rdquo;<br>
-Documentation generated on: <strong>11 Jun 2024, 23:37 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v2273</strong></p>
+Documentation generated on: <strong>03 Sep 2024, 16:53 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v2364</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -66309,19 +66308,14 @@ Updated On: 2018-12-10T07:47:06.841Z
   <h1 id="pg-97b6ae5548e13b85a8f0677d36564595">5.12.3.1 - Stroom Query Language</h1>
     <div class="lead">Stroom Query Language (StroomQL) is a query language for retrieving data in Stroom.</div>
 	<!--
+!!! IMPORTANT !!!
+
 NOTE:
 Stroom has hard coded anchors to link to the keyword headings on this page so don't
 change the headings without changing the anchors in Stroom.
+
+!!! IMPORTANT !!!
 -->
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">Warning</h4>
-
-    Stroom Query Language is an experimental feature that is currently in Beta so is subject to change without warning.
-
-</div>
-
-
 <h2 id="query-format">Query Format</h2>
 <p>Stroom Query Language (StroomQL) is a text based replacement for the existing <span class="glossary-link">
   <a href="../../docs/glossary/#dashboard" title="Glossary entry for Dashboard">
@@ -66343,15 +66337,16 @@ where &lt;FIELD&gt; &lt;CONDITION&gt; &lt;VALUE&gt; [and|or|not]
 [sort by] &lt;FIELD&gt; [desc|asc] // asc by default
 [limit] &lt;MAX_ROWS&gt; 
 select &lt;FIELD&gt; [as &lt;COLUMN NAME&gt;], ...
-[vis as] &lt;VIS_NAME&gt; (&lt;VIS_CONTROL_ID_1&gt; = &lt;COLUMN_1&gt;, &lt;VIS_CONTROL_ID_2&gt; = &lt;COLUMN_2&gt;)
+[show as] &lt;VIS_NAME&gt; (&lt;VIS_CONTROL_ID_1&gt; = &lt;COLUMN_1&gt;, &lt;VIS_CONTROL_ID_2&gt; = &lt;COLUMN_2&gt;)
 </code></pre>
 <h2 id="keywords">Keywords</h2>
 <h3 id="from">From</h3>
-<p>The first part of a StroomQL expression is the <code>from</code> clause that defines the single data source to query.</p>
+<p>The first part of a StroomQL expression is the <code>from</code> clause that defines the single data source to query.
+All queries must include the <code>from</code> clause.</p>
 <p>Select the data source to query, e.g.</p>
 <pre><code class="language-stroomql">from my_source
 </code></pre>
-<p>If the name of the data source contains whitespace then it must be quoted, e.g.</p>
+<p>If the name of the data source contains white space then it must be quoted, e.g.</p>
 <pre><code class="language-stroomql">from &quot;my source&quot;
 </code></pre>
 <h3 id="where">Where</h3>
