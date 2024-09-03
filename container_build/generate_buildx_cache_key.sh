@@ -61,9 +61,9 @@ main() {
   group_id=
   group_id="$(id -g)"
   local_repo_root="$(git rev-parse --show-toplevel)"
-  # This script may be running inside a container so first check if
-  # the env var has been set in the container
-  host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
+  
+  echo "Creating cache key with local_repo_root: ${local_repo_root}," \
+    "user_id: ${user_id}, group_id: ${group_id}" > /dev/stderr
 
   # Concat all the things that affect the docker image,
   # e.g. our local username or the dockerfile
@@ -71,12 +71,16 @@ main() {
   cache_key_source="$( \
     cat \
       "${local_repo_root}/container_build/runInHugoDocker.sh" \
+      "${local_repo_root}/container_build/runInPumlDocker.sh" \
       "${local_repo_root}/container_build/runInPupeteerDocker.sh" \
       "${local_repo_root}/container_build/docker_hugo/Dockerfile" \
       "${local_repo_root}/container_build/docker_pdf/Dockerfile" \
-      "${local_repo_root}/container_build/docker_pdf/generate-pdf.js"
+      "${local_repo_root}/container_build/docker_pdf/generate-pdf.js" \
+      "${local_repo_root}/container_build/docker_puml/Dockerfile" \
+      "${local_repo_root}/container_build/docker_puml/docker-entrypoint.sh" \
+      "${local_repo_root}/container_build/docker_puml/convert_puml_files.sh" \
     )"
-  cache_key_source="${host_abs_repo_dir}\n${user_id}\n${group_id}\n${cache_key_source}"
+  cache_key_source="${user_id}\n${group_id}\n${cache_key_source}"
 
   #echo -e "${cache_key_source}" > "/tmp/hugo_source_$(date -u +"%FT%H%M%S")"
 
