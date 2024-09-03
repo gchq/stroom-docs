@@ -82,6 +82,7 @@ debug_value() {
 debug() {
   # echo to stderr so we don't polute stdout which causes issues
   # for funcs that return via stdout
+  # shellcheck disable=SC2317
   echo -e "${DGREY}DEBUG $* ${NC}" >&2
 }
 
@@ -93,22 +94,46 @@ verify_http_link() {
   # 'http://domain.com/path "title"' => 'http://domain.com/path'  
   local link_url="${link_location%% \"*}"
 
-  echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
+  if [[ ! ${checked_links_map[${link_url}]} ]]; then
 
-  local response_code
-  response_code="$( \
-    curl \
-      --silent \
-      --head \
-      --location \
-      --output /dev/null \
-      --write-out "%{http_code}" \
-      "${link_url}" \
-    || echo "" \
-  )"
+    echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
 
-  if [[ ! "${response_code}" =~ ^2 ]]; then
-    log_broken_http_link "${source_file}" "${link_name}" "${link_url}"
+    local response_code
+    response_code="$( \
+      curl \
+        --silent \
+        --head \
+        --location \
+        --output /dev/null \
+        --write-out "%{http_code}" \
+        "${link_url}" \
+      || echo "" \
+    )"
+
+    if [[ "${response_code}" =~ ^2 ]]; then
+      # Link is good so add to our set/map so we don't have to hit it again
+      checked_links_map["${link_url}"]=1
+    else
+      # Some sites don't seem to like the --head option so try it again
+      # but getting the full page.
+      response_code="$( \
+        curl \
+          --silent \
+          --location \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${link_url}" \
+        || echo "" \
+    )"
+      if [[ "${response_code}" =~ ^2 ]]; then
+        # Link is good so add to our set/map so we don't have to hit it again
+        checked_links_map["${link_url}"]=1
+      else
+        log_broken_http_link "${source_file}" "${link_name}" "${link_url}"
+      fi
+    fi
+  else
+    echo -e "${indent}${NC}Already Checked URL ${NC}${link_url}${NC}"
   fi
 }
 
@@ -172,6 +197,7 @@ verify_http_link() {
   #fi
 #}
 
+# shellcheck disable=SC2317
 log_broken_link() {
   local source_file="$1"; shift
   local line_no="$1"; shift
@@ -507,8 +533,9 @@ main() {
 
   local file_count=0
   local link_count=0
+  local -A checked_links_map
 
-  declare -A file_blacklist_map
+  local -A file_blacklist_map
   for file in "${file_blacklist[@]}"; do 
     file_blacklist_map[${file}]=1
   done
