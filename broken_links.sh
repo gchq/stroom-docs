@@ -110,11 +110,27 @@ verify_http_link() {
       || echo "" \
     )"
 
-    if [[ ! "${response_code}" =~ ^2 ]]; then
-      log_broken_http_link "${source_file}" "${link_name}" "${link_url}"
-    else
+    if [[ "${response_code}" =~ ^2 ]]; then
       # Link is good so add to our set/map so we don't have to hit it again
       checked_links_map["${link_url}"]=1
+    else
+      # Some sites don't seem to like the --head option so try it again
+      # but getting the full page.
+      response_code="$( \
+        curl \
+          --silent \
+          --location \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${link_url}" \
+        || echo "" \
+    )"
+      if [[ "${response_code}" =~ ^2 ]]; then
+        # Link is good so add to our set/map so we don't have to hit it again
+        checked_links_map["${link_url}"]=1
+      else
+        log_broken_http_link "${source_file}" "${link_name}" "${link_url}"
+      fi
     fi
   else
     echo -e "${indent}${NC}Already Checked URL ${NC}${link_url}${NC}"
