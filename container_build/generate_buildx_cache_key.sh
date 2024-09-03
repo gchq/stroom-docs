@@ -62,7 +62,7 @@ main() {
   group_id="$(id -g)"
   local_repo_root="$(git rev-parse --show-toplevel)"
   
-  echo "Creating cache key with local_repo_root: ${local_repo_root}," \
+  echo "Creating cache key with" \
     "user_id: ${user_id}, group_id: ${group_id}" > /dev/stderr
 
   # Concat all the things that affect the docker image,
