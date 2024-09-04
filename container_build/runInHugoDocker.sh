@@ -153,10 +153,6 @@ main() {
   # on where this script is called from
   local_repo_root="$(git rev-parse --show-toplevel)"
 
-  # This script may be running inside a container so first check if
-  # the env var has been set in the container
-  host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
-
   dest_dir="/builder/shared"
 
   if [[ "${is_mac_os}" = true ]]; then
@@ -169,7 +165,7 @@ main() {
   echo -e "${GREEN}HOME ${BLUE}${HOME}${NC}"
   echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
   echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
-  echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
+  echo -e "${GREEN}Local repo root dir ${BLUE}${local_repo_root}${NC}"
   echo -e "${GREEN}Docker group id ${BLUE}${docker_group_id}${NC}"
 
   if ! docker version >/dev/null 2>&1; then
@@ -203,6 +199,7 @@ main() {
       create \
       --name stroom-hugo-builder
   fi
+
   docker buildx \
     use \
     stroom-hugo-builder
@@ -216,7 +213,6 @@ main() {
 
   cache_dir_base="/tmp/stroom_hugo_buildx_caches"
   cache_dir_from="${cache_dir_base}/from_${cache_key}"
-  #cache_dir_to="${cache_dir_base}/to_${cache_key}"
 
   echo -e "${GREEN}Using cache_key: ${YELLOW}${cache_key}${NC}"
 
@@ -256,7 +252,6 @@ main() {
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
-    --build-arg "HOST_REPO_DIR=${host_abs_repo_dir}" \
     "--cache-from=type=local,src=${cache_dir_from}" \
     "--cache-to=type=local,dest=${cache_dir_from},mode=max" \
     --load \
@@ -300,7 +295,7 @@ main() {
     --rm \
     --publish 1313:1313 \
     --tmpfs /tmp:exec \
-    --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
+    --mount "type=bind,src=${local_repo_root},dst=${dest_dir}" \
     --volume "${hugo_cache_vol}:${hudo_cache_dir}" \
     --volume "${npm_cache_vol}:${npm_cache_dir}" \
     --read-only \
@@ -310,7 +305,7 @@ main() {
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
     --env "DOCKER_PASSWORD=${DOCKER_PASSWORD}" \
     --env "HUGO_CACHEDIR=${hudo_cache_dir}" \
-    --env "npm_config_cache=${npm_cache_dir}" \
+    --env "NPM_CONFIG_CACHE=${npm_cache_dir}" \
     "${extra_docker_args[@]}" \
     "${image_tag}" \
     "${run_cmd[@]}"
