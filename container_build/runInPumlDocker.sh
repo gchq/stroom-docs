@@ -106,10 +106,6 @@ image_tag="java-build-env"
 # on where this script is called from
 local_repo_root="$(git rev-parse --show-toplevel)"
 
-# This script may be running inside a container so first check if
-# the env var has been set in the container
-host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
-
 dest_dir="/builder/shared"
 
 if [[ "${is_mac_os}" = true ]]; then
@@ -122,12 +118,34 @@ fi
 echo -e "${GREEN}HOME ${BLUE}${HOME}${NC}"
 echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
 echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
-echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
+echo -e "${GREEN}Local repo root dir ${BLUE}${local_repo_root}${NC}"
 echo -e "${GREEN}Docker group id ${BLUE}${docker_group_id}${NC}"
 
 # So we are not rate limited, login before doing the build as this
 # will pull images
 docker_login
+
+if ! docker buildx inspect stroom-puml-builder >/dev/null 2>&1; then
+  docker buildx \
+    create \
+    --name stroom-puml-builder
+fi
+
+docker buildx \
+  use \
+  stroom-puml-builder
+
+# Make a hash of these things and effectively use this as the cache key for
+# buildx so any change makes it ignore a previous cache.
+cache_key=
+cache_key="$( \
+  "${local_repo_root}/container_build/generate_buildx_cache_key.sh"
+  )"
+
+cache_dir_base="/tmp/stroom_puml_buildx_caches"
+cache_dir_from="${cache_dir_base}/from_${cache_key}"
+
+echo -e "${GREEN}Using cache_key: ${YELLOW}${cache_key}${NC}"
 
 # TODO consider pushing the built image to dockerhub so we can
 # reuse it for better performance.  See here
@@ -136,12 +154,32 @@ docker_login
 # for an example of how to hash the build context so we can pull or push
 # depending on whether there is already an image for the hash.
 
+mkdir -p "${cache_dir_base}"
+
+# Delete old caches, except latest
+# shellcheck disable=SC2012
+if compgen -G  "${cache_dir_base}/from_*" > /dev/null; then
+  echo -e "${GREEN}Removing old cache directories${NC}"
+  #ls -1trd "${cache_dir_base}/from_"*
+
+  # List all matching dirs
+  # Remove the last item
+  # Delete each item
+  ls -1trd "${cache_dir_base}/from_"* \
+    | sed '$d' \
+    | xargs rm -rf --
+  echo -e "${GREEN}Remaining cache directories${NC}"
+  ls -1trd "${cache_dir_base}/from_"*
+fi
+
 echo -e "${GREEN}Building image ${BLUE}${image_tag}${NC}"
-docker build \
+docker buildx build \
   --tag "${image_tag}" \
   --build-arg "USER_ID=${user_id}" \
   --build-arg "GROUP_ID=${group_id}" \
-  --build-arg "HOST_REPO_DIR=${host_abs_repo_dir}" \
+  "--cache-from=type=local,src=${cache_dir_from}" \
+  "--cache-to=type=local,dest=${cache_dir_from},mode=max" \
+  --load \
   "${local_repo_root}/container_build/docker_puml"
 
 
@@ -169,7 +207,7 @@ docker run \
   "${tty_args[@]+"${tty_args[@]}"}" \
   --rm \
   --tmpfs /tmp:exec \
-  --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
+  --mount "type=bind,src=${local_repo_root},dst=${dest_dir}" \
   --read-only \
   --name "puml-build-env" \
   --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
