@@ -70,6 +70,12 @@ jobs:
           path: /tmp/stroom_puppeteer_buildx_caches
           key: ${{ runner.os }}-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
 
+      - name: Cache PUML Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/stroom_puml_buildx_caches
+          key: ${{ runner.os }}-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
+
       - name: Run full build
         id: run_build
         env:
