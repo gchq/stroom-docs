@@ -143,7 +143,8 @@ cache_key="$( \
   )"
 
 cache_dir_base="/tmp/stroom_puml_buildx_caches"
-cache_dir_from="${cache_dir_base}/from_${cache_key}"
+cache_dir_name="from_${cache_key}"
+cache_dir_from="${cache_dir_base}/${cache_dir_name}"
 
 echo -e "${GREEN}Using cache_key: ${YELLOW}${cache_key}${NC}"
 
@@ -155,21 +156,28 @@ echo -e "${GREEN}Using cache_key: ${YELLOW}${cache_key}${NC}"
 # depending on whether there is already an image for the hash.
 
 mkdir -p "${cache_dir_base}"
+echo -e "${GREEN}Current cache directories${NC}"
+find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+  -maxdepth 1 \
+  -type d \
+  -name "from_*"
 
-# Delete old caches, except latest
+# Delete old caches
 # shellcheck disable=SC2012
 if compgen -G  "${cache_dir_base}/from_*" > /dev/null; then
-  echo -e "${GREEN}Removing old cache directories${NC}"
-  #ls -1trd "${cache_dir_base}/from_"*
-
-  # List all matching dirs
-  # Remove the last item
-  # Delete each item
-  ls -1trd "${cache_dir_base}/from_"* \
-    | sed '$d' \
-    | xargs rm -rf --
+  echo -e "${GREEN}Removing redundant cache directories${NC}"
+  # VERY bad if cache_dir_base is not set, i.e. rm -rf /
+  find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+    -maxdepth 1 \
+    -type d \
+    -name "from_*" \
+    ! -name "${cache_dir_name}" \
+    -exec rm -rf {} \; 
   echo -e "${GREEN}Remaining cache directories${NC}"
-  ls -1trd "${cache_dir_base}/from_"*
+  find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+    -maxdepth 1 \
+    -type d \
+    -name "from_*"
 fi
 
 echo -e "${GREEN}Building docker image ${BLUE}${image_tag}${NC}"
@@ -182,6 +190,11 @@ time docker buildx build \
   --load \
   "${local_repo_root}/container_build/docker_puml"
 
+echo -e "${GREEN}Current cache directories${NC}"
+find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+  -maxdepth 1 \
+  -type d \
+  -name "from_*"
 
   #--workdir "${dest_dir}" \
 
