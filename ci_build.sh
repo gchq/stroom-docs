@@ -716,62 +716,65 @@ main() {
 
   pushd "${GIT_WORK_DIR}"
 
-  # Now build each of the release branches (if they have changed)
-  for branch_name in "${release_branches[@]}"; do
+  # Only master branch builds all the branches
+  if [[ "${branch_name}" = "master" ]]; then
+    # Now build each of the release branches (if they have changed)
+    for branch_name in "${release_branches[@]}"; do
 
-    if ! git ls-remote --exit-code --heads origin "refs/heads/${branch_name}"; then
-      echo -e "${RED}ERROR: Branch ${BLUE}${branch_name}${RED}" \
-        "does not exist. Check contents of release_branches array.${NC}"
-      exit 1
-    fi
+      if ! git ls-remote --exit-code --heads origin "refs/heads/${branch_name}"; then
+        echo -e "${RED}ERROR: Branch ${BLUE}${branch_name}${RED}" \
+          "does not exist. Check contents of release_branches array.${NC}"
+        exit 1
+      fi
 
-    # Don't build the branch that we built above
-    if [[ "${branch_name}" != "${BUILD_BRANCH}" ]]; then
+      # Don't build the branch that we built above
+      if [[ "${branch_name}" != "${BUILD_BRANCH}" ]]; then
 
-      # Run the build for this branch in the self named dir
-      assemble_version "${branch_name}" "${branch_clone_dir}"
+        # Run the build for this branch in the self named dir
+        assemble_version "${branch_name}" "${branch_clone_dir}"
+      else
+        echo -e "${GREEN}Skipping build for ${BLUE}${branch_name}${NC}"
+      fi
+    done
+
+    popd
+
+    copy_latest_to_root
+
+    update_root_sitemap
+
+    set_meta_robots_for_all_version_branches
+
+    echo -e "${GREEN}have_any_release_branches_changed:" \
+      "${BLUE}${have_any_release_branches_changed}${NC}"
+
+    #if element_in "${BUILD_BRANCH}" "${release_branches[@]}"; then
+    if [[ "${BUILD_IS_RELEASE}" = "true" ]]; then
+      if [[ "${have_any_release_branches_changed}" = "true" ]]; then
+
+        prepare_for_release
+
+        echo "CONTENT_HAS_CHANGED=true" >> "${GITHUB_ENV}"
+
+      else
+      echo -e "${GREEN}Nothing has changed since last release so skipping" \
+        "release preparation${NC}"
+
+      # Clear out any artefacts to be on the safe side
+      rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
+      rm -rf "${NEW_GH_PAGES_DIR:?}/*"
+
+      echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
+      fi
     else
-      echo -e "${GREEN}Skipping build for ${BLUE}${branch_name}${NC}"
+      echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
+
+      # Clear out any artefacts to be on the safe side
+      rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
+      rm -rf "${NEW_GH_PAGES_DIR:?}/*"
+
+      echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
     fi
-  done
-
-  popd
-
-  copy_latest_to_root
-
-  update_root_sitemap
-
-  set_meta_robots_for_all_version_branches
-
-  echo -e "${GREEN}have_any_release_branches_changed:" \
-    "${BLUE}${have_any_release_branches_changed}${NC}"
-
-  #if element_in "${BUILD_BRANCH}" "${release_branches[@]}"; then
-  if [[ "${BUILD_IS_RELEASE}" = "true" ]]; then
-    if [[ "${have_any_release_branches_changed}" = "true" ]]; then
-
-      prepare_for_release
-
-      echo "CONTENT_HAS_CHANGED=true" >> "${GITHUB_ENV}"
-
-    else
-    echo -e "${GREEN}Nothing has changed since last release so skipping" \
-      "release preparation${NC}"
-
-    # Clear out any artefacts to be on the safe side
-    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
-    rm -rf "${NEW_GH_PAGES_DIR:?}/*"
-
-    echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
-    fi
-  else
-    echo -e "${GREEN}Not a release so skipping releaase preparation${NC}"
-
-    # Clear out any artefacts to be on the safe side
-    rm -rf "${RELEASE_ARTEFACTS_DIR:?}/*"
-    rm -rf "${NEW_GH_PAGES_DIR:?}/*"
-
-    echo "CONTENT_HAS_CHANGED=false" >> "${GITHUB_ENV}"
   fi
 }
 
