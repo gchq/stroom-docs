@@ -100,7 +100,7 @@ user_id="$(id -u)"
 group_id=
 group_id="$(id -g)"
 
-image_tag="java-build-env"
+image_tag="puml-build-env"
 
 # This path may be on the host or in the container depending
 # on where this script is called from
@@ -172,8 +172,8 @@ if compgen -G  "${cache_dir_base}/from_*" > /dev/null; then
   ls -1trd "${cache_dir_base}/from_"*
 fi
 
-echo -e "${GREEN}Building image ${BLUE}${image_tag}${NC}"
-docker buildx build \
+echo -e "${GREEN}Building docker image ${BLUE}${image_tag}${NC}"
+time docker buildx build \
   --tag "${image_tag}" \
   --build-arg "USER_ID=${user_id}" \
   --build-arg "GROUP_ID=${group_id}" \
@@ -200,10 +200,10 @@ fi
 # Need to pass in docker creds in case the container needs to do authenticated
 # pulls/pushes with dockerhub
 # shellcheck disable=SC2145
-echo -e "${GREEN}Running image ${BLUE}${image_tag}${NC} with command" \
+echo -e "${GREEN}Running docker image ${BLUE}${image_tag}${NC} with command" \
   "${BLUE}${run_cmd[@]}${NC}"
 
-docker run \
+time docker run \
   "${tty_args[@]+"${tty_args[@]}"}" \
   --rm \
   --tmpfs /tmp:exec \

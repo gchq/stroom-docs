@@ -246,9 +246,10 @@ main() {
   #ls -l "${cache_dir_base}"
   #echo
 
-  echo -e "${GREEN}Building image ${BLUE}${image_tag}${GREEN}" \
+  echo -e "${GREEN}Building docker image ${BLUE}${image_tag}${GREEN}" \
     "(this may take a while on first run)${NC}"
-  docker buildx build \
+
+  time docker buildx build \
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
@@ -276,8 +277,6 @@ main() {
   # Need to pass in docker creds in case the container needs to do authenticated
   # pulls/pushes with dockerhub
   # shellcheck disable=SC2145
-  echo -e "${GREEN}Running image ${BLUE}${image_tag}${NC} with command" \
-    "${BLUE}${run_cmd[@]}${NC}"
 
   echo -e "${GREEN}Hugo cache is in docker volume" \
     "${YELLOW}${hugo_cache_vol}${GREEN}, use" \
@@ -290,7 +289,10 @@ main() {
   hudo_cache_dir="/hugo-cache"
   npm_cache_dir="/npm-cache"
 
-  docker run \
+  echo -e "${GREEN}Running docker image ${BLUE}${image_tag}${NC} with command" \
+    "${BLUE}${run_cmd[*]}${NC}"
+
+  time docker run \
     "${tty_args[@]+"${tty_args[@]}"}" \
     --rm \
     --publish 1313:1313 \

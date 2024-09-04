@@ -284,9 +284,9 @@ main() {
 
   # Pass in the location of the repo root on the docker host
   # which may have been passed down to us or we have determined
-  echo -e "${GREEN}Building image ${BLUE}${image_tag}${GREEN}" \
+  echo -e "${GREEN}Building docker image ${BLUE}${image_tag}${GREEN}" \
     "(this may take a while on first run)${NC}"
-  docker buildx build \
+  time docker buildx build \
     --progress=plain \
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
@@ -316,11 +316,11 @@ main() {
   # Need to pass in docker creds in case the container needs to do authenticated
   # pulls/pushes with dockerhub
   # shellcheck disable=SC2145
-  echo -e "${GREEN}Running image ${BLUE}${image_tag}${GREEN} with" \
+  echo -e "${GREEN}Running docker image ${BLUE}${image_tag}${GREEN} with" \
     "tty args [${BLUE}${tty_args[@]}${GREEN}] and command" \
     "${BLUE}${run_cmd[@]}${NC}"
 
-  docker run \
+  time docker run \
     "${tty_args[@]+"${tty_args[@]}"}" \
     --rm \
     --tmpfs /tmp \
