@@ -121,6 +121,21 @@ To avoid Stroom starting up and beginning processing you can use the `migrage` c
 See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate" >}}) for more details.
 
 
+{{% warning %}}
+If you are upgrading a v7.5 Stroom instance that has a version less than or equal to **v7.5-beta.9** to a version higher than **v7.5-beta.9** then you must run the following SQL on the database to correct the renaming of a migration script.
+If you don't, Stroom will not boot as it will detect a mismatch in the DB migration scripts.
+
+```sql
+update cross_module_schema_history
+set version = '07.05.00.005',
+script = 'stroom.app.db.migration.V07_05_00_005__Orphaned_Doc_Perms'
+where version = '07.04.00.005'
+and script = 'stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms';
+```
+{{% /warning %}}
+
+
+
 ### Migration Scripts
 
 <!--
@@ -133,7 +148,16 @@ See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate"
 
 For information purposes only, the following are the database migrations that will be run when upgrading to 7.5.0 from the previous minor version.
 
-Note, the `legacy` module will run first (if present) then the other modules will run in no particular order.
+Note, the `legacy` module will run first (if present) then the other module will run in no particular order.
+
+#### Module `stroom-app`
+
+#### Script `V07_05_00_005__Orphaned_Doc_Perms.java`
+
+**Path**: `stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java`
+
+It is not possible to display the content here.
+The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.5/stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java" >}}
 
 #### Module `stroom-node`
 
@@ -239,4 +263,3 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 -- vim: set tabstop=4 shiftwidth=4 expandtab:
 
 ```
-
