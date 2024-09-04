@@ -214,16 +214,12 @@ main() {
   # on where this script is called from
   local_repo_root="$(git rev-parse --show-toplevel)"
 
-  # This script may be running inside a container so first check if
-  # the env var has been set in the container
-  host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
-
   dest_dir="/builder/shared"
 
   echo -e "${GREEN}HOME ${BLUE}${HOME}${NC}"
   echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
   echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
-  echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
+  echo -e "${GREEN}Local repo root dir ${BLUE}${local_repo_root}${NC}"
 
   if ! docker version >/dev/null 2>&1; then
     echo -e "${RED}ERROR: Docker is not installed. Please install Docker or Docker Desktop.${NC}"
@@ -295,7 +291,7 @@ main() {
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
-    --build-arg "HOST_REPO_DIR=${host_abs_repo_dir}" \
+    --build-arg "HOST_REPO_DIR=${local_repo_root}" \
     "--cache-from=type=local,src=${cache_dir_from}" \
     "--cache-to=type=local,dest=${cache_dir_from},mode=max" \
     --load \
@@ -328,7 +324,7 @@ main() {
     "${tty_args[@]+"${tty_args[@]}"}" \
     --rm \
     --tmpfs /tmp \
-    --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
+    --mount "type=bind,src=${local_repo_root},dst=${dest_dir}" \
     --workdir "${dest_dir}" \
     --name "stroom_puppeteer-build-env" \
     --network "hugo-stroom" \
