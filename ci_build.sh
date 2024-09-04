@@ -226,7 +226,6 @@ assemble_version() {
 
     local branch_clone_dir="${GIT_WORK_DIR}/${branch_name}"
 
-
     echo "::group::Cloning branch ${branch_name}"
     echo -e "${GREEN}Cloning branch ${BLUE}${branch_name}${GREEN} of" \
       "${BLUE}${GIT_REPO_URL}${GREEN} into ${BLUE}${branch_clone_dir}${NC}"
@@ -350,35 +349,109 @@ remove_unwanted_sections() {
   done
 }
 
-create_root_redirect_page() {
-  echo -e "${GREEN}Creating root redirect page with latest version" \
-    "[${BLUE}${latest_version}${GREEN}]${NC}"
+set_meta_robots_for_all_version_branches() {
 
-  # Create a symlink so we have something like
-  # /
+  echo -e "${GREEN}Setting meta robots for all versioned brances in" \
+    "${BLUE}${NEW_GH_PAGES_DIR}${NC}"
+
+  for branch_name in "${release_branches[@]}"; do
+    local site_html_root_dir="${NEW_GH_PAGES_DIR}/${branch_name}"
+    echo "site_html_root_dir: ${site_html_root_dir}"
+
+    if [[ -d "${site_html_root_dir}" ]]; then
+      # Replace "index, follow" with "noindex, nofollow" so our version branches
+      # that are not the latest one don't get indexed. We only want the 'latest'
+      # content to be indexed by google.
+      set_meta_robots "${site_html_root_dir}" "no"
+    else
+      echo -e "${RED}Error${NC} Can't find dir ${site_html_root_dir}"
+      exit 1
+    fi
+  done
+}
+
+set_meta_robots() {
+  echo "args: ${*}"
+  local site_html_root_dir="$1"; shift
+  local prefix="$1"; shift
+  echo "prefix: ${prefix}"
+
+  local old="<meta name=\"robots\" content=\"(no)?index, (no)?follow\">"
+  local new="<meta name=\"robots\" content=\"${prefix}index, ${prefix}follow\">"
+  echo "old: ${old}"
+  echo "new: ${new}"
+
+  echo -e "${GREEN}Setting meta robots to ${prefix}index/${prefix}follow" \
+    "in ${BLUE}${site_html_root_dir}${NC}"
+  
+  find \
+      "${site_html_root_dir}" \
+      -name "*.html" \
+      -print0 \
+    | xargs \
+      -0 \
+      sed \
+      -i \
+      -E \
+      "s#${old}#${new}#"
+}
+
+# Copies the site map from the latest branch down to the root
+# and changes all the <loc> tags in the sitemap to point sub-paths of
+# the latest branch dir
+update_root_sitemap() {
+  echo "Changing <loc> tags in root sitemap.xml to point to ${GH_PAGES_BASE_URL}/"
+  sed \
+    -i \
+    "s#<loc>/#<loc>${GH_PAGES_BASE_URL}/#" \
+    "${NEW_GH_PAGES_DIR}/sitemap.xml"
+
+  echo "Creating robots.txt file pointing to sitemap"
+  {
+    echo "User-agent: *" 
+    echo "Sitemap: ${GH_PAGES_BASE_URL}/sitemap.xml" 
+  } > "${NEW_GH_PAGES_DIR}/robots.txt"
+}
+
+copy_latest_to_root() {
+
+  # Copy the latest version content down to the root dir
+  # That way we can make all other dirs noindex/nofollow to stop
+  # google finding them.
+  # Don't just rename it, so that we keep a numbered version on
+  # gh-pages that we can check the commit for, (see has_release_branch_changed)
+  #
+  # /    <--copy-of-- /7.2/
   #   /7.0/
   #   /7.1/
   #   /7.2/
-  #   /latest/ -> /7.2/
-  pushd "${NEW_GH_PAGES_DIR}"
-  ln -s "./${latest_version}/" "latest" 
-  popd
 
-  # Now make a redirect to the symlink so we open the latest
-  # version by default
-  sed \
-    --regexp-extended \
-    --expression "s/<<<LATEST_VERSION>>>/latest/g" \
-    "${BUILD_DIR}/index.html.template" \
-    > "${NEW_GH_PAGES_DIR}/index.html"
+  local src="${NEW_GH_PAGES_DIR}/${latest_version}"
+  local latest_temp_dir="${NEW_GH_PAGES_DIR}/latest_temp"
+
+  # Copy into temp so when we call set_meta_robots it doesn't descend
+  # into the other version dirs
+  echo -e "${GREEN}Coping dir ${BLUE}${src}${GREEN} to ${BLUE}${latest_temp_dir}${NC}"
+  cp -r "${src}" "${latest_temp_dir}/" 
+
+  # Ensure we have index and follow for the latest site content
+  set_meta_robots "${latest_temp_dir}" ""
+
+  # Now move the latest content down to root
+  echo -e "${GREEN}Moving contents of ${BLUE}${latest_temp_dir}/${GREEN} to" \
+    "${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
+  mv "${latest_temp_dir}"/* "${NEW_GH_PAGES_DIR}/"
 
   # This is to stop gh-pages treating the content as Jekyll content
   # in which case dirs prefixed with '_' are ignored breaking the print 
   # functionality
-  touch "${NEW_GH_PAGES_DIR}/.nojekyll"
+  local no_jekyll_file="${NEW_GH_PAGES_DIR}/.nojekyll"
+  echo -e "${GREEN}Ensuring presence of ${BLUE}${no_jekyll_file}/${NC}"
+  touch "${no_jekyll_file}"
 
   # Make sure the google site verification file is in gh-pages
   # so google can index the site
+  echo -e "${GREEN}Copy google verification file${NC}"
   cp \
     "${BUILD_DIR}/${GOOGLE_VERIFICATION_FILENAME}" \
     "${NEW_GH_PAGES_DIR}/"
@@ -587,6 +660,7 @@ main() {
   #local BASE_URL_BASE="/stroom-docs"
   local GIT_REPO_URL="https://github.com/gchq/stroom-docs.git"
   local GIT_API_URL="https://api.github.com/repos/gchq/stroom-docs"
+  local GH_PAGES_BASE_URL="https://gchq.github.io/stroom-docs"
   local CONFIG_FILENAME="config.toml"
   local COMMIT_SHA_FILENAME="commit.sha1"
   local GOOGLE_VERIFICATION_FILENAME="googlebc2798bfa34e6596.html"
@@ -637,9 +711,8 @@ main() {
     build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
   fi
 
-  # TODO get this working for hugo content
-  #echo -e "${GREEN}Checking all .md files for broken links${NC}"
-  #./broken_links.sh
+  echo -e "${GREEN}Checking all .md files for broken links${NC}"
+  ./broken_links.sh
 
   pushd "${GIT_WORK_DIR}"
 
@@ -664,9 +737,11 @@ main() {
 
   popd
 
-  # In the absence of url rewriting on github pages create a symlink
-  # that does a redirect to the latest version e.g. / => /7.1
-  create_root_redirect_page
+  copy_latest_to_root
+
+  update_root_sitemap
+
+  set_meta_robots_for_all_version_branches
 
   echo -e "${GREEN}have_any_release_branches_changed:" \
     "${BLUE}${have_any_release_branches_changed}${NC}"
