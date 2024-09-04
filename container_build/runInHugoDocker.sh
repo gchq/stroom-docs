@@ -168,6 +168,16 @@ main() {
   echo -e "${GREEN}Local repo root dir ${BLUE}${local_repo_root}${NC}"
   echo -e "${GREEN}Docker group id ${BLUE}${docker_group_id}${NC}"
 
+  if ! docker version >/dev/null 2>&1; then
+    echo -e "${RED}ERROR: Docker is not installed. Please install Docker or Docker Desktop.${NC}"
+    exit 1
+  fi
+
+  if ! docker buildx version >/dev/null 2>&1; then
+    echo -e "${RED}ERROR: Docker buildx is not installed. Please install it.${NC}"
+    exit 1
+  fi
+
   # Create a persistent vol for the home dir, idempotent
   docker volume create builder-home-dir-vol
 
