@@ -7,18 +7,17 @@
 # Requires bash >=4.3
 # Requires realpath
 
-# Script to check the markdown in a repo to ensure that all links to
-# other files are not broken and that link anchors are valid.
-# Also will hit each url link to see if it gets a 2** response.
-# Also spots duplicate anchors in files.
-# In hindsight this should probably have been written python as it is
-# not the quickest, probably due to the large number of possible anchors
-# it must check against. Was too far down the road to change languages.
+# Script to check the markdown in a repo to ensure that all external links
+# are not broken.
+
+# It writes checked URLs to a dated file so that on subsequent runs
+# on the same day it can just check against the file for speed.
+# To not check this file set force=true.
 
 set -eo pipefail
 shopt -s globstar
 
-file_blacklist=(
+file_deny_list=(
   ./VERSION.md
 )
 
@@ -113,6 +112,7 @@ verify_http_link() {
     if [[ "${response_code}" =~ ^2 ]]; then
       # Link is good so add to our set/map so we don't have to hit it again
       checked_links_map["${link_url}"]=1
+      new_checked_links_map["${link_url}"]=1
     else
       # Some sites don't seem to like the --head option so try it again
       # but getting the full page.
@@ -128,6 +128,7 @@ verify_http_link() {
       if [[ "${response_code}" =~ ^2 ]]; then
         # Link is good so add to our set/map so we don't have to hit it again
         checked_links_map["${link_url}"]=1
+        new_checked_links_map["${link_url}"]=1
       else
         log_broken_http_link \
           "${source_file}" \
@@ -524,6 +525,8 @@ main() {
   IS_DEBUG="${IS_DEBUG:-false}"
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
   CONTENT_DIR="${SCRIPT_DIR}/content"
+  # Use today's date so we know the urls were ok today
+  CHECKED_URLS_FILE=/tmp/stroom_docs_checked_urls_$(date +%Y%m%d)
 
   setup_echo_colours
   setup_debuging
@@ -541,11 +544,31 @@ main() {
 
   local file_count=0
   local link_count=0
+  # Associative array of urls that have been checked and found
+  # to be good. Also gets pre-populated from file (if present)
   local -A checked_links_map
+  # Associative array of urls that have been checked and found
+  # to be good.
+  local -A new_checked_links_map
 
-  local -A file_blacklist_map
-  for file in "${file_blacklist[@]}"; do 
-    file_blacklist_map[${file}]=1
+  # Import known good URLs if the file is present. This is to speed
+  # up builds where we build multiple versions of the docs.
+  if [[ -f "${CHECKED_URLS_FILE}" && "${force:-false}" = false ]]; then
+    echo -e "${GREEN}Importing known good URLs from" \
+      "${BLUE}${CHECKED_URLS_FILE}${NC}"
+    while IFS= read -r url; do
+      if [[ -n "${url}" ]]; then
+        echo -e "${indent}${GREEN}Imported URL ${BLUE}${url}${NC}"
+        checked_links_map["${url}"]=1
+      fi
+    done < "${CHECKED_URLS_FILE}"
+
+    echo -e "${GREEN}Imported ${BLUE}${#checked_links_map[@]}${GREEN} checked URLs"
+  fi
+
+  local -A file_deny_list_map
+  for file in "${file_deny_list[@]}"; do 
+    file_deny_list_map[${file}]=1
   done
 
   #echo -e "${GREEN}Scanning all .md files to find headings${NC}"
@@ -553,7 +576,7 @@ main() {
   #for file in ./**/*.md; do
     ## shellcheck disable=SC1001
     #if [[ ! "${file}" =~ \/node_modules\/ ]] \
-      #&& [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+      #&& [[ ! ${file_deny_list_map["${file}"]+_} ]]; then
       #debug_value "file" "${file}"
       ## An associative array to hold all anchors for this file
       ## so we can check for dups
@@ -572,7 +595,7 @@ main() {
         "doesn't exist${NC}"
       exit 1
     fi
-    if [[ ! ${file_blacklist_map["${named_file}"]+_} ]]; then
+    if [[ ! ${file_deny_list_map["${named_file}"]+_} ]]; then
       check_links_in_file "${named_file}"
     else
       echo -e "${indent}${YELLOW}Ignoring blacklisted file" \
@@ -584,11 +607,29 @@ main() {
     for file in "${CONTENT_DIR}"/**/*.md; do
       # shellcheck disable=SC1001
       if [[ ! "${file}" =~ \/node_modules\/ ]] \
-        && [[ ! ${file_blacklist_map["${file}"]+_} ]]; then
+        && [[ ! ${file_deny_list_map["${file}"]+_} ]]; then
 
         check_links_in_file "${file}"
       fi
     done
+  fi
+
+  # Write all the associative array keys to a file so we can re-use them
+  if [[ -f "${CHECKED_URLS_FILE}" ]]; then
+    # Already got a file so add only new ones seen in this run of the script
+    for url in "${!new_checked_links_map[@]}"; do
+      echo "${url}" >> "${CHECKED_URLS_FILE}"
+    done
+    echo -e "${GREEN}Written ${#new_checked_links_map[@]} checked URLs" \
+      "to ${BLUE}${CHECKED_URLS_FILE}${NC}"
+  else
+    touch "${CHECKED_URLS_FILE}"
+    for url in "${!checked_links_map[@]}"; do
+      echo "${url}" >> "${CHECKED_URLS_FILE}"
+    done
+
+    echo -e "${GREEN}Written ${#checked_links_map[@]} checked URLs" \
+      "to ${BLUE}${CHECKED_URLS_FILE}${NC}"
   fi
 
   echo -e "${GREEN}File count: ${BLUE}${file_count}${NC}"
