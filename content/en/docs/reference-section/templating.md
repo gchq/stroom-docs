@@ -42,6 +42,14 @@ Tuple      | Like a list but cannot be modified.                                
 Dictionary | Object containing key/value pairs, also known as a map.                | `{ "fruit": "Apple", "weight": 320 }`
 
 
+#### Accessing Collection Items
+
+A List/tuple item can be accessed by its index (zero based), e.g. `fruits[0]` returns `Apple`.
+
+A value in a dictionary can be accessed using its key, e.g. `myDict['fruit']` returns `Apple`.
+If the key does not contain special characters (with the exception of `_`, then you can also used this form `myDict.fruit` to get the same value.
+
+
 ### Conditions
 
 Valid conditions are:
@@ -292,16 +300,8 @@ defunct                 | Boolean                      | This field allows a det
 executionSchedule       | String                       | The name of the schedule that fired this detection, if the detection was fired by a Scheduled Query.
 executionTime           | String                       | This is the actual wall clock time that the rule ran.
 effectiveExecutionTime  | String                       | This is the time used in any relative date expressions [relative data expressions name]({{< relref "docs/reference-section/dates#date-expressions" >}}) in the rule's query or time range, e.g. `day() - 1w`. The effective time is relevant when executing historic time ranges in a scheduled query.
-values                  | List of DetectionValue       | This a list of all the field/column names and their values from the Query with the exception of `StreamId` and `EventId`.
+values                  | Dictionary                   | This a dictionary with all the field/column names from the Query (with the exception of `StreamId` and `EventId`) as keys and their respective cell values as the value.
 linkedEvents            | List of DetectionLinkedEvent | This is a list of the event(s) that are linked to this detection.
-
-
-_DetectionValue_ fields:
-
-Field Name              | Type                         | Description
------------------------ | ---------------------------- | ------------------
-name                    | String                       | The name of the field/column in the Query.
-value                   | String                       | The field/column value in the query result.
 
 
 DetectionLinkedEvent fields:
@@ -311,4 +311,9 @@ Field Name              | Type                         | Description
 stroom                  | String                       | The Stroom instance within which this event exists, assumed to be this instance of Stroom if not supplied.
 streamId                | String                       | The ID of the {{< glossary "Stream" >}} that contains the associated event.
 eventId                 | String                       | The ID of the {{< glossary "Event" >}} that is associated with this detection.
+
+
+{{% warning %}}
+When choosing the names of the columns in your rule it may be beneficial to use `snake_case` or `UpperCamelCase` to make it easier to reference those columns in the detection template (see [Accessing Collection Items]({{< relref "#accessing-collection-items" >}}) above). E.g. `myDict.some_key` vs `myDict['some key']`.
+{{% /warning %}}
 
