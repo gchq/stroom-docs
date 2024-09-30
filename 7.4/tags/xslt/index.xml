@@ -700,10 +700,10 @@ Thus a bitmap lookup with this value would return all the permissions held by th
 &lt;p&gt;The dictionary() function gets the contents of the specified dictionary for use during translation.
 The main use for this function is to allow users to abstract the management of a set of keywords from the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used by some XSLT, without the need for the user to understand the complexities of XSLT.&lt;/p&gt;
 &lt;h2 id=&#34;format-date&#34;&gt;format-date()&lt;/h2&gt;
-&lt;p&gt;The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
-contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat, see &lt;a href=&#34;../../docs/reference-section/dates/#parsing-with-explicit-format&#34;&gt;Dates &amp;amp; Times&lt;/a&gt; for details.
+&lt;p&gt;The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed contents with an XML standard Date Format.
+The pattern must be a Java based DateTimeFormatter, see &lt;a href=&#34;../../docs/reference-section/dates/#parsing-with-explicit-format&#34;&gt;Dates &amp;amp; Times&lt;/a&gt; for details.
 If the optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
-A special time zone value of &amp;ldquo;GMT/BST&amp;rdquo; can be used to guess the time based on the date (BST during British Summer Time).&lt;/p&gt;
+A special time zone value of &lt;code&gt;GMT/BST&lt;/code&gt; can be used to guess the time based on the date (BST during British Summer Time).&lt;/p&gt;
 &lt;p&gt;E.g. Convert a GMT date time &amp;ldquo;2009/12/01 12:34:11&amp;rdquo;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(&#39;2009/08/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;)&amp;quot;/&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -716,7 +716,6 @@ A special time zone value of &amp;ldquo;GMT/BST&amp;rdquo; can be used to guess 
 &lt;p&gt;E.g. Convert a date time specified as milliseconds since the epoch &amp;ldquo;1269270011640&amp;rdquo;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(&#39;1269270011640&#39;)&amp;quot;/&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.&lt;/p&gt;
 &lt;h2 id=&#34;hex-to-string&#34;&gt;hex-to-string()&lt;/h2&gt;
 &lt;p&gt;For a hexadecimal input string, decode it using the specified character set to its original form.&lt;/p&gt;
 &lt;p&gt;Valid character set names are listed at: &lt;a href=&#34;https://www.iana.org/assignments/character-sets/character-sets.xhtml&#34;&gt;https://www.iana.org/assignments/character-sets/character-sets.xhtml&lt;/a&gt;.
