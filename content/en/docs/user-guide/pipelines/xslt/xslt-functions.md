@@ -190,10 +190,10 @@ The main use for this function is to allow users to abstract the management of a
 
 ## format-date()
 
-The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed
-contents with an XML standard Date Format. The pattern must be a Java based SimpleDateFormat, see [Dates & Times]({{< relref "docs/reference-section/dates#parsing-with-explicit-format" >}}) for details.
+The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed contents with an XML standard Date Format.
+The pattern must be a Java based DateTimeFormatter, see [Dates & Times]({{< relref "docs/reference-section/dates#parsing-with-explicit-format" >}}) for details.
 If the optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
-A special time zone value of "GMT/BST" can be used to guess the time based on the date (BST during British Summer Time).
+A special time zone value of `GMT/BST` can be used to guess the time based on the date (BST during British Summer Time).
 
 E.g. Convert a GMT date time "2009/12/01 12:34:11"
 
@@ -218,8 +218,6 @@ E.g. Convert a date time specified as milliseconds since the epoch "126927001164
 ```xml
 <xsl:value-of select="stroom:format-date('1269270011640')"/>
 ```
-
-Time Zone Must be as per the rules defined in SimpleDateFormat under General Time Zone syntax.
 
 
 ## hex-to-string()
