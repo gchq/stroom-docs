@@ -717,7 +717,7 @@ main() {
   pushd "${GIT_WORK_DIR}"
 
   # Only master branch builds all the branches
-  if [[ "${branch_name}" = "master" ]]; then
+  if [[ "${BUILD_BRANCH}" = "master" ]]; then
     # Now build each of the release branches (if they have changed)
     for branch_name in "${release_branches[@]}"; do
 
