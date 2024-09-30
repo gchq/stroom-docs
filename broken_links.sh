@@ -17,8 +17,14 @@
 set -eo pipefail
 shopt -s globstar
 
+# Any files to not check at all
 file_deny_list=(
   ./VERSION.md
+)
+
+# Any link locations to not check
+url_deny_list=(
+  "https://github.com/gchq/stroom/issues/\1"
 )
 
 indent="    "
@@ -240,7 +246,11 @@ verify_link() {
   local link_location="$1"; shift
   
   if [[ "${link_location}" =~ ^http ]]; then
-    if [[  "${link_location}" == *"www.plantuml.com/plantuml/proxy"* ]]; then
+    if [[ ${url_deny_list_map["${link_location}"]+_} ]]; then
+      echo -e "${indent}${YELLOW}Ignoring deny-listed link" \
+        "[${BLUE}${link_name}${YELLOW}]" \
+        "with url [${BLUE}${link_location}${YELLOW}]${NC}"
+    elif [[  "${link_location}" == *"www.plantuml.com/plantuml/proxy"* ]]; then
       echo -e "${indent}${YELLOW}Unable to check plantuml link" \
         "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
@@ -571,6 +581,11 @@ main() {
     file_deny_list_map[${file}]=1
   done
 
+  local -A url_deny_list_map
+  for file in "${url_deny_list[@]}"; do 
+    url_deny_list_map[${file}]=1
+  done
+
   #echo -e "${GREEN}Scanning all .md files to find headings${NC}"
   ## Loop over all files and build a map of all file heading combos
   #for file in ./**/*.md; do
@@ -598,7 +613,7 @@ main() {
     if [[ ! ${file_deny_list_map["${named_file}"]+_} ]]; then
       check_links_in_file "${named_file}"
     else
-      echo -e "${indent}${YELLOW}Ignoring blacklisted file" \
+      echo -e "${indent}${YELLOW}Ignoring deny-listed file" \
         "[${BLUE}${named_file}${YELLOW}]${NC}"
     fi
   else
