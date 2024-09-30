@@ -123,7 +123,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.962276f99ac64bf4d9e350a2709880a3.json"
+    data-offline-search-index-json-src="../../offline-search-index.7a2f9ecd318cccc5e41c484f08c0bd79.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -2207,8 +2207,8 @@ This is the multi-page printable view of this section.
 <div class="content">
       <blockquote>
 <p>Applicable Stroom version: &ldquo;<strong>7.4</strong>&rdquo;<br>
-Documentation generated on: <strong>03 Sep 2024, 16:51 UTC</strong><br>
-Documentation release version: <strong>stroom-docs-v2364</strong></p>
+Documentation generated on: <strong>30 Sep 2024, 11:32 UTC</strong><br>
+Documentation release version: <strong>stroom-docs-v2493</strong></p>
 <p>To see the documentation for other versions of Stroom click the version drop-down at the top of the screen.</p>
 </blockquote>
 
@@ -41719,7 +41719,7 @@ The completed Element should look like</p>
 <li>rolledFileName to be <code>fwd_${ms}.ready</code></li>
 </ul>
 <p>Note that these settings are for demonstration purposes only and will depend on your unique Stroom instance&rsquo;s configuration.
-The outputPath can contain replacement variables to provide more structure if desired. <a href="../../docs/user-guide/pipelines/file-output/">File Output substitution variables</a></p>
+The outputPath can contain replacement variables to provide more structure if desired, see <a href="../../docs/user-guide/pipelines/file-output/">File Output substitution variables</a>.</p>
 
 
 
@@ -70093,18 +70093,19 @@ This function is a bit of a misnomer as it is both parsing and formatting.</p>
   
 
 <span class="external-link">
-  <a href="https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html" target="_blank" class="" style="" title="SimpleDateFormat (external link to https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html)">
-    <span>SimpleDateFormat</span>
+  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html" target="_blank" class="" style="" title="DateTimeFormatter (external link to https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html)">
+    <span>DateTimeFormatter</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
  syntax for expressing an explicit date format.</p>
-<p>The following table lists the letters that have special meaning in the syntax:</p>
+<p>All letters <code>A</code> to <code>Z</code> and <code>a</code> to <code>z</code> are reserved as pattern letters.
+The following pattern letters are defined:</p>
 <table>
 <thead>
 <tr>
-<th>Letter</th>
-<th>Date or Time Component</th>
+<th>Symbol</th>
+<th>Meaning</th>
 <th>Presentation</th>
 <th>Examples</th>
 </tr>
@@ -70112,162 +70113,362 @@ This function is a bit of a misnomer as it is both parsing and formatting.</p>
 <tbody>
 <tr>
 <td><code>G</code></td>
-<td>Era designator</td>
-<td>Text</td>
-<td><code>AD</code></td>
+<td>era</td>
+<td>text</td>
+<td><code>AD</code>, <code>Anno Domini</code>, <code>A</code></td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td>year</td>
+<td>year</td>
+<td><code>2004</code>, <code>04</code></td>
 </tr>
 <tr>
 <td><code>y</code></td>
-<td>Year</td>
-<td>Year</td>
-<td><code>1996</code>, <code>96</code></td>
+<td>year-of-era</td>
+<td>year</td>
+<td><code>2004</code>, <code>04</code></td>
+</tr>
+<tr>
+<td><code>D</code></td>
+<td>day-of-year</td>
+<td>number</td>
+<td><code>189</code></td>
+</tr>
+<tr>
+<td><code>M/L</code></td>
+<td>month-of-year</td>
+<td>number/text</td>
+<td><code>7</code>, <code>07</code>, <code>Jul</code>, <code>July</code>, <code>J</code></td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>day-of-month</td>
+<td>number</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>g</code></td>
+<td>modified-julian-day</td>
+<td>number</td>
+<td><code>2451334</code></td>
+</tr>
+<tr>
+<td><code>Q/q</code></td>
+<td>quarter-of-year</td>
+<td>number/text</td>
+<td><code>3</code>, <code>03</code>, <code>Q3</code>, <code>3rd quarter</code></td>
 </tr>
 <tr>
 <td><code>Y</code></td>
-<td>Week year</td>
-<td>Year</td>
-<td><code>2009</code>, <code>09</code></td>
-</tr>
-<tr>
-<td><code>M</code></td>
-<td>Month in year (context sensitive)</td>
-<td>Month</td>
-<td><code>July</code>, <code>Jul</code>, <code>07</code></td>
-</tr>
-<tr>
-<td><code>L</code></td>
-<td>Month in year (standalone form)</td>
-<td>Month</td>
-<td><code>July</code>, <code>Jul</code>, <code>07</code></td>
+<td>week-based-year</td>
+<td>year</td>
+<td><code>1996</code>, <code>96</code></td>
 </tr>
 <tr>
 <td><code>w</code></td>
-<td>Week in year</td>
-<td>Number</td>
+<td>week-of-week-based-year</td>
+<td>number</td>
 <td><code>27</code></td>
 </tr>
 <tr>
 <td><code>W</code></td>
-<td>Week in month</td>
-<td>Number</td>
-<td><code>2</code></td>
-</tr>
-<tr>
-<td><code>D</code></td>
-<td>Day in year</td>
-<td>Number</td>
-<td><code>189</code></td>
-</tr>
-<tr>
-<td><code>d</code></td>
-<td>Day in month</td>
-<td>Number</td>
-<td><code>10</code></td>
-</tr>
-<tr>
-<td><code>F</code></td>
-<td>Day of week in month</td>
-<td>Number</td>
-<td><code>2</code></td>
+<td>week-of-month</td>
+<td>number</td>
+<td><code>4</code></td>
 </tr>
 <tr>
 <td><code>E</code></td>
-<td>Day name in week</td>
-<td>Text</td>
-<td><code>Tuesday</code>, <code>Tue</code></td>
+<td>day-of-week</td>
+<td>text</td>
+<td><code>Tue</code>, <code>Tuesday</code>, <code>T</code></td>
 </tr>
 <tr>
-<td><code>u</code></td>
-<td>Day number of week (1 = Monday, &hellip;, 7 = Sunday)</td>
-<td>Number</td>
-<td><code>1</code></td>
+<td><code>e/c</code></td>
+<td>localized day-of-week</td>
+<td>number/text</td>
+<td><code>2</code>, <code>02</code>, <code>Tue</code>, <code>Tuesday</code>, <code>T</code></td>
+</tr>
+<tr>
+<td><code>F</code></td>
+<td>aligned-week-of-month</td>
+<td>number</td>
+<td><code>3</code></td>
 </tr>
 <tr>
 <td><code>a</code></td>
-<td>Am/pm marker</td>
-<td>Text</td>
+<td>am-pm-of-day</td>
+<td>text</td>
 <td><code>PM</code></td>
 </tr>
 <tr>
-<td><code>H</code></td>
-<td>Hour in day (0-23)</td>
-<td>Number</td>
+<td><code>B</code></td>
+<td>period-of-day</td>
+<td>text</td>
+<td><code>in the morning</code></td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td>clock-hour-of-am-pm (1-12)</td>
+<td>number</td>
+<td><code>12</code></td>
+</tr>
+<tr>
+<td><code>K</code></td>
+<td>hour-of-am-pm (0-11)</td>
+<td>number</td>
 <td><code>0</code></td>
 </tr>
 <tr>
 <td><code>k</code></td>
-<td>Hour in day (1-24)</td>
-<td>Number</td>
+<td>clock-hour-of-day (1-24)</td>
+<td>number</td>
 <td><code>24</code></td>
 </tr>
 <tr>
-<td><code>K</code></td>
-<td>Hour in am/pm (0-11)</td>
-<td>Number</td>
+<td><code>H</code></td>
+<td>hour-of-day (0-23)</td>
+<td>number</td>
 <td><code>0</code></td>
 </tr>
 <tr>
-<td><code>h</code></td>
-<td>Hour in am/pm (1-12)</td>
-<td>Number</td>
-<td><code>12</code></td>
-</tr>
-<tr>
 <td><code>m</code></td>
-<td>Minute in hour</td>
-<td>Number</td>
+<td>minute-of-hour</td>
+<td>number</td>
 <td><code>30</code></td>
 </tr>
 <tr>
 <td><code>s</code></td>
-<td>Second in minute</td>
-<td>Number</td>
+<td>second-of-minute</td>
+<td>number</td>
 <td><code>55</code></td>
 </tr>
 <tr>
 <td><code>S</code></td>
-<td>Millisecond</td>
-<td>Number</td>
+<td>fraction-of-second</td>
+<td>fraction</td>
 <td><code>978</code></td>
 </tr>
 <tr>
-<td><code>z</code></td>
-<td>Time zone</td>
-<td>General time zone</td>
-<td><code>Pacific Standard Time</code>, <code>PST</code>, <code>GMT-08:00</code></td>
+<td><code>A</code></td>
+<td>milli-of-day</td>
+<td>number</td>
+<td><code>1234</code></td>
 </tr>
 <tr>
-<td><code>Z</code></td>
-<td>Time zone</td>
-<td>RFC 822 time zone</td>
-<td><code>-0800</code></td>
+<td><code>n</code></td>
+<td>nano-of-second</td>
+<td>number</td>
+<td><code>987654321</code></td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>nano-of-day</td>
+<td>number</td>
+<td><code>1234000000</code></td>
+</tr>
+<tr>
+<td><code>V</code></td>
+<td>time-zone ID</td>
+<td>zone-id</td>
+<td><code>America/Los_Angeles</code>, <code>Z</code>, <code>-08:30</code></td>
+</tr>
+<tr>
+<td><code>v</code></td>
+<td>generic time-zone name</td>
+<td>zone-name</td>
+<td><code>Pacific Time</code>, <code>PT</code></td>
+</tr>
+<tr>
+<td><code>z</code></td>
+<td>time-zone name</td>
+<td>zone-name</td>
+<td><code>Pacific Standard Time</code>, <code>PST</code></td>
+</tr>
+<tr>
+<td><code>O</code></td>
+<td>localized zone-offset</td>
+<td>offset-O</td>
+<td><code>GMT+8</code>, <code>GMT+08:00</code>, <code>UTC-08:00</code></td>
 </tr>
 <tr>
 <td><code>X</code></td>
-<td>Time zone</td>
-<td>ISO 8601 time zone</td>
-<td><code>-08</code>, <code>-0800</code>, <code>-08:00</code></td>
+<td>zone-offset <code>Z</code> for zero</td>
+<td>offset-X</td>
+<td><code>Z</code>, <code>-08</code>, <code>-0830</code>, <code>-08:30</code>, <code>-083015</code>, <code>-08:30:15</code></td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td>zone-offset</td>
+<td>offset-x</td>
+<td><code>+0000</code>, <code>-08</code>, <code>-0830</code>, <code>-08:30</code>, <code>-083015</code>, <code>-08:30:15</code></td>
+</tr>
+<tr>
+<td><code>Z</code></td>
+<td>zone-offset</td>
+<td>offset-Z</td>
+<td><code>+0000</code>, <code>-0800</code>, <code>-08:00</code></td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>pad next</td>
+<td>pad modifier</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>'</code></td>
+<td>escape for text</td>
+<td>delimiter</td>
+<td></td>
+</tr>
+<tr>
+<td><code>''</code></td>
+<td>single quote</td>
+<td>literal</td>
+<td><code>'</code></td>
+</tr>
+<tr>
+<td><code>[</code></td>
+<td>optional section start</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>]</code></td>
+<td>optional section end</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>reserved for future use</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>{</code></td>
+<td>reserved for future use</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>}</code></td>
+<td>reserved for future use</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>For further details, see the 
+<p>The count of pattern letters determines the format.</p>
+<h3 id="presentation-types">Presentation Types</h3>
+<ul>
+<li>
+<p><strong>Text</strong>: The text style is determined based on the number of pattern letters used.
+Less than 4 pattern letters will use the short form
+Exactly 4 pattern letters will use the full form
+Exactly 5 pattern letters will use the narrow form
+Pattern letters <code>L</code>, <code>c</code>, and <code>q</code> specify the stand-alone form of the text styles.</p>
+</li>
+<li>
+<p><strong>Number</strong>: If the count of letters is one, then the value is output using the minimum number of digits and without padding
+Otherwise, the count of digits is used as the width of the output field, with the value zero-padded as necessary
+The following pattern letters have constraints on the count of letters
+Only one letter of <code>c</code> and <code>F</code> can be specified
+Up to two letters of <code>d</code>, <code>H</code>, <code>h</code>, <code>K</code>, <code>k</code>, <code>m</code>, and <code>s</code> can be specified
+Up to three letters of <code>D</code> can be specified.</p>
+</li>
+<li>
+<p><strong>Number/Text</strong>: If the count of pattern letters is 3 or greater, use the Text rules above
+Otherwise use the Number rules above.</p>
+</li>
+<li>
+<p><strong>Fraction</strong>: Outputs the nano-of-second field as a fraction-of-second
+The nano-of-second value has nine digits, thus the count of pattern letters is from 1 to 9
+If it is less than 9, then the nano-of-second value is truncated, with only the most significant digits being output.</p>
+</li>
+<li>
+<p><strong>Year</strong>: The count of letters determines the minimum field width below which padding is used
+If the count of letters is two, then a reduced two digit form is used
+For printing, this outputs the rightmost two digits
+For parsing, this will parse using the base value of 2000, resulting in a year within the range 2000 to 2099 inclusive
+If the count of letters is less than four (but not two), then the sign is only output for negative years as per SignStyle.NORMAL
+Otherwise, the sign is output if the pad width is exceeded, as per SignStyle.EXCEEDS_PAD.</p>
+</li>
+<li>
+<p><strong>ZoneId</strong>: This outputs the time-zone ID, such as <code>Europe/Paris</code>
+If the count of letters is two, then the time-zone ID is output
+Any other count of letters throws IllegalArgumentException.</p>
+</li>
+<li>
+<p><strong>Zone names</strong>: This outputs the display name of the time-zone ID
+If the pattern letter is <code>z</code> the output is the daylight saving aware zone name
+If there is insufficient information to determine whether DST applies, the name ignoring daylight saving time will be used
+If the count of letters is one, two or three, then the short name is output
+If the count of letters is four, then the full name is output
+Five or more letters throws IllegalArgumentException.</p>
+<p>If the pattern letter is <code>v</code> the output provides the zone name ignoring daylight saving time
+If the count of letters is one, then the short name is output
+If the count of letters is four, then the full name is output
+Two, three and five or more letters throw IllegalArgumentException.</p>
+</li>
+<li>
+<p><strong>Offset X and x</strong>: This formats the offset based on the number of pattern letters
+One letter outputs just the hour, such as <code>+01</code>, unless the minute is non-zero in which case the minute is also output, such as <code>+0130</code>
+Two letters outputs the hour and minute, without a colon, such as <code>+0130</code>
+Three letters outputs the hour and minute, with a colon, such as <code>+01:30</code>
+Four letters outputs the hour and minute and optional second, without a colon, such as <code>+013015</code>
+Five letters outputs the hour and minute and optional second, with a colon, such as <code>+01:30:15</code>
+Six or more letters throws IllegalArgumentException
+Pattern letter <code>X</code> (upper case) will output <code>Z</code> when the offset to be output would be zero, whereas pattern letter <code>x</code> (lower case) will output <code>+00</code>, <code>+0000</code>, or <code>+00:00</code>.</p>
+</li>
+<li>
+<p><strong>Offset O</strong>: With a non-zero offset, this formats the localized offset based on the number of pattern letters
+One letter outputs the short form of the localized offset, which is localized offset text, such as <code>GMT</code>, with hour without leading zero, optional 2-digit minute and second if non-zero, and colon, for example <code>GMT+8</code>
+Four letters outputs the full form, which is localized offset text, such as GMT, with 2-digit hour and minute field, optional second field if non-zero, and colon, for example <code>GMT+08:00</code>
+If the offset is zero, only localized text is output
+Any other count of letters throws IllegalArgumentException.</p>
+</li>
+<li>
+<p><strong>Offset Z</strong>: This formats the offset based on the number of pattern letters
+One, two or three letters outputs the hour and minute, without a colon, such as <code>+0130</code>
+The output will be <code>+0000</code> when the offset is zero
+Four letters outputs the full form of localized offset, equivalent to four letters of Offset-O
+The output will be the corresponding localized offset text if the offset is zero
+Five letters outputs the hour, minute, with optional second if non-zero, with colon
+It outputs <code>Z</code> if the offset is zero
+Six or more letters throws IllegalArgumentException.</p>
+</li>
+<li>
+<p><strong>Optional section</strong>: The optional section markers work exactly like calling DateTimeFormatterBuilder.optionalStart() and DateTimeFormatterBuilder.optionalEnd().</p>
+</li>
+<li>
+<p><strong>Pad modifier</strong>: Modifies the pattern that immediately follows to be padded with spaces
+The pad width is determined by the number of pattern letters
+This is the same as calling DateTimeFormatterBuilder.padNext(int).</p>
+</li>
+</ul>
+<p>For example, <code>ppH</code> outputs the hour-of-day padded on the left with spaces to a width of 2.</p>
+<p>Any unrecognized letter is an error
+Any non-letter character, other than <code>[</code>, <code>]</code>, <code>{</code>, <code>}</code>, <code>#</code> and the single quote will be output directly
+Despite this, it is recommended to use single quotes around all characters that you want to output directly to ensure that future changes do not break your application.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
 
 
-
-
-
-
-
-  
-  
-
+    <p>For further details, see the</p>
 <span class="external-link">
-  <a href="https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html" target="_blank" class="" style="" title="SimpleDateFormat (external link to https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html)">
-    <span>SimpleDateFormat</span>
+  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html" target="_blank" class="" style="" title="DateTimeFormatter (external link to https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html)">
+    <span>DateTimeFormatter</span>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- documentation.</p>
+ documentation.
+
+
+</div>
+
+
 <h2 id="formatting">Formatting</h2>
 <p>Stroom can format dates with an explicit format in a few places:</p>
 <ul>

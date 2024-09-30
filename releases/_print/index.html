@@ -90,7 +90,7 @@ if (!doNotTrack) {
       </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Stroom Version (7.5)
+	Stroom Version (7.6)
 </a>
 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	
@@ -126,7 +126,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.14f4008220d99cd8ee0ea16896dcf204.json"
+    data-offline-search-index-json-src="../../offline-search-index.7113b468bd68bc5942e04a9489949efe.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -1471,7 +1471,7 @@ This previously did not happen on document delete so orphaned document permissio
 
 
 <h2 id="java-version">Java Version</h2>
-<p>Stroom v7.5 requires Java 21.
+<p>Stroom v7.6 requires Java 21.
 This is the same java version as Stroom v7.4.
 Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v21.</p>
 <h2 id="configuration-file-changes">Configuration File Changes</h2>
@@ -1559,6 +1559,23 @@ All other nodes will wait until that is complete before proceeding with the boot
 <p>It is recommended however to use a single node to execute the migration.
 To avoid Stroom starting up and beginning processing you can use the <code>migrage</code> command to just migrate the database and not fully boot Stroom.
 See <a href="../../docs/user-guide/tools/command-line/#migrate"><code>migrage</code> command</a> for more details.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>If you are upgrading a v7.5 Stroom instance that has a version less than or equal to <strong>v7.5-beta.9</strong> to a version higher than <strong>v7.5-beta.9</strong> then you must run the following SQL on the database to correct the renaming of a migration script.
+If you don&rsquo;t, Stroom will not boot as it will detect a mismatch in the DB migration scripts.</p>
+<pre><code class="language-sql">update cross_module_schema_history
+set version = '07.05.00.005',
+script = 'stroom.app.db.migration.V07_05_00_005__Orphaned_Doc_Perms'
+where version = '07.04.00.005'
+and script = 'stroom.app.db.migration.V07_04_00_005__Orphaned_Doc_Perms';
+</code></pre>
+
+
+</div>
+
+
 <h3 id="migration-scripts">Migration Scripts</h3>
 <!--
 #############################################################################################
@@ -1568,7 +1585,29 @@ See <a href="../../docs/user-guide/tools/command-line/#migrate"><code>migrage</c
 #############################################################################################
 -->
 <p>For information purposes only, the following are the database migrations that will be run when upgrading to 7.5.0 from the previous minor version.</p>
-<p>Note, the <code>legacy</code> module will run first (if present) then the other modules will run in no particular order.</p>
+<p>Note, the <code>legacy</code> module will run first (if present) then the other module will run in no particular order.</p>
+<h4 id="module-stroom-app">Module <code>stroom-app</code></h4>
+<h4 id="script-v07_05_00_005__orphaned_doc_permsjava">Script <code>V07_05_00_005__Orphaned_Doc_Perms.java</code></h4>
+<p><strong>Path</strong>: <code>stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java</code></p>
+<p>It is not possible to display the content here.
+The file can be viewed on : 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/tree/7.5/stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java" target="_blank" class="" style="" title="GitHub (external link to https://github.com/gchq/stroom/tree/7.5/stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java)">
+    <span>GitHub</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
 <h4 id="module-stroom-node">Module <code>stroom-node</code></h4>
 <h5 id="script-v07_05_00_005__add_build_ver_last_bootsql">Script <code>V07_05_00_005__add_build_ver_last_boot.sql</code></h5>
 <p><strong>Path</strong>: <code>stroom-node/stroom-node-impl-db/src/main/resources/stroom/node/impl/db/migration/V07_05_00_005__add_build_ver_last_boot.sql</code></p>
@@ -2873,7 +2912,7 @@ Analytic Rules has been an experimental feature therefore there is no migration 
 
 
 <h2 id="java-version">Java Version</h2>
-<p>Stroom v7.5 requires Java 21.
+<p>Stroom v7.6 requires Java 21.
 This is the same java version as Stroom v7.3.
 Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v21.</p>
 <h2 id="database-migrations">Database Migrations</h2>

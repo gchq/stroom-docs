@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/reference-section/templating/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2024-05-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-09-03T16:59:24+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-09-30T12:14:48+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Templating">
 <meta itemprop="description" content="Jinja text templating syntax and context.
 "><meta itemprop="datePublished" content="2024-05-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-09-03T16:59:24+01:00" />
-<meta itemprop="wordCount" content="1979">
+<meta itemprop="dateModified" content="2024-09-30T12:14:48+01:00" />
+<meta itemprop="wordCount" content="2060">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Templating"/>
 <meta name="twitter:description" content="Jinja text templating syntax and context.
@@ -127,7 +127,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.7b97c65c5e6dcef4d5ccd60e9cee2c4d.json"
+    data-offline-search-index-json-src="../../../offline-search-index.2af5cf141354e68272f18bb45e2b4e2a.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -152,7 +152,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.7b97c65c5e6dcef4d5ccd60e9cee2c4d.json"
+    data-offline-search-index-json-src="../../../offline-search-index.2af5cf141354e68272f18bb45e2b4e2a.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -706,7 +706,11 @@ if (!doNotTrack) {
     <li><a href="#overview">Overview</a></li>
     <li><a href="#basic-templating-syntax">Basic Templating Syntax</a>
       <ul>
-        <li><a href="#data-types">Data Types</a></li>
+        <li><a href="#data-types">Data Types</a>
+          <ul>
+            <li><a href="#accessing-collection-items">Accessing Collection Items</a></li>
+          </ul>
+        </li>
         <li><a href="#conditions">Conditions</a></li>
         <li><a href="#logical-operators">Logical Operators</a></li>
         <li><a href="#expressions">Expressions</a></li>
@@ -1026,6 +1030,10 @@ See the full syntax here
 </tr>
 </tbody>
 </table>
+<h4 id="accessing-collection-items">Accessing Collection Items</h4>
+<p>A List/tuple item can be accessed by its index (zero based), e.g. <code>fruits[0]</code> returns <code>Apple</code>.</p>
+<p>A value in a dictionary can be accessed using its key, e.g. <code>myDict['fruit']</code> returns <code>Apple</code>.
+If the key does not contain special characters (with the exception of <code>_</code>, then you can also used this form <code>myDict.fruit</code> to get the same value.</p>
 <h3 id="conditions">Conditions</h3>
 <p>Valid conditions are:</p>
 <ul>
@@ -1621,35 +1629,13 @@ The fields available in the context are those taken from the <code>detection:1</
 </tr>
 <tr>
 <td>values</td>
-<td>List of DetectionValue</td>
-<td>This a list of all the field/column names and their values from the Query with the exception of <code>StreamId</code> and <code>EventId</code>.</td>
+<td>Dictionary</td>
+<td>This a dictionary with all the field/column names from the Query (with the exception of <code>StreamId</code> and <code>EventId</code>) as keys and their respective cell values as the value.</td>
 </tr>
 <tr>
 <td>linkedEvents</td>
 <td>List of DetectionLinkedEvent</td>
 <td>This is a list of the event(s) that are linked to this detection.</td>
-</tr>
-</tbody>
-</table>
-<p><em>DetectionValue</em> fields:</p>
-<table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>String</td>
-<td>The name of the field/column in the Query.</td>
-</tr>
-<tr>
-<td>value</td>
-<td>String</td>
-<td>The field/column value in the query result.</td>
 </tr>
 </tbody>
 </table>
@@ -1691,10 +1677,21 @@ The fields available in the context are those taken from the <code>detection:1</
 </tbody>
 </table>
 
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+
+    <p>When choosing the names of the columns in your rule it may be beneficial to use <code>snake_case</code> or <code>UpperCamelCase</code> to make it easier to reference those columns in the detection template (see <a href="#accessing-collection-items">Accessing Collection Items</a> above). E.g. <code>myDict.some_key</code> vs <code>myDict['some key']</code>.</p>
+
+
+</div>
+
+
+
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 3, 2024: <a href="https://github.com/gchq/stroom-docs/commit/3fb608faaedaad5617ee5493ee71ba4540ebdf7f">Merge branch &#39;7.4&#39; into 7.5 (3fb608f)</a>
+  Last modified September 30, 2024: <a href="https://github.com/gchq/stroom-docs/commit/254b7dbf5077b028c9fac6083638abd315dc32b9">Merge branch &#39;7.4&#39; into 7.5 (254b7db)</a>
 </div>
 
 </div>
