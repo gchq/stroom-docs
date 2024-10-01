@@ -700,22 +700,312 @@ Thus a bitmap lookup with this value would return all the permissions held by th
 &lt;p&gt;The dictionary() function gets the contents of the specified dictionary for use during translation.
 The main use for this function is to allow users to abstract the management of a set of keywords from the XSLT so that it is easier for some users to make quick alterations to a dictionary that is used by some XSLT, without the need for the user to understand the complexities of XSLT.&lt;/p&gt;
 &lt;h2 id=&#34;format-date&#34;&gt;format-date()&lt;/h2&gt;
-&lt;p&gt;The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed contents with an XML standard Date Format.
-The pattern must be a Java based DateTimeFormatter, see &lt;a href=&#34;../../docs/reference-section/dates/#parsing-with-explicit-format&#34;&gt;Dates &amp;amp; Times&lt;/a&gt; for details.
-If the optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
-A special time zone value of &lt;code&gt;GMT/BST&lt;/code&gt; can be used to guess the time based on the date (BST during British Summer Time).&lt;/p&gt;
-&lt;p&gt;E.g. Convert a GMT date time &amp;ldquo;2009/12/01 12:34:11&amp;rdquo;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(&#39;2009/08/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;)&amp;quot;/&amp;gt;
+&lt;p&gt;The format-date() function combines parsing and formatting of date strings.
+In its simplest form it will parse a date string and return the parsed date in the XML standard Date Format.
+It also supports supplying a custom format pattern to output the parsed date in a specified format.&lt;/p&gt;
+&lt;h3 id=&#34;function-signatures&#34;&gt;Function Signatures&lt;/h3&gt;
+&lt;p&gt;The following are the possible forms of the &lt;code&gt;format-date&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Convert time in millis to standard date format --&amp;gt;
+format-date(long millisSinceEpoch)
+
+&amp;lt;!-- Convert inputDate to standard date format --&amp;gt;
+format-date(String inputDate, String inputPattern)
+
+&amp;lt;!-- Convert inputDate to standard date format using specified input time zone --&amp;gt;
+format-date(String inputDate, String inputPattern, String inputTimeZone)
+
+&amp;lt;!-- Convert inputDate to a custom date format using optional input time zone inputTimeZone --&amp;gt;
+format-date(String inputDate, String inputPattern, String inputTimeZone, String outputPattern)
+
+&amp;lt;!-- Convert inputDate to a custom date format using optional input time zone and a specified output time zone --&amp;gt;
+format-date(String inputDate, String inputPattern, String inputTimeZone, String outputPattern, String outputTimeZone)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;E.g. Convert a GMT or BST date time &amp;ldquo;2009/08/01 12:34:11&amp;rdquo;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(&#39;2009/08/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)&amp;quot;/&amp;gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;millisSinceEpoch&lt;/code&gt; - The date/time expressed as the number of milliseconds since the 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://en.wikipedia.org/wiki/Unix_time&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;UNIX epoch (external link to https://en.wikipedia.org/wiki/Unix_time)&#34;&gt;
+    &lt;span&gt;UNIX epoch&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;inputDate&lt;/code&gt; - The input date string, e.g. &lt;code&gt;2009/08/01 12:34:11&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;inputPattern&lt;/code&gt; - The pattern that defines the structure of &lt;code&gt;inputDate&lt;/code&gt; (see &lt;a href=&#34;../../docs/reference-section/dates/#custom-date-formats&#34;&gt;Custom Date Formats&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;inputTimeZone&lt;/code&gt; - Optional time zone of the &lt;code&gt;inputDate&lt;/code&gt;.
+If &lt;code&gt;null&lt;/code&gt; then the UTC/Zulu time zone will be used.
+If &lt;code&gt;inputTimeZone&lt;/code&gt; is present, the inputPattern must not include the time zone pattern tokens (&lt;code&gt;z&lt;/code&gt; and &lt;code&gt;Z&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;outputPattern&lt;/code&gt; - The pattern that defines the format of the output date (see &lt;a href=&#34;../../docs/reference-section/dates/#custom-date-formats&#34;&gt;Custom Date Formats&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;inputTimeZone&lt;/code&gt; - Optional time zone of the output date.
+If &lt;code&gt;null&lt;/code&gt; then the UTC/Zulu time zone will be used.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;time-zones&#34;&gt;Time Zones&lt;/h3&gt;
+&lt;p&gt;The following is a list of some common time zone values:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Values&lt;/th&gt;
+&lt;th&gt;Zone Name&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;GMT/BST&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A Stroom specific value for UK daylight saving time (see below)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;UTC&lt;/code&gt;, &lt;code&gt;UCT&lt;/code&gt;, &lt;code&gt;Zulu&lt;/code&gt;, &lt;code&gt;Universal&lt;/code&gt;, &lt;code&gt;+00:00&lt;/code&gt;, &lt;code&gt;-00:00&lt;/code&gt;, &lt;code&gt;+00&lt;/code&gt;, &lt;code&gt;+0&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Coordinated Universal Time (UTC)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;GMT&lt;/code&gt;, &lt;code&gt;GMT0&lt;/code&gt;, &lt;code&gt;Greenwich&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Greenwich Mean Time (GMT)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;GB&lt;/code&gt;, &lt;code&gt;GB-Eire&lt;/code&gt;, &lt;code&gt;Europe/London&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;British Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NZ&lt;/code&gt;, &lt;code&gt;Pacific/Auckland&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;New Zealand Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Australia/Canberra&lt;/code&gt;, &lt;code&gt;Australia/Sydney&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Eastern Australia Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;CET&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Central European Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;EET&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Eastern European Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Canada/Atlantic&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Atlantic Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Canada/Central&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Central Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Canada/Pacific&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Pacific Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;US/Central&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Central Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;US/Eastern&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Eastern Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;US/Mountain&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Mountain Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;US/Pacific&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Pacific Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;+02:00&lt;/code&gt;, &lt;code&gt;+02&lt;/code&gt;, &lt;code&gt;+2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;UTC +2hrs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-03:00&lt;/code&gt;, &lt;code&gt;-03&lt;/code&gt;, &lt;code&gt;-3&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;UTC -3hrs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;A special time zone value of &lt;code&gt;GMT/BST&lt;/code&gt; can be used when the &lt;code&gt;inputDate&lt;/code&gt; has in local wall clock time with time zone information.
+In this case, the date/time will be used to determine whether the date is in British Summer Time or in GMT and adjust the output accordingly.
+See the examples below.&lt;/p&gt;
+&lt;h3 id=&#34;parsing-examples&#34;&gt;Parsing Examples&lt;/h3&gt;
+&lt;p&gt;The following table shows various examples of calls to &lt;code&gt;stroom:format-date()&lt;/code&gt; with their output.
+The &lt;code&gt;stroom:format-date&lt;/code&gt; part has been omitted for brevity.&lt;/p&gt;
+&lt;!--
+This table is generated by the test 
+stroom.pipeline.xsltfunctions.TestFormatDate#testParseExamples
+--&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Date in millis since UNIX epoch --&amp;gt;
+stroom:format-date(&#39;1269270011640&#39;)
+-&amp;gt; &#39;2010-03-22T15:00:11.640Z&#39;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;E.g. Convert a GMT+1:00 date time &amp;ldquo;2009/08/01 12:34:11&amp;rdquo;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(&#39;2009/08/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT+1:00&#39;)&amp;quot;/&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date UK style date --&amp;gt;
+stroom:format-date(&#39;29/08/24&#39;, &#39;dd/MM/yy&#39;)
+-&amp;gt; &#39;2024-08-29T00:00:00.000Z&#39;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;E.g. Convert a date time specified as milliseconds since the epoch &amp;ldquo;1269270011640&amp;rdquo;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;xsl:value-of select=&amp;quot;stroom:format-date(&#39;1269270011640&#39;)&amp;quot;/&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Simple date US style date --&amp;gt;
+stroom:format-date(&#39;08/29/24&#39;, &#39;MM/dd/yy&#39;)
+-&amp;gt; &#39;2024-08-29T00:00:00.000Z&#39;
 &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ISO date with no delimiters --&amp;gt;
+stroom:format-date(&#39;20010801184559&#39;, &#39;yyyyMMddHHmmss&#39;)
+-&amp;gt; &#39;2001-08-01T18:45:59.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, no TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01 18:45:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;)
+-&amp;gt; &#39;2001-08-01T18:45:59.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, date only, with TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01&#39;, &#39;yyyy/MM/dd&#39;, &#39;-07:00&#39;)
+-&amp;gt; &#39;2001-08-01T07:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01 01:00:00&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;-08:00&#39;)
+-&amp;gt; &#39;2001-08-01T09:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Standard output, with TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01 01:00:00&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;)
+-&amp;gt; &#39;2001-08-01T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Single digit day and month, no padding --&amp;gt;
+stroom:format-date(&#39;2001 8 1&#39;, &#39;yyyy MM dd&#39;)
+-&amp;gt; &#39;2001-08-01T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Double digit day and month, no padding --&amp;gt;
+stroom:format-date(&#39;2001 12 28&#39;, &#39;yyyy MM dd&#39;)
+-&amp;gt; &#39;2001-12-28T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Single digit day and month, with optional padding --&amp;gt;
+stroom:format-date(&#39;2001  8  1&#39;, &#39;yyyy ppMM ppdd&#39;)
+-&amp;gt; &#39;2001-08-01T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Double digit day and month, with optional padding --&amp;gt;
+stroom:format-date(&#39;2001 12 31&#39;, &#39;yyyy ppMM ppdd&#39;)
+-&amp;gt; &#39;2001-12-31T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With abbreviated day of week month --&amp;gt;
+stroom:format-date(&#39;Wed Aug 14 2024&#39;, &#39;EEE MMM dd yyyy&#39;)
+-&amp;gt; &#39;2024-08-14T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With long form day of week and month --&amp;gt;
+stroom:format-date(&#39;Wednesday August 14 2024&#39;, &#39;EEEE MMMM dd yyyy&#39;)
+-&amp;gt; &#39;2024-08-14T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With 12 hour clock, AM --&amp;gt;
+stroom:format-date(&#39;Wed Aug 14 2024 10:32:58 AM&#39;, &#39;E MMM dd yyyy hh:mm:ss a&#39;)
+-&amp;gt; &#39;2024-08-14T10:32:58.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- With 12 hour clock, PM (lower case) --&amp;gt;
+stroom:format-date(&#39;Wed Aug 14 2024 10:32:58 pm&#39;, &#39;E MMM dd yyyy hh:mm:ss a&#39;)
+-&amp;gt; &#39;2024-08-14T22:32:58.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Using minimal symbols --&amp;gt;
+stroom:format-date(&#39;2001 12 31 22:58:32.123&#39;, &#39;y M d H:m:s.S&#39;)
+-&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional time portion, with time --&amp;gt;
+stroom:format-date(&#39;2001/12/31 22:58:32.123&#39;, &#39;yyyy/MM/dd[ HH:mm:ss.SSS]&#39;)
+-&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional time portion, without time --&amp;gt;
+stroom:format-date(&#39;2001/12/31&#39;, &#39;yyyy/MM/dd[ HH:mm:ss.SSS]&#39;)
+-&amp;gt; &#39;2001-12-31T00:00:00.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional millis portion, with millis --&amp;gt;
+stroom:format-date(&#39;2001/12/31 22:58:32.123&#39;, &#39;yyyy/MM/dd HH:mm:ss[.SSS]&#39;)
+-&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional millis portion, without millis --&amp;gt;
+stroom:format-date(&#39;2001/12/31 22:58:32&#39;, &#39;yyyy/MM/dd HH:mm:ss[.SSS]&#39;)
+-&amp;gt; &#39;2001-12-31T22:58:32.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Optional millis/nanos portion, with nanos --&amp;gt;
+stroom:format-date(&#39;2001/12/31 22:58:32.123456&#39;, &#39;yyyy/MM/dd HH:mm:ss[.SSS]&#39;)
+-&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Fixed text --&amp;gt;
+stroom:format-date(&#39;Date: 2001/12/31 Time: 22:58:32.123&#39;, &#39;&#39;Date: &#39;yyyy/MM/dd &#39;Time: &#39;HH:mm:ss.SSS&#39;)
+-&amp;gt; &#39;2001-12-31T22:58:32.123Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- GMT/BST date that is BST --&amp;gt;
+stroom:format-date(&#39;2009/06/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)
+-&amp;gt; &#39;2009-06-01T11:34:11.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- GMT/BST date that is GMT --&amp;gt;
+stroom:format-date(&#39;2009/02/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;GMT/BST&#39;)
+-&amp;gt; &#39;2009-02-01T12:34:11.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Time zone offset --&amp;gt;
+stroom:format-date(&#39;2009/02/01 12:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;)
+-&amp;gt; &#39;2009-02-01T11:34:11.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Named timezone --&amp;gt;
+stroom:format-date(&#39;2009/02/01 23:34:11&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;US/Eastern&#39;)
+-&amp;gt; &#39;2009-02-02T04:34:11.000Z&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    &lt;p&gt;Parsing is done in lenient mode so, the count of each symbol is not critical, e.g. you can parse the year &lt;code&gt;2024&lt;/code&gt; with &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;yy&lt;/code&gt;, &lt;code&gt;yyy&lt;/code&gt; or &lt;code&gt;yyyy&lt;/code&gt;.
+Despite this, it is advisable to use a pattern that matches the known format of the input dates, e.g. in this example &lt;code&gt;yyyy&lt;/code&gt;, to avoid confusing with anyone else reading your XSLT.&lt;/p&gt;
+&lt;p&gt;The count of each symbol is however critical when it comes to formatting.&lt;/p&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;formatting-examples&#34;&gt;Formatting Examples&lt;/h3&gt;
+&lt;!-- 
+This table is generated by the test 
+stroom.pipeline.xsltfunctions.TestFormatDate#testCustomFormatExamples
+--&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, no input or output TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, null, &#39;E dd MMM yyyy HH:mm (s &#39;secs&#39;)&#39;)
+-&amp;gt; &#39;Wed 01 Aug 2001 14:30 (59 secs)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, UTC input, no output TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy HH:mm (s &#39;secs&#39;)&#39;)
+-&amp;gt; &#39;Wed 01 Aug 2001 14:30 (59 secs)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, no output TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;, &#39;E dd MMM yyyy HH:mm (s &#39;secs&#39;)&#39;)
+-&amp;gt; &#39;Wed 01 Aug 2001 13:30 (59 secs)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Specific output, with input and output TZ --&amp;gt;
+stroom:format-date(&#39;2001/08/01 14:30:59&#39;, &#39;yyyy/MM/dd HH:mm:ss&#39;, &#39;+01:00&#39;, &#39;E dd MMM yyyy HH:mm&#39;, &#39;+02:00&#39;)
+-&amp;gt; &#39;Wed 01 Aug 2001 15:30&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Padded 12 hour clock output --&amp;gt;
+stroom:format-date(&#39;2001/08/01 14:07:05.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy pph:ppm:pps a&#39;)
+-&amp;gt; &#39;Wed 01 Aug 2001  2: 7: 5 PM&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Padded 12 hour clock output --&amp;gt;
+stroom:format-date(&#39;2001/08/01 22:27:25.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy pph:ppm:pps a&#39;)
+-&amp;gt; &#39;Wed 01 Aug 2001 10:27:25 PM&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Non-Padded 12 hour clock output --&amp;gt;
+stroom:format-date(&#39;2001/08/01 14:07:05.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;E dd MMM yyyy h:m:s a&#39;)
+-&amp;gt; &#39;Wed 01 Aug 2001 2:7:5 PM&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Long form text --&amp;gt;
+stroom:format-date(&#39;2001/08/01 14:07:05.123&#39;, &#39;yyyy/MM/dd HH:mm:ss.SSS&#39;, &#39;UTC&#39;, &#39;EEEE d MMMM yyyy HH:mm:ss&#39;)
+-&amp;gt; &#39;Wednesday 1 August 2001 14:07:05&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;reference-time&#34;&gt;Reference Time&lt;/h3&gt;
+&lt;p&gt;When parsing a date string that does not contain a full zoned date and time, certain assumptions will be made.&lt;/p&gt;
+&lt;p&gt;If there is no time zone in &lt;code&gt;inputDate&lt;/code&gt; and no &lt;code&gt;inputTimeZone&lt;/code&gt; argument has been passed then the time zone of the input date will be assumed to be in the UTC time zone.&lt;/p&gt;
+&lt;p&gt;If any of the date parts are not present, e.g. an input of &lt;code&gt;28 Oct&lt;/code&gt; then Stroom will use a reference date to fill in the gaps.
+The reference date is the first of these values that is non-null&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The create time of the stream being processed by the XSLT.&lt;/li&gt;
+&lt;li&gt;The current time, i.e. now().&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example for a call of &lt;code&gt;stroom:format-date(&#39;28 Oct&#39;, &#39;dd MMM&#39;)&lt;/code&gt; and a stream create time of &lt;code&gt;2024&lt;/code&gt;, it will return &lt;code&gt;2024-10-28T00:00:00.000Z&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;hex-to-string&#34;&gt;hex-to-string()&lt;/h2&gt;
 &lt;p&gt;For a hexadecimal input string, decode it using the specified character set to its original form.&lt;/p&gt;
 &lt;p&gt;Valid character set names are listed at: &lt;a href=&#34;https://www.iana.org/assignments/character-sets/character-sets.xhtml&#34;&gt;https://www.iana.org/assignments/character-sets/character-sets.xhtml&lt;/a&gt;.
