@@ -190,34 +190,322 @@ The main use for this function is to allow users to abstract the management of a
 
 ## format-date()
 
-The format-date() function takes a Pattern and optional TimeZone arguments and replaces the parsed contents with an XML standard Date Format.
-The pattern must be a Java based DateTimeFormatter, see [Dates & Times]({{< relref "docs/reference-section/dates#parsing-with-explicit-format" >}}) for details.
-If the optional TimeZone argument is present the pattern must not include the time zone pattern tokens (z and Z).
-A special time zone value of `GMT/BST` can be used to guess the time based on the date (BST during British Summer Time).
+The format-date() function combines parsing and formatting of date strings.
+In its simplest form it will parse a date string and return the parsed date in the XML standard Date Format.
+It also supports supplying a custom format pattern to output the parsed date in a specified format.
 
-E.g. Convert a GMT date time "2009/12/01 12:34:11"
 
-```xml
-<xsl:value-of select="stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss')"/>
-```
+### Function Signatures
 
-E.g. Convert a GMT or BST date time "2009/08/01 12:34:11"
+The following are the possible forms of the `format-date` function.
 
 ```xml
-<xsl:value-of select="stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')"/>
+<!-- Convert time in millis to standard date format -->
+format-date(long millisSinceEpoch)
+
+<!-- Convert inputDate to standard date format -->
+format-date(String inputDate, String inputPattern)
+
+<!-- Convert inputDate to standard date format using specified input time zone -->
+format-date(String inputDate, String inputPattern, String inputTimeZone)
+
+<!-- Convert inputDate to a custom date format using optional input time zone inputTimeZone -->
+format-date(String inputDate, String inputPattern, String inputTimeZone, String outputPattern)
+
+<!-- Convert inputDate to a custom date format using optional input time zone and a specified output time zone -->
+format-date(String inputDate, String inputPattern, String inputTimeZone, String outputPattern, String outputTimeZone)
 ```
 
-E.g. Convert a GMT+1:00 date time "2009/08/01 12:34:11"
+* `millisSinceEpoch` - The date/time expressed as the number of milliseconds since the {{< external-link "UNIX epoch" "https://en.wikipedia.org/wiki/Unix_time" >}}.
+* `inputDate` - The input date string, e.g. `2009/08/01 12:34:11`.
+* `inputPattern` - The pattern that defines the structure of `inputDate` (see [Custom Date Formats]({{< relref "docs/reference-section/dates#custom-date-formats" >}})).
+* `inputTimeZone` - Optional time zone of the `inputDate`.
+  If `null` then the UTC/Zulu time zone will be used.
+  If `inputTimeZone` is present, the inputPattern must not include the time zone pattern tokens (`z` and `Z`).
+* `outputPattern` - The pattern that defines the format of the output date (see [Custom Date Formats]({{< relref "docs/reference-section/dates#custom-date-formats" >}})).
+* `inputTimeZone` - Optional time zone of the output date.
+  If `null` then the UTC/Zulu time zone will be used.
+
+
+### Time Zones
+
+The following is a list of some common time zone values:
+
+Values                                                             | Zone Name
+------                                                             | ---------
+`GMT/BST`                                                          | A Stroom specific value for UK daylight saving time (see below)
+`UTC`, `UCT`, `Zulu`, `Universal`, `+00:00`, `-00:00`, `+00`, `+0` | Coordinated Universal Time (UTC)
+`GMT`, `GMT0`, `Greenwich`                                         | Greenwich Mean Time (GMT)
+`GB`, `GB-Eire`, `Europe/London`                                   | British Time
+`NZ`, `Pacific/Auckland`                                           | New Zealand Time
+`Australia/Canberra`, `Australia/Sydney`                           | Eastern Australia Time
+`CET`                                                              | Central European Time
+`EET`                                                              | Eastern European Time
+`Canada/Atlantic`                                                  | Atlantic Time
+`Canada/Central`                                                   | Central Time
+`Canada/Pacific`                                                   | Pacific Time
+`US/Central`                                                       | Central Time
+`US/Eastern`                                                       | Eastern Time
+`US/Mountain`                                                      | Mountain Time
+`US/Pacific`                                                       | Pacific Time
+`+02:00`, `+02`, `+2`                                              | UTC +2hrs
+`-03:00`, `-03`, `-3`                                              | UTC -3hrs
+
+A special time zone value of `GMT/BST` can be used when the `inputDate` has in local wall clock time with time zone information.
+In this case, the date/time will be used to determine whether the date is in British Summer Time or in GMT and adjust the output accordingly.
+See the examples below.
+
+
+### Parsing Examples
+
+The following table shows various examples of calls to `stroom:format-date()` with their output.
+The `stroom:format-date` part has been omitted for brevity.
+
+<!--
+This table is generated by the test 
+stroom.pipeline.xsltfunctions.TestFormatDate#testParseExamples
+-->
 
 ```xml
-<xsl:value-of select="stroom:format-date('2009/08/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT+1:00')"/>
+<!-- Date in millis since UNIX epoch -->
+stroom:format-date('1269270011640')
+-> '2010-03-22T15:00:11.640Z'
 ```
-
-E.g. Convert a date time specified as milliseconds since the epoch "1269270011640"
 
 ```xml
-<xsl:value-of select="stroom:format-date('1269270011640')"/>
+<!-- Simple date UK style date -->
+stroom:format-date('29/08/24', 'dd/MM/yy')
+-> '2024-08-29T00:00:00.000Z'
 ```
+
+```xml
+<!-- Simple date US style date -->
+stroom:format-date('08/29/24', 'MM/dd/yy')
+-> '2024-08-29T00:00:00.000Z'
+```
+
+```xml
+<!-- ISO date with no delimiters -->
+stroom:format-date('20010801184559', 'yyyyMMddHHmmss')
+-> '2001-08-01T18:45:59.000Z'
+```
+
+```xml
+<!-- Standard output, no TZ -->
+stroom:format-date('2001/08/01 18:45:59', 'yyyy/MM/dd HH:mm:ss')
+-> '2001-08-01T18:45:59.000Z'
+```
+
+```xml
+<!-- Standard output, date only, with TZ -->
+stroom:format-date('2001/08/01', 'yyyy/MM/dd', '-07:00')
+-> '2001-08-01T07:00:00.000Z'
+```
+
+```xml
+<!-- Standard output, with TZ -->
+stroom:format-date('2001/08/01 01:00:00', 'yyyy/MM/dd HH:mm:ss', '-08:00')
+-> '2001-08-01T09:00:00.000Z'
+```
+
+```xml
+<!-- Standard output, with TZ -->
+stroom:format-date('2001/08/01 01:00:00', 'yyyy/MM/dd HH:mm:ss', '+01:00')
+-> '2001-08-01T00:00:00.000Z'
+```
+
+```xml
+<!-- Single digit day and month, no padding -->
+stroom:format-date('2001 8 1', 'yyyy MM dd')
+-> '2001-08-01T00:00:00.000Z'
+```
+
+```xml
+<!-- Double digit day and month, no padding -->
+stroom:format-date('2001 12 28', 'yyyy MM dd')
+-> '2001-12-28T00:00:00.000Z'
+```
+
+```xml
+<!-- Single digit day and month, with optional padding -->
+stroom:format-date('2001  8  1', 'yyyy ppMM ppdd')
+-> '2001-08-01T00:00:00.000Z'
+```
+
+```xml
+<!-- Double digit day and month, with optional padding -->
+stroom:format-date('2001 12 31', 'yyyy ppMM ppdd')
+-> '2001-12-31T00:00:00.000Z'
+```
+
+```xml
+<!-- With abbreviated day of week month -->
+stroom:format-date('Wed Aug 14 2024', 'EEE MMM dd yyyy')
+-> '2024-08-14T00:00:00.000Z'
+```
+
+```xml
+<!-- With long form day of week and month -->
+stroom:format-date('Wednesday August 14 2024', 'EEEE MMMM dd yyyy')
+-> '2024-08-14T00:00:00.000Z'
+```
+
+```xml
+<!-- With 12 hour clock, AM -->
+stroom:format-date('Wed Aug 14 2024 10:32:58 AM', 'E MMM dd yyyy hh:mm:ss a')
+-> '2024-08-14T10:32:58.000Z'
+```
+
+```xml
+<!-- With 12 hour clock, PM (lower case) -->
+stroom:format-date('Wed Aug 14 2024 10:32:58 pm', 'E MMM dd yyyy hh:mm:ss a')
+-> '2024-08-14T22:32:58.000Z'
+```
+
+```xml
+<!-- Using minimal symbols -->
+stroom:format-date('2001 12 31 22:58:32.123', 'y M d H:m:s.S')
+-> '2001-12-31T22:58:32.123Z'
+```
+
+```xml
+<!-- Optional time portion, with time -->
+stroom:format-date('2001/12/31 22:58:32.123', 'yyyy/MM/dd[ HH:mm:ss.SSS]')
+-> '2001-12-31T22:58:32.123Z'
+```
+
+```xml
+<!-- Optional time portion, without time -->
+stroom:format-date('2001/12/31', 'yyyy/MM/dd[ HH:mm:ss.SSS]')
+-> '2001-12-31T00:00:00.000Z'
+```
+
+```xml
+<!-- Optional millis portion, with millis -->
+stroom:format-date('2001/12/31 22:58:32.123', 'yyyy/MM/dd HH:mm:ss[.SSS]')
+-> '2001-12-31T22:58:32.123Z'
+```
+
+```xml
+<!-- Optional millis portion, without millis -->
+stroom:format-date('2001/12/31 22:58:32', 'yyyy/MM/dd HH:mm:ss[.SSS]')
+-> '2001-12-31T22:58:32.000Z'
+```
+
+```xml
+<!-- Optional millis/nanos portion, with nanos -->
+stroom:format-date('2001/12/31 22:58:32.123456', 'yyyy/MM/dd HH:mm:ss[.SSS]')
+-> '2001-12-31T22:58:32.123Z'
+```
+
+```xml
+<!-- Fixed text -->
+stroom:format-date('Date: 2001/12/31 Time: 22:58:32.123', ''Date: 'yyyy/MM/dd 'Time: 'HH:mm:ss.SSS')
+-> '2001-12-31T22:58:32.123Z'
+```
+
+```xml
+<!-- GMT/BST date that is BST -->
+stroom:format-date('2009/06/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')
+-> '2009-06-01T11:34:11.000Z'
+```
+
+```xml
+<!-- GMT/BST date that is GMT -->
+stroom:format-date('2009/02/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')
+-> '2009-02-01T12:34:11.000Z'
+```
+
+```xml
+<!-- Time zone offset -->
+stroom:format-date('2009/02/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', '+01:00')
+-> '2009-02-01T11:34:11.000Z'
+```
+
+```xml
+<!-- Named timezone -->
+stroom:format-date('2009/02/01 23:34:11', 'yyyy/MM/dd HH:mm:ss', 'US/Eastern')
+-> '2009-02-02T04:34:11.000Z'
+```
+
+
+{{% note %}}
+Parsing is done in lenient mode so, the count of each symbol is not critical, e.g. you can parse the year `2024` with `y`, `yy`, `yyy` or `yyyy`.
+Despite this, it is advisable to use a pattern that matches the known format of the input dates, e.g. in this example `yyyy`, to avoid confusing with anyone else reading your XSLT.
+
+The count of each symbol is however critical when it comes to formatting.
+{{% /note %}}
+
+
+### Formatting Examples
+
+<!-- 
+This table is generated by the test 
+stroom.pipeline.xsltfunctions.TestFormatDate#testCustomFormatExamples
+-->
+
+```xml
+<!-- Specific output, no input or output TZ -->
+stroom:format-date('2001/08/01 14:30:59', 'yyyy/MM/dd HH:mm:ss', null, 'E dd MMM yyyy HH:mm (s 'secs')')
+-> 'Wed 01 Aug 2001 14:30 (59 secs)'
+```
+
+```xml
+<!-- Specific output, UTC input, no output TZ -->
+stroom:format-date('2001/08/01 14:30:59', 'yyyy/MM/dd HH:mm:ss', 'UTC', 'E dd MMM yyyy HH:mm (s 'secs')')
+-> 'Wed 01 Aug 2001 14:30 (59 secs)'
+```
+
+```xml
+<!-- Specific output, no output TZ -->
+stroom:format-date('2001/08/01 14:30:59', 'yyyy/MM/dd HH:mm:ss', '+01:00', 'E dd MMM yyyy HH:mm (s 'secs')')
+-> 'Wed 01 Aug 2001 13:30 (59 secs)'
+```
+
+```xml
+<!-- Specific output, with input and output TZ -->
+stroom:format-date('2001/08/01 14:30:59', 'yyyy/MM/dd HH:mm:ss', '+01:00', 'E dd MMM yyyy HH:mm', '+02:00')
+-> 'Wed 01 Aug 2001 15:30'
+```
+
+```xml
+<!-- Padded 12 hour clock output -->
+stroom:format-date('2001/08/01 14:07:05.123', 'yyyy/MM/dd HH:mm:ss.SSS', 'UTC', 'E dd MMM yyyy pph:ppm:pps a')
+-> 'Wed 01 Aug 2001  2: 7: 5 PM'
+```
+
+```xml
+<!-- Padded 12 hour clock output -->
+stroom:format-date('2001/08/01 22:27:25.123', 'yyyy/MM/dd HH:mm:ss.SSS', 'UTC', 'E dd MMM yyyy pph:ppm:pps a')
+-> 'Wed 01 Aug 2001 10:27:25 PM'
+```
+
+```xml
+<!-- Non-Padded 12 hour clock output -->
+stroom:format-date('2001/08/01 14:07:05.123', 'yyyy/MM/dd HH:mm:ss.SSS', 'UTC', 'E dd MMM yyyy h:m:s a')
+-> 'Wed 01 Aug 2001 2:7:5 PM'
+```
+
+```xml
+<!-- Long form text -->
+stroom:format-date('2001/08/01 14:07:05.123', 'yyyy/MM/dd HH:mm:ss.SSS', 'UTC', 'EEEE d MMMM yyyy HH:mm:ss')
+-> 'Wednesday 1 August 2001 14:07:05'
+```
+
+
+### Reference Time
+
+When parsing a date string that does not contain a full zoned date and time, certain assumptions will be made.
+
+If there is no time zone in `inputDate` and no `inputTimeZone` argument has been passed then the time zone of the input date will be assumed to be in the UTC time zone.
+
+If any of the date parts are not present, e.g. an input of `28 Oct` then Stroom will use a reference date to fill in the gaps.
+The reference date is the first of these values that is non-null
+
+1. The create time of the stream being processed by the XSLT.
+1. The current time, i.e. now().
+
+For example for a call of `stroom:format-date('28 Oct', 'dd MMM')` and a stream create time of `2024`, it will return `2024-10-28T00:00:00.000Z`.
 
 
 ## hex-to-string()

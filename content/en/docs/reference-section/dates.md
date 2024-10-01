@@ -50,12 +50,12 @@ Input String                    | Standard Form
 `2010-01-01T23:59:59.123-03:00` | `2010-01-01T23:59:59.123-0300`
 
 
-### Parsing With Explicit Format
+### Custom Date Formats
 
-Parsing with an explicit date time format is done in a few places in Stroom.
+Parsing and formatting with an explicit date time format is done in a few places in Stroom.
 
 * The XSLT function [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions#format-date" >}}).
-  This function is a bit of a misnomer as it is both parsing and formatting.
+  This function is a bit of a misnomer as it is doing both parsing and formatting.
 
 * The Dashboard/Query expression [`parseDate()`]({{< relref "docs/reference-section/expressions/date#parse-date" >}}).
 
@@ -192,9 +192,9 @@ Any unrecognized letter is an error
 Any non-letter character, other than `[`, `]`, `{`, `}`, `#` and the single quote will be output directly
 Despite this, it is recommended to use single quotes around all characters that you want to output directly to ensure that future changes do not break your application.
 
-{{% see-also %}}
 For further details, see the {{< external-link "DateTimeFormatter" "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html" >}} documentation.
-{{% /see-also %}}
+
+For examples of the parsing/formatting patterns in use, see [`format-date()`]({{< relref "docs/user-guide/pipelines/xslt/xslt-functions#format-date" >}}).
 
 
 ## Formatting
