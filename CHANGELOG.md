@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Improve section on `stroom:format-date()`.
+
 * Change `Dates & Times` reference section from SimpleDateFormate to DataTimeFormater.
 
 * Remove beta warning from `Stroom Query Language` page and change `vis as` to `show as`.
