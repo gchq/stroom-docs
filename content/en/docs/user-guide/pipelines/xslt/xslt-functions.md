@@ -251,7 +251,7 @@ Values                                                             | Zone Name
 `+02:00`, `+02`, `+2`                                              | UTC +2hrs
 `-03:00`, `-03`, `-3`                                              | UTC -3hrs
 
-A special time zone value of `GMT/BST` can be used when the `inputDate` has in local wall clock time with time zone information.
+A special time zone value of `GMT/BST` can be used when the `inputDate` is in local wall clock time with time zone information.
 In this case, the date/time will be used to determine whether the date is in British Summer Time or in GMT and adjust the output accordingly.
 See the examples below.
 
