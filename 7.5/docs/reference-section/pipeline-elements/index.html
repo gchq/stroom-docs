@@ -28,13 +28,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/reference-section/pipeline-elements/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2022-02-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2024-10-02T08:52:38+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2024-10-18T20:19:31+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Pipeline Elements">
 <meta itemprop="description" content="A reference for all the pipeline elements.
 "><meta itemprop="datePublished" content="2022-02-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2024-10-02T08:52:38+01:00" />
-<meta itemprop="wordCount" content="4111">
+<meta itemprop="dateModified" content="2024-10-18T20:19:31+01:00" />
+<meta itemprop="wordCount" content="4626">
 <meta itemprop="keywords" content="TODO," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Pipeline Elements"/>
 <meta name="twitter:description" content="A reference for all the pipeline elements.
@@ -127,7 +127,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d82c459eaee490eb01dede3b9c57529f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.73e2722ac7cdfd68071180ed69f410d6.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -152,7 +152,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d82c459eaee490eb01dede3b9c57529f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.73e2722ac7cdfd68071180ed69f410d6.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -738,6 +738,7 @@ if (!doNotTrack) {
         <li><a href="#searchresultoutputfilter">SearchResultOutputFilter</a></li>
         <li><a href="#solrindexingfilter">SolrIndexingFilter</a></li>
         <li><a href="#splitfilter">SplitFilter</a></li>
+        <li><a href="#statefilter">StateFilter</a></li>
         <li><a href="#statisticsfilter">StatisticsFilter</a></li>
         <li><a href="#stroomstatsfilter">StroomStatsFilter</a></li>
         <li><a href="#xpathextractionoutputfilter">XPathExtractionOutputFilter</a></li>
@@ -759,6 +760,7 @@ if (!doNotTrack) {
         <li><a href="#httpappender">HTTPAppender</a></li>
         <li><a href="#rollingfileappender">RollingFileAppender</a></li>
         <li><a href="#rollingstreamappender">RollingStreamAppender</a></li>
+        <li><a href="#s3appender">S3Appender</a></li>
         <li><a href="#standardkafkaproducer">StandardKafkaProducer</a></li>
         <li><a href="#streamappender">StreamAppender</a></li>
         <li><a href="#stroomstatsappender">StroomStatsAppender</a></li>
@@ -1048,7 +1050,6 @@ Some of them will also transform the data at the character level before the data
 
 
 
-
  </p>
 <p>Removes the Byte Order Mark (if present) from the stream.</p>
 <h3 id="badtextxmlfilterreader">BadTextXMLFilterReader</h3>
@@ -1105,7 +1106,6 @@ Some of them will also transform the data at the character level before the data
 
     
   
-
 
 
 
@@ -1188,7 +1188,6 @@ For example the element <code>&lt;Expression&gt;$time &lt; now()&lt;/Expression&
 
     
   
-
 
 
 
@@ -1324,7 +1323,6 @@ For example the element <code>&lt;Expression&gt;$time &lt; now()&lt;/Expression&
 
 
 
-
  </p>
 <p>Removes any characters that are not in the standard XML character set.
 The version of XML (e.g. 1.0 or 1.1) can be set using the &lsquo;xmlVersion&rsquo; property.</p>
@@ -1407,7 +1405,6 @@ The version of XML (e.g. 1.0 or 1.1) can be set using the &lsquo;xmlVersion&rsqu
 
     
   
-
 
 
 
@@ -1502,7 +1499,6 @@ The version of XML (e.g. 1.0 or 1.1) can be set using the &lsquo;xmlVersion&rsqu
 
 
 
-
  </p>
 <p>A basic reader that simply decodes the raw bytes using the Feed&rsquo;s configured character encoding.
 It does not transform the data in any other way.</p>
@@ -1564,7 +1560,6 @@ If no Reader is used before the Parser, the Parser will also do the job of a sim
 
     
   
-
 
 
 
@@ -1687,7 +1682,6 @@ This will make the intent of the pipeline much clearer and allow for much greate
 
 
 
-
  </p>
 <p>A parser for handling structured plain text data (e.g. CSV or fixed width fields) using the Data Splitter domain specific language.
 For more details see <a href="../../../docs/user-guide/data-splitter/">Data Splitter</a>.</p>
@@ -1776,7 +1770,6 @@ For more details see <a href="../../../docs/user-guide/data-splitter/">Data Spli
 
     
   
-
 
 
 
@@ -1925,7 +1918,6 @@ The Resulting XML will conform to the <a href="http://www.w3.org/2013/XSL/json">
 
 
 
-
  </p>
 <p>A parser to convert multiple XML fragments into an XML document.
 For example the data may contain:</p>
@@ -2025,7 +2017,6 @@ The XMLFragmentParser will wrap the fragments with a root element as defined in 
 
 
 
-
  </p>
 <p>A parser to parse data that is expected to be XML into a series of XML events that can be consumed by a Filter element.</p>
 <h2 id="filter">Filter</h2>
@@ -2086,7 +2077,6 @@ Multiple filters can be used one after another with each using the output from t
 
     
   
-
 
 
 
@@ -2174,7 +2164,6 @@ Multiple filters can be used one after another with each using the output from t
 
 
 
-
  </p>
 <p>Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the fields are dynamic and derived from the data rather than being defined in the Index settings.
 Consumes XML events in the <code>index-documents:1</code> namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.</p>
@@ -2232,7 +2221,6 @@ Consumes XML events in the <code>index-documents:1</code> namespace to convert t
 
     
   
-
 
 
 
@@ -2351,7 +2339,6 @@ and their values in an Elasticsearch Index.</p>
 
 
 
-
  </p>
 <p>This element is deprecated, you should instead use the much more flexible 
 
@@ -2406,7 +2393,6 @@ and their values in an Elasticsearch Index.</p>
 
     
   
-
 
 
 
@@ -2494,7 +2480,6 @@ This element will simply POST the output of the XML events to the configured URL
 
 
 
-
  </p>
 <p>Adds the attributes &lsquo;StreamId&rsquo; and &lsquo;EventId&rsquo; to the &rsquo;event&rsquo; element to enrich the event with its ordinal number in the stream and the ID of the stream that it belongs to.
 ID enrichment is required to be able to index events as it provides them with an ID that is unique within Stroom.
@@ -2553,7 +2538,6 @@ It assumes that an record/event is an XML element at the first level below the r
 
     
   
-
 
 
 
@@ -2642,7 +2626,6 @@ and their values in a Lucene Index.</p>
 
 
 
-
  </p>
 <p>Counts events/records in the stream.
 An event/record is taken to be an XML element that is at the first level below the root element, i.e. for &rsquo;event-logging:3&rsquo; XML this means the <code>&lt;Event&gt;</code> element.</p>
@@ -2725,7 +2708,6 @@ An event/record is taken to be an XML element that is at the first level below t
 
 
 
-
  </p>
 <p>Filters out records/events that have raised an Error or Fatal Error during processing.
 If all records/events have raised at least an Error then no XML events will be output.
@@ -2785,7 +2767,6 @@ for &rsquo;event-logging:3&rsquo; XML this means the <code>&lt;Event&gt;</code> 
 
     
   
-
 
 
 
@@ -2880,7 +2861,6 @@ Reference data values can be either simple strings or XML fragments.</p>
 
 
 
-
  </p>
 <p>Restricts the characters to a very simple set consisting of <code>[a-zA-Z0-9]</code> and <code>[ .:-_/]</code>.
 All other characters are replaced by <code>~NNN</code>, where <code>NNN</code> is a three digit codepoint for the replaced character.</p>
@@ -2938,7 +2918,6 @@ All other characters are replaced by <code>~NNN</code>, where <code>NNN</code> i
 
     
   
-
 
 
 
@@ -3051,7 +3030,6 @@ This ensures that if non-compliant data is generated, it will be flagged as in e
 
 
 
-
  </p>
 <p>Used in a search extraction pipeline for extracting field values that have not been stored in the index and where the field definitions are defined in the Index settings.
 Consumes XML events in the <code>records:2</code> namespace to convert them into a form so that they can be used in a Dashboard/Query/Analytic.</p>
@@ -3109,7 +3087,6 @@ Consumes XML events in the <code>records:2</code> namespace to convert them into
 
     
   
-
 
 
 
@@ -3215,7 +3192,6 @@ Consumes XML events in the <code>records:2</code> namespace to convert them into
 
 
 
-
  </p>
 <p>Splits multi-record source data into smaller groups of records prior to delivery to an XSLT.
 This allows the XSLT to process data more efficiently than loading a potentially huge input stream into memory.</p>
@@ -3250,6 +3226,69 @@ This allows the XSLT to process data more efficiently than loading a potentially
 </tr>
 </tbody>
 </table>
+<h3 id="statefilter">StateFilter</h3>
+<p>
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../docs/reference-section/pipeline-elements#statefilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="StateFilter &#34;StateFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="State store"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:red" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">StateFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+ </p>
+<p>Takes XML input (conforming to the reference-data:2 schema) and loads the data into the State Store.
+Reference data values can be either simple strings or XML fragments.</p>
 <h3 id="statisticsfilter">StatisticsFilter</h3>
 <p>
 
@@ -3304,7 +3343,6 @@ This allows the XSLT to process data more efficiently than loading a potentially
 
     
   
-
 
 
 
@@ -3386,7 +3424,6 @@ This allows the XSLT to process data more efficiently than loading a potentially
 
     
   
-
 
 
 
@@ -3486,7 +3523,6 @@ This allows the XSLT to process data more efficiently than loading a potentially
 
 
 
-
  </p>
 <blockquote>
 <p>TODO - Add description</p>
@@ -3564,7 +3600,6 @@ This allows the XSLT to process data more efficiently than loading a potentially
 
     
   
-
 
 
 
@@ -3675,7 +3710,6 @@ The output data can then be fed to a Destination.</p>
 
 
 
-
  </p>
 <p>Writer to convert XML data conforming to the <a href="http://www.w3.org/2013/XSL/json">http://www.w3.org/2013/XSL/json</a> XML Schema into JSON format.</p>
 <p><strong>Element properties:</strong></p>
@@ -3757,7 +3791,6 @@ The output data can then be fed to a Destination.</p>
 
     
   
-
 
 
 
@@ -3851,7 +3884,6 @@ The output data can then be fed to a Destination.</p>
 
     
   
-
 
 
 
@@ -3966,7 +3998,6 @@ This could be a file on a file system or to Stroom&rsquo;s stream store.</p>
 
 
 
-
  </p>
 <p>Consume XML documents in the <code>annotation:1</code> namespace and writes them as Stroom Annotations.
 Allows for the annotating of events that meet some criteria.</p>
@@ -4030,7 +4061,6 @@ Allows for the annotating of events that meet some criteria.</p>
 
 
 
-
  </p>
 <p>A destination used to write an output stream to a file on the file system.
 If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it will pick one at random to write to.</p>
@@ -4045,6 +4075,12 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>compressionMethod</td>
+<td>Compression method to apply, if compression is enabled. Supported values: bzip2, deflate, gz, lz4-block, lz4-framed, lzma, pack200, snappy-framed, xz, zip, zstd.</td>
+<td>gz</td>
+<td>String</td>
+</tr>
 <tr>
 <td>filePermissions</td>
 <td>Set file system permissions of finished files (example: &lsquo;rwxr&ndash;r&ndash;&rsquo;)</td>
@@ -4077,7 +4113,7 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 </tr>
 <tr>
 <td>useCompression</td>
-<td>Apply GZIP compression to output files</td>
+<td>Apply compression to output files.</td>
 <td>false</td>
 <td>Boolean</td>
 </tr>
@@ -4137,7 +4173,6 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 
     
   
-
 
 
 
@@ -4256,7 +4291,6 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 
 
 
-
  </p>
 <p>A destination used to write an output stream to a remote HTTP(S) server.</p>
 <p>This element should be preferred over the deprecated 
@@ -4318,7 +4352,6 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 
 
 
-
 .</p>
 <p><strong>Element properties:</strong></p>
 <table>
@@ -4332,8 +4365,14 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 </thead>
 <tbody>
 <tr>
+<td>compressionMethod</td>
+<td>Compression method to apply, if compression is enabled. Supported values: bzip2, deflate, gz, lz4-block, lz4-framed, lzma, pack200, snappy-framed, xz, zip, zstd.</td>
+<td>gz</td>
+<td>String</td>
+</tr>
+<tr>
 <td>connectionTimeout</td>
-<td>How long to wait before we abort sending data due to connection timeout</td>
+<td>How long to wait before we abort sending data due to connection timeout. The timeout is specified as either milliseconds, e.g. &lsquo;60000&rsquo; or with a duration suffix, e.g. &lsquo;500ms&rsquo;, &lsquo;2s&rsquo;, &lsquo;1m&rsquo;, etc.</td>
 <td>-</td>
 <td>String</td>
 </tr>
@@ -4345,19 +4384,19 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 </tr>
 <tr>
 <td>forwardChunkSize</td>
-<td>Should data be sent in chunks and if so how big should the chunks be</td>
+<td>Should data be sent in chunks and if so how big should the chunks be. Size is either specified in bytes e.g. &lsquo;1024&rsquo; or with a IEC unit suffix, e.g. &lsquo;1K&rsquo;, &lsquo;1M&rsquo;, &lsquo;1G&rsquo;, etc.</td>
 <td>-</td>
 <td>String</td>
 </tr>
 <tr>
 <td>forwardUrl</td>
-<td>The URL to send data to</td>
+<td>The URL to send data to.</td>
 <td>-</td>
 <td>String</td>
 </tr>
 <tr>
 <td>hostnameVerificationEnabled</td>
-<td>Verify host names</td>
+<td>Set this to true to verify that the destination host name matches against the host names in the certificate supplied by the destination server.</td>
 <td>true</td>
 <td>Boolean</td>
 </tr>
@@ -4366,6 +4405,18 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <td>Provide stream metadata as HTTP headers</td>
 <td>true</td>
 <td>Boolean</td>
+</tr>
+<tr>
+<td>httpHeadersStreamMetaDataAllowList</td>
+<td>Comma delimited list of stream meta data keys to include as HTTP headers. Only works when httpHeadersIncludeStreamMetaData is set to true. If empty all headers are sent, unless httpHeadersStreamMetaDataDenyList is used. If httpHeadersStreamMetaDataAllowList contains keys, httpHeadersStreamMetaDataDenyList is ignored.</td>
+<td>-</td>
+<td>String</td>
+</tr>
+<tr>
+<td>httpHeadersStreamMetaDataDenyList</td>
+<td>Comma delimited list of stream meta data keys to exclude as HTTP headers. Only works when httpHeadersIncludeStreamMetaData is set to true. If empty all headers are sent, unless httpHeadersStreamMetaDataAllowList is used. If httpHeadersStreamMetaDataAllowList contains keys, httpHeadersStreamMetaDataDenyList is ignored.</td>
+<td>-</td>
+<td>String</td>
 </tr>
 <tr>
 <td>httpHeadersUserDefinedHeader1</td>
@@ -4399,31 +4450,31 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 </tr>
 <tr>
 <td>keyStoreType</td>
-<td>The key store type</td>
+<td>The key store type. Valid values are [&lsquo;JCEKS&rsquo;, &lsquo;JKS&rsquo;, &lsquo;DKS&rsquo;, &lsquo;PKCS11&rsquo;, &lsquo;PKCS12&rsquo;].</td>
 <td>JKS</td>
 <td>String</td>
 </tr>
 <tr>
 <td>logMetaKeys</td>
-<td>Which meta data values will be logged in the send log</td>
+<td>Specifies Which meta data keys will have their values logged in the send log. A Comma delimited string of keys.</td>
 <td>guid,feed,system,environment,remotehost,remoteaddress</td>
 <td>String</td>
 </tr>
 <tr>
 <td>readTimeout</td>
-<td>How long to wait for data to be available before closing the connection</td>
+<td>How long to wait for data to be available before closing the connection. The timeout is specified as either milliseconds, e.g. &lsquo;60000&rsquo; or with a duration suffix, e.g. &lsquo;500ms&rsquo;, &lsquo;2s&rsquo;, &lsquo;1m&rsquo;, etc.</td>
 <td>-</td>
 <td>String</td>
 </tr>
 <tr>
 <td>requestMethod</td>
-<td>The request method, e.g. POST</td>
+<td>The HTTP request method. Valid values are GET, POST, HEAD, OPTIONS, PUT, DELETE and TRACE.</td>
 <td>POST</td>
 <td>String</td>
 </tr>
 <tr>
 <td>rollSize</td>
-<td>When the current output exceeds this size it will be closed and a new one created.</td>
+<td>When the current output exceeds this size it will be closed and a new one created. Size is either specified in bytes e.g. &lsquo;1024&rsquo; or with a IEC unit suffix, e.g. &lsquo;1K&rsquo;, &lsquo;1M&rsquo;, &lsquo;1G&rsquo;, etc.</td>
 <td>-</td>
 <td>String</td>
 </tr>
@@ -4459,7 +4510,7 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 </tr>
 <tr>
 <td>trustStoreType</td>
-<td>The trust store type</td>
+<td>The trust store type Valid values are [&lsquo;JCEKS&rsquo;, &lsquo;JKS&rsquo;, &lsquo;DKS&rsquo;, &lsquo;PKCS11&rsquo;, &lsquo;PKCS12&rsquo;].</td>
 <td>JKS</td>
 <td>String</td>
 </tr>
@@ -4467,6 +4518,12 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 <td>useCompression</td>
 <td>Should data be compressed when sending</td>
 <td>true</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>useContentEncodingHeader</td>
+<td>Whether to use the &lsquo;Content-Encoding&rsquo; HTTP header when useCompression is &rsquo;true&rsquo;. If &lsquo;false&rsquo; (the default), the &lsquo;Compression&rsquo; header will be used, which is supported by .Stroom/Stroom-Proxy destinations. &lsquo;Content-Encoding&rsquo; would be required for other destinations, but is only applicable for compression types &lsquo;gz&rsquo;, &lsquo;zstd&rsquo; or &lsquo;deflate&rsquo;.</td>
+<td>false</td>
 <td>Boolean</td>
 </tr>
 <tr>
@@ -4537,7 +4594,6 @@ If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it wil
 
 
 
-
  </p>
 <p>A destination used to write an output stream to a file on the file system.
 If multiple paths are specified in the &lsquo;outputPaths&rsquo; property it will pick one at random to write to.
@@ -4555,6 +4611,12 @@ On system shutdown all active files will be rolled.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>compressionMethod</td>
+<td>Compression method to apply, if compression is enabled. Supported values: bzip2, deflate, gz, lz4-block, lz4-framed, lzma, pack200, snappy-framed, xz, zip, zstd.</td>
+<td>gz</td>
+<td>String</td>
+</tr>
 <tr>
 <td>fileName</td>
 <td>Choose the name of the file to write.</td>
@@ -4665,7 +4727,6 @@ On system shutdown all active files will be rolled.</p>
 
 
 
-
  </p>
 <p>A destination used to write one or more output streams to a new stream which is then rolled when it reaches a certain size or age.
 A new stream will be created after the size or age criteria has been met.
@@ -4725,6 +4786,129 @@ On system shutdown all active streams will be rolled.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="s3appender">S3Appender</h3>
+<p>
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../docs/reference-section/pipeline-elements#s3appender" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="S3Appender &#34;S3Appender&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="S3"><svg viewBox="0 0 70 70" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="m63.95 15.786c0 4.006-12.963 7.238-28.949 7.238-15.988 0-28.951-3.232-28.951-7.238l9.65 43.839c0 2.672 8.637 4.826 19.301 4.826 10.662 0 19.299-2.154 19.299-4.826l9.65-43.839z" clip-rule="evenodd" fill="var(--icon-colour__green)" fill-rule="evenodd"/><path d="m63.95 12.786c0-4.004-12.963-7.237-28.949-7.237-15.988 0-28.951 3.233-28.951 7.237 0 4.006 12.963 7.238 28.951 7.238 15.986 0 28.949-3.232 28.949-7.238z" clip-rule="evenodd" fill="var(--icon-colour__green)" fill-rule="evenodd"/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">S3Appender</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+ </p>
+<p>A destination used to write an output stream to an S3 bucket.</p>
+<p><strong>Element properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default Value</th>
+<th>Value Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bucketNamePattern</td>
+<td>Set the bucket name pattern if you want to override the one provided by the S3 config.</td>
+<td>-</td>
+<td>String</td>
+</tr>
+<tr>
+<td>compressionMethod</td>
+<td>Compression method to apply, if compression is enabled. Supported values: bzip2, deflate, gz, lz4-block, lz4-framed, lzma, pack200, snappy-framed, xz, zip, zstd.</td>
+<td>gz</td>
+<td>String</td>
+</tr>
+<tr>
+<td>keyNamePattern</td>
+<td>Set the key name pattern if you want to override the one provided by the S3 config.</td>
+<td>${type}/${year}/${month}/${day}/${idPath}/${feed}/${idPadded}.gz</td>
+<td>String</td>
+</tr>
+<tr>
+<td>rollSize</td>
+<td>When the current output object exceeds this size it will be closed and a new one created.</td>
+<td>-</td>
+<td>String</td>
+</tr>
+<tr>
+<td>s3Config</td>
+<td>The S3 bucket config to use.</td>
+<td>-</td>
+<td>Document</td>
+</tr>
+<tr>
+<td>splitAggregatedStreams</td>
+<td>Choose if you want to split aggregated streams into separate output objects.</td>
+<td>false</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>splitRecords</td>
+<td>Choose if you want to split individual records into separate output objects.</td>
+<td>false</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>useCompression</td>
+<td>Apply compression to output objects.</td>
+<td>true</td>
+<td>Boolean</td>
+</tr>
+</tbody>
+</table>
 <h3 id="standardkafkaproducer">StandardKafkaProducer</h3>
 <p>
 
@@ -4779,7 +4963,6 @@ On system shutdown all active streams will be rolled.</p>
 
     
   
-
 
 
 
@@ -4868,7 +5051,6 @@ For each <code>&lt;kafkaRecord&gt;</code> element converts it into a Kafka messa
 
     
   
-
 
 
 
@@ -4993,7 +5175,6 @@ The configuration allows for starting a new stream once a size threshold is reac
 
 
 
-
  </p>
 <p>This element is deprecated and should not be used.</p>
 <p><strong>Element properties:</strong></p>
@@ -5037,7 +5218,7 @@ The configuration allows for starting a new stream once a size threshold is reac
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 2, 2024: <a href="https://github.com/gchq/stroom-docs/commit/ce9a73e926ef133ee87d03f4dad3fae5e6366ab4">Merge branch &#39;7.4&#39; into 7.5 (ce9a73e)</a>
+  Last modified October 18, 2024: <a href="https://github.com/gchq/stroom-docs/commit/9e0bd45f605e868358a271680eb3ccef2f050fb6">Add VS code link to deny list (9e0bd45)</a>
 </div>
 
 </div>
