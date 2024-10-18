@@ -23,8 +23,10 @@ file_deny_list=(
 )
 
 # Any link locations to not check
+# The VS Code one seems to 403 most of the time, may be rate limited?
 url_deny_list=(
   "https://github.com/gchq/stroom/issues/\1"
+  "https://code.visualstudio.com/docs/editor/userdefinedsnippets"
 )
 
 indent="    "
