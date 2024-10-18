@@ -242,7 +242,7 @@ Very bad
 
 ### Characters Anywhere Matching
 
-If the user input is prefixed with a `~` (tilde) character then characters anywher matching will be employed.
+If the user input is prefixed with a `~` (tilde) character then characters anywhere matching will be employed.
 The matching is case insensitive.
 
 **User input**: `bad`
