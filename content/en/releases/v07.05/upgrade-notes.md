@@ -159,6 +159,119 @@ Note, the `legacy` module will run first (if present) then the other module will
 It is not possible to display the content here.
 The file can be viewed on : {{< external-link "GitHub" "https://github.com/gchq/stroom/tree/7.5/stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java" >}}
 
+#### Module `stroom-docstore`
+
+##### Script `V07_05_00_005__Add_index_on_doc.sql`
+
+**Path**: `stroom-docstore/stroom-docstore-impl-db/src/main/resources/stroom/docstore/impl/db/migration/V07_05_00_005__Add_index_on_doc.sql`
+
+```sql
+-- ------------------------------------------------------------------------
+-- Copyright 2022 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- stop note level warnings about objects (not)? existing
+SET @old_sql_notes=@@sql_notes, sql_notes=0;
+
+-- --------------------------------------------------
+
+DELIMITER $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS docstore_run_sql $$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE docstore_run_sql (
+    p_sql_stmt varchar(1000)
+)
+BEGIN
+
+    SET @sqlstmt = p_sql_stmt;
+
+    SELECT CONCAT('Running sql: ', @sqlstmt);
+
+    PREPARE stmt FROM @sqlstmt;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS docstore_create_non_unique_index$$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE docstore_create_non_unique_index (
+    p_table_name varchar(64),
+    p_index_name varchar(64),
+    p_index_columns varchar(64)
+)
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.statistics
+    WHERE table_schema = database()
+    AND table_name = p_table_name
+    AND index_name = p_index_name;
+
+    IF object_count = 0 THEN
+        CALL docstore_run_sql(CONCAT(
+            'create index ', p_index_name,
+            ' on ', database(), '.', p_table_name,
+            ' (', p_index_columns, ')'));
+    ELSE
+        SELECT CONCAT(
+            'Index ',
+            p_index_name,
+            ' already exists on table ',
+            database(),
+            '.',
+            p_table_name);
+    END IF;
+END $$
+
+-- --------------------------------------------------
+
+DELIMITER ;
+
+-- --------------------------------------------------
+
+-- Improve lookup by name and to remove need to hit the table when we
+-- list all docs by type.
+CALL docstore_create_non_unique_index(
+    "doc",
+    "doc_type_name_uuid_idx",
+    "type, name, uuid");
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS docstore_create_non_unique_index;
+
+DROP PROCEDURE IF EXISTS docstore_run_sql;
+
+-- --------------------------------------------------
+
+
+-- Reset to the original value
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+```
+
+
 #### Module `stroom-node`
 
 ##### Script `V07_05_00_005__add_build_ver_last_boot.sql`
@@ -263,3 +376,276 @@ SET SQL_NOTES=@OLD_SQL_NOTES;
 -- vim: set tabstop=4 shiftwidth=4 expandtab:
 
 ```
+
+
+#### Module `stroom-security`
+
+##### Script `V07_05_00_005__api_key_relax_uniqeness.sql`
+
+**Path**: `stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_05_00_005__api_key_relax_uniqeness.sql`
+
+```sql
+-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+-- --------------------------------------------------
+
+DELIMITER $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_run_sql $$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE security_run_sql (
+    p_sql_stmt varchar(1000)
+)
+BEGIN
+
+    SET @sqlstmt = p_sql_stmt;
+
+    SELECT CONCAT('Running sql: ', @sqlstmt);
+
+    PREPARE stmt FROM @sqlstmt;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_create_non_unique_index$$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE security_create_non_unique_index (
+    p_table_name varchar(64),
+    p_index_name varchar(64),
+    p_index_columns varchar(64)
+)
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.statistics
+    WHERE table_schema = database()
+    AND table_name = p_table_name
+    AND index_name = p_index_name;
+
+    IF object_count = 0 THEN
+        CALL security_run_sql(CONCAT(
+            'create index ', p_index_name,
+            ' on ', database(), '.', p_table_name,
+            ' (', p_index_columns, ')'));
+    ELSE
+        SELECT CONCAT(
+            'Index ',
+            p_index_name,
+            ' already exists on table ',
+            database(),
+            '.',
+            p_table_name);
+    END IF;
+END $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_drop_index $$
+
+-- e.g. security_drop_index('MY_TABLE', 'MY_IDX');
+CREATE PROCEDURE security_drop_index (
+    p_table_name varchar(64),
+    p_index_name varchar(64)
+)
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.statistics
+    WHERE table_schema = database()
+    AND table_name = p_table_name
+    AND index_name = p_index_name;
+
+    IF object_count = 0 THEN
+        SELECT CONCAT(
+            'Index ',
+            p_index_name,
+            ' does not exist on table ',
+            database(),
+            '.',
+            p_table_name);
+    ELSE
+        CALL security_run_sql(CONCAT(
+            'alter table ', database(), '.', p_table_name,
+            ' drop index ', p_index_name));
+    END IF;
+END $$
+
+-- --------------------------------------------------
+
+DELIMITER ;
+
+-- --------------------------------------------------
+
+-- We need to make this column case sensitive (_as_cs) else we limit the range of keys we can generate
+-- as the keys have mixed case.
+-- Note the api_key_prefix col contains lower case data so can stay as _ai_ci
+ALTER TABLE api_key MODIFY
+    api_key_hash VARCHAR(255)
+      CHARACTER SET utf8mb4
+      COLLATE utf8mb4_0900_as_cs
+      NOT NULL;
+
+-- Drop the old unique index so we can re-create it as non-unique
+CALL security_drop_index(
+    "api_key",
+    "api_key_prefix_idx");
+
+-- We have to look up records by prefix. This will usually return 1 row
+-- but may return >1. We test the hash of all returned rows.
+CALL security_create_non_unique_index(
+    "api_key",
+    "api_key_prefix_idx",
+    "api_key_prefix");
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_create_non_unique_index;
+
+DROP PROCEDURE IF EXISTS security_drop_index;
+
+DROP PROCEDURE IF EXISTS security_run_sql;
+
+-- --------------------------------------------------
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+```
+
+
+##### Script `V07_05_00_010__api_key_add_algo_column.sql`
+
+**Path**: `stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_05_00_010__api_key_add_algo_column.sql`
+
+```sql
+-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+-- --------------------------------------------------
+
+DELIMITER $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_run_sql $$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE security_run_sql (
+    p_sql_stmt varchar(1000)
+)
+BEGIN
+
+    SET @sqlstmt = p_sql_stmt;
+
+    SELECT CONCAT('Running sql: ', @sqlstmt);
+
+    PREPARE stmt FROM @sqlstmt;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_add_column$$
+
+CREATE PROCEDURE security_add_column (
+    p_table_name varchar(64),
+    p_column_name varchar(64),
+    p_column_type_info varchar(64) -- e.g. 'varchar(255) default NULL'
+)
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = p_table_name
+    AND column_name = p_column_name;
+
+    IF object_count = 0 THEN
+        CALL security_run_sql(CONCAT(
+            'alter table ', database(), '.', p_table_name,
+            ' add column ', p_column_name, ' ', p_column_type_info));
+    ELSE
+        SELECT CONCAT(
+            'Column ',
+            p_column_name,
+            ' already exists on table ',
+            database(),
+            '.',
+            p_table_name);
+    END IF;
+END $$
+
+
+-- --------------------------------------------------
+
+DELIMITER ;
+
+-- --------------------------------------------------
+
+-- idempotent
+CALL security_add_column(
+    "api_key",
+    "hash_algorithm",
+    'tinyint NOT NULL default 0');
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_add_column;
+
+DROP PROCEDURE IF EXISTS security_run_sql;
+
+-- --------------------------------------------------
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+```
+
