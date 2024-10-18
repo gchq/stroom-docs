@@ -75,6 +75,14 @@ Defines the connection details for a single Kafka cluster.
 This Kafka Configuration Document can then be used by one or more {{< pipe-elm "StandardKafkaProducer" >}} pipeline elements.
 
 
+### S3 Configuration
+
+* Icon: {{< stroom-icon "document/S3.svg" >}}
+* Type: `S3Config`
+
+Defines the config for S3
+
+
 ### Script
 
 * Icon: {{< stroom-icon "document/Script.svg" >}}
@@ -82,6 +90,14 @@ This Kafka Configuration Document can then be used by one or more {{< pipe-elm "
 
 Contains a Javascript script that is used as the source for a [visualisation]({{< relref "#visualisation" >}}) Document.
 Scripts can have dependencies on other Script Documents, e.g. to allow re-use of common code.
+
+
+### ScyllaDB
+
+* Icon: {{< stroom-icon "document/ScyllaDb.svg" >}}
+* Type: `ScyllaDB`
+
+Defines the connection details for a ScyllaDB state store instance.
 
 
 ### Visualisation
@@ -170,6 +186,14 @@ Solr Index represents an index on a Solr cluster.
 It defines the connection details for connecting to that cluster and the structure of the index.
 It is used by the {{< pipe-elm "SolrIndexingFilter" >}} pipeline element.
 {{% see-also %}}[Solr Integration]({{< relref "docs/user-guide/indexing/solr" >}}){{% /see-also %}}
+
+
+### State Store
+
+* Icon: {{< stroom-icon "document/StateStore.svg" >}}
+* Type: `StateStore`
+
+Defines a place to store state
 
 
 ### Statistic Store
