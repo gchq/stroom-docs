@@ -152,7 +152,7 @@ Note, the `legacy` module will run first (if present) then the other module will
 
 #### Module `stroom-app`
 
-#### Script `V07_05_00_005__Orphaned_Doc_Perms.java`
+##### Script `V07_05_00_005__Orphaned_Doc_Perms.java`
 
 **Path**: `stroom-app/src/main/java/stroom/app/db/migration/V07_05_00_005__Orphaned_Doc_Perms.java`
 
