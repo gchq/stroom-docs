@@ -1,7 +1,7 @@
 ---
-title: "Security"
-linkTitle: "Security"
-weight: 140
+title: "Deployment"
+linkTitle: "Deployment"
+weight: 10
 date: 2021-07-27
 tags:
   - security

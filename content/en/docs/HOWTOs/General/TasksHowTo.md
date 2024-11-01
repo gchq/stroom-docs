@@ -18,7 +18,7 @@ run in the background within Stroom. This HOWTO demonstrates how to manage these
 ## Assumptions
 
 - All Sections
-  - an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
+  - an account with the `Administrator` [Application Permission]({{< relref "docs/user-guide/security/app-permissions.md" >}}) is currently logged in.
 - Proxy Aggregation Tasks
   - we have a multi node Stroom cluster with two nodes, `stroomp00` and `stroomp01`.
 - Stream Processor Tasks
