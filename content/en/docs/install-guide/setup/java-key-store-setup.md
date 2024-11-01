@@ -1,7 +1,7 @@
 ---
 title: "Java Key Store Setup"
 linkTitle: "Java Key Store Setup"
-#weight:
+weight: 30
 date: 2021-08-20
 tags: 
   - TODO

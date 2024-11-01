@@ -1,7 +1,7 @@
 ---
 title: "MySQL Setup"
 linkTitle: "MySQL Setup"
-#weight:
+weight: 10
 date: 2021-08-20
 tags:
   - TODO
