@@ -118,7 +118,7 @@ if (!doNotTrack) {
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.213a19b1bff645ab565a0a714ff9a6bb.json"
+    data-offline-search-index-json-src="../../../offline-search-index.d8375f1739091b8ed4284a890efdd0cf.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -323,7 +323,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7: <a href="#pg-175e47591d90f91548b80141b6d7c4d2">Java Keystores</a></li>
+<li>7: <a href="#pg-16cf08c01f1ad4d2af63bd9048478729">Token Authentication</a></li>
+
+
+    
+  
+    
+    
+	
+<li>8: <a href="#pg-175e47591d90f91548b80141b6d7c4d2">Java Keystores</a></li>
 
 
     
@@ -1240,19 +1248,29 @@ To convert a certificate (.crt) and private key (.key) into a p12 format use the
 	<p>The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST. These arguments are case insensitive.</p>
 <ul>
 <li>
-<p><code>System</code> - The name by which the system is known within the organisation, e.g. <code>PAYROLL_SYSTEM</code>. This could be the name of a project/service or capability.</p>
+<p><code>System</code> - The name by which the system is known within the organisation, e.g. <code>PAYROLL_SYSTEM</code>.
+This could be the name of a project/service or capability.</p>
 </li>
 <li>
-<p><code>Environment</code> - A means to identify the deployed instance of a system. This may indicate the deployment status, e.g. DEV, REF, LIVE, OPS, etc., and/or the location where the instance is deployed. An environment may be a combination of these attributes separated with an underscore.</p>
+<p><code>Environment</code> - A means to identify the deployed instance of a system.
+This may indicate the deployment status, e.g. DEV, REF, LIVE, OPS, etc., and/or the location where the instance is deployed.
+An environment may be a combination of these attributes separated with an underscore.</p>
 </li>
 <li>
-<p><code>Feed</code> - The name of the feed this data relates to. This is mandatory and must match a feed defined within Stroom in order for Stroom to accept the data and know what to do with it.</p>
+<p><code>Feed</code> - The name of the feed this data relates to.
+This is mandatory and must match a feed defined within Stroom in order for Stroom to accept the data and know what to do with it.</p>
 </li>
 <li>
-<p><code>Compression</code> - This token is optionally used when the POST payload is compressed with either gzip of zip compression. Value of <code>ZIP</code> and <code>GZIP</code> are valid. <strong>Note</strong>: The <code>Compression</code> token MUST not be used in conjunction with the standard HTTP header token <code>Content-Encoding</code> otherwise stroom will be unable to un-compress the data. Use either <code>Compression:GZIP</code> or <code>Content-Encoding:gzip</code>, not both. Using <code>Compression</code> is preferred.</p>
+<p><code>Compression</code> - This token is optionally used when the POST payload is compressed with either gzip of zip compression.
+Value of <code>ZIP</code> and <code>GZIP</code> are valid. <strong>Note</strong>: The <code>Compression</code> token MUST not be used in conjunction with the standard HTTP header token <code>Content-Encoding</code> otherwise stroom will be unable to un-compress the data. Use either <code>Compression:GZIP</code> or <code>Content-Encoding:gzip</code>, not both. Using <code>Compression</code> is preferred.</p>
 </li>
 <li>
-<p><code>EffectiveTime</code> - This is only applicable to reference data. It is used to indicate the point in time that the reference data is applicable to, i.e. all event data that uses the reference data that is created after the effective time will use the reference data until a new reference data item arrives with a later effective time. <strong>Note</strong>: This argument must be in <em>ISO 8601</em> date time format, i.e: <code>yyyy-MM-ddTHH:mm:ss.sssZ</code>.</p>
+<p><code>EffectiveTime</code> - This is only applicable to reference data.
+It is used to indicate the point in time that the reference data is applicable to, i.e. all event data that uses the reference data that is created after the effective time will use the reference data until a new reference data item arrives with a later effective time.
+<strong>Note</strong>: This argument must be in <em>ISO 8601</em> date time format, i.e: <code>yyyy-MM-ddTHH:mm:ss.sssZ</code>.</p>
+</li>
+<li>
+<p><code>Authorization</code> - This is only applicable when Stroom/Stroom-Proxy are configured for token based authentication.</p>
 </li>
 </ul>
 <p>Example header arguments for a feed called <em>MY_SYSTEM-EVENTS</em> from system <em>MY_SYSTEM</em> and environment <em>OPS</em></p>
@@ -1461,7 +1479,42 @@ Data should only be removed from the client system when it has been sent success
 
 <div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
     
-  <h1 id="pg-175e47591d90f91548b80141b6d7c4d2">7 - Java Keystores</h1>
+  <h1 id="pg-16cf08c01f1ad4d2af63bd9048478729">7 - Token Authentication</h1>
+    <div class="lead">How to send data using token based authentication.</div>
+	<p>As an alternative to using SSL certificates for authentication when sending data to the <code>/datafeed</code> endpoint, you can use a 
+
+
+
+<span class="glossary-link">
+  <a href="../../../docs/glossary/#token" title="Glossary entry for JSON Web Token">
+    <span>JSON Web Token</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+.
+Using a token for authentication requires that Stroom or Stroom-Proxy have been configured with <code>identityProviderType</code> set to <code>EXTERNAL_IDP</code> (see <a href="../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a> for details on the configuration for an external IDP and how to generate a token).</p>
+<p>To attach a token to the request you just need to set the <a href="../../../docs/sending-data/header-arguments/">HTTP header</a> <code>Authorization</code> with a value of the form</p>
+<pre><code class="language-text">Bearer YOUR_TOKEN_GOES_HERE
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '8.'; page-break-before: always">
+    
+  <h1 id="pg-175e47591d90f91548b80141b6d7c4d2">8 - Java Keystores</h1>
     <div class="lead">How to create java key/trust stores for use with Java client applications.</div>
 	<p>There are many times when you may wish to create a Java keystore from certificates and keys and vice versa. This guide aims to explain how this can be done.</p>
 <h2 id="import">Import</h2>

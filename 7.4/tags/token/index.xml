@@ -1,0 +1,177 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – token</title>
+    <link>/tags/token/</link>
+    <description>Recent content in token on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 30 Dec 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/token/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Tokens for API use</title>
+      <link>/docs/install-guide/setup/open-id/tokens-for-api/</link>
+      <pubDate>Fri, 25 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/setup/open-id/tokens-for-api/</guid>
+      <description>
+        
+        
+        
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+
+    &lt;p&gt;We strongly recommend you install &lt;em&gt;jq&lt;/em&gt; if you are working with JSON responses from the IDP.
+It allows you to parse and extract parts of the JSON response.&lt;/p&gt;
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://stedolan.github.io/jq/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;External link to https://stedolan.github.io/jq/&#34;&gt;
+    &lt;span&gt;https://stedolan.github.io/jq/&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;creating-a-user-access-token&#34;&gt;Creating a user access token&lt;/h2&gt;
+&lt;p&gt;If a user wants to use the REST API they will need to create a token for authentication/authorisation in API calls.
+Any calls to the REST API will have the same permissions that the user has within Stroom.&lt;/p&gt;
+&lt;p&gt;The following excerpt of shell commands shows how you can get an access/refresh token pair for a user and then later use the refresh token to obtain a new access token.
+It also shows how you can extract the expiry date/time from a token using &lt;em&gt;jq&lt;/em&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;get_jwt_expiry() {
+  jq \
+    --raw-input \
+    --raw-output \
+    &#39;split(&amp;quot;.&amp;quot;) | .[1] | @base64d | fromjson | .exp | todateiso8601&#39; \
+    &amp;lt;&amp;lt;&amp;lt; &amp;quot;${1}&amp;quot;
+}
+
+# Fetch a new set of tokens (id, access and refresh) for the user
+response=&amp;quot;$( \
+  curl \
+    --silent \
+    --request POST \
+    --header &#39;Content-Type: application/x-www-form-urlencoded&#39; \
+    --data-urlencode &#39;client_id=admin-cli&#39; \
+    --data-urlencode &#39;grant_type=password&#39; \
+    --data-urlencode &#39;scope=openid&#39; \
+    --data-urlencode &#39;username=jbloggs&#39; \
+    --data-urlencode &#39;password=password&#39; \
+    &#39;http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token&#39; )&amp;quot;
+
+# Extract the individual tokens from the response
+access_token=&amp;quot;$( jq -r &#39;.access_token&#39; &amp;lt;&amp;lt;&amp;lt; &amp;quot;${response}&amp;quot; )&amp;quot;
+refresh_token=&amp;quot;$( jq -r &#39;.refresh_token&#39; &amp;lt;&amp;lt;&amp;lt; &amp;quot;${response}&amp;quot; )&amp;quot;
+
+# Output the tokens
+echo -e &amp;quot;\nAccess token (expiry $( get_jwt_expiry &amp;quot;${access_token}&amp;quot;)):\n${access_token}&amp;quot;
+echo -e &amp;quot;\nRefresh token (expiry $( get_jwt_expiry &amp;quot;${refresh_token}&amp;quot;)):\n${refresh_token}&amp;quot;
+
+# Fetch a new access token using the stored refresh token
+response=&amp;quot;$( \
+  curl \
+    --silent \
+    --request POST \
+    --header &#39;Content-Type: application/x-www-form-urlencoded&#39; \
+    --data-urlencode &#39;client_id=admin-cli&#39; \
+    --data-urlencode &#39;grant_type=refresh_token&#39; \
+    --data-urlencode &amp;quot;refresh_token=${refresh_token}&amp;quot; \
+    &#39;http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token&#39; )&amp;quot;
+
+access_token=&amp;quot;$( jq -r &#39;.access_token&#39; &amp;lt;&amp;lt;&amp;lt; &amp;quot;${response}&amp;quot; )&amp;quot;
+refresh_token=&amp;quot;$( jq -r &#39;.refresh_token&#39; &amp;lt;&amp;lt;&amp;lt; &amp;quot;${response}&amp;quot; )&amp;quot;
+
+echo -e &amp;quot;\nNew access token (expiry $( get_jwt_expiry &amp;quot;${access_token}&amp;quot;)):\n${access_token}&amp;quot;
+echo -e &amp;quot;\nNew refresh token (expiry $( get_jwt_expiry &amp;quot;${refresh_token}&amp;quot;)):\n${refresh_token}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The above example assumes that you have created a user called &lt;code&gt;jbloggs&lt;/code&gt; and a client ID &lt;code&gt;admin-cli&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Access tokens typically have a short life (of the order of minutes) while a refresh token will have a much longer life (maybe up to a year).
+Refreshing the token does not require re-authentication.&lt;/p&gt;
+&lt;h2 id=&#34;creating-a-service-account-token&#34;&gt;Creating a service account token&lt;/h2&gt;
+&lt;p&gt;If want another system to call one of Stroom&amp;rsquo;s APIs then it is likely that you will do that using a non-human service account (or processing user account).&lt;/p&gt;
+&lt;h3 id=&#34;creating-a-new-client-id&#34;&gt;Creating a new Client ID&lt;/h3&gt;
+&lt;p&gt;The client system needs to be represented by a Client ID in KeyCloak.
+To create a new Client ID, assuming the client system is called &lt;em&gt;System X&lt;/em&gt;, do the following in the KeyCloak admin UI.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;em&gt;Clients&lt;/em&gt; in the left pane.&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;Create client&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Set the &lt;em&gt;Client ID&lt;/em&gt; to be &lt;code&gt;system-x&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Set the &lt;em&gt;Name&lt;/em&gt; to be &lt;code&gt;System X&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Enable &lt;em&gt;Client Authentication&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Enable &lt;em&gt;Service accounts roles&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;em&gt;Save&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    By enabling &lt;em&gt;Service accounts role&lt;/em&gt;, KeyCloak will create a service account user called &lt;code&gt;service-account-system-x&lt;/code&gt;.
+Tokens will be created under this non-human user identity.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Open the &lt;em&gt;Credentials&lt;/em&gt; tab and copy the &lt;em&gt;Client secret&lt;/em&gt; for use later.
+Open the &lt;em&gt;Credentials&lt;/em&gt; tab and copy the &lt;em&gt;Client secret&lt;/em&gt; for use later.&lt;/p&gt;
+&lt;p&gt;To create an access token run the following shell commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;response=&amp;quot;$( \
+  curl \
+    --silent \
+    --request POST \
+    --header &#39;Content-Type: application/x-www-form-urlencoded&#39; \
+    --data-urlencode &#39;client_secret=k0BhYyvt6PHQqwKnnQpbL3KXVFHG0Wa1&#39; \
+    --data-urlencode &#39;client_id=system-x&#39; \
+    --data-urlencode &#39;grant_type=client_credentials&#39; \
+    --data-urlencode &#39;scope=openid&#39; \
+    &#39;http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token&#39; )&amp;quot;
+
+access_token=&amp;quot;$( jq -r &#39;.access_token&#39; &amp;lt;&amp;lt;&amp;lt; &amp;quot;${response}&amp;quot; )&amp;quot;
+refresh_token=&amp;quot;$( jq -r &#39;.refresh_token&#39; &amp;lt;&amp;lt;&amp;lt; &amp;quot;${response}&amp;quot; )&amp;quot;
+
+echo -e &amp;quot;\nAccess token:\n${access_token}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Where &lt;code&gt;client_secret&lt;/code&gt; is the &lt;em&gt;Client secret&lt;/em&gt; that you copied from KeyCloak earlier.&lt;/p&gt;
+&lt;p&gt;This access token can be refreshed in the same way as for a user access token, as described above.&lt;/p&gt;
+&lt;h2 id=&#34;using-access-tokens&#34;&gt;Using access tokens&lt;/h2&gt;
+&lt;p&gt;Access tokens can be used in calls the Stroom&amp;rsquo;s REST API or its datafeed API.
+The process of including the token in a HTTP request is described in &lt;a href=&#34;../../docs/user-guide/api/#authentication&#34;&gt;API Authentication&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Token Authentication</title>
+      <link>/docs/sending-data/token-authentication/</link>
+      <pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/sending-data/token-authentication/</guid>
+      <description>
+        
+        
+        &lt;p&gt;As an alternative to using SSL certificates for authentication when sending data to the &lt;code&gt;/datafeed&lt;/code&gt; endpoint, you can use a &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#token&#34; title=&#34;Glossary entry for JSON Web Token&#34;&gt;
+    &lt;span&gt;JSON Web Token&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;.
+Using a token for authentication requires that Stroom or Stroom-Proxy have been configured with &lt;code&gt;identityProviderType&lt;/code&gt; set to &lt;code&gt;EXTERNAL_IDP&lt;/code&gt; (see &lt;a href=&#34;../../docs/install-guide/setup/open-id/external-idp/&#34;&gt;External IDP&lt;/a&gt; for details on the configuration for an external IDP and how to generate a token).&lt;/p&gt;
+&lt;p&gt;To attach a token to the request you just need to set the &lt;a href=&#34;../../docs/sending-data/header-arguments/&#34;&gt;HTTP header&lt;/a&gt; &lt;code&gt;Authorization&lt;/code&gt; with a value of the form&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Bearer YOUR_TOKEN_GOES_HERE
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
