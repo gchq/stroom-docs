@@ -1,7 +1,7 @@
 ---
 title: "Java Keystores"
 linkTitle: "Java Keystores"
-weight: 60
+weight: 80
 date: 2021-07-27
 tags: 
   - keystore
