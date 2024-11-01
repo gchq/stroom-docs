@@ -17,7 +17,9 @@
 FROM klakegg/hugo:0.95.0-ext-alpine
 
 # Run separately so docker can cache the layer to speed up image creation
-RUN apk add --no-cache \
+RUN true \
+    && apk update \
+    && apk add --no-cache \
         bash \
         git
 
@@ -37,7 +39,8 @@ ARG USER_ID
 ARG GROUP_ID    
 
 # Docker can't cache this layer as it has variables in it.
-RUN echo "USER_ID: [$USER_ID]" \
+RUN true \
+    && echo "USER_ID: [$USER_ID]" \
     && echo "GROUP_ID: [$GROUP_ID]" \
     && echo \
     && echo "Ensuring group exists for group id [${GROUP_ID}]" \
@@ -60,9 +63,13 @@ RUN echo "USER_ID: [$USER_ID]" \
     && echo \
     && mkdir -p /builder/shared \
     && mkdir -p /hugo-cache \
-    && chown "${USER_ID}:${GROUP_ID}" /hugo-cache
+    && chown "${USER_ID}:${GROUP_ID}" /hugo-cache \
+    && mkdir -p /npm-cache \
+    && chown "${USER_ID}:${GROUP_ID}" /npm-cache \
+    && npm config set cache /npm-cache --global
 
 USER $USER_ID
 VOLUME /hugo-cache
+VOLUME /npm-cache
 
 # vim: set tabstop=4 shiftwidth=4 expandtab:

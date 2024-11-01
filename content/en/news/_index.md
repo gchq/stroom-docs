@@ -1,15 +1,16 @@
 ---
-title: "News / Releases"
-linkTitle: "News / Releases"
+title: "News"
+linkTitle: "News"
+weight: 50
 menu:
   main:
-    weight: 30
+    weight: 50
 cascade:
 - type: "blog"
 ---
 
 
-This is the **blog** section. It has two categories: News and Releases.
+This is the **blog** section.
 
 Files in these directories will be listed in reverse chronological order.
 

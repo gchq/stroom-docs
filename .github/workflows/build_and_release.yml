@@ -55,20 +55,26 @@ jobs:
       - name: Generate buildx cache key
         id: generate_buildx_cache_key
         run: |
-          echo "::set-output name=cache_key::$(./container_build/generate_buildx_cache_key.sh)"
+          echo "cache_key=$(./container_build/generate_buildx_cache_key.sh)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Cache Hugo Docker layers
         uses: actions/cache@v3
         with:
           path: /tmp/stroom_hugo_buildx_caches
-          key: ${{ runner.os }}-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
+          key: ${{ runner.os }}-hugo-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
 
       - name: Cache Puppeteer Docker layers
         uses: actions/cache@v3
         with:
           path: /tmp/stroom_puppeteer_buildx_caches
-          key: ${{ runner.os }}-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
+          key: ${{ runner.os }}-puppeteer-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
+
+      - name: Cache PUML Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/stroom_puml_buildx_caches
+          key: ${{ runner.os }}-puml-buildx-${{ steps.generate_buildx_cache_key.outputs.cache_key }}
 
       - name: Run full build
         id: run_build

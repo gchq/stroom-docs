@@ -271,7 +271,7 @@ Next, select the {{< pipe-elm "RollingFileAppender" "AUSrollingFileAppender" >}}
 * rolledFileName to be `fwd_${ms}.ready`
 
 Note that these settings are for demonstration purposes only and will depend on your unique Stroom instance's configuration.
-The outputPath can contain replacement variables to provide more structure if desired. {{< external-link "File Output substitution variables" "https://gchq.github.io/stroom-docs/user-guide/pipelines/file-output.html" >}}
+The outputPath can contain replacement variables to provide more structure if desired, see [File Output substitution variables]({{< relref "docs/user-guide/pipelines/file-output" >}}).
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-31.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline rollingFileAppender Edit Property completed{{< /screenshot >}}
 

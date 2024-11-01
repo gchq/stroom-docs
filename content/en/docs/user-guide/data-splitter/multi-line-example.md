@@ -10,7 +10,7 @@ description: >
 
 Example multi line file where records are split over may lines. There are various ways this data could be treated but this example forms a record from data created when some fictitious query starts plus the subsequent query results.
 
-## <a name="sec_1_4_1"></a>Input
+## Input
 
 ```text
 09/07/2016    14:49:36    User = user1
@@ -32,11 +32,15 @@ Example multi line file where records are split over may lines. There are variou
 09/07/2009    16:45:36    Line 4:   result4
 ```
 
-## <a name="sec_1_4_2"></a>Configuration
+## Configuration
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSplitter xmlns="data-splitter:3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd" version="3.0">
+<dataSplitter
+    xmlns="data-splitter:3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="data-splitter:3 file://data-splitter-v3.0.xsd"
+    version="3.0">
 
   <!-- Match each record. We want to treat the query and results as a single event so match the two sets of data separated by a double new line -->
   <regex pattern="\n*((.*\n)+?\n(.*\n)+?\n)|\n*(.*\n?)+">
@@ -86,11 +90,15 @@ Example multi line file where records are split over may lines. There are variou
 </dataSplitter>
 ```
 
-## <a name="sec_1_4_3"></a>Output
+## Output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<records xmlns="records:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="records:2 file://records-v2.0.xsd" version="2.0">
+<records
+    xmlns="records:2"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="records:2 file://records-v2.0.xsd"
+                version="2.0">
   <record>
     <data name="query">
       <data name="date" value="09/07/2016" />

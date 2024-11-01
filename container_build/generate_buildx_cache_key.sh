@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+#########################################################
+#  Generates a sha256 hash of all the docker source.    #
+#  This is so we can use it as a cache key for github   #
+#  actions caching and the buildx cache.                #
+#########################################################
+
+# For testing a specific uid/gid do something like:
+# ./container_build/generate_buildx_cache_key.sh 1001 12
+
 set -eo pipefail
 
 setup_echo_colours() {
@@ -55,30 +64,44 @@ main() {
     is_mac_os=false
   fi
 
-  user_id=
-  user_id="$(id -u)"
+  id=
+  id="$(id -u)"
+  user_id="${1:-$id}"
 
-  group_id=
-  group_id="$(id -g)"
+  gid=
+  gid="$(id -g)"
+  group_id="${2:-$gid}"
   local_repo_root="$(git rev-parse --show-toplevel)"
-  # This script may be running inside a container so first check if
-  # the env var has been set in the container
-  host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
+  
+  echo "Creating cache key with" \
+    "user_id: ${user_id}, group_id: ${group_id}" > /dev/stderr
+
+  files=(
+    "${local_repo_root}/container_build/runInHugoDocker.sh" \
+    "${local_repo_root}/container_build/runInPumlDocker.sh" \
+    "${local_repo_root}/container_build/runInPupeteerDocker.sh" \
+    "${local_repo_root}/container_build/docker_hugo/Dockerfile" \
+    "${local_repo_root}/container_build/docker_pdf/Dockerfile" \
+    "${local_repo_root}/container_build/docker_pdf/generate-pdf.js" \
+    "${local_repo_root}/container_build/docker_puml/Dockerfile" \
+    "${local_repo_root}/container_build/docker_puml/docker-entrypoint.sh" \
+    "${local_repo_root}/container_build/docker_puml/convert_puml_files.sh" \
+  )
+
 
   # Concat all the things that affect the docker image,
   # e.g. our local username or the dockerfile
   cache_key_source=
-  cache_key_source="$( \
-    cat \
-      "${local_repo_root}/container_build/runInHugoDocker.sh" \
-      "${local_repo_root}/container_build/runInPupeteerDocker.sh" \
-      "${local_repo_root}/container_build/docker_hugo/Dockerfile" \
-      "${local_repo_root}/container_build/docker_pdf/Dockerfile" \
-      "${local_repo_root}/container_build/docker_pdf/generate-pdf.js"
-    )"
-  cache_key_source="${host_abs_repo_dir}\n${user_id}\n${group_id}\n${cache_key_source}"
+  cache_key_source="$( cat "${files[@]}" )"
+  cache_key_source="${user_id}\n${group_id}\n${cache_key_source}"
 
-  #echo -e "${cache_key_source}" > "/tmp/hugo_source_$(date -u +"%FT%H%M%S")"
+  # Gen the sha256 for each file so we can spot which files are different
+  if [[ "${debug:-false}" = true && "${is_mac_os}" = false ]]; then
+    for file in "${files[@]}"; do
+      sha256sum "${file}" > /dev/stderr
+    done
+    echo -e "${cache_key_source}" > "/tmp/hugo_source_$(date -u +"%FT%H%M%S")"
+  fi
 
   # Make a hash of these things and effectively use this as the cache key for
   # buildx so any change makes it ignore a previous cache.

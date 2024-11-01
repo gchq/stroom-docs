@@ -112,7 +112,7 @@ Typically refers to an item that can be created in the Explorer Tree, e.g. a Fee
 
 This is a {{< glossary "Stream Type" >}} in Stroom.
 An _Events_ stream consists of processed/cooked data that has been demarcated into individual Events.
-Typically in Stroom an _Events_ stream will contain data conforming to the {{< external-link "event-logging XML Schema" "https://github.com/gchq/event-logging-schema">}} which provides a normalised form for all {{< glossary "Raw Events" >}} to be transformed into.
+Typically in Stroom an _Events_ stream will contain data conforming to the {{< external-link "event-logging XML Schema" "https://github.com/gchq/event-logging-schema" >}} which provides a normalised form for all {{< glossary "Raw Events" >}} to be transformed into.
 
 
 ## Explorer Tree
@@ -137,7 +137,7 @@ AND (
 ```
 Expression Trees are used in {{< glossary "Processor Filter" "Processor Filters" >}} and {{< glossary "Query" >}} expressions.
 
-See also [Dashboard Expressions]({{< relref "expressions" >}}).
+See also [Dashboard Expressions]({{< relref "docs/user-guide/dashboards/expressions" >}}).
 
 
 ## Feed
@@ -252,7 +252,7 @@ Re-Processing can be done for an individual Stream or multiple Streams using a {
 
 ## Records
 
-This is a {{< glossary "Stream Type" >}} for {{< glossary "Stream" "Streams" >}} containing data conforming to the {{< external-link "records:2 XML Schema" "https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/stroomContent/XML%20Schemas/records/records%20v2.0.XMLSchema.data.xsd" >}}.
+This is a {{< glossary "Stream Type" >}} for {{< glossary "Stream" "Streams" >}} containing data conforming to the {{< external-link "records:2 XML Schema" "https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/stroomContent/XML%20Schemas/records/records_v2_0.XMLSchema.47f062d9-8191-4535-b35b-74c6f020320f.data.xsd" >}}.
 It also refers more generally to XML conforming to the `records:2` XML Schema which is used in a number of places in Stroom, including as the output format for the {{< element "DSParser" >}} and input for the {{< element "IndexingFilter" >}}.
 
 

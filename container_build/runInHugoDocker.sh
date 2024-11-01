@@ -102,6 +102,7 @@ main() {
         "-c"  \
         "hugo server" \
       )
+        #"hugo server --cleanDestinationDir --watch" \
         #"hugo server --baseURL 'localhost:1313/stroom-docs'" \
       if [[ $# -eq 2 ]] && [[ "${2}" = "detach" ]]; then
         extra_docker_args=( "--detach" )
@@ -113,6 +114,7 @@ main() {
         "-c"  \
         "hugo --environment production" \
       )
+        #"hugo --environment production --cleanDestinationDir" \
         #"hugo --buildDrafts --baseURL '/stroom-docs'" \
     elif [[ $# -ge 1 ]] && [[ "$1" = "build" ]]; then
       echo "Using baseUrl: $2"
@@ -151,10 +153,6 @@ main() {
   # on where this script is called from
   local_repo_root="$(git rev-parse --show-toplevel)"
 
-  # This script may be running inside a container so first check if
-  # the env var has been set in the container
-  host_abs_repo_dir="${HOST_REPO_DIR:-$local_repo_root}"
-
   dest_dir="/builder/shared"
 
   if [[ "${is_mac_os}" = true ]]; then
@@ -167,7 +165,7 @@ main() {
   echo -e "${GREEN}HOME ${BLUE}${HOME}${NC}"
   echo -e "${GREEN}User ID ${BLUE}${user_id}${NC}"
   echo -e "${GREEN}Group ID ${BLUE}${group_id}${NC}"
-  echo -e "${GREEN}Host repo root dir ${BLUE}${host_abs_repo_dir}${NC}"
+  echo -e "${GREEN}Local repo root dir ${BLUE}${local_repo_root}${NC}"
   echo -e "${GREEN}Docker group id ${BLUE}${docker_group_id}${NC}"
 
   if ! docker version >/dev/null 2>&1; then
@@ -189,6 +187,9 @@ main() {
   hugo_cache_vol="builder-hugo-cache-vol"
   docker volume create "${hugo_cache_vol}"
 
+  npm_cache_vol="builder-npm-cache-vol"
+  docker volume create "${npm_cache_vol}"
+
   # So we are not rate limited, login before doing the build as this
   # will pull images
   docker_login
@@ -198,6 +199,7 @@ main() {
       create \
       --name stroom-hugo-builder
   fi
+
   docker buildx \
     use \
     stroom-hugo-builder
@@ -210,8 +212,8 @@ main() {
     )"
 
   cache_dir_base="/tmp/stroom_hugo_buildx_caches"
-  cache_dir_from="${cache_dir_base}/from_${cache_key}"
-  #cache_dir_to="${cache_dir_base}/to_${cache_key}"
+  cache_dir_name="from_${cache_key}"
+  cache_dir_from="${cache_dir_base}/${cache_dir_name}"
 
   echo -e "${GREEN}Using cache_key: ${YELLOW}${cache_key}${NC}"
 
@@ -223,39 +225,51 @@ main() {
   # depending on whether there is already an image for the hash.
 
   mkdir -p "${cache_dir_base}"
-  #ls -l "${cache_dir_base}/"
+  echo -e "${GREEN}Current cache directories${NC}"
+  find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+    -maxdepth 1 \
+    -type d \
+    -name "from_*"
 
-  # Delete old caches, except latest
+  # Delete old caches
   # shellcheck disable=SC2012
   if compgen -G  "${cache_dir_base}/from_*" > /dev/null; then
-    echo -e "${GREEN}Removing old cache directories${NC}"
-    #ls -1trd "${cache_dir_base}/from_"*
-
-    # List all matching dirs
-    # Remove the last item
-    # Delete each item
-    ls -1trd "${cache_dir_base}/from_"* \
-      | sed '$d' \
-      | xargs rm -rf --
+    echo -e "${GREEN}Removing redundant cache directories${NC}"
+    # VERY bad if cache_dir_base is not set, i.e. rm -rf /
+    find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+      -maxdepth 1 \
+      -type d \
+      -name "from_*" \
+      ! -name "${cache_dir_name}" \
+      -exec rm -rf {} \; 
     echo -e "${GREEN}Remaining cache directories${NC}"
-    ls -1trd "${cache_dir_base}/from_"*
+    find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+      -maxdepth 1 \
+      -type d \
+      -name "from_*"
   fi
 
   #echo 
   #ls -l "${cache_dir_base}"
   #echo
 
-  echo -e "${GREEN}Building image ${BLUE}${image_tag}${GREEN}" \
+  echo -e "${GREEN}Building docker image ${BLUE}${image_tag}${GREEN}" \
     "(this may take a while on first run)${NC}"
-  docker buildx build \
+
+  time docker buildx build \
     --tag "${image_tag}" \
     --build-arg "USER_ID=${user_id}" \
     --build-arg "GROUP_ID=${group_id}" \
-    --build-arg "HOST_REPO_DIR=${host_abs_repo_dir}" \
     "--cache-from=type=local,src=${cache_dir_from}" \
     "--cache-to=type=local,dest=${cache_dir_from},mode=max" \
     --load \
     "${local_repo_root}/container_build/docker_hugo"
+
+  echo -e "${GREEN}Current cache directories${NC}"
+  find "${cache_dir_base:?"Variable cache_dir_base not set"}/" \
+    -maxdepth 1 \
+    -type d \
+    -name "from_*"
 
     #--workdir "${dest_dir}" \
 
@@ -276,29 +290,37 @@ main() {
   # Need to pass in docker creds in case the container needs to do authenticated
   # pulls/pushes with dockerhub
   # shellcheck disable=SC2145
-  echo -e "${GREEN}Running image ${BLUE}${image_tag}${NC} with command" \
-    "${BLUE}${run_cmd[@]}${NC}"
 
   echo -e "${GREEN}Hugo cache is in docker volume" \
     "${YELLOW}${hugo_cache_vol}${GREEN}, use" \
     "${BLUE}docker volume rm ${hugo_cache_vol}${GREEN} to clear it.${NC}"
 
-  hudo_cache_dir="/hugo-cache"
+  echo -e "${GREEN}NPM cache is in docker volume" \
+    "${YELLOW}${npm_cache_vol}${GREEN}, use" \
+    "${BLUE}docker volume rm ${npm_cache_vol}${GREEN} to clear it.${NC}"
 
-  docker run \
+  hudo_cache_dir="/hugo-cache"
+  npm_cache_dir="/npm-cache"
+
+  echo -e "${GREEN}Running docker image ${BLUE}${image_tag}${NC} with command" \
+    "${BLUE}${run_cmd[*]}${NC}"
+
+  time docker run \
     "${tty_args[@]+"${tty_args[@]}"}" \
     --rm \
     --publish 1313:1313 \
     --tmpfs /tmp:exec \
-    --mount "type=bind,src=${host_abs_repo_dir},dst=${dest_dir}" \
+    --mount "type=bind,src=${local_repo_root},dst=${dest_dir}" \
     --volume "${hugo_cache_vol}:${hudo_cache_dir}" \
+    --volume "${npm_cache_vol}:${npm_cache_dir}" \
     --read-only \
     --name "stroom-hugo-build-env" \
     --network "hugo-stroom" \
     --env "BUILD_VERSION=${BUILD_VERSION:-SNAPSHOT}" \
     --env "DOCKER_USERNAME=${DOCKER_USERNAME}" \
     --env "DOCKER_PASSWORD=${DOCKER_PASSWORD}" \
-    --env "HUGO_CACHEDIR=/${hudo_cache_dir}" \
+    --env "HUGO_CACHEDIR=${hudo_cache_dir}" \
+    --env "NPM_CONFIG_CACHE=${npm_cache_dir}" \
     "${extra_docker_args[@]}" \
     "${image_tag}" \
     "${run_cmd[@]}"

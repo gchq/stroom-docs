@@ -67,6 +67,43 @@ For example the heading `Mr O'Neil's 1st Event (something)` becomes as an anchor
 See The link examples below that use anchors.
 
 
+#### Duplicate anchors
+
+If you have two headings on the same page then Hugo will suffix the anchors with a sequential number to ensure uniqueness of the anchor.
+For example, with the following markdown:
+
+```markdown
+## Apples
+
+### Example
+
+## Oranges
+
+### Example
+```
+
+Hugo will create the following anchors:
+
+`apples`  
+`example`  
+`oranges`  
+`example-1`
+
+If you want to avoid confusion and removed the risk of anchors breaking if new headings are added in the middle, then you can explicitly name anchors:
+
+```markdown
+## Apples
+
+### Example {#apples-example}
+
+## Oranges
+
+### Example {#oranges-example}
+```
+
+This is only worth doing if you want to link to these heading.
+
+
 ### Shortcode internal page link examples
 
 Shortcode links are slightly more verbose to type but are preferable to markdown style links as the link target will be checked at site build time so you know all the links are correct.
@@ -589,6 +626,7 @@ The list of included language names are:
 `css`  
 `csv`  
 `groovy`  
+`http`  
 `java`  
 `javascript`  
 `jq`  
