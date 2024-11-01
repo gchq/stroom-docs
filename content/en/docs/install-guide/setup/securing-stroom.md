@@ -1,7 +1,7 @@
 ---
 title: "Securing Stroom"
 linkTitle: "Securing Stroom"
-#weight:
+weight: 20
 date: 2022-02-04
 tags: 
   - TODO
