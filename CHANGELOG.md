@@ -12,6 +12,8 @@ recent at the top.
 
 * Remove beta warning from `Stroom Query Language` page and change `vis as` to `show as`.
 
+* Add section on configuring Stroom with an external IDP.
+
 * Update icons and UI elements for Stroom 7.2.
 
 * Add missing functions to `mathematics.md` and fix headings.
