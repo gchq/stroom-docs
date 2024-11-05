@@ -1,7 +1,7 @@
 ---
 title: "Nodes"
 linkTitle: "Nodes"
-weight: 90
+weight: 80
 date: 2021-07-27
 tags:
   - TODO

@@ -1,7 +1,7 @@
 ---
 title: "Properties"
 linkTitle: "Properties"
-weight: 110
+weight: 100
 date: 2021-07-27
 tags:
   - property
