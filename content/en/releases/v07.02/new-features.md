@@ -154,7 +154,7 @@ See the [upgrade notes]({{< relref "upgrade-notes#reference-data-store" >}}) for
 ## Improved OAuth2.0/OpenID Connect Support
 
 The support for Open ID Connect (OIDC) authentication has been improved in v7.2.
-Stroom can be integrated with AWS Cognito, MS Azure AD, KeyCloak and other OIDC {{< glossary "IDP" "Identity Providers (IDPs)" >}}.
+Stroom can be integrated with AWS Cognito, MS Azure AD, KeyCloak and other OIDC {{< glossary "identity provider idp" "Identity Providers">}}.
 
 Data receipt in Stroom and Stroom-Proxy can now enforce OIDC token authentication as well as certificate authentication.
 The data receipt authentication is configured via the properties:

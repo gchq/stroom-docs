@@ -97,7 +97,7 @@ Snippets have been available in previous versions of Stroom however there have b
 ### API Keys
 
 API Keys are a means for client systems to authenticate with Stroom.
-In v7.2 of Stroom, the ability to use API Keys was removed if you were using an {{< glossary "idp" "external identity provider">}} as client systems could get tokens from the IDP themselves.
+In v7.2 of Stroom, the ability to use API Keys was removed if you were using an {{< glossary "identity provider idp" "external identity provider">}} as client systems could get tokens from the IDP themselves.
 In v7.3 the ability to use API Keys with an external IDP has returned as we felt it offered client systems a choice and removed the complexity of dealing with the IDP.
 
 The API Keys screen has undergone various improvements:
@@ -227,7 +227,7 @@ For details of the new functions, see [XSLT Functions]({{< relref "docs/user-gui
 
 ## API
 
-* Add the un-authenticated API method `/api/authproxy/v1/noauth/fetchClientCredsToken` to effectively proxy for the {{< glossary "IDP" "IDP's" >}} token endpoint to obtain an access token using the client credentials flow.
+* Add the un-authenticated API method `/api/authproxy/v1/noauth/fetchClientCredsToken` to effectively proxy for the {{< glossary "identity provider idp" "IDP's" >}} token endpoint to obtain an access token using the client credentials flow.
   The request contains the client credentials and looks like `{ "clientId": "a-client", "clientSecret": "BR9m.....KNQO" }`.
   The response media type is `text/plain` and contains the access token.
 
