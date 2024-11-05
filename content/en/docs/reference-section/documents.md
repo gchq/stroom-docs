@@ -4,6 +4,8 @@ linkTitle: "Documents"
 weight: 30
 date: 2024-02-21
 tags: 
+  - document
+  - content
 description: >
   A reference of all the different types of Document that can be created in Stroom.
   A Document is user created piece of content in Stroom that is visible in the explorer tree.

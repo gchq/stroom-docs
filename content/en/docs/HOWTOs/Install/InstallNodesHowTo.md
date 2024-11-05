@@ -13,7 +13,7 @@ description: >
 In a Stroom cluster, [Nodes]({{< relref "../../user-guide/nodes.md" >}}) are expected to communicate with each other on port 8080 over http. To facilitate this, we need to set each node's Cluster URL and the following demonstrates this process.
 
 ## Assumptions
-- an account with the `Administrator` Application [Permission]({{< relref "../../user-guide/roles.md" >}}) is currently logged in.
+- an account with the `Administrator` [Application Permission]({{< relref "docs/user-guide/security/app-permissions.md" >}}) is currently logged in.
 - we have a multi node Stroom cluster with two nodes, `stroomp00` and `stroomp01`
 - appropriate firewall configurations have been made
 - in the scenario of adding a new node to our multi node deployment, the node added will be `stroomp02`
