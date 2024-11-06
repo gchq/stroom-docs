@@ -49,7 +49,7 @@ The following is the list of different document permissions that can be granted 
 | ---------- | -----------                                                                                                                                                                   |
 | **Owner**  | Same as delete plus ability to change document permissions (i.e. grant permissions on this document to other users/groups.                                                    |
 | **Delete** | Same as edit plus permission to delete documents.                                                                                                                             |
-| **Edit**   | Same as view plus permission to edit, rename or add tags to documents.                                                                                                        |
+| **Edit**   | Same as view plus permission to edit, move, rename or add tags to documents.                                                                                                  |
 | **View**   | Permission to see documents in the explorer tree, open them as read-only, copy them or export them (subject to also having the `Export Configuration` application permission. |
 | **Use**    | Only allow use of a document, e.g. allow use of an index or feeds as part of a search process but do not allow viewing of the document itself                                 |
 
@@ -114,4 +114,24 @@ This means Joe can only create Dashboard {{< stroom-icon "document/Dashboard.svg
 
 When making changes to the permissions on Folder {{< stroom-icon "document/Folder.svg" >}} you have the option of making the changes to just that folder or to all descendants of that folder.
 Selecting to apply to all descendants will make all permission changes apply to every descendant, i.e. including any sub-folders and their contents or own sub-folders.
+
+
+## Moving and Copying Documents
+
+When you move {{< stroom-icon "move.svg" "Move">}} or copy {{< stroom-icon "copy.svg" >}} a document/folder you have the choice of how the destination document/folder's permissions should be derived.
+The move/copy dialog offers the following choices:
+
+* **None** - Removes all current permissions.
+    Ignores permissions of the destination folder.
+    You will be the owner of the moved document if not already.
+* **Source** - Keep the current permissions and ownership as they are.
+* **Destination** - Removes all current permissions.
+    Adds the permissions of the destination folder.
+    You will be the owner of the moved document if not already.
+* **Combined** - Keep the current permissions and add the permissions
+    of the destination folder. You will be the owner of the moved document if not already.
+
+{{% note %}}
+You must have `Owner` permission on the source document/folder (or `Admistrator` {{< glossary "Application Permission" >}}) if you wish to use _None_, _Destination_ or _Combined_ as these all involve a change of permissions.
+{{% /note %}}
 
