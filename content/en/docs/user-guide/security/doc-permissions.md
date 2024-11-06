@@ -64,14 +64,6 @@ The following is the list of different permissions that can be granted to users/
 | **Use**    | Only allow use of a folder, e.g. allow use of an index as part of a search process but do not allow viewing of the folder itself.                                      |
 
 
-{{% note %}}
-The permissions on a folder apply **only** to the folder itself and has no bearing on what you can/can't do to its child items.
-The permissions on each child item in the folder control what you can/can't do to those items.
-
-For example, if you only have _View_ permission on a folder, but have _Delete_ on a document in that folder, then you are able to delete that document and thus change the contents of the folder.
-
-Similarly, if you have _View_ permission on a folder but have no permission on any of its child items, then you will just see an empty folder.
-{{% /note %}}
 
 
 ### Implied Permissions
@@ -115,8 +107,32 @@ The `Use` permission is not relevant to all document types.
 
 ## Permissions on Folders
 
-Folders {{< stroom-icon "document/Folder.svg" >}} in the explorer tree work in the same way as documents when it comes to permissions.
+Folders {{< stroom-icon "document/Folder.svg" >}} in the explorer tree work mostly in the same way as documents when it comes to permissions.
 There are a couple of exceptions to this.
+
+
+### Permission on Folder Contents
+
+The permissions on a folder apply **only** to the folder itself and has no bearing on what you can/can't do to its child items.
+The permissions on each child item in the folder control what you can/can't do to those items.
+
+For example, if you only have _View_ permission on a folder, but have _Delete_ on a document in that folder, then you are able to delete that document and thus change the contents of the folder.
+
+Similarly, if you have _View_ permission on a folder but have no permission on any of its child items, then you will just see an empty folder.
+
+
+### Ancestor Folder Visibility
+
+A folder {{< stroom-icon "document/Folder.svg" >}} will be visible to a user in the explorer tree if the user has _View_ permission on it **OR** if the user has _View_ permission on any single document/folder that is a descendant of it.
+
+For example, if a user has _View_ permission on a Dictionary {{< stroom-icon "document/Dictionary.svg" >}} _Dictionary_XYZ_ with path
+
+**System / Folder_A / Folder_B / Dictionary_XYZ**
+
+but **no** permissions on _Folder A_ or _Folder B_, they will be able to see both Folders in the explorer tree in addition to the Dictionary.
+They will however not be able to open those Folders as they do not have the permission.
+
+Therefore, when granting permissions on a document/folder to a user/group, you are also implicitly granting visibility (but not _View_ permission) on all ancestor folders.
 
 
 ### Create Permissions
