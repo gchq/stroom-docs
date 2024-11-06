@@ -43,20 +43,40 @@ The Document Permissions screen for a document/folder can be accessed by right c
 
 ## Permission Types
 
-The following is the list of different document permissions that can be granted to users/groups.
+The following is the list of different permissions that can be granted to users/groups on a document.
 
-| Permission | Description                                                                                                                                                                   |
-| ---------- | -----------                                                                                                                                                                   |
-| **Owner**  | Same as delete plus ability to change document permissions (i.e. grant permissions on this document to other users/groups.                                                    |
-| **Delete** | Same as edit plus permission to delete documents.                                                                                                                             |
-| **Edit**   | Same as view plus permission to edit, move, rename or add tags to documents.                                                                                                  |
-| **View**   | Permission to see documents in the explorer tree, open them as read-only, copy them or export them (subject to also having the `Export Configuration` application permission. |
-| **Use**    | Only allow use of a document, e.g. allow use of an index or feeds as part of a search process but do not allow viewing of the document itself                                 |
+| Permission | Description                                                                                                                                                                |
+| ---------- | -----------                                                                                                                                                                |
+| **Owner**  | Same as delete plus ability to change the document's permissions (i.e. grant permissions on this document to other users/groups.                                           |
+| **Delete** | Same as edit plus permission to delete the document.                                                                                                                       |
+| **Edit**   | Same as view plus permission to edit, move, rename or add tags to the document.                                                                                            |
+| **View**   | Permission to see the document in the explorer tree, open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission. |
+| **Use**    | Only allow use of a document, e.g. allow use of an index as part of a search process but do not allow viewing of the document itself.                                      |
+
+The following is the list of different permissions that can be granted to users/groups on a folder {{< stroom-icon "document/Folder.svg" >}}.
+
+| Permission | Description                                                                                                                                                                |
+| ---------- | -----------                                                                                                                                                                |
+| **Owner**  | Same as delete plus ability to change the folder's permissions (i.e. grant permissions on this folder to other users/groups.                                           |
+| **Delete** | Same as edit plus permission to delete the folder.                                                                                                                       |
+| **Edit**   | Same as view plus permission to edit, move, rename or add tags to the folder.                                                                                            |
+| **View**   | Permission to see the folder in the explorer tree (and it's child items that you also have _View_ permission on), open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission. |
+| **Use**    | Only allow use of a folder, e.g. allow use of an index as part of a search process but do not allow viewing of the folder itself.                                      |
+
+
+{{% note %}}
+The permissions on a folder apply **only** to the folder itself and has no bearing on what you can/can't do to its child items.
+The permissions on each child item in the folder control what you can/can't do to those items.
+
+For example, if you only have _View_ permission on a folder, but have _Delete_ on a document in that folder, then you are able to delete that document and thus change the contents of the folder.
+
+Similarly, if you have _View_ permission on a folder but have no permission on any of its child items, then you will just see an empty folder.
+{{% /note %}}
 
 
 ### Implied Permissions
 
-Note that each permission in the table above also includes all the permissions below it in the table, e.g. a user with `Edit` permission on a document will also have the implied permissions `View` and `Use`.
+Note that each permission in the two tables above also includes all the permissions below it in the table, e.g. a user with `Edit` permission on a document will also have the implied permissions `View` and `Use`.
 There is no need to grant these lower permissions to the user, though doing so will have no impact as Stroom will user the highest value permission when checking permissions.
 
 
