@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Add section on moving/copying documents to the `Document Permissions` page.
+
 * Remove `Roles` section and add content to `Security` section on doc/app permissions.
 
 * Improve section on `stroom:format-date()`.
