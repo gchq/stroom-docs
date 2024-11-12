@@ -326,15 +326,14 @@ make_single_version_site() {
   # https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.0.1/dist/font-face.css
   # which is an arabic font that we don't need at the moment.
   echo -e "${GREEN}Remvoing cdn imports${NC}"
-  local cdn_import_regex='@import "https://cdn[^"]+";'
   grep \
     --perl-regexp \
     --only-matching \
     --recursive \
-    "${cdn_import_regex}"
+    '@import "https://cdn[^"]+";'
 
   find . -type f -print0 \
-    | xargs sed -i -E "${cdn_import_regex}"
+    | xargs sed -i'' -E '@import "https://cdn[^"]+";'
 
   echo -e "${GREEN}Creating single site zip" \
     "${BLUE}${single_ver_zip_filename}${NC}"
