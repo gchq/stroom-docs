@@ -317,6 +317,25 @@ make_single_version_site() {
   # go into the dir so all paths in the zip are relative to generated_site_dir
   pushd "${generated_site_dir}"
 
+  # This is here to remove any imports from external cdns which
+  # won't work in an air-gapped env. Obviously this risks breaking
+  # the docs site if they are needed, in which case we will need
+  # to serve them as part of the docs site like we have done for the
+  # google open sans font.
+  # An example of a cdn link we need to remove is:
+  # https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.0.1/dist/font-face.css
+  # which is an arabic font that we don't need at the moment.
+  echo -e "${GREEN}Remvoing cdn imports${NC}"
+  local cdn_import_regex='@import "https://cdn[^"]+";'
+  grep \
+    --perl-regexp \
+    --only-matching \
+    --recursive \
+    "${cdn_import_regex}"
+
+  find . -type f -print0 \
+    | xargs sed -i -E "${cdn_import_regex}"
+
   echo -e "${GREEN}Creating single site zip" \
     "${BLUE}${single_ver_zip_filename}${NC}"
   zip \
