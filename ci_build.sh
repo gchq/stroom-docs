@@ -333,7 +333,8 @@ make_single_version_site() {
     '@import "https://cdn[^"]+";'
 
   find . -type f -print0 \
-    | xargs -0 sed -i'' -E '@import "https://cdn[^"]+";'
+    | xargs -0 \
+    sed -i'' -E 's|@import "https://cdn[^"]+";||g'
 
   echo -e "${GREEN}Creating single site zip" \
     "${BLUE}${single_ver_zip_filename}${NC}"
