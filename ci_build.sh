@@ -251,6 +251,44 @@ assemble_version() {
   fi
 }
 
+remove_remote_calls() {
+  # This is here to remove any imports from external cdns which
+  # won't work in an air-gapped env. Obviously this risks breaking
+  # the docs site if they are needed, in which case we will need
+  # to serve them as part of the docs site like we have done for the
+  # google open sans font.
+  # An example of a cdn link we need to remove is:
+  # https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.0.1/dist/font-face.css
+  # which is an arabic font that we don't need at the moment.
+  echo -e "${GREEN}Remvoing cdn imports${NC}"
+  local regex='@import "https:\/\/cdn[^"]+";'
+  grep \
+    --perl-regexp \
+    --only-matching \
+    --recursive \
+    "${regex}"
+
+  find . -type f -print0 \
+    | xargs -0 \
+    sed -i'' -E "s|${regex}||g"
+
+  if grep \
+    --perl-regexp \
+    --only-matching \
+    --recursive \
+    --quiet \
+    "${regex}"; then
+    
+    echo -e "${RED}ERROR${NC}: Found cdn imports in the built site"
+
+    grep \
+      --perl-regexp \
+      --only-matching \
+      --recursive \
+      "${regex}"
+  fi
+}
+
 # We want a site for a single version that doesn't know about any of the
 # others.
 make_single_version_site() {
@@ -317,24 +355,7 @@ make_single_version_site() {
   # go into the dir so all paths in the zip are relative to generated_site_dir
   pushd "${generated_site_dir}"
 
-  # This is here to remove any imports from external cdns which
-  # won't work in an air-gapped env. Obviously this risks breaking
-  # the docs site if they are needed, in which case we will need
-  # to serve them as part of the docs site like we have done for the
-  # google open sans font.
-  # An example of a cdn link we need to remove is:
-  # https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.0.1/dist/font-face.css
-  # which is an arabic font that we don't need at the moment.
-  echo -e "${GREEN}Remvoing cdn imports${NC}"
-  grep \
-    --perl-regexp \
-    --only-matching \
-    --recursive \
-    '@import "https://cdn[^"]+";'
-
-  find . -type f -print0 \
-    | xargs -0 \
-    sed -i'' -E 's|@import "https://cdn[^"]+";||g'
+  remove_remote_calls
 
   echo -e "${GREEN}Creating single site zip" \
     "${BLUE}${single_ver_zip_filename}${NC}"
@@ -369,7 +390,7 @@ remove_unwanted_sections() {
 }
 
 set_meta_robots_for_all_version_branches() {
-
+  echo "::group::Set meta robots"
   echo -e "${GREEN}Setting meta robots for all versioned brances in" \
     "${BLUE}${NEW_GH_PAGES_DIR}${NC}"
 
@@ -387,6 +408,7 @@ set_meta_robots_for_all_version_branches() {
       exit 1
     fi
   done
+  echo "::endgroup::"
 }
 
 set_meta_robots() {
@@ -419,6 +441,7 @@ set_meta_robots() {
 # and changes all the <loc> tags in the sitemap to point sub-paths of
 # the latest branch dir
 update_root_sitemap() {
+  echo "::group::Update sitemap"
   echo "Changing <loc> tags in root sitemap.xml to point to ${GH_PAGES_BASE_URL}/"
   sed \
     -i \
@@ -430,9 +453,11 @@ update_root_sitemap() {
     echo "User-agent: *" 
     echo "Sitemap: ${GH_PAGES_BASE_URL}/sitemap.xml" 
   } > "${NEW_GH_PAGES_DIR}/robots.txt"
+  echo "::endgroup::"
 }
 
 copy_latest_to_root() {
+  echo "::group::Copy lastest to root"
 
   # Copy the latest version content down to the root dir
   # That way we can make all other dirs noindex/nofollow to stop
@@ -474,6 +499,7 @@ copy_latest_to_root() {
   cp \
     "${BUILD_DIR}/${GOOGLE_VERIFICATION_FILENAME}" \
     "${NEW_GH_PAGES_DIR}/"
+  echo "::endgroup::"
 }
 
 create_release_tag() {
@@ -558,6 +584,7 @@ clone_current_gh_pages_branch() {
 }
 
 prepare_for_release() {
+  echo "::group::Prepare for release"
   #echo -e "${GREEN}Copying from ${BLUE}${COMBINED_SITE_DIR}/${GREEN}" \
     #"to ${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
   #cp -r "${COMBINED_SITE_DIR}"/* "${NEW_GH_PAGES_DIR}/"
@@ -600,6 +627,7 @@ prepare_for_release() {
   else
     echo -e "${GREEN}Not a release so won't tag the repository${NC}"
   fi
+  echo "::endgroup::"
 }
 
 populate_release_brances_arr() {
@@ -730,8 +758,10 @@ main() {
     build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
   fi
 
+  echo "::group::Checking for broken links"
   echo -e "${GREEN}Checking all .md files for broken links${NC}"
   ./broken_links.sh
+  echo "::endgroup::"
 
   pushd "${GIT_WORK_DIR}"
 
