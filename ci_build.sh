@@ -355,6 +355,7 @@ make_single_version_site() {
   # go into the dir so all paths in the zip are relative to generated_site_dir
   pushd "${generated_site_dir}"
 
+  # We are creating a zip for offline use so remove any remote import calls
   remove_remote_calls
 
   echo -e "${GREEN}Creating single site zip" \
@@ -601,6 +602,10 @@ prepare_for_release() {
 
   # pushd so all paths in the zip are relative to this dir
   pushd "${NEW_GH_PAGES_DIR}"
+
+  # We are creating a zip for offline use so remove any remote import calls
+  remove_remote_calls
+
   # Exclude the individual version zip/pdfs from the combined zip
   # Exclude arg needs to go after zip filename and target(s)
   # We have the 'latest' symlink so add that to the zip as a link
