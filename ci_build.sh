@@ -390,7 +390,7 @@ remove_unwanted_sections() {
 }
 
 set_meta_robots_for_all_version_branches() {
-
+  echo "::group::Set meta robots"
   echo -e "${GREEN}Setting meta robots for all versioned brances in" \
     "${BLUE}${NEW_GH_PAGES_DIR}${NC}"
 
@@ -408,6 +408,7 @@ set_meta_robots_for_all_version_branches() {
       exit 1
     fi
   done
+  echo "::endgroup::"
 }
 
 set_meta_robots() {
@@ -440,6 +441,7 @@ set_meta_robots() {
 # and changes all the <loc> tags in the sitemap to point sub-paths of
 # the latest branch dir
 update_root_sitemap() {
+  echo "::group::Update sitemap"
   echo "Changing <loc> tags in root sitemap.xml to point to ${GH_PAGES_BASE_URL}/"
   sed \
     -i \
@@ -451,9 +453,11 @@ update_root_sitemap() {
     echo "User-agent: *" 
     echo "Sitemap: ${GH_PAGES_BASE_URL}/sitemap.xml" 
   } > "${NEW_GH_PAGES_DIR}/robots.txt"
+  echo "::endgroup::"
 }
 
 copy_latest_to_root() {
+  echo "::group::Copy lastest to root"
 
   # Copy the latest version content down to the root dir
   # That way we can make all other dirs noindex/nofollow to stop
@@ -495,6 +499,7 @@ copy_latest_to_root() {
   cp \
     "${BUILD_DIR}/${GOOGLE_VERIFICATION_FILENAME}" \
     "${NEW_GH_PAGES_DIR}/"
+  echo "::endgroup::"
 }
 
 create_release_tag() {
@@ -579,6 +584,7 @@ clone_current_gh_pages_branch() {
 }
 
 prepare_for_release() {
+  echo "::group::Prepare for release"
   #echo -e "${GREEN}Copying from ${BLUE}${COMBINED_SITE_DIR}/${GREEN}" \
     #"to ${BLUE}${NEW_GH_PAGES_DIR}/${NC}"
   #cp -r "${COMBINED_SITE_DIR}"/* "${NEW_GH_PAGES_DIR}/"
@@ -621,6 +627,7 @@ prepare_for_release() {
   else
     echo -e "${GREEN}Not a release so won't tag the repository${NC}"
   fi
+  echo "::endgroup::"
 }
 
 populate_release_brances_arr() {
@@ -751,8 +758,10 @@ main() {
     build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
   fi
 
+  echo "::group::Checking for broken links"
   echo -e "${GREEN}Checking all .md files for broken links${NC}"
   ./broken_links.sh
+  echo "::endgroup::"
 
   pushd "${GIT_WORK_DIR}"
 
