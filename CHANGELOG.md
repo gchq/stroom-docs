@@ -6,6 +6,8 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+* Make path to font files relative so they work when the site is served from the sub-directory, e.g. on github.io.
+
 * Mark `feed-attribute` XSLT function as deprecated.
 
 * Add mention of `OLD_AUTH_schema_version` in `6_to_7_upgrade.md`.
