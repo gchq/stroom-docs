@@ -6,6 +6,9 @@ A new version of stroom-docs is released for each commit so version tags
 are not recorded in here. Changes are in chronological order with the most
 recent at the top.
 
+
+* Make path to font files relative so they work when the site is served from the sub-directory, e.g. on github.io.
+
 * Add sections on moving/copying documents and folder permissions to the `Document Permissions` page.
 
 * Remove `Roles` section and add content to `Security` section on doc/app permissions.
