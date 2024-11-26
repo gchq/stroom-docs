@@ -92,10 +92,18 @@ build_version_from_source() {
     echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
       "(build_version=${BUILD_TAG:-SNAPSHOT})${NC}"
 
+    local is_archived_version="true"
+    if [[ "${branch_name}" = "${latest_version}" ]]; then
+      is_archived_version="false"
+    fi
+
+    # Make sure all non-latest brances are marked as archived so they get
+    # the banner
     sed \
       --in-place'' \
       --regexp-extended \
       --expression "s/^  build_version *=.*/  build_version = \"${BUILD_TAG:-SNAPSHOT}\"/" \
+      --expression "s/^  archived_version *=.*/  archived_version = ${is_archived_version}/" \
       "${config_file}"
   fi
 
@@ -794,9 +802,7 @@ main() {
     popd
 
     copy_latest_to_root
-
     update_root_sitemap
-
     set_meta_robots_for_all_version_branches
 
     echo -e "${GREEN}have_any_release_branches_changed:" \
