@@ -18,6 +18,12 @@
 <meta name="robots" content="noindex, nofollow">
 {{ end -}}
 
+
+<!-- STROOM: Add a canonical link so google indexing knows to ignore the old versions -->
+{{ if .Site.Params.archived_version }}
+<link rel="canonical" href="{{ .Site.Params.url_latest_version }}">
+{{ end -}}
+
 {{ partialCached "favicons.html" . }}
 <title>
   {{- if .IsHome -}}
