@@ -1,0 +1,1239 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../docs/user-guide/security/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="canonical" href="../../../../../">
+
+
+<link rel="shortcut icon" href="../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Security | Stroom</title>
+<meta name="description" content="All aspects of securing Stroom and the content within it. Includes application security, user and group accounts and the permissions model.
+">
+<meta property="og:title" content="Security" />
+<meta property="og:description" content="All aspects of securing Stroom and the content within it. Includes application security, user and group accounts and the permissions model.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/user-guide/security/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Security">
+<meta itemprop="description" content="All aspects of securing Stroom and the content within it. Includes application security, user and group accounts and the permissions model.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Security"/>
+<meta name="twitter:description" content="All aspects of securing Stroom and the content within it. Includes application security, user and group accounts and the permissions model.
+"/>
+
+
+
+
+<link rel="preload" href="../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" as="style">
+<link href="../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/theme-dark.css"/>
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.6)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../">7.6 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.5">7.5</a>
+	
+	<a class="dropdown-item" href="../../../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../../offline-search-index.933bcda7ff1ca52f3fd8bd46934e2df3.json"
+    data-offline-search-base-href="../../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../docs/user-guide/security/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Security</h1>
+<div class="lead">All aspects of securing Stroom and the content within it. Includes application security, user and group accounts and the permissions model.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-4c79cfc383761a49e0b4e0fad48d8479">Deployment</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-b7b0dbee28bfe13f3f754cee370c1b7a">User Accounts</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-d23936ccff98e4825aa7a13f5d5c140f">Users and Groups</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-0c823c7b2537c66572c77a3c6f28473f">Application Permissions</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-b2328cd374f50eb4ca8a6927fcd011d6">Document Permissions</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-4c79cfc383761a49e0b4e0fad48d8479">1 - Deployment</h1>
+    <div class="lead">There are many aspects of security that should be considered when installing and running Stroom.</div>
+	<h2 id="shared-storage">Shared Storage</h2>
+<p>For most large installations Stroom uses shared storage for its data store. This storage could be a CIFS, NFS or similar shared file system. It is recommended that access to this shared storage is protected so that only the application can access it. This could be achieved by placing the storage and application behind a firewall and by requiring appropriate authentication to the shared storage. It should be noted that NFS is unauthenticated so should be used with appropriate safeguards.</p>
+<h2 id="mysql">MySQL</h2>
+<h3 id="accounts">Accounts</h3>
+<p>It is beyond the scope of this article to discuss this in detail but all MySQL accounts should be secured on initial install. Official guidance for doing this can be found 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/5.6/en/security.html" target="_blank" class="" style="" title="here (external link to https://dev.mysql.com/doc/refman/5.6/en/security.html)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<h3 id="communication">Communication</h3>
+<p>Communication between MySQL and the application should be secured. This can be achieved in one of the following ways:</p>
+<ul>
+<li>Placing MySQL and the application behind a firewall</li>
+<li>Securing communication through the use of iptables</li>
+<li>Making MySQL and the application communicate over SSL (see 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html" target="_blank" class="" style="" title="here (external link to https://dev.mysql.com/doc/refman/5.6/en/encrypted-connections.html)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for instructions)</li>
+</ul>
+<p>The above options are not mutually exclusive and may be combined to better secure communication.</p>
+<h2 id="application">Application</h2>
+<h3 id="node-to-node-communication">Node to node communication</h3>
+<p>In a multi node Stroom deployment each node communicates with the master node. This can be configured securely in one of several ways:</p>
+<ul>
+<li>Direct communication to Tomcat on port 8080 - Secured by being behind a firewall or using iptables</li>
+<li>Direct communication to Tomcat on port 8443 - Secured using SSL and certificates</li>
+<li>Removal of Tomcat connectors other than AJP and configuration of Apache to communicate on port 443 using SSL and certificates</li>
+</ul>
+<h3 id="application-to-stroom-proxy-communication">Application to Stroom Proxy Communication</h3>
+<p>The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or it&rsquo;s reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.</p>
+<h3 id="admin-port">Admin port</h3>
+<p>Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.</p>
+<h3 id="servlets">Servlets</h3>
+<p>There are several servlets in Stroom that are accessible by certain URLs. Considerations should be made about what URLs are made available via Apache and who can access them. The servlets, path and function are described below:</p>
+<table>
+<thead>
+<tr>
+<th>Servlet</th>
+<th>Path</th>
+<th>Function</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataFeed</td>
+<td>/datafeed or /datafeed/*</td>
+<td>Used to receive data</td>
+<td>Possible denial of service attack by posting too much data/noise</td>
+</tr>
+<tr>
+<td>RemoteFeedService</td>
+<td>/remoting/remotefeedservice.rpc</td>
+<td>Used by proxy to ask application about feed status (described in previous section)</td>
+<td>Possible to systematically discover which feeds are available. Communication with this service should be secured over SSL discussed above</td>
+</tr>
+<tr>
+<td>DynamicCSSServlet</td>
+<td>/stroom/dynamic.css</td>
+<td>Serves dynamic CSS based on theme configuration</td>
+<td>Low risk as no important data is made available by this servlet</td>
+</tr>
+<tr>
+<td>DispatchService</td>
+<td>/stroom/dispatch.rpc</td>
+<td>Service for UI and server communication</td>
+<td>All back-end services accessed by this umbrella service are secured appropriately by the application</td>
+</tr>
+<tr>
+<td>ImportFileServlet</td>
+<td>/stroom/importfile.rpc</td>
+<td>Used during configuration upload</td>
+<td>Users must be authenticated and have appropriate permissions to import configuration</td>
+</tr>
+<tr>
+<td>ScriptServlet</td>
+<td>/stroom/script</td>
+<td>Serves user defined visualisation scripts to the UI</td>
+<td>The visualisation script is considered to be part of the application just as the CSS so is not secured</td>
+</tr>
+<tr>
+<td>ClusterCallService</td>
+<td>/clustercall.rpc</td>
+<td>Used for node to node communication as discussed above</td>
+<td>Communication must be secured as discussed above</td>
+</tr>
+<tr>
+<td>ExportConfig</td>
+<td>/export/*</td>
+<td>Servlet used to export configuration data</td>
+<td>Servlet access must be restricted with Apache to prevent configuration data being made available to unauthenticated users</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>/status</td>
+<td>Shows the application status including volume usage</td>
+<td>Needs to be secured so that only appropriate users can see the application status</td>
+</tr>
+<tr>
+<td>Echo</td>
+<td>/echo</td>
+<td>Block GZIP data posted to the echo servlet is sent back uncompressed. This is a utility servlet for decompression of external data</td>
+<td>URL should be secured or not made available</td>
+</tr>
+<tr>
+<td>Debug</td>
+<td>/debug</td>
+<td>Servlet for echoing HTTP header arguments including certificate details</td>
+<td>Should be secured in production environments</td>
+</tr>
+<tr>
+<td>SessionList</td>
+<td>/sessionList</td>
+<td>Lists the logged in users</td>
+<td>Needs to be secured so that only appropriate users can see who is logged in</td>
+</tr>
+<tr>
+<td>SessionResourceStore</td>
+<td>/resourcestore/*</td>
+<td>Used to create, download and delete temporary files liked to a users session such as data for export</td>
+<td>This is secured by using the users session and requiring authentication</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hdfs-kafka-hbase-zookeeper">HDFS, Kafka, HBase, Zookeeper</h2>
+<p>Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be careful controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.</p>
+<h2 id="content">Content</h2>
+<p>It may be possible for a user to write XSLT, Data Splitter or other content that may expose data that we do not wish to or to cause the application some harm. At present processing operations are not isolated processes and so it is easy to cripple processing performance with a badly written translation whether written accidentally or on purpose. To mitigate this risk it is recommended that users that are given permission to create XSLT, Data Splitter and Pipeline configurations are trusted to do so.</p>
+<p>Visualisations can be completely customised with javascript. The javascript that is added is executed in a clients browser potentially opening up the possibility of XSS attacks, an attack on the application to access data that a user shouldn&rsquo;t be able to access, an attack to destroy data or simply failure/incorrect operation of the user interface. To mitigate this risk all user defined javascript is executed within a separate browser IFrame. In addition all javascript should be examined before being added to a production system unless the author is trusted. This may necessitate the creation of a separate development and testing environment for user content.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-b7b0dbee28bfe13f3f754cee370c1b7a">2 - User Accounts</h1>
+    <div class="lead">User accounts for authentication when using Stroom&rsquo;s internal identity provider.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
+Therefore this section will be updated with more detail in v7.6.
+
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>If Stroom is configured to use an external <span class="glossary-link">
+<a href="../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider">
+<span>Identity Provider</span>
+<i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+</a>
+</span> (e.g. Azure Active Directory or AWS Cognito) then all user accounts are managed within that <span class="glossary-link">
+<a href="../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider">
+<span>Identity Provider</span>
+<i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+</a>
+</span> and the Manage Accounts screen in Stroom will not be available.
+For more details about external Identity Providers, see <a href="../../../../docs/install-guide/setup/open-id/">Open ID Connect</a>.</p>
+
+
+</div>
+
+
+<h2 id="accounts-vs-stroom-users">Accounts vs Stroom Users</h2>
+<p>See <a href="../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts vs Users</a> for details on the difference between a Stroom User Account and a Stroom User.</p>
+<h2 id="creating-user-accounts">Creating User Accounts</h2>
+<p>User accounts can only be created by a user that holds the <code>Manage Users</code> or <code>Administrator</code> <span class="glossary-link">
+  <a href="../../../../docs/glossary/#application-permission" title="Glossary entry for Application Permission">
+    <span>Application Permission</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+<p>Create a new user account by selecting</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Security
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Users"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M657 896q-162 5-265 128h-134q-82 0-138-40.5t-56-118.5q0-353 124-353 6 0 43.5 21t97.5 42.5 119 21.5q67 0 133-23-5 37-5 66 0 139 81 256zm1071 637q0 120-73 189.5t-194 69.5h-874q-121 0-194-69.5t-73-189.5q0-53 3.5-103.5t14-109 26.5-108.5 43-97.5 62-81 85.5-53.5 111.5-20q10 0 43 21.5t73 48 107 48 135 21.5 135-21.5 107-48 73-48 43-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-1024-1277q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181zm704 384q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5zm576 225q0 78-56 118.5t-138 40.5h-134q-103-123-265-128 81-117 81-256 0-29-5-66 66 23 133 23 59 0 119-21.5t97.5-42.5 43.5-21q124 0 124 353zm-128-609q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Manage Accounts
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>from the main menu.</p>
+<p>As a minimum a user account must have a unique identifier that will be used to identify them in Stroom.</p>
+<p>If the user&rsquo;s email address is added then Stroom will be able to email the user to reset their password.
+This functionality is configured using the properties starting with this prefix <code>stroom.security.identity.email.</code>.</p>
+<h3 id="account-flags">Account Flags</h3>
+<p>User accounts have a number of flags that can be set by an administrator or automatically by Stroom.</p>
+<ul>
+<li>
+<p><em>Enabled</em> - Enables/disables the account.
+A disabled account cannot login.
+Useful for disabling a user that is temporarily on leave.</p>
+</li>
+<li>
+<p><em>Locked</em> - Set when a users has too many failed login attempts (controlled by the property <code>stroom.security.identity.failedLoginLockThreshold</code>).
+Can be un-set by a user with <code>Manage Users</code> <span class="glossary-link">
+  <a href="../../../../docs/glossary/#application-permission" title="Glossary entry for Application Permission">
+    <span>Application Permission</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+A locked account cannot login.</p>
+</li>
+<li>
+<p><em>Inactive</em> - Set automatically in one of these cases:</p>
+<ul>
+<li>A brand new account has not been used for a duration greater than <code>stroom.security.identity.passwordPolicy.neverUsedAccountDeactivationThreshold</code>.</li>
+<li>An account has not been used for a duration greater than <code>stroom.security.identity.passwordPolicy.unusedAccountDeactivationThreshold</code>.
+A inactive account cannot login.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-d23936ccff98e4825aa7a13f5d5c140f">3 - Users and Groups</h1>
+    <div class="lead">The Stroom user and group entities that can be granted application and document permissions.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
+Therefore this section will be updated with more detail in v7.6.
+
+</div>
+
+<h2 id="accounts-vs-stroom-users">Accounts vs Stroom Users</h2>
+<p>See <a href="../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts vs Users</a> for details on the difference between a Stroom User Account and a Stroom User.</p>
+<h2 id="user">User</h2>
+<p>A Stroom User represents a human user and is linked to either a User Account in Stroom or to a user account in an external <span class="glossary-link">
+  <a href="../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider">
+    <span>Identity Provider</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+It can also represent  non-human processing user, e.g. where a Stroom User is created and has an <span class="glossary-link">
+  <a href="../../../../docs/glossary/#api-key" title="Glossary entry for API Key">
+    <span>API Key</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> created for it to allow a client system to use Stroom&rsquo;s <span class="glossary-link">
+  <a href="../../../../docs/glossary/#api" title="Glossary entry for API">
+    <span>API</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+<p>All audited activity in Stroom will be attributed to a Stroom User and their unique identifier will be included in the audit events.</p>
+<p>A User can have the following:</p>
+<ul>
+<li>Membership of one or more Groups.</li>
+<li>One or more <span class="glossary-link">
+  <a href="../../../../docs/glossary/#application-permission" title="Glossary entry for Application Permissions">
+    <span>Application Permissions</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> granted to it.</li>
+<li>One or more <span class="glossary-link">
+  <a href="../../../../docs/glossary/#document-permission" title="Glossary entry for Document Permissions">
+    <span>Document Permissions</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> granted to it.</li>
+</ul>
+<h2 id="group">Group</h2>
+<p>A Group represents a collection of Stroom Users and/or other Groups.
+A Group can be used to ease the management of application and document permissions by granting permissions to one Group then adding users to that Group.
+For example if all the users in a team require the same application and document permissions, then a Group can be created for them and the permissions assigned to the Group.
+When a user joins or leaves the team it is simply a case of editing the membership of the Group.</p>
+<p>A Group can have the following:</p>
+<ul>
+<li>One or more members (Users and/or other Groups).</li>
+<li>Membership of one or more other Groups.</li>
+<li>One or more <span class="glossary-link">
+  <a href="../../../../docs/glossary/#application-permission" title="Glossary entry for Application Permissions">
+    <span>Application Permissions</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> granted to it.</li>
+<li>One or more <span class="glossary-link">
+  <a href="../../../../docs/glossary/#document-permission" title="Glossary entry for Document Permissions">
+    <span>Document Permissions</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> granted to it.</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-0c823c7b2537c66572c77a3c6f28473f">4 - Application Permissions</h1>
+    <div class="lead">Assigning application level permssions (such as &lsquo;Manage Users&rsquo;) to users or groups.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
+Therefore this section will be updated with more detail in v7.6.
+
+</div>
+
+<p>An Application Permission is a permission to perform an action that is not associated with a single <span class="glossary-link">
+  <a href="../../../../docs/glossary/#document" title="Glossary entry for Document">
+    <span>Document</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> or is unrelated to Documents.
+Application Permissions can be granted to <a href="../../../../docs/user-guide/security/users-and-groups/">Users or Groups</a>.</p>
+<p>In order to grant Application Permissions to yourself or to other Users/Groups you must have the <code>Manage Users</code> or <code>Administrator</code> Application Permissions.
+If you have one of these permissions then you can access the Application Permissions screen from the main menu:</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Security
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Shield"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792" ><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor" d="m 896.00002,44.728762 c 15.38039,0 30.76078,3.343564 44.80375,9.696335 L 1570.3968,321.57582 c 73.5583,31.09514 128.3928,103.65046 128.0584,191.25183 -1.6717,331.68149 -138.0891,938.53835 -714.1851,1214.38225 -55.83751,26.7485 -120.70265,26.7485 -176.54016,0 C 231.63396,1451.366 95.216565,844.50914 93.544783,512.82765 93.210427,425.22628 148.04487,352.67096 221.60327,321.57582 L 851.53063,54.425097 c 13.70861,-6.352771 29.089,-9.696335 44.46939,-9.696335 z m 0,223.350038 v 1263.867 C 1357.4118,1308.5958 1481.458,814.08272 1484.4672,517.50864 Z" /></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Application Permissions
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<h2 id="application-permission-types">Application Permission Types</h2>
+<p>The following is the list of different application permissions that can be granted to users/groups.</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Administrator</strong></td>
+<td>Full administrator rights to access and manage all data, documents and screens, i.e. <strong>everything</strong>.</td>
+</tr>
+<tr>
+<td><strong>Annotations</strong></td>
+<td>Create and view annotations in query results.</td>
+</tr>
+<tr>
+<td><strong>Change Owner</strong></td>
+<td>Change the ownership of a document or folder to another user.</td>
+</tr>
+<tr>
+<td><strong>Data - Delete</strong></td>
+<td>Delete streams.</td>
+</tr>
+<tr>
+<td><strong>Data - Export</strong></td>
+<td>Download/export streams from a feed.</td>
+</tr>
+<tr>
+<td><strong>Data - Import</strong></td>
+<td>Upload stream data into a feed.</td>
+</tr>
+<tr>
+<td><strong>Data - View</strong></td>
+<td>View stream data (e.g. in the Data Viewer or a Dashboard text pane</td>
+</tr>
+<tr>
+<td><strong>Data - View With Pipeline</strong></td>
+<td>View data in a <em>Dashboard</em> text pane that uses a pipeline.</td>
+</tr>
+<tr>
+<td><strong>Download Search Results</strong></td>
+<td>Download search result data on a <em>Dashboard</em>.</td>
+</tr>
+<tr>
+<td><strong>Export Configuration</strong></td>
+<td>Export <span class="glossary-link">
+  <a href="../../../../docs/glossary/#content" title="Glossary entry for content">
+    <span>content</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (i.e. documents, that you have permission to view) to a file.</td>
+</tr>
+<tr>
+<td><strong>Import Configuration</strong></td>
+<td>Import <span class="glossary-link">
+  <a href="../../../../docs/glossary/#content" title="Glossary entry for content">
+    <span>content</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> from a file.</td>
+</tr>
+<tr>
+<td><strong>Manage API Keys</strong></td>
+<td>Access the <em>API Keys</em> screen to view, create, edit, delete the user&rsquo;s own API keys. &lsquo;Manage Users&rsquo; permission is also required to managed other users API keys</td>
+</tr>
+<tr>
+<td><strong>Manage Cache</strong></td>
+<td>Access the <em>Caches</em> screen to view and clear system caches.</td>
+</tr>
+<tr>
+<td><strong>Manage DB</strong></td>
+<td>Access the <em>Monitoring</em> -&gt; <em>Database Tables</em> screen to view the state of the tables in the database.</td>
+</tr>
+<tr>
+<td><strong>Manage Index Shards</strong></td>
+<td>Access the <em>Shards</em> sub-tab on an Index <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Index"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg></span>
+  </span> document.</td>
+</tr>
+<tr>
+<td><strong>Manage Jobs</strong></td>
+<td>Access the <em>Jobs</em> screen to manage Stroom&rsquo;s background jobs.</td>
+</tr>
+<tr>
+<td><strong>Manage Nodes</strong></td>
+<td>Access the <em>Nodes</em> screen to view the nodes the cluster and manage their priority and enabled states.</td>
+</tr>
+<tr>
+<td><strong>Manage Policies</strong></td>
+<td>Access the <em>Data Retention</em> screen to manage data retention rules.</td>
+</tr>
+<tr>
+<td><strong>Manage Processors</strong></td>
+<td>Access the <em>Processors</em> tab and manage the processors/filters used to process stream data through pipelines.</td>
+</tr>
+<tr>
+<td><strong>Manage Properties</strong></td>
+<td>Access to the <em>Properties</em> to manage the system configuration.</td>
+</tr>
+<tr>
+<td><strong>Manage Tasks</strong></td>
+<td>Access the <em>Server Tasks</em> screen to view/stop tasks running on the nodes.</td>
+</tr>
+<tr>
+<td><strong>Manage Users</strong></td>
+<td>Access the screens to manage users, groups, document/application permissions. Also gives the user the ability to manage API keys for other users.</td>
+</tr>
+<tr>
+<td><strong>Manage Volumes</strong></td>
+<td>Access the <em>Data Volumes</em> and <em>Index Volumes</em> screens to create/edit/delete the index/data volumes used for Lucene indexing and the stream store.</td>
+</tr>
+<tr>
+<td><strong>Pipeline Stepping</strong></td>
+<td>Step data through a pipeline using the Stepper.</td>
+</tr>
+<tr>
+<td><strong>View System Information</strong></td>
+<td>Use the System Information API. This is used by the administrators for viewing some of the internal working of Stroom to aid in debugging issues.</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-b2328cd374f50eb4ca8a6927fcd011d6">5 - Document Permissions</h1>
+    <div class="lead">Assigning document level permssions (such as &lsquo;View&rsquo;) to users or groups.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    The Users, Groups and Permissions screens are undergoing significant change in Stroom v7.6.
+Therefore this section will be updated with more detail in v7.6.
+
+</div>
+
+<p>Document Permissions are permissions that are granted to <a href="../../../../docs/user-guide/security/users-and-groups/">Users or Groups</a> for a specific <span class="glossary-link">
+  <a href="../../../../docs/glossary/#document" title="Glossary entry for Document">
+    <span>Document</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+They control what documents a user/group can see and what they can do to those documents.
+They allow very fine grained control over what a user/group can see or do in Stroom.</p>
+<p>For example, User <em>jbloggs</em> may be granted <code>Use</code> permission on the Index <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Index"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg></span>
+  </span> named <code>Alert Index</code> in order for him to be able to query that index in a dashboard, but not be able to see it in the explorer tree or change it in any way.</p>
+<p>By default a new user with no <a href="../../../../docs/user-guide/security/app-permissions/">Application Permissions</a>, Document Permissions or Group memberships <strong>cannot</strong> view/use/modify <strong>any</strong> documents.
+They do not even have permission to create any documents.
+When logging into Stroom, they will simply see an empty explorer tree.</p>
+<p>A user can gain varying levels of access to documents in a number of ways:</p>
+<ul>
+<li>Being added to a Group that has direct or inherited permissions on one or more existing documents.</li>
+<li>Being added to a Group that has direct or inherited permissions to create one or more document types.</li>
+<li>Being directly granted permissions one or more existing documents.</li>
+<li>Being directly granted the permission to create one or more document types.</li>
+<li>Being granted the <code>Administrator</code> <a href="../../../../docs/user-guide/security/app-permissions/">Application Permission</a> which gives them access to <strong>ALL</strong> documents.</li>
+</ul>
+<p>In order to modify the permissions on a document, you must either hold <code>Owner</code> permission on the document or have the <code>Administrator</code> Application Permission.
+The Document Permissions screen for a document/folder can be accessed by right clicking on it in the explorer tree and selecting:</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Locked"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path style="fill:var(--icon-colour__orange)" d="m 382.4,227.2 -21.6,0 0,-64.8 C 360.8,86.98 299.42,25.6 224,25.6 148.58,25.6 87.2,86.98 87.2,162.4 l 0,64.8 -21.6,0 c -23.85,0 -43.2,19.35 -43.2,43.2 l 0,172.8 c 0,23.85 19.35,43.2 43.2,43.2 l 316.8,0 c 23.85,0 43.2,-19.35 43.2,-43.2 l 0,-172.8 c 0,-23.85 -19.35,-43.2 -43.2,-43.2 z m -93.6,0 -129.6,0 0,-64.8 c 0,-35.73 29.07,-64.8 64.8,-64.8 35.73,0 64.8,29.07 64.8,64.8 l 0,64.8 z" /></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Permissions
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<h2 id="permission-types">Permission Types</h2>
+<p>The following is the list of different permissions that can be granted to users/groups on a document.</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Owner</strong></td>
+<td>Same as delete plus ability to change the document&rsquo;s permissions (i.e. grant permissions on this document to other users/groups.</td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td>Same as edit plus permission to delete the document.</td>
+</tr>
+<tr>
+<td><strong>Edit</strong></td>
+<td>Same as view plus permission to edit, move, rename or add tags to the document.</td>
+</tr>
+<tr>
+<td><strong>View</strong></td>
+<td>Permission to see the document in the explorer tree, open it as read-only, copy it or export it (subject to also having the <code>Export Configuration</code> application permission.</td>
+</tr>
+<tr>
+<td><strong>Use</strong></td>
+<td>Only allow use of a document, e.g. allow use of an index as part of a search process but do not allow viewing of the document itself.</td>
+</tr>
+</tbody>
+</table>
+<p>The following is the list of different permissions that can be granted to users/groups on a folder <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Folder"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z"/></svg></span>
+  </span>.</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Owner</strong></td>
+<td>Same as delete plus ability to change the folder&rsquo;s permissions (i.e. grant permissions on this folder to other users/groups.</td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td>Same as edit plus permission to delete the folder.</td>
+</tr>
+<tr>
+<td><strong>Edit</strong></td>
+<td>Same as view plus permission to edit, move, rename or add tags to the folder.</td>
+</tr>
+<tr>
+<td><strong>View</strong></td>
+<td>Permission to see the folder in the explorer tree (and it&rsquo;s child items that you also have <em>View</em> permission on), open it as read-only, copy it or export it (subject to also having the <code>Export Configuration</code> application permission.</td>
+</tr>
+<tr>
+<td><strong>Use</strong></td>
+<td>Only allow use of a folder, e.g. allow use of an index as part of a search process but do not allow viewing of the folder itself.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="implied-permissions">Implied Permissions</h3>
+<p>Note that each permission in the two tables above also includes all the permissions below it in the table, e.g. a user with <code>Edit</code> permission on a document will also have the implied permissions <code>View</code> and <code>Use</code>.
+There is no need to grant these lower permissions to the user, though doing so will have no impact as Stroom will user the highest value permission when checking permissions.</p>
+<h3 id="inherited-permissions">Inherited Permissions</h3>
+<p>If a User <em>jbloggs</em> is a member of Group <em>Team A</em> and that group is a member of group <em>Division 123</em>, then <em>jbloggs</em> will inherit all permissions from both <em>Team A</em> and <em>Division 123</em>.
+A User/Group will inherit all permissions of the groups that they are a member of and also from any ancestor groups of those groups.</p>
+<table>
+<thead>
+<tr>
+<th>User/Group</th>
+<th>Permissions</th>
+<th>Direct/Inherited</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Division 123</em></td>
+<td><strong>View</strong> on Dictionary <em>IP Allow List</em></td>
+<td>Direct</td>
+</tr>
+<tr>
+<td><em>Team A</em></td>
+<td><strong>View</strong> on Dictionary <em>IP Allow List</em></td>
+<td>Inherited</td>
+</tr>
+<tr>
+<td><em>Team A</em></td>
+<td><strong>Owner</strong> on Dashboard <em>Team Dashboard</em></td>
+<td>Direct</td>
+</tr>
+<tr>
+<td><em>jbloggs</em></td>
+<td><strong>View</strong> on Dictionary <em>IP Allow List</em></td>
+<td>Inherited</td>
+</tr>
+<tr>
+<td><em>jbloggs</em></td>
+<td><strong>Owner</strong> on Dashboard <em>Team Dashboard</em></td>
+<td>Inherited</td>
+</tr>
+<tr>
+<td><em>jbloggs</em></td>
+<td><strong>View</strong> on Dashboard <em>Frank&rsquo;s Dashboard</em></td>
+<td>Direct</td>
+</tr>
+</tbody>
+</table>
+<h3 id="owner-permission"><code>Owner</code> Permission</h3>
+<p>A document can have multiple owners.
+An owner can be a user or a group.
+When a document is created by a user they are automatically made an owner of it.
+Any user with the <code>Administrator</code> role has implied ownership of <strong>ALL</strong> documents.</p>
+<p>Having <code>Owner</code> permission on a document means the user can grant permissions on that document to other users, or revoke permissions from other users.</p>
+<h3 id="use-permission"><code>Use</code> Permission</h3>
+<p>This permission allows users to access a document but not actually see it in the explorer tree or open the document in Stroom.
+They can however make use of the document, e.g. selecting and querying an Index <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Index"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg></span>
+  </span> in a Dashboard <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Dashboard"><!-- Created with Inkscape (http://www.inkscape.org/) --><svg version="1.1" id="svg4591" width="512" height="512" viewBox="0 0 512 512" sodipodi:docname="Dashboard.svg" inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs4595" /><sodipodi:namedview id="namedview4593" pagecolor="var(--icon-colour__white)" bordercolor="#666666" borderopacity="1.0" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="0.35458919" inkscape:cx="530.191" inkscape:cy="589.41447" inkscape:window-width="2560" inkscape:window-height="1403" inkscape:window-x="2560" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="g4597" /><g inkscape:groupmode="layer" inkscape:label="Image" id="g4597"><rect style="fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655" width="151.83469" height="195.54515" x="73.71109" y="73.244606" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5" width="151.83469" height="195.54515" x="287.34845" y="243.71935" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9" width="155.95563" height="108.24628" x="285.01883" y="71.178368" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /><rect style="fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9-2" width="155.95563" height="108.24628" x="72.821693" y="331.08734" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /></g></svg> </span>
+  </span>.</p>
+<p>The <code>Use</code> permission is not relevant to all document types.</p>
+<h2 id="permissions-on-folders">Permissions on Folders</h2>
+<p>Folders <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Folder"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z"/></svg></span>
+  </span> in the explorer tree work mostly in the same way as documents when it comes to permissions.
+There are a couple of exceptions to this.</p>
+<h3 id="permission-on-folder-contents">Permission on Folder Contents</h3>
+<p>The permissions on a folder apply <strong>only</strong> to the folder itself and has no bearing on what you can/can&rsquo;t do to its child items.
+The permissions on each child item in the folder control what you can/can&rsquo;t do to those items.</p>
+<p>For example, if you only have <em>View</em> permission on a folder, but have <em>Delete</em> on a document in that folder, then you are able to delete that document and thus change the contents of the folder.</p>
+<p>Similarly, if you have <em>View</em> permission on a folder but have no permission on any of its child items, then you will just see an empty folder.</p>
+<h3 id="ancestor-folder-visibility">Ancestor Folder Visibility</h3>
+<p>A folder <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Folder"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z"/></svg></span>
+  </span> will be visible to a user in the explorer tree if the user has <em>View</em> permission on it <strong>OR</strong> if the user has <em>View</em> permission on any single document/folder that is a descendant of it.</p>
+<p>For example, if a user has <em>View</em> permission on a Dictionary <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Dictionary"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1703 478q40 57 18 129l-275 906q-19 64-76.5 107.5t-122.5 43.5h-923q-77 0-148.5-53.5t-99.5-131.5q-24-67-2-127 0-4 3-27t4-37q1-8-3-21.5t-3-19.5q2-11 8-21t16.5-23.5 16.5-23.5q23-38 45-91.5t30-91.5q3-10 .5-30t-.5-28q3-11 17-28t17-23q21-36 42-92t25-90q1-9-2.5-32t.5-28q4-13 22-30.5t22-22.5q19-26 42.5-84.5t27.5-96.5q1-8-3-25.5t-2-26.5q2-8 9-18t18-23 17-21q8-12 16.5-30.5t15-35 16-36 19.5-32 26.5-23.5 36-11.5 47.5 5.5l-1 3q38-9 51-9h761q74 0 114 56t18 130l-274 906q-36 119-71.5 153.5t-128.5 34.5h-869q-27 0-38 15-11 16-1 43 24 70 144 70h923q29 0 56-15.5t35-41.5l300-987q7-22 5-57 38 15 59 43zm-1064 2q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5zm-83 256q-4 13 2 22.5t20 9.5h608q13 0 25.5-9.5t16.5-22.5l21-64q4-13-2-22.5t-20-9.5h-608q-13 0-25.5 9.5t-16.5 22.5z"/></svg></span>
+  </span> <em>Dictionary_XYZ</em> with path</p>
+<p><strong>System / Folder_A / Folder_B / Dictionary_XYZ</strong></p>
+<p>but <strong>no</strong> permissions on <em>Folder A</em> or <em>Folder B</em>, they will be able to see both Folders in the explorer tree in addition to the Dictionary.
+They will however not be able to open those Folders as they do not have the permission.</p>
+<p>Therefore, when granting permissions on a document/folder to a user/group, you are also implicitly granting visibility (but not <em>View</em> permission) on all ancestor folders.</p>
+<h3 id="create-permissions">Create Permissions</h3>
+<p>Folders can have one or more <em>Create Permissions</em> granted on them to users/groups.</p>
+<p>There is a <em>Create Permission</em> for each document type, e.g. Index, Dictionary, Feed, etc.
+A <em>Create Permission</em> is the ability to create a new document of that type in that folder.</p>
+<p>For example, user <code>jbloggs</code> is an analyst and is granted <code>Create Dashboard</code> and <code>Create Query</code> permissions on the Folder <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Folder"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z"/></svg></span>
+  </span> named <code>Joe's Folder</code>.
+This means Joe can only create Dashboard <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Dashboard"><!-- Created with Inkscape (http://www.inkscape.org/) --><svg version="1.1" id="svg4591" width="512" height="512" viewBox="0 0 512 512" sodipodi:docname="Dashboard.svg" inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs4595" /><sodipodi:namedview id="namedview4593" pagecolor="var(--icon-colour__white)" bordercolor="#666666" borderopacity="1.0" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="0.35458919" inkscape:cx="530.191" inkscape:cy="589.41447" inkscape:window-width="2560" inkscape:window-height="1403" inkscape:window-x="2560" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="g4597" /><g inkscape:groupmode="layer" inkscape:label="Image" id="g4597"><rect style="fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655" width="151.83469" height="195.54515" x="73.71109" y="73.244606" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5" width="151.83469" height="195.54515" x="287.34845" y="243.71935" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9" width="155.95563" height="108.24628" x="285.01883" y="71.178368" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /><rect style="fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9-2" width="155.95563" height="108.24628" x="72.821693" y="331.08734" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /></g></svg> </span>
+  </span> or Query <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span> documents in that folder and nothing else.</p>
+<h3 id="applying-changes-to-descendants">Applying Changes to Descendants</h3>
+<p>When making changes to the permissions on Folder <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Folder"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z"/></svg></span>
+  </span> you have the option of making the changes to just that folder or to all descendants of that folder.
+Selecting to apply to all descendants will make all permission changes apply to every descendant, i.e. including any sub-folders and their contents or own sub-folders.</p>
+<h2 id="moving-and-copying-documents">Moving and Copying Documents</h2>
+<p>When you move <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Move"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1280 896q0 14-9 23l-320 320q-9 9-23 9-13 0-22.5-9.5t-9.5-22.5v-192h-352q-13 0-22.5-9.5t-9.5-22.5v-192q0-13 9.5-22.5t22.5-9.5h352v-192q0-14 9-23t23-9q12 0 24 10l319 319q9 9 9 23zm160 0q0-148-73-273t-198-198-273-73-273 73-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273zm224 0q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/></svg></span>
+  </span> or copy <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1664 1632v-1088q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h1088q13 0 22.5-9.5t9.5-22.5zm128-1088v1088q0 66-47 113t-113 47h-1088q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113zm-384-384v160h-128v-160q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h160v128h-160q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113z"/></svg></span>
+  </span> a document/folder you have the choice of how the destination document/folder&rsquo;s permissions should be derived.
+The move/copy dialog offers the following choices:</p>
+<ul>
+<li><strong>None</strong> - Removes all current permissions.
+Ignores permissions of the destination folder.
+You will be the owner of the moved document if not already.</li>
+<li><strong>Source</strong> - Keep the current permissions and ownership as they are.</li>
+<li><strong>Destination</strong> - Removes all current permissions.
+Adds the permissions of the destination folder.
+You will be the owner of the moved document if not already.</li>
+<li><strong>Combined</strong> - Keep the current permissions and add the permissions
+of the destination folder. You will be the owner of the moved document if not already.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>You must have <code>Owner</code> permission on the source document/folder (or <code>Admistrator</code> <span class="glossary-link">
+<a href="../../../../docs/glossary/#application-permission" title="Glossary entry for Application Permission">
+<span>Application Permission</span>
+<i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+</a>
+</span>) if you wish to use <em>None</em>, <em>Destination</em> or <em>Combined</em> as these all involve a change of permissions.</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2025 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../js/popper.min.js'></script>
+<script src='../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

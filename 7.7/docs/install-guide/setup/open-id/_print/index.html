@@ -1,0 +1,966 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../../docs/install-guide/setup/open-id/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="canonical" href="../../../../../../">
+
+
+<link rel="shortcut icon" href="../../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Setting up Stroom with an Open ID Connect IDP | Stroom</title>
+<meta name="description" content="How to set up Stroom to use a 3rd party Identity Provider (e.g. KeyCloak, Cognito, etc.) for authentication.
+">
+<meta property="og:title" content="Setting up Stroom with an Open ID Connect IDP" />
+<meta property="og:description" content="How to set up Stroom to use a 3rd party Identity Provider (e.g. KeyCloak, Cognito, etc.) for authentication.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/install-guide/setup/open-id/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Setting up Stroom with an Open ID Connect IDP">
+<meta itemprop="description" content="How to set up Stroom to use a 3rd party Identity Provider (e.g. KeyCloak, Cognito, etc.) for authentication.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Setting up Stroom with an Open ID Connect IDP"/>
+<meta name="twitter:description" content="How to set up Stroom to use a 3rd party Identity Provider (e.g. KeyCloak, Cognito, etc.) for authentication.
+"/>
+
+
+
+
+<link rel="preload" href="../../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" as="style">
+<link href="../../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-dark.css"/>
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.6)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../../">7.6 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../7.5">7.5</a>
+	
+	<a class="dropdown-item" href="../../../../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../../../offline-search-index.933bcda7ff1ca52f3fd8bd46934e2df3.json"
+    data-offline-search-base-href="../../../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../../docs/install-guide/setup/open-id/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Setting up Stroom with an Open ID Connect IDP</h1>
+<div class="lead">How to set up Stroom to use a 3rd party Identity Provider (e.g. KeyCloak, Cognito, etc.) for authentication.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-26d00adb8135cb0543caee412c094f19">Accounts vs Users</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-90712ddf545b0ddc40f1e55dc3e39fb1">Stroom&#39;s Internal IDP</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-84584124b4e9dfcb1a92fb6fb04aa336">External IDP</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-3e284c4e9a8665f74385d19551ebf9e4">Tokens for API use</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-d7a7af3b9f92385415e42baee016a4f6">Test Credentials</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    This section is currently work in progress so may contain incorrect information.
+
+</div>
+
+
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-26d00adb8135cb0543caee412c094f19">1 - Accounts vs Users</h1>
+    <div class="lead">The distinction between Accounts and Users in Stroom.</div>
+	<p>In Stroom we have the concept of Users and Accounts, and it is important to understand the distinction.</p>
+<h2 id="accounts">Accounts</h2>
+<p><span class="glossary-link">
+  <a href="../../../../../docs/glossary/#account" title="Glossary entry for Accounts">
+    <span>Accounts</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> are user identities in the internal <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
+    <span>Identity Provider (IDP)</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+The internal IDP is used when you want Stroom to manage all the authentication.
+The internal IDP is the default option and the simplest for test environments.
+Accounts are not applicable when using an external 3rd party IDP.</p>
+<p>Accounts are managed in Stroom using the <em>Manage Accounts</em> screen available from the _Tools =&gt; <em>Users</em> menu item.
+An administrator can create and manage user accounts allowing users to log in to Stroom.</p>
+<p>Accounts are for authentication only, and play no part in authorisation (permissions).
+A Stroom user account has a unique identity that will be associated with a Stroom User to link the two together.</p>
+<p>When using a 3rd party IDP this screen is not available as all management of users with respect to authentication is done in the 3rd party IDP.</p>
+<p>Accounts are stored in the <code>account</code> database table.</p>
+<h2 id="stroom-users">Stroom Users</h2>
+<p>A <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#user" title="Glossary entry for user">
+    <span>user</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> in Stroom is used for managing authorisation, i.e. permissions and group memberships.
+It plays no part in authentication.
+A user has a unique identifier that is provided by the IDP (internal or 3rd party) to identify it.
+This ID is also the link it to the Stroom <em>Account</em> in the case of the internal IDP or the identity on a 3rd party IDP.</p>
+<p>Stroom users and groups are managed in the <code>stroom_user</code> and <code>stroom_user_group</code> database tables respectively.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-90712ddf545b0ddc40f1e55dc3e39fb1">2 - Stroom&#39;s Internal IDP</h1>
+    <div class="lead">Details about Stroom&rsquo;s own internal identity provider and authentication mechanisms.</div>
+	<p>By default a new Stroom instance/cluster will use its own internal <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
+    <span>Identity Provider (IDP)</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> for authentication.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>An exception to this is the <code>_test</code> variant of the Stroom Docker stack which will default to using <a href="../../../../../docs/install-guide/setup/open-id/test-credentials/">Test Credentials</a></p>
+
+
+</div>
+
+
+<p>In this configuration, Stroom acts as its own Open ID Connect Identity Provider and manages both the user accounts for authentication and the user/group permissions, (see <a href="../../../../../docs/install-guide/setup/open-id/accounts-users/">Accounts and Users</a>).</p>
+<p>A fresh install will come pre-loaded with a user account called <code>admin</code> with the password <code>admin</code>.
+This user is a member of a <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#group-users" title="Glossary entry for group">
+    <span>group</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> called <code>Administrators</code> which has the <code>Administrator</code> application permission.
+This admin user can be used to set up the other users on the system.</p>
+<p>Additional user accounts are created and maintained using the <em>Tools</em> =&gt; <em>Users</em> menu item.</p>
+<h2 id="configuration-for-the-internal-idp">Configuration for the internal IDP</h2>
+<p>While Stroom is pre-configured to use its internal IDP, this section describes the configuration required.</p>
+<p>In Stroom:</p>
+<pre><code class="language-yaml">  security:
+    authentication:
+      authenticationRequired: true
+      openId:
+        identityProviderType: INTERNAL_IDP
+</code></pre>
+<p>In Stroom-Proxy:</p>
+<pre><code class="language-yaml">  feedStatus:
+    apiKey: &quot;AN_API_KEY_CREATED_IN_STROOM&quot;
+  security:
+    authentication:
+      openId:
+        identityProviderType: NO_IDP
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-84584124b4e9dfcb1a92fb6fb04aa336">3 - External IDP</h1>
+    <div class="lead">How to setup KEyCloak as an external identity provider for Stroom.</div>
+	<p>You may be running Stroom in an environment with an existing <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
+    <span>Identity Provider (IDP)</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (KeyCloak, Cognito, Google, Active Directory, etc.) and want to use that for authenticating users.
+Stroom supports 3rd party IDPs that conform to the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://openid.net/connect/" target="_blank" class="" style="" title="Open ID Connect (external link to https://openid.net/connect/)">
+    <span>Open ID Connect</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ specification.</p>
+<p>The following is a guide to setting up a new stroom instance/cluster with KeyCloak as the 3rd party IDP.
+KeyCloak is an Open ID Connect IDP.
+Configuration for other IDPs will be very similar so these instructions will have to be adapted accordingly.
+It is assumed that you have deployed a new instance/cluster of stroom AND have not yet started it.</p>
+<h2 id="running-keycloak">Running KeyCloak</h2>
+<blockquote>
+<p>If you already have a KeyCloak instance running then move on to the next section.</p>
+</blockquote>
+<p>This section is not a definitive guide to running/administering KeyCloak.
+It describes how to run KeyCloak using non-production settings for simplicity and to demonstrate using a 3rd party IDP.
+You should consult the KeyCloak documentation on how to set up a production ready instance of KeyCloak.</p>
+<p>The easiest way to run KeyCloak is using Docker.
+To create a KeyCloak container do the following:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker create \
+  --name keycloak \
+  -p 9999:8080 \
+  -e KEYCLOAK_ADMIN=admin \
+  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+  quay.io/keycloak/keycloak:20.0.1 \
+  start-dev</code></pre>
+</div>
+
+<p>This example maps KeyCloak&rsquo;s port to port <code>9999</code> to avoid any clash with Stroom that also runs on <code>8080</code>.
+This will create a docker container called <code>keycloak</code> that uses an embedded H2 database to hold its state.</p>
+<p>To start the container in the foreground, do:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">docker start -a keycloak</code></pre>
+</div>
+
+<p>KeyCloak should now be running on 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="http://localhost:9999/admin" target="_blank" class="" style="" title="External link to http://localhost:9999/admin">
+    <span>http://localhost:9999/admin</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+If you want to run KeyCloak on a different port then delete the container and create it with a different port for the <code>-p</code> argument.</p>
+<p>Log into KeyCloak using the username <code>admin</code> and password <code>admin</code> as specified in the environment variables set in the container creation command above.
+You should see the admin console.</p>
+<h2 id="creating-a-realm">Creating a realm</h2>
+<p>First you need to create a Realm.</p>
+<ol>
+<li>Click on the drop-down in the left pane that contains the word <code>master</code>.</li>
+<li>Click <em>Create Realm</em>.</li>
+<li>Set the <em>Realm name</em> to <code>StroomRealm</code>.</li>
+<li>Click <em>Create</em>.</li>
+</ol>
+<h2 id="creating-a-client">Creating a client</h2>
+<p>In the new realm click on <em>Clients</em> in the left pane, then <em>Create client</em>.</p>
+<ol>
+<li>Set the <em>Client ID</em> to <code>StroomClient</code>.</li>
+<li>Click <em>Next</em>.</li>
+<li>Set <em>Client authentication</em> to on.</li>
+<li>Ensure the following are ticked:
+<ul>
+<li>Standard flow</li>
+<li>Direct access grants</li>
+</ul>
+</li>
+<li>Click <em>Save</em>.</li>
+</ol>
+<p>Open the new <em>Client</em> and on the <em>Settings</em> tab set:</p>
+<ul>
+<li><em>Valid redirect URIs</em> to <code>https://localhost/*</code></li>
+<li><em>Valid post logout redirect URIs</em> to <code>https://localhost/*</code></li>
+</ul>
+<p>On the <em>Credentials</em> tab copy the <em>Client secret</em> for use later in Stroom config.</p>
+<h2 id="creating-users">Creating users</h2>
+<p>Click on <em>Users</em> in the left pane then <em>Add user</em>.
+Set the following:</p>
+<ul>
+<li>Username - <code>admin</code></li>
+<li>First name - <code>Administrator</code></li>
+<li>Last name - <code>Administrator</code></li>
+</ul>
+<p>Click <em>Create</em>.</p>
+<p>Select the <em>Credentials</em> tab and click <em>Set password</em>.</p>
+<p>Set the password to <code>admin</code> and set <em>Temporary</em> to off.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Standard practice would be for there to be a number of administrators where each has their own identity (in their own name) on the IDP.
+Each would be granted the <code>Administrator</code> application permission (directly or via a group).
+For this example we are calling our administrator <code>admin</code>.
+
+</div>
+
+
+<p>Repeat this process for the following user:</p>
+<ul>
+<li>Username - <code>jbloggs</code></li>
+<li>First name - <code>Joe</code></li>
+<li>Last name - <code>Bloggs</code></li>
+<li>Password - <code>password</code></li>
+</ul>
+<h2 id="configure-stroom-for-keycloak">Configure Stroom for KeyCloak</h2>
+<p>Edit the <code>config.yml</code> file and set the following values</p>
+<pre><code class="language-yaml">  receive:
+    # Set to true to require authenticatin for /datafeed requests
+    authenticationRequired: true
+    # Set to true to allow authentication using an Open ID token
+    tokenAuthenticationEnabled: true
+  security:
+    authentication:
+      authenticationRequired: true
+      openId:
+        # The client ID created in KeyCloak
+        clientId: &quot;StroomClient&quot;
+        # The client secret copied from KeyCloak above
+        clientSecret: &quot;XwTPPudGZkDK2hu31MZkotzRUdBWfHO6&quot;
+        # Tells Stroom to use an external IDP for authentication
+        identityProviderType: EXTERNAL_IDP
+        # The URL on the IDP to redirect users to when logging out in Stroom
+        logoutEndpoint: &quot;http://localhost:9999/realms/StroomRealm/protocol/openid-connect/logout&quot;
+        # The endpoint to obtain the rest of the IDPs configuration. Specific to the realm/issuer.
+        openIdConfigurationEndpoint: &quot;http://localhost:9999/realms/StroomRealm/.well-known/openid-configuration&quot;
+</code></pre>
+<p>These values are obtained from the IDP.
+In the case of KeyCloak they can be found by clicking on <em>Realm settings</em> =&gt; <em>Endpoints</em> =&gt; <em>OpenID Endpoint Configuration</em> and extracting the various values from the JSON response.
+Alternatively they can typically be found at this address on any Open ID Connect IDP, <em>https://host/.well-known/openid-configuration</em>.
+The values will reflect the host/port that the IDP is running on along with the name of the realm.</p>
+<p>Setting the above values assumes <em>KeyCloak</em> is running on <code>localhost:9999</code> and the <em>Realm</em> name is <code>StroomRealm</code>.</p>
+<h2 id="setting-up-the-admin-user-in-stroom">Setting up the admin user in Stroom</h2>
+<p>Now that the <code>admin</code> user exists in the IDP we need to grant it <code>Administrator</code> rights in Stroom.</p>
+<p>In the <em>Users</em> section of KeyCloak click on user <code>admin</code>.
+On the <em>Details</em> tab copy the value of the <em>ID</em> field.
+The ID is in the form of a <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#uuid" title="Glossary entry for UUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>
+This ID will be used in Stroom to uniquely identify the user and associate it with the identity in KeyCloak.</p>
+<p>To set up Stroom with this admin user run the following (<strong>before</strong> Stroom has been started for the first time):</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">subject_id=&#34;XXX&#34;; \
+java -jar /absolute/path/to/stroom-app-all.jar \
+  manage_users \
+  ../local.yml \
+  --createUser &#34;${subject_id}&#34; \
+  --createGroup Administrators \
+  --addToGroup &#34;${subject_id}&#34; Administrators \
+  --grantPermission Administrators &#34;Administrator&#34;</code></pre>
+</div>
+
+<p>Where <code>XXX</code> is the user ID copied from the IDP as described above.
+This command is repeatable as it will skip any users/groups/memberships that already exist.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <p>See <a href="../../../../../docs/user-guide/tools/command-line/">Command Line Tools</a> for more details on using the <code>manage_users</code> command.</p>
+
+
+</div>
+
+
+<p>This command will do the following:</p>
+<ul>
+<li>Create the Stroom User by creating an entry in the <code>stroom_user</code> database table for the IDP&rsquo;s <code>admin</code> user.</li>
+<li>Ensure that an <code>Adminstrators</code> group exists (i.e. an entry in the <code>stroom_user</code> database table for the <code>Adminstrators</code> group).</li>
+<li>Add the <code>admin</code> user to the group <code>Administrators</code>.</li>
+<li>Grant the application permission <code>Administrator</code> to the group <code>Administrators</code>.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    This process is only required to bootstrap the admin user to allow them to log in with administrator rights to be able to manage the permissions and group memberships of other users.
+It does not need to be done for every user.
+Whenever a user successfully logs in via the IDP, Stroom will automatically create an entry in the <code>stroom_user</code> table for that user.
+The user will have no permissions or group memberships so this will need to be applied by the administrator.
+This does mean that new users will need to login before the administrator can manage their permissions/memberships.
+
+</div>
+
+
+<h2 id="logging-into-stroom">Logging into Stroom</h2>
+<h3 id="as-the-administrator">As the administrator</h3>
+<p>Now that the user and permissions have been set up in Stroom, the administrator can log in.</p>
+<p>First start the Stroom instance/cluster.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    If the <code>manage_users</code> command is run while Stroom is running you will likely not see the effect when logging in as the user permissions are cached.
+Without Administrator rights you will not be able to clear the caches so you will need to wait for the cache entries to expire or restart Stroom.
+
+</div>
+
+
+<p>Navigate to <em>http://STROOM_FQDN</em> and Stroom should re-direct you to the IDP (KeyCloak) to authenticate.
+Enter the username of <code>admin</code> and password <code>admin</code>.
+You should be authenticated by KeyCloak and re-directed back to stroom.
+Your user ID is shown in the bottom right corner of the Welcome tab.</p>
+<p>As an administrator, the <em>Tools</em> =&gt; <em>User Permissions</em> menu item will be available to manage the permissions of any users that have logged on at least once.</p>
+<p>Now select <em>User</em> =&gt; <em>Logout</em> to be re-directed to the IDP to logout.
+Once you logout of the IDP it should re-direct you back to the IDP login screen for Stroom to log back in again.</p>
+<h3 id="as-an-ordinary-user">As an ordinary user</h3>
+<p>On the IDP login screen, login as user <code>jbloggs</code> with the password <code>password</code>.
+You will be re-directed to Stroom however the explorer tree will be empty and most of the menu items will be disabled.
+In order to gain permissions to do anything in Stroom a Stroom administrator will need to grant application/document permissions and/or group memberships to the user via the <em>Tools</em> =&gt; <em>User Permissions</em> menu item.</p>
+<h2 id="configure-stroom-proxy-for-keycloak">Configure Stroom-Proxy for KeyCloak</h2>
+<p>In order to user Stroom-Proxy with OIDC</p>
+<p>Edit the <code>config.yml</code> file and set the following values</p>
+<pre><code class="language-yaml">  receive:
+    # Set to true to require authenticatin for /datafeed requests
+    authenticationRequired: true
+    # Set to true to allow authentication using an Open ID token
+    tokenAuthenticationEnabled: true
+  security:
+    authentication:
+      openId:
+        # The client ID created in KeyCloak
+        clientId: &quot;StroomClient&quot;
+        # The client secret copied from KeyCloak above
+        clientSecret: &quot;XwTPPudGZkDK2hu31MZkotzRUdBWfHO6&quot;
+        # Tells Stroom to use an external IDP for authentication
+        identityProviderType: EXTERNAL_IDP
+        # The URL on the IDP to redirect users to when logging out in Stroom
+        logoutEndpoint: &quot;http://localhost:9999/realms/StroomRealm/protocol/openid-connect/logout&quot;
+        # The endpoint to obtain the rest of the IDPs configuration. Specific to the realm/issuer.
+        openIdConfigurationEndpoint: &quot;http://localhost:9999/realms/StroomRealm/.well-known/openid-configuration&quot;
+</code></pre>
+<p>If Stroom-Proxy is configured to forward data onto another Stroom-Proxy or Stroom instance then it can use tokens when forwarding the data.
+This assumes the downstream Stroom or Stroom-Proxy is also configured to use the same external IDP.</p>
+<pre><code class="language-yaml">  forwardHttpDestinations:
+
+      # If true, adds a token for the service user to the request
+    - addOpenIdAccessToken: true
+      enabled: true
+      name: &quot;downstream&quot;
+      forwardUrl: &quot;http://somehost/stroom/datafeed&quot;
+</code></pre>
+<p>The token used will be for the service user account of the identity provider client used by Stroom-Proxy.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-3e284c4e9a8665f74385d19551ebf9e4">4 - Tokens for API use</h1>
+    <div class="lead">How to create and use tokens for making API calls.</div>
+	
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>We strongly recommend you install <em>jq</em> if you are working with JSON responses from the IDP.
+It allows you to parse and extract parts of the JSON response.</p>
+<span class="external-link">
+  <a href="https://stedolan.github.io/jq/" target="_blank" class="" style="" title="External link to https://stedolan.github.io/jq/">
+    <span>https://stedolan.github.io/jq/</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+
+</div>
+
+
+<h2 id="creating-a-user-access-token">Creating a user access token</h2>
+<p>If a user wants to use the REST API they will need to create a token for authentication/authorisation in API calls.
+Any calls to the REST API will have the same permissions that the user has within Stroom.</p>
+<p>The following excerpt of shell commands shows how you can get an access/refresh token pair for a user and then later use the refresh token to obtain a new access token.
+It also shows how you can extract the expiry date/time from a token using <em>jq</em>.</p>
+<pre><code class="language-bash">get_jwt_expiry() {
+  jq \
+    --raw-input \
+    --raw-output \
+    'split(&quot;.&quot;) | .[1] | @base64d | fromjson | .exp | todateiso8601' \
+    &lt;&lt;&lt; &quot;${1}&quot;
+}
+
+# Fetch a new set of tokens (id, access and refresh) for the user
+response=&quot;$( \
+  curl \
+    --silent \
+    --request POST \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data-urlencode 'client_id=admin-cli' \
+    --data-urlencode 'grant_type=password' \
+    --data-urlencode 'scope=openid' \
+    --data-urlencode 'username=jbloggs' \
+    --data-urlencode 'password=password' \
+    'http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token' )&quot;
+
+# Extract the individual tokens from the response
+access_token=&quot;$( jq -r '.access_token' &lt;&lt;&lt; &quot;${response}&quot; )&quot;
+refresh_token=&quot;$( jq -r '.refresh_token' &lt;&lt;&lt; &quot;${response}&quot; )&quot;
+
+# Output the tokens
+echo -e &quot;\nAccess token (expiry $( get_jwt_expiry &quot;${access_token}&quot;)):\n${access_token}&quot;
+echo -e &quot;\nRefresh token (expiry $( get_jwt_expiry &quot;${refresh_token}&quot;)):\n${refresh_token}&quot;
+
+# Fetch a new access token using the stored refresh token
+response=&quot;$( \
+  curl \
+    --silent \
+    --request POST \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data-urlencode 'client_id=admin-cli' \
+    --data-urlencode 'grant_type=refresh_token' \
+    --data-urlencode &quot;refresh_token=${refresh_token}&quot; \
+    'http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token' )&quot;
+
+access_token=&quot;$( jq -r '.access_token' &lt;&lt;&lt; &quot;${response}&quot; )&quot;
+refresh_token=&quot;$( jq -r '.refresh_token' &lt;&lt;&lt; &quot;${response}&quot; )&quot;
+
+echo -e &quot;\nNew access token (expiry $( get_jwt_expiry &quot;${access_token}&quot;)):\n${access_token}&quot;
+echo -e &quot;\nNew refresh token (expiry $( get_jwt_expiry &quot;${refresh_token}&quot;)):\n${refresh_token}&quot;
+</code></pre>
+<p>The above example assumes that you have created a user called <code>jbloggs</code> and a client ID <code>admin-cli</code>.</p>
+<p>Access tokens typically have a short life (of the order of minutes) while a refresh token will have a much longer life (maybe up to a year).
+Refreshing the token does not require re-authentication.</p>
+<h2 id="creating-a-service-account-token">Creating a service account token</h2>
+<p>If want another system to call one of Stroom&rsquo;s APIs then it is likely that you will do that using a non-human service account (or processing user account).</p>
+<h3 id="creating-a-new-client-id">Creating a new Client ID</h3>
+<p>The client system needs to be represented by a Client ID in KeyCloak.
+To create a new Client ID, assuming the client system is called <em>System X</em>, do the following in the KeyCloak admin UI.</p>
+<ol>
+<li>Click <em>Clients</em> in the left pane.</li>
+<li>Click <em>Create client</em>.</li>
+<li>Set the <em>Client ID</em> to be <code>system-x</code>.</li>
+<li>Set the <em>Name</em> to be <code>System X</code>.</li>
+<li>Click <em>Next</em>.</li>
+<li>Enable <em>Client Authentication</em>.</li>
+<li>Enable <em>Service accounts roles</em>.</li>
+<li>Click <em>Save</em>.</li>
+</ol>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    By enabling <em>Service accounts role</em>, KeyCloak will create a service account user called <code>service-account-system-x</code>.
+Tokens will be created under this non-human user identity.
+
+</div>
+
+
+<p>Open the <em>Credentials</em> tab and copy the <em>Client secret</em> for use later.
+Open the <em>Credentials</em> tab and copy the <em>Client secret</em> for use later.</p>
+<p>To create an access token run the following shell commands:</p>
+<pre><code class="language-bash">response=&quot;$( \
+  curl \
+    --silent \
+    --request POST \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data-urlencode 'client_secret=k0BhYyvt6PHQqwKnnQpbL3KXVFHG0Wa1' \
+    --data-urlencode 'client_id=system-x' \
+    --data-urlencode 'grant_type=client_credentials' \
+    --data-urlencode 'scope=openid' \
+    'http://localhost:9999/realms/StroomRealm/protocol/openid-connect/token' )&quot;
+
+access_token=&quot;$( jq -r '.access_token' &lt;&lt;&lt; &quot;${response}&quot; )&quot;
+refresh_token=&quot;$( jq -r '.refresh_token' &lt;&lt;&lt; &quot;${response}&quot; )&quot;
+
+echo -e &quot;\nAccess token:\n${access_token}&quot;
+</code></pre>
+<p>Where <code>client_secret</code> is the <em>Client secret</em> that you copied from KeyCloak earlier.</p>
+<p>This access token can be refreshed in the same way as for a user access token, as described above.</p>
+<h2 id="using-access-tokens">Using access tokens</h2>
+<p>Access tokens can be used in calls the Stroom&rsquo;s REST API or its datafeed API.
+The process of including the token in a HTTP request is described in <a href="../../../../../docs/user-guide/api/#authentication">API Authentication</a></p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-d7a7af3b9f92385415e42baee016a4f6">5 - Test Credentials</h1>
+    <div class="lead">Hard coded Open ID credentials for test or demonstration purposes.</div>
+	<p>Stroom and Stroom-Proxy come with a set of hard coded Open ID credentials that are intended for use in test/demo environments.
+These credentials mean that the <code>_test</code> stroom docker stack can function out of the box with Stroom-Proxy able to authenticate with Stroom.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+
+    <p>These credentials are publicly available and therefore totally insecure.
+If you are configuring a production instance of Stroom or Stroom-Proxy you must not use these credentials.</p>
+<p>To correctly configure secure authentication in Stroom and Stroom-Proxy see <a href="../../../../../docs/install-guide/setup/open-id/internal-idp/">Internal IDP</a> or <a href="../../../../../docs/install-guide/setup/open-id/external-idp/">External IDP</a>.</p>
+
+
+</div>
+
+
+<h2 id="configuring-the-test-credentials">Configuring the test credentials</h2>
+<p>To configure Stroom to use these hard-coded credentials you need to set the following property:</p>
+<pre><code class="language-yaml">  security:
+    authentication:
+      openId:
+        identityProviderType: TEST_CREDENTIALS
+</code></pre>
+<p>When you start the Stroom instance you will see a large banner message in the logs that will include the <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#token" title="Glossary entry for token">
+    <span>token</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> that can be used in API calls or by Stroom-proxy for its feed status checks.</p>
+<p>To configure Stroom-Proxy to use these credentials set the following:</p>
+<pre><code class="language-yaml">  feedStatus:
+    apiKey: &quot;THE_TOKEN_OBTAINED_FROM_STROOM'S_LOGS&quot;
+  security:
+    authentication:
+      openId:
+        identityProviderType: NO_IDP
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2025 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../../js/popper.min.js'></script>
+<script src='../../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

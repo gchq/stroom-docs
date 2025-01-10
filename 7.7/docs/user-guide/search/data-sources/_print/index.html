@@ -1,0 +1,1072 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../../docs/user-guide/search/data-sources/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="canonical" href="../../../../../../">
+
+
+<link rel="shortcut icon" href="../../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Data Sources | Stroom</title>
+<meta name="description" content="Stroom has multiple different types of data sources that can be queried by Stroom using Dashboards, Queries and Analytic Rules.
+">
+<meta property="og:title" content="Data Sources" />
+<meta property="og:description" content="Stroom has multiple different types of data sources that can be queried by Stroom using Dashboards, Queries and Analytic Rules.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/user-guide/search/data-sources/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Data Sources">
+<meta itemprop="description" content="Stroom has multiple different types of data sources that can be queried by Stroom using Dashboards, Queries and Analytic Rules.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Sources"/>
+<meta name="twitter:description" content="Stroom has multiple different types of data sources that can be queried by Stroom using Dashboards, Queries and Analytic Rules.
+"/>
+
+
+
+
+<link rel="preload" href="../../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" as="style">
+<link href="../../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../../../../css/stroom-ui/theme-dark.css"/>
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.6)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../../">7.6 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../../7.5">7.5</a>
+	
+	<a class="dropdown-item" href="../../../../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../../../offline-search-index.933bcda7ff1ca52f3fd8bd46934e2df3.json"
+    data-offline-search-base-href="../../../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../../docs/user-guide/search/data-sources/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Data Sources</h1>
+<div class="lead">Stroom has multiple different types of data sources that can be queried by Stroom using Dashboards, Queries and Analytic Rules.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-34aa4e7960cd53b3ac48c71e7f44aad8">Lucene Index Data Source</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-9b1dc44721758516d5b5d38e61b67d33">Statistics</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-4672c4f62e995744823d82d85e6f52e0">Elasticsearch</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-53502f4a17a850f5f69889deae19cfb2">Internal Data Sources</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-34aa4e7960cd53b3ac48c71e7f44aad8">1 - Lucene Index Data Source</h1>
+    <div class="lead">Stroom&rsquo;s own Lucene based index for indexing and searching its stream data.</div>
+	<p>Stroom&rsquo;s primary data source is its internal Lucene based search indexes.
+For details of how data is indexed see <a href="../../../../../docs/user-guide/indexing/lucene/">Lucene Indexes</a>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section
+
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-9b1dc44721758516d5b5d38e61b67d33">2 - Statistics</h1>
+    <div class="lead">Using Stroom&rsquo;s statistic stores as a data source.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section
+
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-4672c4f62e995744823d82d85e6f52e0">3 - Elasticsearch</h1>
+    <div class="lead">Using Elasticsearch as a data source.</div>
+	<p>Stroom can integrate with external Elasticsearch indexes to allow querying using Stroom&rsquo;s various mechanisms for querying data sources.
+These indexes may have been populated using a Stroom pipeline (See <a href="../../../../../docs/user-guide/indexing/elasticsearch/">here</a>).</p>
+<h2 id="searching-using-a-stroom-dashboard">Searching using a Stroom dashboard</h2>
+<p>Searching an Elasticsearch index (or data stream) using a Stroom dashboard is conceptually similar to the process described in <a href="../../../../../docs/quick-start-guide/dashboard/">Dashboards</a>.</p>
+<p>Before you set the dashboard&rsquo;s data source, you must first create an Elastic Index document to tell Stroom which index (or indices) you wish to query.</p>
+<h3 id="create-an-elastic-index-document">Create an Elastic Index document</h3>
+<ol>
+<li>Right-click a folder in the Stroom Explorer pane (<span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Explorer"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><g fill="var(--icon-colour__blue)"><path d="m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/><path d="m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z"/><path d="m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/></g><path stroke-linejoin="round" d="m600.75 492.64v949.1h381.89" stroke="var(--icon-colour__blue)" stroke-width="71.125" fill="none"/><path d="m597.94 807.14h539.13" fill-rule="evenodd" stroke="var(--icon-colour__blue)" stroke-width="71.125"/></svg> </span>
+  </span>).</li>
+<li>Select:<br>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">New
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Elastic index"><!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 2500 2500" style="enable-background:new 0 0 2500 2500;" xml:space="preserve"><style type="text/css"> .st0{fill:#4A4B4C;} .st1{fill:var(--icon-colour__white);} .st2{fill:#F4BD19;} .st3{fill:#3CBEB1;} .st4{fill:#E9478C;} .st5{fill:#2C458F;} .st6{fill:#95C63D;} .st7{fill:#176655;} </style><g><path class="st0" d="M1240,1071.5c220.3,0,426.2-20,617.7-60c191.5-40,80.9,38.1,191.5-40l114,129.1c0,64.1,99.8,94.5,4,149.3 s-225.9,98.3-390.4,130.4s-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237 c110.6,78.1,261.7,137.1,453.2,177.1C813.8,1051.5,1019.7,1071.5,1240,1071.5z M1240,2499.4c-193.4,0-372.3-16-536.8-48.1 s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237c110.6,78.1,261.7,137.1,453.2,177.1c191.5,40,397.4,60,617.7,60 M1776.8,1915.8c-164.5,32.1-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4 S169.1,1671.1,169.1,1607v-237C279.7,1448,430.8,1507,622.3,1547c191.5,40,397.4,60,617.7,60s426.2-20,617.7-60 c191.5-40,163.5-99,274.1-177.1l179.1,237c0,64.1-47.9,123.6-143.6,178.5 M1240,0.6c193.4,0,372.3,16,536.8,48.1 s294.7,75.5,390.4,130.4s143.6,114.3,143.6,178.5v178.5c0,64.1-47.9,123.6-143.6,178.5s-225.9,98.3-390.4,130.4 C1612.3,877,1433.4,893,1240,893s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4S169.1,600.2,169.1,536.1V357.6 c0-64.1,47.9-123.6,143.6-178.5S538.6,80.8,703.2,48.8S1046.6,0.6,1240,0.6z"/></g><path class="st1" d="M2518.6,1692.2c0-151.6-94.2-282.5-234-334c5.9-32,8.9-64.5,8.8-97.1c0-281-228.1-509.1-509.1-509.1 c-163.3,0-316.3,78-412,211.9c-47.1-36.8-104.5-55.9-164.8-55.9c-148.6,0-270.7,120.7-270.7,270.7c0,32.4,5.9,64.7,16.2,94.2 c-141.2,48.6-236.9,183.9-236.9,334c0,151.6,94.2,284,235.4,335.5c-5.9,30.9-8.8,63.3-8.8,97.1c0,279.6,228.1,507.6,507.6,507.6 c164.8,0,316.4-79.5,412-211.9c47.1,36.8,105.9,57.4,166.3,57.4c148.6,0,270.7-120.7,270.7-270.7c0-32.4-5.9-64.7-16.2-94.2 C2421.4,1977.6,2518.5,1842.2,2518.6,1692.2L2518.6,1692.2z"/><path class="st2" d="M1420.9,1522.9l401.7,183.9l406.1-356.1c5.9-29.6,8.9-59.6,8.8-89.8c0-250.1-203-453.2-453.2-453.2 c-150.1,0-289.9,73.6-373.7,197.2l-67.7,350.2L1420.9,1522.9L1420.9,1522.9z"/><path class="st3" d="M1004.5,1948.2c-5.9,29.4-8.8,60.3-8.8,91.2c0,250.1,204.5,454.7,454.7,454.7c151.6,0,291.3-75,376.7-198.6 l66.2-350.2l-89.8-170.7l-403.2-183.9L1004.5,1948.2L1004.5,1948.2z"/><path class="st4" d="M1001.5,1252.2l275.2,64.7l61.8-313.4c-38.3-29.4-83.9-44.1-132.4-44.1c-119.2,0-217.8,97.1-217.8,217.8 C988.3,1202.2,992.7,1228.7,1001.5,1252.2L1001.5,1252.2z"/><path class="st5" d="M978,1318.4c-123.6,39.7-208.9,158.9-208.9,288.4c0,126.5,78,239.8,195.7,284l387-350.2l-70.6-151.5L978,1318.4 L978,1318.4z"/><path class="st6" d="M1897.6,2294c38.3,29.4,83.9,45.6,131,45.6c119.2,0,217.8-97.1,217.8-217.8c0-26.5-4.4-51.5-13.2-75 l-275.2-64.7L1897.6,2294L1897.6,2294z"/><path class="st7" d="M1953.5,1909.9l303.1,70.6c123.6-41.2,208.9-158.9,208.9-288.4c0-126.5-78-238.4-195.7-284l-397.3,347.2 L1953.5,1909.9L1953.5,1909.9z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Elastic Index
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>Enter a name for the index document and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Ellipsis"><svg xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" viewBox="0 0 1792 1792"><g style="fill:currentColor"><circle cx="342.43176" cy="896" r="208.83429"/><circle cx="896" cy="896" r="208.83429"/><circle cx="1449.5682" cy="896" r="208.83429"/></g></svg> </span>
+  </span> next to the <code>Cluster configuration</code> field label.</li>
+<li>In the dialog that appears, select the Elastic Cluster document where the index exists, and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Enter the name of an index or data stream in <code>Index name or pattern</code>.
+Data view (formerly known as <em>index pattern</em>) 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern" target="_blank" class="" style="" title="syntax (external link to https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern)">
+    <span>syntax</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is supported, which enables you to query multiple indices or data streams at once.
+For example: <code>stroom-events-v1</code>.</li>
+<li>(Optional) Set <code>Search slices</code>, which is the number of parallel workers that will query the index.
+For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.</li>
+<li>(Optional) Set <code>Search scroll size</code>, which specifies the number of documents to return in each search response.
+Greater values generally increase efficiency.
+By default, Elasticsearch limits this number to <code>10,000</code>.</li>
+<li>Click <code>Test Connection</code>.
+A dialog will appear with the result, which will state <code>Connection Success</code> if the connection was successful and the index pattern matched one or more indices.</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+  </span>.</li>
+</ol>
+<h3 id="set-the-elastic-index-document-as-the-dashboard-data-source">Set the Elastic Index document as the dashboard data source</h3>
+<ol>
+<li>Open or create a dashboard.</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Settings"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z"/></svg></span>
+  </span> in the <code>Query</code> panel.</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Ellipsis"><svg xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" viewBox="0 0 1792 1792"><g style="fill:currentColor"><circle cx="342.43176" cy="896" r="208.83429"/><circle cx="896" cy="896" r="208.83429"/><circle cx="1449.5682" cy="896" r="208.83429"/></g></svg> </span>
+  </span> next to the <code>Data Source</code> field label.</li>
+<li>Select the Elastic Index document you created and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Configure the query expression as explained in <a href="../../../../../docs/quick-start-guide/dashboard/#configuring-the-query-expression">Dashboards</a>.
+Note the <a href="#query-expression-tips">tips</a> for particular Elasticsearch field mapping data types.</li>
+<li><a href="../../../../../docs/quick-start-guide/dashboard/#configuring-the-table">Configure the table</a>.</li>
+</ol>
+<h2 id="query-expression-tips">Query expression tips</h2>
+<p>Certain Elasticsearch field mapping types support special syntax when used in a Stroom dashboard query expression.</p>
+<p>To identify the field mapping type for a particular field:</p>
+<ol>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span> in the <code>Query</code> panel to add a new expression item.</li>
+<li>Select the Elasticsearch field name in the drop-down list.</li>
+<li>Note the blue data type indicator to the far right of the row.
+Common examples are: <code>keyword</code>, <code>text</code> and <code>number</code>.</li>
+</ol>
+<p>After you identify the field mapping type, move the mouse cursor over the mapping type indicator.
+A tooltip appears, explaining various types of queries you can perform against that particular field&rsquo;s type.</p>
+<h2 id="searching-multiple-indices">Searching multiple indices</h2>
+<p>Using data view (index pattern) syntax, you can create powerful dashboards that query multiple indices at a time.
+An example of this is where you have multiple indices covering different types of email systems.
+Let&rsquo;s assume these indices are named: <code>stroom-exchange-v1</code>, <code>stroom-domino-v1</code> and <code>stroom-mailu-v1</code>.</p>
+<p>There is a common set of fields across all three indices: <code>@timestamp</code>, <code>Subject</code>, <code>Sender</code> and <code>Recipient</code>.
+You want to allow search across all indices at once, in effect creating a unified <em>email</em> dashboard.</p>
+<p>You can achieve this by creating an Elastic Index document called (for example) <code>Elastic-Email-Combined</code> and setting the property <code>Index name or pattern</code> to: <code>stroom-exchange-v1,stroom-domino-v1,stroom-mailu-v1</code>.
+Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+  </span> and re-open the dashboard.
+You&rsquo;ll notice that the available fields are a union of the fields across all three indices.
+You can now search by any of these - in particular, the fields common to all three.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-53502f4a17a850f5f69889deae19cfb2">4 - Internal Data Sources</h1>
+    <div class="lead">A set of data sources for querying the inner workings of Stroom.</div>
+	<p>Stroom provides a number of built in data sources for querying the inner workings of stroom.
+These data sources do not have a corresponding <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#document" title="Glossary entry for Document">
+    <span>Document</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> so do not feature in the explorer tree.</p>
+<p>These data sources appear as children of the root folder when selecting a data source in a Dashboard <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Dashboard"><!-- Created with Inkscape (http://www.inkscape.org/) --><svg version="1.1" id="svg4591" width="512" height="512" viewBox="0 0 512 512" sodipodi:docname="Dashboard.svg" inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs4595" /><sodipodi:namedview id="namedview4593" pagecolor="var(--icon-colour__white)" bordercolor="#666666" borderopacity="1.0" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="0.35458919" inkscape:cx="530.191" inkscape:cy="589.41447" inkscape:window-width="2560" inkscape:window-height="1403" inkscape:window-x="2560" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="g4597" /><g inkscape:groupmode="layer" inkscape:label="Image" id="g4597"><rect style="fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655" width="151.83469" height="195.54515" x="73.71109" y="73.244606" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5" width="151.83469" height="195.54515" x="287.34845" y="243.71935" transform="matrix(1,0,-0.00232161,0.99999731,0,0)" /><rect style="fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9" width="155.95563" height="108.24628" x="285.01883" y="71.178368" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /><rect style="fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" id="rect4655-5-9-2" width="155.95563" height="108.24628" x="72.821693" y="331.08734" transform="matrix(1,0,-0.00408154,0.99999167,0,0)" /></g></svg> </span>
+  </span>, View <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="View"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg> </span>
+  </span>.
+They are also available in the list of data sources when editing a Query <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
+  </span>.</p>
+<h2 id="analytics">Analytics</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete
+
+</div>
+
+<h2 id="annotations">Annotations</h2>
+<p>Annotations are a means of annotating search results with additional information and for assigning those annotations to users.
+The <em>Annotations</em> data source allows you to query the annotations that have been created.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>annotaion:Id</code></td>
+<td>Long</td>
+<td>Annotation unique identifier.</td>
+</tr>
+<tr>
+<td><code>annotation:CreatedOn</code></td>
+<td>Date</td>
+<td>Date created.</td>
+</tr>
+<tr>
+<td><code>annotation:CreatedBy</code></td>
+<td>String</td>
+<td>Username of the user that created the annotation.</td>
+</tr>
+<tr>
+<td><code>annotation:UpdatedOn</code></td>
+<td>Date</td>
+<td>Date last updated.</td>
+</tr>
+<tr>
+<td><code>annotation:UpdatedBy</code></td>
+<td>String</td>
+<td>Username of the user that last updated the annotation.</td>
+</tr>
+<tr>
+<td><code>annotation:Title</code></td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td><code>annotation:Subject</code></td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td><code>annotation:AssignedTo</code></td>
+<td>String</td>
+<td>Username the annotation is assigned to.</td>
+</tr>
+<tr>
+<td><code>annotation:Comment</code></td>
+<td>String</td>
+<td>Any comments on the annotation.</td>
+</tr>
+<tr>
+<td><code>annotation:History</code></td>
+<td>String</td>
+<td>History of changes to the annotation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dual">Dual</h2>
+<p>The Dual data source is one with a single field that always returns one row with the same value.
+This data source can be useful for testing expression functions.
+It can also be useful when combined with an extraction pipeline that uses the <code>stroom:http-call()</code> XSLT function in order to make a single HTTP call using Dashboard parameter values.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Dummy</code></td>
+<td>String</td>
+<td>Always one row that has the value <code>X</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="index-shards">Index Shards</h2>
+<p>Exposes the details of the index shards that make up Stroom&rsquo;s Lucene based index.
+Each index is split up into one or more partitions and each partition is further divided into one or more shards.
+Each row represents one index shard.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Node</code></td>
+<td>String</td>
+<td>The name of the node that the index belongs to.</td>
+</tr>
+<tr>
+<td><code>Index</code></td>
+<td>String</td>
+<td>The name of the index document.</td>
+</tr>
+<tr>
+<td><code>Index Name</code></td>
+<td>String</td>
+<td>The name of the index document.</td>
+</tr>
+<tr>
+<td><code>Volume Path</code></td>
+<td>String</td>
+<td>The file path for the index shard.</td>
+</tr>
+<tr>
+<td><code>Volume Group</code></td>
+<td>String</td>
+<td>The name of the volume group the index is using.</td>
+</tr>
+<tr>
+<td><code>Partition</code></td>
+<td>String</td>
+<td>The name of the partition that the shard is in.</td>
+</tr>
+<tr>
+<td><code>Doc Count</code></td>
+<td>Integer</td>
+<td>The number of documents in the shard.</td>
+</tr>
+<tr>
+<td><code>File Size</code></td>
+<td>Long</td>
+<td>The size of the shard on disk in bytes.</td>
+</tr>
+<tr>
+<td><code>Status</code></td>
+<td>String</td>
+<td>The status of the shard (<code>Closed</code>, <code>Open</code>, <code>Closing</code>, <code>Opening</code>, <code>New</code>, <code>Deleted</code>, <code>Corrupt</code>).</td>
+</tr>
+<tr>
+<td><code>Last Commit</code></td>
+<td>Date</td>
+<td>The time and date of the last commit to the shard.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="meta-store">Meta Store</h2>
+<p>Exposes details of the streams held in Stroom&rsquo;s <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#stream" title="Glossary entry for stream">
+    <span>stream</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (aka meta) store.
+Each row represents one stream.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Feed</code></td>
+<td>String</td>
+<td>The name of the feed the stream belongs to.</td>
+</tr>
+<tr>
+<td><code>Pipeline</code></td>
+<td>String</td>
+<td>The name of the pipeline that created the stream. [Optional]</td>
+</tr>
+<tr>
+<td><code>Pipeline Name</code></td>
+<td>String</td>
+<td>The name of the pipeline that created the stream. [Optional]</td>
+</tr>
+<tr>
+<td><code>Status</code></td>
+<td>String</td>
+<td>The status of the stream (<code>Unlocked</code>, <code>Locked</code>, <code>Deleted</code>).</td>
+</tr>
+<tr>
+<td><code>Type</code></td>
+<td>String</td>
+<td>The <span class="glossary-link">
+  <a href="../../../../../docs/glossary/#stream-type" title="Glossary entry for Stream Type">
+    <span>Stream Type</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>, e.g. <code>Events</code>, <code>Raw Events</code>, etc.</td>
+</tr>
+<tr>
+<td><code>Id</code></td>
+<td>Long</td>
+<td>The unique ID (within this Stroom cluster) for the stream .</td>
+</tr>
+<tr>
+<td><code>Parent Id</code></td>
+<td>Long</td>
+<td>The unique ID (within this Stroom cluster) for the parent stream, e.g. the Raw stream that spawned an Events stream. [Optional]</td>
+</tr>
+<tr>
+<td><code>Processor Id</code></td>
+<td>Long</td>
+<td>The unique ID (within this Stroom cluster) for the processor that produced this stream. [Optional]</td>
+</tr>
+<tr>
+<td><code>Processor Filter Id</code></td>
+<td>Long</td>
+<td>The unique ID (within this Stroom cluster) for the processor filter that produced this stream. [Optional]</td>
+</tr>
+<tr>
+<td><code>Processor Task Id</code></td>
+<td>Long</td>
+<td>The unique ID (within this Stroom cluster) for the processor task that produced this stream. [Optional]</td>
+</tr>
+<tr>
+<td><code>Create Time</code></td>
+<td>Date</td>
+<td>The time the stream was created.</td>
+</tr>
+<tr>
+<td><code>Effective Time</code></td>
+<td>Date</td>
+<td>The time that the data in this stream is effective for. This is only used for reference data stream and is the time that the snapshot of reference data was captured. [Optional]</td>
+</tr>
+<tr>
+<td><code>Status Time</code></td>
+<td>Date</td>
+<td>The time that the status was last changed.</td>
+</tr>
+<tr>
+<td><code>Duration</code></td>
+<td>Long</td>
+<td>The time it took to process the stream in milliseconds. [Optional]</td>
+</tr>
+<tr>
+<td><code>Read Count</code></td>
+<td>Long</td>
+<td>The number of records read in segmented streams. [Optional]</td>
+</tr>
+<tr>
+<td><code>Write Count</code></td>
+<td>Long</td>
+<td>The number of records written in segmented streams. [Optional]</td>
+</tr>
+<tr>
+<td><code>Info Count</code></td>
+<td>Long</td>
+<td>The number of <em>INFO</em> messages.</td>
+</tr>
+<tr>
+<td><code>Warning Count</code></td>
+<td>Long</td>
+<td>The number of <em>WARNING</em> messages.</td>
+</tr>
+<tr>
+<td><code>Error Count</code></td>
+<td>Long</td>
+<td>The number of <em>ERROR</em> messages.</td>
+</tr>
+<tr>
+<td><code>Fatal Error Count</code></td>
+<td>Long</td>
+<td>The number of <em>FATAL_ERROR</em> messages.</td>
+</tr>
+<tr>
+<td><code>File Size</code></td>
+<td>Long</td>
+<td>The compressed size of the stream on disk in bytes.</td>
+</tr>
+<tr>
+<td><code>Raw Size</code></td>
+<td>Long</td>
+<td>The un-compressed size of the stream on disk in bytes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="processor-tasks">Processor Tasks</h2>
+<p>Exposes details of the tasks spawned by the processor filters.
+Each row represents one processor task.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Create Time</code></td>
+<td>Date</td>
+<td>The time the task was created.</td>
+</tr>
+<tr>
+<td><code>Create Time Ms</code></td>
+<td>Long</td>
+<td>The time the task was created (milliseconds).</td>
+</tr>
+<tr>
+<td><code>Start Time</code></td>
+<td>Date</td>
+<td>The time the task was executed.</td>
+</tr>
+<tr>
+<td><code>Start Time Ms</code></td>
+<td>Long</td>
+<td>The time the task was executed (milliseconds).</td>
+</tr>
+<tr>
+<td><code>End Time</code></td>
+<td>Date</td>
+<td>The time the task finished.</td>
+</tr>
+<tr>
+<td><code>End Time Ms</code></td>
+<td>Long</td>
+<td>The time the task finished (milliseconds).</td>
+</tr>
+<tr>
+<td><code>Status Time</code></td>
+<td>Date</td>
+<td>The time the status of the task was last updated.</td>
+</tr>
+<tr>
+<td><code>Status Time Ms</code></td>
+<td>Long</td>
+<td>The time the status of the task was last updated (milliseconds).</td>
+</tr>
+<tr>
+<td><code>Meta Id</code></td>
+<td>Long</td>
+<td>The unique ID (unique within this Stroom cluster) of the stream the task was for.</td>
+</tr>
+<tr>
+<td><code>Node</code></td>
+<td>String</td>
+<td>The name of the node that the task was executed on.</td>
+</tr>
+<tr>
+<td><code>Pipeline</code></td>
+<td>String</td>
+<td>The name of the pipeline that spawned the task.</td>
+</tr>
+<tr>
+<td><code>Pipeline Name</code></td>
+<td>String</td>
+<td>The name of the pipeline that spawned the task.</td>
+</tr>
+<tr>
+<td><code>Processor Filter Id</code></td>
+<td>Long</td>
+<td>The ID of the processor filter that spawned the task.</td>
+</tr>
+<tr>
+<td><code>Processor Filter Priority</code></td>
+<td>Integer</td>
+<td>The priority of the processor filter when the task was executed.</td>
+</tr>
+<tr>
+<td><code>Processor Id</code></td>
+<td>Long</td>
+<td>The unique ID (unique within this Stroom cluster) of the pipeline processor that spawned this task.</td>
+</tr>
+<tr>
+<td><code>Feed</code></td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Status</code></td>
+<td>String</td>
+<td>The status of the task (<code>Created</code>, <code>Queued</code>, <code>Processing</code>, <code>Complete</code>, <code>Failed</code>, <code>Deleted</code>).</td>
+</tr>
+<tr>
+<td><code>Task Id</code></td>
+<td>Long</td>
+<td>The unique ID (unique within this Stroom cluster) of this task.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reference-data-store">Reference Data Store</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    This data source is for advanced users only and is primarily aimed at debugging issues with reference data.
+
+</div>
+
+
+<p>Reference data is written to a persistent cache on storage local to the node.
+This data source exposes the data held in the store on the local node only.
+Given that most Stroom deployments are clustered and the UI nodes are typically not doing processing, this means the UI node will have no reference data.</p>
+<h2 id="task-manager">Task Manager</h2>
+<p>This data source exposed the back ground tasks currently running across the Stroom cluster.
+Each row represents a single background server task.</p>
+<p>Requires the <code>Manage Tasks</code> application permission.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Node</code></td>
+<td>String</td>
+<td>The name of the node that the task is running on.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>String</td>
+<td>The name of the task.</td>
+</tr>
+<tr>
+<td><code>User</code></td>
+<td>String</td>
+<td>The user name of the user that the task is running as.</td>
+</tr>
+<tr>
+<td><code>Submit Time</code></td>
+<td>Date</td>
+<td>The time the task was submitted.</td>
+</tr>
+<tr>
+<td><code>Age</code></td>
+<td>Duration</td>
+<td>The time the task has been running for.</td>
+</tr>
+<tr>
+<td><code>Info</code></td>
+<td>String</td>
+<td>The latest information message from the task.</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2025 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../../js/popper.min.js'></script>
+<script src='../../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

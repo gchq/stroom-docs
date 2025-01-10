@@ -1,0 +1,2609 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../../docs/user-guide/indexing/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="canonical" href="../../../../../">
+
+
+<link rel="shortcut icon" href="../../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Indexing data | Stroom</title>
+<meta name="description" content="Indexing data for querying.
+">
+<meta property="og:title" content="Indexing data" />
+<meta property="og:description" content="Indexing data for querying.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/docs/user-guide/indexing/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Indexing data">
+<meta itemprop="description" content="Indexing data for querying.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Indexing data"/>
+<meta name="twitter:description" content="Indexing data for querying.
+"/>
+
+
+
+
+<link rel="preload" href="../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" as="style">
+<link href="../../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../../../css/stroom-ui/theme-dark.css"/>
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../../docs/"><span class="active">Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../releases/"><span>Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.6)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../../../">7.6 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../../../7.5">7.5</a>
+	
+	<a class="dropdown-item" href="../../../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../../offline-search-index.933bcda7ff1ca52f3fd8bd46934e2df3.json"
+    data-offline-search-base-href="../../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../../docs/user-guide/indexing/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Indexing data</h1>
+<div class="lead">Indexing data for querying.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-9b30ca8617f29c7225f3e531d107a898">Elasticsearch</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1.1: <a href="#pg-6493de427fcee9b801555e22c81693e6">Introduction</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.2: <a href="#pg-323a3af952c3e622a4b8ab250279517c">Getting Started</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.3: <a href="#pg-19c8ec77b1ee2d88fd908b9391cd3d6e">Indexing data</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.4: <a href="#pg-1bddced90f9063d7d6f680fd761164e3">Exploring Data in Kibana</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-896a1c0b68dce48229e57116c19eef21">Lucene Indexes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-5bf7c18df4838a8e5f3a48c44724bda9">Solr Integration</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-9b30ca8617f29c7225f3e531d107a898">1 - Elasticsearch</h1>
+    <div class="lead">Using Elasticsearch to index data</div>
+	
+</div>
+
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.1.'; ">
+    
+  <h1 id="pg-6493de427fcee9b801555e22c81693e6">1.1 - Introduction</h1>
+    <div class="lead">Concepts, assumptions and key differences to Solr and built-in Lucene indexing</div>
+	<p>Stroom supports using an external Elasticsearch cluster to index event data.
+This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.</p>
+<p>With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store.
+For instance, you can:</p>
+<ol>
+<li>Deploy 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/kibana/" target="_blank" class="" style="" title="Kibana (external link to https://www.elastic.co/kibana/)">
+    <span>Kibana</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ to search and visualise Elasticsearch data.</li>
+<li>Index Stroom&rsquo;s stream meta and <code>Error</code> streams so monitoring systems can generate metrics and alerts.</li>
+<li>Use Apache Spark to perform stateful data processing and enrichment, through the use of the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/elasticsearch/hadoop" target="_blank" class="" style="" title="Elasticsearch-Hadoop (external link to https://www.elastic.co/elasticsearch/hadoop)">
+    <span>Elasticsearch-Hadoop</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ connector.</li>
+</ol>
+<p>Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.</p>
+<p>This guide will walk you through configuring a Stroom indexing pipeline, creating an Elasticsearch index template, activating a stream processor and searching the indexed data in both Stroom and Kibana.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ol>
+<li>You have created an Elasticsearch cluster.
+Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work.
+For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode" target="_blank" class="" style="" title="Elasticsearch Docs (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode)">
+    <span>Elasticsearch Docs</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
+<li>The Elasticsearch cluster is reachable via HTTPS from all Stroom nodes participating in <a href="../../../../docs/quick-start-guide/running/">stream processing</a>.</li>
+<li>Elasticsearch security is enabled.
+This is mandatory and is enabled by default in Elasticsearch 8.x and above.</li>
+<li>The Elasticsearch HTTPS interface presents a trusted X.509 server certificate.
+The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.</li>
+<li>You have a feed containing <code>Event</code> streams to index.</li>
+</ol>
+<h2 id="key-differences">Key differences</h2>
+<p>Indexing data with Elasticsearch differs from Solr and built-in Lucene methods in a number of ways:</p>
+<ol>
+<li>Unlike with <a href="../../../../docs/user-guide/indexing/solr/">Solr</a> and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" target="_blank" class="" style="" title="index and component templates (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html)">
+    <span>index and component templates</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+These are normally created either via the Elasticsearch API, or interactively using Kibana.</li>
+<li>Aside from creating the mandatory <code>StreamId</code> and <code>EventId</code> field mappings, explicitly defining mappings for other fields is optional.
+Elasticsearch will use 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html" target="_blank" class="" style="" title="dynamic mapping (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html)">
+    <span>dynamic mapping</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ by default, to infer each field&rsquo;s type at index time.
+Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type <code>ip</code>).</li>
+</ol>
+<hr>
+
+
+
+  
+    
+    <a href="../../../../docs/user-guide/indexing/elasticsearch/getting-started/" class="" style="" title="Next page - Getting Started&#010;Establishing an Elasticsearch cluster connection
+">
+        <span>Next page - Getting Started</span>
+        <i class="next-page-icon fas fa-solid fa-circle-right fa-sm "></i>
+      </a>
+    
+  
+
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.2.'; page-break-before: always">
+    
+  <h1 id="pg-323a3af952c3e622a4b8ab250279517c">1.2 - Getting Started</h1>
+    <div class="lead">Establishing an Elasticsearch cluster connection</div>
+	<h2 id="establish-an-elasticsearch-cluster-connection-in-stroom">Establish an Elasticsearch cluster connection in Stroom</h2>
+<p>The first step is to configure Stroom to connect to an Elasticsearch cluster.
+You can configure multiple cluster connections if required, such as a separate one for production and another for development.
+Each cluster connection is defined by an <code>Elastic Cluster</code> document within the Stroom UI.</p>
+<ol>
+<li>In the Stroom Explorer pane (<span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Explorer"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><g fill="var(--icon-colour__blue)"><path d="m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/><path d="m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z"/><path d="m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/></g><path stroke-linejoin="round" d="m600.75 492.64v949.1h381.89" stroke="var(--icon-colour__blue)" stroke-width="71.125" fill="none"/><path d="m597.94 807.14h539.13" fill-rule="evenodd" stroke="var(--icon-colour__blue)" stroke-width="71.125"/></svg> </span>
+  </span>), right-click on the folder where you want to create the <code>Elastic Cluster</code> document.</li>
+<li>Select:
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">New
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Elastic index"><!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 2500 2500" style="enable-background:new 0 0 2500 2500;" xml:space="preserve"><style type="text/css"> .st0{fill:#4A4B4C;} .st1{fill:var(--icon-colour__white);} .st2{fill:#F4BD19;} .st3{fill:#3CBEB1;} .st4{fill:#E9478C;} .st5{fill:#2C458F;} .st6{fill:#95C63D;} .st7{fill:#176655;} </style><g><path class="st0" d="M1240,1071.5c220.3,0,426.2-20,617.7-60c191.5-40,80.9,38.1,191.5-40l114,129.1c0,64.1,99.8,94.5,4,149.3 s-225.9,98.3-390.4,130.4s-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237 c110.6,78.1,261.7,137.1,453.2,177.1C813.8,1051.5,1019.7,1071.5,1240,1071.5z M1240,2499.4c-193.4,0-372.3-16-536.8-48.1 s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237c110.6,78.1,261.7,137.1,453.2,177.1c191.5,40,397.4,60,617.7,60 M1776.8,1915.8c-164.5,32.1-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4 S169.1,1671.1,169.1,1607v-237C279.7,1448,430.8,1507,622.3,1547c191.5,40,397.4,60,617.7,60s426.2-20,617.7-60 c191.5-40,163.5-99,274.1-177.1l179.1,237c0,64.1-47.9,123.6-143.6,178.5 M1240,0.6c193.4,0,372.3,16,536.8,48.1 s294.7,75.5,390.4,130.4s143.6,114.3,143.6,178.5v178.5c0,64.1-47.9,123.6-143.6,178.5s-225.9,98.3-390.4,130.4 C1612.3,877,1433.4,893,1240,893s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4S169.1,600.2,169.1,536.1V357.6 c0-64.1,47.9-123.6,143.6-178.5S538.6,80.8,703.2,48.8S1046.6,0.6,1240,0.6z"/></g><path class="st1" d="M2518.6,1692.2c0-151.6-94.2-282.5-234-334c5.9-32,8.9-64.5,8.8-97.1c0-281-228.1-509.1-509.1-509.1 c-163.3,0-316.3,78-412,211.9c-47.1-36.8-104.5-55.9-164.8-55.9c-148.6,0-270.7,120.7-270.7,270.7c0,32.4,5.9,64.7,16.2,94.2 c-141.2,48.6-236.9,183.9-236.9,334c0,151.6,94.2,284,235.4,335.5c-5.9,30.9-8.8,63.3-8.8,97.1c0,279.6,228.1,507.6,507.6,507.6 c164.8,0,316.4-79.5,412-211.9c47.1,36.8,105.9,57.4,166.3,57.4c148.6,0,270.7-120.7,270.7-270.7c0-32.4-5.9-64.7-16.2-94.2 C2421.4,1977.6,2518.5,1842.2,2518.6,1692.2L2518.6,1692.2z"/><path class="st2" d="M1420.9,1522.9l401.7,183.9l406.1-356.1c5.9-29.6,8.9-59.6,8.8-89.8c0-250.1-203-453.2-453.2-453.2 c-150.1,0-289.9,73.6-373.7,197.2l-67.7,350.2L1420.9,1522.9L1420.9,1522.9z"/><path class="st3" d="M1004.5,1948.2c-5.9,29.4-8.8,60.3-8.8,91.2c0,250.1,204.5,454.7,454.7,454.7c151.6,0,291.3-75,376.7-198.6 l66.2-350.2l-89.8-170.7l-403.2-183.9L1004.5,1948.2L1004.5,1948.2z"/><path class="st4" d="M1001.5,1252.2l275.2,64.7l61.8-313.4c-38.3-29.4-83.9-44.1-132.4-44.1c-119.2,0-217.8,97.1-217.8,217.8 C988.3,1202.2,992.7,1228.7,1001.5,1252.2L1001.5,1252.2z"/><path class="st5" d="M978,1318.4c-123.6,39.7-208.9,158.9-208.9,288.4c0,126.5,78,239.8,195.7,284l387-350.2l-70.6-151.5L978,1318.4 L978,1318.4z"/><path class="st6" d="M1897.6,2294c38.3,29.4,83.9,45.6,131,45.6c119.2,0,217.8-97.1,217.8-217.8c0-26.5-4.4-51.5-13.2-75 l-275.2-64.7L1897.6,2294L1897.6,2294z"/><path class="st7" d="M1953.5,1909.9l303.1,70.6c123.6-41.2,208.9-158.9,208.9-288.4c0-126.5-78-238.4-195.7-284l-397.3,347.2 L1953.5,1909.9L1953.5,1909.9z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Elastic Cluster
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>Give the cluster document a name and press 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Complete the fields as explained in the <a href="#elastic-cluster-document-fields">section below</a>.
+Any fields not marked as &ldquo;Optional&rdquo; are mandatory.</li>
+<li>Click <code>Test Connection</code>.
+A dialog will display with the test result.
+If <code>Connection Success</code>, details of the target cluster will be displayed.
+Otherwise, error details will be displayed.</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+  </span> to commit changes.</li>
+</ol>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Ensure you restrict permissions to the <code>Elastic Cluster</code> document.
+The <code>Read</code> privilege permits retrieval of the Elasticsearch API key and secret, granting the holder the same level of privilege as Stroom.
+Users authorised to search Elasticsearch indices via Stroom dashboards should only be assigned the <code>Use</code> privilege.
+
+</div>
+
+
+<h2 id="elastic-cluster-document-fields">Elastic Cluster document fields</h2>
+<h3 id="description">Description</h3>
+<p>(Optional) You might choose to enter the Elasticsearch cluster name or purpose here.</p>
+<h3 id="connection-urls">Connection URLs</h3>
+<p>Enter one or more node or cluster addresses, including protocol, hostname and port.
+Only HTTPS is supported; attempts to use plain-text HTTP will fail.</p>
+<h4 id="examples">Examples</h4>
+<ol>
+<li>Local development node: <code>https://localhost:9200</code></li>
+<li>FQDN: <code>https://elasticsearch.example.com:9200</code></li>
+<li>Kubernetes service: <code>https://prod-es-http.elastic.svc:9200</code></li>
+</ol>
+<h3 id="ca-certificate">CA certificate</h3>
+<p>PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
+This is usually your organisation&rsquo;s root enterprise CA certificate.
+For development, you can provide a self-signed certificate.</p>
+<h3 id="use-authentication">Use authentication</h3>
+<p>(Optional) Tick this box if Elasticsearch requires authentication.
+This is enabled by default from Elasticsearch version 8.0.</p>
+<h3 id="api-key-id">API key ID</h3>
+<p>Required if <code>Use authentication</code> is checked.
+Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
+This user requires at a minimum the following 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html" target="_blank" class="" style="" title="privileges (external link to https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html)">
+    <span>privileges</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+:</p>
+<h4 id="cluster-privileges">Cluster privileges</h4>
+<ol>
+<li>monitor</li>
+<li>manage_own_api_key</li>
+</ol>
+<h4 id="index-privileges">Index privileges</h4>
+<ol>
+<li>all</li>
+</ol>
+<h3 id="api-key-secret">API key secret</h3>
+<p>Required if <code>Use authentication</code> is checked.</p>
+<h3 id="socket-timeout-ms">Socket timeout (ms)</h3>
+<p>Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete.
+Set to <code>-1</code> (the default) to wait indefinitely, or until Elasticsearch closes the connection.</p>
+<hr>
+
+
+
+  
+    
+    <a href="../../../../docs/user-guide/indexing/elasticsearch/indexing/" class="" style="" title="Next page - Indexing data&#010;Indexing event data to Elasticsearch
+">
+        <span>Next page - Indexing data</span>
+        <i class="next-page-icon fas fa-solid fa-circle-right fa-sm "></i>
+      </a>
+    
+  
+
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.3.'; page-break-before: always">
+    
+  <h1 id="pg-19c8ec77b1ee2d88fd908b9391cd3d6e">1.3 - Indexing data</h1>
+    <div class="lead">Indexing event data to Elasticsearch</div>
+	<p>A typical workflow is for a Stroom pipeline to convert XML <code>Event</code> elements into the XML equivalent of JSON, complying with the schema <code>http://www.w3.org/2005/xpath-functions</code>, using a format identical to the output of the XML function <code>xml-to-json()</code>.</p>
+<h2 id="understanding-json-xml-representation">Understanding JSON XML representation</h2>
+<p>In an Elasticsearch indexing pipeline translation, you model JSON documents in a compatible XML representation.</p>
+<p>Common JSON primitives and examples of their XML equivalents are outlined below.</p>
+<h3 id="arrays">Arrays</h3>
+<p>Array of maps</p>
+<pre><code class="language-xml">&lt;array key=&quot;users&quot; xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+  &lt;map&gt;
+    &lt;string key=&quot;name&quot;&gt;John Smith&lt;/string&gt;
+  &lt;/map&gt;
+&lt;/array&gt;
+</code></pre>
+<p>Array of strings</p>
+<pre><code class="language-xml">&lt;array key=&quot;userNames&quot; xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+  &lt;string&gt;John Smith&lt;/string&gt;
+  &lt;string&gt;Jane Doe&lt;/string&gt;
+&lt;/array&gt;
+</code></pre>
+<h3 id="maps-and-properties">Maps and properties</h3>
+<pre><code class="language-xml">&lt;map key=&quot;user&quot; xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+  &lt;string key=&quot;name&quot;&gt;John Smith&lt;/string&gt;
+  &lt;boolean key=&quot;active&quot;&gt;true&lt;/boolean&gt;
+  &lt;number key=&quot;daysSinceLastLogin&quot;&gt;42&lt;/number&gt;
+  &lt;string key=&quot;loginDate&quot;&gt;2022-12-25T01:59:01.000Z&lt;/string&gt;
+  &lt;null key=&quot;emailAddress&quot; /&gt;
+  &lt;array key=&quot;phoneNumbers&quot;&gt;
+    &lt;string&gt;1234567890&lt;/string&gt;
+  &lt;/array&gt;
+&lt;/map&gt;
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    It is recommended to insert a schema validation filter into your pipeline XML (with schema group <code>JSON</code>), to make it easier to diagnose JSON conversion errors.
+
+</div>
+
+
+<p>We will now explore how create an Elasticsearch <em>index template</em>, which specifies field mappings and settings for one or more indices.</p>
+<h2 id="create-an-elasticsearch-index-template">Create an Elasticsearch index template</h2>
+<p>For information on what index and component templates are, consult the Elastic 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" target="_blank" class="" style="" title="documentation (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html)">
+    <span>documentation</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>When Elasticsearch first receives a document from Stroom targeting an index, whose name matches any of the <code>index_patterns</code> entries in the index template, it will create a new index / data stream using the <code>settings</code> and <code>mappings</code> properties from the template.
+In this way, the index does <em>not</em> need to be manually created in advance.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If an index doesn&rsquo;t match a template when it is created, data will still be indexed - with default mappings and settings.
+This may be appropriate for small indices, but with a default shard count of <code>5</code>, the indexing and search performance will likely be inadequate for large indices.
+
+</div>
+
+
+<p>The following example creates a basic index template <code>stroom-events-v1</code> in a local Elasticsearch cluster, with the following explicit field mappings:</p>
+<ol>
+<li><code>StreamId</code> &ndash; mandatory, data type <code>long</code> or <code>keyword</code>.</li>
+<li><code>EventId</code> &ndash; mandatory, data type <code>long</code> or <code>keyword</code>.</li>
+<li><code>@timestamp</code> &ndash; required if the index is to be part of a 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" target="_blank" class="" style="" title="data stream (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html)">
+    <span>data stream</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ (recommended).</li>
+<li><code>User</code> &ndash; An object containing properties <code>Id</code>, <code>Name</code> and <code>Active</code>, each with their own data type.</li>
+<li><code>Tags</code> &ndash; An array of one or more strings.</li>
+<li><code>Message</code> &ndash; Contains arbitrary content such as unstructured raw log data.
+Supports full-text search.
+Nested field <code>wildcard</code> 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type" target="_blank" class="" style="" title="supports regexp queries (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type)">
+    <span>supports regexp queries</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</li>
+</ol>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>Elasticsearch does not have a dedicated <code>array</code> field mapping data type.
+An Elasticsearch field may contain zero or more values by default.
+See:</p>
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html" target="_blank" class="" style="" title="Arrays (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html)">
+    <span>Arrays</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ in the Elastic documentation.
+
+
+</div>
+
+
+<p>In Kibana Dev Tools, execute the following query:</p>
+<p><code>PUT _index_template/stroom-events-v1</code></p>
+<pre><code class="language-json">{
+  &quot;index_patterns&quot;: [
+    &quot;stroom-events-v1*&quot; // Apply this template to index names matching this pattern.
+  ],
+  &quot;data_stream&quot;: {}, // For time-series data. Recommended for event data.
+  &quot;template&quot;: {
+    &quot;settings&quot;: {
+      &quot;number_of_replicas&quot;: 1, // Replicas impact indexing throughput. This setting can be changed at any time.
+      &quot;number_of_shards&quot;: 10, // Consider the shard sizing guide: https://www.elastic.co/guide/en/elasticsearch/reference/current/size-your-shards.html#shard-size-recommendation
+      &quot;refresh_interval&quot;: &quot;10s&quot;, // How often to refresh the index. For high-throughput indices, it's recommended to increase this from the default of 1s
+      &quot;lifecycle&quot;: {
+        &quot;name&quot;: &quot;stroom_30d_retention_policy&quot; // (Optional) Apply an ILM policy https://www.elastic.co/guide/en/elasticsearch/reference/current/set-up-lifecycle-policy.html
+      }
+    },
+    &quot;mappings&quot;: {
+      &quot;dynamic_templates&quot;: [],
+      &quot;properties&quot;: {
+        &quot;StreamId&quot;: { // Required.
+          &quot;type&quot;: &quot;long&quot;
+        },
+        &quot;EventId&quot;: { // Required.
+          &quot;type&quot;: &quot;long&quot;
+        },
+        &quot;@timestamp&quot;: { // Required if the index is part of a data stream.
+          &quot;type&quot;: &quot;date&quot;
+        },
+        &quot;User&quot;: {
+          &quot;properties&quot;: {
+            &quot;Id&quot;: {
+              &quot;type&quot;: &quot;keyword&quot;
+            },
+            &quot;Name&quot;: {
+              &quot;type&quot;: &quot;keyword&quot;
+            },
+            &quot;Active&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          }
+        },
+        &quot;Tags&quot;: {
+          &quot;type&quot;: &quot;keyword&quot;
+        },
+        &quot;Message&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;fields&quot;: {
+            &quot;wildcard&quot;: {
+              &quot;type&quot;: &quot;wildcard&quot;
+            }
+          }
+        }
+      }
+    }
+  },
+  &quot;composed_of&quot;: [
+    // Optional array of component template names.
+  ]
+}
+</code></pre>
+<h2 id="create-an-elasticsearch-indexing-pipeline-template">Create an Elasticsearch indexing pipeline template</h2>
+<p>An Elasticsearch indexing pipeline is similar in structure to the built-in packaged <code>Indexing</code> template pipeline.
+It typically consists of the following pipeline elements:</p>
+
+<div class="stroom-theme-dark pipeline-container">
+  
+    
+      
+      
+        
+        <div class="pipeline-item">
+        
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#source" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="Source &#34;Source&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Stream"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M 499.42773 349.50586 C 471.2255 349.65535 443.05802 352.21777 415.25195 357.10156 C 314.29291 374.83377 218.08985 423.16111 142.17383 497.58398 C 120.16923 517.22845 82.017578 562.56836 82.017578 562.56836 L 17.439453 647.62891 C 11.715074 655.16906 9.4362619 663.20332 10.603516 671.73047 C 11.770779 680.25761 16.123954 687.38299 23.664062 693.10742 L 178.77539 810.86523 C 186.3155 816.58967 194.34977 818.87035 202.87695 817.70312 C 211.40415 816.53588 218.95139 812.4832 224.25391 804.64062 C 252.73415 758.03917 266.71282 735.64156 320.53711 677.81836 C 409.46174 596.02665 519.53665 566.34857 644.56055 635.73047 C 814.48739 738.37221 971.75585 900.37132 1180.918 905.55859 C 1209.7108 905.57829 1251.7809 901.38952 1283.5625 895.00391 C 1384.5214 877.27168 1480.7245 828.94644 1556.6406 754.52344 C 1578.6452 734.87902 1616.7969 689.53906 1616.7969 689.53906 L 1681.375 604.47852 C 1687.0993 596.93839 1689.3762 588.90409 1688.209 580.37695 C 1687.0417 571.8498 1682.6905 564.72444 1675.1504 559 L 1520.0391 441.24219 C 1512.499 435.51777 1504.4646 433.23706 1495.9375 434.4043 C 1487.4102 435.57155 1479.8631 439.62422 1474.5605 447.4668 C 1446.0803 494.06826 1432.1016 516.46587 1378.2773 574.28906 C 1348.8635 601.34351 1316.4063 622.69518 1281.6191 636.6543 C 1067.6463 709.61943 913.77105 505.66893 745.44531 415.86719 C 668.96293 370.33416 584.03444 349.05738 499.42773 349.50586 z M 594.88477 897.21094 C 566.68253 897.36043 538.51505 899.92285 510.70898 904.80664 C 409.74993 922.53885 313.54689 970.86407 237.63086 1045.2871 C 215.62627 1064.9315 177.47266 1110.2734 177.47266 1110.2734 L 112.89648 1195.332 C 107.1721 1202.8722 104.89329 1210.9084 106.06055 1219.4355 C 107.22781 1227.9627 111.58098 1235.086 119.12109 1240.8105 L 274.23242 1358.5684 C 281.77254 1364.2928 289.80483 1366.5734 298.33203 1365.4062 C 306.85921 1364.239 314.4084 1360.1864 319.71094 1352.3438 C 348.19118 1305.7423 362.16986 1283.3466 415.99414 1225.5234 C 504.91877 1143.7317 614.99368 1114.0536 740.01758 1183.4355 C 909.94442 1286.0772 1067.2128 1448.0744 1276.375 1453.2617 C 1305.1678 1453.2817 1347.2362 1449.0945 1379.0176 1442.709 C 1479.9765 1424.9767 1576.1817 1376.6515 1652.0977 1302.2285 C 1674.1023 1282.584 1712.2539 1237.2441 1712.2539 1237.2441 L 1776.832 1152.1836 C 1782.5562 1144.6434 1784.8333 1136.6091 1783.666 1128.082 C 1782.4987 1119.5548 1778.1456 1112.4295 1770.6055 1106.7051 L 1615.4941 988.94727 C 1607.9538 983.22287 1599.9217 980.94208 1591.3945 982.10938 C 1582.8673 983.27657 1575.3182 987.32927 1570.0156 995.17188 C 1541.5354 1041.7734 1527.5567 1064.169 1473.7324 1121.9922 C 1444.3187 1149.0467 1411.8635 1170.4003 1377.0762 1184.3594 C 1163.1036 1257.3246 1009.2262 1053.3739 840.90039 963.57227 C 764.41799 918.0392 679.49147 896.76246 594.88477 897.21094 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">Source</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#xmlparser" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="XMLParser &#34;XMLParser&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xml"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xml-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 678.24805 619.72266 L 678.24805 1170.959 L 791.23828 1170.959 L 791.23828 729.37891 L 862.41406 970.47656 L 966.95312 970.47656 L 1037.2383 729.37891 L 1037.2383 1170.959 L 1150.2305 1170.959 L 1150.2305 619.72266 L 992.75391 619.72266 L 914.01562 861.55664 L 834.83398 619.72266 L 678.24805 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">XMLParser</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#recordcountfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="RecordCountFilter &#34;recordCount (read)&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Record count"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 288,333.95508 c -26.66667,0 -49.33333,9.33333 -68,28 -18.66667,18.66666 -28,41.33333 -28,68 0.0805,246.24683 0,490.77231 0,736.97462 0,26.6667 9.33333,49.3333 28,68 18.66667,18.6667 41.33333,28 68,28 l 1216,0 c 26.6667,0 49.3333,-9.3333 68,-28 18.6667,-18.6667 28,-41.3333 28,-68 -0.078,-246.27922 0,-490.86553 0,-736.97462 0,-26.66667 -9.3333,-49.33334 -28,-68 -18.6667,-18.66667 -41.3333,-28 -68,-28 z"/><path style="fill:var(--icon-colour__white)" d="M 877.22852 517.63477 C 848.44694 517.63477 822.54479 522.26523 799.51953 531.52539 C 776.49426 540.53528 756.84792 552.92215 740.58008 568.68945 C 724.5625 584.45675 712.17368 602.97861 703.41406 624.25195 C 694.90473 645.27502 690.65039 667.67313 690.65039 691.44922 L 780.74805 691.44922 C 780.74805 660.16489 788.38168 635.63863 803.64844 617.86914 C 819.16546 600.09964 843.19282 591.21484 875.72852 591.21484 C 888.24225 591.21484 899.50464 593.34299 909.51562 597.59766 C 919.77689 601.85232 928.41028 607.85867 935.41797 615.61719 C 942.67594 623.12543 948.18143 632.25968 951.93555 643.02148 C 955.93994 653.53302 957.94336 665.04681 957.94336 677.56055 C 957.94336 687.07098 956.6922 696.45468 954.18945 705.71484 C 951.68671 714.975 947.43237 724.98624 941.42578 735.74805 C 935.41919 746.50985 927.2847 758.39783 917.02344 771.41211 C 907.01246 784.17612 894.4989 798.94254 879.48242 815.71094 L 701.53711 1009.7988 L 701.53711 1071.7422 L 1068.6895 1071.7422 L 1068.6895 1000.0391 L 813.0332 1000.0391 L 936.91992 867.14258 C 952.68722 850.37418 967.32892 834.10714 980.84375 818.33984 C 994.35856 802.32227 1005.9951 786.42941 1015.7559 770.66211 C 1025.5166 754.89481 1033.1502 739.12668 1038.6562 723.35938 C 1044.1623 707.3418 1046.916 690.82531 1046.916 673.80664 C 1046.916 651.03165 1043.1606 630.1322 1035.6523 611.11133 C 1028.1441 592.09046 1017.1331 575.6987 1002.6172 561.93359 C 988.10125 547.91822 970.33166 537.03 949.30859 529.27148 C 928.28553 521.51297 904.25818 517.63477 877.22852 517.63477 z M 1337.4844 517.63477 C 1312.2066 517.63477 1288.9315 521.51297 1267.6582 529.27148 C 1246.3849 536.77972 1227.9897 547.29181 1212.4727 560.80664 C 1197.2059 574.07119 1185.1932 589.83933 1176.4336 608.10938 C 1167.9243 626.37941 1163.668 646.27521 1163.668 667.79883 L 1253.3926 667.79883 C 1253.3926 655.78565 1255.5188 645.02411 1259.7734 635.51367 C 1264.0281 626.00324 1269.9097 617.86874 1277.418 611.11133 C 1285.1765 604.35391 1294.1861 599.22455 1304.4473 595.7207 C 1314.9588 591.96658 1326.3479 590.08789 1338.6113 590.08789 C 1366.6421 590.08789 1387.5396 597.34735 1401.3047 611.86328 C 1415.3201 626.12893 1422.3281 646.52558 1422.3281 673.05469 C 1422.3281 685.56842 1420.3247 697.08026 1416.3203 707.5918 C 1412.5662 717.85306 1406.8113 726.73786 1399.0527 734.24609 C 1391.2943 741.75433 1381.5325 747.63596 1369.7695 751.89062 C 1358.0066 755.89502 1344.2419 757.89844 1328.4746 757.89844 L 1274.791 757.89844 L 1274.791 828.47461 L 1328.4746 828.47461 C 1344.2419 828.47461 1358.3828 830.22662 1370.8965 833.73047 C 1383.4102 837.23431 1394.047 842.74176 1402.8066 850.25 C 1411.8165 857.50796 1418.6979 866.89166 1423.4531 878.4043 C 1428.2083 889.66666 1430.5859 903.18192 1430.5859 918.94922 C 1430.5859 947.7308 1422.3267 969.75474 1405.8086 985.02148 C 1389.5407 1000.038 1367.1427 1007.5469 1338.6113 1007.5469 C 1324.8463 1007.5469 1312.4574 1005.5454 1301.4453 1001.541 C 1290.4332 997.53661 1280.9229 992.02917 1272.9141 985.02148 C 1265.1556 977.76352 1259.1492 969.13013 1254.8945 959.11914 C 1250.6399 948.85788 1248.5117 937.72021 1248.5117 925.70703 L 1158.7891 925.70703 C 1158.7891 950.98476 1163.669 973.2601 1173.4297 992.53125 C 1183.1904 1011.5521 1196.2048 1027.5697 1212.4727 1040.584 C 1228.9908 1053.348 1248.0116 1062.9831 1269.5352 1069.4902 C 1291.0588 1075.9974 1313.7083 1079.25 1337.4844 1079.25 C 1363.2626 1079.25 1387.29 1075.7459 1409.5645 1068.7383 C 1431.8389 1061.4803 1451.1091 1051.0949 1467.377 1037.5801 C 1483.8951 1023.815 1496.7848 1006.9204 1506.0449 986.89844 C 1515.3051 966.87647 1519.9355 944.10223 1519.9355 918.57422 C 1519.9355 905.30966 1518.433 892.29525 1515.4297 879.53125 C 1512.4264 866.76724 1507.4218 854.87927 1500.4141 843.86719 C 1493.4064 832.60483 1484.2701 822.46887 1473.0078 813.45898 C 1461.7454 804.4491 1447.856 797.06687 1431.3379 791.31055 C 1445.103 785.05368 1456.991 777.42004 1467.002 768.41016 C 1477.2632 759.15 1485.6472 749.26349 1492.1543 738.75195 C 1498.9117 728.24042 1503.9163 717.35416 1507.1699 706.0918 C 1510.4235 694.82944 1512.0508 683.8165 1512.0508 673.05469 C 1512.0508 647.52668 1507.7964 625.12662 1499.2871 605.85547 C 1490.7778 586.33406 1478.8898 570.06701 1463.623 557.05273 C 1448.3563 544.03845 1429.9612 534.27667 1408.4375 527.76953 C 1386.9139 521.01212 1363.2626 517.63477 1337.4844 517.63477 z M 496.5625 525.14258 L 272.06641 608.10938 L 272.06641 686.94531 L 411.71875 635.88867 L 411.71875 1071.7422 L 502.19336 1071.7422 L 502.19336 525.14258 L 496.5625 525.14258 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">recordCount (read)</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#splitfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="SplitFilter &#34;SplitFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Split"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M 1440 96.289062 C 1430.6667 96.289062 1423 99.289066 1417 105.28906 C 1411 111.28906 1408 118.95573 1408 128.28906 L 1408 320.28906 L 1152 320.28906 C 1106.6667 320.28906 1064 325.78906 1024 336.78906 C 984 347.78906 948.5 361.78906 917.5 378.78906 C 886.5 395.78906 856.5 418.62239 827.5 447.28906 C 798.5 475.95573 773.83333 503.62239 753.5 530.28906 C 744.63924 541.90974 735.58822 554.79849 726.34766 568.95117 C 726.04424 568.74073 725.75807 568.55217 725.45312 568.33984 C 723.4358 572.20639 721.43475 575.99415 719.44922 579.70703 C 709.67359 595.18473 699.69217 612.03443 689.5 630.28906 C 687.38962 634.06885 685.35526 637.76068 683.32227 641.45117 C 682.36513 642.91744 681.40109 644.41789 680.45312 645.83984 C 666.45312 666.83984 649.45312 687.33984 629.45312 707.33984 C 609.45312 727.33984 586.45312 742.33984 560.45312 752.33984 C 543.30639 758.93474 524.84615 763.34031 505.08984 765.58594 C 494.6909 764.97361 484.14896 764.65625 473.45312 764.65625 L 249.45312 764.65625 C 244.36306 764.65625 239.77249 765.55531 235.67383 767.33984 L 32 767.33984 C 22.666667 767.33984 15 770.33984 9 776.33984 C 3 782.33984 0 790.00651 0 799.33984 L 0 991.33984 C 0 1000.6732 3 1008.3398 9 1014.3398 C 15 1020.3398 22.666667 1023.3398 32 1023.3398 L 256 1023.3398 L 473.45312 1023.3398 C 484.14896 1023.3398 494.6909 1023.0225 505.08984 1022.4102 C 524.84615 1024.6558 543.30639 1029.0614 560.45312 1035.6562 C 586.45312 1045.6562 609.45312 1060.6562 629.45312 1080.6562 C 647.19612 1098.3992 662.57296 1116.5364 675.59375 1135.0664 C 680.03779 1143.2867 684.64668 1151.6981 689.5 1160.3906 C 711.83333 1200.3906 733.16667 1233.7239 753.5 1260.3906 C 773.83333 1287.0573 798.5 1314.7239 827.5 1343.3906 C 856.5 1372.0573 886.5 1394.8906 917.5 1411.8906 C 948.5 1428.8906 984 1442.8906 1024 1453.8906 C 1064 1464.8906 1106.6667 1470.3906 1152 1470.3906 L 1408 1470.3906 L 1408 1662.3906 C 1408 1671.7239 1411 1679.3906 1417 1685.3906 C 1423 1691.3906 1430.6667 1694.3906 1440 1694.3906 C 1448 1694.3906 1456 1691.0573 1464 1684.3906 L 1783 1365.3906 C 1789 1359.3906 1792 1351.7239 1792 1342.3906 C 1792 1333.0573 1789 1325.3906 1783 1319.3906 L 1463 999.39062 C 1457 993.39062 1449.3333 990.39062 1440 990.39062 C 1431.3333 990.39062 1423.8333 993.5573 1417.5 999.89062 C 1411.1667 1006.2239 1408 1013.7239 1408 1022.3906 L 1408 1214.3906 L 1152 1214.3906 C 1120 1214.3906 1091 1209.3906 1065 1199.3906 C 1039 1189.3906 1016 1174.3906 996 1154.3906 C 976 1134.3906 959 1113.8906 945 1092.8906 C 943.46939 1090.5947 941.92171 1088.2162 940.36719 1085.8047 C 938.96083 1082.1333 937.49452 1078.42 935.95312 1074.6562 C 913.61979 1034.6562 892.28646 1001.323 871.95312 974.65625 C 852.17463 948.71723 828.28333 921.82941 800.30469 893.99805 C 828.28333 866.16669 852.17463 839.27886 871.95312 813.33984 C 880.55103 802.0639 889.32965 789.58182 898.28516 775.92188 C 898.88147 775.70293 899.40136 775.50873 900 775.28906 C 902.01733 771.42251 904.01837 767.63475 906.00391 763.92188 C 915.77954 748.44418 925.76096 731.59447 935.95312 713.33984 C 935.75779 713.13645 935.5756 712.95439 935.38086 712.75195 C 938.63581 707.53129 941.84653 702.51927 945 697.78906 C 959 676.78906 976 656.28906 996 636.28906 C 1016 616.28906 1039 601.28906 1065 591.28906 C 1091 581.28906 1120 576.28906 1152 576.28906 L 1408 576.28906 L 1408 768.28906 C 1408 776.95573 1411.1667 784.45573 1417.5 790.78906 C 1423.8333 797.12239 1431.3333 800.28906 1440 800.28906 C 1449.3333 800.28906 1457 797.28906 1463 791.28906 L 1783 471.28906 C 1789 465.28906 1792 457.62239 1792 448.28906 C 1792 438.95573 1789 431.28906 1783 425.28906 L 1464 106.28906 C 1456 99.6224 1448 96.289062 1440 96.289062 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">SplitFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#idenrichmentfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="IdEnrichmentFilter &#34;IdEnrichmentFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="ID"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg3336" viewBox="0 0 1792 1792" height="1792" width="1792" inkscape:version="0.91 r13725" sodipodi:docname="id.svg"><sodipodi:namedview pagecolor="var(--icon-colour__white)" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1730" inkscape:window-height="1120" id="namedview9" showgrid="false" inkscape:zoom="0.13169643" inkscape:cx="-277.15254" inkscape:cy="896" inkscape:window-x="3006" inkscape:window-y="147" inkscape:window-maximized="0" inkscape:current-layer="svg3336" /><metadata id="metadata3344"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs id="defs3342" /><path style="fill:var(--icon-colour__black);fill-opacity:1" d="m 126.70508,126.41406 166.85351,0 0,1536.95894 -166.85351,0 z m 498.90625,0 342.79101,0 c 238.98996,0 414.37646,62.11053 526.16216,186.33008 111.7856,123.53325 167.6796,317.06786 167.6796,580.60547 0,264.91019 -56.1676,459.47579 -168.5039,583.69529 -112.3363,124.2196 -287.4492,186.3281 -525.33786,186.3281 l -342.79101,0 z m 166.85156,170.88672 0,1195.18552 201.54492,0 c 170.15649,0 294.60799,-48.0416 373.35349,-144.123 79.2962,-96.0814 118.9434,-247.7523 118.9434,-455.01369 0,-205.88876 -39.6472,-356.53066 -118.9434,-451.92578 -78.7455,-96.08142 -203.197,-144.12305 -373.35349,-144.12305 z" id="rect3375" inkscape:connector-curvature="0" sodipodi:nodetypes="ccccccscsssccccscscsc" /></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">IdEnrichmentFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#xsltfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="XSLTFilter &#34;XSLTFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">XSLTFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#schemafilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="SchemaFilter &#34;SchemaFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xsd"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsd-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1248.9863 619.72266 L 1248.9863 1170.959 L 1389.5586 1170.959 C 1498.1013 1170.959 1576.2453 1149.4206 1623.9922 1106.3457 C 1671.7391 1063.0246 1695.6133 992.50568 1695.6133 894.78711 C 1695.6133 797.31467 1671.7391 727.16474 1623.9922 684.33594 C 1576.2453 641.26099 1498.1013 619.72266 1389.5586 619.72266 L 1248.9863 619.72266 z M 1380.2168 717.93359 L 1415.8047 717.93359 C 1467.407 717.93359 1504.1793 731.34819 1526.125 758.17773 C 1548.0708 785.00727 1559.0449 830.5439 1559.0449 894.78711 C 1559.0449 959.5226 1548.0708 1005.4282 1526.125 1032.5039 C 1504.1793 1059.3334 1467.407 1072.748 1415.8047 1072.748 L 1380.2168 1072.748 L 1380.2168 717.93359 z "/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">SchemaFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#elasticindexingfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="ElasticIndexingFilter &#34;ElasticIndexingFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Elastic index"><!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2500 2500" style="enable-background:new 0 0 2500 2500;" xml:space="preserve"><style type="text/css"> .st0{fill:var(--icon-colour__grey);} .st1{fill:#FFF;} .st2{fill:#F4BD19;} .st3{fill:#3CBEB1;} .st4{fill:#E9478C;} .st5{fill:#2C458F;} .st6{fill:#95C63D;} .st7{fill:#176655;} </style><g><path class="st0" d="M1240,1071.5c220.3,0,426.2-20,617.7-60c191.5-40,80.9,38.1,191.5-40l114,129.1c0,64.1,99.8,94.5,4,149.3 s-225.9,98.3-390.4,130.4s-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237 c110.6,78.1,261.7,137.1,453.2,177.1C813.8,1051.5,1019.7,1071.5,1240,1071.5z M1240,2499.4c-193.4,0-372.3-16-536.8-48.1 s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237c110.6,78.1,261.7,137.1,453.2,177.1c191.5,40,397.4,60,617.7,60 M1776.8,1915.8c-164.5,32.1-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4 S169.1,1671.1,169.1,1607v-237C279.7,1448,430.8,1507,622.3,1547c191.5,40,397.4,60,617.7,60s426.2-20,617.7-60 c191.5-40,163.5-99,274.1-177.1l179.1,237c0,64.1-47.9,123.6-143.6,178.5 M1240,0.6c193.4,0,372.3,16,536.8,48.1 s294.7,75.5,390.4,130.4s143.6,114.3,143.6,178.5v178.5c0,64.1-47.9,123.6-143.6,178.5s-225.9,98.3-390.4,130.4 C1612.3,877,1433.4,893,1240,893s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4S169.1,600.2,169.1,536.1V357.6 c0-64.1,47.9-123.6,143.6-178.5S538.6,80.8,703.2,48.8S1046.6,0.6,1240,0.6z"/></g><path class="st1" d="M2518.6,1692.2c0-151.6-94.2-282.5-234-334c5.9-32,8.9-64.5,8.8-97.1c0-281-228.1-509.1-509.1-509.1 c-163.3,0-316.3,78-412,211.9c-47.1-36.8-104.5-55.9-164.8-55.9c-148.6,0-270.7,120.7-270.7,270.7c0,32.4,5.9,64.7,16.2,94.2 c-141.2,48.6-236.9,183.9-236.9,334c0,151.6,94.2,284,235.4,335.5c-5.9,30.9-8.8,63.3-8.8,97.1c0,279.6,228.1,507.6,507.6,507.6 c164.8,0,316.4-79.5,412-211.9c47.1,36.8,105.9,57.4,166.3,57.4c148.6,0,270.7-120.7,270.7-270.7c0-32.4-5.9-64.7-16.2-94.2 C2421.4,1977.6,2518.5,1842.2,2518.6,1692.2L2518.6,1692.2z"/><path class="st2" d="M1420.9,1522.9l401.7,183.9l406.1-356.1c5.9-29.6,8.9-59.6,8.8-89.8c0-250.1-203-453.2-453.2-453.2 c-150.1,0-289.9,73.6-373.7,197.2l-67.7,350.2L1420.9,1522.9L1420.9,1522.9z"/><path class="st3" d="M1004.5,1948.2c-5.9,29.4-8.8,60.3-8.8,91.2c0,250.1,204.5,454.7,454.7,454.7c151.6,0,291.3-75,376.7-198.6 l66.2-350.2l-89.8-170.7l-403.2-183.9L1004.5,1948.2L1004.5,1948.2z"/><path class="st4" d="M1001.5,1252.2l275.2,64.7l61.8-313.4c-38.3-29.4-83.9-44.1-132.4-44.1c-119.2,0-217.8,97.1-217.8,217.8 C988.3,1202.2,992.7,1228.7,1001.5,1252.2L1001.5,1252.2z"/><path class="st5" d="M978,1318.4c-123.6,39.7-208.9,158.9-208.9,288.4c0,126.5,78,239.8,195.7,284l387-350.2l-70.6-151.5L978,1318.4 L978,1318.4z"/><path class="st6" d="M1897.6,2294c38.3,29.4,83.9,45.6,131,45.6c119.2,0,217.8-97.1,217.8-217.8c0-26.5-4.4-51.5-13.2-75 l-275.2-64.7L1897.6,2294L1897.6,2294z"/><path class="st7" d="M1953.5,1909.9l303.1,70.6c123.6-41.2,208.9-158.9,208.9-288.4c0-126.5-78-238.4-195.7-284l-397.3,347.2 L1953.5,1909.9L1953.5,1909.9z"/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">ElasticIndexingFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+        
+          <div class="pipeline-separator pipeline-item">
+          </div>
+        
+        <div class="pipeline-item">
+        
+
+    
+  
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#recordcountfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="RecordCountFilter &#34;recordCount (written)&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Record count"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 288,333.95508 c -26.66667,0 -49.33333,9.33333 -68,28 -18.66667,18.66666 -28,41.33333 -28,68 0.0805,246.24683 0,490.77231 0,736.97462 0,26.6667 9.33333,49.3333 28,68 18.66667,18.6667 41.33333,28 68,28 l 1216,0 c 26.6667,0 49.3333,-9.3333 68,-28 18.6667,-18.6667 28,-41.3333 28,-68 -0.078,-246.27922 0,-490.86553 0,-736.97462 0,-26.66667 -9.3333,-49.33334 -28,-68 -18.6667,-18.66667 -41.3333,-28 -68,-28 z"/><path style="fill:var(--icon-colour__white)" d="M 877.22852 517.63477 C 848.44694 517.63477 822.54479 522.26523 799.51953 531.52539 C 776.49426 540.53528 756.84792 552.92215 740.58008 568.68945 C 724.5625 584.45675 712.17368 602.97861 703.41406 624.25195 C 694.90473 645.27502 690.65039 667.67313 690.65039 691.44922 L 780.74805 691.44922 C 780.74805 660.16489 788.38168 635.63863 803.64844 617.86914 C 819.16546 600.09964 843.19282 591.21484 875.72852 591.21484 C 888.24225 591.21484 899.50464 593.34299 909.51562 597.59766 C 919.77689 601.85232 928.41028 607.85867 935.41797 615.61719 C 942.67594 623.12543 948.18143 632.25968 951.93555 643.02148 C 955.93994 653.53302 957.94336 665.04681 957.94336 677.56055 C 957.94336 687.07098 956.6922 696.45468 954.18945 705.71484 C 951.68671 714.975 947.43237 724.98624 941.42578 735.74805 C 935.41919 746.50985 927.2847 758.39783 917.02344 771.41211 C 907.01246 784.17612 894.4989 798.94254 879.48242 815.71094 L 701.53711 1009.7988 L 701.53711 1071.7422 L 1068.6895 1071.7422 L 1068.6895 1000.0391 L 813.0332 1000.0391 L 936.91992 867.14258 C 952.68722 850.37418 967.32892 834.10714 980.84375 818.33984 C 994.35856 802.32227 1005.9951 786.42941 1015.7559 770.66211 C 1025.5166 754.89481 1033.1502 739.12668 1038.6562 723.35938 C 1044.1623 707.3418 1046.916 690.82531 1046.916 673.80664 C 1046.916 651.03165 1043.1606 630.1322 1035.6523 611.11133 C 1028.1441 592.09046 1017.1331 575.6987 1002.6172 561.93359 C 988.10125 547.91822 970.33166 537.03 949.30859 529.27148 C 928.28553 521.51297 904.25818 517.63477 877.22852 517.63477 z M 1337.4844 517.63477 C 1312.2066 517.63477 1288.9315 521.51297 1267.6582 529.27148 C 1246.3849 536.77972 1227.9897 547.29181 1212.4727 560.80664 C 1197.2059 574.07119 1185.1932 589.83933 1176.4336 608.10938 C 1167.9243 626.37941 1163.668 646.27521 1163.668 667.79883 L 1253.3926 667.79883 C 1253.3926 655.78565 1255.5188 645.02411 1259.7734 635.51367 C 1264.0281 626.00324 1269.9097 617.86874 1277.418 611.11133 C 1285.1765 604.35391 1294.1861 599.22455 1304.4473 595.7207 C 1314.9588 591.96658 1326.3479 590.08789 1338.6113 590.08789 C 1366.6421 590.08789 1387.5396 597.34735 1401.3047 611.86328 C 1415.3201 626.12893 1422.3281 646.52558 1422.3281 673.05469 C 1422.3281 685.56842 1420.3247 697.08026 1416.3203 707.5918 C 1412.5662 717.85306 1406.8113 726.73786 1399.0527 734.24609 C 1391.2943 741.75433 1381.5325 747.63596 1369.7695 751.89062 C 1358.0066 755.89502 1344.2419 757.89844 1328.4746 757.89844 L 1274.791 757.89844 L 1274.791 828.47461 L 1328.4746 828.47461 C 1344.2419 828.47461 1358.3828 830.22662 1370.8965 833.73047 C 1383.4102 837.23431 1394.047 842.74176 1402.8066 850.25 C 1411.8165 857.50796 1418.6979 866.89166 1423.4531 878.4043 C 1428.2083 889.66666 1430.5859 903.18192 1430.5859 918.94922 C 1430.5859 947.7308 1422.3267 969.75474 1405.8086 985.02148 C 1389.5407 1000.038 1367.1427 1007.5469 1338.6113 1007.5469 C 1324.8463 1007.5469 1312.4574 1005.5454 1301.4453 1001.541 C 1290.4332 997.53661 1280.9229 992.02917 1272.9141 985.02148 C 1265.1556 977.76352 1259.1492 969.13013 1254.8945 959.11914 C 1250.6399 948.85788 1248.5117 937.72021 1248.5117 925.70703 L 1158.7891 925.70703 C 1158.7891 950.98476 1163.669 973.2601 1173.4297 992.53125 C 1183.1904 1011.5521 1196.2048 1027.5697 1212.4727 1040.584 C 1228.9908 1053.348 1248.0116 1062.9831 1269.5352 1069.4902 C 1291.0588 1075.9974 1313.7083 1079.25 1337.4844 1079.25 C 1363.2626 1079.25 1387.29 1075.7459 1409.5645 1068.7383 C 1431.8389 1061.4803 1451.1091 1051.0949 1467.377 1037.5801 C 1483.8951 1023.815 1496.7848 1006.9204 1506.0449 986.89844 C 1515.3051 966.87647 1519.9355 944.10223 1519.9355 918.57422 C 1519.9355 905.30966 1518.433 892.29525 1515.4297 879.53125 C 1512.4264 866.76724 1507.4218 854.87927 1500.4141 843.86719 C 1493.4064 832.60483 1484.2701 822.46887 1473.0078 813.45898 C 1461.7454 804.4491 1447.856 797.06687 1431.3379 791.31055 C 1445.103 785.05368 1456.991 777.42004 1467.002 768.41016 C 1477.2632 759.15 1485.6472 749.26349 1492.1543 738.75195 C 1498.9117 728.24042 1503.9163 717.35416 1507.1699 706.0918 C 1510.4235 694.82944 1512.0508 683.8165 1512.0508 673.05469 C 1512.0508 647.52668 1507.7964 625.12662 1499.2871 605.85547 C 1490.7778 586.33406 1478.8898 570.06701 1463.623 557.05273 C 1448.3563 544.03845 1429.9612 534.27667 1408.4375 527.76953 C 1386.9139 521.01212 1363.2626 517.63477 1337.4844 517.63477 z M 496.5625 525.14258 L 272.06641 608.10938 L 272.06641 686.94531 L 411.71875 635.88867 L 411.71875 1071.7422 L 502.19336 1071.7422 L 502.19336 525.14258 L 496.5625 525.14258 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">recordCount (written)</span>
+          </span>
+        </span>
+      </a>
+
+      
+      
+        </div>
+      
+    
+  
+    
+      
+      
+    
+  
+</div>
+
+
+<ul>
+<li>
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#xsltfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="XSLTFilter &#34;XSLTFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">XSLTFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+ contains the translation mapping <code>Events</code> to JSON <code>array</code>.</li>
+<li>
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#schemafilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="SchemaFilter &#34;SchemaFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xsd"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsd-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1248.9863 619.72266 L 1248.9863 1170.959 L 1389.5586 1170.959 C 1498.1013 1170.959 1576.2453 1149.4206 1623.9922 1106.3457 C 1671.7391 1063.0246 1695.6133 992.50568 1695.6133 894.78711 C 1695.6133 797.31467 1671.7391 727.16474 1623.9922 684.33594 C 1576.2453 641.26099 1498.1013 619.72266 1389.5586 619.72266 L 1248.9863 619.72266 z M 1380.2168 717.93359 L 1415.8047 717.93359 C 1467.407 717.93359 1504.1793 731.34819 1526.125 758.17773 C 1548.0708 785.00727 1559.0449 830.5439 1559.0449 894.78711 C 1559.0449 959.5226 1548.0708 1005.4282 1526.125 1032.5039 C 1504.1793 1059.3334 1467.407 1072.748 1415.8047 1072.748 L 1380.2168 1072.748 L 1380.2168 717.93359 z "/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">SchemaFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+ uses schema group <code>JSON</code>.</li>
+</ul>
+<p>It is recommended to create a template Elasticsearch indexing pipeline, which can then be re-used.</p>
+<h3 id="procedure">Procedure</h3>
+<ol>
+<li>Right-click on the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span><code>Template Pipelines</code> folder in the Stroom Explorer pane (<span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Explorer"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><g fill="var(--icon-colour__blue)"><path d="m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/><path d="m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z"/><path d="m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/></g><path stroke-linejoin="round" d="m600.75 492.64v949.1h381.89" stroke="var(--icon-colour__blue)" stroke-width="71.125" fill="none"/><path d="m597.94 807.14h539.13" fill-rule="evenodd" stroke="var(--icon-colour__blue)" stroke-width="71.125"/></svg> </span>
+  </span>).</li>
+<li>Select:<br>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">New
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Pipeline
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>Enter the name <code>Indexing (Elasticsearch)</code> and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Define the pipeline structure as above, and customise the following pipeline elements:
+<ol>
+<li>Set the Split Filter <code>splitCount</code> property to a sensible default value, based on the expected source XML element count (e.g. <code>100</code>).</li>
+<li>Set the Schema Filter <code>schemaGroup</code> property to <code>JSON</code>.</li>
+<li>Set the Elastic Indexing Filter <code>cluster</code> property to point to the <code>Elastic Cluster</code> document you created <a href="../../../../docs/user-guide/indexing/elasticsearch/getting-started/">earlier</a>.</li>
+<li>Set the Write Record Count filter <code>countRead</code> property to <code>false</code>.</li>
+</ol>
+</li>
+</ol>
+<p>Now you have created a template indexing pipeline, it&rsquo;s time to create a feed-specific pipeline that inherits this template.</p>
+<h2 id="create-an-elasticsearch-indexing-pipeline">Create an Elasticsearch indexing pipeline</h2>
+<h3 id="procedure-1">Procedure</h3>
+<ol>
+<li>Right-click on a folder <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Folder"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><path fill="var(--icon-colour__blue)" d="m1617.9 701.64v610.84q0 79.825-57.266 137.09-57.266 57.266-137.09 57.266h-1055.1q-79.825 0-137.09-57.266-57.266-57.266-57.266-137.09v-832.96q0-79.825 57.266-137.09 57.266-57.266 137.09-57.266h277.65q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09v27.765h583.07q79.825 0 137.09 57.266 57.266 57.266 57.266 137.09z"/></svg> </span>
+  </span> in the Stroom Explorer pane <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Explorer"><svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1792 1792"><g fill="var(--icon-colour__blue)"><path d="m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/><path d="m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z"/><path d="m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z"/></g><path stroke-linejoin="round" d="m600.75 492.64v949.1h381.89" stroke="var(--icon-colour__blue)" stroke-width="71.125" fill="none"/><path d="m597.94 807.14h539.13" fill-rule="evenodd" stroke="var(--icon-colour__blue)" stroke-width="71.125"/></svg> </span>
+  </span>.</li>
+<li>
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Add"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">New
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Pipeline
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>Enter a name for your pipeline and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Click the <code>Inherit From</code> <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Ellipsis"><svg xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" viewBox="0 0 1792 1792"><g style="fill:currentColor"><circle cx="342.43176" cy="896" r="208.83429"/><circle cx="896" cy="896" r="208.83429"/><circle cx="1449.5682" cy="896" r="208.83429"/></g></svg> </span>
+  </span> button.</li>
+<li>In the dialog that appears, select the template pipeline you created named <code>Indexing (Elasticsearch)</code> and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Select the Elastic Indexing Filter pipeline element.</li>
+<li>Set the <code>indexName</code> property to the name of the destination index or data stream. <code>indexName</code> may be a simple string (static) or dynamic.</li>
+<li>If using dynamic index names, configure the translation to output named element(s) that will be interpolated into <code>indexName</code> for each document indexed.</li>
+</ol>
+<h3 id="choosing-between-simple-and-dynamic-index-names">Choosing between simple and dynamic index names</h3>
+<p>Indexing data to a single, named data stream or index, is a simple and convenient way to manage data.
+There are cases however, where indices may contain significant volumes of data spanning long periods - and where a large portion of indexing will be performed up-front (such as when processing a feed with a lot of historical data).
+As Elasticsearch data stream indices roll over based on the current time (not event time), it is helpful to be able to partition data streams by user-defined properties such as year.
+This use case is met by Stroom&rsquo;s dynamic index naming.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>An Elasticsearch</p>
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html" target="_blank" class="" style="" title="data stream (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html)">
+    <span>data stream</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ consists of one or more backing indices, which automatically roll over once a size or date threshold are met.
+This abstraction assists with the lifecycle management of time-series log data, enabling users to define time and sized-based rules that can for instance, delete indices after they reach a certain age - or move older indices to different data tiers (e.g. cold storage).
+
+
+</div>
+
+
+<h4 id="single-named-index-or-data-stream">Single named index or data stream</h4>
+<p>This is the simplest use case and is suitable where you want to write all data for a particular pipeline, to a single data stream or index.
+Whether data is written to an actual <em>index</em> or <em>data stream</em> depends on your index template, specifically whether you have declared <code>data_stream: {}</code>.
+If this property exists in the index template matching <code>indexName</code>, a data stream is created when the first document is indexed.
+Data streams, amongst many other features, provide the option to use Elasticsearch 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html" target="_blank" class="" style="" title="Index Lifecycle Management (ILM) policies (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/index-lifecycle-management.html)">
+    <span>Index Lifecycle Management (ILM) policies</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ to manage their lifecycle.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    When indexing to a data stream, ensure to include a <code>string</code> field named <code>@timestamp</code> in the output JSON XML.
+This is mandatory and indexing will fail if this field isn&rsquo;t a valid <code>date</code> value.
+
+</div>
+
+
+<h4 id="dynamic-data-stream-names">Dynamic data stream names</h4>
+<p>With a dynamic stream name, <code>indexName</code> contains the names of elements, for example: <code>stroom-events-v1-{year}</code>.
+For each document, the final index name is computed based on the values of the corresponding elements within the resulting JSON XML.
+For example, if the JSON XML representation of an event consists of the following, the document will be indexed to the index or data stream named <code>stroom-events-v1-2022</code>:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;array
+        xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+        xsi:schemaLocation=&quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&quot;&gt;
+    &lt;map&gt;
+        &lt;number key=&quot;StreamId&quot;&gt;3045516&lt;/number&gt;
+        &lt;number key=&quot;EventId&quot;&gt;1&lt;/number&gt;
+        &lt;string key=&quot;@timestamp&quot;&gt;2022-12-16T02:46:29.218Z&lt;/string&gt;
+        &lt;number key=&quot;year&quot;&gt;2022&lt;/number&gt;
+    &lt;/map&gt;
+&lt;/array&gt;
+</code></pre>
+<p>This is due to the value of <code>/map/number[@key='year']</code> being <code>2022</code>.
+This approach can be useful when you need to apply different ILM policies, such as maintaining older data on slower storage tiers.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Any element names defined in <code>indexName</code> <em>must</em> exist in the JSON XML (unless it is an empty document).
+If a blank value is desired, output an empty <code>string</code> element.
+
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If an element name begins with <code>_</code> (underscore), its value is <em>only</em> used for <code>indexName</code> interpolation, and it is <strong>not</strong> included in the final JSON.
+
+</div>
+
+
+<h5 id="other-applications-for-dynamic-data-stream-names">Other applications for dynamic data stream names</h5>
+<p>Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren&rsquo;t user-attributed after 12 months.
+While Stroom <code>ElasticIndex</code> support data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn&rsquo;t cause disk space to be freed (this requires an index to be force-merged, an expensive operation).
+A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.</p>
+<h5 id="migrating-older-data-streams-to-other-data-tiers">Migrating older data streams to other data tiers</h5>
+<p>Say a feed is indexed, spanning data from 2020 through 2023.
+Assuming most searches only need to query data from the current year, the data streams <code>stroom-events-v1-2020</code> and <code>stroom-events-v1-2021</code> can be moved to cold storage.
+To achieve this, use 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/data-tier-shard-filtering.html" target="_blank" class="" style="" title="index-level shard allocation filtering (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/data-tier-shard-filtering.html)">
+    <span>index-level shard allocation filtering</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>In Kibana Dev Tools, execute the following command:</p>
+<p><code>PUT stroom-events-v1-2020,stroom-events-v1-2021/_settings</code></p>
+<pre><code class="language-json">{
+  &quot;index.routing.allocation.include._tier_preference&quot;: &quot;data_cold&quot;
+}
+</code></pre>
+<p>This example assumes a cold data tier has been defined for the cluster.
+If the command executes successfully, shards from the specified data streams are gradually migrated to the nodes comprising the destination data tier.</p>
+<h2 id="create-an-indexing-translation">Create an indexing translation</h2>
+<p>In this example, let&rsquo;s assume you have event data that looks like the following:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Events
+    xmlns=&quot;event-logging:3&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;event-logging:3 file://event-logging-v3.5.2.xsd&quot;
+    Version=&quot;3.5.2&quot;&gt;
+  &lt;Event&gt;
+    &lt;EventTime&gt;
+      &lt;TimeCreated&gt;2022-12-16T02:46:29.218Z&lt;/TimeCreated&gt;
+    &lt;/EventTime&gt;
+    &lt;EventSource&gt;
+      &lt;System&gt;
+        &lt;Name&gt;Nginx&lt;/Name&gt;
+        &lt;Environment&gt;Development&lt;/Environment&gt;
+      &lt;/System&gt;
+      &lt;Generator&gt;Filebeat&lt;/Generator&gt;
+      &lt;Device&gt;
+        &lt;HostName&gt;localhost&lt;/HostName&gt;
+      &lt;/Device&gt;
+      &lt;User&gt;
+        &lt;Id&gt;john.smith1&lt;/Id&gt;
+        &lt;Name&gt;John Smith&lt;/Name&gt;
+        &lt;State&gt;active&lt;/State&gt;
+      &lt;/User&gt;
+    &lt;/EventSource&gt;
+    &lt;EventDetail&gt;
+      &lt;View&gt;
+        &lt;Resource&gt;
+          &lt;URL&gt;http://localhost:8080/index.html&lt;/URL&gt;
+        &lt;/Resource&gt;
+        &lt;Data Name=&quot;Tags&quot; Value=&quot;dev,testing&quot; /&gt;
+        &lt;Data 
+          Name=&quot;Message&quot; 
+          Value=&quot;TLSv1.2 AES128-SHA 1.1.1.1 &amp;quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&amp;quot;&quot; /&gt;
+      &lt;/View&gt;
+    &lt;/EventDetail&gt;
+  &lt;/Event&gt;
+  &lt;Event&gt;
+    ...
+  &lt;/Event&gt;
+&lt;/Events&gt;
+</code></pre>
+<p>We need to write an XSL transform (XSLT) to form a JSON document for each stream processed.
+Each document must consist of an <code>array</code> element one or more <code>map</code> elements (each representing an <code>Event</code>), each with the necessary properties as per our index template.</p>
+<p>See <a href="../../../../docs/user-guide/pipelines/xslt/">XSLT Conversion</a> for instructions on how to write an XSLT.</p>
+<p>The output from your XSLT should match the following:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.1&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;array
+    xmlns=&quot;http://www.w3.org/2005/xpath-functions&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.w3.org/2005/xpath-functions file://xpath-functions.xsd&quot;&gt;
+  &lt;map&gt;
+    &lt;number key=&quot;StreamId&quot;&gt;3045516&lt;/number&gt;
+    &lt;number key=&quot;EventId&quot;&gt;1&lt;/number&gt;
+    &lt;string key=&quot;@timestamp&quot;&gt;2022-12-16T02:46:29.218Z&lt;/string&gt;
+    &lt;map key=&quot;User&quot;&gt;
+      &lt;string key=&quot;Id&quot;&gt;john.smith1&lt;/string&gt;
+      &lt;string key=&quot;Name&quot;&gt;John Smith&lt;/string&gt;
+      &lt;boolean key=&quot;Active&quot;&gt;true&lt;/boolean&gt;
+    &lt;/map&gt;
+    &lt;array key=&quot;Tags&quot;&gt;
+      &lt;string&gt;dev&lt;/string&gt;
+      &lt;string&gt;testing&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;string key=&quot;Message&quot;&gt;TLSv1.2 AES128-SHA 1.1.1.1 &quot;Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0&quot;&lt;/string&gt;
+  &lt;/map&gt;
+  &lt;map&gt;
+    ...
+  &lt;/map&gt;
+&lt;/array&gt;
+</code></pre>
+<h2 id="assign-the-translation-to-the-indexing-pipeline">Assign the translation to the indexing pipeline</h2>
+<p>Having created your translation, you need to reference it in your indexing pipeline.</p>
+<ol>
+<li>Open the pipeline you created.</li>
+<li>Select the <code>Structure</code> tab.</li>
+<li>Select the 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../../docs/reference-section/pipeline-elements#xsltfilter" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="XSLTFilter &#34;XSLTFilter&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg> </span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">XSLTFilter</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+ pipeline element.</li>
+<li>Double-click the <code>xslt</code> property value cell.</li>
+<li>Select the XSLT you created and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
+  </span>.</li>
+</ol>
+<h2 id="step-the-pipeline">Step the pipeline</h2>
+<p>At this point, you will want to <a href="../../../../docs/quick-start-guide/process/">step the pipeline</a> to ensure there are no errors and that output looks as expected.</p>
+<h2 id="execute-the-pipeline">Execute the pipeline</h2>
+<p>Create a pipeline processor and filter to run the pipeline against one or more feeds.
+Stroom will distribute processing tasks to enabled nodes and send documents to Elasticsearch for indexing.</p>
+<p>You can monitor indexing status via your Elasticsearch monitoring tool of choice.</p>
+<h3 id="detecting-and-handling-errors">Detecting and handling errors</h3>
+<p>If any errors occur while a stream is being indexed, an <code>Error</code> stream is created, containing details of each failure.
+<code>Error</code> streams can be found under the <code>Data</code> tab of either the indexing pipeline or receiving <code>Feed</code>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>You can filter the selected pipeline or feed to list only <code>Error</code> streams.
+Click <span class="stroom-icon inline-svg-button icon-button  " >
+<span class="face" title="Filter"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg></span>
+</span> then add a condition <code>Type</code> <code>=</code> <code>Error</code>.</p>
+
+
+</div>
+
+
+<p>Once you have addressed the underlying cause for a particular type of error (such as an incorrect field mapping), reprocess affected streams:</p>
+<ol>
+<li>Select any <code>Error</code> streams relating for reprocessing, by clicking the relevant checkboxes in the stream list (top pane).</li>
+<li>Click <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Process"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span>.</li>
+<li>In the dialog that appears, check <code>Reprocess data</code> and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+.</li>
+<li>Click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+ for any confirmation prompts that follow.</li>
+</ol>
+<p>Stroom will re-send data from the selected <code>Event</code> streams to Elasticsearch for indexing.
+Any existing documents matching the <code>StreamId</code> of the original <code>Event</code> stream are first deleted automatically to avoid duplication.</p>
+<h2 id="tips-and-tricks">Tips and tricks</h2>
+<h3 id="use-a-common-schema-for-your-indices">Use a common schema for your indices</h3>
+<p>An example is 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/ecs/current/ecs-reference.html" target="_blank" class="" style="" title="Elastic Common Schema (ECS) (external link to https://www.elastic.co/guide/en/ecs/current/ecs-reference.html)">
+    <span>Elastic Common Schema (ECS)</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).</p>
+<p>With this in mind, it is important that common fields also have the same data type in each index.
+Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single <em>component</em>.</p>
+<h3 id="use-a-version-control-system-such-as-git-to-track-index-and-component-templates">Use a version control system (such as git) to track index and component templates</h3>
+<p>This helps keep track of changes over time and can be an important resource for both administrators and users.</p>
+<h3 id="rebuilding-an-index">Rebuilding an index</h3>
+<p>Sometimes it is necessary to rebuild an index.
+This could be due to a change in field mapping, shard count or responding to a user feature request.</p>
+<p>To rebuild an index:</p>
+<ol>
+<li>Drain the indexing pipeline by deactivating any processor filters and waiting for any running tasks to complete.</li>
+<li>Delete the index or data stream via the Elasticsearch API or Kibana.</li>
+<li>Make the required changes to the index template and/or XSL translation.</li>
+<li>Create a new processor filter either from scratch or using the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Clone"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1664 1632v-1088q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h1088q13 0 22.5-9.5t9.5-22.5zm128-1088v1088q0 66-47 113t-113 47h-1088q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113zm-384-384v160h-128v-160q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h160v128h-160q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113z"/></svg></span>
+  </span> button.</li>
+<li>Activate the new processor filter.</li>
+</ol>
+<h3 id="use-a-versioned-index-naming-convention">Use a versioned index naming convention</h3>
+<p>As with the earlier example <code>stroom-events-v1</code>, a version number is appended to the name of the index or data stream.
+If a new field is added, or some other change occurred requiring the index to be rebuilt, users would experience downtime.
+This can be avoided by incrementing the version and performing the rebuild against a new index: <code>stroom-events-v2</code>.
+Users could continue querying <code>stroom-events-v1</code> until it is deleted.
+This approach involves the following steps:</p>
+<ol>
+<li>Create a new Elasticsearch index template targeting the new index name (in this case, <code>stroom-events-v2</code>).</li>
+<li>Create a copy of the indexing pipeline, targeting the new index in the Elastic Indexing Filter.</li>
+<li>Create and activate a processing filter for the new pipeline.</li>
+<li>Once indexing is complete, update the Elastic Index document to point to <code>stroom-events-v2</code>.
+Users will now be searching against the new index.</li>
+<li>Drain any tasks for the original indexing pipeline and delete it.</li>
+<li>Delete index <code>stroom-events-v1</code> using either the Elasticsearch API or Kibana.</li>
+</ol>
+<p>If you created a data view in Kibana, you&rsquo;ll also want to update this to point to the new index / data stream.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">See Also</h4>
+
+
+    <ol>
+<li><a href="../../../../docs/user-guide/search/data-sources/elastic-data-source/">Searching an Elasticsearch index in a Dashboard</a></li>
+<li><a href="../../../../docs/user-guide/indexing/elasticsearch/kibana/">Exploring data with Kibana</a></li>
+</ol>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.4.'; page-break-before: always">
+    
+  <h1 id="pg-1bddced90f9063d7d6f680fd761164e3">1.4 - Exploring Data in Kibana</h1>
+    <div class="lead">Using Kibana to search, aggregate and explore data indexed in Stroom</div>
+	<p>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/kibana/" target="_blank" class="" style="" title="Kibana (external link to https://www.elastic.co/kibana/)">
+    <span>Kibana</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ is part of the Elastic Stack and provides users with an interactive, visual way to query, visualise and explore data in Elasticsearch.</p>
+<p>It is highly customisable and provides users and teams with tools to create and share dashboards, searches, reports and other content.</p>
+<p>Once data has been indexed by Stroom into Elasticsearch, it can be explored in Kibana.
+You will first need to 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/kibana/current/data-views.html" target="_blank" class="" style="" title="create a data view (external link to https://www.elastic.co/guide/en/kibana/current/data-views.html)">
+    <span>create a data view</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ in order to query your indices.</p>
+<h2 id="why-use-kibana">Why use Kibana?</h2>
+<p>There are several use cases that benefit from Kibana:</p>
+<ol>
+<li>Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens.
+Much more performant and easier to customise than built-in Stroom dashboard visualisations.</li>
+<li>Field statistics and value summaries with Kibana Discover.
+Great for doing initial audit data survey.</li>
+<li>Geospatial analysis and visualisation.</li>
+<li>Search field auto-completion.</li>
+<li>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime.html" target="_blank" class="" style="" title="Runtime fields (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime.html)">
+    <span>Runtime fields</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+Good for data exploration, at the cost of performance.</li>
+</ol>
+
+</div>
+
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-896a1c0b68dce48229e57116c19eef21">2 - Lucene Indexes</h1>
+    <div class="lead">Stroom&rsquo;s built in Apache Lucene based indexing.</div>
+	<p>Stroom uses 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://lucene.apache.org" target="_blank" class="" style="" title="Apache Lucene (external link to https://lucene.apache.org)">
+    <span>Apache Lucene</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for its built-in indexing solution.
+Index documents are stored in a <span class="glossary-link">
+  <a href="../../../../docs/glossary/#volume" title="Glossary entry for Volume">
+    <span>Volume</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this page.
+
+</div>
+
+<h2 id="field-configuration">Field configuration</h2>
+<h3 id="field-types">Field Types</h3>
+<ul>
+<li><code>Id</code> - Treated as a <code>Long</code>.</li>
+<li><code>Boolean</code> - True/False values.</li>
+<li><code>Integer</code> - Whole numbers from -2,147,483,648 to 2,147,483,647.</li>
+<li><code>Long</code> - Whole numbers from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.</li>
+<li><code>Float</code> - Fractional numbers.
+Sufficient for storing 6 to 7 decimal digits.</li>
+<li><code>Double</code> - Fractional numbers.
+Sufficient for storing 15 decimal digits.</li>
+<li><code>Date</code> - Date and time values.</li>
+<li><code>Text</code> - Text data.</li>
+<li><code>Number</code> - An alias for <code>Long</code>.</li>
+</ul>
+<h3 id="stored-fields">Stored fields</h3>
+<p>If a field is <em>Stored</em> then it means the complete field value will be stored in the index.
+This means the value can be retrieved from the index when building search results rather than using the slower <a href="../../../../tags/extraction/">Search Extraction</a> process.
+Storing field values comes at the cost of hight storage requirements for the index.
+If storage space is not an issue then storing all fields that you want to return in search results is the optimum.</p>
+<h3 id="indexed-fields">Indexed fields</h3>
+<p>An <em>Indexed</em> field is one that will be processed by Lucene so that the field can be queried.
+How the field is indexed will depend on the Field type and the Analyser used.</p>
+<p>If you have fields that you do not want to be able to filter (i.e. that you won&rsquo;t use as a query term) then you can include them as non-Indexed fields.
+Including a non-indexed field means it will be available for the user to select in the <span class="glossary-link">
+  <a href="../../../../docs/glossary/#dashboard" title="Glossary entry for Dashboard">
+    <span>Dashboard</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> table.
+A non-indexed field would either need to be <em>Stored</em> in the index or added via Search Extraction to be available in the search results.</p>
+<h3 id="positions">Positions</h3>
+<p>If <em>Positions</em> is selected then Lucene will store the positions of all the field terms in the document.</p>
+<h3 id="analyser-types">Analyser types</h3>
+<p>The Analyser determines how Lucene reads the fields value and extracts tokens from it.
+The choice of Analyser will depend on the date in the field and how you want to search it.</p>
+<ul>
+<li><code>Keyword</code> - Treats the whole field value as one token.
+Useful for things like IDs and post codes.
+Supports the <em>Case Sensitivity setting</em>.</li>
+<li><code>Alpha</code> - Tokenises on any non-letter characters, e.g. <code>one1 two2 three 3</code> =&gt; <code>one</code> <code>two</code> <code>three</code>.
+Strips non-letter characters.
+Supports the <em>Case Sensitivity setting</em>.</li>
+<li><code>Numeric</code> -</li>
+<li><code>Alpha numeric</code> - Tokenises on any non-letter/digit characters, e.g. <code>one1 two2 three 3</code> =&gt; <code>one1</code> <code>two2</code> <code>three</code> <code>3</code>.
+Supports the <em>Case Sensitivity setting</em>.</li>
+<li><code>Whitespace</code> - Tokenises only on white space.
+Not affected by the <em>Case Sensitivity setting</em>, case sensitive.</li>
+<li><code>Stop words</code> - Tokenises bases on non-letter characters and removes <a href="#stop-words">Stop Words</a>, e.g. <code>and</code>.
+Not affected by the <em>Case Sensitivity setting</em>.
+Case insensitive.</li>
+<li><code>Standard</code> - The most common analyser.
+Tokenises the value on spaces and punctuation but recognises URLs and email addresses.
+Removes <a href="#stop-words">Stop Words</a>, e.g. <code>and</code>.
+Not affected by the <em>Case Sensitivity setting</em>.
+Case insensitive.
+e.g. <code>Find Stroom at github.com/stroom</code> =&gt; <code>Find</code> <code>Stroom</code> <code>at</code> <code>github.com/stroom</code>.</li>
+</ul>
+<h4 id="stop-words">Stop words</h4>
+<p>Some of the Analysers use a set of stop words for the tokenisers.
+This is the list of stop words that will not be indexed.</p>
+<p><code>a</code>, <code>an</code>, <code>and</code>, <code>are</code>, <code>as</code>, <code>at</code>, <code>be</code>, <code>but</code>, <code>by</code>, <code>for</code>, <code>if</code>, <code>in</code>, <code>into</code>, <code>is</code>, <code>it</code>, <code>no</code>, <code>not</code>, <code>of</code>, <code>on</code>, <code>or</code>, <code>such</code>, <code>that</code>, <code>the</code>, <code>their</code>, <code>then</code>, <code>there</code>, <code>these</code>, <code>they</code>, <code>this</code>, <code>to</code>, <code>was</code>, <code>will</code>, <code>with</code></p>
+<h3 id="case-sensitivity">Case sensitivity</h3>
+<p>Some of the Analyser types support case (in)sensitivity.
+For example if the Analyser supports it the value <code>TWO two</code> would either be tokenised as <code>TWO</code> <code>two</code> or <code>two</code> <code>two</code>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-5bf7c18df4838a8e5f3a48c44724bda9">3 - Solr Integration</h1>
+    <div class="lead">Indexing data using a Solr cluster.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    Complete this section.
+
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2025 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../../js/popper.min.js'></script>
+<script src='../../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

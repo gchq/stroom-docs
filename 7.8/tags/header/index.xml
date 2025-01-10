@@ -1,0 +1,65 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – header</title>
+    <link>/tags/header/</link>
+    <description>Recent content in header on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/header/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Header Arguments</title>
+      <link>/docs/sending-data/header-arguments/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/sending-data/header-arguments/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The following data must be passed in as HTTP header arguments when sending files to Stroom via HTTP POST. These arguments are case insensitive.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;System&lt;/code&gt; - The name by which the system is known within the organisation, e.g. &lt;code&gt;PAYROLL_SYSTEM&lt;/code&gt;.
+This could be the name of a project/service or capability.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Environment&lt;/code&gt; - A means to identify the deployed instance of a system.
+This may indicate the deployment status, e.g. DEV, REF, LIVE, OPS, etc., and/or the location where the instance is deployed.
+An environment may be a combination of these attributes separated with an underscore.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Feed&lt;/code&gt; - The name of the feed this data relates to.
+This is mandatory and must match a feed defined within Stroom in order for Stroom to accept the data and know what to do with it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Compression&lt;/code&gt; - This token is optionally used when the POST payload is compressed with either gzip of zip compression.
+Value of &lt;code&gt;ZIP&lt;/code&gt; and &lt;code&gt;GZIP&lt;/code&gt; are valid. &lt;strong&gt;Note&lt;/strong&gt;: The &lt;code&gt;Compression&lt;/code&gt; token MUST not be used in conjunction with the standard HTTP header token &lt;code&gt;Content-Encoding&lt;/code&gt; otherwise stroom will be unable to un-compress the data. Use either &lt;code&gt;Compression:GZIP&lt;/code&gt; or &lt;code&gt;Content-Encoding:gzip&lt;/code&gt;, not both. Using &lt;code&gt;Compression&lt;/code&gt; is preferred.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;EffectiveTime&lt;/code&gt; - This is only applicable to reference data.
+It is used to indicate the point in time that the reference data is applicable to, i.e. all event data that uses the reference data that is created after the effective time will use the reference data until a new reference data item arrives with a later effective time.
+&lt;strong&gt;Note&lt;/strong&gt;: This argument must be in &lt;em&gt;ISO 8601&lt;/em&gt; date time format, i.e: &lt;code&gt;yyyy-MM-ddTHH:mm:ss.sssZ&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Authorization&lt;/code&gt; - This is only applicable when Stroom/Stroom-Proxy are configured for token based authentication.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example header arguments for a feed called &lt;em&gt;MY_SYSTEM-EVENTS&lt;/em&gt; from system &lt;em&gt;MY_SYSTEM&lt;/em&gt; and environment &lt;em&gt;OPS&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;System:MY_SYSTEM
+Environment:OPS
+Feed:MY_SYSTEM-EVENTS
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The post payload must contain the events file. If the compression format is ZIP the payload must contain ZIP entries with the events files and optional context files ending in .ctx. Further details of supported payload formats can be found &lt;a href=&#34;../../docs/sending-data/payloads/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

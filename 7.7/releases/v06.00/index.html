@@ -1,0 +1,633 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="canonical" href="../../../">
+
+
+<link rel="shortcut icon" href="../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Version 6.0 | Stroom</title>
+<meta name="description" content="Key new features and changes present in v6.0 of Stroom and Stroom-Proxy.
+">
+<meta property="og:title" content="Version 6.0" />
+<meta property="og:description" content="Key new features and changes present in v6.0 of Stroom and Stroom-Proxy.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/releases/v06.00/" /><meta property="article:section" content="releases" />
+<meta property="article:published_time" content="2019-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-11-26T14:19:40+00:00" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Version 6.0">
+<meta itemprop="description" content="Key new features and changes present in v6.0 of Stroom and Stroom-Proxy.
+"><meta itemprop="datePublished" content="2019-08-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-11-26T14:19:40+00:00" />
+<meta itemprop="wordCount" content="340">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Version 6.0"/>
+<meta name="twitter:description" content="Key new features and changes present in v6.0 of Stroom and Stroom-Proxy.
+"/>
+
+
+
+
+<link rel="preload" href="../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" as="style">
+<link href="../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" rel="stylesheet" integrity="">
+
+
+<script src='../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../css/prism.css"/>
+<link rel="stylesheet" href="../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../css/stroom-ui/theme-dark.css"/>
+
+
+
+
+  </head>
+  <body class="td-page">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../docs/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../releases/"><span class="active">Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.6)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="../../">7.6 (Latest)</a>
+	
+	<a class="dropdown-item" href="../../7.5">7.5</a>
+	
+	<a class="dropdown-item" href="../../7.4">7.4</a>
+	
+	<a class="dropdown-item" href="../../7.3">7.3</a>
+	
+	<a class="dropdown-item" href="../../7.2">7.2</a>
+	
+	<a class="dropdown-item" href="../../7.1">7.1</a>
+	
+	<a class="dropdown-item" href="../../7.0">7.0</a>
+	
+	<a class="dropdown-item" href="../../legacy">Legacy</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../offline-search-index.933bcda7ff1ca52f3fd8bd46934e2df3.json"
+    data-offline-search-base-href="../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../offline-search-index.933bcda7ff1ca52f3fd8bd46934e2df3.json"
+    data-offline-search-base-href="../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-releases-li">
+  <a href="../../releases/" title="Release Notes" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-releases"><span class="">Releases Notes</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-releasesunreleased-li">
+  <a href="../../releases/unreleased/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesunreleased"><span class="">Unreleased</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-releasesv0706-li">
+  <a href="../../releases/v07.06/" title="Version 7.6" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-releasesv0706"><span class="">7.6</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0706new-features-li">
+  <a href="../../releases/v07.06/new-features/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0706new-features"><span class="">New Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0706preview-features-li">
+  <a href="../../releases/v07.06/preview-features/" title="Preview Features (experimental)" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0706preview-features"><span class="">Preview Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0706breaking-changes-li">
+  <a href="../../releases/v07.06/breaking-changes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0706breaking-changes"><span class="">Breaking Changes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0706upgrade-notes-li">
+  <a href="../../releases/v07.06/upgrade-notes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0706upgrade-notes"><span class="">Upgrade Notes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0706change-log-li">
+  <a href="../../releases/v07.06/change-log/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0706change-log"><span class="">Change Log</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-releasesv0705-li">
+  <a href="../../releases/v07.05/" title="Version 7.5" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-releasesv0705"><span class="">7.5</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0705new-features-li">
+  <a href="../../releases/v07.05/new-features/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0705new-features"><span class="">New Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0705preview-features-li">
+  <a href="../../releases/v07.05/preview-features/" title="Preview Features (experimental)" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0705preview-features"><span class="">Preview Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0705breaking-changes-li">
+  <a href="../../releases/v07.05/breaking-changes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0705breaking-changes"><span class="">Breaking Changes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0705upgrade-notes-li">
+  <a href="../../releases/v07.05/upgrade-notes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0705upgrade-notes"><span class="">Upgrade Notes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0705change-log-li">
+  <a href="../../releases/v07.05/change-log/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0705change-log"><span class="">Change Log</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-releasesv0704-li">
+  <a href="../../releases/v07.04/" title="Version 7.4" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-releasesv0704"><span class="">7.4</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0704new-features-li">
+  <a href="../../releases/v07.04/new-features/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0704new-features"><span class="">New Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0704preview-features-li">
+  <a href="../../releases/v07.04/preview-features/" title="Preview Features (experimental)" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0704preview-features"><span class="">Preview Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0704breaking-changes-li">
+  <a href="../../releases/v07.04/breaking-changes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0704breaking-changes"><span class="">Breaking Changes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0704upgrade-notes-li">
+  <a href="../../releases/v07.04/upgrade-notes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0704upgrade-notes"><span class="">Upgrade Notes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0704change-log-li">
+  <a href="../../releases/v07.04/change-log/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0704change-log"><span class="">Change Log</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-releasesv0703-li">
+  <a href="../../releases/v07.03/" title="Version 7.3" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-releasesv0703"><span class="">7.3</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0703new-features-li">
+  <a href="../../releases/v07.03/new-features/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0703new-features"><span class="">New Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0703preview-features-li">
+  <a href="../../releases/v07.03/preview-features/" title="Preview Features (experimental)" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0703preview-features"><span class="">Preview Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0703breaking-changes-li">
+  <a href="../../releases/v07.03/breaking-changes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0703breaking-changes"><span class="">Breaking Changes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0703upgrade-notes-li">
+  <a href="../../releases/v07.03/upgrade-notes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0703upgrade-notes"><span class="">Upgrade Notes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0703change-log-li">
+  <a href="../../releases/v07.03/change-log/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0703change-log"><span class="">Change Log</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-releasesv0702-li">
+  <a href="../../releases/v07.02/" title="Version 7.2" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-releasesv0702"><span class="">7.2</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0702new-features-li">
+  <a href="../../releases/v07.02/new-features/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0702new-features"><span class="">New Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0702preview-features-li">
+  <a href="../../releases/v07.02/preview-features/" title="Preview Features (experimental)" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0702preview-features"><span class="">Preview Features</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0702breaking-changes-li">
+  <a href="../../releases/v07.02/breaking-changes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0702breaking-changes"><span class="">Breaking Changes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0702upgrade-notes-li">
+  <a href="../../releases/v07.02/upgrade-notes/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0702upgrade-notes"><span class="">Upgrade Notes</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-releasesv0702change-log-li">
+  <a href="../../releases/v07.02/change-log/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0702change-log"><span class="">Change Log</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-releasesv0701-li">
+  <a href="../../releases/v07.01/" title="Version 7.1" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0701"><span class="">7.1</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-releasesv0700-li">
+  <a href="../../releases/v07.00/" title="Version 7.0" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0700"><span class="">7.0</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-releasesv0601-li">
+  <a href="../../releases/v06.01/" title="Version 6.1" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-releasesv0601"><span class="">6.1</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-releasesv0600-li">
+  <a href="../../releases/v06.00/" title="Version 6.0" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-releasesv0600"><span class="td-sidebar-nav-active-item">6.0</span></a>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/gchq/stroom-docs/tree/7.5/content/en/releases/v06.00.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/gchq/stroom-docs/edit/7.5/content/en/releases/v06.00.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/gchq/stroom-docs/new/7.5/content/en/releases/v06.00.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/gchq/stroom-docs/issues/new?title=Version%206.0" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  <a href="https://github.com/gchq/stroom/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
+  <a id="print" href="../../releases/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
+
+</div>
+
+            <div class="td-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#oauth-20openid-connect-authentication">OAuth 2.0/OpenID Connect authentication</a></li>
+    <li><a href="#api-keys-for-third-party-clients">API keys for third party clients</a></li>
+    <li><a href="#hbase-backed-statistics-store">HBase backed statistics store</a></li>
+    <li><a href="#data-receipt-filtering">Data receipt filtering</a></li>
+    <li><a href="#data-retention-policies">Data retention policies</a></li>
+    <li><a href="#dashboard-linking">Dashboard linking</a></li>
+    <li><a href="#search-api">Search API</a></li>
+    <li><a href="#kafka-appender-and-filter">Kafka appender and filter</a></li>
+  </ul>
+</nav>
+      </div>
+    
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+    <div class="taxonomy taxonomy-terms-cloud taxo-tags">
+      
+        <h5 class="taxonomy-title">Tags</h5>
+      
+      <ul class="taxonomy-terms">
+        
+          <li><a class="taxonomy-term" href="../../tags/account/" data-taxonomy-term="account"><span class="taxonomy-label">account</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/analytic/" data-taxonomy-term="analytic"><span class="taxonomy-label">analytic</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/api/" data-taxonomy-term="api"><span class="taxonomy-label">api</span><span class="taxonomy-count">8</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/authentication/" data-taxonomy-term="authentication"><span class="taxonomy-label">authentication</span><span class="taxonomy-count">7</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/authorisation/" data-taxonomy-term="authorisation"><span class="taxonomy-label">authorisation</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/certificate/" data-taxonomy-term="certificate"><span class="taxonomy-label">certificate</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/cluster/" data-taxonomy-term="cluster"><span class="taxonomy-label">cluster</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/configuration/" data-taxonomy-term="configuration"><span class="taxonomy-label">configuration</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/content/" data-taxonomy-term="content"><span class="taxonomy-label">content</span><span class="taxonomy-count">7</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/context/" data-taxonomy-term="context"><span class="taxonomy-label">context</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/dashboard/" data-taxonomy-term="dashboard"><span class="taxonomy-label">dashboard</span><span class="taxonomy-count">5</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/data-source/" data-taxonomy-term="data-source"><span class="taxonomy-label">data-source</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/data-splitter/" data-taxonomy-term="data-splitter"><span class="taxonomy-label">data-splitter</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/database/" data-taxonomy-term="database"><span class="taxonomy-label">database</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/dictionary/" data-taxonomy-term="dictionary"><span class="taxonomy-label">dictionary</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/docker/" data-taxonomy-term="docker"><span class="taxonomy-label">docker</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/document/" data-taxonomy-term="document"><span class="taxonomy-label">document</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/elastic/" data-taxonomy-term="elastic"><span class="taxonomy-label">elastic</span><span class="taxonomy-count">6</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/event/" data-taxonomy-term="event"><span class="taxonomy-label">event</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/expression/" data-taxonomy-term="expression"><span class="taxonomy-label">expression</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/extraction/" data-taxonomy-term="extraction"><span class="taxonomy-label">extraction</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/feed/" data-taxonomy-term="feed"><span class="taxonomy-label">feed</span><span class="taxonomy-count">7</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/file/" data-taxonomy-term="file"><span class="taxonomy-label">file</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/fragment/" data-taxonomy-term="fragment"><span class="taxonomy-label">fragment</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/group/" data-taxonomy-term="group"><span class="taxonomy-label">group</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/header/" data-taxonomy-term="header"><span class="taxonomy-label">header</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/http/" data-taxonomy-term="http"><span class="taxonomy-label">http</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/httpd/" data-taxonomy-term="httpd"><span class="taxonomy-label">httpd</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/index/" data-taxonomy-term="index"><span class="taxonomy-label">index</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/indexing/" data-taxonomy-term="indexing"><span class="taxonomy-label">indexing</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/installation/" data-taxonomy-term="installation"><span class="taxonomy-label">installation</span><span class="taxonomy-count">12</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/java/" data-taxonomy-term="java"><span class="taxonomy-label">java</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/job/" data-taxonomy-term="job"><span class="taxonomy-label">job</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/keystore/" data-taxonomy-term="keystore"><span class="taxonomy-label">keystore</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/kibana/" data-taxonomy-term="kibana"><span class="taxonomy-label">kibana</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/kubernetes/" data-taxonomy-term="kubernetes"><span class="taxonomy-label">kubernetes</span><span class="taxonomy-count">10</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/link/" data-taxonomy-term="link"><span class="taxonomy-label">link</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/log-sender/" data-taxonomy-term="log-sender"><span class="taxonomy-label">log-sender</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/mysql/" data-taxonomy-term="mysql"><span class="taxonomy-label">mysql</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/nfs/" data-taxonomy-term="nfs"><span class="taxonomy-label">nfs</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/nginx/" data-taxonomy-term="nginx"><span class="taxonomy-label">nginx</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/node/" data-taxonomy-term="node"><span class="taxonomy-label">node</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/open-id/" data-taxonomy-term="open-id"><span class="taxonomy-label">open-id</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/permission/" data-taxonomy-term="permission"><span class="taxonomy-label">permission</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/pipeline/" data-taxonomy-term="pipeline"><span class="taxonomy-label">pipeline</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/processing/" data-taxonomy-term="processing"><span class="taxonomy-label">processing</span><span class="taxonomy-count">5</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/property/" data-taxonomy-term="property"><span class="taxonomy-label">property</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/proxy/" data-taxonomy-term="proxy"><span class="taxonomy-label">proxy</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/query/" data-taxonomy-term="query"><span class="taxonomy-label">query</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/raw/" data-taxonomy-term="raw"><span class="taxonomy-label">raw</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/reference-data/" data-taxonomy-term="reference-data"><span class="taxonomy-label">reference-data</span><span class="taxonomy-count">4</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/retention/" data-taxonomy-term="retention"><span class="taxonomy-label">retention</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/search/" data-taxonomy-term="search"><span class="taxonomy-label">search</span><span class="taxonomy-count">13</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/security/" data-taxonomy-term="security"><span class="taxonomy-label">security</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/solr/" data-taxonomy-term="solr"><span class="taxonomy-label">solr</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/source/" data-taxonomy-term="source"><span class="taxonomy-label">source</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/stream/" data-taxonomy-term="stream"><span class="taxonomy-label">stream</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/style/" data-taxonomy-term="style"><span class="taxonomy-label">style</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/task/" data-taxonomy-term="task"><span class="taxonomy-label">task</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/testing/" data-taxonomy-term="testing"><span class="taxonomy-label">testing</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/todo/" data-taxonomy-term="todo"><span class="taxonomy-label">TODO</span><span class="taxonomy-count">14</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/token/" data-taxonomy-term="token"><span class="taxonomy-label">token</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/truststore/" data-taxonomy-term="truststore"><span class="taxonomy-label">truststore</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/upgrade/" data-taxonomy-term="upgrade"><span class="taxonomy-label">upgrade</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/user/" data-taxonomy-term="user"><span class="taxonomy-label">user</span><span class="taxonomy-count">3</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/visualisation/" data-taxonomy-term="visualisation"><span class="taxonomy-label">visualisation</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/volume/" data-taxonomy-term="volume"><span class="taxonomy-label">volume</span><span class="taxonomy-count">2</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/xml/" data-taxonomy-term="xml"><span class="taxonomy-label">xml</span><span class="taxonomy-count">1</span></a></li>
+        
+          <li><a class="taxonomy-term" href="../../tags/xslt/" data-taxonomy-term="xslt"><span class="taxonomy-label">xslt</span><span class="taxonomy-count">5</span></a></li>
+        
+      </ul>
+    </div>
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+  
+  
+  
+  
+  
+  <div class="pageinfo pageinfo-secondary">
+    
+    <p>
+    The page that you are currently viewing is for an old version of Stroom (7.6).
+      
+      The documentation for the latest version of Stroom (7.6)
+      can be found using the version drop-down at the top of the screen or by clicking
+        <a href="../../../">here</a>.
+    </p>
+      
+    
+  </div>
+
+
+            
+
+
+<nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="../../releases/">Releases Notes</a>
+    </li>
+  <li class="breadcrumb-item active">
+      <span>6.0</span>
+    </li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>Version 6.0</h1>
+	<div class="lead">Key new features and changes present in v6.0 of Stroom and Stroom-Proxy.</div>
+	<header class="article-meta">
+		
+
+  
+    
+
+
+  
+    
+
+
+  
+
+		
+	</header>    
+	
+
+<div class="pageinfo pageinfo-primary">
+<p>For a detailed list of the changes in v6.0 see the</p>
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/blob/6.0/CHANGELOG.md" target="_blank" class="" style="" title="changelog (external link to https://github.com/gchq/stroom/blob/6.0/CHANGELOG.md)">
+    <span>changelog</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+
+</div>
+
+<h2 id="oauth-20openid-connect-authentication">OAuth 2.0/OpenID Connect authentication</h2>
+<p>Authentication for Stroom provided by an external service rather than a service internal to Stroom.
+This change allows support for broader corporate authentication schemes and is a key requirement for enabling the future microservice architecture for Stroom.</p>
+<h2 id="api-keys-for-third-party-clients">API keys for third party clients</h2>
+<p>Anyone wishing to make use of the data exposed by Stroom&rsquo;s services can request an API key.
+This key acts as a password for their own applications.
+It allows administrators to secure and manage access to Stroom&rsquo;s data.</p>
+<h2 id="hbase-backed-statistics-store">HBase backed statistics store</h2>
+<p>This new implementation of statistics (Stroom-Stats) provides a vastly more scalable time series DB for large scale collection of Stroom&rsquo;s data aggregated to various time buckets.
+Stroom-Stats uses Kafka for ingesting the source data.</p>
+<h2 id="data-receipt-filtering">Data receipt filtering</h2>
+<p>Data arriving in Stroom has meta data that can be matched against a policy so that certain actions can be taken.
+This could be to receive, drop or reject the data.</p>
+<p>Filtering of data also applies to Stroom proxy where each proxy can get a filtering policy from an upstream proxy or a Stroom instance.</p>
+<h2 id="data-retention-policies">Data retention policies</h2>
+<p>The length of time that data will be retained in Strooms stream store can be defined by creating data retention rules.
+These rules match streams based on their meta data and will automatically delete data once the retention period associated with the rule is exceeded.</p>
+<h2 id="dashboard-linking">Dashboard linking</h2>
+<p>Links can be created in dashboards to jump to other dashboards or other external sites that provide additional contextual information.</p>
+<h2 id="search-api">Search API</h2>
+<p>The search system used by Dashboards can be used via a restful API.
+This provides access to data stored in search indices (including the ability to extract data) and statistics stores.
+The data fetched via the search API can be received and processed via an external system.</p>
+<h2 id="kafka-appender-and-filter">Kafka appender and filter</h2>
+<p>New pipeline elements for writing XML or text data to a Kafka topic.
+This provides more options for using Stroom&rsquo;s data in other systems.</p>
+
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">
+  Last modified November 26, 2024: <a href="https://github.com/gchq/stroom-docs/commit/e9a363bcfe351b730119a9050ddcb99934b418a4">Merge branch &#39;7.6&#39; (e9a363b)</a>
+</div>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2025 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../js/popper.min.js'></script>
+<script src='../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../js/prism.js'></script>
+
+
+
+  </body>
+</html>

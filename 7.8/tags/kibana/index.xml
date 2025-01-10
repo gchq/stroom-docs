@@ -1,0 +1,441 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – kibana</title>
+    <link>/tags/kibana/</link>
+    <description>Recent content in kibana on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 15 Dec 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/kibana/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Introduction</title>
+      <link>/docs/user-guide/indexing/elasticsearch/introduction/</link>
+      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/indexing/elasticsearch/introduction/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom supports using an external Elasticsearch cluster to index event data.
+This allows you to leverage all the features of the Elastic Stack, such as shard allocation, replication, fault tolerance and aggregations.&lt;/p&gt;
+&lt;p&gt;With Elasticsearch as an external service, your search infrastructure can scale independently of your Stroom data processing cluster, enhancing interoperability with other platforms by providing a performant and resilient time-series event data store.
+For instance, you can:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Deploy 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/kibana/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Kibana (external link to https://www.elastic.co/kibana/)&#34;&gt;
+    &lt;span&gt;Kibana&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ to search and visualise Elasticsearch data.&lt;/li&gt;
+&lt;li&gt;Index Stroom&amp;rsquo;s stream meta and &lt;code&gt;Error&lt;/code&gt; streams so monitoring systems can generate metrics and alerts.&lt;/li&gt;
+&lt;li&gt;Use Apache Spark to perform stateful data processing and enrichment, through the use of the 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/elasticsearch/hadoop&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Elasticsearch-Hadoop (external link to https://www.elastic.co/elasticsearch/hadoop)&#34;&gt;
+    &lt;span&gt;Elasticsearch-Hadoop&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ connector.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Stroom achieves indexing and search integration by interfacing securely with the Elasticsearch REST API using the Java high-level client.&lt;/p&gt;
+&lt;p&gt;This guide will walk you through configuring a Stroom indexing pipeline, creating an Elasticsearch index template, activating a stream processor and searching the indexed data in both Stroom and Kibana.&lt;/p&gt;
+&lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;You have created an Elasticsearch cluster.
+Elasticsearch 8.x is recommended, though the latest supported 7.x version will also work.
+For test purposes, you can quickly create a single-node cluster using Docker by following the steps in the 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Elasticsearch Docs (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-dev-mode)&#34;&gt;
+    &lt;span&gt;Elasticsearch Docs&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;The Elasticsearch cluster is reachable via HTTPS from all Stroom nodes participating in &lt;a href=&#34;../../docs/quick-start-guide/running/&#34;&gt;stream processing&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Elasticsearch security is enabled.
+This is mandatory and is enabled by default in Elasticsearch 8.x and above.&lt;/li&gt;
+&lt;li&gt;The Elasticsearch HTTPS interface presents a trusted X.509 server certificate.
+The Stroom node(s) connecting to Elasticsearch need to be able to verify the certificate, so for custom PKI, a Stroom truststore entry may be required.&lt;/li&gt;
+&lt;li&gt;You have a feed containing &lt;code&gt;Event&lt;/code&gt; streams to index.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;key-differences&#34;&gt;Key differences&lt;/h2&gt;
+&lt;p&gt;Indexing data with Elasticsearch differs from Solr and built-in Lucene methods in a number of ways:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Unlike with &lt;a href=&#34;../../docs/user-guide/indexing/solr/&#34;&gt;Solr&lt;/a&gt; and built-in Lucene indexing, Elasticsearch field mappings are managed outside Stroom, through the use of 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;index and component templates (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html)&#34;&gt;
+    &lt;span&gt;index and component templates&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.
+These are normally created either via the Elasticsearch API, or interactively using Kibana.&lt;/li&gt;
+&lt;li&gt;Aside from creating the mandatory &lt;code&gt;StreamId&lt;/code&gt; and &lt;code&gt;EventId&lt;/code&gt; field mappings, explicitly defining mappings for other fields is optional.
+Elasticsearch will use 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;dynamic mapping (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html)&#34;&gt;
+    &lt;span&gt;dynamic mapping&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ by default, to infer each field&amp;rsquo;s type at index time.
+Explicitly defining mappings is recommended where consistency or greater control are required, such as for IP address fields (Elasticsearch mapping type &lt;code&gt;ip&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+
+
+
+  
+    
+    &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/getting-started/&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Next page - Getting Started&amp;#010;Establishing an Elasticsearch cluster connection
+&#34;&gt;
+        &lt;span&gt;Next page - Getting Started&lt;/span&gt;
+        &lt;i class=&#34;next-page-icon fas fa-solid fa-circle-right fa-sm &#34;&gt;&lt;/i&gt;
+      &lt;/a&gt;
+    
+  
+
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Getting Started</title>
+      <link>/docs/user-guide/indexing/elasticsearch/getting-started/</link>
+      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/indexing/elasticsearch/getting-started/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;establish-an-elasticsearch-cluster-connection-in-stroom&#34;&gt;Establish an Elasticsearch cluster connection in Stroom&lt;/h2&gt;
+&lt;p&gt;The first step is to configure Stroom to connect to an Elasticsearch cluster.
+You can configure multiple cluster connections if required, such as a separate one for production and another for development.
+Each cluster connection is defined by an &lt;code&gt;Elastic Cluster&lt;/code&gt; document within the Stroom UI.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;In the Stroom Explorer pane (&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Explorer&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;g fill=&#34;var(--icon-colour__blue)&#34;&gt;&lt;path d=&#34;m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z&#34;/&gt;&lt;path d=&#34;m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z&#34;/&gt;&lt;path d=&#34;m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z&#34;/&gt;&lt;/g&gt;&lt;path stroke-linejoin=&#34;round&#34; d=&#34;m600.75 492.64v949.1h381.89&#34; stroke=&#34;var(--icon-colour__blue)&#34; stroke-width=&#34;71.125&#34; fill=&#34;none&#34;/&gt;&lt;path d=&#34;m597.94 807.14h539.13&#34; fill-rule=&#34;evenodd&#34; stroke=&#34;var(--icon-colour__blue)&#34; stroke-width=&#34;71.125&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;), right-click on the folder where you want to create the &lt;code&gt;Elastic Cluster&lt;/code&gt; document.&lt;/li&gt;
+&lt;li&gt;Select:
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;New
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Elastic index&#34;&gt;&lt;!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --&gt;&lt;svg version=&#34;1.1&#34; id=&#34;Layer_1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; x=&#34;0px&#34; y=&#34;0px&#34; viewBox=&#34;0 0 2500 2500&#34; style=&#34;enable-background:new 0 0 2500 2500;&#34; xml:space=&#34;preserve&#34;&gt;&lt;style type=&#34;text/css&#34;&gt; .st0{fill:#4A4B4C;} .st1{fill:var(--icon-colour__white);} .st2{fill:#F4BD19;} .st3{fill:#3CBEB1;} .st4{fill:#E9478C;} .st5{fill:#2C458F;} .st6{fill:#95C63D;} .st7{fill:#176655;} &lt;/style&gt;&lt;g&gt;&lt;path class=&#34;st0&#34; d=&#34;M1240,1071.5c220.3,0,426.2-20,617.7-60c191.5-40,80.9,38.1,191.5-40l114,129.1c0,64.1,99.8,94.5,4,149.3 s-225.9,98.3-390.4,130.4s-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237 c110.6,78.1,261.7,137.1,453.2,177.1C813.8,1051.5,1019.7,1071.5,1240,1071.5z M1240,2499.4c-193.4,0-372.3-16-536.8-48.1 s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237c110.6,78.1,261.7,137.1,453.2,177.1c191.5,40,397.4,60,617.7,60 M1776.8,1915.8c-164.5,32.1-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4 S169.1,1671.1,169.1,1607v-237C279.7,1448,430.8,1507,622.3,1547c191.5,40,397.4,60,617.7,60s426.2-20,617.7-60 c191.5-40,163.5-99,274.1-177.1l179.1,237c0,64.1-47.9,123.6-143.6,178.5 M1240,0.6c193.4,0,372.3,16,536.8,48.1 s294.7,75.5,390.4,130.4s143.6,114.3,143.6,178.5v178.5c0,64.1-47.9,123.6-143.6,178.5s-225.9,98.3-390.4,130.4 C1612.3,877,1433.4,893,1240,893s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4S169.1,600.2,169.1,536.1V357.6 c0-64.1,47.9-123.6,143.6-178.5S538.6,80.8,703.2,48.8S1046.6,0.6,1240,0.6z&#34;/&gt;&lt;/g&gt;&lt;path class=&#34;st1&#34; d=&#34;M2518.6,1692.2c0-151.6-94.2-282.5-234-334c5.9-32,8.9-64.5,8.8-97.1c0-281-228.1-509.1-509.1-509.1 c-163.3,0-316.3,78-412,211.9c-47.1-36.8-104.5-55.9-164.8-55.9c-148.6,0-270.7,120.7-270.7,270.7c0,32.4,5.9,64.7,16.2,94.2 c-141.2,48.6-236.9,183.9-236.9,334c0,151.6,94.2,284,235.4,335.5c-5.9,30.9-8.8,63.3-8.8,97.1c0,279.6,228.1,507.6,507.6,507.6 c164.8,0,316.4-79.5,412-211.9c47.1,36.8,105.9,57.4,166.3,57.4c148.6,0,270.7-120.7,270.7-270.7c0-32.4-5.9-64.7-16.2-94.2 C2421.4,1977.6,2518.5,1842.2,2518.6,1692.2L2518.6,1692.2z&#34;/&gt;&lt;path class=&#34;st2&#34; d=&#34;M1420.9,1522.9l401.7,183.9l406.1-356.1c5.9-29.6,8.9-59.6,8.8-89.8c0-250.1-203-453.2-453.2-453.2 c-150.1,0-289.9,73.6-373.7,197.2l-67.7,350.2L1420.9,1522.9L1420.9,1522.9z&#34;/&gt;&lt;path class=&#34;st3&#34; d=&#34;M1004.5,1948.2c-5.9,29.4-8.8,60.3-8.8,91.2c0,250.1,204.5,454.7,454.7,454.7c151.6,0,291.3-75,376.7-198.6 l66.2-350.2l-89.8-170.7l-403.2-183.9L1004.5,1948.2L1004.5,1948.2z&#34;/&gt;&lt;path class=&#34;st4&#34; d=&#34;M1001.5,1252.2l275.2,64.7l61.8-313.4c-38.3-29.4-83.9-44.1-132.4-44.1c-119.2,0-217.8,97.1-217.8,217.8 C988.3,1202.2,992.7,1228.7,1001.5,1252.2L1001.5,1252.2z&#34;/&gt;&lt;path class=&#34;st5&#34; d=&#34;M978,1318.4c-123.6,39.7-208.9,158.9-208.9,288.4c0,126.5,78,239.8,195.7,284l387-350.2l-70.6-151.5L978,1318.4 L978,1318.4z&#34;/&gt;&lt;path class=&#34;st6&#34; d=&#34;M1897.6,2294c38.3,29.4,83.9,45.6,131,45.6c119.2,0,217.8-97.1,217.8-217.8c0-26.5-4.4-51.5-13.2-75 l-275.2-64.7L1897.6,2294L1897.6,2294z&#34;/&gt;&lt;path class=&#34;st7&#34; d=&#34;M1953.5,1909.9l303.1,70.6c123.6-41.2,208.9-158.9,208.9-288.4c0-126.5-78-238.4-195.7-284l-397.3,347.2 L1953.5,1909.9L1953.5,1909.9z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Elastic Cluster
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;Give the cluster document a name and press 
+
+
+
+
+
+
+  
+  
+  
+
+
+&lt;span class=&#34;stroom-theme-dark stroom-button stroom-button-primary&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__grey&#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;OK&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --&gt;&lt;path style=&#34;fill:#fff&#34; d=&#34;M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Complete the fields as explained in the &lt;a href=&#34;#elastic-cluster-document-fields&#34;&gt;section below&lt;/a&gt;.
+Any fields not marked as &amp;ldquo;Optional&amp;rdquo; are mandatory.&lt;/li&gt;
+&lt;li&gt;Click &lt;code&gt;Test Connection&lt;/code&gt;.
+A dialog will display with the test result.
+If &lt;code&gt;Connection Success&lt;/code&gt;, details of the target cluster will be displayed.
+Otherwise, error details will be displayed.&lt;/li&gt;
+&lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; to commit changes.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    Ensure you restrict permissions to the &lt;code&gt;Elastic Cluster&lt;/code&gt; document.
+The &lt;code&gt;Read&lt;/code&gt; privilege permits retrieval of the Elasticsearch API key and secret, granting the holder the same level of privilege as Stroom.
+Users authorised to search Elasticsearch indices via Stroom dashboards should only be assigned the &lt;code&gt;Use&lt;/code&gt; privilege.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;elastic-cluster-document-fields&#34;&gt;Elastic Cluster document fields&lt;/h2&gt;
+&lt;h3 id=&#34;description&#34;&gt;Description&lt;/h3&gt;
+&lt;p&gt;(Optional) You might choose to enter the Elasticsearch cluster name or purpose here.&lt;/p&gt;
+&lt;h3 id=&#34;connection-urls&#34;&gt;Connection URLs&lt;/h3&gt;
+&lt;p&gt;Enter one or more node or cluster addresses, including protocol, hostname and port.
+Only HTTPS is supported; attempts to use plain-text HTTP will fail.&lt;/p&gt;
+&lt;h4 id=&#34;examples&#34;&gt;Examples&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Local development node: &lt;code&gt;https://localhost:9200&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;FQDN: &lt;code&gt;https://elasticsearch.example.com:9200&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Kubernetes service: &lt;code&gt;https://prod-es-http.elastic.svc:9200&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;ca-certificate&#34;&gt;CA certificate&lt;/h3&gt;
+&lt;p&gt;PEM-format CA certificate chain used by Stroom to verify TLS connections to the Elasticsearch HTTPS REST interface.
+This is usually your organisation&amp;rsquo;s root enterprise CA certificate.
+For development, you can provide a self-signed certificate.&lt;/p&gt;
+&lt;h3 id=&#34;use-authentication&#34;&gt;Use authentication&lt;/h3&gt;
+&lt;p&gt;(Optional) Tick this box if Elasticsearch requires authentication.
+This is enabled by default from Elasticsearch version 8.0.&lt;/p&gt;
+&lt;h3 id=&#34;api-key-id&#34;&gt;API key ID&lt;/h3&gt;
+&lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked.
+Specifies the Elasticsearch API key ID for a valid Elasticsearch user account.
+This user requires at a minimum the following 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;privileges (external link to https://www.elastic.co/guide/en/kibana/current/kibana-role-management.html)&#34;&gt;
+    &lt;span&gt;privileges&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+:&lt;/p&gt;
+&lt;h4 id=&#34;cluster-privileges&#34;&gt;Cluster privileges&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;monitor&lt;/li&gt;
+&lt;li&gt;manage_own_api_key&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;index-privileges&#34;&gt;Index privileges&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;all&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;api-key-secret&#34;&gt;API key secret&lt;/h3&gt;
+&lt;p&gt;Required if &lt;code&gt;Use authentication&lt;/code&gt; is checked.&lt;/p&gt;
+&lt;h3 id=&#34;socket-timeout-ms&#34;&gt;Socket timeout (ms)&lt;/h3&gt;
+&lt;p&gt;Number of milliseconds to wait for an Elasticsearch indexing or search REST call to complete.
+Set to &lt;code&gt;-1&lt;/code&gt; (the default) to wait indefinitely, or until Elasticsearch closes the connection.&lt;/p&gt;
+&lt;hr&gt;
+
+
+
+  
+    
+    &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/indexing/&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Next page - Indexing data&amp;#010;Indexing event data to Elasticsearch
+&#34;&gt;
+        &lt;span&gt;Next page - Indexing data&lt;/span&gt;
+        &lt;i class=&#34;next-page-icon fas fa-solid fa-circle-right fa-sm &#34;&gt;&lt;/i&gt;
+      &lt;/a&gt;
+    
+  
+
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Exploring Data in Kibana</title>
+      <link>/docs/user-guide/indexing/elasticsearch/kibana/</link>
+      <pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/indexing/elasticsearch/kibana/</guid>
+      <description>
+        
+        
+        &lt;p&gt;
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/kibana/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Kibana (external link to https://www.elastic.co/kibana/)&#34;&gt;
+    &lt;span&gt;Kibana&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ is part of the Elastic Stack and provides users with an interactive, visual way to query, visualise and explore data in Elasticsearch.&lt;/p&gt;
+&lt;p&gt;It is highly customisable and provides users and teams with tools to create and share dashboards, searches, reports and other content.&lt;/p&gt;
+&lt;p&gt;Once data has been indexed by Stroom into Elasticsearch, it can be explored in Kibana.
+You will first need to 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/kibana/current/data-views.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;create a data view (external link to https://www.elastic.co/guide/en/kibana/current/data-views.html)&#34;&gt;
+    &lt;span&gt;create a data view&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ in order to query your indices.&lt;/p&gt;
+&lt;h2 id=&#34;why-use-kibana&#34;&gt;Why use Kibana?&lt;/h2&gt;
+&lt;p&gt;There are several use cases that benefit from Kibana:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Convenient and powerful drag-and-drop charts and other visualisation types using Kibana Lens.
+Much more performant and easier to customise than built-in Stroom dashboard visualisations.&lt;/li&gt;
+&lt;li&gt;Field statistics and value summaries with Kibana Discover.
+Great for doing initial audit data survey.&lt;/li&gt;
+&lt;li&gt;Geospatial analysis and visualisation.&lt;/li&gt;
+&lt;li&gt;Search field auto-completion.&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime.html&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Runtime fields (external link to https://www.elastic.co/guide/en/elasticsearch/reference/current/runtime.html)&#34;&gt;
+    &lt;span&gt;Runtime fields&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.
+Good for data exploration, at the cost of performance.&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
