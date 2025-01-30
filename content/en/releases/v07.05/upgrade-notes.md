@@ -15,7 +15,7 @@ Please read this section carefully in case any of it is relevant to your Stroom 
 
 ## Java Version
 
-Stroom v{{<branch >}} requires Java 21.
+Stroom v7.5 requires Java 21.
 This is the same java version as Stroom v7.4.
 Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v21.
 

@@ -2,7 +2,7 @@
 title: "Breaking Changes"
 linkTitle: "Breaking Changes"
 weight: 30
-date: 2024-09-03
+date: 2025-01-30
 tags: 
 description: >
   Changes in Stroom version 7.6 that may break existing processing or ways of working.
@@ -12,9 +12,7 @@ description: >
 Please read this section carefully in case any of the changes affect you.
 {{% /warning %}}
 
-{{% todo %}}
-Work in progress
-{{% /todo %}}
+There are no breaking changes in v7.6.
 
 
 
