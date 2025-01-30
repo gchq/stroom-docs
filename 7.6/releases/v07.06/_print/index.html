@@ -9,6 +9,8 @@
 <meta name="robots" content="noindex, nofollow">
 
 
+<link rel="canonical" href="../../../../">
+
 
 <link rel="shortcut icon" href="../../../favicons/favicon.ico" >
 <link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
@@ -77,9 +79,6 @@
       <li class="nav-item mr-4 mb-2 mb-lg-0">
         <a class="nav-link" href="../../../community/"><span>Community</span></a>
       </li>
-      <li class="nav-item mr-4 mb-2 mb-lg-0">
-        <a class="nav-link" href="../../../news/"><span>News</span></a>
-      </li>
       <li class="nav-item dropdown mr-4 d-none d-lg-block">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	Stroom Version (7.6)
@@ -118,7 +117,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.d29b17f1cd6398970e4d3aa9d2fd923e.json"
+    data-offline-search-index-json-src="../../../offline-search-index.ee3eeb4e7d43fb6b47b8705a00b20af2.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -232,14 +231,1486 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-92ae448367c21183fd6870e3d9894330">1 - New Features</h1>
     <div class="lead">New features in Stroom version 7.6.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+	<h2 id="document-and-application-permissions">Document and Application Permissions</h2>
+<p>The document and permissions model has undergone significant changes.
+Both the user interface and underlying data model has changed.</p>
+<p>The legacy screens for managing users, groups and their permissions were often very confusing to use.
+The new screens attempt to make it much more intuitive.</p>
+<h3 id="terminology">Terminology</h3>
+<ul>
+<li><em>Explicit</em> / <em>Direct</em> - This means a permission is specifically granted to the User/Group in question.</li>
+<li><em>Inherited</em> / <em>Effective</em> - This means a permission is granted to the Group that a User/Group is a member of or is granted to an ancestor Group.</li>
+</ul>
+<h3 id="groups-of-groups">Groups of Groups</h3>
+<p>Previously in Stroom it was not possible for a Group to be a member of a Group.
+This has been changed so now a Group&rsquo;s membership can include both Users and Groups.
+This allows a richer permissions structure to be created.</p>
+<p>For example you can have a <em>Basic Users</em> group that has limited application permissions and a <em>Super Users</em> group that is a member of <em>Basic Users</em> so it inherits all the basic permissions and adds its own set of explicit permissions.</p>
+<h3 id="users-screen">Users Screen</h3>
+<p>A Users screen has been added to list all <span class="glossary-link">
+  <a href="../../../docs/glossary/#user" title="Glossary entry for Stroom Users">
+    <span>Stroom Users</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> (as distinct from <span class="glossary-link">
+  <a href="../../../docs/glossary/#account" title="Glossary entry for Accounts">
+    <span>Accounts</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+This screen is only available to users that hold the <code>Manage Users</code> application permission.
+It is accessible from:</p>
 
-    Work in progress
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Security
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="User"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Users
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>Or the key bind 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-multiple ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">g</span>
+      </span>
+    <span class="key-bind-comma">,</span>
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">g</span>
+      </span>
+    </span>
+.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+
+  <a title="images/releases/07.06/Users.png" href="../../../images/releases/07.06/Users.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/Users.png" style="max-width:900" alt="images/releases/07.06/Users.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Users screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>It lists all users and allows the user to jump to various other screens relating to that user.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+
+  <a title="images/releases/07.06/UsersContextMenu.png" href="../../../images/releases/07.06/UsersContextMenu.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/UsersContextMenu.png" style="max-width:900" alt="images/releases/07.06/UsersContextMenu.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The context menu on the Users screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>It is also possible to jump to User screen for a specific user by clicking the <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open User"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path style="fill:currentColor" d="M17 17H3V3h5V1H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-2z"/><path style="fill:currentColor" d="M19 1h-8l3.29 3.29-5.73 5.73 1.42 1.42 5.73-5.73L19 9V1z"/></svg></span>
+  </span> hover icon.</p>
+<h3 id="groups-screen">Groups Screen</h3>
+<p>A Groups screen has been added for managing <span class="glossary-link">
+  <a href="../../../docs/glossary/#group-users" title="Glossary entry for User Groups">
+    <span>User Groups</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> and their memberships.
+It is accessible from:</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Security
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Users"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M657 896q-162 5-265 128h-134q-82 0-138-40.5t-56-118.5q0-353 124-353 6 0 43.5 21t97.5 42.5 119 21.5q67 0 133-23-5 37-5 66 0 139 81 256zm1071 637q0 120-73 189.5t-194 69.5h-874q-121 0-194-69.5t-73-189.5q0-53 3.5-103.5t14-109 26.5-108.5 43-97.5 62-81 85.5-53.5 111.5-20q10 0 43 21.5t73 48 107 48 135 21.5 135-21.5 107-48 73-48 43-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-1024-1277q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181zm704 384q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5zm576 225q0 78-56 118.5t-138 40.5h-134q-103-123-265-128 81-117 81-256 0-29-5-66 66 23 133 23 59 0 119-21.5t97.5-42.5 43.5-21q124 0 124 353zm-128-609q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181z"/></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">User Groups
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>Or the key bind 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-multiple ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">g</span>
+      </span>
+    <span class="key-bind-comma">,</span>
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">g</span>
+      </span>
+    </span>
+.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+
+  <a title="images/releases/07.06/Groups.png" href="../../../images/releases/07.06/Groups.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/Groups.png" style="max-width:900" alt="images/releases/07.06/Groups.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Groups screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This screen is split into two or three panes depending on whether you have selected a User or Group in the top pane.
+The top pane lists all users <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="User"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg></span>
+  </span> and groups <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="User Group"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M657 896q-162 5-265 128h-134q-82 0-138-40.5t-56-118.5q0-353 124-353 6 0 43.5 21t97.5 42.5 119 21.5q67 0 133-23-5 37-5 66 0 139 81 256zm1071 637q0 120-73 189.5t-194 69.5h-874q-121 0-194-69.5t-73-189.5q0-53 3.5-103.5t14-109 26.5-108.5 43-97.5 62-81 85.5-53.5 111.5-20q10 0 43 21.5t73 48 107 48 135 21.5 135-21.5 107-48 73-48 43-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-1024-1277q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181zm704 384q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5zm576 225q0 78-56 118.5t-138 40.5h-134q-103-123-265-128 81-117 81-256 0-29-5-66 66 23 133 23 59 0 119-21.5t97.5-42.5 43.5-21q124 0 124 353zm-128-609q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181z"/></svg> </span>
+  </span> in stroom, with the icon indicating the type.
+In this pane you can add/edit Groups.</p>
+<p>If you have selected a User <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="User"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg></span>
+  </span> then you will see only two panes.
+The bottom pane will display all the Groups that the user is a direct member of, i.e. one that they have been explicitly added to.
+This pane can be used to add the selected User to another Group or to remove them from a Group that they are already a member of.</p>
+<p>If you have selected a Group <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Group"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M657 896q-162 5-265 128h-134q-82 0-138-40.5t-56-118.5q0-353 124-353 6 0 43.5 21t97.5 42.5 119 21.5q67 0 133-23-5 37-5 66 0 139 81 256zm1071 637q0 120-73 189.5t-194 69.5h-874q-121 0-194-69.5t-73-189.5q0-53 3.5-103.5t14-109 26.5-108.5 43-97.5 62-81 85.5-53.5 111.5-20q10 0 43 21.5t73 48 107 48 135 21.5 135-21.5 107-48 73-48 43-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-1024-1277q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181zm704 384q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5zm576 225q0 78-56 118.5t-138 40.5h-134q-103-123-265-128 81-117 81-256 0-29-5-66 66 23 133 23 59 0 119-21.5t97.5-42.5 43.5-21q124 0 124 353zm-128-609q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75 75 181z"/></svg> </span>
+  </span> in the top pane then you will see three panes.</p>
+<p>The bottom left pane will show Groups that the selected Group is a direct member of.
+This pane can be used to add the selected Group to another Group or to remove them from a Group that they are already a member of.</p>
+<p>The bottom right pane will show all direct members of the selected Group.
+It can be used to add/remove members, be they Users or Groups.</p>
+<h3 id="application-permissions-screen">Application Permissions Screen</h3>
+<p>This screen has been added to manages the application level permissions that are granted to Users/Groups.
+It replaces the previous modal dialog screen.
+It is accessible from:</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Security
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Shield"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792" ><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor" d="m 896.00002,44.728762 c 15.38039,0 30.76078,3.343564 44.80375,9.696335 L 1570.3968,321.57582 c 73.5583,31.09514 128.3928,103.65046 128.0584,191.25183 -1.6717,331.68149 -138.0891,938.53835 -714.1851,1214.38225 -55.83751,26.7485 -120.70265,26.7485 -176.54016,0 C 231.63396,1451.366 95.216565,844.50914 93.544783,512.82765 93.210427,425.22628 148.04487,352.67096 221.60327,321.57582 L 851.53063,54.425097 c 13.70861,-6.352771 29.089,-9.696335 44.46939,-9.696335 z m 0,223.350038 v 1263.867 C 1357.4118,1308.5958 1481.458,814.08272 1484.4672,517.50864 Z" /></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Application Permissions
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<p>Or the key bind 
+
+
+
+
+
+
+  
+
+
+<span class="key-bind key-bind-multiple ">
+  
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">g</span>
+      </span>
+    <span class="key-bind-comma">,</span>
+    
+    
+    
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+      
+      
+        
+        
+      
+    
+
+    
+    
+      
+    
+    <span class="key-bind-group key-bind-single">
+    
+      <span class="key-bind-key">a</span>
+      </span>
+    </span>
+.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+
+  <a title="images/releases/07.06/AppPerms.png" href="../../../images/releases/07.06/AppPerms.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/AppPerms.png" style="max-width:900" alt="images/releases/07.06/AppPerms.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Application Permissions screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This screen is split into three panes.</p>
+<ul>
+<li>
+<p>Top pane - Lists the Users and Groups, depending on the selection in the Permission Visibility drop-down.
+The Permission Visibility has the following values:</p>
+<ul>
+<li><code>Show Explicit</code> - Shows only those Users/Groups that have at least one application permission explicitly granted to them.</li>
+<li><code>Show Effective</code> - Shows only those Users/Groups that have at least one application permission explicitly granted to them or to a group that they are a member of (directly or indirectly).</li>
+<li><code>Show All</code> - Shows all Users/Groups.
+The <em>Permissions</em> column lists all the permissions granted to the User/Group, explicitly or otherwise.
+Permissions that are not explicitly granted are greyed out.</li>
+</ul>
+</li>
+<li>
+<p>Middle pane - Lists <strong>ALL</strong> application permissions whether granted or not along with a checkbox next to each one to indicate/control the granted state.
+This is a three state check box:</p>
+<ul>
+<li>Empty - The permission is not granted to the User/Group.</li>
+<li>Half Ticked - The permission has been granted to a Group that the selected User/Group is a member or (directly or otherwise).</li>
+<li>Ticked - The permission has been explicitly granted to the selected User/Group.
+This pane allows the user to modify the explicit application permissions for the selected user.
+If a permission is inherited from the membership of a Group, the user may make grant the permission explicitly, but they cannot remove the inherited grant except by modifying the explicit grants of the ancestor group.</li>
+</ul>
+</li>
+<li>
+<p>Bottom pane - Provides the detail for the currently selected permission in the middle pane.
+If the currently selected User/Group holds the permission indirectly, it will details which of the ancestor groups have been granted that permission explicitly.</p>
+</li>
+</ul>
+<h3 id="document-permissions">Document Permissions</h3>
+<h4 id="permission-names">Permission Names</h4>
+<p>The permission names have changed as follows:</p>
+<ul>
+<li><code>Use</code> =&gt; <code>Use</code> - Can use a document without being able to view it, e.g. using an Index as part of a search process, but not being able to view the Index.</li>
+<li><code>Read</code> =&gt; <code>View</code> - Can see the document in the explorer tree and open it to view its contents.</li>
+<li><code>Update</code> =&gt; <code>Edit</code> - Can open and edit documents.</li>
+<li><code>Delete</code> =&gt; <code>Delete</code> - Can delete documents.</li>
+<li><code>Owner</code> =&gt; <code>Owner</code> - Can change the permissions of the document, e.g. granting access to other Users/Groups.
+A document can have more than one owner.
+<code>Owner</code> will automatically be granted to a user when they create a document.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Each permission in the list above inherits the permissions of the one above it in the list.
 
 </div>
 
+
+<p>A document now has only one permission granted per user (excluding the create permissions).
+Previously a User/Group could be granted multiple, e.g. <code>Use</code> and <code>Read</code>.
+Now a User/Group can have only one permission or no permission at all, so in the previous example they would now hold <code>View</code> (formally <code>Read</code>).</p>
+<h4 id="document-permissions-screen">Document Permissions Screen</h4>
+<p>A new screen has been added for managing document permissions.
+It is accessible from:</p>
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">Security
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Locked"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path style="fill:var(--icon-colour__orange)" d="m 382.4,227.2 -21.6,0 0,-64.8 C 360.8,86.98 299.42,25.6 224,25.6 148.58,25.6 87.2,86.98 87.2,162.4 l 0,64.8 -21.6,0 c -23.85,0 -43.2,19.35 -43.2,43.2 l 0,172.8 c 0,23.85 19.35,43.2 43.2,43.2 l 316.8,0 c 23.85,0 43.2,-19.35 43.2,-43.2 l 0,-172.8 c 0,-23.85 -19.35,-43.2 -43.2,-43.2 z m -93.6,0 -129.6,0 0,-64.8 c 0,-35.73 29.07,-64.8 64.8,-64.8 35.73,0 64.8,29.07 64.8,64.8 l 0,64.8 z" /></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Document Permissions
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+
+  <a title="images/releases/07.06/DocPerms.png" href="../../../images/releases/07.06/DocPerms.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/DocPerms.png" style="max-width:900" alt="images/releases/07.06/DocPerms.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Document Permissions screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This screen lists all the documents that the current user has <code>View</code> permission on.
+The <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Filter"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z"/></svg></span>
+  </span> button can be used to filter the list of documents for making batch changes to the permissions.</p>
+<p>The <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Batch Edit Permissions"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1546 1050q46 26 59.5 77.5t-12.5 97.5l-64 110q-26 46-77.5 59.5t-97.5-12.5l-266-153v307q0 52-38 90t-90 38h-128q-52 0-90-38t-38-90v-307l-266 153q-46 26-97.5 12.5t-77.5-59.5l-64-110q-26-46-12.5-97.5t59.5-77.5l266-154-266-154q-46-26-59.5-77.5t12.5-97.5l64-110q26-46 77.5-59.5t97.5 12.5l266 153v-307q0-52 38-90t90-38h128q52 0 90 38t38 90v307l266-153q46-26 97.5-12.5t77.5 59.5l64 110q26 46 12.5 97.5t-59.5 77.5l-266 154z"/></svg></span>
+  </span> button allows you to make batch changes to the filtered list of Users/Groups.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/DocPerms_BatchEdit.png" href="../../../images/releases/07.06/DocPerms_BatchEdit.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/DocPerms_BatchEdit.png" style="max-width:500" alt="images/releases/07.06/DocPerms_BatchEdit.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Batch Change Permissions screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>The <em>Batch Change Permissions</em> screen provides a number of different idempotent operations (i.e. can be repeated with no change in effect) that can be performed.</p>
+<p>For example having filtered the list, you could do a <em>Set permission</em> change to grant <code>View</code> permission to user <em>jbloggs</em>.
+<em>jbloggs</em> will now have <code>View</code> permission on all documents in that filtered list, regardless of whether they previously had a lower or higher permission.</p>
+<p>The options for making batch changes are as follows:</p>
+<ul>
+<li><em>Set permission</em> - Set a specific User/Group permission.</li>
+<li><em>Add permission to create</em> - Add permission to create documents in the selected folders.</li>
+<li><em>Remove permission to create</em> - Remove permission to create documents in the selected folders.</li>
+<li><em>Add permission to create any document</em> - Add permission to create documents in the selected folders.</li>
+<li><em>Remove permission to create any document</em> - Remove permission to create documents in the selected folders.</li>
+<li><em>Add all permissions</em> - Add all permissions from the specified document to the selection.</li>
+<li><em>Set all permissions</em> - Set all permissions in the selection to be exactly the same as the specified document.</li>
+<li><em>Remove all permissions for all users [<strong>DANGEROUS</strong>]</em> - Removes all permissions for all Users/Groups.</li>
+</ul>
+<p>When you click 
+
+
+
+
+
+
+  
+  
+  
+
+
+<span class="stroom-theme-dark stroom-button stroom-button-primary" title="OK button" >
+  <span class="stroom-icon inline-svg-button icon-button  icon-colour__grey" >
+    <span class="face" title="OK"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:#fff" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg> </span>
+  </span>
+  <span class="stroom-button-text">OK</span>
+</span>
+ Stroom will present a confirmation dialog telling you how many documents will be affected by the change, giving you the opportunity to cancel.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Batch changes cannot be undone.
+
+</div>
+
+
+<h4 id="document-permissions-sub-tab">Document Permissions Sub-Tab</h4>
+<p>The previous Document Permissions modal dialog has been replaced with a sub-tab on the document screen.
+It can be accessed by:</p>
+<ul>
+<li>Directly opening the document and selecting the <em>Permissions</em> sub-tab.</li>
+<li>Clicking <em>Permissions</em> in the explorer tree context menu.
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Locked"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path style="fill:var(--icon-colour__orange)" d="m 382.4,227.2 -21.6,0 0,-64.8 C 360.8,86.98 299.42,25.6 224,25.6 148.58,25.6 87.2,86.98 87.2,162.4 l 0,64.8 -21.6,0 c -23.85,0 -43.2,19.35 -43.2,43.2 l 0,172.8 c 0,23.85 19.35,43.2 43.2,43.2 l 316.8,0 c 23.85,0 43.2,-19.35 43.2,-43.2 l 0,-172.8 c 0,-23.85 -19.35,-43.2 -43.2,-43.2 z m -93.6,0 -129.6,0 0,-64.8 c 0,-35.73 29.07,-64.8 64.8,-64.8 35.73,0 64.8,29.07 64.8,64.8 l 0,64.8 z" /></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Permissions
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>Double clicking the Document in the <a href="#document-permissions-screen">Document Permissions Screen</a>.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/Document_Permissions.png" href="../../../images/releases/07.06/Document_Permissions.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/Document_Permissions.png" style="max-width:500" alt="images/releases/07.06/Document_Permissions.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Permissions sub-tab on the Document screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>This screen works in a very similar way to the <a href="#application-permissions-screen">Application Permissions screen</a>.</p>
+<ul>
+<li>
+<p>Top pane - Lists the Users and Groups, depending on the selection in the Permission Visibility drop-down.</p>
+<p>The Permission Visibility has the following values:</p>
+<ul>
+<li><code>Show Explicit</code> - Shows only those Users/Groups that have at least one document permission explicitly granted to them.</li>
+<li><code>Show Effective</code> - Shows only those Users/Groups that have at least one document permission explicitly granted to them or to a group that they are a member of (directly or indirectly).</li>
+<li><code>Show All</code> - Shows all Users/Groups regardless of whether any permission is held or not.</li>
+</ul>
+<p>The <em>Explicit Permission</em> column shows the permission explicitly granted to the corresponding User/Group.</p>
+<p>The <em>Effective Permission</em> column shows the permission effectively granted to the corresponding User/Group, either via explicit grant or inherited from an ancestor Group.
+The effective permission is what counts when Stroom makes decisions about what a User/Group can do or see.</p>
+</li>
+<li>
+<p>Bottom pane - Shows the permission details for the selected row in the top pane.
+It will show which ancestor Groups have been explicitly granted any inherited permissions.</p>
+</li>
+</ul>
+<h4 id="folder-permissions-sub-tab">Folder Permissions Sub-Tab</h4>
+<p>Folders are a special kind of document so their Permission sub-tab is slightly different to that on the Document screen.</p>
+<p>It can be accessed by:</p>
+<ul>
+<li>Directly opening the Folder and selecting the <em>Permissions</em> sub-tab.</li>
+<li>Clicking <em>Permissions</em> in the explorer tree context menu.
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Locked"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path style="fill:var(--icon-colour__orange)" d="m 382.4,227.2 -21.6,0 0,-64.8 C 360.8,86.98 299.42,25.6 224,25.6 148.58,25.6 87.2,86.98 87.2,162.4 l 0,64.8 -21.6,0 c -23.85,0 -43.2,19.35 -43.2,43.2 l 0,172.8 c 0,23.85 19.35,43.2 43.2,43.2 l 316.8,0 c 23.85,0 43.2,-19.35 43.2,-43.2 l 0,-172.8 c 0,-23.85 -19.35,-43.2 -43.2,-43.2 z m -93.6,0 -129.6,0 0,-64.8 c 0,-35.73 29.07,-64.8 64.8,-64.8 35.73,0 64.8,29.07 64.8,64.8 l 0,64.8 z" /></svg> </span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">Permissions
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>Double clicking the Folder in the <a href="#document-permissions-screen">Document Permissions Screen</a>.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/Folder_Permissions.png" href="../../../images/releases/07.06/Folder_Permissions.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/Folder_Permissions.png" style="max-width:500" alt="images/releases/07.06/Folder_Permissions.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Permissions sub-tab on the Folder screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<p>The columns are the same as for the Permissions sub-tab of the Document screen except for the addition of:</p>
+<p>The <em>Explicit Create Document Types</em> column shows the document create permissions explicitly granted to the corresponding User/Group.
+It shows each document type as an icon.
+The hover tooltip will show the type name.</p>
+<p>The <em>Effective Create Document Types</em> column shows the document create permissions effectively granted to the corresponding User/Group, either via explicit grant or inherited from an ancestor Group.</p>
+<h3 id="usergroup-profile-screen">User/Group Profile Screen</h3>
+<p>A new screen has been added to essentially show a user profile for a User/Group.
+The idea is that it will show everything you might need to know about a User/Group.
+It is likely that more information relating to a User/Group will be added to this screen in future versions.</p>
+<p>A user can view their own profile regardless of permissions, but to view another User or a Group the current User must hold the <em>Manage Users</em> application permission.</p>
+<p>The screen is accessible from a number of places:</p>
+<ul>
+<li>The Stroom menu
+
+
+
+
+
+  <div class="stroom-theme-dark stroom-menu">
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 0px;">
+    
+    <div class="stroom-menu-item " >
+
+      <div class="stroom-menu-item-text">User
+      </div>
+        <div class="stroom-menu-item-arrow">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Arrow right"><svg xmlns="http://www.w3.org/2000/svg" width="1427.7665" height="1427.7665" viewBox="0 0 1427.7665 1427.7665"><g style="stroke:currentColor;stroke-width:167.567"><path d="m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z"/></g></svg> </span>
+  </span>
+        </div>
+    </div>
+  </div>
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  <div class="stroom-menu-item-background" style="margin-top: 7px;">
+    
+    <div class="stroom-menu-item stroom-menu-item-leaf" >
+        <div class="stroom-menu-item-icon">
+          <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="User"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M1536 1399q0 109-62.5 187t-150.5 78h-854q-88 0-150.5-78t-62.5-187q0-85 8.5-160.5t31.5-152 58.5-131 94-89 134.5-34.5q131 128 313 128t313-128q76 0 134.5 34.5t94 89 58.5 131 31.5 152 8.5 160.5zm-256-887q0 159-112.5 271.5t-271.5 112.5-271.5-112.5-112.5-271.5 112.5-271.5 271.5-112.5 271.5 112.5 112.5 271.5z"/></svg></span>
+  </span>
+        </div>
+
+      <div class="stroom-menu-item-text">User Profile
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+</li>
+<li>From a hover link <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Open User"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path style="fill:currentColor" d="M17 17H3V3h5V1H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-2z"/><path style="fill:currentColor" d="M19 1h-8l3.29 3.29-5.73 5.73 1.42 1.42 5.73-5.73L19 9V1z"/></svg></span>
+  </span> on the various User/Group related tables.</li>
+<li>From the Actions context menu <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Actions..."><svg xmlns="http://www.w3.org/2000/svg" height="1792" width="1792" version="1.1" viewBox="0 0 1792 1792"><g style="fill:currentColor"><circle cx="342.43176" cy="896" r="208.83429"/><circle cx="896" cy="896" r="208.83429"/><circle cx="1449.5682" cy="896" r="208.83429"/></g></svg> </span>
+  </span> on the various User/Group related tables.</li>
+</ul>
+<p>The following sub-tabs are available:</p>
+<ul>
+<li><strong>Info</strong> - Basic information such as their identifiers, name and enabled state.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/User_Info.png" href="../../../images/releases/07.06/User_Info.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/User_Info.png" style="max-width:500" alt="images/releases/07.06/User_Info.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Info sub-tab on the User/Group Profile screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<ul>
+<li><strong>User Groups</strong> - Lists the Groups that this User/Group is a member of with the ability to join/leave Groups (subject to having <em>Manage Users</em> permission).</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/User_Groups.png" href="../../../images/releases/07.06/User_Groups.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/User_Groups.png" style="max-width:500" alt="images/releases/07.06/User_Groups.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Groups sub-tab on the User/Group Profile screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<ul>
+<li><strong>Application Permissions</strong> - Lists all application permissions with a check box indicating the grant state.
+Very similar to the main Application Permissions screen, without the User/Group list pane.
+<ul>
+<li>Empty - The permission is not granted to the User/Group.
+The whole row is also greyed out.</li>
+<li>Half Ticked - The permission has been granted to a Group that the selected User/Group is a member or (directly or otherwise).</li>
+<li>Ticked - The permission has been explicitly granted to the selected User/Group.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/User_AppPerms.png" href="../../../images/releases/07.06/User_AppPerms.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/User_AppPerms.png" style="max-width:500" alt="images/releases/07.06/User_AppPerms.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Application Permissions sub-tab on the User/Group Profile screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<ul>
+<li><strong>Document Permissions</strong> - Lists all the documents that the user has visibility with the explicit and inherited permission on each.
+The Permission Visibility drop-down has the following values:
+<ul>
+<li><code>Show Explicit</code> - Shows only those documents where the User/Group has a document permission explicitly granted to them.</li>
+<li><code>Show Effective</code> - Shows only those documents where the User/Group has a document permission explicitly granted or inherited from an ancestor Group.</li>
+<li><code>Show All</code> - Shows all documents that the logged in User can see, regardless of whether any permission is held or not.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/User_DocPerms.png" href="../../../images/releases/07.06/User_DocPerms.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/User_DocPerms.png" style="max-width:500" alt="images/releases/07.06/User_DocPerms.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Document Permissions sub-tab on the User/Group Profile screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<ul>
+<li><strong>Dependencies</strong> - This list various dependencies on the User/Group, e.g. a  that is configured to <a href="#pipeline-_run-as-user_"><em>Run As</em></a> this user.
+It is useful in cases where a User is leaving the organisation and administrator needs to see what Stroom content depends on that user.
+Currently the following things can appear in the Dependencies sub-tab:
+<ul>
+<li>Pipelines <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span> that <em>Run As</em> the User/Group.</li>
+<li>Analytic Rules <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Analytic rule"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z"/></svg></span>
+  </span> that <em>Run As</em> the User/Group.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 510px">
+
+  <a title="images/releases/07.06/User_Deps.png" href="../../../images/releases/07.06/User_Deps.png">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/releases/07.06/User_Deps.png" style="max-width:500" alt="images/releases/07.06/User_Deps.png">
+      
+
+      
+      <div class="card-body px-0 pt-2 pb-0">
+        <hr style="border-top: 1px solid #ddd; margin-top: 0px; margin-bottom:4px;">
+        <figcaption class="card-text" style="font-size: smaller; text-align: center;">The Dependencies sub-tab on the User/Group Profile screen</figcaption>
+      </div>
+      
+    </figure>
+  </a>
+</div>
+
+<ul>
+<li><strong>API Keys</strong> - This lists the API Keys held by the User/Group with the ability to create/delete API Keys.
+<em>Manage API Keys</em> application permission is required to see this sub-tab and to see the logged in User&rsquo;s own API Keys.
+<em>Manage Users</em> application permission is required to see this sub-tab for another User/Group.</li>
+</ul>
+<h3 id="usergroup-enable-state">User/Group Enable State</h3>
+<p>It is now possible to change the enabled state of a Stroom User.
+This is as distinct from changing the enabled state of an Account.</p>
+<p>This is mostly useful for cases where Stroom is configured to use an external <span class="glossary-link">
+  <a href="../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider">
+    <span>Identity Provider</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> and an administrator wants to create the Stroom User associated with an IDP user but does not want to allow them to log in yet.</p>
+<p>A disabled user will be unable to log in and anything running as the User (e.g. a Pipeline processor filter) will fail.</p>
+<h3 id="user-deletion">User Deletion</h3>
+<p>User/Group deletion has been improved.
+Deletion of a User/Group will remove them from any Groups and delete any API Keys that they hold.
+Any documents that are solely owned by them will then be only accessible by an administrator.</p>
+<p>It is not possible to delete a User/Group where dependencies exist on that User/Group, e.g. a Pipeline processor filter.
+The Dependencies sub-tab of the User Profile screen can be used to track down these dependencies prior to deletion.</p>
+<h3 id="pipeline-_run-as-user_">Pipeline <em>Run As User</em></h3>
+<p>The permissions that a Pipeline <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Pipeline"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="m 1440,95.339844 c -9.3333,0 -17,2.999997 -23,8.999996 -6,6 -9,13.66667 -9,23 l 0,192 -256,0 c -45.3333,0 -88,5.5 -128,16.5 -40.00001,11 -75.50001,25 -106.50001,42 -31,17 -61,39.83333 -90,68.5 -29,28.66667 -53.66667,56.33333 -74,83 -20.33333,26.66667 -41.66667,60 -64,100 -19.99699,35.8155 -36.49225,67.59036 -49.54102,95.38868 -0.27492,0.10932 -0.53471,0.21669 -0.81054,0.32617 -16,30.66667 -31,56.5 -45,77.5 -14,21 -31,41.5 -51,61.5 -20,20 -43,35 -69,45 -26,10 -55,15 -87,15 l -355.148435,0 c -9.333333,0 -17,3 -23.0000004,9 -6,6 -9.0000000375455,13.66667 -9.0000000375455,23 l 0,192.00001 c 0,9.3333 3.0000000375455,17 9.0000000375455,23 6.0000004,6 13.6666674,9 23.0000004,9 l 355.148435,0 c 45.33333,0 88,-5.5 128,-16.5 40,-11 75.5,-25 106.5,-42 31,-17 61,-39.8333 90,-68.5 29,-28.6667 53.66667,-56.33334 74,-83.00001 20.33333,-26.66667 41.66667,-60 64,-100 19.8569,-35.56461 36.26775,-67.15315 49.27344,-94.8125 0.36178,-0.305 0.71557,-0.5961 1.07812,-0.90235 16,-30.66667 31,-56.5 45,-77.5 14,-21 31,-41.5 51,-61.5 20.00001,-20 43.00001,-35 69.00001,-45 26,-10 55,-15 87,-15 l 256,0 0,192 c 0,8.66667 3.1667,16.16667 9.5,22.5 6.3333,6.33333 13.8333,9.5 22.5,9.5 9.3333,0 17,-3 23,-9 l 320,-320 c 6,-6 9,-13.66667 9,-23 0,-9.33333 -3,-17 -9,-23 l -319,-319 c -8,-6.666666 -16,-9.999996 -24,-9.999996 z"/><path style="fill:var(--icon-colour__green)" d="M 32 608.88672 C 22.666667 608.88672 15 611.88672 9 617.88672 C 3.0000001 623.88672 0 631.55342 0 640.88672 L 0 832.88672 C -2.3684758e-15 842.22005 3.0000001 849.88672 9 855.88672 C 14.999999 861.88672 22.666667 864.88672 32 864.88672 L 387.14844 864.88672 C 389.01484 864.88672 390.86885 864.90739 392.71484 864.94141 C 424.84023 863.54598 455.12074 854.70213 477.65234 838.51562 C 513.22947 811.0071 542.31317 769.76507 567.46094 723.21289 A 59.082625 59.082625 0 0 1 567.88281 722.44336 C 577.24508 705.7116 585.95748 689.48787 593.56641 673.41992 A 59.082625 59.082625 0 0 1 594.40625 671.7168 C 596.87369 666.9118 599.36286 662.08644 601.86719 657.25195 C 575.79127 644.74345 546.89263 634.11637 515.14844 625.38672 C 475.14844 614.38672 432.48177 608.88672 387.14844 608.88672 L 32 608.88672 z M 870.56641 957.2793 C 853.49205 984.29535 834.72449 1010.8834 813.4375 1036.3711 A 59.082625 59.082625 0 0 1 813.08984 1036.7852 C 777.58172 1078.5162 737.58032 1121.5966 687.80664 1156.543 C 688.3781 1157.5702 688.9227 1158.5676 689.5 1159.6016 C 711.83333 1199.6016 733.16667 1232.9349 753.5 1259.6016 C 773.83333 1286.2683 798.5 1313.9349 827.5 1342.6016 C 856.5 1371.2683 886.5 1394.1016 917.5 1411.1016 C 948.5 1428.1016 983.99999 1442.1016 1024 1453.1016 C 1064 1464.1016 1106.6667 1469.6016 1152 1469.6016 L 1408 1469.6016 L 1408 1661.6016 C 1408 1670.9349 1411 1678.6016 1417 1684.6016 C 1423 1690.6016 1430.6667 1693.6016 1440 1693.6016 C 1448 1693.6016 1456 1690.2683 1464 1683.6016 L 1783 1364.6016 C 1789 1358.6016 1792 1350.9349 1792 1341.6016 C 1792 1332.2683 1789 1324.6016 1783 1318.6016 L 1463 998.60156 C 1457 992.60156 1449.3333 989.60156 1440 989.60156 C 1431.3333 989.60156 1423.8333 992.76823 1417.5 999.10156 C 1411.1667 1005.4348 1408 1012.9349 1408 1021.6016 L 1408 1213.6016 L 1152 1213.6016 C 1120 1213.6016 1091 1208.6016 1065 1198.6016 C 1039 1188.6016 1016 1173.6016 996 1153.6016 C 976 1133.6016 959 1113.1016 945 1092.1016 C 931 1071.1016 916 1045.2683 900 1014.6016 C 899.63745 1014.2954 899.28365 1014.0042 898.92188 1013.6992 C 890.80126 996.429 881.35206 977.6246 870.56641 957.2793 z "/></svg></span>
+  </span> runs with are now controlled by setting a <em>Run As</em> User/Group on the processor filter.
+It is advised to use a Group for this as it mitigates against having to change processor filters when a User leaves the organisation.</p>
+<h2 id="viewing-document-dependencies">Viewing Document Dependencies</h2>
+<p>Previously, the <em>Dependencies</em> and <em>Dependants</em> items in the explorer tree context menu were only available if the logged in User had <code>Owner</code> permission on the selected Document.
+Now the User only needs <code>View</code> permission to see the dependences/dependants.</p>
+<h2 id="user-account-creation">User Account Creation</h2>
+<p>When a Stroom User Account is created it will now create the corresponding Stroom User record.
+Previously this was a two step process.
+This is only applicable when using the internal <span class="glossary-link">
+  <a href="../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider">
+    <span>Identity Provider</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</p>
+<h2 id="analytic-email-notifications">Analytic Email Notifications</h2>
+<p>Now when a failure occurs sending an email notification for an Analytic Rule <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Analytic Rule"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__orange)" d="M1333 566q18 20 7 44l-540 1157q-13 25-42 25-4 0-14-2-17-5-25.5-19t-4.5-30l197-808-406 101q-4 1-12 1-18 0-31-11-18-15-13-39l201-825q4-14 16-23t28-9h328q19 0 32 12.5t13 29.5q0 8-5 18l-171 463 396-98q8-2 12-2 19 0 34 15z"/></svg></span>
+  </span>, the error will be written to the configured error Feed <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
+  </span>.</p>
 
 </div>
 
@@ -260,14 +1731,7 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-87d23a262c9c6ad5baad487dff564cb8">2 - Preview Features (experimental)</h1>
     <div class="lead">Preview features in Stroom version 7.6. Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Work in progress
-
-</div>
-
+	<p>There are no preview features in v7.6.</p>
 
 </div>
 
@@ -297,14 +1761,7 @@ This is the multi-page printable view of this section.
 </div>
 
 
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Work in progress
-
-</div>
-
+<p>There are no breaking changes in v7.6.</p>
 
 </div>
 
@@ -334,14 +1791,942 @@ This is the multi-page printable view of this section.
 </div>
 
 
+<h2 id="java-version">Java Version</h2>
+<p>Stroom v7.6 requires Java 21.
+This is the same java version as Stroom v7.5.
+Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v21.</p>
+<h2 id="configuration-file-changes">Configuration File Changes</h2>
+<!--
+Check changes using something like this:
+git diff origin/7.5..origin/7.6 stroom-config/stroom-config-app/src/test/resources/stroom/config/app/expected.yaml
+git diff origin/7.5..origin/7.6 stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
+-->
+<h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
+<p>The following changes have been made to the configuration file.</p>
+<h3 id="added-property-trees">Added Property Trees</h3>
+<p>The following cache configuration property trees have been added.</p>
+<ul>
+<li><code>appPermissionIdCache.*</code></li>
+<li><code>docTypeIdCache.*</code></li>
+<li><code>userAppPermissionsCache.*</code></li>
+<li><code>userInfoByUuidCache.*</code></li>
+</ul>
+<h3 id="removed-property-trees">Removed Property Trees</h3>
+<p>The following cache configuration property trees have been removed.</p>
+<ul>
+<li><code>userAppPermissionsCache.*</code></li>
+<li><code>userByDisplayNameCache.*</code></li>
+</ul>
+<h3 id="stroom-proxys-configyml">Stroom-Proxy&rsquo;s <code>config.yml</code></h3>
+<p>No changes have been made configuration file.</p>
+<h2 id="database-migrations">Database Migrations</h2>
+<p>When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.</p>
 
 <div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+<h4 class="alert-heading">Warning</h4>
 
-    Work in progress
+    It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
+This is to mitigate against any problems with the migration.
+It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
 
 </div>
 
+
+<p>On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
+This will be the node that reaches that point in the boot process first.
+All other nodes will wait until that is complete before proceeding with the boot process.</p>
+<p>It is recommended however to use a single node to execute the migration.
+To avoid Stroom starting up and beginning processing you can use the <code>migrage</code> command to just migrate the database and not fully boot Stroom.
+See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrage</code> command</a> for more details.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>If you are upgrading from a previous v7.6 beta release you will need to run the following SQL.</p>
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-sql" 
+    data-prompt="mysql>" 
+    data-filter-output="(out)"
+    data-continuation-prompt="->"
+    data-filter-continuation="(con)"><code class="language-sql">update analytics_schema_history set checksum = &#39;-86554219&#39; where version = &#39;07.06.00.405&#39;;</code></pre>
+</div>
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-sql" 
+    data-prompt="mysql>" 
+    data-filter-output="(out)"
+    data-continuation-prompt="->"
+    data-filter-continuation="(con)"><code class="language-sql">update processor_schema_history set checksum = &#39;-175036745&#39; where version = &#39;07.06.00.305&#39;;</code></pre>
+</div>
+
+
+</div>
+
+
+<p>This release migrates all the existing document and application permission grants into new tables (prefixed by <code>permission_</code>).
+The legacy tables <code>doc_permission</code> and <code>app_permission</code> have been left untouched to allow migrated permissions to be compared against the previous state.
+In some future version of Stroom these tables will be removed.</p>
+<h3 id="migration-scripts">Migration Scripts</h3>
+<!--
+#############################################################################################
+#                                                                                           #
+#  This section is auto-generated by TestListDbMigrations.listDbMigrationsForLatestVersion  #
+#                                                                                           #
+#############################################################################################
+-->
+<p>For information purposes only, the following are the database migrations that will be run when upgrading to 7.6.0 from the previous minor version.</p>
+<p>Note, the <code>legacy</code> module will run first (if present) then the other module will run in no particular order.</p>
+<h4 id="module-stroom-activity">Module <code>stroom-activity</code></h4>
+<h5 id="script-v07_06_00_200__activity_pre_migration_checksjava">Script <code>V07_06_00_200__activity_pre_migration_checks.java</code></h5>
+<p><strong>Path</strong>: <code>stroom-activity/stroom-activity-impl-db/src/main/java/stroom/activity/impl/db/migration/V07_06_00_200__activity_pre_migration_checks.java</code></p>
+<p>It is not possible to display the content here.
+The file can be viewed on : 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/tree/7.6/stroom-activity/stroom-activity-impl-db/src/main/java/stroom/activity/impl/db/migration/V07_06_00_200__activity_pre_migration_checks.java" target="_blank" class="" style="" title="GitHub (external link to https://github.com/gchq/stroom/tree/7.6/stroom-activity/stroom-activity-impl-db/src/main/java/stroom/activity/impl/db/migration/V07_06_00_200__activity_pre_migration_checks.java)">
+    <span>GitHub</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+<h5 id="script-v07_06_00_205__activity_user_uuidsql">Script <code>V07_06_00_205__activity_user_uuid.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-activity/stroom-activity-impl-db/src/main/resources/stroom/activity/impl/db/migration/V07_06_00_205__activity_user_uuid.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2023 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP PROCEDURE IF EXISTS V07_06_00_205__activity_user_uuid;
+
+DELIMITER $$
+
+CREATE PROCEDURE V07_06_00_205__activity_user_uuid ()
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = 'activity'
+    AND column_name = 'user_uuid';
+
+    IF object_count = 0 THEN
+        ALTER TABLE activity ADD COLUMN user_uuid varchar(255) NOT NULL;
+
+        SELECT COUNT(1)
+        INTO object_count
+        FROM information_schema.tables
+        WHERE table_schema = database()
+        AND table_name = 'stroom_user';
+
+        IF object_count = 1 THEN
+            SET @sql_str = CONCAT(
+                'UPDATE activity a, stroom_user s ',
+                'SET a.user_uuid = s.uuid ',
+                'WHERE a.user_id = s.name');
+            PREPARE stmt FROM @sql_str;
+            EXECUTE stmt;
+        END IF;
+
+        ALTER TABLE activity DROP COLUMN user_id;
+
+    END IF;
+END $$
+
+DELIMITER ;
+
+CALL V07_06_00_205__activity_user_uuid;
+
+DROP PROCEDURE IF EXISTS V07_06_00_205__activity_user_uuid;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h4 id="module-stroom-analytics">Module <code>stroom-analytics</code></h4>
+<h5 id="script-v07_06_00_405__execution_schedule_run_as_user_uuidsql">Script <code>V07_06_00_405__execution_schedule_run_as_user_uuid.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-analytics/stroom-analytics-impl-db/src/main/resources/stroom/analytics/impl/db/migration/V07_06_00_405__execution_schedule_run_as_user_uuid.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2023 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP PROCEDURE IF EXISTS V07_06_00_405__execution_schedule_run_as_user_uuid;
+
+DELIMITER $$
+
+CREATE PROCEDURE V07_06_00_405__execution_schedule_run_as_user_uuid ()
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = 'execution_schedule'
+    AND column_name = 'run_as_user_uuid';
+
+    IF object_count = 0 THEN
+        ALTER TABLE execution_schedule ADD COLUMN run_as_user_uuid varchar(255) DEFAULT NULL;
+
+        -- The now legacy doc_permission table may be removed at some later point
+        -- in which case we don't have to do anything
+        SELECT COUNT(1)
+        INTO object_count
+        FROM information_schema.tables
+        WHERE table_schema = database()
+        AND table_name = 'doc_permission';
+
+        IF object_count = 1 THEN
+            SET @sql_str = CONCAT(
+                'UPDATE execution_schedule es ',
+                'INNER JOIN ( ',
+                '    SELECT DISTINCT ',
+                '        dp.doc_uuid, ',
+                '        FIRST_VALUE(dp.user_uuid) ',
+                '            OVER (PARTITION BY dp.doc_uuid ORDER BY dp.id DESC) latest_owner_uuid ',
+                '    FROM doc_permission dp ',
+                '    WHERE dp.permission = &quot;Owner&quot; ',
+                ') as dpv on dpv.doc_uuid = es.doc_uuid ',
+                'SET es.run_as_user_uuid = dpv.latest_owner_uuid;');
+            PREPARE stmt FROM @sql_str;
+            EXECUTE stmt;
+        END IF;
+
+    END IF;
+END $$
+
+DELIMITER ;
+
+CALL V07_06_00_405__execution_schedule_run_as_user_uuid;
+
+DROP PROCEDURE IF EXISTS V07_06_00_405__execution_schedule_run_as_user_uuid;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h4 id="module-stroom-annotation">Module <code>stroom-annotation</code></h4>
+<h5 id="script-v07_06_00_100__annotation_pre_migration_checksjava">Script <code>V07_06_00_100__annotation_pre_migration_checks.java</code></h5>
+<p><strong>Path</strong>: <code>stroom-annotation/stroom-annotation-impl-db/src/main/java/stroom/annotation/impl/db/migration/V07_06_00_100__annotation_pre_migration_checks.java</code></p>
+<p>It is not possible to display the content here.
+The file can be viewed on : 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/tree/7.6/stroom-annotation/stroom-annotation-impl-db/src/main/java/stroom/annotation/impl/db/migration/V07_06_00_100__annotation_pre_migration_checks.java" target="_blank" class="" style="" title="GitHub (external link to https://github.com/gchq/stroom/tree/7.6/stroom-annotation/stroom-annotation-impl-db/src/main/java/stroom/annotation/impl/db/migration/V07_06_00_100__annotation_pre_migration_checks.java)">
+    <span>GitHub</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+<h5 id="script-v07_06_00_105__annotation_uuidsql">Script <code>V07_06_00_105__annotation_uuid.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-annotation/stroom-annotation-impl-db/src/main/resources/stroom/annotation/impl/db/migration/V07_06_00_105__annotation_uuid.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2023 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP PROCEDURE IF EXISTS V07_06_00_105_annotation;
+
+DELIMITER $$
+
+CREATE PROCEDURE V07_06_00_105_annotation ()
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = 'annotation'
+    AND column_name = 'uuid';
+
+    IF object_count = 0 THEN
+        ALTER TABLE `annotation`
+        ADD COLUMN `uuid` varchar(255) NOT NULL;
+        UPDATE `annotation` set `uuid` = MID(UUID(),1,36);
+        CREATE UNIQUE INDEX `annotation_uuid` ON `annotation` (`uuid`);
+    END IF;
+END $$
+
+DELIMITER ;
+
+CALL V07_06_00_105_annotation;
+
+DROP PROCEDURE IF EXISTS V07_06_00_105_annotation;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h5 id="script-v07_06_00_110__annotation_entrysql">Script <code>V07_06_00_110__annotation_entry.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-annotation/stroom-annotation-impl-db/src/main/resources/stroom/annotation/impl/db/migration/V07_06_00_110__annotation_entry.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2023 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP PROCEDURE IF EXISTS V07_06_00_110__annotation_entry;
+
+DELIMITER $$
+
+CREATE PROCEDURE V07_06_00_110__annotation_entry ()
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = 'annotation_entry'
+    AND column_name = 'entry_user_uuid';
+
+    IF object_count = 0 THEN
+        ALTER TABLE annotation_entry ADD COLUMN entry_user_uuid varchar(255) DEFAULT NULL;
+        ALTER TABLE annotation_entry ADD COLUMN entry_time_ms bigint NOT NULL;
+
+        SELECT COUNT(1)
+        INTO object_count
+        FROM information_schema.tables
+        WHERE table_schema = database()
+        AND table_name = 'stroom_user';
+
+        IF object_count = 1 THEN
+            -- Change create user names to entry user uuids.
+            SET @sql_str = CONCAT(
+                'UPDATE annotation_entry a, stroom_user s ',
+                'SET a.entry_user_uuid = s.uuid ',
+                'WHERE a.create_user = s.name');
+            PREPARE stmt FROM @sql_str;
+            EXECUTE stmt;
+
+            -- Move all create times to entry times.
+            SET @sql_str = CONCAT(
+                'UPDATE annotation_entry a ',
+                'SET a.entry_time_ms = a.create_time_ms');
+            PREPARE stmt FROM @sql_str;
+            EXECUTE stmt;
+
+            -- Change all assignment entries to reference user UUID instead of name.
+            SET @sql_str = CONCAT(
+                'UPDATE annotation_entry a, stroom_user s ',
+                'SET a.data = s.uuid ',
+                'WHERE a.type = &quot;Assigned&quot; AND a.data = s.name');
+            PREPARE stmt FROM @sql_str;
+            EXECUTE stmt;
+        END IF;
+
+        ALTER TABLE annotation_entry DROP COLUMN version;
+        ALTER TABLE annotation_entry DROP COLUMN create_time_ms;
+        ALTER TABLE annotation_entry DROP COLUMN create_user;
+        ALTER TABLE annotation_entry DROP COLUMN update_time_ms;
+        ALTER TABLE annotation_entry DROP COLUMN update_user;
+
+    END IF;
+END $$
+
+DELIMITER ;
+
+CALL V07_06_00_110__annotation_entry;
+
+DROP PROCEDURE IF EXISTS V07_06_00_110__annotation_entry;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h4 id="module-stroom-processor">Module <code>stroom-processor</code></h4>
+<h5 id="script-v07_06_00_300__processor_filter_pre_migration_checksjava">Script <code>V07_06_00_300__processor_filter_pre_migration_checks.java</code></h5>
+<p><strong>Path</strong>: <code>stroom-processor/stroom-processor-impl-db/src/main/java/stroom/processor/impl/db/migration/V07_06_00_300__processor_filter_pre_migration_checks.java</code></p>
+<p>It is not possible to display the content here.
+The file can be viewed on : 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/tree/7.6/stroom-processor/stroom-processor-impl-db/src/main/java/stroom/processor/impl/db/migration/V07_06_00_300__processor_filter_pre_migration_checks.java" target="_blank" class="" style="" title="GitHub (external link to https://github.com/gchq/stroom/tree/7.6/stroom-processor/stroom-processor-impl-db/src/main/java/stroom/processor/impl/db/migration/V07_06_00_300__processor_filter_pre_migration_checks.java)">
+    <span>GitHub</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</p>
+<h5 id="script-v07_06_00_305__processor_filter_run_as_user_uuidsql">Script <code>V07_06_00_305__processor_filter_run_as_user_uuid.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-processor/stroom-processor-impl-db/src/main/resources/stroom/processor/impl/db/migration/V07_06_00_305__processor_filter_run_as_user_uuid.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2023 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP PROCEDURE IF EXISTS V07_06_00_305__processor_filter_run_as_user_uuid;
+
+DELIMITER $$
+
+CREATE PROCEDURE V07_06_00_305__processor_filter_run_as_user_uuid ()
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.columns
+    WHERE table_schema = database()
+    AND table_name = 'processor_filter'
+    AND column_name = 'run_as_user_uuid';
+
+    IF object_count = 0 THEN
+        ALTER TABLE processor_filter ADD COLUMN run_as_user_uuid varchar(255) DEFAULT NULL;
+
+        SELECT COUNT(1)
+        INTO object_count
+        FROM information_schema.tables
+        WHERE table_schema = database()
+        AND table_name = 'doc_permission';
+
+        IF object_count = 1 THEN
+            SET @sql_str = CONCAT(
+                'UPDATE processor_filter pf ',
+                'INNER JOIN ( ',
+                '    SELECT DISTINCT ',
+                '        dp.doc_uuid, ',
+                '        FIRST_VALUE(dp.user_uuid) '
+                '            OVER (PARTITION BY dp.doc_uuid ORDER BY dp.id DESC) latest_owner_uuid ',
+                '    FROM doc_permission dp ',
+                '    WHERE dp.permission = &quot;Owner&quot; ',
+                ') as dpv on dpv.doc_uuid = pf.uuid ',
+                'SET pf.run_as_user_uuid = dpv.latest_owner_uuid; ');
+            PREPARE stmt FROM @sql_str;
+            EXECUTE stmt;
+        END IF;
+
+    END IF;
+END $$
+
+DELIMITER ;
+
+CALL V07_06_00_305__processor_filter_run_as_user_uuid;
+
+DROP PROCEDURE IF EXISTS V07_06_00_305__processor_filter_run_as_user_uuid;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h4 id="module-stroom-security">Module <code>stroom-security</code></h4>
+<h5 id="script-v07_06_00_800__app_permissionsql">Script <code>V07_06_00_800__app_permission.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_06_00_800__app_permission.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2024 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP TABLE IF EXISTS `permission_app`;
+DROP TABLE IF EXISTS `permission_app_id`;
+
+--
+-- Create the application permission id table
+--
+CREATE TABLE IF NOT EXISTS `permission_app_id` (
+  `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `permission` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permission_app_id_permission_idx` (`permission`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+--
+-- Add app permission names into the app permission id table.
+--
+INSERT INTO `permission_app_id` (`permission`)
+SELECT DISTINCT(permission)
+FROM app_permission;
+
+--
+-- Create the new application permission table.
+--
+CREATE TABLE IF NOT EXISTS `permission_app` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(255) NOT NULL,
+  `permission_id` tinyint UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permission_app_user_uuid` (`user_uuid`),
+  UNIQUE KEY `permission_app_user_uuid_permission_id_idx` (`user_uuid`,`permission_id`),
+  CONSTRAINT `permission_app_user_uuid` FOREIGN KEY (`user_uuid`) REFERENCES `stroom_user` (`uuid`),
+  CONSTRAINT `permission_app_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission_app_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+--
+-- Copy permission values to the new table.
+--
+INSERT INTO permission_app (user_uuid, permission_id)
+SELECT ap.user_uuid, pai.id
+FROM app_permission ap
+JOIN permission_app_id pai
+ON (pai.permission = ap.permission);
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h5 id="script-v07_06_00_900__doc_permissionsql">Script <code>V07_06_00_900__doc_permission.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_06_00_900__doc_permission.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2024 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+DROP TABLE IF EXISTS `permission_doc`;
+DROP TABLE IF EXISTS `permission_doc_id`;
+DROP TABLE IF EXISTS `permission_doc_create`;
+DROP TABLE IF EXISTS `permission_doc_type_id`;
+
+--
+-- Create the permission id table
+--
+CREATE TABLE IF NOT EXISTS `permission_doc_id` (
+  `id` tinyint UNSIGNED NOT NULL,
+  `permission` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permission_doc_id_permission_idx` (`permission`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+--
+-- Add permission names into the id table.
+--
+INSERT INTO `permission_doc_id` (`id`, `permission`)
+VALUES
+(10, &quot;Use&quot;),
+(20, &quot;Read&quot;),
+(30, &quot;Update&quot;),
+(40, &quot;Delete&quot;),
+(50, &quot;Owner&quot;);
+
+--
+-- Create the new permission table.
+--
+CREATE TABLE IF NOT EXISTS `permission_doc` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(255) NOT NULL,
+  `doc_uuid` varchar(255) NOT NULL,
+  `permission_id` tinyint UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permission_doc_user_uuid` (`user_uuid`),
+  KEY `permission_doc_doc_uuid` (`doc_uuid`),
+  UNIQUE KEY `permission_doc_user_uuid_doc_uuid_idx` (`user_uuid`,`doc_uuid`),
+  CONSTRAINT `permission_doc_user_uuid` FOREIGN KEY (`user_uuid`) REFERENCES `stroom_user` (`uuid`),
+  CONSTRAINT `permission_doc_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission_doc_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+--
+-- Copy permission values to the new table.
+--
+INSERT INTO permission_doc (user_uuid, doc_uuid, permission_id)
+SELECT dp.user_uuid, dp.doc_uuid, MAX(pdi.id)
+FROM doc_permission dp
+JOIN permission_doc_id pdi
+ON (pdi.permission = dp.permission)
+WHERE dp.permission IN (&quot;Owner&quot;, &quot;Delete&quot;, &quot;Update&quot;, &quot;Read&quot;, &quot;Use&quot;)
+GROUP BY dp.user_uuid, dp.doc_uuid;
+
+--
+-- Modify the permission names.
+--
+UPDATE `permission_doc_id`
+SET `permission` = &quot;View&quot;
+WHERE `permission` = &quot;Read&quot;;
+
+UPDATE `permission_doc_id`
+SET `permission` = &quot;Edit&quot;
+WHERE `permission` = &quot;Update&quot;;
+
+--
+-- Create the document type id table
+--
+CREATE TABLE IF NOT EXISTS `permission_doc_type_id` (
+  `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permission_doc_type_id_type_idx` (`type`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+--
+-- Add document type names into the doc type id table.
+--
+INSERT INTO `permission_doc_type_id` (`type`)
+SELECT DISTINCT(SUBSTRING(permission, 10))
+FROM doc_permission
+WHERE permission LIKE &quot;Create - %&quot;;
+
+--
+-- Create the new document create permission table.
+--
+CREATE TABLE IF NOT EXISTS `permission_doc_create` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(255) NOT NULL,
+  `doc_uuid` varchar(255) NOT NULL,
+  `doc_type_id` tinyint UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permission_doc_create_user_uuid` (`user_uuid`),
+  KEY `permission_doc_create_doc_uuid` (`doc_uuid`),
+  KEY `permission_doc_create_doc_type_id` (`doc_type_id`),
+  UNIQUE KEY `permission_doc_create_user_uuid_doc_uuid_doc_type_id_idx` (`user_uuid`,`doc_uuid`, `doc_type_id`),
+  CONSTRAINT `permission_doc_create_user_uuid` FOREIGN KEY (`user_uuid`) REFERENCES `stroom_user` (`uuid`),
+  CONSTRAINT `permission_doc_create_doc_type_id` FOREIGN KEY (`doc_type_id`) REFERENCES `permission_doc_type_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+
+--
+-- Copy document create permission values to the new table.
+--
+INSERT INTO permission_doc_create (user_uuid, doc_uuid, doc_type_id)
+SELECT dp.user_uuid, dp.doc_uuid, pdti.id
+FROM doc_permission dp
+JOIN permission_doc_type_id pdti
+ON (pdti.type = SUBSTRING(dp.permission, 10))
+WHERE dp.permission LIKE &quot;Create - %&quot;;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h5 id="script-v07_06_00_905__user_display_namesql">Script <code>V07_06_00_905__user_display_name.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_06_00_905__user_display_name.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2024 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+-- Idempotent
+-- Ensure we always have a display_name value
+UPDATE `stroom_user`
+SET `display_name` = `name`
+WHERE `display_name` IS NULL
+OR LENGTH(`display_name`) = 0;
+
+-- Idempotent
+-- Now make the col non null so can rely on a value being there
+ALTER TABLE `stroom_user` MODIFY `display_name` VARCHAR(255) NOT NULL;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set shiftwidth=4 tabstop=4 expandtab:
+
+</code></pre>
+<h5 id="script-v07_06_00_910__user_add_deleted_colsql">Script <code>V07_06_00_910__user_add_deleted_col.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_06_00_910__user_add_deleted_col.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+-- --------------------------------------------------
+
+-- An archive of the last known values of name, display_name, full_name and is_group for a given
+-- uuid. No constraint on name to allow for stroom_user records being deleted and re-used with
+-- a different uuid.
+CREATE TABLE IF NOT EXISTS `stroom_user_archive` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
+  `full_name` varchar(255) DEFAULT NULL,
+  `is_group` tinyint NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `stroom_user_archive_uuid_idx` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Idempotent
+-- Populate the new table based on what we currently have in the stroom_user table
+INSERT INTO stroom_user_archive (
+    uuid,
+    name,
+    display_name,
+    full_name,
+    is_group)
+SELECT
+    su.uuid,
+    su.name,
+    su.display_name,
+    su.full_name,
+    su.is_group
+FROM stroom_user su
+ON DUPLICATE KEY UPDATE
+    uuid = su.uuid,
+    name = su.name,
+    display_name = su.display_name,
+    full_name = su.full_name,
+    is_group = su.is_group;
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set tabstop=4 shiftwidth=4 expandtab:
+
+</code></pre>
+<h5 id="script-v07_06_00_915__drop_foreign_keys_to_stroom_usersql">Script <code>V07_06_00_915__drop_foreign_keys_to_stroom_user.sql</code></h5>
+<p><strong>Path</strong>: <code>stroom-security/stroom-security-impl-db/src/main/resources/stroom/security/impl/db/migration/V07_06_00_915__drop_foreign_keys_to_stroom_user.sql</code></p>
+<pre><code class="language-sql">-- ------------------------------------------------------------------------
+-- Copyright 2020 Crown Copyright
+--
+-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- ------------------------------------------------------------------------
+
+-- Stop NOTE level warnings about objects (not)? existing
+SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0;
+
+-- --------------------------------------------------
+
+DELIMITER $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_run_sql_v1 $$
+
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE security_run_sql_v1 (
+    p_sql_stmt varchar(1000)
+)
+BEGIN
+
+    SET @sqlstmt = p_sql_stmt;
+
+    SELECT CONCAT('Running sql: ', @sqlstmt);
+
+    PREPARE stmt FROM @sqlstmt;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END $$
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_drop_constraint_v1 $$
+
+-- e.g. security_drop_constraint_v1('MY_TABLE', 'MY_FK', 'FOREIGN KEY');
+--      security_drop_constraint_v1('MY_TABLE', 'MY_UNIQ_IDX', 'INDEX');
+--      security_drop_constraint_v1('MY_TABLE', 'PRIMARY', 'INDEX');
+-- DO NOT change this without reading the header!
+CREATE PROCEDURE security_drop_constraint_v1 (
+    p_table_name varchar(64),
+    p_constraint_name varchar(64),
+    p_constraint_type varchar(64) -- e.g. FOREIGN KEY | UNIQUE
+)
+BEGIN
+    DECLARE object_count integer;
+
+    SELECT COUNT(1)
+    INTO object_count
+    FROM information_schema.table_constraints
+    WHERE table_schema = database()
+    AND table_name = p_table_name
+    AND constraint_name = p_constraint_name;
+
+    IF object_count = 0 THEN
+        SELECT CONCAT(
+            'Constraint ',
+            p_constraint_name,
+            ' does not exist on table ',
+            database(),
+            '.',
+            p_table_name);
+    ELSE
+        CALL security_run_sql_v1(CONCAT(
+            'alter table ', database(), '.', p_table_name,
+            ' drop ', p_constraint_type, ' ', p_constraint_name));
+    END IF;
+END $$
+
+DELIMITER ;
+
+-- --------------------------------------------------
+
+CALL security_drop_constraint_v1(
+    'app_permission',
+    'app_permission_user_uuid',
+    'FOREIGN KEY');
+
+CALL security_drop_constraint_v1(
+    'doc_permission',
+    'doc_permission_fk_user_uuid',
+    'FOREIGN KEY');
+
+-- --------------------------------------------------
+
+DROP PROCEDURE IF EXISTS security_run_sql_v1;
+
+DROP PROCEDURE IF EXISTS security_drop_constraint_v1;
+
+-- --------------------------------------------------
+
+SET SQL_NOTES=@OLD_SQL_NOTES;
+
+-- vim: set tabstop=4 shiftwidth=4 expandtab:
+
+</code></pre>
 
 </div>
 
@@ -361,7 +2746,7 @@ This is the multi-page printable view of this section.
 <div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
     
   <h1 id="pg-df8441dd956fbb7c45e059deacfdc5e6">5 - Change Log</h1>
-    <div class="lead">Link to the full CHANGELOG.</div>
+    <div class="lead">Full list of changes in this release.</div>
 	<!--
 To build this list run diff_changelog.sh in the root of the stroom repo.
 E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)\*\*|Issue **
@@ -383,14 +2768,252 @@ E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)
 </span>
 **|g'
 -->
+<ul>
+<li>
+<p>Issue <strong>
 
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
 
-    Add change entry list
 
-</div>
 
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4671" target="_blank" class="" style="" title="#4671 (external link to https://github.com/gchq/stroom/issues/4671)">
+    <span>#4671</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Remove foreign key constraints from the legacy <code>(app|doc)_permission</code> tables to <code>stroom_user</code> to fix user deletion.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4670" target="_blank" class="" style="" title="#4670 (external link to https://github.com/gchq/stroom/issues/4670)">
+    <span>#4670</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Fix display of disabled users in multiple permission related screens.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4659" target="_blank" class="" style="" title="#4659 (external link to https://github.com/gchq/stroom/issues/4659)">
+    <span>#4659</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Fix refresh selection changes after adding/removing users to/from groups.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4594" target="_blank" class="" style="" title="#4594 (external link to https://github.com/gchq/stroom/issues/4594)">
+    <span>#4594</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Various changes to the permissions screens. Added a new User screen to show all a user&rsquo;s permissions, api keys, and dependencies. Added links between the various permission and user screens. Improved the tables of some of the permissions screens.</p>
+</li>
+<li>
+<p>Fix <code>java.lang.NoClassDeffoundError: jakarta/el/ELManager</code> error when booting proxy.</p>
+</li>
+<li>
+<p>Fix error when creating a document as a user without <code>Administrator</code> or <code>Manager Users</code>.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4588" target="_blank" class="" style="" title="#4588 (external link to https://github.com/gchq/stroom/issues/4588)">
+    <span>#4588</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Fix the API allowing documents to be moved with only VIEW permission. The UI requires EDIT permission. The API is now in line with that.</p>
+</li>
+<li>
+<p>Fix the <code>Copy As</code> menu item for ancestor folders that the user does not have VIEW permission on. For these cases, the <code>Copy As</code> sub menu now only displays the <code>Copy as name</code> entry.</p>
+</li>
+<li>
+<p>Change the explorer context menu to include the entries for <code>Dependencies</code> and <code>Dependants</code> if the user has at least VIEW permission. Previously required OWNER.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4586" target="_blank" class="" style="" title="#4586 (external link to https://github.com/gchq/stroom/issues/4586)">
+    <span>#4586</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Fix error when changing filter on Document Permissions Report.</p>
+</li>
+<li>
+<p>Make account creation also create a stroom user. Make an update to an account also update the stroom user if the full name has changed.</p>
+</li>
+<li>
+<p>Fix bug in DB migration <code>V07_06_00_100__annotation_pre_migration_checks</code>.</p>
+</li>
+<li>
+<p>If you are upgrading from a previous v7.6 beta release you will need to run the following SQL. <code>update analytics_schema_history set checksum = '-86554219' where version = '07.06.00.405';</code> and <code>update processor_schema_history set checksum = '-175036745' where version = '07.06.00.305';</code>.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4550" target="_blank" class="" style="" title="#4550 (external link to https://github.com/gchq/stroom/issues/4550)">
+    <span>#4550</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Fix datasource already in use issue.</p>
+</li>
+<li>
+<p>Uplift docker image JDK to <code>eclipse-temurin:21.0.5_11-jdk-alpine</code>.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4580" target="_blank" class="" style="" title="#4580 (external link to https://github.com/gchq/stroom/issues/4580)">
+    <span>#4580</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Auto add a permission user when an account is created.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4582" target="_blank" class="" style="" title="#4582 (external link to https://github.com/gchq/stroom/issues/4582)">
+    <span>#4582</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Show all users by default and not just ones with explicit permissions.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4345" target="_blank" class="" style="" title="#4345 (external link to https://github.com/gchq/stroom/issues/4345)">
+    <span>#4345</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Write analytic email notification failures to the analytic error feed.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4379" target="_blank" class="" style="" title="#4379 (external link to https://github.com/gchq/stroom/issues/4379)">
+    <span>#4379</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Improve Stroom permission model.</p>
+</li>
+</ul>
 <p>For a detailed list of all the changes in v7.6 see:
 
 
@@ -452,7 +3075,7 @@ E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2024 Crown Copyright All Rights Reserved</small>
+        <small class="text-white">&copy; 2025 Crown Copyright All Rights Reserved</small>
         
 	
       </div>
