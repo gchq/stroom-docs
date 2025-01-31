@@ -72,53 +72,53 @@ replace_versions_block() {
 
   local new_content=""
 
-  # BUILD_BRANCH is the git branch we are building
-  # branch_name is the version that we are trying to add to our
+  # branch_name is the git branch we are building
+  # version is the version that we are trying to add to our
   # versions block in the config
   # Each git branch will contain a config file that defines all the versions
   # but the url to get from one version to another 
   # NOTE hugo converts "/" into the root of the versioned site,
   # NOT the root of the whole combined site.
-  local ver
-  local url
-  for branch_name in "${release_branches[@]}"; do
+  local version_prop
+  local url_prop
+  for version in "${release_branches[@]}"; do
     # Uppercase legacy if present
-    ver="${branch_name/legacy/Legacy}"
-    url="/../${branch_name}"
+    version_prop="${version/legacy/Legacy}"
+    url_prop="/../${version}"
 
-    if [[ "${branch_name}" = "${BUILD_BRANCH}" ]]; then
+    if [[ "${version}" = "${branch_name}" ]]; then
       # This is the version we are building so it is located at the
       # versioned site root regardless of where that is.
-      url="/"
+      url_prop="/"
     else
       # Different version to the branch being built
-      if [[ "${BUILD_BRANCH}" = "${latest_version}" ]]; then
+      if [[ "${branch_name}" = "${latest_version}" ]]; then
         # We are building the latest version branch, so our versioned site
         # is at the combined site root.
-        if [[ "${branch_name}" = "${latest_version}" ]]; then
-          url="/"
+        if [[ "${version}" = "${latest_version}" ]]; then
+          url_prop="/"
         else
-          url="/${branch_name}"
+          url_prop="/${version}"
         fi
       else
         # Building a branch different to branch_name
-        if [[ "${branch_name}" = "${latest_version}" ]]; then
+        if [[ "${version}" = "${latest_version}" ]]; then
           # Up one to the combined site root
-          url="/../"
+          url_prop="/../"
         else
           # Up one then back down to a sibling
-          url="/../${branch_name}"
+          url_prop="/../${version}"
         fi
       fi
     fi
 
-    if [[ "${branch_name}" = "${latest_version}" ]]; then
-      ver="${ver} (Latest)"
+    if [[ "${version}" = "${latest_version}" ]]; then
+      version_prop="${version_prop} (Latest)"
     fi
 
     new_content="${new_content}\n\n  [[params.versions]]"
-    new_content="${new_content}\n    version = \"${ver}\""
-    new_content="${new_content}\n    url = \"${url}\""
+    new_content="${new_content}\n    version = \"${version_prop}\""
+    new_content="${new_content}\n    url_prop = \"${url_prop}\""
   done
 
   new_content="${new_content}\n"
@@ -136,6 +136,10 @@ replace_versions_block() {
     -i \
     -pe \
     's/^([\t ]*#[\t ]*<<<VERSIONS_BLOCK_START>>>[^\n]*\n).*(\n[^\n]*<<<VERSIONS_BLOCK_END>>>[^\n]*)$/$1$ENV{new_content}$2/gsm' \
+    "${config_file}"
+
+  echo -e "${GREEN}Dumping versions section:"
+  awk '/^.*<<<VERSIONS_BLOCK_START>>>.*$/,/^.*<<<VERSIONS_BLOCK_END>>>.*$/' \
     "${config_file}"
 }
 
@@ -192,10 +196,10 @@ build_version_from_source() {
       --regexp-extended \
       --expression "s|^\s*build_version\s*=.*|  build_version = \"${BUILD_TAG:-SNAPSHOT}\"|" \
       --expression "s|^\s*archived_version\s*=.*|  archived_version = ${is_archived_version}|" \
-      --expression "s|^\s*version_menu\s*=.*|  version_menu = \"Stroom Version (${version_name})|" \
-      --expression "s|^\s*version\s*=.*|  version = \"${branch_name}|" \
-      --expression "s|^\s*latest_version\s*=.*|  latest_version = \"${latest_version}|" \
-      --expression "s|^\s*github_branch\s*=.*|  github_branch = \"${branch_name}|" \
+      --expression "s|^\s*version_menu\s*=.*|  version_menu = \"Stroom Version (${version_name})\"|" \
+      --expression "s|^\s*version\s*=.*|  version = \"${branch_name}\"|" \
+      --expression "s|^\s*latest_version\s*=.*|  latest_version = \"${latest_version}\"|" \
+      --expression "s|^\s*github_branch\s*=.*|  github_branch = \"${branch_name}\"|" \
       "${config_file_backup}" \
       > "${config_file}"
 
