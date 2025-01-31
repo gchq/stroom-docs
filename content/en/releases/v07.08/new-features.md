@@ -28,6 +28,9 @@ This is to improve performance over previous Stroom-Proxy implementations and to
 Previous versions of Stroom and Stroom-Proxy used a variety of HTTP clients for making HTTP requests, e.g. from the {{< pipe-elm "HTTPAppender" >}}.
 These have been standardised to all use the Apache HTTP client which means a consistent set of configuration can be used.
 
+{{% todo %}}
+{{% /todo %}}
+
 
 ## Receipt ID
 
@@ -54,9 +57,3 @@ In addition to `ReceiptId` we also have `ReceiptIdPath` which will have a `Recei
 To ensure uniqueness of these IDs across the estate, ProxyIDs should be unique within the environment that data will flow.
 The same is true for Stroom node names.
 
-
-* Issue **{{< external-link "#4661" "https://github.com/gchq/stroom/issues/4661" >}}** : Use Apache HttpClient.
-
-* Issue **{{< external-link "#4378" "https://github.com/gchq/stroom/issues/4378" >}}** : Add reporting.
-
-* Issue **{{< external-link "#2201" "https://github.com/gchq/stroom/issues/2201" >}}** : New proxy implementation.

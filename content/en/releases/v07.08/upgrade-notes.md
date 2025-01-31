@@ -31,12 +31,57 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 
 ### Stroom's `config.yml`
 
-No changes have been made configuration file.
+#### Plan B State Store
+
+The following block of config has been added for the experimental Plan B State Store.
+
+```yml
+appConfig:
+  planb:
+    minTimeToKeepEnvOpen: "PT1M"
+    minTimeToKeepSnapshots: "PT10M"
+    nodeList: []
+    path: "${stroom.home}/planb"
+    snapshotRetryFetchInterval: "PT1M"
+    stateDocCache:
+      expireAfterAccess: null
+      expireAfterWrite: "PT10M"
+      maximumSize: 100
+      refreshAfterWrite: null
+```
+
+#### Reporting
+
+The following block of config has been added for the new reporting feature.
+
+```yml
+appConfig:
+  ui:
+    reportUiDefaultConfig:
+      defaultBodyTemplate: "<!DOCTYPE html>\n<html lang=\"en\">\n<meta charset=\"\
+        UTF-8\" />\n<title>Report '{{ reportName | escape }}'</title>\n<body>\n <p><em>Report:\
+        \ {{ reportName | escape }}</em>  executed for {{ effectiveExecutionTime |\
+        \ escape }} on {{ executionTime | escape }}</p>\n <p><em>Description:</em>\
+        \  {{ description | escape }}</p>\n</body>\n"
+      defaultSubjectTemplate: "Report '{{ reportName | escape }}'"
+```
+
+
+#### OpenID HTTP Client
+
+Added the property `httpClient` for configuring the HTTP client used to fetch the {{< glossary "identity-provider-idp" "IDP's">}} configuration.
+
+```yml
+  security:
+    authentication:
+      openId:
+        httpClient: null
+```
 
 
 ### Stroom-Proxy's `config.yml`
 
-No changes have been made configuration file.
+The configuration for proxy has changed significantly since the last stable release of Stroom-Proxy (7.0.x) so it is advised to look at the default Stroom-Proxy configuration that comes with the distribution.
 
 
 ## Database Migrations
