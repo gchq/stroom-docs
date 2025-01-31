@@ -201,9 +201,9 @@ build_version_from_source() {
 
     replace_versions_block "${config_file}"
 
-    echo -e "${GREEN}Diffing config file changes" \
-      "${BLUE}${config_file_backup}${GREEN} => ${BLUE}${config_file}${NC}"
-    diff --color "${config_file_backup}" "${config_file}"
+    #echo -e "${GREEN}Diffing config file changes" \
+      #"${BLUE}${config_file_backup}${GREEN} => ${BLUE}${config_file}${NC}"
+    #diff --color "${config_file_backup}" "${config_file}" || true
     echo "::endgroup::"
   fi
 
