@@ -760,6 +760,11 @@ populate_release_brances_arr() {
     exit 1
   fi
 
+  local found_legacy=false
+  if element_in "legacy" "${release_branches[@]}"; then
+    found_legacy=true
+  fi
+
   # print array, \n delimited
   # Get just the 123.456 ones
   # Numerically (n) reverse (r) sort them by major then minor part
@@ -777,7 +782,8 @@ populate_release_brances_arr() {
   done
 
   # Add the legacy branch back in if there
-  if element_in "legacy" "${release_branches[@]}"; then
+  if [[ "${found_legacy}" = "true" ]]; then
+    # Add legacy at the end as it is the oldest
     release_branches+=( "legacy" )
   fi
 
