@@ -120,6 +120,8 @@ latexDashes = true
 
   # A link to latest version of the docs. Used in the "version-banner" partial to
   # point people to the main doc site.
+  # This will always be "/../" as it is only used on versions that are not the latest one, so
+  # they always have to go one dir up to get to the latest.
   url_latest_version = "/../"
 
   # Custom stroom-docs param for use in the version-banner partial to tell people
@@ -167,7 +169,6 @@ latexDashes = true
   #   /content
   #   etc.
 
-  # <<<VERSIONS_BLOCK_START>>> Used by ci_build.sh
 
   # --- WARNING ---
   # These get converted into relative URLs, relative to the site root, e.g. if this file is in branch 7.0
@@ -178,6 +179,8 @@ latexDashes = true
   # version or up one level to get to the latest.
   # The entry for the version this file is on should always be just "/", so it doesn't go anywhere.
   # This makes merging up a royal pain.
+
+  # <<<VERSIONS_BLOCK_START>>> Used by ci_build.sh, everything inside will be auto generated or removed during CI build
 
   # latest version served from site root
   [[params.versions]]
