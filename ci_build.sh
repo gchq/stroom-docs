@@ -116,20 +116,26 @@ replace_versions_block() {
       ver="${ver} (Latest)"
     fi
 
-    new_content="${new_content}\\\\n\\\\n  [[params.versions]]"
-    new_content="${new_content}\\\\n    version = \"${ver}\""
-    new_content="${new_content}\\\\n    url = \"${url}\""
+    new_content="${new_content}\n\n  [[params.versions]]"
+    new_content="${new_content}\n    version = \"${ver}\""
+    new_content="${new_content}\n    url = \"${url}\""
   done
 
-  new_content="${new_content}\\\\n"
+  new_content="${new_content}\n"
   echo -e "new_content:\n${new_content}"
+
+  # Export it to an env var so perl can readit from there to avoid
+  # a load of escaping and control character issues by being
+  # able to use a single quoted perl command.
+  # shellcheck disable=SC2155
+  export new_content="$(echo -e "${new_content}")"
 
   # Replace everything inside the two tags with new_content
   perl \
     -0777 \
     -i \
     -pe \
-    "s/^([\\t ]*#[\\t ]*<<<VERSIONS_BLOCK_START>>>[^\\n]*\\n).*(\\n[^\\n]*<<<VERSIONS_BLOCK_END>>>[^\\n]*)\$/\$1${new_content}\$2/gsm" \
+    's/^([\t ]*#[\t ]*<<<VERSIONS_BLOCK_START>>>[^\n]*\n).*(\n[^\n]*<<<VERSIONS_BLOCK_END>>>[^\n]*)$/$1$ENV{new_content}$2/gsm' \
     "${config_file}"
 }
 
