@@ -137,6 +137,10 @@ replace_versions_block() {
     -pe \
     's/^([\t ]*#[\t ]*<<<VERSIONS_BLOCK_START>>>[^\n]*\n).*(\n[^\n]*<<<VERSIONS_BLOCK_END>>>[^\n]*)$/$1$ENV{new_content}$2/gsm' \
     "${config_file}"
+
+  echo -e "${GREEN}Dumping versions section:"
+  awk '/^.*<<<VERSIONS_BLOCK_START>>>.*$/,/^.*<<<VERSIONS_BLOCK_END>>>.*$/' \
+    "${config_file}"
 }
 
 build_version_from_source() {
