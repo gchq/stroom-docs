@@ -1,0 +1,781 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.95.0" />
+<link rel="canonical" type="text/html" href="../../../releases/v07.08/">
+<meta name="robots" content="index, follow">
+
+
+
+<link rel="shortcut icon" href="../../../favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="../../../favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="../../../favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="../../../favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="../../../favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../../favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
+
+<title>Version 7.8 | Stroom</title>
+<meta name="description" content="Key new features and changes present in v7.8 of Stroom and Stroom-Proxy.
+">
+<meta property="og:title" content="Version 7.8" />
+<meta property="og:description" content="Key new features and changes present in v7.8 of Stroom and Stroom-Proxy.
+" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/releases/v07.08/" /><meta property="og:site_name" content="Stroom" />
+
+<meta itemprop="name" content="Version 7.8">
+<meta itemprop="description" content="Key new features and changes present in v7.8 of Stroom and Stroom-Proxy.
+"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Version 7.8"/>
+<meta name="twitter:description" content="Key new features and changes present in v7.8 of Stroom and Stroom-Proxy.
+"/>
+
+
+
+
+<link rel="preload" href="../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" as="style">
+<link href="../../../scss/main.min.c9c2acb16647e4c0a24660355bfca96b0ec94226f4c0568ac7b0913f56303345.css" rel="stylesheet" integrity="">
+
+
+<script src='../../../js/jquery-3.6.0.min.js'></script>
+
+
+<script src='../../../js/lunr.min.js'></script>
+  
+<link rel="stylesheet" href="../../../css/prism.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/icon-colours.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/material_design_colors.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-root.css"/>
+<link rel="stylesheet" href="../../../css/stroom-ui/theme-dark.css"/>
+
+
+
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+  <a class="navbar-brand" href="../../../"><span class="navbar-brand__logo navbar-logo"><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="110.61089" height="30.000004" viewBox="0 0 88.488641 23.999957" id="svg2" inkscape:version="0.91 r13725" sodipodi:docname="logo.svg"><defs id="defs20"/><sodipodi:namedview pagecolor="#989898" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1137" id="namedview18" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="5.5951814" inkscape:cx="55.451414" inkscape:cy="16.275348" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" inkscape:current-layer="svg2"/><g id="g4150" style="opacity:.97000002" transform="matrix(0.03883584,0,0,0.03883584,0,-3.1155874e-4)"><path id="path6" d="M121.99991 205.98497C54.999958 205.98497.0 259.98493.0 327.98487c0 66.99994 54.999958 121.99989 121.99991 121.99989h167.99987c24.99998.0 44.99996 20.99998 44.99996 44.99996.0 24.99998-19.99998 44.99996-44.99996 44.99996H109.20929C65.984126 553.87219 27.100843 581.57313.01093599 617.98462H289.99978c66.99994.0 121.99991-54.99996 121.99991-122.9999.0-66.99994-54.99997-121.99989-121.99991-121.99989H121.99991c-24.999984.0-44.999969-19.99999-44.999969-44.99996.0-24.99998 19.999985-44.99996 44.999969-44.99996h228.79045c26.9905-35.88325 65.47093-63.18547 108.21554-76.99994H121.99991z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path8" d="M601.44485-.00077860649C572.6583 8.3697982 546.49491 22.822962 524.44491 41.902305V205.78969l.002.19528h-.002c-65.11 48e-5-123.03145 30.0199-160.74675 76.99994h160.74675v334.99971h76.99994V282.98491h144.85298c27.16134-36.05885 65.96411-63.39275 109.02184-76.99994H601.44485v-205.98574860649z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path10" d="m919.42586 205.98497c-113.99519.0-205.99537 92.00648-206.00296 205.99982-15e-5 68.67178.0 137.32749.0 205.99983h77.99994c-.012-68.6493.0176-137.46869.0-205.99983.0846-70.92785 57.05747-128.99988 128.00462-128.99988 5.28623.0 10.49823.32864 15.62183.95311 18.2219-24.51229 41.78461-45.0838 68.42501-60.15146-25.65065-11.43799-54.08662-17.80159-84.04684-17.80159z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path12" d="m1109.4153 205.98457c-113.99994.0-205.99983 91.99993-205.99983 205.99984.0 112.9999 91.99989 205.9998 205.99983 205.9998 114 0 205.9999-92.9999 205.9999-205.9998.0-113.99991-91.9999-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.99994-56.99996-128.99994-127.9999.0-70.99995 58.00004-128.9999 128.99994-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path14" d="m1444.4737 205.98457c-113.9999.0-205.9998 91.99993-205.9998 205.99984.0 112.9999 91.9999 205.9998 205.9998 205.9998s205.9999-92.9999 205.9999-205.9998c0-113.99991-92-205.99984-205.9999-205.99984zm0 333.99974c-70.9999.0-128.9999-56.99996-128.9999-127.9999.0-70.99995 58-128.9999 128.9999-128.9999 71 0 128.9999 57.99995 128.9999 128.9999.0 70.99994-57.9999 127.9999-128.9999 127.9999z" style="fill:#fff" inkscape:connector-curvature="0"/><path id="path16" d="m1738.5308 379.98447c0-53 43-97 95.9999-97 53 0 97 44 97 97v237.9997h76.9999v-237.9997c0-53 43-97 96.9999-97 53 0 95.9999 44 95.9999 97v237.9997h77v-237.9997c0-96-77-173.9999-172.9999-173.9999-54.9999.0-103.9999 24.99998-135.9999 64.99995-31.9999-39.99997-79.9999-64.99995-134.9999-64.99995-95.9999.0-173.9998 77.9999-173.9998 173.9999v237.9997h77.9999z" style="fill:#fff" inkscape:connector-curvature="0"/></g></svg></span><span class="navbar-brand__name">Stroom</span></a>
+  <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+    <ul class="navbar-nav mt-2 mt-lg-0">
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../about/about/"><span>About</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../docs/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link active" href="../../../releases/"><span class="active">Releases Notes</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../community/"><span>Community</span></a>
+      </li>
+      <li class="nav-item mr-4 mb-2 mb-lg-0">
+        <a class="nav-link" href="../../../news/"><span>News</span></a>
+      </li>
+      <li class="nav-item dropdown mr-4 d-none d-lg-block">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Stroom Version (7.8)
+</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	
+	
+	
+	<a class="dropdown-item" href="">7.8 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.7 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.6 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.5 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.4 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.3 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.2 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.1 (Latest)</a>
+	
+	<a class="dropdown-item" href="">7.0 (Latest)</a>
+	
+	<a class="dropdown-item" href="">Legacy (Latest)</a>
+	
+</div>
+</li>
+      </ul>
+  </div>
+  <div class="navbar-nav d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="../../../offline-search-index.e3ca25d0c47a7848a060e5448379768d.json"
+    data-offline-search-base-href="../../../"
+    data-offline-search-max-results="50"
+  >
+</div>
+
+  </div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="../../../releases/v07.08/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Version 7.8</h1>
+<div class="lead">Key new features and changes present in v7.8 of Stroom and Stroom-Proxy.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-36f26332477e95fd7d4e6716582b9d18">New Features</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-0917e69d2b4c70b961ac6dfe952db4c0">Preview Features (experimental)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-deb4843bf1591665121419524ac2e136">Breaking Changes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-1d0fc2558492bbd982b75d2768d18757">Upgrade Notes</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-ca9ba6dd3ee8ee4ebc0ec800f897dce0">Change Log</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.'; ">
+    
+  <h1 id="pg-36f26332477e95fd7d4e6716582b9d18">1 - New Features</h1>
+    <div class="lead">New features in Stroom version 7.8.</div>
+	<h2 id="new-stroom-proxy-implementation">New Stroom-Proxy implementation</h2>
+<p>Stroom-Proxy has been re-written to fundamentally change the way it works internally.
+This is to improve performance over previous Stroom-Proxy implementations and to make it more robust.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    
+
+</div>
+
+<h2 id="reporting">Reporting</h2>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    
+
+</div>
+
+<h2 id="apache-http-client">Apache HTTP Client</h2>
+<p>Previous versions of Stroom and Stroom-Proxy used a variety of HTTP clients for making HTTP requests, e.g. from the 
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+    
+    
+
+    
+      
+      
+      
+
+      
+      <a href="../../../docs/reference-section/pipeline-elements#httpappender" class="" style="" title="">
+        <span class="stroom-theme-dark pipeline-element" title="HTTPAppender &#34;HTTPAppender&#34;" >
+          <span class="pipeline-element-content" >
+            <span class="pipeline-element-icon">
+              <span class="stroom-icon inline-svg-button icon-button  " >
+    <span class="face" title="Stream"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M 499.42773 349.50586 C 471.2255 349.65535 443.05802 352.21777 415.25195 357.10156 C 314.29291 374.83377 218.08985 423.16111 142.17383 497.58398 C 120.16923 517.22845 82.017578 562.56836 82.017578 562.56836 L 17.439453 647.62891 C 11.715074 655.16906 9.4362619 663.20332 10.603516 671.73047 C 11.770779 680.25761 16.123954 687.38299 23.664062 693.10742 L 178.77539 810.86523 C 186.3155 816.58967 194.34977 818.87035 202.87695 817.70312 C 211.40415 816.53588 218.95139 812.4832 224.25391 804.64062 C 252.73415 758.03917 266.71282 735.64156 320.53711 677.81836 C 409.46174 596.02665 519.53665 566.34857 644.56055 635.73047 C 814.48739 738.37221 971.75585 900.37132 1180.918 905.55859 C 1209.7108 905.57829 1251.7809 901.38952 1283.5625 895.00391 C 1384.5214 877.27168 1480.7245 828.94644 1556.6406 754.52344 C 1578.6452 734.87902 1616.7969 689.53906 1616.7969 689.53906 L 1681.375 604.47852 C 1687.0993 596.93839 1689.3762 588.90409 1688.209 580.37695 C 1687.0417 571.8498 1682.6905 564.72444 1675.1504 559 L 1520.0391 441.24219 C 1512.499 435.51777 1504.4646 433.23706 1495.9375 434.4043 C 1487.4102 435.57155 1479.8631 439.62422 1474.5605 447.4668 C 1446.0803 494.06826 1432.1016 516.46587 1378.2773 574.28906 C 1348.8635 601.34351 1316.4063 622.69518 1281.6191 636.6543 C 1067.6463 709.61943 913.77105 505.66893 745.44531 415.86719 C 668.96293 370.33416 584.03444 349.05738 499.42773 349.50586 z M 594.88477 897.21094 C 566.68253 897.36043 538.51505 899.92285 510.70898 904.80664 C 409.74993 922.53885 313.54689 970.86407 237.63086 1045.2871 C 215.62627 1064.9315 177.47266 1110.2734 177.47266 1110.2734 L 112.89648 1195.332 C 107.1721 1202.8722 104.89329 1210.9084 106.06055 1219.4355 C 107.22781 1227.9627 111.58098 1235.086 119.12109 1240.8105 L 274.23242 1358.5684 C 281.77254 1364.2928 289.80483 1366.5734 298.33203 1365.4062 C 306.85921 1364.239 314.4084 1360.1864 319.71094 1352.3438 C 348.19118 1305.7423 362.16986 1283.3466 415.99414 1225.5234 C 504.91877 1143.7317 614.99368 1114.0536 740.01758 1183.4355 C 909.94442 1286.0772 1067.2128 1448.0744 1276.375 1453.2617 C 1305.1678 1453.2817 1347.2362 1449.0945 1379.0176 1442.709 C 1479.9765 1424.9767 1576.1817 1376.6515 1652.0977 1302.2285 C 1674.1023 1282.584 1712.2539 1237.2441 1712.2539 1237.2441 L 1776.832 1152.1836 C 1782.5562 1144.6434 1784.8333 1136.6091 1783.666 1128.082 C 1782.4987 1119.5548 1778.1456 1112.4295 1770.6055 1106.7051 L 1615.4941 988.94727 C 1607.9538 983.22287 1599.9217 980.94208 1591.3945 982.10938 C 1582.8673 983.27657 1575.3182 987.32927 1570.0156 995.17188 C 1541.5354 1041.7734 1527.5567 1064.169 1473.7324 1121.9922 C 1444.3187 1149.0467 1411.8635 1170.4003 1377.0762 1184.3594 C 1163.1036 1257.3246 1009.2262 1053.3739 840.90039 963.57227 C 764.41799 918.0392 679.49147 896.76246 594.88477 897.21094 z "/></svg></span>
+  </span>
+            </span>
+            <span class="pipeline-element-text">HTTPAppender</span>
+          </span>
+        </span>
+      </a>
+
+      
+      <span class="USED FOR SPLITTING" ></span>
+
+    
+  
+
+
+
+
+
+
+.
+These have been standardised to all use the Apache HTTP client which means a consistent set of configuration can be used.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    
+
+</div>
+
+<h2 id="receipt-id">Receipt ID</h2>
+<p>A new meta attribute (<code>ReceiptId</code>) has been added to Stroom and Stroom-Proxy to provide a unique identifier for each request received.</p>
+<p>The format of this attribute has been made to make it more useful to administrators, while still being unique across the environment that the Stroom and Stroom-Proxy instances are deployed in.</p>
+<p>The format is as follows:</p>
+<p><code>&lt;timestamp&gt;_&lt;seq no&gt;_&lt;(P|S)&gt;_&lt;proxyId or stroom nodeName&gt;</code></p>
+<ul>
+<li><code>&lt;timestamp&gt;</code> - The receipt timestamp in milliseconds since the <span class="glossary-link">
+  <a href="../../../docs/glossary/#unix-epoch" title="Glossary entry for Unix Epoch">
+    <span>Unix Epoch</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>, zero padded.</li>
+<li><code>&lt;seq no&gt;</code> - This is zero padded four digit sequential number (starting at <code>0000</code>) that is used to distinguish between multiple receipt events happening during the same millisecond.</li>
+<li><code>&lt;P|S&gt;</code> - Indicates whether the item was received by Stroom (<code>S</code>) or Stroom-Proxy (<code>P</code>).</li>
+<li><code>&lt;proxyId or stroom nodeName&gt;</code> - For Stroom-Proxy this will be the <code>proxyId</code> that is either set in configuration to uniquely identify a proxy instance or is one of the FQDN/IP.
+For Stroom this is the node name of the Stroom instance.</li>
+</ul>
+<p>An example Receipt ID is <code>0000001738332835967_0000_P_node1</code></p>
+<p>The new format is useful for tracing the flow of data through a chain of proxies as it will be included in receive and send logs as well as being written to the meta attributes.</p>
+<p>In addition to <code>ReceiptId</code> we also have <code>ReceiptIdPath</code> which will have a <code>ReceiptId</code> appended to it on each receipt (comma delimited).</p>
+<p>To ensure uniqueness of these IDs across the estate, ProxyIDs should be unique within the environment that data will flow.
+The same is true for Stroom node names.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-0917e69d2b4c70b961ac6dfe952db4c0">2 - Preview Features (experimental)</h1>
+    <div class="lead">Preview features in Stroom version 7.8. Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.</div>
+	<p>There are no preview features in v7.8.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-deb4843bf1591665121419524ac2e136">3 - Breaking Changes</h1>
+    <div class="lead">Changes in Stroom version 7.8 that may break existing processing or ways of working.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Please read this section carefully in case any of the changes affect you.
+
+</div>
+
+
+<h2 id="stroom-proxy">Stroom-Proxy</h2>
+<p>The new implementation of Stroom-Proxy is not compatible with previous versions.
+It uses a different structure for its local repository.
+Therefor you <strong>CANNOT</strong> deploy Stroom-Proxy v7.8 on top of a previous Stroom-Proxy version as it will be unable to process existing stored data that has not yet been forwarded.</p>
+<p>You have two options:</p>
+<ol>
+<li>
+<p>Run the old and new in parallel until the old one has processed all its data, then shutdown and uninstall the old one.</p>
+</li>
+<li>
+<p>Prevent data going to the old Stroom-Proxy and allow it to process all its data.
+Shut it down and remove the installation.
+Install the new v7.8 Stroom-Proxy.
+Allow data to flow in again.</p>
+</li>
+</ol>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-1d0fc2558492bbd982b75d2768d18757">4 - Upgrade Notes</h1>
+    <div class="lead">Required actions and information relating to upgrading to Stroom version 7.8.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    Please read this section carefully in case any of it is relevant to your Stroom instance.
+
+</div>
+
+
+<h2 id="java-version">Java Version</h2>
+<p>Stroom v7.8 requires Java 21.
+This is the same java version as Stroom v7.7.
+Ensure the Stroom and Stroom-Proxy hosts are running the latest patch release of Java v21.</p>
+<h2 id="configuration-file-changes">Configuration File Changes</h2>
+<!--
+Check changes using something like this:
+old_ver=7.6
+new_ver=7.7
+git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/src/test/resources/stroom/config/app/expected.yaml
+git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
+-->
+<h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
+<h4 id="plan-b-state-store">Plan B State Store</h4>
+<p>The following block of config has been added for the experimental Plan B State Store.</p>
+<pre><code class="language-yml">appConfig:
+  planb:
+    minTimeToKeepEnvOpen: &quot;PT1M&quot;
+    minTimeToKeepSnapshots: &quot;PT10M&quot;
+    nodeList: []
+    path: &quot;${stroom.home}/planb&quot;
+    snapshotRetryFetchInterval: &quot;PT1M&quot;
+    stateDocCache:
+      expireAfterAccess: null
+      expireAfterWrite: &quot;PT10M&quot;
+      maximumSize: 100
+      refreshAfterWrite: null
+</code></pre>
+<h4 id="reporting">Reporting</h4>
+<p>The following block of config has been added for the new reporting feature.</p>
+<pre><code class="language-yml">appConfig:
+  ui:
+    reportUiDefaultConfig:
+      defaultBodyTemplate: &quot;&lt;!DOCTYPE html&gt;\n&lt;html lang=\&quot;en\&quot;&gt;\n&lt;meta charset=\&quot;\
+        UTF-8\&quot; /&gt;\n&lt;title&gt;Report '{{ reportName | escape }}'&lt;/title&gt;\n&lt;body&gt;\n &lt;p&gt;&lt;em&gt;Report:\
+        \ {{ reportName | escape }}&lt;/em&gt;  executed for {{ effectiveExecutionTime |\
+        \ escape }} on {{ executionTime | escape }}&lt;/p&gt;\n &lt;p&gt;&lt;em&gt;Description:&lt;/em&gt;\
+        \  {{ description | escape }}&lt;/p&gt;\n&lt;/body&gt;\n&quot;
+      defaultSubjectTemplate: &quot;Report '{{ reportName | escape }}'&quot;
+</code></pre>
+<h4 id="openid-http-client">OpenID HTTP Client</h4>
+<p>Added the property <code>httpClient</code> for configuring the HTTP client used to fetch the <span class="glossary-link">
+  <a href="../../../docs/glossary/#identity-provider-idp" title="Glossary entry for IDP&#39;s">
+    <span>IDP&#39;s</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> configuration.</p>
+<pre><code class="language-yml">  security:
+    authentication:
+      openId:
+        httpClient: null
+</code></pre>
+<h3 id="stroom-proxys-configyml">Stroom-Proxy&rsquo;s <code>config.yml</code></h3>
+<p>The configuration for proxy has changed significantly since the last stable release of Stroom-Proxy (7.0.x) so it is advised to look at the default Stroom-Proxy configuration that comes with the distribution.</p>
+<h2 id="database-migrations">Database Migrations</h2>
+<p>When Stroom boots for the first time with a new version it will run any required database migrations to bring the database schema up to the correct version.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    It is highly recommended to ensure you have a database backup in place before booting stroom with a new version.
+This is to mitigate against any problems with the migration.
+It is also recommended to test the migration against a copy of your database to ensure that there are no problems when you do it for real.
+
+</div>
+
+
+<p>On boot, Stroom will ensure that the migrations are only run by a single node in the cluster.
+This will be the node that reaches that point in the boot process first.
+All other nodes will wait until that is complete before proceeding with the boot process.</p>
+<p>It is recommended however to use a single node to execute the migration.
+To avoid Stroom starting up and beginning processing you can use the <code>migrage</code> command to just migrate the database and not fully boot Stroom.
+See <a href="../../../docs/user-guide/tools/command-line/#migrate"><code>migrage</code> command</a> for more details.</p>
+<!-- 
+Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
+this section
+-->
+<h3 id="migration-scripts">Migration Scripts</h3>
+<p>There are no database migrations in v7.8.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-ca9ba6dd3ee8ee4ebc0ec800f897dce0">5 - Change Log</h1>
+    <div class="lead">Full list of changes in this release.</div>
+	<!--
+To build this list run diff_changelog.sh in the root of the stroom repo.
+E.g. ./diff_changelog.sh 7.4 7.5 | sed -E -e 's/^/\n/' -e 's|Issue \*\*#([0-9]+)\*\*|Issue **
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/%5c1" target="_blank" class="" style="" title="#\1 (external link to https://github.com/gchq/stroom/issues/\1)">
+    <span>#\1</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+**|g'
+-->
+<ul>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4682" target="_blank" class="" style="" title="#4682 (external link to https://github.com/gchq/stroom/issues/4682)">
+    <span>#4682</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Improve Plan B filter error handling.</p>
+</li>
+<li>
+<p>Change <code>receiptId</code> format to <code>&lt;epoch ms&gt;_&lt;seq no&gt;_&lt;(P|S)&gt;_&lt;proxyId or stroom nodeName&gt;</code>. <code>P|S</code> represents stroom or Proxy.</p>
+</li>
+<li>
+<p>Change stroom to also set the <code>receiptId</code> meta attribute on receipt or upload.</p>
+</li>
+<li>
+<p>Change proxy logging to still log datafeed events even if the <code>metaKeys</code> config prop is empty.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4695" target="_blank" class="" style="" title="#4695 (external link to https://github.com/gchq/stroom/issues/4695)">
+    <span>#4695</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Change proxy to re-create the proxy ID in proxy-id.txt if the value in there does not match the required pattern.</p>
+</li>
+<li>
+<p>Fix the sleep time in UniqueIdGenerator (from 50ms to 0.1ms).</p>
+</li>
+<li>
+<p>Fix tests that were breaking the build.</p>
+</li>
+<li>
+<p>Change the format of proxy receiptIds. They now look like <code>0000001736533752496_0000_TestProxy</code> with the first part being the epoch millis for when it was generated and the last part is the proxy ID.</p>
+</li>
+<li>
+<p>Change default <code>identityProviderType</code> to <code>INTERNAL_IDP</code> in stroom prod config.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4661" target="_blank" class="" style="" title="#4661 (external link to https://github.com/gchq/stroom/issues/4661)">
+    <span>#4661</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Use Apache HttpClient.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/4378" target="_blank" class="" style="" title="#4378 (external link to https://github.com/gchq/stroom/issues/4378)">
+    <span>#4378</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : Add reporting.</p>
+</li>
+<li>
+<p>Issue <strong>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/issues/2201" target="_blank" class="" style="" title="#2201 (external link to https://github.com/gchq/stroom/issues/2201)">
+    <span>#2201</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</strong> : New proxy implementation.</p>
+</li>
+</ul>
+
+</div>
+
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="text-white" target="_blank" rel="noopener" href="https://github.com/gchq/stroom" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2025 Crown Copyright All Rights Reserved</small>
+        
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+<script src='../../../js/popper.min.js'></script>
+<script src='../../../js/bootstrap.min.js'></script>
+
+
+
+
+
+
+<script src='../../../js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../../js/main.min.cbc1d428d83561c4dec32da9374290554119d7483329f849251cb7153b2ecd07.js" integrity="sha256-y8HUKNg1YcTewy2pN0KQVUEZ10gzKfhJJRy3FTsuzQc=" crossorigin="anonymous"></script>
+
+
+
+<script src='../../../js/prism.js'></script>
+
+
+
+  </body>
+</html>
