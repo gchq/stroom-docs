@@ -112,7 +112,7 @@ replace_versions_block() {
       fi
     fi
 
-    if [[ "${branch_name}" = "${latest_version}" ]]; then
+    if [[ "${version}" = "${latest_version}" ]]; then
       version_prop="${version_prop} (Latest)"
     fi
 
