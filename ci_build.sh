@@ -137,6 +137,10 @@ replace_versions_block() {
     -pe \
     's/^([\t ]*#[\t ]*<<<VERSIONS_BLOCK_START>>>[^\n]*\n).*(\n[^\n]*<<<VERSIONS_BLOCK_END>>>[^\n]*)$/$1$ENV{new_content}$2/gsm' \
     "${config_file}"
+
+  echo -e "${GREEN}Dumping versions section:"
+  awk '/^.*<<<VERSIONS_BLOCK_START>>>.*$/,/^.*<<<VERSIONS_BLOCK_END>>>.*$/' \
+    "${config_file}"
 }
 
 build_version_from_source() {
@@ -192,10 +196,10 @@ build_version_from_source() {
       --regexp-extended \
       --expression "s|^\s*build_version\s*=.*|  build_version = \"${BUILD_TAG:-SNAPSHOT}\"|" \
       --expression "s|^\s*archived_version\s*=.*|  archived_version = ${is_archived_version}|" \
-      --expression "s|^\s*version_menu\s*=.*|  version_menu = \"Stroom Version (${version_name})|" \
-      --expression "s|^\s*version\s*=.*|  version = \"${branch_name}|" \
-      --expression "s|^\s*latest_version\s*=.*|  latest_version = \"${latest_version}|" \
-      --expression "s|^\s*github_branch\s*=.*|  github_branch = \"${branch_name}|" \
+      --expression "s|^\s*version_menu\s*=.*|  version_menu = \"Stroom Version (${version_name})\"|" \
+      --expression "s|^\s*version\s*=.*|  version = \"${branch_name}\"|" \
+      --expression "s|^\s*latest_version\s*=.*|  latest_version = \"${latest_version}\"|" \
+      --expression "s|^\s*github_branch\s*=.*|  github_branch = \"${branch_name}\"|" \
       "${config_file_backup}" \
       > "${config_file}"
 
