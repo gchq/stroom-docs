@@ -196,10 +196,10 @@ build_version_from_source() {
       --regexp-extended \
       --expression "s|^\s*build_version\s*=.*|  build_version = \"${BUILD_TAG:-SNAPSHOT}\"|" \
       --expression "s|^\s*archived_version\s*=.*|  archived_version = ${is_archived_version}|" \
-      --expression "s|^\s*version_menu\s*=.*|  version_menu = \"Stroom Version (${version_name})|" \
-      --expression "s|^\s*version\s*=.*|  version = \"${branch_name}|" \
-      --expression "s|^\s*latest_version\s*=.*|  latest_version = \"${latest_version}|" \
-      --expression "s|^\s*github_branch\s*=.*|  github_branch = \"${branch_name}|" \
+      --expression "s|^\s*version_menu\s*=.*|  version_menu = \"Stroom Version (${version_name})\"|" \
+      --expression "s|^\s*version\s*=.*|  version = \"${branch_name}\"|" \
+      --expression "s|^\s*latest_version\s*=.*|  latest_version = \"${latest_version}\"|" \
+      --expression "s|^\s*github_branch\s*=.*|  github_branch = \"${branch_name}\"|" \
       "${config_file_backup}" \
       > "${config_file}"
 
