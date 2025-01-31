@@ -116,12 +116,12 @@ replace_versions_block() {
       ver="${ver} (Latest)"
     fi
 
-    new_content="${new_content}\\n\\n  [[params.versions]]"
-    new_content="${new_content}\\n    version = \"${ver}\""
-    new_content="${new_content}\\n    url = \"${url}\""
+    new_content="${new_content}\\\\n\\\\n  [[params.versions]]"
+    new_content="${new_content}\\\\n    version = \"${ver}\""
+    new_content="${new_content}\\\\n    url = \"${url}\""
   done
 
-  new_content="${new_content}\\n"
+  new_content="${new_content}\\\\n"
   echo -e "new_content:\n${new_content}"
 
   # Replace everything inside the two tags with new_content
