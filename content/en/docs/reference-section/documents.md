@@ -179,6 +179,14 @@ The Lucene Index Document is used by the {{< pipe-elm \"IndexingFilter\" >}} and
 {{% see-also %}}[Lucene Indexes]({{< relref "docs/user-guide/indexing/lucene" >}}){{% /see-also %}}
 
 
+### Plan B
+
+* Icon: {{< stroom-icon "document/PlanB.svg" >}}
+* Type: `PlanB`
+
+Defines a place to store state
+
+
 ### Solr Index
 
 * Icon: {{< stroom-icon "document/SolrIndex.svg" >}}
@@ -262,6 +270,15 @@ For ad-hoc querying of data from one data source, you are recommended to use a [
 
 A Query Document defines a {{< glossary "StroomQL" >}} query and is used to execute that query and view its results.
 A Query can query main types of data source including [Views]({{< relref "#view" >}}), [Lucene Indexes]({{< relref "#lucene-index" >}}), and {{< glossary "searchable" "Searchables" >}}.
+
+
+### Report
+
+* Icon: {{< stroom-icon "document/Report.svg" >}}
+* Type: `Report`
+
+Defines a report that can be run at scheduled intervals and sent to individuals via email.
+The criteria is defined using a StroomQL query.
 
 
 ### View
