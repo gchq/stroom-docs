@@ -58,12 +58,90 @@ element_in() {
   return 1
 }
 
+# Replace everything inside 
+# <<<VERSIONS_BLOCK_START>>>
+# ...
+# <<<VERSIONS_BLOCK_END>>>
+# with one of these blocks per branch
+#
+#  [[params.versions]]
+#    version = "7.3"
+#    url = "/../7.3" 
+replace_versions_block() {
+  local config_file="$1"; shift
+
+  local new_content=""
+
+  # BUILD_BRANCH is the git branch we are building
+  # branch_name is the version that we are trying to add to our
+  # versions block in the config
+  # Each git branch will contain a config file that defines all the versions
+  # but the url to get from one version to another 
+  # NOTE hugo converts "/" into the root of the versioned site,
+  # NOT the root of the whole combined site.
+  local ver
+  local url
+  for branch_name in "${release_branches[@]}"; do
+    # Uppercase legacy if present
+    ver="${branch_name/legacy/Legacy}"
+    url="/../${branch_name}"
+
+    if [[ "${branch_name}" = "${BUILD_BRANCH}" ]]; then
+      # This is the version we are building so it is located at the
+      # versioned site root regardless of where that is.
+      url="/"
+    else
+      # Different version to the branch being built
+      if [[ "${BUILD_BRANCH}" = "${latest_version}" ]]; then
+        # We are building the latest version branch, so our versioned site
+        # is at the combined site root.
+        if [[ "${branch_name}" = "${latest_version}" ]]; then
+          url="/"
+        else
+          url="/${branch_name}"
+        fi
+      else
+        # Building a branch different to branch_name
+        if [[ "${branch_name}" = "${latest_version}" ]]; then
+          # Up one to the combined site root
+          url="/../"
+        else
+          # Up one then back down to a sibling
+          url="/../${branch_name}"
+        fi
+      fi
+    fi
+
+    if [[ "${branch_name}" = "${latest_version}" ]]; then
+      ver="${ver} (Latest)"
+    fi
+
+    new_content="${new_content}\n\n  [[params.versions]]"
+    new_content="${new_content}\n    version = \"${ver}\""
+    new_content="${new_content}\n    url = \"${url}\""
+  done
+
+  new_content="${new_content}\n"
+
+  # Replace everything inside the two tags with new_content
+  perl \
+    -0777 \
+    -i \
+    -pe \
+    "s/^([\\t ]*#[\\t ]*<<<VERSIONS_BLOCK_START>>>[^\\n]*\\n).*(\\n[^\\n]*<<<VERSIONS_BLOCK_END>>>[^\\n]*)\$/\$1${new_content}\$2/gsm" \
+    "${config_file}"
+}
+
 build_version_from_source() {
   local branch_name="${1:-SNAPSHOT}"; shift
   local repo_root="$1"; shift
 
   pushd "${repo_root}"
   
+  local version_name="${branch_name}"
+  if [[ "${version_name}" = "legacy" ]]; then
+    version_name="Legacy"
+  fi
   #local hugo_base_url
   local generated_site_dir="${repo_root}/public"
   local pdf_filename="${BUILD_TAG:-SNAPSHOT}_stroom-${branch_name}.pdf"
@@ -81,6 +159,7 @@ build_version_from_source() {
   echo -e "${GREEN}-----------------------------------------------------${NC}"
   echo -e "${GREEN}Building" \
     "\n  branch_name:            ${BLUE}${branch_name}${GREEN}" \
+    "\n  version_name:           ${BLUE}${version_name}${GREEN}" \
     "\n  branch_head_commit_sha: ${BLUE}${branch_head_commit_sha}${GREEN}" \
     "\n  repo_root:              ${BLUE}${repo_root}${GREEN}" \
     "\n  latest_version:         ${BLUE}${latest_version}${GREEN}"
@@ -88,6 +167,7 @@ build_version_from_source() {
   echo -e "${GREEN}-----------------------------------------------------${NC}"
 
   if [[ -n "${BUILD_TAG}" ]]; then
+    echo "::group::Config modification"
     local config_file="${repo_root}/${CONFIG_FILENAME}"
     echo -e "${GREEN}Updating config file ${BLUE}${config_file}${GREEN}" \
       "(build_version=${BUILD_TAG:-SNAPSHOT})${NC}"
@@ -97,14 +177,27 @@ build_version_from_source() {
       is_archived_version="false"
     fi
 
-    # Make sure all non-latest brances are marked as archived so they get
-    # the banner
+    config_file_backup="${config_file}.bak"
+    cp "${config_file}" "${config_file_backup}"
+    # Set all the version related config props based on the branch we are
+    # building and whether it is the latest version or not
     sed \
-      --in-place'' \
       --regexp-extended \
-      --expression "s/^  build_version *=.*/  build_version = \"${BUILD_TAG:-SNAPSHOT}\"/" \
-      --expression "s/^  archived_version *=.*/  archived_version = ${is_archived_version}/" \
-      "${config_file}"
+      --expression "s|^\s*build_version\s*=.*|  build_version = \"${BUILD_TAG:-SNAPSHOT}\"|" \
+      --expression "s|^\s*archived_version\s*=.*|  archived_version = ${is_archived_version}|" \
+      --expression "s|^\s*version_menu\s*=.*|  version_menu = \"Stroom Version (${version_name})|" \
+      --expression "s|^\s*version\s*=.*|  version = \"${branch_name}|" \
+      --expression "s|^\s*latest_version\s*=.*|  latest_version = \"${latest_version}|" \
+      --expression "s|^\s*github_branch\s*=.*|  github_branch = \"${branch_name}|" \
+      "${config_file_backup}" \
+      > "${config_file}"
+
+    replace_versions_block "${config_file}"
+
+    echo -e "${GREEN}Diffing config file changes" \
+      "${BLUE}${config_file_backup}${GREEN} => ${BLUE}${config_file}${NC}"
+    diff --color "${config_file_backup}" "${config_file}"
+    echo "::endgroup::"
   fi
 
   # Don't want sections like news|community in the old versions
@@ -654,7 +747,6 @@ populate_release_brances_arr() {
       "${GIT_API_URL}/branches" \
       | jq -r '.[] | select(.name | test("^(legacy$|[0-9]+\\.[0-9]+$)")) | .name')
 
-  echo -e "release_branches:      [${GREEN}${release_branches[*]}${NC}]"
 
   if [[ "${#release_branches[@]}" -eq 0 ]]; then
     echo "Error no release branches found. Dumping branches:"
@@ -668,16 +760,31 @@ populate_release_brances_arr() {
     exit 1
   fi
 
-  # print array, null delimited
+  # print array, \n delimited
   # Get just the 123.456 ones
-  # Sort them by major then minor part
-  # Get the biggest one
-  latest_version="$( \
+  # Numerically (n) reverse (r) sort them by major then minor part
+  local line_delim_numeric_branches
+  line_delim_numeric_branches="$( \
     printf '%s\n' "${release_branches[@]}" \
     | grep -E "^[0-9]+\.[0-9]+$" \
-    | sort -t . -k 1,1n -k 2,2n \
-    | tail -n1)"
+    | sort --reverse --field-separator . --key 1,1nr --key 2,2nr \
+  )"
 
+  # Clear it out and re-populate it in order, newest first
+  release_branches=()
+  for branch in ${line_delim_numeric_branches}; do
+    release_branches+=( "${branch}" )
+  done
+
+  # Add the legacy branch back in if there
+  if element_in "legacy" "${release_branches[@]}"; then
+    release_branches+=( "legacy" )
+  fi
+
+  # First one in arr is the latest version
+  latest_version="${release_branches[0]}"
+
+  echo -e "release_branches:      [${GREEN}${release_branches[*]}${NC}]"
   echo -e "latest_version:        [${GREEN}${latest_version}${NC}]"
 }
 
