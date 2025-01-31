@@ -94,7 +94,7 @@ Contains a Javascript script that is used as the source for a [visualisation]({{
 Scripts can have dependencies on other Script Documents, e.g. to allow re-use of common code.
 
 
-### ScyllaDB
+### Scylla DB
 
 * Icon: {{< stroom-icon "document/ScyllaDb.svg" >}}
 * Type: `ScyllaDB`
