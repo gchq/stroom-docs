@@ -138,9 +138,11 @@ replace_versions_block() {
     's/^([\t ]*#[\t ]*<<<VERSIONS_BLOCK_START>>>[^\n]*\n).*(\n[^\n]*<<<VERSIONS_BLOCK_END>>>[^\n]*)$/$1$ENV{new_content}$2/gsm' \
     "${config_file}"
 
-  echo -e "${GREEN}Dumping versions section:"
-  awk '/^.*<<<VERSIONS_BLOCK_START>>>.*$/,/^.*<<<VERSIONS_BLOCK_END>>>.*$/' \
-    "${config_file}"
+  #echo -e "${GREEN}Dumping versions section:"
+  #awk '/^.*<<<VERSIONS_BLOCK_START>>>.*$/,/^.*<<<VERSIONS_BLOCK_END>>>.*$/' \
+    #"${config_file}"
+  echo -e "${GREEN}Dumping config file ${BLUE}${config_file}${GREEN}:${NC}"
+  cat "${config_file}"
 }
 
 build_version_from_source() {
