@@ -447,6 +447,12 @@ TLS is typically used in Stroom for communications between Stroom-Proxy and Stro
 A Tracker is associated with a {{< glossary "Processor Filter" >}} and keeps track of the {{< glossary "Stream" "Streams" >}} that the Processor Filter has already processed.
 
 
+## Unix Epoch
+
+The Unix epoch is 00:00:00 UTC on 1st January 1970.
+Some timestamps in Stroom are represented as the number of milliseconds since the Unix epoch, e.g. `1738331628276`, and may be referred to as _epoch ms_ or _epoch milliseconds_.
+
+
 ## User
 
 Refers to a Stroom User that is linked to either an {{< glossary "Account" >}} in Stroom's internal {{< glossary "identity provider idp" "Identity Provider">}} or a user account in an external {{< glossary "identity provider idp" "Identity Provider">}}.
