@@ -118,7 +118,7 @@ replace_versions_block() {
 
     new_content="${new_content}\n\n  [[params.versions]]"
     new_content="${new_content}\n    version = \"${version_prop}\""
-    new_content="${new_content}\n    url_prop = \"${url_prop}\""
+    new_content="${new_content}\n    url = \"${url_prop}\""
   done
 
   new_content="${new_content}\n"
