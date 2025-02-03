@@ -141,8 +141,8 @@ replace_versions_block() {
   #echo -e "${GREEN}Dumping versions section:"
   #awk '/^.*<<<VERSIONS_BLOCK_START>>>.*$/,/^.*<<<VERSIONS_BLOCK_END>>>.*$/' \
     #"${config_file}"
-  echo -e "${GREEN}Dumping config file ${BLUE}${config_file}${GREEN}:${NC}"
-  cat "${config_file}"
+  #echo -e "${GREEN}Dumping config file ${BLUE}${config_file}${GREEN}:${NC}"
+  #cat "${config_file}"
 }
 
 build_version_from_source() {
