@@ -31,6 +31,17 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
 
 ### Stroom's `config.yml`
 
+#### Service Discovery
+
+If your `config.yml` file contains the `serviceDiscovery` branch, you need to remove it as the associated service discovery code has been removed from Stroom.
+If you do not remove it, Stroom will not boot.
+
+```yml
+appConfig:
+  serviceDiscovery:  # Remove this branch
+```
+
+
 #### Plan B State Store
 
 The following block of config has been added for the experimental Plan B State Store.

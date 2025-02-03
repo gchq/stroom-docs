@@ -12,6 +12,13 @@ description: >
 Please read this section carefully in case any of the changes affect you.
 {{% /warning %}}
 
+## Stroom
+
+#### Service Discovery
+
+See [Configuration File Changes (Service Discovery)]({{< relref "./upgrade-notes#service-discovery" >}}).
+
+
 ## Stroom-Proxy
 
 The new implementation of Stroom-Proxy is not compatible with previous versions.
@@ -26,7 +33,4 @@ You have two options:
    Shut it down and remove the installation.
    Install the new v7.8 Stroom-Proxy.
    Allow data to flow in again.
-
-
-
 
