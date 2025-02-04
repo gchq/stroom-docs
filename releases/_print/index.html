@@ -122,7 +122,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.42ad1559e5088c869ffdd23349eb1620.json"
+    data-offline-search-index-json-src="../../offline-search-index.21734a07fc9df6715c57db626386b4c6.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -859,6 +859,9 @@ The same is true for Stroom node names.</p>
 </div>
 
 
+<h2 id="stroom">Stroom</h2>
+<h4 id="service-discovery">Service Discovery</h4>
+<p>See <a href="../../releases/v07.08/upgrade-notes/#service-discovery">Configuration File Changes (Service Discovery)</a>.</p>
 <h2 id="stroom-proxy">Stroom-Proxy</h2>
 <p>The new implementation of Stroom-Proxy is not compatible with previous versions.
 It uses a different structure for its local repository.
@@ -917,6 +920,12 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-config/stroom-config-app/sr
 git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/test/resources/stroom/dist/proxy-expected.yaml
 -->
 <h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
+<h4 id="service-discovery">Service Discovery</h4>
+<p>If your <code>config.yml</code> file contains the <code>serviceDiscovery</code> branch, you need to remove it as the associated service discovery code has been removed from Stroom.
+If you do not remove it, Stroom will not boot.</p>
+<pre><code class="language-yml">appConfig:
+  serviceDiscovery:  # Remove this branch
+</code></pre>
 <h4 id="plan-b-state-store">Plan B State Store</h4>
 <p>The following block of config has been added for the experimental Plan B State Store.</p>
 <pre><code class="language-yml">appConfig:
