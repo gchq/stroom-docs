@@ -18,6 +18,18 @@
 <script src="https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js" integrity="sha512-JERecFUBbsm75UpkVheAuDOE8NdHjQBrPACfEQYPwvPG+fjgCpHAz1Jw2ci9EXmd3DdfiWth3O3CQvcfEg8gsA==" crossorigin="anonymous"></script>
 {{ end }}
 
+<!-- STROOM - This was moved here from head.html to delay its loading -->
+{{ if .Site.Params.offlineSearch -}}
+  {{ if .Site.Params.offline_site }}
+    <script src='{{ "/js/lunr.min.js" | relURL }}'></script>
+  {{ else }}
+    <script
+      src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+      integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+      crossorigin="anonymous"></script>
+  {{ end }}
+{{ end -}}
+
 {{ if .Site.Params.markmap.enable }}
 <style>
 .markmap > svg {
