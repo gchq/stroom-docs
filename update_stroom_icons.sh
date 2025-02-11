@@ -111,7 +111,8 @@ main() {
   local images_base_dir="${stroom_app_resources_ui_dir}/images"
   local css_base_dir="${stroom_app_resources_ui_dir}/css"
   local images_dest_dir="./assets/images/stroom-ui"
-  local css_dest_dir="./static/css/stroom-ui"
+  # Have to go in ./assets/ so they can be minified by hugo
+  local css_dest_dir="./assets/css/stroom-ui"
 
   if [ ! -d "${stroom_repo_root}" ]; then
     echo -e "${RED}ERROR${NC}: Can't find stroom repo root ${BLUE}${stroom_repo_root}${NC}"
