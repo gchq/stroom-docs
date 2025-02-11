@@ -18,6 +18,21 @@
 <meta name="robots" content="noindex, nofollow">
 {{ end -}}
 
+<!-- STROOM: Pre-load the font files as they will be needed as soon as main.css gets loaded -->
+<link rel="preload" href="/fonts/google_open_sans_300.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/fonts/google_open_sans_300i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/fonts/google_open_sans_400.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/fonts/google_open_sans_400i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/fonts/google_open_sans_700.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/fonts/google_open_sans_700i.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/webfonts/fa-brands-400.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin >
+<!--<link rel="preload" href="/webfonts/fa-regular-400.ttf" as="font" type="font/ttf" crossorigin >-->
+<!--<link rel="preload" href="/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin >-->
+<link rel="preload" href="/webfonts/fa-solid-900.ttf" as="font" type="font/ttf" crossorigin >
+<link rel="preload" href="/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin >
+<!--<link rel="preload" href="/webfonts/fa-v4compatibility.ttf" as="font" type="font/ttf" crossorigin >-->
+<!--<link rel="preload" href="/webfonts/fa-v4compatibility.woff2" as="font" type="font/woff2" crossorigin >-->
 
 <!-- STROOM: Add a canonical link so google indexing knows to ignore the old versions -->
 {{ if .Site.Params.archived_version }}
@@ -47,24 +62,24 @@
   integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
   crossorigin="anonymous"></script>
 {{ end }}
-{{ if .Site.Params.offlineSearch -}}
-  {{ if .Site.Params.offline_site }}
-<script src='{{ "/js/lunr.min.js" | relURL }}'></script>
-  {{ else }}
-<script
-  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
-  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
-  crossorigin="anonymous"></script>
-  {{ end }}
-{{ end -}}
+
+<!-- STROOM - Lunr has been moved to partials/scripts.html so that it gets loaded at the end of the page. -->
 
 {{ if .Site.Params.prism_syntax_highlighting -}}
 <link rel="stylesheet" href="{{ "/css/prism.css" | relURL }}"/>
 {{ end -}}
 
-<link rel="stylesheet" href="{{ "/css/stroom-ui/icon-colours.css" | relURL }}"/>
-<link rel="stylesheet" href="{{ "/css/stroom-ui/material_design_colors.css" | relURL }}"/>
-<link rel="stylesheet" href="{{ "/css/stroom-ui/theme-root.css" | relURL }}"/>
+<!-- Minify all the stroom css files -->
+{{ $icon_colours_css := resources.Get "css/stroom-ui/icon-colours.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $icon_colours_css.RelPermalink }}" integrity="{{ $icon_colours_css.Data.Integrity }}">
+{{ $material_design_colors_css := resources.Get "css/stroom-ui/material_design_colors.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $material_design_colors_css.RelPermalink }}" integrity="{{ $material_design_colors_css.Data.Integrity }}">
+{{ $theme_root_css := resources.Get "css/stroom-ui/theme-root.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $theme_root_css.RelPermalink }}" integrity="{{ $theme_root_css.Data.Integrity }}">
+{{/*
+{{ $theme_dark_css := resources.Get "css/stroom-ui/theme-dark.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $theme_dark_css.RelPermalink }}" integrity="{{ $theme_dark_css.Data.Integrity }}">
+*/ -}}
 
 {{/*
 {{ $fonts_css := resources.Get "/css/fonts.css" | minify }}
