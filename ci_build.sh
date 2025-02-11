@@ -736,6 +736,7 @@ prepare_for_release() {
     ./* \
     --exclude '*/stroom-docs-v*.zip' \
     --exclude '*/stroom-docs-v*.pdf'
+
   popd
 
   echo -e "${GREEN}Dumping contents of ${BLUE}${RELEASE_ARTEFACTS_DIR}${NC}"
