@@ -594,7 +594,10 @@ copy_latest_to_root() {
   cp -r "${src}" "${latest_temp_dir}/" 
 
   # Ensure we have index and follow for the latest site content
-  set_meta_robots "${latest_temp_dir}" ""
+  # Don't think we want to do this as we are copying the latest branch
+  # before it has had its robots meta changed, so leave as is, i.e.
+  # all _print pages will have nofollow, while the rest has follow
+  #set_meta_robots "${latest_temp_dir}" ""
 
   # Now move the latest content down to root
   echo -e "${GREEN}Moving contents of ${BLUE}${latest_temp_dir}/${GREEN} to" \
