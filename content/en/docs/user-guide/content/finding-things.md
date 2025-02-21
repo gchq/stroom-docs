@@ -101,11 +101,11 @@ Multiple field matches can be used, each separate by a space.
 E.g:
 
 ```text
-name:^xml name:events$ type:feed
+name:^xml name:$events type:feed
 ```
 In the above example the filter will match on items with a name beginning `xml`, a name ending `events` and a type partially matching `feed`.
 
-All the match terms are combined together with an AND operator.
+All the match terms are combined with an AND operator.
 The same field can be used multiple times in the match.
 The list of filterable fields and their qualifier names (sometimes a shortened form) are listed by clicking on the help icon {{< stroom-icon "help.svg" "Help" >}}.
 
@@ -142,7 +142,7 @@ Also if your match term contains a double quote you can escape it with a `\` cha
 The following would be valid for example.
 
 ```text
-"name:csv splitter" "default field match" "symbol:\""
+name:"csv splitter" "default field match" symbol:"\""
 ```
 
 
@@ -173,11 +173,9 @@ raining spain plain
 
 ### OR Logic
 
-There is no support for combining terms with an OR.
-However you can acheive this using a sinlge regular expression term.
-For example
+Boolean logic can be added using `and`, `or` and `not`, plus brackets to group terms, e.g.:
 
-**User input**: `status:/(disabled|locked)`
+**User input**: `status:disabled or status:locked`
 
 **Will match**: 
 ```text
@@ -272,8 +270,8 @@ bbaadd
 ### Word Boundary Matching
 
 If the user input is prefixed with a `?` character then word boundary matching will be employed.
-This approache uses upper case letters to denote the start of a _word_.
-If you know the some or all of _words_ in the item you are looking for, and their order, then condensing those _words_ down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
+This approach uses upper case letters to denote the start of a _word_.
+If you know some or all of the _words_ in the item you are looking for, and their order, then condensing those _words_ down to their first letters (capitalised) makes this a more targeted way to find what you want than the characters anywhere matching above.
 Words can either be separated by characters like `_- ()[].`, or be distinguished with `lowerCamelCase` or `upperCamelCase` format.
 An upper case letter in the input denotes the beginning of a _word_ and any subsequent lower case characters are treated as contiguously following the character at the start of the word.
 
@@ -398,10 +396,10 @@ Note: Despite the similarity in syntax, this is NOT regular expression matching.
 ### Ends With
 
 
-If the user input is suffixed with a `$` character then a case-insensitive ends with match will be used.
+If the user input is prefixed with a `$` character then a case-insensitive ends with match will be used.
 E.g:
 
-**User input**: `events$`
+**User input**: `$events`
 
 **Will match**:
 
@@ -423,7 +421,7 @@ Note: Despite the similarity in syntax, this is NOT regular expression matching.
 
 If one or more `*` characters are found in the user input then this form of matching will be used.
 
-This form of matching is to support those fields that accept wild-carded values, e.g. a whild-carded feed name expression term.
+This form of matching is to support those fields that accept wild-carded values, e.g. a wild-carded feed name expression term.
 In this instance you are NOT picking a value from the suggestion list but entering a wild-carded value that will be evaluated when the expression/filter is actually used.
 The user may want an expression term that matches on all feeds starting with `XML_`, in which case they would enter `XML_*`.
 To give an indication of what it would match on if the list of feeds remains the same, the list of suggested items will reflect the wild-carded input.
