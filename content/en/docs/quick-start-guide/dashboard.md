@@ -78,7 +78,7 @@ Now we can reverse sort the data in the table by the count.
 
 1. Click on the _Count_ column.
 1. Click  
-   {{< stroom-icon "fields/sortaz.svg">}} _Sort_ => {{< stroom-icon "fields/sortza.svg">}} _Sort Z to A_
+   {{< stroom-icon "fields/sort-ascending.svg">}} _Sort_ => {{< stroom-icon "fields/sort-descending.svg">}} _Sort Z to A_
 
 Now click the large green and white play button to run the query.
 You should see 15 _Applications_ and their counts returned in the table.
