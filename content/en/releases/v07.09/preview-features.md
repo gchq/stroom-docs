@@ -137,7 +137,7 @@ appConfig:
 ### Feed Name Generation
 
 When the property `.receive.feedNameGenerationEnabled` is set to `true`, the `Feed` header is no longer required.
-Instead the meta keys specified in `.receive.feedNameGenerationMandatoryHeaders` become mandatory.
+When data is supplied without the `Feed` header, the meta keys specified in `.receive.feedNameGenerationMandatoryHeaders` become mandatory.
 The property `.receive.feedNameTemplate` is used to control the format of the generated Feed name.
 The template uses values from the headers, so should be configured in tandem with `.receive.feedNameGenerationMandatoryHeaders`.
 If the template parameter is not in the headers, then it will be replaced with nothing.
