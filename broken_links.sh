@@ -98,19 +98,19 @@ verify_http_link() {
 
   # 'http://domain.com/path "title"' => 'http://domain.com/path'  
   local link_url="${link_location%% \"*}"
-  local header_args=()
-
-  # Too many hits on github give a 429 response so add in our token
-  # so we get a higher rate limit
-  if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/.* ]];
-  then
-    echo -e "Adding token to URL ${NC}${link_url}${NC}"
-    header_args+=( "-H" "Authorization: Bearer ${GITHUB_TOKEN}" )
-  fi
 
   if [[ ! ${checked_links_map[${link_url}]} ]]; then
 
-    echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
+    # Too many hits on github give a 429 response so add in our token
+    # so we get a higher rate limit
+    local header_args=()
+    if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/.* ]];
+    then
+      header_args+=( "-H" "Authorization: Bearer ${GITHUB_TOKEN}" )
+      echo -e "${indent}${NC}Checking URL with GH token ${NC}${link_url}${NC}"
+    else
+      echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
+    fi
 
     local response_code
     response_code="$( \
@@ -122,8 +122,7 @@ verify_http_link() {
         --write-out "%{http_code}" \
         "${header_args[@]}" \
         "${link_url}" \
-      || echo "" \
-    )"
+      || echo "" )"
 
     if [[ "${response_code}" =~ ^2 ]]; then
       # Link is good so add to our set/map so we don't have to hit it again
@@ -140,8 +139,7 @@ verify_http_link() {
           --write-out "%{http_code}" \
           "${header_args[@]}" \
           "${link_url}" \
-        || echo "" \
-    )"
+        || echo "" )"
       if [[ "${response_code}" =~ ^2 ]]; then
         # Link is good so add to our set/map so we don't have to hit it again
         checked_links_map["${link_url}"]=1
