@@ -100,6 +100,14 @@ verify_http_link() {
 
   # 'http://domain.com/path "title"' => 'http://domain.com/path'  
   local link_url="${link_location%% \"*}"
+  local header_args=()
+
+  # Too many hits on github give a 429 response so add in our token
+  # so we get a higher rate limit
+  if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/ ]];
+  then
+    header_args+=( "-H" "Authorization: Bearer ${GITHUB_TOKEN}" )
+  fi
 
   if [[ ! ${checked_links_map[${link_url}]} ]]; then
 
@@ -113,6 +121,7 @@ verify_http_link() {
         --location \
         --output /dev/null \
         --write-out "%{http_code}" \
+        "${header_args[@]}" \
         "${link_url}" \
       || echo "" \
     )"
@@ -130,6 +139,7 @@ verify_http_link() {
           --location \
           --output /dev/null \
           --write-out "%{http_code}" \
+          "${header_args[@]}" \
           "${link_url}" \
         || echo "" \
     )"
