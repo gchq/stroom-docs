@@ -102,7 +102,7 @@ verify_http_link() {
 
   # Too many hits on github give a 429 response so add in our token
   # so we get a higher rate limit
-  if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/ ]];
+  if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/.* ]];
   then
     echo -e "Adding token to URL ${NC}${link_url}${NC}"
     header_args+=( "-H" "Authorization: Bearer ${GITHUB_TOKEN}" )
