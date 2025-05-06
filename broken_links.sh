@@ -104,6 +104,7 @@ verify_http_link() {
   # so we get a higher rate limit
   if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/ ]];
   then
+    echo -e "Adding token to URL ${NC}${link_url}${NC}"
     header_args+=( "-H" "Authorization: Bearer ${GITHUB_TOKEN}" )
   fi
 
