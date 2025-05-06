@@ -104,8 +104,7 @@ verify_http_link() {
     # Too many hits on github give a 429 response so add in our token
     # so we get a higher rate limit
     local header_args=()
-    if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/.* ]];
-    then
+    if [[ -n "${GITHUB_TOKEN}" && "${link_url}" =~ ^https://github.com/.* ]]; then
       header_args+=( "-H" "Authorization: Bearer ${GITHUB_TOKEN}" )
       echo -e "${indent}${NC}Checking URL with GH token ${NC}${link_url}${NC}"
     else
@@ -131,6 +130,7 @@ verify_http_link() {
     else
       # Some sites don't seem to like the --head option so try it again
       # but getting the full page.
+      echo -e "${indent}${NC}Re-checking URL without --head ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
           --silent \
@@ -142,6 +142,19 @@ verify_http_link() {
         || echo "" )"
       if [[ "${response_code}" =~ ^2 ]]; then
         # Link is good so add to our set/map so we don't have to hit it again
+        checked_links_map["${link_url}"]=1
+        new_checked_links_map["${link_url}"]=1
+      elif [[ "${response_code}" =~ ^429 ]]; then
+        echo -e "${indent}${NC}Got 429 rate limit response for ${NC}${link_url}${NC}"
+
+        if [[ "${link_url}" =~ ^https://github.com/.* ]]; then
+          # Show current the GH rate limits
+          curl \
+            --silent \
+            "${header_args[@]}" \
+            https://api.github.com/rate_limit
+        fi
+        # Not a lot we can do other than treat it as good
         checked_links_map["${link_url}"]=1
         new_checked_links_map["${link_url}"]=1
       else
