@@ -145,18 +145,20 @@ verify_http_link() {
         checked_links_map["${link_url}"]=1
         new_checked_links_map["${link_url}"]=1
       elif [[ "${response_code}" =~ ^429 ]]; then
-        echo -e "${indent}${NC}Got 429 rate limit response for ${NC}${link_url}${NC}"
-
-        if [[ "${link_url}" =~ ^https://github.com/.* ]]; then
-          # Show current the GH rate limits
-          curl \
-            --silent \
-            "${header_args[@]}" \
-            https://api.github.com/rate_limit
-        fi
-        # Not a lot we can do other than treat it as good
+        echo -e "${indent}${NC}Got 429 rate limit response, have to assume URL is ok ${NC}${link_url}${NC}"
+        # There doesn't seem to be any rhyme or reason when github returns
+        # a 429, it seems to only do it on some checks.
+        # Not a lot we can do other than treat it as good and move on.
         checked_links_map["${link_url}"]=1
         new_checked_links_map["${link_url}"]=1
+
+        #if [[ "${link_url}" =~ ^https://github.com/.* ]]; then
+          ## Show current the GH rate limits
+          #curl \
+            #--silent \
+            #"${header_args[@]}" \
+            #https://api.github.com/rate_limit
+        #fi
       else
         log_broken_http_link \
           "${source_file}" \
