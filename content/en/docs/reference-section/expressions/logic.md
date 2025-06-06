@@ -210,3 +210,29 @@ not(5 = 5)
 not(false())
 > true
 ```
+
+
+## Case
+
+Works much like a Java Switch/Case statement. The arguments are split into 3 parts
+
+1. The input value to test
+1. Pairs of test values with their respective output value
+1. A default result, if the input doesn't match any of the test values
+
+```clike
+case(input, test1, result1, test2, result2, ... testN, resultN, otherwise)
+```
+
+Example
+
+```clike
+case(${val}, 1, 'one', 2, 'two', 3, 'three', 'unknown')
+${val}=1
+> one
+${val}=2
+> two
+${val}=4
+> unknown // falls back to the 'otherwise' value
+```
+
