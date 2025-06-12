@@ -60,7 +60,7 @@ currentUser()
 The arguments are split into 3 parts
 
 1. The input value to test
-1. Pairs of regex matchers with their respective output value
+1. Pairs of regex matchers with their respective output value. Output values in the format '$n' can be used to return the appropriate capture group value from the regex
 1. A default result, if the input doesn't match any of the regexes
 
 ```clike

@@ -111,6 +111,12 @@ Example of a single record (event) from a segmented stream, viewed formatted in 
 data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'preview', 'tab')
 ```
 
+Example of a single event metadata record from a segmented stream, viewed in a popup dialog:
+
+```clike
+data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'info')
+```
+
 ## Link
 
 {{% see-also %}}
