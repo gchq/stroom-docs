@@ -44,6 +44,7 @@ The following functions are available to aid your translation:
 * `col-from()` - The column in the input that the current record begins on (can be 0).
 * `col-to()` - The column in the input that the current record ends at.
 * `current-time()` - The current system time
+* `current-unixTime()` - The current system time shown as milliseconds since the epoch
 * `current-user()` - The current user logged into Stroom (only relevant for interactive use, e.g. search)
 * `decode-url(String encodedUrl)` - Decode the provided url.
 * [`dictionary(String name)`](#dictionary) - Loads the contents of the named dictionary for use within the translation
@@ -57,6 +58,10 @@ The following functions are available to aid your translation:
 * [`format-date(String date, String pattern, String timeZone)`](#format-date) - Format a date that uses the specified pattern with the specified time zone
 * [`format-date(String date, String patternIn, String timeZoneIn, String patternOut, String timeZoneOut)`](#format-date) - Parse a date with the specified input pattern and time zone and format the output with the specified output pattern and time zone
 * [`format-date(String milliseconds)`](#format-date) - Format a date that is specified as a number of milliseconds since a standard base time known as "the epoch", namely January 1, 1970, 00:00:00 GMT
+* [`format-dateTime(DateTime dateTime)`](#format-dateTime) - Format a dateTime with the default pattern
+* [`format-dateTime(DateTime dateTime, String pattern)`](#format-dateTime) - Format a dateTime with the specified pattern
+* [`format-dateTime(DateTime dateTime, String pattern, String timeZone)`](#format-dateTime) - Format a dateTime with the specified pattern and time zone
+* `from-unixTime(Integer milliseconds)` - Returns the specified number of milliseconds since the epoch as a dateTime
 * [`get(String key)`](#put-and-get) - Returns the value associated with a `key` that has been stored in a map using the [`put()`](#put-and-get) function.
   The map is in the scope of the current pipeline process so values do not live after the stream has been processed.
 * `hash(String value)` - Hash a string value using the default `SHA-256` algorithm and no salt
@@ -85,6 +90,9 @@ The following functions are available to aid your translation:
 * [`meta-keys()`](#meta-keys) - Returns an array of meta keys for the current stream. Each key can then be used to retrieve its corresponding meta value, by calling `meta($key)`.
 * `numeric-ip(String ipAddress)` - Convert an IP address to a numeric representation for range comparison
 * `part-no()` - The current part within a multi part aggregated input stream (AKA the substream number) (1 based)
+* [`parse-dateTime(String dateTime)`](#parse-dateTime) - Returns the dateTime of a specified ISO 8601 formatted string
+* [`parse-dateTime(String dateTime, String pattern)`](#parse-dateTime) - Returns the dateTime for a specified string using the pattern 
+* [`parse-dateTime(String dateTime, String pattern, String timeZone)`](#parse-dateTime) - Returns the dateTime for a specified string using the pattern and time zone
 * [`parse-uri(String URI)`](#parse-uri) - Returns an XML structure of the URI providing `authority`, `fragment`, `host`, `path`, `port`, `query`, `scheme`, `schemeSpecificPart`, and `userInfo` components if present.
 * `pipeline-name()` - Get the name of the pipeline currently processing the stream.
 * [`pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)`](#pointIsInsideXYPolygon) - Get the name of the pipeline currently processing the stream.
@@ -94,6 +102,7 @@ The following functions are available to aid your translation:
 * `source()` - Returns an XML structure with the `stroom-meta` namespace detailing the current source location.
 * `source-id()` - Get the id of the current input stream that is being processed
 * `stream-id()` - An alias for `source-id` included for backward compatibility.
+* `to-unixTime(DateTime dateTime)` - Returns milliseconds since the epoch for a specified dateTime
 * `pipeline-name()` - Name of the current processing pipeline using the XSLT
 * [`put(String key, String value)`](#put-and-get) - Store a value for use later on in the translation
 
@@ -507,6 +516,116 @@ The reference date is the first of these values that is non-null
 
 For example for a call of `stroom:format-date('28 Oct', 'dd MMM')` and a stream create time of `2024`, it will return `2024-10-28T00:00:00.000Z`.
 
+## format-dateTime()
+
+Formats the dateTime as a string according to the specified pattern and time zone.
+
+### Function Signatures
+
+The following are the possible forms of the `format-dateTime` function.
+
+```xml
+<!-- Format dateTime to standard date format -->
+format-dateTime(DateTime dateTime)
+
+<!-- Format dateTime to a custom date format-->
+format-dateTime(DateTime dateTime, String pattern)
+
+<!-- Convert dateTime to standard date format using specified input time zone -->
+format-dateTime(DateTime dateTime, String pattern, String timeZone)
+```
+
+* `dateTime` - The input dateTime.
+* `pattern` - The pattern that defines the format of the output string (see [Custom Date Formats]({{< relref "docs/reference-section/dates#custom-date-formats" >}})).
+* `timeZone` - Optional time zone of the output.
+  If `null` then the UTC/Zulu time zone will be used.
+
+### Examples
+
+
+```xml
+<!-- Default format -->
+stroom:format-dateTime('xs:dateTime("2024-08-29T00:00:00Z")')
+-> '2024-08-29T00:00:00.000Z'
+```
+
+```xml
+<!-- Default format +2hr zone offset -->
+stroom:format-dateTime('xs:dateTime("2001-08-01T18:45:59.123+02:00")')
+-> '2001-08-01T16:45:59.123Z'
+```
+
+```xml
+<!-- Default format +2hr30min zone offset -->
+stroom:format-dateTime('xs:dateTime("2001-08-01T18:45:59.123+02:30")')
+-> '2001-08-01T16:15:59.123Z'
+```
+
+```xml
+<!-- Default format -3hr zone offset -->
+stroom:format-dateTime('xs:dateTime("2001-08-01T18:45:59.123-03:00")')
+-> '2001-08-01T21:45:59.123Z'
+```
+
+```xml
+<!-- Simple date format UK style date -->
+stroom:format-dateTime('xs:dateTime("2024-08-29T00:00:00Z")', 'dd/MM/yy')
+-> '29/08/24'
+```
+
+```xml
+<!-- Simple date format US style date -->
+stroom:format-dateTime('xs:dateTime("2024-08-29T00:00:00Z")', 'MM/dd/yy')
+-> '08/29/24'
+```
+
+```xml
+<!-- With no delimiters -->
+stroom:format-dateTime('xs:dateTime("2001-08-01T18:45:59Z")', 'yyyyMMddHHmmss')
+-> '20010801184559'
+```
+
+```xml
+<!-- Standard output, no TZ -->
+stroom:format-dateTime('xs:dateTime("2001-08-01T18:45:59Z")', 'yyyy/MM/dd HH:mm:ss')
+-> '2001/08/01 18:45:59'
+```
+
+```xml
+<!-- Format with nanos -->
+stroom:format-dateTime('xs:dateTime("2010-01-01T23:59:59.123456Z")', 'yyyy-MM-dd'T'HH:mm:ss.SSSSSSXX')
+-> '2010-01-01T23:59:59.123456Z'
+```
+
+```xml
+<!-- Standard output, with TZ -->
+stroom:format-dateTime('xs:dateTime("2001-08-01T09:00:00Z")', 'yyyy/MM/dd HH:mm:ss', '-08:00')
+-> '2001/08/01 01:00:00'
+```
+
+```xml
+<!-- Standard output, with TZ -->
+stroom:format-dateTime('xs:dateTime("2001-08-01T00:00:00Z")', 'yyyy/MM/dd HH:mm:ss', '+01:00')
+-> '2001/08/01 01:00:00'
+```
+
+```xml
+<!-- GMT/BST date that is BST -->
+stroom:format-dateTime('xs:dateTime("2009-06-01T11:34:11Z")', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')
+-> '2009/06/01 12:34:11'
+```
+
+```xml
+<!-- GMT/BST date that is GMT -->
+stroom:format-dateTime('xs:dateTime("2009-02-01T12:34:11Z")', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')
+-> '2009/02/01 12:34:11'
+```
+
+```xml
+<!-- Named timezone -->
+stroom:format-dateTime('xs:dateTime("2009-02-02T04:34:11Z")', 'yyyy/MM/dd HH:mm:ss', 'US/Eastern')
+-> '2009/02/01 23:34:11'
+```
 
 ## hex-to-string()
 
@@ -804,6 +923,121 @@ If no value is found at any point in the chain then that results in no value bei
 In order to use nested map lookups each intermediate map must contain simple string values.
 The last map in the chain can either contain string values or XML fragment values.
 
+## parse-dateTime() 
+
+Parses a string to a dateTime according to the specified pattern and time zone.
+
+### Function Signatures
+
+The following are the possible forms of the `parse-dateTime` function.
+
+```xml
+<!-- Converts inputDate to a dateTime -->
+parse-dateTime(String inputDate)
+
+<!-- Converts inputDate to a dateTime using a custom date format -->
+parse-dateTime(DateTime inputDate, String pattern)
+
+<!-- Converts inputDate to a dateTime using a custom date format in the specified time zone -->
+parse-dateTime(DateTime inputDate, String pattern, String timeZone)
+```
+
+* `inputDate` - The input string.
+* `pattern` - The pattern that defines the format of the input string (see [Custom Date Formats]({{< relref "docs/reference-section/dates#custom-date-formats" >}})).
+* `timeZone` - Optional time zone of the output.
+  If `null` then the UTC/Zulu time zone will be used.
+
+### Examples
+
+```xml
+<!-- ISO 8061 -->
+stroom:parse-dateTime('2024-08-29T00:00:00Z')
+-> '2024-08-29T00:00:00Z'
+```
+
+```xml
+<!-- ISO 8061 with nanos -->
+stroom:parse-dateTime('2010-01-01T23:59:59.123456Z')
+-> '2010-01-01T23:59:59.123456Z'
+```
+
+```xml
+<!-- ISO 8061 with millis -->
+stroom:parse-dateTime('2010-01-01T23:59:59.123Z')
+-> '2010-01-01T23:59:59.123Z'
+```
+
+```xml
+<!-- ISO 8061 Zulu/UTC -->
+stroom:parse-dateTime('2001-08-01T18:45:59.123+00:00')
+-> '2001-08-01T18:45:59.123Z'
+```
+
+```xml
+<!-- ISO 8061 +2hr zone offset -->
+stroom:parse-dateTime('2001-08-01T18:45:59.123+02')
+-> '2001-08-01T16:45:59.123Z'
+```
+
+```xml
+<!-- ISO 8061 +2hr zone offset -->
+stroom:parse-dateTime('2001-08-01T18:45:59.123+02:00')
+-> '2001-08-01T16:45:59.123Z'
+```
+
+```xml
+<!-- ISO 8061 +2hr30min zone offset -->
+stroom:parse-dateTime('2001-08-01T18:45:59.123+02:30')
+-> '2001-08-01T16:15:59.123Z'
+```
+
+```xml
+<!-- ISO 8061 -3hr zone offset -->
+stroom:parse-dateTime('2001-08-01T18:45:59.123-03:00')
+-> '2001-08-01T21:45:59.123Z'
+```
+
+```xml
+<!-- Simple date UK style date -->
+stroom:parse-dateTime('29/08/24', 'dd/MM/yy')
+-> '2024-08-29T00:00:00Z'
+```
+
+```xml
+<!-- Simple date US style date -->
+stroom:parse-dateTime('08/29/24', 'MM/dd/yy')
+-> '2024-08-29T00:00:00Z'
+```
+
+```xml
+<!-- ISO date with no delimiters -->
+stroom:parse-dateTime('20010801184559', 'yyyyMMddHHmmss')
+-> '2001-08-01T18:45:59Z'
+```
+
+```xml
+<!-- Standard output, no TZ -->
+stroom:parse-dateTime('2001/08/01 18:45:59', 'yyyy/MM/dd HH:mm:ss')
+-> '2001-08-01T18:45:59Z'
+```
+
+```xml
+<!-- Standard output, date only, with TZ -->
+stroom:parse-dateTime('2001/08/01', 'yyyy/MM/dd', '-07:00')
+-> '2001-08-01T07:00:00Z'
+```
+
+```xml
+<!-- Standard output, with TZ -->
+stroom:parse-dateTime('2001/08/01 01:00:00', 'yyyy/MM/dd HH:mm:ss', '-08:00')
+-> '2001-08-01T09:00:00Z'
+```
+
+```xml
+<!-- Standard output, with TZ -->
+stroom:parse-dateTime('2001/08/01 01:00:00', 'yyyy/MM/dd HH:mm:ss', '+01:00')
+-> '2001-08-01T00:00:00Z'
+```
 
 ## put() and get()
 
