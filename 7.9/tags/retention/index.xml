@@ -1,0 +1,78 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – retention</title>
+    <link>/tags/retention/</link>
+    <description>Recent content in retention on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Jul 2021 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/retention/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Data Retention</title>
+      <link>/docs/user-guide/data-retention/</link>
+      <pubDate>Tue, 27 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/data-retention/</guid>
+      <description>
+        
+        
+        &lt;p&gt;By default Stroom will retain all the data it ingests and creates forever.
+It is likely that storage constraints/costs will mean that data needs to be deleted after a certain time.
+It is also likely that certain types of data may need to be kept for longer than other types.&lt;/p&gt;
+&lt;h2 id=&#34;rules&#34;&gt;Rules&lt;/h2&gt;
+&lt;p&gt;Stroom allows for a set of data retention policy rules to be created to control at a fine grained level what data is deleted and what is retained.&lt;/p&gt;
+&lt;p&gt;The data retention rules are accessible by selecting &lt;em&gt;Data Retention&lt;/em&gt; from the &lt;em&gt;Tools&lt;/em&gt; menu.
+On first use the &lt;em&gt;Rules&lt;/em&gt; tab of the &lt;em&gt;Data Retention&lt;/em&gt; screen will show a single rule named &lt;em&gt;Default Retain All Forever Rule&lt;/em&gt;.
+This is the implicit rule in stroom that retains all data and is always in play unless another rule overrides it.
+This rule cannot be edited, moved or removed.&lt;/p&gt;
+&lt;h3 id=&#34;rule-precedence&#34;&gt;Rule Precedence&lt;/h3&gt;
+&lt;p&gt;Rules have a precedence, with a lower rule number being a higher priority.
+When running the data retention job, Stroom will look at each stream held on the system and the retention policy of the first rule (starting from the lowest numbered rule) that matches that stream will apply.
+One a matching rule is found all other rules with higher rule numbers (lower priority) are ignored.
+For example if rule 1 says to retain streams from feed &lt;code&gt;X-EVENTS&lt;/code&gt; for 10 years and rule 2 says to retain streams from feeds &lt;code&gt;*-EVENTS&lt;/code&gt; for 1 year then rule 1 would apply to streams from feed &lt;code&gt;X-EVENTS&lt;/code&gt; and they would be kept for 10 years, but rule 2 would apply to feed &lt;code&gt;Y-EVENTS&lt;/code&gt; and they would only be kept for 1 year.
+Rules are re-numbered as new rules are added/deleted/moved.&lt;/p&gt;
+&lt;h3 id=&#34;creating-a-rule&#34;&gt;Creating a Rule&lt;/h3&gt;
+&lt;p&gt;To create a rule do the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; icon to add a new rule.&lt;/li&gt;
+&lt;li&gt;Edit the expression to define the data that the rule will match on.&lt;/li&gt;
+&lt;li&gt;Provide a name for the rule to help describe what its purpose is.&lt;/li&gt;
+&lt;li&gt;Set the retention period for data matching this rule, i.e &lt;em&gt;Forever&lt;/em&gt; or a set time period.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The new rule will be added at the top of the list of rules, i.e. with the highest priority.
+The &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Up&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1675 971q0 51-37 90l-75 75q-38 38-91 38-54 0-90-38l-294-293v704q0 52-37.5 84.5t-90.5 32.5h-128q-53 0-90.5-32.5t-37.5-84.5v-704l-294 293q-36 38-90 38t-90-38l-75-75q-38-38-38-90 0-53 38-91l651-651q35-37 90-37 54 0 91 37l651 651q37 39 37 91z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; and &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Down&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1675 832q0 53-37 90l-651 652q-39 37-91 37-53 0-90-37l-651-652q-38-36-38-90 0-53 38-91l74-75q39-37 91-37 53 0 90 37l294 294v-704q0-52 38-90t90-38h128q52 0 90 38t38 90v704l294-294q37-37 90-37 52 0 91 37l75 75q37 39 37 91z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; icons can be used to change the priority of the rule.&lt;/p&gt;
+&lt;p&gt;Rules can be enabled/disabled by clicking the checkbox next to the rule.&lt;/p&gt;
+&lt;p&gt;Changes to rules will not take effect until the &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; icon is clicked.&lt;/p&gt;
+&lt;p&gt;Rules can also be deleted ( &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Delete&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M704 1376v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm-544-992h448l-48-117q-7-9-17-11h-317q-10 2-17 11zm928 32v64q0 14-9 23t-23 9h-96v948q0 83-47 143.5t-113 60.5h-832q-66 0-113-58.5t-47-141.5v-952h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h309l70-167q15-37 54-63t79-26h320q40 0 79 26t54 63l70 167h309q14 0 23 9t9 23z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; ) and copied ( &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Copy&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1664 1632v-1088q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h1088q13 0 22.5-9.5t9.5-22.5zm128-1088v1088q0 66-47 113t-113 47h-1088q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113zm-384-384v160h-128v-160q0-13-9.5-22.5t-22.5-9.5h-1088q-13 0-22.5 9.5t-9.5 22.5v1088q0 13 9.5 22.5t22.5 9.5h160v128h-160q-66 0-113-47t-47-113v-1088q0-66 47-113t113-47h1088q66 0 113 47t47 113z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; ).&lt;/p&gt;
+&lt;h2 id=&#34;impact-summary&#34;&gt;Impact Summary&lt;/h2&gt;
+&lt;p&gt;When you have a number of complex rules it can be difficult to determine what data will actually be deleted next time the &lt;em&gt;Policy Based Data Retention&lt;/em&gt; job runs.
+To help with this, Stroom has the &lt;em&gt;Impact Summary&lt;/em&gt; tab that acts as a dry run for the active rules.
+The impact summary provides a count of the number of streams that will be deleted broken down by rule, stream type and feed name.
+On large systems with lots of data or complex rules, this query may take a long time to run.&lt;/p&gt;
+&lt;p&gt;The impact summary operates on the current state of the rules on the &lt;em&gt;Rules&lt;/em&gt; tab whether saved or un-saved.
+This allows you to make a change to the rules and test its impact before saving it.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
