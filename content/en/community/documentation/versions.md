@@ -29,16 +29,22 @@ When the combined site is built, each version will exist within a directory as s
 /legacy/
 ```
 
-The `master` branch is NOT published to GitHub Pages or included in the release artefacts.
+The `master` branch is **NOT** published to GitHub Pages or included in the release artefacts.
+
+If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published, and then [merge the changes]({{< relref "#merging-changes" >}}) the changes up the chain, e.g. legacy => 7.0 => 7.1 => 7.2 => 8.0 => master.
+If a change needs to be made to a feature that was introduced in v7.6 say, then the change should be made on the `7.6` branch and merged up.
 
 
 ## Versioned Site Configuration
 
-To configure each version of the site so that it knows what version it is and what the other versions are you need to edit `config.toml`.
-This needs to be done on each branch in a way that is appropriate to each branch.
-If a change needs to be applied to all branches then it is best to make it in the oldest branch for which the documentation is published, and then [merge the changes]({{< relref "#merging-changes" >}}) the changes up the chain, e.g. legacy => 7.0 => 7.1 => 7.2 => 8.0 => master.
+The configuration file `config.toml` in each branch defines such things as what version the branch is and what constitutes the latest version of the documentation.
 
-The following config properties needed to be amended on each branch.
+{{% note %}}
+This section is for reference only.
+The build script `ci_build.sh` will amend the various version property values prior to building the site.
+Therefore when creating a new version branch you do not need to edit the `config.toml` file.
+{{% /note %}}
+
 This example is from the _7.1_ branch and is based on there being versions _legacy_, _7.0_ and _7.1_, with _7.1_ being the latest.
 
 {{< cardpane >}}
@@ -213,16 +219,17 @@ On every commit Github Actions will build the version of the site that the commi
 It will also build all the other versioned branches to check that they work.
 On a nightly basis, Github Actions will also run a scheduled build on the _HEAD_ commit of the `master` branch.
 
-In addition to building each version of the site, it will establish if the combined site needs to be published.
+In addition to building each version branch of the site, it will establish if the combined site needs to be published.
 It will determine this by comparing the commit hashes of each version branch with the contents of a `commit.sha1` file that is published in each of the version directories on https://gchq.github.io/stroom-docs.
 If any one of the hashes is different then the combined site will be assembled and published.
 
 This automated build will look for any branches matching the pattern `(legacy|[0-9]+\.[0-9]+)` and for each one will do the following:
 
 * Checkout that branch
+* Modify `config.toml` to set the various version properties.
 * Build the site for that version using Hugo
   * Add the site files to a combined site
-  * Generate the documenation PDF
+  * Generate the documentation PDF
 * Build the site with no other versions configured
   * Create a zip of the single version site
 
