@@ -249,6 +249,18 @@ The analytic can be processed in different ways:
 * Scheduled Query
 
 
+### Annotation
+
+* Icon: {{< stroom-icon "edit.svg" >}}
+* Type: `Annotation`
+
+
+{{% todo %}}
+To be completed.
+{{% /todo %}}
+
+
+
 ### Dashboard
 
 * Icon: {{< stroom-icon "document/Dashboard.svg" >}}
