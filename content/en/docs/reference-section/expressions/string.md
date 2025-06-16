@@ -23,9 +23,10 @@ concat('this ', 'is ', 'how ', 'it ', 'works')
 > 'this is how it works'
 ```
 
+
 ## Contains
 
-Tests if inputString contains subString.
+Tests if `inputString` contains `subString`.
 
 ```clike
 contains(inputString, subString)
@@ -39,6 +40,7 @@ contains('this', 'this')
 contains('this', 'that')
 > false
 ```
+
 
 ## Current User
 
@@ -55,13 +57,15 @@ currentUser()
 > 'jbloggs'
 ```
 
+
 ## Decode
 
 The arguments are split into 3 parts
 
 1. The input value to test
-1. Pairs of regex matchers with their respective output value. Output values in the format '$n' can be used to return the appropriate capture group value from the regex
-1. A default result, if the input doesn't match any of the regexes
+1. Pairs of regex matchers with their respective output value.
+   Output values in the format '$n' can be used to return the appropriate capture group value from the regex
+1. A default result, if the input doesn't match any of the regexes.
 
 ```clike
 decode(input, test1, result1, test2, result2, ... testN, resultN, otherwise)
@@ -81,7 +85,7 @@ ${val}='brown'
 > rgb(255, 255, 255) // falls back to the 'otherwise' value
 ```
 
-in Java, this would be equivalent to
+In Java, this would be equivalent to
 
 ```java
 String decode(value) {
@@ -103,6 +107,7 @@ decode('red')
 > 'rgb(255, 0, 0)'
 ```
 
+
 ## DecodeUrl
 
 Decodes a URL
@@ -112,6 +117,7 @@ decodeUrl('userId%3Duser1')
 > userId=user1
 ```
 
+
 ## EncodeUrl
 
 Encodes a URL
@@ -120,6 +126,7 @@ Encodes a URL
 encodeUrl('userId=user1')
 > userId%3Duser1
 ```
+
 
 ## Exclude
 
@@ -140,6 +147,7 @@ exclude('bye', 'hello', 'hi')
 > 'bye'
 ```
 
+
 ## Hash
 
 Cryptographically hashes a string
@@ -157,7 +165,9 @@ hash(${val}, 'SHA-512', 'mysalt')
 > A hashed result...
 ```
 
-If not specified the `hash()` function will use the `SHA-256` algorithm. Supported algorithms are determined by Java runtime environment.
+If not specified the `hash()` function will use the `SHA-256` algorithm.
+Supported algorithms are determined by Java runtime environment.
+
 
 ## Include
 
@@ -178,9 +188,11 @@ include('bye', 'hello', 'hi')
 > null
 ```
 
+
 ## Index Of
 
-Finds the first position (zero based) of subString in inputString or `-1` if it cannot be found. Uses a simple literal match.
+Finds the first position (zero based) of `subString` in `inputString` or `-1` if it cannot be found.
+Uses a simple literal match.
 
 ```clike
 indexOf(inputString, subString)
@@ -193,9 +205,11 @@ indexOf('aa-bb-cc', '-')
 > 2
 ```
 
+
 ## Last Index Of
 
-Finds the last position (zero based) of subString in inputString or `-1` if it cannot be found. Uses a simple literal match.
+Finds the last position (zero based) of `subString` in `inputString` or `-1` if it cannot be found.
+Uses a simple literal match.
 
 ```clike
 lastIndexOf(inputString, subString)
@@ -207,6 +221,7 @@ Example
 lastIndexOf('aa-bb-cc', '-')
 > 5
 ```
+
 
 ## Lower Case
 
@@ -222,6 +237,7 @@ Example
 lowerCase('Hello DeVeLoPER')
 > 'hello developer'
 ```
+
 
 ## Match
 
@@ -239,6 +255,7 @@ match('this', 'this')
 match('this', 'that')
 > false
 ```
+
 
 ## Query Param
 
@@ -287,6 +304,7 @@ replace('this', 'is', 'at')
 > 'that'
 ```
 
+
 ## String Length
 
 Takes the length of a string
@@ -301,6 +319,7 @@ Example
 stringLength('hello')
 > 5
 ```
+
 
 ## Substring
 
@@ -317,6 +336,7 @@ substring('this', 1, 2)
 > 'h'
 ```
 
+
 ## Substring After
 
 Get the substring from the first string that occurs after the presence of the second string
@@ -332,6 +352,7 @@ substringAfter('aa-bb', '-')
 > 'bb'
 ```
 
+
 ## Substring Before
 
 Get the substring from the first string that occurs before the presence of the second string
@@ -346,6 +367,7 @@ Example
 substringBefore('aa-bb', '-')
 > 'aa'
 ```
+
 
 ## Upper Case
 

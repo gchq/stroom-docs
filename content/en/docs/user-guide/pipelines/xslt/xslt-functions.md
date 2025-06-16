@@ -923,9 +923,11 @@ If no value is found at any point in the chain then that results in no value bei
 In order to use nested map lookups each intermediate map must contain simple string values.
 The last map in the chain can either contain string values or XML fragment values.
 
+
 ## parse-dateTime() 
 
 Parses a string to a dateTime according to the specified pattern and time zone.
+
 
 ### Function Signatures
 
@@ -946,6 +948,7 @@ parse-dateTime(DateTime inputDate, String pattern, String timeZone)
 * `pattern` - The pattern that defines the format of the input string (see [Custom Date Formats]({{< relref "docs/reference-section/dates#custom-date-formats" >}})).
 * `timeZone` - Optional time zone of the output.
   If `null` then the UTC/Zulu time zone will be used.
+
 
 ### Examples
 
@@ -1039,6 +1042,7 @@ stroom:parse-dateTime('2001/08/01 01:00:00', 'yyyy/MM/dd HH:mm:ss', '+01:00')
 -> '2001-08-01T00:00:00Z'
 ```
 
+
 ## put() and get()
 
 You can put values into a map using the `put()` function.
@@ -1113,12 +1117,12 @@ The following xml
 </URIDetail>
 ```
 
-given the rURI text contains
+Given the rURI text contains
 ```
    http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details
 ```
 
-would provide
+Would provide
 
 ``` xml
 <URL>http://foo:bar@w1.superman.com:8080/very/long/path.html?p1=v1&amp;p2=v2#more-details</URL>

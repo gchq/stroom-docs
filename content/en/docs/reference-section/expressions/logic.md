@@ -10,7 +10,7 @@ description: >
 
 ## Equals
 
-Evaluates if arg1 is equal to arg2
+Evaluates if `arg1` is equal to `arg2`
 
 ```clike
 arg1 = arg2
@@ -39,12 +39,13 @@ equals(50, 50)
 > true
 ```
 
-Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`. The [`isNull()`]({{< relref "./type-checking.md#is-null" >}}) and [`isError()`]({{< relref "./type-checking.md#is-error" >}}) functions must be used instead.
+Note that `equals` cannot be applied to `null` and `error` values, e.g. `x=null()` or `x=err()`.
+The [`isNull()`]({{< relref "./type-checking.md#is-null" >}}) and [`isError()`]({{< relref "./type-checking.md#is-error" >}}) functions must be used instead.
 
 
 ## Greater Than
 
-Evaluates if arg1 is greater than to arg2
+Evaluates if `arg1` is greater than to `arg2`
 
 ```clike
 arg1 > arg2
@@ -72,7 +73,7 @@ greaterThan(49, 50)
 
 ## Greater Than or Equal To
 
-Evaluates if arg1 is greater than or equal to arg2
+Evaluates if `arg1` is greater than or equal to `arg2`
 
 ```clike
 arg1 >= arg2
@@ -120,7 +121,7 @@ if(isNull(null()), 'foo', 'bar')
 
 ## Less Than
 
-Evaluates if arg1 is less than to arg2
+Evaluates if `arg1` is less than to `arg2`
 
 ```clike
 arg1 < arg2
@@ -148,7 +149,7 @@ lessThan(49, 50)
 
 ## Less Than or Equal To
 
-Evaluates if arg1 is less than or equal to arg2
+Evaluates if `arg1` is less than or equal to `arg2`
 
 ```clike
 arg1 <= arg2
@@ -214,7 +215,8 @@ not(false())
 
 ## Case
 
-Works much like a Java Switch/Case statement. The arguments are split into 3 parts
+Works much like a Java Switch/Case statement.
+The arguments are split into 3 parts
 
 1. The input value to test
 1. Pairs of test values with their respective output value
