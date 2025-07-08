@@ -39,7 +39,7 @@ sudo yum -y install tomcat-native
 ```
 The reason for the distinct `tomcat-native` installation is that this package is from the {{< external-link "EPEL" "https://fedoraproject.org/wiki/EPEL" >}} repository so it must be installed first.
 
-For the Apache mod_jk Tomcat connector we need to acquire a recent {{< external-link "release" "http://tomcat.apache.org/connectors-doc/" >}} and install it.
+For the Apache mod_jk Tomcat connector we need to acquire a recent {{< external-link "release" "https://tomcat.apache.org/connectors-doc/" >}} and install it.
 The following commands achieve this for the 1.2.42 release.
 ```bash
 sudo bash
