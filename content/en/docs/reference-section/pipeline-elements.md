@@ -368,8 +368,7 @@ Reference data values can be either simple strings or XML fragments.
 
 {{< pipe-elm "SafeXMLFilter" >}}&nbsp;
 
-Restricts the characters to a very simple set consisting of `[a-zA-Z0-9]` and `[ .:-_/]`.
-All other characters are replaced by `~NNN`, where `NNN` is a three digit codepoint for the replaced character.
+Restricts the characters to a very simple set consisting of `[a-zA-Z0-9]` and `[ .:-_/]`. All other characters are replaced by `~NNN`, where `NNN` is a three digit codepoint for the replaced character.
 
 
 ### SchemaFilter

@@ -68,6 +68,14 @@ Defines the connection details for a single Elasticsearch cluster.
 This Elastic Cluster Document can then be used by one or more Elastic Index Documents.
 
 
+### Git Repo
+
+* Icon: {{< stroom-icon "document/GitRepo.svg" >}}
+* Type: `GitRepo`
+
+Contains the configuration for a connection to a Git repository.
+
+
 ### Kafka Configuration
 
 * Icon: {{< stroom-icon "document/KafkaConfig.svg" >}}
