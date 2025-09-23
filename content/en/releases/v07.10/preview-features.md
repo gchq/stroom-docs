@@ -2,7 +2,7 @@
 title: "Preview Features (experimental)"
 linkTitle: "Preview Features"
 weight: 20
-date: 2025-06-16
+date: 2025-09-23
 tags: 
 description: >
   Preview features in Stroom version 7.10.
