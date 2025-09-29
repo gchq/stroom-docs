@@ -1,0 +1,942 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – kubernetes</title>
+    <link>/tags/kubernetes/</link>
+    <description>Recent content in kubernetes on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Introduction</title>
+      <link>/docs/install-guide/kubernetes/introduction/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/introduction/</guid>
+      <description>
+        
+        
+        &lt;p&gt;
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://kubernetes.io/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Kubernetes (external link to https://kubernetes.io/)&#34;&gt;
+    &lt;span&gt;Kubernetes&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ is an open-source system for automating deployment scaling and management of containerised applications.&lt;/p&gt;
+&lt;p&gt;Stroom is a distributed application designed to handle large-scale dataflows.
+As such, it is ideally suited to a Kubernetes deployment, especially when operated at scale.
+Features standard to Kubernetes, like 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://kubernetes.io/docs/concepts/services-networking/ingress/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Ingress (external link to https://kubernetes.io/docs/concepts/services-networking/ingress/)&#34;&gt;
+    &lt;span&gt;Ingress&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ and 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://kubernetes.io/docs/concepts/cluster-administration/networking/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Cluster Networking (external link to https://kubernetes.io/docs/concepts/cluster-administration/networking/)&#34;&gt;
+    &lt;span&gt;Cluster Networking&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+, simplify the installation and ongoing operation of Stroom.&lt;/p&gt;
+&lt;p&gt;Running applications in K8s can be challenging for applications not designed to operate in a K8s cluster natively.
+A purpose-built Kubernetes Operator (
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/p-kimberley/stroom-k8s-operator&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom-k8s-operator (external link to https://github.com/p-kimberley/stroom-k8s-operator)&#34;&gt;
+    &lt;span&gt;stroom-k8s-operator&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+) has been developed to make deployment easier, while taking advantage of several key Kubernetes features to further automate Stroom cluster management.&lt;/p&gt;
+&lt;p&gt;The concept of Kubernetes operators is discussed 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://kubernetes.io/docs/concepts/extend-kubernetes/operator/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;here (external link to https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;h2 id=&#34;key-features&#34;&gt;Key features&lt;/h2&gt;
+&lt;p&gt;The Stroom K8s Operator provides the following key features:&lt;/p&gt;
+&lt;h3 id=&#34;deployment&#34;&gt;Deployment&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Simplified configuration, enabling administrators to define the entire state of a Stroom cluster in one file&lt;/li&gt;
+&lt;li&gt;Designate separate processing and UI nodes, to ensure the Stroom user interface remains responsive, regardless of processing load&lt;/li&gt;
+&lt;li&gt;Automatic secrets management&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;operations&#34;&gt;Operations&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Scheduled database backups&lt;/li&gt;
+&lt;li&gt;Stroom node audit log shipping&lt;/li&gt;
+&lt;li&gt;Automatically drain Stroom tasks before node shutdown&lt;/li&gt;
+&lt;li&gt;Automatic Stroom task limit tuning, to attempt to keep CPU usage within configured parameters&lt;/li&gt;
+&lt;li&gt;Rolling Stroom version upgrades&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;Install the &lt;a href=&#34;../../docs/install-guide/kubernetes/install-operator/&#34;&gt;Stroom K8s Operator&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Install Operator</title>
+      <link>/docs/install-guide/kubernetes/install-operator/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/install-operator/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Kubernetes cluster, version &amp;gt;= 1.20.2&lt;/li&gt;
+&lt;li&gt;
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/kubernetes-sigs/metrics-server&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;metrics-server (external link to https://github.com/kubernetes-sigs/metrics-server)&#34;&gt;
+    &lt;span&gt;metrics-server&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ (pre-installed with some K8s distributions)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;kubectl&lt;/code&gt; and cluster-wide admin access&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;preparation&#34;&gt;Preparation&lt;/h2&gt;
+&lt;p&gt;Stage the following images in a locally-accessible container registry:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;All images listed in: 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/p-kimberley/stroom-k8s-operator/blob/master/deploy/images.txt&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;External link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/deploy/images.txt&#34;&gt;
+    &lt;span&gt;https://github.com/p-kimberley/stroom-k8s-operator/blob/master/deploy/images.txt&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+&lt;/li&gt;
+&lt;li&gt;MySQL (e.g. &lt;code&gt;mysql/mysql-server:8.0.25&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Stroom (e.g. &lt;code&gt;gchq/stroom:v7-LATEST&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gchq/stroom-log-sender:v2.2.0&lt;/code&gt; (only required if log forwarding is enabled)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;install-the-stroom-k8s-operator&#34;&gt;Install the Stroom K8s Operator&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Clone the repository&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone https://github.com/p-kimberley/stroom-k8s-operator.git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Edit &lt;code&gt;./deploy/all-in-one.yaml&lt;/code&gt;, prefixing any referenced images with your private registry URL.
+For example, if your private registry is &lt;code&gt;my-registry.example.com&lt;/code&gt;, the image &lt;code&gt;gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0&lt;/code&gt; will become: &lt;code&gt;my-registry.example.com:5000/gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Deploy the Operator&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl apply -f ./deploy/all-in-one.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The Stroom K8s Operator is now deployed to namespace &lt;code&gt;stroom-operator-system&lt;/code&gt;.
+You can monitor its progress by watching the Pod named &lt;code&gt;stroom-operator-controller-manager&lt;/code&gt;.
+Once it reaches &lt;code&gt;Ready&lt;/code&gt; state, you can deploy a Stroom cluster.&lt;/p&gt;
+&lt;h2 id=&#34;allocating-more-resources&#34;&gt;Allocating more resources&lt;/h2&gt;
+&lt;p&gt;If the Operator Pod is killed due to running out of memory, you may want to increase the amount allocated to it.&lt;/p&gt;
+&lt;p&gt;This can be done by:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Editing the &lt;code&gt;resources.limits&lt;/code&gt; settings of the controller Pod in &lt;code&gt;all-in-one.yaml&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;kubectl apply -f all-in-one.yaml&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    The Operator retains CPU and memory metrics for all &lt;code&gt;StroomCluster&lt;/code&gt; Pods for a 60-minute window.
+In very large deployments, this may cause it to run out of memory.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;../../docs/install-guide/kubernetes/configure-database-server/&#34;&gt;Configure&lt;/a&gt; a Stroom database server&lt;br&gt;
+&lt;a href=&#34;../../docs/install-guide/kubernetes/upgrade-operator/&#34;&gt;Upgrade&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;../../docs/install-guide/kubernetes/remove-operator/&#34;&gt;Remove&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Upgrade Operator</title>
+      <link>/docs/install-guide/kubernetes/upgrade-operator/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/upgrade-operator/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Upgrading the Operator can be performed without disrupting any resources it controls, including Stroom clusters.&lt;/p&gt;
+&lt;p&gt;To perform the upgrade, follow the same steps in &lt;a href=&#34;../../docs/install-guide/kubernetes/install-operator/&#34;&gt;Installing the Stroom K8s Operator&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    Ensure you do NOT delete the operator first (i.e. &lt;code&gt;kubectl delete ...&lt;/code&gt;)
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Once you have initiated the update (by executing &lt;code&gt;kubectl apply -f all-in-one.yaml&lt;/code&gt;), an instance of the new Operator version will be created.
+Once it starts up successfully, the old instance will be removed.&lt;/p&gt;
+&lt;p&gt;You can check whether the update succeeded by inspecting the image tag of the Operator Pod: &lt;code&gt;stroom-operator-system/stroom-operator-controller-manager&lt;/code&gt;.
+The tag should correspond to the release number that was downloaded (e.g. &lt;code&gt;1.0.0&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;If the upgrade failed, the existing Operator should still be running.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Remove Operator</title>
+      <link>/docs/install-guide/kubernetes/remove-operator/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/remove-operator/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Removing the Stroom K8s Operator must be done with caution, as it causes all resources it manages, including &lt;code&gt;StroomCluster&lt;/code&gt;, &lt;code&gt;DatabaseServer&lt;/code&gt; and &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; to be deleted.&lt;/p&gt;
+&lt;p&gt;While the Stroom clusters under its control &lt;em&gt;will&lt;/em&gt; be gracefully terminated, they will become inaccessible until re-deployed.&lt;/p&gt;
+&lt;p&gt;It is good practice to first delete any dependent resources &lt;em&gt;before&lt;/em&gt; deleting the Operator.&lt;/p&gt;
+&lt;h2 id=&#34;deleting-the-operator&#34;&gt;Deleting the Operator&lt;/h2&gt;
+&lt;p&gt;Execute this command against the &lt;strong&gt;same version&lt;/strong&gt; of manifest that was used to deploy the Operator currently running.&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl delete -f all-in-one.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Configure Database</title>
+      <link>/docs/install-guide/kubernetes/configure-database-server/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/configure-database-server/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Before creating a Stroom cluster, a database server must first be configured.&lt;/p&gt;
+&lt;p&gt;There are two options for deploying a MySQL database for Stroom:&lt;/p&gt;
+&lt;h2 id=&#34;managed-by-stroom-k8s-operator&#34;&gt;Managed by Stroom K8s Operator&lt;/h2&gt;
+&lt;p&gt;A Database server can be created and managed by the Operator.
+This is the recommended option, as the Operator will take care of the creation and storage of database credentials, which are shared securely with the Pod via the use of a &lt;code&gt;Secret&lt;/code&gt; cluster resource.&lt;/p&gt;
+&lt;h3 id=&#34;create-a-databaseserver-resource-manifest&#34;&gt;Create a &lt;code&gt;DatabaseServer&lt;/code&gt; resource manifest&lt;/h3&gt;
+&lt;p&gt;Use the example at 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;database-server.yaml (external link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml)&#34;&gt;
+    &lt;span&gt;database-server.yaml&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;See the &lt;code&gt;DatabaseServer&lt;/code&gt; Custom Resource Definition (CRD) 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;API documentation (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/DatabaseServer/v1)&#34;&gt;
+    &lt;span&gt;API documentation&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ for an explanation of the various CRD fields.&lt;/p&gt;
+&lt;p&gt;By default, MySQL imposes a limit of 151 concurrent connections.
+If your Stroom cluster is larger than a few nodes, it is likely you will exceed this limit.
+Therefore, it is recommended to set the MySQL property &lt;code&gt;max_connections&lt;/code&gt; to a suitable value.&lt;/p&gt;
+&lt;p&gt;Bear in mind the Operator generally consumes one connection per &lt;code&gt;StroomCluster&lt;/code&gt; it manages, so be sure to include some headroom in your allocation.&lt;/p&gt;
+&lt;p&gt;You can specify this value via the &lt;code&gt;spec.additionalConfig&lt;/code&gt; property as in the example below:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;apiVersion: stroom.gchq.github.io/v1
+kind: DatabaseServer
+...
+spec:
+  additionalConfig:
+    - max_connections=1000
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;provision-a-persistentvolume-for-the-databaseserver&#34;&gt;Provision a &lt;code&gt;PersistentVolume&lt;/code&gt; for the &lt;code&gt;DatabaseServer&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;General instructions on creating a Kubernetes Persistent Volume (PV) are explained 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://kubernetes.io/docs/concepts/storage/persistent-volumes/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;here (external link to https://kubernetes.io/docs/concepts/storage/persistent-volumes/)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;The Operator will create &lt;code&gt;StatefulSet&lt;/code&gt; when the &lt;code&gt;DatabaseServer&lt;/code&gt; is deployed, which will attempt to claim a &lt;code&gt;PersistentVolume&lt;/code&gt; matching the specification provided in &lt;code&gt;DatabaseServer.spec.volumeClaim&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Fast, low-latency storage should be used for the Stroom database&lt;/p&gt;
+&lt;h3 id=&#34;deploy-the-databaseserver-to-the-cluster&#34;&gt;Deploy the &lt;code&gt;DatabaseServer&lt;/code&gt; to the cluster&lt;/h3&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl apply -f database-server.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Observe the Pod &lt;code&gt;stroom-&amp;lt;database server name&amp;gt;-db&lt;/code&gt; start up.
+Once it&amp;rsquo;s reached &lt;code&gt;Ready&lt;/code&gt; state, the server has started, and the databases you specified have been created.&lt;/p&gt;
+&lt;h3 id=&#34;backup-the-created-credentials&#34;&gt;Backup the created credentials&lt;/h3&gt;
+&lt;p&gt;The Operator generates a &lt;code&gt;Secret&lt;/code&gt; containing the passwords of the users &lt;code&gt;root&lt;/code&gt; and &lt;code&gt;stroomuser&lt;/code&gt; when it initially creates the &lt;code&gt;DatabaseServer&lt;/code&gt; resource.
+These credentials should be backed up to a secure location, in the event the &lt;code&gt;Secret&lt;/code&gt; is inadvertently deleted.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Secret&lt;/code&gt; is named using the format: &lt;code&gt;stroom-&amp;lt;db server name&amp;gt;-db&lt;/code&gt; (e.g. &lt;code&gt;stroom-dev-db&lt;/code&gt;).&lt;/p&gt;
+&lt;h2 id=&#34;external&#34;&gt;External&lt;/h2&gt;
+&lt;p&gt;You may alternatively provide the connection details of an existing MySQL (or compatible) database server.
+This may be desirable if you have for instance, a replication-enabled MySQL InnoDB cluster.&lt;/p&gt;
+&lt;h3 id=&#34;provision-the-server-and-stroom-databases&#34;&gt;Provision the server and Stroom databases&lt;/h3&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this secion.
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;store-credentials-in-a-secret&#34;&gt;Store credentials in a &lt;code&gt;Secret&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Create a &lt;code&gt;Secret&lt;/code&gt; in the same namespace as the &lt;code&gt;StroomCluster&lt;/code&gt;, containing the key &lt;code&gt;stroomuser&lt;/code&gt;, with the value set to the password of that user.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    If at any time the MySQL password is updated, the value of the &lt;code&gt;Secret&lt;/code&gt; must also be changed.
+Otherwise, Stroom will stop functioning.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;upgrading-or-removing-a-databaseserver&#34;&gt;Upgrading or removing a &lt;code&gt;DatabaseServer&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;A &lt;code&gt;DatabaseServer&lt;/code&gt; cannot shut down while its dependent &lt;code&gt;StroomCluster&lt;/code&gt; is running.
+This is a necessary safeguard to prevent database connectivity from being lost.&lt;/p&gt;
+&lt;p&gt;Upgrading or removing a &lt;code&gt;DatabaseServer&lt;/code&gt; requires the &lt;code&gt;StroomCluster&lt;/code&gt; be &lt;a href=&#34;../../docs/install-guide/kubernetes/stop-stroom-cluster/&#34;&gt;removed&lt;/a&gt; first.&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;configure-stroom-cluster.md&#34;&gt;Configure&lt;/a&gt; a Stroom cluster&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Configure a cluster</title>
+      <link>/docs/install-guide/kubernetes/configure-stroom-cluster/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/configure-stroom-cluster/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A &lt;code&gt;StroomCluster&lt;/code&gt; resource defines the topology and behaviour of a collection of Stroom nodes.&lt;/p&gt;
+&lt;p&gt;The following key concepts should be understood in order to optimally configure a cluster.&lt;/p&gt;
+&lt;h2 id=&#34;concepts&#34;&gt;Concepts&lt;/h2&gt;
+&lt;h3 id=&#34;nodeset&#34;&gt;NodeSet&lt;/h3&gt;
+&lt;p&gt;A logical grouping of nodes intended to together, fulfil a common role.
+There are three possible roles, as defined by &lt;code&gt;ProcessingNodeRole&lt;/code&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Undefined (default).
+Each node in the &lt;code&gt;NodeSet&lt;/code&gt; can receive and process data, as well as service web frontend requests.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Processing&lt;/code&gt;
+Node can receive and process data, but not service web frontend requests.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Frontend&lt;/code&gt;
+Node services web frontend requests only.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;There is no imposed limit to the number of &lt;code&gt;NodeSet&lt;/code&gt;s, however it generally doesn&amp;rsquo;t make sense to have more than one assigned to either &lt;code&gt;Processing&lt;/code&gt; or &lt;code&gt;Frontend&lt;/code&gt; roles.
+In clusters where nodes are not very busy, it should not be necessary to have dedicated &lt;code&gt;Frontend&lt;/code&gt; nodes.
+In cases where load is prone to spikes, such nodes can greatly help improve the responsiveness of the Stroom user interface.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It is important to ensure there is at least one &lt;code&gt;NodeSet&lt;/code&gt; for each role in the &lt;code&gt;StroomCluster&lt;/code&gt;
+The Operator automatically wires up traffic routing to ensure that only non-&lt;code&gt;Frontend&lt;/code&gt; nodes receive event data.
+Additionally, &lt;code&gt;Frontend&lt;/code&gt;-only nodes have server tasks disabled automatically on startup, effectively preventing them from participating in stream processing.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;ingress&#34;&gt;Ingress&lt;/h3&gt;
+&lt;p&gt;Kubernetes &lt;code&gt;Ingress&lt;/code&gt; resources determine how requests are routed to an application.
+&lt;code&gt;Ingress&lt;/code&gt; resources are configured by the Operator based on the &lt;code&gt;NodeSet&lt;/code&gt; roles and the provided &lt;code&gt;StroomCluster.spec.ingress&lt;/code&gt; parameters.&lt;/p&gt;
+&lt;p&gt;It is possible to disable &lt;code&gt;Ingress&lt;/code&gt; for a given &lt;code&gt;NodeSet&lt;/code&gt;, which excludes nodes within that group from receiving any traffic via the public endpoint.
+This can be useful when creating nodes dedicated to data processing, which do not receive data.&lt;/p&gt;
+&lt;h3 id=&#34;stroomtaskautoscaler&#34;&gt;StroomTaskAutoscaler&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; is an optional resource that if defined, activates &amp;ldquo;auto-pilot&amp;rdquo; features for an associated &lt;code&gt;StroomCluster&lt;/code&gt;.
+See &lt;a href=&#34;../../docs/install-guide/kubernetes/configure-stroomtaskautoscaler/&#34;&gt;this guide&lt;/a&gt; on how to configure.&lt;/p&gt;
+&lt;h2 id=&#34;creating-a-stroom-cluster&#34;&gt;Creating a Stroom cluster&lt;/h2&gt;
+&lt;h3 id=&#34;create-a-stroomcluster-resource-manifest&#34;&gt;Create a &lt;code&gt;StroomCluster&lt;/code&gt; resource manifest&lt;/h3&gt;
+&lt;p&gt;Use the example 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;stroom-cluster.yaml (external link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/stroom-cluster.yaml)&#34;&gt;
+    &lt;span&gt;stroom-cluster.yaml&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;If you chose to create an Operator-managed &lt;code&gt;DatabaseServer&lt;/code&gt;, the &lt;code&gt;StroomCluster.spec.databaseServerRef&lt;/code&gt; should point to the name of the &lt;code&gt;DatabaseServer&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;See Also&lt;/h4&gt;
+
+
+    &lt;p&gt;See the &lt;code&gt;StroomCluster&lt;/code&gt; Custom Resource Definition (CRD)&lt;/p&gt;
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;API documentation (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomCluster/v1)&#34;&gt;
+    &lt;span&gt;API documentation&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ for an explanation of the various CRD fields
+
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;provision-a-persistentvolume-for-each-stroom-node&#34;&gt;Provision a &lt;code&gt;PersistentVolume&lt;/code&gt; for each Stroom node&lt;/h3&gt;
+&lt;p&gt;Each &lt;code&gt;PersistentVolume&lt;/code&gt; provides persistent local storage for a Stroom node.
+The amount of storage doesn&amp;rsquo;t generally need to be large, as stream data is stored on another volume.
+When deciding on a storage quota, be sure to consider the needs of log and reference data, in particular.&lt;/p&gt;
+&lt;p&gt;This volume should ideally be backed by fast, low-latency storage in order to maximise the performance of LMDB.&lt;/p&gt;
+&lt;h3 id=&#34;deploy-the-stroomcluster-resource&#34;&gt;Deploy the &lt;code&gt;StroomCluster&lt;/code&gt; resource&lt;/h3&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl apply -f stroom-cluster.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If the &lt;code&gt;StroomCluster&lt;/code&gt; configuration is valid, the Operator will deploy a &lt;code&gt;StatefulSet&lt;/code&gt; for each &lt;code&gt;NodeSet&lt;/code&gt; defined in &lt;code&gt;StroomCluster.spec.nodeSets&lt;/code&gt;.
+Once these &lt;code&gt;StatefulSet&lt;/code&gt;s reach &lt;code&gt;Ready&lt;/code&gt; state, you are ready to access the Stroom UI.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    If the &lt;code&gt;StatefulSet&lt;/code&gt;s don&amp;rsquo;t deploy, there is probably something wrong with your configuration. Check the logs of the pod &lt;code&gt;stroom-operator-system/stroom-operator-controller-manager&lt;/code&gt; for any errors.
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;log-into-stroom&#34;&gt;Log into Stroom&lt;/h3&gt;
+&lt;p&gt;Access the Stroom UI at: &lt;code&gt;https://&amp;lt;ingress hostname&amp;gt;&lt;/code&gt;.
+The initial credentials are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Username: &lt;code&gt;admin&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Password: &lt;code&gt;admin&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;further-customisation-optional&#34;&gt;Further customisation (optional)&lt;/h2&gt;
+&lt;p&gt;The configuration bundled with the Operator provides enough customisation for most use cases, via explicit properties and environment variables.&lt;/p&gt;
+&lt;p&gt;If you need to further customise Stroom, you have the following methods available:&lt;/p&gt;
+&lt;h3 id=&#34;override-the-stroom-configuration-file&#34;&gt;Override the Stroom configuration file&lt;/h3&gt;
+&lt;p&gt;Deploy a &lt;code&gt;ConfigMap&lt;/code&gt; separately.
+You can then specify the &lt;code&gt;ConfigMap&lt;/code&gt; &lt;code&gt;name&lt;/code&gt; and key (&lt;code&gt;itemName&lt;/code&gt;) containing the configuration file to be mounted into each Stroom node container.&lt;/p&gt;
+&lt;h3 id=&#34;provide-additional-environment-variables&#34;&gt;Provide additional environment variables&lt;/h3&gt;
+&lt;p&gt;Specify custom environment variables in &lt;code&gt;StroomCluster.spec.extraEnv&lt;/code&gt;.
+You can reference these in the Stroom configuration file.&lt;/p&gt;
+&lt;h3 id=&#34;mount-additional-files&#34;&gt;Mount additional files&lt;/h3&gt;
+&lt;p&gt;You can also define additional &lt;code&gt;Volume&lt;/code&gt;s and &lt;code&gt;VolumeMount&lt;/code&gt;s to be injected into each Stroom node.
+This can be useful when providing files like certificates for Kafka integration.&lt;/p&gt;
+&lt;h2 id=&#34;reconfiguring-the-cluster&#34;&gt;Reconfiguring the cluster&lt;/h2&gt;
+&lt;p&gt;Some &lt;code&gt;StroomCluster&lt;/code&gt; configuration properties can be reconfigured while the cluster is still running:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;spec.image&lt;/code&gt; Change this to deploy a newer (or different) Stroom version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec.terminationGracePeriodSecs&lt;/code&gt; Applies the next time a node or cluster is deleted&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec.nodeSets.count&lt;/code&gt; If changed, the &lt;code&gt;NodeSet&lt;/code&gt;&amp;rsquo;s &lt;code&gt;StatefulSet&lt;/code&gt; will be scaled (up or down) to match the corresponding number of replicas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;After changing any of the above properties, re-apply the manifest:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl apply -f stroom-cluster.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If any other changes need to be made, &lt;a href=&#34;../../docs/install-guide/kubernetes/stop-stroom-cluster/&#34;&gt;delete&lt;/a&gt; then &lt;a href=&#34;../../docs/install-guide/kubernetes/configure-stroom-cluster/&#34;&gt;re-create&lt;/a&gt; the &lt;code&gt;StroomCluster&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;../../docs/install-guide/kubernetes/configure-stroomtaskautoscaler/&#34;&gt;Configure Stroom task autoscaling&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;../../docs/install-guide/kubernetes/stop-stroom-cluster/&#34;&gt;Stop&lt;/a&gt; a Stroom cluster&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Auto Scaler</title>
+      <link>/docs/install-guide/kubernetes/configure-stroomtaskautoscaler/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/configure-stroomtaskautoscaler/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;Setting optimal Stroom stream processor task limits is a crucial factor in running a healthy, performant cluster.
+If a node is allocated too many tasks, it may become unresponsive or crash.
+Conversely, if allocated too few tasks, it may have CPU cycles to spare.&lt;/p&gt;
+&lt;p&gt;The optimal number of tasks is often time-dependent, as load will usually fluctuate during the day and night.
+In large deployments, it&amp;rsquo;s not ideal to set static limits, as doing so risks over-committing nodes during intense spikes in activity (such as backlog processing or multiple concurrent searches).
+Therefore an automated solution, factoring in system load, is called for.&lt;/p&gt;
+&lt;h2 id=&#34;stroom-task-autoscaling&#34;&gt;Stroom task autoscaling&lt;/h2&gt;
+&lt;p&gt;When a &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; resource is deployed to a linked &lt;code&gt;StroomCluster&lt;/code&gt;, the Operator will periodically compare each Stroom node&amp;rsquo;s average Pod CPU usage against user-defined thresholds.&lt;/p&gt;
+&lt;h2 id=&#34;enabling-autoscaling&#34;&gt;Enabling autoscaling&lt;/h2&gt;
+&lt;h3 id=&#34;create-an-stroomtaskautoscaler-resource-manifest&#34;&gt;Create an &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; resource manifest&lt;/h3&gt;
+&lt;p&gt;Use the example 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;autoscaler.yaml (external link to https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/autoscaler.yaml)&#34;&gt;
+    &lt;span&gt;autoscaler.yaml&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;p&gt;Below is an explanation of some of the main parameters.
+The rest are documented 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;here (external link to https://doc.crds.dev/github.com/p-kimberley/stroom-k8s-operator/stroom.gchq.github.io/StroomTaskAutoscaler/v1)&#34;&gt;
+    &lt;span&gt;here&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;adjustmentIntervalMins&lt;/code&gt; Determines how often the Operator will check whether a node has exceeded its CPU parameters.
+It should be often enough to catch brief load spikes, but not too often as to overload the Operator and Kubernetes cluster through excessive API calls and other overhead.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metricsSlidingWindowMin&lt;/code&gt; is the window of time over which CPU usage is averaged.
+Should not be too small, otherwise momentary load spikes could cause task limits to be reduced unnecessarily.
+Too large and spikes may not cause throttling to occur.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;minCpuPercent&lt;/code&gt; and &lt;code&gt;maxCpuPercent&lt;/code&gt; should be set to a reasonably tight range, in order to keep the task limit as close to optimal as possible.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;minTaskLimit&lt;/code&gt; and &lt;code&gt;maxTaskLimit&lt;/code&gt; are considered safeguards to avoid nodes ever being allocated an unreasonable number of task.
+Setting &lt;code&gt;maxTaskLimit&lt;/code&gt; to be equal to the number of assigned CPUs would be a reasonable starting point.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    A node&amp;rsquo;s task limits will only be adjusted while its task queue is full.
+That is, unless a node is fully-committed, it will not be scaled.
+This is to avoid continually downscaling each node to the minimum during periods of inactivity.
+Because of this, be realistic with setting &lt;code&gt;maxTaskLimit&lt;/code&gt; to ensure the node is actually capable of hitting that maximum.
+If it can&amp;rsquo;t, the autoscaler will continue adjusting upwards, potentially causing the node to become unresponsive.
+
+&lt;/div&gt;
+
+
+&lt;h3 id=&#34;deploy-the-resource-manifest&#34;&gt;Deploy the resource manifest&lt;/h3&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl apply -f autoscaler.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;disable-autoscaling&#34;&gt;Disable autoscaling&lt;/h2&gt;
+&lt;p&gt;Delete the &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; resource&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl delete -f autoscaler.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Stop Stroom Cluster</title>
+      <link>/docs/install-guide/kubernetes/stop-stroom-cluster/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/stop-stroom-cluster/</guid>
+      <description>
+        
+        
+        &lt;p&gt;A Stroom cluster can be stopped by deleting the &lt;code&gt;StroomCluster&lt;/code&gt; resource that was deployed.
+When this occurs, the Operator will perform the following actions for each node, in sequence:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Disable processing of all tasks.&lt;/li&gt;
+&lt;li&gt;Wait for all processing tasks to be completed.
+This check is performed once every minute, so there may be a brief delay between a node completed its tasks before being shut down.&lt;/li&gt;
+&lt;li&gt;Terminate the container.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The &lt;code&gt;StroomCluster&lt;/code&gt; resource will be removed from the Kubernetes cluster once all nodes have finished processing tasks.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    The &lt;code&gt;StroomCluster.spec.nodeTerminationGracePeriodSecs&lt;/code&gt; is an important setting that determines how long the Operator will wait for each node&amp;rsquo;s tasks to complete before terminating it.
+Ensure this is set to a reasonable value, otherwise long-running tasks may not have enough time to finish if the &lt;code&gt;StroomCluster&lt;/code&gt; is taken down (e.g. for maintenance).
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;stopping-the-cluster&#34;&gt;Stopping the cluster&lt;/h2&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl delete -f stroom-cluster.yaml
+kubectl delete -f database-server.yaml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If a &lt;code&gt;StroomTaskAutoscaler&lt;/code&gt; was created, remove that as well.&lt;/p&gt;
+&lt;p&gt;If any of these commands appear to hang with no response, that&amp;rsquo;s normal; the Operator is likely waiting for tasks to drain.
+You may press &lt;code&gt;Ctrl+C&lt;/code&gt; to return to the shell and task termination will continue in the background.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    If the &lt;code&gt;StroomCluster&lt;/code&gt; deletion appears to be hung, you can inspect the Operator logs to see which nodes are holding up deletion due to outstanding tasks.
+You will see a list of one or more node names, with the number of tasks outstanding in brackets (e.g. &lt;code&gt;StroomCluster deletion waiting on task completing for 1 nodes: stroom-dev-node-data-0 (5)&lt;/code&gt;).
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Once the &lt;code&gt;StroomCluster&lt;/code&gt; is removed, it can be reconfigured (if required) and redeployed, using the same process as in &lt;a href=&#34;../../docs/install-guide/kubernetes/configure-stroom-cluster/&#34;&gt;Configure a Stroom cluster&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;persistentvolumeclaim-deletion&#34;&gt;&lt;code&gt;PersistentVolumeClaim&lt;/code&gt; deletion&lt;/h2&gt;
+&lt;p&gt;When a Stroom node is shut down, by default its &lt;code&gt;PersistentVolumeClaim&lt;/code&gt; will remain.
+This ensures it gets re-assigned the same &lt;code&gt;PersistentVolume&lt;/code&gt; when it starts up again.&lt;/p&gt;
+&lt;p&gt;This behaviour should satisfy most use cases.
+However the operator may be configured to delete the PVC in certain situations, by specifying the &lt;code&gt;StroomCluster.spec.volumeClaimDeletePolicy&lt;/code&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;DeleteOnScaledownOnly&lt;/code&gt; deletes a node&amp;rsquo;s PVC where the number of nodes in the &lt;code&gt;NodeSet&lt;/code&gt; is reduced and as a result, the node Pod is no longer part of the &lt;code&gt;NodeSet&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DeleteOnScaledownAndClusterDeletion&lt;/code&gt; deletes the PVC if the node Pod is removed.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;next-steps&#34;&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;../../docs/install-guide/kubernetes/remove-operator/&#34;&gt;Removing&lt;/a&gt; the Stroom K8s Operator&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Restart Node</title>
+      <link>/docs/install-guide/kubernetes/restart-node/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/restart-node/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom nodes may occasionally hang or become unresponsive.
+In these situations, it may be necessary to terminate the Pod.&lt;/p&gt;
+&lt;p&gt;After you identify the unresponsive Pod (e.g. by finding a node not responding to cluster ping):&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl delete pod -n &amp;lt;Stroom cluster namespace&amp;gt; &amp;lt;pod name&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This will attempt to drain tasks for the node.
+After the termination grace period has elapsed, the Pod will be killed and a new one will automatically respawn to take its place.
+Once the new Pod finishes starting up, if functioning correct it should begin responding to cluster ping.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    Prior to a Stroom node being stopped (for whatever reason), task processing for that node is disabled and it is drained of all active tasks.
+Task processing is resumed once the node starts up again.
+
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;force-deletion&#34;&gt;Force deletion&lt;/h2&gt;
+&lt;p&gt;If waiting for the grace period to elapse is unacceptable and you are willing to risk shutting down the node without draining it first (or you are &lt;strong&gt;sure&lt;/strong&gt; it has no active tasks), you can force delete the Pod using the procedure outline in the 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;Kubernetes documentation (external link to https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/)&#34;&gt;
+    &lt;span&gt;Kubernetes documentation&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+:&lt;/p&gt;
+
+  
+
+
+
+
+
+
+&lt;div class=&#34;code-toolbar&#34;&gt;
+  &lt;pre 
+    class=&#34;command-line language-bash&#34; 
+    data-user=&#34;user&#34; 
+    data-host=&#34;localhost&#34; 
+    data-continuation-str=&#34;\&#34;
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;kubectl delete pod -n &amp;lt;Stroom cluster namespace&amp;gt; &amp;lt;pod name&amp;gt; --grace-period=0 --force&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Kubernetes Cluster</title>
+      <link>/docs/install-guide/kubernetes/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/install-guide/kubernetes/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

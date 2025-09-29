@@ -1,0 +1,756 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stroom – data-source</title>
+    <link>/tags/data-source/</link>
+    <description>Recent content in data-source on Stroom</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 03 May 2024 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="/tags/data-source/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Data Sources</title>
+      <link>/docs/user-guide/search/data-sources/</link>
+      <pubDate>Fri, 03 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/data-sources/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Lucene Index Data Source</title>
+      <link>/docs/user-guide/search/data-sources/lucene-data-source/</link>
+      <pubDate>Fri, 03 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/data-sources/lucene-data-source/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom&amp;rsquo;s primary data source is its internal Lucene based search indexes.
+For details of how data is indexed see &lt;a href=&#34;../../docs/user-guide/indexing/lucene/&#34;&gt;Lucene Indexes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete this section
+
+&lt;/div&gt;
+
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Elasticsearch</title>
+      <link>/docs/user-guide/search/data-sources/elastic-data-source/</link>
+      <pubDate>Fri, 03 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/data-sources/elastic-data-source/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom can integrate with external Elasticsearch indexes to allow querying using Stroom&amp;rsquo;s various mechanisms for querying data sources.
+These indexes may have been populated using a Stroom pipeline (See &lt;a href=&#34;../../docs/user-guide/indexing/elasticsearch/&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;h2 id=&#34;searching-using-a-stroom-dashboard&#34;&gt;Searching using a Stroom dashboard&lt;/h2&gt;
+&lt;p&gt;Searching an Elasticsearch index (or data stream) using a Stroom dashboard is conceptually similar to the process described in &lt;a href=&#34;../../docs/quick-start-guide/dashboard/&#34;&gt;Dashboards&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Before you set the dashboard&amp;rsquo;s data source, you must first create an Elastic Index document to tell Stroom which index (or indices) you wish to query.&lt;/p&gt;
+&lt;h3 id=&#34;create-an-elastic-index-document&#34;&gt;Create an Elastic Index document&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Right-click a folder in the Stroom Explorer pane (&lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Explorer&#34;&gt;&lt;svg xmlns:rdf=&#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; xmlns:cc=&#34;http://creativecommons.org/ns#&#34; xmlns:dc=&#34;http://purl.org/dc/elements/1.1/&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;g fill=&#34;var(--icon-colour__blue)&#34;&gt;&lt;path d=&#34;m804.29 276.08v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913-26.91-26.92-26.91-64.43v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z&#34;/&gt;&lt;path d=&#34;m1653.2 1336.4v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.914 26.913 26.913 26.913 64.429z&#34;/&gt;&lt;path d=&#34;m1653.2 654.02v287.08q0 37.516-26.913 64.429t-64.429 26.913h-495.86q-37.516 0-64.429-26.913t-26.913-64.429v-391.47q0-37.516 26.913-64.429t64.429-26.913h130.49q37.516 0 64.429 26.913t26.913 64.429v13.049h274.03q37.516 0 64.429 26.913t26.913 64.429z&#34;/&gt;&lt;/g&gt;&lt;path stroke-linejoin=&#34;round&#34; d=&#34;m600.75 492.64v949.1h381.89&#34; stroke=&#34;var(--icon-colour__blue)&#34; stroke-width=&#34;71.125&#34; fill=&#34;none&#34;/&gt;&lt;path d=&#34;m597.94 807.14h539.13&#34; fill-rule=&#34;evenodd&#34; stroke=&#34;var(--icon-colour__blue)&#34; stroke-width=&#34;71.125&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;).&lt;/li&gt;
+&lt;li&gt;Select:&lt;br&gt;
+
+
+
+
+
+  &lt;div class=&#34;stroom-theme-dark stroom-menu&#34;&gt;
+    
+    
+
+      
+
+      
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 0px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item &#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;New
+      &lt;/div&gt;
+        &lt;div class=&#34;stroom-menu-item-arrow&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Arrow right&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1427.7665&#34; height=&#34;1427.7665&#34; viewBox=&#34;0 0 1427.7665 1427.7665&#34;&gt;&lt;g style=&#34;stroke:currentColor;stroke-width:167.567&#34;&gt;&lt;path d=&#34;m 415.05387,83.70929 c -39.92654,0.4303 -75.41463,48.3887 -40.0468,81.9121 C 567.552,348.69899 760.75555,531.15431 953.73208,713.82391 760.75555,896.49341 567.552,1078.9486 375.00707,1262.0262 c -46.19471,43.7855 28.48812,112.1966 76.0571,67.1681 195.93558,-185.823 392.95261,-370.82479 587.98693,-557.52749 5.6117,-4.8034 10.4633,-10.2473 14.4855,-16.1231 9.643,-12.4844 13.9638,-27.0796 13.6909,-41.7198 0.2729,-14.6402 -4.0479,-29.2354 -13.6909,-41.7198 -4.0222,-5.8758 -8.8738,-11.3198 -14.4855,-16.1231 C 844.01678,469.27821 646.99975,284.27629 451.06417,98.45319 439.91519,87.89979 427.27628,83.57749 415.05387,83.70929 Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+      
+
+      
+      
+        
+      
+
+
+      
+
+  
+  
+  &lt;div class=&#34;stroom-menu-item-background&#34; style=&#34;margin-top: 7px;&#34;&gt;
+    
+    &lt;div class=&#34;stroom-menu-item stroom-menu-item-leaf&#34; &gt;
+        &lt;div class=&#34;stroom-menu-item-icon&#34;&gt;
+          &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Elastic index&#34;&gt;&lt;!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --&gt;&lt;svg version=&#34;1.1&#34; id=&#34;Layer_1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; x=&#34;0px&#34; y=&#34;0px&#34; viewBox=&#34;0 0 2500 2500&#34; style=&#34;enable-background:new 0 0 2500 2500;&#34; xml:space=&#34;preserve&#34;&gt;&lt;style type=&#34;text/css&#34;&gt; .st0{fill:#4A4B4C;} .st1{fill:var(--icon-colour__white);} .st2{fill:#F4BD19;} .st3{fill:#3CBEB1;} .st4{fill:#E9478C;} .st5{fill:#2C458F;} .st6{fill:#95C63D;} .st7{fill:#176655;} &lt;/style&gt;&lt;g&gt;&lt;path class=&#34;st0&#34; d=&#34;M1240,1071.5c220.3,0,426.2-20,617.7-60c191.5-40,80.9,38.1,191.5-40l114,129.1c0,64.1,99.8,94.5,4,149.3 s-225.9,98.3-390.4,130.4s-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237 c110.6,78.1,261.7,137.1,453.2,177.1C813.8,1051.5,1019.7,1071.5,1240,1071.5z M1240,2499.4c-193.4,0-372.3-16-536.8-48.1 s-294.7-75.5-390.4-130.4s-143.6-114.3-143.6-178.5v-237c110.6,78.1,261.7,137.1,453.2,177.1c191.5,40,397.4,60,617.7,60 M1776.8,1915.8c-164.5,32.1-343.5,48.1-536.8,48.1s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4 S169.1,1671.1,169.1,1607v-237C279.7,1448,430.8,1507,622.3,1547c191.5,40,397.4,60,617.7,60s426.2-20,617.7-60 c191.5-40,163.5-99,274.1-177.1l179.1,237c0,64.1-47.9,123.6-143.6,178.5 M1240,0.6c193.4,0,372.3,16,536.8,48.1 s294.7,75.5,390.4,130.4s143.6,114.3,143.6,178.5v178.5c0,64.1-47.9,123.6-143.6,178.5s-225.9,98.3-390.4,130.4 C1612.3,877,1433.4,893,1240,893s-372.3-16-536.8-48.1c-164.5-32.1-294.7-75.5-390.4-130.4S169.1,600.2,169.1,536.1V357.6 c0-64.1,47.9-123.6,143.6-178.5S538.6,80.8,703.2,48.8S1046.6,0.6,1240,0.6z&#34;/&gt;&lt;/g&gt;&lt;path class=&#34;st1&#34; d=&#34;M2518.6,1692.2c0-151.6-94.2-282.5-234-334c5.9-32,8.9-64.5,8.8-97.1c0-281-228.1-509.1-509.1-509.1 c-163.3,0-316.3,78-412,211.9c-47.1-36.8-104.5-55.9-164.8-55.9c-148.6,0-270.7,120.7-270.7,270.7c0,32.4,5.9,64.7,16.2,94.2 c-141.2,48.6-236.9,183.9-236.9,334c0,151.6,94.2,284,235.4,335.5c-5.9,30.9-8.8,63.3-8.8,97.1c0,279.6,228.1,507.6,507.6,507.6 c164.8,0,316.4-79.5,412-211.9c47.1,36.8,105.9,57.4,166.3,57.4c148.6,0,270.7-120.7,270.7-270.7c0-32.4-5.9-64.7-16.2-94.2 C2421.4,1977.6,2518.5,1842.2,2518.6,1692.2L2518.6,1692.2z&#34;/&gt;&lt;path class=&#34;st2&#34; d=&#34;M1420.9,1522.9l401.7,183.9l406.1-356.1c5.9-29.6,8.9-59.6,8.8-89.8c0-250.1-203-453.2-453.2-453.2 c-150.1,0-289.9,73.6-373.7,197.2l-67.7,350.2L1420.9,1522.9L1420.9,1522.9z&#34;/&gt;&lt;path class=&#34;st3&#34; d=&#34;M1004.5,1948.2c-5.9,29.4-8.8,60.3-8.8,91.2c0,250.1,204.5,454.7,454.7,454.7c151.6,0,291.3-75,376.7-198.6 l66.2-350.2l-89.8-170.7l-403.2-183.9L1004.5,1948.2L1004.5,1948.2z&#34;/&gt;&lt;path class=&#34;st4&#34; d=&#34;M1001.5,1252.2l275.2,64.7l61.8-313.4c-38.3-29.4-83.9-44.1-132.4-44.1c-119.2,0-217.8,97.1-217.8,217.8 C988.3,1202.2,992.7,1228.7,1001.5,1252.2L1001.5,1252.2z&#34;/&gt;&lt;path class=&#34;st5&#34; d=&#34;M978,1318.4c-123.6,39.7-208.9,158.9-208.9,288.4c0,126.5,78,239.8,195.7,284l387-350.2l-70.6-151.5L978,1318.4 L978,1318.4z&#34;/&gt;&lt;path class=&#34;st6&#34; d=&#34;M1897.6,2294c38.3,29.4,83.9,45.6,131,45.6c119.2,0,217.8-97.1,217.8-217.8c0-26.5-4.4-51.5-13.2-75 l-275.2-64.7L1897.6,2294L1897.6,2294z&#34;/&gt;&lt;path class=&#34;st7&#34; d=&#34;M1953.5,1909.9l303.1,70.6c123.6-41.2,208.9-158.9,208.9-288.4c0-126.5-78-238.4-195.7-284l-397.3,347.2 L1953.5,1909.9L1953.5,1909.9z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+        &lt;/div&gt;
+
+      &lt;div class=&#34;stroom-menu-item-text&#34;&gt;Elastic Index
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;Enter a name for the index document and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+&lt;span class=&#34;stroom-theme-dark stroom-button stroom-button-primary&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__grey&#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;OK&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --&gt;&lt;path style=&#34;fill:#fff&#34; d=&#34;M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Ellipsis&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;g style=&#34;fill:currentColor&#34;&gt;&lt;circle cx=&#34;342.43176&#34; cy=&#34;896&#34; r=&#34;208.83429&#34;/&gt;&lt;circle cx=&#34;896&#34; cy=&#34;896&#34; r=&#34;208.83429&#34;/&gt;&lt;circle cx=&#34;1449.5682&#34; cy=&#34;896&#34; r=&#34;208.83429&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; next to the &lt;code&gt;Cluster configuration&lt;/code&gt; field label.&lt;/li&gt;
+&lt;li&gt;In the dialog that appears, select the Elastic Cluster document where the index exists, and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+&lt;span class=&#34;stroom-theme-dark stroom-button stroom-button-primary&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__grey&#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;OK&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --&gt;&lt;path style=&#34;fill:#fff&#34; d=&#34;M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Enter the name of an index or data stream in &lt;code&gt;Index name or pattern&lt;/code&gt;.
+Data view (formerly known as &lt;em&gt;index pattern&lt;/em&gt;) 
+
+
+
+
+
+
+
+  
+  
+
+&lt;span class=&#34;external-link&#34;&gt;
+  &lt;a href=&#34;https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern&#34; target=&#34;_blank&#34; class=&#34;&#34; style=&#34;&#34; title=&#34;syntax (external link to https://www.elastic.co/guide/en/kibana/current/data-views.html#settings-create-pattern)&#34;&gt;
+    &lt;span&gt;syntax&lt;/span&gt;
+    &lt;i class=&#34;external-link-icon fas fa-external-link-alt fa-sm text-secondary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;
+ is supported, which enables you to query multiple indices or data streams at once.
+For example: &lt;code&gt;stroom-events-v1&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;(Optional) Set &lt;code&gt;Search slices&lt;/code&gt;, which is the number of parallel workers that will query the index.
+For very large indices, increasing this value up to and including the number of shards can increase scroll performance, which will allow you to download results faster.&lt;/li&gt;
+&lt;li&gt;(Optional) Set &lt;code&gt;Search scroll size&lt;/code&gt;, which specifies the number of documents to return in each search response.
+Greater values generally increase efficiency.
+By default, Elasticsearch limits this number to &lt;code&gt;10,000&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;code&gt;Test Connection&lt;/code&gt;.
+A dialog will appear with the result, which will state &lt;code&gt;Connection Success&lt;/code&gt; if the connection was successful and the index pattern matched one or more indices.&lt;/li&gt;
+&lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;set-the-elastic-index-document-as-the-dashboard-data-source&#34;&gt;Set the Elastic Index document as the dashboard data source&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open or create a dashboard.&lt;/li&gt;
+&lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Settings&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt; in the &lt;code&gt;Query&lt;/code&gt; panel.&lt;/li&gt;
+&lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Ellipsis&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; height=&#34;1792&#34; width=&#34;1792&#34; version=&#34;1.1&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;g style=&#34;fill:currentColor&#34;&gt;&lt;circle cx=&#34;342.43176&#34; cy=&#34;896&#34; r=&#34;208.83429&#34;/&gt;&lt;circle cx=&#34;896&#34; cy=&#34;896&#34; r=&#34;208.83429&#34;/&gt;&lt;circle cx=&#34;1449.5682&#34; cy=&#34;896&#34; r=&#34;208.83429&#34;/&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; next to the &lt;code&gt;Data Source&lt;/code&gt; field label.&lt;/li&gt;
+&lt;li&gt;Select the Elastic Index document you created and click 
+
+
+
+
+
+
+  
+  
+  
+
+
+&lt;span class=&#34;stroom-theme-dark stroom-button stroom-button-primary&#34; title=&#34;OK button&#34; &gt;
+  &lt;span class=&#34;stroom-icon inline-svg-button icon-button  icon-colour__grey&#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;OK&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;!-- Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --&gt;&lt;path style=&#34;fill:#fff&#34; d=&#34;M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class=&#34;stroom-button-text&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;
+.&lt;/li&gt;
+&lt;li&gt;Configure the query expression as explained in &lt;a href=&#34;../../docs/quick-start-guide/dashboard/#configuring-the-query-expression&#34;&gt;Dashboards&lt;/a&gt;.
+Note the &lt;a href=&#34;#query-expression-tips&#34;&gt;tips&lt;/a&gt; for particular Elasticsearch field mapping data types.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;../../docs/quick-start-guide/dashboard/#configuring-the-table&#34;&gt;Configure the table&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;query-expression-tips&#34;&gt;Query expression tips&lt;/h2&gt;
+&lt;p&gt;Certain Elasticsearch field mapping types support special syntax when used in a Stroom dashboard query expression.&lt;/p&gt;
+&lt;p&gt;To identify the field mapping type for a particular field:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; in the &lt;code&gt;Query&lt;/code&gt; panel to add a new expression item.&lt;/li&gt;
+&lt;li&gt;Select the Elasticsearch field name in the drop-down list.&lt;/li&gt;
+&lt;li&gt;Note the blue data type indicator to the far right of the row.
+Common examples are: &lt;code&gt;keyword&lt;/code&gt;, &lt;code&gt;text&lt;/code&gt; and &lt;code&gt;number&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;After you identify the field mapping type, move the mouse cursor over the mapping type indicator.
+A tooltip appears, explaining various types of queries you can perform against that particular field&amp;rsquo;s type.&lt;/p&gt;
+&lt;h2 id=&#34;searching-multiple-indices&#34;&gt;Searching multiple indices&lt;/h2&gt;
+&lt;p&gt;Using data view (index pattern) syntax, you can create powerful dashboards that query multiple indices at a time.
+An example of this is where you have multiple indices covering different types of email systems.
+Let&amp;rsquo;s assume these indices are named: &lt;code&gt;stroom-exchange-v1&lt;/code&gt;, &lt;code&gt;stroom-domino-v1&lt;/code&gt; and &lt;code&gt;stroom-mailu-v1&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There is a common set of fields across all three indices: &lt;code&gt;@timestamp&lt;/code&gt;, &lt;code&gt;Subject&lt;/code&gt;, &lt;code&gt;Sender&lt;/code&gt; and &lt;code&gt;Recipient&lt;/code&gt;.
+You want to allow search across all indices at once, in effect creating a unified &lt;em&gt;email&lt;/em&gt; dashboard.&lt;/p&gt;
+&lt;p&gt;You can achieve this by creating an Elastic Index document called (for example) &lt;code&gt;Elastic-Email-Combined&lt;/code&gt; and setting the property &lt;code&gt;Index name or pattern&lt;/code&gt; to: &lt;code&gt;stroom-exchange-v1,stroom-domino-v1,stroom-mailu-v1&lt;/code&gt;.
+Click &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Save&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --&gt;&lt;path style=&#34;fill:currentColor;stroke-width:0.570676;stroke-dasharray:none&#34; d=&#34;M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z &#34; /&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt; and re-open the dashboard.
+You&amp;rsquo;ll notice that the available fields are a union of the fields across all three indices.
+You can now search by any of these - in particular, the fields common to all three.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Internal Data Sources</title>
+      <link>/docs/user-guide/search/data-sources/internal-data-sources/</link>
+      <pubDate>Fri, 03 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/user-guide/search/data-sources/internal-data-sources/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Stroom provides a number of built in data sources for querying the inner workings of stroom.
+These data sources do not have a corresponding &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#document&#34; title=&#34;Glossary entry for Document&#34;&gt;
+    &lt;span&gt;Document&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; so do not feature in the explorer tree.&lt;/p&gt;
+&lt;p&gt;These data sources appear as children of the root folder when selecting a data source in a Dashboard &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Dashboard&#34;&gt;&lt;!-- Created with Inkscape (http://www.inkscape.org/) --&gt;&lt;svg version=&#34;1.1&#34; id=&#34;svg4591&#34; width=&#34;512&#34; height=&#34;512&#34; viewBox=&#34;0 0 512 512&#34; sodipodi:docname=&#34;Dashboard.svg&#34; inkscape:version=&#34;1.2.1 (9c6d41e410, 2022-07-14, custom)&#34; xmlns:inkscape=&#34;http://www.inkscape.org/namespaces/inkscape&#34; xmlns:sodipodi=&#34;http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; &gt;&lt;defs id=&#34;defs4595&#34; /&gt;&lt;sodipodi:namedview id=&#34;namedview4593&#34; pagecolor=&#34;var(--icon-colour__white)&#34; bordercolor=&#34;#666666&#34; borderopacity=&#34;1.0&#34; inkscape:showpageshadow=&#34;2&#34; inkscape:pageopacity=&#34;0.0&#34; inkscape:pagecheckerboard=&#34;0&#34; inkscape:deskcolor=&#34;#d1d1d1&#34; showgrid=&#34;false&#34; inkscape:zoom=&#34;0.35458919&#34; inkscape:cx=&#34;530.191&#34; inkscape:cy=&#34;589.41447&#34; inkscape:window-width=&#34;2560&#34; inkscape:window-height=&#34;1403&#34; inkscape:window-x=&#34;2560&#34; inkscape:window-y=&#34;0&#34; inkscape:window-maximized=&#34;1&#34; inkscape:current-layer=&#34;g4597&#34; /&gt;&lt;g inkscape:groupmode=&#34;layer&#34; inkscape:label=&#34;Image&#34; id=&#34;g4597&#34;&gt;&lt;rect style=&#34;fill:var(--icon-colour__orange);fill-opacity:1;stroke:var(--icon-colour__orange);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655&#34; width=&#34;151.83469&#34; height=&#34;195.54515&#34; x=&#34;73.71109&#34; y=&#34;73.244606&#34; transform=&#34;matrix(1,0,-0.00232161,0.99999731,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__yellow);fill-opacity:1;stroke:var(--icon-colour__yellow);stroke-width:18.00002425;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5&#34; width=&#34;151.83469&#34; height=&#34;195.54515&#34; x=&#34;287.34845&#34; y=&#34;243.71935&#34; transform=&#34;matrix(1,0,-0.00232161,0.99999731,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__green);fill-opacity:1;stroke:var(--icon-colour__green);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5-9&#34; width=&#34;155.95563&#34; height=&#34;108.24628&#34; x=&#34;285.01883&#34; y=&#34;71.178368&#34; transform=&#34;matrix(1,0,-0.00408154,0.99999167,0,0)&#34; /&gt;&lt;rect style=&#34;fill:var(--icon-colour__blue);fill-opacity:1;stroke:var(--icon-colour__blue);stroke-width:18.00007497;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke&#34; id=&#34;rect4655-5-9-2&#34; width=&#34;155.95563&#34; height=&#34;108.24628&#34; x=&#34;72.821693&#34; y=&#34;331.08734&#34; transform=&#34;matrix(1,0,-0.00408154,0.99999167,0,0)&#34; /&gt;&lt;/g&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;, View &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;View&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__green)&#34; d=&#34;M1595 295q17 41-14 70l-493 493v742q0 42-39 59-13 5-25 5-27 0-45-19l-256-256q-19-19-19-45v-486l-493-493q-31-29-14-70 17-39 59-39h1280q42 0 59 39z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
+  &lt;/span&gt;.
+They are also available in the list of data sources when editing a Query &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+    &lt;span class=&#34;face&#34; title=&#34;Query&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:var(--icon-colour__blue)&#34; d=&#34;M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/span&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;analytics&#34;&gt;Analytics&lt;/h2&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
+
+    Complete
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;annotations&#34;&gt;Annotations&lt;/h2&gt;
+&lt;p&gt;Annotations are a means of annotating search results with additional information and for assigning those annotations to users.
+The &lt;em&gt;Annotations&lt;/em&gt; data source allows you to query the annotations that have been created.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotaion:Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;Annotation unique identifier.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:CreatedOn&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;Date created.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:CreatedBy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;Username of the user that created the annotation.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:UpdatedOn&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;Date last updated.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:UpdatedBy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;Username of the user that last updated the annotation.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:Title&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:Subject&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:AssignedTo&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;Username the annotation is assigned to.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:Comment&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;Any comments on the annotation.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;annotation:History&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;History of changes to the annotation.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;dual&#34;&gt;Dual&lt;/h2&gt;
+&lt;p&gt;The Dual data source is one with a single field that always returns one row with the same value.
+This data source can be useful for testing expression functions.
+It can also be useful when combined with an extraction pipeline that uses the &lt;code&gt;stroom:http-call()&lt;/code&gt; XSLT function in order to make a single HTTP call using Dashboard parameter values.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Dummy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;Always one row that has the value &lt;code&gt;X&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;index-shards&#34;&gt;Index Shards&lt;/h2&gt;
+&lt;p&gt;Exposes the details of the index shards that make up Stroom&amp;rsquo;s Lucene based index.
+Each index is split up into one or more partitions and each partition is further divided into one or more shards.
+Each row represents one index shard.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Node&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the node that the index belongs to.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Index&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the index document.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Index Name&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the index document.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Volume Path&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The file path for the index shard.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Volume Group&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the volume group the index is using.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Partition&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the partition that the shard is in.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Doc Count&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Integer&lt;/td&gt;
+&lt;td&gt;The number of documents in the shard.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;File Size&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The size of the shard on disk in bytes.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Status&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The status of the shard (&lt;code&gt;Closed&lt;/code&gt;, &lt;code&gt;Open&lt;/code&gt;, &lt;code&gt;Closing&lt;/code&gt;, &lt;code&gt;Opening&lt;/code&gt;, &lt;code&gt;New&lt;/code&gt;, &lt;code&gt;Deleted&lt;/code&gt;, &lt;code&gt;Corrupt&lt;/code&gt;).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Last Commit&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time and date of the last commit to the shard.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;meta-store&#34;&gt;Meta Store&lt;/h2&gt;
+&lt;p&gt;Exposes details of the streams held in Stroom&amp;rsquo;s &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#stream&#34; title=&#34;Glossary entry for stream&#34;&gt;
+    &lt;span&gt;stream&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt; (aka meta) store.
+Each row represents one stream.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Feed&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the feed the stream belongs to.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Pipeline&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the pipeline that created the stream. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Pipeline Name&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the pipeline that created the stream. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Status&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The status of the stream (&lt;code&gt;Unlocked&lt;/code&gt;, &lt;code&gt;Locked&lt;/code&gt;, &lt;code&gt;Deleted&lt;/code&gt;).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Type&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The &lt;span class=&#34;glossary-link&#34;&gt;
+  &lt;a href=&#34;../../docs/glossary/#stream-type&#34; title=&#34;Glossary entry for Stream Type&#34;&gt;
+    &lt;span&gt;Stream Type&lt;/span&gt;
+    &lt;i class=&#34;glossary-link-icon fas fa-book fa-sm text-primary&#34;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/span&gt;, e.g. &lt;code&gt;Events&lt;/code&gt;, &lt;code&gt;Raw Events&lt;/code&gt;, etc.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (within this Stroom cluster) for the stream .&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Parent Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (within this Stroom cluster) for the parent stream, e.g. the Raw stream that spawned an Events stream. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Processor Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (within this Stroom cluster) for the processor that produced this stream. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Processor Filter Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (within this Stroom cluster) for the processor filter that produced this stream. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Processor Task Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (within this Stroom cluster) for the processor task that produced this stream. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Create Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time the stream was created.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Effective Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time that the data in this stream is effective for. This is only used for reference data stream and is the time that the snapshot of reference data was captured. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Status Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time that the status was last changed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Duration&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The time it took to process the stream in milliseconds. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Read Count&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The number of records read in segmented streams. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Write Count&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The number of records written in segmented streams. [Optional]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Info Count&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The number of &lt;em&gt;INFO&lt;/em&gt; messages.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Warning Count&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The number of &lt;em&gt;WARNING&lt;/em&gt; messages.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Error Count&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The number of &lt;em&gt;ERROR&lt;/em&gt; messages.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Fatal Error Count&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The number of &lt;em&gt;FATAL_ERROR&lt;/em&gt; messages.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;File Size&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The compressed size of the stream on disk in bytes.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Raw Size&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The un-compressed size of the stream on disk in bytes.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;processor-tasks&#34;&gt;Processor Tasks&lt;/h2&gt;
+&lt;p&gt;Exposes details of the tasks spawned by the processor filters.
+Each row represents one processor task.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Create Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time the task was created.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Create Time Ms&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The time the task was created (milliseconds).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Start Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time the task was executed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Start Time Ms&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The time the task was executed (milliseconds).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;End Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time the task finished.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;End Time Ms&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The time the task finished (milliseconds).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Status Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time the status of the task was last updated.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Status Time Ms&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The time the status of the task was last updated (milliseconds).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Meta Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (unique within this Stroom cluster) of the stream the task was for.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Node&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the node that the task was executed on.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Pipeline&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the pipeline that spawned the task.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Pipeline Name&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the pipeline that spawned the task.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Processor Filter Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The ID of the processor filter that spawned the task.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Processor Filter Priority&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Integer&lt;/td&gt;
+&lt;td&gt;The priority of the processor filter when the task was executed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Processor Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (unique within this Stroom cluster) of the pipeline processor that spawned this task.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Feed&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Status&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The status of the task (&lt;code&gt;Created&lt;/code&gt;, &lt;code&gt;Queued&lt;/code&gt;, &lt;code&gt;Processing&lt;/code&gt;, &lt;code&gt;Complete&lt;/code&gt;, &lt;code&gt;Failed&lt;/code&gt;, &lt;code&gt;Deleted&lt;/code&gt;).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Task Id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Long&lt;/td&gt;
+&lt;td&gt;The unique ID (unique within this Stroom cluster) of this task.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;reference-data-store&#34;&gt;Reference Data Store&lt;/h2&gt;
+
+&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Warning&lt;/h4&gt;
+
+    This data source is for advanced users only and is primarily aimed at debugging issues with reference data.
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Reference data is written to a persistent cache on storage local to the node.
+This data source exposes the data held in the store on the local node only.
+Given that most Stroom deployments are clustered and the UI nodes are typically not doing processing, this means the UI node will have no reference data.&lt;/p&gt;
+&lt;h2 id=&#34;task-manager&#34;&gt;Task Manager&lt;/h2&gt;
+&lt;p&gt;This data source exposed the back ground tasks currently running across the Stroom cluster.
+Each row represents a single background server task.&lt;/p&gt;
+&lt;p&gt;Requires the &lt;code&gt;Manage Tasks&lt;/code&gt; application permission.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Node&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the node that the task is running on.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Name&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The name of the task.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;User&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The user name of the user that the task is running as.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Submit Time&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Date&lt;/td&gt;
+&lt;td&gt;The time the task was submitted.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Age&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Duration&lt;/td&gt;
+&lt;td&gt;The time the task has been running for.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Info&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;String&lt;/td&gt;
+&lt;td&gt;The latest information message from the task.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
