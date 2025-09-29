@@ -1,0 +1,112 @@
+{{ with $funcName := .Get 0 }}
+  {{ $file := printf "data/xslt-functions/%s.json" . }}
+  {{ with resources.Get $file }}
+    {{ with . | transform.Unmarshal }}
+      {{ $func := . }}
+      {{ $sigCount := .signatures | len }}
+      <div class="function-definition">
+
+      {{ if gt $sigCount 1 }}
+        {{ with .commonDescription }}
+          <p>{{ . | markdownify }}</p>
+        {{ end }}
+      {{ end }}
+
+      {{/*
+      {{ with .commonCategory }}
+        <p><strong>Categories:</strong>
+        {{ delimit . ", " }}
+        </p>
+      {{ end }}
+      */}}
+
+      {{/*
+      {{ if gt $sigCount 1 }}
+        <p><strong>Function Signatures:</strong></p>
+      {{ end }}
+      */}}
+
+      {{ range $sigIdx, $sig := .signatures }}
+        {{ $argReturnType := default (index $func.commonReturnType 0) (index $sig.returnType 0)}}
+        {{ $argReturnDesc := default $func.commonReturnDescription $sig.returnDescription }}
+
+        {{/* e.g. hash( String value, String algorithm ) ➡ String */}}
+        <p class="function-definition-signature"><span><code>
+        <span class="function-definition-signature-name">{{ $func.name -}}(</span><!-- comment to stop space between spans
+        {{/* {{- delimit (apply $sig.args "collections.Index" "." "name") ", " -}}) */}}
+        -->{{- $argCount := $sig.args | len -}}
+        {{- range $idx, $arg := $sig.args -}}
+          {{- if gt $idx 0 -}},&thinsp;{{- end -}}
+          <span class="function-definition-signature-arg">{{- .name -}}</span>
+        {{- end -}}
+
+        )&emsp14;➡&emsp14;{{ $argReturnType }}</code></span></p>
+
+
+        {{/* description */}}
+        {{ with default $func.commonDescription .description }}
+          <p>{{ . | markdownify }}</p>
+        {{ end }}
+
+        {{/* Args table */}}
+        {{ with $sig.args }}
+          <p><strong>Function Arguments:</strong></p>
+          <table class="function-signature-args">
+            <tr>
+              <th>Param</th>
+              <th>Type</th>
+              <th>Mandatory</th>
+              <th>Default Value</th>
+              <th>Allowed Values</th>
+              <th>Multiple</th>
+              <th>Min Count</th>
+              <th>Description</th>
+            </tr>
+          {{ range . }}
+            <tr>
+              <td><code>{{ .name }}</code></td>
+              <td>{{ .argType }}</td>
+              {{ with .isOptional }}
+                <td>Optional</td>
+              {{ else }}
+                <td>Mandatory</td>
+              {{ end }}
+              {{ with .defaultValue }}
+                <td><code>{{ . }}</code></td>
+              {{ else }}
+                <td>-</td>
+              {{ end }}
+              <td>{{ default "-" (delimit (apply .allowedValues "fmt.Printf" "<code>%s</code>" ".") ", " )}}</td>
+              {{ with .isVarargs }}
+                <td>True</td>
+              {{ else }}
+                <td>False</td>
+              {{ end }}
+              <td>{{ default "-" .minVarargsCount }}</td>
+              <td>{{ .description | markdownify }}</td>
+            </tr>
+          {{ end }}
+          </table>
+        {{ end }}
+
+        {{/* Return type table */}}
+        <p><strong>Return Value:</strong></p>
+        <table class="function-signature-return">
+          <tr>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>{{ $argReturnType }}</td>
+            <td>{{ $argReturnDesc | markdownify }}</td>
+          </tr>
+        </table>
+        </div>
+      {{ end }}
+    {{ end }}
+  {{ else }}
+    {{ errorf "The %q shortcode was unable to find %s. See %s" $.Name $funcName $.Position }}
+  {{ end }}
+{{ else }}
+  {{ errorf "The %q shortcode requires one positional argument, the name of the XSLT function. See %s" .Name .Position }}
+{{ end }}
