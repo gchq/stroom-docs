@@ -257,6 +257,23 @@ Examples of identity providers are Google, Cognito, KeyCloack and Microsoft Azur
 Stroom has its own built in IDP or can be configured to use a 3rd party IDP.
 
 
+## ISO8601
+
+This is an international standard for representing dates, times and durations.
+By default Stroom displays date/times in ISO8601.
+Valid examples of ISO8601 dates/times are:
+
+```text
+2010-01-01T23:59Z
+2010-01-01T23:59:59Z
+2010-01-01T23:59:59.123Z
+2010-01-01T23:59:59+02:00
+2010-01-01T23:59:59.123+02
+```
+
+See {{< external-link "ISO_8601" "https://en.wikipedia.org/wiki/ISO_8601" >}} for more detail.
+
+
 ## JSON
 
 **J**ava**S**cript **O**bject **N**otation is a file/data format for storing/transmitting structured data.
