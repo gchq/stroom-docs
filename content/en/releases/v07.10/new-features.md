@@ -200,8 +200,24 @@ The _IndexShards_ {{< glossary "Searchable" >}} has been changed to add the fiel
 
 ## Plan B Changes
 
-{{% todo %}}
-TODO
-{{% /todo %}}
+Plan B has evolved in 7.10 as a state store capable of storing the following types of state data:
+* State - For a given key provide an unchanging state value.
+* Temporal State - For a given key provide a state value valid at a specific point in time (similar to reference data).
+* Ranged State - For a given numeric key within a key range provide an unchanging state value.
+* Temporal Ranged State - For a given numeric key within a key range provide a state value valid at a specific point in time (similar to reference data for ranges).
+* Session - Record session start and end times, e.g. maintain sessions for each application used by a specific user.  
+* Metrics - Record values at points in time, e.g. CPU use %.
+* Histograms - Record counts over time, e.g. number of records per minute, hour etc.
 
+Although still somewhat experimental, Plan B has undergone significant change in 7.10 following feedback from the previous experimental release.
+The data structure has changed significantly to reduce data store sizes.
+All previous Plan B LMDB instances must be deleted before this new version can be used.
+
+In addition to data structure changes the following features are now available:
+* Additional Plan B store types for histograms and metrics.
+* Advanced Plan B storage schema settings for specific use cases to improve storage efficiency and performance.
+* Better data retention options allowing for retention based on insert time.
+* Remote query settings for `get()` and `lookup()` requests to avoid the need for local snapshots.
+* Plan B shards are now queryable as a data source to discover stored data and information.
+* Writes can now be synchronised if needed to ensure data presence before query. This option impacts data processing performance.
 
