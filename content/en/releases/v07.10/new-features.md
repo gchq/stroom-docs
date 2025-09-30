@@ -221,3 +221,24 @@ In addition to data structure changes the following features are now available:
 * Plan B shards are now queryable as a data source to discover stored data and information.
 * Writes can now be synchronised if needed to ensure data presence before query. This option impacts data processing performance.
 
+## Improved Dashboard Context
+
+Dashboards now maintain a global context that is available to all dashboard components.
+The context keeps track of the selection state of each component plus dashboard parameters and time range setting.
+Context changes can be handled by certain components such as queries and tables by adding selection handlers.
+Handlers allow components to respond to context changes, e.g. by filtering a table based on a selection in another table.
+
+## Annotation Changes
+
+Annotations have been improved in 7.10 and more improvements will be available in 7.11.
+
+For 7.10 the following changes have been made:
+* The annotation edit presenter has been improved so that the layout is clearer.
+* Annotations now have fine-grained permissions for visibility and edit.
+* Creating annotations can now be performed on multiple events just by selecting the events and clicking the annotate button.
+* Users can define custom annotation states.
+* Custom labels and collections can defined and added to annotations.
+* All states and labels have visibility permissions.
+* An annotations screen is now available for easier annotation browsing. 
+* Annotations can now have retention periods.
+
