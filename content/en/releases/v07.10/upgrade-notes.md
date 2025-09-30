@@ -82,7 +82,6 @@ appConfig:
 ```
 
 
-
 ### Stroom-Proxy's `config.yml`
 
 #### HTTP Forward Destinations
@@ -98,6 +97,7 @@ proxyConfig:
   forwardHttpDestinations:
   - forwardHeadersAdditionalAllowSet: []
 ```
+
 
 #### X509 Certificate Extraction
 
@@ -132,6 +132,7 @@ See [`migrage` command]({{< relref "/docs/user-guide/tools/command-line#migrate"
 Run stroom.db.migration.TestListDbMigrations.listDbMigrationsForLatestVersion() to generate the content for
 this section
 -->
+
 
 ### Migration Scripts
 

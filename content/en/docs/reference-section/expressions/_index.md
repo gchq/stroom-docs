@@ -125,6 +125,7 @@ The arguments to functions can either be other functions, literal values, or the
   * [Less Than](logic#less-than)
   * [Less Than or Equal To](logic#less-than-or-equal-to)
   * [Not](logic#not)
+  * [Case](logic#case)
   {{< /card >}}
 
 {{< /cardpane >}}

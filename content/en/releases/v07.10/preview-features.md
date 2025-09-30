@@ -9,8 +9,5 @@ description: >
   Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.
 ---
 
-
-{{% todo %}}
-TODO
-{{% /todo %}}
+There are no preview features in v7.10.
 
