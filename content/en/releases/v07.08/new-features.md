@@ -19,18 +19,15 @@ This is to improve performance over previous Stroom-Proxy implementations and to
 
 ## Reporting
 
-{{% todo %}}
-{{% /todo %}}
-
+A reporting feature has been added in 7.8.
+It allows users to schedule queries that can be run at specific points in time to output tabular data in CSV or Excel etc.
+Any data source that can be queried in stroom can be the source of a report.
+Reports can be emailed to individuals or written as a stream for onward processing.
 
 ## Apache HTTP Client
 
 Previous versions of Stroom and Stroom-Proxy used a variety of HTTP clients for making HTTP requests, e.g. from the {{< pipe-elm "HTTPAppender" >}}.
 These have been standardised to all use the Apache HTTP client which means a consistent set of configuration can be used.
-
-{{% todo %}}
-{{% /todo %}}
-
 
 ## Receipt ID
 
