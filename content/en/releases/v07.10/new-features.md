@@ -205,7 +205,7 @@ Plan B has evolved in 7.10 as a state store capable of storing the following typ
 * Temporal State - For a given key provide a state value valid at a specific point in time (similar to reference data).
 * Ranged State - For a given numeric key within a key range provide an unchanging state value.
 * Temporal Ranged State - For a given numeric key within a key range provide a state value valid at a specific point in time (similar to reference data for ranges).
-* Session - Record session start and end times, e.g. maintain sessions for each application used by a specific user.  
+* Session - Record session start and end times, e.g. maintain sessions for each application used by a specific user.
 * Metrics - Record values at points in time, e.g. CPU use %.
 * Histograms - Record counts over time, e.g. number of records per minute, hour etc.
 
@@ -219,7 +219,9 @@ In addition to data structure changes the following features are now available:
 * Better data retention options allowing for retention based on insert time.
 * Remote query settings for `get()` and `lookup()` requests to avoid the need for local snapshots.
 * Plan B shards are now queryable as a data source to discover stored data and information.
-* Writes can now be synchronised if needed to ensure data presence before query. This option impacts data processing performance.
+* Writes can now be synchronised if needed to ensure data presence before query.
+  This option impacts data processing performance.
+
 
 ## Improved Dashboard Context
 
@@ -227,6 +229,7 @@ Dashboards now maintain a global context that is available to all dashboard comp
 The context keeps track of the selection state of each component plus dashboard parameters and time range setting.
 Context changes can be handled by certain components such as queries and tables by adding selection handlers.
 Handlers allow components to respond to context changes, e.g. by filtering a table based on a selection in another table.
+
 
 ## Annotation Changes
 
