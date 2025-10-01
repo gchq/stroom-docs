@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.10/new-features/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2025-09-23T00:00:00+00:00" />
-<meta property="article:modified_time" content="2025-09-30T17:18:09+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2025-10-01T10:11:35+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="New Features">
 <meta itemprop="description" content="New features in Stroom version 7.10.
 "><meta itemprop="datePublished" content="2025-09-23T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2025-09-30T17:18:09+01:00" />
+<meta itemprop="dateModified" content="2025-10-01T10:11:35+01:00" />
 <meta itemprop="wordCount" content="1371">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="New Features"/>
@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.715194798a92366bf903b362fc465df9.json"
+    data-offline-search-index-json-src="../../../offline-search-index.16b11ec85e10bc29ce2ab240f29458e1.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -176,7 +176,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.715194798a92366bf903b362fc465df9.json"
+    data-offline-search-index-json-src="../../../offline-search-index.16b11ec85e10bc29ce2ab240f29458e1.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -358,14 +358,6 @@
             <div class="td-toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#open-id-connect-authentication">Open ID Connect Authentication</a>
-      <ul>
-        <li><a href="#audience-validation">Audience Validation</a></li>
-        <li><a href="#user-full-name">User Full Name</a></li>
-        <li><a href="#aws-integration">AWS Integration</a></li>
-        <li><a href="#certificate-dn-format">Certificate DN Format</a></li>
-      </ul>
-    </li>
     <li><a href="#dashboard--stroomql-functions">Dashboard &amp; StroomQL Functions</a>
       <ul>
         <li><a href="#ceilingtime--floortime"><code>ceilingTime(..)</code> &amp; <code>floorTime(...)</code></a></li>
@@ -392,6 +384,14 @@
     <li><a href="#plan-b-changes">Plan B Changes</a></li>
     <li><a href="#improved-dashboard-context">Improved Dashboard Context</a></li>
     <li><a href="#annotation-changes">Annotation Changes</a></li>
+    <li><a href="#open-id-connect-authentication">Open ID Connect Authentication</a>
+      <ul>
+        <li><a href="#audience-validation">Audience Validation</a></li>
+        <li><a href="#user-full-name">User Full Name</a></li>
+        <li><a href="#aws-integration">AWS Integration</a></li>
+        <li><a href="#certificate-dn-format">Certificate DN Format</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
       </div>
@@ -606,31 +606,7 @@
 
 		
 	</header>    
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    TODO
-
-</div>
-
-<h2 id="open-id-connect-authentication">Open ID Connect Authentication</h2>
-<p>Various minor changes to the way Open ID Connect authentication is performed.</p>
-<h3 id="audience-validation">Audience Validation</h3>
-<p>Replace the property <code>stroom.security.authentication.openid.validateAudience</code> with <code>stroom.security.authentication.openid.allowedAudiences</code> (defaults to empty) and <code>stroom.security.authentication.openid.audienceClaimRequired</code> (defaults to false).
-If the IDP is known to provide the <code>aud</code> claim (often populated with the <code>clientId</code>) then set <code>allowedAudiences</code> to contain that value and set <code>audienceClaimRequired</code> to <code>true</code>.</p>
-<h3 id="user-full-name">User Full Name</h3>
-<p>Add the config prop <code>stroom.security.authentication.openId.fullNameClaimTemplate</code> to allow the user&rsquo;s full name to be formed from a template containing a mixture of static text and claim variables, e.g. <code>${firstName} ${lastName}</code>.
-Unknown variables are replaced with an empty string. Default is <code>${name}</code>.</p>
-<p>This provides full control over the source of the user&rsquo;s full name in stroom and allows it to be formed from multiple claims within the authentication token.</p>
-<h3 id="aws-integration">AWS Integration</h3>
-<p>Change template syntax of <code>openid.publicKeyUriPattern</code> property from positional variables (<code>{}</code>) to named variables (<code>${awsRegion}</code>).
-Default value has changed to <code>https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}</code>.
-If this property has been explicitly set in the config.yml or Properties screen, its value will need to be changed to use named variables instead.</p>
-<h3 id="certificate-dn-format">Certificate DN Format</h3>
-<p>Add new property <code>.receive.x509CertificateDnFormat</code> to stroom and proxy to allow extraction of CNs from DNs in legacy <code>OPEN_SSL</code> format.
-The new property defaults to <code>LDAP</code>, which means no change to behaviour if left as is.</p>
-<h2 id="dashboard--stroomql-functions">Dashboard &amp; StroomQL Functions</h2>
+	<h2 id="dashboard--stroomql-functions">Dashboard &amp; StroomQL Functions</h2>
 <h3 id="ceilingtime--floortime"><code>ceilingTime(..)</code> &amp; <code>floorTime(...)</code></h3>
 <p>Two new functions similar to the existing <a href="../../../docs/reference-section/expressions/date/#ceiling-yearmonthdayhourminutesecond"><code>ceilingXXX</code></a> and <a href="../../../docs/reference-section/expressions/date/#floor-yearmonthdayhourminutesecond"><code>floorXXX</code></a> functions, except that an arbitrary duration can be used.</p>
 <p>For example, <code>floorTime($time, 'PT5m')</code> will floor the time to the latest time that is divisible by 5 minutes.</p>
@@ -762,7 +738,12 @@ All previous Plan B LMDB instances must be deleted before this new version can b
 <li>Advanced Plan B storage schema settings for specific use cases to improve storage efficiency and performance.</li>
 <li>Better data retention options allowing for retention based on insert time.</li>
 <li>Remote query settings for <code>get()</code> and <code>lookup()</code> requests to avoid the need for local snapshots.</li>
-<li>Plan B shards are now queryable as a data source to discover stored data and information.</li>
+<li>Plan B shards can now be queried as a <span class="glossary-link">
+  <a href="../../../docs/glossary/#searchable" title="Glossary entry for Searchable">
+    <span>Searchable</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> data source to discover stored data and information.</li>
 <li>Writes can now be synchronised if needed to ensure data presence before query.
 This option impacts data processing performance.</li>
 </ul>
@@ -784,11 +765,27 @@ Handlers allow components to respond to context changes, e.g. by filtering a tab
 <li>An annotations screen is now available for easier annotation browsing.</li>
 <li>Annotations can now have retention periods.</li>
 </ul>
+<h2 id="open-id-connect-authentication">Open ID Connect Authentication</h2>
+<p>Various minor changes to the way Open ID Connect authentication is performed.</p>
+<h3 id="audience-validation">Audience Validation</h3>
+<p>Replace the property <code>stroom.security.authentication.openid.validateAudience</code> with <code>stroom.security.authentication.openid.allowedAudiences</code> (defaults to empty) and <code>stroom.security.authentication.openid.audienceClaimRequired</code> (defaults to false).
+If the IDP is known to provide the <code>aud</code> claim (often populated with the <code>clientId</code>) then set <code>allowedAudiences</code> to contain that value and set <code>audienceClaimRequired</code> to <code>true</code>.</p>
+<h3 id="user-full-name">User Full Name</h3>
+<p>Add the config prop <code>stroom.security.authentication.openId.fullNameClaimTemplate</code> to allow the user&rsquo;s full name to be formed from a template containing a mixture of static text and claim variables, e.g. <code>${firstName} ${lastName}</code>.
+Unknown variables are replaced with an empty string. Default is <code>${name}</code>.</p>
+<p>This provides full control over the source of the user&rsquo;s full name in stroom and allows it to be formed from multiple claims within the authentication token.</p>
+<h3 id="aws-integration">AWS Integration</h3>
+<p>Change template syntax of <code>openid.publicKeyUriPattern</code> property from positional variables (<code>{}</code>) to named variables (<code>${awsRegion}</code>).
+Default value has changed to <code>https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}</code>.
+If this property has been explicitly set in the config.yml or Properties screen, its value will need to be changed to use named variables instead.</p>
+<h3 id="certificate-dn-format">Certificate DN Format</h3>
+<p>Add new property <code>.receive.x509CertificateDnFormat</code> to stroom and proxy to allow extraction of CNs from DNs in legacy <code>OPEN_SSL</code> format.
+The new property defaults to <code>LDAP</code>, which means no change to behaviour if left as is.</p>
 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 30, 2025: <a href="https://github.com/gchq/stroom-docs/commit/ea773e0cd244798a3357d0bb62bcc548f49b2005">Tidy formatting (ea773e0)</a>
+  Last modified October 1, 2025: <a href="https://github.com/gchq/stroom-docs/commit/c3cb1b7ca1680034f038cf0964249f812705801b">Tidy 7.10 rel notes (c3cb1b7)</a>
 </div>
 
 </div>

@@ -147,7 +147,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.715194798a92366bf903b362fc465df9.json"
+    data-offline-search-index-json-src="../../offline-search-index.16b11ec85e10bc29ce2ab240f29458e1.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -840,31 +840,7 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-a6a43df493761b8249fb8a63d80f81ad">2.1 - New Features</h1>
     <div class="lead">New features in Stroom version 7.10.</div>
-	
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    TODO
-
-</div>
-
-<h2 id="open-id-connect-authentication">Open ID Connect Authentication</h2>
-<p>Various minor changes to the way Open ID Connect authentication is performed.</p>
-<h3 id="audience-validation">Audience Validation</h3>
-<p>Replace the property <code>stroom.security.authentication.openid.validateAudience</code> with <code>stroom.security.authentication.openid.allowedAudiences</code> (defaults to empty) and <code>stroom.security.authentication.openid.audienceClaimRequired</code> (defaults to false).
-If the IDP is known to provide the <code>aud</code> claim (often populated with the <code>clientId</code>) then set <code>allowedAudiences</code> to contain that value and set <code>audienceClaimRequired</code> to <code>true</code>.</p>
-<h3 id="user-full-name">User Full Name</h3>
-<p>Add the config prop <code>stroom.security.authentication.openId.fullNameClaimTemplate</code> to allow the user&rsquo;s full name to be formed from a template containing a mixture of static text and claim variables, e.g. <code>${firstName} ${lastName}</code>.
-Unknown variables are replaced with an empty string. Default is <code>${name}</code>.</p>
-<p>This provides full control over the source of the user&rsquo;s full name in stroom and allows it to be formed from multiple claims within the authentication token.</p>
-<h3 id="aws-integration">AWS Integration</h3>
-<p>Change template syntax of <code>openid.publicKeyUriPattern</code> property from positional variables (<code>{}</code>) to named variables (<code>${awsRegion}</code>).
-Default value has changed to <code>https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}</code>.
-If this property has been explicitly set in the config.yml or Properties screen, its value will need to be changed to use named variables instead.</p>
-<h3 id="certificate-dn-format">Certificate DN Format</h3>
-<p>Add new property <code>.receive.x509CertificateDnFormat</code> to stroom and proxy to allow extraction of CNs from DNs in legacy <code>OPEN_SSL</code> format.
-The new property defaults to <code>LDAP</code>, which means no change to behaviour if left as is.</p>
-<h2 id="dashboard--stroomql-functions">Dashboard &amp; StroomQL Functions</h2>
+	<h2 id="dashboard--stroomql-functions">Dashboard &amp; StroomQL Functions</h2>
 <h3 id="ceilingtime--floortime"><code>ceilingTime(..)</code> &amp; <code>floorTime(...)</code></h3>
 <p>Two new functions similar to the existing <a href="../../docs/reference-section/expressions/date/#ceiling-yearmonthdayhourminutesecond"><code>ceilingXXX</code></a> and <a href="../../docs/reference-section/expressions/date/#floor-yearmonthdayhourminutesecond"><code>floorXXX</code></a> functions, except that an arbitrary duration can be used.</p>
 <p>For example, <code>floorTime($time, 'PT5m')</code> will floor the time to the latest time that is divisible by 5 minutes.</p>
@@ -996,7 +972,12 @@ All previous Plan B LMDB instances must be deleted before this new version can b
 <li>Advanced Plan B storage schema settings for specific use cases to improve storage efficiency and performance.</li>
 <li>Better data retention options allowing for retention based on insert time.</li>
 <li>Remote query settings for <code>get()</code> and <code>lookup()</code> requests to avoid the need for local snapshots.</li>
-<li>Plan B shards are now queryable as a data source to discover stored data and information.</li>
+<li>Plan B shards can now be queried as a <span class="glossary-link">
+  <a href="../../docs/glossary/#searchable" title="Glossary entry for Searchable">
+    <span>Searchable</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> data source to discover stored data and information.</li>
 <li>Writes can now be synchronised if needed to ensure data presence before query.
 This option impacts data processing performance.</li>
 </ul>
@@ -1018,6 +999,22 @@ Handlers allow components to respond to context changes, e.g. by filtering a tab
 <li>An annotations screen is now available for easier annotation browsing.</li>
 <li>Annotations can now have retention periods.</li>
 </ul>
+<h2 id="open-id-connect-authentication">Open ID Connect Authentication</h2>
+<p>Various minor changes to the way Open ID Connect authentication is performed.</p>
+<h3 id="audience-validation">Audience Validation</h3>
+<p>Replace the property <code>stroom.security.authentication.openid.validateAudience</code> with <code>stroom.security.authentication.openid.allowedAudiences</code> (defaults to empty) and <code>stroom.security.authentication.openid.audienceClaimRequired</code> (defaults to false).
+If the IDP is known to provide the <code>aud</code> claim (often populated with the <code>clientId</code>) then set <code>allowedAudiences</code> to contain that value and set <code>audienceClaimRequired</code> to <code>true</code>.</p>
+<h3 id="user-full-name">User Full Name</h3>
+<p>Add the config prop <code>stroom.security.authentication.openId.fullNameClaimTemplate</code> to allow the user&rsquo;s full name to be formed from a template containing a mixture of static text and claim variables, e.g. <code>${firstName} ${lastName}</code>.
+Unknown variables are replaced with an empty string. Default is <code>${name}</code>.</p>
+<p>This provides full control over the source of the user&rsquo;s full name in stroom and allows it to be formed from multiple claims within the authentication token.</p>
+<h3 id="aws-integration">AWS Integration</h3>
+<p>Change template syntax of <code>openid.publicKeyUriPattern</code> property from positional variables (<code>{}</code>) to named variables (<code>${awsRegion}</code>).
+Default value has changed to <code>https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}</code>.
+If this property has been explicitly set in the config.yml or Properties screen, its value will need to be changed to use named variables instead.</p>
+<h3 id="certificate-dn-format">Certificate DN Format</h3>
+<p>Add new property <code>.receive.x509CertificateDnFormat</code> to stroom and proxy to allow extraction of CNs from DNs in legacy <code>OPEN_SSL</code> format.
+The new property defaults to <code>LDAP</code>, which means no change to behaviour if left as is.</p>
 
 </div>
 
@@ -1038,7 +1035,7 @@ Handlers allow components to respond to context changes, e.g. by filtering a tab
     
   <h1 id="pg-5873b9ce77378e6b6f6b01d0f41ba015">2.2 - Preview Features (experimental)</h1>
     <div class="lead">Preview features in Stroom version 7.10. Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.</div>
-	<p>There are no preview features in v7.10.</p>
+	<p>There are no new preview features in v7.10.</p>
 
 </div>
 
@@ -1069,12 +1066,16 @@ Handlers allow components to respond to context changes, e.g. by filtering a tab
 
 
 <h2 id="stroom">Stroom</h2>
-<h3 id="feed-status-check">Feed Status Check</h3>
-<p>If any proxy instances call into Stroom to make a feed status check using an API key or OAuth tokens, then the owner of those API keys or tokens will now need to be granted the <code>Check Receipt Status</code> application permission.</p>
+<p>No Stroom specific breaking changes in v7.10.</p>
+<h2 id="stroom-proxy">Stroom-Proxy</h2>
+<p>No Stroom-Proxy specific breaking changes in v7.10.</p>
+<h2 id="stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</h2>
+<h3 id="open-id-connect-configuration">Open ID Connect Configuration</h3>
+<p>The property <code>stroom.security.authentication.openid.validateAudience</code> has been removed.
+See <a href="../../releases/v07.10/upgrade-notes/#open-id-connect-authentication">Upgrade Notes</a> for details.</p>
 <h3 id="aws-open-id-connect-configuration">AWS Open ID Connect Configuration</h3>
 <p>If you use AWS for OIDC authentication and you have configured the property <code>stroom.security.authentication.openId.publicKeyUriPattern</code> then you will need to change its value.
-See <a href="../../releases/v07.10/upgrade-notes/#open-id-connect-authentication">Upgrade Notes</a></p>
-<h2 id="stroom-proxy">Stroom-Proxy</h2>
+See <a href="../../releases/v07.10/upgrade-notes/#open-id-connect-authentication">Upgrade Notes</a> for details.</p>
 
 </div>
 
@@ -1099,7 +1100,7 @@ See <a href="../../releases/v07.10/upgrade-notes/#open-id-connect-authentication
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
-    Please read this section carefully in case any of it is relevant to your Stroom instance.
+    Please read this section carefully in case any of it is relevant to your Stroom/Stroom-Proxy instance.
 
 </div>
 
@@ -1132,7 +1133,7 @@ The default is <code>LDAP</code>.</p>
     x509CertificateDnFormat: &quot;LDAP&quot;
 </code></pre>
 <h4 id="open-id-connect-authentication">Open ID Connect Authentication</h4>
-<p>Two new properties have been added for controlling validation of the <code>aud</code> claim.
+<p>The property <code>stroom.security.authentication.openid.validateAudience</code> has been replaced by two new properties for controlling validation of the <code>aud</code> claim.
 The <code>allowedAudiences</code> property allows you to supply a list of valid values for the <code>aud</code> claim.
 If this list is not empty then if the <code>aud</code> claim is present, Stroom will ensure that it matches one of these values.</p>
 <p>If <code>audienceClaimRequired</code> is set to <code>true</code> then Stroom will fail authentication if the <code>aud</code> claim is not present.</p>
