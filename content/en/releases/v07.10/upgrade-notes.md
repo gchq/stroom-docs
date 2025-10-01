@@ -9,7 +9,7 @@ description: >
 ---
 
 {{% warning %}}
-Please read this section carefully in case any of it is relevant to your Stroom instance.
+Please read this section carefully in case any of it is relevant to your Stroom/Stroom-Proxy instance.
 {{% /warning %}}
 
 
@@ -57,7 +57,7 @@ appConfig:
 
 #### Open ID Connect Authentication
 
-Two new properties have been added for controlling validation of the `aud` claim.
+The property `stroom.security.authentication.openid.validateAudience` has been replaced by two new properties for controlling validation of the `aud` claim.
 The `allowedAudiences` property allows you to supply a list of valid values for the `aud` claim.
 If this list is not empty then if the `aud` claim is present, Stroom will ensure that it matches one of these values.
 

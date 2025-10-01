@@ -8,42 +8,6 @@ description: >
   New features in Stroom version 7.10.
 ---
 
-{{% todo %}}
-TODO
-{{% /todo %}}
-
-## Open ID Connect Authentication
-
-Various minor changes to the way Open ID Connect authentication is performed.
-
-
-### Audience Validation
-
-Replace the property `stroom.security.authentication.openid.validateAudience` with `stroom.security.authentication.openid.allowedAudiences` (defaults to empty) and `stroom.security.authentication.openid.audienceClaimRequired` (defaults to false).
-If the IDP is known to provide the `aud` claim (often populated with the `clientId`) then set `allowedAudiences` to contain that value and set `audienceClaimRequired` to `true`.
-
-
-### User Full Name
-
-Add the config prop `stroom.security.authentication.openId.fullNameClaimTemplate` to allow the user's full name to be formed from a template containing a mixture of static text and claim variables, e.g. `${firstName} ${lastName}`.
-Unknown variables are replaced with an empty string. Default is `${name}`.
-
-This provides full control over the source of the user's full name in stroom and allows it to be formed from multiple claims within the authentication token.
-
-
-### AWS Integration
-
-Change template syntax of `openid.publicKeyUriPattern` property from positional variables (`{}`) to named variables (`${awsRegion}`).
-Default value has changed to `https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}`.
-If this property has been explicitly set in the config.yml or Properties screen, its value will need to be changed to use named variables instead.
-
-
-### Certificate DN Format
-
-Add new property `.receive.x509CertificateDnFormat` to stroom and proxy to allow extraction of CNs from DNs in legacy `OPEN_SSL` format.
-The new property defaults to `LDAP`, which means no change to behaviour if left as is.
-
-
 ## Dashboard & StroomQL Functions
 
 ### `ceilingTime(..)` & `floorTime(...)`
@@ -201,6 +165,7 @@ The _IndexShards_ {{< glossary "Searchable" >}} has been changed to add the fiel
 ## Plan B Changes
 
 Plan B has evolved in 7.10 as a state store capable of storing the following types of state data:
+
 * State - For a given key provide an unchanging state value.
 * Temporal State - For a given key provide a state value valid at a specific point in time (similar to reference data).
 * Ranged State - For a given numeric key within a key range provide an unchanging state value.
@@ -214,11 +179,12 @@ The data structure has changed significantly to reduce data store sizes.
 All previous Plan B LMDB instances must be deleted before this new version can be used.
 
 In addition to data structure changes the following features are now available:
+
 * Additional Plan B store types for histograms and metrics.
 * Advanced Plan B storage schema settings for specific use cases to improve storage efficiency and performance.
 * Better data retention options allowing for retention based on insert time.
 * Remote query settings for `get()` and `lookup()` requests to avoid the need for local snapshots.
-* Plan B shards are now queryable as a data source to discover stored data and information.
+* Plan B shards can now be queried as a {{< glossary "Searchable" >}} data source to discover stored data and information.
 * Writes can now be synchronised if needed to ensure data presence before query.
   This option impacts data processing performance.
 
@@ -244,4 +210,36 @@ For 7.10 the following changes have been made:
 * All states and labels have visibility permissions.
 * An annotations screen is now available for easier annotation browsing. 
 * Annotations can now have retention periods.
+
+
+## Open ID Connect Authentication
+
+Various minor changes to the way Open ID Connect authentication is performed.
+
+
+### Audience Validation
+
+Replace the property `stroom.security.authentication.openid.validateAudience` with `stroom.security.authentication.openid.allowedAudiences` (defaults to empty) and `stroom.security.authentication.openid.audienceClaimRequired` (defaults to false).
+If the IDP is known to provide the `aud` claim (often populated with the `clientId`) then set `allowedAudiences` to contain that value and set `audienceClaimRequired` to `true`.
+
+
+### User Full Name
+
+Add the config prop `stroom.security.authentication.openId.fullNameClaimTemplate` to allow the user's full name to be formed from a template containing a mixture of static text and claim variables, e.g. `${firstName} ${lastName}`.
+Unknown variables are replaced with an empty string. Default is `${name}`.
+
+This provides full control over the source of the user's full name in stroom and allows it to be formed from multiple claims within the authentication token.
+
+
+### AWS Integration
+
+Change template syntax of `openid.publicKeyUriPattern` property from positional variables (`{}`) to named variables (`${awsRegion}`).
+Default value has changed to `https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}`.
+If this property has been explicitly set in the config.yml or Properties screen, its value will need to be changed to use named variables instead.
+
+
+### Certificate DN Format
+
+Add new property `.receive.x509CertificateDnFormat` to stroom and proxy to allow extraction of CNs from DNs in legacy `OPEN_SSL` format.
+The new property defaults to `LDAP`, which means no change to behaviour if left as is.
 
