@@ -13,6 +13,22 @@ Please read this section carefully in case any of it is relevant to your Stroom/
 {{% /warning %}}
 
 
+## Upgrade Path
+
+You can upgrade to v7.10.x from any v7.x release that is older than the version being upgraded to.
+
+If you want to upgrade to v7.10.x from v5.x or v6.x we recommend you do the following:
+
+1. Upgrade v5.x to the latest patch release of v6.0.
+1. Upgrade v6.x to the latest patch release of v7.0.
+1. Upgrade v7.x to the latest patch release of v7.10.
+
+{{% warning %}}
+v7.10 **cannot** migrate content in legacy formats, i.e. content created in v5/v6.
+You must therefore upgrade to v7.0.x first to migrate this content, before upgrading to v7.10.x.
+{{% /warning %}}
+
+
 ## Java Version
 
 Stroom v7.10 requires Java 21.
