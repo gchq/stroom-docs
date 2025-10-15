@@ -268,7 +268,7 @@ Re-Processing can be done for an individual Stream or multiple Streams using a {
 
 ## Records
 
-This is a {{< glossary "Stream Type" >}} for {{< glossary "Stream" "Streams" >}} containing data conforming to the {{< external-link "records:2 XML Schema" "https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/stroomContent/XML%20Schemas/records/records_v2_0.XMLSchema.47f062d9-8191-4535-b35b-74c6f020320f.data.xsd" >}}.
+This is a {{< glossary "Stream Type" >}} for {{< glossary "Stream" "Streams" >}} containing data conforming to the {{< external-link "records:2 XML Schema" "https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/stroomContent/XML_Schemas/records/records_v2_0.XMLSchema.47f062d9-8191-4535-b35b-74c6f020320f.xsd" >}}.
 It also refers more generally to XML conforming to the `records:2` XML Schema which is used in a number of places in Stroom, including as the output format for the {{< element "DSParser" >}} and input for the {{< element "IndexingFilter" >}}.
 
 
