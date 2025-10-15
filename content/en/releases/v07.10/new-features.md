@@ -243,3 +243,56 @@ If this property has been explicitly set in the config.yml or Properties screen,
 Add new property `.receive.x509CertificateDnFormat` to stroom and proxy to allow extraction of CNs from DNs in legacy `OPEN_SSL` format.
 The new property defaults to `LDAP`, which means no change to behaviour if left as is.
 
+
+## Stroom-Proxy ZIP File Ingest
+
+To make it easier to deal with ZIP files that Stroom-Proxy has failed to forward, Stroom-Proxy now has a ZIP file ingest mechanism.
+This mechanism can also be used as an additional means of passing data into Stroom-Proxy (instead of `/datafeed`).
+This is controlled by the following new configuration branch (default values shown):
+
+```yaml
+proxyConfig:
+
+  dirScanner:
+    # The directories to scan for ZIP files. Scanned in this order.
+    dirs:
+      - "zip_file_ingest"
+    # If false, no directory scanning is performed.
+    enabled: true
+    # The directory to move unknown/failed files to.
+    failureDir: "zip_file_ingest_failed"
+    # The frequency that the directories are scanned.
+    scanFrequency: "PT1M"
+```
+
+A typical case scenario is that some data has failed to send to Stroom and the retry age has been reached so the ZIP has been moved to the forward failure directory:
+
+Contents of `data/50_forwarding/downstream/`
+
+```text
+./03_failure/20251014/BAD_FEED/0/001/proxy.zip
+./03_failure/20251014/BAD_FEED/0/001/proxy.meta
+./03_failure/20251014/BAD_FEED/0/001/error.log
+```
+
+If you wish to re-send this ZIP you can do the following:
+
+{{< command-line >}}
+mv data/50_forwarding/downstream/03_failure/20251014/BAD_FEED/0/001 "./zip_file_ingest/${uuidgen)"
+{{</ command-line >}}
+
+This will move the `001` directory into `zip_file_ingest/`, renaming it to a unique {{< glossary "UUID" >}} to ensure it doesn't clash with any existing files/directories.
+
+On the next scan, Stroom-Proxy will ingest the `proxy.zip` and `proxy.meta` files.
+The `error.log` file will be deleted following successful ingest.
+Stroom-Proxy will scan into all sub-directories.
+
+The `.meta` sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to `/datafeed`.
+
+{{% warning %}}
+Stroom-Proxy may be scanning at the same time as you are moving files in to the `zip_file_ingest` directory.
+
+Therefore, it is important that if you are supplying sidecar files that you move a parent directory rather than the files themselves (as is shown in the above `mv` example).
+This will ensure that the move happens atomically, so all files will be visible to the scanner.
+{{% /warning %}}
+
