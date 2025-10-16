@@ -282,12 +282,17 @@ mv data/50_forwarding/downstream/03_failure/20251014/BAD_FEED/0/001 "./zip_file_
 {{</ command-line >}}
 
 This will move the `001` directory into `zip_file_ingest/`, renaming it to a unique {{< glossary "UUID" >}} to ensure it doesn't clash with any existing files/directories.
+The name of this directory in the ingest directory has no bearing on processing, other than the order in which directories are scanned.
 
-On the next scan, Stroom-Proxy will ingest the `proxy.zip` and `proxy.meta` files.
+On the next scan, Stroom-Proxy will discover the `proxy.zip` file.
+It will check for the presence of any of the optional associated files (i.e. `proxy.meta` and `error.log`).
+The entries in the `.meta` file will be consumed.
 The `error.log` file will be deleted following successful ingest.
-Stroom-Proxy will scan into all sub-directories.
+
+Stroom-Proxy will scan into all sub-directories within the ingest directory, regardless of depth.
 
 The `.meta` sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to `/datafeed`.
+For a `.meta` file to be consumed, it must have the same base-name as the ZIP file, e.g. `data.zip` and `data.meta`, and be in the same directory as the ZIP file.
 
 {{% warning %}}
 Stroom-Proxy may be scanning at the same time as you are moving files in to the `zip_file_ingest` directory.
