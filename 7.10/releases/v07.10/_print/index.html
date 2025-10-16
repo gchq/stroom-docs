@@ -147,7 +147,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.ede8f3463515f261ce23cf75359cdd75.json"
+    data-offline-search-index-json-src="../../../offline-search-index.0c54681361aba760ba729c464df22e25.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -436,6 +436,69 @@ If this property has been explicitly set in the config.yml or Properties screen,
 <h3 id="certificate-dn-format">Certificate DN Format</h3>
 <p>Add new property <code>.receive.x509CertificateDnFormat</code> to stroom and proxy to allow extraction of CNs from DNs in legacy <code>OPEN_SSL</code> format.
 The new property defaults to <code>LDAP</code>, which means no change to behaviour if left as is.</p>
+<h2 id="stroom-proxy-zip-file-ingest">Stroom-Proxy ZIP File Ingest</h2>
+<p>To make it easier to deal with ZIP files that Stroom-Proxy has failed to forward, Stroom-Proxy now has a ZIP file ingest mechanism.
+This mechanism can also be used as an additional means of passing data into Stroom-Proxy (instead of <code>/datafeed</code>).
+This is controlled by the following new configuration branch (default values shown):</p>
+<pre><code class="language-yaml">proxyConfig:
+
+  dirScanner:
+    # The directories to scan for ZIP files. Scanned in this order.
+    dirs:
+      - &quot;zip_file_ingest&quot;
+    # If false, no directory scanning is performed.
+    enabled: true
+    # The directory to move unknown/failed files to.
+    failureDir: &quot;zip_file_ingest_failed&quot;
+    # The frequency that the directories are scanned.
+    scanFrequency: &quot;PT1M&quot;
+</code></pre>
+<p>A typical case scenario is that some data has failed to send to Stroom and the retry age has been reached so the ZIP has been moved to the forward failure directory:</p>
+<p>Contents of <code>data/50_forwarding/downstream/</code></p>
+<pre><code class="language-text">./03_failure/20251014/BAD_FEED/0/001/proxy.zip
+./03_failure/20251014/BAD_FEED/0/001/proxy.meta
+./03_failure/20251014/BAD_FEED/0/001/error.log
+</code></pre>
+<p>If you wish to re-send this ZIP you can do the following:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mv data/50_forwarding/downstream/03_failure/20251014/BAD_FEED/0/001 &#34;./zip_file_ingest/${uuidgen)&#34;</code></pre>
+</div>
+
+<p>This will move the <code>001</code> directory into <code>zip_file_ingest/</code>, renaming it to a unique <span class="glossary-link">
+  <a href="../../../docs/glossary/#uuid" title="Glossary entry for UUID">
+    <span>UUID</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> to ensure it doesn&rsquo;t clash with any existing files/directories.</p>
+<p>On the next scan, Stroom-Proxy will ingest the <code>proxy.zip</code> and <code>proxy.meta</code> files.
+The <code>error.log</code> file will be deleted following successful ingest.
+Stroom-Proxy will scan into all sub-directories.</p>
+<p>The <code>.meta</code> sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to <code>/datafeed</code>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    <p>Stroom-Proxy may be scanning at the same time as you are moving files in to the <code>zip_file_ingest</code> directory.</p>
+<p>Therefore, it is important that if you are supplying sidecar files that you move a parent directory rather than the files themselves (as is shown in the above <code>mv</code> example).
+This will ensure that the move happens atomically, so all files will be visible to the scanner.</p>
+
+
+</div>
+
+
 
 </div>
 
