@@ -147,7 +147,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.0c54681361aba760ba729c464df22e25.json"
+    data-offline-search-index-json-src="../../offline-search-index.01d531e501cb606971e1f3434312fd95.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -1061,11 +1061,15 @@ This is controlled by the following new configuration branch (default values sho
     <span>UUID</span>
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</span> to ensure it doesn&rsquo;t clash with any existing files/directories.</p>
-<p>On the next scan, Stroom-Proxy will ingest the <code>proxy.zip</code> and <code>proxy.meta</code> files.
-The <code>error.log</code> file will be deleted following successful ingest.
-Stroom-Proxy will scan into all sub-directories.</p>
-<p>The <code>.meta</code> sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to <code>/datafeed</code>.</p>
+</span> to ensure it doesn&rsquo;t clash with any existing files/directories.
+The name of this directory in the ingest directory has no bearing on processing, other than the order in which directories are scanned.</p>
+<p>On the next scan, Stroom-Proxy will discover the <code>proxy.zip</code> file.
+It will check for the presence of any of the optional associated files (i.e. <code>proxy.meta</code> and <code>error.log</code>).
+The entries in the <code>.meta</code> file will be consumed.
+The <code>error.log</code> file will be deleted following successful ingest.</p>
+<p>Stroom-Proxy will scan into all sub-directories within the ingest directory, regardless of depth.</p>
+<p>The <code>.meta</code> sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to <code>/datafeed</code>.
+For a <code>.meta</code> file to be consumed, it must have the same base-name as the ZIP file, e.g. <code>data.zip</code> and <code>data.meta</code>, and be in the same directory as the ZIP file.</p>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>

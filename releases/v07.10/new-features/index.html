@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.10/new-features/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2025-09-23T00:00:00+00:00" />
-<meta property="article:modified_time" content="2025-10-15T16:59:22+01:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2025-10-16T09:57:45+01:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="New Features">
 <meta itemprop="description" content="New features in Stroom version 7.10.
 "><meta itemprop="datePublished" content="2025-09-23T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2025-10-15T16:59:22+01:00" />
-<meta itemprop="wordCount" content="1668">
+<meta itemprop="dateModified" content="2025-10-16T09:57:45+01:00" />
+<meta itemprop="wordCount" content="1753">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="New Features"/>
 <meta name="twitter:description" content="New features in Stroom version 7.10.
@@ -151,7 +151,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0c54681361aba760ba729c464df22e25.json"
+    data-offline-search-index-json-src="../../../offline-search-index.01d531e501cb606971e1f3434312fd95.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -176,7 +176,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.0c54681361aba760ba729c464df22e25.json"
+    data-offline-search-index-json-src="../../../offline-search-index.01d531e501cb606971e1f3434312fd95.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -828,11 +828,15 @@ This is controlled by the following new configuration branch (default values sho
     <span>UUID</span>
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</span> to ensure it doesn&rsquo;t clash with any existing files/directories.</p>
-<p>On the next scan, Stroom-Proxy will ingest the <code>proxy.zip</code> and <code>proxy.meta</code> files.
-The <code>error.log</code> file will be deleted following successful ingest.
-Stroom-Proxy will scan into all sub-directories.</p>
-<p>The <code>.meta</code> sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to <code>/datafeed</code>.</p>
+</span> to ensure it doesn&rsquo;t clash with any existing files/directories.
+The name of this directory in the ingest directory has no bearing on processing, other than the order in which directories are scanned.</p>
+<p>On the next scan, Stroom-Proxy will discover the <code>proxy.zip</code> file.
+It will check for the presence of any of the optional associated files (i.e. <code>proxy.meta</code> and <code>error.log</code>).
+The entries in the <code>.meta</code> file will be consumed.
+The <code>error.log</code> file will be deleted following successful ingest.</p>
+<p>Stroom-Proxy will scan into all sub-directories within the ingest directory, regardless of depth.</p>
+<p>The <code>.meta</code> sidecar file is optional, but if provided will be used to provide meta values equivalent to HTTP headers when sending to <code>/datafeed</code>.
+For a <code>.meta</code> file to be consumed, it must have the same base-name as the ZIP file, e.g. <code>data.zip</code> and <code>data.meta</code>, and be in the same directory as the ZIP file.</p>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
@@ -849,7 +853,7 @@ This will ensure that the move happens atomically, so all files will be visible 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 15, 2025: <a href="https://github.com/gchq/stroom-docs/commit/a016bcd344c8212639671f2c4b7738c7f8aca73f">Add section on proxy zip file ingest (a016bcd)</a>
+  Last modified October 16, 2025: <a href="https://github.com/gchq/stroom-docs/commit/26abb2c5ac435a1873a4a694ec7e008c34c45f98">Update 7.10 rel notes (26abb2c)</a>
 </div>
 
 </div>
