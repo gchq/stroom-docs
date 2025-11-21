@@ -14,14 +14,18 @@ Update this for Stroom 7.
 {{% /todo %}}
 
 
-We would welcome feedback on this documentation.
-
-
 ## Running on a single box
 
 ### Running a release
 
 Download a {{< external-link "release" "https://github.com/gchq/stroom-resources/releases" >}}, for example {{< external-link "Stroom Core v6.0 Beta 3" "https://github.com/gchq/stroom-resources/releases/download/stroom_core-v6.0-beta.3/stroom_core_v6.0-beta.3.tar.gz" >}}, unpack it, and run the `start.sh` script. When you've given it some time to start up go to `http://localhost/stroom`. There's a `README.md` file inside the tar.gz with more information.
+
+
+## Admin Account creation
+
+By default, Stroom does not come with an administrator account/user so one or more administrators will need to be setup in order to login and continue provisioning Stroom via the UI.
+
+See [Creating an Internal IDP Administrator]({{< relref "command-line#creating-an-internal-idp-administrator" >}}) or [Creating an External IDP Administrator]({{< relref "command-line#creating-an-external-idp-administrator" >}}) depending on the type of {{< glossary "IDP" >}} that is configured.
 
 
 ## Post-install hardening
