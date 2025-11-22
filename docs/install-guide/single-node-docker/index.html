@@ -147,7 +147,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.01d531e501cb606971e1f3434312fd95.json"
+    data-offline-search-index-json-src="../../../offline-search-index.a5ad35575504c644ee8266aafda19c25.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -172,7 +172,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.01d531e501cb606971e1f3434312fd95.json"
+    data-offline-search-index-json-src="../../../offline-search-index.a5ad35575504c644ee8266aafda19c25.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -417,6 +417,8 @@
   <a href="../../../docs/user-guide/api/export-api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideapiexport-api"><span class="">Export Content API</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideapireference-data-api-li">
   <a href="../../../docs/user-guide/api/reference-data-api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideapireference-data-api"><span class="">Reference Data API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideapiauthentication-proxy-li">
+  <a href="../../../docs/user-guide/api/authentication-proxy/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideapiauthentication-proxy"><span class="">Authentication Proxy</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideapiexplorer-api-li">
   <a href="../../../docs/user-guide/api/explorer-api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guideapiexplorer-api"><span class="">Explorer API</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guideapifeed-api-li">
@@ -984,20 +986,31 @@
 		
 	</header>
 	<p>Running Stroom in <em>Docker</em> is the quickest and easiest way to get Stroom up and running.
-Using Docker means you don&rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured corectly for Stroom.</p>
+Using Docker means you don&rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured correctly for Stroom.</p>
 <h2 id="stroom-docker-stacks">Stroom Docker stacks</h2>
-<p>Stroom has a number of predefined <em>stacks</em> that combine multiple docker containers into a fully functioning Stroom.
-The docker stacks are aimed primarily at single node instances or for evaluation/test.
-If you want to deploy a Stroom cluster using containers then you should use Kubernetes.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Add Kubernetes install link.
-
-</div>
-
+<p>Stroom has a number of predefined <em>stacks</em> that combine multiple docker containers into a fully functioning Stroom environment.
+The Docker stacks are aimed primarily at single node instances or for evaluation/test.
+The stack makes use of various shell scripts combined with Docker Compose to integrate the various Docker containers and make them easy to run.</p>
+<p>If you want to deploy a Stroom cluster using containers then you should use <a href="../../../docs/install-guide/kubernetes/introduction/">Kubernetes Cluster</a>.</p>
 <p>At the moment the usable stacks are:</p>
+<ul>
+<li>
+<p><code>stroom_core</code> - A single node stroom stack geared towards production use.</p>
+</li>
+<li>
+<p><code>stroom_core_test</code> - A single node stroom for test/evalutaion, pre-loaded with content.
+Also includes a <em>remote</em> proxy for demonstration purposes.
+If you just want to try out Stroom, this is the one to use.</p>
+</li>
+<li>
+<p><code>stroom_proxy</code> - A remote proxy stack for aggregating and forwarding logs to stroom(-proxy).
+Intended for use as a remote proxy that will forward received/aggregated data into a downstream stroom/stroom-proxy.</p>
+</li>
+<li>
+<p><code>stroom_services</code> - An Nginx instance for running stroom without Docker.</p>
+</li>
+</ul>
+<p>Each stack contains the following docker compose services.</p>
 <div class="td-card-deck card-deck mb-4">
   <div class="td-card card mb-4">
   
@@ -1013,20 +1026,18 @@ If you want to deploy a Stroom cluster using containers then you should use Kube
     
       <p class="card-text">
         
-          <p>A production single node stroom.</p>
-<p><strong>Services:</strong><br>
-stroom<br>
+          stroom<br>
 stroom-proxy-local<br>
 stroom-log-sender<br>
 nginx<br>
-mysql</p>
-
+mysql
         
       </p>
     
   </div>
   
 </div>
+
 
   <div class="td-card card mb-4">
   
@@ -1042,22 +1053,19 @@ mysql</p>
     
       <p class="card-text">
         
-          <p>A single node stroom for test/evalutaion, pre-loaded with content.
-Also includes a <em>remote</em> proxy for demonstration purposes.</p>
-<p><strong>Services:</strong><br>
-stroom<br>
+          stroom<br>
 stroom-proxy-local<br>
 stroom-proxy-remote<br>
 stroom-log-sender<br>
 nginx<br>
-mysql</p>
-
+mysql
         
       </p>
     
   </div>
   
 </div>
+
 
   <div class="td-card card mb-4">
   
@@ -1073,18 +1081,16 @@ mysql</p>
     
       <p class="card-text">
         
-          <p>A remote proxy stack for aggregating and forwarding logs to stroom(-proxy).</p>
-<p><strong>Services:</strong><br>
-stroom-proxy-remote<br>
+          stroom-proxy-remote<br>
 stroom-log-sender<br>
-nginx</p>
-
+nginx
         
       </p>
     
   </div>
   
 </div>
+
 
   <div class="td-card card mb-4">
   
@@ -1100,11 +1106,8 @@ nginx</p>
     
       <p class="card-text">
         
-          <p>An Nginx instance for running stroom without Docker.</p>
-<p><strong>Services:</strong><br>
-stroom-log-sender<br>
-nginx</p>
-
+          stroom-log-sender<br>
+nginx
         
       </p>
     
@@ -1113,10 +1116,21 @@ nginx</p>
 </div>
 
 </div>
+<p>The services are as follows:</p>
+<ul>
+<li><code>stroom</code> - A Stroom instance.</li>
+<li><code>stroom-proxy-local</code> - A Stroom-Proxy instance that is typically local to Stroom and acts as its front door for data reception.</li>
+<li><code>stroom-proxy-remote</code> - A Stroom-Proxy instance that is remote from Stroom (e.g. owned by another team) and is intended to pass data to a downstream Stroom-Proxy.</li>
+<li><code>nginx</code> - An instance of <em>nginx</em> that is configured to reverse proxy to Stroom and Stroom-Proxy as appropriate.
+It can also be configured to act as a load balancer to multiple Stroom instances if Stroom is being installed without using Docker.</li>
+<li><code>mysql</code> - An instance of <em>MySQL</em> that is configured to create the database and users required by Stroom.</li>
+<li><code>stroom-log-sender</code> - A simple container that is configured to gather all the log files produced by Stroom, Stroom-Proxy and nginx, to then forward them to Stroom so Stroom can process its own logs.</li>
+</ul>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>In order to run Stroom using Docker you will need the following installed on the machine you intend to run Stroom on:</p>
 <ul>
-<li>An internet connection. If you don&rsquo;t have one see <a href="../../../docs/install-guide/air-gapped/#docker-images">Air Gapped Environments</a>.</li>
+<li>An internet connection.
+If you don&rsquo;t have one see <a href="../../../docs/install-guide/air-gapped/#docker-images">Air Gapped Environments</a>.</li>
 <li>A Linux-like shell environment.</li>
 <li>Docker CE (v17.12.0+) - e.g 
 
@@ -1181,7 +1195,7 @@ nginx</p>
 <h4 class="alert-heading">Note</h4>
 
 
-    <code>jq</code> is not a hard requirement but improves the functionality of the health checks.
+    <code>jq</code> is not a hard requirement but improves the functionality of the health checks and is a useful thing to have, e.g. for using Stroom&rsquo;s REST API.
 
 </div>
 
@@ -1211,7 +1225,7 @@ The Stroom stack comes in a number of different variants:</p>
 <li><strong>stroom_core_test</strong> - If you are just evaluating Stroom or just want to see it running then download the <code>stroom_core_test*.tar.gz</code> stack which includes some pre-loaded content.</li>
 <li><strong>stroom_core</strong> - If it is for an actual deployment of Stroom then download <code>stroom_core*.tar.gz</code>, which has no content and requires some configuration.</li>
 </ul>
-<p>Using <code>stroom_core_test-v7.1-beta.15.tar.gz</code> as an example:</p>
+<p>Using <code>stroom_core_test-v7.10.11.tar.gz</code> as an example:</p>
 
   
 
@@ -1227,7 +1241,7 @@ The Stroom stack comes in a number of different variants:</p>
     data-host="localhost" 
     data-continuation-str="\"
     data-filter-output="(out)"><code class="language-bash"># Define the version to download
-VERSION=&#34;v7.1-beta.15&#34;; STACK=&#34;stroom_core_test&#34;
+VERSION=&#34;v7.10.11&#34;; STACK=&#34;stroom_core_test&#34;
 (out)
 # Download and extract the Stroom stack
 curl -sL &#34;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz&#34; | tar xz
@@ -1254,7 +1268,7 @@ cd &#34;${STACK}-${VERSION}&#34;
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash"># Download and extract the laStroom stack
+    data-filter-output="(out)"><code class="language-bash"># Download and extract the latest Stroom stack
 bash &lt;(curl -s https://gchq.github.io/stroom-resources/v7.1/get_stroom.sh)
 (out)
 # Navigate into the new stack directory
@@ -1271,6 +1285,17 @@ The <code>start.sh</code> script will provide details of the various URLs that a
 <li>username: <em>admin</em></li>
 <li>password: <em>admin</em></li>
 </ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    If you have installed the <code>stroom_core</code> stack no user accounts are created by default.
+You will need to manually create and administrator account.
+
+</div>
+
+
 <p>The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.</p>
 <h2 id="configuration">Configuration</h2>
 <p>To configure your new instance see <a href="../../../docs/install-guide/configuration/">Configuration</a>.</p>
@@ -1329,7 +1354,7 @@ The <code>start.sh</code> script will provide details of the various URLs that a
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 16, 2025: <a href="https://github.com/gchq/stroom-docs/commit/26abb2c5ac435a1873a4a694ec7e008c34c45f98">Update 7.10 rel notes (26abb2c)</a>
+  Last modified November 21, 2025: <a href="https://github.com/gchq/stroom-docs/commit/bbf68eb335e0096e0ae2c70a763d7cd8caccac40">Merge branch &#39;7.9&#39; into 7.10 (bbf68eb)</a>
 </div>
 
 </div>

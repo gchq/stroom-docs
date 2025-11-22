@@ -24,20 +24,31 @@
         
         
         &lt;p&gt;Running Stroom in &lt;em&gt;Docker&lt;/em&gt; is the quickest and easiest way to get Stroom up and running.
-Using Docker means you don&amp;rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured corectly for Stroom.&lt;/p&gt;
+Using Docker means you don&amp;rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured correctly for Stroom.&lt;/p&gt;
 &lt;h2 id=&#34;stroom-docker-stacks&#34;&gt;Stroom Docker stacks&lt;/h2&gt;
-&lt;p&gt;Stroom has a number of predefined &lt;em&gt;stacks&lt;/em&gt; that combine multiple docker containers into a fully functioning Stroom.
-The docker stacks are aimed primarily at single node instances or for evaluation/test.
-If you want to deploy a Stroom cluster using containers then you should use Kubernetes.&lt;/p&gt;
-
-&lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
-&lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
-
-    Add Kubernetes install link.
-
-&lt;/div&gt;
-
+&lt;p&gt;Stroom has a number of predefined &lt;em&gt;stacks&lt;/em&gt; that combine multiple docker containers into a fully functioning Stroom environment.
+The Docker stacks are aimed primarily at single node instances or for evaluation/test.
+The stack makes use of various shell scripts combined with Docker Compose to integrate the various Docker containers and make them easy to run.&lt;/p&gt;
+&lt;p&gt;If you want to deploy a Stroom cluster using containers then you should use &lt;a href=&#34;../../docs/install-guide/kubernetes/introduction/&#34;&gt;Kubernetes Cluster&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;At the moment the usable stacks are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;stroom_core&lt;/code&gt; - A single node stroom stack geared towards production use.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;stroom_core_test&lt;/code&gt; - A single node stroom for test/evalutaion, pre-loaded with content.
+Also includes a &lt;em&gt;remote&lt;/em&gt; proxy for demonstration purposes.
+If you just want to try out Stroom, this is the one to use.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;stroom_proxy&lt;/code&gt; - A remote proxy stack for aggregating and forwarding logs to stroom(-proxy).
+Intended for use as a remote proxy that will forward received/aggregated data into a downstream stroom/stroom-proxy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;stroom_services&lt;/code&gt; - An Nginx instance for running stroom without Docker.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each stack contains the following docker compose services.&lt;/p&gt;
 &lt;div class=&#34;td-card-deck card-deck mb-4&#34;&gt;
   &lt;div class=&#34;td-card card mb-4&#34;&gt;
   
@@ -53,20 +64,18 @@ If you want to deploy a Stroom cluster using containers then you should use Kube
     
       &lt;p class=&#34;card-text&#34;&gt;
         
-          &lt;p&gt;A production single node stroom.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
-stroom&lt;br&gt;
+          stroom&lt;br&gt;
 stroom-proxy-local&lt;br&gt;
 stroom-log-sender&lt;br&gt;
 nginx&lt;br&gt;
-mysql&lt;/p&gt;
-
+mysql
         
       &lt;/p&gt;
     
   &lt;/div&gt;
   
 &lt;/div&gt;
+
 
   &lt;div class=&#34;td-card card mb-4&#34;&gt;
   
@@ -82,22 +91,19 @@ mysql&lt;/p&gt;
     
       &lt;p class=&#34;card-text&#34;&gt;
         
-          &lt;p&gt;A single node stroom for test/evalutaion, pre-loaded with content.
-Also includes a &lt;em&gt;remote&lt;/em&gt; proxy for demonstration purposes.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
-stroom&lt;br&gt;
+          stroom&lt;br&gt;
 stroom-proxy-local&lt;br&gt;
 stroom-proxy-remote&lt;br&gt;
 stroom-log-sender&lt;br&gt;
 nginx&lt;br&gt;
-mysql&lt;/p&gt;
-
+mysql
         
       &lt;/p&gt;
     
   &lt;/div&gt;
   
 &lt;/div&gt;
+
 
   &lt;div class=&#34;td-card card mb-4&#34;&gt;
   
@@ -113,18 +119,16 @@ mysql&lt;/p&gt;
     
       &lt;p class=&#34;card-text&#34;&gt;
         
-          &lt;p&gt;A remote proxy stack for aggregating and forwarding logs to stroom(-proxy).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
-stroom-proxy-remote&lt;br&gt;
+          stroom-proxy-remote&lt;br&gt;
 stroom-log-sender&lt;br&gt;
-nginx&lt;/p&gt;
-
+nginx
         
       &lt;/p&gt;
     
   &lt;/div&gt;
   
 &lt;/div&gt;
+
 
   &lt;div class=&#34;td-card card mb-4&#34;&gt;
   
@@ -140,11 +144,8 @@ nginx&lt;/p&gt;
     
       &lt;p class=&#34;card-text&#34;&gt;
         
-          &lt;p&gt;An Nginx instance for running stroom without Docker.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Services:&lt;/strong&gt;&lt;br&gt;
-stroom-log-sender&lt;br&gt;
-nginx&lt;/p&gt;
-
+          stroom-log-sender&lt;br&gt;
+nginx
         
       &lt;/p&gt;
     
@@ -153,10 +154,21 @@ nginx&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
+&lt;p&gt;The services are as follows:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stroom&lt;/code&gt; - A Stroom instance.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroom-proxy-local&lt;/code&gt; - A Stroom-Proxy instance that is typically local to Stroom and acts as its front door for data reception.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroom-proxy-remote&lt;/code&gt; - A Stroom-Proxy instance that is remote from Stroom (e.g. owned by another team) and is intended to pass data to a downstream Stroom-Proxy.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nginx&lt;/code&gt; - An instance of &lt;em&gt;nginx&lt;/em&gt; that is configured to reverse proxy to Stroom and Stroom-Proxy as appropriate.
+It can also be configured to act as a load balancer to multiple Stroom instances if Stroom is being installed without using Docker.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mysql&lt;/code&gt; - An instance of &lt;em&gt;MySQL&lt;/em&gt; that is configured to create the database and users required by Stroom.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stroom-log-sender&lt;/code&gt; - A simple container that is configured to gather all the log files produced by Stroom, Stroom-Proxy and nginx, to then forward them to Stroom so Stroom can process its own logs.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
 &lt;p&gt;In order to run Stroom using Docker you will need the following installed on the machine you intend to run Stroom on:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;An internet connection. If you don&amp;rsquo;t have one see &lt;a href=&#34;../../docs/install-guide/air-gapped/#docker-images&#34;&gt;Air Gapped Environments&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;An internet connection.
+If you don&amp;rsquo;t have one see &lt;a href=&#34;../../docs/install-guide/air-gapped/#docker-images&#34;&gt;Air Gapped Environments&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;A Linux-like shell environment.&lt;/li&gt;
 &lt;li&gt;Docker CE (v17.12.0+) - e.g 
 
@@ -221,7 +233,7 @@ nginx&lt;/p&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
 
 
-    &lt;code&gt;jq&lt;/code&gt; is not a hard requirement but improves the functionality of the health checks.
+    &lt;code&gt;jq&lt;/code&gt; is not a hard requirement but improves the functionality of the health checks and is a useful thing to have, e.g. for using Stroom&amp;rsquo;s REST API.
 
 &lt;/div&gt;
 
@@ -251,7 +263,7 @@ The Stroom stack comes in a number of different variants:&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;stroom_core_test&lt;/strong&gt; - If you are just evaluating Stroom or just want to see it running then download the &lt;code&gt;stroom_core_test*.tar.gz&lt;/code&gt; stack which includes some pre-loaded content.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;stroom_core&lt;/strong&gt; - If it is for an actual deployment of Stroom then download &lt;code&gt;stroom_core*.tar.gz&lt;/code&gt;, which has no content and requires some configuration.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Using &lt;code&gt;stroom_core_test-v7.1-beta.15.tar.gz&lt;/code&gt; as an example:&lt;/p&gt;
+&lt;p&gt;Using &lt;code&gt;stroom_core_test-v7.10.11.tar.gz&lt;/code&gt; as an example:&lt;/p&gt;
 
   
 
@@ -267,7 +279,7 @@ The Stroom stack comes in a number of different variants:&lt;/p&gt;
     data-host=&#34;localhost&#34; 
     data-continuation-str=&#34;\&#34;
     data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Define the version to download
-VERSION=&amp;#34;v7.1-beta.15&amp;#34;; STACK=&amp;#34;stroom_core_test&amp;#34;
+VERSION=&amp;#34;v7.10.11&amp;#34;; STACK=&amp;#34;stroom_core_test&amp;#34;
 (out)
 # Download and extract the Stroom stack
 curl -sL &amp;#34;https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-${VERSION}/${STACK}-${VERSION}.tar.gz&amp;#34; | tar xz
@@ -294,7 +306,7 @@ cd &amp;#34;${STACK}-${VERSION}&amp;#34;
     data-user=&#34;stroomuser&#34; 
     data-host=&#34;localhost&#34; 
     data-continuation-str=&#34;\&#34;
-    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Download and extract the laStroom stack
+    data-filter-output=&#34;(out)&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;# Download and extract the latest Stroom stack
 bash &amp;lt;(curl -s https://gchq.github.io/stroom-resources/v7.1/get_stroom.sh)
 (out)
 # Navigate into the new stack directory
@@ -311,6 +323,17 @@ The &lt;code&gt;start.sh&lt;/code&gt; script will provide details of the various
 &lt;li&gt;username: &lt;em&gt;admin&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;password: &lt;em&gt;admin&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;div class=&#34;alert alert-primary&#34; role=&#34;alert&#34;&gt;
+&lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
+
+
+    If you have installed the &lt;code&gt;stroom_core&lt;/code&gt; stack no user accounts are created by default.
+You will need to manually create and administrator account.
+
+&lt;/div&gt;
+
+
 &lt;p&gt;The stroom stack comes supplied with self-signed certificates so you may need to accept a prompt warning you about visiting an untrusted site.&lt;/p&gt;
 &lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
 &lt;p&gt;To configure your new instance see &lt;a href=&#34;../../docs/install-guide/configuration/&#34;&gt;Configuration&lt;/a&gt;.&lt;/p&gt;

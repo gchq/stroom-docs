@@ -147,7 +147,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.01d531e501cb606971e1f3434312fd95.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.a5ad35575504c644ee8266aafda19c25.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -234,7 +234,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>6: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+<li>6: <a href="#pg-ac0532a5d597013b31c385379a2ad086">Authentication Proxy</a></li>
 
 
     
@@ -242,7 +242,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
+<li>7: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>8: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
 
 
     
@@ -1062,7 +1070,79 @@ If you send it to a UI node that does not do processing, it is likely to trigger
 
 <div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
     
-  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">6 - Explorer API</h1>
+  <h1 id="pg-ac0532a5d597013b31c385379a2ad086">6 - Authentication Proxy</h1>
+    <div class="lead">An endpoint to use Stroom as a proxy for an external IDP to obtain access tokens.</div>
+	<p>During provisioning of a Stroom instance that is configured to use an external IDP, it is sometimes required to call Stroom&rsquo;s API to provision the system in an automated way.
+In order to call the API, some form of authentication will be needed, e.g. an access token from IDP.</p>
+<p>To make it easier to obtain an access token, Stroom has the <code>/api/authproxy/v1/noauth/fetchClientCredsToken</code> endpoint.
+This endpoint is not authenticated and essentially calls out to the configured external IDP to obtain an access token for the provided client credentials (client ID and secret).</p>
+<p>In order to use it you must obtain these credentials for the user identity you want a token for.
+Typically these will be the credentials for Stroom&rsquo;s own IDP client, which can be obtained from Stroom&rsquo;s <code>config.yml</code> file.</p>
+<p>The following is an example of a bash script that uses <code>jq</code> and <code>yq</code> to obtain a token that can be used to call Stroom&rsquo;s authenticated APIs.</p>
+<pre><code class="language-sh">if ! command -v jq 1&gt;/dev/null; then
+  echo &quot;jq is not installed, please install it.&quot; &gt;&amp;2
+  exit 1
+fi
+
+if ! command -v yq 1&gt;/dev/null; then
+  echo &quot;yq is not installed, please install it.&quot; &gt;&amp;2
+  exit 1
+fi
+
+local config_file=&quot;config/config.yml&quot;
+local client_id_path='.appConfig.security.authentication.openId.clientId'
+local client_secret_path='.appConfig.security.authentication.openId.clientSecret'
+
+local client_id
+client_id=&quot;$(yq -r &quot;${client_id_path}&quot; &lt; &quot;${config_file}&quot;)&quot;
+local client_secret
+client_secret=&quot;$(yq -r &quot;${client_secret_path}&quot; &lt; &quot;${config_file}&quot;)&quot;
+
+if [[ -z &quot;${client_id}&quot; || &quot;${client_id}&quot; = &quot;null&quot; ]]; then
+  echo &quot;'${client_id_path}' not found in ${config_file}&quot; &gt;&amp;2
+  exit 1
+fi
+
+if [[ -z &quot;${client_secret}&quot; || &quot;${client_secret}&quot; = &quot;null&quot; ]]; then
+  echo &quot;'${client_secret_path}' not found in ${config_file}&quot; &gt;&amp;2
+  exit 1
+fi
+
+local req_json
+req_json=&quot;$( \
+  jq \
+    -n \
+    --arg client_id &quot;${client_id}&quot; \
+    --arg client_secret &quot;${client_secret}&quot; \
+    '{clientId: $client_id, clientSecret: $client_secret}')&quot;
+
+curl \
+  -s \
+  -k \
+  --header &quot;Content-Type: application/json&quot; \
+  --request POST \
+  --data &quot;${req_json}&quot; \
+  &quot;${SCHEME}://${HOST}:${PORT}/api/authproxy/v1/noauth/fetchClientCredsToken&quot;
+</code></pre>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
+    
+  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">7 - Explorer API</h1>
     <div class="lead">The API for managing the folders and documents in the explorer tree.</div>
 	<h2 id="creating-a-new-document">Creating a New Document</h2>
 <p>The explorer API is responsible for creation of all document types.
@@ -1134,9 +1214,9 @@ The explorer API is used to create the initial skeleton of a document then the A
 
 
 
-<div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '8.'; page-break-before: always">
     
-  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">7 - Feed API</h1>
+  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">8 - Feed API</h1>
     <div class="lead">The API for fetching and updating feeds.</div>
 	<h2 id="creating-a-feed">Creating a Feed</h2>
 <p>In order to create a Feed you must first <a href="../../../../docs/user-guide/api/explorer-api/">create the skeleton document</a> using the Explorer API.</p>
