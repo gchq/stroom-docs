@@ -121,6 +121,7 @@ verify_http_link() {
         --silent \
         --head \
         --location \
+        --user-agent "${user_agent}" \
         -v \
         "${header_args[@]}" \
         "${link_url}" \
