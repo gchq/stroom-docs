@@ -131,7 +131,7 @@ verify_http_link() {
 
     if [[ "${response_code}" =~ 403 ]]; then
       # Forbidden - Site may not like our user-agent, so try to mimic a browser
-      echo -e "${indent}${NC}Re-checking URL with --user-agent ${NC}${link_url}${NC}"
+      echo -e "${indent}${NC}Re-checking URL with --user-agent (${YELLOW}${user_agent}${NC}) ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
           --insecure \
