@@ -28,6 +28,8 @@ url_deny_list=(
 )
 
 indent="    "
+# Make sites think we are a broweser, as some don't like requests from curl
+user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -84,6 +86,7 @@ debug_value() {
 }
 
 # Requires setup_debuging to be run once
+# shellcheck disable=SC2329
 debug() {
   # echo to stderr so we don't polute stdout which causes issues
   # for funcs that return via stdout
@@ -111,6 +114,8 @@ verify_http_link() {
       echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
     fi
 
+    # Set the user-agent to try to mimic a browser as some sites (e.g.
+    # mariadb) give a 403 when using curl/wget.
     local response_code
     response_code="$( \
       curl \
@@ -123,11 +128,23 @@ verify_http_link() {
         "${link_url}" \
       || echo "" )"
 
-    if [[ "${response_code}" =~ ^2 ]]; then
-      # Link is good so add to our set/map so we don't have to hit it again
-      checked_links_map["${link_url}"]=1
-      new_checked_links_map["${link_url}"]=1
-    else
+    if [[ "${response_code}" =~ 403 ]]; then
+      # Forbidden - Site may not like our user-agent, so try to mimic a browser
+      echo -e "${indent}${NC}Re-checking URL with --user-agent ${NC}${link_url}${NC}"
+      response_code="$( \
+        curl \
+          --silent \
+          --head \
+          --location \
+          --user-agent "${user_agent}" \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${header_args[@]}" \
+          "${link_url}" \
+        || echo "" )"
+    fi
+
+    if [[ ! "${response_code}" =~ ^2 ]] && [[ ! "${response_code}" =~ 429 ]]; then
       # Some sites don't seem to like the --head option so try it again
       # but getting the full page.
       echo -e "${indent}${NC}Re-checking URL without --head ${NC}${link_url}${NC}"
@@ -140,32 +157,48 @@ verify_http_link() {
           "${header_args[@]}" \
           "${link_url}" \
         || echo "" )"
-      if [[ "${response_code}" =~ ^2 ]]; then
-        # Link is good so add to our set/map so we don't have to hit it again
-        checked_links_map["${link_url}"]=1
-        new_checked_links_map["${link_url}"]=1
-      elif [[ "${response_code}" =~ ^429 ]]; then
-        echo -e "${indent}${NC}Got 429 rate limit response, have to assume URL is ok ${NC}${link_url}${NC}"
-        # There doesn't seem to be any rhyme or reason when github returns
-        # a 429, it seems to only do it on some checks.
-        # Not a lot we can do other than treat it as good and move on.
-        checked_links_map["${link_url}"]=1
-        new_checked_links_map["${link_url}"]=1
+    fi
 
-        #if [[ "${link_url}" =~ ^https://github.com/.* ]]; then
-          ## Show current the GH rate limits
-          #curl \
-            #--silent \
-            #"${header_args[@]}" \
-            #https://api.github.com/rate_limit
-        #fi
-      else
-        log_broken_http_link \
-          "${source_file}" \
-          "${link_name}" \
+    if [[ ! "${response_code}" =~ ^2 ]] && [[ ! "${response_code}" =~ 429 ]]; then
+      # This time without --head and with --user-agent
+      echo -e "${indent}${NC}Re-checking URL without --head and with --user-agent ${NC}${link_url}${NC}"
+      response_code="$( \
+        curl \
+          --silent \
+          --location \
+          --user-agent "${user_agent}" \
+          --output /dev/null \
+          --write-out "%{http_code}" \
+          "${header_args[@]}" \
           "${link_url}" \
-          "${response_code}"
-      fi
+        || echo "" )"
+    fi
+
+    if [[ "${response_code}" =~ ^2 ]]; then
+      # Link is good so add to our set/map so we don't have to hit it again
+      checked_links_map["${link_url}"]=1
+      new_checked_links_map["${link_url}"]=1
+    elif [[ "${response_code}" =~ ^429 ]]; then
+      echo -e "${indent}${NC}Got 429 rate limit response, have to assume URL is ok ${NC}${link_url}${NC}"
+      # There doesn't seem to be any rhyme or reason when github returns
+      # a 429, it seems to only do it on some checks.
+      # Not a lot we can do other than treat it as good and move on.
+      checked_links_map["${link_url}"]=1
+      new_checked_links_map["${link_url}"]=1
+
+      #if [[ "${link_url}" =~ ^https://github.com/.* ]]; then
+        ## Show current the GH rate limits
+        #curl \
+          #--silent \
+          #"${header_args[@]}" \
+          #https://api.github.com/rate_limit
+      #fi
+    else
+      log_broken_http_link \
+        "${source_file}" \
+        "${link_name}" \
+        "${link_url}" \
+        "${response_code}"
     fi
   else
     echo -e "${indent}${NC}Already Checked URL ${NC}${link_url}${NC}"
