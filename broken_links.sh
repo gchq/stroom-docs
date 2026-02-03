@@ -114,6 +114,20 @@ verify_http_link() {
       echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
     fi
 
+    if [[ "${link_url}" = "https://mariadb.com/" ]]; then
+      echo "------------------------------DEBUG---------------------------------------------"
+      curl \
+        --insecure \
+        --silent \
+        --head \
+        --location \
+        -v \
+        "${header_args[@]}" \
+        "${link_url}" \
+        || true
+      echo "------------------------------DEBUG---------------------------------------------"
+    fi
+
     # Set the user-agent to try to mimic a browser as some sites (e.g.
     # mariadb) give a 403 when using curl/wget.
     local response_code
