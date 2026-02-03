@@ -119,6 +119,7 @@ verify_http_link() {
     local response_code
     response_code="$( \
       curl \
+        --insecure \
         --silent \
         --head \
         --location \
@@ -133,6 +134,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL with --user-agent ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          --insecure \
           --silent \
           --head \
           --location \
@@ -150,6 +152,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL without --head ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          --insecure \
           --silent \
           --location \
           --output /dev/null \
@@ -164,6 +167,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL without --head and with --user-agent ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          --insecure \
           --silent \
           --location \
           --user-agent "${user_agent}" \
