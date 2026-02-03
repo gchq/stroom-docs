@@ -23,8 +23,10 @@ file_deny_list=(
 )
 
 # Any link locations to not check
+# mariadb.com - We get a 403 even when using a browser user-agent
 url_deny_list=(
   "https://github.com/gchq/stroom/issues/\1"
+  "https://mariadb.com"
 )
 
 indent="    "
@@ -112,21 +114,6 @@ verify_http_link() {
       echo -e "${indent}${NC}Checking URL with GH token ${NC}${link_url}${NC}"
     else
       echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
-    fi
-
-    if [[ "${link_url}" =~ "mariadb.com" ]]; then
-      echo "------------------------------DEBUG---------------------------------------------"
-      curl \
-        --insecure \
-        --silent \
-        --head \
-        --location \
-        --user-agent "${user_agent}" \
-        -v \
-        "${header_args[@]}" \
-        "${link_url}" \
-        || true
-      echo "------------------------------DEBUG---------------------------------------------"
     fi
 
     # Set the user-agent to try to mimic a browser as some sites (e.g.
