@@ -59,7 +59,7 @@ Shortcodes are a compact way of inserting reusable content into a page and make 
 There are numerous shortcodes available to use:
 
 * {{< external-link "Hugo built in shortcodes" "https://gohugo.io/content-management/shortcodes/" >}}
-* {{< external-link "Docsy theme shortcodes" "https://www.docsy.dev/docs/adding-content/shortcodes/" >}}
+* {{< external-link "Docsy theme shortcodes" "https://www.docsy.dev/docs/content/shortcodes/" >}}
 * [Bespoke _stroom-docs_ shortcodes]({{< relref "./using-images/#stroom-user-interface-components" >}}).
   These can be found in `layouts/shortcodes/`.
 
