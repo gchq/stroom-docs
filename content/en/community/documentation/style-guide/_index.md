@@ -56,7 +56,7 @@ To maintain a degree of consistency in the documentation you should use this sec
 The documentation makes heavy use of Hugo shortcodes for adding page elements such as links, icons, images, etc.
 Shortcodes make it easy to change how a page element is styled by just changing the shortcode.
 
-Hugo includes many [shortcodes (external link)](https://gohugo.io/content-management/shortcodes/), the Docsy theme adds some [more (external link)](https://www.docsy.dev/docs/adding-content/shortcodes/) and there are some bespoke _stroom-docs_ ones in `layouts/shortcodes/`.
+Hugo includes many [shortcodes (external link)](https://gohugo.io/content-management/shortcodes/), the Docsy theme adds some [more (external link)](https://www.docsy.dev/docs/content/shortcodes/) and there are some bespoke _stroom-docs_ ones in `layouts/shortcodes/`.
 
 To make your life easier when editing the documentation it is recomended to use an editor that supports text snippets.
 Snippets make it very quick to add shortcodes into the documentation.

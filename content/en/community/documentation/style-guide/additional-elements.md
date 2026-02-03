@@ -610,4 +610,4 @@ root:
 
 ## Tabbed panes
 
-Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.
+Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so there use should be avoided.
