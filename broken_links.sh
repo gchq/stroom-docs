@@ -23,8 +23,10 @@ file_deny_list=(
 )
 
 # Any link locations to not check
+# mariadb.com - We get a 403 even when using a browser user-agent
 url_deny_list=(
   "https://github.com/gchq/stroom/issues/\1"
+  "https://mariadb.com"
 )
 
 indent="    "
@@ -119,6 +121,7 @@ verify_http_link() {
     local response_code
     response_code="$( \
       curl \
+        --insecure \
         --silent \
         --head \
         --location \
@@ -130,9 +133,10 @@ verify_http_link() {
 
     if [[ "${response_code}" =~ 403 ]]; then
       # Forbidden - Site may not like our user-agent, so try to mimic a browser
-      echo -e "${indent}${NC}Re-checking URL with --user-agent ${NC}${link_url}${NC}"
+      echo -e "${indent}${NC}Re-checking URL with --user-agent (${YELLOW}${user_agent}${NC}) ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          --insecure \
           --silent \
           --head \
           --location \
@@ -150,6 +154,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL without --head ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          --insecure \
           --silent \
           --location \
           --output /dev/null \
@@ -164,6 +169,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Re-checking URL without --head and with --user-agent ${NC}${link_url}${NC}"
       response_code="$( \
         curl \
+          --insecure \
           --silent \
           --location \
           --user-agent "${user_agent}" \
