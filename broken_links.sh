@@ -114,7 +114,7 @@ verify_http_link() {
       echo -e "${indent}${NC}Checking URL ${NC}${link_url}${NC}"
     fi
 
-    if [[ "${link_url}" = "https://mariadb.com/" ]]; then
+    if [[ "${link_url}" =~ "mariadb.com" ]]; then
       echo "------------------------------DEBUG---------------------------------------------"
       curl \
         --insecure \
