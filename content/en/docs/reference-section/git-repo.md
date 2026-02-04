@@ -8,6 +8,7 @@ description: >
   Import and export from Git Repositories.
 ---
 
+
 ## Motivation
 
 The Git Repo configuration item allows users to synchronise Stroom configuration via Git repositories.
@@ -20,7 +21,9 @@ A Git Repo document appears in the Explorer Tree with this icon: {{< stroom-icon
 Any Stroom content can be added below it.
 All that content will be managed by the Git Repo instance.
 
-Git Repo instances can have other Git Repo instances under them in the Explorer Tree. However, the top-level Git Repo will not manage the lower-level Git Repos nor their contents. So Git Repos can be nested, and each will work independently.
+Git Repo instances can have other Git Repo instances under them in the Explorer Tree.
+However, the top-level Git Repo will not manage the lower-level Git Repos nor their contents.
+So Git Repos can be nested, and each will work independently.
 
 
 ## Creation
@@ -32,9 +35,14 @@ Git Repo instances can be created by:
 - Importing a Content Pack from the Content Store.
   This is described elsewhere in the documentation.
 
+
 ## Settings
 
-**Note**: Git Repo instances created from Content Packs have a slightly different appearance. This page describes Git Repo instances created by adding them manually.
+{{% note %}}
+Git Repo instances created from Content Packs have a slightly different appearance.
+{{% /note %}}
+
+This page describes Git Repo instances created by adding them manually.
 
 
 ### Git repository URL
@@ -45,7 +53,8 @@ For example, {{< external-link "https://github.com/gchq/stroom-content.git" "htt
 
 ### Git branch
 
-The branch within the repository. Branches can be used to separate out content for different versions of Stroom, or content that is in development.
+The branch within the repository.
+Branches can be used to separate out content for different versions of Stroom, or content that is in development.
 Examples might be 7.1, 7.2, 7.5, 7.10.
 
 
@@ -71,14 +80,17 @@ You'll know when you are at the root of the Stroom import/export content as you'
 - `XML_Schemas.Folder.428918b8-4088-42ad-8c49-663b7a428ea9`
 - `index_documents_v1_0.XMLSchema.b5c7bd44-ca00-448d-ba64-66b48f926ec4.meta`
 
-You can tell which format the data is in by opening one of the `*.node` files in a text editor. If the file contains the line `version=V2` the the file is in version 2 format. If the line is missing or contains the line `version=V1` then the data is in version 1 format.
+You can tell which format the data is in by opening one of the `*.node` files in a text editor.
+If the file contains the line `version=V2` the the file is in version 2 format.
+If the line is missing or contains the line `version=V1` then the data is in version 1 format.
 
 
 ### Git commit
 
 Each update to a Git repository is known as a Commit.
 These commits are labeled with a number that look like this: `ca82a6dff817ec66f44342007202690a93763949` or a shorter version like this: `ca82a6d`.
-The short version is the first 7 characters of the full number. Git will recognise this as long as the number has enough characters to be unique in the repository.
+The short version is the first 7 characters of the full number.
+Git will recognise this as long as the number has enough characters to be unique in the repository.
 The number identifies the state of the whole repository - every file - at that point in time.
 
 If you want to always get the same version of content, regardless of what else may have been committed to that repository, you can set the Git Repo Git commit field.
@@ -112,4 +124,8 @@ This button will determine whether there are any newer versions available in the
 
 ### Pull from Git
 
-This button will pull down any newer version from the remote Git repository. Note that any local changes may be deleted or overridden.
+This button will pull down any newer version from the remote Git repository.
+
+{{% note %}}
+Note that any local changes may be deleted or overridden.
+{{% /note %}}

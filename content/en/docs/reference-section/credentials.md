@@ -25,7 +25,8 @@ The Credentials Manager can be accessed via the Stroom Menu {{< stroom-icon "men
 
 ## Types of Credentials
 
-Stroom supports different types of credentials. Different systems can use different types of credentials.
+Stroom supports different types of credentials.
+Different systems can use different types of credentials.
 
 | User          | Username / Password        | Access Token                | SSH Key                    | Key Store                  | 
 |---------------|----------------------------|-----------------------------|----------------------------|----------------------------|
@@ -67,12 +68,17 @@ Stroom can optionally check the server's key, if the server's public key is prov
 If no key is provided then Stroom will accept any server.
 This can be useful when getting things working but is not recommended for production use.
 To enable this setting, check {{< stroom-icon "ok.svg" >}} the checkbox "Verify Hosts" and add the entry from your `~/.ssh/known_hosts` file.
-Note that some systems hash the values in `~/.ssh/known_hosts`. This format is not currently supported.
+
+{{% note %}}
+Note that some systems hash the values in `~/.ssh/known_hosts`.
+This format is not currently supported.
+{{% /note %}}
 
 
 ### Key Store
 
 Create a key store in {{< external-link "JKS" "https://docs.oracle.com/cd/E19509-01/820-3503/ggfen/index.html" >}} or {{< external-link "PXCS12" "https://docs.oracle.com/cd/E19509-01/820-3503/ggfhb/index.html" >}} format.
+
 
 #### Key Store Type
 
@@ -84,9 +90,12 @@ JKS
 PKCS12
 : Standardised format, developed by RSA, which stores cryptography objects in a single file.
 
+
 #### Key Store Pass Phrase
 
-The keystore should be protected by a pass-phrase. Stroom needs this pass-phrase to read the keystore.
+The keystore should be protected by a pass-phrase.
+Stroom needs this pass-phrase to read the keystore.
+
 
 #### Upload Key Store File
 
