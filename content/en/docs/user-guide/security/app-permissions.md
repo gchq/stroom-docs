@@ -1,7 +1,7 @@
 ---
 title: "Application Permissions"
 linkTitle: "Application Permissions"
-weight: 40
+weight: 50
 date: 2024-11-01
 tags:
   - permission

@@ -1,7 +1,7 @@
 ---
 title: "Expression functions"
 linkTitle: "Expression functions"
-weight: 80
+weight: 50
 date: 2021-07-27
 tags:
   - dashboard

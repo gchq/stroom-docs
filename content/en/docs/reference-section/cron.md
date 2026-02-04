@@ -1,7 +1,7 @@
 ---
 title: "Cron Syntax"
 linkTitle: "Cron Syntax"
-weight: 40
+weight: 10
 date: 2024-04-26
 tags:
 description: >

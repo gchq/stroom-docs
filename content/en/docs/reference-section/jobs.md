@@ -1,7 +1,7 @@
 ---
 title: "Background Jobs"
 linkTitle: "Background Jobs"
-weight: 90
+weight: 60
 date: 2021-07-27
 tags:
   - job

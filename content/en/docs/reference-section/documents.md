@@ -1,7 +1,7 @@
 ---
 title: "Documents"
 linkTitle: "Documents"
-weight: 60
+weight: 30
 date: 2024-02-21
 tags: 
   - document
