@@ -10,10 +10,31 @@ description: >
 
 
 # Integrated Pipeline Construction and Translation Development (Stepping)
+Improvements have been made in how to construct pipelines and step through data with them.
+A pipeline can either be opened directly from the explorer or via the `stepping` button from the context of some data in the data browser.
+Clicking the `stepping` button also allows the user to create a new pipeline rather than opening an existing one if needed.
 
-{{% todo %}}
-Add content
-{{% /todo %}}
+The stepping button has the following large icon:
+{{</* stroom-icon "stepping-circle.svg" */>}}
+
+Stepping mode is used to develop/test a pipeline against some data and change the translation interactively.
+Once a pipeline is open, stepping mode can be toggled on and off by pressing the `Enter Stepping Mode` button on the pipeline 'Structure' tab.
+Opening a pipeline from the data browser `stepping` button opens a pipeline and immediately enters `stepping mode`.
+In stepping mode the user will be able to select individual streams to step through from the meta list by clicking on the `Source` pipeline element.
+
+The stepping mode toggle button has the following icon:
+{{</* stroom-icon "stepping.svg" */>}}
+
+When stepping mode is off the user can make any changes they wish to the pipeline structure or properties.
+Going back into stepping mode immediately applies any structure or property changes to the stepping process.
+The results of any changes made to pipeline structure and referenced docs can be viewed by pressing the 'Refresh Current Step' button.
+
+These improvements allow a user to change any aspect of a pipeline in one place and immediately see the impact applied to some test data without saving pipeline changes or navigating to another tab.
+The source data being tested in stepping mode can be changed at any time by selecting a different input stream on the `Source` tab.
+The user can change the filter on the `Source` tab to find different data to test.
+
+When entering stepping mode from the data browser `stepping` button, only the data from that context is initially included in the filter.
+Users must change the filter to choose different data.
 
 
 # Ask Stroom AI
@@ -103,7 +124,7 @@ In these cases the user can set a maximum delay so that processing will occur af
 You can now create Git controlled folders in Stroom that will synchronise all child content with a Git repository.
 Git content can be pulled and pushed if the correct credentials have been provided via the new Credentials feature.
 
-See [case]({{< relref "docs/reference-section/git-repo" >}}) for details.
+See [Git Repo]({{< relref "docs/user-guide/content/git-repo" >}}) for details.
 
 
 # Content Store
@@ -111,7 +132,7 @@ Stroom now has a mechanism for providing standard content from one or more user 
 Content stores are lists of specific content items described in files with Git repositories.
 The content store shows a list of items in the user interface that the user can choose to add to their Stroom instance, e.g. standard pipelines, schemas and visualisations.
 
-See [case]({{< relref "docs/reference-section/content-store" >}}) for details.
+See [Content Store]({{< relref "docs/user-guide/content/content-store" >}}) for details.
 
 
 # Credentials
@@ -123,7 +144,7 @@ Credentials can manage:
 * SSH keys
 * Key stores and trust stores in JKS and PKCS12 format.
 
-See [case]({{< relref "docs/reference-section/credentials" >}}) for details.
+See [Credentials]({{< relref "docs/user-guide/security/credentials" >}}) for details.
 
 
 
@@ -187,8 +208,10 @@ Add content
 
 # Smaller Changes
 * Pipeline elements now have user friendly names and can be renamed without breaking pipelines.
-* Main Stroom tabs can be reordered, closing left, right, custom selected tab colour.
-* Dashboard now allow individual panes to be maximised so that a table or visualisation can be viewed full screen.
+* Main Stroom tabs can be reordered by clicking and dragging.
+* Main Stroom tabs can be closed to the left or right of the selected tab via a context menu.
+* The underline selection colour of a Stroom tab can be customised by a configuration property.
+* Dashboards now allow individual panes to be maximised so that a table or visualisation can be viewed full screen.
 * Table cells, rows, columns, selected rows and entire tables, now have numerous copy and export options.
 
 
@@ -221,7 +244,7 @@ Example:
 createAnnotation('Create Annotation', 'My Annotation Title', ${SubjectField}, 'New', 'UserA', 'Look at this thing', '123:2,123444:3')
 ```
 
-See [case]({{< relref "docs/reference-section/expressions/link#createAnnotation" >}}) for details.
+See [createAnnotation]({{< relref "docs/reference-section/expressions/link#createAnnotation" >}}) for details.
 
 
 ## HostAddress
