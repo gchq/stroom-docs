@@ -70,7 +70,7 @@ This Elastic Cluster Document can then be used by one or more Elastic Index Docu
 
 ### Git Repo
 
-* Icon: {{< stroom-icon "document/GitRepo.svg" >}}
+* Icon: {{< stroom-icon "document/GitRepoFolder.svg" >}}
 * Type: `GitRepo`
 
 Contains the configuration for a connection to a Git repository.
@@ -83,6 +83,14 @@ Contains the configuration for a connection to a Git repository.
 
 Defines the connection details for a single Kafka cluster.
 This Kafka Configuration Document can then be used by one or more {{< pipe-elm "StandardKafkaProducer" >}} pipeline elements.
+
+
+### OpenAI Model
+
+* Icon: {{< stroom-icon "document/OpenAI.svg" >}}
+* Type: `OpenAIModel`
+
+Defines the settings required to connect to an OpenAI-compatible API and interact with a model.
 
 
 ### S3 Configuration
@@ -187,6 +195,14 @@ The Lucene Index Document is used by the {{< pipe-elm \"IndexingFilter\" >}} and
 {{% see-also %}}[Lucene Indexes]({{< relref "docs/user-guide/indexing/lucene" >}}){{% /see-also %}}
 
 
+### Pathways
+
+* Icon: {{< stroom-icon "document/Pathways.svg" >}}
+* Type: `Pathways`
+
+> TODO - Add description
+
+
 ### Plan B
 
 * Icon: {{< stroom-icon "document/PlanB.svg" >}}
@@ -262,11 +278,7 @@ The analytic can be processed in different ways:
 * Icon: {{< stroom-icon "edit.svg" >}}
 * Type: `Annotation`
 
-
-{{% todo %}}
-To be completed.
-{{% /todo %}}
-
+> TODO - Add description
 
 
 ### Dashboard
