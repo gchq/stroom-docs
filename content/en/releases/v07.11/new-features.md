@@ -24,6 +24,8 @@ One or more AI models must be configured to be able to use Ask Stroom AI.
 The models used must conform to the OpenAI API standard.
 Once configured users can ask questions such as "Summarise this table" and the Ask Stroom AI feature will provide AI insights for the provided data.
 
+At present the Ask Stroom AI feature is a preview feature with many enhancements planned for subsequent versions of Stroom.
+
 # Dense Vector LLM (AI)
 Dense vector index field support allows Stroom to perform approximation queries to find document containing similar words, similar meaning or sentiment, similar spelling plus errors etc.
 
