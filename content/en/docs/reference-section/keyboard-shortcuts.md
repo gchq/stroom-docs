@@ -1,7 +1,7 @@
 ---
 title: "Keyboard Shortcuts"
 linkTitle: "Keyboard Shortcuts"
-weight: 70
+weight: 100
 date: 2024-03-18
 tags: 
 description: >

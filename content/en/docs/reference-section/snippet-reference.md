@@ -1,7 +1,7 @@
 ---
 title: "Editor Completion Snippets"
 linkTitle: "Editor Snippets"
-weight: 40
+weight: 70
 date: 2023-11-08
 tags: 
 description: >
