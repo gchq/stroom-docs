@@ -10,9 +10,9 @@ description: >
 
 ## Dashboard & StroomQL Functions
 
-### `ceilingTime(..)` & `floorTime(...)`
+### `ceilingTime(..)` & `floorTime(...)` & `roundTime(...)`
 
-Two new functions similar to the existing [`ceilingXXX`]({{< relref "docs/reference-section/expressions/date#ceiling-yearmonthdayhourminutesecond" >}}) and [`floorXXX`]({{< relref "docs/reference-section/expressions/date#floor-yearmonthdayhourminutesecond" >}}) functions, except that an arbitrary duration can be used.
+Three new functions similar to the existing [`ceilingXXX`]({{< relref "docs/reference-section/expressions/date#ceiling-yearmonthdayhourminutesecond" >}}) and [`floorXXX`]({{< relref "docs/reference-section/expressions/date#floor-yearmonthdayhourminutesecond" >}}) functions, except that an arbitrary duration can be used.
 
 For example, `floorTime($time, 'PT5m')` will floor the time to the latest time that is divisible by 5 minutes.
 
@@ -88,6 +88,17 @@ For example:
 
 ```clike
 data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'info')
+```
+
+### `isWeekend(..)`
+
+Returns whether a date and time is part of the weekend or not.
+
+For example:
+
+```clike
+isWeekend('2026-02-04T12:45:11.000Z') returns false
+isWeekend('2026-02-01T12:45:11.000Z') returns true
 ```
 
 
