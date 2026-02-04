@@ -238,3 +238,30 @@ ${val}=4
 > unknown // falls back to the 'otherwise' value
 ```
 
+
+## InRange
+
+Returns true if the value is between lower and upper (inclusive). 
+All parameters must be either numbers or ISO date strings.
+
+1. The input value to test
+1. The lower bound (inclusive)
+1. The upper bound (inclusive)
+
+```clike
+inRange(value, lower, upper)
+```
+
+Example
+
+```clike
+inRange(5, 2, 6)
+> true
+inRange(5, 5, 5)
+> true
+inRange(5, 6, 7)
+> false
+inRange(5, 3, 4)
+> false
+```
+

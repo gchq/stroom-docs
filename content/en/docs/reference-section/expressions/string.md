@@ -169,6 +169,38 @@ If not specified the `hash()` function will use the `SHA-256` algorithm.
 Supported algorithms are determined by Java runtime environment.
 
 
+## HostAddress
+
+Returns the host address (IP) for the given host string.
+
+```clike
+hostAddress(host)
+```
+
+Example
+
+```clike
+hostAddress('google.com')
+> '142.251.29.102'
+```
+
+
+## HostName
+
+Returns the host name for the given host string.
+
+```clike
+hostName(host)
+```
+
+Example
+
+```clike
+hostName('142.251.29.102')
+> 'google.com'
+```
+
+
 ## Include
 
 If the supplied string matches one of the supplied match strings then return it, otherwise return null

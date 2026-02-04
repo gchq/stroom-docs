@@ -1,7 +1,7 @@
 ---
 title: "Editing Text"
 linkTitle: "Editing Text"
-weight: 10
+weight: 20
 date: 2023-11-08
 tags:
   - content

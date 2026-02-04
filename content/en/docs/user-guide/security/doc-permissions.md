@@ -1,7 +1,7 @@
 ---
 title: "Document Permissions"
 linkTitle: "Document Permissions"
-weight: 50
+weight: 60
 date: 2024-11-01
 tags:
   - permission
