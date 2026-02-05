@@ -1,7 +1,7 @@
 ---
 title: "Data Retention"
 linkTitle: "Data Retention"
-weight: 40
+weight: 50
 date: 2021-07-27
 tags:
   - retention

@@ -9,39 +9,34 @@ description: >
 ---
 
 
-# Integrated Pipeline Construction and Translation Development (Stepping)
-Improvements have been made in how to construct pipelines and step through data with them.
-A pipeline can either be opened directly from the explorer or via the `stepping` button from the context of some data in the data browser.
-Clicking the `stepping` button also allows the user to create a new pipeline rather than opening an existing one if needed.
+## Integrated Pipeline Construction and Translation Development (Stepping)
 
-The stepping button has the following large icon:
-{{</* stroom-icon "stepping-circle.svg" */>}}
+Improvements have been made in how to construct pipelines and step through data with them.
+A pipeline can either be opened directly from the explorer tree or via the large {{< stroom-icon "stepping-circle.svg" "Enter Stepping Mode" >}} _Enter Stepping Mode_ button from the _Data Preview_ pane of the data browser.
+
+Clicking the {{< stroom-icon "stepping-circle.svg" "Enter Stepping Mode" >}} _Enter Stepping Mode_ button also allows the user to create a new pipeline (by clicking {{< stroom-btn "new" >}}) rather than opening an existing one if needed.
 
 Stepping mode is used to develop/test a pipeline against some data and change the translation interactively.
-Once a pipeline is open, stepping mode can be toggled on and off by pressing the `Enter Stepping Mode` button on the pipeline 'Structure' tab.
-Opening a pipeline from the data browser `stepping` button opens a pipeline and immediately enters `stepping mode`.
-In stepping mode the user will be able to select individual streams to step through from the meta list by clicking on the `Source` pipeline element.
+Once a pipeline is open, stepping mode can be toggled on and off by pressing the {{< stroom-icon "step.svg" "Enter Stepping Mode" >}} _Enter Stepping Mode_ toggle button on the pipeline _Structure_ tab.
+Opening a pipeline from the data browser {{< stroom-icon "stepping-circle.svg" "Enter Stepping Mode" >}} button opens a pipeline and immediately enters _Stepping Mode_.
+In stepping mode the user will be able to select individual streams to step through from the meta list by clicking on the {{< pipe-elm "Source" >}} pipeline element.
 
-The stepping mode toggle button has the following icon:
-{{</* stroom-icon "stepping.svg" */>}}
-
-When stepping mode is off the user can make any changes they wish to the pipeline structure or properties.
+When _Stepping Mode_ is off the user can make any changes they wish to the pipeline structure or properties.
 Going back into stepping mode immediately applies any structure or property changes to the stepping process.
-The results of any changes made to pipeline structure and referenced docs can be viewed by pressing the 'Refresh Current Step' button.
+The results of any changes made to pipeline structure and referenced docs can be viewed by pressing the {{< stroom-icon name="refresh.svg" title="Refresh Current Step" colour="green">}} _Refresh Current Step_ button.
 
 These improvements allow a user to change any aspect of a pipeline in one place and immediately see the impact applied to some test data without saving pipeline changes or navigating to another tab.
-The source data being tested in stepping mode can be changed at any time by selecting a different input stream on the `Source` tab.
-The user can change the filter on the `Source` tab to find different data to test.
+The source data being tested in stepping mode can be changed at any time by selecting a different input stream on the _Source_ tab.
+The user can change the filter on the _Source_ pane to find different data to test.
 
-When entering stepping mode from the data browser `stepping` button, only the data from that context is initially included in the filter.
+When entering stepping mode from the Data Preview pane of the Data Browser {{< stroom-icon "stepping-circle.svg" "Enter Stepping Mode" >}} _Enter Stepping Mode_ button, only the data from that context is initially included in the filter.
 Users must change the filter to choose different data.
 
 
-# Ask Stroom AI
-The new Ask Stroom AI feature provides information and AI insights into data contained in search result tables or any other tabular data in Stroom.
-Ask Stroom UI can be accessed from any table context menu or the toolbar wherever you see this icon:
+## Ask Stroom AI
 
-{{</* stroom-icon "ai.svg" */>}}
+The new Ask Stroom AI feature provides information and AI insights into data contained in search result tables or any other tabular data in Stroom.
+Ask Stroom UI can be accessed from any table context menu or the toolbar wherever you see the {{< stroom-icon "ai.svg" "Ask Stroom AI" >}} _Ask Stroom AI_ button.
 
 One or more AI models must be configured to be able to use Ask Stroom AI.
 The models used must conform to the OpenAI API standard.
@@ -50,7 +45,8 @@ Once configured users can ask questions such as "Summarise this table" and the A
 At present the Ask Stroom AI feature is a preview feature with many enhancements planned for subsequent versions of Stroom.
 
 
-# Dense Vector LLM (AI)
+## Dense Vector LLM (AI)
+
 Dense vector index field support allows Stroom to perform approximation queries to find document containing similar words, similar meaning or sentiment, similar spelling plus errors etc.
 
 Dense vector support leverages the AI model configuration provided for the Ask Stroom AI feature.
@@ -65,36 +61,25 @@ When querying search terms are substituted for tokens using the LLM and then mat
 This mechanism allows for connections between words and tokens in both the data and the query to find documents approximately related to the search terms.
 
 
-# Plan B Histograms, Metrics, Sessions
+## Plan B Histograms, Metrics, Sessions
+
 Multiple improvements to Plan B to store:
+
 * Histogram data, e.g. counts of things within specific time periods.
 * Metric data, e.g. values at points in time, CPU Use %, Memory Use % etc.
 * Session data, recording start and end periods for certain events, e.g. user uses application X between time A and B.
 
 
-# Trace Log Support In Plan B
+## Trace Log Support In Plan B
+
 Plan B can now store trace logs supplied via pipelines.
 There are new additions to the Plan B schema to capture trace log data so it can be supplied to a Plan B store. 
 
 
-# Pathways (experimental)
-Trace logs describe the operation of applications and user interactions with applications.
-Pathways is designed to analyse trace logs over a period of time and remember patterns of activity.
-The intent is for Pathways to identify unexpected behaviour or changes to services once regular behaviour has been learnt. 
+## Improved Annotations
 
-Once trace logs have been added to a Plan B store it can be analysed with Pathways.
-Pathways examines trace logs and identifies unique paths in trace logs between methods or service calls, e.g. A -> B -> C.
-It also records alternate paths, e.g. A -> B -> D.
-Each path is remembered by Pathways and logged to an output stream.
-Whenever a new unique path is found the fact is logged so that it is easy to identify changes.
-
-Pathways also records and monitors changes to span attributes within traces.
-
-Pathways makes no judgement about the changes it logs, it is up to users to add analytic rules to fire against pathway logs.
-
-
-# Improved Annotations
 Annotations have been improved to add several new features and improvements: 
+
 * Labels
 * Collections
 * Data Retention
@@ -104,30 +89,35 @@ Annotations have been improved to add several new features and improvements:
 * Instant update of decorated tables after annotation edits
 
 
-# Pipeline Processing Dependencies and Delayed Execution
+## Pipeline Processing Dependencies and Delayed Execution
+
 It is now possible to delay processing of event data until required reference data is present.
 For each dependency Stroom will delay processing until reference data arrives that is newer than the event data you want to process.
 Stroom needs to wait until reference data arrives that is newer than the event data it needs to process so that it knows it has definitely received effective reference data for the events.
 
 
-## Minimum Delay
+### Minimum Delay
+
 Once reference data has been received and processed we can process the event data, however as reference data is cached we may want to add additional delay to the processing, this is achieved by setting a minimum delay.
 Even without any processing dependencies a minimum delay can be added so Stroom will wait the specified period of time before processing.
 
 
-## Maximum Delay
+### Maximum Delay
+
 In some cases we reference data might be late, and we might not want to wait too long before processing.
 In these cases the user can set a maximum delay so that processing will occur after the specified time delay even without the dependant data being present.
 
 
-# Git Integration
+## Git Integration
+
 You can now create Git controlled folders in Stroom that will synchronise all child content with a Git repository.
 Git content can be pulled and pushed if the correct credentials have been provided via the new Credentials feature.
 
 See [Git Repo]({{< relref "docs/user-guide/content/git-repo" >}}) for details.
 
 
-# Content Store
+## Content Store
+
 Stroom now has a mechanism for providing standard content from one or more user defined content stores.
 Content stores are lists of specific content items described in files with Git repositories.
 The content store shows a list of items in the user interface that the user can choose to add to their Stroom instance, e.g. standard pipelines, schemas and visualisations.
@@ -135,10 +125,13 @@ The content store shows a list of items in the user interface that the user can 
 See [Content Store]({{< relref "docs/user-guide/content/content-store" >}}) for details.
 
 
-# Credentials
+## Credentials
+
 Many features in Stroom require credentials to be provided to authenticate connections to external services, e.g. Git repositories, OpenAI APIs, HTTPS connections.
 The credentials feature provides a location to store and manage the secrets required to authenticate these services.
+
 Credentials can manage:
+
 * User name and passwords
 * API keys and tokens
 * SSH keys
@@ -147,66 +140,8 @@ Credentials can manage:
 See [Credentials]({{< relref "docs/user-guide/security/credentials" >}}) for details.
 
 
+## Smaller Changes
 
-
-
-
-
-
-
-
-
-
-# Content Templates
-Content templates (auto creates feed,pipe,filter based on template for frictionless)
-
-
-# Feed Name Generation
-Feed name generation (generates the feed name based on various header args for frictionless)
-
-
-# Receipt Policy Rules
-Receipt policy rules that get pulled down to proxy
-
-
-# New proxy
-
-{{% todo %}}
-Add content
-{{% /todo %}}
-
-
-## Multiple destinations
-
-
-## File store/queue architecture
-
-
-## Destination liveness checking
-
-
-## Retrying and failure
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Smaller Changes
 * Pipeline elements now have user friendly names and can be renamed without breaking pipelines.
 * Main Stroom tabs can be reordered by clicking and dragging.
 * Main Stroom tabs can be closed to the left or right of the selected tab via a context menu.
@@ -215,19 +150,20 @@ Add content
 * Table cells, rows, columns, selected rows and entire tables, now have numerous copy and export options.
 
 
-# New XSLT functions
+## New XSLT functions
+
 A number of new XSLT functions have been added:
 
 * `add-meta(String key, String value)` - Add meta to be written to output destination.
 * `split-document(Sting doc, String segmentSize, String overlapSize)` - Split a document for LLM tokenisation (experimental for Elastic dense vector indexing).
 
 
-# Dashboard & StroomQL Functions
+## Dashboard & StroomQL Functions
 
 A number of new dashboard and StroomQL functions have been added:
 
 
-## Create Annotation
+### Create Annotation
 
 Since annotation editing is now performed as a primary Stroom feature via a button and context menu on dashboard and query tables we no longer need to create or edit annotations via a hyperlink.
 There are some remaining use cases where users want to create and initialise some annotation values based on some table row content.
@@ -235,19 +171,19 @@ The `createAnnotation` function can be used for this purpose and shows a hyperli
 
 The function takes the arguments:
 
-```
+```clike
 createAnnotation(text, title, subject, status, assignedTo, comment, eventIdList)
 ```
 
 Example:
-```
+```clike
 createAnnotation('Create Annotation', 'My Annotation Title', ${SubjectField}, 'New', 'UserA', 'Look at this thing', '123:2,123444:3')
 ```
 
 See [createAnnotation]({{< relref "docs/reference-section/expressions/link#createAnnotation" >}}) for details.
 
 
-## HostAddress
+### HostAddress
 
 Returns the host address (IP) for the given host string.
 
@@ -263,7 +199,7 @@ hostAddress('google.com')
 ```
 
 
-## HostName
+### HostName
 
 Returns the host name for the given host string.
 
@@ -279,7 +215,7 @@ hostName('142.251.29.102')
 ```
 
 
-## InRange
+### InRange
 
 Returns true if the value is between lower and upper (inclusive).
 All parameters must be either numbers or ISO date strings.

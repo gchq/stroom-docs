@@ -1,34 +1,14 @@
 ---
-title: "Preview Features (experimental)"
-linkTitle: "Preview Features"
-weight: 20
-date: hdate
+title: "Data Receipt Rules"
+linkTitle: "Data Receipt Rules"
+weight: 10
+date: 2026-02-05
 tags: 
 description: >
-  Preview features in Stroom version 7.11.
-  Preview features are somewhat experimental in nature and are therefore subject to breaking changes in future releases.
+  Describes the process of creating Data Receipt Rules to control whether data received by Stroom or Stroom Proxy is Accepted, Rejected or Dropped.
 ---
 
-## Pathways
-
-Trace logs describe the operation of applications and user interactions with applications.
-Pathways is designed to analyse trace logs over a period of time and remember patterns of activity.
-The intent is for Pathways to identify unexpected behaviour or changes to services once regular behaviour has been learnt. 
-
-Once trace logs have been added to a Plan B store it can be analysed with Pathways.
-Pathways examines trace logs and identifies unique paths in trace logs between methods or service calls, e.g. A -> B -> C.
-It also records alternate paths, e.g. A -> B -> D.
-Each path is remembered by Pathways and logged to an output stream.
-Whenever a new unique path is found the fact is logged so that it is easy to identify changes.
-
-Pathways also records and monitors changes to span attributes within traces.
-
-Pathways makes no judgement about the changes it logs, it is up to users to add analytic rules to fire against pathway logs.
-
-
-## Data Receipt Rules
-
-Data Receipt Rules is a new feature that serves as an alternative to the existing feed status checking performed by Stroom Proxy and Stroom.
+Data Receipt Rules serves as an alternative to the legacy feed status checking performed by Stroom Proxy and Stroom.
 It provides a much richer mechanism for controlling which received data streams are Received, Rejected or Dropped.
 It allows anyone with the _Manage Data Receipt Rules_ Application Permission to create one or more rules to controls the receipt of data.
 
@@ -48,18 +28,18 @@ This means that the rules do not need to contain an `Accept` rule to cover all o
 They only need to cover 
 The client will receive a `101` `Feed is not defined` error if it does not exist.
 
-{{< image "releases/07.11/ReceiptRules.png" "700x" />}}
+{{< image "user-guide/data-receipt/ReceiptRules.png" "700x" />}}
 
 The screen operates in a similar way to Data Retention Rules in that rules can be moved up/down to change their importance, or enabled/disabled.
 
 
-### Fields
+## Fields
 
 The fields available to use in the expression terms can be defined in the _Fields_ tab.
 The terms will be evaluated against the stream's meta data, i.e. a combination of the HTTP headers sent by the client and any that have been populated by Stroom Proxy or Stroom.
 This allows for the use of custom headers to aid in the filtering of data into Stroom.
 
-{{< image "releases/07.11/ReceiptRuleFields.png" "300x" />}}
+{{< image "user-guide/data-receipt/ReceiptRuleFields.png" "300x" />}}
 
 Dictionaries are supported for use with the `in dictionary` condition.
 The contents of the dictionary and any of the dictionaries that it inherits will be included in the data fetched by Stroom Proxy.
@@ -71,7 +51,7 @@ Should you need to use the same dictionary for an obfuscated and a non-obfuscate
 {{% /note %}}
 
 
-### Stroom Configuration
+## Stroom Configuration
 
 Data Receipt Rules are controlled by the following configuration:
 
@@ -122,7 +102,7 @@ appConfig:
 ```
 
 
-### Stroom Proxy Configuration
+## Stroom Proxy Configuration
 
 ```yaml
 appConfig:
@@ -141,7 +121,7 @@ appConfig:
 ```
 
 
-### Stroom Proxy Rule Synchronisation
+## Stroom Proxy Rule Synchronisation
 
 If Stroom Proxy is configured with `receiptCheckMode` set to `RECEIPT_POLICY` and has `downstreamHost` configured, then it will periodically send a request to Stroom to fetch the latest copy of the Data Receipt Rules.
 If Stroom Proxy is unable to contact Stroom it will use the latest copy of the rules that it has.
@@ -149,7 +129,7 @@ If Stroom Proxy is unable to contact Stroom it will use the latest copy of the r
 Given that Stroom Proxy will only synchronise periodically, once a change is made to the rule set, there will be a delay before the new rules take effect.
 
 
-#### Term Value Obfuscation
+### Term Value Obfuscation
 
 As a Stroom administrator you may not want the values used in the Data Receipt Rule expression terms to be visible when they are fetched by a remote Stroom Proxy (that may be maintained by another team).
 It is therefore possible to obfuscate the values used for the expression terms for certain configured fields.
@@ -174,4 +154,3 @@ The fetched data includes the salt values and given enough compute/time it would
 Strong hashing algorithms such as BCrypt or Argon2 can mitigate against this but not remove the risk.
 If the rule values are too sensitive then you will have to let the Stroom Proxy accept the data and have Stroom do the full rule based checking.
 {{% /note %}}
-

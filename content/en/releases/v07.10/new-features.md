@@ -164,7 +164,7 @@ When creating a content template of type `INHERIT_PIPELINE` it is now possible t
 This allows the Data Splitter or XSLT to be refined/populated for the new content.
 
 
-### Index Shards Searchable
+## Index Shards Searchable
 
 The _IndexShards_ {{< glossary "Searchable" >}} has been changed to add the fields `Shard Id` and `Index Version` to the list of available fields.
 

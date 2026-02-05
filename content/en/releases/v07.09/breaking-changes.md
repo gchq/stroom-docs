@@ -21,8 +21,20 @@ If any proxy instances call into Stroom to make a feed status check using an API
 
 ## Stroom-Proxy
 
+### `maxOpenFiles`
 
+The config property `proxyConfig.eventStore.maxOpenFiles` has been replaced with `proxyConfig.eventStore.openFilesCache`.
 
+The default value for this property branch is:
 
-
+```yaml
+proxyConfig:
+  eventStore:
+    openFilesCache:
+      expireAfterAccess: null
+      expireAfterWrite: null
+      maximumSize: 100
+      refreshAfterWrite: null
+      statisticsMode: "DROPWIZARD_METRICS"
+```
 

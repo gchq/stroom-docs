@@ -1,7 +1,7 @@
 ---
 title: "Pipelines"
 linkTitle: "Pipelines"
-weight: 90
+weight: 100
 date: 2021-07-27
 tags: 
   - pipeline

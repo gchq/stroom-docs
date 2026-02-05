@@ -310,7 +310,7 @@ If the _title_ is `OK`, `Close` or `Cancel` then the type and filename do not ne
 
 **Examples:**
 
-{{< stroom-btn "Ok" >}}, {{< stroom-btn "Close" >}}, {{< stroom-btn "Cancel" >}} and {{< stroom-btn title="Undo" filename="undo.svg" >}}
+{{< stroom-btn "Ok" >}}, {{< stroom-btn "Close" >}}, {{< stroom-btn "Cancel" >}}, {{< stroom-btn "New" >}} and {{< stroom-btn title="Undo" filename="undo.svg" >}}
 
 And not in line
 
