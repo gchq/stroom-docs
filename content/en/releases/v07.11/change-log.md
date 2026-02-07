@@ -9,7 +9,9 @@ description: >
 ---
 
 <!--
-To build this list run diff_changelog.sh in the root of the stroom repo that is on the appropriate branch
+To build this list run diff_changelog.sh in the root of the stroom repo that has all the latest commits
+for the two branches being compared. You can run it between tags (e.g. v7.11-beta.21 v7.11-beta.22) if
+you need to add in the changes for a patch release.
 
 E.g. ./diff_changelog.sh 7.10 7.11 | sed -E -e 's/^/\n/' -e 's@(Issue|Bug|Feature|Build|Dependency|Refactor) \*\*#([0-9]+)\*\*@\1 **{{< external-link "#\2" "https://github.com/gchq/stroom/issues/\2" >}}**@g'
 
@@ -18,7 +20,20 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 :r !../stroom_v7_11/diff_changelog.sh 7.10 7.11 | sed -E -e 's/^/\n/' -e 's@(Issue|Bug|Feature|Build|Dependency|Refactor) \*\*\#([0-9]+)\*\*@\1 **{{< external-link "\#\2" "https://github.com/gchq/stroom/issues/\2" >}}**@g'
 -->
 
+
 ## New Features and Changes
+
+* Feature **{{< external-link "#5314" "https://github.com/gchq/stroom/issues/5314" >}}** : Add `rowCount`, `fileType` (`EXCEL`|`CSV`|`TSV`), `fileName` to the templating context when generating email reports.
+
+* Feature **{{< external-link "#5313" "https://github.com/gchq/stroom/issues/5313" >}}** : Allow users to prevent empty reports from being sent on a per report basis.
+
+* Feature : Add enabled/disabled styling to table rows in the Report screens.
+
+* Feature : Add column header tool tips to tables in the Report screens.
+
+* Feature : Change the Report > Notifications _Max_ column to be right aligned.
+
+* Feature : Add red/green sytling to the Report > Notifications _Status_ column (Complete/Error).
 
 * Feature **{{< external-link "#5282" "http://github.com/gchq/stroom/issues/5282" >}}** : Processor task creation now supports feed dependencies to delay processing until reference data is available.
 
@@ -148,6 +163,8 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 
 
 ## Bug Fixes
+
+* Bug : Fix Reports not respecting the start date during execution. It was executing from the last tracker time rather than from the start date, if the start date is later.
 
 * Bug **{{< external-link "#5384" "http://github.com/gchq/stroom/issues/5384" >}}** : Improvements to annotations database code.
 
