@@ -539,6 +539,16 @@ XSLTs are also used to transform XML {{< glossary "Events" >}} data into non-XML
 See the [User Guide]({{< relref "user-guide/pipelines/xslt" >}}) for more detail.
 
 
+## ZIP
+
+A compressed file format for storing a one or more files with an associated directory structure.
+Stroom and Stroom Proxy use the ZIP format for exporting content and data as well as its Proxy ZIP format for holding multiple streams of data with associated meta data.
+
+See [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}})
+
+
+
+
 <!-- TODO
 Event  
 Pipeline  

@@ -20,7 +20,7 @@ This document aims to describe some typical configurations of Stroom-Proxy.
 Stroom-Proxy makes heavy use of multiple file system directories as work queues.
 These queues act as the interface between the different processing steps in Stroom-Proxy.
 
-Data in its various states is held in sub-directories that are moved between the different queue directories.
+Data in its various states is held in sub-directories that are moved atomically between the different queue directories.
 
 These sub-directories are placed in a path structure that indicates the position in the queue, e.g.:
 
@@ -70,11 +70,23 @@ The following is a list of the directories used by Stroom-Proxy in its data dire
 `-- temp_forward_copies/
 ```
 
+
 #### `/01_receiving_simple/`
 
+This directory is the reception for area for data that is NOT a {{< glossary "ZIP" >}} file, i.e. uncompressed or `gzip` compressed data.
+
+Data will be written to this directory before the client receives the HTTP response.
 
 
+#### `/02_receiving_zip/`
+
+This directory is the reception for area for data that has been received as a {{< glossary "ZIP" >}} file which may contain one or more streams of data and associated metadata.
+
+Data will be written to this directory before the client receives the HTTP response.
 
 
+#### `/02_split_zip/`
 
+If a received {{< glossary "ZIP" >}} file contains data for more that one {{< glossary "Feed" >}} it will be places into this directory for splitting.
 
+ZIP files in this directory will be un-zipped into a subdirectory
