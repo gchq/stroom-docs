@@ -8,7 +8,7 @@ description: >
   Describes the process of creating Data Receipt Rules to control whether data received by Stroom or Stroom Proxy is Accepted, Rejected or Dropped.
 ---
 
-Data Receipt Rules serves as an alternative to the legacy feed status checking performed by Stroom Proxy and Stroom.
+Data Receipt Rules serves as an alternative to the legacy [Feed status]({{< relref "feed-status" >}}) checking performed by Stroom Proxy and Stroom.
 It provides a much richer mechanism for controlling which received data streams are Received, Rejected or Dropped.
 It allows anyone with the _Manage Data Receipt Rules_ Application Permission to create one or more rules to controls the receipt of data.
 

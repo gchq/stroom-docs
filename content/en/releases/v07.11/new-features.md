@@ -240,3 +240,36 @@ inRange(5, 6, 7)
 inRange(5, 3, 4)
 > false
 ```
+
+## Stroom Proxy
+
+### API Key Verification
+
+When you have more that one Stroom Proxy in a chain (e.g. _Remote Stroom Proxy_ -> _Local Stroom Proxy_ -> _Stroom_), the remote Stroom Proxy may receive requests from client using {{< glossary "API Keys" >}}.
+On its own, Stroom Proxy is unable to authenticate an API Key as they were created by Stroom.
+Instead it needs to make a request to the downstream Stroom Proxy to authenticate the API Key.
+This Stroom Proxy can in turn make a similar request to Stroom.
+
+Each Stroom Proxy is now able to cache and persist the verified keys so that it can perform the authentication without having to always make requests downstream.
+As it can now persist verified keys in a hashed form, it is able to perform authentication even when it is unable to contact its downstream host.
+
+The following configuration controls this caching:
+
+```yaml
+proxyConfig:
+  downstreamHost:
+    # How long to cache verified keys for in memory
+    maxCachedKeyAge: "PT10M"
+    # How long keys will be persisted for on disk in case the downstream
+    # can't be connected to
+    maxPersistedKeyAge: "P30D"
+    # The delay to use after there is an error connecting to the downstream
+    noFetchIntervalAfterFailure: "PT30S"
+    # The hash algorithm used to hash persisted API keys.
+    persistedKeysHashAlgorithm: "SHA2_512"
+```
+
+
+
+
+

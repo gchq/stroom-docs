@@ -18,12 +18,14 @@ The Content Store allows you to import packages of tested, consistent content.
 
 ## How to find it
 
-The Content Store can be accessed via the Stroom Menu {{< stroom-icon "menu.svg" >}} Tools > Content Store.
+The Content Store can be accessed via the Stroom Menu:
+
+{{< stroom-menu "Tools" "Content Store" >}}
 
 
 ## What is a Content Store?
 
-A Content Store is a YAML text file that references a number of sources of content.
+A Content Store is a {{< glossary "YAML" >}} text file that references a number of sources of content.
 The content needs to be available via Git.
 
 The default Content Store can be found here: {{< external-link "https://github.com/gchq/stroom-content/blob/master/source/content-store.yml" "https://github.com/gchq/stroom-content/blob/master/source/content-store.yml" >}}.
@@ -38,7 +40,6 @@ You should examine the content carefully before trusting it.
 
 
 ## Managing Content Packs
-
 
 ### Importing
 
@@ -63,7 +64,7 @@ Confirm the deletion and the Content Pack will be removed.
 There are two types of update that may be available:
 
 1. The content within Git may have been updated
-2. The values within the Content Store may be referencing new content; for example a new Git URL or a new Git commit.
+1. The values within the Content Store may be referencing new content; for example a new Git URL or a new Git commit.
 
 
 ### Updating via the Content Store
@@ -102,70 +103,58 @@ If you need to push content back into Git then it is recommended that you create
 
 ## Defining a Content Store
 
-A Content Store is a {{< external-link "YAML formatted" "https://yaml.org/" >}}  text file.
+A Content Store is a {{< glossary "YAML" >}} text file.
 The {{< external-link "default Content Store" "https://raw.githubusercontent.com/gchq/stroom-content/refs/heads/master/source/content-store.yml" >}} is annotated so see that file for full definitions of all the fields.
 
 The overall format is:
 
-- meta section at the start, with information about the person or organisation that created and manages the Content Store.
-- contentPacks section, listing all the Content Packs.
+* `meta` section at the start, with information about the person or organisation that created and manages the Content Store.
+* `contentPacks` section, listing all the Content Packs.
 
 Each content pack has the following fields:
 
-id
-: Unique ID for the Content Pack within the Content Store.
+`id` - Unique ID for the Content Pack within the Content Store.
 
-uiName
-: The name for the Content Pack, as shown in the Content Store user-interface.
+`uiName` - The name for the Content Pack, as shown in the Content Store user-interface.
 
-iconUrl
-: URL to get the icon.
-Any image format is supported.
+`iconUrl` - URL to get the icon.
+              Any image format is supported.
 
-licenseName
-: Short form for the license.
-For example; Apache 2.0.
+`licenseName` - Short form for the license.
+                  For example; Apache 2.0.
 
-stroomPath
-: Where the {{< stroom-icon "document/GitRepo.svg" >}}Git Repo will be created within the Explorer Tree.
+`stroomPath` - Where the {{< stroom-icon "document/GitRepo.svg" "Git Repo">}} Git Repo will be created within the Explorer Tree.
 
-gitRepoName
-: The name of the {{< stroom-icon "document/GitRepo.svg" >}}Git Repo.
-If not specified then the value of the `uiName` is used.
+`gitRepoName` - The name of the {{< stroom-icon "document/GitRepo.svg" >}} Git Repo.
+                If not specified then the value of the `uiName` is used.
 
-details
-: Description of the Content Pack, formatted in {{< external-link "Markdown" "https://www.markdownguide.org/" >}}.
+`details` - Description of the Content Pack, formatted in {{< external-link "Markdown" "https://www.markdownguide.org/" >}}.
 
-gitUrl
-: The URL of the Git repository; for example {{< external-link "https://github.com/gchq/stroom-content.git" "https://github.com/gchq/stroom-content.git" >}} or `git@github.com:gchq/stroom-content.git`
+`gitUrl` - The URL of the Git repository; for example {{< external-link "https://github.com/gchq/stroom-content.git" "https://github.com/gchq/stroom-content.git" >}} or `git@github.com:gchq/stroom-content.git`
 
-gitBranch
-: The name of the Git branch within the repository.
-For example `master` or `main`.
+`gitBranch` - The name of the Git branch within the repository.
+              For example `master` or `main`.
 
-gitPath
-: The relative path to the root of the content to import or export.
+`gitPath` - The relative path to the root of the content to import or export.
 
-gitCommit
-: Optional Git commit hash for the content to import.
-If this is specified the Git repository is effectively locked to that version.
-Thus any updates will require an updated version of the Content Store file.
+`gitCommit` - Optional Git commit hash for the content to import.
+              If this is specified the Git repository is effectively locked to that version.
+              Thus any updates will require an updated version of the Content Store file.
 
-gitNeedsAuth
-: `true`, if the user needs to enter credentials to access the Content Pack, or `false` if the content is freely downloadable.
+`gitNeedsAuth` - `true`, if the user needs to enter credentials to access the Content Pack, or `false` if the content is freely downloadable.
 
 
 ## Adding extra Content Stores
 
-Content Stores are listed in the local.yaml configuration file, under `appConfig/contentStore/urls`.
+The Content Stores that are available for a user to use are defined in the Stroom configuration file (see below) or via the System Property `stroom.contentStore.urls`.
 If nothing is specified in the configuration file then the {{< external-link "default Content Store URL" "https://raw.githubusercontent.com/gchq/stroom-content/refs/heads/master/source/content-store.yml" >}} is used.
 
 Extra URLs can be added to the YAML array of URLs; for example:
+
 ```yaml
-...
+appConfig:
   contentStore:
     urls:
     - "https://raw.githubusercontent.com/gchq/stroom-content/refs/heads/master/source/content-store.yml"
     - "https://intranet.local/stroom/myorg-content-store.yml" 
-...
 ```

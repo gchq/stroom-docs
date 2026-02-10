@@ -10,9 +10,9 @@ description: >
 
 Sometimes Stroom needs to connect to other systems:
 
-- Git repositories
-- Stroom AI connections
-- In the future, all credentials for third-party systems will be managed by this user-interface.
+* Git repositories
+* Stroom AI connections
+* In the future, all credentials for third-party systems will be managed by this user-interface.
 
 The Credentials module is intended to centralise the management of these
 credentials within Stroom.
@@ -20,7 +20,9 @@ credentials within Stroom.
 
 ## Accessing Credentials Manager
 
-The Credentials Manager can be accessed via the Stroom Menu {{< stroom-icon "menu.svg" >}} Security / Credentials Manager.
+The Credentials Manager can be accessed via the Stroom Menu 
+
+{{< stroom-menu "Security" "Credentials Manager" >}}
 
 
 ## Types of Credentials
@@ -28,11 +30,11 @@ The Credentials Manager can be accessed via the Stroom Menu {{< stroom-icon "men
 Stroom supports different types of credentials.
 Different systems can use different types of credentials.
 
-| User          | Username / Password        | Access Token                | SSH Key                    | Key Store                  | 
-|---------------|----------------------------|-----------------------------|----------------------------|----------------------------|
-| GitRepo       | {{< stroom-icon ok.svg >}} | {{< stroom-icon ok.svg >}}  | {{< stroom-icon ok.svg >}} |                            |
-| Content Store | {{< stroom-icon ok.svg >}} | {{< stroom-icon ok.svg >}}  | {{< stroom-icon ok.svg >}} |                            |
-| Stroom AI     |                            |                             |                            | {{< stroom-icon ok.svg >}} |
+| User          | Username / Password          | Access Token                 | SSH Key                      | Key Store                    | 
+|---------------|:----------------------------:|:----------------------------:|:----------------------------:|:----------------------------:|
+| GitRepo       | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} |                              |
+| Content Store | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} | {{< stroom-icon "ok.svg" >}} |                              |
+| Stroom AI     |                              |                              |                              | {{< stroom-icon "ok.svg" >}} |
 
 
 ### Username / Password
@@ -84,11 +86,9 @@ Create a key store in {{< external-link "JKS" "https://docs.oracle.com/cd/E19509
 
 Stroom supports these two keystore formats:
 
-JKS
-: Original Java keystore format.
+* **JKS** - Original Java keystore format.
 
-PKCS12
-: Standardised format, developed by RSA, which stores cryptography objects in a single file.
+* **PKCS12** - Standardised format, developed by RSA, which stores cryptography objects in a single file.
 
 
 #### Key Store Pass Phrase
