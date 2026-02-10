@@ -77,16 +77,27 @@ This directory is the reception for area for data that is NOT a {{< glossary "ZI
 
 Data will be written to this directory before the client receives the HTTP response.
 
+It will write a numbered directory (e.g. `2/012/345/012345678`) containing two files:
+
+* `0000000001.meta` - The meta sidecar file containing the HTTP headers.
+* `0000000001.dat` - The file containing the received payload data.
+
+The filenames are always the same as it is only dealing with a single stream.
+
 
 #### `/02_receiving_zip/`
 
 This directory is the reception for area for data that has been received as a {{< glossary "ZIP" >}} file which may contain one or more streams of data and associated metadata.
 
-Data will be written to this directory before the client receives the HTTP response.
+Received ZIP files will be written to this directory before the client receives the HTTP response.
+All `.meta` files in the ZIP file will be updated to add the HTTP headers from the request.
 
 
 #### `/02_split_zip/`
 
-If a received {{< glossary "ZIP" >}} file contains data for more that one {{< glossary "Feed" >}} it will be places into this directory for splitting.
+If a received {{< glossary "ZIP" >}} file contains data for more that one {{< glossary "Feed" >}} it will be moved into this directory queue for splitting.
+
+Also, any ZIP files that are not in the correct [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}}) will also be moved into this directory for re-packaging in the correct format.
+This is to ensure that all ZIP files received downstream are in a consistent format.
 
 ZIP files in this directory will be un-zipped into a subdirectory
