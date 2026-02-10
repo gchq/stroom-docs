@@ -48,7 +48,8 @@ The following is a list of the directories used by Stroom-Proxy in its data dire
 ```treeview
 |-- 01_receiving_simple/
 |-- 01_receiving_zip/
-|-- 02_split_zip/
+|-- 02_split_zip_input_queue/
+|-- 03_split_zip_splits/
 |-- 20_pre_aggregate_input_queue/
 |-- 21_pre_aggregates/
 |-- 22_splitting/
@@ -90,10 +91,13 @@ The filenames are always the same as it is only dealing with a single stream.
 This directory is the reception for area for data that has been received as a {{< glossary "ZIP" >}} file which may contain one or more streams of data and associated metadata.
 
 Received ZIP files will be written to this directory before the client receives the HTTP response.
+
 All `.meta` files in the ZIP file will be updated to add the HTTP headers from the request.
+In order to do this, Stroom Proxy will first write the ZIP as a `.zip.staging` file.
+It will clone all the ZIP entries in this file into a `.zip` file, updating the `.meta` entries as it goes.
 
 
-#### `/02_split_zip/`
+#### `/02_split_zip_input_queue/`
 
 If a received {{< glossary "ZIP" >}} file contains data for more that one {{< glossary "Feed" >}} it will be moved into this directory queue for splitting.
 
