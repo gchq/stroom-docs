@@ -30,7 +30,7 @@ RUN apk add --no-cache \
       ttf-droid-nonlatin \
     && curl \
       -Ls \
-      https://sourceforge.net/projects/plantuml/files/plantuml.1.2021.5.jar/download \
+      https://sourceforge.net/projects/plantuml/files/plantuml.1.2026.1.jar/download \
       -o /builder/plantuml.jar \
     && apk del curl
 
