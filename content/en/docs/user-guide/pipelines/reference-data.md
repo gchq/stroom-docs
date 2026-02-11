@@ -14,25 +14,100 @@ description: >
 {{% /see-also %}}
 
 In Stroom reference data is primarily used to decorate events using `stroom:lookup()` calls in XSLTs.
-For example you may have reference data feed that associates the FQDN of a device to the physical location.
+For example you may have reference data feed that associates the FQDN of a device to the details of its physical location, or reference data that associates usernames with employee details such as name and job title.
 You can then perform a `stroom:lookup()` in the XSLT to decorate an event with the physical location of a device by looking up the FQDN found in the event.
 
-Reference data is time sensitive and each stream of reference data has an Effective Date set against it.
+
+## Reference Data Sources
+
+Reference data can come from two different sources:
+
+* Reference stream - A separate Feed containing _Raw Reference_ streams that have been translated into _Reference_ streams conforming to `reference-data:2` XML.
+* [Context sub-stream]({{< relref "/docs/user-guide/concepts/streams#context" >}}) - A _Context_ stream that is a sub-stream of the _Events_ stream. This sub-stream contains contextual data relevant to the events in the _Events_ stream.
+
+
+### Reference Stream
+
+Reference data is often time sensitive, e.g. an employee's job title will change over time, so each stream of reference data has an Effective Date set against it.
 This allows reference data lookups to be performed using the date of the event to ensure the reference data that was actually effective at the time of the event is used.
 
-Using reference data involves the following steps/processes:
+{{% warning %}}
+There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependant on a _Reference_ Feed.
+When performing a lookup Stroom can only uses the _Reference_ streams that it has available.
+If a _Reference_ stream has been delayed (in receipt or translation), then Stroom will have to use the most recent one it has.
+{{% /warning %}}
 
-* Ingesting the raw reference data into Stroom.
-* Creating (and processing) a pipeline to transform the raw reference into `reference-data:2` format XML.
-* Creating a reference loader pipeline with a Reference Data Filter element to load _cooked_ reference data into the reference data store.
+Using _Reference_ stream based reference data involves the following steps/processes:
+
+* Ingesting the _Raw Reference_ data into a {{< glossary "Feed" >}} in Stroom.
+* Creating a pipeline (and associated processors/filters) to transform the _Raw Reference_ into a _Reference_ stream containing `reference-data:2` format XML.
+* Creating a reference loader pipeline with a {{< pipe-elm "ReferenceDataFilter" >}} element to load _cooked_ reference data into the reference data store.
+  This pipeline does not need any processors or processor filters as it is used on demand when a lookup is performed and the required reference stream is not in the store.
 * Adding reference pipeline/feeds to an XSLT Filter in your event pipeline.
+  The _Pipeline_ is set to the reference loader pipeline created above.
+  The _Feed_ is set to the Feed containing the _Reference_ streams.
+  The _Stream Type_ is set to `Reference`.
 * Adding the lookup call to the XSLT.
 * Processing the raw events through the event pipeline.
 
+The following is an example of a reference loader pipeline:
+
+{{< pipe >}}
+  {{< pipe-elm "Source" >}}
+  {{< pipe-elm "XMLParser" >}}
+  {{< pipe-elm "ReferenceDataFilter" >}}
+{{< /pipe >}}
+
 The process of creating a reference data pipeline is described in the HOWTO linked at the top of this document.
+
+{{% note %}}
+It is possible to not eagerly convert the _Raw Reference_ streams into _Reference_ streams and instead do this as part of the reference loader pipeline.
+While this saves having to store all the cooked _Reference_ streams, it means every node that uses a _Raw Reference_ stream for a lookup will have to do the transformation before it can go into the reference data store.
+This can result in a lot of duplicated work on a multi-node Stroom.
+{{% /note %}}
+
+
+### Context Sub-Stream
+
+Some _Events_ streams have a _Context_ sub-stream associated with them.
+_Context_ streams allow the system sending the events to Stroom to supply an additional stream of data that provides context to the _Raw Events_ stream.
+This can be useful when the system sending the events has no control over the event content but needs to supply additional information.
+The _Context_ stream can be used in lookups as a reference source to decorate events on receipt.
+
+Context reference data is specific to a single event stream so is transient in nature, therefore the On Heap Store is used to hold it for the duration of the event stream processing only.
+As soon as the _Events_ stream has been processed, the transient store will be destroyed.
+
+As the _Context_ sub-stream sits alongside the _Events_ stream, there is no concept of Effective Date so no date/time argument is needed in the `lookup()` call.
+
+Using _Context_ sub-stream based reference data involves the following steps/processes:
+
+* Creating a context loader pipeline with to transform the raw context data into `reference-data:2` XML and pass that into a {{< pipe-elm "ReferenceDataFilter" >}} element.
+  This pipeline does not need any processors or processor filters as it is used on demand when the first lookup call is made in an _Events_ stream.
+* Adding reference pipeline/feeds to an XSLT Filter in your event pipeline.
+  The _Pipeline_ is set to the context loader pipeline created above.
+  The _Feed_ is set to the Feed containing the _Events_ streams.
+  The _Stream Type_ is set to `Context`.
+* Adding the lookup call to the XSLT.
+* Processing the raw events through the event pipeline.
+
+The following is an example of a context loader pipeline that takes in raw context data in a text format that is converted into `reference-data:2` XML using a {{< pipe-elm "DSParser" >}} and {{< pipe-elm "XSLTFilter" >}}.
+
+{{< pipe >}}
+  {{< pipe-elm "Source" >}}
+  {{< pipe-elm "DSParser" >}}
+  {{< pipe-elm "RecordCountFilter" "recordCount (read)" >}}
+  {{< pipe-elm "SplitFilter" >}}
+  {{< pipe-elm "XSLTFilter" >}}
+  {{< pipe-elm "SchemaFilter" >}}
+  {{< pipe-elm "RecordOutputFilter" >}}
+  {{< pipe-elm "RecordCountFilter" "recordCount (written)" >}}
+  {{< pipe-elm "ReferenceDataFilter" >}}
+{{< /pipe >}}
 
 
 ## Reference Data Structure
+
+The ReferenceDataFilter requires the reference data to be XML that conforms to the `reference-data:2` XMLSchema.
 
 A reference data entry essentially consists of the following:
 
@@ -40,10 +115,13 @@ A reference data entry essentially consists of the following:
 * **Map name** - A unique name for the key/value map that the entry will be stored in.
   The name only needs to be unique within all map names that may be loaded within an XSLT Filter.
   In practice it makes sense to keep map names globally unique.
+  A reference stream can contain more than one map and the entries for a map can be spread over more than one reference feed.
+  A map can contain a mixture of key and range based entries.
 * **Key** - The text that will be used to lookup the value in the reference data map.
-  Mutually exclusive with **Range**.
+  The key is case sensitive.
+  Mutually exclusive with _Range_.
 * **Range** - The inclusive range of integer keys that the entry applies to.
-  Mutually exclusive with **Key**.
+  Mutually exclusive with _Key_.
 * **Value** - The value can either be simple text, e.g. an IP address, or an XML fragment that can be inserted into another XML document.
   XML values must be correctly namespaced.
 
@@ -65,18 +143,14 @@ Two of the entries are simple text values and the last has an XML value.
   <reference>
     <map>FQDN_TO_IP</map>
     <key>stroomnode00.strmdev00.org</key>
-    <value>
-      <IPAddress>192.168.2.245</IPAddress>
-    </value>
+    <value>192.168.2.245</value>
   </reference>
 
   <!-- A simple string value -->
   <reference>
     <map>IP_TO_FQDN</map>
     <key>192.168.2.245</key>
-    <value>
-      <HostName>stroomnode00.strmdev00.org</HostName>
-    </value>
+    <value>stroomnode00.strmdev00.org</value>
   </reference>
 
   <!-- A key range -->
@@ -109,7 +183,7 @@ Two of the entries are simple text values and the last has an XML value.
 
 ### Reference Data Namespaces
 
-When XML reference data values are created, as in the example XML above, the XML values must be qualified with a namespace to distinguish them from the `reference-data:2` XML that surrounds them.
+When XML reference data values are created, as in the example XML above, the XML elements in the value must be qualified with a namespace to distinguish them from the `reference-data:2` XML that surrounds them.
 In the above example the XML fragment will become as follows when injected into an event:
 
 ``` xml
@@ -178,7 +252,7 @@ While this will result in duplicate data being held by nodes it makes the storag
 
 The On-Heap store is the reference data store that is held in memory in the Java Heap.
 This store is volatile and will be lost on shut down of the node.
-The On-Heap store is only used for storage of context data.
+The On-Heap store is only used for storage of context data which is is destroyed once processing of the _Events_ stream is complete.
 
 
 ### Off-Heap Store
@@ -364,8 +438,27 @@ It is advised to schedule this job for quiet times when it is unlikely to confli
 ## Lookups
 
 Lookups are performed in XSLT Filters using the XSLT functions.
-In order to perform a lookup one or more reference feeds must be specified on the XSLT Filter pipeline element.
-Each reference feed is specified along with a reference loader pipeline that will ingest the specified feed (optional convert it into `reference:2` XML if it is not already) and pass it into a Reference Data Filter pipeline element.
+In order to perform a lookup one or more reference loaders must be specified on the XSLT Filter pipeline element.
+Each reference loader feed is specified along with a reference loader pipeline that will ingest the specified feed (optionally converting it into `reference:2` XML if it is not already) and pass it into a Reference Data Filter pipeline element.
+
+The following is an example of making a `lookup()` call in an XSLT that will return a simple string value.
+
+```xml
+<Data Name="StaffNumber" Value="stroom:lookup('USER_ID_TO_STAFF_NUMBER_MAP', $userId, $eventTime)" />
+```
+
+The following is an example of making a `lookup()` call in an XSLT that will return a fragment of XML.
+
+```xml
+<xsl:variable name="location" select="stroom:lookup('FQDN_TO_LOCATION_MAP', $fqdn, $eventTime)" />
+<xsl:if test="$location">
+  <xsl:copy-of select="$location" />
+</xsl:if>
+```
+
+{{% note %}}
+The above examples are equally applicable for a `bitmap-lookup()` call.
+{{% /note %}}
 
 
 ### Reference Feeds & Loaders
@@ -373,7 +466,7 @@ Each reference feed is specified along with a reference loader pipeline that wil
 In the XSLT Filter pipeline element multiple combinations of feed and reference loader pipeline can be specified.
 There must be at least one in order to perform lookups.
 If there are multiple then when a lookup is called for a given time, the effective stream for each feed/loader combination is determined.
-The effective stream for each feed/loader combination will be loaded into the store, unless it is already present.
+The [effective stream]({{< relref "#effective=streams" >}}) for each feed/loader combination will be loaded into the store, unless it is already present.
 
 When the actual lookup is performed Stroom will try to find the key in each of the effective streams that have been loaded and that contain the map in the lookup call.
 If the lookup is unsuccessful in the effective stream for the first feed/loader combination then it will try the next, and so on until it has tried all of them.
@@ -381,11 +474,15 @@ For this reason if you have multiple feed/loader combinations then order is impo
 It is possible for multiple effective streams to contain the same map/key so a feed/loader combination higher up the list will trump one lower down with the same map/key.
 Also if you have some lookups that may not return a value and others that should always return a value then the feed/loader for the latter should be higher up the list so it is searched first.
 
+To perform a lookup using context data, set the stream type to `Context`.
+
 
 ### Effective Streams
 
 Reference data lookups have the concept of _Effective Streams_.
-An effective stream is the most recent stream for a given {{< glossary "Feed" >}} that has an _effective date_ that is less than or equal to the date used for the lookup.
+An effective stream is the most recent stream for a given {{< glossary "Feed" >}} that has an _Effective Date_ that is less than or equal to the date used for the `lookup()` call.
+If an effective time argument is not supplied, then it will default to the create time of the _Raw Events_ stream being processed and if that is not available, the current time.
+
 When performing a lookup, Stroom will search the stream store to find all the effective streams in a time bucket that surrounds the lookup time.
 These sets of effective streams are cached so if a new reference stream is created it will not be used until the cached set has expired.
 To rectify this you can clear the cache `Reference Data - Effective Stream Cache` on the Caches screen accessed from:
