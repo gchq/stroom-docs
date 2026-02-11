@@ -1,0 +1,132 @@
+@startuml
+!theme materia
+
+
+<style>
+activityDiagram {
+  `BackgroundColor #33668E
+  `BorderColor #33668E
+  `FontColor #888
+  `FontName arial
+
+  diamond {
+    BackgroundColor $TEAL
+    `LineColor #00FF00
+    `FontColor white
+    `FontName arial
+    `FontSize 15
+  }
+  arrow {
+    `FontColor gold
+    `FontName arial
+    `FontSize 15
+    FontStyle Bold
+  }
+  note {
+    `FontColor Blue
+    `LineColor Navy
+    `BackgroundColor $CYAN
+    FontSize 10
+  }
+}
+document {
+   BackgroundColor transparent
+}
+</style>
+
+| Receipt |
+| Aggregation |
+| Forwarding |
+
+| Receipt |
+start
+
+if (Instant Forwarding?) then (enabled)
+  | Forwarding |
+  :Instant forward; <<task>>
+  note left
+    Stream input
+    directly to
+    destination
+  end note
+  stop
+else (disabled)
+endif
+
+| Receipt |
+if (Is ZIP?) then (yes)
+  $ORANGE:/01_receiving_zip/n/; <<output>>
+  :Scan ZIP entries; <<task>>
+    if (invalid format OR >1 group) then (yes)
+      $PURPLE:/02_split_zip_input_queue/d/nnn/;
+      $ORANGE:/03_split_zip_splits/n/<grp>/; <<output>>
+      note right
+        One sub-dir
+        per group
+        (feed + type)
+      end note
+    else (no)
+    endif
+else (no)
+  $ORANGE:/01_receiving_simple/n/; <<output>>
+  note right
+    Sequentially
+    numbered
+    directories
+  end note
+endif
+
+| Aggregation |
+if (aggregation enabled) then (yes)
+  $PURPLE:/20_pre_aggregate_input_queue/d/nnn/;
+  note right
+    One item
+    is 1-* streams
+    for one feed|type
+  end note
+  if (Multi-part?) then (multi-part)
+    $ORANGE:/22_splitting/n/; <<output>>
+    $ORANGE:/23_split_output/n/; <<output>>
+  else (single part)
+    | Aggregation |
+  endif
+
+  $PURPLE:/30_aggregate_input_queue/d/nnn/;
+  $ORANGE:/31_aggregates/n/; <<output>>
+  note right
+    Queued
+    once
+    aggregate
+    is ready
+  end note
+else (no)
+  | Forwarding |
+endif
+
+| Forwarding |
+$PURPLE:/40_forwarding_input_queue/d/nnn/;
+note right
+  Aggregate ready
+  for forwarding
+end note
+
+split
+$PURPLE:/50_forwarding/<dest 1>/01_forward/d/nnn/;
+while (Forward success?) is (failed)
+  $PURPLE:/50_forwarding/<dest 1>/02_retry/d/nnn/;
+endwhile (success)
+stop
+note right
+  Aggregate
+  sent to
+  destination
+end note
+
+split again
+$PURPLE:/50_forwarding/<dest 2>/01_forward/d/nnn/;
+while (Forward success?) is (failed)
+  $PURPLE:/50_forwarding/<dest 2>/02_retry/d/nnn/;
+endwhile (success)
+stop
+
+@enduml

@@ -51,7 +51,6 @@ The following is a list of the directories used by Stroom-Proxy in its data dire
 |-- 02_split_zip_input_queue/
 |-- 03_split_zip_splits/
 |-- 20_pre_aggregate_input_queue/
-|-- 21_pre_aggregates/
 |-- 22_splitting/
 |-- 23_split_output/
 |-- 30_aggregate_input_queue/
@@ -90,11 +89,16 @@ The filenames are always the same as it is only dealing with a single stream.
 
 This directory is the reception for area for data that has been received as a {{< glossary "ZIP" >}} file which may contain one or more streams of data and associated metadata.
 
-Received ZIP files will be written to this directory before the client receives the HTTP response.
+Received ZIP files will be written to a sub-directory in this directory before the client receives the HTTP response.
 
 All `.meta` files in the ZIP file will be updated to add the HTTP headers from the request.
 In order to do this, Stroom Proxy will first write the ZIP as a `.zip.staging` file.
 It will clone all the ZIP entries in this file into a `.zip` file, updating the `.meta` entries as it goes.
+
+The ZIP entries will be scanned and all valid entries will be written to a `.entries` sidecar file for subsequent processes to use.
+This file defines the entries in the ZIP that are valid for further processing.
+
+Once complete the sub-directory containing TODO
 
 
 #### `/02_split_zip_input_queue/`
@@ -104,4 +108,5 @@ If a received {{< glossary "ZIP" >}} file contains data for more that one {{< gl
 Also, any ZIP files that are not in the correct [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}}) will also be moved into this directory for re-packaging in the correct format.
 This is to ensure that all ZIP files received downstream are in a consistent format.
 
-ZIP files in this directory will be un-zipped into a subdirectory
+
+Each ZIP file in this directory will be reun-zipped into a new sub-directory in `03_split_zip_splits`.
