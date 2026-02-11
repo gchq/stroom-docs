@@ -78,6 +78,20 @@ proxyConfig:
 ```
 
 
+#### Removed Property `proxyConfig.receive.receiptPolicyUuid`
+
+The property `receiptPolicyUuid` has been removed.
+This was a for an unused feature so its removal does not require any migration.
+If it is in your config file, simply remove it.
+
+```yaml
+proxyConfig:
+  receive:
+    receiptPolicyUuid:
+```
+
+
+
 ### Stroom's `config.yml`
 
 #### New `askStroomAi` Branch
@@ -197,11 +211,11 @@ The whole `contentSync` branch has been removed as it is no longer in use.
 
 ```yaml
 proxyConfig:
-  contentSync:
-    apiKey: null
-    contentSyncEnabled: false
-    syncFrequency: "PT1M"
-    upstreamUrl: null
+  contentSync:                  # <- REMOVED
+    apiKey: null                # <- REMOVED
+    contentSyncEnabled: false   # <- REMOVED
+    syncFrequency: "PT1M"       # <- REMOVED
+    upstreamUrl: null           # <- REMOVED
 ```
 
 
@@ -216,6 +230,7 @@ Typically you will only need to set the `hostname` and `apiKey` properties.
 
 ```yaml
 proxyConfig:
+
   downstreamHost:
     # The API key to use for authentication (unless OpenID Connect is being used)
     apiKey: null
@@ -256,6 +271,33 @@ proxyConfig:
     enabled: true            # <- REMOVED
 ```
 
+The migration for these properties is as follows:
+
+* `apiKey` => `proxyConfig.downstreamHost.apiKey`
+* `defaultStatus` => `proxyConfig.receive.fallbackReceiveAction`
+  * `Receive` => `RECEIVE`
+  * `Reject` => `REJECT`
+  * `Drop` => `DROP`
+* `enabled` => `proxyConfig.receive.receiptCheckMode`
+  * `true` => `FEED_STATUS`
+  * `false` => (`RECEIPT_POLICY`, `RECEIVE_ALL`, `DROP_ALL`, `REJECT_ALL`)
+
+
+#### `feedStatus.url`
+
+The `url` property for feed status checking no longer needs to be set unless you need to use a non-standard URL.
+The URL for feed status checking will now be derived from the properties in `downstreamHost` and the static path for the feed status resource.
+Therefore in most cases, simply remove this property.
+
+Also, previously, the value for this property was just a path.
+Now, if you set it, it should be a full URL including host and path.
+
+```yaml
+proxyConfig:
+  feedStatus:
+    url:
+```
+
 
 #### New `forwardHttpDestinations` property
 
@@ -283,6 +325,22 @@ proxyConfig:
   forwardFileDestinations:
   - .....
     livenessCheckEnabled: true
+```
+
+
+#### Changes to `forwardHttpDestinations[*].forwardUrl` property
+
+This property no longer needs to be set unless you need to forward to a location that is different to that defined by `downstreamHost`.
+The forward URL will now be derived from the properties in `downstreamHost` and the static path for the datafeed endpoint.
+Therefore in most cases, simply remove this property.
+
+Also, if you need to set this property, the value of the `forwardUrl` property has changed from being just a path to being a full URL including host and path.
+
+```yaml
+proxyConfig:
+  forwardHttpDestinations:
+  - .....
+    forwardUrl:
 ```
 
 
