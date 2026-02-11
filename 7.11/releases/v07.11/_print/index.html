@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.3d91d64819da1c0b306ddcbed3a7cf66.json"
+    data-offline-search-index-json-src="../../../offline-search-index.7161298c08912c4eae9d73f30243e9f0.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -857,11 +857,26 @@ If the rule values are too sensitive then you will have to let the Stroom Proxy 
 
 
 <h2 id="stroom">Stroom</h2>
-<p>No Stroom specific breaking changes in v7.11.</p>
+<p>Breaking changes relating to Stroom.</p>
+<h3 id="import-of-legacy-content">Import of Legacy Content</h3>
+<p>Stroom v7.11 is no longer able to import content that has been exported from a v5/v6 Stroom.
+Any such content will have to be imported into Stroom v7.10 or lower then exported for import into Stroom v7.11.</p>
+<h3 id="elastic-configuration">Elastic Configuration</h3>
+<p>The property <code>stroom.elastic.retention.scrollSize</code> has been removed.
+See <a href="../../../releases/v07.11/upgrade-notes/#removed-elastic-property">Upgrade Notes</a>.</p>
 <h2 id="stroom-proxy">Stroom-Proxy</h2>
-<p>No Stroom-Proxy specific breaking changes in v7.11.</p>
+<p>Breaking changes relating to Stroom Proxy.</p>
+<h3 id="feed-status-check-configuration">Feed Status Check Configuration</h3>
+<p>Various properties have been removed from the <code>proxyConfig.feedStatus</code> configuration branch.
+See <a href="../../../releases/v07.11/upgrade-notes/#remove-various-feedstatus-properties">Upgrade Notes</a>.</p>
+<h3 id="content-sync-configuration">Content Sync Configuration</h3>
+<p>The whole <code>contentSync</code> branch has been removed as it is no longer in use.
+See <a href="../../../releases/v07.11/upgrade-notes/#removed-contentsync">Upgrade Notes</a>.</p>
 <h2 id="stroom--stroom-proxy">Stroom &amp; Stroom-Proxy</h2>
-<p>No breaking changes common to Stroom and Stroom-Proxy in v7.11.</p>
+<p>Breaking changes that are common to both Stroom and Stroom Proxy.</p>
+<h3 id="receive-configuration">Receive Configuration</h3>
+<p>The property <code>receiptPolicyUuid</code> has been removed.
+See <a href="../../../releases/v07.11/upgrade-notes/#removed-property-proxyconfigreceivereceiptpolicyuuid">Upgrade Notes</a>.</p>
 
 </div>
 
@@ -950,6 +965,14 @@ git diff origin/${old_ver}..origin/${new_ver} stroom-proxy/stroom-proxy-app/src/
     # * REJECT_ALL - Reject ALL data with no checks
     receiptCheckMode: &quot;FEED_STATUS&quot;
 </code></pre>
+<h4 id="removed-property-proxyconfigreceivereceiptpolicyuuid">Removed Property <code>proxyConfig.receive.receiptPolicyUuid</code></h4>
+<p>The property <code>receiptPolicyUuid</code> has been removed.
+This was a for an unused feature so its removal does not require any migration.
+If it is in your config file, simply remove it.</p>
+<pre><code class="language-yaml">proxyConfig:
+  receive:
+    receiptPolicyUuid:
+</code></pre>
 <h3 id="strooms-configyml">Stroom&rsquo;s <code>config.yml</code></h3>
 <h4 id="new-askstroomai-branch">New <code>askStroomAi</code> Branch</h4>
 <p>A new branch of configuration to configure <a href="../../../releases/v07.11/new-features/#ask-stroom-ai">Ask Stroom AI</a>.</p>
@@ -1034,11 +1057,11 @@ You should not need to set this unless you want the Git Repo table data to be st
 <h4 id="removed-contentsync">Removed <code>contentSync</code></h4>
 <p>The whole <code>contentSync</code> branch has been removed as it is no longer in use.</p>
 <pre><code class="language-yaml">proxyConfig:
-  contentSync:
-    apiKey: null
-    contentSyncEnabled: false
-    syncFrequency: &quot;PT1M&quot;
-    upstreamUrl: null
+  contentSync:                  # &lt;- REMOVED
+    apiKey: null                # &lt;- REMOVED
+    contentSyncEnabled: false   # &lt;- REMOVED
+    syncFrequency: &quot;PT1M&quot;       # &lt;- REMOVED
+    upstreamUrl: null           # &lt;- REMOVED
 </code></pre>
 <h4 id="added-downstreamhost">Added <code>downstreamHost</code></h4>
 <p>A new <code>downstreamHost</code> branch has been added to configure the default downstream host details and authentication.
@@ -1047,6 +1070,7 @@ There are a number of parts of Stroom Proxy that need to communicate with the do
 <p>This allows for the host&rsquo;s details and any authentication properties to be set in one place.
 Typically you will only need to set the <code>hostname</code> and <code>apiKey</code> properties.</p>
 <pre><code class="language-yaml">proxyConfig:
+
   downstreamHost:
     # The API key to use for authentication (unless OpenID Connect is being used)
     apiKey: null
@@ -1081,6 +1105,33 @@ Typically you will only need to set the <code>hostname</code> and <code>apiKey</
     defaultStatus: &quot;Receive&quot; # &lt;- REMOVED
     enabled: true            # &lt;- REMOVED
 </code></pre>
+<p>The migration for these properties is as follows:</p>
+<ul>
+<li><code>apiKey</code> =&gt; <code>proxyConfig.downstreamHost.apiKey</code></li>
+<li><code>defaultStatus</code> =&gt; <code>proxyConfig.receive.fallbackReceiveAction</code>
+<ul>
+<li><code>Receive</code> =&gt; <code>RECEIVE</code></li>
+<li><code>Reject</code> =&gt; <code>REJECT</code></li>
+<li><code>Drop</code> =&gt; <code>DROP</code></li>
+</ul>
+</li>
+<li><code>enabled</code> =&gt; <code>proxyConfig.receive.receiptCheckMode</code>
+<ul>
+<li><code>true</code> =&gt; <code>FEED_STATUS</code></li>
+<li><code>false</code> =&gt; (<code>RECEIPT_POLICY</code>, <code>RECEIVE_ALL</code>, <code>DROP_ALL</code>, <code>REJECT_ALL</code>)</li>
+</ul>
+</li>
+</ul>
+<h4 id="feedstatusurl"><code>feedStatus.url</code></h4>
+<p>The <code>url</code> property for feed status checking no longer needs to be set unless you need to use a non-standard URL.
+The URL for feed status checking will now be derived from the properties in <code>downstreamHost</code> and the static path for the feed status resource.
+Therefore in most cases, simply remove this property.</p>
+<p>Also, previously, the value for this property was just a path.
+Now, if you set it, it should be a full URL including host and path.</p>
+<pre><code class="language-yaml">proxyConfig:
+  feedStatus:
+    url:
+</code></pre>
 <h4 id="new-forwardhttpdestinations-property">New <code>forwardHttpDestinations</code> property</h4>
 <p>A new property has been added to enable/disable the liveness checking for HTTP destinations.
 Liveness checking will periodically check that the destination is live and if not, disable forwarding until the liveness check determines it to be live again.
@@ -1098,6 +1149,16 @@ Liveness checking is enabled by default.</p>
   forwardFileDestinations:
   - .....
     livenessCheckEnabled: true
+</code></pre>
+<h4 id="changes-to-forwardhttpdestinationsforwardurl-property">Changes to <code>forwardHttpDestinations[*].forwardUrl</code> property</h4>
+<p>This property no longer needs to be set unless you need to forward to a location that is different to that defined by <code>downstreamHost</code>.
+The forward URL will now be derived from the properties in <code>downstreamHost</code> and the static path for the datafeed endpoint.
+Therefore in most cases, simply remove this property.</p>
+<p>Also, if you need to set this property, the value of the <code>forwardUrl</code> property has changed from being just a path to being a full URL including host and path.</p>
+<pre><code class="language-yaml">proxyConfig:
+  forwardHttpDestinations:
+  - .....
+    forwardUrl:
 </code></pre>
 <h4 id="added-receiptpolicy-branch">Added <code>receiptPolicy</code> Branch</h4>
 <p>This configuration branch has been added to configure the <a href="../../../docs/user-guide/data-receipt/data-receipt-rules/">Data Receipt Rules</a>.</p>
