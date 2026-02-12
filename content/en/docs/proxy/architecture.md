@@ -20,7 +20,9 @@ This document aims to describe some typical configurations of Stroom-Proxy.
 Stroom-Proxy makes heavy use of multiple file system directories as work queues.
 These queues act as the interface between the different processing steps in Stroom-Proxy.
 
-Data in its various states is held in sub-directories that are moved atomically between the different queue directories.
+Data representing one queue item is placed into a directory.
+That directory is atomically moved into a queue directory with a new name to represent its position in the queue.
+The directory is consumed from the directory queue by atomically moving it to a different path, typically this will be a numbered directory that acts as a staging area where it can be worked on before moving it to a different directory queue.
 
 These sub-directories are placed in a path structure that indicates the position in the queue, e.g.:
 
@@ -32,7 +34,7 @@ In the above example:
 
 * `./50_forwarding/downstream/02_retry` represents the base directory of the queue.
 * `/2/` represents the depth of the directory tree, i.e. the queue item has two sub-directories above it.
-* `/012/` is a sub-directory containing items 1,000,000 to 999,999,999.
+* `/012/` is a sub-directory containing items 12,000,000 to 12,999,999.
 * `/345/` is a sub-directory containing items 12,345,000 to 12,345,999.
 * `/012345678/` is the queue item containing the data to be processed.
   The number is the position in the queue and the number of digits is always left padded with zeros to be a multiple of three.
@@ -40,7 +42,31 @@ In the above example:
 This structure ensures that there are never more than 999 items in each directory and the head/tail of the queue can be found quickly.
 
 
-### Data Directories
+### Numbered Directories
+
+Typically between each queue is a numbered directory that acts as a staging area to work on the data.
+Numbered directories are sequentially numbered directories that all exist in a single parent directory.
+They are expected to be transient in nature, i.e. only existing until they can be move to another queue.
+
+For example, `01_receiving_simple` contains numbered directories and each one is used to stage non-ZIP data that has been received into proxy:
+
+```text
+./01_receiving_simple/0000001407/
+./01_receiving_simple/0000001408/
+./01_receiving_simple/0000001409/
+```
+
+Each directory represents data for a single request into Stroom Proxy.
+Once the data has been successfully written to one of these directories, the directory will be atomically moved to one of the directory queues, e.g.
+
+```text
+./01_receiving_simple/0000001407/ => 20_pre_aggregate_input_queue/0/382/
+```
+
+The directory then becomes the responsibility of the queue directory it was moved into.
+
+
+### Directory Structure
 
 The following is a list of the directories used by Stroom-Proxy in its data directory (as configured by `proxyConfig.path.data`).
 
@@ -57,11 +83,11 @@ The following is a list of the directories used by Stroom-Proxy in its data dire
 |-- 31_aggregates/
 |-- 40_forwarding_input_queue/
 |-- 50_forwarding/
-|   |-- downstream/
+|   |-- <destination name 1>/
 |   |   |-- 01_forward/
 |   |   |-- 02_retry/
 |   |   `-- 03_failure/
-|   `-- Local_filesystem/
+|   `-- <destination name 2>/
 |       |-- 01_forward/
 |       |-- 02_retry/
 |       `-- 03_failure/
@@ -70,17 +96,22 @@ The following is a list of the directories used by Stroom-Proxy in its data dire
 `-- temp_forward_copies/
 ```
 
+The following diagram illustrates how data flows between the various queues and numbered directories.
+
+{{< image "proxy/architecture.puml.svg" "800x" />}}
+
 
 #### `/01_receiving_simple/`
 
 This directory is the reception for area for data that is NOT a {{< glossary "ZIP" >}} file, i.e. uncompressed or `gzip` compressed data.
+It contains numbered directories.
 
 Data will be written to this directory before the client receives the HTTP response.
 
-It will write a numbered directory (e.g. `2/012/345/012345678`) containing two files:
+Each numbered directory will contain two files:
 
-* `0000000001.meta` - The meta sidecar file containing the HTTP headers.
-* `0000000001.dat` - The file containing the received payload data.
+* `/01_receiving_simple/0000002034/0000000001.meta` - The meta sidecar file containing the HTTP headers.
+* `/01_receiving_simple/0000002034/0000000001.dat` - The file containing the received payload data.
 
 The filenames are always the same as it is only dealing with a single stream.
 
@@ -88,25 +119,44 @@ The filenames are always the same as it is only dealing with a single stream.
 #### `/02_receiving_zip/`
 
 This directory is the reception for area for data that has been received as a {{< glossary "ZIP" >}} file which may contain one or more streams of data and associated metadata.
+It contains numbered directories.
 
-Received ZIP files will be written to a sub-directory in this directory before the client receives the HTTP response.
+Received ZIP files will be written to a numbered sub-directory in this directory before the client receives the HTTP response.
 
 All `.meta` files in the ZIP file will be updated to add the HTTP headers from the request.
 In order to do this, Stroom Proxy will first write the ZIP as a `.zip.staging` file.
 It will clone all the ZIP entries in this file into a `.zip` file, updating the `.meta` entries as it goes.
+The `.zip.staging` file will be deleted once complete.
 
 The ZIP entries will be scanned and all valid entries will be written to a `.entries` sidecar file for subsequent processes to use.
-This file defines the entries in the ZIP that are valid for further processing.
+This `.entries` file defines the entries in the ZIP that are valid for further processing and allows subsequent processing to use this file as a reference rather than having to re-scan the ZIP.
 
-Once complete the sub-directory containing TODO
+The scanning process will also establish how many groups are in the ZIP.
+A group is defined as a combination of the _Feed_ and the _Stream Type_.
+
+If the ZIP contains more than one group or the ZIP does not adhere to the correct [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}}, the directory will be moved to `/02_split_zip_input_queue/` for splitting.
+
+If the ZIP has a valid format and only contains one group, it will either be moved to the `30_aggregate_input_queue` queue, if aggregation is enabled, or `40_forwarding_input_queue` queue if not.
 
 
 #### `/02_split_zip_input_queue/`
 
-If a received {{< glossary "ZIP" >}} file contains data for more that one {{< glossary "Feed" >}} it will be moved into this directory queue for splitting.
-
-Also, any ZIP files that are not in the correct [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}}) will also be moved into this directory for re-packaging in the correct format.
+Each directory placed into this directory queue will contain a ZIP file and a `.entries` file.
+The ZIP may be in an invalid format, in which case a new ZIP will be created with the correct entry naming and structure.
 This is to ensure that all ZIP files received downstream are in a consistent format.
+Alternatively it will contain more than one group, so will need to be split into one ZIP file per group.
+
+A numbered directory will be created in `/03_split_zip_splits/` to hold each split.
+For each group of entries in a split, it will create a sub-directory named after the group in the numbered directory, e.g. for two splits:
+
+* `/03_split_zip_splits/0000000392/FEED_X__raw_events/proxy.zip`
+* `/03_split_zip_splits/0000000392/FEED_X__raw_events/proxy.entries`
+* `/03_split_zip_splits/0000000392/FEED_X__raw_events/proxy.meta`
+* `/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.zip`
+* `/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.entries`
+* `/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.meta`
 
 
-Each ZIP file in this directory will be reun-zipped into a new sub-directory in `03_split_zip_splits`.
+#### `/20_pre_aggregate_input_queue/`
+
+
