@@ -164,6 +164,12 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 
 ## Bug Fixes
 
+* Bug **{{< external-link "#5391" "http://github.com/gchq/stroom/issues/5391" >}}** : Fix folder DocRef NPE.
+
+* Bug **{{< external-link "#5392" "http://github.com/gchq/stroom/issues/5392" >}}** : Fix PlanB segfault.
+
+* Bug **{{< external-link "#5300" "http://github.com/gchq/stroom/issues/5300" >}}** : Fix path `millis` parameter.
+
 * Bug : Fix Reports not respecting the start date during execution. It was executing from the last tracker time rather than from the start date, if the start date is later.
 
 * Bug **{{< external-link "#5384" "http://github.com/gchq/stroom/issues/5384" >}}** : Improvements to annotations database code.
