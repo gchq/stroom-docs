@@ -77,6 +77,7 @@ The following is a list of the directories used by Stroom-Proxy in its data dire
 |-- 02_split_zip_input_queue/
 |-- 03_split_zip_splits/
 |-- 20_pre_aggregate_input_queue/
+|-- 21_pre_aggregates/
 |-- 22_splitting/
 |-- 23_split_output/
 |-- 30_aggregate_input_queue/
@@ -136,7 +137,7 @@ A group is defined as a combination of the _Feed_ and the _Stream Type_.
 
 If the ZIP contains more than one group or the ZIP does not adhere to the correct [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}}, the directory will be moved to `/02_split_zip_input_queue/` for splitting.
 
-If the ZIP has a valid format and only contains one group, it will either be moved to the `30_aggregate_input_queue` queue, if aggregation is enabled, or `40_forwarding_input_queue` queue if not.
+If the ZIP has a valid format and only contains one group, it will either be moved to the `20_pre_aggregate_input_queue` queue, if aggregation is enabled, or `40_forwarding_input_queue` queue if not.
 
 
 #### `/02_split_zip_input_queue/`
@@ -156,7 +157,84 @@ For each group of entries in a split, it will create a sub-directory named after
 * `/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.entries`
 * `/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.meta`
 
+Once the splitting is complete, each split directory will be moved to the `20_pre_aggregate_input_queue` queue, if aggregation is enabled, or `40_forwarding_input_queue` queue if not.
+
 
 #### `/20_pre_aggregate_input_queue/`
 
+Each directory on this queue will contain a ZIP file that contains one or more entries for the same group (combination of Feed and Stream Type).
+
+If `proxyConfig.aggregator.splitSources` is set to `true`, Stroom Proxy will inspect the ZIP to see if it needs to be split up into multiple parts, to meet the aggregation targets (defined by `proxyConfig.aggregator.maxItemsPerAggregate` and  `proxyConfig.aggregator.maxUncompressedByteSize`), else the zip will be treated as a single split-part.
+
+If there is just one split-part, the directory will be moved into the current aggregate directory for its group, e.g.
+
+* `/21_pre_aggregates/FEED_X__raw_events/009/proxy.zip`
+
+If there are multiple split-parts the ZIP file will require splitting into multiple ZIP files with one per split-part, i.e. all entries from the input ZIP spread over multiple split-part ZIPs.
+Each split-part will be written like this:
+
+* `/22_splitting/0000000343/009_part_1/proxy.zip`
+* `/22_splitting/0000000343/009_part_2/proxy.zip`
+* `/22_splitting/0000000343/009_part_3/proxy.zip`
+
+Once the splitting has been completed, the common parent directory is moved to `/23_split_output/`:
+
+* `/23_split_output/0000000343/009_part_1/proxy.zip`
+* `/23_split_output/0000000343/009_part_1/proxy.zip`
+* `/23_split_output/0000000343/009_part_1/proxy.zip`
+
+Each split-part is then moved to `/21_pre_aggregates/`.
+
+* `/21_pre_aggregates/FEED_X__raw_events/011/proxy.zip`
+
+When the aggregate for a Feed|Type group is complete (based on item count and uncompressed size), the aggregate will be closed.
+Closing of the aggregate involves moving the parent directory of all the aggregate items to `/30_aggregate_input_queue/`.
+
+
+#### `/30_aggregate_input_queue/`
+
+Each directory on this queue will contain multiple directory groups (each containing a ZIP file and its associated files) that are to be part of a single aggregate.
+
+If there is only one item in the queue directory, the directory will be moved to `/40_forwarding_input_queue/` for forwarding.
+
+If there are more than one items in the queue directory then a new aggregate ZIP will be created in `/31_aggregates/`.
+The entries from each item ZIP will be written into the new aggregate ZIP.
+
+It will also create a set of meta entries for the aggregate.
+This will contain only key/value entries that are present in **every** item in the aggregate.
+
+Once the aggregate has been written it is moved to `/40_forwarding_input_queue/`.
+
+
+#### `/40_forwarding_input_queue/`
+
+Each directory on this queue will contain a single ZIP file that may contain one or more streams (plus associated files).
+In addition to the ZIP file will be a combined `.meta` file for the aggregate.
+
+Depending on how forwarding has been configured (using `proxyConfig.forwardFileDestinations` and `proxyConfig.forwardHttpDestinations`), there will be a pair of directory queues for each of the forwarding destinations, with the destination name in the path, e.g.:
+
+* `/50_forwarding/file-dest-1/01_forward/`
+* `/50_forwarding/file-dest-1/02_retry/`
+* `/50_forwarding/file-dest-2/01_forward/`
+* `/50_forwarding/file-dest-2/02_retry/`
+* `/50_forwarding/http-dest-1/01_forward/`
+* `/50_forwarding/http-dest-1/02_retry/`
+* `/50_forwarding/http-dest-2/01_forward/`
+* `/50_forwarding/http-dest-2/02_retry/`
+
+Each item on the `/40_forwarding_input_queue/` queue will be copied into each of the `01_forward` queues, then the source item will be deleted.
+This keeps each destination independent and prevents a loss of connection to one destination from impacting the others.
+
+
+#### `/50_forwarding/`
+
+This directory contains multiple directory queues, two per forward destination.
+
+* `..../<destination name>/01_forward/` - Items initially queued for forwarding to the destination.
+* `..../<destination name>/02_retry/` - Items that have failed to forward to the destination and have been queued for a retry.
+
+Each forward destination directory also contains a failure directory:
+
+* `..../<destination name>/03_/failure/` - Items that have failed to forward.
+  Either they have failed too many times or have failed with an error that prevents retry.
 

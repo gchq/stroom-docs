@@ -1,36 +1,23 @@
 @startuml
 !theme materia
 
-
 <style>
 activityDiagram {
-  `BackgroundColor #33668E
-  `BorderColor #33668E
-  `FontColor #888
-  `FontName arial
-
   diamond {
     BackgroundColor $TEAL
-    `LineColor #00FF00
-    `FontColor white
-    `FontName arial
-    `FontSize 15
   }
   arrow {
-    `FontColor gold
-    `FontName arial
-    `FontSize 15
     FontStyle Bold
   }
   note {
-    `FontColor Blue
-    `LineColor Navy
-    `BackgroundColor $CYAN
     FontSize 10
   }
 }
+
 document {
-   BackgroundColor transparent
+  BackgroundColor transparent
+  `meteria theme wants to use Verdana which isn't installed
+  FontName sans-serif
 }
 </style>
 
@@ -41,7 +28,7 @@ document {
 | Receipt |
 start
 
-if (Instant Forwarding?) then (enabled)
+if (Instant Forwarding?) then (Enabled)
   | Forwarding |
   :Instant forward; <<task>>
   note left
@@ -50,14 +37,14 @@ if (Instant Forwarding?) then (enabled)
     destination
   end note
   stop
-else (disabled)
+else (Disabled)
 endif
 
 | Receipt |
-if (Is ZIP?) then (yes)
+if (Is ZIP?) then (Yes)
   $ORANGE:/01_receiving_zip/n/; <<output>>
   :Scan ZIP entries; <<task>>
-    if (invalid format OR >1 group) then (yes)
+    if (invalid format OR >1 group) then (Yes)
       $PURPLE:/02_split_zip_input_queue/d/nnn/;
       $ORANGE:/03_split_zip_splits/n/<grp>/; <<output>>
       note right
@@ -65,9 +52,9 @@ if (Is ZIP?) then (yes)
         per group
         (feed + type)
       end note
-    else (no)
+    else (No)
     endif
-else (no)
+else (No)
   $ORANGE:/01_receiving_simple/n/; <<output>>
   note right
     Sequentially
@@ -76,7 +63,7 @@ else (no)
   end note
 endif
 
-if (aggregation enabled) then (yes)
+if (Aggregation enabled) then (Yes)
   | Aggregation |
   $PURPLE:/20_pre_aggregate_input_queue/d/nnn/;
   note right
@@ -85,22 +72,32 @@ if (aggregation enabled) then (yes)
     for one feed|type
   end note
   if (Multi-part?) then (multi-part)
-    $ORANGE:/22_splitting/n/; <<output>>
+    $ORANGE:/22_splitting/n/nnn_<part no>; <<output>>
     $ORANGE:/23_split_output/n/; <<output>>
   else (single part)
     | Aggregation |
   endif
+  $ORANGE:/21_pre_aggregates/<grp>/<part no>/; <<output>>
+  note right
+  Where aggregate parts
+  are collected until
+  ready to assemble
+  One <grp> per Feed|Type.
+  end note
 
   $PURPLE:/30_aggregate_input_queue/d/nnn/;
-  $ORANGE:/31_aggregates/n/; <<output>>
-  note right
-    Queued
-    once
-    aggregate
-    is ready
-  end note
-  | Forwarding |
-else (no)
+  if (Item count) then (Multiple items)
+      $ORANGE:/31_aggregates/n/; <<output>>
+      note right
+        Staging area for
+        aggregate ZIP files.
+        Queued once ready.
+      end note
+      | Forwarding |
+  else (One item)
+    | Forwarding |
+  end if
+else (No)
   | Forwarding |
 endif
 

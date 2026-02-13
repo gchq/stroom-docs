@@ -64,14 +64,14 @@ else
   if [[ $# -eq 1 ]] && [[ "$1" = "bash" ]]; then
 
     run_cmd=( "bash" )
-  elif [[ $# -eq 1 ]] && [[ "$1" = "SVG" ]]; then
+  elif [[ $# -eq 1 ]] && [[ "${1^^}" = "SVG" ]]; then
     # convert all .puml files to .puml.svg
     run_cmd=( \
       "bash" \
       "-c"  \
       "/builder/convert_puml_files.sh /builder/shared/content /builder/shared/assets" \
     )
-  elif [[ $# -gt 1 ]] && [[ "$1" = "SVG" ]]; then
+  elif [[ $# -gt 1 ]] && [[ "${1^^}" = "SVG" ]]; then
     # convert all .puml files to .puml.svg
     shift
     run_cmd=( \
