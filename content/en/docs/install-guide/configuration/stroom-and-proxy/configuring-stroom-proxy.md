@@ -36,8 +36,9 @@ As with stroom, the `config.yml` file is split into three sections using these k
 
 See also [Properties]({{< relref "/docs/user-guide/properties.md" >}}) for more details on structure of the config.yml file and supported data types.
 
-Stroom-Proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
-As a result `config.yml` only contains a minimal set of properties.
+Stroom-Proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate (e.g. for tuning a large scale production deployment) or where values are environment specific (e.g. the hostname of a forward destination).
+
+As a result the `config.yml` shipped with Stroom Proxy only contains a minimal set of properties.
 The full tree of properties can be seen in `./config/config-defaults.yml` and a schema for the configuration tree (along with descriptions for each property) can be found in `./config/config-schema.yml`.
 These two files can be used as a reference when configuring stroom.
 
@@ -51,22 +52,123 @@ These functions are enabled/disabled using:
 ```yaml
 proxyConfig:
 
-  # The list of named destinations that Stroom-Proxy will forward to
-  forwardHttpDestinations:
-    - enabled: true
-      name: "downstream"
-      forwardUrl: "https://some-host/stroom/datafeed"
+  # This should be set to a value that is unique within your Stroom/Stroom-Proxy estate.
+  # It is used in the unique ReceiptId that is set in the meta of received data so
+  # provides provenence of where data was received at each stage.
+  proxyId: null
 
-  # Whether to store received data in a repository
-  repository:
-    storingEnabled: true
+  path:
+    # By default all files read or written to by stroom-proxy will be in directories relative to
+    # the home location. Ideally this should differ from the location of the Stroom Proxy
+    # installed software as it has a different lifecycle.
+    home: "/stroom-proxy"
 
-  # If we are storing data in a proxy repository we can aggregate it before forwarding.
+  # This is the downstream (in flow of stream data terms) Stroom/Stroom-Proxy instance/cluster
+  # used for feed status checks, supplying data receipt rules and verifying API keys.
+  downstreamHost:
+    scheme: "https"
+    # If not set, will default to 80/443 depending on scheme
+    port: 443
+    hostname: stroom.some-domain
+    # If not using OpenID authentication you will need to provide an API key.
+    apiKey: "sak_6a011e3e5d_oKimmDxfNwj......<truncated>.....HYQxHaR2"
+
+  # This controls the aggregation of received data into larger chunks prior to forwarding.
+  # This is typically required to prevent Stroom receiving lots of small streams.
   aggregator:
+    enabled: true
+    # Whether to split received ZIPs if they are too large.
+    splitSources: true
+    # Maximum number of items to include in an aggregate
     maxItemsPerAggregate: 1000
+    # Maximum size of the aggregate in uncompressed bytes.
+    # Aggregates may be larger than this is splitSources is false or single very
+    # large streams are received.
     maxUncompressedByteSize: "1G"
-    maxAggregateAge: 10m
-    aggregationFrequency: 1m
+    #The the length of time that data is added to an aggregate for before the aggregate is closed.
+    aggregationFrequency: "PT10M"
+
+  # Zero to many HTTP POST based destinations.
+  # E.g. for forwarding to Stroom or another Stroom-Proxy
+  forwardHttpDestinations:
+  - enabled: true
+    # The name of the destination (must be unique across all destinations)
+    name: "stroom"
+    # If true received data is streamed directly to the destination with no aggregation.
+    # Using 'instant' means you can have only one destination.
+    instant: false
+    # See Queue Configuration section below
+    queue:
+    # The HTTP client configuration to use for this destination.
+    httpClient:
+      tls:
+        keyStorePath: "certs/client.jks"
+        keyStorePassword: "password"
+        trustStorePath: "certs/ca.jks"
+        trustStorePassword: "password"
+        verifyHostname: ${FORWARDING_HOST_VERIFICATION_ENABLED:-true}
+
+  # Zero to many file system based destinations.
+  forwardFileDestinations:
+  - enabled: true
+    # The name of the destination (must be unique across all destinations)
+    name: "local-store"
+      # If true received data is streamed directly to the destination with no aggregation.
+      # Using 'instant' means you can have only one destination.
+      instant: false
+    # The base path to write to.
+    path: "/some/path/"
+    # A templated sub-path of 'path'. If not set '${year}${month}${day}/${feed}' is used.
+    subPathTemplate: null
+    # See Queue Configuration section below
+    queue:
+
+  # This controls the meta entries that will be included in the send and receive logs.
+  logStream:
+    metaKeys:
+      - "guid"
+      - "receiptid"
+      - "feed"
+      - "system"
+      - "environment"
+      - "remotehost"
+      - "remoteaddress"
+      - "remotedn"
+      - "remotecertexpiry"
+
+  # If receive.receiptCheckMode is RECEIPT_POLICY, this controls the fetching
+  # of the policy rules.
+  receiptPolicy:
+    # Only set if using a non-standard URL, else this is derived based on downstreamHost
+    # config.
+    receiveDataRulesUrl: null
+    # The duration between calls to fetch the latest policy rules.
+    syncFrequency: "PT1M"
+
+  # This section is common to both Stroom and Stroom-Proxy
+  # See Receive Configuration below.
+  receive:
+
+  feedStatus:
+    # Only set this to the FULL url of the feed status endpoint if it differs
+    # from where the downstreamHost config points to. Under normal circumstances
+    # the url is derived using downstreamHost.
+    url: "${FEED_STATUS_URL:-}"
+  # (FEED_STATUS|RECEIPT_POLICY|RECEIVE_ALL|DROP_ALL|REJECT_ALL)
+
+  receive:
+    receiptCheckMode: "${RECEIPT_CHECK_MODE:-FEED_STATUS}"
+    fallbackReceiveAction: "${FALLBACK_RECEIVE_ACTION:-}"
+    # Whether authentication is required for requests sent to /datafeed
+    authenticationRequired: ${RECEIVE_AUTH_REQUIRED:-true}
+  security:
+    authentication:
+      openId:
+        # (NO_IDP|EXTERNAL_IDP|TEST_CREDENTIALS), Only use TEST for test/demo installs
+        # NO_IDP - No IDP is used. API keys are set in config for feed status checks.
+        # EXTERNAL_IDP - An external IDP such as KeyCloak/Cognito.
+        # TEST_CREDENTIALS - Use hard-coded authentication credentials for test/demo only.
+        identityProviderType: "${IDENTITY_PROVIDER_TYPE:-NO_IDP}"
 ```
 
 Stroom-proxy should be configured to check the receipt status of feeds on receipt of data.
@@ -101,6 +203,103 @@ Each forward location can use a different key/trust store pair.
 See also [Forwarding certificate configuration](#forwarding-certificate-configuration).
 
 If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.
+
+
+## Receive Configuration
+
+The `receive` configuration section is common to both Stroom and Stroom Proxy, see [Receive Configuration]({{< relref "common-configuration#common-appconfigproxyconfig-configuration" >}}).
+
+
+## Forward Configuration
+
+### Queue Configuration
+
+Each forward destination has a `queue` configuration property that controls various aspects of forwarding, e.g. failure handling, delays, concurrency, etc.
+
+```yaml
+    queue:
+      # The sub-path template to use for data that could not be retried
+      # or has reached a retry limit.
+      errorSubPathTemplate:
+        enabled: true
+        pathTemplate: "${year}${month}${day}/${feed}"
+        templatingMode: "REPLACE_UNKNOWN_PARAMS"
+      # A delay to add before forwarding. Primarily for testing.
+      forwardDelay: "PT0S"
+      # Number of threads to process retries
+      forwardRetryThreadCount: 1
+      # Number of threads to handle forwarding
+      forwardThreadCount: 5
+      # Duration between liveness checks
+      livenessCheckInterval: "PT1M"
+      # The maximum time from the first failed forward attempt to continue retrying.
+      # After this the data will be move to the failure directory permenantly.
+      maxRetryAge: "P7D"
+      # The maximum time between retries. Must be greater than or equal to retryDelay.
+      maxRetryDelay: "P1D"
+      # If false forwards will be attempted imediately and any failure will restult in the
+      # data being moved to the failure directory.
+      queueAndRetryEnabled: false
+      # The time between retries. If retryDelayGrowthFactor is >1, this value will grow
+      # after each retry.
+      retryDelay: "PT10M"
+      # The factor to apply to retryDelay after each failed retry.
+      retryDelayGrowthFactor: 1.0
+```
+
+
+### Path Templating Configuration
+
+The following properties all share the same structure:
+
+* `proxyConfig.forwardFileDestinations.[n].subPathTemplate`
+* `proxyConfig.forwardFileDestinations.[n].queue.errorSubPathTemplate`
+* `proxyConfig.forwardHttpDestinations.[n].queue.errorSubPathTemplate`
+
+```yaml
+  xxxxxxTemplate:
+    # Whether templating is enabled or not. If not enabled
+    # no sub-path will be used.
+    enabled: true
+    # The template to use for the sub-path
+    pathTemplate: "${year}${month}${day}/${feed}"
+    # Controls how unknown parameters are dealt with. One of:
+    # IGNORE_UNKNOWN_PARAMS - e.g. 'cat/${unknownparam}/dog' => 'cat/${unknownparam}/dog'
+    # REMOVE_UNKNOWN_PARAMS - e.g. 'cat/${unknownparam}/dog' => 'cat/dog'
+    # REPLACE_UNKNOWN_PARAMS - Replace unknown with 'XXX', e.g. 'cat/${unknownparam}/dog' => 'cat/XXX/dog'
+    templatingMode: "REPLACE_UNKNOWN_PARAMS"
+```
+
+The following template parameters are supported:
+
+* `${feed}` - The Feed name.
+* `${type}` - The Stream Type.
+* `${year}` - The 4 digit year of the current date/time.
+* `${month}` - The 2 digit month of the current date/time.
+* `${day}` - The 2 digit day of the current date/time.
+* `${hour}` - The 2 digit hour of the current date/time.
+* `${minute}` - The 2 digit minute of the current date/time.
+* `${second}` - The 2 digit second of the current date/time.
+* `${millis}` - The 3 digit milliseconds of the current date/time.
+* `${ms}` - The current date/time as milliseconds since the Unix Epoch.
+
+
+### Liveness Checking
+
+Each of the configured forward destinations has a liveness check that can be configured.
+This allows Stroom Proxy to periodically check that the destination is _live_.
+If the liveness check fails for a destination, all forwarding for that destination will be paused until a subsequent liveness check reports it as _live_ again.
+
+The liveness checks take the following forms:
+
+* HTTP Destination - Performs a `GET` request to the URL configured using `forwardHttpDestinations.[n].livenessCheckUrl`.
+  If not configured it will use `/status` on the downstream host.
+  The destination is considered live if it gets a `200` response.
+  You can use a URL that allows the destination to control its liveness, i.e. to take itself off line during an upgrade.
+
+* File Destination - Reads or writes (`touch`) to a file defined by `forwardFileDestinations.[n].livenessCheckPath`.
+  Liveness checking for a file destination may be useful if the destination is on a network file share.
+  `livenessCheckMode` controls whether a read or write to the file is performed.
 
 
 ## Deploying without Docker
@@ -138,7 +337,7 @@ The configuration of the client certificates for feed status checks is done usin
 See [Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration#jersey-http-client-configuration" >}}).
 
 
-#### Forwarding certificate configuration
+#### Forwarding Configuration
 
 Stroom-proxy can forward to multiple locations.
 The configuration of the certificate(s) for the forwarding locations is as follows:
@@ -162,4 +361,5 @@ proxyConfig:
 
 `forwardUrl` specifies the URL of the _datafeed_ endpoint on the destination host.
 Each forward location can use a different key/trust store pair.
+
 

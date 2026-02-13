@@ -10,8 +10,6 @@ description: >
   
 ---
 
-## config.yml
-
 This YAML file, sometimes known as the Dropwizard configuration file (as it conforms to a structure defined by Dropwizard) is the primary means of configuring Stroom/Stroom-Proxy.
 As a minimum this file should be used to configure anything that needs to be set before stroom can start up, e.g. web server, logging, database connection details, etc.
 It is also used to configure anything that is specific to a node in a stroom cluster.
@@ -20,7 +18,7 @@ If you are using some form of scripted deployment, e.g. ansible then it can be u
 If you are not using scripted deployments then you can maintain stroom's node agnostic configuration properties via the user interface.
 
 
-### Config File Structure
+## Config File Structure
 
 This file contains both the Dropwizard configuration settings (settings for ports, paths and application logging) and the Stroom/Stroom-Proxy application specific properties configuration.
 The file is in YAML format and the application properties are located under the `appConfig` key.
@@ -84,7 +82,7 @@ proxyConfig:
 ```
 
 
-#### `appConfig` Section
+### `appConfig` Section
 
 The `appConfig` section is special as it maps to the Properties seen in the Stroom user interface so values can be managed in the file or via the Properties screen in the Stroom UI.
 The other sections of the file can only be managed via the YAML file.
@@ -102,7 +100,7 @@ The _stroom_ part of the dot notation name is replaced with _appConfig_.
 For more details on the link between this YAML file and Stroom Properties, see [Properties]({{< relref "/docs/user-guide/properties" >}})
 
 
-#### Variable Substitution
+### Variable Substitution
 
 The YAML configuration file supports Bash style variable substitution in the form of:
 
@@ -119,7 +117,7 @@ This allows values to be set either directly in the file or via an environment v
 In the above example, if the _STROOM_JDBC_DRIVER_CLASS_NAME_ environment variable is not set then the value _com.mysql.cj.jdbc.Driver_ will be used instead.
 
 
-#### Typed Values
+### Typed Values
 
 YAML supports typed values rather than just strings, see https://yaml.org/refcard.html.
 YAML understands booleans, strings, integers, floating point numbers, as well as sequences/lists and maps.
@@ -129,7 +127,7 @@ This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see [Data Types](/docs/user-guide/properties#data-types).
 
 
-### Server configuration
+## Server configuration
 
 The `server` section controls the configuration of the Jetty web server.
 
@@ -161,7 +159,66 @@ server:
 ```
 
 
-### Jersey HTTP Client Configuration
+## Common `appConfig`/`proxyConfig` Configuration
+
+This section details configuration that is common in both the Stroom `appConfig` and Stroom-Proxy `proxyConfig` sections.
+
+
+### Receive Configuration
+
+Configuration 
+
+{{% todo %}}
+Add comments to configuration.
+{{% /todo %}}
+
+```yaml
+appConfig/proxyConfig:
+  receive:
+    allowedCertificateProviders: []
+    authenticatedDataFeedKeyCache:
+      expireAfterAccess: null
+      expireAfterWrite: "PT5M"
+      maximumSize: 1000
+      refreshAfterWrite: null
+      statisticsMode: "DROPWIZARD_METRICS"
+    authenticationRequired: true
+    dataFeedKeyOwnerMetaKey: "AccountId"
+    dataFeedKeysDir: "data_feed_keys"
+    enabledAuthenticationTypes:
+    - "TOKEN"
+    - "CERTIFICATE"
+    fallbackReceiveAction: "RECEIVE"
+    feedNameGenerationEnabled: false
+    feedNameGenerationMandatoryHeaders:
+    - "AccountId"
+    - "Component"
+    - "Format"
+    - "Schema"
+    feedNameTemplate: "${accountid}-${component}-${format}-${schema}"
+    maxRequestSize: null
+    metaTypes:
+    - "Context"
+    - "Detections"
+    - "Error"
+    - "Events"
+    - "Meta Data"
+    - "Raw Events"
+    - "Raw Reference"
+    - "Records"
+    - "Reference"
+    - "Test Events"
+    - "Test Reference"
+    receiptCheckMode: "FEED_STATUS"
+    x509CertificateDnFormat: "LDAP"
+    x509CertificateDnHeader: "X-SSL-CLIENT-S-DN"
+    x509CertificateHeader: "X-SSL-CERT"
+```
+
+
+
+
+## Jersey HTTP Client Configuration
 
 Stroom and Stroom Proxy use the {{< external-link "Jersey" "https://eclipse-ee4j.github.io/jersey/" >}} client for making HTTP connections with other nodes or other systems (e.g. Open ID Connect identity providers).
 In the YAML file, the `jerseyClients` key controls the configuration of the various clients in use.
@@ -270,7 +327,7 @@ The paths used for the key and trust stores will be treated in the same way as S
 {{% /note %}}
 
 
-### Logging Configuration
+## Logging Configuration
 
 The Dropwizard configuration file controls all the logging by the application.
 In addition to the main application log, there are additional logs such as stroom user events (for audit), Stroom-Proxy send and receive logs and database migration logs.
@@ -278,7 +335,7 @@ In addition to the main application log, there are additional logs such as stroo
 For full details of the logging configuration, see {{< external-link "Dropwizard Logging Configuration" "https://www.dropwizard.io/en/latest/manual/configuration.html#logging" >}}
 
 
-#### Request Log
+### Request Log
 
 The request log is slightly different to the other logs.
 It logs all requests to the web server.
@@ -301,7 +358,7 @@ server:
       logFormat: '%h %l "%u" [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}" %D'
 ```
 
-#### Logback Logs
+### Logback Logs
 
 Dropwizard uses {{< external-link "Logback" "https://logback.qos.ch" >}} for application level logging.
 All logs in Stroom and Stroom-Proxy apart from the request log are Logback based logs.
@@ -315,7 +372,7 @@ Typical _Appenders_ are:
 * Syslog - appends messages to `syslog`.
 
 
-##### Loggers
+#### Loggers
 
 A _Logger_ can append to more than one _Appender_ if required.
 For example, the default configuration file for Stroom has two appenders for the application logs.
@@ -381,7 +438,7 @@ logging:
 ```
 
 
-##### Appenders
+#### Appenders
 
 The following is an example of the default appenders that will be used for all loggers unless they have their own custom appender configured.
 
@@ -408,7 +465,7 @@ logging:
 ```
 
 
-##### Log Rolling
+#### Log Rolling
 
 Rolling of log files can be done based on size of file or time.
 The `archivedLogFilenamePattern` property controls the rolling behaviour.

@@ -238,3 +238,4 @@ Each forward destination directory also contains a failure directory:
 * `..../<destination name>/03_/failure/` - Items that have failed to forward.
   Either they have failed too many times or have failed with an error that prevents retry.
 
+
