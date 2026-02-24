@@ -257,6 +257,12 @@ Examples of identity providers are Google, Cognito, KeyCloack and Microsoft Azur
 Stroom has its own built in IDP or can be configured to use a 3rd party IDP.
 
 
+## IP Address
+
+The Internet Protocol address, e.g. `192.168.0.1`.
+Typically an IP address is assumed to be an IPv4 address.
+
+
 ## JSON
 
 **J**ava**S**cript **O**bject **N**otation is a file/data format for storing/transmitting structured data.

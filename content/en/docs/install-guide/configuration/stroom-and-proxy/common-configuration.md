@@ -140,26 +140,30 @@ The following is an example of the configuration for an application listening on
 
 ```yaml
 server:
-  # The base path for the main application
+  # The base path for the main application and its API
   applicationContextPath: "/"
-  # The base path for the admin pages/API
+  # The base path for the admininstration pages/API
+  # For Stroom-Proxy the default is /proxyAdmin
   adminContextPath: "/stroomAdmin"
 
-  # The scheme/port for the main application
+  # The scheme/port for the main application and its API
   applicationConnectors:
     - type: http
+      # For Stroom-Proxy the default is 8090
       port: 8080
       # Uses X-Forwarded-*** headers in request log instead of proxy server details.
       useForwardedHeaders: true
-  # The scheme/port for the admin pages/API
+
+  # The scheme/port for the admininstration pages/API
   adminConnectors:
     - type: http
+      # For Stroom-Proxy the default is 8091
       port: 8081
       useForwardedHeaders: true
 ```
 
 
-## Common `appConfig`/`proxyConfig` Configuration
+## Common Application Configuration
 
 This section details configuration that is common in both the Stroom `appConfig` and Stroom-Proxy `proxyConfig` sections.
 
@@ -216,6 +220,54 @@ appConfig/proxyConfig:
 ```
 
 
+### Cache Configuration
+
+Multiple configuration branches in both Stroom and Stroom-Proxy have one or more properties for configuring a cache.
+Each of these share the same structure and will typically be named `xxxCache`, e.g. `feedStatusCache` or `metaTypeCache`.
+
+{{% warning %}}
+The default values for each property within the cache config will be specific to the cache.
+Care needs to be taken when changing the cache properties to avoid changing the behaviour of the cache, e.g. changing from having a `expireAfterWrite` value to having a `expireAfterAccess` value may prevent items from aging off as expected.
+{{% /warning %}}
+
+
+```yaml
+      xxxCache:
+        # Specifies that each entry should be automatically removed from the cache once
+        # this duration has elapsed after the entry's creation, the most recent replacement of
+        # its value, or its last read. In ISO-8601 duration format, e.g. 'PT10M'. If no value is set then
+        #  entries will not be aged out based these criteria
+        expireAfterAccess: 
+        # Specifies that each entry should be automatically removed from the cache once
+        # a fixed duration has elapsed after the entry's creation, or the most recent replacement of its value.
+        # In ISO-8601 duration format, e.g. 'PT5M'. If no value is set then entries will not be aged out based on
+        # these criteria.
+        expireAfterWrite:
+        # Specifies the maximum number of entries the cache may contain. Note that the cache
+        # may evict an entry before this limit is exceeded or temporarily exceed the threshold while evicting.
+        # As the cache size grows close to the maximum, the cache evicts entries that are less likely to be used
+        # again. For example, the cache may evict an entry because it hasn't been used recently or very often.
+        # When size is zero, elements will be evicted immediately after being loaded into the cache. This can
+        # be useful in testing, or to disable caching temporarily without a code change. If no value is set then
+        # no size limit will be applied
+        maximumSize:
+        # Specifies that each entry should be automatically refreshed in the cache after
+        # a fixed duration has elapsed after the entry's creation, or the most recent replacement of its value.
+        # In ISO-8601 duration format, e.g. 'PT5M'. Refreshing is performed asynchronously and the current value
+        # provided until the refresh has occurred. This mechanism allows the cache to update values without any
+        # impact on performance
+        refreshAfterWrite:
+        # Determines whether/how statistics are captured on cache usage
+        # (e.g. hits, misses, entries, etc.). Values are (NONE, INTERNAL, DROPWIZARD_METRICS).
+        # NONE means capture no stats, offering a very slight performance gain, but the Caches screen in Stroom
+        # won't be able to show any stats for this cache.
+        # INTERNAL means the stats are captured but are only accessible via the Stroom Caches screen, thus not
+        # suitable for Stroom-Proxy.
+        # DROPWIZARD_METRICS means the stats are captured and are accessible via the Stroom Caches screen AND via
+        # the metrics servlet on the admin port for integration with tools like Graphite/Collectd
+        # The default for Stroom is INTERNAL, the default for Stroom-Proxy is DROPWIZARD_METRICS
+        statisticsMode:
+```
 
 
 ## Jersey HTTP Client Configuration
