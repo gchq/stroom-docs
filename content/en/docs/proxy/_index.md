@@ -21,8 +21,10 @@ See [Architecture]({{< relref "docs/architecture#overview" >}}) for an example o
 ## API
 
 Stroom-Proxy presents an identical _HTTP POST_ `/datafeed` {{< glossary "API" >}} to Stroom, so clients can send the same data in the same way to either Stroom or Stroom-Proxy.
+For more detail on sending data into Stroom-Proxy, see [Sending Data]({{< relref "docs/sending-data" >}}).
 
-For more detail on sending data into Stroom-Proxy see [Sending Data]({{< relref "docs/sending-data" >}}).
+It also presents a number of other APIs for administration and communication with other proxies.
+For more detail on Stroom-Proxy's other APIs, see [Proxy API]({{< relref "proxy-api" >}}).
 
 
 ## Functions

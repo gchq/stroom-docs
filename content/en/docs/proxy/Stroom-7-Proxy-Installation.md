@@ -7,7 +7,7 @@ tags:
   - TODO
   - proxy
 description: >
-  
+  How to install Stroom-Proxy.
 ---
 
 Stroom-Proxy can be installed in 4 main ways:
@@ -15,6 +15,7 @@ Stroom-Proxy can be installed in 4 main ways:
 * App - There is an _app_ version that runs Stroom-Proxy as a Java {{< glossary "JAR" >}} file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.
 
 * Docker Stack - Stroom-Proxy, Nginx and Stroom-Log-Sender run in Docker containers, orchestrated using Docker Compose and some shell scripts.
+  The stroom-proxy image is essentially a minimal Alpine Linux container with the appropriate Java version installed and the Stroom-Proxy JAR
 
 * Docker Images - Manually run containers based on the Stroom-Proxy docker image.
 
@@ -75,7 +76,7 @@ Because everything is running in Docker containers, the only requirement for the
 
 To install Docker Engine and the Docker Composer Plugin see:
 
-* {{< external-link "Docker Engine" "https://docs.docker.com/engine/instal" >}}
+* {{< external-link "Docker Engine" "https://docs.docker.com/engine/install" >}}
 * {{< external-link "Docker Compose Plugin" "https://docs.docker.com/compose/install" >}}
 
 All the Stroom-Proxy logs and data will be stored in Docker managed volumes that will, by default, reside in `/var/lib/docker`.

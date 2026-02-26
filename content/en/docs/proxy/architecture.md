@@ -6,7 +6,7 @@ date: 2025-04-11
 tags: 
   - proxy
 description: >
-  An overview of the architecture of Stroom-Proxy (v7.8 or later).
+  An overview of the architecture of Stroom-Proxy.
 ---
 
 ## Overview
