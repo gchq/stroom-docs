@@ -1,7 +1,7 @@
 ---
 title: "Receipt ID"
 linkTitle: "Receipt ID"
-#weight:
+weight: 50
 date: 2026-02-24
 tags: 
 description: >

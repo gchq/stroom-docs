@@ -170,37 +170,70 @@ This section details configuration that is common in both the Stroom `appConfig`
 
 ### Receive Configuration
 
-Configuration 
-
-{{% todo %}}
-Add comments to configuration.
-{{% /todo %}}
+Configuration for controlling the receipt of data into Stroom and Stroom-Proxy through the `/datafeed` API.
 
 ```yaml
-appConfig/proxyConfig:
+appConfig / proxyConfig:
   receive:
+    # An allow-list containing IP addresses or fully qualified host names to verify that the direct sender
+    # of a request (e.g. a load balancer or reverse proxy) is trusted to supply certificate/DN headers
+    # as configured with 'x509CertificateHeader' and 'x509CertificateDnHeader'.
+    # If this list is null/empty then no check will be made on the client's address.
     allowedCertificateProviders: []
+    # Standard cache configuration block for the cache of authenticated Datafeed Keys.
+    # This cache is used to avoid having to re-verify every data feed key.
     authenticatedDataFeedKeyCache:
-      expireAfterAccess: null
-      expireAfterWrite: "PT5M"
-      maximumSize: 1000
-      refreshAfterWrite: null
-      statisticsMode: "DROPWIZARD_METRICS"
+    # If true, the sender will be authenticated using a certificate or token depending on the
+    # state of tokenAuthenticationEnabled and certificateAuthenticationEnabled. If the sender
+    # can't be authenticated an error will be returned to the client
+    # If false, then authentication will be performed if a token/key/certificate
+    # is present, otherwise data will be accepted without a sender identity
     authenticationRequired: true
+    # The meta key that is used to identify the owner of a Data Feed Key. This
+    # may be an AccountId or similar. It must be provided as a header when sending data
+    # using the associated Data Feed Key, and its value will be checked against the value
+    # held with the hashed Data Feed Key by Stroom. Default value is 'AccountId'.
+    # Case does not matter
     dataFeedKeyOwnerMetaKey: "AccountId"
+    # The directory where Stroom will look for datafeed key files.
+    # Only used if datafeedKeyAuthenticationEnabled is true
+    # If the value is a relative path then it will be treated as being
+    # relative to stroom.path.home. Data feed key files must have the extension .json.
+    # Files in sub-directory will be ignored.
     dataFeedKeysDir: "data_feed_keys"
+    # The types of authentication that are enabled for data receipt.
     enabledAuthenticationTypes:
     - "TOKEN"
     - "CERTIFICATE"
+    # If receiptCheckMode is RECEIPT_POLICY or FEED_STATUS and stroom/proxy is
+    # unable to perform the receipt check, then this action will be used as a fallback
+    # until the receipt check can be successfully performed
     fallbackReceiveAction: "RECEIVE"
+    # If true the client is not required to set the 'Feed' header. If Feed is not present
+    # a feed name will be generated based on the template specified by the
+    # 'feedNameTemplate' property. If false (the default), a populated 'Feed'
+    # header will be required
     feedNameGenerationEnabled: false
+    # The set of header keys are mandatory if feedNameGenerationEnabled is set to true.
+    # Should be set to complement the header keys used in 'feedNameTemplate', but may be a
+    # sub-set of those in the template to allow for optional headers
     feedNameGenerationMandatoryHeaders:
     - "AccountId"
     - "Component"
     - "Format"
     - "Schema"
+    # A template for generating a feed name from a set of headers. The value of
+    # each header referenced in the template will have any unsuitable characters
+    # replaced with '_'.
+    # If this property is set in the YAML file, use single quotes to prevent the
+    # variables being expanded when the config file is loaded
     feedNameTemplate: "${accountid}-${component}-${format}-${schema}"
+    # If defined then states the maximum size of a request (uncompressed for gzip requests).
+    # Will return a 413 Content Too Long response code for any requests exceeding this
+    # value. If undefined then there is no limit to the size of the request.
     maxRequestSize: null
+    # Set of supported meta type names. This set must contain all of the names
+    # in the default value for this property but can contain additional names.
     metaTypes:
     - "Context"
     - "Detections"
@@ -213,9 +246,20 @@ appConfig/proxyConfig:
     - "Reference"
     - "Test Events"
     - "Test Reference"
+    # Controls how or whether data is checked on receipt. Valid values
+    # (FEED_STATUS|RECEIPT_POLICY|RECEIVE_ALL|REJECT_ALL|DROP_ALL)
     receiptCheckMode: "FEED_STATUS"
+    # The format of the Distinguished Name used in the certificate. Valid values are
+    # LDAP and OPEN_SSL, where LDAP is the default
     x509CertificateDnFormat: "LDAP"
+    # The HTTP header key used to extract the distinguished name (DN) as obtained from an X509 certificate.
+    # This is used when a load balancer does the SSL/mTLS termination and passes the client DN though
+    # in a header. Only used for
+    # authentication if a value is set and 'enabledAuthenticationTypes' includes CERTIFICATE
     x509CertificateDnHeader: "X-SSL-CLIENT-S-DN"
+    # The HTTP header key used to extract an X509 certificate. This is used when a load balancer does the
+    # SSL/mTLS termination and passes the client certificate though in a header. Only used for
+    # authentication if a value is set and 'enabledAuthenticationTypes' includes CERTIFICATE
     x509CertificateHeader: "X-SSL-CERT"
 ```
 
@@ -270,6 +314,110 @@ Care needs to be taken when changing the cache properties to avoid changing the 
 ```
 
 
+### Open ID Configuration
+
+Both Stroom and Stroom-Proxy share the same configuration structure for configuring Open ID Connect authentication.
+This section of config is only applicable if `appConfig/proxyConfig.security.authentication.identityProviderType` is set to `EXTERNAL_IDP`.
+
+```yaml
+appConfig / proxyConfig:
+  security:
+    authentication:
+      openId:
+        # A set of audience claim values, one of which must appear in the audience
+        # claim in the token.
+        # If empty, no validation will be performed on the audience claim
+        # If audienceClaimRequired is false and there is no audience claim in the token,
+        # then allowedAudiences will be ignored
+        allowedAudiences: []
+        # If true the token will fail validation if the audience claim is not present
+        # and allowedAudiences is not empty
+        audienceClaimRequired: false
+        # The authentication endpoint used in OpenId authentication
+        # Should only be set if not using a configuration endpoint
+        authEndpoint: null
+        # If custom scopes are required for client_credentials requests then this should be
+        # set to replace the default of 'openid'. E.g. for Azure AD you will likely need to set
+        # this to 'openid' and '<your-app-id-uri>/.default>'
+        clientCredentialsScopes:
+        - "openid"
+        # The client ID used in OpenId authentication.
+        clientId: null
+        # The client secret used in OpenId authentication.
+        clientSecret: null
+        # If using an AWS load balancer to handle the authentication, set this to the Amazon
+        # Resource Names (ARN) of the load balancer(s) fronting stroom, which will be something
+        # like 'arn:aws:elasticloadbalancing:region-code:account-id:loadbalance
+        # /app/load-balancer-name/load-balancer-id'.
+        # This config value will be used to verify the 'signer' in the JWT header.
+        # Each value is the first N characters of the ARN and as a minimum must include up to
+        # the colon after the account-id, i.e.
+        # 'arn:aws:elasticloadbalancing:region-code:account-id:'
+        # See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html#user-claims-encodin
+        expectedSignerPrefixes: []
+        # Some OpenId providers, e.g. AWS Cognito, require a form to be used for token requests.
+        formTokenRequest: true
+        # A template to build the user's full name using claim values as variables in the
+        # template. E.g '${firstName} ${lastName}' or '${name}'.
+        # If this property is set in the YAML file, use single quotes to prevent the
+        # variables being expanded when the config file is loaded. Note: claim names are
+        # case sensitive
+        fullNameClaimTemplate: "${name}"
+        # The type of Open ID Connect identity provider that stroom/prox
+        # will use for authentication. Valid values are:
+        # INTERNAL_IDP - Stroom's internal IDP. Not valid for Stroom-Proxy.
+        # EXTERNAL_IDP - An external IDP such as KeyCloak/Cognito,
+        # TEST_CREDENTIALS - Use hard-coded authentication credentials for test/demo only and
+        # NO_IDP - No IDP is used. API keys are set in config for feed status checks. Only for use by Stroom-Proxy
+        # Changing this property will require a restart of the application
+        identityProviderType: "NO_IDP"
+        # The issuer used in OpenId authentication.
+        # Should only be set if not using a configuration endpoint
+        issuer: null
+        # The URI to obtain the JSON Web Key Set from in OpenId authentication
+        # Should only be set if not using a configuration endpoint
+        jwksUri: null
+        # The logout endpoint for the identity provider
+        # This is not typically provided by the configuration endpoint
+        logoutEndpoint: null
+        # The name of the URI parameter to use when passing the logout redirect URI to the IDP.
+        # This is here as the spec seems to have changed from 'redirect_uri' to
+        # 'post_logout_redirect_uri'
+        logoutRedirectParamName: "post_logout_redirect_uri"
+        # You can set an openid-configuration URL to automatically configure much of the openid
+        # settings. Without this the other endpoints etc must be set manually
+        openIdConfigurationEndpoint: null
+        # If the token is signed by AWS then use this pattern to form the URI to obtain the
+        # public key from. The pattern supports the variables '${awsRegion}' and '${keyId}'.
+        # Multiple instances of a variable are also supported.
+        # If this property is set in the YAML file, use single quotes to prevent the
+        # variables being expanded when the config file is loaded.
+        publicKeyUriPattern: "https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}"
+        # If custom auth flow request scopes are required then this should be set to replace
+        # the defaults of 'openid' and 'email'.
+        requestScopes:
+        - "openid"
+        - "email"
+        # The token endpoint used in OpenId authentication
+        # Should only be set if not using a configuration endpoint
+        tokenEndpoint: null
+        # The Open ID Connect claim used to link an identity on the IDP to a stroom user.
+        # Must uniquely identify the user on the IDP and not be subject to change. Uses 'sub' by
+        # default
+        uniqueIdentityClaim: "sub"
+        # The Open ID Connect claim used to provide a more human friendly username for a user
+        # than that provided by uniqueIdentityClaim. It is not guaranteed to be unique and may
+        # change
+        userDisplayNameClaim: "preferred_username"
+        # A set of issuers (in addition to the 'issuer' property that is provided by the IDP
+        # that are deemed valid when seen in a token. If no additional valid issuers are
+        # required then set this to an empty set. Also this is used to validate the 'issuer'
+        # returned by the IDP when it is not a sub path of 'openIdConfigurationEndpoint'. If
+        # this set is empty then Stroom will verify that the
+        validIssuers: []
+```
+
+
 ## Jersey HTTP Client Configuration
 
 Stroom and Stroom Proxy use the {{< external-link "Jersey" "https://eclipse-ee4j.github.io/jersey/" >}} client for making HTTP connections with other nodes or other systems (e.g. Open ID Connect identity providers).
@@ -281,10 +429,9 @@ Thus the configuration of the connections to each of those destinations can be c
 
 The client names are as follows:
 
-* `AWS_PUBLIC_KEYS` - Connections to fetch AWS public keys used in Open ID Connect authentication.
-* `CONTENT_SYNC` - Connections to downstream proxy/stroom instances to sync content. (**Stroom Proxy only**).
 * `DEFAULT` - The default client configuration used if a named configuration is not present.
-* `FEED_STATUS` - Connections to downstream proxy/stroom instances to check feed status. (**Stroom Proxy only**).
+* `AWS_PUBLIC_KEYS` - Connections to fetch AWS public keys used in Open ID Connect authentication.
+* `DOWNSTREAM` - Connections to downstream proxy/stroom instances to check feed status. (**Stroom Proxy only**).
 * `OPEN_ID` - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.
 * `STROOM` - Inter-node communications within the Stroom cluster (**Stroom only**).
 
@@ -409,6 +556,7 @@ server:
       archivedFileCount: 10080
       logFormat: '%h %l "%u" [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}" %D'
 ```
+
 
 ### Logback Logs
 

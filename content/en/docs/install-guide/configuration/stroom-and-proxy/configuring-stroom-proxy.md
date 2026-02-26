@@ -50,6 +50,8 @@ In the snippets of YAML configuration below, the defaultsections
 
 Stroom-proxy has a number of [key functions]({{< relref "docs/proxy/proxy-functions" >}}) which are all configured via its YAML configuration file.
 
+Each branch of the this YAML is explained in more detail below.
+
 ```yaml
 proxyConfig:
 
@@ -58,12 +60,14 @@ proxyConfig:
   # provides provenence of where data was received at each stage.
   proxyId: null
 
-  # Configuration of the base and temp paths used by Stroom-Proxy
+  # If true, Stroom-Proxy will halt on start up if any errors are found in the YAML
+  # configuration file. If false, the errors will simply be logged. Setting this to
+  # false is not advised
+  haltBootOnConfigValidationFailure: true
+
+  # Configuration of the base and temp paths used by Stroom-Proxy.
+  # See Path Configuration below
   path:
-    # By default all files read or written to by stroom-proxy will be in directories relative to
-    # the home location. Ideally this should differ from the location of the Stroom Proxy
-    # installed software as it has a different lifecycle.
-    home: "...AN ABSOLUTE PATH..."
 
   # This is the downstream (in flow of stream data terms) Stroom/Stroom-Proxy instance/cluster
   # used for feed status checks, supplying data receipt rules and verifying API keys.
@@ -73,11 +77,15 @@ proxyConfig:
   # This is typically required to prevent Stroom receiving lots of small streams.
   aggregator:
 
+  # If receive.receiptCheckMode is FEED_STATUS, this controls the feed status
+  # checking. See Feed Status Configuration below.
+  feedStatus:
+
   # Zero to many HTTP POST based destinations.
   # E.g. for forwarding to Stroom or another Stroom-Proxy
   forwardHttpDestinations:
 
-  # Zero to many file system based destinations.
+  # Zero to many file system based destinations. See Forward Configuration below.
   forwardFileDestinations:
 
   # This controls the meta entries that will be included in the send and receive logs.
@@ -86,27 +94,12 @@ proxyConfig:
   # If receive.receiptCheckMode is RECEIPT_POLICY, this controls the fetching
   # of the policy rules.
   receiptPolicy:
-    # Only set if using a non-standard URL, else this is derived based on downstreamHost
-    # config.
-    receiveDataRulesUrl: null
-    # The duration between calls to fetch the latest policy rules.
-    syncFrequency: "PT1M"
 
   # This section is common to both Stroom and Stroom-Proxy
   # See Receive Configuration below.
   receive:
 
-  feedStatus:
-    # Only set this to the FULL url of the feed status endpoint if it differs
-    # from where the downstreamHost config points to. Under normal circumstances
-    # the url is derived using downstreamHost.
-    url: "${FEED_STATUS_URL:-}"
-  # (FEED_STATUS|RECEIPT_POLICY|RECEIVE_ALL|DROP_ALL|REJECT_ALL)
-
-  # Configuration for data receipt that is common to both Stroom and Stroom-Proxy
-  receive:
-
-  # Configuration for authentication
+  # Configuration for authentication. See Security Configuration below.
   security:
 ```
 
@@ -214,6 +207,7 @@ Once a threshold is reached, the file will be rolled and processed by Stroom-Pro
 Each event is stored as a JSON line in the file.
 
 ```yaml
+proxyConfig:
   eventStore:
     # The size of an internal queue used to buffer aggregates that are ready to process.
     forwardQueueSize: 1000
@@ -232,9 +226,22 @@ Each event is stored as a JSON line in the file.
 
 ### Feed Status Configuration
 
-```yaml
+The configuration for performing feed status checks.
+This section is only relevant if `proxyConfig.receive.receiptCheckMode` is set to `FEED_STATUS`.
 
+```yaml
+proxyConfig:
+  feedStatus:
+    # Standard cache configuration block for configuring the cache of feed status check outcomes
+    feedStatusCache:
+    # The full URL to use for feed status checking.
+    # ONLY set this if using a non-standard URL, otherwise
+    # it will be derived from the downstreamHost.
+    url: null
 ```
+
+The configuration of the client certificates for feed status checks is done using the `DOWNSTREAM` jersey client configuration.
+See [Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration#jersey-http-client-configuration" >}}).
 
 
 ### Forward Configuration
@@ -344,6 +351,7 @@ proxyConfig:
 Each forward destination (whether file or HTTP) has a `queue` configuration property that controls various aspects of forwarding, e.g. failure handling, delays, concurrency, etc.
 
 ```yaml
+  forwardHttpDestinations / forwardFileDestinations:
     queue:
       # The sub-path template to use for data that could not be retried
       # or has reached a retry limit.
@@ -432,6 +440,7 @@ The liveness checks take the following forms:
 #### HTTP Client Configuration
 
 ```yaml
+proxyConfig:
   forwardHttpDestinations:
     httpClient:
       connectionRequestTimeout: "PT3M"
@@ -455,6 +464,9 @@ It is `null` by default, i.e. no additional TLS configuration is used.
 Its structure is:
 
 ```yaml
+proxyConfig:
+  forwardHttpDestinations:
+    httpClient:
       tls:
         protocol: "TLSv1.2"
         # The name of the JCE provider to use on client side for cryptographic support 
@@ -528,9 +540,14 @@ proxyConfig:
     temp: null
 ```
 
+All paths in the configuration file can be either relative or absolute.
+If relative then they will be treated as being relative to the `home` path.
+
+
 ### Receipt Policy Configuration
 
-If `receive.receiptCheckMode` is `RECEIPT_POLICY`, this controls the fetching of the policy rules.
+This section of configuration is only applicable if `proxyConfig.receive.receiptCheckMode` is `RECEIPT_POLICY`.
+It controls the fetching of the receipt policy rules from a downstream Stroom or Stroom-Proxy.
 
 ```yaml
 proxyConfig:
@@ -541,6 +558,9 @@ proxyConfig:
     # The duration between calls to fetch the latest policy rules.
     syncFrequency: "PT1M"
 ```
+
+The configuration of the client certificates for receipt policy checks is done using the `DOWNSTREAM` jersey client configuration.
+See [Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration#jersey-http-client-configuration" >}}).
 
 
 ### Receive Configuration
@@ -558,97 +578,10 @@ proxyConfig:
       authenticationRequired: true
       # Open ID Connect configuration
       openId:
-        # A set of audience claim values, one of which must appear in the audience
-        # claim in the token.
-        # If empty, no validation will be performed on the audience claim
-        # If audienceClaimRequired is false and there is no audience claim in the token,
-        # then allowedAudiences will be ignored
-        allowedAudiences: []
-        # If true the token will fail validation if the audience claim is not present
-        # and allowedAudiences is not empty
-        audienceClaimRequired: false
-        # The authentication endpoint used in OpenId authentication
-        # Should only be set if not using a configuration endpoint
-        authEndpoint: null
-        # If custom scopes are required for client_credentials requests then this should be
-        # set to replace the default of 'openid'. E.g. for Azure AD you will likely need to set
-        # this to 'openid' and '<your-app-id-uri>/.default>'
-        clientCredentialsScopes:
-        - "openid"
-        # The client ID used in OpenId authentication.
-        clientId: null
-        # The client secret used in OpenId authentication.
-        clientSecret: null
-        # If using an AWS load balancer to handle the authentication, set this to the Amazon
-        # Resource Names (ARN) of the load balancer(s) fronting stroom, which will be something
-        # like 'arn:aws:elasticloadbalancing:region-code:account-id:loadbalance
-        # /app/load-balancer-name/load-balancer-id'.
-        # This config value will be used to verify the 'signer' in the JWT header.
-        # Each value is the first N characters of the ARN and as a minimum must include up to
-        # the colon after the account-id, i.e.
-        # 'arn:aws:elasticloadbalancing:region-code:account-id:'
-        # See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html#user-claims-encodin
-        expectedSignerPrefixes: []
-        # Some OpenId providers, e.g. AWS Cognito, require a form to be used for token requests.
-        formTokenRequest: true
-        # A template to build the user's full name using claim values as variables in the
-        # template. E.g '${firstName} ${lastName}' or '${name}'.
-        # If this property is set in the YAML file, use single quotes to prevent the
-        # variables being expanded when the config file is loaded. Note: claim names are
-        # case sensitive
-        fullNameClaimTemplate: "${name}"
-        # The type of Open ID Connect identity provider that stroom/prox
-        # will use for authentication. Valid values are:
-        # EXTERNAL_IDP - An external IDP such as KeyCloak/Cognito,
-        # TEST_CREDENTIALS - Use hard-coded authentication credentials for test/demo only and
-        # NO_IDP - No IDP is used. API keys are set in config for feed status checks.
-        # Changing this property will require a restart of the application
-        identityProviderType: "NO_IDP"
-        # The issuer used in OpenId authentication.
-        # Should only be set if not using a configuration endpoint
-        issuer: null
-        # The URI to obtain the JSON Web Key Set from in OpenId authentication
-        # Should only be set if not using a configuration endpoint
-        jwksUri: null
-        # The logout endpoint for the identity provider
-        # This is not typically provided by the configuration endpoint
-        logoutEndpoint: null
-        # The name of the URI parameter to use when passing the logout redirect URI to the IDP.
-        # This is here as the spec seems to have changed from 'redirect_uri' to
-        # 'post_logout_redirect_uri'
-        logoutRedirectParamName: "post_logout_redirect_uri"
-        # You can set an openid-configuration URL to automatically configure much of the openid
-        # settings. Without this the other endpoints etc must be set manually
-        openIdConfigurationEndpoint: null
-        # If the token is signed by AWS then use this pattern to form the URI to obtain the
-        # public key from. The pattern supports the variables '${awsRegion}' and '${keyId}'.
-        # Multiple instances of a variable are also supported.
-        # If this property is set in the YAML file, use single quotes to prevent the
-        # variables being expanded when the config file is loaded.
-        publicKeyUriPattern: "https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}"
-        # If custom auth flow request scopes are required then this should be set to replace
-        # the defaults of 'openid' and 'email'.
-        requestScopes:
-        - "openid"
-        - "email"
-        # The token endpoint used in OpenId authentication
-        # Should only be set if not using a configuration endpoint
-        tokenEndpoint: null
-        # The Open ID Connect claim used to link an identity on the IDP to a stroom user.
-        # Must uniquely identify the user on the IDP and not be subject to change. Uses 'sub' by
-        # default
-        uniqueIdentityClaim: "sub"
-        # The Open ID Connect claim used to provide a more human friendly username for a user
-        # than that provided by uniqueIdentityClaim. It is not guaranteed to be unique and may
-        # change
-        userDisplayNameClaim: "preferred_username"
-        # A set of issuers (in addition to the 'issuer' property that is provided by the IDP
-        # that are deemed valid when seen in a token. If no additional valid issuers are
-        # required then set this to an empty set. Also this is used to validate the 'issuer'
-        # returned by the IDP when it is not a sub path of 'openIdConfigurationEndpoint'. If
-        # this set is empty then Stroom will verify that the
-        validIssuers: []
 ```
+
+The `openId` branch of the config is common to both Stroom and Stroom-Proxy, see [Open ID Configuration]({{< relref "common-configuration#open-id-configuration" >}}) for details.
+
 
 ### Amazon Simple Queue Service Configuration
 
@@ -691,24 +624,16 @@ proxyConfig:
 ```
 
 
-
-
-
-
-
-
-
-
 ## Deploying without Docker
 
-Apart from the structure of the `config.yml` file, the configuration in a non-docker environment is the same as for [stroom]({{< relref "./configuring-stroom-proxy.md#deploying-without-docker" >}})
+Apart from the structure of the `config.yml` file, the configuration in a non-docker environment is the same as for [stroom]({{< relref "./configuring-stroom.md#deploying-without-docker" >}}).
 
 
 ## As part of a docker stack
 
-The way stroom-proxy is configured is essentially the same as for [stroom]({{< relref "./configuring-stroom-proxy.md#as-part-of-a-docker-stack" >}}) with the only real difference being the structure of the `config.yml` file as note [above](#configyml) .
+The way Stroom-Proxy is configured is essentially the same as for [stroom]({{< relref "./configuring-stroom.md#as-part-of-a-docker-stack" >}}) with the only real difference being the structure of the `config.yml` file as note [above](#config-file-structure) .
 As with stroom the docker stack comes with a `./volumes/stroom-proxy-*/config/config.yml` file that will be used in the absence of a provided one.
-Also as with stroom, the `config.yml` file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files. 
+Also as with stroom, the `config.yml` file supports environment variable substitution so can make use of environment variables set in the stack `.env` file and passed down via the docker-compose YAML files. 
 
 
 ### Certificates
@@ -725,38 +650,149 @@ volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 ```
 
-For a production deployment these will need to be changed, see [Certificates]({{< relref "./#certificates" >}})
+For a production deployment these will need to be replaced with the certificates that are appropriate for your environment.
 
 
-#### Feed status certificate configuration
+## Typical Configuration
 
-The configuration of the client certificates for feed status checks is done using the `FEED_STATUS` jersey client configuration.
-See [Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration#jersey-http-client-configuration" >}}).
+The following are a guide to typical configurations for operating a Stroom-Proxy with different use cases.
 
 
-#### Forwarding Configuration
+### Store and Forward
 
-Stroom-proxy can forward to multiple locations.
-The configuration of the certificate(s) for the forwarding locations is as follows:
+This is a typical case where you want to aggregate received data then forward it to a downstream Stroom or Stroom-Proxy, but also retain a store of the aggregates.
 
 ```yaml
+server:
+  applicationContextPath: /
+  adminContextPath: /proxyAdmin
+  applicationConnectors:
+    - type: http
+      port: "8090"
+      useForwardedHeaders: true
+  adminConnectors:
+    - type: http
+      port: "8091"
+      useForwardedHeaders: true
+  detailedJsonProcessingExceptionMapper: true
+  requestLog:
+    appenders:
+      # Log appender for the web server request logging
+    - type: file
+      currentLogFilename: logs/access/access.log
+      discardingThreshold: 0
+      # Rolled and gzipped every minute
+      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+      # One week using minute files
+      archivedFileCount: 10080
+      logFormat: '%h %l "%u" [%t] "%r" %s %b "%i{Referer}" "%i{User-Agent}" %D'
+
+logging:
+  level: WARN
+  loggers:
+    # Logs useful information about stroom proxy. Only set DEBUG on specific 'stroom' classes or packages
+    # due to the large volume of logs that would be produced for all of 'stroom' in DEBUG.
+    stroom: INFO
+    # Logs useful information about dropwizard when booting stroom
+    io.dropwizard: INFO
+    # Logs useful information about the jetty server when booting stroom
+    # Set this to INFO if you want to log all REST request/responses with headers/payloads.
+    org.glassfish.jersey.logging.LoggingFeature: OFF
+
+    # Logger and appender for proxy receipt audit logs
+    "receive":
+      level: INFO
+      additive: false
+      appenders:
+      - type: file
+        currentLogFilename: logs/receive/receive.log
+        discardingThreshold: 0
+        # Rolled and gzipped every minute
+        archivedLogFilenamePattern: logs/receive/receive-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+        # One week using minute files
+        archivedFileCount: 10080
+        logFormat: "%-6level [%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}] [%t] %logger - %X{code} %msg %n"
+
+    # Logger and appender for proxy send audit logs
+    "send":
+      level: INFO
+      additive: false
+      appenders:
+      - type: file
+        currentLogFilename: logs/send/send.log
+        discardingThreshold: 0
+        # Rolled and gzipped every minute
+        archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+        # One week using minute files
+        archivedFileCount: 10080
+        logFormat: "%-6level [%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}] [%t] %logger - %X{code} %msg %n"
+
+  appenders:
+
+    # Log to stdout, use this if running in Docker
+  - type: console
+    # Multi-coloured log format for console output
+    logFormat: "%highlight(%-6level) [%d{\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",UTC}] [%green(%t)] %cyan(%logger) - %X{code} %msg %n"
+    timeZone: UTC
+
+    # Minute rolled files for stroom/datafeed, will be curl'd/deleted by stroom-log-sender
+  - type: file
+    currentLogFilename: logs/app/app.log
+    discardingThreshold: 0
+    archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+    # One week using minute files
+    archivedFileCount: 10080
+    logFormat: "%-6level [%d{\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",UTC}] [%t] %logger - %X{code} %msg %n"
+
+# This section contains the Stroom Proxy configuration properties
+# For more information see:
+# https://gchq.github.io/stroom-docs/user-guide/properties.html
+# jerseyClients are used for making feed status and content sync REST calls
+jerseyClients:
+  default:
+    tls:
+      keyStorePath: "certs/client.jks"
+      keyStorePassword: "password"
+      trustStorePath: "certs/ca.jks"
+      trustStorePassword: "password"
+
 proxyConfig:
+  path:
+    # By default all files read or written to by stroom-proxy will be in directories relative to
+    # the home location. This must be set to an absolute path and also to one that differs
+    # the installed software as it has a different lifecycle.
+    home: "/stroomdata/stroom-proxy/home"
+  # This is the downstream (in datafeed flow terms) stroom/stroom-proxy used for
+  # feed status checks, supplying data receipt rules and verifying API keys.
+  downstreamHost:
+    scheme: "https"
+    port: "443"
+    hostname: "stroom.some.domain"
+    apiKey: "...API KEY..."
+  # If we are storing data in a proxy repository we can aggregate it before forwarding.
+  aggregator:
+    maxItemsPerAggregate: 1000
+    maxUncompressedByteSize: "1G"
+    aggregationFrequency: 10m
 
   forwardHttpDestinations:
-    - enabled: true
-      name: "downstream"
-      forwardUrl: "https://some-host/stroom/datafeed"
-      sslConfig:
-        keyStorePath: "/stroom-proxy/certs/client.jks"
+  - name: "local-repo"
+    path: "/stroomdata/stroom-proxy/repo"
+
+  forwardHttpDestinations:
+  - name: "downstream-stroom"
+    httpClient:
+      tls:
+        keyStorePath: "certs/client.jks"
         keyStorePassword: "password"
-        keyStoreType: "JKS"
-        trustStorePath: "/stroom-proxy/certs/ca.jks"
+        trustStorePath: "certs/ca.jks"
         trustStorePassword: "password"
-        trustStoreType: "JKS"
-        hostnameVerificationEnabled: true
+
+  receive:
+    receiptCheckMode: "RECEIPT_POLICY"
 ```
 
-`forwardUrl` specifies the URL of the _datafeed_ endpoint on the destination host.
-Each forward location can use a different key/trust store pair.
+
+
 
 

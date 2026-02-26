@@ -1,7 +1,7 @@
 ---
 title: "Proxy Functions"
 linkTitle: "Proxy Functions"
-#weight:
+weight: 30
 date: 2026-02-24
 tags:
   - proxy

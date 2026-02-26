@@ -1,7 +1,7 @@
 ---
 title: "Proxy Architecture"
 linkTitle: "Proxy Architecture"
-#weight:
+weight: 60
 date: 2025-04-11
 tags: 
   - proxy

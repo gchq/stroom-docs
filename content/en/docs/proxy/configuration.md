@@ -1,7 +1,7 @@
 ---
 title: "Proxy Configuration"
 linkTitle: "Proxy Configuration"
-#weight:
+weight: 20
 date: 2026-02-13
 tags: 
 description: >
