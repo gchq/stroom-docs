@@ -15,15 +15,21 @@ Stroom-Proxy can be installed in 4 main ways:
 * App - There is an _app_ version that runs Stroom-Proxy as a Java {{< glossary "JAR" >}} file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.
 
 * Docker Stack - Stroom-Proxy, Nginx and Stroom-Log-Sender run in Docker containers, orchestrated using Docker Compose and some shell scripts.
-  The stroom-proxy image is essentially a minimal Alpine Linux container with the appropriate Java version installed and the Stroom-Proxy JAR
+  The stroom-proxy image is essentially a minimal Alpine Linux container with the appropriate Java version installed and the Stroom-Proxy JAR contained within it.
 
 * Docker Images - Manually run containers based on the Stroom-Proxy docker image.
 
 * Kubernetes - Deploy Stroom-Proxy into a Kubernetes cluster.
 
-There are 2 versions of the stroom software available for a proxy server.
+The document will cover the installation and configuration of the Stroom-Proxy software for both the 'app' and Docker stack deployments.
 
-The document will cover the installation and configuration of the Stroom-Proxy software for both the 'app' and docker stack versions.
+{{% note %}}
+Older versions of Stroom-Proxy 'sent' data to Stroom by being co-located with Stroom and using a shared repository location.
+Stroom-Proxy would write to the repository and Stroom would retrieve data from there.
+
+This method is no longer used.
+Current versions of Stroom-Proxy forward data to Stroom so do not need to be co-located with Stroom.
+{{% /note %}}
 
 
 ## Assumptions
