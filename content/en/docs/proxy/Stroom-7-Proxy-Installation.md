@@ -28,7 +28,25 @@ Older versions of Stroom-Proxy 'sent' data to Stroom by being co-located with St
 Stroom-Proxy would write to the repository and Stroom would retrieve data from there.
 
 This method is no longer used.
-Current versions of Stroom-Proxy forward data to Stroom so do not need to be co-located with Stroom.
+Current versions of Stroom-Proxy forward data to Stroom over HTTP so do not need to be co-located with Stroom.
+{{% /note %}}
+
+
+## Typical Deployments
+
+Stroom-Proxy is typically deployed in front of Stroom to act as a proxy for data receipt into Stroom.
+This abstracts Stroom from the clients sending the data and ensures that received data is aggregated into sensibly sized streams.
+
+For a production Stroom cluster, it is likely that you will want multiple Stroom-Proxy instances behind a load balancer for resiliency and load management.
+
+{{% note %}}
+Stroom-Proxy instances are independent and cannot form a coherent cluster.
+If you have a 'cluster' of Stroom-Proxy instances for resilience, each Stroom-Proxy instance can only work with the data it has received and loss of an instance means the loss of any data it was in the process of aggregating.
+
+Also if you have a large 'cluster' of Stroom-Proxy instances, this can have an impact on aggregation as data for the same aggregation key (Feed and Stream Type) will be spread over multiple instances and thus aggregates.
+For low volume Feeds, this can mean smaller aggregates than is preferred.
+
+To mitigate against this, you can use sticky sessions when load balancing or ideally use a load balancer that allows selection of the upstream instance using HTTP headers, i.e. `Feed`.
 {{% /note %}}
 
 
@@ -193,24 +211,6 @@ The pre-requisites for this deployment are:
 
 For details about which Java distribution and version to use, and how to install it, see [Java]({{< relref "docs/install-guide/java" >}}).
 
-Create a shell script that will define the Java variable OR add the statements to `.bash_profile`.
-e.g. `vi /etc/profile.d/jdk.sh`
-
-```bash
-export JAVA_HOME=/path/to/java/home
-export PATH=$PATH:$JAVA_HOME/bin
-```
-{{< command-line "stroomuser" "localhost" >}}
-source /etc/profile.d/jdk.sh
-echo $JAVA_HOME
-(out)/path/to/java/home
-
-java --version
-(out)openjdk 25 2025-09-16 LTS
-(out)OpenJDK Runtime Environment Temurin-25+36 (build 25+36-LTS)
-(out)OpenJDK 64-Bit Server VM Temurin-25+36 (build 25+36-LTS, mixed mode, sharing)
-{{</ command-line >}}
-
 {{% note %}}
 Disable _selinux_ to avoid issues with access and file permissions. 
 {{% /note %}}
@@ -218,91 +218,17 @@ Disable _selinux_ to avoid issues with access and file permissions.
 
 ### Download and install Stroom v7 (app version)
 
-The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.
+Stroom-Proxy releases are available from {{< external-link "github.com/gchq/stroom/releases" "https://github.com/gchq/stroom/releases" >}}.
+Each release has a number of artefacts, the Stroom-Proxy application is `stroom-proxy-app-v*.zip`.
+
+The installation example below is for stroom version v7.10.20, but is applicable to other stroom v7 versions.
 As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.
 
 {{< command-line "stroomuser" "localhost" >}}
-wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
-unzip stroom-proxy-app..............
+wget https://github.com/gchq/stroom/releases/download/v7.10.20/stroom-proxy-app-v7.10.20.zip
+unzip stroom-proxy-app-v7.10.20.zip
 {{</ command-line >}}
 
-The configuration file – `stroom-proxy/config/config.yml` – is the principal file to be edited, as it contains
-
-- connection details to the stroom server
-- the locations of the proxy server log files
-- the directory on the proxy server, where data files will be stored prior to forwarding onot stroom 
-- the location of the PKI Java keystore (jks) files
-
-The log file locations are changed to be relative to where stroom is started i.e. `~stroomuser/stroom-proxy/logs/…`..
-
-```yaml
-server:
-  requestLog:
-    appenders:
-    - currentLogFilename: logs/access/access.log		
-      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log
-logging:
-  loggers:
-    "receive":
-      appenders:
-      - currentLogFilename: logs/receive/receive.log
-        archivedLogFilenamePattern: logs/receive/receive-%d{yyyy-MM-dd'T'HH:mm}.log
-    "send":
-      appenders:
-      - currentLogFilename: logs/send/send.log
-        archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-  appenders:
-      - currentLogFilename: logs/app/app.log
-        archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-```
-
-An API key created on the stroom server for a special proxy user is added to the configuration file.
-The API key is used to validate access to the application
-
-```yaml
-proxyConfig:
-  useDefaultOpenIdCredentials: false
-  proxyContentDir: "/stroom-proxy/content"
-
-  feedStatus:
-    url: “http://stroomserver.somewhere.co.uk:8080/api/feedStatus/v1"
-    apiKey: "eyJhbGciOiJSUz...ScdPX0qai5UwlBA"
-  forwardStreamConfig:
-    forwardingEnabled: true
-```
-
-The location of the jks files has to be set, or comment all of the lines that have **sslConfig: and tls:** sections out to not use jks checking. 
-
-Stroom also needs the client and ca ‘jks’ files and by default are located in - `/stroom-proxy/certs/ca.jks` and `client.jks`.
-Their location can be changed in the `config.yml`
-
-```yaml
-keyStorePath: "/stroom-proxy/certs/client.jks"
-trustStorePath: "/stroom-proxy/certs/ca.jks"
-keyStorePath: "/stroom-proxy/certs/client.jks"
-trustStorePath: "/stroom-proxy/certs/ca.jks"
-```
-
-{{% todo %}}
-Change to reflect use of proxy home.
-{{% /todo %}}
-
-
-Could be changed to
-```yaml
-keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks"
-trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks"
-keyStorePath: "/home/stroomuser/stroom-proxy/certs/client.jks"
-trustStorePath: "/home/stroomuser/stroom-proxy/certs/ca.jks"
-```
-
-Create a directory - `/stroom-proxy` – and ensure that stroom can write to it.
-This is where the proxy data files are stored - `/stroom-proxy/repo`
-
-```yaml
-proxyRepositoryConfig:
-  storingEnabled: true
-  repoDir: "/stroom-proxy/repo"
-  format: "${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}"
-```
+The configuration file – `stroom-proxy/config/config.yml` – is the principal file that controls the configuration of Stroom-Proxy.
+See [Stroom Proxy Configuration]({{< relref "docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy" >}}).
 

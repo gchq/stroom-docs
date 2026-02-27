@@ -56,3 +56,24 @@ See {{< external-link "Linux Installation Instructions" "https://adoptium.net/en
 
 Alternatively, see {{< external-link "Adoptium Eclipse Temurin" "https://adoptium.net/en-GB/temurin/releases" >}} for links to download the Java binaries for manual installation.
 
+
+## Setting Java Home
+
+Create a shell script that will define the Java variable OR add the statements to `.bash_profile`.
+e.g. `vi /etc/profile.d/jdk.sh`
+
+```bash
+export JAVA_HOME=/path/to/java/home
+export PATH=$PATH:$JAVA_HOME/bin
+```
+{{< command-line "stroomuser" "localhost" >}}
+source /etc/profile.d/jdk.sh
+echo $JAVA_HOME
+(out)/path/to/java/home
+
+java --version
+(out)openjdk 25 2025-09-16 LTS
+(out)OpenJDK Runtime Environment Temurin-25+36 (build 25+36-LTS)
+(out)OpenJDK 64-Bit Server VM Temurin-25+36 (build 25+36-LTS, mixed mode, sharing)
+{{</ command-line >}}
+

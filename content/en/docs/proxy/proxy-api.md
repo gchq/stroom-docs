@@ -10,7 +10,7 @@ description: >
 
 ## Application APIs
 
-These are the public APIs of the Stroom-Proxy application.
+These are the public APIs of the Stroom-Proxy application and are all available on the application port (which defaults to `8090`).
 Administrators may still want to restrict access to specific endpoints, e.g. making the `/datafeed` API public, but limiting the REST API to within the Stroom estate as the REST APIs are typically called by other Stroom-Proxy instances.
 
 
@@ -76,12 +76,6 @@ echo "Today is $(date)" \
 {{</ command-line >}}
 
 
-### `/queues`
-
-This endpoint returns HTML and is intended as a means for an admin to monitor the state of the various internal queues within Stroom-Proxy.
-It is intended to be called from a browser.
-
-
 ### REST API
 
 Stroom-Proxy presents a number of {{< glossary "REST" >}} endpoints:
@@ -92,8 +86,6 @@ Stroom-Proxy presents a number of {{< glossary "REST" >}} endpoints:
 * `POST` - `/api/event` - The [Event Store API]({{< relref "proxy-functions#event-store-api" >}}) for POSTing individual events.
 * `POST` - `/api/feedStatus/v1/getFeedStatus` - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.
 * `POST` - `/api/feedStatus/v2/getFeedStatus` - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.
-* `GET`  - `/api/ruleset/v2/` - Not supported by Stroom-Proxy.
-* `PUT`  - `/api/ruleset/v2/` - Not supported by Stroom-Proxy.
 * `GET`  - `/api/ruleset/v2/fetchHashedRules` - Allows an upstream Stroom-Proxy to fetch the obfuscated receipt policy rules.
 
 
@@ -130,7 +122,7 @@ Proxy exposes two endpoints for capturing metrics on its inner workings:
 `http://localhost:8091/proxyAdmin/healthcheck?pretty=true`
 
 Performing a GET request on this endpoint will initiate a health check on all parts of Stroom-Proxy that have registered a health check.
-Each registered health check will return health or unhealthy along with any details relating to its state.
+Each registered health check will return _healthy_ or _unhealthy_ along with any details relating to its state.
 If all health checks return healthy then the endpoint will return a `200` status.
 
 It allows the Stroom-Proxy instance to self check its inner workings.
@@ -168,15 +160,23 @@ It takes the following optional query parameters:
 * `pretty` - Set to `true` to format the JSON.
 
 
+### Queues
+
+`http://localhost:8091/proxyAdmin/queues`
+
+This endpoint returns HTML and is intended as a means for an admin to monitor the state of the various internal queues within Stroom-Proxy.
+It is intended to be called from a browser.
+
+
 ### Tasks
 
-Stroom-Proxy has a number of tasks that can be executed via its tasks API.
+Stroom-Proxy has a number of administrative tasks that can be executed via its tasks API.
 
 The list of available task names can be found by performing a `GET` request on:
 
 `http://localhost:8091/proxyAdmin/tasks`
 
-The following tasks are currently available:
+The following is a list of the task names that are currently available:
 
 * `clear-all-cache` - Clears all caches in Stroom-Proxy.
 * `clear-cache-Authenticated-Data-Feed-Key-Cache` - Clears the Authenticated Datafeed Key cache.

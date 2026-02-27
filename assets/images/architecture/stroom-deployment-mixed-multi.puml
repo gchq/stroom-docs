@@ -7,7 +7,7 @@ title
 end title
 
 skinparam rectangle {
-	roundCorner<<container>> 25
+    roundCorner<<container>> 25
 }
 
 node "Datafeed client host" as dataload_client_host <<device>> {
@@ -48,11 +48,14 @@ rectangle "stroom estate" {
     ' Procedure to generate a stroom host with links to and from it
     !procedure add_stroom_host($node_id)
         !$host_name=$concat("stroom_host_", $node_id)
+        !$proxy_host_name=$concat("proxy_host_", $node_id)
         !$stroom_dropwiz_name=$concat("stroom_dropwiz_", $node_id)
         !$stroom_proxy_dropwiz_name=$concat("stroom_proxy_dropwiz_", $node_id)
 
         node "$concat("stroom host ", $node_id)" as $host_name <<device>> {
             node "$concat("stroom ", $node_id)" as $stroom_dropwiz_name <<java app>>
+        }
+        node "$concat("Proxy host ", $node_id)" as $proxy_host_name <<device>> {
             node "$concat("stroom-proxy (local) ", $node_id)" as $stroom_proxy_dropwiz_name <<java app>>
         }
         ' Database connections
@@ -98,4 +101,3 @@ remote_proxy --> nginx
 'hide empty members
 
 @enduml
-
