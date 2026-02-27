@@ -10,7 +10,7 @@ description: >
   
 ---
 
-There are 2 versions of the stroom software availble for building a proxy server.
+There are 2 versions of the stroom software available for building a proxy server.
 There is an _app_ version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.
 The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database.
 The document will cover the installation and configuration of the stroom proxy software for both the docker and 'app' versions.
@@ -35,7 +35,7 @@ The following assumptions are used in this document.
 
 The build of a stroom proxy where the stroom applications are running in docker containers.
 The operating system (OS) build for a 'dockerised' stroom proxy is minimal RHEL/CentOS 7 plus the docker-ce & docker-compose packages.
-Neither of the pre-requisites are available from the CentOS ditribution.
+Neither of the pre-requisites are available from the CentOS distribution.
 It will also be necessary to open additional ports on the system firewall (where appropriate).
 
 ### Download and install docker
@@ -225,7 +225,7 @@ The configuration file – `stroom-proxy/config/config.yml` – is the principal
 
 - connection details to the stroom server
 - the locations of the proxy server log files
-- the directory on the proxy server, where data files will be stored prior to forwarding onot stroom 
+- the directory on the proxy server, where data files will be stored prior to forwarding onto stroom 
 - the location of the PKI Java keystore (jks) files
 
 The log file locations are changed to be relative to where stroom is started i.e. `~stroomuser/stroom-proxy/logs/…`..

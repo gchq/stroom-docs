@@ -174,7 +174,7 @@ Then click on the {{< stroom-icon "process.svg" "Reprocess">}} icon to reprocess
 
 Repeat the process in batches of less that 1000 until your entire error stream backlog has been reprocessed.
 
-In a worst case senario, one can also delete a set of streams for a given time period and then reprocess them all.
+In a worst case scenario, one can also delete a set of streams for a given time period and then reprocess them all.
 The only risk here is that if there
 are other pipelines that trigger on Event creation, you will activate them. 
 

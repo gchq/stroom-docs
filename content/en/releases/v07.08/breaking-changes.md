@@ -23,7 +23,7 @@ See [Configuration File Changes (Service Discovery)]({{< relref "./upgrade-notes
 
 The new implementation of Stroom-Proxy is not compatible with previous versions.
 It uses a different structure for its local repository.
-Therefor you **CANNOT** deploy Stroom-Proxy v7.8 on top of a previous Stroom-Proxy version as it will be unable to process existing stored data that has not yet been forwarded.
+Therefore you **CANNOT** deploy Stroom-Proxy v7.8 on top of a previous Stroom-Proxy version as it will be unable to process existing stored data that has not yet been forwarded.
 
 You have two options:
 

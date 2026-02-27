@@ -62,7 +62,7 @@ There will be four components
 All components will have the same Name **BlueCoat-Proxy-V1.0-EVENTS**.
 It should be noted that the default Stroom FeedName pattern will not accept this name.
 One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{3,}$`.
-See the [HOWTO on System Properties]({{< relref "../Administration/SystemProperties.md" >}}) docment to see how to make this change.
+See the [HOWTO on System Properties]({{< relref "../Administration/SystemProperties.md" >}}) document to see how to make this change.
 
 
 ### Create the Event Feed
@@ -305,7 +305,7 @@ Having done this we select a **Stream Type:** of `Raw Events`
 
 We leave the **Effective:** entry box empty as this stream of raw event logs does not have an `Effective Date` (only Reference Feeds set this).
 
-And we choose our file `sampleBluecoat.log`, by clicking on the `Browse` button in the **File:** entry box, which brings up the brower's standard file upload selection window.
+And we choose our file `sampleBluecoat.log`, by clicking on the `Browse` button in the **File:** entry box, which brings up the browser's standard file upload selection window.
 Having selected our file, we see
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-24.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload Complete{{< /screenshot >}}
@@ -843,7 +843,7 @@ Do not forget to Save {{< stroom-icon "save.svg" >}} the translation as we are c
 
 One last point, validating the use of the Stroom Event Logging Schema is performed in the `schemaFilter` component of the pipeline.
 Had our translation resulted in a malformed Event, this pipeline component displays any errors.
-In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd`.
+In the screen below, we have purposely changed the `EventTime/TimeCreated` element to be `EventTime/TimeCreatd` (misspelled).
 If one selects the `schemaFilter` component and then Refresh {{< stroom-icon name="refresh.svg" title="Refresh step" colour="green" >}} the current step, we will see that
 
 * there is an error as indicated by a square **Red** box {{< stroom-icon "../HOWTOs/icons/errorIndicator.png" "Error indicator">}} in the top right hand corner
