@@ -5,7 +5,7 @@ weight: 30
 date: 2022-11-25
 tags:
 description: >
-  How to setup KEyCloak as an external identity provider for Stroom.
+  How to setup KeyCloak as an external identity provider for Stroom.
   
 ---
 
@@ -181,7 +181,7 @@ See [Command Line Tools]({{< relref "command-line" >}}) for more details on usin
 This command will do the following:
 
 * Create the Stroom User by creating an entry in the `stroom_user` database table for the IDP's `admin` user.
-* Ensure that an `Adminstrators` group exists (i.e. an entry in the `stroom_user` database table for the `Adminstrators` group).
+* Ensure that an `Administrators` group exists (i.e. an entry in the `stroom_user` database table for the `Administrators` group).
 * Add the `admin` user to the group `Administrators`.
 * Grant the application permission `Administrator` to the group `Administrators`.
 

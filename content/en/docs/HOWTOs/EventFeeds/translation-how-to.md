@@ -238,7 +238,7 @@ XPath references to nodes further down inside the record should normally be made
 
 Depending on the output format from the parser, there are two ways of referencing a field to populate an output node.
 
-If the intermedia XML is of the following format:
+If the intermediate XML is of the following format:
 
 ```xml
 <record>
