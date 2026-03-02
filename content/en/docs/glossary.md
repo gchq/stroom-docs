@@ -20,7 +20,7 @@ See [User Accounts]({{< relref "docs/user-guide/security/user-accounts" >}}) for
 
 Application Programming Interface.
 An interface that one system can present so other systems can use it to communicate.
-Stroom has a number of APIs, e.g. its many {{< external-link "REST" "https://en.wikipedia.org/wiki/Representational_state_transfer" >}} APIs and its `/datafeed` interface for data receipt.
+Stroom has a number of APIs, e.g. its many {{< glossary "REST" >}} APIs and its `/datafeed` interface for data receipt.
 
 
 ## API Key
@@ -257,6 +257,12 @@ Examples of identity providers are Google, Cognito, KeyCloack and Microsoft Azur
 Stroom has its own built in IDP or can be configured to use a 3rd party IDP.
 
 
+## IP Address
+
+The Internet Protocol address, e.g. `192.168.0.1`.
+Typically an IP address is assumed to be an IPv4 address.
+
+
 ## ISO8601
 
 This is an international standard for representing dates, times and durations.
@@ -272,6 +278,13 @@ Valid examples of ISO8601 dates/times are:
 ```
 
 See {{< external-link "ISO_8601" "https://en.wikipedia.org/wiki/ISO_8601" >}} for more detail.
+
+
+## JAR
+
+**J**ava **Ar**chive is a file format for distributing Java class files, associated metadata and resource files.
+It is a compressed archive based on the {{< glossary "ZIP" >}} format, so can be inspected with any tool capable of reading a ZIP file.
+Stroom and Stroom-Proxy are distributed as JAR files.
 
 
 ## JSON
@@ -388,6 +401,13 @@ Re-Processing can be done for an individual Stream or multiple Streams using a {
 
 This is a {{< glossary "Stream Type" >}} for {{< glossary "Stream" "Streams" >}} containing data conforming to the {{< external-link "records:2 XML Schema" "https://github.com/gchq/stroom-content/blob/master/source/core-xml-schemas/stroomContent/XML_Schemas.Folder.428918b8-4088-42ad-8c49-663b7a428ea9/core.Folder.428918b8-4088-42ad-8c49-663b7a428ea3/records.Folder.73ce2b98-e520-4446-9831-b283b8616296/records_v2_0.XMLSchema.47f062d9-8191-4535-b35b-74c6f020320f.xsd" >}}.
 It also refers more generally to XML conforming to the `records:2` XML Schema which is used in a number of places in Stroom, including as the output format for the {{< element "DSParser" >}} and input for the {{< element "IndexingFilter" >}}.
+
+
+## REST
+
+REST (**Re**presentational **S**tate **T**ransfer) is essentially an architectural style that dictates how data should be handled and "transferred" across a network.
+REST APIs typically use {{< glossary "JSON" >}} to send data between the client and the server, and the HTTP methods GET, PUT, PATCH, POST and DELETE.
+See {{< external-link "REST" "https://en.wikipedia.org/wiki/Representational_state_transfer" >}} for more detail.
 
 
 ## Searchable
@@ -554,6 +574,16 @@ All data is converted into a basic form of XML and then XSLTs are used to decora
 XSLTs are also used to transform XML {{< glossary "Events" >}} data into non-XML forms or XML with a different schema for indexing, statistics or for sending to other systems.
 
 See the [User Guide]({{< relref "user-guide/pipelines/xslt" >}}) for more detail.
+
+
+## ZIP
+
+A compressed file format for storing a one or more files with an associated directory structure.
+Stroom and Stroom Proxy use the ZIP format for exporting content and data as well as its Proxy ZIP format for holding multiple streams of data with associated meta data.
+
+See [Stroom ZIP Format]({{< relref "docs/sending-data/payloads#stroom-zip-format" >}})
+
+
 
 
 <!-- TODO
