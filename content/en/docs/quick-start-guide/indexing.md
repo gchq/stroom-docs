@@ -15,7 +15,7 @@ Before you can visualise your data with dashboards you have to {{< glossary "ind
 
 {{% note %}}
 Stroom uses Apache Lucene for indexing its data but can also integrate with Solr and {{< glossary "Elasticsearch" >}}.
-For this Quick Start Guide we are going to use Stroom's internal Lucence indexing.
+For this Quick Start Guide we are going to use Stroom's internal Lucene indexing.
 {{% /note %}}
 
 
