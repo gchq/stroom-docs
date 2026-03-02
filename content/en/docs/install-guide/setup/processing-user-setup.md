@@ -22,7 +22,7 @@ You may want to allow normal accounts to sudo to this account for maintenance (v
 
 ## Create service script
 
-Create a service script to start/stop on server startup (as root).
+Create a service script to start/stop on server startup (as root).  
 
 {{< command-line "root" "localhost" >}}
 vi /etc/init.d/stroomuser

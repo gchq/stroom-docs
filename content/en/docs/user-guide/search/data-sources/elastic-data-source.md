@@ -25,7 +25,7 @@ Before you set the dashboard's data source, you must first create an Elastic Ind
 ### Create an Elastic Index document
 
 1. Right-click a folder in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
-1. Select:
+1. Select:  
    {{< stroom-menu "New" "Elastic Index" >}}
 1. Enter a name for the index document and click {{< stroom-btn "OK" >}}.
 1. Click {{< stroom-icon "ellipses-horizontal.svg" "Ellipsis" >}} next to the `Cluster configuration` field label.

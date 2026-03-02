@@ -161,7 +161,7 @@ Open the {{< stroom-icon "feed.svg" >}} _CSV_FEED_ {{< glossary "Feed" >}} we cr
 1. In the top pane of the Data Browser select the _Events_ {{< glossary "Events" >}} stream.
 1. In the bottom pane you will see the XML data that you processed earlier.
 1. Click the {{< stroom-icon "stepping.svg" >}} button to open the Stepper.
-1. In the _Choose Pipeline To Step With_ dialog select our index pipeline:
+1. In the _Choose Pipeline To Step With_ dialog select our index pipeline:  
    {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Pipeline.svg">}} _Stroom 101_.
 
 This will open a Stepper tab showing only the elements of the selected pipeline that can be stepped.

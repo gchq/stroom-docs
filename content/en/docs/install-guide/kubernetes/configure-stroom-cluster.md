@@ -140,5 +140,5 @@ If any other changes need to be made, [delete]({{< relref "stop-stroom-cluster" 
 
 ## Next steps
 
-[Configure Stroom task autoscaling]({{< relref "configure-stroomtaskautoscaler" >}})
+[Configure Stroom task autoscaling]({{< relref "configure-stroomtaskautoscaler" >}})  
 [Stop]({{< relref "stop-stroom-cluster" >}}) a Stroom cluster

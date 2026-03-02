@@ -14,7 +14,7 @@ This page is currently work in progress and will evolve with further testing of 
 {{% /note %}}
 
 {{% page-warning %}}
-Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor and patch version of v5.
+Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor and patch version of v5.  
 At the time of writing the latest version of v5 is `v5.5.16`.
 {{% /page-warning %}}
 
