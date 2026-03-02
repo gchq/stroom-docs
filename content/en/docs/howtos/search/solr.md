@@ -37,18 +37,18 @@ description: >
    {{</ command-line >}}
 
 1. Create a SolrIndex in Stroom
-   {{< screenshot "HOWTOs/v7/HT_SimpleSolr_NewSolrIndex.png" >}}New Solr Index{{< /screenshot >}}
+   {{< screenshot "howtos/v7/HT_SimpleSolr_NewSolrIndex.png" >}}New Solr Index{{< /screenshot >}}
 
 1. Update settings for your new Solr Index in Stroom then press "Test Connection".
    If successful then press Save.
    Note the "Solr URL" field is a reference to the newly created Solr core.
-   {{< screenshot "HOWTOs/v7/HT_SimpleSolr_Settings.png" >}}Solr Index Settings{{< /screenshot >}}
+   {{< screenshot "howtos/v7/HT_SimpleSolr_Settings.png" >}}Solr Index Settings{{< /screenshot >}}
 
 1. Add some Index fields.
    e.g.EventTime, UserId
 
 1. Retention is different in Solr, you must specify an expression that matches data that can be deleted.
-   {{< screenshot "HOWTOs/v7/HT_SimpleSolr_Retention.png" >}}Solr Retention{{< /screenshot >}}
+   {{< screenshot "howtos/v7/HT_SimpleSolr_Retention.png" >}}Solr Retention{{< /screenshot >}}
 
 1. Your Solr Index can now be used as per a Stroom Lucene Index.
    However, your Indexing pipeline must use a SolrIndexingFilter instead of an IndexingFilter.

@@ -91,7 +91,7 @@ then perform the initial configuration of Stroom via the user interface.
 
 ## Database Installation
 The Stroom capability requires access to two MySQL/MariaDB databases. The first is for persisting application configuration and metadata information, and the second is for the Stroom Statistics capability.
-Instructions for installation of the Stroom databases can be found [here]({{< relref "InstallDatabaseHowTo.md" >}}).
+Instructions for installation of the Stroom databases can be found [here]({{< relref "install-database-how-to.md" >}}).
 Although these instructions describe the deployment of the databases to their own node, there is no reason why one can't
 just install them both on the first (or only) Stroom node.
 
@@ -120,7 +120,7 @@ One could deploy the MySQL database software as the alternative.
 
 <a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client. 
 Instructions for installation of the MySQL Community repository files can be
-found [here]({{< relref "InstallDatabaseHowTo.md#mysql-community-server-installation" >}}) or on
+found [here]({{< relref "install-database-how-to.md#mysql-community-server-installation" >}}) or on
 the {{< external-link "MySQL Site" "https://dev.mysql.com/downloads/repo/yum" >}}.
 Once you have installed the MySQL repository files, install the client via
 ```bash
@@ -207,31 +207,31 @@ We will use NFS to cross mount the _permanent data_ directories. That is
 - node `stroomp00.strmdev00.org` will mount `stroomp01.strmdev00.org:/stroomdata/stroom-data-p01` and,
 - node `stroomp01.strmdev00.org` will mount `stroomp00.strmdev00.org:/stroomdata/stroom-data-p00`.
 
-The HOWTO guide to deploy and configure NFS for our Scenario is [here]({{< relref "InstallNFSHowTo.md" >}})
+The HOWTO guide to deploy and configure NFS for our Scenario is [here]({{< relref "install-nfs-how-to.md" >}})
 
 ## Stroom Installation
 
 ### Pre-installation setup
 Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
-[here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}).
+[here]({{< relref "install-processing-user-setup-how-to.md" >}}).
 
 ### Stroom Proxy Installation
-Instructions for installation of the Stroom Proxy can be found [here]({{< relref "InstallProxyHowTo.md" >}}).
+Instructions for installation of the Stroom Proxy can be found [here]({{< relref "install-proxy-how-to.md" >}}).
 
 ### Stroom Application Installation
-Instructions for installation of the Stroom application can be found [here]({{< relref "InstallApplicationHowTo.md" >}}).
+Instructions for installation of the Stroom application can be found [here]({{< relref "install-application-how-to.md" >}}).
 
 ## Web Service Integration
 One typically 'fronts' either a Stroom Proxy or Stroom Application with a secure web service such as Apache's Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache's Httpd.
 
-We first need to create certificates for use by the web service. The [following]({{< relref "InstallCertificatesHowTo.md" >}})
+We first need to create certificates for use by the web service. The [following]({{< relref "install-certificates-how-to.md" >}})
 provides instructions for this. The created certificates can then be used when configuration the web service.
 
 This HOWTO is designed to deploy Apache's httpd web service as a front end (https) (to the user) and
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found [here]({{< relref "InstallHttpdHowTo.md" >}}).
+to configure this can be found [here]({{< relref "install-httpd-how-to.md" >}}).
 
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
 
@@ -308,15 +308,15 @@ to `stroomp.strmdev00.org:443`. As Stroom has not been configured to use user ce
 and continue.
 
 Additionally, if you are using  self-signed certificates, your browser will generate an alert as per
-{{< screenshot "HOWTOs/UI-Chrome-NoCa-00.png" >}}Self Signed Certificate Initial Warning{{< /screenshot >}}
+{{< screenshot "howtos/UI-Chrome-NoCa-00.png" >}}Self Signed Certificate Initial Warning{{< /screenshot >}}
 
 To proceed you need to select the __ADVANCED__ hyperlink to see
 
-{{< screenshot "HOWTOs/UI-Chrome-NoCa-01.png" >}}Self Signed Certificate Advanced Warning{{< /screenshot >}}
+{{< screenshot "howtos/UI-Chrome-NoCa-01.png" >}}Self Signed Certificate Advanced Warning{{< /screenshot >}}
 
 If you select the __Proceed to stroomp.strmdev00.org (unsafe)__ hyper-link you will be presented with the standard Stroom UI login page.
 
-{{< screenshot "HOWTOs/UI-Login-00.png" >}}Stroom UI Login Page{{< /screenshot >}}
+{{< screenshot "howtos/UI-Login-00.png" >}}Stroom UI Login Page{{< /screenshot >}}
 
 This page has two panels - **About Stroom** and **Login**.
 
@@ -329,40 +329,40 @@ In the **About Stroom** panel we see an introductory description of Stroom in th
 ### Login with Stroom default Administrative User
 Each new Stroom deployment automatically creates the administrative user `admin` and this user's password is initially set to `admin`.
 We will
-[login as this user]({{< relref "../Authentication/UserLoginHowTo.md" >}})
+[login as this user]({{< relref "../Authentication/user-login-how-to.md" >}})
 which also validates that the database and UI is working correctly in that you can login and the password is `admin`.
 
 ### Create an Attributed User to perform configuration
 We should configure Stroom using an _attributed user_ account.
 That is, we should
-[create]({{< relref "../Authentication/CreateUserHowTo.md" >}})
+[create]({{< relref "../Authentication/create-user-how-to.md" >}})
 a user, in our case it will be `burn` (the author) and once created, we login with that account then perform the initial configuration activities.
 You don't have to do this, but it is sound security practice.
 
 Once you have created the user you should
-[log out]({{< relref "../Authentication/UserLogoutHowTo.md" >}})
+[log out]({{< relref "../Authentication/user-logout-how-to.md" >}})
 of the `admin` account and log back in as our user `burn`.
 
 ### Configure the Volumes for our Stroom deployment
 Before we can store data within Stroom we need to configure the
 [volumes]({{< relref "../../user-guide/volumes.md" >}})
 we have allocated in our Storage hierarchy. The
-[Volume Maintenance HOWTO]({{< relref "InstallVolumesHowTo.md" >}})
+[Volume Maintenance HOWTO]({{< relref "install-volumes-how-to.md" >}})
 shows how to do this.
 
 ### Configure the Nodes for our Stroom deployment
 In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the nodes. This is achieved via the Stroom UI where we set a Cluster URL for each node.
-The following [Node Configuration HOWTO]({{< relref "InstallNodesHowTo.md" >}}) demonstrates how do
+The following [Node Configuration HOWTO]({{< relref "install-nodes-how-to.md" >}}) demonstrates how do
 set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
 [Data Processors]({{< relref "/docs/reference-section/jobs#data-processor" >}})
 need to be enabled. There are NOT enabled by default on installation. The following
-[section]({{< relref "../General/TasksHowTo.md#enable-stream-processors" >}})
-in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.
+[section]({{< relref "../General/tasks-how-to.md#enable-stream-processors" >}})
+in our [Stroom Tasks HowTo]({{< relref "../General/tasks-how-to.md" >}}) shows how to do this.
 
 ## Testing our Stroom Application and Proxy Installation
 To complete the installation process we will test that we can send and ingest data.
@@ -375,7 +375,7 @@ This is achieved using
 Each feed has a unique name within the system.
 
 To test our installation can accept and ingest data, we will
-[create a test Event feed]({{< relref "../General/FeedManagementHowTo.md#creation-of-an-event-feed" >}}). The 'name' of the feed will be
+[create a test Event feed]({{< relref "../General/feed-management-how-to.md#creation-of-an-event-feed" >}}). The 'name' of the feed will be
 `TEST-FEED-V1_0`. Note that in a production environment is is best that a well defined nomenclature is used for feed 'names'. For our
 testing purposes `TEST-FEED-V1_0` is sufficient.
 
@@ -412,10 +412,10 @@ automatically aggregates then ingests the data stored by the proxy, we can eithe
 [Proxy Aggregation]({{< relref "/docs/reference-section/jobs#proxy-aggregation" >}}) task,
 or attempt to
 perform our tests noting that proxy aggregation occurs every 10 minutes by default. For simplicity, we will
-[turn off the `Proxy Aggregation` task]({{< relref "../General/TasksHowTo.md#turn-off-proxy-aggregation" >}}).
+[turn off the `Proxy Aggregation` task]({{< relref "../General/tasks-how-to.md#turn-off-proxy-aggregation" >}}).
 
-We can now perform out tests. Follow the steps in the [Data Posting Tests]({{< relref "InstallTestingHowTo.md#data-post-tests" >}}) section
-of the [Testing Stroom Installation HOWTO]({{< relref "InstallTestingHowTo.md" >}})
+We can now perform out tests. Follow the steps in the [Data Posting Tests]({{< relref "install-testing-how-to.md#data-post-tests" >}}) section
+of the [Testing Stroom Installation HOWTO]({{< relref "install-testing-how-to.md" >}})
 
 ## Forwarding Stroom Proxy Deployment
 In this deployment will install a Stroom __Forwarding Proxy__ which is designed to aggregate data posted to it for managed forwarding to 
@@ -471,11 +471,11 @@ sudo chmod -R 750 /stroomdata
 ### Pre-installation setup
 Before installing the Stroom Forwarding Proxy, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
-[here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}). Although this setup HOWTO is orientated towards a complete Stroom Proxy
+[here]({{< relref "install-processing-user-setup-how-to.md" >}}). Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.
 
 ### Stroom Forwarding Proxy Installation
-Instructions for installation of the Stroom Proxy can be found [here]({{< relref "InstallProxyHowTo.md" >}}), noting you
+Instructions for installation of the Stroom Proxy can be found [here]({{< relref "install-proxy-how-to.md" >}}), noting you
 should follow the steps for configuring the proxy as a _Forwarding_ proxy.
 
 ## Web Service Integration for Forwarding Proxy
@@ -483,14 +483,14 @@ One typically 'fronts' a Stroom Proxy with a secure web service such as Apache's
 In our scenario, we will use SSL to secure the web service and further, we will use Apache's Httpd.
 
 We first need to create certificates for use by the web service. The
-[SSL Certificate Generation HOWTO]({{< relref "InstallCertificatesHowTo.md" >}}) provides instructions for this. 
+[SSL Certificate Generation HOWTO]({{< relref "install-certificates-how-to.md" >}}) provides instructions for this. 
 The created certificates can then be used when configuration the web service. NOTE also, that for a forwarding
 proxy we will need to establish Key and Trust stores as well. This is also documented in the SSL Certificate Generation HOWTO
-[here]({{< relref "InstallCertificatesHowTo.md#stroom-proxy-to-proxy-key-and-trust-stores" >}})
+[here]({{< relref "install-certificates-how-to.md#stroom-proxy-to-proxy-key-and-trust-stores" >}})
 
 This HOWTO is designed to deploy Apache's httpd web service as a front end (https) (to the user) and
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found [here]({{< relref "InstallHttpdHowTo.md" >}}). Please take note of where a Stroom Proxy
+to configure this can be found [here]({{< relref "install-httpd-how-to.md" >}}). Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.
 
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
@@ -510,8 +510,8 @@ curl -k --data-binary @/etc/group "https://stroomfp0.strmdev00.org/stroom/datafe
 ```
 Before testing, it is recommended you set up to monitor the Stroom proxy logs on the central server as well as on the Forwarding Proxy server.
 
-Follow the steps in the [Forwarding Proxy Data Posting Tests]({{< relref "InstallTestingHowTo.md#stroom-forwarding-proxy-testing" >}}) section
-of the [Testing Stroom Installation HOWTO]({{< relref "InstallTestingHowTo.md" >}})
+Follow the steps in the [Forwarding Proxy Data Posting Tests]({{< relref "install-testing-how-to.md#stroom-forwarding-proxy-testing" >}}) section
+of the [Testing Stroom Installation HOWTO]({{< relref "install-testing-how-to.md" >}})
 
 ## Standalone Stroom Proxy Deployment
 In this deployment will install a Stroom __Standalone Proxy__ which is designed to accept and store data posted to it for __manual__ forwarding to 
@@ -566,11 +566,11 @@ sudo chmod -R 750 /stroomdata
 ### Pre-installation setup
 Before installing the Stroom Standalone Proxy, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
-[here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}). Although this setup HOWTO is orientated towards a complete Stroom Proxy
+[here]({{< relref "install-processing-user-setup-how-to.md" >}}). Although this setup HOWTO is orientated towards a complete Stroom Proxy
 and Application installation, it does provide all the processing user setup requirements for a Stroom Proxy as well.
 
 ### Stroom Standalone Proxy Installation
-Instructions for installation of the Stroom Proxy can be found [here]({{< relref "InstallProxyHowTo.md" >}}), noting you
+Instructions for installation of the Stroom Proxy can be found [here]({{< relref "install-proxy-how-to.md" >}}), noting you
 should follow the steps for configuring the proxy as a  _Store_NoDB_ proxy.
 
 ## Web Service Integration for Standalone Proxy
@@ -578,12 +578,12 @@ One typically 'fronts' a Stroom Proxy with a secure web service such as Apache's
 In our scenario, we will use SSL to secure the web service and further, we will use Apache's Httpd.
 
 We first need to create certificates for use by the web service. The
-[SSL Certificate Generation HOWTO]({{< relref "InstallCertificatesHowTo.md" >}}) provides instructions for this. 
+[SSL Certificate Generation HOWTO]({{< relref "install-certificates-how-to.md" >}}) provides instructions for this. 
 The created certificates can then be used when configuration the web service. There is no need for Trust or Key stores.
 
 This HOWTO is designed to deploy Apache's httpd web service as a front end (https) (to the user) and
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found [here]({{< relref "InstallHttpdHowTo.md" >}}). Please take note of where a Stroom Proxy
+to configure this can be found [here]({{< relref "install-httpd-how-to.md" >}}). Please take note of where a Stroom Proxy
 configuration item is different to that of a Stroom Application processing node.
 
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
@@ -602,8 +602,8 @@ curl -k --data-binary @/etc/group "https://stroomsap0.strmdev00.org/stroom/dataf
 ```
 Before testing, it is recommended you set up to monitor the Standalone Proxy logs.
 
-Follow the steps in the [Standalone Proxy Data Posting Tests]({{< relref "InstallTestingHowTo.md#stroom-standalone-proxy-testing" >}})
-section of the [Testing Stroom Installation HOWTO]({{< relref "InstallTestingHowTo.md" >}})
+Follow the steps in the [Standalone Proxy Data Posting Tests]({{< relref "install-testing-how-to.md#stroom-standalone-proxy-testing" >}})
+section of the [Testing Stroom Installation HOWTO]({{< relref "install-testing-how-to.md" >}})
 
 ## Addition of a Node to a Stroom Cluster Deployment
 
@@ -707,23 +707,23 @@ We will use NFS to cross mount the _permanent data_ directories. That is
   - `stroomp00.strmdev00.org:/stroomdata/stroom-data-p00` and
   - `stroomp01.strmdev00.org:/stroomdata/stroom-data-p01`
 
-The HOWTO guide to deploy and configure NFS for our Scenario is [here]({{< relref "InstallNFSHowTo.md#addition-of-another-node" >}}).
+The HOWTO guide to deploy and configure NFS for our Scenario is [here]({{< relref "install-nfs-how-to.md#addition-of-another-node" >}}).
 
 ## Stroom Installation
 
 ### Pre-installation setup
 Before installing either the Stroom Proxy or Stroom Application, we need establish various files and scripts within
 the Stroom Processing user's home directory to support the Stroom services and their persistence. This is setup is described
-[here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}). Note you should remember to set the __N__ bash variable 
+[here]({{< relref "install-processing-user-setup-how-to.md" >}}). Note you should remember to set the __N__ bash variable 
 when generating the Environment Variable files to _02_.
 
 ### Stroom Proxy Installation
-Instructions for installation of the Stroom Proxy can be found [here]({{< relref "InstallProxyHowTo.md" >}}). Note you
+Instructions for installation of the Stroom Proxy can be found [here]({{< relref "install-proxy-how-to.md" >}}). Note you
 will be deploying a _Store_ proxy and during the setup execution ensure you enter the appropriate values for NODE ('stroomp02')
 and REPO_DIR ('/stroomdata/stroom-working-p02/proxy'). All other values will be the same.
 
 ### Stroom Application Installation
-Instructions for installation of the Stroom application can be found [here]({{< relref "InstallApplicationHowTo.md" >}}).
+Instructions for installation of the Stroom application can be found [here]({{< relref "install-application-how-to.md" >}}).
 When executing the setup script ensure you enter the appropriate values for TEMP_DIR ('/stroomdata/stroom-working-p02') and NODE ('stroomp02').
 All other values will be the same. Note also that you will not have to wait for the 'first' node to initialise the Stroom database as
 this would have already been done when you first deployed your Stroom Cluster.
@@ -759,9 +759,9 @@ chcon -R --reference /etc/pki ~stroomuser/stroom-jks
 
 This HOWTO is designed to deploy Apache's httpd web service as a front end (https) (to the user) and
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
-to configure this can be found [here]({{< relref "InstallHttpdHowTo.md" >}}).
+to configure this can be found [here]({{< relref "install-httpd-how-to.md" >}}).
 You should pay particular attention to the section on the
-[Apache Mod_JK configuration]({{< relref "InstallHttpdHowTo.md#apache-modjk-configuration" >}})
+[Apache Mod_JK configuration]({{< relref "install-httpd-how-to.md#apache-modjk-configuration" >}})
 as you **MUST** regenerate the Mod_JK workers.properties file on the existing cluster nodes as well as generating it on our new node.
 
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
@@ -810,7 +810,7 @@ new node.
 Before we can store data on this new Stroom node we need to configure it's
 [volumes]({{< relref "../../user-guide/volumes.md" >}})
 we have allocated in our Storage hierarchy. The section on adding new [volumes]({{< relref "../../user-guide/volumes.md" >}}) in the
-[Volume Maintenance HOWTO]({{< relref "InstallVolumesHowTo.md#adding-new-volumes" >}})
+[Volume Maintenance HOWTO]({{< relref "install-volumes-how-to.md#adding-new-volumes" >}})
 shows how to do this.
 
 ### Configure the Nodes for our Stroom deployment
@@ -818,15 +818,15 @@ In a Stroom cluster, nodes are expected to communicate with each other on port 8
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the new node. This is achieved via the Stroom UI where we set a Cluster URL for our node.
 The section on Configuring a new node in the 
-[Node Configuration HOWTO]({{< relref "InstallNodesHowTo.md#configure-new-node" >}}) demonstrates how do
+[Node Configuration HOWTO]({{< relref "install-nodes-how-to.md#configure-new-node" >}}) demonstrates how do
 set the Cluster URL.
 
 ### Data Stream Processing
 To enable Stroom to process data, it's
 [Data Processors]({{< relref "/docs/reference-section/jobs#data-processor" >}})
 need to be enabled. There are NOT enabled by default on installation. The following
-[section]({{< relref "../General/TasksHowTo.md#enable-stream-processors-on-new-node" >}})
-in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.
+[section]({{< relref "../General/tasks-how-to.md#enable-stream-processors-on-new-node" >}})
+in our [Stroom Tasks HowTo]({{< relref "../General/tasks-how-to.md" >}}) shows how to do this.
 
 
 ## Testing our New Node Installation

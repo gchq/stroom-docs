@@ -11,3 +11,7 @@ description: >
   
 ---
 
+This section covers deploying Stroom as a containerised cluster on Kubernetes.
+It includes setup of the database, configuration, and administration of nodes in a Kubernetes environment.
+
+* [Configure Database Server]({{< relref "configure-database-server" >}}) — setting up the MySQL or MariaDB instance used by the Kubernetes cluster.

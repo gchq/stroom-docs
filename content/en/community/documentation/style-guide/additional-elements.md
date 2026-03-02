@@ -153,10 +153,10 @@ The following are some example of different links to internal content.
 
 #### Section link
 
-* A [link]({{< relref "docs/HOWTOs" >}}) to a branch/section in the document tree, i.e. to the `\_index.md`.
+* A [link]({{< relref "docs/howtos" >}}) to a branch/section in the document tree, i.e. to the `\_index.md`.
 
   ```markdown
-  [link]({{</* relref "docs/HOWTOs" */>}})
+  [link]({{</* relref "docs/howtos" */>}})
   ```
 
 

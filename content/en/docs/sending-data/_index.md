@@ -18,4 +18,4 @@ Data can be sent from any operating systems or applications.
 Some examples to aid in sending data can be found [here]({{< relref "example-clients.md" >}})
 
 It is common practice for the developers/admins of a client system to write the translation to normalise their data as they're in the best position to understand their logging and to generate specific events as required.
-See [here]({{< relref "../HOWTOs/EventFeeds/translation-how-to.md" >}}) for further details.
+See [here]({{< relref "../howtos/event-feeds/translation-how-to.md" >}}) for further details.

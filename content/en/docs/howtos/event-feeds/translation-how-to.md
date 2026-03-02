@@ -13,7 +13,7 @@ description: >
 <!-- Created with Stroom v6.1-beta.16 -->
 
 {{% see-also %}}
-[HOWTO - Event Processing]({{< relref "ProcessingHowTo" >}})
+[HOWTO - Event Processing]({{< relref "processing-how-to" >}})
 {{% /see-also %}}
 
 
@@ -26,7 +26,7 @@ The document will contain potentially useful XSLT fragments to show how certain 
 As with most programming languages, there are likely to be multiple ways of producing the same end result with different degrees of complexity and efficiency.
 Examples here may not be the best for all situations but do reflect experience built up from many previous translation jobs.
 
-The document should be read in conjunction with other online stroom documentation, in particular [Event Processing]({{< relref "ProcessingHowTo" >}}).
+The document should be read in conjunction with other online stroom documentation, in particular [Event Processing]({{< relref "processing-how-to" >}}).
 
 
 ## Translation Overview
