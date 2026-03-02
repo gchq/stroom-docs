@@ -51,7 +51,7 @@ install and create a database user account.
 Things get more complicated when considering:
 
 -	Security
--	Master Slave Replication
+-	Replication
 -	Tuning memory usage
 -	Running Stroom Stats in a different database to Stroom
 -	Performance Monitoring
@@ -103,33 +103,32 @@ You need to create a file cluster.txt with a line for each member of your cluste
 (or single line in the case of a one node Stroom install).
 Then run the utility script to lock down the server access.
 
-```bash
-[stroomuser@host ~]$ hostname >> cluster.txt
-[stroomuser@host ~]$ ./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
-Enter root mysql password :
---------------
-flush privileges
---------------
+{{< command-line "stroomuser" "localhost" >}}
+hostname >> cluster.txt
+./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
+(out)Enter root mysql password :
+(out)--------------
+(out)flush privileges
+(out)--------------
+(out)
+(out)--------------
+(out)delete from mysql.user where user = 'stroomuser'
+(out)--------------
+(out)...
+(out)...
+(out)...
+(out)--------------
+(out)flush privileges
+(out)--------------
+{{</ command-line >}}
 
---------------
-delete from mysql.user where user = 'stroomuser'
---------------
-...
-...
-...
---------------
-flush privileges
---------------
-
-[stroomuser@host ~]$
-```    
 
 ## Advanced Install
 
 The below example uses the utility scripts to create 3 custom mysql server instances on 2 servers:
 
-- server1 - master stroom,
-- server2 - slave stroom, stroom_stats
+- server1 - stroom (source),
+- server2 - stroom (replica), stroom_stats
 
 As root on server1: 
 
