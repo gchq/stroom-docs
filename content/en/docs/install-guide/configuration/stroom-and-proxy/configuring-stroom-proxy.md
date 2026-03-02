@@ -155,6 +155,15 @@ proxyConfig:
     aggregationFrequency: "PT10M"
 ```
 
+{{% note %}}
+The `aggregator` settings apply to **all** forwarders.
+It is not possible for forwarders to to use different aggregation settings.
+
+If you need to forward to a HTTP destination but also want to forward to a file destination using different aggregator settings, e.g. to keep a local archive of the data, you would need to employ a second Stroom-Proxy.
+Stroom-Proxy A would forward to the HTTP downstream and forward to Stroom-Proxy B over HTTP.
+Stroom-Proxy B would forward to a file destination, using much larger aggregator thresholds.
+{{% /note %}}
+
 
 ### Directory Scanner Configuration
 
@@ -256,6 +265,9 @@ proxyConfig:
   forwardFileDestinations:
 ```
 
+Both types of forwarder have an `enabled` property.
+If a forwarder's `enabled` state is set to `false` it is as if the forwarder configuration does not exist, i.e no data will be queued for that forwarder until its state is changed to `true`.
+
 
 #### File Forward Destinations Configuration
 
@@ -299,6 +311,7 @@ proxyConfig:
     # The templated relative sub-path of path.
     # The default path template is '${year}${month}${day}/${feed}'
     # Cannot be an absolute path and must resolve to a descendant of path.
+    # Fore details of this configuration branch, see Path Templating Configuration below.
     subPathTemplate: null
 ```
 
@@ -769,15 +782,17 @@ proxyConfig:
     port: "443"
     hostname: "stroom.some.domain"
     apiKey: "...API KEY..."
-  # If we are storing data in a proxy repository we can aggregate it before forwarding.
+
   aggregator:
     maxItemsPerAggregate: 1000
     maxUncompressedByteSize: "1G"
     aggregationFrequency: 10m
 
-  forwardHttpDestinations:
-  - name: "local-repo"
-    path: "/stroomdata/stroom-proxy/repo"
+  forwardFileDestinations:
+  - name: "archive-repo"
+    path: "/stroomdata/stroom-proxy/archive-repo"
+    subPathTemplate:
+      pathTemplate: "${year}/${year}-${month}/${year}-${month}-${day}/${year}-${month}-${day}-${feed}/"
 
   forwardHttpDestinations:
   - name: "downstream-stroom"
@@ -793,6 +808,55 @@ proxyConfig:
 ```
 
 
+### Air-Gapped Store Only
 
+This is an example of a Stroom-Proxy instance that is hosted in an environment where is has no direct link to a downstream Stroom/Stroom-Proxy.
+All data is aggregated and forwarded to the local file system for transport downstream using other means outside of the scope of this documentation.
 
+```yaml
+server:
+  # ... Same as configuration above
+
+logging:
+  # ... Same as configuration above
+
+jerseyClients:
+  # ... Same as configuration above
+
+proxyConfig:
+  path:
+    # By default all files read or written to by stroom-proxy will be in directories relative to
+    # the home location. This must be set to an absolute path and also to one that differs
+    # the installed software as it has a different lifecycle.
+    home: "/stroomdata/stroom-proxy/home"
+
+  # No downstreamHost due to air-gap
+  downstreamHost:
+    enabled: false
+
+  aggregator:
+    maxItemsPerAggregate: 1000
+    maxUncompressedByteSize: "1G"
+    aggregationFrequency: 10m
+
+  forwardFileDestinations:
+
+  # Repo for a local archive
+  - name: "archive-repo"
+    path: "/stroomdata/stroom-proxy/archive-repo"
+    subPathTemplate:
+      pathTemplate: "${year}/${year}-${month}/${year}-${month}-${day}/${year}-${month}-${day}-${feed}/"
+
+  # Repo to be transported downstream around air-gap
+  - name: "downstream-repo"
+    path: "/stroomdata/stroom-proxy/downstream-repo"
+    subPathTemplate:
+      pathTemplate: "${year}/${year}-${month}/${year}-${month}-${day}/${year}-${month}-${day}-${feed}/"
+
+  forwardHttpDestinations: []
+
+  receive:
+    # No receipt checking due to air-gap. All data accepted.
+    receiptCheckMode: "RECEIVE_ALL"
+```
 

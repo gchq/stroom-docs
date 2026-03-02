@@ -202,10 +202,10 @@ The task may or may not return content.
 
 ### Ping
 
-`http://localhost:8091/proxyAdmin/metrics`
+`http://localhost:8091/proxyAdmin/ping`
 
 Simple endpoint that will respond with the text `pong` and a `200` status if Stroom-Proxy is running.
-This can be used by load balances to determine if Stroom-Proxy is up or not.
+This can be used by load balancers to determine if Stroom-Proxy is up or not.
 
 
 ### Threads
