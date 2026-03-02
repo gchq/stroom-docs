@@ -194,7 +194,7 @@ and change the **Id:** from schemaFilter to AUSschemaFilter to show
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-15.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development{{< /screenshot >}}
 
-Now, left click the AUSschemaFilter element then then right click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element">}} to bring up the pipeline Element context menu and select the XMLWriter item
+Now, left click the AUSschemaFilter element then right click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element">}} to bring up the pipeline Element context menu and select the XMLWriter item
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-16.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select XMLWriter{{< /screenshot >}}
 
@@ -206,7 +206,7 @@ Your Pipeline should now look like
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-18.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development2{{< /screenshot >}}
 
-Finally, left click the AUSxmlWriter element then then right click on the Add New Pipeline Element _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element" >}} to bring up the **Destination** pipeline Element context menu.
+Finally, left click the AUSxmlWriter element then right click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element" >}} to bring up the **Destination** pipeline Element context menu.
 
 Select **RollingFileAppender**
 

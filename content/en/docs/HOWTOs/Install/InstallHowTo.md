@@ -484,7 +484,7 @@ In our scenario, we will use SSL to secure the web service and further, we will 
 
 We first need to create certificates for use by the web service. The
 [SSL Certificate Generation HOWTO]({{< relref "InstallCertificatesHowTo.md" >}}) provides instructions for this.
-The created certificates can then be used when configuration the web service. NOTE also, that for a forwarding
+The created certificates can then be used when configuring the web service. NOTE also, that for a forwarding
 proxy we will need to establish Key and Trust stores as well. This is also documented in the SSL Certificate Generation HOWTO
 [here]({{< relref "InstallCertificatesHowTo.md#stroom-proxy-to-proxy-key-and-trust-stores" >}})
 
@@ -579,7 +579,7 @@ In our scenario, we will use SSL to secure the web service and further, we will 
 
 We first need to create certificates for use by the web service. The
 [SSL Certificate Generation HOWTO]({{< relref "InstallCertificatesHowTo.md" >}}) provides instructions for this.
-The created certificates can then be used when configuration the web service. There is no need for Trust or Key stores.
+The created certificates can then be used when configuring the web service. There is no need for Trust or Key stores.
 
 This HOWTO is designed to deploy Apache's httpd web service as a front end (https) (to the user) and
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
@@ -767,7 +767,7 @@ as you **MUST** regenerate the Mod_JK workers.properties file on the existing cl
 Other Web service capability can be used, for example, {{< external-link "NGINX" "https://nginx.org" >}}.
 
 Note that once you have integrated the web services for our new node, you will need to restart the Apache systemd process on the existing
-two nodes that that the new Mod_JK configuration has taken place.
+two nodes so that the new Mod_JK configuration has taken place.
 
 ## Installation Validation
 We will now check that the installation and web services integration has worked. We do this with a simple firewall check
