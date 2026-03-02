@@ -7,7 +7,7 @@ tags:
   - permission
   - authorisation
 description: >
-  Assigning application level permssions (such as 'Manage Users') to users or groups.
+  Assigning application level permissions (such as 'Manage Users') to users or groups.
 ---
 
 {{% todo %}}
@@ -36,7 +36,7 @@ The following is the list of different application permissions that can be grant
 | **Data - Delete** | Delete streams. |
 | **Data - Export** | Download/export streams from a feed. |
 | **Data - Import** | Upload stream data into a feed. |
-| **Data - View** | View stream data (e.g. in the Data Viewer or a Dashboard text pane |
+| **Data - View** | View stream data (e.g. in the Data Viewer or a Dashboard text pane). |
 | **Data - View With Pipeline** | View data in a _Dashboard_ text pane that uses a pipeline. |
 | **Download Search Results** | Download search result data on a _Dashboard_. |
 | **Export Configuration** | Export {{< glossary "content" >}} (i.e. documents, that you have permission to view) to a file. |

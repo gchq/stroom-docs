@@ -39,7 +39,7 @@ Removes the Byte Order Mark (if present) from the stream.
 
 {{< pipe-elm "BadTextXMLFilterReader" >}}&nbsp;
 
-Escapes the content of a configured list of named XML elements that are know to potentially contain un-escaped XML reserved characters.
+Escapes the content of a configured list of named XML elements that are known to potentially contain un-escaped XML reserved characters.
 For example the element `<Expression>$time < now()</Expression>` would be transformed to `<Expression>$time &lt; now()</Expression>` if property `leafList` is set to `Expression`.
 
 **Element properties:**
@@ -560,7 +560,7 @@ Writer to convert XML events data into XML output in the specified character enc
 
 ## Destination
 
-Destination elements consume a stream of bytes from a _Writer_ and persist then to a destination.
+Destination elements consume a stream of bytes from a _Writer_ and persist them to a destination.
 This could be a file on a file system or to Stroom's stream store.
 
 ### AnnotationWriter

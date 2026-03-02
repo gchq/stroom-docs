@@ -73,7 +73,7 @@ Once you have clicked here a drop-down box will appear as per
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-05.png" >}}Stroom UI EnableProcessors - pipeline Processors - choose type{{< /screenshot >}}
 
 at which point, select the _Stream Type_ of **Raw Events** and then press **OK**.
-At this we return to the **Add Processor** selection window to see that the _Raw Events_ stream type has been added.
+At this point, we return to the **Add Processor** selection window to see that the _Raw Events_ stream type has been added.
 
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-06.png" >}}Stroom UI EnableProcessors - pipeline Processors - pipeline criteria set{{< /screenshot >}}
 

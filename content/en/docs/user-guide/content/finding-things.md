@@ -70,7 +70,7 @@ The context menu is accessed by right-clicking on the entity.
 
 {{< image "user-guide/finding-things/entity_context_menu.png" >}}Entity Context Menu{{< /image >}}
 
-Clicking _Info_ displays the entities UUID.
+Clicking _Info_ displays the entity's UUID.
 
 {{< image "user-guide/finding-things/entity_info.png" >}}Entity Info{{< /image >}}
 
@@ -97,7 +97,7 @@ A number of the Quick Filters are used for filter tables of data that have a num
 The quick filter query language supports matching in specified fields.
 Each Quick Filter will have a number of named fields that it can filter on.
 The field to match on is specified by prefixing the match term with the name of the field followed by a `:`, i.e. `type:`.
-Multiple field matches can be used, each separate by a space.
+Multiple field matches can be used, each separated by a space.
 E.g:
 
 ```text
@@ -110,7 +110,7 @@ The same field can be used multiple times in the match.
 The list of filterable fields and their qualifier names (sometimes a shortened form) are listed by clicking on the help icon {{< stroom-icon "help.svg" "Help" >}}.
 
 One or more of the fields will be defined as _default_ fields.
-This means the if no qualifier is entered the match will be applied to all _default_ fields using an OR operator.
+This means if no qualifier is entered the match will be applied to all _default_ fields using an OR operator.
 Sometimes all fields may be considered _default_ which means a match term will be tested against all fields and an item will be included in the results if one or more of those fields match.
 
 For example if the Quick Filter has fields `Name`, `Type` and `Status`, of which `Name` and `Type` are _default_:
@@ -194,7 +194,7 @@ Stroom uses a number of suggestion input fields, such as when selecting Feeds, P
 
 {{< image "user-guide/finding-things/feed_suggestion.png" >}}Feed Input Suggestions{{< /image >}}
 
-These fields will typically display the full list of values or a truncated list where the total number of value is too large.
+These fields will typically display the full list of values or a truncated list where the total number of values is too large.
 Entering text in one of these fields will use the fuzzy matching algorithm to partially/fully match on values.
 See [CommonFuzzy Matching](#common-fuzzy-matching) below for details of how the matching works.
 
@@ -202,7 +202,7 @@ See [CommonFuzzy Matching](#common-fuzzy-matching) below for details of how the 
 ## Common Fuzzy Matching
 
 A common fuzzy matching mechanism is used in a number of places in _Stroom_.
-It is used for partially matching the user input to a list of a list of possible values.
+It is used for partially matching the user input to a list of possible values.
 
 In some instances, the list of matched items will be truncated to a more manageable size with the expectation that the filter will be refined.
 
@@ -328,7 +328,7 @@ stroom.something.somethingElse.maxFileNumber
 ### Regular Expression Matching
 
 If the user input is prefixed with a `/` character then the remaining user input is treated as a Java syntax regular expression.
-An string will be considered a match if any part of it matches the regular expression pattern.
+A string will be considered a match if any part of it matches the regular expression pattern.
 The regular expression operates in case insensitive mode.
 For more details on the syntax of java regular expressions see this internet link https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/regex/Pattern.html.
 

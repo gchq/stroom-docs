@@ -32,7 +32,7 @@ An absolute time is specified in ISO 8601 date time format, e.g. `2016-01-23T12:
 
 In addition to absolute times it is possible to specify times using expressions.
 Relative time expressions create a date time that is relative to the execution time of the query.
-Supported expressons are as follows:
+Supported expressions are as follows:
 
 * `now()` - The current execution time of the query.
 * `second()` - The current execution time of the query rounded down to the nearest second.
@@ -68,7 +68,7 @@ Durations consist of a number and duration unit. Supported duration units are:
 * `M` - Months
 * `y` - Years
 
-Using these durations a query to get the last weeks data could be as follows:
+Using these durations a query to get the last week's data could be as follows:
 
 `between now() - 1w and now()`
 

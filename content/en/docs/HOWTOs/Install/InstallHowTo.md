@@ -59,7 +59,7 @@ Both the Stroom Proxy and Application store data. The typical requirement is
 
 Where multiple processing nodes are involved, the application's __permanent data__ directories need to be accessible by all participating nodes.
 
-Thus a hierarchy for a Stroom Proxy might by
+Thus a hierarchy for a Stroom Proxy might be
 - /stroomdata/stroom-proxy
 
 and for an Application node
@@ -227,7 +227,7 @@ One typically 'fronts' either a Stroom Proxy or Stroom Application with a secure
 In our scenario, we will use SSL to secure the web service and further, we will use Apache's Httpd.
 
 We first need to create certificates for use by the web service. The [following]({{< relref "InstallCertificatesHowTo.md" >}})
-provides instructions for this. The created certificates can then be used when configuration the web service.
+provides instructions for this. The created certificates can then be used when configuring the web service.
 
 This HOWTO is designed to deploy Apache's httpd web service as a front end (https) (to the user) and
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions

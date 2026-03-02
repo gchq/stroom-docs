@@ -81,7 +81,7 @@ and press {{< stroom-btn "Ok" >}} to see the new Event Feed tab
 
 and its corresponding reference in the `Explorer` display.
 
-The configuration items for a Event Feed are
+The configuration items for an Event Feed are
 
  * _Description_ - a description of the feed
  * _Classification_ - the classification or sensitivity of the Event Feed data
@@ -110,7 +110,7 @@ This is indicated by the asterisk character `*` between the _Feed_ icon {{< stro
 
 We can save the changes to our feed by pressing the _Save_ icon {{< stroom-icon "save.svg" >}} in the top left of the **BlueCoat-Proxy-V1.0-EVENTS** tab.
 At this point one should notice two things, the first is that the asterisk
-has disappeared from the `Feed` tab and the the second is that the _Save_ icon {{< stroom-icon "save.svg" "Save" "disabled">}} is now disabled.
+has disappeared from the `Feed` tab and the second is that the _Save_ icon {{< stroom-icon "save.svg" "Save" "disabled">}} is now disabled.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-03.png" >}}Stroom UI Create Feed - New feed tab saved{{< /screenshot >}}
 
@@ -131,7 +131,7 @@ and its corresponding reference in the `Explorer` display.
 We set the configuration for this `Text Converter` to be
 
  * Description - *Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format (ELFF)*
- * Converter Type - We set to *Data Splitter* was we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
+ * Converter Type - We set to *Data Splitter* as we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
 
 Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configuration items.
 
@@ -181,7 +181,7 @@ We now need to configure the *Structure* of this `Pipeline`.
 
 We do this by selecting the `Structure` hyper-link of the **BlueCoat-Proxy-V1.0-EVENTS* `Pipeline` tab.
 
-At this we see the `Pipeline Structure` configuration tab
+At this point, we see the `Pipeline Structure` configuration tab
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-07.png" >}}Stroom UI Create Feed - Pipeline Structure tab{{< /screenshot >}}
 

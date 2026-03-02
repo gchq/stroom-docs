@@ -38,7 +38,7 @@ then move down and select the `Jobs` sub-item to be presented with the `Jobs` co
 
 {{< screenshot "HOWTOs/UI-JobsTab-00.png" >}}Stroom UI Jobs Management - management tab{{< /screenshot >}}
 
-At this we can select the `Proxy Aggregation` _Job_ whose check-box is selected and the tab will show the individual Stroom Processor nodes
+At this, we can select the `Proxy Aggregation` _Job_ whose check-box is selected and the tab will show the individual Stroom Processor nodes
 in the deployment.
 
 {{< screenshot "HOWTOs/UI-ProxyAggregation-00.png" >}}Stroom UI Jobs Management - Proxy Aggregation Job{{< /screenshot >}}

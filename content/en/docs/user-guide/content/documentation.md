@@ -69,7 +69,7 @@ Use four spaces to indent a sub-item.
 ## Numbered Lists
 
 Use four spaces to indent a sub-item.
-Using `1` for all items means the makrdown processor will replace them with the correct number, making it easier to re-order items.
+Using `1` for all items means the markdown processor will replace them with the correct number, making it easier to re-order items.
 
 1. Item 1
     1. Item 1a
@@ -240,8 +240,8 @@ To prevent this, either surround the word with back ticks to be rendered as code
 
 ## HTML
 
-While it is possible to use HTML in the documentation, its use is not recomended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
-Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be prefereable.
+While it is possible to use HTML in the documentation, its use is not recommended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
+Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be preferable.
 
 {{% note %}}
 No form of HTML scripting (i.e. Javascript) is supported within the documentation content.

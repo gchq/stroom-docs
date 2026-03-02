@@ -27,7 +27,7 @@ At the moment the usable stacks are:
 
 * `stroom_core` - A single node stroom stack geared towards production use.
 
-* `stroom_core_test` - A single node stroom for test/evalutaion, pre-loaded with content.
+* `stroom_core_test` - A single node stroom for test/evaluation, pre-loaded with content.
    Also includes a _remote_ proxy for demonstration purposes.
    If you just want to try out Stroom, this is the one to use.
 
@@ -147,7 +147,7 @@ Open a browser (preferably Chrome) at [https://localhost](https://localhost) and
 
 {{% note %}}
 If you have installed the `stroom_core` stack no user accounts are created by default.
-You will need to manually create and administrator account.
+You will need to manually create an administrator account.
 
 {{% /note %}}
 

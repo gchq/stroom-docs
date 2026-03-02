@@ -14,7 +14,7 @@ The data viewer is shown on the _Data_ tab when you open (by double clicking) on
 
 * Feed - to show all data for that feed.
 * Folder - to show all data for all feeds that are descendants of the folder.
-* System Root Folder - to show all data for all feeds that are ancestors of the folder.
+* System Root Folder - to show all data for all feeds that are descendants of the folder.
 
 In all cases the data shown is dependant on the permissions of the user performing the action and any permissions set on the feeds/folders being viewed.
 
@@ -96,11 +96,11 @@ The Data Preview tab shows a '[progress](#data-progress-bar)' bar to indicate wh
 
 In order to navigate through the data you have three options
 
-* Click on the 'progress bar' to show a porting of the data starting from the position clicked on.
+* Click on the 'progress bar' to show a portion of the data starting from the position clicked on.
 * Page through the data using the navigation controls.
 * Select a source range to display using the Set Source Range dialog which is accessed by clicking on the _Lines_ or _Chars_ links.
   This allows you to precisely select the range to display.
-  You can either specify a range with a just start point or a start point and some form of size/position limit.
+  You can either specify a range with just a start point or a start point and some form of size/position limit.
   If no limit is specified then Stroom will limit the data shown to the configured maximum (`stroom.ui.source.maxCharactersPerFetch`).
   If a range is entered that is too big to display Stroom will limit the data to its maximum.
 

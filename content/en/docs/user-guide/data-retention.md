@@ -26,7 +26,7 @@ This rule cannot be edited, moved or removed.
 
 Rules have a precedence, with a lower rule number being a higher priority.
 When running the data retention job, Stroom will look at each stream held on the system and the retention policy of the first rule (starting from the lowest numbered rule) that matches that stream will apply.
-One a matching rule is found all other rules with higher rule numbers (lower priority) are ignored.
+Once a matching rule is found all other rules with higher rule numbers (lower priority) are ignored.
 For example if rule 1 says to retain streams from feed `X-EVENTS` for 10 years and rule 2 says to retain streams from feeds `*-EVENTS` for 1 year then rule 1 would apply to streams from feed `X-EVENTS` and they would be kept for 10 years, but rule 2 would apply to feed `Y-EVENTS` and they would only be kept for 1 year.
 Rules are re-numbered as new rules are added/deleted/moved.
 

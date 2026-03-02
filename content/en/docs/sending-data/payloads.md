@@ -155,7 +155,7 @@ Directories within the ZIP file are supported.
 
 A file's base name includes its full path within the ZIP file, so an event data file and its associated sidecar files **must** all reside in the same directory.
 
-The depth and names of the directories have no bearing on how Stroom processed the data.
+The depth and names of the directories have no bearing on how Stroom processes the data.
 
 When downloading or aggregating large numbers of streams into a ZIP file, Stroom will split the files up into directories with multiple levels to limit the number of files in each directory.
 

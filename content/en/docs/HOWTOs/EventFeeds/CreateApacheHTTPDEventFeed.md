@@ -109,11 +109,11 @@ As this is not a Reference Feed, leave the **Reference Feed:** check box uncheck
 
 We leave the **Feed Status:** at _Receive_.
 
-We leave the **Stream Type:** as _Raw Events_ as this we will be sending batches (streams) of raw event logs.
+We leave the **Stream Type:** as _Raw Events_ as we will be sending batches (streams) of raw event logs.
 
 We leave the **Data Encoding:** as UTF-8 as the raw logs are in this form.
 
-We leave the **Context Encoding:** as UTF-8 as there no context events for this feed.
+We leave the **Context Encoding:** as UTF-8 as there are no context events for this feed.
 
 We leave the **Retention Period:** at _Forever_ as we do not want to delete the raw logs.
 
@@ -185,7 +185,7 @@ Within the Explorer pane, and having selected the Apache HTTPD system group, rig
 {{< stroom-menu "New" "Pipeline" >}}
 
 When the **New Pipeline** selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
-At this you will be presented with the new pipeline’s configuration tab
+At this point you will be presented with the new pipeline’s configuration tab
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-15.png" >}}New Pipeline tab{{< /screenshot >}}
 
