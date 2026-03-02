@@ -103,7 +103,7 @@ To rename the _Custom_ column:
 1. Click  
    {{< stroom-icon "edit.svg" "Rename">}} _Rename_
 1. Enter the text `First Event ID`.
-1. Clico _OK_.
+1. Click _OK_.
 
 Now run the query again to see the results with the added column.
 
@@ -131,7 +131,7 @@ To configure the visualisation:
    1. _Show Labels_: `True`
 1. Click _OK_.
 
-To change the look of your Dashboard you can drag the different panes around into different positons.
+To change the look of your Dashboard you can drag the different panes around into different positions.
 
 1. Click and hold on the `Visualisation` text in the top left of the _Visualisation_ pane.
 1. Drag the cursor to the right hand side of the _Table_ pane.

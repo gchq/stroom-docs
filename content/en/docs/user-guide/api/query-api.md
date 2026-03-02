@@ -69,7 +69,7 @@ This endpoint is used to kill an active query by supplying the _queryKey_ for qu
 
 ### Keep alive
 
-Stroom will only hold search results from completed queries for a certain lenght of time.
+Stroom will only hold search results from completed queries for a certain length of time.
 It will also terminate running queries that are too old.
 In order to prevent queries being aged off you can hit this endpoint to indicate to Stroom that you still have an interest in a particular query by supplying the query key.
 

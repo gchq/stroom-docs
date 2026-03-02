@@ -206,7 +206,7 @@ The following is an example command to create a new stroom user `jbloggs`, creat
 This is a typical command to bootstrap a stroom instance with one admin user so they can login to stroom with full privileges to manage other users from within the application.
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser jbloggs \
 --createGroup Administrators \
@@ -258,21 +258,21 @@ The following are examples of various uses of the `--createUser` argument group.
 
 {{< command-line "stroomuser" "localhost" >}}
 # Create a user using their unique IDP identifier and add them to group Administrators
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser "45744aee-0b4c-414b-a82a-8b8b134cc201" \
 --addToGroup "45744aee-0b4c-414b-a82a-8b8b134cc201"  Administrators \
 path/to/config.yml
 
 # Create a user using their unique IDP identifier, display name and full name
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser "45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs" \
 --addToGroup "jbloggs"  Administrators \
 path/to/config.yml
 
 # Create multiple users at once, adding them to appropriate groups
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser "45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs" \
 --createUser "37fb1eb4-f59c-4040-8e1d-57485e0f912f,jdoe,John Doe" \
@@ -312,7 +312,7 @@ The `create_api_key` command can be used to create an API Key for a user.
 This is useful if, when bootstrapping a cluster, you want to set up a user and associated API Key to allow an external process to monitor/manage that Stroom cluster, e.g. using an Operator in Kubernetes.
 
 {{< command-line >}}
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 create_api_key \
 --user jbloggs \
 --expiresDays 365 \
@@ -398,7 +398,7 @@ This value may look like an email address, or a {{< glossary "UUID" >}} or somet
 Assuming the unique identifier for _Hohn Doe_ is `b6e06181-9e10-44eb-a33a-537509ec3abd`, do the following to set them up as an administrator.
 
 {{< command-line "stroomuser" "localhost" >}}
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser "2b6e06181-9e10-44eb-a33a-537509ec3abd2,johndoe,John Doe" \
 --createGroup Administrators \
