@@ -66,7 +66,7 @@ The files `ca.crt` and `hostname.pem` are the only files required for two-way au
 
 #Certificate Expiry
 
-PKI certificates expire after 2 years.  To check the expiry date of a certificate, run the following command:
+PKI certificates expire after 2 years. To check the expiry date of a certificate, run the following command:
 
 ```bash
 openssl x509 -in /path/to/certificate.pem -noout -enddate

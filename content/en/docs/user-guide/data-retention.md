@@ -37,7 +37,7 @@ To create a rule do the following:
 1. Click the {{< stroom-icon "add.svg" "Add" >}} icon to add a new rule.
 1. Edit the expression to define the data that the rule will match on.
 1. Provide a name for the rule to help describe what its purpose is.
-1. Set the retention period for data matching this rule, i.e _Forever_ or a set time period.
+1. Set the retention period for data matching this rule, i.e. _Forever_ or a set time period.
 
 The new rule will be added at the top of the list of rules, i.e. with the highest priority.
 The {{< stroom-icon "up.svg" "Up" >}} and {{< stroom-icon "down.svg" "Down" >}} icons can be used to change the priority of the rule.

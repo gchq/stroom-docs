@@ -34,8 +34,8 @@ The following steps are required to be performed before migrating from v6 to v7.
 
 ### Download migration scripts
 
-Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts 
-e.g. https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts 
+Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts
+e.g. https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts
 
 These scripts will be used in the steps below.
 

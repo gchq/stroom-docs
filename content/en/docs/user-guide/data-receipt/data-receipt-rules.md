@@ -25,7 +25,7 @@ If you want data to be received if no rules match then you can create a rule at 
 
 If a stream matches a rule that has an `Accept` action, it will still be subject to a check to see if the _Feed_ actually exists.
 This means that the rules do not need to contain an `Accept` rule to cover all of the Feeds in the system.
-They only need to cover 
+They only need to cover
 The client will receive a `101` `Feed is not defined` error if it does not exist.
 
 {{< image "user-guide/data-receipt/ReceiptRules.png" "700x" />}}

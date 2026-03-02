@@ -14,7 +14,7 @@ The following is a non-exhaustive list of formats supported by Stroom:
 * Event XML fragments
 * Events XML
 * JSON
-* Delimited data, with and without a header row (e.g CSV, TSV, etc.)
+* Delimited data, with and without a header row (e.g. CSV, TSV, etc.)
 * Fixed width text data
 * Multi line data (where each line can be a different format), e.g. Auditd.
 

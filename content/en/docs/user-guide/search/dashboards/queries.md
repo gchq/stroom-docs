@@ -26,7 +26,7 @@ Times can be specified in two ways:
 
 ### Absolute Times
 
-An absolute time is specified in ISO 8601 date time format, e.g.  `2016-01-23T12:34:11.844Z`
+An absolute time is specified in ISO 8601 date time format, e.g. `2016-01-23T12:34:11.844Z`
 
 ### Relative Times
 

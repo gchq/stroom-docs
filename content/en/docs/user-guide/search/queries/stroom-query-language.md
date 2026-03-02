@@ -187,13 +187,13 @@ eval new_name = concat(
 In this example, the second assignment of `new_name` will override the value initially assigned to it.
 Note that that when reusing a variable name, the assignment can depend on the previous value assigned to that variable.
 
-Add boolean logic with `and`, `or` and `not` to build complex criteria, e.g. 
+Add boolean logic with `and`, `or` and `not` to build complex criteria, e.g.
 
 ```stroomql
 where feed = "my feed" or feed = "other feed"
 ```
 
-Use brackets to group logical sub expressions, e.g. 
+Use brackets to group logical sub expressions, e.g.
 ```stroomql
 where user = "bob" and (feed = "my feed" or feed = "other feed")
 ```

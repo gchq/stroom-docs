@@ -11,7 +11,7 @@ description: >
   A Document is user created piece of content in Stroom that is visible in the explorer tree.
 ---
 
-<!-- 
+<!--
 ********************************************************************************
 
                            ****** IMPORTANT ******

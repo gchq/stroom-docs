@@ -20,7 +20,7 @@ The currently supported character encodings are:
 
 ### UTF-8
 
-This is the default character encoding 
+This is the default character encoding
 A variable width character encoding consisting of one to four bytes per 'character'.
 UTF-8 is supported with or without a [Byte Order Mark]({{< relref "#byte-order-mark-bom" >}}).
 

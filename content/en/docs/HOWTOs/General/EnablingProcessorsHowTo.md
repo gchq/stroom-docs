@@ -47,7 +47,7 @@ The top pane shows the current enabled Processors and any recently processed str
 
 ### Add a Processor
 
-We now want to add A Processor for the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline.
+We now want to add a Processor for the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline.
 
 First, move the mouse to the Add Processor {{< stroom-icon "add.svg" >}} icon at the top left of the top pane.
 Select by left clicking this icon to display the **Add Filter** selection window
@@ -81,12 +81,12 @@ If the expected feed rate is small, for example, _NOT_ operating system or datab
 Typically, Apache HTTPD access events are not considered to have an excessive feed rate (by comparison to operating system or database access feeds), so we leave the **Priority** at _10_.
 
 Note the Processor has been added but it is in a **disabled** state.
-We **enable** both pipeline processor and the processor filter by checking _both_ **Enabled** check boxes
+We **enable** both the pipeline processor and the processor filter by checking _both_ **Enabled** check boxes
 
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-07.png" >}}Stroom UI EnableProcessors - pipeline Processors - Enable{{< /screenshot >}}
 
 Once the processor has been enabled, at first you will see nothing.
-But if you press the {{< stroom-icon "refresh.svg" >}} button at the top of the right of the top pane, you will see that the _Child_ processor has processed a stream, listing the time it did it and also listing the last time the processor looked for more streams to process and how many it found. 
+But if you press the {{< stroom-icon "refresh.svg" >}} button at the top right of the top pane, you will see that the _Child_ processor has processed a stream, listing the time it did it and also listing the last time the processor looked for more streams to process and how many it found.
 If your event feed contained multiple streams you would see the streams count incrementing and the **Tracker%** incrementing (when the Tracker% reaches 100% then all current streams you filtered for have been processed).
 You may need to click on the refresh {{< stroom-icon "refresh.svg" >}} icon to see the stream count and Tracker% changes.
 
@@ -146,12 +146,12 @@ Once the translation was remediated to remove schema issues the pipeline could s
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-19.png" >}}Stroom UI EnableProcessors - pipeline Data Events reprocessed{{< /screenshot >}}
 
 You should be aware that if you need to reprocess bulk streams that there is an upper limit of 1000 streams that can be reprocessed in a single batch.
-As at Stroom v6 if you exceed this number then you receive no error notification but the task never completes.
+As of Stroom v6, if you exceed this number then you receive no error notification but the task never completes.
 The reason for this behaviour is to do with database performance and complexity.
 When you reprocess the current selection of filtered data, it can contain data that has resulted from many pipelines and this requires creation of new processor filters for each of these pipelines.
-Due to this complexity there exists an arbitrary limit of 1000 streams. 
+Due to this complexity there exists an arbitrary limit of 1000 streams.
 
-A workaround for this limitation is to create batches of 'Events' by filtering the event streams based on **Type** and **Create Time**. 
+A workaround for this limitation is to create batches of 'Events' by filtering the event streams based on **Type** and **Create Time**.
 
 For example in our `Apache-SSLBlackBox-V2.0-EVENTS` event feed select the {{< stroom-icon "filter.svg" >}} icon.
 
@@ -163,28 +163,28 @@ Then click **OK**.
 
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-21.png" >}}Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection{{< /screenshot >}}
 
-You will need to adjust the  create time range until you get the number of event streams displayed in the feed window below 1000.
+You will need to adjust the create time range until you get the number of event streams displayed in the feed window below 1000.
 
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-22.png" >}}Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection{{< /screenshot >}}
 
-Once you are displaying less than 1000 streams you can select all the streams in your filtered selection by clicking in the topmost check box.
+Once you are displaying fewer than 1000 streams you can select all the streams in your filtered selection by clicking in the topmost check box.
 Then click on the {{< stroom-icon "process.svg" "Reprocess">}} icon to reprocess these streams.
 
 {{< screenshot "HOWTOs/v6/UI-EnableProcessors-23.png" >}}Stroom UI EnableProcessors - pipeline Data Events reprocessed filter selection{{< /screenshot >}}
 
-Repeat the process in batches of less that 1000 until your entire error stream backlog has been reprocessed.
+Repeat the process in batches of fewer than 1000 until your entire error stream backlog has been reprocessed.
 
-In a worst case senario, one can also delete a set of streams for a given time period and then reprocess them all.
+In a worst-case scenario, one can also delete a set of streams for a given time period and then reprocess them all.
 The only risk here is that if there
-are other pipelines that trigger on Event creation, you will activate them. 
+are other pipelines that trigger on Event creation, you will activate them.
 
 The reprocessing may result in having two index entries in an index.
-Stroom dashboards can silently cater for this, or you may chose to re-flatten data to some external downstream capability.
+Stroom dashboards can silently cater for this, or you may choose to re-flatten data to some external downstream capability.
 
 When considering reprocessing streams there are some other 'downstream effects' to be mindful of.
 
 If you have indexing in place, then additional index documents will be added to the index as the indexing capability does not replace documents, but adds them.
-If there are only a small number of streams reprocessed then there should not be too big an index storage impost, but should a large number of streams be reprocessed, then consideration of rebuilding resultant indices may need to be considered.
+If there are only a small number of streams reprocessed then there should not be too big an index storage impost, but should a large number of streams be reprocessed, then rebuilding the affected indices should be considered.
 
 If the pipeline exports data for consumption by another capability, then you will have exported a portion of the data twice.
 Depending on the risk of downstream data duplication, you may need to prevent the export or the consumption of the export.

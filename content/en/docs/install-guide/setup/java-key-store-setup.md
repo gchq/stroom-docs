@@ -18,7 +18,7 @@ In order that the java process communicates over https (for example Stroom Proxy
 
 As the processing user copy the following files to a directory stroom-jks in the processing user home directory :
 
-- CA.crt     - Certificate Authority
+- CA.crt - Certificate Authority
 - SERVER.crt - Server certificate with client authentication attributes
 - SERVER.key - Server private key
 
@@ -45,8 +45,8 @@ java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${SERVER}.jks ke
 keytool -import -noprompt -alias ${AUTHORITY} -file ${AUTHORITY}.crt -keystore ${AUTHORITY}.jks -storepass ${AUTHORITY}
 ```
 
-- Update Processing User Global Java Settings:   
- 
+- Update Processing User Global Java Settings:
+
 ```bash
 PWD=`pwd`
 echo "export JAVA_OPTS=\"-Djavax.net.ssl.trustStore=${PWD}/${AUTHORITY}.jks -Djavax.net.ssl.trustStorePassword=${AUTHORITY} -Djavax.net.ssl.keyStore=${PWD}/${SERVER}.jks -Djavax.net.ssl.keyStorePassword=${SERVER}\"" >> ~/env.sh  

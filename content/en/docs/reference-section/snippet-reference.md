@@ -71,7 +71,7 @@ Therefore, available snippets may be subject to change.
 However, until then, if there are any generic snippets that you think would be useful to add to Stroom then please raise an issue on {{< external-link "GitHub" "https://github.com/gchq/stroom/issues" >}}.
 
 
-<!-- 
+<!--
 ******************* IMPORTANT *********************
 
 Everything below here is semi-auto-generated using
@@ -81,7 +81,7 @@ stroom.app.docs.GenerateSnippetsDoc#main on 7.3+
 Run that main method then copy the content from the console
 and paste it below this message.
 
-******************* IMPORTANT ********************* 
+******************* IMPORTANT *********************
 -->
 
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->

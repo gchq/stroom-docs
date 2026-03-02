@@ -28,7 +28,7 @@ then move down and select the `Nodes` sub-item to be presented with the `Nodes` 
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-01.png" >}}Stroom UI Node Management - management tab{{< /screenshot >}}
 
-To set `stroomp00`'s Cluster URL, move the it's line in the display and select it. It will be highlighted.
+To set `stroomp00`'s Cluster URL, move the its line in the display and select it. It will be highlighted.
 
 {{< screenshot "HOWTOs/UI-NodeClusterSetup-02.png" >}}Stroom UI Node Management - select first node{{< /screenshot >}}
 
@@ -84,7 +84,7 @@ then move down and select the `Nodes` sub-item to be presented with the `Nodes` 
 
 {{< screenshot "HOWTOs/UI-AddNewNode-00.png" >}}Stroom UI New Node Management - management tab{{< /screenshot >}}
 
-To set `stroomp02`'s Cluster URL, move the it's line in the display and select it. It will be highlighted.
+To set `stroomp02`'s Cluster URL, move the its line in the display and select it. It will be highlighted.
 
 {{< screenshot "HOWTOs/UI-AddNewNode-01.png" >}}Stroom UI Node Management - select new node{{< /screenshot >}}
 

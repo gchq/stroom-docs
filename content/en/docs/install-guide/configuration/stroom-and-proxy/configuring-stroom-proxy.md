@@ -10,7 +10,7 @@ description: >
 ---
 
 {{% see-also %}}
-[Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration" >}})  
+[Stroom and Stroom-Proxy Common Configuration]({{< relref "common-configuration" >}})
 [Stroom Properties]({{< relref "/docs/user-guide/properties.md" >}})
 {{% /see-also %}}
 
@@ -112,7 +112,7 @@ Apart from the structure of the `config.yml` file, the configuration in a non-do
 
 The way stroom-proxy is configured is essentially the same as for [stroom]({{< relref "./configuring-stroom-proxy.md#as-part-of-a-docker-stack" >}}) with the only real difference being the structure of the `config.yml` file as note [above](#configyml) .
 As with stroom the docker stack comes with a `./volumes/stroom-proxy-*/config/config.yml` file that will be used in the absence of a provided one.
-Also as with stroom, the `config.yml` file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files. 
+Also as with stroom, the `config.yml` file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files.
 
 
 ### Certificates

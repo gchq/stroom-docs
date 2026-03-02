@@ -82,7 +82,7 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 At this point, the script will configure the proxy. There should be no errors, but review the output.
 If you make a mistake in the above, just re-run the script.
 
-**NOTE:** The selection of the `REPO_DIR` above and the setting of the `STROOM_TMP` environment variable [earlier]({{< relref "InstallProcessingUserSetupHowTo.md" >}}) ensure that not only inbound files are placed in the `REPO_DIR` location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in it's proxy aggregation threads.
+**NOTE:** The selection of the `REPO_DIR` above and the setting of the `STROOM_TMP` environment variable [earlier]({{< relref "InstallProcessingUserSetupHowTo.md" >}}) ensure that not only inbound files are placed in the `REPO_DIR` location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in its proxy aggregation threads.
 
 ### Forwarding Proxy Configuration
 In our _Forwarding_ Proxy description below, we will deploy on a host named `stroomfp0` and it will store the files in `/stroomdata/stroom-working-fp0/proxy`. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be `stroomp.strmdev00.org` (the CNAME for `stroomp00.strmdev00.org`).

@@ -25,7 +25,7 @@ See [Accounts vs Users]({{< relref "docs/install-guide/setup/open-id/accounts-us
 ## User
 
 A Stroom User represents a human user and is linked to either a User Account in Stroom or to a user account in an external {{< glossary "Identity Provider IDP" "Identity Provider" >}}.
-It can also represent  non-human processing user, e.g. where a Stroom User is created and has an {{< glossary "API Key" >}} created for it to allow a client system to use Stroom's {{< glossary "API" >}}.
+It can also represent non-human processing user, e.g. where a Stroom User is created and has an {{< glossary "API Key" >}} created for it to allow a client system to use Stroom's {{< glossary "API" >}}.
 
 All audited activity in Stroom will be attributed to a Stroom User and their unique identifier will be included in the audit events.
 

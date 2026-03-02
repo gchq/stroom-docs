@@ -14,7 +14,7 @@ This page is currently work in progress and will evolve with further testing of 
 {{% /note %}}
 
 {{% page-warning %}}
-Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor and patch version of v5.  
+Before commencing an upgrade to v7 you must upgrade Stroom to the latest minor and patch version of v5.
 At the time of writing the latest version of v5 is `v5.5.16`.
 {{% /page-warning %}}
 
@@ -46,8 +46,8 @@ This ensures all v5 migrations are applying all the v6 and v7 migrations.
 
 ### Download migration scripts
 
-Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts 
-e.g. https://github.com/gchq/stroom/blob/v7.0-beta.198/scripts 
+Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts
+e.g. https://github.com/gchq/stroom/blob/v7.0-beta.198/scripts
 
 Some of these scripts will be used in the steps below.
 The unused scripts are not applicable to a v5=>v7 upgrade.

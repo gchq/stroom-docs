@@ -64,6 +64,6 @@ In very large deployments, this may cause it to run out of memory.
 
 ## Next steps
 
-[Configure]({{< relref "configure-database-server" >}}) a Stroom database server  
-[Upgrade]({{< relref "upgrade-operator" >}})  
+[Configure]({{< relref "configure-database-server" >}}) a Stroom database server
+[Upgrade]({{< relref "upgrade-operator" >}})
 [Remove]({{< relref "remove-operator" >}})

@@ -49,7 +49,7 @@ The key supported features of Vim are:
 Notable features not supported by the _Ace_ editor:
 
 * The following text objects are not supported
-  * `b` - Braces, i.e `{` or `[`.
+  * `b` - Braces, i.e. `{` or `[`.
   * `t` - Tags, i.e. XML tags `<value>`.
   * `s` - Sentence.
 * The `g` command mode command, i.e. `:g/foo/d`
@@ -89,7 +89,7 @@ To do this using snippets you can do the following:
 
 * Type `call` then hit {{< key-bind "ctrl,space" >}}.
 * In the list of options use the cursor keys to select `call-template with-param` then hit {{< key-bind "enter" >}} or {{< key-bind "tab" >}} to insert the snippet.
-  The snippet will look like 
+  The snippet will look like
 
   ``` xslt
   <xsl:call-template name="template">

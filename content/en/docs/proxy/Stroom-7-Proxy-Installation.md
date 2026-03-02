@@ -40,16 +40,16 @@ It will also be necessary to open additional ports on the system firewall (where
 
 ### Download and install docker
 
-To download and install - docker-ce - from the internet, a new 'repo' file is downloaded first, that provides access to the docker.com repository. 
+To download and install - docker-ce - from the internet, a new 'repo' file is downloaded first, that provides access to the docker.com repository.
 e.g. as *root* user:
 
 - wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
 - yum install docker-ce.x86_64
 
-The packages - docker-ce docker-ce-cli & containerd.io - will be installed 
+The packages - docker-ce docker-ce-cli & containerd.io - will be installed
 
-The docker-compose software can de downloaded from github 
-e.g. as *root* user to download docker-compose version 1.25.4 and save it to -  /usr/local/bin/docker-compose 
+The docker-compose software can de downloaded from github
+e.g. as *root* user to download docker-compose version 1.25.4 and save it to - /usr/local/bin/docker-compose
 - curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
 - chmod 755 /usr/local/bin/docker-compose
 
@@ -59,16 +59,16 @@ e.g. as *root* user to download docker-compose version 1.25.4 and save it to -  
 If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
 Currently these ports are:
 
-80 
-443  
-2888  
-3307  
-5000  
-8080  
-8081  
-8090  
-8091  
-8543  
+80
+443
+2888
+3307
+5000
+8080
+8081
+8090
+8091
+8543
 
 For example on a RHEL/CentOS server using `firewalld` the commands would be as *root* user:
 
@@ -127,7 +127,7 @@ The first time the script is ran it will download from github the docker contain
 these are - stroom-proxy-remote, stroom-log-sender and nginx.
 Once the script has completed the stroom proxy server should be running.
 There are additional scripts - status.sh - that will show the status of the docker containers (stroom-proxy-remote, stroom-log-sender and nginx)
-and - logs.sh - that will tail all of the stroom message files to the screen. 
+and - logs.sh - that will tail all of the stroom message files to the screen.
 
 
 ## Stroom Remote Proxy (app version)
@@ -149,9 +149,9 @@ Version 12.0.1
 wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_linux-x64_bin.tar.gz
 {{</ command-line >}}
 
-*Or version 14.0.2 https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz* 
+*Or version 14.0.2 https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz*
 
-The gzipped tar file needs to be untarred and moved to a suitable location. 
+The gzipped tar file needs to be untarred and moved to a suitable location.
 
 {{< command-line "root" "localhost" >}}
 tar xvf openjdk-12.0.1_linux-x64_bin.tar.gz
@@ -176,7 +176,7 @@ java --version
 (out)*OpenJDK 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing)*
 {{</ command-line >}}
 
-**Disable selinux to avoid issues with access and file permissions.** 
+**Disable selinux to avoid issues with access and file permissions.**
 
 
 ### Firewall Configuration
@@ -225,7 +225,7 @@ The configuration file – `stroom-proxy/config/config.yml` – is the principal
 
 - connection details to the stroom server
 - the locations of the proxy server log files
-- the directory on the proxy server, where data files will be stored prior to forwarding onot stroom 
+- the directory on the proxy server, where data files will be stored prior to forwarding onot stroom
 - the location of the PKI Java keystore (jks) files
 
 The log file locations are changed to be relative to where stroom is started i.e. `~stroomuser/stroom-proxy/logs/…`..
@@ -266,7 +266,7 @@ proxyConfig:
     forwardingEnabled: true
 ```
 
-The location of the jks files has to be set, or comment all of the lines that have **sslConfig: and tls:** sections out to not use jks checking. 
+The location of the jks files has to be set, or comment all of the lines that have **sslConfig: and tls:** sections out to not use jks checking.
 
 Stroom also needs the client and ca ‘jks’ files and by default are located in - `/stroom-proxy/certs/ca.jks` and `client.jks`.
 Their location can be changed in the `config.yml`

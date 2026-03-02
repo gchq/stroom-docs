@@ -266,7 +266,7 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.
 {{% /note %}}
 
 {{% note %}}
-The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e relative to `stroom.home` if relative and supporting variable substitution.
+The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to `stroom.home` if relative and supporting variable substitution.
 {{% /note %}}
 
 
@@ -412,7 +412,7 @@ logging:
 
 Rolling of log files can be done based on size of file or time.
 The `archivedLogFilenamePattern` property controls the rolling behaviour.
-The rolling policy is determined from the filename pattern, e.g a pattern with a minute precision date format will be rolled every minute.
+The rolling policy is determined from the filename pattern, e.g. a pattern with a minute precision date format will be rolled every minute.
 The following is an example of an appender that rolls based on the size of the log file:
 
 ```yaml

@@ -44,9 +44,9 @@ The purpose of the various files is as follows:
   * `upstreams.proxy.conf.template` - Defines the upstream host(s) for local stroom-proxy node(s).
 * Location configuration
   * `locations_defaults.conf.template` - Defines some default directives (e.g. headers) for configuring stroom paths.
-  * `proxy_location_defaults.conf.template` - Defines some default directives (e.g. headers) for configuring stroom-proxy paths. 
-  * `locations.proxy.conf.template` - Defines the various paths (e.g/ `/datafeed`) that will be reverse proxied to stroom-proxy hosts.
-  * `locations.stroom.conf.template` - Defines the various paths (e.g/ `/datafeeddirect`) that will be reverse proxied to stroom hosts. 
+  * `proxy_location_defaults.conf.template` - Defines some default directives (e.g. headers) for configuring stroom-proxy paths.
+  * `locations.proxy.conf.template` - Defines the various paths (e.g./ `/datafeed`) that will be reverse proxied to stroom-proxy hosts.
+  * `locations.stroom.conf.template` - Defines the various paths (e.g./ `/datafeeddirect`) that will be reverse proxied to stroom hosts.
 
 
 ### Templating

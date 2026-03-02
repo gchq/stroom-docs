@@ -40,31 +40,31 @@ Each stack contains the following docker compose services.
 
 {{< cardpane >}}
   {{< card header="`stroom_core`" >}}
-stroom  
-stroom-proxy-local  
-stroom-log-sender  
-nginx  
+stroom
+stroom-proxy-local
+stroom-log-sender
+nginx
 mysql
   {{< /card >}}
 
   {{< card header="`stroom_core_test`" >}}
-stroom  
-stroom-proxy-local  
-stroom-proxy-remote  
-stroom-log-sender  
-nginx  
+stroom
+stroom-proxy-local
+stroom-proxy-remote
+stroom-log-sender
+nginx
 mysql
   {{< /card >}}
 
   {{< card header="`stroom_proxy`" >}}
-stroom-proxy-remote  
-stroom-log-sender  
-nginx  
+stroom-proxy-remote
+stroom-log-sender
+nginx
   {{< /card >}}
 
   {{< card header="`stroom_services`" >}}
-stroom-log-sender  
-nginx  
+stroom-log-sender
+nginx
   {{< /card >}}
 {{< /cardpane >}}
 
@@ -86,8 +86,8 @@ In order to run Stroom using Docker you will need the following installed on the
 * An internet connection.
   If you don't have one see [Air Gapped Environments]({{< relref "air-gapped#docker-images" >}}).
 * A Linux-like shell environment.
-* Docker CE (v17.12.0+) - e.g {{< external-link "docs.docker.com/install/linux/docker-ce/centos/" "https://docs.docker.com/install/linux/docker-ce/centos/" >}} for Centos
-* docker-compose (v1.21.0+) - {{< external-link "docs.docker.com/compose/install/" "https://docs.docker.com/compose/install/" >}} 
+* Docker CE (v17.12.0+) - e.g. {{< external-link "docs.docker.com/install/linux/docker-ce/centos/" "https://docs.docker.com/install/linux/docker-ce/centos/" >}} for Centos
+* docker-compose (v1.21.0+) - {{< external-link "docs.docker.com/compose/install/" "https://docs.docker.com/compose/install/" >}}
 * bash (v4+)
 * jq - {{< external-link "stedolan.github.io/jq/" "https://stedolan.github.io/jq/" >}} e.g. `sudo yum install jq`
 * curl
@@ -137,7 +137,7 @@ cd stroom_core_test/stroom_core_test*
 ./start.sh
 {{</ command-line >}}
 
-On first run stroom will build the database schemas so this can take a minute or two. 
+On first run stroom will build the database schemas so this can take a minute or two.
 The `start.sh` script will provide details of the various URLs that are available.
 
 Open a browser (preferably Chrome) at [https://localhost](https://localhost) and login with:
@@ -162,6 +162,6 @@ To configure your new instance see [Configuration]({{< relref "docs/install-guid
 
 ## Docker Hub links
 
-* {{< external-link "The Stroom image" "https://hub.docker.com/r/gchq/stroom/" >}} 
-* {{< external-link "The GCHQ organisation" "https://hub.docker.com/r/gchq/" >}} 
+* {{< external-link "The Stroom image" "https://hub.docker.com/r/gchq/stroom/" >}}
+* {{< external-link "The GCHQ organisation" "https://hub.docker.com/r/gchq/" >}}
 

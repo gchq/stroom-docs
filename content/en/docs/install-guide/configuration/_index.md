@@ -11,7 +11,7 @@ cascade:
     - configuration
 ---
 
-Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc.).
 This document will cover two types of deployment:
 
 * Single node stroom_core docker stack.
@@ -136,12 +136,12 @@ There are various options for achieving this.
 In all cases the docker daemon should be stopped prior to making the changes, e.g. `service docker stop`, then started afterwards.
 
 * **Symlink** - One option is to move the `var/lib/docker` directory to a new location then create a symlink to it.
-    For example: 
+    For example:
 
     {{< command-line "root" "localhost" >}}
     ln -s /large_mount/docker_data_root /var/lib/docker
     {{</ command-line >}}
-    
+
     This has the advantage that anyone unaware that the data root has moved will be able to easily find it if they look in the default location.
 
 * **Configuration** - The location can be changed by adding this key to the file `/etc/docker/daemon.json` (or creating this file if it doesn't exist.
@@ -195,4 +195,4 @@ server.unencrypted.key -> /some/path/to/host123.key
 
 This approach avoids the need to change any configuration files to reference differently named certificate/key files and avoids having to copy your real certificates/keys into multiple places.
 
-For examples of how to create certificates, keys and keystores see {{< external-link "creatCerts.sh" "https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh" >}} 
+For examples of how to create certificates, keys and keystores see {{< external-link "creatCerts.sh" "https://github.com/gchq/stroom-resources/blob/master/dev-resources/certs/createCerts.sh" >}}

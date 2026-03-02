@@ -74,7 +74,7 @@ reset_password \
 
 {{% note %}}
 All the examples below assume you are running stroom as part of the zip distribution.
-If you are running a Docker stack then you will need to use the `command.sh` script (as described above) with the same arguments  but omitting the config file path.
+If you are running a Docker stack then you will need to use the `command.sh` script (as described above) with the same arguments but omitting the config file path.
 {{% /note %}}
 
 
@@ -295,9 +295,9 @@ The `USER_OR_GROUP_IDENTIFIER` can either be the identifier for a user or a grou
 
 It takes the following forms (with examples for each):
 
-* `user_subject_id` 
+* `user_subject_id`
     * `eaddac6e-6762-404c-9778-4b74338d4a17`
-* `user_display_name` 
+* `user_display_name`
     * `jbloggs`
 * `group_name`
     * `Administrators`
@@ -317,7 +317,7 @@ create_api_key \
 --user jbloggs \
 --expiresDays 365 \
 --keyName "Test key" \
---outFile  /tmp/api_key.txt \
+--outFile /tmp/api_key.txt \
 path/to/config.yml
 {{</ command-line >}}
 
@@ -402,7 +402,7 @@ java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser "2b6e06181-9e10-44eb-a33a-537509ec3abd2,johndoe,John Doe" \
 --createGroup Administrators \
---addToGroup "2b6e06181-9e10-44eb-a33a-537509ec3abd2"  Administrators \
+--addToGroup "2b6e06181-9e10-44eb-a33a-537509ec3abd2" Administrators \
 --grantPermission Administrators "Administrator" \
 path/to/config.yml
 {{</ command-line >}}
@@ -411,6 +411,6 @@ path/to/config.yml
 Identity providers may also have a more friendly _Display Name_ and _Full Name_ for the user, though these may not be unique.
 The above command will set initial values for these fields, so that you have more human friendly values in the Stroom UI, but once the user has logged in, the values will be obtained from the IDP tokens.
 
-The properties  `stroom.authentication.openiId.userDisplayNameClaim` (defaults to `preferred_username`) and `stroom.authentication.openiId.fullNameClaimTemplate` (defaults to `${name}`) allow you to control which IDP claims are used for the _Display Name_ and _Full Name_ fields in Stroom.
+The properties `stroom.authentication.openiId.userDisplayNameClaim` (defaults to `preferred_username`) and `stroom.authentication.openiId.fullNameClaimTemplate` (defaults to `${name}`) allow you to control which IDP claims are used for the _Display Name_ and _Full Name_ fields in Stroom.
 
 

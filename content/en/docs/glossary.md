@@ -425,7 +425,7 @@ See the [User Guide]({{< relref "docs/user-guide/concepts/streams" >}}) for more
 
 All {{< glossary "Stream" "Streams" >}} must have an Stream Type.
 The list of Stream Types is configured using the {{< glossary "Property" >}} `stroom.data.meta.metaTypes`.
-Additional Stream Types can be added however the list of Stream Types must include the following built-in types: 
+Additional Stream Types can be added however the list of Stream Types must include the following built-in types:
 
 * Context
 * Error
@@ -498,7 +498,7 @@ All international time zones are relative to UTC.
 Stroom currently works internally in UTC, though it is possible to change the display time zone via User Preferences to display times in another timezone.
 
 
-## UUID 
+## UUID
 
 A Universally Unique Identifier for uniquely identifying something.
 UUIDs are used as the identifier in {{< glossary "DocRef" "DocRefs" >}}.
@@ -576,13 +576,13 @@ See {{< external-link "yaml.org" "https://yaml.org" >}} for more details.
 
 
 <!-- TODO
-Event  
-Pipeline  
-Translation  
-Headers  
-Filter  
-Writer  
-Destination  
-Index  
-Task  
+Event
+Pipeline
+Translation
+Headers
+Filter
+Writer
+Destination
+Index
+Task
 -->

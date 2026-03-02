@@ -60,7 +60,7 @@ The following is the list of different permissions that can be granted to users/
 | **Owner**  | Same as delete plus ability to change the folder's permissions (i.e. grant permissions on this folder to other users/groups.                                           |
 | **Delete** | Same as edit plus permission to delete the folder.                                                                                                                       |
 | **Edit**   | Same as view plus permission to edit, move, rename or add tags to the folder.                                                                                            |
-| **View**   | Permission to see the folder in the explorer tree (and it's child items that you also have _View_ permission on), open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission. |
+| **View**   | Permission to see the folder in the explorer tree (and its child items that you also have _View_ permission on), open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission. |
 | **Use**    | Only allow use of a folder, e.g. allow use of an index as part of a search process but do not allow viewing of the folder itself.                                      |
 
 

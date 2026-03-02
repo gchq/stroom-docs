@@ -22,12 +22,12 @@ Dashboards are highly configurable; panes can be added and resized; they can con
 
 ## Configuring the query data source
 
-On the query pane click the settings {{< stroom-icon name="settings.svg" title="Dashboard settings" colour="grey"  >}} button on the top right of the panel.
+On the query pane click the settings {{< stroom-icon name="settings.svg" title="Dashboard settings" colour="grey" >}} button on the top right of the panel.
 
 {{< image "quick-start-guide/dashboard/002_dashboard_query_settings.png" "350" >}}Dashboard settings{{< /image >}}
 
 1. Click on the _Data Source_ document picker.
-1. Select the index you created earlier:  
+1. Select the index you created earlier:
    {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_
 
 {{% note %}}
@@ -71,13 +71,13 @@ See [Expressions]({{< relref "/docs/reference-section/expressions" >}}).
 To group our data by _Application_ we need to apply a group level to the _Application_ column.
 
 1. Click on the _Application_ column
-1. Click  
+1. Click
    {{< stroom-icon "fields/group.svg">}} _Group_ => {{< stroom-icon "fields/group.svg">}} _Level 1_
 
 Now we can reverse sort the data in the table by the count.
 
 1. Click on the _Count_ column.
-1. Click  
+1. Click
    {{< stroom-icon "fields/sort-ascending.svg">}} _Sort_ => {{< stroom-icon "fields/sort-descending.svg">}} _Sort Z to A_
 
 Now click the large green and white play button to run the query.
@@ -88,9 +88,9 @@ Now we are going to add a custom column to show the lowest EventId for each _App
 1. Click on the {{< stroom-icon "add.svg" "Add Field">}} button on the Table pane.
 1. Select _Custom_ (at the bottom of the list).
 1. Click on the new _Custom_ column.
-1. Click  
+1. Click
    {{< stroom-icon "fields/expression.svg">}} _Expression_
-1. In the _Set Expression For 'Custom'_ dialog enter the following:  
+1. In the _Set Expression For 'Custom'_ dialog enter the following:
    `first(${EventId})`
 1. Click _OK_.
 
@@ -100,14 +100,14 @@ You can also use {{< key-bind "ctrl,space" >}} to auto-complete your expressions
 To rename the _Custom_ column:
 
 1. Click on the _Custom_ column.
-1. Click  
+1. Click
    {{< stroom-icon "edit.svg" "Rename">}} _Rename_
 1. Enter the text `First Event ID`.
 1. Clico _OK_.
 
 Now run the query again to see the results with the added column.
 
- 
+
 ## Add a visualisation
 
 We will add a new pane to the dashboard to display a {{< glossary "Visualisation" >}}.
@@ -119,8 +119,8 @@ A new empty _Visualisation_ pane will be added at the bottom of the Dashboard.
 
 To configure the visualisation:
 
-1. Click on the {{< stroom-icon name="settings.svg" title="Settings" colour="grey"  >}} button at the top right of the _Visualisation_ pane.
-1. In the _Visualisation_ document picker select  
+1. Click on the {{< stroom-icon name="settings.svg" title="Settings" colour="grey" >}} button at the top right of the _Visualisation_ pane.
+1. In the _Visualisation_ document picker select
    {{< stroom-icon "folder.svg">}} _Visualisations_ / {{< stroom-icon "folder.svg">}} _Version3_ / {{< stroom-icon "document/Visualisation.svg" >}} _Bubble_
 1. Click _OK_.
 1. On the _Data_ tab that has now appeared in the dialog, assign the following table fields to the visualisation:

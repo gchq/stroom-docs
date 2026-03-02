@@ -23,7 +23,7 @@ Stroom uses the {{< external-link "Showdown" "https://github.com/showdownjs/show
 This link is the definitive source for supported markdown syntax.
 
 {{% note %}}
-The _Showdown_ markdown processor used in stroom is **not** the same as the markdown processor used within this  documentation site (*stroom-docs*), so there may be some subtle differences in syntax.
+The _Showdown_ markdown processor used in stroom is **not** the same as the markdown processor used within this documentation site (*stroom-docs*), so there may be some subtle differences in syntax.
 {{% /note %}}
 
 

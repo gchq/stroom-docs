@@ -182,7 +182,7 @@ It is recommended to create a template Elasticsearch indexing pipeline, which ca
 ### Procedure
 
 1. Right-click on the {{< stroom-icon "folder.svg" >}}`Template Pipelines` folder in the Stroom Explorer pane ({{< stroom-icon "folder-tree.svg" "Explorer" >}}).
-1. Select:  
+1. Select:
    {{< stroom-menu "New" "Pipeline" >}}
 1. Enter the name `Indexing (Elasticsearch)` and click {{< stroom-btn "OK" >}}.
 1. Define the pipeline structure as above, and customise the following pipeline elements:

@@ -137,14 +137,14 @@ Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT 
    1. Click on the {{< pipe-elm "XSLTFilter" >}} element.
    1. In the middle Properties pane double-click on the `xslt` row.
    1. Click the {{< stroom-icon "ellipses-horizontal.svg" "Ellipses">}}in the _Value_ document picker
-   1. Select:  
+   1. Select:
       {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/XSLT.svg">}} _Stroom 101_.
    1. Click {{< stroom-btn "OK" >}}.
 1. Assign the Index document
    1. Click on the {{< pipe-elm "IndexingFilter" >}} element.
    1. In the middle Properties pane double-click on the `index` row.
    1. Click the `...` in the _Value_ document picker
-   1. Select:  
+   1. Select:
       {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_.
    1. Click {{< stroom-btn "OK" >}}.
 
@@ -161,7 +161,7 @@ Open the {{< stroom-icon "feed.svg" >}} _CSV_FEED_ {{< glossary "Feed" >}} we cr
 1. In the top pane of the Data Browser select the _Events_ {{< glossary "Events" >}} stream.
 1. In the bottom pane you will see the XML data the you processed earlier.
 1. Click the {{< stroom-icon "stepping.svg" >}} button to open the Stepper.
-1. In the _Choose Pipeline To Step With_ dialog select our index pipeline:  
+1. In the _Choose Pipeline To Step With_ dialog select our index pipeline:
    {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Pipeline.svg">}} _Stroom 101_.
 
 This will open a Stepper tab showing only the elements of the selected pipeline that can be stepped.

@@ -55,7 +55,7 @@ curl -k --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
 
 Data can be sent to Stroom as a {{< external-link "ZIP" "https://en.wikipedia.org/wiki/ZIP_(file_format)" >}} archive.
 This allows one or more text files to be sent in one go.
-It allows allows additional {{< external-link "sidecar files" "https://en.wikipedia.org/wiki/Sidecar_file" >}} to be sent.
+It allows additional {{< external-link "sidecar files" "https://en.wikipedia.org/wiki/Sidecar_file" >}} to be sent.
 
 A ZIP archive is sent to Stroom with the `Compression` flag set to `ZIP` in the [Headers]({{< relref "header-arguments" >}}).
 The contents of the ZIP archive is described below.

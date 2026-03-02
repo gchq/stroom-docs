@@ -10,7 +10,7 @@ description: >
 
 {{< external-link "stroom-log-sender" "https://hub.docker.com/r/gchq/stroom-log-sender/" >}} is a small Docker image for sending data to _Stroom_. 
 
-This is the simplest way to get data into stroom if the data provider is itself running in docker. 
+This is the simplest way to get data into stroom if the data provider is itself running in docker.
 It can also be used for sending data to _Stroom_ from data providers that are not running in Docker.
 _stroom-log-sender_ makes use of the _send_to_stroom.sh_ bash script that is described below.
 For details on how to use _stroom-log-sender_, see the Dockerhub link above.

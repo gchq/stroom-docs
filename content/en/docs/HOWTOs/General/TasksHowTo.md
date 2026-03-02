@@ -98,7 +98,7 @@ That is it. Stroom will automatically take note of these changes and internally 
 ### Enable Stream Processors On New Node
 
 When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and
-services on the new node, we need to enable it's `Stream Processors` task.
+services on the new node, we need to enable its `Stream Processors` task.
 
 To enable the `Stream Processors` for this new node, move to the `Monitoring` item of the __Main Menu__ and select it to bring up the `Monitoring` sub-menu.
 
@@ -112,7 +112,7 @@ At this we select the `Stream Processor` _Job_ whose check-box is selected
 
 {{< screenshot "HOWTOs/UI-NewNodeProcessors-00.png" >}}Stroom UI Jobs Management - Stream Processor new node{{< /screenshot >}}
 
-We enable the new node by selecting it's check-box.
+We enable the new node by selecting its check-box.
 
 {{< screenshot "HOWTOs/UI-NewNodeProcessors-01.png" >}}Stroom UI Jobs Management - Stream Processor enabled on new node{{< /screenshot >}}
 

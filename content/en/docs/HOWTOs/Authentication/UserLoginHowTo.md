@@ -16,7 +16,7 @@ The following assumptions are used in this document.
 - for PKI Certificate login, the Stroom deployment would have been configured to accept PKI Logins
 
 
-## Manual Login 
+## Manual Login
 
 Within the **Login** panel, enter `admin` into the *User Name:* entry box and `admin` into the *Password:* entry box as per
 

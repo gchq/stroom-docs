@@ -43,7 +43,7 @@ For example:
 
 ### Filtering by Name
 
-The _Explorer Tree_ can be filtered by the name of the entity. 
+The _Explorer Tree_ can be filtered by the name of the entity.
 This is done by entering some text in the _Quick Filter_ field.
 The tree will then be updated to only show entities matching the _Quick Filter_.
 The way the matching works for entity names is described in [Common Fuzzy Matching](#common-fuzzy-matching)
@@ -95,7 +95,7 @@ The basis of the query language is described in [Common Fuzzy Matching](#common-
 
 A number of the Quick Filters are used for filter tables of data that have a number of fields.
 The quick filter query language supports matching in specified fields.
-Each Quick Filter will have a number of named fields that it can filter on. 
+Each Quick Filter will have a number of named fields that it can filter on.
 The field to match on is specified by prefixing the match term with the name of the field followed by a `:`, i.e. `type:`.
 Multiple field matches can be used, each separate by a space.
 E.g:
@@ -177,7 +177,7 @@ Boolean logic can be added using `and`, `or` and `not`, plus brackets to group t
 
 **User input**: `status:disabled or status:locked`
 
-**Will match**: 
+**Will match**:
 ```text
 Locked
 ^^^^^^
@@ -277,7 +277,7 @@ An upper case letter in the input denotes the beginning of a _word_ and any subs
 
 **User input**: `?OTheiMa`
 
-**Will match**: 
+**Will match**:
 
 ```text
 the cat sat on their mat
@@ -299,7 +299,7 @@ OnTheirMat
 
 **User input**: `?MFN`
 
-**Will match**: 
+**Will match**:
 
 ```text
 MY_FEED_NAME
@@ -334,7 +334,7 @@ For more details on the syntax of java regular expressions see this internet lin
 
 **User input**: `/(^|wo)man`
 
-**Will match**: 
+**Will match**:
 ```text
 MAN
 ^^^
@@ -356,7 +356,7 @@ E.g:
 
 **User input**: `^xml-events$`
 
-**Will match**: 
+**Will match**:
 
 ```text
 xml-events
@@ -377,7 +377,7 @@ E.g:
 
 **User input**: `^events`
 
-**Will match**: 
+**Will match**:
 
 ```text
 events

@@ -16,7 +16,7 @@ description: >
 
 The following firewall configuration is recommended:
 
-* Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc
+* Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc.
 * Within cluster allow all access
 
 This will enable nodes within the cluster to communicate on:

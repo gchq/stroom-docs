@@ -69,7 +69,7 @@ The choice of Analyser will depend on the date in the field and how you want to 
 * `Alpha` - Tokenises on any non-letter characters, e.g. `one1 two2 three 3` => `one` `two` `three`.
   Strips non-letter characters.
   Supports the _Case Sensitivity setting_.
-* `Numeric` - 
+* `Numeric` -
 * `Alpha numeric` - Tokenises on any non-letter/digit characters, e.g. `one1 two2 three 3` => `one1` `two2` `three` `3`.
   Supports the _Case Sensitivity setting_.
 * `Whitespace` - Tokenises only on white space.

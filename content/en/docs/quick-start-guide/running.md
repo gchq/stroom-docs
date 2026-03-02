@@ -10,7 +10,7 @@ description: >
 
 ## Getting and Running Stroom
 
-For this quick start you want a simple single-node Stroom. 
+For this quick start you want a simple single-node Stroom.
 You will want to follow [these instructions]({{< relref "docs/install-guide/single-node-docker" >}}) for setting up a single node _stroom_core_test_ stack installation in the simplest way.
 
 ## First look
