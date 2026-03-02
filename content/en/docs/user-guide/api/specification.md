@@ -6,7 +6,7 @@ date: 2023-02-02
 tags: 
   - api
 description: >
-  Details of the API specifcation and how to find what API endpoints are available.
+  Details of the API specification and how to find what API endpoints are available.
 ---
 
 ## Swagger UI

@@ -38,7 +38,7 @@ To insert a snippet do one of the following:
 * Type the whole Tab Trigger then hit {{< key-bind "tab" >}}.
 * Type some characters from the Name then hit {{< key-bind "ctrl,space" >}} to select it from the list.
 
-The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be position on the first tab position (`${1}` if present, otherwise `${0}`).
+The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be positioned on the first tab position (`${1}` if present, otherwise `${0}`).
 If the tab position has a default value then the whole of that default value will be selected allowing the user to quickly over type it.
 Once the user is happy with the first tab position (whether they inserted text, over typed or did nothing), they can hit `tab` to move to the next tab position.
 

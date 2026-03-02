@@ -554,7 +554,7 @@ Writer to convert XML events data into XML output in the specified character enc
 | indentOutput                 | Should output XML be indented and include new lines (pretty printed)?                                | false         | Boolean    |
 | suppressXSLTNotFoundWarnings | If XSLT cannot be found to match the name pattern suppress warnings.                                 | false         | Boolean    |
 | xslt                         | A previously saved XSLT, used to modify the output via xsl:output attributes.                        | -             | Document   |
-| xsltNamePattern              | A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes. | -             | String     |
+| xsltNamePattern              | A name pattern for dynamic loading of an XSLT, that will modify the output via xsl:output attributes. | -             | String     |
 
 
 

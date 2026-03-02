@@ -318,7 +318,7 @@ The criteria is defined using a StroomQL query.
 * Icon: {{< stroom-icon "document/View.svg" >}}
 * Type: `View`
 
-A view is an abstraction over a data source (such as a [Lucene Indexe]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
+A view is an abstraction over a data source (such as a [Lucene Index]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
 Views provide a much simpler way for users to query data as the user can simply query against the View without any knowledge of the underlying data source or extraction of that data.
 
 

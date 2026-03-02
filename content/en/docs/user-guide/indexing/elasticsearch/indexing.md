@@ -59,7 +59,7 @@ Array of strings
 It is recommended to insert a schema validation filter into your pipeline XML (with schema group `JSON`), to make it easier to diagnose JSON conversion errors.
 {{% /note %}}
 
-We will now explore how create an Elasticsearch *index template*, which specifies field mappings and settings for one or more indices.
+We will now explore how to create an Elasticsearch *index template*, which specifies field mappings and settings for one or more indices.
 
 
 ## Create an Elasticsearch index template
@@ -272,7 +272,7 @@ If an element name begins with `_` (underscore), its value is _only_ used for `i
 ##### Other applications for dynamic data stream names
 
 Dynamic data stream names can also help in other scenarios, such as implementing fine-grained retention policies, such as deleting documents that aren't user-attributed after 12 months.
-While Stroom `ElasticIndex` support data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn't cause disk space to be freed (this requires an index to be force-merged, an expensive operation).
+While Stroom `ElasticIndex` supports data retention expressions, deleting documents in Elasticsearch by query is highly inefficient and doesn't cause disk space to be freed (this requires an index to be force-merged, an expensive operation).
 A better solution therefore, is to use dynamic data stream names to partition data and assign certain partitions to specific ILM policies and/or data tiers.
 
 
@@ -430,7 +430,7 @@ Any existing documents matching the `StreamId` of the original `Event` stream ar
 ### Use a common schema for your indices
 
 An example is {{< external-link "Elastic Common Schema (ECS)" "https://www.elastic.co/guide/en/ecs/current/ecs-reference.html" >}}.
-This helps users understand the purpose of each field and to build cross-index queries simpler by using a set of common fields (such as a user ID).
+This helps users understand the purpose of each field and to build cross-index queries more simply by using a set of common fields (such as a user ID).
 
 With this in mind, it is important that common fields also have the same data type in each index.
 Component templates help make this easier and reduce the chance of error, by centralising the definition of common fields to a single *component*.
