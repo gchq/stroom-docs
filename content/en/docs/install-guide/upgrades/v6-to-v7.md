@@ -10,7 +10,7 @@ description: >
 ---
 
 {{% page-warning %}}
-Before comencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.
+Before commencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.
 {{% /page-warning %}}
 
 ## Differences between v6 and v7
@@ -24,7 +24,7 @@ Stroom v7 has significant differences to v6 which make the upgrade process a lit
 * v6 used upper case and heavily abbreviated names for its tables.
   In v7 clearer and lower case table names are used.
   As a result ALL v6 tables get renamed with the prefix `OLD_`, the new tables created and any content copied over.
-  As the database will be holding two copies of most data you need to ensure you have space to accomodate it.
+  As the database will be holding two copies of most data you need to ensure you have space to accommodate it.
 
 
 ## Pre-Upgrade tasks
@@ -59,7 +59,7 @@ This will produce a report of items that will not be migrated or need attention 
 
 Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.
 
-*TODO* clairfy steps for this.
+*TODO* clarify steps for this.
 
 
 ### Stop the stack
@@ -106,7 +106,7 @@ Stroom v6 ran on mysql v5.6.
 Stroom v7 runs on mysql v8.
 The upgrade path for MySQL is 5.6 => 5.7.33 => 8.x
 
-To ensure the database is up to date `mysql_upgrade` neeeds to be run using the 5.7.33 binaries, see the {{< external-link "MySQL documentation" "https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" >}}.
+To ensure the database is up to date `mysql_upgrade` needs to be run using the 5.7.33 binaries, see the {{< external-link "MySQL documentation" "https://dev.mysql.com/doc/refman/8.0/en/mysql-upgrade.html" >}}.
 
 This is the process for upgrading the database. All of these commands are using the v7 stack.
 
@@ -204,7 +204,7 @@ echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u"root" -p"my-secr
 ## Performing the upgrade
 
 To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
-For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
+For a large upgrade like this it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
 Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.
 
 {{< command-line "stroomuser" "localhost" >}}

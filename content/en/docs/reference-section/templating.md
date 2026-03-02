@@ -22,8 +22,8 @@ When a template is rendered, Stroom will populate the [template context]({{< rel
 
 ## Basic Templating Syntax
 
-Jinja templating is very powerful and has a rich language so this is quick guide to the very basic features.
-See the full syntax here {{< external-link "here" "https://developers.hubspot.com/docs/cms/hubl" >}}.
+Jinja templating is very powerful and has a rich language so this is a quick guide to the very basic features.
+See the full syntax {{< external-link "here" "https://developers.hubspot.com/docs/cms/hubl" >}}.
 
 
 ### Data Types
@@ -47,7 +47,7 @@ Dictionary | Object containing key/value pairs, also known as a map.            
 A List/tuple item can be accessed by its index (zero based), e.g. `fruits[0]` returns `Apple`.
 
 A value in a dictionary can be accessed using its key, e.g. `myDict['fruit']` returns `Apple`.
-If the key does not contain special characters (with the exception of `_`, then you can also used this form `myDict.fruit` to get the same value.
+If the key does not contain special characters (with the exception of `_`, then you can also use this form `myDict.fruit` to get the same value.
 
 
 ### Conditions

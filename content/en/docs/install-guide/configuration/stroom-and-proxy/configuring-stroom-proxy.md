@@ -86,7 +86,7 @@ The API key must be created in the downstream stroom instance and then copied in
 
 If the proxy is configured to forward data then the forward destination(s) should be set.
 This is the `datafeed` endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
-This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
+This may also be the address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
 See also [Feed status certificate configuration](#feed-status-certificate-configuration).
 
 ```yaml
@@ -100,7 +100,7 @@ See also [Feed status certificate configuration](#feed-status-certificate-config
 Each forward location can use a different key/trust store pair.
 See also [Forwarding certificate configuration](#forwarding-certificate-configuration).
 
-If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.
+If the proxy is configured to store then the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.
 
 
 ## Deploying without Docker

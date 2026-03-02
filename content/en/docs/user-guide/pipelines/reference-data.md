@@ -32,8 +32,8 @@ Reference data is often time sensitive, e.g. an employee's job title will change
 This allows reference data lookups to be performed using the date of the event to ensure the reference data that was actually effective at the time of the event is used.
 
 {{% warning %}}
-There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependant on a _Reference_ Feed.
-When performing a lookup Stroom can only uses the _Reference_ streams that it has available.
+There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependent on a _Reference_ Feed.
+When performing a lookup Stroom can only use the _Reference_ streams that it has available.
 If a _Reference_ stream has been delayed (in receipt or translation), then Stroom will have to use the most recent one it has.
 {{% /warning %}}
 
@@ -81,7 +81,7 @@ As the _Context_ sub-stream sits alongside the _Events_ stream, there is no conc
 
 Using _Context_ sub-stream based reference data involves the following steps/processes:
 
-* Creating a context loader pipeline with to transform the raw context data into `reference-data:2` XML and pass that into a {{< pipe-elm "ReferenceDataFilter" >}} element.
+* Creating a context loader pipeline to transform the raw context data into `reference-data:2` XML and pass that into a {{< pipe-elm "ReferenceDataFilter" >}} element.
   This pipeline does not need any processors or processor filters as it is used on demand when the first lookup call is made in an _Events_ stream.
 * Adding reference pipeline/feeds to an XSLT Filter in your event pipeline.
   The _Pipeline_ is set to the context loader pipeline created above.

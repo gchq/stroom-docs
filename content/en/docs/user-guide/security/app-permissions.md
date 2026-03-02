@@ -41,7 +41,7 @@ The following is the list of different application permissions that can be grant
 | **Download Search Results** | Download search result data on a _Dashboard_. |
 | **Export Configuration** | Export {{< glossary "content" >}} (i.e. documents, that you have permission to view) to a file. |
 | **Import Configuration** | Import {{< glossary "content" >}} from a file. |
-| **Manage API Keys** | Access the _API Keys_ screen to view, create, edit, delete the user's own API keys. 'Manage Users' permission is also required to managed other users API keys |
+| **Manage API Keys** | Access the _API Keys_ screen to view, create, edit, delete the user's own API keys. 'Manage Users' permission is also required to manage other users API keys |
 | **Manage Cache** | Access the _Caches_ screen to view and clear system caches. |
 | **Manage DB** | Access the _Monitoring_ -> _Database Tables_ screen to view the state of the tables in the database. |
 | **Manage Index Shards** | Access the _Shards_ sub-tab on an Index {{< stroom-icon "document/Index.svg" >}} document. |

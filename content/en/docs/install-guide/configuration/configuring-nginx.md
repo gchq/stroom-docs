@@ -16,7 +16,7 @@ description: >
 
 Nginx is the standard web server used by stroom.
 Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
-It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance.
+It can also load balance incoming requests and ensure traffic from the same source is always routed to the same upstream instance.
 Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.
 
 
@@ -24,7 +24,7 @@ Other web servers can be used if required but their installation/configuration i
 
 The standard way of deploying Nginx with stroom running without docker involves running Nginx as part of the _services_ stack.
 See below for details of how to configure it.
-If you want to deploy Nginx without docker then you can but that is outside the scope of the this documentation.
+If you want to deploy Nginx without docker then you can but that is outside the scope of this documentation.
 
 
 ## As part of a docker stack

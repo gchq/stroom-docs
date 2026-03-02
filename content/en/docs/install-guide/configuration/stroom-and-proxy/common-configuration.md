@@ -307,8 +307,8 @@ Dropwizard uses {{< external-link "Logback" "https://logback.qos.ch" >}} for app
 All logs in Stroom and Stroom-Proxy apart from the request log are Logback based logs.
 
 Logback uses the concept of _Loggers_ and _Appenders_.
-A _Logger_ is a named thing that that produces log messages.
-An _Appender is an output that a _Logger_ can append its log messages to.
+A _Logger_ is a named thing that produces log messages.
+An _Appender_ is an output that a _Logger_ can append its log messages to.
 Typical _Appenders_ are:
 * File - appends messages to a file that may or may not be rolled.
 * Console - appends messages to `stdout`.

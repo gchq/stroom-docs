@@ -49,7 +49,7 @@ If your implementation of cron supports environment variables then you can defin
 `cronie` as used by Centos does not support environment variables in the crontab file but variables can be defined at the line level as has been shown with STROOM_HOME and PROXY_HOME.
 
 The above crontab entries assume that stroom and stroom-proxy are running on the same host.
-If there are not then the entries can be split across the hosts accordingly.
+If they are not then the entries can be split across the hosts accordingly.
 
 ### Service host(s)
 

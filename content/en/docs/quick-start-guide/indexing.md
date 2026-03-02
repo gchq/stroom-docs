@@ -14,7 +14,7 @@ description: >
 Before you can visualise your data with dashboards you have to {{< glossary "index" >}} the data.
 
 {{% note %}}
-Stroom uses Apache Lucene for indexing its data but can also can also integrate with Solr and {{< glossary "Elasticsearch" >}}.
+Stroom uses Apache Lucene for indexing its data but can also integrate with Solr and {{< glossary "Elasticsearch" >}}.
 For this Quick Start Guide we are going to use Stroom's internal Lucence indexing.
 {{% /note %}}
 
@@ -127,7 +127,7 @@ You should now see the following structure:
 {{< image "quick-start-guide/index/012_indexing_pipeline.png" >}}Indexing pipeline{{< /image >}}
 
 Inheriting from another pipeline often means the structure is there but some properties may not have been set, e.g. `xslt` in the _xsltFilter_.
-If a property has been set in the partent pipeline then you can either use the inherited value or override it.
+If a property has been set in the parent pipeline then you can either use the inherited value or override it.
 
 See the [Pipeline Element Reference]({{< relref "docs/reference-section/pipeline-elements" >}}) for details of what each element does.
 
@@ -159,7 +159,7 @@ The best place to develop a translation is in the {{< glossary "Stepper" >}} as 
 Open the {{< stroom-icon "feed.svg" >}} _CSV_FEED_ {{< glossary "Feed" >}} we created earlier in the quick-start guide.
 
 1. In the top pane of the Data Browser select the _Events_ {{< glossary "Events" >}} stream.
-1. In the bottom pane you will see the XML data the you processed earlier.
+1. In the bottom pane you will see the XML data that you processed earlier.
 1. Click the {{< stroom-icon "stepping.svg" >}} button to open the Stepper.
 1. In the _Choose Pipeline To Step With_ dialog select our index pipeline:
    {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Pipeline.svg">}} _Stroom 101_.

@@ -23,4 +23,4 @@ Double click on the _System_ entry {{< stroom-icon "oo.svg" "System" >}} in the 
 
 {{< screenshot "quick-start-guide/running/system.png" >}}Viewing all streams{{< /screenshot >}}
 
-So now we've got Stroom up and running lets [get data into Stroom]({{< relref "./feed" >}})
+So now we've got Stroom up and running let's [get data into Stroom]({{< relref "./feed" >}})
