@@ -33,7 +33,7 @@ OR, if you use Vim use this command (changing the path to the stroom repo) to re
 
 * Feature : Change the Report > Notifications _Max_ column to be right aligned.
 
-* Feature : Add red/green sytling to the Report > Notifications _Status_ column (Complete/Error).
+* Feature : Add red/green styling to the Report > Notifications _Status_ column (Complete/Error).
 
 * Feature **{{< external-link "#5282" "http://github.com/gchq/stroom/issues/5282" >}}** : Processor task creation now supports feed dependencies to delay processing until reference data is available.
 

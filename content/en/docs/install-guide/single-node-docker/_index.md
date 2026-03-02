@@ -14,6 +14,12 @@ description: >
 Running Stroom in _Docker_ is the quickest and easiest way to get Stroom up and running.
 Using Docker means you don't need to install the right versions of dependencies like Java or MySQL or get them configured correctly for Stroom.
 
+This section details how to install single instances of of Stroom and Stroom-Proxy using Docker.
+
+{{% note %}}
+If you want to deploy a Stroom cluster using containers then you should use Kubernetes, see [Kubernetes Cluster]({{< relref "docs/install-guide/kubernetes" >}}).
+{{% /note %}}
+
 
 ## Stroom Docker stacks
 
@@ -21,13 +27,11 @@ Stroom has a number of predefined _stacks_ that combine multiple docker containe
 The Docker stacks are aimed primarily at single node instances or for evaluation/test.
 The stack makes use of various shell scripts combined with Docker Compose to integrate the various Docker containers and make them easy to run.
 
-If you want to deploy a Stroom cluster using containers then you should use [Kubernetes Cluster]({{< relref "../kubernetes/introduction" >}}).
-
 At the moment the usable stacks are:
 
 * `stroom_core` - A single node stroom stack geared towards production use.
 
-* `stroom_core_test` - A single node stroom for test/evalutaion, pre-loaded with content.
+* `stroom_core_test` - A single node stroom for test/evaluation, pre-loaded with content.
    Also includes a _remote_ proxy for demonstration purposes.
    If you just want to try out Stroom, this is the one to use.
 
