@@ -414,11 +414,11 @@ or attempt to
 perform our tests noting that proxy aggregation occurs every 10 minutes by default. For simplicity, we will
 [turn off the `Proxy Aggregation` task]({{< relref "../General/TasksHowTo.md#turn-off-proxy-aggregation" >}}).
 
-We can now perform out tests. Follow the steps in the [Data Posting Tests]({{< relref "InstallTestingHowTo.md#data-post-tests" >}}) section
+We can now perform our tests. Follow the steps in the [Data Posting Tests]({{< relref "InstallTestingHowTo.md#data-post-tests" >}}) section
 of the [Testing Stroom Installation HOWTO]({{< relref "InstallTestingHowTo.md" >}})
 
 ## Forwarding Stroom Proxy Deployment
-In this deployment will install a Stroom __Forwarding Proxy__ which is designed to aggregate data posted to it for managed forwarding to
+In this deployment we will install a Stroom __Forwarding Proxy__ which is designed to aggregate data posted to it for managed forwarding to
 a central Stroom processing system. This scenario is assuming we are installing on the fully patch Centos 7.3 host, `stroomfp0.strmdev00.org`.
 Further it assumes we have installed, configured and tested the destination Stroom system we will be forwarding to.
 

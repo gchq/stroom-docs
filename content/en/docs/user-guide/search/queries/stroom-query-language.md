@@ -185,7 +185,7 @@ eval new_name = concat(
 ```
 
 In this example, the second assignment of `new_name` will override the value initially assigned to it.
-Note that that when reusing a variable name, the assignment can depend on the previous value assigned to that variable.
+Note that when reusing a variable name, the assignment can depend on the previous value assigned to that variable.
 
 Add boolean logic with `and`, `or` and `not` to build complex criteria, e.g.
 

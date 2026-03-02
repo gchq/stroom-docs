@@ -19,7 +19,7 @@ description: >
 
 ## Set up the Stroom processing user's environment
 
-To automate the running of a Stroom Proxy or Application service under out Stroom processing user, `stroomuser`, there are a number of configuration files and scripts we need to deploy.
+To automate the running of a Stroom Proxy or Application service under our Stroom processing user, `stroomuser`, there are a number of configuration files and scripts we need to deploy.
 
 We first become the stroomuser
 ```bash

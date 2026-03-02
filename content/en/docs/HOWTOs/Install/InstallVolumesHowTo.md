@@ -29,7 +29,7 @@ then move down and select the `Volumes` sub-item to be presented with the `Volum
 {{< screenshot "HOWTOs/UI-ManageVolumes-01.png" >}}Stroom UI Volumes - configuration window{{< /screenshot >}}
 
 The attributes we see for each volume are
-- Node - the processing node the volume resides on (this is just the node name entered when configuration the Stroom application)
+- Node - the processing node the volume resides on (this is just the node name entered when configuring the Stroom application)
 - Path - the path to the volume
 - Volume Type - The type of volume
  - Public - to indicate that all nodes would access this volume
@@ -83,7 +83,7 @@ nodes _data_ volume
  - `/stroomdata/stroom-data-p00` - location to store Stroom application data files (events, etc.) for this node
 for node `stroomp00`.
 
-If you move the the *Node* drop down entry box and select it you will be presented with a choice of available
+If you move the *Node* drop down entry box and select it you will be presented with a choice of available
 nodes - in this case `stroomp00` and `stroomp01` as we have a two node cluster with these node names.
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-03.png" >}}Stroom UI Add Volume - select node{{< /screenshot >}}
@@ -163,7 +163,7 @@ From this we need to create two volumes on `stroomp02`
 To configure the volumes, move to the `Tools` item of the __Main Menu__ and select it to bring up the `Tools` sub-menu.
 {{< screenshot "HOWTOs/UI-ToolsSubmenu-00.png" >}}Stroom UI Tools sub-menu{{< /screenshot >}}
 
-then move down and select the `Volumes` sub-item to be presented with the `Volumes` configuration window as.
+then move down and select the `Volumes` sub-item to be presented with the `Volumes` configuration window as seen below.
 We then move the cursor to the _New_ icon {{< stroom-icon "add.svg" "Add" >}}
  in the top left of the `Volumes` window and select it.
 This will bring up the `Add Volume` configuration window where we select our volume's node `stroomp02`.

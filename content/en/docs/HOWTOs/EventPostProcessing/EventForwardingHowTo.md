@@ -277,7 +277,7 @@ The outputPath can contain replacement variables to provide more structure if de
 
 Repeat this Element Property Name assignment for the GBR branch of the pipeline substituting the ClientGBR translation and /stroom/volumes/defaultStreamVolume/forwarding/GBR00 for rollingFileAppender outputPaths where appropriate.
 
-Note, if you expect lots of events to be processed by the pipeline, you may which to create multiple outputPaths.
+Note, if you expect lots of events to be processed by the pipeline, you may wish to create multiple outputPaths.
 For example, you could have
 
 ```text

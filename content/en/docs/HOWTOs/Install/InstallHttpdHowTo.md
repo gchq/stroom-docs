@@ -84,7 +84,7 @@ cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
 Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
 Stroom Proxy, the configuration of the `/etc/httpd/conf/httpd.conf` file is the same.
 
-We start by modify the configuration file by,
+We start by modifying the configuration file by,
 add just before the ServerRoot directive the following directives which are designed to make the httpd service more secure.
 
 ```text

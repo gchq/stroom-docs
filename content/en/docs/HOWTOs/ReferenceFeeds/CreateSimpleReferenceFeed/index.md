@@ -200,7 +200,7 @@ You can find further information about the Template Pipelines {{< external-link 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-21.png" >}}New Pipeline - Reference Data pipeline inherited{{< /screenshot >}}
 
 Then press {{< stroom-btn "Ok" >}}.
-At this we will see the inherited pipeline structure of
+At this point we will see the inherited pipeline structure of
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-22.png" >}}New Pipeline - Inherited set{{< /screenshot >}}
 
@@ -318,7 +318,7 @@ We leave the Property **Source:** as _Inherit_ but we need to change the Propert
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-29.png" >}}textConverter select GeoHost-V1.0-REFERENCE{{< /screenshot >}}
 
 then press {{< stroom-btn "Ok" >}}.
-At this we will see the Property _Value_ set
+At this point we will see the Property _Value_ set
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-30.png" >}}textConverter set Property Value{{< /screenshot >}}
 
@@ -743,7 +743,7 @@ Once you have clicked here a drop-down box will appear as per
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-61.png" >}}pipeline Processors - Choose Stream Type{{< /screenshot >}}
 
 at which point, select the _Stream Type_ of **Raw Reference**and then press {{< stroom-btn "Ok" >}}.
-At this we return to the **Add Processor** selection window to see that the _Raw Reference_ stream type has been added.
+At this point we return to the **Add Processor** selection window to see that the _Raw Reference_ stream type has been added.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-62.png" >}}pipeline Processors - pipeline criteria set{{< /screenshot >}}
 

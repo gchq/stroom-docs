@@ -227,7 +227,7 @@ The namespacing can also be achieved like this:
 </referenceData>
 ```
 
-This reference data will be injected into event XML exactly as it, i.e.:
+This reference data will be injected into event XML exactly as is, i.e.:
 
 ``` xml
       <Location xmlns="event-logging:3">

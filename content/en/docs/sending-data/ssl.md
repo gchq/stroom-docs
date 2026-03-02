@@ -10,7 +10,7 @@ description: >
 
 This page provides a step by step guide to getting PKI authentication working correctly for Unix hosts so as to be able to sign deliveries from cURL.
 
-First make sure you have a copy of your organisations CA certificate.
+First make sure you have a copy of your organisation's CA certificate.
 
 Check that the CA certificate works by running the following command:
 

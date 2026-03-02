@@ -255,7 +255,7 @@ We need to get this data to a destination.
 
 The XSLT filter doesn't actually write XML but instead it just outputs XML events to the next element in the pipeline.
 In order to write these XML events out to a destination you need a writer.
-If your transofmration is producing XML then you need an {{< element "XMLWriter" >}}, if it is producing JSON then you need a {{< element "JSONWriter" >}} and for plain text you need a {{< element "TextWriter" >}}.
+If your transformation is producing XML then you need an {{< element "XMLWriter" >}}, if it is producing JSON then you need a {{< element "JSONWriter" >}} and for plain text you need a {{< element "TextWriter" >}}.
 
 Our _XSLT filter_ element is outputting XML so we will create an _XMLWriter_.
 
