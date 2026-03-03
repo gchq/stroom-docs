@@ -148,7 +148,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.621df332f57358555f9c72ed07db9cd0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.728f8868440bddf6bd192e425a30d579.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -426,8 +426,8 @@ This runs as a foreground process.</p>
     data-continuation-str="\"
     data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 create_account \
---u USER \
---p PASSWORD \
+--user USER \
+--password PASSWORD \
 [OPTIONS] \
 path/to/config.yml</code></pre>
 </div>
@@ -481,10 +481,10 @@ path/to/config.yml</code></pre>
 <li><code>-u</code> <code>--user</code> - The username for the user.</li>
 <li><code>-p</code> <code>--password</code> - The password for the user.</li>
 </ul>
-<p>This command is used for changing the password of an existing account in stroom&rsquo;s internal identity provider.
-It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.
-This command should NOT be run if you are using an external identity provider.
-It will fail if the account does not exist.</p>
+<p>This command is used for changing the password of an existing account in Stroom&rsquo;s internal identity provider.
+It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.</p>
+<p>This command should NOT be run if you are using an external identity provider as the external identity provider is responsible for managing authentication accounts.</p>
+<p>This command will fail if the account does not exist, i.e. <code>create_account</code> should have already been run or Stroom should be configured with <code>stroom.security.identity.allowCertificateAuthentication</code> set to true.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h3 id="manage_users"><code>manage_users</code></h3>
 
@@ -517,10 +517,9 @@ path/to/config.yml</code></pre>
 <li><code>--revokePermission</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>PERMISSION_IDENTIFIER</code> - Revokes the named application permission from the user/group.</li>
 <li><code>--listPermissions</code> - Lists all the valid permission names.</li>
 </ul>
-<p>This command allows you to manage the account permissions within stroom regardless of whether the internal identity provider or an external party is used.
+<p>This command allows you to manage the user permissions within Stroom regardless of whether the internal identity provider or an external party is used.
 A typical use case for this is when using a external identity provider.
-In this instance Stroom has no way of auto creating an admin account when first started so the association between the account on the 3rd party IDP and the stroom user account needs to be made manually.
-To set up an admin account to enable you to login to stroom you can do:</p>
+In this instance Stroom has no way of auto creating an admin user when first started so the association between the account on the 3rd party IDP and the stroom user needs to be made manually.</p>
 <p>This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
 It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
 If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at <code>/stroom/noauth/swagger-ui</code>.</p>
@@ -530,6 +529,8 @@ If you want to automate actions that can be performed in the UI then you can mak
 
 
     <p>See the <a href="#authentication-accounts-and-stroom-users">section</a> above about the distinction between authentication accounts and stroom users.</p>
+<p>This command does <strong>not</strong> create an account for authentication.
+See <a href="#create_account"><code>create_account</code></a> for that.</p>
 
 
 </div>

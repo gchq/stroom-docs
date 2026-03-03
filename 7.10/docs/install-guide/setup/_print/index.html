@@ -144,7 +144,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.48123d97b3bb5c94d651b9ca1913611f.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.44a75968503de82daa79940c37e5fc98.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -359,7 +359,7 @@ install and create a database user account.</p>
 <p>Things get more complicated when considering:</p>
 <ul>
 <li>Security</li>
-<li>Master Slave Replication</li>
+<li>Replication</li>
 <li>Tuning memory usage</li>
 <li>Running Stroom Stats in a different database to Stroom</li>
 <li>Performance Monitoring</li>
@@ -400,30 +400,43 @@ usage : --name=&lt;instance name (defaults to my for /etc/my.cnf)&gt;
 <p>You need to create a file cluster.txt with a line for each member of your cluster
 (or single line in the case of a one node Stroom install).
 Then run the utility script to lock down the server access.</p>
-<pre><code class="language-bash">[stroomuser@host ~]$ hostname &gt;&gt; cluster.txt
-[stroomuser@host ~]$ ./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
-Enter root mysql password :
---------------
-flush privileges
---------------
 
---------------
-delete from mysql.user where user = 'stroomuser'
---------------
-...
-...
-...
---------------
-flush privileges
---------------
+  
 
-[stroomuser@host ~]$
-</code></pre>
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">hostname &gt;&gt; cluster.txt
+./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
+(out)Enter root mysql password :
+(out)--------------
+(out)flush privileges
+(out)--------------
+(out)
+(out)--------------
+(out)delete from mysql.user where user = &#39;stroomuser&#39;
+(out)--------------
+(out)...
+(out)...
+(out)...
+(out)--------------
+(out)flush privileges
+(out)--------------</code></pre>
+</div>
+
 <h2 id="advanced-install">Advanced Install</h2>
 <p>The below example uses the utility scripts to create 3 custom mysql server instances on 2 servers:</p>
 <ul>
-<li>server1 - master stroom,</li>
-<li>server2 - slave stroom, stroom_stats</li>
+<li>server1 - stroom (source),</li>
+<li>server2 - stroom (replica), stroom_stats</li>
 </ul>
 <p>As root on server1:</p>
 <pre><code class="language-bash">yum install &quot;mysql56-mysql-server&quot;

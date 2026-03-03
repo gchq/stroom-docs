@@ -146,7 +146,7 @@ The types of deployment currently supported are: …">
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.48123d97b3bb5c94d651b9ca1913611f.json"
+    data-offline-search-index-json-src="../../../offline-search-index.44a75968503de82daa79940c37e5fc98.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -208,7 +208,7 @@ The types of deployment currently supported are:</p>
 </li>
 <li>A mixed deployment with some containers and some bare metal installations.</li>
 </ol>
-<p>An architecture diagram is included below, depicting a notional Stroom cluster consisting of two nodes.
+<p>An architecture diagram is included below, depicting a notional Stroom cluster consisting of two Stroom nodes and two Stroom-Proxy nodes.
 This represents a reference architecture and deployment for stroom but it is possible to deploy the various services in many different ways, e.g. using a different web server to Nginx or introducing hardware load balancers.</p>
 
 
@@ -256,8 +256,11 @@ This represents a reference architecture and deployment for stroom but it is pos
 They are:</p>
 <ol>
 <li>The authentication service is now integrated with the Stroom app as it was with v5, instead of in v6 where it existed as a separate microservice.
-There is now an option for Stroom to authenticate via an external sign-on provider, using the Open ID Connect (OIDC) Protocol.</li>
-<li>The API has been expanded and the local <code>stroom-proxy</code> now uses the API to query feed status, instead of querying MySQL directly.</li>
+There is now an option for Stroom to authenticate via an external identity provider, using the Open ID Connect (OIDC) Protocol.</li>
+<li>Stroom-Proxy no longer has any connection to the MySQL database.
+It does all feed status and policy checking via the APIs on Stroom.</li>
+<li>Stroom-Proxy no longer has to be co-located with Stroom as the <em>proxy aggregation</em> function has been removed.
+Stroom-Proxy now forwards its data to Stroom via HTTP on the <code>/datafeed</code> endpoint.</li>
 </ol>
 <h2 id="nginx">Nginx</h2>
 <p>In a reference deployment Nginx is key to the whole architecture.
@@ -278,7 +281,16 @@ Some requests are stateful and some are stateless but the Nginx configuration wi
 <p>Nginx is also used as an API gateway.
 This means all inter-service calls go via the Nginx gateway so each service only needs to know the location of the Nginx gateway.
 Nginx will then reverse proxy all requests to the appropriate instance of an upstream service.</p>
-<p>The grey dashed lines on the diagram attempt to show the effective inter-service connections that are being made if you ignore the Nginx reverse proxying.</p>
+<p>The purple dashed lines on the diagram attempt to show the effective inter-service connections that are being made if you ignore the Nginx reverse proxying.</p>
+<p>Both Stroom and Stroom-Proxy share similar paths, i.e:</p>
+<p><code>/datafeed</code><br>
+<code>/api</code><br>
+<code>/ui</code></p>
+<p>So Nginx has to be configured to map alternative public paths to the appropriate service, e.g.:</p>
+<p><code>/datafeeddirect</code> =&gt; <code>/datafeed</code> (stroom)<br>
+<code>/datafeed</code> =&gt; <code>/datafeed</code> (proxy)<br>
+<code>/proxy/*</code> =&gt; <code>/*</code> (proxy)<br>
+<code>/*</code> =&gt; <code>/*</code> (stroom)</p>
 <h3 id="ssl-termination">SSL Termination</h3>
 <p>All SSL termination is handled by Nginx.
 Nginx holds the server and certificate authority certificate and will authenticate the client requests if the client has a certificate.
@@ -376,8 +388,7 @@ This approach was taken to gradually introduce docker into the stroom deployment
 </div>
 
 <h3 id="multi-node-docker-deployment">Multi Node Docker Deployment</h3>
-<p>The aim in future is to run all services in docker in a multi node deployment.
-Such a deployment is still under development and will likely involve kubernetes for container orchestration.</p>
+<p>For details of a multi-node deployment using Docker containers, see <a href="../../../docs/install-guide/kubernetes/">Kubernetes</a>.</p>
 
 </div>
 </div>

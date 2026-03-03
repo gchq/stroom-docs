@@ -40,19 +40,19 @@
 <link rel="icon" type="image/png" href="../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>Stroom Proxy | Stroom</title>
-<meta name="description" content="Stroom Proxy acts as a proxy when sending data to a Stroom instance. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
+<meta name="description" content="Stroom Proxy acts as a proxy for sending data to a Stroom instance/cluster. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
 ">
 <meta property="og:title" content="Stroom Proxy" />
-<meta property="og:description" content="Stroom Proxy acts as a proxy when sending data to a Stroom instance. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
+<meta property="og:description" content="Stroom Proxy acts as a proxy for sending data to a Stroom instance/cluster. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
 " />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/docs/proxy/" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Stroom Proxy">
-<meta itemprop="description" content="Stroom Proxy acts as a proxy when sending data to a Stroom instance. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
+<meta itemprop="description" content="Stroom Proxy acts as a proxy for sending data to a Stroom instance/cluster. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
 "><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Stroom Proxy"/>
-<meta name="twitter:description" content="Stroom Proxy acts as a proxy when sending data to a Stroom instance. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
+<meta name="twitter:description" content="Stroom Proxy acts as a proxy for sending data to a Stroom instance/cluster. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.
 "/>
 
 
@@ -148,7 +148,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.621df332f57358555f9c72ed07db9cd0.json"
+    data-offline-search-index-json-src="../../../offline-search-index.728f8868440bddf6bd192e425a30d579.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -179,7 +179,7 @@ This is the multi-page printable view of this section.
 
 
 <h1 class="title">Stroom Proxy</h1>
-<div class="lead">Stroom Proxy acts as a proxy when sending data to a Stroom instance. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.</div>
+<div class="lead">Stroom Proxy acts as a proxy for sending data to a Stroom instance/cluster. Stroom Proxy has various modes such as storing, aggregating and forwarding the received data. Stroom Proxies can be used to forward to other Stroom Proxy instances.</div>
 
 
 
@@ -200,12 +200,116 @@ This is the multi-page printable view of this section.
 
     
   
+    
+    
+	
+<li>2: <a href="#pg-adea542d72f086383fa4594af17337a4">Proxy Configuration</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-1f656c38b36d3b540b42530572b94c83">Proxy Functions</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-db8aae9bc69eb1e329772cfe4eb4ba9e">Proxy API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>5: <a href="#pg-6191260122dbb492e5517fddb7b67912">Receipt ID</a></li>
+
+
+    
+  
+    
+    
+	
+<li>6: <a href="#pg-996fb8259cac93f8b4d0e6836081567a">Proxy Architecture</a></li>
+
+
+    
+  
 
     </ul>
 
 
 <div class="content">
-      
+      <p>Stroom-Proxy&rsquo;s primary role is to act as a front door for data being sent to Stroom.
+Data can be sent to Stroom-Proxy in small chunks and it will aggregate the data into larger chunks (grouped by <span class="glossary-link">
+  <a href="../../../docs/glossary/#feed" title="Glossary entry for Feed">
+    <span>Feed</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> and <span class="glossary-link">
+  <a href="../../../docs/glossary/#stream-type" title="Glossary entry for Stream Type">
+    <span>Stream Type</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>) so that Stroom doesn&rsquo;t have to process lots of small <span class="glossary-link">
+  <a href="../../../docs/glossary/#stream" title="Glossary entry for Streams">
+    <span>Streams</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+It also provides a separation between the client and Stroom, so Stroom can be taken offline while data is still being accepted by Stroom-Proxy.</p>
+<p>See <a href="../../../docs/architecture/#overview">Architecture</a> for an example of how Stroom-Proxy is typically deployed.</p>
+<h2 id="api">API</h2>
+<p>Stroom-Proxy presents an identical <em>HTTP POST</em> <code>/datafeed</code> <span class="glossary-link">
+  <a href="../../../docs/glossary/#api" title="Glossary entry for API">
+    <span>API</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> to Stroom, so clients can send the same data in the same way to either Stroom or Stroom-Proxy.
+For more detail on sending data into Stroom-Proxy, see <a href="../../../docs/sending-data/">Sending Data</a>.</p>
+<p>It also presents a number of other APIs for administration and communication with other proxies.
+For more detail on Stroom-Proxy&rsquo;s other APIs, see <a href="../../../docs/proxy/proxy-api/">Proxy API</a>.</p>
+<h2 id="functions">Functions</h2>
+<p>Stroom-Proxy has a number of key functions:</p>
+<ul>
+<li><em>Receipt Filtering</em> - The process of filtering the incoming data based on the HTTP headers.
+Data can either be <em>Received</em>, silently <em>Dropped</em> or <em>Rejected</em> with an error.</li>
+<li><em>Splitting</em> - Splitting received <span class="glossary-link">
+  <a href="../../../docs/glossary/#zip" title="Glossary entry for ZIP">
+    <span>ZIP</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> files by <span class="glossary-link">
+  <a href="../../../docs/glossary/#feed" title="Glossary entry for Feed">
+    <span>Feed</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> and <span class="glossary-link">
+  <a href="../../../docs/glossary/#stream-type" title="Glossary entry for Stream Type">
+    <span>Stream Type</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.</li>
+<li><em>Aggregation</em> - Storing received data locally and forwarding it when the aggregation limits have been reached.</li>
+<li><em>Forwarding</em> - Forwarding the received/aggregated data to one or more forward destinations.</li>
+<li><em>Instant Forwarding</em> - Data is streamed to a single <em>HTTP</em> forward destination (i.e. Stroom or another Stroom-Proxy) as the data is received.
+This function does not support multiple forward destinations or aggregations.</li>
+<li><em>Directory Scanning</em> - Periodically scanning one or more directories for ZIP files in <a href="../../../docs/sending-data/payloads/#stroom-zip-format">Stroom ZIP Format</a>.</li>
+<li><em>Event Store</em> - Stroom-Proxy presents an <span class="glossary-link">
+  <a href="../../../docs/glossary/#api" title="Glossary entry for API">
+    <span>API</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> for receiving individual events.
+This is to support applications that want to log events directly to Stroom-Proxy rather than writing them to rolled files locally.</li>
+</ul>
+<p>For a more detailed explanation of each function, see <a href="../../../docs/proxy/proxy-functions/">Proxy Functions</a>.</p>
+
 </div>
 </div>
 
@@ -226,200 +330,86 @@ This is the multi-page printable view of this section.
 
 
 
-<div class="td-content" style="--base-section-num: '1.'; ">
+<div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
   <h1 id="pg-66e532a8ec8d994c948525cce6b1926c">1 - Stroom Proxy Installation</h1>
-    
-	<p>There are 2 versions of the stroom software availble for building a proxy server.
-There is an <em>app</em> version that runs stroom as a Java ARchive (jar) file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.
-The other version runs stroom proxy within docker containers and also has a settings configuration file that controls access to the stroom server and database.
-The document will cover the installation and configuration of the stroom proxy software for both the docker and &lsquo;app&rsquo; versions.</p>
+    <div class="lead">How to install Stroom-Proxy.</div>
+	<p>Stroom-Proxy can be installed in 4 main ways:</p>
+<ul>
+<li>
+<p>App - There is an <em>app</em> version that runs Stroom-Proxy as a Java <span class="glossary-link">
+  <a href="../../../docs/glossary/#jar" title="Glossary entry for JAR">
+    <span>JAR</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> file locally on the server and has settings contained in a configuration file that controls access to the stroom server and database.</p>
+</li>
+<li>
+<p>Docker Stack - Stroom-Proxy, Nginx and Stroom-Log-Sender run in Docker containers, orchestrated using Docker Compose and some shell scripts.
+The stroom-proxy image is essentially a minimal Alpine Linux container with the appropriate Java version installed and the Stroom-Proxy JAR contained within it.</p>
+</li>
+<li>
+<p>Docker Images - Manually run containers based on the Stroom-Proxy docker image.</p>
+</li>
+<li>
+<p>Kubernetes - Deploy Stroom-Proxy into a Kubernetes cluster.</p>
+</li>
+</ul>
+<p>The document will cover the installation and configuration of the Stroom-Proxy software for both the &lsquo;app&rsquo; and Docker stack deployments.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <p>Older versions of Stroom-Proxy &lsquo;sent&rsquo; data to Stroom by being co-located with Stroom and using a shared repository location.
+Stroom-Proxy would write to the repository and Stroom would retrieve data from there.</p>
+<p>This method is no longer used.
+Current versions of Stroom-Proxy forward data to Stroom over HTTP so do not need to be co-located with Stroom.</p>
+
+
+</div>
+
+
+<h2 id="typical-deployments">Typical Deployments</h2>
+<p>Stroom-Proxy is typically deployed in front of Stroom to act as a proxy for data receipt into Stroom.
+This abstracts Stroom from the clients sending the data and ensures that received data is aggregated into sensibly sized streams.</p>
+<p>For a production Stroom cluster, it is likely that you will want multiple Stroom-Proxy instances behind a load balancer for resiliency and load management.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <p>Stroom-Proxy instances are independent and cannot form a coherent cluster.
+If you have a &lsquo;cluster&rsquo; of Stroom-Proxy instances for resilience, each Stroom-Proxy instance can only work with the data it has received and loss of an instance means the loss of any data it was in the process of aggregating.</p>
+<p>Also if you have a large &lsquo;cluster&rsquo; of Stroom-Proxy instances, this can have an impact on aggregation as data for the same aggregation key (Feed and Stream Type) will be spread over multiple instances and thus aggregates.
+For low volume Feeds, this can mean smaller aggregates than is preferred.</p>
+<p>To mitigate against this, you can use sticky sessions when load balancing or ideally use a load balancer that allows selection of the upstream instance using HTTP headers, i.e. <code>Feed</code>.</p>
+
+
+</div>
+
+
 <h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
-<li>the user has reasonable RHEL/CentOS System administration skills.</li>
-<li>installation is on a fully patched minimal CentOS 7 instance.</li>
-<li>the Stroom database has been created and resides on the host <code>stroomdb0.strmdev00.org</code> listening on port 3307.</li>
-<li>the Stroom database user is <code>stroomuser</code> with a password of <code>Stroompassword1@</code>.</li>
-<li>the application user <code>stroomuser</code> has been created.</li>
-<li>the user is or has deployed the two node Stroom cluster described <a href="../../../docs/howtos/install/installhowto/#storage-scenario">here</a>.</li>
-<li>the user has set up the Stroom processing user as described <a href="../../../docs/howtos/install/installprocessingusersetuphowto/">here</a>.</li>
-<li>the prerequisite software has been installed.</li>
-<li>when a screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
+<li>The user has reasonable RHEL/CentOS/Rocky System administration skills.</li>
+<li>Installation is on a fully patched minimal RHEL/CentOS/Rocky instance.</li>
+<li>The application user <code>stroomuser</code> has been created in the OS.</li>
+<li>The user has set up the Stroom processing user as described <a href="../../../docs/howtos/install/installprocessingusersetuphowto/">here</a>.</li>
+<li>The prerequisite software has been installed.</li>
 </ul>
-<h2 id="stroom-remote-proxy-docker-version">Stroom Remote Proxy (docker version)</h2>
-<p>The build of a stroom proxy where the stroom applications are running in docker containers.
-The operating system (OS) build for a &lsquo;dockerised&rsquo; stroom proxy is minimal RHEL/CentOS 7 plus the docker-ce &amp; docker-compose packages.
-Neither of the pre-requisites are available from the CentOS ditribution.
-It will also be necessary to open additional ports on the system firewall (where appropriate).</p>
-<h3 id="download-and-install-docker">Download and install docker</h3>
-<p>To download and install - docker-ce - from the internet, a new &lsquo;repo&rsquo; file is downloaded first, that provides access to the docker.com repository.
-e.g. as <em>root</em> user:</p>
+<h2 id="firewall-configuration">Firewall Configuration</h2>
+<p>For both methods of deployment, the ports used are as follows:
+Some may need to be opened to allow access to the ports from outside the host.</p>
 <ul>
-<li>wget <a href="https://download.docker.com/linux/centos/docker-ce.repo">https://download.docker.com/linux/centos/docker-ce.repo</a> -O /etc/yum.repos.d/docker-ce.repo</li>
-<li>yum install docker-ce.x86_64</li>
+<li><code>80</code> - Nginx listens on port <code>80</code> but redirects onto <code>443</code>.</li>
+<li><code>443</code>  - Nginx listens on port <code>443</code>.</li>
+<li><code>8090</code> - Stroom-Proxy listens on port <code>8090</code> for its main public APIs (<code>/datafeed</code>, REST endpoints, etc).</li>
+<li><code>8091</code> - Stroom-Proxy listens on port <code>8091</code> for its administration APIs.
+Access to this port should probably be carefully controlled.</li>
 </ul>
-<p>The packages - docker-ce docker-ce-cli &amp; containerd.io - will be installed</p>
-<p>The docker-compose software can de downloaded from github
-e.g. as <em>root</em> user to download docker-compose version 1.25.4 and save it to -  /usr/local/bin/docker-compose</p>
-<ul>
-<li>curl -L <a href="https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64">https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64</a> -o /usr/local/bin/docker-compose</li>
-<li>chmod 755 /usr/local/bin/docker-compose</li>
-</ul>
-<h3 id="firewall-configuration">Firewall Configuration</h3>
-<p>If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
-Currently these ports are:</p>
-<p>80
-443<br>
-2888<br>
-3307<br>
-5000<br>
-8080<br>
-8081<br>
-8090<br>
-8091<br>
-8543</p>
-<p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
-<pre><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=80/tcp
-firewall-cmd --zone=public --permanent --add-port=443/tcp
-firewall-cmd --zone=public --permanent --add-port=2888/tcp
-firewall-cmd --zone=public --permanent --add-port=3307/tcp
-firewall-cmd --zone=public --permanent --add-port=5000/tcp
-firewall-cmd --zone=public --permanent --add-port=8080/tcp
-firewall-cmd --zone=public --permanent --add-port=8081/tcp
-firewall-cmd --zone=public --permanent --add-port=8090/tcp
-firewall-cmd --zone=public --permanent --add-port=8091/tcp
-firewall-cmd --zone=public --permanent --add-port=8099/tcp
-firewall-cmd --reload
-</code></pre>
-<h3 id="download-and-install-stroom-v7-docker-version">Download and install Stroom v7 (docker version)</h3>
-<p>The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.
-As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.</p>
-<ul>
-<li>wget <a href="https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.0-beta.41/stroom_proxy-v7.0-beta.45.tar.gz">https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.0-beta.41/stroom_proxy-v7.0-beta.45.tar.gz</a></li>
-<li>tar zxf stroom-stacks…………..</li>
-</ul>
-<p>For a stroom proxy, the configuration file - stroom_proxy/stroom_proxy-v7.0-beta.45/stroom_proxy.env needs to be edited, with the connection details of the stroom server that data files will be sent to.
-The default network port for connection to the stroom server is 8080.</p>
-<p>The values that need to be set are:</p>
-<pre><code class="language-text">STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY  
-STROOM_PROXY_REMOTE_FEED_STATUS_URL  
-STROOM_PROXY_REMOTE_FORWARD_URL  
-</code></pre>
-<p>The &lsquo;API key&rsquo; is generated on the stroom server and is related to a specific user e.g. proxyServiceUser.
-The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.</p>
-<p>e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:</p>
-<pre><code class="language-bash">export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&quot;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&quot;
-export STROOM_PROXY_REMOTE_FORWARD_URL=&quot;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&quot;
-</code></pre>
-<h3 id="to-start-stroom-proxy">To Start Stroom Proxy</h3>
-<p>As the stroom user, run the &lsquo;start.sh&rsquo; script found in the stroom install:</p>
-<ul>
-<li>cd ~/stroom_proxy/stroom_proxy-v7.0-beta.45/</li>
-<li>./start.sh</li>
-</ul>
-<p>The first time the script is ran it will download from github the docker containers for a stroom proxy
-these are - stroom-proxy-remote, stroom-log-sender and nginx.
-Once the script has completed the stroom proxy server should be running.
-There are additional scripts - status.sh - that will show the status of the docker containers (stroom-proxy-remote, stroom-log-sender and nginx)
-and - logs.sh - that will tail all of the stroom message files to the screen.</p>
-<h2 id="stroom-remote-proxy-app-version">Stroom Remote Proxy (app version)</h2>
-<p>The build of a stroom proxy server, where the stroom application is running locally as a Java ARchive (jar) file.
-The operating system (OS) build for an &lsquo;application&rsquo; stroom proxy is minimal RHEL/CentOS 7 plus Java.</p>
-<p>The Java version required for stroom v7 is 15+.
-This version of Java is not available from the RHEL/CentOS distribution.
-The version of Java used below is the &lsquo;openJDK&rsquo; version as opposed to Oracle&rsquo;s version.
-This can be downloaded from the internet.</p>
-
-<div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
-
-    Needs updating for java 15.
-
-</div>
-
-<p>Version 12.0.1
-
-  
-
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="root" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">wget https://download.java.net/java/GA/jdk12.0.1/69cfe15208a647278a19ef0990eea691/12/GPL/openjdk-12.0.1_linux-x64_bin.tar.gz</code></pre>
-</div>
-</p>
-<p><em>Or version 14.0.2 <a href="https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz">https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz</a></em></p>
-<p>The gzipped tar file needs to be untarred and moved to a suitable location.</p>
-
-  
-
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="root" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">tar xvf openjdk-12.0.1_linux-x64_bin.tar.gz
-mv jdk-12.0.1 /opt/</code></pre>
-</div>
-
-<p>Create a shell script that will define the Java variables	OR add the statements to .bash_profile.
-e.g. vi /etc/profile.d/jdk12.sh</p>
-<pre><code class="language-bash">export JAVA_HOME=/opt/jdk-12.0.1
-export PATH=$PATH:$JAVA_HOME/bin
-</code></pre>
-
-  
-
-
-
-
-
-
-<div class="code-toolbar">
-  <pre 
-    class="command-line language-bash" 
-    data-user="root" 
-    data-host="localhost" 
-    data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">source /etc/profile.d/jdk12.sh
-echo $JAVA_HOME
-(out)/opt/jdk-12.0.1
-
-java --version
-(out)*openjdk version &#34;12.0.1&#34; 2019-04-16*
-(out)*OpenJDK Runtime Environment (build 12.0.1&#43;12)*
-(out)*OpenJDK 64-Bit Server VM (build 12.0.1&#43;12, mixed mode, sharing)*</code></pre>
-</div>
-
-<p><strong>Disable selinux to avoid issues with access and file permissions.</strong></p>
-<h3 id="firewall-configuration-1">Firewall Configuration</h3>
-<p>If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
-Currently these ports are:</p>
-<p>80
-443
-2888
-3307
-5000
-8080
-8081
-8090
-8091
-8543</p>
-<p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <em>root</em> user:</p>
+<p>It is therefore likely that you will only want to expose <code>443</code> and maybe <code>80</code> to other hosts.</p>
+<p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <code>root</code> user:</p>
 
   
 
@@ -436,19 +426,238 @@ Currently these ports are:</p>
     data-continuation-str="\"
     data-filter-output="(out)"><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=80/tcp
 firewall-cmd --zone=public --permanent --add-port=443/tcp
-firewall-cmd --zone=public --permanent --add-port=2888/tcp
-firewall-cmd --zone=public --permanent --add-port=3307/tcp
-firewall-cmd --zone=public --permanent --add-port=5000/tcp
-firewall-cmd --zone=public --permanent --add-port=8080/tcp
-firewall-cmd --zone=public --permanent --add-port=8081/tcp
-firewall-cmd --zone=public --permanent --add-port=8090/tcp
-firewall-cmd --zone=public --permanent --add-port=8091/tcp
-firewall-cmd --zone=public --permanent --add-port=8099/tcp
 firewall-cmd --reload</code></pre>
 </div>
 
+<h2 id="stroom-proxy-docker-version">Stroom Proxy (docker version)</h2>
+<p>The build of a stroom proxy where the Stroom-Proxy Java application (and associated services) are running in docker containers.</p>
+<p>Because everything is running in Docker containers, the only requirement for the host is for the following:</p>
+<ul>
+<li>Docker Engine</li>
+<li>Docker Compose Plugin</li>
+<li><code>bash</code> v4 or greater - Used by the stack scripts.</li>
+<li>GNU <code>coreutils</code> - Used by the stack scripts.</li>
+<li><code>jq</code> - Used by the stack scripts.</li>
+</ul>
+<h3 id="download-and-install-docker">Download and install docker</h3>
+<p>To install Docker Engine and the Docker Composer Plugin see:</p>
+<ul>
+<li>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://docs.docker.com/engine/install" target="_blank" class="" style="" title="Docker Engine (external link to https://docs.docker.com/engine/install)">
+    <span>Docker Engine</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
+<li>
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://docs.docker.com/compose/install" target="_blank" class="" style="" title="Docker Compose Plugin (external link to https://docs.docker.com/compose/install)">
+    <span>Docker Compose Plugin</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+</li>
+</ul>
+<p>All the Stroom-Proxy logs and data will be stored in Docker managed volumes that will, by default, reside in <code>/var/lib/docker</code>.
+It is typical that this directory will be on small mount point for the OS.
+It is therefore recommended to relocate this directory to a mount with more space and sufficient resilience, i.e. RAID mirroring.</p>
+<p>To do this you need to follow these steps:</p>
+<ol>
+<li>Stop the Docker engine.</li>
+<li>Move the directory to its new location.</li>
+<li>Edit the file <code>/etc/docker/daemon.json</code> and ensure this field is present with the new location as the value.
+<pre><code class="language-json">{
+  &quot;data-root&quot;: &quot;/path/to/new/location&quot;
+}
+</code></pre>
+</li>
+<li>Start the Docker engine.</li>
+</ol>
+<h3 id="download-and-install-docker-stack">Download and Install Docker Stack</h3>
+<p>The <em>stroom_proxy</em> Docker stack is available from 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom-resources/releases" target="_blank" class="" style="" title="stroom-resources releases (external link to https://github.com/gchq/stroom-resources/releases)">
+    <span>stroom-resources releases</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ on GitHub.
+The stack distribution is simply a collection of shell scripts and Docker Compose configuration files.
+The Docker images will get pulled down from DockerHub when the stack is started.</p>
+<p>The installation example below is for stroom version 7.10.20 - but is applicable to other stroom v7 versions.
+As a suitable stroom user e.g. <code>stroomuser</code> - download and unpack the stroom software.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">mkdir -p ~/stroom-proxy
+cd ~/stroom-proxy
+wget https://github.com/gchq/stroom-resources/releases/download/stroom-stacks-v7.10.20/stroom_proxy-v7.10.20.tar.gz
+tar -zxf stroom_proxy-v7.10.20.tar.gz
+cd stroom_proxy-v7.10.20</code></pre>
+</div>
+
+<p>For a stroom proxy, the configuration file <code>stroom_proxy/stroom_proxy-v7.10.20/stroom_proxy.env</code> needs to be edited, with the connection details of the stroom server that data files will be sent to.
+The default network port for connection to the stroom server is 8080.</p>
+<p>The values that need to be set are:</p>
+<pre><code class="language-text">STROOM_PROXY_REMOTE_FEED_STATUS_API_KEY  
+STROOM_PROXY_REMOTE_FEED_STATUS_URL  
+STROOM_PROXY_REMOTE_FORWARD_URL  
+</code></pre>
+<p>The &lsquo;API key&rsquo; is generated on the stroom server and is related to a specific user e.g. proxyServiceUser.
+The 2 URL values also refer to the stroom server and can be a fully qualified domain name (fqdn) or the IP Address.</p>
+<p>e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">export STROOM_PROXY_REMOTE_FEED_STATUS_URL=&#34;http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1&#34;
+export STROOM_PROXY_REMOTE_FORWARD_URL=&#34;http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed&#34;</code></pre>
+</div>
+
+<h3 id="to-start-stroom-proxy">To Start Stroom Proxy</h3>
+<p>As the stroom user, run the &lsquo;start.sh&rsquo; script found in the stroom install:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cd ~/stroom_proxy/stroom_proxy-v7.10.20/
+./start.sh</code></pre>
+</div>
+
+<p>The first time the script is run it will download the docker images from DockerHub:</p>
+<ul>
+<li>stroom-proxy-remote</li>
+<li>stroom-log-sender</li>
+<li>stroom-nginx</li>
+</ul>
+<p>Once the script has completed the Stroom-Proxy server should be running.</p>
+<p>The stack directory contains the following scripts for managing the Stroom-Proxy stack.</p>
+<ul>
+<li><code>health.sh</code> - Tests and displays the health of the stack.</li>
+<li><code>info.sh*</code> - Displays info about the stack.</li>
+<li><code>pull_images.sh</code> - Pulls all the docker images used in the stack.</li>
+<li><code>logs.sh</code> - Tails the logs from all services in the stack.</li>
+<li><code>remove.sh</code> - Removes all services and volumes in the stack.
+<strong>Warning</strong>: this will delete any data held in Stroom-Proxy.</li>
+<li><code>restart.sh</code> - Restarts all or named services it the stack.</li>
+<li><code>send_data.sh</code> - Script to aid POSTing data into Stroom-Proxy.</li>
+<li><code>set_log_levels.sh</code> - Sets log levels for classes/packages on the running Stroom-Proxy.</li>
+<li><code>set_services.sh</code> - Used for disabling services in the stack.</li>
+<li><code>show_config.sh</code> - Displays the effective docker compose config taking the env file into account.</li>
+<li><code>start.sh</code> - Starts all or named services it the stack.</li>
+<li><code>status.sh</code> - Shows the status of the services in the stack.</li>
+<li><code>stop.sh</code> - Stops all or named services it the stack.</li>
+</ul>
+<h2 id="stroom-proxy-app-version">Stroom Proxy (app version)</h2>
+<p>This is the bare bones installation method that requires installing everything manually.
+If you are able to use Docker we recommend doing this as there are less things to install and configure, e.g. nginx, send_to_stroom.sh, cron, etc.</p>
+<p>Stroom-Proxy is distributed as a (<span class="glossary-link">
+  <a href="../../../docs/glossary/#jar" title="Glossary entry for JAR">
+    <span>JAR</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>) file so this method will run this JAR using the <code>java</code> executable.</p>
+<p>The pre-requisites for this deployment are:</p>
+<ul>
+<li>RHEL/CentOS/Rocky</li>
+<li>Java 25+ JDK (JDK is preferred over JRE as it provides additional tools (e.g. <code>jmap</code>) for capturing heap histogram statistics).</li>
+<li><code>bash</code> v4 or greater - Used by the helper scripts.</li>
+<li>GNU <code>coreutils</code> - Used by the helper scripts.</li>
+</ul>
+<p>For details about which Java distribution and version to use, and how to install it, see <a href="../../../docs/install-guide/java/">Java</a>.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    Disable <em>selinux</em> to avoid issues with access and file permissions.
+
+</div>
+
+
 <h3 id="download-and-install-stroom-v7-app-version">Download and install Stroom v7 (app version)</h3>
-<p>The installation example below is for stroom version 7.0.beta.45 - but is applicable to other stroom v7 versions.
+<p>Stroom-Proxy releases are available from 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/releases" target="_blank" class="" style="" title="github.com/gchq/stroom/releases (external link to https://github.com/gchq/stroom/releases)">
+    <span>github.com/gchq/stroom/releases</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+Each release has a number of artefacts, the Stroom-Proxy application is <code>stroom-proxy-app-v*.zip</code>.</p>
+<p>The installation example below is for stroom version v7.10.20, but is applicable to other stroom v7 versions.
 As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.</p>
 
   
@@ -464,78 +673,700 @@ As a suitable stroom user e.g. stroomuser - download and unpack the stroom softw
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">wget https://github.com/gchq/stroom/releases/download/v7.0-beta.45/stroom-proxy-app-v7.0-beta.45.zip
-unzip stroom-proxy-app..............</code></pre>
+    data-filter-output="(out)"><code class="language-bash">wget https://github.com/gchq/stroom/releases/download/v7.10.20/stroom-proxy-app-v7.10.20.zip
+unzip stroom-proxy-app-v7.10.20.zip</code></pre>
 </div>
 
-<p>The configuration file – <code>stroom-proxy/config/config.yml</code> – is the principal file to be edited, as it contains</p>
-<ul>
-<li>connection details to the stroom server</li>
-<li>the locations of the proxy server log files</li>
-<li>the directory on the proxy server, where data files will be stored prior to forwarding onot stroom</li>
-<li>the location of the PKI Java keystore (jks) files</li>
-</ul>
-<p>The log file locations are changed to be relative to where stroom is started i.e. <code>~stroomuser/stroom-proxy/logs/…</code>..</p>
-<pre><code class="language-yaml">server:
-  requestLog:
-    appenders:
-    - currentLogFilename: logs/access/access.log		
-      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log
-logging:
-  loggers:
-    &quot;receive&quot;:
-      appenders:
-      - currentLogFilename: logs/receive/receive.log
-        archivedLogFilenamePattern: logs/receive/receive-%d{yyyy-MM-dd'T'HH:mm}.log
-    &quot;send&quot;:
-      appenders:
-      - currentLogFilename: logs/send/send.log
-        archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-  appenders:
-      - currentLogFilename: logs/app/app.log
-        archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
-</code></pre>
-<p>An API key created on the stroom server for a special proxy user is added to the configuration file.
-The API key is used to validate access to the application</p>
-<pre><code class="language-yaml">proxyConfig:
-  useDefaultOpenIdCredentials: false
-  proxyContentDir: &quot;/stroom-proxy/content&quot;
+<p>The configuration file – <code>stroom-proxy/config/config.yml</code> – is the principal file that controls the configuration of Stroom-Proxy.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/">Stroom Proxy Configuration</a>.</p>
 
-  feedStatus:
-    url: “http://stroomserver.somewhere.co.uk:8080/api/feedStatus/v1&quot;
-    apiKey: &quot;eyJhbGciOiJSUz...ScdPX0qai5UwlBA&quot;
-  forwardStreamConfig:
-    forwardingEnabled: true
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '2.'; page-break-before: always">
+    
+  <h1 id="pg-adea542d72f086383fa4594af17337a4">2 - Proxy Configuration</h1>
+    <div class="lead">How Stroom Proxy is configured.</div>
+	<p>See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/">Stroom Proxy Configuration</a> for details.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '3.'; page-break-before: always">
+    
+  <h1 id="pg-1f656c38b36d3b540b42530572b94c83">3 - Proxy Functions</h1>
+    <div class="lead">The key functions and capabilities of Stroom-Proxy.</div>
+	<h2 id="receipt-filtering">Receipt Filtering</h2>
+<p>Stroom-Proxy can be configured a number of different methods of data receipt filtering:</p>
+<ul>
+<li><code>FEED_STATUS</code> - Data is filtered based on the <em>Status</em> of the Feed in Stroom.</li>
+<li><code>RECEIPT_POLICY</code> - Data is filtered based on a set of policy rules that have been created in Stroom.</li>
+<li><code>RECEIVE_ALL</code> - All data is accepted, regardless.</li>
+<li><code>DROP_ALL</code> - All data is silently dropped.</li>
+<li><code>REJECT_ALL</code> - All data is rejected with an error.</li>
+</ul>
+<h2 id="splitting">Splitting</h2>
+<p>When ZIP data is received in <a href="../../../docs/sending-data/payloads/#stroom-zip-format">Stroom ZIP Format</a> it will be examined to determine if it contains multiple <em>groups</em> (where a group is identified by Feed and Stream Type).
+ZIP data with multiple groups will be split so that data for each group will be processed separately.</p>
+<h2 id="aggregation">Aggregation</h2>
+<p>If enabled, the aggregation function will locally store the received data and aggregate data from multiple HTTP requests together until the aggregation threshold is reached.
+Data will be aggregated by common group key (Feed and Stream Type).</p>
+<p>Aggregation can be limited by one or more of:</p>
+<ul>
+<li>Item count - The number of items in the aggregate.</li>
+<li>Maximum uncompressed size - The total uncompressed size of the aggregate.
+Note, this is a target as Stroom-Proxy may received a single item of data that is larger than this limit.</li>
+<li>Frequency - How often data is assembled into a completed aggregate.</li>
+</ul>
+<h2 id="forwarding">Forwarding</h2>
+<p>Stroom-Proxy can forward data to one or more destinations and the following destination types are supported:</p>
+<ul>
+<li>File - The data (in ZIP format) is written to a configured directory.</li>
+<li>HTTP - The data (in ZIP format) is POSTed to a configured URL.</li>
+</ul>
+<h2 id="instant-forwarding">Instant Forwarding</h2>
+<p>This is a special type of forwarding that means data is streamed directly to a destination rather than being written to local disk first.
+The instant forwarding is only possible if there is only one forwarding destination configured.
+Data will still be subject to the configured receipt filtering.</p>
+<h2 id="directory-scanning">Directory Scanning</h2>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    This feature was added in Stroom-Proxy 7.10.
+
+</div>
+
+
+<p>Stroom-Proxy can periodically scan one or more directories to look for ZIP files to ingest.
+Any ZIP files found will be treated as if they were received via the <code>/datafeed</code> API.
+The scanning will recurse into any directories found.</p>
+<p>This feature is primarily aimed at re-processing data that Stroom-Proxy has been unable to forward due to an un-recoverable error or too many retries.</p>
+<h2 id="event-store-api">Event Store API</h2>
+<p>Stroom-Proxy presents a HTTP POST API at <code>/api/event</code> to receive individual events.
+If the Stroom-Proxy instances are sufficiently resilient then client systems can use this API to send events directly without needing to buffer them locally.</p>
+<p>HTTP headers are used to provide the Feed and Stream Type, which are used as the key for aggregation.
+The POSTed data is assumed to text data, UTF8 encoded.</p>
+<p>Each event is converted into the following JSON object and aggregated by Feed and Stream Type in the Event Store.
+The JSON combines the receipt information, the HTTP headers and the event data into one structured object that can be processed and transformed by Stroom.</p>
+<pre><code class="language-json">{
+  &quot;version&quot;: 0,
+  &quot;event-id&quot;: &quot;1771956627189_0001_P_test-proxy&quot;,
+  &quot;proxy-id&quot;: &quot;test-proxy&quot;,
+  &quot;feed&quot;: &quot;FEED_X&quot;,
+  &quot;type&quot;: &quot;Raw Events&quot;,
+  &quot;receive-time&quot;: &quot;2026-02-24T18:10:27.192Z&quot;,
+  &quot;headers&quot;: [
+    { &quot;name&quot;: &quot;Feed&quot;, &quot;value&quot;: &quot;FEED_X&quot; },
+    { &quot;name&quot;: &quot;Type&quot;, &quot;value&quot;: &quot;Raw Events&quot; }
+  ],
+  &quot;detail&quot;: &quot;this\nis some data \n with new \n\n lines&quot;
+}
 </code></pre>
-<p>The location of the jks files has to be set, or comment all of the lines that have <strong>sslConfig: and tls:</strong> sections out to not use jks checking.</p>
-<p>Stroom also needs the client and ca ‘jks’ files and by default are located in - <code>/stroom-proxy/certs/ca.jks</code> and <code>client.jks</code>.
-Their location can be changed in the <code>config.yml</code></p>
-<pre><code class="language-yaml">keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
-trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
-keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
-trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+<ul>
+<li><code>version</code> - The version of the Event structure, currently <code>0</code>.</li>
+<li><code>event-id</code> - A unique ID for the event.
+This uses the <a href="../../../docs/proxy/receipt-id/">Receipt ID</a> which is a unique identifier for the event.</li>
+<li><code>proxy-id</code> - The unique identity for the Stroom-Proxy instance within the estate.</li>
+<li><code>feed</code> - The Feed the event is destined for, taken from the <code>Feed</code> HTTP header.</li>
+<li><code>type</code> - The Stream Type the event is destined for, taken from the <code>Type</code> HTTP header.</li>
+<li><code>receive-time</code> - The ISO-8601 timestamp taken when the event was received.</li>
+<li><code>headers</code> - A list of the meta attributes extracted from the HTTP headers.</li>
+<li><code>detail</code> - The event payload.</li>
+</ul>
+<h2 id="aws-simple-queue-service-connector">AWS Simple Queue Service Connector</h2>
+<p>Stroom-Proxy Supports receiving individual events from one or more AWS Simple Queue Service queues.
+Each event received is treated in the same way as event received via the <a href="#event-store-api">Event Store API</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '4.'; page-break-before: always">
+    
+  <h1 id="pg-db8aae9bc69eb1e329772cfe4eb4ba9e">4 - Proxy API</h1>
+    <div class="lead">Details of the various APIs presented by Stroom-Proxy.</div>
+	<h2 id="application-apis">Application APIs</h2>
+<p>These are the public APIs of the Stroom-Proxy application and are all available on the application port (which defaults to <code>8090</code>).
+Administrators may still want to restrict access to specific endpoints, e.g. making the <code>/datafeed</code> API public, but limiting the REST API to within the Stroom estate as the REST APIs are typically called by other Stroom-Proxy instances.</p>
+<h3 id="datafeed"><code>/datafeed</code></h3>
+<p>Stroom-Proxy presents the same <code>/datafeed</code> API as Stroom.
+This also has a legacy alias of <code>/stroom/datafeed</code>.</p>
+<p>For more details of how to use this API, see <a href="../../../docs/sending-data/">Sending Data to Stroom</a>.</p>
+<h3 id="ui"><code>/ui</code></h3>
+<p>This returns HTML and is intended to be used in a browser.
+It will display something like:</p>
+<pre><code class="language-text">Stroom Proxy v7.10.20 built on 2026-02-25T15:32:45.708Z
+Send data to http://localhost:8090/datafeed
 </code></pre>
+<h3 id="status"><code>/status</code></h3>
+<p>This provides a basic status response for Stroom-Proxy.
+It returns a JSON object like this:</p>
+<pre><code class="language-json">{
+  &quot;upTime&quot;: 1772119560408,
+  &quot;buildVersion&quot;: &quot;v7.10.20&quot;,
+  &quot;buildTime&quot;: 1772033565708
+}
+</code></pre>
+<h3 id="debug"><code>/debug</code></h3>
+<p>This endpoint can be used for debugging datafeed requests.
+A datafeed request can be POSTed to this endpoint instead, so that the client can see what headers and payload are reaching the server.</p>
+<p>This example POSTs a simple bit of data with one extra header.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">echo &#34;Today is $(date)&#34; \
+| curl -X POST --data-binary @- -H &#34;Feed:MY_FEED&#34; http://localhost:8090/debug
+(out)
+(out)HTTP Header
+(out)===========
+(out)[Accept]=[*/*]
+(out)[User-Agent]=[curl/8.18.0]
+(out)[Host]=[localhost:8090]
+(out)[Content-Length]=[38]
+(out)[Feed]=[MY_FEED]
+(out)[Content-Type]=[application/x-www-form-urlencoded]
+(out)
+(out)HTTP Header
+(out)===========
+(out)contentLength=38
+(out)HTTP Payload
+(out)============
+(out)Today is Thu 26 Feb 16:23:50 GMT 2026</code></pre>
+</div>
+
+<h3 id="rest-api">REST API</h3>
+<p>Stroom-Proxy presents a number of <span class="glossary-link">
+  <a href="../../../docs/glossary/#rest" title="Glossary entry for REST">
+    <span>REST</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> endpoints:</p>
+<!-- TODO Create a swagger UI for proxy rest API - https://github.com/gchq/stroom/issues/5417 -->
+<ul>
+<li><code>POST</code> - <code>/api/apikey/v2/verifyApiKey</code> - Allows an upstream Stroom-Proxy to verify an API key.</li>
+<li><code>POST</code> - <code>/api/event</code> - The <a href="../../../docs/proxy/proxy-functions/#event-store-api">Event Store API</a> for POSTing individual events.</li>
+<li><code>POST</code> - <code>/api/feedStatus/v1/getFeedStatus</code> - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.</li>
+<li><code>POST</code> - <code>/api/feedStatus/v2/getFeedStatus</code> - Allows an upstream Stroom-Proxy to check the receipt status of a Feed.</li>
+<li><code>GET</code>  - <code>/api/ruleset/v2/fetchHashedRules</code> - Allows an upstream Stroom-Proxy to fetch the obfuscated receipt policy rules.</li>
+</ul>
+<h2 id="admin-apis">Admin APIs</h2>
+<p>These APIs are presented on the administration port/path which by default is:</p>
+<p><code>localhost:8091/proxyAdmin/...</code>.</p>
+<p>More details about the admin APIs (with the exception of the Prometheus endpoint) can be found here 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://www.dropwizard.io/projects/metrics/en/stable/manual/servlets/" target="_blank" class="" style="" title="Metrics Servlets (external link to https://www.dropwizard.io/projects/metrics/en/stable/manual/servlets/)">
+    <span>Metrics Servlets</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
 
 <div class="alert alert-warning" role="alert">
-<h4 class="alert-heading">TODO</h4>
+<h4 class="alert-heading">Warning</h4>
 
-    Change to reflect use of proxy home.
+    <p>It is important that access to the administration port/path is tightly controlled as it potentially allows access to destructive actions or exposes information about the Stroom-Proxy that should not be public.</p>
+<p>Typically the APIs on the admin path/port should only be accessible to an administrator of the Stroom-Proxy instance.</p>
+
 
 </div>
 
-<p>Could be changed to</p>
-<pre><code class="language-yaml">keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;
-trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
-keyStorePath: &quot;/home/stroomuser/stroom-proxy/certs/client.jks&quot;
-trustStorePath: &quot;/home/stroomuser/stroom-proxy/certs/ca.jks&quot;
+
+<h3 id="metrics">Metrics</h3>
+<p>Proxy exposes two endpoints for capturing metrics on its inner workings:</p>
+<ul>
+<li>
+<p>Dropwizard Metrics - <code>http://localhost:8091/proxyAdmin/metrics</code>.
+This exposes the metrics as a JSON object.
+For more details see 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://metrics.dropwizard.io" target="_blank" class="" style="" title="Dropwizard Metrics (external link to https://metrics.dropwizard.io)">
+    <span>Dropwizard Metrics</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+</li>
+<li>
+<p>Prometheus Metrics - <code>http://localhost:8091/proxyAdmin/prometheusMetrics</code>.
+Exposes the same data as Dropwizard Metrics, but in a format suitable for scraping by 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://prometheus.io" target="_blank" class="" style="" title="Prometheus (external link to https://prometheus.io)">
+    <span>Prometheus</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+</li>
+</ul>
+<h3 id="health-check">Health Check</h3>
+<p><code>http://localhost:8091/proxyAdmin/healthcheck</code><br>
+<code>http://localhost:8091/proxyAdmin/healthcheck?pretty=true</code></p>
+<p>Performing a GET request on this endpoint will initiate a health check on all parts of Stroom-Proxy that have registered a health check.
+Each registered health check will return <em>healthy</em> or <em>unhealthy</em> along with any details relating to its state.
+If all health checks return healthy then the endpoint will return a <code>200</code> status.</p>
+<p>It allows the Stroom-Proxy instance to self check its inner workings.</p>
+<p>Current registered health checks are:</p>
+<ul>
+<li><em>deadlocks</em> - Checks for any deadlocked threads.</li>
+<li><em>stroom.dropwizard.common.LogLevelInspector</em> - Reports the current logger levels that have been set.
+This is not strictly a healthcheck as it will always return <em>healthy</em>, more for information purposes.</li>
+<li><em>stroom.proxy.app.ProxyConfigHealthCheck</em> - Displays the current configuration values.
+This is not strictly a healthcheck as it will always return <em>healthy</em>, more for information purposes.</li>
+<li><em>stroom.proxy.app.ProxyConfigMonitor</em> - Returns <em>healthy</em> if the monitoring of the config file is working correctly.</li>
+<li><em>stroom.proxy.app.ReceiveDataRuleSetClient</em> - Returns <em>healthy</em> if the receipt policy rules could be fetched from the downstream host.
+Will return <em>healthy</em> if receipt policy checking is not enabled/configured.</li>
+<li><em>stroom.proxy.app.handler.RemoteFeedStatusClient</em> - Returns <em>healthy</em> if a feed status check could be fetched from the downstream host.
+Will return <em>healthy</em> if receipt policy checking is not enabled/configured.</li>
+<li><em>stroom.proxy.app.security.ProxyApiKeyCheckClient</em> - Returns <em>healthy</em> if an API Key check could be performed.
+Will return <em>healthy</em> if receipt policy checking is not enabled/configured.</li>
+<li><em>stroom.receive.common.DataFeedKeyDirWatcher</em> - Returns <em>healthy</em> if the monitoring of the Datafeed Key directory is working correctly.</li>
+<li><em>stroom.security.common.impl.ExternalIdpConfigurationProvider</em> - Returns <em>healthy</em> if the configuration of the external IDP could be fetched.
+Will return <em>healthy</em> if no external IDP is configured.</li>
+</ul>
+<h3 id="filtered-health-check">Filtered Health Check</h3>
+<p><code>http://localhost:8091/proxyAdmin/filteredhealthcheck</code></p>
+<p>This performs the same as the Health Check, but allows for filtering of the checks, which can be useful if there are certain checks that need to be ignored.</p>
+<p>It takes the following optional query parameters:</p>
+<ul>
+<li><code>allow</code> - A comma delimited list of health check names to include.</li>
+<li><code>deny</code> - A comma delimited list of health check names to exclude.</li>
+<li><code>minimal</code> - Set to <code>true</code> to exclude all the detail in the health check response.</li>
+<li><code>pretty</code> - Set to <code>true</code> to format the JSON.</li>
+</ul>
+<h3 id="queues">Queues</h3>
+<p><code>http://localhost:8091/proxyAdmin/queues</code></p>
+<p>This endpoint returns HTML and is intended as a means for an admin to monitor the state of the various internal queues within Stroom-Proxy.
+It is intended to be called from a browser.</p>
+<h3 id="tasks">Tasks</h3>
+<p>Stroom-Proxy has a number of administrative tasks that can be executed via its tasks API.</p>
+<p>The list of available task names can be found by performing a <code>GET</code> request on:</p>
+<p><code>http://localhost:8091/proxyAdmin/tasks</code></p>
+<p>The following is a list of the task names that are currently available:</p>
+<ul>
+<li><code>clear-all-cache</code> - Clears all caches in Stroom-Proxy.</li>
+<li><code>clear-cache-Authenticated-Data-Feed-Key-Cache</code> - Clears the Authenticated Datafeed Key cache.</li>
+<li><code>clear-cache-Event-Store-Open-Appenders</code> - Clears the Event Store Open Appenders cache.</li>
+<li><code>clear-cache-Remote-Feed-Status-Response-Cache</code> - Clears the Remote Feed Status Response cache.</li>
+<li><code>gc</code> - Forces a Java garbage collection to destroy unused objects in memory.</li>
+<li><code>log-level</code> - Sets the log level for a named class or package.</li>
+</ul>
+<p>Tasks are executed using a <code>POST</code> and may require form data if the task requires it.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -X POST http://localhost:8091/proxyAdmin/tasks/clear-all-caches</code></pre>
+</div>
+
+<p>The <code>log-level</code> task requires parameters to tell it the log level to set and on which class/package to set it.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">curl -X POST http://localhost:8091/proxyAdmin/tasks/log-level -d &#34;logger=stroom.core.servlet.StatusServlet&amp;level=DEBUG&#34;</code></pre>
+</div>
+
+<p>The task may or may not return content.</p>
+<h3 id="ping">Ping</h3>
+<p><code>http://localhost:8091/proxyAdmin/ping</code></p>
+<p>Simple endpoint that will respond with the text <code>pong</code> and a <code>200</code> status if Stroom-Proxy is running.
+This can be used by load balancers to determine if Stroom-Proxy is up or not.</p>
+<h3 id="threads">Threads</h3>
+<p><code>http://localhost:8091/proxyAdmin/threads</code></p>
+<p>Lists the currently running threads with a stack trace for each.
+Can be useful for debugging.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
+    
+  <h1 id="pg-6191260122dbb492e5517fddb7b67912">5 - Receipt ID</h1>
+    <div class="lead">A unique identifier that is assigned to each item of data received by Stroom-Proxy.</div>
+	<p>On receipt of data, Stroom-Proxy will assign the data a unique Receipt ID.
+This value will be set in the <code>ReceiptId</code> meta attribute.
+It will also be appended to the <code>ReceiptIdPath</code> meta attribute, which is a comma delimited list of Receipt IDs.</p>
+<p>The format of this attribute has been made to make it more useful to administrators, while still being unique across the environment that the Stroom and Stroom-Proxy instances are deployed in.</p>
+<p>The format is as follows:</p>
+<p><code>&lt;timestamp&gt;_&lt;seq no&gt;_&lt;(P|S)&gt;_&lt;proxyId or stroom nodeName&gt;</code></p>
+<ul>
+<li>
+<p><code>&lt;timestamp&gt;</code> - The receipt timestamp in milliseconds since the <span class="glossary-link">
+  <a href="../../../docs/glossary/#unix-epoch" title="Glossary entry for Unix Epoch">
+    <span>Unix Epoch</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>, zero padded.</p>
+</li>
+<li>
+<p><code>&lt;seq no&gt;</code> - This is zero padded four digit sequential number (starting at <code>0000</code>) that is used to distinguish between multiple receipt events happening during the same millisecond on the same instance.</p>
+</li>
+<li>
+<p><code>&lt;P|S&gt;</code> - Indicates whether the item was received by Stroom (<code>S</code>) or Stroom-Proxy (<code>P</code>).</p>
+</li>
+<li>
+<p><code>&lt;proxyId or stroom nodeName&gt;</code> - For Stroom-Proxy this will be the <code>proxyConfig.proxyId</code> that is either set in configuration to uniquely identify a proxy instance or is one of the <span class="glossary-link">
+  <a href="../../../docs/glossary/#fqdn" title="Glossary entry for FQDN">
+    <span>FQDN</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>/<span class="glossary-link">
+  <a href="../../../docs/glossary/#ip-address" title="Glossary entry for IP Address">
+    <span>IP Address</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span>.
+For Stroom this is the node name of the Stroom instance.
+The <code>proxyId</code> set on each Stroom-Proxy instance must be unique across all Stroom-Proxy instances in the estate.
+The <code>nodeName</code> set on each Stroom instance must be unique across all Stroom instances in the estate.</p>
+</li>
+</ul>
+<p>An example Receipt ID is <code>0000001738332835967_0000_P_node1</code></p>
+<p>The new format is useful for tracing the flow of data through a chain of proxies as it will be included in receive and send logs as well as being written to the meta attributes.</p>
+<p>To ensure uniqueness of these IDs across the estate, <code>proxyID</code> values should be unique within the environment that data will flow.
+The same is true for Stroom <code>nodeName</code> values.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
+    
+  <h1 id="pg-996fb8259cac93f8b4d0e6836081567a">6 - Proxy Architecture</h1>
+    <div class="lead">An overview of the architecture of Stroom-Proxy.</div>
+	<h2 id="overview">Overview</h2>
+<p>Stroom-Proxy has a number of moving parts and it can be configured in a variety of ways.
+This document aims to describe some typical configurations of Stroom-Proxy.</p>
+<h3 id="directories-as-queues">Directories as Queues</h3>
+<p>Stroom-Proxy makes heavy use of multiple file system directories as work queues.
+These queues act as the interface between the different processing steps in Stroom-Proxy.</p>
+<p>Data representing one queue item is placed into a directory.
+That directory is atomically moved into a queue directory with a new name to represent its position in the queue.
+The directory is consumed from the directory queue by atomically moving it to a different path, typically this will be a numbered directory that acts as a staging area where it can be worked on before moving it to a different directory queue.</p>
+<p>These sub-directories are placed in a path structure that indicates the position in the queue, e.g.:</p>
+<pre><code class="language-text">./50_forwarding/downstream/02_retry/2/012/345/012345678
 </code></pre>
-<p>Create a directory - <code>/stroom-proxy</code> – and ensure that stroom can write to it.
-This is where the proxy data files are stored - <code>/stroom-proxy/repo</code></p>
-<pre><code class="language-yaml">proxyRepositoryConfig:
-  storingEnabled: true
-  repoDir: &quot;/stroom-proxy/repo&quot;
-  format: &quot;${executionUuid}/${year}-${month}-${day}/${feed}/${pathId}/${id}&quot;
+<p>In the above example:</p>
+<ul>
+<li><code>./50_forwarding/downstream/02_retry</code> represents the base directory of the queue.</li>
+<li><code>/2/</code> represents the depth of the directory tree, i.e. the queue item has two sub-directories above it.</li>
+<li><code>/012/</code> is a sub-directory containing items 12,000,000 to 12,999,999.</li>
+<li><code>/345/</code> is a sub-directory containing items 12,345,000 to 12,345,999.</li>
+<li><code>/012345678/</code> is the queue item containing the data to be processed.
+The number is the position in the queue and the number of digits is always left padded with zeros to be a multiple of three.</li>
+</ul>
+<p>This structure ensures that there are never more than 999 items in each directory and the head/tail of the queue can be found quickly.</p>
+<h3 id="numbered-directories">Numbered Directories</h3>
+<p>Typically between each queue is a numbered directory that acts as a staging area to work on the data.
+Numbered directories are sequentially numbered directories that all exist in a single parent directory.
+They are expected to be transient in nature, i.e. only existing until they can be move to another queue.</p>
+<p>For example, <code>01_receiving_simple</code> contains numbered directories and each one is used to stage non-ZIP data that has been received into proxy:</p>
+<pre><code class="language-text">./01_receiving_simple/0000001407/
+./01_receiving_simple/0000001408/
+./01_receiving_simple/0000001409/
 </code></pre>
+<p>Each directory represents data for a single request into Stroom Proxy.
+Once the data has been successfully written to one of these directories, the directory will be atomically moved to one of the directory queues, e.g.</p>
+<pre><code class="language-text">./01_receiving_simple/0000001407/ =&gt; 20_pre_aggregate_input_queue/0/382/
+</code></pre>
+<p>The directory then becomes the responsibility of the queue directory it was moved into.</p>
+<h3 id="directory-structure">Directory Structure</h3>
+<p>The following is a list of the directories used by Stroom-Proxy in its data directory (as configured by <code>proxyConfig.path.data</code>).</p>
+<!-- Use `tree -F --charset=ascii` to generate this -->
+<pre><code class="language-treeview">|-- 01_receiving_simple/
+|-- 01_receiving_zip/
+|-- 02_split_zip_input_queue/
+|-- 03_split_zip_splits/
+|-- 20_pre_aggregate_input_queue/
+|-- 21_pre_aggregates/
+|-- 22_splitting/
+|-- 23_split_output/
+|-- 30_aggregate_input_queue/
+|-- 31_aggregates/
+|-- 40_forwarding_input_queue/
+|-- 50_forwarding/
+|   |-- &lt;destination name 1&gt;/
+|   |   |-- 01_forward/
+|   |   |-- 02_retry/
+|   |   `-- 03_failure/
+|   `-- &lt;destination name 2&gt;/
+|       |-- 01_forward/
+|       |-- 02_retry/
+|       `-- 03_failure/
+|-- 99_deleting/
+|-- event/
+`-- temp_forward_copies/
+</code></pre>
+<p>The following diagram illustrates how data flows between the various queues and numbered directories.</p>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+<div class="card rounded shadow-stroom p-2 td-post-card mb-4 mt-4" style="max-width: 810px">
+
+  <a title="images/proxy/architecture.puml.svg" href="../../../images/proxy/architecture.puml.svg">
+    <figure style="margin-block-end: 0px" >
+      
+      <img class="card-img-top" src="../../../images/proxy/architecture.puml.svg" style="max-width:800" alt="images/proxy/architecture.puml.svg">
+      
+
+      
+    </figure>
+  </a>
+</div>
+
+<h4 id="01_receiving_simple"><code>/01_receiving_simple/</code></h4>
+<p>This directory is the reception for area for data that is NOT a <span class="glossary-link">
+  <a href="../../../docs/glossary/#zip" title="Glossary entry for ZIP">
+    <span>ZIP</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> file, i.e. uncompressed or <code>gzip</code> compressed data.
+It contains numbered directories.</p>
+<p>Data will be written to this directory before the client receives the HTTP response.</p>
+<p>Each numbered directory will contain two files:</p>
+<ul>
+<li><code>/01_receiving_simple/0000002034/0000000001.meta</code> - The meta sidecar file containing the HTTP headers.</li>
+<li><code>/01_receiving_simple/0000002034/0000000001.dat</code> - The file containing the received payload data.</li>
+</ul>
+<p>The filenames are always the same as it is only dealing with a single stream.</p>
+<h4 id="02_receiving_zip"><code>/02_receiving_zip/</code></h4>
+<p>This directory is the reception for area for data that has been received as a <span class="glossary-link">
+  <a href="../../../docs/glossary/#zip" title="Glossary entry for ZIP">
+    <span>ZIP</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> file which may contain one or more streams of data and associated metadata.
+It contains numbered directories.</p>
+<p>Received ZIP files will be written to a numbered sub-directory in this directory before the client receives the HTTP response.</p>
+<p>All <code>.meta</code> files in the ZIP file will be updated to add the HTTP headers from the request.
+In order to do this, Stroom Proxy will first write the ZIP as a <code>.zip.staging</code> file.
+It will clone all the ZIP entries in this file into a <code>.zip</code> file, updating the <code>.meta</code> entries as it goes.
+The <code>.zip.staging</code> file will be deleted once complete.</p>
+<p>The ZIP entries will be scanned and all valid entries will be written to a <code>.entries</code> sidecar file for subsequent processes to use.
+This <code>.entries</code> file defines the entries in the ZIP that are valid for further processing and allows subsequent processing to use this file as a reference rather than having to re-scan the ZIP.</p>
+<p>The scanning process will also establish how many groups are in the ZIP.
+A group is defined as a combination of the <em>Feed</em> and the <em>Stream Type</em>.</p>
+<p>If the ZIP contains more than one group or the ZIP does not adhere to the correct [Stroom ZIP Format](/docs/sending-data/payloads/#stroom-zip-format, the directory will be moved to <code>/02_split_zip_input_queue/</code> for splitting.</p>
+<p>If the ZIP has a valid format and only contains one group, it will either be moved to the <code>20_pre_aggregate_input_queue</code> queue, if aggregation is enabled, or <code>40_forwarding_input_queue</code> queue if not.</p>
+<h4 id="02_split_zip_input_queue"><code>/02_split_zip_input_queue/</code></h4>
+<p>Each directory placed into this directory queue will contain a ZIP file and a <code>.entries</code> file.
+The ZIP may be in an invalid format, in which case a new ZIP will be created with the correct entry naming and structure.
+This is to ensure that all ZIP files received downstream are in a consistent format.
+Alternatively it will contain more than one group, so will need to be split into one ZIP file per group.</p>
+<p>A numbered directory will be created in <code>/03_split_zip_splits/</code> to hold each split.
+For each group of entries in a split, it will create a sub-directory named after the group in the numbered directory, e.g. for two splits:</p>
+<ul>
+<li><code>/03_split_zip_splits/0000000392/FEED_X__raw_events/proxy.zip</code></li>
+<li><code>/03_split_zip_splits/0000000392/FEED_X__raw_events/proxy.entries</code></li>
+<li><code>/03_split_zip_splits/0000000392/FEED_X__raw_events/proxy.meta</code></li>
+<li><code>/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.zip</code></li>
+<li><code>/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.entries</code></li>
+<li><code>/03_split_zip_splits/0000000392/FEED_Y__raw_events/proxy.meta</code></li>
+</ul>
+<p>Once the splitting is complete, each split directory will be moved to the <code>20_pre_aggregate_input_queue</code> queue, if aggregation is enabled, or <code>40_forwarding_input_queue</code> queue if not.</p>
+<h4 id="20_pre_aggregate_input_queue"><code>/20_pre_aggregate_input_queue/</code></h4>
+<p>Each directory on this queue will contain a ZIP file that contains one or more entries for the same group (combination of Feed and Stream Type).</p>
+<p>If <code>proxyConfig.aggregator.splitSources</code> is set to <code>true</code>, Stroom Proxy will inspect the ZIP to see if it needs to be split up into multiple parts, to meet the aggregation targets (defined by <code>proxyConfig.aggregator.maxItemsPerAggregate</code> and  <code>proxyConfig.aggregator.maxUncompressedByteSize</code>), else the zip will be treated as a single split-part.</p>
+<p>If there is just one split-part, the directory will be moved into the current aggregate directory for its group, e.g.</p>
+<ul>
+<li><code>/21_pre_aggregates/FEED_X__raw_events/009/proxy.zip</code></li>
+</ul>
+<p>If there are multiple split-parts the ZIP file will require splitting into multiple ZIP files with one per split-part, i.e. all entries from the input ZIP spread over multiple split-part ZIPs.
+Each split-part will be written like this:</p>
+<ul>
+<li><code>/22_splitting/0000000343/009_part_1/proxy.zip</code></li>
+<li><code>/22_splitting/0000000343/009_part_2/proxy.zip</code></li>
+<li><code>/22_splitting/0000000343/009_part_3/proxy.zip</code></li>
+</ul>
+<p>Once the splitting has been completed, the common parent directory is moved to <code>/23_split_output/</code>:</p>
+<ul>
+<li><code>/23_split_output/0000000343/009_part_1/proxy.zip</code></li>
+<li><code>/23_split_output/0000000343/009_part_1/proxy.zip</code></li>
+<li><code>/23_split_output/0000000343/009_part_1/proxy.zip</code></li>
+</ul>
+<p>Each split-part is then moved to <code>/21_pre_aggregates/</code>.</p>
+<ul>
+<li><code>/21_pre_aggregates/FEED_X__raw_events/011/proxy.zip</code></li>
+</ul>
+<p>When the aggregate for a Feed|Type group is complete (based on item count and uncompressed size), the aggregate will be closed.
+Closing of the aggregate involves moving the parent directory of all the aggregate items to <code>/30_aggregate_input_queue/</code>.</p>
+<h4 id="30_aggregate_input_queue"><code>/30_aggregate_input_queue/</code></h4>
+<p>Each directory on this queue will contain multiple directory groups (each containing a ZIP file and its associated files) that are to be part of a single aggregate.</p>
+<p>If there is only one item in the queue directory, the directory will be moved to <code>/40_forwarding_input_queue/</code> for forwarding.</p>
+<p>If there are more than one items in the queue directory then a new aggregate ZIP will be created in <code>/31_aggregates/</code>.
+The entries from each item ZIP will be written into the new aggregate ZIP.</p>
+<p>It will also create a set of meta entries for the aggregate.
+This will contain only key/value entries that are present in <strong>every</strong> item in the aggregate.</p>
+<p>Once the aggregate has been written it is moved to <code>/40_forwarding_input_queue/</code>.</p>
+<h4 id="40_forwarding_input_queue"><code>/40_forwarding_input_queue/</code></h4>
+<p>Each directory on this queue will contain a single ZIP file that may contain one or more streams (plus associated files).
+In addition to the ZIP file will be a combined <code>.meta</code> file for the aggregate.</p>
+<p>Depending on how forwarding has been configured (using <code>proxyConfig.forwardFileDestinations</code> and <code>proxyConfig.forwardHttpDestinations</code>), there will be a pair of directory queues for each of the forwarding destinations, with the destination name in the path, e.g.:</p>
+<ul>
+<li><code>/50_forwarding/file-dest-1/01_forward/</code></li>
+<li><code>/50_forwarding/file-dest-1/02_retry/</code></li>
+<li><code>/50_forwarding/file-dest-2/01_forward/</code></li>
+<li><code>/50_forwarding/file-dest-2/02_retry/</code></li>
+<li><code>/50_forwarding/http-dest-1/01_forward/</code></li>
+<li><code>/50_forwarding/http-dest-1/02_retry/</code></li>
+<li><code>/50_forwarding/http-dest-2/01_forward/</code></li>
+<li><code>/50_forwarding/http-dest-2/02_retry/</code></li>
+</ul>
+<p>Each item on the <code>/40_forwarding_input_queue/</code> queue will be copied into each of the <code>01_forward</code> queues, then the source item will be deleted.
+This keeps each destination independent and prevents a loss of connection to one destination from impacting the others.</p>
+<h4 id="50_forwarding"><code>/50_forwarding/</code></h4>
+<p>This directory contains multiple directory queues, two per forward destination.</p>
+<ul>
+<li><code>..../&lt;destination name&gt;/01_forward/</code> - Items initially queued for forwarding to the destination.</li>
+<li><code>..../&lt;destination name&gt;/02_retry/</code> - Items that have failed to forward to the destination and have been queued for a retry.</li>
+</ul>
+<p>Each forward destination directory also contains a failure directory:</p>
+<ul>
+<li><code>..../&lt;destination name&gt;/03_/failure/</code> - Items that have failed to forward.
+Either they have failed too many times or have failed with an error that prevents retry.</li>
+</ul>
 
 </div>
 

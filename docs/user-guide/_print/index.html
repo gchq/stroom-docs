@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.38e5b29f2b8df6994799acec29bf7369.json"
+    data-offline-search-index-json-src="../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -251,7 +251,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.6: <a href="#pg-ac0532a5d597013b31c385379a2ad086">Authentication Proxy</a></li>
+<li>1.6: <a href="#pg-ea9d4bde3ec18b50f1732e047f37f904">Data Download API</a></li>
 
 
     
@@ -259,7 +259,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.7: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+<li>1.7: <a href="#pg-ac0532a5d597013b31c385379a2ad086">Authentication Proxy</a></li>
 
 
     
@@ -267,7 +267,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1.8: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
+<li>1.8: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>1.9: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
 
 
     
@@ -1750,7 +1758,7 @@ The, clicking the download icon on the query pane of the dashboard will generate
 <h3 id="destroy">Destroy</h3>
 <p>This endpoint is used to kill an active query by supplying the <em>queryKey</em> for query in question.</p>
 <h3 id="keep-alive">Keep alive</h3>
-<p>Stroom will only hold search results from completed queries for a certain lenght of time.
+<p>Stroom will only hold search results from completed queries for a certain length of time.
 It will also terminate running queries that are too old.
 In order to prevent queries being aged off you can hit this endpoint to indicate to Stroom that you still have an interest in a particular query by supplying the query key.</p>
 
@@ -1984,7 +1992,106 @@ If you send it to a UI node that does not do processing, it is likely to trigger
 
 <div class="td-content" style="--base-section-num: '1.6.'; page-break-before: always">
     
-  <h1 id="pg-ac0532a5d597013b31c385379a2ad086">1.6 - Authentication Proxy</h1>
+  <h1 id="pg-ea9d4bde3ec18b50f1732e047f37f904">1.6 - Data Download API</h1>
+    <div class="lead">The API for downloading stream data in ZIP form.</div>
+	<h2 id="download-zip">Download ZIP</h2>
+<p>This endpoint provides the means to download one or more streams (and their associated meta data and child streams) that match the supplied criteria as a single ZIP file.</p>
+<p>The Swagger specification for the endpoint can be found 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://gchq.github.io/stroom/v7.11/#/Data%20Download/downloadZip" target="_blank" class="" style="" title="here (external link to https://gchq.github.io/stroom/v7.11/#/Data%20Download/downloadZip)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>The endpoint requires a JSON payload in the <code>POST</code> request to provide the filter criteria.
+The following is an example of a criteria object to fetch the <code>Raw Events</code> streams for a given Feed and time range.</p>
+<pre><code class="language-json">{
+  &quot;expression&quot; : {
+    &quot;type&quot; : &quot;operator&quot;,
+    &quot;children&quot; : [ {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Feed&quot;,
+      &quot;condition&quot; : &quot;IS_DOC_REF&quot;,
+      &quot;docRef&quot; : {
+        &quot;type&quot; : &quot;Feed&quot;,
+        &quot;uuid&quot; : &quot;cb305f67-a460-40f2-a9bb-d855010e2922&quot;,
+        &quot;name&quot; : &quot;ZIP_TEST-DATA_SPLITTER-EVENTS&quot;
+      }
+    }, {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Status&quot;,
+      &quot;condition&quot; : &quot;EQUALS&quot;,
+      &quot;value&quot; : &quot;Unlocked&quot;
+    }, {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Create Time&quot;,
+      &quot;condition&quot; : &quot;BETWEEN&quot;,
+      &quot;value&quot; : &quot;2025-08-13T00:00:00.000Z,2026-05-13T00:00:00.000Z&quot;
+    }, {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Type&quot;,
+      &quot;condition&quot; : &quot;EQUALS&quot;,
+      &quot;value&quot; : &quot;Raw Events&quot;
+    } ]
+  }
+}
+</code></pre>
+<p>If the above JSON has been written to the file <code>criteria.json</code>, the following <code>curl</code> command will download all streams that match the criteria to <code>data.zip</code>.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#34;...API KEY GOES IN HERE...&#34;
+curl \
+  --silent \
+  --request POST \
+  --data-binary @criteria.json \
+  --header Content-Type: application/json&#39; \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  --output data.zip \
+  https://stroom-fqdn/api/dataDownload/v1/downloadZip</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '1.7.'; page-break-before: always">
+    
+  <h1 id="pg-ac0532a5d597013b31c385379a2ad086">1.7 - Authentication Proxy</h1>
     <div class="lead">An endpoint to use Stroom as a proxy for an external IDP to obtain access tokens.</div>
 	<p>During provisioning of a Stroom instance that is configured to use an external IDP, it is sometimes required to call Stroom&rsquo;s API to provision the system in an automated way.
 In order to call the API, some form of authentication will be needed, e.g. an access token from IDP.</p>
@@ -2054,9 +2161,9 @@ curl \
 
 
 
-<div class="td-content" style="--base-section-num: '1.7.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '1.8.'; page-break-before: always">
     
-  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">1.7 - Explorer API</h1>
+  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">1.8 - Explorer API</h1>
     <div class="lead">The API for managing the folders and documents in the explorer tree.</div>
 	<h2 id="creating-a-new-document">Creating a New Document</h2>
 <p>The explorer API is responsible for creation of all document types.
@@ -2128,9 +2235,9 @@ The explorer API is used to create the initial skeleton of a document then the A
 
 
 
-<div class="td-content" style="--base-section-num: '1.8.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '1.9.'; page-break-before: always">
     
-  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">1.8 - Feed API</h1>
+  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">1.9 - Feed API</h1>
     <div class="lead">The API for fetching and updating feeds.</div>
 	<h2 id="creating-a-feed">Creating a Feed</h2>
 <p>In order to create a Feed you must first <a href="../../../docs/user-guide/api/explorer-api/">create the skeleton document</a> using the Explorer API.</p>
@@ -26440,7 +26547,7 @@ The way in which different index fields may be queried depends on the type of da
 <h3 id="relative-times">Relative Times</h3>
 <p>In addition to absolute times it is possible to specify times using expressions.
 Relative time expressions create a date time that is relative to the execution time of the query.
-Supported expressons are as follows:</p>
+Supported expressions are as follows:</p>
 <ul>
 <li><code>now()</code> - The current execution time of the query.</li>
 <li><code>second()</code> - The current execution time of the query rounded down to the nearest second.</li>
@@ -26811,10 +26918,10 @@ Updated On: 2018-12-10T07:47:06.841Z
 <p>For a Lucene index query and associated table the following permissions will be required:</p>
 <ul>
 <li><em>Read</em> permission on the <em>Dashboard</em> entity.</li>
-<li><em>Use</em> permission on any <em>Indexe</em> entities being queried in the dashboard.</li>
+<li><em>Use</em> permission on any <em>Index</em> entities being queried in the dashboard.</li>
 <li><em>Use</em> permission on any <em>Pipeline</em> entities set as search extraction <em>Pipelines</em> in any of the dashboard&rsquo;s tables.</li>
-<li><em>Use</em> permission on any <em>XSLT</em> entities used by the above search extraction <em>Pipeline</em> entites.</li>
-<li><em>Use</em> permission on any ancestor pipelines of any of the above search extraction <em>Pipeline</em> entites (if applicable).</li>
+<li><em>Use</em> permission on any <em>XSLT</em> entities used by the above search extraction <em>Pipeline</em> entities.</li>
+<li><em>Use</em> permission on any ancestor pipelines of any of the above search extraction <em>Pipeline</em> entities (if applicable).</li>
 <li><em>Use</em> permission on any <em>Feed</em> entities that you want the user to be able to see data for.</li>
 </ul>
 <p>For a SQL Statistics query and associated table the following permissions will be required:</p>
@@ -26824,8 +26931,8 @@ Updated On: 2018-12-10T07:47:06.841Z
 </ul>
 <p>For a visualisation the following permissions will be required:</p>
 <ul>
-<li><em>Read</em> permission on any <em>Visualiation</em> entities used in the dashboard.</li>
-<li><em>Read</em> permission on any <em>Script</em> entities used by the above <em>Visualiation</em> entities.</li>
+<li><em>Read</em> permission on any <em>Visualisation</em> entities used in the dashboard.</li>
+<li><em>Read</em> permission on any <em>Script</em> entities used by the above <em>Visualisation</em> entities.</li>
 <li><em>Read</em> permission on any <em>Script</em> entities used by the above <em>Script</em> entities.</li>
 </ul>
 
@@ -28870,10 +28977,10 @@ path/to/config.yml</code></pre>
 <li><code>-u</code> <code>--user</code> - The username for the user.</li>
 <li><code>-p</code> <code>--password</code> - The password for the user.</li>
 </ul>
-<p>This command is used for changing the password of an existing account in stroom&rsquo;s internal identity provider.
-It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.
-This command should NOT be run if you are using an external identity provider.
-It will fail if the account does not exist.</p>
+<p>This command is used for changing the password of an existing account in Stroom&rsquo;s internal identity provider.
+It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.</p>
+<p>This command should NOT be run if you are using an external identity provider as the external identity provider is responsible for managing authentication accounts.</p>
+<p>This command will fail if the account does not exist, i.e. <code>create_account</code> should have already been run or Stroom should be configured with <code>stroom.security.identity.allowCertificateAuthentication</code> set to true.</p>
 <p>This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.</p>
 <h3 id="manage_users"><code>manage_users</code></h3>
 
@@ -28907,10 +29014,9 @@ See <a href="#user-identifier">below</a> for the format of this argument.</li>
 <li><code>--revokePermission</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>PERMISSION_IDENTIFIER</code> - Revokes the named application permission from the user/group.</li>
 <li><code>--listPermissions</code> - Lists all the valid permission names.</li>
 </ul>
-<p>This command allows you to manage the account permissions within stroom regardless of whether the internal identity provider or an external party is used.
+<p>This command allows you to manage the user permissions within Stroom regardless of whether the internal identity provider or an external party is used.
 A typical use case for this is when using a external identity provider.
-In this instance Stroom has no way of auto creating an admin account when first started so the association between the account on the 3rd party IDP and the stroom user account needs to be made manually.
-To set up an admin account to enable you to login to stroom you can do:</p>
+In this instance Stroom has no way of auto creating an admin user when first started so the association between the account on the 3rd party IDP and the stroom user needs to be made manually.</p>
 <p>This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
 It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
 If you want to automate actions that can be performed in the UI then you can make use of the REST API that is described at <code>/stroom/noauth/swagger-ui</code>.</p>
@@ -28920,6 +29026,8 @@ If you want to automate actions that can be performed in the UI then you can mak
 
 
     <p>See the <a href="#authentication-accounts-and-stroom-users">section</a> above about the distinction between authentication accounts and stroom users.</p>
+<p>This command does <strong>not</strong> create an account for authentication.
+See <a href="#create_account"><code>create_account</code></a> for that.</p>
 
 
 </div>
@@ -28941,7 +29049,7 @@ This is a typical command to bootstrap a stroom instance with one admin user so 
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser jbloggs \
 --createGroup Administrators \
@@ -29010,21 +29118,21 @@ They are only initial values and will always be over written with the values fro
     data-host="localhost" 
     data-continuation-str="\"
     data-filter-output="(out)"><code class="language-bash"># Create a user using their unique IDP identifier and add them to group Administrators
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser &#34;45744aee-0b4c-414b-a82a-8b8b134cc201&#34; \
 --addToGroup &#34;45744aee-0b4c-414b-a82a-8b8b134cc201&#34;  Administrators \
 path/to/config.yml
 
 # Create a user using their unique IDP identifier, display name and full name
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser &#34;45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs&#34; \
 --addToGroup &#34;jbloggs&#34;  Administrators \
 path/to/config.yml
 
 # Create multiple users at once, adding them to appropriate groups
-java -jar /absolute/path/to/stroom-app.jar \
+java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser &#34;45744aee-0b4c-414b-a82a-8b8b134cc201,jbloggs,Joe Bloggs&#34; \
 --createUser &#34;37fb1eb4-f59c-4040-8e1d-57485e0f912f,jdoe,John Doe&#34; \
@@ -29076,7 +29184,7 @@ This is useful if, when bootstrapping a cluster, you want to set up a user and a
     data-user="user" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 create_api_key \
 --user jbloggs \
 --expiresDays 365 \
@@ -29197,7 +29305,7 @@ This value may look like an email address, or a <span class="glossary-link">
     data-user="stroomuser" 
     data-host="localhost" 
     data-continuation-str="\"
-    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app.jar \
+    data-filter-output="(out)"><code class="language-bash">java -jar /absolute/path/to/stroom-app-all.jar \
 manage_users \
 --createUser &#34;2b6e06181-9e10-44eb-a33a-537509ec3abd2,johndoe,John Doe&#34; \
 --createGroup Administrators \
@@ -31003,7 +31111,7 @@ Use four spaces to indent a sub-item.
 ## Numbered Lists
 
 Use four spaces to indent a sub-item.
-Using `1` for all items means the makrdown processor will replace them with the correct number, making it easier to re-order items.
+Using `1` for all items means the markdown processor will replace them with the correct number, making it easier to re-order items.
 
 1. Item 1
     1. Item 1a
@@ -31179,8 +31287,8 @@ If you require additional languages then please raised a ticket
 </span> names, however if there are two of these in a word then the markdown processor will interpret them as <em>italic</em> markup.
 To prevent this, either surround the word with back ticks to be rendered as code or escape each underscore with a <code>\</code>, i.e. <code>THIS\_IS\_MY\_FEED</code>. THIS_IS_MY_FEED.</p>
 <h2 id="html">HTML</h2>
-<p>While it is possible to use HTML in the documentation, its use is not recomended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
-Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be prefereable.</p>
+<p>While it is possible to use HTML in the documentation, its use is not recommended as it increases the complexity of the documentation content and requires that other users have knowledge of HTML.
+Markdown should be sufficient for most cases, with the possible exception of complex tables where HTML may be preferable.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>

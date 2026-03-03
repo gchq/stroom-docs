@@ -148,7 +148,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.621df332f57358555f9c72ed07db9cd0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.728f8868440bddf6bd192e425a30d579.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -235,7 +235,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>6: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+<li>6: <a href="#pg-ea9d4bde3ec18b50f1732e047f37f904">Data Download API</a></li>
 
 
     
@@ -243,7 +243,15 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
+<li>7: <a href="#pg-6f43c1652ae62fe37477692f2f30f0de">Explorer API</a></li>
+
+
+    
+  
+    
+    
+	
+<li>8: <a href="#pg-9e897e4b060814c0423032fc5005acfd">Feed API</a></li>
 
 
     
@@ -1063,7 +1071,106 @@ If you send it to a UI node that does not do processing, it is likely to trigger
 
 <div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
     
-  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">6 - Explorer API</h1>
+  <h1 id="pg-ea9d4bde3ec18b50f1732e047f37f904">6 - Data Download API</h1>
+    <div class="lead">The API for downloading stream data in ZIP form.</div>
+	<h2 id="download-zip">Download ZIP</h2>
+<p>This endpoint provides the means to download one or more streams (and their associated meta data and child streams) that match the supplied criteria as a single ZIP file.</p>
+<p>The Swagger specification for the endpoint can be found 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://gchq.github.io/stroom/v7.9/#/Data%20Download/downloadZip" target="_blank" class="" style="" title="here (external link to https://gchq.github.io/stroom/v7.9/#/Data%20Download/downloadZip)">
+    <span>here</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.</p>
+<p>The endpoint requires a JSON payload in the <code>POST</code> request to provide the filter criteria.
+The following is an example of a criteria object to fetch the <code>Raw Events</code> streams for a given Feed and time range.</p>
+<pre><code class="language-json">{
+  &quot;expression&quot; : {
+    &quot;type&quot; : &quot;operator&quot;,
+    &quot;children&quot; : [ {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Feed&quot;,
+      &quot;condition&quot; : &quot;IS_DOC_REF&quot;,
+      &quot;docRef&quot; : {
+        &quot;type&quot; : &quot;Feed&quot;,
+        &quot;uuid&quot; : &quot;cb305f67-a460-40f2-a9bb-d855010e2922&quot;,
+        &quot;name&quot; : &quot;ZIP_TEST-DATA_SPLITTER-EVENTS&quot;
+      }
+    }, {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Status&quot;,
+      &quot;condition&quot; : &quot;EQUALS&quot;,
+      &quot;value&quot; : &quot;Unlocked&quot;
+    }, {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Create Time&quot;,
+      &quot;condition&quot; : &quot;BETWEEN&quot;,
+      &quot;value&quot; : &quot;2025-08-13T00:00:00.000Z,2026-05-13T00:00:00.000Z&quot;
+    }, {
+      &quot;type&quot; : &quot;term&quot;,
+      &quot;field&quot; : &quot;Type&quot;,
+      &quot;condition&quot; : &quot;EQUALS&quot;,
+      &quot;value&quot; : &quot;Raw Events&quot;
+    } ]
+  }
+}
+</code></pre>
+<p>If the above JSON has been written to the file <code>criteria.json</code>, the following <code>curl</code> command will download all streams that match the criteria to <code>data.zip</code>.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="user" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">TOKEN=&#34;...API KEY GOES IN HERE...&#34;
+curl \
+  --silent \
+  --request POST \
+  --data-binary @criteria.json \
+  --header Content-Type: application/json&#39; \
+  --header &#34;Authorization:Bearer ${TOKEN}&#34; \
+  --output data.zip \
+  https://stroom-fqdn/api/dataDownload/v1/downloadZip</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
+    
+  <h1 id="pg-6f43c1652ae62fe37477692f2f30f0de">7 - Explorer API</h1>
     <div class="lead">The API for managing the folders and documents in the explorer tree.</div>
 	<h2 id="creating-a-new-document">Creating a New Document</h2>
 <p>The explorer API is responsible for creation of all document types.
@@ -1135,9 +1242,9 @@ The explorer API is used to create the initial skeleton of a document then the A
 
 
 
-<div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '8.'; page-break-before: always">
     
-  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">7 - Feed API</h1>
+  <h1 id="pg-9e897e4b060814c0423032fc5005acfd">8 - Feed API</h1>
     <div class="lead">The API for fetching and updating feeds.</div>
 	<h2 id="creating-a-feed">Creating a Feed</h2>
 <p>In order to create a Feed you must first <a href="../../../../docs/user-guide/api/explorer-api/">create the skeleton document</a> using the Explorer API.</p>

@@ -145,7 +145,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.38e5b29f2b8df6994799acec29bf7369.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -360,7 +360,7 @@ install and create a database user account.</p>
 <p>Things get more complicated when considering:</p>
 <ul>
 <li>Security</li>
-<li>Master Slave Replication</li>
+<li>Replication</li>
 <li>Tuning memory usage</li>
 <li>Running Stroom Stats in a different database to Stroom</li>
 <li>Performance Monitoring</li>
@@ -401,30 +401,43 @@ usage : --name=&lt;instance name (defaults to my for /etc/my.cnf)&gt;
 <p>You need to create a file cluster.txt with a line for each member of your cluster
 (or single line in the case of a one node Stroom install).
 Then run the utility script to lock down the server access.</p>
-<pre><code class="language-bash">[stroomuser@host ~]$ hostname &gt;&gt; cluster.txt
-[stroomuser@host ~]$ ./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
-Enter root mysql password :
---------------
-flush privileges
---------------
 
---------------
-delete from mysql.user where user = 'stroomuser'
---------------
-...
-...
-...
---------------
-flush privileges
---------------
+  
 
-[stroomuser@host ~]$
-</code></pre>
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">hostname &gt;&gt; cluster.txt
+./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
+(out)Enter root mysql password :
+(out)--------------
+(out)flush privileges
+(out)--------------
+(out)
+(out)--------------
+(out)delete from mysql.user where user = &#39;stroomuser&#39;
+(out)--------------
+(out)...
+(out)...
+(out)...
+(out)--------------
+(out)flush privileges
+(out)--------------</code></pre>
+</div>
+
 <h2 id="advanced-install">Advanced Install</h2>
 <p>The below example uses the utility scripts to create 3 custom mysql server instances on 2 servers:</p>
 <ul>
-<li>server1 - master stroom,</li>
-<li>server2 - slave stroom, stroom_stats</li>
+<li>server1 - stroom (source),</li>
+<li>server2 - stroom (replica), stroom_stats</li>
 </ul>
 <p>As root on server1:</p>
 <pre><code class="language-bash">yum install &quot;mysql56-mysql-server&quot;
@@ -1024,7 +1037,7 @@ This admin user can be used to set up the other users on the system.</p>
 <div class="td-content" style="--base-section-num: '5.3.'; page-break-before: always">
     
   <h1 id="pg-84584124b4e9dfcb1a92fb6fb04aa336">5.3 - External IDP</h1>
-    <div class="lead">How to setup KEyCloak as an external identity provider for Stroom.</div>
+    <div class="lead">How to setup KeyCloak as an external identity provider for Stroom.</div>
 	<p>You may be running Stroom in an environment with an existing <span class="glossary-link">
   <a href="../../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
     <span>Identity Provider (IDP)</span>
@@ -1187,7 +1200,7 @@ For this example we are calling our administrator <code>admin</code>.
 <h2 id="configure-stroom-for-keycloak">Configure Stroom for KeyCloak</h2>
 <p>Edit the <code>config.yml</code> file and set the following values</p>
 <pre><code class="language-yaml">  receive:
-    # Set to true to require authenticatin for /datafeed requests
+    # Set to true to require authentication for /datafeed requests
     authenticationRequired: true
     # Set to true to allow authentication using an Open ID token
     tokenAuthenticationEnabled: true
@@ -1263,7 +1276,7 @@ This command is repeatable as it will skip any users/groups/memberships that alr
 <p>This command will do the following:</p>
 <ul>
 <li>Create the Stroom User by creating an entry in the <code>stroom_user</code> database table for the IDP&rsquo;s <code>admin</code> user.</li>
-<li>Ensure that an <code>Adminstrators</code> group exists (i.e. an entry in the <code>stroom_user</code> database table for the <code>Adminstrators</code> group).</li>
+<li>Ensure that an <code>Administrators</code> group exists (i.e. an entry in the <code>stroom_user</code> database table for the <code>Administrators</code> group).</li>
 <li>Add the <code>admin</code> user to the group <code>Administrators</code>.</li>
 <li>Grant the application permission <code>Administrator</code> to the group <code>Administrators</code>.</li>
 </ul>
@@ -1310,7 +1323,7 @@ In order to gain permissions to do anything in Stroom a Stroom administrator wil
 <p>In order to user Stroom-Proxy with OIDC</p>
 <p>Edit the <code>config.yml</code> file and set the following values</p>
 <pre><code class="language-yaml">  receive:
-    # Set to true to require authenticatin for /datafeed requests
+    # Set to true to require authentication for /datafeed requests
     authenticationRequired: true
     # Set to true to allow authentication using an Open ID token
     tokenAuthenticationEnabled: true

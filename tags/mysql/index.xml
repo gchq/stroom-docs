@@ -99,7 +99,7 @@
 &lt;h3 id=&#34;key-configuration-properties&#34;&gt;Key configuration properties&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;lower_case_table_names&lt;/code&gt; - This proerty controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
+&lt;p&gt;&lt;code&gt;lower_case_table_names&lt;/code&gt; - This property controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
 A value of &lt;code&gt;0&lt;/code&gt; means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
 This is the default in linux and is the preferred value for deployments of stroom of v7+.
 A value of &lt;code&gt;1&lt;/code&gt; means tables are stored on the filesystem in lowercase but sql is case insensitive.
@@ -147,8 +147,8 @@ See also
 &lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;innodb_buffer_pool_size&lt;/code&gt;/&lt;code&gt;innodb_buffer_pool_instances&lt;/code&gt; - Controls the amount of memory availble to MySQL for caching table/index data.
-Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
+&lt;p&gt;&lt;code&gt;innodb_buffer_pool_size&lt;/code&gt;/&lt;code&gt;innodb_buffer_pool_instances&lt;/code&gt; - Controls the amount of memory available to MySQL for caching table/index data.
+Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of available RAM.
 &lt;em&gt;Note&lt;/em&gt;: &lt;code&gt;innodb_buffer_pool_size&lt;/code&gt; must be set to a value that is equal to or a multiple of &lt;code&gt;innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances&lt;/code&gt;.
 See also 
 
@@ -188,9 +188,9 @@ This file is read-only to the container and will be read on container start.&lt;
 &lt;h3 id=&#34;database-initialisation&#34;&gt;Database initialisation&lt;/h3&gt;
 &lt;p&gt;When the container is started for the first time the database be initialised with the root user account.
 It will also then run any scripts found in &lt;code&gt;volumes/stroom-all-dbs/init/stroom&lt;/code&gt;.
-The scripts in here will be run in alpabetical order.
+The scripts in here will be run in alphabetical order.
 Scripts of the form &lt;code&gt;.sh&lt;/code&gt;, &lt;code&gt;.sql&lt;/code&gt;, &lt;code&gt;.sql.gz&lt;/code&gt; and &lt;code&gt;.sql.template&lt;/code&gt; are supported.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;.sql.template&lt;/code&gt; files are proprietry to stroom stacks and are just templated &lt;code&gt;.sql&lt;/code&gt; files.
+&lt;p&gt;&lt;code&gt;.sql.template&lt;/code&gt; files are proprietary to stroom stacks and are just templated &lt;code&gt;.sql&lt;/code&gt; files.
 They can contain tags of the form &lt;code&gt;&amp;lt;&amp;lt;&amp;lt;ENV_VAR_NAME&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt; which will be replaced with the value of the named environment variable that has been set in the container.&lt;/p&gt;
 &lt;p&gt;If you need to add additional database users then either add them to &lt;code&gt;volumes/stroom-all-dbs/init/stroom/001_create_databases.sql.template&lt;/code&gt; or create additional scripts/templates in that directory.&lt;/p&gt;
 &lt;p&gt;The script that controls this templating is &lt;code&gt;volumes/stroom-all-dbs/init/000_stroom_init.sh&lt;/code&gt;.

@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.38e5b29f2b8df6994799acec29bf7369.json"
+    data-offline-search-index-json-src="../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -470,7 +470,23 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7: <a href="#pg-43cbc5a96873e16a7583c1067cb267aa">Kubernetes Cluster</a></li>
+<li>7: <a href="#pg-f4bc194c23f6c779ca19bc69c26e59bb">Stroom Installation</a></li>
+
+
+    
+  
+    
+    
+	
+<li>8: <a href="#pg-2afe2ed3617af446337f17b0191ce8e6">Java</a></li>
+
+
+    
+  
+    
+    
+	
+<li>9: <a href="#pg-43cbc5a96873e16a7583c1067cb267aa">Kubernetes Cluster</a></li>
 
 
     
@@ -485,7 +501,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.1: <a href="#pg-ca95eefd1a4d9ee57e159bf1e8628042">Introduction</a></li>
+<li>9.1: <a href="#pg-ca95eefd1a4d9ee57e159bf1e8628042">Introduction</a></li>
 
 
     
@@ -493,7 +509,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.2: <a href="#pg-05f10dc925729e909b808bad4073ad2b">Install Operator</a></li>
+<li>9.2: <a href="#pg-05f10dc925729e909b808bad4073ad2b">Install Operator</a></li>
 
 
     
@@ -501,7 +517,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.3: <a href="#pg-0507fe5566061e6ceaad9054e4e5d301">Upgrade Operator</a></li>
+<li>9.3: <a href="#pg-0507fe5566061e6ceaad9054e4e5d301">Upgrade Operator</a></li>
 
 
     
@@ -509,7 +525,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.4: <a href="#pg-c8eeddcab75a955590d58d0c4350b4bc">Remove Operator</a></li>
+<li>9.4: <a href="#pg-c8eeddcab75a955590d58d0c4350b4bc">Remove Operator</a></li>
 
 
     
@@ -517,7 +533,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.5: <a href="#pg-721b26717d1f73ea1eb3ecfc16a7a16d">Configure Database</a></li>
+<li>9.5: <a href="#pg-721b26717d1f73ea1eb3ecfc16a7a16d">Configure Database</a></li>
 
 
     
@@ -525,7 +541,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.6: <a href="#pg-fb65f82f056e9f1601c353119678b6a6">Configure a cluster</a></li>
+<li>9.6: <a href="#pg-fb65f82f056e9f1601c353119678b6a6">Configure a cluster</a></li>
 
 
     
@@ -533,7 +549,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.7: <a href="#pg-27477f3276848d8ef7a8896dec8ac3f9">Auto Scaler</a></li>
+<li>9.7: <a href="#pg-27477f3276848d8ef7a8896dec8ac3f9">Auto Scaler</a></li>
 
 
     
@@ -541,7 +557,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.8: <a href="#pg-f1fcf284925090030b347c6d04e9d8a0">Stop Stroom Cluster</a></li>
+<li>9.8: <a href="#pg-f1fcf284925090030b347c6d04e9d8a0">Stop Stroom Cluster</a></li>
 
 
     
@@ -549,7 +565,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>7.9: <a href="#pg-3603d04935fa22b34e672359e6b24a4a">Restart Node</a></li>
+<li>9.9: <a href="#pg-3603d04935fa22b34e672359e6b24a4a">Restart Node</a></li>
 
 
     
@@ -590,18 +606,30 @@ This is the multi-page printable view of this section.
     <div class="lead">How to install a Single node instance of Stroom using Docker containers.</div>
 	<p>Running Stroom in <em>Docker</em> is the quickest and easiest way to get Stroom up and running.
 Using Docker means you don&rsquo;t need to install the right versions of dependencies like Java or MySQL or get them configured correctly for Stroom.</p>
+<p>This section details how to install single instances of of Stroom and Stroom-Proxy using Docker.</p>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+
+    <p>If you want to deploy a Stroom cluster using containers then you should use Kubernetes, see <a href="../../../docs/install-guide/kubernetes/">Kubernetes Cluster</a>.</p>
+
+
+</div>
+
+
 <h2 id="stroom-docker-stacks">Stroom Docker stacks</h2>
 <p>Stroom has a number of predefined <em>stacks</em> that combine multiple docker containers into a fully functioning Stroom environment.
 The Docker stacks are aimed primarily at single node instances or for evaluation/test.
 The stack makes use of various shell scripts combined with Docker Compose to integrate the various Docker containers and make them easy to run.</p>
-<p>If you want to deploy a Stroom cluster using containers then you should use <a href="../../../docs/install-guide/kubernetes/introduction/">Kubernetes Cluster</a>.</p>
 <p>At the moment the usable stacks are:</p>
 <ul>
 <li>
 <p><code>stroom_core</code> - A single node stroom stack geared towards production use.</p>
 </li>
 <li>
-<p><code>stroom_core_test</code> - A single node stroom for test/evalutaion, pre-loaded with content.
+<p><code>stroom_core_test</code> - A single node stroom for test/evaluation, pre-loaded with content.
 Also includes a <em>remote</em> proxy for demonstration purposes.
 If you just want to try out Stroom, this is the one to use.</p>
 </li>
@@ -1239,13 +1267,12 @@ This config file is common to all forms of deployment.</p>
     
   <h1 id="pg-ebcaffc40cb3c2f5e1aab92fae38e51d">2.1.1 - Common Configuration</h1>
     <div class="lead">Configuration common to Stroom and Stroom-Proxy.</div>
-	<h2 id="configyml">config.yml</h2>
-<p>This YAML file, sometimes known as the Dropwizard configuration file (as it conforms to a structure defined by Dropwizard) is the primary means of configuring Stroom/Stroom-Proxy.
+	<p>This YAML file, sometimes known as the Dropwizard configuration file (as it conforms to a structure defined by Dropwizard) is the primary means of configuring Stroom/Stroom-Proxy.
 As a minimum this file should be used to configure anything that needs to be set before stroom can start up, e.g. web server, logging, database connection details, etc.
 It is also used to configure anything that is specific to a node in a stroom cluster.</p>
 <p>If you are using some form of scripted deployment, e.g. ansible then it can be used to set all stroom properties for the environment that stroom runs in.
 If you are not using scripted deployments then you can maintain stroom&rsquo;s node agnostic configuration properties via the user interface.</p>
-<h3 id="config-file-structure">Config File Structure</h3>
+<h2 id="config-file-structure">Config File Structure</h2>
 <p>This file contains both the Dropwizard configuration settings (settings for ports, paths and application logging) and the Stroom/Stroom-Proxy application specific properties configuration.
 The file is in YAML format and the application properties are located under the <code>appConfig</code> key.
 For details of the Dropwizard configuration structure, see 
@@ -1321,7 +1348,7 @@ proxyConfig:
     home: /some/path
   ...
 </code></pre>
-<h4 id="appconfig-section"><code>appConfig</code> Section</h4>
+<h3 id="appconfig-section"><code>appConfig</code> Section</h3>
 <p>The <code>appConfig</code> section is special as it maps to the Properties seen in the Stroom user interface so values can be managed in the file or via the Properties screen in the Stroom UI.
 The other sections of the file can only be managed via the YAML file.
 In the Stroom user interface, properties are named with a dot notation key, e.g. <em>stroom.contentPackImport.enabled</em>.
@@ -1332,7 +1359,7 @@ Each part of the dot notation property name represents a key in the YAML file, e
 </code></pre>
 <p>The <em>stroom</em> part of the dot notation name is replaced with <em>appConfig</em>.</p>
 <p>For more details on the link between this YAML file and Stroom Properties, see <a href="../../../docs/user-guide/properties/">Properties</a></p>
-<h4 id="variable-substitution">Variable Substitution</h4>
+<h3 id="variable-substitution">Variable Substitution</h3>
 <p>The YAML configuration file supports Bash style variable substitution in the form of:</p>
 <pre><code class="language-bash">${ENV_VAR_NAME:-value_if_not_set}
 </code></pre>
@@ -1340,14 +1367,14 @@ Each part of the dot notation property name represents a key in the YAML file, e
 <pre><code class="language-yaml">      jdbcDriverClassName: ${STROOM_JDBC_DRIVER_CLASS_NAME:-com.mysql.cj.jdbc.Driver}
 </code></pre>
 <p>In the above example, if the <em>STROOM_JDBC_DRIVER_CLASS_NAME</em> environment variable is not set then the value <em>com.mysql.cj.jdbc.Driver</em> will be used instead.</p>
-<h4 id="typed-values">Typed Values</h4>
+<h3 id="typed-values">Typed Values</h3>
 <p>YAML supports typed values rather than just strings, see <a href="https://yaml.org/refcard.html">https://yaml.org/refcard.html</a>.
 YAML understands booleans, strings, integers, floating point numbers, as well as sequences/lists and maps.
 Some properties will be represented differently in the user interface to the YAML file.
 This is due to how values are stored in the database and how the current user interface works.
 This will likely be improved in future versions.
 For details of how different types are represented in the YAML and the UI, see <a href="../../../docs/user-guide/properties#data-types">Data Types</a>.</p>
-<h3 id="server-configuration">Server configuration</h3>
+<h2 id="server-configuration">Server configuration</h2>
 <p>The <code>server</code> section controls the configuration of the Jetty web server.</p>
 <p>For full details of how to configure the <code>server</code> section see:</p>
 <ul>
@@ -1390,24 +1417,269 @@ For details of how different types are represented in the YAML and the UI, see <
 </ul>
 <p>The following is an example of the configuration for an application listening on HTTP.</p>
 <pre><code class="language-yaml">server:
-  # The base path for the main application
+  # The base path for the main application and its API
   applicationContextPath: &quot;/&quot;
-  # The base path for the admin pages/API
+  # The base path for the admininstration pages/API
+  # For Stroom-Proxy the default is /proxyAdmin
   adminContextPath: &quot;/stroomAdmin&quot;
 
-  # The scheme/port for the main application
+  # The scheme/port for the main application and its API
   applicationConnectors:
     - type: http
+      # For Stroom-Proxy the default is 8090
       port: 8080
       # Uses X-Forwarded-*** headers in request log instead of proxy server details.
       useForwardedHeaders: true
-  # The scheme/port for the admin pages/API
+
+  # The scheme/port for the admininstration pages/API
   adminConnectors:
     - type: http
+      # For Stroom-Proxy the default is 8091
       port: 8081
       useForwardedHeaders: true
 </code></pre>
-<h3 id="jersey-http-client-configuration">Jersey HTTP Client Configuration</h3>
+<h2 id="common-application-configuration">Common Application Configuration</h2>
+<p>This section details configuration that is common in both the Stroom <code>appConfig</code> and Stroom-Proxy <code>proxyConfig</code> sections.</p>
+<h3 id="receive-configuration">Receive Configuration</h3>
+<p>Configuration for controlling the receipt of data into Stroom and Stroom-Proxy through the <code>/datafeed</code> API.</p>
+<pre><code class="language-yaml">appConfig / proxyConfig:
+  receive:
+    # An allow-list containing IP addresses or fully qualified host names to verify that the direct sender
+    # of a request (e.g. a load balancer or reverse proxy) is trusted to supply certificate/DN headers
+    # as configured with 'x509CertificateHeader' and 'x509CertificateDnHeader'.
+    # If this list is null/empty then no check will be made on the client's address.
+    allowedCertificateProviders: []
+    # Standard cache configuration block for the cache of authenticated Datafeed Keys.
+    # This cache is used to avoid having to re-verify every data feed key.
+    authenticatedDataFeedKeyCache:
+    # If true, the sender will be authenticated using a certificate or token depending on the
+    # state of tokenAuthenticationEnabled and certificateAuthenticationEnabled. If the sender
+    # can't be authenticated an error will be returned to the client
+    # If false, then authentication will be performed if a token/key/certificate
+    # is present, otherwise data will be accepted without a sender identity
+    authenticationRequired: true
+    # The meta key that is used to identify the owner of a Data Feed Key. This
+    # may be an AccountId or similar. It must be provided as a header when sending data
+    # using the associated Data Feed Key, and its value will be checked against the value
+    # held with the hashed Data Feed Key by Stroom. Default value is 'AccountId'.
+    # Case does not matter
+    dataFeedKeyOwnerMetaKey: &quot;AccountId&quot;
+    # The directory where Stroom will look for datafeed key files.
+    # Only used if datafeedKeyAuthenticationEnabled is true
+    # If the value is a relative path then it will be treated as being
+    # relative to stroom.path.home. Data feed key files must have the extension .json.
+    # Files in sub-directory will be ignored.
+    dataFeedKeysDir: &quot;data_feed_keys&quot;
+    # The types of authentication that are enabled for data receipt.
+    enabledAuthenticationTypes:
+    - &quot;TOKEN&quot;
+    - &quot;CERTIFICATE&quot;
+    # If receiptCheckMode is RECEIPT_POLICY or FEED_STATUS and stroom/proxy is
+    # unable to perform the receipt check, then this action will be used as a fallback
+    # until the receipt check can be successfully performed
+    fallbackReceiveAction: &quot;RECEIVE&quot;
+    # If true the client is not required to set the 'Feed' header. If Feed is not present
+    # a feed name will be generated based on the template specified by the
+    # 'feedNameTemplate' property. If false (the default), a populated 'Feed'
+    # header will be required
+    feedNameGenerationEnabled: false
+    # The set of header keys are mandatory if feedNameGenerationEnabled is set to true.
+    # Should be set to complement the header keys used in 'feedNameTemplate', but may be a
+    # sub-set of those in the template to allow for optional headers
+    feedNameGenerationMandatoryHeaders:
+    - &quot;AccountId&quot;
+    - &quot;Component&quot;
+    - &quot;Format&quot;
+    - &quot;Schema&quot;
+    # A template for generating a feed name from a set of headers. The value of
+    # each header referenced in the template will have any unsuitable characters
+    # replaced with '_'.
+    # If this property is set in the YAML file, use single quotes to prevent the
+    # variables being expanded when the config file is loaded
+    feedNameTemplate: &quot;${accountid}-${component}-${format}-${schema}&quot;
+    # If defined then states the maximum size of a request (uncompressed for gzip requests).
+    # Will return a 413 Content Too Long response code for any requests exceeding this
+    # value. If undefined then there is no limit to the size of the request.
+    maxRequestSize: null
+    # Set of supported meta type names. This set must contain all of the names
+    # in the default value for this property but can contain additional names.
+    metaTypes:
+    - &quot;Context&quot;
+    - &quot;Detections&quot;
+    - &quot;Error&quot;
+    - &quot;Events&quot;
+    - &quot;Meta Data&quot;
+    - &quot;Raw Events&quot;
+    - &quot;Raw Reference&quot;
+    - &quot;Records&quot;
+    - &quot;Reference&quot;
+    - &quot;Test Events&quot;
+    - &quot;Test Reference&quot;
+    # Controls how or whether data is checked on receipt. Valid values
+    # (FEED_STATUS|RECEIPT_POLICY|RECEIVE_ALL|REJECT_ALL|DROP_ALL)
+    receiptCheckMode: &quot;FEED_STATUS&quot;
+    # The format of the Distinguished Name used in the certificate. Valid values are
+    # LDAP and OPEN_SSL, where LDAP is the default
+    x509CertificateDnFormat: &quot;LDAP&quot;
+    # The HTTP header key used to extract the distinguished name (DN) as obtained from an X509 certificate.
+    # This is used when a load balancer does the SSL/mTLS termination and passes the client DN though
+    # in a header. Only used for
+    # authentication if a value is set and 'enabledAuthenticationTypes' includes CERTIFICATE
+    x509CertificateDnHeader: &quot;X-SSL-CLIENT-S-DN&quot;
+    # The HTTP header key used to extract an X509 certificate. This is used when a load balancer does the
+    # SSL/mTLS termination and passes the client certificate though in a header. Only used for
+    # authentication if a value is set and 'enabledAuthenticationTypes' includes CERTIFICATE
+    x509CertificateHeader: &quot;X-SSL-CERT&quot;
+</code></pre>
+<h3 id="cache-configuration">Cache Configuration</h3>
+<p>Multiple configuration branches in both Stroom and Stroom-Proxy have one or more properties for configuring a cache.
+Each of these share the same structure and will typically be named <code>xxxCache</code>, e.g. <code>feedStatusCache</code> or <code>metaTypeCache</code>.</p>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Warning</h4>
+
+    The default values for each property within the cache config will be specific to the cache.
+Care needs to be taken when changing the cache properties to avoid changing the behaviour of the cache, e.g. changing from having a <code>expireAfterWrite</code> value to having a <code>expireAfterAccess</code> value may prevent items from aging off as expected.
+
+</div>
+
+
+<pre><code class="language-yaml">      xxxCache:
+        # Specifies that each entry should be automatically removed from the cache once
+        # this duration has elapsed after the entry's creation, the most recent replacement of
+        # its value, or its last read. In ISO-8601 duration format, e.g. 'PT10M'. If no value is set then
+        #  entries will not be aged out based these criteria
+        expireAfterAccess: 
+        # Specifies that each entry should be automatically removed from the cache once
+        # a fixed duration has elapsed after the entry's creation, or the most recent replacement of its value.
+        # In ISO-8601 duration format, e.g. 'PT5M'. If no value is set then entries will not be aged out based on
+        # these criteria.
+        expireAfterWrite:
+        # Specifies the maximum number of entries the cache may contain. Note that the cache
+        # may evict an entry before this limit is exceeded or temporarily exceed the threshold while evicting.
+        # As the cache size grows close to the maximum, the cache evicts entries that are less likely to be used
+        # again. For example, the cache may evict an entry because it hasn't been used recently or very often.
+        # When size is zero, elements will be evicted immediately after being loaded into the cache. This can
+        # be useful in testing, or to disable caching temporarily without a code change. If no value is set then
+        # no size limit will be applied
+        maximumSize:
+        # Specifies that each entry should be automatically refreshed in the cache after
+        # a fixed duration has elapsed after the entry's creation, or the most recent replacement of its value.
+        # In ISO-8601 duration format, e.g. 'PT5M'. Refreshing is performed asynchronously and the current value
+        # provided until the refresh has occurred. This mechanism allows the cache to update values without any
+        # impact on performance
+        refreshAfterWrite:
+        # Determines whether/how statistics are captured on cache usage
+        # (e.g. hits, misses, entries, etc.). Values are (NONE, INTERNAL, DROPWIZARD_METRICS).
+        # NONE means capture no stats, offering a very slight performance gain, but the Caches screen in Stroom
+        # won't be able to show any stats for this cache.
+        # INTERNAL means the stats are captured but are only accessible via the Stroom Caches screen, thus not
+        # suitable for Stroom-Proxy.
+        # DROPWIZARD_METRICS means the stats are captured and are accessible via the Stroom Caches screen AND via
+        # the metrics servlet on the admin port for integration with tools like Graphite/Collectd
+        # The default for Stroom is INTERNAL, the default for Stroom-Proxy is DROPWIZARD_METRICS
+        statisticsMode:
+</code></pre>
+<h3 id="open-id-configuration">Open ID Configuration</h3>
+<p>Both Stroom and Stroom-Proxy share the same configuration structure for configuring Open ID Connect authentication.
+This section of config is only applicable if <code>appConfig/proxyConfig.security.authentication.identityProviderType</code> is set to <code>EXTERNAL_IDP</code>.</p>
+<pre><code class="language-yaml">appConfig / proxyConfig:
+  security:
+    authentication:
+      openId:
+        # A set of audience claim values, one of which must appear in the audience
+        # claim in the token.
+        # If empty, no validation will be performed on the audience claim
+        # If audienceClaimRequired is false and there is no audience claim in the token,
+        # then allowedAudiences will be ignored
+        allowedAudiences: []
+        # If true the token will fail validation if the audience claim is not present
+        # and allowedAudiences is not empty
+        audienceClaimRequired: false
+        # The authentication endpoint used in OpenId authentication
+        # Should only be set if not using a configuration endpoint
+        authEndpoint: null
+        # If custom scopes are required for client_credentials requests then this should be
+        # set to replace the default of 'openid'. E.g. for Azure AD you will likely need to set
+        # this to 'openid' and '&lt;your-app-id-uri&gt;/.default&gt;'
+        clientCredentialsScopes:
+        - &quot;openid&quot;
+        # The client ID used in OpenId authentication.
+        clientId: null
+        # The client secret used in OpenId authentication.
+        clientSecret: null
+        # If using an AWS load balancer to handle the authentication, set this to the Amazon
+        # Resource Names (ARN) of the load balancer(s) fronting stroom, which will be something
+        # like 'arn:aws:elasticloadbalancing:region-code:account-id:loadbalance
+        # /app/load-balancer-name/load-balancer-id'.
+        # This config value will be used to verify the 'signer' in the JWT header.
+        # Each value is the first N characters of the ARN and as a minimum must include up to
+        # the colon after the account-id, i.e.
+        # 'arn:aws:elasticloadbalancing:region-code:account-id:'
+        # See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html#user-claims-encodin
+        expectedSignerPrefixes: []
+        # Some OpenId providers, e.g. AWS Cognito, require a form to be used for token requests.
+        formTokenRequest: true
+        # A template to build the user's full name using claim values as variables in the
+        # template. E.g '${firstName} ${lastName}' or '${name}'.
+        # If this property is set in the YAML file, use single quotes to prevent the
+        # variables being expanded when the config file is loaded. Note: claim names are
+        # case sensitive
+        fullNameClaimTemplate: &quot;${name}&quot;
+        # The type of Open ID Connect identity provider that stroom/prox
+        # will use for authentication. Valid values are:
+        # INTERNAL_IDP - Stroom's internal IDP. Not valid for Stroom-Proxy.
+        # EXTERNAL_IDP - An external IDP such as KeyCloak/Cognito,
+        # TEST_CREDENTIALS - Use hard-coded authentication credentials for test/demo only and
+        # NO_IDP - No IDP is used. API keys are set in config for feed status checks. Only for use by Stroom-Proxy
+        # Changing this property will require a restart of the application
+        identityProviderType: &quot;NO_IDP&quot;
+        # The issuer used in OpenId authentication.
+        # Should only be set if not using a configuration endpoint
+        issuer: null
+        # The URI to obtain the JSON Web Key Set from in OpenId authentication
+        # Should only be set if not using a configuration endpoint
+        jwksUri: null
+        # The logout endpoint for the identity provider
+        # This is not typically provided by the configuration endpoint
+        logoutEndpoint: null
+        # The name of the URI parameter to use when passing the logout redirect URI to the IDP.
+        # This is here as the spec seems to have changed from 'redirect_uri' to
+        # 'post_logout_redirect_uri'
+        logoutRedirectParamName: &quot;post_logout_redirect_uri&quot;
+        # You can set an openid-configuration URL to automatically configure much of the openid
+        # settings. Without this the other endpoints etc must be set manually
+        openIdConfigurationEndpoint: null
+        # If the token is signed by AWS then use this pattern to form the URI to obtain the
+        # public key from. The pattern supports the variables '${awsRegion}' and '${keyId}'.
+        # Multiple instances of a variable are also supported.
+        # If this property is set in the YAML file, use single quotes to prevent the
+        # variables being expanded when the config file is loaded.
+        publicKeyUriPattern: &quot;https://public-keys.auth.elb.${awsRegion}.amazonaws.com/${keyId}&quot;
+        # If custom auth flow request scopes are required then this should be set to replace
+        # the defaults of 'openid' and 'email'.
+        requestScopes:
+        - &quot;openid&quot;
+        - &quot;email&quot;
+        # The token endpoint used in OpenId authentication
+        # Should only be set if not using a configuration endpoint
+        tokenEndpoint: null
+        # The Open ID Connect claim used to link an identity on the IDP to a stroom user.
+        # Must uniquely identify the user on the IDP and not be subject to change. Uses 'sub' by
+        # default
+        uniqueIdentityClaim: &quot;sub&quot;
+        # The Open ID Connect claim used to provide a more human friendly username for a user
+        # than that provided by uniqueIdentityClaim. It is not guaranteed to be unique and may
+        # change
+        userDisplayNameClaim: &quot;preferred_username&quot;
+        # A set of issuers (in addition to the 'issuer' property that is provided by the IDP
+        # that are deemed valid when seen in a token. If no additional valid issuers are
+        # required then set this to an empty set. Also this is used to validate the 'issuer'
+        # returned by the IDP when it is not a sub path of 'openIdConfigurationEndpoint'. If
+        # this set is empty then Stroom will verify that the
+        validIssuers: []
+</code></pre>
+<h2 id="jersey-http-client-configuration">Jersey HTTP Client Configuration</h2>
 <p>Stroom and Stroom Proxy use the 
 
 
@@ -1432,10 +1704,9 @@ Each named client will be unique to a destination (where a destination is typica
 Thus the configuration of the connections to each of those destinations can be configured independently.</p>
 <p>The client names are as follows:</p>
 <ul>
-<li><code>AWS_PUBLIC_KEYS</code> - Connections to fetch AWS public keys used in Open ID Connect authentication.</li>
-<li><code>CONTENT_SYNC</code> - Connections to downstream proxy/stroom instances to sync content. (<strong>Stroom Proxy only</strong>).</li>
 <li><code>DEFAULT</code> - The default client configuration used if a named configuration is not present.</li>
-<li><code>FEED_STATUS</code> - Connections to downstream proxy/stroom instances to check feed status. (<strong>Stroom Proxy only</strong>).</li>
+<li><code>AWS_PUBLIC_KEYS</code> - Connections to fetch AWS public keys used in Open ID Connect authentication.</li>
+<li><code>DOWNSTREAM</code> - Connections to downstream proxy/stroom instances to check feed status. (<strong>Stroom Proxy only</strong>).</li>
 <li><code>OPEN_ID</code> - Connections to an Open ID Connect identity provider, e.g. Cognito, Azure AD, KeyCloak, etc.</li>
 <li><code>STROOM</code> - Inter-node communications within the Stroom cluster (<strong>Stroom only</strong>).</li>
 </ul>
@@ -1615,7 +1886,7 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.</p
 </div>
 
 
-<h3 id="logging-configuration">Logging Configuration</h3>
+<h2 id="logging-configuration">Logging Configuration</h2>
 <p>The Dropwizard configuration file controls all the logging by the application.
 In addition to the main application log, there are additional logs such as stroom user events (for audit), Stroom-Proxy send and receive logs and database migration logs.</p>
 <p>For full details of the logging configuration, see 
@@ -1636,7 +1907,7 @@ In addition to the main application log, there are additional logs such as stroo
   </a>
 </span>
 </p>
-<h4 id="request-log">Request Log</h4>
+<h3 id="request-log">Request Log</h3>
 <p>The request log is slightly different to the other logs.
 It logs all requests to the web server.
 It is configured in the <code>server</code> section.</p>
@@ -1654,7 +1925,7 @@ In this example, files will be rolled every 1 minute.</p>
       archivedFileCount: 10080
       logFormat: '%h %l &quot;%u&quot; [%t] &quot;%r&quot; %s %b &quot;%i{Referer}&quot; &quot;%i{User-Agent}&quot; %D'
 </code></pre>
-<h4 id="logback-logs">Logback Logs</h4>
+<h3 id="logback-logs">Logback Logs</h3>
 <p>Dropwizard uses 
 
 
@@ -1683,7 +1954,7 @@ Typical <em>Appenders</em> are:</p>
 <li>Console - appends messages to <code>stdout</code>.</li>
 <li>Syslog - appends messages to <code>syslog</code>.</li>
 </ul>
-<h5 id="loggers">Loggers</h5>
+<h4 id="loggers">Loggers</h4>
 <p>A <em>Logger</em> can append to more than one <em>Appender</em> if required.
 For example, the default configuration file for Stroom has two appenders for the application logs.
 The rolled files from one appender are POSTed to Stroom to index its own logs, then deleted and the other is intended to
@@ -1741,7 +2012,7 @@ Some loggers, such as <code>event-logger</code> do not have a Java class name.</
           archivedFileCount: 10
           logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
 </code></pre>
-<h5 id="appenders">Appenders</h5>
+<h4 id="appenders">Appenders</h4>
 <p>The following is an example of the default appenders that will be used for all loggers unless they have their own custom appender configured.</p>
 <pre><code class="language-yaml">logging:
   # Appenders for all loggers except for where a logger has a custom appender configured
@@ -1763,7 +2034,7 @@ Some loggers, such as <code>event-logger</code> do not have a Java class name.</
     archivedFileCount: 10080
     logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
 </code></pre>
-<h5 id="log-rolling">Log Rolling</h5>
+<h4 id="log-rolling">Log Rolling</h4>
 <p>Rolling of log files can be done based on size of file or time.
 The <code>archivedLogFilenamePattern</code> property controls the rolling behaviour.
 The rolling policy is determined from the filename pattern, e.g a pattern with a minute precision date format will be rolled every minute.
@@ -1974,7 +2245,7 @@ The <a href="https://github.com/gchq/stroom-ansible/blob/master/config/single_no
 
 <p>The configuration of Stroom-proxy is very much the same as for Stroom with the only difference being the structure of the application specific part of the <code>config.yml</code> file.
 Stroom-proxy has a <code>proxyConfig</code> key in the YAML while Stroom has <code>appConfig</code>.</p>
-<h2 id="general-configuration">General configuration</h2>
+<h2 id="yaml-configuration-file">YAML Configuration File</h2>
 <p>The Stroom-proxy application is essentially just an executable 
 
 
@@ -1994,41 +2265,78 @@ Stroom-proxy has a <code>proxyConfig</code> key in the YAML while Stroom has <co
 </span>
  file that can be run when provided with a configuration file, <code>config.yml</code>.
 This configuration file is common to all forms of deployment.</p>
-<h3 id="configyml">config.yml</h3>
-<p>Stroom-proxy does not have a user interface so the <code>config.yml</code> file is the only way of configuring stroom-proxy.
+<p>As Stroom-proxy does not have a user interface, the <code>config.yml</code> file is the only way of configuring Stroom-Proxy.
 As with stroom, the <code>config.yml</code> file is split into three sections using these keys:</p>
 <ul>
-<li><code>server</code> - Configuration of the web server, e.g. ports, paths, request logging.</li>
-<li><code>logging</code> - Configuration of application logging</li>
-<li><code>proxyConfig</code> - Stroom-Proxy specific configuration</li>
+<li>
+<p><code>server</code> - Configuration of the web server, e.g. ports, paths, request logging.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#server-configuration">Server Configuration</a></p>
+</li>
+<li>
+<p><code>logging</code> - Configuration of application logging.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#logging-configuration">Logging Configuration</a></p>
+</li>
+<li>
+<p><code>proxyConfig</code> - Stroom-Proxy specific configuration</p>
+</li>
 </ul>
 <p>See also <a href="../../../docs/user-guide/properties/">Properties</a> for more details on structure of the config.yml file and supported data types.</p>
-<p>Stroom-Proxy operates on a configuration by exception basis so all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate, e.g. for tuning a large scale production deployment or where values are environment specific.
-As a result <code>config.yml</code> only contains a minimal set of properties.
+<p>Stroom-Proxy operates on a configuration by exception basis so as far as is possible, all configuration properties will have a sensible default value and a property only needs to be explicitly configured if the default value is not appropriate (e.g. for tuning a large scale production deployment) or where values are environment specific (e.g. the hostname of a forward destination).</p>
+<p>As a result the <code>config.yml</code> shipped with Stroom Proxy only contains a minimal set of properties.
 The full tree of properties can be seen in <code>./config/config-defaults.yml</code> and a schema for the configuration tree (along with descriptions for each property) can be found in <code>./config/config-schema.yml</code>.
 These two files can be used as a reference when configuring stroom.</p>
-<h4 id="key-configuration-properties">Key Configuration Properties</h4>
-<p>Stroom-proxy has two main functions, storing and forwarding.
-It can be configured to do either or both of these functions.
-These functions are enabled/disabled using:</p>
+<p>In the snippets of YAML configuration below, the defaultsections</p>
+<h3 id="basic-structure">Basic Structure</h3>
+<p>Stroom-proxy has a number of <a href="../../../docs/proxy/proxy-functions/">key functions</a> which are all configured via its YAML configuration file.</p>
+<p>Each branch of the this YAML is explained in more detail below.</p>
 <pre><code class="language-yaml">proxyConfig:
 
-  # The list of named destinations that Stroom-Proxy will forward to
-  forwardHttpDestinations:
-    - enabled: true
-      name: &quot;downstream&quot;
-      forwardUrl: &quot;https://some-host/stroom/datafeed&quot;
+  # This should be set to a value that is unique within your Stroom/Stroom-Proxy estate.
+  # It is used in the unique ReceiptId that is set in the meta of received data so
+  # provides provenence of where data was received at each stage.
+  proxyId: null
 
-  # Whether to store received data in a repository
-  repository:
-    storingEnabled: true
+  # If true, Stroom-Proxy will halt on start up if any errors are found in the YAML
+  # configuration file. If false, the errors will simply be logged. Setting this to
+  # false is not advised
+  haltBootOnConfigValidationFailure: true
 
-  # If we are storing data in a proxy repository we can aggregate it before forwarding.
+  # Configuration of the base and temp paths used by Stroom-Proxy.
+  # See Path Configuration below
+  path:
+
+  # This is the downstream (in flow of stream data terms) Stroom/Stroom-Proxy instance/cluster
+  # used for feed status checks, supplying data receipt rules and verifying API keys.
+  downstreamHost:
+
+  # This controls the aggregation of received data into larger chunks prior to forwarding.
+  # This is typically required to prevent Stroom receiving lots of small streams.
   aggregator:
-    maxItemsPerAggregate: 1000
-    maxUncompressedByteSize: &quot;1G&quot;
-    maxAggregateAge: 10m
-    aggregationFrequency: 1m
+
+  # If receive.receiptCheckMode is FEED_STATUS, this controls the feed status
+  # checking. See Feed Status Configuration below.
+  feedStatus:
+
+  # Zero to many HTTP POST based destinations.
+  # E.g. for forwarding to Stroom or another Stroom-Proxy
+  forwardHttpDestinations:
+
+  # Zero to many file system based destinations. See Forward Configuration below.
+  forwardFileDestinations:
+
+  # This controls the meta entries that will be included in the send and receive logs.
+  logStream:
+
+  # If receive.receiptCheckMode is RECEIPT_POLICY, this controls the fetching
+  # of the policy rules.
+  receiptPolicy:
+
+  # This section is common to both Stroom and Stroom-Proxy
+  # See Receive Configuration below.
+  receive:
+
+  # Configuration for authentication. See Security Configuration below.
+  security:
 </code></pre>
 <p>Stroom-proxy should be configured to check the receipt status of feeds on receipt of data.
 This is done by configuring the end point of a downstream stroom-proxy or stroom.</p>
@@ -2053,12 +2361,432 @@ See also <a href="#feed-status-certificate-configuration">Feed status certificat
 Each forward location can use a different key/trust store pair.
 See also <a href="#forwarding-certificate-configuration">Forwarding certificate configuration</a>.</p>
 <p>If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.</p>
+<h3 id="aggregator-configuration">Aggregator Configuration</h3>
+<pre><code class="language-yaml">proxyConfig:
+  aggregator:
+    enabled: true
+    # Whether to split received ZIPs if they are too large.
+    splitSources: true
+    # Maximum number of items to include in an aggregate
+    maxItemsPerAggregate: 1000
+    # Maximum size of the aggregate in uncompressed bytes.
+    # Aggregates may be larger than this is splitSources is false or single very
+    # large streams are received.
+    maxUncompressedByteSize: &quot;1G&quot;
+    #The the length of time that data is added to an aggregate for before the aggregate is closed.
+    aggregationFrequency: &quot;PT10M&quot;
+</code></pre>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    <p>The <code>aggregator</code> settings apply to <strong>all</strong> forwarders.
+It is not possible for forwarders to to use different aggregation settings.</p>
+<p>If you need to forward to a HTTP destination but also want to forward to a file destination using different aggregator settings, e.g. to keep a local archive of the data, you would need to employ a second Stroom-Proxy.
+Stroom-Proxy A would forward to the HTTP downstream and forward to Stroom-Proxy B over HTTP.
+Stroom-Proxy B would forward to a file destination, using much larger aggregator thresholds.</p>
+
+
+</div>
+
+
+<h3 id="directory-scanner-configuration">Directory Scanner Configuration</h3>
+<p>This configuration controls the directories that Stroom-Proxy scans to look for ZIP files to ingest.
+It is primarily used as a means of manually re-processing files that have failed to forward, either as a result of too many retries or due to an unrecoverable error.</p>
+<pre><code class="language-yaml">proxyConfig:
+  dirScanner:
+    # One or more directories to scan.
+    # If the path is relative it is treated as relative to the proxyConfig.path.home property.
+    dirs:
+    - &quot;zip_file_ingest&quot;
+    # Whether directory scanning is enabled or not
+    enabled: true
+    # The directory to move any failed files to.
+    # If the path is relative it is treated as relative to the proxyConfig.path.home property.
+    failureDir: &quot;zip_file_ingest_failed&quot;
+    # How frequently each directory is scanned for files.
+    scanFrequency: &quot;PT1M&quot;
+</code></pre>
+<h3 id="downstream-host-configuration">Downstream Host Configuration</h3>
+<p>This is the default downstream (in flow of stream data terms) Stroom/Stroom-Proxy instance/cluster used for feed status checks, supplying data receipt rules and verifying API keys.</p>
+<p>By default it will be used as the default</p>
+<pre><code class="language-yaml">proxyConfig:
+  downstreamHost:
+    # http or https
+    scheme: &quot;https&quot;
+    # If not set, will default to 80/443 depending on scheme
+    port: 443
+    hostname: &quot;...STROOM-PROXY OR STROOM FQDN...&quot;
+    # If not using OpenID authentication you will need to provide an API key.
+    apiKey: &quot;sak_6a011e3e5d_oKimmDxfNwj......&lt;truncated&gt;.....HYQxHaR2&quot;
+</code></pre>
+<h3 id="event-store-configuration">Event Store Configuration</h3>
+<p>The Event Store is used to store and aggregate individual events received via the <code>/api/event</code> <span class="glossary-link">
+  <a href="../../../docs/glossary/#api" title="Glossary entry for API">
+    <span>API</span>
+    <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
+  </a>
+</span> or the SQS Connectors.
+Events are appended to files specific to the Feed and Stream Type of the event.
+Once a threshold is reached, the file will be rolled and processed by Stroom-Proxy.</p>
+<p>Each event is stored as a JSON line in the file.</p>
+<pre><code class="language-yaml">proxyConfig:
+  eventStore:
+    # The size of an internal queue used to buffer aggregates that are ready to process.
+    forwardQueueSize: 1000
+    # The maximum age of the file before it is rolled.
+    maxAge: &quot;PT1M&quot;
+    # The maximum size of the file before it is rolled.
+    maxByteCount: 9223372036854775807
+    # The maximum number of events in the file before it is rolled.
+    maxEventCount: 9223372036854775807
+    # Configuration of the cache used for the event store.
+    openFilesCache:
+    # The frequency at which files are checked to see if they need to be rolled or not.
+    rollFrequency: &quot;PT10S&quot;
+</code></pre>
+<h3 id="feed-status-configuration">Feed Status Configuration</h3>
+<p>The configuration for performing feed status checks.
+This section is only relevant if <code>proxyConfig.receive.receiptCheckMode</code> is set to <code>FEED_STATUS</code>.</p>
+<pre><code class="language-yaml">proxyConfig:
+  feedStatus:
+    # Standard cache configuration block for configuring the cache of feed status check outcomes
+    feedStatusCache:
+    # The full URL to use for feed status checking.
+    # ONLY set this if using a non-standard URL, otherwise
+    # it will be derived from the downstreamHost.
+    url: null
+</code></pre>
+<p>The configuration of the client certificates for feed status checks is done using the <code>DOWNSTREAM</code> jersey client configuration.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#jersey-http-client-configuration">Stroom and Stroom-Proxy Common Configuration</a>.</p>
+<h3 id="forward-configuration">Forward Configuration</h3>
+<p>Stroom-Proxy has two configuration branches for controlling forwarding as each has a different structure.</p>
+<pre><code class="language-yaml">proxyConfig:
+  # Zero to many HTTP POST based destinations.
+  forwardHttpDestinations:
+  # Zero to many file system based destinations.
+  forwardFileDestinations:
+</code></pre>
+<p>Both types of forwarder have an <code>enabled</code> property.
+If a forwarder&rsquo;s <code>enabled</code> state is set to <code>false</code> it is as if the forwarder configuration does not exist, i.e no data will be queued for that forwarder until its state is changed to <code>true</code>.</p>
+<h4 id="file-forward-destinations-configuration">File Forward Destinations Configuration</h4>
+<pre><code class="language-yaml">proxyConfig:
+  # Zero to many file system based destinations.
+  forwardFileDestinations:
+    # Stroom-Proxy will attempt to move files onto the forward destination using an atomic move.
+    # This ensures that the move does not happen more than once. If an atomic move is not possible,
+    # e.g. the destination is a remote file system that does not support an atomic move, then it will
+    # fall back to a non-atomic move with the risk of it happening more than once. If you see warnings
+    # in the logs or know the file system will not support atomic moves then set this to false
+  - atomicMoveEnabled: true
+    # Whether this destination is enabled or not.
+    enabled: true
+    # If Instant Forwarding is to be used.
+    instant: false
+    # The type of liveness check to perform:
+    # READ - will attempt to read the file/dir specified in livenessCheckPath. 
+    # WRITE - will attempt to touch the file specified in livenessCheckPath.
+    livenessCheckMode: &quot;READ&quot;
+    # The path to use for regular liveness checking of this forward destination.
+    # If null, empty or if the 'queue' property is not configured, then no liveness check
+    # will be performed and the destination will be
+    # assumed to be healthy. If livenessCheckMode is READ, livenessCheckPath can be a
+    # directory or a file and stroom-proxy will attempt to check it can read the
+    # file/directory. If livenessCheckMode is WRITE, then livenessCheckPath must be a
+    # file and stroom-proxy will attempt to touch that file. It is
+    # only recommended to set this property for a remote file system where
+    # connection issues may be likely. If it is a relative path, it will be assumed
+    # to be relative to 'path'
+    livenessCheckPath: null
+    # The unique name of the destination (across all file/http forward destinations.
+    # The name is used in the directories on the file system, so do not change the name
+    # once proxy has processed data. Must be provided.
+    name: &quot;...PROVIDE FORWARDER NAME...&quot;
+    # The base path of a directory to forward to.
+    path: &quot;...PROVIDE PATH...&quot;
+    # See Queue Configuration section below
+    queue:
+    # The templated relative sub-path of path.
+    # The default path template is '${year}${month}${day}/${feed}'
+    # Cannot be an absolute path and must resolve to a descendant of path.
+    # Fore details of this configuration branch, see Path Templating Configuration below.
+    subPathTemplate: null
+</code></pre>
+<h4 id="http-forward-destinations-configuration">HTTP Forward Destinations Configuration</h4>
+<pre><code class="language-yaml">proxyConfig:
+  # Zero to many HTTP POST based destinations.
+  forwardHttpDestinations:
+    # If true, add Open ID authentication headers to the request. Only works if the identityProviderType
+    # is EXTERNAL_IDP and the destination is in the same Open ID Connect realm as the OIDC client that this
+    # proxy instance is using.
+  - addOpenIdAccessToken: false
+    # The API key to use when forwarding data if Stroom is configured to require an API key.
+    # Does NOT use the API Key from downstreamHost config.
+    apiKey: null
+    # Whether this destination is enabled or not.
+    enabled: true
+    forwardHeadersAdditionalAllowSet: []
+    # The full URL to forward to if different from &lt;downstreamHost&gt;/datafeed
+    forwardUrl: null
+    # Configuration of the HTTP client, see below.
+    httpClient:
+    # If Instant Forwarding is to be used.
+    instant: false
+    # Whether liveness checking of the HTTP destination will take place. The queue property
+    # must also be configured for liveness checking to happen
+    livenessCheckEnabled: true
+    # The URL/path to check for liveness of the forward destination. The URL should return a 200 response
+    # to a GET request for the destination to be considered live.
+    # If the response from the liveness check is not a 200, forwarding
+    # will be paused at least until the next liveness check is performed.
+    # If this property is not set, the downstreamHost configuration will be combined with the default API
+    # path (/status).
+    # If this property is just a path, it will be combined with the downstreamHost configuration.
+    # Only set this property if you wish to use a non-default path.
+    # or you want to use a different host/port/scheme to that defined in downstreamHost
+    livenessCheckUrl: null
+    # The unique name of the destination (across all file/http forward destinations.
+    # The name is used in the directories on the file system, so do not change the name
+    # once proxy has processed data. Must be provided.
+    name: &quot;...PROVIDE FORWARDER NAME...&quot;
+    # See Queue Configuration section below
+    queue:
+</code></pre>
+<h4 id="queue-configuration">Queue Configuration</h4>
+<p>Each forward destination (whether file or HTTP) has a <code>queue</code> configuration property that controls various aspects of forwarding, e.g. failure handling, delays, concurrency, etc.</p>
+<pre><code class="language-yaml">  forwardHttpDestinations / forwardFileDestinations:
+    queue:
+      # The sub-path template to use for data that could not be retried
+      # or has reached a retry limit.
+      errorSubPathTemplate:
+        enabled: true
+        pathTemplate: &quot;${year}${month}${day}/${feed}&quot;
+        templatingMode: &quot;REPLACE_UNKNOWN_PARAMS&quot;
+      # A delay to add before forwarding. Primarily for testing.
+      forwardDelay: &quot;PT0S&quot;
+      # Number of threads to process retries
+      forwardRetryThreadCount: 1
+      # Number of threads to handle forwarding
+      forwardThreadCount: 5
+      # Duration between liveness checks
+      livenessCheckInterval: &quot;PT1M&quot;
+      # The maximum time from the first failed forward attempt to continue retrying.
+      # After this the data will be move to the failure directory permenantly.
+      maxRetryAge: &quot;P7D&quot;
+      # The maximum time between retries. Must be greater than or equal to retryDelay.
+      maxRetryDelay: &quot;P1D&quot;
+      # If false forwards will be attempted imediately and any failure will restult in the
+      # data being moved to the failure directory.
+      queueAndRetryEnabled: false
+      # The time between retries. If retryDelayGrowthFactor is &gt;1, this value will grow
+      # after each retry.
+      retryDelay: &quot;PT10M&quot;
+      # The factor to apply to retryDelay after each failed retry.
+      retryDelayGrowthFactor: 1.0
+</code></pre>
+<h4 id="path-templating-configuration">Path Templating Configuration</h4>
+<p>The following properties all share the same structure:</p>
+<ul>
+<li><code>proxyConfig.forwardFileDestinations.[n].subPathTemplate</code></li>
+<li><code>proxyConfig.forwardFileDestinations.[n].queue.errorSubPathTemplate</code></li>
+<li><code>proxyConfig.forwardHttpDestinations.[n].queue.errorSubPathTemplate</code></li>
+</ul>
+<pre><code class="language-yaml">  xxxxxxTemplate:
+    # Whether templating is enabled or not. If not enabled
+    # no sub-path will be used.
+    enabled: true
+    # The template to use for the sub-path
+    pathTemplate: &quot;${year}${month}${day}/${feed}&quot;
+    # Controls how unknown parameters are dealt with. One of:
+    # IGNORE_UNKNOWN_PARAMS - e.g. 'cat/${unknownparam}/dog' =&gt; 'cat/${unknownparam}/dog'
+    # REMOVE_UNKNOWN_PARAMS - e.g. 'cat/${unknownparam}/dog' =&gt; 'cat/dog'
+    # REPLACE_UNKNOWN_PARAMS - Replace unknown with 'XXX', e.g. 'cat/${unknownparam}/dog' =&gt; 'cat/XXX/dog'
+    templatingMode: &quot;REPLACE_UNKNOWN_PARAMS&quot;
+</code></pre>
+<p>The following template parameters are supported:</p>
+<ul>
+<li><code>${feed}</code> - The Feed name.</li>
+<li><code>${type}</code> - The Stream Type.</li>
+<li><code>${year}</code> - The 4 digit year of the current date/time.</li>
+<li><code>${month}</code> - The 2 digit month of the current date/time.</li>
+<li><code>${day}</code> - The 2 digit day of the current date/time.</li>
+<li><code>${hour}</code> - The 2 digit hour of the current date/time.</li>
+<li><code>${minute}</code> - The 2 digit minute of the current date/time.</li>
+<li><code>${second}</code> - The 2 digit second of the current date/time.</li>
+<li><code>${millis}</code> - The 3 digit milliseconds of the current date/time.</li>
+<li><code>${ms}</code> - The current date/time as milliseconds since the Unix Epoch.</li>
+</ul>
+<h4 id="liveness-checking">Liveness Checking</h4>
+<p>Each of the configured forward destinations has a liveness check that can be configured.
+This allows Stroom Proxy to periodically check that the destination is <em>live</em>.
+If the liveness check fails for a destination, all forwarding for that destination will be paused until a subsequent liveness check reports it as <em>live</em> again.</p>
+<p>The liveness checks take the following forms:</p>
+<ul>
+<li>
+<p>HTTP Destination - Performs a <code>GET</code> request to the URL configured using <code>forwardHttpDestinations.[n].livenessCheckUrl</code>.
+If not configured it will use <code>/status</code> on the downstream host.
+The destination is considered live if it gets a <code>200</code> response.
+You can use a URL that allows the destination to control its liveness, i.e. to take itself off line during an upgrade.</p>
+</li>
+<li>
+<p>File Destination - Reads or writes (<code>touch</code>) to a file defined by <code>forwardFileDestinations.[n].livenessCheckPath</code>.
+Liveness checking for a file destination may be useful if the destination is on a network file share.
+<code>livenessCheckMode</code> controls whether a read or write to the file is performed.</p>
+</li>
+</ul>
+<h4 id="http-client-configuration">HTTP Client Configuration</h4>
+<pre><code class="language-yaml">proxyConfig:
+  forwardHttpDestinations:
+    httpClient:
+      connectionRequestTimeout: &quot;PT3M&quot;
+      connectionTimeout: &quot;PT3M&quot;
+      cookiesEnabled: false
+      keepAlive: &quot;PT0S&quot;
+      maxConnections: 1024
+      maxConnectionsPerRoute: 1024
+      proxy: null
+      retries: 0
+      timeToLive: &quot;PT1H&quot;
+      timeout: &quot;PT3M&quot;
+      # Transport Layer Security, see below.
+      tls: null
+      userAgent: null
+      validateAfterInactivityPeriod: &quot;PT0S&quot;
+</code></pre>
+<p>The <code>tls</code> branch of the configuration is for configuring Transport Layer Security (the successor to Secure Sockets Layer (SSL)).
+It is <code>null</code> by default, i.e. no additional TLS configuration is used.
+Its structure is:</p>
+<pre><code class="language-yaml">proxyConfig:
+  forwardHttpDestinations:
+    httpClient:
+      tls:
+        protocol: &quot;TLSv1.2&quot;
+        # The name of the JCE provider to use on client side for cryptographic support 
+        # (for example, SunJCE, Conscrypt, BC, etc). See Oracle documentation for more information.
+        provider:
+        # The path of the key store file
+        keyStorePath: null
+        # The password of the key store file
+        keyStorePassword: null
+        # The type of key store (usually JKS, PKCS12, JCEKS, Windows-MY, or Windows-ROOT).
+        keyStoreType: &quot;JKS&quot;
+        keyStoreProvider: null
+        # The path of the trust store file
+        trustStorePath: null
+        # The password of the trust store file
+        trustStorePassword: null
+        # The type of trust store (usually JKS, PKCS12, JCEKS, Windows-MY, or Windows-ROOT).
+        trustStoreType: &quot;JKS&quot;
+        trustStoreProvider: null
+        trustSelfSignedCertificates: false
+        verifyHostname: false
+        # Zero to protocols (e.g., SSLv3, TLSv1) which are supported.
+        # All other protocols will be refused.
+        supportedProtocols: null
+        # A list of cipher suites (e.g., TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256) which are supported.
+        # All other cipher suites will be refused.
+        supportedCiphers: null
+        certAlias: null
+</code></pre>
+<h3 id="log-stream-configuration">Log Stream Configuration</h3>
+<p>This controls the meta entries that will be included in the send and receive logs.</p>
+<pre><code class="language-yaml">proxyConfig:
+  logStream:
+    # The headers attributes that will be output in the send/receive log lines.
+    # They will be output in the order that they appear in this list.
+    # Duplicates will be ignored, case does not matter.
+    metaKeys:
+      - &quot;guid&quot;
+      - &quot;receiptid&quot;
+      - &quot;feed&quot;
+      - &quot;system&quot;
+      - &quot;environment&quot;
+      - &quot;remotehost&quot;
+      - &quot;remoteaddress&quot;
+      - &quot;remotedn&quot;
+      - &quot;remotecertexpiry&quot;
+</code></pre>
+<h3 id="path-configuration">Path Configuration</h3>
+<pre><code class="language-yaml">proxyConfig:
+  path:
+    # By default all files read or written to by stroom-proxy will be in directories relative to
+    # the home location. Ideally this should differ from the location of the Stroom Proxy
+    # installed software as it has a different lifecycle.
+    # If not set the location of the Stroom-Proxy application JAR file will be used and if that
+    # can't be determined, &lt;user's home&gt;/.stroom will be used.
+    home: &quot;...SET TO AN ABSOLUTE PATH...&quot;
+    # The location for Stroom-Proxy's persisted data
+    data: &quot;data&quot;
+    # The location for any temporary files/directories.
+    # If not set, will use a sub-directory called 'stroom-proxy' in the system temp dir,
+    # i.e. as defined by 'java.io.tmpdir'.
+    temp: null
+</code></pre>
+<p>All paths in the configuration file can be either relative or absolute.
+If relative then they will be treated as being relative to the <code>home</code> path.</p>
+<h3 id="receipt-policy-configuration">Receipt Policy Configuration</h3>
+<p>This section of configuration is only applicable if <code>proxyConfig.receive.receiptCheckMode</code> is <code>RECEIPT_POLICY</code>.
+It controls the fetching of the receipt policy rules from a downstream Stroom or Stroom-Proxy.</p>
+<pre><code class="language-yaml">proxyConfig:
+  receiptPolicy:
+    # Only set if using a non-standard URL, else this is derived based on downstreamHost
+    # config.
+    receiveDataRulesUrl: null
+    # The duration between calls to fetch the latest policy rules.
+    syncFrequency: &quot;PT1M&quot;
+</code></pre>
+<p>The configuration of the client certificates for receipt policy checks is done using the <code>DOWNSTREAM</code> jersey client configuration.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#jersey-http-client-configuration">Stroom and Stroom-Proxy Common Configuration</a>.</p>
+<h3 id="receive-configuration">Receive Configuration</h3>
+<p>The <code>receive</code> configuration is common to both Stroom and Stroom-Proxy, see <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#receive-configuration">Receive Configuration</a></p>
+<h3 id="security-configuration">Security Configuration</h3>
+<pre><code class="language-yaml">proxyConfig:
+  security:
+    authentication:
+      # This property is currently not used
+      authenticationRequired: true
+      # Open ID Connect configuration
+      openId:
+</code></pre>
+<p>The <code>openId</code> branch of the config is common to both Stroom and Stroom-Proxy, see <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#open-id-configuration">Open ID Configuration</a> for details.</p>
+<h3 id="amazon-simple-queue-service-configuration">Amazon Simple Queue Service Configuration</h3>
+<p>Stroom-Proxy is able to consume messages from multiple AWS SQS queues.
+Each message received from a queue will be added to the Event Store for aggregation by Feed and Stream Type.</p>
+<pre><code class="language-yaml">proxyConfig:
+  # Zero to many connectors
+  sqsConnectors:
+    # This property is not currently used
+  - awsProfileName: null
+    # The name of the AWS region the SQS queue exists in.
+    awsRegionName: &quot;...AWS REGION...&quot;
+    # The maximum time to wait when polling the queue for messages
+    pollFrequency: &quot;PT10S&quot;
+    # This property is not currently used
+    queueName: null
+    # The URL of the Amazon SQS queue from which messages are received.
+    queueUrl: &quot;...SQS QUEUE URL...&quot;
+</code></pre>
+<h3 id="thread-configuration">Thread Configuration</h3>
+<p>Stroom-Proxy is able to run certain operations in parallel.
+This configuration allows you to increase the number of threads used for each operation.</p>
+<pre><code class="language-yaml">proxyConfig:
+  threads:
+    # Number of threads to consume from the aggregate input queue.
+    aggregateInputQueueThreadCount: 1
+    # Number of threads to consume from the forwarding input queue. 
+    forwardingInputQueueThreadCount: 1
+    # Number of threads to consume from the pre-aggregate input queue.
+    preAggregateInputQueueThreadCount: 1
+    # Number of threads to consume from the zip splitting input queue.
+    zipSplittingInputQueueThreadCount: 1
+</code></pre>
 <h2 id="deploying-without-docker">Deploying without Docker</h2>
-<p>Apart from the structure of the <code>config.yml</code> file, the configuration in a non-docker environment is the same as for <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#deploying-without-docker">stroom</a></p>
+<p>Apart from the structure of the <code>config.yml</code> file, the configuration in a non-docker environment is the same as for <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#deploying-without-docker">stroom</a>.</p>
 <h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
-<p>The way stroom-proxy is configured is essentially the same as for <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom-proxy/#as-part-of-a-docker-stack">stroom</a> with the only real difference being the structure of the <code>config.yml</code> file as note <a href="#configyml">above</a> .
+<p>The way Stroom-Proxy is configured is essentially the same as for <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/#as-part-of-a-docker-stack">stroom</a> with the only real difference being the structure of the <code>config.yml</code> file as note <a href="#config-file-structure">above</a> .
 As with stroom the docker stack comes with a <code>./volumes/stroom-proxy-*/config/config.yml</code> file that will be used in the absence of a provided one.
-Also as with stroom, the <code>config.yml</code> file supports environment variable substitution so can make use of environment variables set in the stack env file and passed down via the docker-compose YAML files.</p>
+Also as with stroom, the <code>config.yml</code> file supports environment variable substitution so can make use of environment variables set in the stack <code>.env</code> file and passed down via the docker-compose YAML files.</p>
 <h3 id="certificates">Certificates</h3>
 <p>Stroom-proxy makes use of client certificates for two purposes:</p>
 <ul>
@@ -2069,30 +2797,189 @@ Also as with stroom, the <code>config.yml</code> file supports environment varia
 <pre><code class="language-text">volumes/stroom-proxy-*/certs/ca.jks
 volumes/stroom-proxy-*/certs/client.jks
 </code></pre>
-<p>For a production deployment these will need to be changed, see <a href="../../../docs/install-guide/configuration/stroom-and-proxy/#certificates">Certificates</a></p>
-<h4 id="feed-status-certificate-configuration">Feed status certificate configuration</h4>
-<p>The configuration of the client certificates for feed status checks is done using the <code>FEED_STATUS</code> jersey client configuration.
-See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/#jersey-http-client-configuration">Stroom and Stroom-Proxy Common Configuration</a>.</p>
-<h4 id="forwarding-certificate-configuration">Forwarding certificate configuration</h4>
-<p>Stroom-proxy can forward to multiple locations.
-The configuration of the certificate(s) for the forwarding locations is as follows:</p>
-<pre><code class="language-yaml">proxyConfig:
+<p>For a production deployment these will need to be replaced with the certificates that are appropriate for your environment.</p>
+<h2 id="typical-configuration">Typical Configuration</h2>
+<p>The following are a guide to typical configurations for operating a Stroom-Proxy with different use cases.</p>
+<h3 id="store-and-forward">Store and Forward</h3>
+<p>This is a typical case where you want to aggregate received data then forward it to a downstream Stroom or Stroom-Proxy, but also retain a store of the aggregates.</p>
+<pre><code class="language-yaml">server:
+  applicationContextPath: /
+  adminContextPath: /proxyAdmin
+  applicationConnectors:
+    - type: http
+      port: &quot;8090&quot;
+      useForwardedHeaders: true
+  adminConnectors:
+    - type: http
+      port: &quot;8091&quot;
+      useForwardedHeaders: true
+  detailedJsonProcessingExceptionMapper: true
+  requestLog:
+    appenders:
+      # Log appender for the web server request logging
+    - type: file
+      currentLogFilename: logs/access/access.log
+      discardingThreshold: 0
+      # Rolled and gzipped every minute
+      archivedLogFilenamePattern: logs/access/access-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+      # One week using minute files
+      archivedFileCount: 10080
+      logFormat: '%h %l &quot;%u&quot; [%t] &quot;%r&quot; %s %b &quot;%i{Referer}&quot; &quot;%i{User-Agent}&quot; %D'
+
+logging:
+  level: WARN
+  loggers:
+    # Logs useful information about stroom proxy. Only set DEBUG on specific 'stroom' classes or packages
+    # due to the large volume of logs that would be produced for all of 'stroom' in DEBUG.
+    stroom: INFO
+    # Logs useful information about dropwizard when booting stroom
+    io.dropwizard: INFO
+    # Logs useful information about the jetty server when booting stroom
+    # Set this to INFO if you want to log all REST request/responses with headers/payloads.
+    org.glassfish.jersey.logging.LoggingFeature: OFF
+
+    # Logger and appender for proxy receipt audit logs
+    &quot;receive&quot;:
+      level: INFO
+      additive: false
+      appenders:
+      - type: file
+        currentLogFilename: logs/receive/receive.log
+        discardingThreshold: 0
+        # Rolled and gzipped every minute
+        archivedLogFilenamePattern: logs/receive/receive-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+        # One week using minute files
+        archivedFileCount: 10080
+        logFormat: &quot;%-6level [%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}] [%t] %logger - %X{code} %msg %n&quot;
+
+    # Logger and appender for proxy send audit logs
+    &quot;send&quot;:
+      level: INFO
+      additive: false
+      appenders:
+      - type: file
+        currentLogFilename: logs/send/send.log
+        discardingThreshold: 0
+        # Rolled and gzipped every minute
+        archivedLogFilenamePattern: logs/send/send-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+        # One week using minute files
+        archivedFileCount: 10080
+        logFormat: &quot;%-6level [%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}] [%t] %logger - %X{code} %msg %n&quot;
+
+  appenders:
+
+    # Log to stdout, use this if running in Docker
+  - type: console
+    # Multi-coloured log format for console output
+    logFormat: &quot;%highlight(%-6level) [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%green(%t)] %cyan(%logger) - %X{code} %msg %n&quot;
+    timeZone: UTC
+
+    # Minute rolled files for stroom/datafeed, will be curl'd/deleted by stroom-log-sender
+  - type: file
+    currentLogFilename: logs/app/app.log
+    discardingThreshold: 0
+    archivedLogFilenamePattern: logs/app/app-%d{yyyy-MM-dd'T'HH:mm}.log.gz
+    # One week using minute files
+    archivedFileCount: 10080
+    logFormat: &quot;%-6level [%d{\&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\&quot;,UTC}] [%t] %logger - %X{code} %msg %n&quot;
+
+# This section contains the Stroom Proxy configuration properties
+# For more information see:
+# https://gchq.github.io/stroom-docs/user-guide/properties.html
+# jerseyClients are used for making feed status and content sync REST calls
+jerseyClients:
+  default:
+    tls:
+      keyStorePath: &quot;certs/client.jks&quot;
+      keyStorePassword: &quot;password&quot;
+      trustStorePath: &quot;certs/ca.jks&quot;
+      trustStorePassword: &quot;password&quot;
+
+proxyConfig:
+  path:
+    # By default all files read or written to by stroom-proxy will be in directories relative to
+    # the home location. This must be set to an absolute path and also to one that differs
+    # the installed software as it has a different lifecycle.
+    home: &quot;/stroomdata/stroom-proxy/home&quot;
+  # This is the downstream (in datafeed flow terms) stroom/stroom-proxy used for
+  # feed status checks, supplying data receipt rules and verifying API keys.
+  downstreamHost:
+    scheme: &quot;https&quot;
+    port: &quot;443&quot;
+    hostname: &quot;stroom.some.domain&quot;
+    apiKey: &quot;...API KEY...&quot;
+
+  aggregator:
+    maxItemsPerAggregate: 1000
+    maxUncompressedByteSize: &quot;1G&quot;
+    aggregationFrequency: 10m
+
+  forwardFileDestinations:
+  - name: &quot;archive-repo&quot;
+    path: &quot;/stroomdata/stroom-proxy/archive-repo&quot;
+    subPathTemplate:
+      pathTemplate: &quot;${year}/${year}-${month}/${year}-${month}-${day}/${year}-${month}-${day}-${feed}/&quot;
 
   forwardHttpDestinations:
-    - enabled: true
-      name: &quot;downstream&quot;
-      forwardUrl: &quot;https://some-host/stroom/datafeed&quot;
-      sslConfig:
-        keyStorePath: &quot;/stroom-proxy/certs/client.jks&quot;
+  - name: &quot;downstream-stroom&quot;
+    httpClient:
+      tls:
+        keyStorePath: &quot;certs/client.jks&quot;
         keyStorePassword: &quot;password&quot;
-        keyStoreType: &quot;JKS&quot;
-        trustStorePath: &quot;/stroom-proxy/certs/ca.jks&quot;
+        trustStorePath: &quot;certs/ca.jks&quot;
         trustStorePassword: &quot;password&quot;
-        trustStoreType: &quot;JKS&quot;
-        hostnameVerificationEnabled: true
+
+  receive:
+    receiptCheckMode: &quot;RECEIPT_POLICY&quot;
 </code></pre>
-<p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
-Each forward location can use a different key/trust store pair.</p>
+<h3 id="air-gapped-store-only">Air-Gapped Store Only</h3>
+<p>This is an example of a Stroom-Proxy instance that is hosted in an environment where is has no direct link to a downstream Stroom/Stroom-Proxy.
+All data is aggregated and forwarded to the local file system for transport downstream using other means outside of the scope of this documentation.</p>
+<pre><code class="language-yaml">server:
+  # ... Same as configuration above
+
+logging:
+  # ... Same as configuration above
+
+jerseyClients:
+  # ... Same as configuration above
+
+proxyConfig:
+  path:
+    # By default all files read or written to by stroom-proxy will be in directories relative to
+    # the home location. This must be set to an absolute path and also to one that differs
+    # the installed software as it has a different lifecycle.
+    home: &quot;/stroomdata/stroom-proxy/home&quot;
+
+  # No downstreamHost due to air-gap
+  downstreamHost:
+    enabled: false
+
+  aggregator:
+    maxItemsPerAggregate: 1000
+    maxUncompressedByteSize: &quot;1G&quot;
+    aggregationFrequency: 10m
+
+  forwardFileDestinations:
+
+  # Repo for a local archive
+  - name: &quot;archive-repo&quot;
+    path: &quot;/stroomdata/stroom-proxy/archive-repo&quot;
+    subPathTemplate:
+      pathTemplate: &quot;${year}/${year}-${month}/${year}-${month}-${day}/${year}-${month}-${day}-${feed}/&quot;
+
+  # Repo to be transported downstream around air-gap
+  - name: &quot;downstream-repo&quot;
+    path: &quot;/stroomdata/stroom-proxy/downstream-repo&quot;
+    subPathTemplate:
+      pathTemplate: &quot;${year}/${year}-${month}/${year}-${month}-${day}/${year}-${month}-${day}-${feed}/&quot;
+
+  forwardHttpDestinations: []
+
+  receive:
+    # No receipt checking due to air-gap. All data accepted.
+    receiptCheckMode: &quot;RECEIVE_ALL&quot;
+</code></pre>
 
 </div>
 
@@ -2330,7 +3217,7 @@ volumes/stroom-log-sender/certs/client.unencrypted.key
 <div class="td-content" style="--base-section-num: '2.4.'; page-break-before: always">
     
   <h1 id="pg-c55274dc8017978026995b0c30172626">2.4 - MySQL Configuration</h1>
-    <div class="lead">Confnguring MySQl for use with Stroom.</div>
+    <div class="lead">Configuring MySQL for use with Stroom.</div>
 	
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">See Also</h4>
@@ -2360,7 +3247,7 @@ volumes/stroom-log-sender/certs/client.unencrypted.key
 <h3 id="key-configuration-properties">Key configuration properties</h3>
 <ul>
 <li>
-<p><code>lower_case_table_names</code> - This proerty controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
+<p><code>lower_case_table_names</code> - This property controls how the tables are stored on the filesystem and the case-sensitivity of table names in SQL.
 A value of <code>0</code> means tables are stored on the filesystem in the case used in CREATE TABLE and sql is case sensitive.
 This is the default in linux and is the preferred value for deployments of stroom of v7+.
 A value of <code>1</code> means tables are stored on the filesystem in lowercase but sql is case insensitive.
@@ -2408,8 +3295,8 @@ See also
 </p>
 </li>
 <li>
-<p><code>innodb_buffer_pool_size</code>/<code>innodb_buffer_pool_instances</code> - Controls the amount of memory availble to MySQL for caching table/index data.
-Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of avaialable RAM.
+<p><code>innodb_buffer_pool_size</code>/<code>innodb_buffer_pool_instances</code> - Controls the amount of memory available to MySQL for caching table/index data.
+Typically this will be set to 80% of available RAM, assuming MySQL is running on a dedicated host and the total amount of table/index data is greater than 80% of available RAM.
 <em>Note</em>: <code>innodb_buffer_pool_size</code> must be set to a value that is equal to or a multiple of <code>innodb_buffer_pool_chunk_size * innodb_buffer_pool_instances</code>.
 See also 
 
@@ -2449,9 +3336,9 @@ This file is read-only to the container and will be read on container start.</p>
 <h3 id="database-initialisation">Database initialisation</h3>
 <p>When the container is started for the first time the database be initialised with the root user account.
 It will also then run any scripts found in <code>volumes/stroom-all-dbs/init/stroom</code>.
-The scripts in here will be run in alpabetical order.
+The scripts in here will be run in alphabetical order.
 Scripts of the form <code>.sh</code>, <code>.sql</code>, <code>.sql.gz</code> and <code>.sql.template</code> are supported.</p>
-<p><code>.sql.template</code> files are proprietry to stroom stacks and are just templated <code>.sql</code> files.
+<p><code>.sql.template</code> files are proprietary to stroom stacks and are just templated <code>.sql</code> files.
 They can contain tags of the form <code>&lt;&lt;&lt;ENV_VAR_NAME&gt;&gt;&gt;</code> which will be replaced with the value of the named environment variable that has been set in the container.</p>
 <p>If you need to add additional database users then either add them to <code>volumes/stroom-all-dbs/init/stroom/001_create_databases.sql.template</code> or create additional scripts/templates in that directory.</p>
 <p>The script that controls this templating is <code>volumes/stroom-all-dbs/init/000_stroom_init.sh</code>.
@@ -2482,7 +3369,7 @@ This script MUST not have its executable bit set else it will be executed rather
     <div class="lead">How to install Stroom when there is no internet connection.</div>
 	<h2 id="docker-images">Docker images</h2>
 <p>For those deployments of Stroom that use docker containers, by default docker will try to pull the docker images from DockerHub on the internet.
-If you do not have an internet connection then you will need to make these images availbe to the local docker binary in another way.</p>
+If you do not have an internet connection then you will need to make these images available to the local docker binary in another way.</p>
 <h3 id="downloading-the-images">Downloading the images</h3>
 <p>Firstly you need to determine which images and which tags you need.
 Look at 
@@ -2503,7 +3390,7 @@ Look at
   </a>
 </span>
  and for each release and variant of the Stroom stacks you will see a manifest of the docker images/tags in that release/variant.
-For eaxmple, for <code>stroom-stacks-v7.0-beta.175</code> and stack variant <code>stroom_core</code> the list of images is:</p>
+For example, for <code>stroom-stacks-v7.0-beta.175</code> and stack variant <code>stroom_core</code> the list of images is:</p>
 <pre><code class="language-text">nginx gchq/stroom-nginx:v7.0-beta.2
 stroom gchq/stroom:v7.0-beta.175
 stroom-all-dbs mysql:8.0.23
@@ -2532,7 +3419,7 @@ docker save -o stroom-nginx.tar gchq/stroom-nginx:v7.0-beta.2</code></pre>
 </div>
 
 <h4 id="without-the-_docker_-binary">Without the <em>docker</em> binary</h4>
-<p>If you can&rsquo;t install Docker on the internet connected maching then this 
+<p>If you can&rsquo;t install Docker on the internet connected machine then this 
 
 
 
@@ -2554,7 +3441,7 @@ This is a third party script so we cannot vouch for it in any way.
 As with all scripts you run that you find on the internet, look at and understand what they do before running them.</p>
 <h3 id="loading-the-images">Loading the images</h3>
 <p>Once you have downloaded the image tar files and transferred them over the air gap you will need to load them into your local docker repo.
-Either this will be the local repo on the maching where you will deploy Stroom (or one of its component containers) or you will have a central docker repository that many machines can access.
+Either this will be the local repo on the machine where you will deploy Stroom (or one of its component containers) or you will have a central docker repository that many machines can access.
 Managing a central air-gapped repository is beyond the scope of this documentation.</p>
 <p>To load the images into your local repository use a command similar to this for each of the <code>.tar</code> files that you created using <code>docker save</code> above:</p>
 
@@ -2574,7 +3461,7 @@ Managing a central air-gapped repository is beyond the scope of this documentati
     data-filter-output="(out)"><code class="language-bash">docker load --input stroom-nginx.tar</code></pre>
 </div>
 
-<p>You can check the images are avialable using:</p>
+<p>You can check the images are available using:</p>
 
   
 
@@ -3068,7 +3955,7 @@ Running the migrate command ensures all parts of the migration are completed whe
 	
 <div class="pageinfo pageinfo-danger">
 <h4 class="text-danger alert-heading">Warning</h4>
-<p>Before comencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.</p>
+<p>Before commencing an upgrade to v7 you should upgrade Stroom to the latest minor and patch version of v6.</p>
 
 </div>
 
@@ -3083,7 +3970,7 @@ In v7 stroom uses a config.yml file for its configuration (see <a href="../../..
 <li>v6 used upper case and heavily abbreviated names for its tables.
 In v7 clearer and lower case table names are used.
 As a result ALL v6 tables get renamed with the prefix <code>OLD_</code>, the new tables created and any content copied over.
-As the database will be holding two copies of most data you need to ensure you have space to accomodate it.</li>
+As the database will be holding two copies of most data you need to ensure you have space to accommodate it.</li>
 </ul>
 <h2 id="pre-upgrade-tasks">Pre-Upgrade tasks</h2>
 <p>The following steps are required to be performed before migrating from v6 to v7.</p>
@@ -3117,7 +4004,7 @@ mysql --table -u&#34;stroomuser&#34; -p&#34;stroompassword1&#34; stroom \
 <p>This will produce a report of items that will not be migrated or need attention before migration.</p>
 <h3 id="stop-processing">Stop processing</h3>
 <p>Before shutting stroom down it is wise to turn off stream processing and let all outstanding server tasks complete.</p>
-<p><em>TODO</em> clairfy steps for this.</p>
+<p><em>TODO</em> clarify steps for this.</p>
 <h3 id="stop-the-stack">Stop the stack</h3>
 <p>Stop the stack (stroom and the database) then start up the database.
 Do this using the v6 stack.
@@ -3172,7 +4059,7 @@ Ensure that there is NOT any configuration for a separate auth database as this 
 <p>Stroom v6 ran on mysql v5.6.
 Stroom v7 runs on mysql v8.
 The upgrade path for MySQL is 5.6 =&gt; 5.7.33 =&gt; 8.x</p>
-<p>To ensure the database is up to date <code>mysql_upgrade</code> neeeds to be run using the 5.7.33 binaries, see the 
+<p>To ensure the database is up to date <code>mysql_upgrade</code> needs to be run using the 5.7.33 binaries, see the 
 
 
 
@@ -3481,7 +4368,7 @@ install and create a database user account.</p>
 <p>Things get more complicated when considering:</p>
 <ul>
 <li>Security</li>
-<li>Master Slave Replication</li>
+<li>Replication</li>
 <li>Tuning memory usage</li>
 <li>Running Stroom Stats in a different database to Stroom</li>
 <li>Performance Monitoring</li>
@@ -3522,30 +4409,43 @@ usage : --name=&lt;instance name (defaults to my for /etc/my.cnf)&gt;
 <p>You need to create a file cluster.txt with a line for each member of your cluster
 (or single line in the case of a one node Stroom install).
 Then run the utility script to lock down the server access.</p>
-<pre><code class="language-bash">[stroomuser@host ~]$ hostname &gt;&gt; cluster.txt
-[stroomuser@host ~]$ ./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
-Enter root mysql password :
---------------
-flush privileges
---------------
 
---------------
-delete from mysql.user where user = 'stroomuser'
---------------
-...
-...
-...
---------------
-flush privileges
---------------
+  
 
-[stroomuser@host ~]$
-</code></pre>
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">hostname &gt;&gt; cluster.txt
+./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
+(out)Enter root mysql password :
+(out)--------------
+(out)flush privileges
+(out)--------------
+(out)
+(out)--------------
+(out)delete from mysql.user where user = &#39;stroomuser&#39;
+(out)--------------
+(out)...
+(out)...
+(out)...
+(out)--------------
+(out)flush privileges
+(out)--------------</code></pre>
+</div>
+
 <h2 id="advanced-install">Advanced Install</h2>
 <p>The below example uses the utility scripts to create 3 custom mysql server instances on 2 servers:</p>
 <ul>
-<li>server1 - master stroom,</li>
-<li>server2 - slave stroom, stroom_stats</li>
+<li>server1 - stroom (source),</li>
+<li>server2 - stroom (replica), stroom_stats</li>
 </ul>
 <p>As root on server1:</p>
 <pre><code class="language-bash">yum install &quot;mysql56-mysql-server&quot;
@@ -4145,7 +5045,7 @@ This admin user can be used to set up the other users on the system.</p>
 <div class="td-content" style="--base-section-num: '5.5.3.'; page-break-before: always">
     
   <h1 id="pg-84584124b4e9dfcb1a92fb6fb04aa336">5.5.3 - External IDP</h1>
-    <div class="lead">How to setup KEyCloak as an external identity provider for Stroom.</div>
+    <div class="lead">How to setup KeyCloak as an external identity provider for Stroom.</div>
 	<p>You may be running Stroom in an environment with an existing <span class="glossary-link">
   <a href="../../../docs/glossary/#identity-provider-idp" title="Glossary entry for Identity Provider (IDP)">
     <span>Identity Provider (IDP)</span>
@@ -4308,7 +5208,7 @@ For this example we are calling our administrator <code>admin</code>.
 <h2 id="configure-stroom-for-keycloak">Configure Stroom for KeyCloak</h2>
 <p>Edit the <code>config.yml</code> file and set the following values</p>
 <pre><code class="language-yaml">  receive:
-    # Set to true to require authenticatin for /datafeed requests
+    # Set to true to require authentication for /datafeed requests
     authenticationRequired: true
     # Set to true to allow authentication using an Open ID token
     tokenAuthenticationEnabled: true
@@ -4384,7 +5284,7 @@ This command is repeatable as it will skip any users/groups/memberships that alr
 <p>This command will do the following:</p>
 <ul>
 <li>Create the Stroom User by creating an entry in the <code>stroom_user</code> database table for the IDP&rsquo;s <code>admin</code> user.</li>
-<li>Ensure that an <code>Adminstrators</code> group exists (i.e. an entry in the <code>stroom_user</code> database table for the <code>Adminstrators</code> group).</li>
+<li>Ensure that an <code>Administrators</code> group exists (i.e. an entry in the <code>stroom_user</code> database table for the <code>Administrators</code> group).</li>
 <li>Add the <code>admin</code> user to the group <code>Administrators</code>.</li>
 <li>Grant the application permission <code>Administrator</code> to the group <code>Administrators</code>.</li>
 </ul>
@@ -4431,7 +5331,7 @@ In order to gain permissions to do anything in Stroom a Stroom administrator wil
 <p>In order to user Stroom-Proxy with OIDC</p>
 <p>Edit the <code>config.yml</code> file and set the following values</p>
 <pre><code class="language-yaml">  receive:
-    # Set to true to require authenticatin for /datafeed requests
+    # Set to true to require authentication for /datafeed requests
     authenticationRequired: true
     # Set to true to allow authentication using an Open ID token
     tokenAuthenticationEnabled: true
@@ -4879,7 +5779,363 @@ If you are configuring a production instance of Stroom or Stroom-Proxy you must 
 
 <div class="td-content" style="--base-section-num: '7.'; page-break-before: always">
     
-  <h1 id="pg-43cbc5a96873e16a7583c1067cb267aa">7 - Kubernetes Cluster</h1>
+  <h1 id="pg-f4bc194c23f6c779ca19bc69c26e59bb">7 - Stroom Installation</h1>
+    <div class="lead">Details how to install Stroom and its assocatied services.</div>
+	
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">TODO</h4>
+
+    This section is not yet complete.
+
+</div>
+
+<h2 id="typical-deployments">Typical Deployments</h2>
+<p>Stroom can be deployed in a number of ways:</p>
+<ul>
+<li>
+<p>Single node - For environments with low data volumes, test environments or where resilience is not critical.
+For a single node deployment, the simplest way to deploy is with a <a href="../../../docs/install-guide/single-node-docker/">Single Node Docker Stack</a> as this includes everything needed for Stroom to run.</p>
+</li>
+<li>
+<p>Non-Docker Cluster - A Stroom cluster where the Stroom Java application is running direction on the physical/virtual host and Stroom&rsquo;s peripheral services (e.g. Nginx, MySQL, Stroom-Proxy) have been installed adjacent to the Stroom Cluster.</p>
+</li>
+<li>
+<p>Kubernetes - For deploying a containerised Stroom cluster, Kubernetes (k8s) is the recommended approach.
+See <a href="../../../docs/install-guide/kubernetes/">Kubernetes Cluster</a>.</p>
+</li>
+</ul>
+<p>This document will only be concerned with the installation of a non-Docker Stroom cluster.</p>
+<p>For a more detailed description of the deployment architecture, see <a href="../../../docs/architecture/">Architecture</a>.</p>
+<p>For details of how to install Stroom-Proxy see <a href="../../../docs/proxy/stroom-7-proxy-installation/">Stroom-Proxy Installation</a>.</p>
+<h2 id="assumptions">Assumptions</h2>
+<p>The following assumptions are used in this document.</p>
+<ul>
+<li>The user has reasonable RHEL/CentOS/Rocky System administration skills.</li>
+<li>Installation is on a fully patched minimal RHEL/CentOS/Rocky instance.</li>
+<li>The application user <code>stroomuser</code> has been created in the OS.</li>
+<li>The user has set up the Stroom processing user as described <a href="../../../docs/howtos/install/installprocessingusersetuphowto/">here</a>.</li>
+<li>The prerequisite software has been installed.</li>
+</ul>
+<h2 id="firewall-configuration">Firewall Configuration</h2>
+<p>The following are the ports used in a typical Stroom deployment.
+Some may need to be opened to allow access to the ports from outside the host.</p>
+<ul>
+<li><code>80</code> - Nginx listens on port <code>80</code> but redirects onto <code>443</code>.</li>
+<li><code>443</code>  - Nginx listens on port <code>443</code>.</li>
+<li><code>3306</code> - MySQL listens on port <code>3306</code> by default.</li>
+<li><code>8080</code> - Stroom listens on port <code>8080</code> for its main public APIs (<code>/datafeed</code>, REST endpoints, etc).</li>
+<li><code>8081</code> - Stroom listens on port <code>8081</code> for its administration APIs.
+Access to this port should probably be carefully controlled.</li>
+<li><code>8090</code> - Stroom-Proxy listens on port <code>8090</code> for its main public APIs (<code>/datafeed</code>, REST endpoints, etc).</li>
+<li><code>8091</code> - Stroom-Proxy listens on port <code>8091</code> for its administration APIs.
+Access to this port should probably be carefully controlled.</li>
+</ul>
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Note</h4>
+
+
+    A lot of the default Stroom configuration assumes MySQL is listening on <code>3307</code>.
+This is for historic reasons.
+You can either change the Stroom configuration to use <code>3306</code> or change MySQL to listen on <code>3307</code>.
+
+</div>
+
+
+<p>Which ports you open on a host will depend on what service is running on that host.
+Typically Stroom will be running on different hosts to Nginx, MySQL and Stroom-Proxy, so Stroom&rsquo;s <code>8080</code> port will need to be opened for traffic from Stroom-Proxy and Nginx.</p>
+<p>For example on a RHEL/CentOS server using <code>firewalld</code> the commands would be as <code>root</code> user:</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">firewall-cmd --zone=public --permanent --add-port=80/tcp
+firewall-cmd --zone=public --permanent --add-port=443/tcp
+firewall-cmd --reload</code></pre>
+</div>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>RHEL/CentOS/Rocky</li>
+<li>Java JDK (JDK is preferred over JRE as it provides additional tools (e.g. <code>jmap</code>) for capturing heap histogram statistics).
+For details about which Java distribution and version to use, and how to install it, see <a href="../../../docs/install-guide/java/">Java</a>.</li>
+<li><code>bash</code> v4 or greater - Used by the helper scripts.</li>
+<li>GNU <code>coreutils</code> - Used by the helper scripts.</li>
+<li><code>jq</code> - Used by the stack scripts.</li>
+</ul>
+<p>Create a shell script that will define the Java variable OR add the statements to <code>.bash_profile</code>.</p>
+<h2 id="install-components">Install Components</h2>
+<h3 id="install-nginx">Install Nginx</h3>
+<p>To deploy Nginx, it can either be installed manually (see 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://nginx.org/en/docs/install.html" target="_blank" class="" style="" title="Installing Nginx (external link to https://nginx.org/en/docs/install.html)">
+    <span>Installing Nginx</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+) or using the <code>stroom_services</code> <a href="../../../docs/install-guide/single-node-docker/#stroom-docker-stacks">Docker Stack</a>.</p>
+<h3 id="install-stroom-proxy">Install Stroom-Proxy</h3>
+<p>For details of how to install Stroom-Proxy see <a href="../../../docs/proxy/stroom-7-proxy-installation/">Stroom-Proxy Installation</a>.</p>
+<h3 id="install-mysql">Install MySQL</h3>
+<p>For details of how to install MySQL see <a href="../../../docs/install-guide/setup/mysql-server-setup/">MySQL Setup</a>.</p>
+<h3 id="install-stroom">Install Stroom</h3>
+<p>Stroom releases are available from 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://github.com/gchq/stroom/releases" target="_blank" class="" style="" title="github.com/gchq/stroom/releases (external link to https://github.com/gchq/stroom/releases)">
+    <span>github.com/gchq/stroom/releases</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+.
+Each release has a number of artefacts, the Stroom application is <code>stroom-app-v*.zip</code>.</p>
+<p>The installation example below is for stroom version 7.10.20, but is applicable to other stroom v7 versions.
+As a suitable stroom user e.g. stroomuser - download and unpack the stroom software.</p>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">wget https://github.com/gchq/stroom/releases/download/v7.10.20/stroom-app-v7.10.20.zip
+unzip stroom-app-v7.10.20.zip</code></pre>
+</div>
+
+<p>The configuration file – <code>stroom/config/config.yml</code> – is the principal file that controls the configuration of Stroom, although once Stroom is running, the configuration can be managed via <a href="../../../docs/user-guide/properties/">System Properties</a>.
+See <a href="../../../docs/install-guide/configuration/stroom-and-proxy/configuring-stroom/">Stroom Configuration</a>.</p>
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '8.'; page-break-before: always">
+    
+  <h1 id="pg-2afe2ed3617af446337f17b0191ce8e6">8 - Java</h1>
+    <div class="lead">Stroom and Stroom-Proxy both run on Java. This section details the requirements they have in terms of Java.</div>
+	<h2 id="recommended-java-distribution">Recommended Java Distribution</h2>
+<p>There are multiple distributions of Java available (Oracle, OpenJDK, Adoptium, Azul, etc).
+Our recommendation is to use 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://adoptium.net/en-GB/temurin/releases" target="_blank" class="" style="" title="Adoptium Eclipse Temurin (external link to https://adoptium.net/en-GB/temurin/releases)">
+    <span>Adoptium Eclipse Temurin</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ as this is free and Open Source and has 4 year support periods for Long Term Support (LTS) releases of Java.</p>
+<h2 id="jdk-or-jre">JDK or JRE</h2>
+<p>Java distributions are available as a Java Development Kit or a Java Runtime Environment.
+The JDK is primarily intended for development of Java applications (i.e. compiling code) while the JRE is simply for running a compiled application.</p>
+<p>However, we recommend installing the JDK as this can run an application in the same way as the JRE, but also provides additional tools to aid in debugging the application if required.
+For example the JDK includes the <code>jmap</code> binary that can be used by Stroom to capture statistics on object use within the Java Heap.</p>
+<h2 id="java-releases">Java Releases</h2>
+<p>Java now has a regular release cycle of new major versions.
+Periodically a Java release will be deemed a Long Term Support (LTS) releases, e.g. Java v11, v17 &amp; v25.
+Intermediate version have a short support lifecycle.</p>
+<p>Stroom and Stroom-Proxy versions will now typically require an LTS releases of Java as a minimum.
+While you can run a later release of Java than that required by the Stroom/Stroom-Proxy release, it is generally simpler to run the minimum required version. Using the same LTS release means you will get security/bug updates for 4 or so years and you don&rsquo;t need to worry about any breaking changes that a later version of Java may have introduced.</p>
+<p>The following lists the minimum required Java version required by each Stroom release.</p>
+<table>
+<thead>
+<tr>
+<th>Stroom/Stroom-Proxy Version</th>
+<th>Minimum Java Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v7.11</td>
+<td>v25</td>
+</tr>
+<tr>
+<td>v7.10</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.9</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.8</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.7</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.6</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.5</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.4</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.3</td>
+<td>v21</td>
+</tr>
+<tr>
+<td>v7.2</td>
+<td>v17</td>
+</tr>
+<tr>
+<td>v7.1</td>
+<td>v17</td>
+</tr>
+<tr>
+<td>v7.0</td>
+<td>v15</td>
+</tr>
+</tbody>
+</table>
+<h2 id="installing-java">Installing Java</h2>
+<p>See 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://adoptium.net/en-GB/installation/linux#centosrhelfedora-instructions" target="_blank" class="" style="" title="Linux Installation Instructions (external link to https://adoptium.net/en-GB/installation/linux#centosrhelfedora-instructions)">
+    <span>Linux Installation Instructions</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for details of how to install the JDK using your package manager.</p>
+<p>Alternatively, see 
+
+
+
+
+
+
+
+  
+  
+
+<span class="external-link">
+  <a href="https://adoptium.net/en-GB/temurin/releases" target="_blank" class="" style="" title="Adoptium Eclipse Temurin (external link to https://adoptium.net/en-GB/temurin/releases)">
+    <span>Adoptium Eclipse Temurin</span>
+    <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
+  </a>
+</span>
+ for links to download the Java binaries for manual installation.</p>
+<h2 id="setting-java-home">Setting Java Home</h2>
+<p>Create a shell script that will define the Java variable OR add the statements to <code>.bash_profile</code>.
+e.g. <code>vi /etc/profile.d/jdk.sh</code></p>
+<pre><code class="language-bash">export JAVA_HOME=/path/to/java/home
+export PATH=$PATH:$JAVA_HOME/bin
+</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="stroomuser" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">source /etc/profile.d/jdk.sh
+echo $JAVA_HOME
+(out)/path/to/java/home
+
+java --version
+(out)openjdk 25 2025-09-16 LTS
+(out)OpenJDK Runtime Environment Temurin-25&#43;36 (build 25&#43;36-LTS)
+(out)OpenJDK 64-Bit Server VM Temurin-25&#43;36 (build 25&#43;36-LTS, mixed mode, sharing)</code></pre>
+</div>
+
+
+</div>
+
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+
+
+<div class="td-content" style="--base-section-num: '9.'; page-break-before: always">
+    
+  <h1 id="pg-43cbc5a96873e16a7583c1067cb267aa">9 - Kubernetes Cluster</h1>
     <div class="lead">How to deploy and administer a container based Stroom cluster using Kubernetes.</div>
 	
 </div>
@@ -4905,9 +6161,9 @@ If you are configuring a production instance of Stroom or Stroom-Proxy you must 
 
 
 
-<div class="td-content" style="--base-section-num: '7.1.'; ">
+<div class="td-content" style="--base-section-num: '9.1.'; ">
     
-  <h1 id="pg-ca95eefd1a4d9ee57e159bf1e8628042">7.1 - Introduction</h1>
+  <h1 id="pg-ca95eefd1a4d9ee57e159bf1e8628042">9.1 - Introduction</h1>
     <div class="lead">Introduction to using Stroom on Kubernetes.</div>
 	<p>
 
@@ -5035,9 +6291,9 @@ A purpose-built Kubernetes Operator (
 
 
 
-<div class="td-content" style="--base-section-num: '7.2.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.2.'; page-break-before: always">
     
-  <h1 id="pg-05f10dc925729e909b808bad4073ad2b">7.2 - Install Operator</h1>
+  <h1 id="pg-05f10dc925729e909b808bad4073ad2b">9.2 - Install Operator</h1>
     <div class="lead">How to install the Stroom Kubernetes operator.</div>
 	<h2 id="prerequisites">Prerequisites</h2>
 <ol>
@@ -5175,9 +6431,9 @@ In very large deployments, this may cause it to run out of memory.
 
 
 
-<div class="td-content" style="--base-section-num: '7.3.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.3.'; page-break-before: always">
     
-  <h1 id="pg-0507fe5566061e6ceaad9054e4e5d301">7.3 - Upgrade Operator</h1>
+  <h1 id="pg-0507fe5566061e6ceaad9054e4e5d301">9.3 - Upgrade Operator</h1>
     <div class="lead">How to upgrade the Stroom Kubernetes Operator.</div>
 	<p>Upgrading the Operator can be performed without disrupting any resources it controls, including Stroom clusters.</p>
 <p>To perform the upgrade, follow the same steps in <a href="../../../docs/install-guide/kubernetes/install-operator/">Installing the Stroom K8s Operator</a>.</p>
@@ -5211,9 +6467,9 @@ The tag should correspond to the release number that was downloaded (e.g. <code>
 
 
 
-<div class="td-content" style="--base-section-num: '7.4.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.4.'; page-break-before: always">
     
-  <h1 id="pg-c8eeddcab75a955590d58d0c4350b4bc">7.4 - Remove Operator</h1>
+  <h1 id="pg-c8eeddcab75a955590d58d0c4350b4bc">9.4 - Remove Operator</h1>
     <div class="lead">How to remove the Stroom Kubernetes operator.</div>
 	<p>Removing the Stroom K8s Operator must be done with caution, as it causes all resources it manages, including <code>StroomCluster</code>, <code>DatabaseServer</code> and <code>StroomTaskAutoscaler</code> to be deleted.</p>
 <p>While the Stroom clusters under its control <em>will</em> be gracefully terminated, they will become inaccessible until re-deployed.</p>
@@ -5253,9 +6509,9 @@ The tag should correspond to the release number that was downloaded (e.g. <code>
 
 
 
-<div class="td-content" style="--base-section-num: '7.5.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.5.'; page-break-before: always">
     
-  <h1 id="pg-721b26717d1f73ea1eb3ecfc16a7a16d">7.5 - Configure Database</h1>
+  <h1 id="pg-721b26717d1f73ea1eb3ecfc16a7a16d">9.5 - Configure Database</h1>
     <div class="lead">How to configure the database server for a Stroom cluster.</div>
 	<p>Before creating a Stroom cluster, a database server must first be configured.</p>
 <p>There are two options for deploying a MySQL database for Stroom:</p>
@@ -5403,9 +6659,9 @@ This is a necessary safeguard to prevent database connectivity from being lost.<
 
 
 
-<div class="td-content" style="--base-section-num: '7.6.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.6.'; page-break-before: always">
     
-  <h1 id="pg-fb65f82f056e9f1601c353119678b6a6">7.6 - Configure a cluster</h1>
+  <h1 id="pg-fb65f82f056e9f1601c353119678b6a6">9.6 - Configure a cluster</h1>
     <div class="lead">How to configure a Stroom cluster.</div>
 	<p>A <code>StroomCluster</code> resource defines the topology and behaviour of a collection of Stroom nodes.</p>
 <p>The following key concepts should be understood in order to optimally configure a cluster.</p>
@@ -5575,9 +6831,9 @@ This can be useful when providing files like certificates for Kafka integration.
 
 
 
-<div class="td-content" style="--base-section-num: '7.7.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.7.'; page-break-before: always">
     
-  <h1 id="pg-27477f3276848d8ef7a8896dec8ac3f9">7.7 - Auto Scaler</h1>
+  <h1 id="pg-27477f3276848d8ef7a8896dec8ac3f9">9.7 - Auto Scaler</h1>
     <div class="lead">How to configure Stroom task auto scaling.</div>
 	<h2 id="motivation">Motivation</h2>
 <p>Setting optimal Stroom stream processor task limits is a crucial factor in running a healthy, performant cluster.
@@ -5704,9 +6960,9 @@ If it can&rsquo;t, the autoscaler will continue adjusting upwards, potentially c
 
 
 
-<div class="td-content" style="--base-section-num: '7.8.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.8.'; page-break-before: always">
     
-  <h1 id="pg-f1fcf284925090030b347c6d04e9d8a0">7.8 - Stop Stroom Cluster</h1>
+  <h1 id="pg-f1fcf284925090030b347c6d04e9d8a0">9.8 - Stop Stroom Cluster</h1>
     <div class="lead">How to stop the whole Stroom cluster.</div>
 	<p>A Stroom cluster can be stopped by deleting the <code>StroomCluster</code> resource that was deployed.
 When this occurs, the Operator will perform the following actions for each node, in sequence:</p>
@@ -5789,9 +7045,9 @@ However the operator may be configured to delete the PVC in certain situations, 
 
 
 
-<div class="td-content" style="--base-section-num: '7.9.'; page-break-before: always">
+<div class="td-content" style="--base-section-num: '9.9.'; page-break-before: always">
     
-  <h1 id="pg-3603d04935fa22b34e672359e6b24a4a">7.9 - Restart Node</h1>
+  <h1 id="pg-3603d04935fa22b34e672359e6b24a4a">9.9 - Restart Node</h1>
     <div class="lead">How to restart a Stroom node.</div>
 	<p>Stroom nodes may occasionally hang or become unresponsive.
 In these situations, it may be necessary to terminate the Pod.</p>
