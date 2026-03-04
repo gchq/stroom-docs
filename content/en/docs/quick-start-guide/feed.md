@@ -63,6 +63,7 @@ The `-H` arguments add HTTP headers to the HTTP POST request.
 Stroom uses these headers to determine how to process the data, see [Header Arguments]({{< relref "/docs/sending-data/header-arguments" >}}) for more details.
 
 > In this example we used `/datafeeddirect` rather than `/datafeed`.
+
 The former goes directly into Stroom, the latter goes via Stroom Proxy where it is aggregated before being picked up by Stroom.
 
 That's it, there's now data in Stroom.

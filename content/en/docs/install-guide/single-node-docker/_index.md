@@ -40,31 +40,31 @@ Each stack contains the following docker compose services.
 
 {{< cardpane >}}
   {{< card header="`stroom_core`" >}}
-stroom
-stroom-proxy-local
-stroom-log-sender
-nginx
+stroom  
+stroom-proxy-local  
+stroom-log-sender  
+nginx  
 mysql
   {{< /card >}}
 
   {{< card header="`stroom_core_test`" >}}
-stroom
-stroom-proxy-local
-stroom-proxy-remote
-stroom-log-sender
-nginx
+stroom  
+stroom-proxy-local  
+stroom-proxy-remote  
+stroom-log-sender  
+nginx  
 mysql
   {{< /card >}}
 
   {{< card header="`stroom_proxy`" >}}
-stroom-proxy-remote
-stroom-log-sender
-nginx
+stroom-proxy-remote  
+stroom-log-sender  
+nginx  
   {{< /card >}}
 
   {{< card header="`stroom_services`" >}}
-stroom-log-sender
-nginx
+stroom-log-sender  
+nginx  
   {{< /card >}}
 {{< /cardpane >}}
 

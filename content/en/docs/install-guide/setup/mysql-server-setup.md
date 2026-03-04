@@ -8,7 +8,7 @@ tags:
 description: >
   
 ---
-
+    
 {{% todo %}}
 This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
 {{% /todo %}}
@@ -45,8 +45,8 @@ The following commands can be used to auto start mysql if required:
 ## Overview
 
 MySQL configuration can be simple to complex depending on your requirements.
-For a very simple configuration you simply need an out-of-the-box mysql
-install and create a database user account.
+
+For a very simple configuration you simply need an out-of-the-box mysql install and create a database user account.
 
 Things get more complicated when considering:
 

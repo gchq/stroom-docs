@@ -137,14 +137,14 @@ Now we need to set the `xslt` property on the _xsltFilter_ to point at the XSLT 
    1. Click on the {{< pipe-elm "XSLTFilter" >}} element.
    1. In the middle Properties pane double-click on the `xslt` row.
    1. Click the {{< stroom-icon "ellipses-horizontal.svg" "Ellipses">}}in the _Value_ document picker
-   1. Select:
+   1. Select:  
       {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/XSLT.svg">}} _Stroom 101_.
    1. Click {{< stroom-btn "OK" >}}.
 1. Assign the Index document
    1. Click on the {{< pipe-elm "IndexingFilter" >}} element.
    1. In the middle Properties pane double-click on the `index` row.
    1. Click the `...` in the _Value_ document picker
-   1. Select:
+   1. Select:  
       {{< stroom-icon "folder.svg">}} _Stroom 101_ / {{< stroom-icon "document/Index.svg">}} _Stroom 101_.
    1. Click {{< stroom-btn "OK" >}}.
 

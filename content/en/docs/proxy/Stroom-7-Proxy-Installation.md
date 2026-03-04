@@ -59,16 +59,16 @@ e.g. as *root* user to download docker-compose version 1.25.4 and save it to - /
 If you have a firewall running additional ports will need to be opened, to allow the Docker containers to talk to each other.
 Currently these ports are:
 
-80
-443
-2888
-3307
-5000
-8080
-8081
-8090
-8091
-8543
+80  
+443  
+2888  
+3307  
+5000  
+8080  
+8081  
+8090  
+8091  
+8543  
 
 For example on a RHEL/CentOS server using `firewalld` the commands would be as *root* user:
 

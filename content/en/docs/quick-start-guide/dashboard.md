@@ -71,13 +71,13 @@ See [Expressions]({{< relref "/docs/reference-section/expressions" >}}).
 To group our data by _Application_ we need to apply a group level to the _Application_ column.
 
 1. Click on the _Application_ column
-1. Click
+1. Click  
    {{< stroom-icon "fields/group.svg">}} _Group_ => {{< stroom-icon "fields/group.svg">}} _Level 1_
 
 Now we can reverse sort the data in the table by the count.
 
 1. Click on the _Count_ column.
-1. Click
+1. Click  
    {{< stroom-icon "fields/sort-ascending.svg">}} _Sort_ => {{< stroom-icon "fields/sort-descending.svg">}} _Sort Z to A_
 
 Now click the large green and white play button to run the query.
@@ -88,7 +88,7 @@ Now we are going to add a custom column to show the lowest EventId for each _App
 1. Click on the {{< stroom-icon "add.svg" "Add Field">}} button on the Table pane.
 1. Select _Custom_ (at the bottom of the list).
 1. Click on the new _Custom_ column.
-1. Click
+1. Click  
    {{< stroom-icon "fields/expression.svg">}} _Expression_
 1. In the _Set Expression For 'Custom'_ dialog enter the following:  
    `first(${EventId})`
@@ -100,7 +100,7 @@ You can also use {{< key-bind "ctrl,space" >}} to auto-complete your expressions
 To rename the _Custom_ column:
 
 1. Click on the _Custom_ column.
-1. Click
+1. Click  
    {{< stroom-icon "edit.svg" "Rename">}} _Rename_
 1. Enter the text `First Event ID`.
 1. Click _OK_.

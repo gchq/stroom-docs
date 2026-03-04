@@ -576,13 +576,13 @@ See {{< external-link "yaml.org" "https://yaml.org" >}} for more details.
 
 
 <!-- TODO
-Event
-Pipeline
-Translation
-Headers
-Filter
-Writer
-Destination
-Index
-Task
+Event  
+Pipeline  
+Translation  
+Headers  
+Filter  
+Writer  
+Destination  
+Index  
+Task  
 -->
