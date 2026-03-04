@@ -8,6 +8,10 @@ description: >
   This HOWTO describes the installation and initial configuration of the Stroom Application.
 ---
 
+{{% todo %}}
+This section was written for Stroom v5, so some parts are out of date.
+{{% /todo %}}
+
 ## Assumptions
 - the user has reasonable RHEL/Centos System administration skills
 - installation is on a fully patched minimal Centos 7.3 instance.

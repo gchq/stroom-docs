@@ -121,7 +121,7 @@ Edit the `config.yml` file and set the following values
 
 ```yaml
   receive:
-    # Set to true to require authenticatin for /datafeed requests
+    # Set to true to require authentication for /datafeed requests
     authenticationRequired: true
     # Set to true to allow authentication using an Open ID token
     tokenAuthenticationEnabled: true
@@ -233,7 +233,7 @@ Edit the `config.yml` file and set the following values
 
 ```yaml
   receive:
-    # Set to true to require authenticatin for /datafeed requests
+    # Set to true to require authentication for /datafeed requests
     authenticationRequired: true
     # Set to true to allow authentication using an Open ID token
     tokenAuthenticationEnabled: true
