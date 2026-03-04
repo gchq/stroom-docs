@@ -20,14 +20,14 @@ When it is ready for publishing then create a version branch from `master`.
 
 When the combined site is built, each version will exist within a directory as siblings of each other, i.e.
 
-```bash
+{{< command-line >}}
 /         # Latest version content lives here (i.e. copy of v8.0)
 /7.0/
 /7.1/
 /7.2/
 /8.0/     # Latest version is also published here but only used by CI build.
 /legacy/
-```
+{{< /command-line >}}
 
 The `master` branch is **NOT** published to GitHub Pages or included in the release artefacts.
 
@@ -333,16 +333,16 @@ It does the following:
 
 To run this script do:
 
-```bash
+{{< command-line >}}
 create_mock_combined_site.sh
-```
+{{< /command-line >}}
 
 The combined site can be served using something like the Python simple HTTP server, e.g. 
 
-```bash
+{{< command-line >}}
 cd /tmp/stroom-docs_mock_combined_site
 python -m SimpleHTTPServer 8888
-```
+{{< /command-line >}}
 
 Then open a browser at [localhost:8888](localhost:8888).
 

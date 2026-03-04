@@ -19,9 +19,9 @@ The following assumptions are used in this document.
 
 ## Installation of NFS software
 We install NFS on each node, via
-```bash
+{{< command-line >}}
 sudo yum -y install nfs-utils
-```
+{{< /command-line >}}
 and enable the relevant services, via
 ```base
 sudo systemctl enable rpcbind
@@ -42,37 +42,37 @@ We now export the node's /stroomdata directory (in case you want to share the wo
 ```
 
 This can be achieved with the following on both nodes
-```bash
+{{< command-line >}}
 sudo su -c "printf '# Share Stroom data directory\n' >> /etc/exports"
 sudo su -c "printf '/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n' >> /etc/exports"
-```
+{{< /command-line >}}
 
 On both nodes restart the NFS service to ensure the above export takes effect via
-```bash
+{{< command-line >}}
 sudo systemctl restart nfs-server
-```
+{{< /command-line >}}
 
 So that our nodes can offer their filesystems, we need to enable NFS access on the firewall.
 This is done via
-```bash
+{{< command-line >}}
 sudo firewall-cmd --zone=public --add-service=nfs --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
-```
+{{< /command-line >}}
 
 ## Test Mounting
 You should do test mounts on each node.
 - Node: `stroomp00.strmdev00.org`
 
-```bash
+{{< command-line >}}
 sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
-```
+{{< /command-line >}}
 
 - Node: `stroomp01.strmdev00.org`
 
-```bash
+{{< command-line >}}
 sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
-```
+{{< /command-line >}}
 
 If you are concerned you can't see the mount with a `df` try a `df --type=nfs4 -a` or a `sudo df`. Irrespective, once the mounting works, make the mounts permanent by adding the following to each node's /etc/fstab file.
 - Node: `stroomp00.strmdev00.org`
@@ -82,9 +82,9 @@ stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 
 ```
 achieved with
 
-```bash
+{{< command-line >}}
 sudo su -c "printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n' >> /etc/fstab"
-```
+{{< /command-line >}}
 
 - Node: `stroomp01.strmdev00.org`
 
@@ -93,9 +93,9 @@ stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 
 ```
 achieved with
 
-```bash
+{{< command-line >}}
 sudo su -c "printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n' >> /etc/fstab"
-```
+{{< /command-line >}}
 At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.
 
 ## Addition of another Node
@@ -107,26 +107,26 @@ as the existing nodes and all nodes have added mount points (directories) for th
   * Install NFS software as [above]({{< relref "InstallNFSHowTo.md#installation-of-nfs-software" >}})
   * Configure the exports file as per
 
-```bash
+{{< command-line >}}
 sudo su -c "printf '# Share Stroom data directory\n' >> /etc/exports"
 sudo su -c "printf '/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n' >> /etc/exports"
-```
+{{< /command-line >}}
 
   * Restart the NFS service and make the firewall enable NFS access as per
 
-```bash
+{{< command-line >}}
 sudo systemctl restart nfs-server
 sudo firewall-cmd --zone=public --add-service=nfs --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
-```
+{{< /command-line >}}
 
   * Test mount the existing node file systems
 
-```bash
+{{< command-line >}}
 sudo mount -t nfs4 stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00
 sudo mount -t nfs4 stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01
-```
+{{< /command-line >}}
 
   * Once the test mounts work, we make them permanent by adding the following to the /etc/fstab file.
 
@@ -136,18 +136,18 @@ stroomp01.strmdev00.org:/home/stroomdata/stroom-data-p01 /home/stroomdata/stroom
 ```
 achieved with
 
-```bash
+{{< command-line >}}
 sudo su -c "printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomdata/stroom-data-p00 nfs4 soft,bg\n' >> /etc/fstab"
 sudo su -c "printf 'stroomp01.strmdev00.org:/stroomdata/stroom-data-p01 /stroomdata/stroom-data-p01 nfs4 soft,bg\n' >> /etc/fstab"
-```
+{{< /command-line >}}
 
 - Node: `stroomp00.strmdev00.org` **and** `stroomp01.strmdev00.org`
 
   * Test mount the new node's filesystem as per
 
-```bash
+{{< command-line >}}
 sudo mount -t nfs4 stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02
-```
+{{< /command-line >}}
 
   * Once the test mount works, make the mount permanent by adding the following to the /etc/fstab file
 
@@ -156,6 +156,6 @@ stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 
 ```
 achieved with
 
-```bash
+{{< command-line >}}
 sudo su -c "printf 'stroomp02.strmdev00.org:/stroomdata/stroom-data-p02 /stroomdata/stroom-data-p02 nfs4 soft,bg\n' >> /etc/fstab"
-```
+{{< /command-line >}}

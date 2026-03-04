@@ -24,12 +24,16 @@ description: >
 ## Confirm Prerequisite Software Installation
 The following command will ensure the prerequisite software has been deployed
 
-```bash
+{{< command-line >}}
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
 sudo yum -y install mariadb
+{{< /command-line >}}
+
 or
+
+{{< command-line >}}
 sudo yum -y install mysql-community-client
-```
+{{< /command-line >}}
 
 ## Test Database connectivity
 We need to test access to the Stroom databases on `stroomdb0.strmdev00.org`. We do this using the client `mysql` utility. We note that we
@@ -37,106 +41,125 @@ must enter the _stroomuser_ user's password set up in the creation of the databa
 the `stroom` database and we must enter the _stroomstats_ user's password (`Stroompassword2@`) when connecting to the `statistics` database.
 
 We first test we can connect to the `stroom` database and then set the default database to be `stroom`.
-```
-[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
+
+{{< command-line >}}
+mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
+{{< /command-line >}}
+
 Enter password: <__ Stroompassword1@ __>
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 2
-Server version: 5.5.52-MariaDB MariaDB Server
 
-Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+{{< sql-shell >}}
+(out) Welcome to the MariaDB monitor.  Commands end with ; or \g.
+(out) Your MariaDB connection id is 2
+(out) Server version: 5.5.52-MariaDB MariaDB Server
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+(out) Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
 
-MariaDB [(none)]> use stroom;
-Database changed
-MariaDB [stroom]> exit
-Bye
-[burn@stroomp00 ~]$
-```
+(out) Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+use stroom;
+(out) Database changed
+exit
+(out) Bye
+{{< /sql-shell >}}
+
 In the case of a MySQL Community deployment you will see
-```
-[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
+
+{{< command-line >}}
+mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
+{{< /command-line >}}
+
 Enter password: <__ Stroompassword1@ __>
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 5.7.18 MySQL Community Server (GPL)
 
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+{{< sql-shell >}}
+(out) Welcome to the MySQL monitor.  Commands end with ; or \g.
+(out) Your MySQL connection id is 9
+(out) Server version: 5.7.18 MySQL Community Server (GPL)
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+(out) Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+(out) Oracle is a registered trademark of Oracle Corporation and/or its
+(out) affiliates. Other names may be trademarks of their respective
+(out) owners.
 
-mysql> use stroom;
-Database changed
-mysql> quit
-Bye
-[burn@stroomp00 ~]$ 
-```
+(out) Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+use stroom;
+(out) Database changed
+quit
+(out) Bye
+{{< /sql-shell >}}
 
 We next test connecting to the `statistics` database and verify we can set the default database to be `statistics`.
-```
-[burn@stroomp00 ~]$ mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
+
+{{< command-line >}}
+mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
+{{< /command-line >}}
+
 Enter password: <__ Stroompassword2@ __>
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 2
-Server version: 5.5.52-MariaDB MariaDB Server
 
-Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+{{< sql-shell >}}
+(out) Welcome to the MariaDB monitor.  Commands end with ; or \g.
+(out) Your MariaDB connection id is 2
+(out) Server version: 5.5.52-MariaDB MariaDB Server
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+(out) Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
 
-MariaDB [(none)]> use statistics;
-Database changed
-MariaDB [stroom]> exit
-Bye
-[burn@stroomp00 ~]$
-```
+(out) Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+use statistics;
+(out) Database changed
+exit
+(out) Bye
+{{< /sql-shell >}}
+
 In the case of a MySQL Community deployment you will see
-```
-[burn@stroomp00 ~]$ mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
+
+{{< command-line >}}
+mysql --user=stroomstats --host=stroomdb0.strmdev00.org --port=3308 --password
+{{< /command-line >}}
+
 Enter password:  <__ Stroompassword2@ __>
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 5.7.18 MySQL Community Server (GPL)
 
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+{{< sql-shell >}}
+(out) Welcome to the MySQL monitor.  Commands end with ; or \g.
+(out) Your MySQL connection id is 9
+(out) Server version: 5.7.18 MySQL Community Server (GPL)
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+(out) Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+(out) Oracle is a registered trademark of Oracle Corporation and/or its
+(out) affiliates. Other names may be trademarks of their respective
+(out) owners.
 
-mysql> use statistics;
-Database changed
-mysql> quit
-Bye
-[burn@stroomp00 ~]$ 
-```
+(out) Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+use statistics;
+(out) Database changed
+quit
+(out) Bye
+{{< /sql-shell >}}
 
 If there are any errors, correct them.
 
 ## Get the Software
 The following will gain the identified, in this case release `5.0-beta.18`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 App=5.0-beta.18
 wget https://github.com/gchq/stroom/releases/download/v${App}/stroom-app-distribution-${App}-bin.zip
 unzip stroom-app-distribution-${App}-bin.zip
 chmod 750 stroom-app
-```
+{{< /command-line >}}
 
 ## Configure the Software
 We install the application via
 
-```bash
+{{< command-line >}}
 stroom-app/bin/setup.sh
-```
+{{< /command-line >}}
+
 during which one is prompted for a number of configuration settings. Use the following
 ```
 TEMP_DIR should be set to '/stroomdata/stroom-working-p00' or '/stroomdata/stroom-working-p01' etc depending on the node we are installing on
@@ -170,9 +193,9 @@ then __wait__ until it has initialised the database commenced its Lifecycle task
 completed initialisation.
 
 So as the `stroomuser` start the application with the command
-```bash
+{{< command-line >}}
 stroom-app/bin/start.sh
-```
+{{< /command-line >}}
 Now monitor `stroom-app/instance/logs` for any errors. Initially you will see the log files `localhost_access_log.YYYY-MM-DD.txt`
 and `catalina.out`. Check them for errors and correct (or post a question). The log4j warnings in `catalina.out` can be ignored.
 Eventually the log file `stroom-app/instance/logs/stroom.log` will appear. Again check it for errors and then wait for the application to
@@ -185,9 +208,9 @@ the nomenclature `events_YYYY-MM-DDThh:mm:ss.msecZ`. This is the directory for s
 directory and its content in a later HOWTO.
 
 If you have a multi node configuration, then once the database has initialised, start the application service on all other nodes. Again with
-```bash
+{{< command-line >}}
 stroom-app/bin/start.sh
-```
+{{< /command-line >}}
 and then monitor the files in its `stroom-app/instance/logs` for any errors. Note that in multi node configurations,
 you will see server.UpdateClusterStateTaskHandler messages in the log file of the form
 ```
@@ -198,7 +221,7 @@ This is ok as we will establish the cluster URL's later.
 ### Multi Node Firewall Provision
 In the case of a multi node Stroom deployment, you will need to open certain ports to allow Tomcat to communicate to all nodes participating
 in the cluster. Execute the following on all nodes. Note you will need to drop out of the `stroomuser` shell prior to execution.
-```bash
+{{< command-line >}}
 exit; # To drop out of the stroomuser shell
 
 sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
@@ -207,6 +230,6 @@ sudo firewall-cmd --zone=public --add-port=8009/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=9009/tcp --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
-```
+{{< /command-line >}}
 
 In a production environment you would improve the above firewall settings - to perhaps limit the communication to just the Stroom processing nodes.

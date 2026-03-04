@@ -25,24 +25,28 @@ The following assumptions are used in this document.
 ## Confirm Prerequisite Software Installation
 The following command will ensure the prerequisite software has been deployed
 
-```bash
+{{< command-line >}}
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
 sudo yum -y install mariadb
+{{< /command-line >}}
+
 or
+
+{{< command-line >}}
 sudo yum -y install mysql-community-client
-```
+{{< /command-line >}}
 
 Note that we do __NOT__ need the database client software for a Forwarding or Standalone proxy.
 
 ## Get the Software
 The following will gain the identified, in this case release `5.1-beta.10`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 Prx=v5.1-beta.10
 wget https://github.com/gchq/stroom-proxy/releases/download/${Prx}/stroom-proxy-distribution-${Prx}.zip
 unzip stroom-proxy-distribution-${Prx}.zip
-```
+{{< /command-line >}}
 
 ## Configure the Software
 There are three different types of Stroom Proxy
@@ -63,9 +67,9 @@ In our _Store_ Proxy description below, we will use the multi node deployment sc
 
 To install a _Store_ proxy, we run
 
-```bash
+{{< command-line >}}
 stroom-proxy/bin/setup.sh store
-```
+{{< /command-line >}}
 during which one is prompted for a number of configuration settings. Use the following
 ```
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' depending on the node we are installing on)
@@ -89,9 +93,9 @@ In our _Forwarding_ Proxy description below, we will deploy on a host named `str
 
 To install a _Forwarding_ proxy, we run
 
-```bash
+{{< command-line >}}
 stroom-proxy/bin/setup.sh forward
-```
+{{< /command-line >}}
 during which one is prompted for a number of configuration settings. Use the following
 ```
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomfp0' in our example)
@@ -108,9 +112,9 @@ In our _Store_NoDB_ Proxy description below, we will deploy on a host named `str
 
 To install a _Store_NoDB_ proxy, we run
 
-```bash
+{{< command-line >}}
 stroom-proxy/bin/setup.sh store_nodb
-```
+{{< /command-line >}}
 during which one is prompted for a number of configuration settings. Use the following
 ```
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomsap0' in our example)
@@ -124,9 +128,9 @@ At this point, the script will configure the proxy. There should be no errors, b
 
 ## Apache/Mod_JK change
 For all proxy deployments, if we are using Apache's mod_jk then we need to ensure the proxy's AJP connector specifies a 64K packetSize. View the file `stroom-proxy/instance/conf/server.xml` to ensure the Connector element for the AJP protocol has a packetSize attribute of `65536`. For example,
-```bash
+{{< command-line >}}
 grep AJP stroom-proxy/instance/conf/server.xml
-```
+{{< /command-line >}}
 shows
 ```
 <Connector port="9009" protocol="AJP/1.3" connectionTimeout="20000" redirectPort="8443" maxThreads="200" packetSize="65536" />
@@ -135,9 +139,9 @@ This check is required for earlier releases of the Stroom Proxy. Releases since 
 
 ## Start the Proxy Service
 We can now manually start our proxy service. Do so as the `stroomuser` with the command
-```bash
+{{< command-line >}}
 stroom-proxy/bin/start.sh
-```
+{{< /command-line >}}
 Now monitor the directory `stroom-proxy/instance/logs` for any errors. Initially you will see the log files `localhost_access_log.YYYY-MM-DD.txt` and `catalina.out`. Check them for errors and correct (or pose a question to this arena).
 The context path and unknown version warnings in `catalina.out` can be ignored.
 
@@ -198,69 +202,69 @@ Available time based parameters are based on the file's time of processing and a
 For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed `TEST-FEED-V1_0` and two posts to the test feed `FEED-NOVALUE-V9_0`
 
 #### Example A - The default - `${pathId}/${id}`
-```bash
-[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/001.zip
-/stroomdata/stroom-working-sap0/proxy/002.zip
-/stroomdata/stroom-working-sap0/proxy/003.zip
-/stroomdata/stroom-working-sap0/proxy/004.zip
-/stroomdata/stroom-working-sap0/proxy/005.zip
-[stroomuser@stroomsap0 ~]$ 
-```
+{{< command-line "stroomuser" "stroomsap0" >}}
+find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/005.zip
+
+{{< /command-line >}}
 
 #### Example B - A feed orientated structure - `${feed}/${year}/${month}/${day}/${pathId}/${id}`
-```bash
-[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-```
+{{< command-line "stroomuser" "stroomsap0" >}}
+find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/2017/07/23/005.zip
+
+{{< /command-line >}}
 
 #### Example C - A date orientated structure - `${year}/${month}/${day}/${pathId}/${id}`
-```bash
-[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/2017
-/stroomdata/stroom-working-sap0/proxy/2017/07
-/stroomdata/stroom-working-sap0/proxy/2017/07/23
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-```
+{{< command-line "stroomuser" "stroomsap0" >}}
+find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/2017
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/2017/07/23/005.zip
+
+{{< /command-line >}}
 
 #### Example D - A feed orientated structure, but with a bad parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
-```bash
-[stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
-/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
-/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
-[stroomuser@stroomsap0 ~]$ 
-```
+{{< command-line "stroomuser" "stroomsap0" >}}
+find /stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/001.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/002.zip
+(out)/stroomdata/stroom-working-sap0/proxy/TEST-FEED-V1_0/_/23/003.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/004.zip
+(out)/stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
+
+{{< /command-line >}}
 and one would also see a warning for each post in the proxy's log file of the form
 ```
 WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]

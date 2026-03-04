@@ -46,9 +46,9 @@ If no weight is provided then Hugo will use `date`, then `linkTitle`, then the f
 To assist with re-ordering pages you can use the script `change_weights.sh` in the root of the repo.
 E.g. to change the order of the child items of the user-guide section do the following:
 
-```bash
+{{< command-line >}}
 ./change_weight.sh content/en/docs/user-guide
-```
+{{< /command-line >}}
 
 
 ## Date

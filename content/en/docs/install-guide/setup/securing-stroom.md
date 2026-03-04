@@ -36,11 +36,11 @@ Update this for MySQL 8
 
 It is recommended that you run mysql_secure_installation to set a root password and remove test database:
 
-```bash
+{{< command-line >}}
 mysql_secure_installation (provide a root password)
 - Set root password? [Y/n] Y
 - Remove anonymous users? [Y/n] Y 
 - Disallow root login remotely? [Y/n] Y
 - Remove test database and access to it? [Y/n] Y
 - Reload privilege tables now? [Y/n] Y
-```
+{{< /command-line >}}

@@ -119,14 +119,14 @@ Now edit the file `bin/stack/container_versions.env` and edit the following line
 
 {{< cardpane >}}
   {{< card header="Before" >}}
-```bash
+{{< command-line >}}
   STROOM_TAG="v7.0.0"
-```
+{{< /command-line >}}
   {{< /card >}}
   {{< card header="After" >}}
-```bash
+{{< command-line >}}
   STROOM_TAG="v7.0.1"
-```
+{{< /command-line >}}
   {{< /card >}}
 {{< /cardpane >}}
 

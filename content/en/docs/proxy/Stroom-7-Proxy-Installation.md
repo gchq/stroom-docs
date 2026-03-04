@@ -72,7 +72,7 @@ Currently these ports are:
 
 For example on a RHEL/CentOS server using `firewalld` the commands would be as *root* user:
 
-```bash
+{{< command-line >}}
 firewall-cmd --zone=public --permanent --add-port=80/tcp
 firewall-cmd --zone=public --permanent --add-port=443/tcp
 firewall-cmd --zone=public --permanent --add-port=2888/tcp
@@ -84,7 +84,7 @@ firewall-cmd --zone=public --permanent --add-port=8090/tcp
 firewall-cmd --zone=public --permanent --add-port=8091/tcp
 firewall-cmd --zone=public --permanent --add-port=8099/tcp
 firewall-cmd --reload
-```
+{{< /command-line >}}
 
 ### Download and install Stroom v7 (docker version)
 
@@ -110,10 +110,10 @@ The 2 URL values also refer to the stroom server and can be a fully qualified do
 
 e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:
 
-```bash
+{{< command-line >}}
 export STROOM_PROXY_REMOTE_FEED_STATUS_URL="http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1"
 export STROOM_PROXY_REMOTE_FORWARD_URL="http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed"
-```
+{{< /command-line >}}
 
 
 ### To Start Stroom Proxy
@@ -161,10 +161,10 @@ mv jdk-12.0.1 /opt/
 Create a shell script that will define the Java variables	OR add the statements to .bash_profile.
 e.g. vi /etc/profile.d/jdk12.sh
 
-```bash
+{{< command-line >}}
 export JAVA_HOME=/opt/jdk-12.0.1
 export PATH=$PATH:$JAVA_HOME/bin
-```
+{{< /command-line >}}
 {{< command-line "root" "localhost" >}}
 source /etc/profile.d/jdk12.sh
 echo $JAVA_HOME

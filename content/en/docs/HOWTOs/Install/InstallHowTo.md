@@ -107,14 +107,14 @@ The core software list is
 - mariadb or mysql client
 
 Most of the required software are packages available via standard repositories and hence we can simply execute
-```bash
+{{< command-line >}}
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-```
+{{< /command-line >}}
 
 One has a choice of database clients. MariaDB is directly supported by Centos 7 and is simplest to install. This is done via
-```bash
+{{< command-line >}}
 sudo yum -y install mariadb
-```
+{{< /command-line >}}
 
 One could deploy the MySQL database software as the alternative.
 
@@ -123,9 +123,9 @@ Instructions for installation of the MySQL Community repository files can be
 found [here]({{< relref "InstallDatabaseHowTo.md#mysql-community-server-installation" >}}) or on
 the {{< external-link "MySQL Site" "https://dev.mysql.com/downloads/repo/yum" >}}.
 Once you have installed the MySQL repository files, install the client via
-```bash
+{{< command-line >}}
 sudo yum -y install mysql-community-client
-```
+{{< /command-line >}}
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the [Web Service Integration](#web-service-integration "Web Service Integration") section of this document.
@@ -140,9 +140,9 @@ used to initialise SecureRandom is short of entropy. The delay is caused by the 
 a system's entropy.
 
 To view the current available entropy on a Linux system, run the command
-```bash
+{{< command-line >}}
 cat /proc/sys/kernel/random/entropy_avail
-```
+{{< /command-line >}}
 A reasonable value would be over 2000 and a poor value would be below a few hundred.
 
 If you are deploying Stroom onto systems with low available entropy, the start time for the Stroom Proxy can be as high as 5 minutes and for
@@ -150,11 +150,11 @@ the Application as high as 15 minutes.
 
 One software based solution would be to install the {{< external-link "haveged" "http://www.issihosts.com/haveged" >}} service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
 To install execute
-```bash
+{{< command-line >}}
 yum -y install haveged
 systemctl enable haveged
 systemctl start haveged
-```
+{{< /command-line >}}
 
 For background reading in this matter, see {{< external-link "this reference" "https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged" >}} or {{< external-link "this reference" "https://cwiki.apache.org/confluence/display/TOMCAT/HowTo+FasterStartUp" >}}.
 
@@ -178,28 +178,28 @@ Our hierarchy is
 
 #### Creation of Storage Hierarchy
 So, we first create processing user on all nodes as per
-```bash
+{{< command-line >}}
 sudo useradd --system stroomuser
-```
+{{< /command-line >}}
 
 And the relevant commands to create the above hierarchy would be
 - Node: `stroomp00.strmdev00.org`
 
-```bash
+{{< command-line >}}
 sudo mkdir -p /stroomdata/stroom-data-p00 /stroomdata/stroom-index-p00 /stroomdata/stroom-working-p00 /stroomdata/stroom-working-p00/proxy
 sudo mkdir -p /stroomdata/stroom-data-p01  # So that this node can mount stroomp01's data directory
 sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
-```
+{{< /command-line >}}
 
 - Node: `stroomp01.strmdev00.org`
 
-```bash
+{{< command-line >}}
 sudo mkdir -p /stroomdata/stroom-data-p01 /stroomdata/stroom-index-p01 /stroomdata/stroom-working-p01 /stroomdata/stroom-working-p01/proxy
 sudo mkdir -p /stroomdata/stroom-data-p00  # So that this node can mount stroomp00's data directory
 sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
-```
+{{< /command-line >}}
 
 #### Deployment of NFS to share Stroom Storage
 
@@ -241,10 +241,10 @@ We will now check that the installation and web services integration has worked.
 ### Sanity firewall check
 To ensure you have the firewall correctly set up, the following command
 
-```bash
+{{< command-line >}}
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
-```
+{{< /command-line >}}
 
 should result in
 
@@ -267,9 +267,9 @@ public (active)
 ### Test Posting of data to the Stroom service
 You can test the data posting service with the command
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 
 which **WILL** result in an error as we have not configured the Stroom Application as yet. The error should look like
 
@@ -383,11 +383,11 @@ testing purposes `TEST-FEED-V1_0` is sufficient.
 __NOTE:__ Before testing our new feed, we should restart both our Stroom application services so that any volume changes are
 propagated. This can be achieved by simply running
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 bin/StopServices.sh
 bin/StartServices.sh
-```
+{{< /command-line >}}
 
 on both nodes. It is suggested you first log out of Stroom, if you are currently logged in and you should monitor the Stroom
 application logs to ensure it has successfully restarted. Remember to use the `T` and `Tp` bash aliases we set up.
@@ -395,9 +395,9 @@ application logs to ensure it has successfully restarted. Remember to use the `T
 For this test, we will send the contents of /etc/group to our test feed. We will also send the file from the cluster's database
 machine. The command to send this file is
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomp.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 
 We will test a number of features as part of our installation test. These are
 - simple post of data
@@ -436,9 +436,9 @@ The core software list is
 - zip
 
 Most of the required software are packages available via standard repositories and hence we can simply execute
-```bash
+{{< command-line >}}
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-```
+{{< /command-line >}}
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the
@@ -455,16 +455,16 @@ You will note that these HOWTOs use a consistent storage nomenclature for simpli
 
 We create the processing user, as per
 
-```bash
+{{< command-line >}}
 sudo useradd --system stroomuser
-```
+{{< /command-line >}}
 
 then create the storage hierarchy with the commands
-```bash
+{{< command-line >}}
 sudo mkdir -p /stroomdata/stroom-working-fp0/proxy
 sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
-```
+{{< /command-line >}}
 
 ## Stroom Forwarding Proxy Installation
 
@@ -505,9 +505,9 @@ already established - `TEST-FEED-V1_0`.
 For this test, we will send the contents of /etc/group to our test feed - `TEST-FEED-V1_0`. It doesn't matter from which host we send the file from.
 The command to send file is
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomfp0.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 Before testing, it is recommended you set up to monitor the Stroom proxy logs on the central server as well as on the Forwarding Proxy server.
 
 Follow the steps in the [Forwarding Proxy Data Posting Tests]({{< relref "InstallTestingHowTo.md#stroom-forwarding-proxy-testing" >}}) section
@@ -531,9 +531,9 @@ The core software list is
 - zip
 
 Most of the required software are packages available via standard repositories and hence we can simply execute
-```bash
+{{< command-line >}}
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
-```
+{{< /command-line >}}
 
 Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
 described in the
@@ -550,16 +550,16 @@ You will note that these HOWTOs use a consistent storage nomenclature for simpli
 
 We create the processing user, as per
 
-```bash
+{{< command-line >}}
 sudo useradd --system stroomuser
-```
+{{< /command-line >}}
 
 then create the storage hierarchy with the commands
-```bash
+{{< command-line >}}
 sudo mkdir -p /stroomdata/stroom-working-sap0/proxy
 sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
-```
+{{< /command-line >}}
 
 ## Stroom Standalone Proxy Installation
 
@@ -597,9 +597,9 @@ To complete the installation process we will test that we can send data to the s
 For this test, we will send the contents of /etc/group to our test feed - `TEST-FEED-V1_0`. It doesn't matter from which host we send the file from.
 The command to send file is
 
-```bash
+{{< command-line >}}
 curl -k --data-binary @/etc/group "https://stroomsap0.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
-```
+{{< /command-line >}}
 Before testing, it is recommended you set up to monitor the Standalone Proxy logs.
 
 Follow the steps in the [Standalone Proxy Data Posting Tests]({{< relref "InstallTestingHowTo.md#stroom-standalone-proxy-testing" >}})
@@ -616,16 +616,16 @@ node we will add is `stroomp02.strmdev00.org`.
 
 Connect to the Stroom database as the administrative (root) user, via the command
 
-```bash
+{{< command-line >}}
 sudo mysql --user=root -p
-```
+{{< /command-line >}}
 
 and at the `MariaDB [(none)]>` or `mysql> ` prompt enter
 
-```bash
+{{< command-line >}}
 grant all privileges on stroom.* to stroomuser@stroomp02.strmdev00.org identified by 'Stroompassword1@';
 quit;
-```
+{{< /command-line >}}
 
 ## Prerequisite Software Installation
 Certain software packages are required for either the Stroom Proxy or Stroom Application to run.
@@ -639,10 +639,10 @@ The core software list is
 - mariadb or mysql client
 
 Most of the required software are packages available via standard repositories and hence we can simply execute
-```bash
+{{< command-line >}}
 sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
 sudo yum -y install mariadb
-```
+{{< /command-line >}}
 In the above instance, the database client choice is MariaDB as it is directly supported by Centos 7. One could deploy the MySQL
 database software as the alternative. If you have chosen a different database for the already deployed Stroom Cluster then you
 should use that one. See [earlier](#mysqlclientinstall) in this document on how to install the MySQL Community client.
@@ -660,20 +660,20 @@ To maintain our Storage Scenario them, the scenario for this node is
 
 #### Creation of Storage Hierarchy
 So, we first create processing user on our new node as per
-```bash
+{{< command-line >}}
 sudo useradd --system stroomuser
-```
+{{< /command-line >}}
 
 then create the storage via
 
 
-```bash
+{{< command-line >}}
 sudo mkdir -p /stroomdata/stroom-data-p02 /stroomdata/stroom-index-p02 /stroomdata/stroom-working-p02 /stroomdata/stroom-working-p02/proxy
 sudo mkdir -p /stroomdata/stroom-data-p00  # So that this node can mount stroomp00's data directory
 sudo mkdir -p /stroomdata/stroom-data-p01  # So that this node can mount stroomp01's data directory
 sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
-```
+{{< /command-line >}}
 
 As we need to share this new nodes __permanent data__ directories to the existing nodes in the Cluster, we need to
 create mount point directories on our existing nodes in addition to deploying NFS.
@@ -681,19 +681,19 @@ create mount point directories on our existing nodes in addition to deploying NF
 So we execute on
 - Node: `stroomp00.strmdev00.org`
 
-```bash
+{{< command-line >}}
 sudo mkdir -p /stroomdata/stroom-data-p02
 sudo chmod 750 /stroomdata/stroom-data-p02
 sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
-```
+{{< /command-line >}}
 
 and on
 - Node: `stroomp01.strmdev00.org`
-```bash
+{{< command-line >}}
 sudo mkdir -p /stroomdata/stroom-data-p02
 sudo chmod 750 /stroomdata/stroom-data-p02
 sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
-```
+{{< /command-line >}}
 #### Deployment of NFS to share Stroom Storage
 
 We will use NFS to cross mount the _permanent data_ directories. That is
@@ -737,25 +737,25 @@ As we are a cluster, we use the same certificate as the other nodes. Thus we nee
 So, on `stroomp00.strmdev00.org`, we replicate the directory ~stroomuser/stroom-jks to our new node. That is, tar it up, copy the tar file to
 stroomp02 and untar it. We can make use of the other node's mounted file system.
 
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
 mv stroom-jks.tar /stroomdata/stroom-data-p02
-```
+{{< /command-line >}}
 then on our new node (`stroomp02.strmdev00.org`) we extract the data.
-```bash
+{{< command-line >}}
 sudo -i -u stroomuser
 cd ~stroomuser
 tar xf /stroomdata/stroom-data-p02/stroom-jks.tar && rm -f /stroomdata/stroom-data-p02/stroom-jks.tar
-```
+{{< /command-line >}}
 
 Now ensure protection, ownership and SELinux context for these files by running
-```bash
+{{< command-line >}}
 chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
 chcon -R --reference /etc/pki ~stroomuser/stroom-jks
-```
+{{< /command-line >}}
 
 This HOWTO is designed to deploy Apache's httpd web service as a front end (https) (to the user) and
 Apache's mod_jk as the interface between Apache and the Stroom tomcat applications. The instructions
@@ -777,10 +777,10 @@ and [later](#testing-our-new-node-installation "Integration Tests") perform comp
 
 To ensure you have the firewall correctly set up, the following command
 
-```bash
+{{< command-line >}}
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
-```
+{{< /command-line >}}
 
 should result in
 

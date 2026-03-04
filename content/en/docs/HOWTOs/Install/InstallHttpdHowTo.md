@@ -33,15 +33,15 @@ To deploy Stroom using Apache's httpd web service as a front end (https) and Apa
 
 
 Most of the required software are packages available via standard repositories and hence we can simply execute
-```bash
+{{< command-line >}}
 sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
 sudo yum -y install tomcat-native
-```
+{{< /command-line >}}
 The reason for the distinct `tomcat-native` installation is that this package is from the {{< external-link "EPEL" "https://fedoraproject.org/wiki/EPEL" >}} repository so it must be installed first.
 
 For the Apache mod_jk Tomcat connector we need to acquire a recent {{< external-link "release" "https://tomcat.apache.org/connectors-doc/" >}} and install it.
 The following commands achieve this for the 1.2.42 release.
-```bash
+{{< command-line >}}
 sudo bash
 cd /tmp
 V=1.2.42
@@ -52,7 +52,7 @@ cd tomcat-connectors-*-src/native
 make && make install
 cd /tmp
 rm -rf tomcat-connectors-*-src
-```
+{{< /command-line >}}
 
 Although you could remove the gcc compiler at this point, we leave it installed as one _should_ continue to upgrade the Tomcat Connectors to later releases.
 
@@ -63,7 +63,7 @@ If the Apache httpd service is 'fronting' a Stroom user interface, we should cre
 the root of the node will present the Stroom UI. This is not needed if you are deploying a Forwarding or Standalone Stroom proxy.
 
 ### Forwarding file for Stroom User Interface deployments
-```bash
+{{< command-line >}}
 F=/var/www/html/index.html
 printf '<html>\n' > ${F}
 printf '<head>\n' >> ${F}
@@ -71,15 +71,15 @@ printf '  <meta http-equiv="Refresh" content="0; URL=stroom"/>\n' >> ${F}
 printf '</head>\n' >> ${F}
 printf '</html>\n' >> ${F}
 chmod 644 ${F}
-```
+{{< /command-line >}}
 
 Remember, deploy this file on all nodes running the Stroom Application.
 
 ### Httpd.conf Configuration
 We modify `/etc/httpd/conf/httpd.conf` on all nodes, but backup the file first with
-```bash
+{{< command-line >}}
 cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.ORIG
-```
+{{< /command-line >}}
 
 Irrespective of the Stroom scenario being deployed - Multi Node Stroom (Application and Proxy), single Standalone Stroom Proxy or single Forwarding
 Stroom Proxy, the configuration of the `/etc/httpd/conf/httpd.conf` file is the same.
@@ -689,7 +689,7 @@ For a Stroom Multi node Application and Proxy server,
 
 - we configure `/etc/httpd/conf.d/mod_jk.conf` as per
 
-```bash
+{{< command-line >}}
 F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' > ${F}
 printf 'JkWorkersFile conf/workers.properties\n' >> ${F}
@@ -714,13 +714,13 @@ printf '  Deny from all\n' >> ${F}
 printf '  Allow from 127.0.0.1\n' >> ${F}
 printf '</Location>\n' >> ${F}
 chmod 640 ${F}
-```
+{{< /command-line >}}
 
 - we configure `/etc/httpd/conf/workers.properties` as per
 
 Since we are deploying for a cluster with load balancing, we need a _workers.properties_ file per node. Executing the following will result in two files (_workers.properties.stroomp00_ and _workers.properties.stroomp01_) which should be deployed to their respective servers.
 
-```bash
+{{< command-line >}}
 cd /tmp
 # Set the list of nodes
 Nodes="stroomp00.strmdev00.org stroomp01.strmdev00.org"
@@ -764,18 +764,18 @@ for oN in ${Nodes}; do
   ) > workers.properties.${_n}
   chmod 640 workers.properties.${_n}
 done
-```
+{{< /command-line >}}
 
 Now depending in the node you are on, copy the relevant workers.properties.nodename file to /etc/httpd/conf/workers.properties. The following command makes this simple.
 
-```bash
+{{< command-line >}}
 cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
-```
+{{< /command-line >}}
 
 If you were to add an additional node to a multi node cluster, say the node `stroomp02.strmdev00.org`, then you would re-run the above script with
-```bash
+{{< command-line >}}
 Nodes="stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org"
-```
+{{< /command-line >}}
 then redeploy all three files to the respective servers. Also note, that for the newly created workers.properties files for the existing nodes to
 take effect you will need to restart the Apache Httpd service on both nodes.
 
@@ -793,7 +793,7 @@ For a Stroom Standalone or Forwarding proxy,
 
 - we configure `/etc/httpd/conf.d/mod_jk.conf` as per
 
-```bash
+{{< command-line >}}
 F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' > ${F}
 printf 'JkWorkersFile conf/workers.properties\n' >> ${F}
@@ -814,13 +814,13 @@ printf '  Deny from all\n' >> ${F}
 printf '  Allow from 127.0.0.1\n' >> ${F}
 printf '</Location>\n' >> ${F}
 chmod 640 ${F}
-```
+{{< /command-line >}}
 
 - we configure `/etc/httpd/conf/workers.properties` as per
 
 The variable **N** in the script below is to be the node name (not FQDN) of your sever (i.e. stroomfp0).
 
-```bash
+{{< command-line >}}
 N=stroomfp0
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -834,7 +834,7 @@ printf 'worker.local_proxy.balance_workers=%s_proxy\n' ${N} >> ${F}
 printf 'worker.local_proxy.sticky_session=1\n' >> ${F}
 printf 'worker.status.type=status\n' >> ${F}
 chmod 640 ${F}
-```
+{{< /command-line >}}
 
 #### Mod_JK Single Node Application and Proxy Deployment
 
@@ -842,7 +842,7 @@ For a Stroom Single node Application and Proxy server,
 
 - we configure `/etc/httpd/conf.d/mod_jk.conf` as per
 
-```bash
+{{< command-line >}}
 F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' > ${F}
 printf 'JkWorkersFile conf/workers.properties\n' >> ${F}
@@ -867,13 +867,13 @@ printf '  Deny from all\n' >> ${F}
 printf '  Allow from 127.0.0.1\n' >> ${F}
 printf '</Location>\n' >> ${F}
 chmod 640 ${F}
-```
+{{< /command-line >}}
 
 - we configure `/etc/httpd/conf/workers.properties` as per
 
 The variable **N** in the script below is to be the node name (not FQDN) of your sever (i.e. stroomp00).
 
-```bash
+{{< command-line >}}
 N=stroomp00
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -896,29 +896,29 @@ printf 'worker.local_proxy.balance_workers=%s_proxy\n' ${N} >> ${F}
 printf 'worker.local_proxy.sticky_session=1\n' >> ${F}
 printf 'worker.status.type=status\n' >> ${F}
 chmod 640 ${F}
-```
+{{< /command-line >}}
 ## Final host configuration and web service enablement
 Now tidy up the SELinux context for access on all nodes and files via the commands
-```bash
+{{< command-line >}}
 setsebool -P httpd_enable_homedirs on
 setsebool -P httpd_can_network_connect on
 chcon --reference /etc/httpd/conf.d/README /etc/httpd/conf.d/mod_jk.conf
 chcon --reference /etc/httpd/conf/magic /etc/httpd/conf/workers.properties
-```
+{{< /command-line >}}
 
 We also enable both http and https services via the firewall on all nodes. If you don't want to present a http access point,
 then don't enable it in the firewall setting. This is done with
-```bash
+{{< command-line >}}
 firewall-cmd --zone=public --add-service=http --permanent
 firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
 firewall-cmd --zone=public --list-all
-```
+{{< /command-line >}}
 
 Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
 the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in `/var/log/httpd/`.
-```bash
+{{< command-line >}}
 systemctl enable httpd.service
 systemctl start httpd.service
-```
+{{< /command-line >}}
 

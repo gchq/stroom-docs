@@ -51,14 +51,14 @@ This is an example of a StroomQL query.
 It replaces the old dashboard expression 'tree' and table column expressions.
 StroomQL has the advantage of being quicker to construct and is easier to copy from one query to another (whole or in part) as it is just plain text.
 
-```sql
+{{< sql-shell >}}
 FROM "Example View"                           // Define the View to use as the data source
 WHERE Action IN("Search", "View")             // Equivalent to the Dashboard expression tree
 EVAL hour = floorHour(EventTime)              // Define named fields based on function expressions
 EVAL event_count = count()
 GROUP BY Feed, Action                         // Equivalent to Dashboard table column grouping
 SELECT Feed, Action, event_count AS "Count"   // Equivalent to adding columns to a Dashboard table
-```
+{{< /sql-shell >}}
 
 Editing StroomQL queries in the editor is also made easier by the code completion (using `ctrl+space`) to suggest data sources, fields, functions and StroomQL language terms.
 StroomQl queries can be executed easily with `ctrl+enter` or `shift+enter`.
