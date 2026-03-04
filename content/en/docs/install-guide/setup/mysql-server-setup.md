@@ -8,7 +8,7 @@ tags:
 description: >
   
 ---
-    
+
 {{% todo %}}
 This needs updating to MySQL 8. Stroom v7 requires MySQL 8.
 {{% /todo %}}
