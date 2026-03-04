@@ -152,7 +152,7 @@ sudo cp /etc/my.cnf /etc/my.cnf.ORIG
 {{< /command-line >}}
 then setup `/etc/my.cnf` as per
 
-{{< command-line >}}
+```bash
 sudo bash
 F=/etc/my.cnf
 printf '[mysqld_multi]\n' > ${F}
@@ -183,14 +183,14 @@ printf '\n' >> ${F}
 printf '# Disabling symbolic-links is recommended to prevent assorted security risks\n' >> ${F}
 printf 'symbolic-links=0\n' >> ${F}
 exit # To exit the root shell
-{{< /command-line >}}
+```
 We also need to associate the ports with the `mysqld_port_t` SELinux context as per
 {{< command-line >}}
 sudo semanage port -a -t mysqld_port_t -p tcp 3307
 sudo semanage port -a -t mysqld_port_t -p tcp 3308
 {{< /command-line >}}
 We next create the systemd service template as per
-{{< command-line >}}
+```bash
 sudo bash
 F=/etc/systemd/system/mysqld@.service
 
@@ -214,7 +214,7 @@ printf '[Install]\n' >> ${F}
 printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 644 ${F}
 exit; # to exit the root shell
-{{< /command-line >}}
+```
 
 We next enable and start both instances via
 {{< command-line >}}
@@ -361,7 +361,7 @@ sudo cp /etc/my.cnf /etc/my.cnf.ORIG
 {{< /command-line >}}
 then setup `/etc/my.cnf` as per
 
-{{< command-line >}}
+```bash
 sudo bash
 F=/etc/my.cnf
 printf '[mysqld_multi]\n' > ${F}
@@ -392,7 +392,7 @@ printf '\n' >> ${F}
 printf '# Disabling symbolic-links is recommended to prevent assorted security risks\n' >> ${F}
 printf 'symbolic-links=0\n' >> ${F}
 exit # To exit the root shell
-{{< /command-line >}}
+```
 
 We also need to associate the ports with the `mysqld_port_t` SELinux context as per
 
@@ -403,7 +403,7 @@ sudo semanage port -a -t mysqld_port_t -p tcp 3308
 
 We next create the systemd service template as per
 
-{{< command-line >}}
+```bash
 sudo bash
 F=/etc/systemd/system/mysqld@.service
 
@@ -427,7 +427,7 @@ printf '[Install]\n' >> ${F}
 printf 'WantedBy=multi-user.target\n' >> ${F}
 chmod 644 ${F}
 exit; # to exit the root shell
-{{< /command-line >}}
+```
 
 We next enable and start both instances via
 

@@ -24,7 +24,7 @@ Any calls to the REST API will have the same permissions that the user has withi
 The following excerpt of shell commands shows how you can get an access/refresh token pair for a user and then later use the refresh token to obtain a new access token.
 It also shows how you can extract the expiry date/time from a token using _jq_.
 
-{{< command-line >}}
+```bash
 get_jwt_expiry() {
   jq \
     --raw-input \
@@ -70,7 +70,7 @@ refresh_token="$( jq -r '.refresh_token' <<< "${response}" )"
 
 echo -e "\nNew access token (expiry $( get_jwt_expiry "${access_token}")):\n${access_token}"
 echo -e "\nNew refresh token (expiry $( get_jwt_expiry "${refresh_token}")):\n${refresh_token}"
-{{< /command-line >}}
+```
 
 The above example assumes that you have created a user called `jbloggs` and a client ID `admin-cli`.
 
@@ -106,7 +106,7 @@ Open the _Credentials_ tab and copy the _Client secret_ for use later.
 
 To create an access token run the following shell commands:
 
-{{< command-line >}}
+```bash
 response="$( \
   curl \
     --silent \
@@ -122,7 +122,7 @@ access_token="$( jq -r '.access_token' <<< "${response}" )"
 refresh_token="$( jq -r '.refresh_token' <<< "${response}" )"
 
 echo -e "\nAccess token:\n${access_token}"
-{{< /command-line >}}
+```
 
 Where `client_secret` is the _Client secret_ that you copied from KeyCloak earlier.
 

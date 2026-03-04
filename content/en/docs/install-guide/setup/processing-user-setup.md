@@ -30,7 +30,7 @@ vi /etc/init.d/stroomuser
 
 Paste/type the following content into vi.
 
-{{< command-line >}}
+```bash
 #!/bin/bash
 #
 # stroomuser       This shell script takes care of starting and stopping
@@ -55,7 +55,7 @@ restart)
 ;;
 esac
 exit 0
-{{< /command-line >}}
+```
 
 Now initialise the script.
 
@@ -76,11 +76,11 @@ vi ~/env.sh
 
 In vi add the following lines.
 
-{{< command-line >}}
+```bash
 # User specific aliases and functions
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
-{{< /command-line >}}
+```
 
 Setup the user's profile to source the env script.
 
@@ -90,10 +90,10 @@ vi ~/.bashrc
 
 In vi add the following lines.
 
-{{< command-line >}}
+```bash
 # User specific aliases and functions
 . ~/env.sh
-{{< /command-line >}}	 
+```
 
 ### Verify Java installation
 

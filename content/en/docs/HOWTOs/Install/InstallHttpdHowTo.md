@@ -689,7 +689,7 @@ For a Stroom Multi node Application and Proxy server,
 
 - we configure `/etc/httpd/conf.d/mod_jk.conf` as per
 
-{{< command-line >}}
+```bash
 F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' > ${F}
 printf 'JkWorkersFile conf/workers.properties\n' >> ${F}
@@ -714,13 +714,13 @@ printf '  Deny from all\n' >> ${F}
 printf '  Allow from 127.0.0.1\n' >> ${F}
 printf '</Location>\n' >> ${F}
 chmod 640 ${F}
-{{< /command-line >}}
+```
 
 - we configure `/etc/httpd/conf/workers.properties` as per
 
 Since we are deploying for a cluster with load balancing, we need a _workers.properties_ file per node. Executing the following will result in two files (_workers.properties.stroomp00_ and _workers.properties.stroomp01_) which should be deployed to their respective servers.
 
-{{< command-line >}}
+```bash
 cd /tmp
 # Set the list of nodes
 Nodes="stroomp00.strmdev00.org stroomp01.strmdev00.org"
@@ -764,7 +764,7 @@ for oN in ${Nodes}; do
   ) > workers.properties.${_n}
   chmod 640 workers.properties.${_n}
 done
-{{< /command-line >}}
+```
 
 Now depending in the node you are on, copy the relevant workers.properties.nodename file to /etc/httpd/conf/workers.properties. The following command makes this simple.
 
@@ -773,9 +773,9 @@ cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
 {{< /command-line >}}
 
 If you were to add an additional node to a multi node cluster, say the node `stroomp02.strmdev00.org`, then you would re-run the above script with
-{{< command-line >}}
+```bash
 Nodes="stroomp00.strmdev00.org stroomp01.strmdev00.org stroomp02.strmdev00.org"
-{{< /command-line >}}
+```
 then redeploy all three files to the respective servers. Also note, that for the newly created workers.properties files for the existing nodes to
 take effect you will need to restart the Apache Httpd service on both nodes.
 
@@ -793,7 +793,7 @@ For a Stroom Standalone or Forwarding proxy,
 
 - we configure `/etc/httpd/conf.d/mod_jk.conf` as per
 
-{{< command-line >}}
+```bash
 F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' > ${F}
 printf 'JkWorkersFile conf/workers.properties\n' >> ${F}
@@ -814,13 +814,13 @@ printf '  Deny from all\n' >> ${F}
 printf '  Allow from 127.0.0.1\n' >> ${F}
 printf '</Location>\n' >> ${F}
 chmod 640 ${F}
-{{< /command-line >}}
+```
 
 - we configure `/etc/httpd/conf/workers.properties` as per
 
 The variable **N** in the script below is to be the node name (not FQDN) of your sever (i.e. stroomfp0).
 
-{{< command-line >}}
+```bash
 N=stroomfp0
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -834,7 +834,7 @@ printf 'worker.local_proxy.balance_workers=%s_proxy\n' ${N} >> ${F}
 printf 'worker.local_proxy.sticky_session=1\n' >> ${F}
 printf 'worker.status.type=status\n' >> ${F}
 chmod 640 ${F}
-{{< /command-line >}}
+```
 
 #### Mod_JK Single Node Application and Proxy Deployment
 
@@ -842,7 +842,7 @@ For a Stroom Single node Application and Proxy server,
 
 - we configure `/etc/httpd/conf.d/mod_jk.conf` as per
 
-{{< command-line >}}
+```bash
 F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' > ${F}
 printf 'JkWorkersFile conf/workers.properties\n' >> ${F}
@@ -867,13 +867,13 @@ printf '  Deny from all\n' >> ${F}
 printf '  Allow from 127.0.0.1\n' >> ${F}
 printf '</Location>\n' >> ${F}
 chmod 640 ${F}
-{{< /command-line >}}
+```
 
 - we configure `/etc/httpd/conf/workers.properties` as per
 
 The variable **N** in the script below is to be the node name (not FQDN) of your sever (i.e. stroomp00).
 
-{{< command-line >}}
+```bash
 N=stroomp00
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -896,7 +896,7 @@ printf 'worker.local_proxy.balance_workers=%s_proxy\n' ${N} >> ${F}
 printf 'worker.local_proxy.sticky_session=1\n' >> ${F}
 printf 'worker.status.type=status\n' >> ${F}
 chmod 640 ${F}
-{{< /command-line >}}
+```
 ## Final host configuration and web service enablement
 Now tidy up the SELinux context for access on all nodes and files via the commands
 {{< command-line >}}

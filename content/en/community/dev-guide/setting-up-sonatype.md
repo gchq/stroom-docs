@@ -33,11 +33,13 @@ gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys <key id>
 gpg2 --keyserver hkp://keyserver.ubuntu.com --send-keys <key id>
 gpg2 --keyserver hkp://pgp.mit.edu --send-keys <key id>
 
-# To display the secret key in base64 form, for use in GH actions
+To display the secret key in base64 form, for use in GH actions:
+
+```bash
 key="$(gpg2 --armor --export-secret-keys <key id> | base64 -w0)"; \
 echo -e "-------\n$key\n-------"; \
 key=""
-{{</ command-line >}}
+```
 
 ## Setting up the gradle build
 

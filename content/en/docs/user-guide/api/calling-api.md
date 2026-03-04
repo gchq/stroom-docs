@@ -54,8 +54,13 @@ curl \
   --insecure \
   --header "Authorization:Bearer ${TOKEN}" \
   https://stroom-fqdn/api/node/v1/info/node1a
-(out){"discoverTime":"2022-02-16T17:28:37.710Z","buildInfo":{"buildDate":"2022-01-19T15:27:25.024677714Z","buildVersion":"7.0-beta.175","upDate":"2022-02-16T09:28:11.733Z"},"nodeName":"node1a","endpointUrl":"http://192.168.1.64:8080","itemList":[{"nodeName":"node1a","active":true,"master":true}],"ping":2}
 {{</ command-line >}}
+
+Example output:
+
+```json
+{"discoverTime":"2022-02-16T17:28:37.710Z","buildInfo":{"buildDate":"2022-01-19T15:27:25.024677714Z","buildVersion":"7.0-beta.175","upDate":"2022-02-16T09:28:11.733Z"},"nodeName":"node1a","endpointUrl":"http://192.168.1.64:8080","itemList":[{"nodeName":"node1a","active":true,"master":true}],"ping":2}
+```
 
 {{% warning %}}
 The `--insecure` argument is used in this example which means certificate verification will not take place.
