@@ -72,9 +72,9 @@ gzip -c uncompressedfile.dat \
 
 When delivering data from a RHEL4 host, an additional header argument must be added to specify the FQDN of the host:
 
-{{< command-line >}}
+```bash
 -H "Hostname:host.being.audited"
-{{< /command-line >}}
+```
 
 The hostname being sent as a header argument may be resolved upon execution using the command `hostname -f`.
 

@@ -115,7 +115,7 @@ curl \
 
 The above steps can be done in one simple step using this bash script:
 
-{{< command-line >}}
+```bash
 #!/usr/bin/env bash
 
 # Script to import a single Stroom content pack ZIP file into Stroom.
@@ -209,4 +209,4 @@ trap cleanup EXIT
 trap cleanup SIGINT
 
 main "$@"
-{{< /command-line >}}
+```

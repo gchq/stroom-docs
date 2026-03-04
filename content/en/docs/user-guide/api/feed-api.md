@@ -56,7 +56,7 @@ You can use `jq` to modify this JSON to add/change any of the document settings.
 The following is an example `bash` script for creating and modifying multiple Feeds.
 It requires `curl` and `jq` to run.
 
-{{< command-line >}}
+```bash
 #!/usr/bin/env bash
 
 set -e -o pipefail
@@ -150,6 +150,6 @@ END
 }
 
 main "$@"
-{{< /command-line >}}
+```
 
 

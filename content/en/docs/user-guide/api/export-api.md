@@ -93,7 +93,7 @@ As Stroom allows characters in document and folder names that would not be suppo
 
 If you need to see the contents of the zip as if viewing it within Stroom you can run this bash script in the root of the extracted zip.
 
-{{< command-line >}}
+```bash
 #!/usr/bin/env bash
 
 shopt -s globstar
@@ -105,7 +105,7 @@ for node_file in **/*.node; do
 
   echo "./${path}/${name}   (./${node_file})"
 done
-{{< /command-line >}}
+```
 
 This will output something like:
 

@@ -20,14 +20,14 @@ When it is ready for publishing then create a version branch from `master`.
 
 When the combined site is built, each version will exist within a directory as siblings of each other, i.e.
 
-{{< command-line >}}
+```bash
 /         # Latest version content lives here (i.e. copy of v8.0)
 /7.0/
 /7.1/
 /7.2/
 /8.0/     # Latest version is also published here but only used by CI build.
 /legacy/
-{{< /command-line >}}
+```
 
 The `master` branch is **NOT** published to GitHub Pages or included in the release artefacts.
 

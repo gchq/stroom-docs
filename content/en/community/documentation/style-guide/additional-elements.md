@@ -360,9 +360,9 @@ root:
 ```
   {{< /card >}}
   {{< card header="bash" >}}
-{{< command-line >}}
+```bash
 echo "${VAR}"
-{{< /command-line >}}
+```
   {{< /card >}}
 {{< /cardpane >}}
 
