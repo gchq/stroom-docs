@@ -32,6 +32,7 @@ gpg2  --list-secret-keys | grep "\[SC\]" | tr -s ' ' | cut -d' ' -f2 | cut -d'/'
 gpg2 --keyserver hkp://pool.sks-keyservers.net --send-keys <key id>
 gpg2 --keyserver hkp://keyserver.ubuntu.com --send-keys <key id>
 gpg2 --keyserver hkp://pgp.mit.edu --send-keys <key id>
+{{</ command-line >}}
 
 To display the secret key in base64 form, for use in GH actions:
 
