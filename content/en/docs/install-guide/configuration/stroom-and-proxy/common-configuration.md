@@ -522,7 +522,7 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.
 {{% /note %}}
 
 {{% note %}}
-The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e relative to `stroom.home` if relative and supporting variable substitution.
+The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to `stroom.home` if relative and supporting variable substitution.
 {{% /note %}}
 
 
@@ -564,8 +564,8 @@ Dropwizard uses {{< external-link "Logback" "https://logback.qos.ch" >}} for app
 All logs in Stroom and Stroom-Proxy apart from the request log are Logback based logs.
 
 Logback uses the concept of _Loggers_ and _Appenders_.
-A _Logger_ is a named thing that that produces log messages.
-An _Appender is an output that a _Logger_ can append its log messages to.
+A _Logger_ is a named thing that produces log messages.
+An _Appender_ is an output that a _Logger_ can append its log messages to.
 Typical _Appenders_ are:
 * File - appends messages to a file that may or may not be rolled.
 * Console - appends messages to `stdout`.
@@ -669,7 +669,7 @@ logging:
 
 Rolling of log files can be done based on size of file or time.
 The `archivedLogFilenamePattern` property controls the rolling behaviour.
-The rolling policy is determined from the filename pattern, e.g a pattern with a minute precision date format will be rolled every minute.
+The rolling policy is determined from the filename pattern, e.g. a pattern with a minute precision date format will be rolled every minute.
 The following is an example of an appender that rolls based on the size of the log file:
 
 ```yaml

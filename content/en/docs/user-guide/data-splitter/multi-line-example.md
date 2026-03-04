@@ -8,7 +8,7 @@ description: >
   
 ---
 
-Example multi line file where records are split over may lines. There are various ways this data could be treated but this example forms a record from data created when some fictitious query starts plus the subsequent query results.
+Example multi line file where records are split over many lines. There are various ways this data could be treated but this example forms a record from data created when some fictitious query starts plus the subsequent query results.
 
 ## Input
 

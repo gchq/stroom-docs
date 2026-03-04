@@ -23,7 +23,7 @@ description: >
 
 * Issue **{{< external-link "#4660" "https://github.com/gchq/stroom/issues/4660" >}}** : Show pipelines and rules on processor and task panes.
 
-* Issue **{{< external-link "#4605" "https://github.com/gchq/stroom/issues/4605" >}}** : Allow embedded queried to be re-run independently.
+* Issue **{{< external-link "#4605" "https://github.com/gchq/stroom/issues/4605" >}}** : Allow embedded queries to be re-run independently.
 
 * Issue **{{< external-link "#4642" "https://github.com/gchq/stroom/issues/4642" >}}** : Show current dashboard selections to help create selection filters.
 

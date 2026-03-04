@@ -19,7 +19,7 @@ description: >
 
 ## Set up the Stroom processing user's environment
 
-To automate the running of a Stroom Proxy or Application service under out Stroom processing user, `stroomuser`, there are a number of configuration files and scripts we need to deploy.
+To automate the running of a Stroom Proxy or Application service under our Stroom processing user, `stroomuser`, there are a number of configuration files and scripts we need to deploy.
 
 We first become the stroomuser
 ```bash
@@ -36,7 +36,7 @@ The STROOM_TMP variable is set to a working area for the Stroom Application to u
 via the ${stroom_tmp} context variable. Note that we only need the STROOM_TMP variable for Stroom Application deployments, so one
 could remove it from the files for a Forwarding or Standalone proxy deployment.
 
-With respect to the working area, we will make use of the [Storage Scenario]({{< relref "InstallHowTo.md#storage-scenario" >}}) we have defined and hence use the directory `/stroomdata/stroom-working-p_nn_` where _nn_ is the hostname node number (i.e 00 for host stroomp00, 01 for host stroomp01, etc).
+With respect to the working area, we will make use of the [Storage Scenario]({{< relref "InstallHowTo.md#storage-scenario" >}}) we have defined and hence use the directory `/stroomdata/stroom-working-p_nn_` where _nn_ is the hostname node number (i.e. 00 for host stroomp00, 01 for host stroomp01, etc.).
 
 So, for the first node, _00_, we run
 ```bash
@@ -125,7 +125,7 @@ printf 'done\n' >> ${F}
 chmod 750 ${F}
 ```
 
-Although one can modify the above for Stroom Forwarding or Standalone Proxy deployments, there is no issue if you use the same scripts. 
+Although one can modify the above for Stroom Forwarding or Standalone Proxy deployments, there is no issue if you use the same scripts.
 
 ## Establish and Deploy Systemd services
 
@@ -157,7 +157,7 @@ chmod 640 ${F}
 
 ### Single Node Scenario with local database
 Should you only have a deployment where the database is on a processing node, use the following service script. The only
-difference is the Stroom dependency on the database. The database dependency below is for the MariaDB database. If you had 
+difference is the Stroom dependency on the database. The database dependency below is for the MariaDB database. If you had
 installed the MySQL Community database, then replace `mariadb.service` with `mysqld.service`.
 (Noting this is done as root)
 ```bash

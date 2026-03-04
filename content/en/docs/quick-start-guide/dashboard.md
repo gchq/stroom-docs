@@ -22,7 +22,7 @@ Dashboards are highly configurable; panes can be added and resized; they can con
 
 ## Configuring the query data source
 
-On the query pane click the settings {{< stroom-icon name="settings.svg" title="Dashboard settings" colour="grey"  >}} button on the top right of the panel.
+On the query pane click the settings {{< stroom-icon name="settings.svg" title="Dashboard settings" colour="grey" >}} button on the top right of the panel.
 
 {{< image "quick-start-guide/dashboard/002_dashboard_query_settings.png" "350" >}}Dashboard settings{{< /image >}}
 
@@ -107,7 +107,7 @@ To rename the _Custom_ column:
 
 Now run the query again to see the results with the added column.
 
- 
+
 ## Add a visualisation
 
 We will add a new pane to the dashboard to display a {{< glossary "Visualisation" >}}.
@@ -119,7 +119,7 @@ A new empty _Visualisation_ pane will be added at the bottom of the Dashboard.
 
 To configure the visualisation:
 
-1. Click on the {{< stroom-icon name="settings.svg" title="Settings" colour="grey"  >}} button at the top right of the _Visualisation_ pane.
+1. Click on the {{< stroom-icon name="settings.svg" title="Settings" colour="grey" >}} button at the top right of the _Visualisation_ pane.
 1. In the _Visualisation_ document picker select  
    {{< stroom-icon "folder.svg">}} _Visualisations_ / {{< stroom-icon "folder.svg">}} _Version3_ / {{< stroom-icon "document/Visualisation.svg" >}} _Bubble_
 1. Click _OK_.

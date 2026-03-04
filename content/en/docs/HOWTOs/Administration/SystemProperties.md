@@ -37,7 +37,7 @@ In the example below we have selected the `stroom.maxStreamSize` property.
 {{< screenshot "HOWTOs/UI-Tools-SystemProperties-01.png" >}}Stroom UI Tools System Properties - Selected Property{{< /screenshot >}}
 
 Now bring up the editing window by _double clicking_ on the selected line.
-At this we will be presented with the
+At this point we will be presented with the
 `Application Property - stroom.maxStreamSize` editing window.
 
 {{< screenshot "HOWTOs/UI-Tools-SystemProperties-02.png" >}}Stroom UI Tools System Properties - Editing Property{{< /screenshot >}}

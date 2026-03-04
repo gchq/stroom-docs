@@ -14,7 +14,7 @@ The data viewer is shown on the _Data_ tab when you open (by double clicking) on
 
 * Feed - to show all data for that feed.
 * Folder - to show all data for all feeds that are descendants of the folder.
-* System Root Folder - to show all data for all feeds that are ancestors of the folder. 
+* System Root Folder - to show all data for all feeds that are descendants of the folder.
 
 In all cases the data shown is dependant on the permissions of the user performing the action and any permissions set on the feeds/folders being viewed.
 
@@ -42,7 +42,7 @@ It may show streams that are 'ancestors' of the selected stream, e.g. showing th
 This pane shows the contents of the stream selected in the Related Streams List.
 The content of a stream will differ depending on the type of stream selected and the child stream types in that stream.
 For more information on the anatomy of streams, see [Streams]({{< relref "./concepts/streams.md" >}}).
-This pane is split into multiple sub tabs depending on the different types of content available. 
+This pane is split into multiple sub tabs depending on the different types of content available.
 
 
 #### Info Tab
@@ -90,17 +90,17 @@ This sub-tab works in exactly the same way as the Data Preview sub-tab except th
 ### Source View
 
 The source view is accessed by clicking the _View Source_ link on the _Data Preview_ sub-tab or from the `data()` dashboard column function.
-Its purpose is to display the selected child stream (data, context, meta, etc) or record in the form in which it was received, i.e un-formatted.
+Its purpose is to display the selected child stream (data, context, meta, etc.) or record in the form in which it was received, i.e. un-formatted.
 
 The Data Preview tab shows a '[progress](#data-progress-bar)' bar to indicate what portion of the content is visible in the editor.
 
 In order to navigate through the data you have three options
 
-* Click on the 'progress bar' to show a porting of the data starting from the position clicked on.
+* Click on the 'progress bar' to show a portion of the data starting from the position clicked on.
 * Page through the data using the navigation controls.
 * Select a source range to display using the Set Source Range dialog which is accessed by clicking on the _Lines_ or _Chars_ links.
   This allows you to precisely select the range to display.
-  You can either specify a range with a just start point or a start point and some form of size/position limit.
+  You can either specify a range with just a start point or a start point and some form of size/position limit.
   If no limit is specified then Stroom will limit the data shown to the configured maximum (`stroom.ui.source.maxCharactersPerFetch`).
   If a range is entered that is too big to display Stroom will limit the data to its maximum.
 

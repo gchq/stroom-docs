@@ -10,7 +10,7 @@ description: >
 
 This page provides a step by step guide to getting PKI authentication working correctly for Unix hosts so as to be able to sign deliveries from cURL.
 
-First make sure you have a copy of your organisations CA certificate.
+First make sure you have a copy of your organisation's CA certificate.
 
 Check that the CA certificate works by running the following command:
 
@@ -36,7 +36,7 @@ then one-way SSL authentication using the CA certificate is successful.
 
 The VBScript file to check windows certificates is `check-certs.vbs` (TODO link).
 
-#Final Testing
+## Final Testing
 
 Once one-way authentication has been tested, two-way authentication should be configured:
 
@@ -60,13 +60,13 @@ HTTP Status 406 - Stroom Status 100 - Feed must be specified
 
 then two-way SSL authentication is successful.
 
-#Final Tidy Up
+## Final Tidy Up
 
 The files `ca.crt` and `hostname.pem` are the only files required for two-way authentication and should be stored permanently on the server; all other remaining files may be deleted or backed up if required.
 
-#Certificate Expiry
+## Certificate Expiry
 
-PKI certificates expire after 2 years.  To check the expiry date of a certificate, run the following command:
+PKI certificates expire after 2 years. To check the expiry date of a certificate, run the following command:
 
 ```bash
 openssl x509 -in /path/to/certificate.pem -noout -enddate

@@ -8,10 +8,10 @@ tags:
   - content
 description: >
   A reference of all the different types of Document that can be created in Stroom.
-  A Document is user created piece of content in Stroom that is visible in the explorer tree.
+  A Document is a user-created piece of content in Stroom that is visible in the explorer tree.
 ---
 
-<!-- 
+<!--
 ********************************************************************************
 
                            ****** IMPORTANT ******
@@ -140,7 +140,7 @@ Documents relating to the processing of data.
 * Type: `Feed`
 
 The {{< glossary "Feed" >}} is Stroom's way of compartmentalising data that has been ingested or created by a [Pipeline]({{< relref "#pipeline" >}}).
-Ingested data must specify the Feed that is it destined for.
+Ingested data must specify the Feed that it is destined for.
 
 The Feed Document defines the character encoding for the data in the Feed, the type of data that will be received into it (e.g. `Raw Events`) and optionally a Volume Group to use for data storage.
 The Feed Document can also control the ingest of data using its `Feed Status` property and be used for viewing data that belonging to that feed.
@@ -182,7 +182,7 @@ This Document is used in the configuration of the {{< pipe-elm "ElasticIndexingF
 * Icon: {{< stroom-icon "document/Index.svg" >}}
 * Type: `Index`
 
-Lucene Index is the standard built-in index within Stroom and is one of may data sources.
+Lucene Index is the standard built-in index within Stroom and is one of many data sources.
 An index is like a catalog in a library and provides a very fast way to access documents/records/events when searching using fields that have been indexed.
 The index stores the field values and pointers to the document they came from (the Stream and Event IDs).
 Data can be indexed using multiple indexes to allow fast access in different ways.
@@ -288,7 +288,7 @@ The analytic can be processed in different ways:
 
 The Dashboard Document defines a data querying and visualisation dashboard.
 The dashboard is highly customisable to allow querying of many different data sources of different types.
-Queried data can be displayed in tabular form, visualised using interactive charts/graphs or render as HTML.
+Queried data can be displayed in tabular form, visualised using interactive charts/graphs or rendered as HTML.
 
 The Dashboard Doc can either be used for ad-hoc querying/visualising of data, to construct a dashboard for others to view or to just view an already constructed dashboard.
 Dashboards can be parameterised so that all queries on the dashboard are displaying data for the same user, for example.
@@ -318,7 +318,7 @@ The criteria is defined using a StroomQL query.
 * Icon: {{< stroom-icon "document/View.svg" >}}
 * Type: `View`
 
-A view is an abstraction over a data source (such as a [Lucene Indexe]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
+A view is an abstraction over a data source (such as a [Lucene Index]({{< relref "#lucene-index" >}})) and optionally an [extraction pipeline]({{< relref "docs/user-guide/pipelines/recipies#search-extraction" >}}).
 Views provide a much simpler way for users to query data as the user can simply query against the View without any knowledge of the underlying data source or extraction of that data.
 
 

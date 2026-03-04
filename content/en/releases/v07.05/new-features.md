@@ -67,7 +67,7 @@ For a full list of changes see [Change Log]({{< relref "./change-log" >}}).
 * The column _Build Version_ has been added to show the version of Stroom that the node is running.
   This is to highlight any nodes running the wrong version.
 
-* The column _Up Date_ have been added to the Nodes screen to show the time that Stroom was last booted on that node.
+* The column _Up Date_ has been added to the Nodes screen to show the time that Stroom was last booted on that node.
 
 * The _Ping_ column screen has been changed so an enabled node with no ping stands out while a disabled node does not.
 
@@ -109,7 +109,7 @@ If there is an authentication error during user login, e.g. the account is disab
 
 The content of the lower part of the dialog is configurable via the property `stroom.ui.authErrorMessage`.
 This property accepts HTML content.
-This the message to contain details of how to contact the appropriate Stroom admin team.
+This allows the message to contain details of how to contact the appropriate Stroom admin team.
 
 
 ### Queries

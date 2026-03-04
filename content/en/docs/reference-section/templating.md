@@ -22,8 +22,8 @@ When a template is rendered, Stroom will populate the [template context]({{< rel
 
 ## Basic Templating Syntax
 
-Jinja templating is very powerful and has a rich language so this is quick guide to the very basic features.
-See the full syntax here {{< external-link "here" "https://developers.hubspot.com/docs/cms/hubl" >}}.
+Jinja templating is very powerful and has a rich language so this is a quick guide to the very basic features.
+See the full syntax {{< external-link "here" "https://developers.hubspot.com/docs/cms/hubl" >}}.
 
 
 ### Data Types
@@ -47,7 +47,7 @@ Dictionary | Object containing key/value pairs, also known as a map.            
 A List/tuple item can be accessed by its index (zero based), e.g. `fruits[0]` returns `Apple`.
 
 A value in a dictionary can be accessed using its key, e.g. `myDict['fruit']` returns `Apple`.
-If the key does not contain special characters (with the exception of `_`, then you can also used this form `myDict.fruit` to get the same value.
+If the key does not contain special characters (with the exception of `_`, then you can also use this form `myDict.fruit` to get the same value.
 
 
 ### Conditions
@@ -128,7 +128,7 @@ Name: Joe Bloggs
 
 #### Conditional Blocks
 
-**Syntax**: 
+**Syntax**:
 ```text
 {% if <value, variable or expression> <condition> <value, variable or expression> %}
   < optional content, expressions or statements>
@@ -163,7 +163,7 @@ This detection has 10 values.
 
 #### Loops
 
-**Syntax**: 
+**Syntax**:
 ```text
 {% for <item name> in <variable or expression> %}
   <content, expressions or statements to repeat for each item>
@@ -244,13 +244,13 @@ Note the use of `-` to prevent an additional line break appearing in the rendere
 
 ### White Space
 
-When JinJava renders the template, each expression or statement is evaluated and then removed or replaced by it's output, but any white space around them, e.g. line breaks remain.
+When JinJava renders the template, each expression or statement is evaluated and then removed or replaced by its output, but any white space around them, e.g. line breaks remain.
 This can result in unwanted line breaks in the output.
 
 To avoid unwanted white space you can add the `-` character to the opening and/or closing tag to strip leading/trailing whitespace outside the block, e.g.
 
-* `{{ ... }}` => `{{- ... -}}` 
-* `{% ... %}` => `{%- ... -%}` 
+* `{{ ... }}` => `{{- ... -}}`
+* `{% ... %}` => `{%- ... -%}`
 
 {{< cardpane >}}
   {{< card header="Template" >}}

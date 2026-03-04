@@ -30,11 +30,11 @@ So Git Repos can be nested, and each will work independently.
 
 Git Repo instances can be created by:
 
-* Pressing the {{< stroom-icon "add.svg" >}} button in the top-left of the Explorer Tree, then 
+* Pressing the {{< stroom-icon "add.svg" >}} button in the top-left of the Explorer Tree, then
 
   {{< stroom-menu "Configuration" "Git Repo" >}}
 
-* Right-clicking on an item within the Explorer Tree and selecting 
+* Right-clicking on an item within the Explorer Tree and selecting
   {{< stroom-menu "New" "Git Repo" >}}
 
 * Importing a Content Pack from the Content Store.

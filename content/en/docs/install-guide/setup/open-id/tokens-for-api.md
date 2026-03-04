@@ -80,7 +80,7 @@ Refreshing the token does not require re-authentication.
 
 ## Creating a service account token
 
-If want another system to call one of Stroom's APIs then it is likely that you will do that using a non-human service account (or processing user account).
+If you want another system to call one of Stroom's APIs then it is likely that you will do that using a non-human service account (or processing user account).
 
 
 ### Creating a new Client ID
@@ -102,7 +102,6 @@ By enabling _Service accounts role_, KeyCloak will create a service account user
 Tokens will be created under this non-human user identity.
 {{% /note %}}
 
-Open the _Credentials_ tab and copy the _Client secret_ for use later.
 Open the _Credentials_ tab and copy the _Client secret_ for use later.
 
 To create an access token run the following shell commands:

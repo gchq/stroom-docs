@@ -16,7 +16,7 @@ description: >
 
 Nginx is the standard web server used by stroom.
 Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
-It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance.
+It can also load balance incoming requests and ensure traffic from the same source is always routed to the same upstream instance.
 Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.
 
 
@@ -24,7 +24,7 @@ Other web servers can be used if required but their installation/configuration i
 
 The standard way of deploying Nginx with stroom running without docker involves running Nginx as part of the _services_ stack.
 See below for details of how to configure it.
-If you want to deploy Nginx without docker then you can but that is outside the scope of the this documentation.
+If you want to deploy Nginx without docker then you can but that is outside the scope of this documentation.
 
 
 ## As part of a docker stack
@@ -44,9 +44,9 @@ The purpose of the various files is as follows:
   * `upstreams.proxy.conf.template` - Defines the upstream host(s) for local stroom-proxy node(s).
 * Location configuration
   * `locations_defaults.conf.template` - Defines some default directives (e.g. headers) for configuring stroom paths.
-  * `proxy_location_defaults.conf.template` - Defines some default directives (e.g. headers) for configuring stroom-proxy paths. 
-  * `locations.proxy.conf.template` - Defines the various paths (e.g/ `/datafeed`) that will be reverse proxied to stroom-proxy hosts.
-  * `locations.stroom.conf.template` - Defines the various paths (e.g/ `/datafeeddirect`) that will be reverse proxied to stroom hosts. 
+  * `proxy_location_defaults.conf.template` - Defines some default directives (e.g. headers) for configuring stroom-proxy paths.
+  * `locations.proxy.conf.template` - Defines the various paths (e.g./ `/datafeed`) that will be reverse proxied to stroom-proxy hosts.
+  * `locations.stroom.conf.template` - Defines the various paths (e.g./ `/datafeeddirect`) that will be reverse proxied to stroom hosts.
 
 
 ### Templating
