@@ -61,7 +61,7 @@ Things get more complicated when considering:
 
 ## Simple Install
 
-Ensure the database is running, create the database and access to it
+Ensure the database is running, then create the database and grant access to it:
 
 {{< command-line "stroomuser" "host" >}}
 mysql --user=root
@@ -176,7 +176,7 @@ chkconfig --list | grep mysql
 (out)mysqld56_stats  0:off   1:off   2:on    3:on    4:on    5:on    6:off
 {{< /command-line >}}
 
-Create a text file will all members of the cluster:
+Create a text file with all members of the cluster:
 
 {{< command-line "root" "node1" >}}
 vi cluster.txt

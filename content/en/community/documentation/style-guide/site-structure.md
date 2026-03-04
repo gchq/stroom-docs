@@ -42,7 +42,7 @@ This is where all the documentation for installing, administering and using stro
 #### News/Releases (`news`)
 
 This is a `blog` type section that contains a page for each new Stroom release and a set of blog posts for Stroom news items.
-The pages in the two sub-sections (`news` and `releases`) are displayed in chronalogical order based on the `date` key in the page's front matter.
+The pages in the two sub-sections (`news` and `releases`) are displayed in chronological order based on the `date` key in the page's front matter.
 
 
 ##### News (`news/news`)
@@ -61,7 +61,7 @@ date: 2021-07-09
 
 Each new minor version release of Stroom should have a file in this directory.
 They should be named in the form `vXX.YY.md` where `XX` is the zero padded major version and `YY` is the zero padded minor version, e.g. `v07.01`.
-The zero padding is to ensure correct ordering by default withouth having to resort to using `weight` in the front matter.
+The zero padding is to ensure correct ordering by default without having to resort to using `weight` in the front matter.
 
 The front matter should be set along these lines:
 
@@ -127,7 +127,7 @@ If you already have a section that you want to add a new child page to then you 
     └── another-page.md
 ```
 
-To add a new page simple create a `.md` file for the new page in the section directory, e.g.
+To add a new page simply create a `.md` file for the new page in the section directory, e.g.
 
 ```text
 └── my-section/
@@ -157,7 +157,7 @@ If you want to control the position of the new page relative to its siblings the
 
 ### Add a new section
 
-If you want to add a sub-section to an existin section then you will already have a structure like this:
+If you want to add a sub-section to an existing section then you will already have a structure like this:
 
 ```text
 └── my-section/

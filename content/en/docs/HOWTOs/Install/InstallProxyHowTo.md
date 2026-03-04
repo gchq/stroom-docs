@@ -11,7 +11,7 @@ description: >
 ---
 
 {{% todo %}}
-This section was written for Stroom-Proxy v5, so is is out of date.
+This section was written for Stroom-Proxy v5, so is out of date.
 {{% /todo %}}
 
 ## Assumptions

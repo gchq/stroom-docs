@@ -24,7 +24,7 @@ To add a new user, move your cursor to the `Tools` item of the __Main Menu__ and
 
 {{< screenshot "HOWTOs/UI-ToolsSubmenu-00.png" >}}Stroom UI Tools sub-menu{{< /screenshot >}}
 
-then move down and select the `Users and Groups` sub-item to be presented with the `Users and Groups` configuration window as seen below.
+Then move down and select the `Users and Groups` sub-item to be presented with the `Users and Groups` configuration window as seen below.
 
 {{< screenshot "HOWTOs/UI-AddUser-00.png" >}}Stroom UI New User - Users and Groups configuration{{< /screenshot >}}
 
@@ -69,4 +69,4 @@ We should close this window by pressing the {{< stroom-btn "Close" >}} button to
 
 {{< screenshot "HOWTOs/UI-AddUser-07.png" >}}Stroom UI New User - User configuration - show user added{{< /screenshot >}}
 
-At this, one can close the `Users and Groups` configuration window by pressing the {{< stroom-btn "Close" >}} button at the bottom right of the window.
+At this point, one can close the `Users and Groups` configuration window by pressing the {{< stroom-btn "Close" >}} button at the bottom right of the window.

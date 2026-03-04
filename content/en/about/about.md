@@ -104,7 +104,7 @@ There are several optional components for different use cases:
 Stroom has a rich and powerful web based user interface that allows users to:
 * Configure and manage the processing pipelines.
 * Develop content for the processing pipelines, e.g. XSLTs, data splitters.
-* Create dashboards to query and visualise the data held in stroom
+* Create dashboards to query and visualise the data held in stroom:
   * Lucene index
   * Solr indexes
   * Statistics store
@@ -129,11 +129,11 @@ Although Stroom is a mature product it is receiving more active development effo
 Work is underway to evolve the existing architecture and add new features:
 
 * Better integration with cloud services e.g. AWS.
-* A rule engine for notifying analysts about particular event scenarios
-* Scalable temporal state storage that could be used by rules or dashboards
-* New visualisations to improve analysis
-* A modularised, micro-service-based architecture
-* Further integration with the Hadoop ecosystem
+* A rule engine for notifying analysts about particular event scenarios.
+* Scalable temporal state storage that could be used by rules or dashboards.
+* New visualisations to improve analysis.
+* A modularised, micro-service-based architecture.
+* Further integration with the Hadoop ecosystem.
 
 ## Developers and Contributors
 

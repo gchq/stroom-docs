@@ -50,7 +50,7 @@ The following shows an example of the directory structure.
 ```
 
 Where images are only used by one page then the directory structure in `/assets` ought to mirror that of the page the images are used in, as shown above.
-If images are used by multiple pages then some other sensible organisation of the images should be used, e.g. `/assets/images/section-x` if they are limited to pages in one section, or `/aaets/images/common` if they are used in multiple sections.
+If images are used by multiple pages then some other sensible organisation of the images should be used, e.g. `/assets/images/section-x` if they are limited to pages in one section, or `/assets/images/common` if they are used in multiple sections.
 
 
 ### Captions
@@ -178,11 +178,11 @@ You should embed a PlantUML image like this, using the `.puml.svg` file (that ma
 ## Using page resources
 
 Images can be located in a {{< external-link "page bundle" "https://gohugo.io/content-management/page-bundles/" >}}.
-This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown contnet.
+This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown content.
 All other items in the directory are page resources that can be used by the page, i.e. image files.
 
 {{% warning %}}
-Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
+Whilst you can structure your site using page resources the preferred approach for stroom-docs is to use the common assets directory.
 This keeps all the images in one place and means pages can have a named markdown file rather than all being called `index.md`.
 {{% /warning %}}
 
@@ -500,7 +500,7 @@ To display a keyboard shortcut (AKA key binding) you can use the `key-bind` shor
 
 **Arguments**:
 
-* `key_bind...` - One or more key bindings, whit keys in the key binding delimited by `,`, `-` or `+`.
+* `key_bind...` - One or more key bindings, with keys in the key binding delimited by `,`, `-` or `+`.
   The name and case of non-alphabet keys will be normalised, e.g. `del` => `Delete`.
   The modifier keys `ctrl`, `shift`, `alt`, `meta` will be placed first and displayed in a consistent order.
 

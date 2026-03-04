@@ -54,7 +54,7 @@ E.g. to change the order of the child items of the user-guide section do the fol
 ## Date
 
 The date should be set/updated to the current date when a page/section is created or modified.
-This data is show at the bottom of the page and tells the reader when the page was last updated.
+This data is shown at the bottom of the page and tells the reader when the page was last updated.
 
 
 ## Tags
@@ -66,7 +66,7 @@ Tag names should conform to the following conventions:
 * The only exception to the case rule is `TODO`, which is always upper case.
 * Singular, i.e. `pipeline` rather than `pipelines`.
 
-Avoid using too many unique tag names as it will make the list of tags in the sidebar to large to be useful.
+Avoid using too many unique tag names as it will make the list of tags in the sidebar too large to be useful.
 When setting a tag on a document consult the list of existing tags to ensure consistency and to see if a more applicable tag already exists.
 
 Add the `TODO` tag to a page when the page is incomplete.

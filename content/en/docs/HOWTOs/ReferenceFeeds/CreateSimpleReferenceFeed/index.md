@@ -20,7 +20,7 @@ For example, an XML Event.
 A Reference Feed is temporal, in that, each time a new set of reference data is loaded into Stroom, the effective date (for the data) is also recorded.
 Thus by using a timestamp field with the subject data, the appropriate batch of reference data can be accessed.
 
-A typical reference data set to support the Stroom XML Event schema might be on that relates to devices.
+A typical reference data set to support the Stroom XML Event schema might be one that relates to devices.
 Such a data set can contain the device logical identifiers such as fully qualified domain name and ip address and their geographical location information such as country, site, building, room and timezone.
 
 The following example will describe how to create a reference feed for such device data.
@@ -133,7 +133,7 @@ This file contains a header and five lines of reference data as per
 When we construct the pipeline for this reference feed, we will see how to make use of the header line.
 
 So, click on the **Choose File** button to bring up a file selector window.
-Navigate within the selector window to the location on your location machine where you have saved the GeoHostReference.log file.
+Navigate within the selector window to the location on your local machine where you have saved the GeoHostReference.log file.
 On clicking **Open** we return to the **Upload** window with the file selected.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-12.png" >}}Upload Reference Data - File chosen{{< /screenshot >}}
@@ -742,7 +742,7 @@ Once you have clicked here a drop-down box will appear as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-61.png" >}}pipeline Processors - Choose Stream Type{{< /screenshot >}}
 
-at which point, select the _Stream Type_ of **Raw Reference**and then press {{< stroom-btn "Ok" >}}.
+at which point, select the _Stream Type_ of **Raw Reference** and then press {{< stroom-btn "Ok" >}}.
 At this point we return to the **Add Processor** selection window to see that the _Raw Reference_ stream type has been added.
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-62.png" >}}pipeline Processors - pipeline criteria set{{< /screenshot >}}

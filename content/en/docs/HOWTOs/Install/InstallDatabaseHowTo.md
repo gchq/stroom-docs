@@ -138,7 +138,7 @@ sudo chown mysql:mysql /var/log/mariadb/mysql-mysqld1.log
 sudo chcon --reference=/var/log/mariadb/mariadb.log /var/log/mariadb/mysql-mysqld1.log
 {{< /command-line >}}
 
-We now initialise the our two database data directories via
+We now initialise our two database data directories via
 
 {{< command-line >}}
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
@@ -223,7 +223,7 @@ sudo systemctl enable mysqld@1
 sudo systemctl start mysqld@0
 sudo systemctl start mysqld@1
 {{< /command-line >}}
-At this we should have both instances running. One should check each instance's log file for any errors.
+At this point, we should have both instances running. One should check each instance's log file for any errors.
 
 #### Secure each database instance
 We secure each database engine by running the `mysql_secure_installation` script. One should accept all defaults, which means the
@@ -341,7 +341,7 @@ sudo chown mysql:mysql /var/log/mysql-mysqld1.log
 sudo chcon --reference=/var/log/mysqld.log /var/log/mysql-mysqld1.log
 {{< /command-line >}}
 
-We now initialise the our two database data directories via
+We now initialise our two database data directories via
 
 {{< command-line >}}
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
@@ -438,7 +438,7 @@ sudo systemctl start mysqld@0
 sudo systemctl start mysqld@1
 {{< /command-line >}}
 
-At this we should have both instances running. One should check each instance's log file for any errors.
+At this point, we should have both instances running. One should check each instance's log file for any errors.
 
 #### Secure each database instance
 
@@ -531,7 +531,7 @@ sudo ln /var/lib/mysql-mysqld1/mysql.sock /var/lib/mysql/mysql.sock
 sudo mysql_secure_installation
 sudo rm /var/lib/mysql/mysql.sock
 {{< /command-line >}}
-and process as before (for when running mysql_secure_installation). At this both database instances should be secure.
+and process as before (for when running mysql_secure_installation). At this point, both database instances should be secure.
 
 ## Create the Databases and Enable access by the Stroom processing users
 
@@ -559,7 +559,7 @@ Thus for the `stroom` database we execute
 {{< command-line >}}
 mysql --user=root --port=3307 --socket=/var/lib/mysql-mysqld0/mysql.sock --password
 {{< /command-line >}}
-and on entering the administrator's password, we arrive at the `MariaDB [(none)]>` or `mysql>` prompt. At this we create the database with
+and on entering the administrator's password, we arrive at the `MariaDB [(none)]>` or `mysql>` prompt. At this point we create the database with
 
 {{< sql-shell >}}
 create database stroom;
@@ -673,7 +673,7 @@ If you wish to rotate a log file manually, log into the database as the administ
 
 ### Initial Database Access
 
-It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, its initial access to the `stroom` database will result in the following attempted sql statements.
+It should be noted that if you monitor the sql_errors.log log file on a new Stroom deployment, when the Stroom Application first starts, its initial access to the `stroom` database will result in the following attempted sql statements.
 
 {{< sql-shell >}}
 (out)2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC

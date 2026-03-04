@@ -20,7 +20,7 @@ Search results are stored on disk rather than in memory during creation to reduc
 
 
 ### Modularisation
-Separation of Stroom components into discreet modules that have clear APIs and separate persistence where required to reduce coupling.
+Separation of Stroom components into discrete modules that have clear APIs and separate persistence where required to reduce coupling.
 
 
 ### Modernisation of libraries
@@ -34,7 +34,7 @@ Search results in dashboards can be annotated to provide status and notes relati
 ## v7.1
 
 ### Elastic search integration
-Elastic search can be used for indexing data. Data can be sent to an elastic index via a pipeline element and an elastic index can be queried from a Stroom dashboard.
+Elasticsearch can be used for indexing data. Data can be sent to an Elasticsearch index via a pipeline element and an Elasticsearch index can be queried from a Stroom dashboard.
 
 
 ### Interactive Visualisations

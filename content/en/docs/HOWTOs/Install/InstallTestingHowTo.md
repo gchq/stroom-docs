@@ -275,7 +275,7 @@ in _server.DataFeedServiceImpl_ events in both log files. The Stroom application
 
 In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
-`strooomp00:`
+`stroomp00:`
 
 ```text
 2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK

@@ -79,7 +79,7 @@ curl \
 
 {{% /warning %}}
 
-You can either call the API via Nginx (or similar reverse proxy) at `https://stroom-fddn/api/some/path` or if you are making the call from one of the stroom hosts you can go direct using `http://localhost:8080/api/some/path`. The former is preferred as it is more secure.
+You can either call the API via Nginx (or similar reverse proxy) at `https://stroom-fqdn/api/some/path` or if you are making the call from one of the stroom hosts you can go direct using `http://localhost:8080/api/some/path`. The former is preferred as it is more secure.
 
 
 ### Requests With a Body

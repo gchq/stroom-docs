@@ -74,7 +74,7 @@ quit;
 ## Local configuration file
 
 When running stroom in an IDE you need to have a local configuration file to allow you to change settings locally without affecting the repository.
-The local configuration file live in the root of the _Stroom_ repository `./local.yml`.
+The local configuration file lives in the root of the _Stroom_ repository `./local.yml`.
 
 To create a default version of this file run this script from within the root of the stroom git repository.
 
@@ -84,7 +84,7 @@ To create a default version of this file run this script from within the root of
 
 This will create `./local.yml` using `stroom-app/dev.yml` as a template.
 So that you can run a multi-node cluster it will also create `./local2.yml` and `./local3.yml` as well.
-These files are not source controlled so you can make any changes you like to them, e.g. setting log levels or altering stroom property [property values]({{< relref "configuring-stroom" >}})  values.
+These files are not source controlled so you can make any changes you like to them, e.g. setting log levels or altering [property values]({{< relref "configuring-stroom" >}}).
 
 
 ## stroom-resources
@@ -123,7 +123,7 @@ These layers will be cached which will speed up future builds.
 The Junit integration tests that need a database can either be run against the local MySQL (i.e. `stroom-all-dbs`) or an embedded MySQL instance.
 
 Configuring the database used can be done with the JVM argument `-DuseEmbeddedMySql=false`, which can be set in _Run/Debug Configurations_ => _Edit configuration templates..._ => _JUnit_ => _VM options_ in Intellij.
-False will use your local MySQL instance, true with use the embedded one.
+False will use your local MySQL instance, true will use the embedded one.
 The CI build uses the embedded MySQL.
 
 The pros/cons of using the embedded instance are:
@@ -192,7 +192,7 @@ The following steps for running and debugging Stroom in IDEA assume you have a M
 
 ### JAVA_HOME
 
-Ensure environment variable `JAVA_HOME` is set and points to a valid JDK 15 directory
+Ensure environment variable `JAVA_HOME` is set and points to a valid JDK 15 directory.
 
 {{< command-line "dev" >}}
 export JAVA_HOME=~/.jdks/openjdk-15.0.2
@@ -259,7 +259,7 @@ When this gradle task runs it will echo some instructions for how to set up your
 Once the browser is all set up with the dev mode favorites you can visit Stroom at
 
 * http://localhost:8080 (bypassing Nginx)
-* https//localhost (via Nginx)
+* https://localhost (via Nginx)
 
 Running without Nginx is simpler but can hide problems with the Stroom/Nginx configuration/integration.
 
@@ -310,7 +310,7 @@ To return it to its default value, set it to `"return false;"`.
 If you make any changes to the Java code in `-client` or `-shared` modules then in order for them to be hot loaded into the Javascript code you simply need to refresh the browser.
 This will trigger Super Dev Mode to recompile any changed code.
 
-If you have make significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the _gwtDraftCompile_ and/or _gwtClean_ gradle tasks followed by _gwtSuperDevMode_.
+If you have made significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the _gwtDraftCompile_ and/or _gwtClean_ gradle tasks followed by _gwtSuperDevMode_.
 
 
 ### Debugging GWT UI code

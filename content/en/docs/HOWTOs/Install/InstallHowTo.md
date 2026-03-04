@@ -45,7 +45,7 @@ For simplicity sake, the nodenames used in this HOWTO are geared towards the Mul
 - the first node in our cluster, `stroomp00.strmdev00.org`, also has the CNAME `stroomp.strmdev00.org`
 
 In the case of the Proxy only deployments,
-- the forwarding Stroom proxy nodename is `stoomfp0.strmdev00.org`
+- the forwarding Stroom proxy nodename is `stroomfp0.strmdev00.org`
 - the standalone nodename will be `stroomp00.strmdev00.org`
 
 ## Storage
@@ -360,7 +360,7 @@ set the Cluster URL.
 ### Data Stream Processing
 To enable Stroom to process data, it's
 [Data Processors]({{< relref "/docs/reference-section/jobs#data-processor" >}})
-need to be enabled. There are NOT enabled by default on installation. The following
+need to be enabled. They are NOT enabled by default on installation. The following
 [section]({{< relref "../General/TasksHowTo.md#enable-stream-processors" >}})
 in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.
 
@@ -824,7 +824,7 @@ set the Cluster URL.
 ### Data Stream Processing
 To enable Stroom to process data, it's
 [Data Processors]({{< relref "/docs/reference-section/jobs#data-processor" >}})
-need to be enabled. There are NOT enabled by default on installation. The following
+need to be enabled. They are NOT enabled by default on installation. The following
 [section]({{< relref "../General/TasksHowTo.md#enable-stream-processors-on-new-node" >}})
 in our [Stroom Tasks HowTo]({{< relref "../General/TasksHowTo.md" >}}) shows how to do this.
 
