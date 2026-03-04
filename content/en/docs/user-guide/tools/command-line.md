@@ -161,10 +161,12 @@ Where the named arguments are:
 * `-u` `--user` - The username for the user.
 * `-p` `--password` - The password for the user.
 
-This command is used for changing the password of an existing account in stroom's internal identity provider.
+This command is used for changing the password of an existing account in Stroom's internal identity provider.
 It will also reset all locked/inactive/disabled statuses to ensure the account can be logged into.
-This command should NOT be run if you are using an external identity provider.
-It will fail if the account does not exist.
+
+This command should NOT be run if you are using an external identity provider as the external identity provider is responsible for managing authentication accounts.
+
+This command will fail if the account does not exist, i.e. `create_account` should have already been run or Stroom should be configured with `stroom.security.identity.allowCertificateAuthentication` set to true.
 
 This command will also run any necessary database migrations to ensure it is working with the correct version of the database schema.
 
@@ -189,10 +191,9 @@ Where the named arguments are:
 * `--revokePermission` `USER_OR_GROUP_IDENTIFIER` `PERMISSION_IDENTIFIER` - Revokes the named application permission from the user/group.
 * `--listPermissions` - Lists all the valid permission names.
 
-This command allows you to manage the account permissions within stroom regardless of whether the internal identity provider or an external party is used.
+This command allows you to manage the user permissions within Stroom regardless of whether the internal identity provider or an external party is used.
 A typical use case for this is when using an external identity provider.
-In this instance Stroom has no way of auto creating an admin account when first started so the association between the account on the 3rd party IDP and the stroom user account needs to be made manually.
-To set up an admin account to enable you to login to stroom you can do:
+In this instance Stroom has no way of auto creating an admin user when first started so the association between the account on the 3rd party IDP and the stroom user needs to be made manually.
 
 This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
 It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
@@ -200,6 +201,9 @@ If you want to automate actions that can be performed in the UI then you can mak
 
 {{% warning %}}
 See the [section](#authentication-accounts-and-stroom-users) above about the distinction between authentication accounts and stroom users.
+
+This command does **not** create an account for authentication.
+See [`create_account`]({{< relref "#create_account" >}}) for that.
 {{% /warning %}}
 
 The following is an example command to create a new stroom user `jbloggs`, create a group called `Administrators` with the _Administrator_ application permission and then add `jbloggs` to the `Administrators` group.

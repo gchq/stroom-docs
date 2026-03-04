@@ -10,6 +10,10 @@ description: >
   This HOWTO describes the installation and configuration of the Stroom Proxy software.
 ---
 
+{{% todo %}}
+This section was written for Stroom-Proxy v5, so is is out of date.
+{{% /todo %}}
+
 ## Assumptions
 The following assumptions are used in this document.
 - the user has reasonable RHEL/Centos System administration skills.
