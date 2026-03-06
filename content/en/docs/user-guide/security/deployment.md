@@ -39,7 +39,7 @@ In a multi node Stroom deployment each node communicates with the master node. T
 
 ### Application to Stroom Proxy Communication
 
-The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or it's reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.
+The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or its reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.
 
 ### Admin port
 
@@ -63,11 +63,11 @@ There are several servlets in Stroom that are accessible by certain URLs. Consid
 | Echo | /echo | Block GZIP data posted to the echo servlet is sent back uncompressed. This is a utility servlet for decompression of external data | URL should be secured or not made available |
 | Debug | /debug | Servlet for echoing HTTP header arguments including certificate details | Should be secured in production environments |
 | SessionList | /sessionList | Lists the logged in users | Needs to be secured so that only appropriate users can see who is logged in |
-| SessionResourceStore | /resourcestore/* | Used to create, download and delete temporary files liked to a users session such as data for export | This is secured by using the users session and requiring authentication |
+| SessionResourceStore | /resourcestore/* | Used to create, download and delete temporary files linked to a user's session such as data for export | This is secured by using the users session and requiring authentication |
 
 ## HDFS, Kafka, HBase, Zookeeper
 
-Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be careful controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.
+Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be carefully controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.
 
 ## Content
 

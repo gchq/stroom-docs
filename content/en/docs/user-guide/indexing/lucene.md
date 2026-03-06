@@ -39,7 +39,7 @@ Complete this page.
 
 If a field is _Stored_ then it means the complete field value will be stored in the index.
 This means the value can be retrieved from the index when building search results rather than using the slower [Search Extraction]({{< relref "extraction.md" >}}) process.
-Storing field values comes at the cost of hight storage requirements for the index.
+Storing field values comes at the cost of high storage requirements for the index.
 If storage space is not an issue then storing all fields that you want to return in search results is the optimum.
 
 
@@ -61,7 +61,7 @@ If _Positions_ is selected then Lucene will store the positions of all the field
 ### Analyser types
 
 The Analyser determines how Lucene reads the fields value and extracts tokens from it.
-The choice of Analyser will depend on the date in the field and how you want to search it.
+The choice of Analyser will depend on the data in the field and how you want to search it.
 
 * `Keyword` - Treats the whole field value as one token.
   Useful for things like IDs and post codes.
@@ -69,12 +69,12 @@ The choice of Analyser will depend on the date in the field and how you want to 
 * `Alpha` - Tokenises on any non-letter characters, e.g. `one1 two2 three 3` => `one` `two` `three`.
   Strips non-letter characters.
   Supports the _Case Sensitivity setting_.
-* `Numeric` - 
+* `Numeric` -
 * `Alpha numeric` - Tokenises on any non-letter/digit characters, e.g. `one1 two2 three 3` => `one1` `two2` `three` `3`.
   Supports the _Case Sensitivity setting_.
 * `Whitespace` - Tokenises only on white space.
   Not affected by the _Case Sensitivity setting_, case sensitive.
-* `Stop words` - Tokenises bases on non-letter characters and removes [Stop Words]({{< relref "#stop-words" >}}), e.g. `and`.
+* `Stop words` - Tokenises based on non-letter characters and removes [Stop Words]({{< relref "#stop-words" >}}), e.g. `and`.
   Not affected by the _Case Sensitivity setting_.
   Case insensitive.
 * `Standard` - The most common analyser.

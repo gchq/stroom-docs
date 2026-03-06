@@ -1,16 +1,16 @@
 ---
-title: "Pipeline Recipies"
-linkTitle: "Pipeline Recipies"
+title: "Pipeline Recipes"
+linkTitle: "Pipeline Recipes"
 weight: 10
 date: 2024-02-15
 tags:
   - pipeline
 description: >
-  A set of basic pipeline structure recipies for common use cases.
+  A set of basic pipeline structure recipes for common use cases.
 ---
 
 The following are a basic set of pipeline recipes for doing typical tasks in Stroom.
-Is it not an exhaustive list as the possibilities with Pipelines are vast.
+It is not an exhaustive list, as the possibilities with Pipelines are vast.
 They are intended as a rough guide to get you started with building Pipelines.
 
 ## Data Ingest and Transformation
@@ -50,7 +50,7 @@ They are intended as a rough guide to get you started with building Pipelines.
 
 The same as ingesting CSV data above, except the input JSON is converted into an XML representation of the JSON by the JSONParser.
 The _Normalise_ XSLTFilter will be specific to the format of the JSON being ingested.
-The _Decorate)_ XSLTFilter will likely be identical to that used for the CSV ingest above, demonstrating reuse of pipeline element content.
+The _Decorate_ XSLTFilter will likely be identical to that used for the CSV ingest above, demonstrating reuse of pipeline element content.
 
 {{< pipe >}}
  {{< pipe-elm "Source" >}}
@@ -197,7 +197,7 @@ The {{< pipe-elm "FindReplaceFilter" >}} can be used to remove/replace either a 
 
 ## Raw Streaming
 
-In cases where you want to export the raw (or cooked) data from a feed you can have a very simply pipeline to pipe the source data directly to an appender.
+In cases where you want to export the raw (or cooked) data from a feed you can have a very simple pipeline to pipe the source data directly to an appender.
 This may be so that the raw data can be ingested into another system for analysis.
 In this case the data is being written to disk using a file appender.
 
@@ -233,7 +233,7 @@ The {{< pipe-elm "IndexingFilter">}} reads the `records` XML and loads each one 
 
 **Configured Content**
 
-* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming  `event-logging:3` => `records:2`.
+* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming `event-logging:3` => `records:2`.
 * {{< pipe-elm "SchemaFilter" >}} - XMLSchema `records:2`
 
 The `records:2` XML looks something like this, with each `<data>` element representing an indexed field value.
@@ -332,7 +332,7 @@ The {{< pipe-elm "ElasticIndexingFilter">}} reads the `records` XML and loads ea
 
 **Configured Content**
 
-* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming  `event-logging:3` => `records:2`.
+* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming `event-logging:3` => `records:2`.
 * {{< pipe-elm "SchemaFilter" >}} - XMLSchema `records:2`
 
 
@@ -359,7 +359,7 @@ This is a non-dynamic search extraction pipeline for a Lucene index.
 
 **Configured Content**
 
-* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming  `event-logging:3` => `records:2`.
+* {{< pipe-elm "XSLTFilter">}} - An XSLT {{< stroom-icon "document/XSLT.svg">}} transforming `event-logging:3` => `records:2`.
 
 
 ### Dynamic Lucene Index Extraction
@@ -384,7 +384,7 @@ This is a dynamic search extraction pipeline for a Lucene index.
 
 ### XML to CSV File
 
-An recipe of writing normalised XML events (as produced by an ingest pipeline above) to a file, but in a flat file format like CSV.
+A recipe for writing normalised XML events (as produced by an ingest pipeline above) to a file, but in a flat file format like CSV.
 The {{< pipe-elm "XSLTFilter">}} transforms the events XML into CSV data with XSLT including this:
 
 ```xml
@@ -493,7 +493,7 @@ As an example, the `reference-data:2` XML for mapping userIDs to staff numbers l
 
 ## Statistics
 
-This recipe converts normalised XML data and converts it into statistic events (confirming to the `statistics:4` XMLSchema).
+This recipe takes normalised XML data and converts it into statistic events (conforming to the `statistics:4` XMLSchema).
 Stroom's Statistic Stores {{< stroom-icon "document/StatisticStore.svg">}} are a way to store aggregated counts or averaged values over time periods.
 For example you may want counts of certain types of event, aggregated over fixed time buckets.
 Each XML event is transformed using the {{< pipe-elm "XSLTFilter" >}} to either return no output or a statistic event.

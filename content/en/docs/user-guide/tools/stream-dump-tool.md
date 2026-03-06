@@ -41,6 +41,6 @@ The format parameter can include several replacement variables:
 
 `streamId` - The id of the data being exported.
 
-`pathId` - A incrementing numeric id that creates sub directories when required to ensure no directory ends up containing too many files.
+`pathId` - An incrementing numeric id that creates sub directories when required to ensure no directory ends up containing too many files.
 
-`id` - A incrementing numeric id similar to `pathId` but without sub directories.
+`id` - An incrementing numeric id similar to `pathId` but without sub directories.

@@ -9,7 +9,7 @@ description: >
   Custom XSLT functions available in Stroom.
 ---
 
-<!-- 
+<!--
 TODO
 This file needs splitting up with one file per function.
 These files can be generated from annotations in the Java code (see https://github.com/gchq/stroom/issues/2932)
@@ -98,20 +98,19 @@ The following functions are available to aid your translation:
 * `parent-id()` - Get the parent id of the current input stream this is being processed
 * `part-no()` - The current part within a multi part aggregated input stream (AKA the substream number) (1 based)
 * [`parse-dateTime(String dateTime)`](#parse-dateTime) - Returns the dateTime of a specified ISO 8601 formatted string
-* [`parse-dateTime(String dateTime, String pattern)`](#parse-dateTime) - Returns the dateTime for a specified string using the pattern 
+* [`parse-dateTime(String dateTime, String pattern)`](#parse-dateTime) - Returns the dateTime for a specified string using the pattern
 * [`parse-dateTime(String dateTime, String pattern, String timeZone)`](#parse-dateTime) - Returns the dateTime for a specified string using the pattern and time zone
 * [`parse-uri(String URI)`](#parse-uri) - Returns an XML structure of the URI providing `authority`, `fragment`, `host`, `path`, `port`, `query`, `scheme`, `schemeSpecificPart`, and `userInfo` components if present.
 * `pipeline-name()` - Get the name of the pipeline currently processing the stream.
-* [`pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)`](#pointIsInsideXYPolygon) - Get the name of the pipeline currently processing the stream.
+* [`pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)`](#pointIsInsideXYPolygon) - Determines whether a given point (xPos, yPos) lies inside the polygon defined by the provided x and y coordinate arrays.
 * `random()` - Get a system generated random number between 0 and 1.
 * `record-no()` - The current record number within the current part (substream) (1 based).
 * `search-id()` - Get the id of the batch search when a pipeline is processing as part of a batch search
 * `source()` - Returns an XML structure with the `stroom-meta` namespace detailing the current source location.
 * `source-id()` - Get the id of the current input stream that is being processed
-* `split-document(Sting doc, String segmentSize, String overlapSize)` - Split a document for LLM tokenisation (experimental).
+* `split-document(String doc, String segmentSize, String overlapSize)` - Split a document for LLM tokenisation (experimental).
 * `stream-id()` - An alias for `source-id` included for backward compatibility.
 * `to-unixTime(DateTime dateTime)` - Returns milliseconds since the epoch for a specified dateTime
-* `pipeline-name()` - Name of the current processing pipeline using the XSLT
 * [`put(String key, String value)`](#put-and-get) - Store a value for use later on in the translation
 
 
@@ -127,8 +126,8 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
 ```
 
 * `map` - The name of the reference data map to perform the lookup against.
-* `key` - The bitmap value to lookup. 
-          This can either be represented as a decimal integer (e.g. `14`) or as hexadecimal by prefixing with `0x` (e.g `0xE`).
+* `key` - The bitmap value to lookup.
+          This can either be represented as a decimal integer (e.g. `14`) or as hexadecimal by prefixing with `0x` (e.g. `0xE`).
 * `time` - Determines which set of reference data was effective at the requested time.
            If no reference data exists with an effective time before the requested time then the lookup will fail.
            Time is in the format `yyyy-MM-dd'T'HH:mm:ss.SSSXX`, e.g. `2010-01-01T00:00:00.000Z`.
@@ -137,7 +136,7 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
 
 If the look up fails no result will be returned.
 
-The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. `14`/`0xE` is `1110` as a binary bitmap.
+The key is a bitmap expressed as either a decimal integer or a hexadecimal value, e.g. `14`/`0xE` is `1110` as a binary bitmap.
 For each bit position that is set, (i.e. has a binary value of `1`) a lookup will be performed using that bit position as the key.
 In this example, positions `1`, `2` & `3` are set so a lookup would be performed for these bit positions.
 The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.
@@ -145,7 +144,7 @@ The result of each lookup for the bitmap are concatenated together in bit positi
 If `ignoreWarnings` is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.
 
 This function can be useful when you have a set of values that can be represented as a bitmap and you need them to be converted back to individual values.
-For example if you have a set of additive account permissions (e.g Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user's permissions could be defined as a single decimal/hex bitmap value.
+For example if you have a set of additive account permissions (e.g. Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user's permissions could be defined as a single decimal/hex bitmap value.
 Thus a bitmap lookup with this value would return all the permissions held by the user.
 
 For example the reference data store may contain:
@@ -279,7 +278,7 @@ The following table shows various examples of calls to `stroom:format-date()` wi
 The `stroom:format-date` part has been omitted for brevity.
 
 <!--
-This table is generated by the test 
+This table is generated by the test
 stroom.pipeline.xsltfunctions.TestFormatDate#testParseExamples
 -->
 
@@ -456,8 +455,8 @@ The count of each symbol is however critical when it comes to formatting.
 
 ### Formatting Examples
 
-<!-- 
-This table is generated by the test 
+<!--
+This table is generated by the test
 stroom.pipeline.xsltfunctions.TestFormatDate#testCustomFormatExamples
 -->
 
@@ -905,13 +904,13 @@ E.g. Look up a SID given a PF
 
 ### Range lookups
 
-Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g 1-100.
+Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g. 1-100.
 When a lookup is preformed the passed key is looked up as if it were a normal string key.
 If that lookup fails Stroom will try to convert the key to an integer (long) value.
 If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.
 
 Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
-In this use case, the IP address must first be converted into a numeric value using `numeric-ip()`, e.g:
+In this use case, the IP address must first be converted into a numeric value using `numeric-ip()`, e.g.:
 
 ``` xslt
 stroom:lookup('IP_TO_LOCATION', numeric-ip($ipAddress))
@@ -937,7 +936,7 @@ In order to use nested map lookups each intermediate map must contain simple str
 The last map in the chain can either contain string values or XML fragment values.
 
 
-## parse-dateTime() 
+## parse-dateTime()
 
 Parses a string to a dateTime according to the specified pattern and time zone.
 

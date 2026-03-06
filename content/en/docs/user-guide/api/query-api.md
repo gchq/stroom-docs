@@ -58,8 +58,8 @@ A single SearchRequest can include multiple ResultRequest sections to return the
 
 _Stroom_ is able to export the json form of a SearchRequest model from its dashboards.
 This makes the dashboard a useful tool for building a query and the table settings to go with it.
-You can use the dashboard to defined the data source, define the query terms tree and build a table definition (or definitions) to describe how the data should be returned.
-The, clicking the download icon on the query pane of the dashboard will generate the SearchRequest json which can be immediately used with the /search API or modified to suit.
+You can use the dashboard to define the data source, define the query terms tree and build a table definition (or definitions) to describe how the data should be returned.
+Then, clicking the download icon on the query pane of the dashboard will generate the SearchRequest json which can be immediately used with the /search API or modified to suit.
 
 
 ### Destroy

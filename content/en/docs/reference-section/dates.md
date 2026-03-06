@@ -250,7 +250,7 @@ ISO 8601 duration strings are used in a number of places in Stroom:
 ## Date Expressions
 
 Date expressions are a way to represent relative dates or to express simple date arithmetic.
-They can be used in the following places in Strom:
+They can be used in the following places in Stroom:
 
 * Dashboard expression term values.
 * Dashboard/Query time range settings.
