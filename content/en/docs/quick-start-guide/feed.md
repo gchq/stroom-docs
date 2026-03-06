@@ -27,7 +27,7 @@ We think you will learn more by deleting this pre-loaded content and following a
 {{% /warning %}}
 
 1. A lot of Stroom's functionality is available through right-click context menus.
-   If you right-click  {{< stroom-icon "oo.svg" "System">}} _System_ in the tree you can create new child items.
+   If you right-click {{< stroom-icon "oo.svg" "System">}} _System_ in the tree you can create new child items.
 
    Create a new folder by selecting:
 

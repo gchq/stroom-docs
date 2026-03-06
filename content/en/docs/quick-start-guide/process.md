@@ -51,7 +51,7 @@ id,guid,from_ip,to_ip,application
 ```
 
 To process this we need to know if there's a header row, and what the delimiters are.
-This is a job for a _Data Splitter_. 
+This is a job for a _Data Splitter_.
 
 The splitter is actually a type of _Text Converter_ {{< stroom-icon "document/TextConverter.svg" >}}, so lets create one of those:
 
@@ -113,7 +113,7 @@ We need to add this to our pipeline as a filter, so head back to the pipeline's 
 
 We need to tell the new _CSV parser_ to use the {{< stroom-icon "document/TextConverter.svg" >}} _TextConverter_ (_CSV splitter_) we created earlier.
 
-1. Click on the {{< pipe-elm "DSParser" "CSV Parser" >}} element and the pane below will show it's properties.
+1. Click on the {{< pipe-elm "DSParser" "CSV Parser" >}} element and the pane below will show its properties.
 1. Double click the `textConverter` property and change `Value` to our _CSV splitter_ entity.
 
 {{< image "quick-start-guide/process/configuring-dsSplitter.png" >}}Configuring the CSV splitter{{< /image >}}
@@ -174,10 +174,10 @@ An {{< element "XSLTFilter" >}} pipeline element takes XML input and uses an XSL
 
 #### Create the XSLT filter
 
-This process is very similar to creating the `CSV splitter`: 
+This process is very similar to creating the `CSV splitter`:
 
 1. Create the [XSLT]({{< relref "/docs/user-guide/pipelines/xslt" >}}) filter
-1. Add it to the pipeline 
+1. Add it to the pipeline
 1. Step through to make sure it's doing what we expect
 
 To create the new _XSLT_ entity do the following:
@@ -231,7 +231,7 @@ The XSLT for this is below but if you'd like to tinker then go ahead.
 Make sure you save it by clicking the save button {{< stroom-icon "save.svg" >}}.
 
 Go back to the Structure sub-tab of the pipeline and add an {{< element "XSLTFilter" >}} element downstream of the _CSV parser_ element.
-Call it something like _XSLT filter_. 
+Call it something like _XSLT filter_.
 
 Select the _XSLT filter_ element and configure it to use the actual XSLT you just created by double-clicking `xslt` in the properties pane at the bottom:
 
@@ -294,7 +294,7 @@ We must however set the type of the _Stream_ to distinguish it from the _Raw Eve
 
 To set the {{< glossary "Stream Type" >}} do the following:
 
-1. Click on the {{< stroom-icon "pipeline/stream.svg" "Stream Appender" >}} _Stream appender_ pipeline element and the pane below will show it's properties.
+1. Click on the {{< stroom-icon "pipeline/stream.svg" "Stream Appender" >}} _Stream appender_ pipeline element and the pane below will show its properties.
 1. Double click the `streamType` property and change `Value` to the _Events_ stream type.
 
 
@@ -312,7 +312,7 @@ If you click on the `stream appender` you'll see something like this:
 Obviously you don't want to step through your data one by one.
 This all needs automation, and this is what {{< glossary "Processor" "Processors" >}} and {{< glossary "Processor Filter" "Processor Filters" >}} are for.
 The processor works in the background to take any unprocessed streams (as determined by the Processor Filter and its {{< glossary "Tracker" >}}) and process them through the pipeline.
-So far everything on our _EXAMPLE_IN_ feed is unprocessed. 
+So far everything on our _EXAMPLE_IN_ feed is unprocessed.
 
 
 ### Create a processor and filter

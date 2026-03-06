@@ -22,7 +22,7 @@ A Database server can be created and managed by the Operator.
 This is the recommended option, as the Operator will take care of the creation and storage of database credentials, which are shared securely with the Pod via the use of a `Secret` cluster resource.
 
 
-### Create a `DatabaseServer` resource manifest 
+### Create a `DatabaseServer` resource manifest
 
 Use the example at {{< external-link "database-server.yaml" "https://github.com/p-kimberley/stroom-k8s-operator/blob/master/samples/database-server.yaml" >}}.
 

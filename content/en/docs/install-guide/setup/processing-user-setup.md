@@ -82,12 +82,12 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 ```
 
-Setup the user's profile to include source the env script.
+Setup the user's profile to source the env script.
 
 {{< command-line "stroomuser" "localhost" >}}
 vi ~/.bashrc
 {{</ command-line >}}
- 
+
 In vi add the following lines.
 
 ``` bash

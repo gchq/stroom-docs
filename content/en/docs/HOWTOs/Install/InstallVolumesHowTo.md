@@ -29,7 +29,7 @@ then move down and select the `Volumes` sub-item to be presented with the `Volum
 {{< screenshot "HOWTOs/UI-ManageVolumes-01.png" >}}Stroom UI Volumes - configuration window{{< /screenshot >}}
 
 The attributes we see for each volume are
-- Node - the processing node the volume resides on (this is just the node name entered when configuration the Stroom application)
+- Node - the processing node the volume resides on (this is just the node name entered when configuring the Stroom application)
 - Path - the path to the volume
 - Volume Type - The type of volume
  - Public - to indicate that all nodes would access this volume
@@ -55,23 +55,23 @@ configuring the Stroom service application, you will see two default volumes hav
 Now from our two node Stroom Cluster example, our storage hierarchy was
 
 - Node: `stroomp00.strmdev00.org`
- - `/stroomdata/stroom-data-p00`        - location to store Stroom application data files (events, etc.) for this node
- - `/stroomdata/stroom-index-p00`       - location to store Stroom application index files
- - `/stroomdata/stroom-working-p00`     - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node
- - `/stroomdata/stroom-working-p00/proxy`       - location for Stroom proxy to store inbound data files
+ - `/stroomdata/stroom-data-p00` - location to store Stroom application data files (events, etc.) for this node
+ - `/stroomdata/stroom-index-p00` - location to store Stroom application index files
+ - `/stroomdata/stroom-working-p00` - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node
+ - `/stroomdata/stroom-working-p00/proxy` - location for Stroom proxy to store inbound data files
 - Node: `stroomp01.strmdev00.org`
- - `/stroomdata/stroom-data-p01`        - location to store Stroom application data files (events, etc.) for this node
- - `/stroomdata/stroom-index-p01`       - location to store Stroom application index files
- - `/stroomdata/stroom-working-p01`     - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node
- - `/stroomdata/stroom-working-p01/proxy`       - location for Stroom proxy to store inbound data files
+ - `/stroomdata/stroom-data-p01` - location to store Stroom application data files (events, etc.) for this node
+ - `/stroomdata/stroom-index-p01` - location to store Stroom application index files
+ - `/stroomdata/stroom-working-p01` - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node
+ - `/stroomdata/stroom-working-p01/proxy` - location for Stroom proxy to store inbound data files
 
 From this we need to create four volumes. On `stroomp00.strmdev00.org` we create
- - `/stroomdata/stroom-data-p00`        - location to store Stroom application data files (events, etc.) for this node
- - `/stroomdata/stroom-index-p00`       - location to store Stroom application index files
+ - `/stroomdata/stroom-data-p00` - location to store Stroom application data files (events, etc.) for this node
+ - `/stroomdata/stroom-index-p00` - location to store Stroom application index files
 
 and on `stroomp01.strmdev00.org` we create
- - `/stroomdata/stroom-data-p01`        - location to store Stroom application data files (events, etc.) for this node
- - `/stroomdata/stroom-index-p01`       - location to store Stroom application index files 
+ - `/stroomdata/stroom-data-p01` - location to store Stroom application data files (events, etc.) for this node
+ - `/stroomdata/stroom-index-p01` - location to store Stroom application index files
 
 So the first step to configure a volume is to move the cursor to the _New_ icon {{< stroom-icon "add.svg" "Add" >}} in the top left of
 the `Volumes` window and select it. This will bring up the `Add Volume` configuration window
@@ -80,10 +80,10 @@ the `Volumes` window and select it. This will bring up the `Add Volume` configur
 
 As you can see, the entry box titles reflect the attributes of a volume. So we will add the first
 nodes _data_ volume
- - `/stroomdata/stroom-data-p00`        - location to store Stroom application data files (events, etc.) for this node
+ - `/stroomdata/stroom-data-p00` - location to store Stroom application data files (events, etc.) for this node
 for node `stroomp00`.
 
-If you move the the *Node* drop down entry box and select it you will be presented with a choice of available
+If you move the *Node* drop down entry box and select it you will be presented with a choice of available
 nodes - in this case `stroomp00` and `stroomp01` as we have a two node cluster with these node names.
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-03.png" >}}Stroom UI Add Volume - select node{{< /screenshot >}}
@@ -139,7 +139,7 @@ At this one can close the `Volumes` configuration window by pressing the {{< str
 __NOTE__: At the time of writing there is an issue regarding volumes
 
 
-##### Stroom Github Issue 84  - 
+##### Stroom Github Issue 84 -
 
 Due to {{< external-link "Issue 84" "https://github.com/gchq/stroom/issues/84" >}}, if we delete volumes in a multi node environment, the deletion is not propagated to all other nodes in a cluster.
 Thus if we attempted to use the volumes we would get a database error.
@@ -164,7 +164,7 @@ From this we need to create two volumes on `stroomp02`
 To configure the volumes, move to the `Tools` item of the __Main Menu__ and select it to bring up the `Tools` sub-menu.
 {{< screenshot "HOWTOs/UI-ToolsSubmenu-00.png" >}}Stroom UI Tools sub-menu{{< /screenshot >}}
 
-then move down and select the `Volumes` sub-item to be presented with the `Volumes` configuration window as.
+then move down and select the `Volumes` sub-item to be presented with the `Volumes` configuration window as seen below.
 We then move the cursor to the _New_ icon {{< stroom-icon "add.svg" "Add" >}}
  in the top left of the `Volumes` window and select it.
 This will bring up the `Add Volume` configuration window where we select our volume's node `stroomp02`.

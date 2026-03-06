@@ -39,7 +39,7 @@ sudo -i -u stroomuser
 ### Use host variable
 To make things simpler in the following bash extracts, we establish the bash variable `H` to be used in filename generation. The variable name
 is set to the name of the host (or cluster alias) your are deploying the certificates on. In our multi node HOWTO example we are using, we
-would use the host CNAME `stroomp`.  Thus we execute
+would use the host CNAME `stroomp`. Thus we execute
 
 ```bash
 export H=stroomp
@@ -177,7 +177,7 @@ export H=stroomfp0
 and then proceed as [above](#use-host-variable).
 
 Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
-the central Stroom proxy is the `stroomp.strmdev00.org` server and it's public key is stored in the file `stroomp.crt`. We will store
+the central Stroom proxy is the `stroomp.strmdev00.org` server and its public key is stored in the file `stroomp.crt`. We will store
 this file on the forwarding proxy in `~stroomuser/stroom-jks/public/stroomp.crt`.
 
 So once you have created the forwarding proxy server's SSL keys and have deployed the central proxy's public key, we next
@@ -194,7 +194,7 @@ S_k=${S}
 openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER
 ```
 
-When you convert the local server's private key, you will be prompted for the server key password. 
+When you convert the local server's private key, you will be prompted for the server key password.
 
 ```bash
 # Convert the local server's Private key

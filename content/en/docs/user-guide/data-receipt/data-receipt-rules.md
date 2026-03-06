@@ -25,7 +25,7 @@ If you want data to be received if no rules match then you can create a rule at 
 
 If a stream matches a rule that has an `Accept` action, it will still be subject to a check to see if the _Feed_ actually exists.
 This means that the rules do not need to contain an `Accept` rule to cover all of the Feeds in the system.
-They only need to cover 
+They only need to cover
 The client will receive a `101` `Feed is not defined` error if it does not exist.
 
 {{< image "user-guide/data-receipt/ReceiptRules.png" "700x" />}}
@@ -108,7 +108,7 @@ appConfig:
 appConfig:
   receiptPolicy:
     # Only set this if you need to supply a non-standard full url
-    # By default Proxy will used the known path for the Data Receipt Rules resource
+    # By default Proxy will use the known path for the Data Receipt Rules resource
     # combined with the host/port/scheme from the `downstreamHost` config property.
     receiveDataRulesUrl: null
     # The frequency that the rules will be fetched from the downstream Stroom instance.
@@ -137,7 +137,7 @@ The fields that are obfuscated are controlled by the property `stroom.receiptPol
 
 For example, in the default configuration, `Feed` is an obfuscated field.
 Thus a term like `Feed != FEED_XYZ` would have its value obfuscated when fetched by Stroom Proxy.
-Stroom Proxy is able to similarly obfuscated meta data values for obfuscated fields in the same way to allow it to test the rule expression.
+Stroom Proxy is able to similarly obfuscate meta data values for obfuscated fields in the same way to allow it to test the rule expression.
 
 {{% warning %}}
 Due to the way obfuscation works, you are limited by the expression conditions that can be used, e.g. `contains`, `>`, `<` etc. are not allowed, but `==` and `!=` are.

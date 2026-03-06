@@ -104,7 +104,7 @@ Even without any processing dependencies a minimum delay can be added so Stroom 
 
 ### Maximum Delay
 
-In some cases we reference data might be late, and we might not want to wait too long before processing.
+In some cases reference data might be late, and we might not want to wait too long before processing.
 In these cases the user can set a maximum delay so that processing will occur after the specified time delay even without the dependant data being present.
 
 
@@ -155,7 +155,7 @@ See [Credentials]({{< relref "docs/user-guide/security/credentials" >}}) for det
 A number of new XSLT functions have been added:
 
 * `add-meta(String key, String value)` - Add meta to be written to output destination.
-* `split-document(Sting doc, String segmentSize, String overlapSize)` - Split a document for LLM tokenisation (experimental for Elastic dense vector indexing).
+* `split-document(String doc, String segmentSize, String overlapSize)` - Split a document for LLM tokenisation (experimental for Elastic dense vector indexing).
 
 
 ## Dashboard & StroomQL Functions

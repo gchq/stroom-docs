@@ -30,7 +30,7 @@ The master node creates tasks based on processing filters added to the `Processo
 
 ## Node Status
 
-How frequently we try write stats about node status including JVM and memory usage.
+How frequently we try to write stats about node status including JVM and memory usage.
 
 
 ## Processor Task Creator
@@ -87,7 +87,7 @@ How frequently index shards that have been logically deleted are physically dele
 
 ## Index Shard Retention
 
-How frequently index shards that are older then their retention period are logically deleted.
+How frequently index shards that are older than their retention period are logically deleted.
 
 
 ## Index Volume Status
@@ -110,7 +110,7 @@ How frequently in-memory changes to the index shards are flushed to the file sys
 
 How frequently heap histogram statistics will be captured.
 This can be useful for diagnosing issues or seeing where memory is being used.
-Each run will result in a JVM pause so car should be taken when running this on a production system.
+Each run will result in a JVM pause so care should be taken when running this on a production system.
 
 
 ## Orphan File Finder
@@ -131,7 +131,7 @@ This frequency should be at least as short as the most frequent rolling frequenc
 
 ## Policy Based Data Retention
 
-Run the policy based data retention rules over the data and logically delete and data that should no longer be retained.
+Run the policy based data retention rules over the data and logically delete any data that should no longer be retained.
 
 
 ## Processor Task Manager Disown Dead Tasks

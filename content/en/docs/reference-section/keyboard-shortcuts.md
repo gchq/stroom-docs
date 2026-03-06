@@ -14,7 +14,7 @@ Some shortcuts apply everywhere and some are specific to the screen that you are
 Keyboard shortcuts can take two forms:
 
 * **Combination** - Multiple keys pressed at the same time, e.g. {{< key-bind "ctrl+enter" >}}.
-* **Sequence*** - Multiple keys pressed in sequence with only one key pressed at a time, e.g. {{< key-bind "g" "t" >}}, press
+* **Sequence** - Multiple keys pressed in sequence with only one key pressed at a time, e.g. {{< key-bind "g" "t" >}}, press
 
 {{% warning %}}
 Currently these keyboard shortcuts will not work if a visualisation or documentation preview pane has focus.

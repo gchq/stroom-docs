@@ -47,7 +47,7 @@ Variables are local to a reference if the reference exists as a descendant of th
 
 In the above example, matches for the outermost `<split>` expression are stored in the variable with the id of `line`. The only reference to this variable is in a data element that is a descendant of the variables parent expression `<split>`, i.e. it is nested within split/group/regex.
 
-Because the variable is referenced locally only the most recent parent match is relevant, i.e. no retrieval of values by 
+Because the variable is referenced locally only the most recent parent match is relevant, i.e. no retrieval of values by
 [iteration]({{< relref "#iteration" >}}), [iteration offset]({{< relref "#iteration-offset" >}}) or [fixed position]({{< relref "#fixed-position" >}}) is applicable. These features only apply to remote variables that store multiple values.
 
 ### Remote Scope
@@ -102,7 +102,7 @@ In the above example the first line is taken then repeatedly matched by delimiti
 
 Each time a line is matched the internal match count of all sub expressions, (e.g. the `<split>` expression that is delimited by comma) is reset to 0. Every time the sub `<split>` expression matches up to a comma delimiter the match count is incremented. Any references to remote variables will, by default, use the current match count as an index to retrieve one of the many values stored in the variable. This means that the `<data>` element in the above example will retrieve the corresponding heading for each value as the match count of the values will match the storage position of each heading.
 
-#### Retrieval of value by iteration offset {#iteration-offset} 
+#### Retrieval of value by iteration offset {#iteration-offset}
 
 In some cases there may be a mismatch between the position where a value is stored in a variable and the match count applicable when remotely referencing the variable.
 

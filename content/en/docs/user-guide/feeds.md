@@ -13,24 +13,24 @@ In order for Stroom to be able to handle the various data types as described in 
 This is achieved using Event Feeds.
 Each feed has a unique name within the system.
 
-Events Feeds can be related to one or more Reference Feed.
-Reference Feeds are used to provide look up data for a translation.
-E.g. lookup a computer name by it's IP address.
+Event Feeds can be related to one or more Reference Feed.
+Reference Feeds are used to provide lookup data for a translation.
+For example, look up a computer name by its IP address.
 
 Feeds can also have associated context data.
-Context data used to provide look up information that is only applicable for the events file it relates to.
-E.g. if the events file is missing information relating to the computer it was generated on, and you don't want to create separate feeds for each computer, an associated context file could be used to provide this information.
+Context data is used to provide lookup information that is only applicable for the events file it relates to.
+For example, if the events file is missing information relating to the computer it was generated on, and you don't want to create separate feeds for each computer, an associated context file could be used to provide this information.
 
 
 ## Feed Identifiers
 
 Feed identifiers must be unique within the system.
-Identifiers can be in any format but an established convention is to use the following format
+Identifiers can be in any format, but an established convention is to use the following format:
 
 ```text
 <SYSTEM>-<ENVIRONMENT>-<TYPE>-<EVENTS/REFERENCE>-<VERSION>
 ```
 
-If feeds in a certain site need different reference data then the site can be broken down further.
+If feeds in a certain site need different reference data, then the site can be broken down further.
 
 `_` may be used to represent a space.

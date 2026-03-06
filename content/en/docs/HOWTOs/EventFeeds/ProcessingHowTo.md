@@ -28,7 +28,7 @@ The sample BlueCoat Proxy log will be transformed into an intermediate simple XM
 ## Assumptions
 
 The following assumptions are used in this document.
-1. The user successfully deployed Stroom 
+1. The user successfully deployed Stroom
 1. The following Stroom content packages have been installed:
     - Template Pipelines
     - XML Schemas
@@ -79,9 +79,9 @@ and press {{< stroom-btn "Ok" >}} to see the new Event Feed tab
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-01.png" >}}Stroom UI Create Feed - New feed tab{{< /screenshot >}}
 
-and it's corresponding reference in the `Explorer` display.
+and its corresponding reference in the `Explorer` display.
 
-The configuration items for a Event Feed are
+The configuration items for an Event Feed are
 
  * _Description_ - a description of the feed
  * _Classification_ - the classification or sensitivity of the Event Feed data
@@ -110,7 +110,7 @@ This is indicated by the asterisk character `*` between the _Feed_ icon {{< stro
 
 We can save the changes to our feed by pressing the _Save_ icon {{< stroom-icon "save.svg" >}} in the top left of the **BlueCoat-Proxy-V1.0-EVENTS** tab.
 At this point one should notice two things, the first is that the asterisk
-has disappeared from the `Feed` tab and the the second is that the _Save_ icon {{< stroom-icon "save.svg" "Save" "disabled">}} is now disabled.
+has disappeared from the `Feed` tab and the second is that the _Save_ icon {{< stroom-icon "save.svg" "Save" "disabled">}} is now disabled.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-03.png" >}}Stroom UI Create Feed - New feed tab saved{{< /screenshot >}}
 
@@ -118,7 +118,7 @@ has disappeared from the `Feed` tab and the the second is that the _Save_ icon {
 ### Create the Text Converter
 
 We now create the Text Converter for this `Feed` in a similar fashion to the `Event Feed`.
-We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select 
+We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select
 
 {{< stroom-menu "New" "Text Converter" >}}
 
@@ -126,13 +126,13 @@ Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-04.png" >}}Stroom UI Create Feed - New TextConverter tab{{< /screenshot >}}
 
-and it's corresponding reference in the `Explorer` display.
+and its corresponding reference in the `Explorer` display.
 
 We set the configuration for this `Text Converter` to be
 
  * Description - *Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format ({{< glossary "ELFF" >}})*
- * Converter Type - We set to *Data Splitter* was we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
- 
+ * Converter Type - We set to *Data Splitter* as we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
+
 Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configuration items.
 
 
@@ -147,7 +147,7 @@ Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-05.png" >}}Stroom UI Create Feed - New Translation tab{{< /screenshot >}}
 
-and it's corresponding reference in the `Explorer` display.
+and its corresponding reference in the `Explorer` display.
 
 We set the configuration for this `XSLT Translation` to be
 
@@ -167,7 +167,7 @@ Enter **BlueCoat-Proxy-V1.0-EVENTS** into the `Name:` entry box and press the {{
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-06.png" >}}Stroom UI Create Feed - New Pipeline tab{{< /screenshot >}}
 
-and it's corresponding reference in the `Explorer` display.
+and its corresponding reference in the `Explorer` display.
 
 We set the configuration for this `Pipeline` to be
 
@@ -181,7 +181,7 @@ We now need to configure the *Structure* of this `Pipeline`.
 
 We do this by selecting the `Structure` hyper-link of the **BlueCoat-Proxy-V1.0-EVENTS* `Pipeline` tab.
 
-At this we see the `Pipeline Structure` configuration tab
+At this point, we see the `Pipeline Structure` configuration tab
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-07.png" >}}Stroom UI Create Feed - Pipeline Structure tab{{< /screenshot >}}
 
@@ -242,7 +242,7 @@ and then press the {{< stroom-btn "Ok" >}} to see that the Property **Value:** h
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-17.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property chosen item{{< /screenshot >}}
 
-and pressing the {{< stroom-btn "Ok" >}} button of the `Edit Property` configuration window results in the pipelines `dsParser` property being set. 
+and pressing the {{< stroom-btn "Ok" >}} button of the `Edit Property` configuration window results in the pipelines `dsParser` property being set.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-18.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property{{< /screenshot >}}
 
@@ -395,7 +395,7 @@ It should be entered into the Text Converter's editing pane as per
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-32.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter code{{< /screenshot >}}
 
-As mentioned earlier, to _step_ the translation, one uses the green  _Stepping Actions_.
+As mentioned earlier, to _step_ the translation, one uses the green _Stepping Actions_.
 
 The actions are
 
@@ -409,7 +409,7 @@ So, if one was to press the {{< stroom-icon name="step-forward.svg" title="Step 
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-33.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1{{< /screenshot >}}
 
-We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and it's _value_ attribute of `SGOS 3.2.4.28`.
+We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and its _value_ attribute of `SGOS 3.2.4.28`.
 The definition of the **record** structure can be found in the **System/XML Schemas/records** folder.
 
 This is the result of the code in our editor
@@ -421,7 +421,7 @@ This is the result of the code in our editor
 </regex>
 ```
 
-If one presses the {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} _stepping action_ again, we see that we have moved to the second line of the input file with the resultant output of a **data** element with the _name_ attribute of _bc_version_ and it's _value_ attribute of _1.0_.
+If one presses the {{< stroom-icon name="step-forward.svg" title="Step forward" colour="green" >}} _stepping action_ again, we see that we have moved to the second line of the input file with the resultant output of a **data** element with the _name_ attribute of _bc_version_ and its _value_ attribute of _1.0_.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-34.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 2{{< /screenshot >}}
 
@@ -435,7 +435,7 @@ You will note that the keys have been taken from the Fields comment line which w
 
 You should also take note that the _stepping indicator_ has been incrementing the last number, so at this point it is displaying `[1:1:3]`.
 
-The general form of this _indicator_ is 
+The general form of this _indicator_ is
 
 ```text
 '[' streamId ':' subStreamId ':' recordNo ']'
@@ -452,7 +452,7 @@ One can double click on either the **subStreamId** or **recordNo** entry and ent
 This allows you to _jump_ around a stream rather than just relying on first, previous, next and last movements.
 
 Hovering the mouse over the _stepping indicator_ will change the cursor to a `hand pointer`.
-Selecting (by a left click) the `recordNo` will allow you to edit it's value (and the other values for that matter).
+Selecting (by a left click) the `recordNo` will allow you to edit its value (and the other values for that matter).
 You will see the display change from
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-36.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 1{{< /screenshot >}}
@@ -477,7 +477,7 @@ If we select the `dsParser` pipeline element then press the {{< stroom-icon name
 
 ### Stepping the Pipeline - translationFilter
 
-We now select the `translationFilter` pipeline element that results in 
+We now select the `translationFilter` pipeline element that results in
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-41.png" >}}Stroom UI Create Feed - Translation - Stepping translationFilter Element{{< /screenshot >}}
 

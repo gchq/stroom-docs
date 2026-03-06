@@ -58,7 +58,7 @@ For details of the structure of this file, see [Stroom and Stroom-Proxy Common C
 
 ## Source Precedence
 
-The three sources (_Default_, _Database_ & _YAML_) are listed in increasing priority, i.e _YAML_ trumps _Database_, which trumps _Default_.
+The three sources (_Default_, _Database_ & _YAML_) are listed in increasing priority, i.e. _YAML_ trumps _Database_, which trumps _Default_.
 
 For example, in a two node cluster, this table shows the effective value of a property on each node.
 A `-` indicates the value has not been set in that source.
@@ -150,7 +150,7 @@ Combinations such as `1m30s` are not supported.
 
 This type supports ordered lists of items, where an item can be of any supported data type, e.g. a list of strings or list of integers.
 
-The following is an example of how a property (`statusValues`) that is is List of strings is represented in the YAML:
+The following is an example of how a property (`statusValues`) that is a List of strings is represented in the YAML:
 
 ```yaml
   annotation:
@@ -166,7 +166,7 @@ This would be represented as a string in the User Interface as:
 
 See [Delimiters in String Conversion](#delimiters-in-string-conversion) for details of how the items are delimited in the string.
 
-The following is an example of how a property (`cpu`) that is is List of DocRefs is represented in the YAML:
+The following is an example of how a property (`cpu`) that is a List of DocRefs is represented in the YAML:
 
 ```yaml
   statistics:
@@ -180,7 +180,7 @@ The following is an example of how a property (`cpu`) that is is List of DocRefs
         name: "CPU"
 ```
 
-This would be represented as a string in the User Interface as: 
+This would be represented as a string in the User Interface as:
 
 `|,docRef(StatisticStore,af08c4a7-ee7c-44e4-8f5e-e9c6be280434,CPU)|,docRef(StroomStatsStore,1edfd582-5e60-413a-b91c-151bd544da47,CPU)`
 
@@ -201,7 +201,7 @@ mapProperty:
   blue: "0000FF"
 ```
 
-This would be represented as a string in the User Interface as: 
+This would be represented as a string in the User Interface as:
 
 `,=red=FF0000,Green=00FF00,Blue=0000FF`
 
@@ -224,9 +224,9 @@ aDocRefProperty:
   name: "My DocRef name"
 ```
 
-This would be represented as a string in the User Interface as: 
+This would be represented as a string in the User Interface as:
 
-`,docRef(MyType,a56ff805-b214-4674-a7a7-a8fac288be60,My DocRef name)` 
+`,docRef(MyType,a56ff805-b214-4674-a7a7-a8fac288be60,My DocRef name)`
 
 See [Delimiters in String Conversion](#delimiters-in-string-conversion) for details of how the items are delimited in the string.
 

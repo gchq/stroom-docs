@@ -17,7 +17,7 @@ Using the positional information it is possible to tag Events with sufficient de
 
 1. You have a working pipeline that processes logs into Events.
 1. Events are indexed
-1. You have a Dashboard uses a Search Extraction pipeline.
+1. You have a Dashboard that uses a Search Extraction pipeline.
 
 ## Steps
 

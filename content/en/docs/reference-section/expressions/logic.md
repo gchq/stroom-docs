@@ -241,7 +241,7 @@ ${val}=4
 
 ## InRange
 
-Returns true if the value is between lower and upper (inclusive). 
+Returns true if the value is between lower and upper (inclusive).
 All parameters must be either numbers or ISO date strings.
 
 1. The input value to test

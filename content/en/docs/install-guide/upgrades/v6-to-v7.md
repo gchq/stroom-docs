@@ -34,8 +34,8 @@ The following steps are required to be performed before migrating from v6 to v7.
 
 ### Download migration scripts
 
-Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts 
-e.g. https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts 
+Download the migration SQL scripts from https://github.com/gchq/stroom/blob/STROOM_VERSION/scripts
+e.g. https://github.com/gchq/stroom/blob/v7.0-beta.133/scripts
 
 These scripts will be used in the steps below.
 
@@ -204,7 +204,7 @@ echo 'show databases;' | docker exec -i stroom-all-dbs mysql -u"root" -p"my-secr
 ## Performing the upgrade
 
 To perform the stroom schema upgrade to v7 run the migrate command which will migrate the database then exit.
-For a large upgrade like this is it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
+For a large upgrade like this it is preferable to run the migrate command rather than just starting stroom as stroom will only migrate the parts of the schema as it needs to use them.
 Running migrate ensures all parts of the migration are completed when the command is run and no other parts of stroom will be started.
 
 {{< command-line "stroomuser" "localhost" >}}

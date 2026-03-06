@@ -56,7 +56,7 @@ To reflect the source of these Accounting Logs, we will name our feed and its pi
 
 ### Create System Group
 
-To create the system group Apache  HTTPD, navigate to the _Event Sources/Infrastructure/WebServer_ system group within the Explorer pane (if this system group structure does not already exist in your Stroom instance then refer to the **HOWTO Stroom Explorer Management** for guidance).
+To create the system group Apache HTTPD, navigate to the _Event Sources/Infrastructure/WebServer_ system group within the Explorer pane (if this system group structure does not already exist in your Stroom instance then refer to the **HOWTO Stroom Explorer Management** for guidance).
 Left click to highlight the
 _WebServer_ system group then right click to bring up the object context menu.
 Navigate to the _New_ icon, then the _Folder_ icon to reveal the _New Folder_ selection window.
@@ -88,7 +88,7 @@ Navigate to New, Feed
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-03.png" >}}Apache Create Feed{{< /screenshot >}}
 
 Select the Feed icon {{< stroom-icon "document/Feed.svg" >}}, when the **New Feed** selection window comes up, ensure the `Apache HTTPD` system group is selected or navigate to it.
-Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box the press {{< stroom-btn "Ok" >}}. 
+Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
 
 It should be noted that the default Stroom FeedName pattern will not accept this name.
 One needs to modify the `stroom.feedNamePattern` stroom property to change the default pattern to `^[a-zA-Z0-9_-\.]{3,}$`.
@@ -101,19 +101,19 @@ At this point you will be presented with the new feed's configuration tab and th
 Select the _Settings_ tab on the feed's configuration tab.
 Enter an appropriate description into the **Description:** text entry box, for instance:
 
-"Apache HTTPD events for BlackBox Version 2.0.  These events are from a Secure service  (https)."
+"Apache HTTPD events for BlackBox Version 2.0. These events are from a Secure service (https)."
 
 In the **Classification:** text entry box, enter a Classification of the data that the event feed will contain - that is the classification or sensitivity of the accounting log’s content itself.
 
-As this is not a Reference Feed, leave the **Reference Feed:** check box unchecked. 
+As this is not a Reference Feed, leave the **Reference Feed:** check box unchecked.
 
 We leave the **Feed Status:** at _Receive_.
 
-We leave the **Stream Type:** as _Raw Events_ as this we will be sending batches (streams) of raw event logs.
+We leave the **Stream Type:** as _Raw Events_ as we will be sending batches (streams) of raw event logs.
 
 We leave the **Data Encoding:** as UTF-8 as the raw logs are in this form.
 
-We leave the **Context Encoding:** as UTF-8 as there no context events for this feed. 
+We leave the **Context Encoding:** as UTF-8 as there are no context events for this feed.
 
 We leave the **Retention Period:** at _Forever_ as we do not want to delete the raw logs.
 
@@ -130,7 +130,7 @@ Within the Explorer pane, and having selected the `Apache HTTPD` system group, r
 
 {{< stroom-menu "New" "Text Converter" >}}
 
-When the **New Text Converter** 
+When the **New Text Converter**
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-07.png" >}}New Text Converter{{< /screenshot >}}
 
@@ -168,7 +168,7 @@ When the **New XSLT** selection window comes up,
 
  Enter an appropriate description into the **Description:** text entry box, for instance
 
-"Apache HTTPD events for  BlackBox Version 2.0  - translation.
+"Apache HTTPD events for BlackBox Version 2.0 - translation.
 See Translation for complete documentation."
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-13.png" >}}New XSLT settings{{< /screenshot >}}
@@ -178,20 +178,20 @@ Save the XSLT by clicking on the save {{< stroom-icon "save.svg" >}} icon.
 
 ### Create Pipeline
 
-In the process of creating this pipeline we have assumed that the  **Template Pipeline** content pack has been loaded, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
+In the process of creating this pipeline we have assumed that the **Template Pipeline** content pack has been loaded, so that we can _Inherit_ a pipeline structure from this content pack and configure it to support this specific feed.
 
 Within the Explorer pane, and having selected the Apache HTTPD system group, right click to bring up object context menu, then select:
 
 {{< stroom-menu "New" "Pipeline" >}}
 
 When the **New Pipeline** selection window comes up, navigate to, then select the Apache HTTPD system group and then enter the name of the pipeline, Apache-SSLBlackBox-V2.0-EVENTS into the **Name:** text entry box then press {{< stroom-btn "Ok" >}}.
-At this you will be presented with the new pipeline’s configuration tab
+At this point you will be presented with the new pipeline’s configuration tab
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-15.png" >}}New Pipeline tab{{< /screenshot >}}
 
 As usual, enter an appropriate **Description:**
 
-"Apache HTTPD events for BlackBox Version 2.0  - pipeline.
+"Apache HTTPD events for BlackBox Version 2.0 - pipeline.
 This pipeline uses the standard event pipeline to store the events in the Event Store."
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-16.png" >}}New Pipeline settings{{< /screenshot >}}
@@ -206,7 +206,7 @@ This is done by clicking on the **Structure** link, at which we see
 
 Next we will choose an Event Data pipeline.
 This is done by inheriting it from a defined set of Template Pipelines.
-To do this, click on the menu selection icon  to the right of the Inherit From: text display box.
+To do this, click on the menu selection icon to the right of the Inherit From: text display box.
 
 When the **Choose item**
 
@@ -267,7 +267,7 @@ The result is the assignment of our translation to the _xslt_ Property.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-27.png" >}}New Pipeline Translation association{{< /screenshot >}}
 
-For the moment, we will not associate a decoration filter. 
+For the moment, we will not associate a decoration filter.
 
 Save the pipeline by clicking on its {{< stroom-icon "save.svg">}} icon.
 
@@ -314,12 +314,12 @@ These headers, in the form of key value pairs, provide additional context associ
 These standard headers become Stroom _feed attributes_ available to the Stroom translation.
 Common attributes are
 
-*  System - the name of the System providing the logs
-*  Environment - the environment of the system (Production, Quality Assurance, Reference, Development)
-*  Feed - the feedname itself
-*  MyHost - the fully qualified domain name of the system sending the logs
-*  MyIPaddress - the IP address of the system sending the logs
-*  MyNameServer - the name server the system resolves names through
+* System - the name of the System providing the logs
+* Environment - the environment of the system (Production, Quality Assurance, Reference, Development)
+* Feed - the feedname itself
+* MyHost - the fully qualified domain name of the system sending the logs
+* MyIPaddress - the IP address of the system sending the logs
+* MyNameServer - the name server the system resolves names through
 
 Since our translation will want these feed attributes, we will set them in the Meta Data text entry box of the **Upload** selection window.
 Note we can skip _Feed_ as this will automatically be assigned correctly as part of the upload action (setting it to `Apache-SSLBlackBox-V2.0-EVENTS` obviously).
@@ -346,9 +346,9 @@ then click **Open** to return to the **Upload** selection window where we can th
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-36.png" >}}Upload Data{{< /screenshot >}}
 
-An Alert dialog window is presented {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-37.png" >}}Alert{{< /screenshot >}}  which should be **closed**.
+An Alert dialog window is presented {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-37.png" >}}Alert{{< /screenshot >}} which should be **closed**.
 
-The stream we have just loaded will now be displayed in the  _Streams Table_ pane.
+The stream we have just loaded will now be displayed in the _Streams Table_ pane.
 Note that the _Specific Stream_
 and _Data/Meta-data_ panes are still blank.
 
@@ -365,11 +365,11 @@ If we were to click on the **Meta** link at the top of the _Data/Meta-data_ pane
 
 Note that, in addition to the feed attributes we set, the upload process added additional feed attributes of
 
-*  Feed - the feed name
-*  ReceivedTime - the time the feed was received by Stroom
-*  RemoteFile - the name of the file loaded
-*  StreamSize - the size, in bytes, of the loaded data within the stream
-*  user-agent - the user agent used to present the stream to Stroom - in this case, the Stroom user Interface
+* Feed - the feed name
+* ReceivedTime - the time the feed was received by Stroom
+* RemoteFile - the name of the file loaded
+* StreamSize - the size, in bytes, of the loaded data within the stream
+* user-agent - the user agent used to present the stream to Stroom - in this case, the Stroom user Interface
 
 We now have data that will allow us to develop our text converter and translation.
 
@@ -489,9 +489,9 @@ The form of these keys is [ streamId ':' subStreamId ':' recordNo]
 
 where
 
-*  **streamId** - is the stream ID and won’t change when stepping through the selected stream.
-*  **subStreamId** - is the sub stream ID. When Stroom processes event streams it aggregates multiple input files and this is the file number.
-*  **recordNo** - is the record number within the sub stream.
+* **streamId** - is the stream ID and won’t change when stepping through the selected stream.
+* **subStreamId** - is the sub stream ID. When Stroom processes event streams it aggregates multiple input files and this is the file number.
+* **recordNo** - is the record number within the sub stream.
 
 One can double click on either the **subStreamId** or **recordNo** numbers and enter a new number. This allows you to ‘step’ around a stream rather than just relying on first, previous, next and last movement.
 

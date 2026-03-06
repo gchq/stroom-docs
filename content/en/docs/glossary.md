@@ -38,7 +38,7 @@ This is a permission that is not specific to a single document.
 It applies to all documents or is not related to documents in any way.
 
 Application permissions are generally associated with a screen or functional area of the Stroom application.
-A lot of the application permissions tend to be more applicable to system administrator but allow fine grained control of the different functional areas in Stroom so these functions can be devolved to other users.
+A lot of the application permissions tend to be more applicable to system administrators but allow fine grained control of the different functional areas in Stroom so these functions can be devolved to other users.
 Examples of application permissions are `Manage Users`, `Pipeline Stepping` and `Data - View`.
 
 See [Application Permissions]({{< relref "docs/user-guide/security/app-permissions" >}}) for more detail.
@@ -54,7 +54,7 @@ See [Byte Order Mark]({{< relref "docs/sending-data/data-formats/character-encod
 ## Character Encoding
 
 {{< external-link "Character encoding" "https://en.wikipedia.org/wiki/Character_encoding" >}} is the means of encoding character data (i.e. text) into binary form.
-Therefore to decode character date from a stream of bytes, the character encoding must be known (or guessed).
+Therefore to decode character data from a stream of bytes, the character encoding must be known (or guessed).
 
 Common examples of character encodings are `ASCII`, `UTF-8` and `UTF-16`.
 
@@ -69,7 +69,7 @@ A Condition in an query expression term, e.g. `=`, `>`, `in`, etc.
 
 ## Content
 
-Content in Stroom typically means the documents/entities created Stroom and as seen in the explorer tree.
+Content in Stroom typically means the documents/entities created in Stroom and as seen in the explorer tree.
 Content can be created/modified by Stroom users and imported/exported for sharing between different Stroom instances.
 
 
@@ -77,7 +77,7 @@ Content can be created/modified by Stroom users and imported/exported for sharin
 
 This is an additional stream of contextual data that is sent along side the main event stream.
 It provides a means for the sending system to send additional data that relates only to the event stream it is sent alongside.
-This can be useful where the sending system has no control over the data in the event stream and the event stream does contain contextual information such as what machine it is running on or the location of that machine.
+This can be useful where the sending system has no control over the data in the event stream and the event stream does not contain contextual information such as what machine it is running on or the location of that machine.
 
 The contextual information (such as hostname, FQDN, physical location, etc.) can be sent in a Context Stream so that the two can be combined together during pipeline processing using `stroom:lookup()`.
 
@@ -98,7 +98,7 @@ See [Cron Syntax]({{< relref "docs/reference-section/cron" >}}) for more detail.
 ## CSV
 
 **C**omma **S**eparated **V**alues is a file format with typically one record per line and fields delimited by a `,`.
-Field may be optionally enclosed with double quotes, though there is no fixed standard for CSV data, particularly when it comes to escaping of double quotes and/or commas.
+Fields may be optionally enclosed with double quotes, though there is no fixed standard for CSV data, particularly when it comes to escaping of double quotes and/or commas.
 
 
 ## Dashboard
@@ -204,7 +204,7 @@ Typically in Stroom an _Events_ stream will contain data conforming to the {{< e
 The left hand navigation tree.
 The Explorer Tree is used for finding, opening, creating, renaming, copying, moving and deleting {{< glossary "Entity" "Entities" >}}.
 It can also be used to control the access permissions of entities and folders.
-The tree can be filtered using the quick filter, see [Finging Things]({{< relref "finding-things.md" >}}) for more details.
+The tree can be filtered using the quick filter, see [Finding Things]({{< relref "finding-things.md" >}}) for more details.
 
 
 ## Expression Tree
@@ -226,7 +226,7 @@ See also [Expression functions]({{< relref "docs/reference-section/expressions" 
 
 ## Feed
 
-A Feed is means of organising and categorising data in Stroom.
+A Feed is a means of organising and categorising data in Stroom.
 A Feed contains multiple {{< glossary "stream" "Streams" >}} of data that have been ingested into Stroom or output by a {{< glossary "Pipeline" >}}.
 Typically a Feed will contain {{< glossary "Stream" "Streams" >}} of data that are all from one system and have a common data format.
 
@@ -388,7 +388,7 @@ Filters can be enabled/disabled independently of their parent Processor to contr
 ## Property
 
 A configuration Property for configuring Stroom.
-Properties can be set via in the user interface or via the `config.yml` configuration file.
+Properties can be set in the user interface or via the `config.yml` configuration file.
 
 See [Properties]({{< relref "Properties" >}}) for more detail.
 
@@ -451,9 +451,9 @@ See the [User Guide]({{< relref "docs/user-guide/concepts/streams" >}}) for more
 
 ## Stream Type
 
-All {{< glossary "Stream" "Streams" >}} must have an Stream Type.
+All {{< glossary "Stream" "Streams" >}} must have a Stream Type.
 The list of Stream Types is configured using the {{< glossary "Property" >}} `stroom.data.meta.metaTypes`.
-Additional Stream Types can be added however the list of Stream Types must include the following built-in types: 
+Additional Stream Types can be added however the list of Stream Types must include the following built-in types:
 
 * Context
 * Error
@@ -526,7 +526,7 @@ All international time zones are relative to UTC.
 Stroom currently works internally in UTC, though it is possible to change the display time zone via User Preferences to display times in another time zone.
 
 
-## UUID 
+## UUID
 
 A Universally Unique Identifier for uniquely identifying something.
 UUIDs are used as the identifier in {{< glossary "DocRef" "DocRefs" >}}.
@@ -550,7 +550,7 @@ Stroom has two types of Volume; Index Volumes and Data Volumes.
 * _Index Volume_ - Where the Lucene Index Shards are written to.
   An Index Volume must belong to a {{< glossary "Volume Group" >}}.
 * _Data Volume_ - Where streams are written to.
-  When writing {{< glossary "Stream" >}} data Stroom will pick a data volume to using a volume selector as configured by the {{< glossary "Property" >}} `stroom.data.filesystemVolume.volumeSelector`.
+  When writing {{< glossary "Stream" >}} data Stroom will pick a data volume using a volume selector as configured by the {{< glossary "Property" >}} `stroom.data.filesystemVolume.volumeSelector`.
 
 See the [User Guide]({{< relref "user-guide/volumes" >}}) for more detail.
 
@@ -559,7 +559,7 @@ See the [User Guide]({{< relref "user-guide/volumes" >}}) for more detail.
 
 A Volume Group is a collection of one or more Index Volumes.
 Index volumes must belong to a volume group and Indexes are configured to write to a particular Volume Group.
-When Stroom is write data to a Volume Group it will choose which if the Volumes in the group to write to using a volume selector as configured by the {{< glossary "Property" >}} `stroom.volumes.volumeSelector`.
+When Stroom is writing data to a Volume Group it will choose which of the Volumes in the group to write to using a volume selector as configured by the {{< glossary "Property" >}} `stroom.volumes.volumeSelector`.
 
 See the [User Guide]({{< relref "user-guide/volumes" >}}) for more detail.
 

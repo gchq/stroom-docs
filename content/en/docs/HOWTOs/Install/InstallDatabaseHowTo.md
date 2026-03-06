@@ -16,7 +16,7 @@ Stroom has two databases. The first, `stroom`, is used for management of Stroom 
 
 - have a single database instance and serve both databases from it
 - have two database instances on the same server and serve one database per instance
-- have two separate nodes, each with it's own database instance
+- have two separate nodes, each with its own database instance
 - the list goes on.
 
 In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the {{< external-link "MariaDB" "https://mariadb.com" >}} or {{< external-link "MySQL Community" "https://www.mysql.com/products/community/" >}} versions of MySQL.
@@ -45,8 +45,8 @@ sudo yum -y install policycoreutils-python mariadb-server
 
 ### MySQL Community Server Installation
 
-As MySQL is not directly supported by Centos 7, we need to install it's repository files prior to installation.
-We get the current MySQL Community release repository rpm and validate it's MD5 checksum against the published value found on the {{< external-link "MySQL Yum Repository" "https://dev.mysql.com/downloads/repo/yum" >}} site.
+As MySQL is not directly supported by Centos 7, we need to install its repository files prior to installation.
+We get the current MySQL Community release repository rpm and validate its MD5 checksum against the published value found on the {{< external-link "MySQL Yum Repository" "https://dev.mysql.com/downloads/repo/yum" >}} site.
 
 ```bash
 wget https://repo.mysql.com/mysql57-community-release-el7.rpm
@@ -119,7 +119,7 @@ sudo yum -y install policycoreutils-python mysql-community-server
 
 #### Create and instantiate both database instances
 
-To set up two MariaDB database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an `@` character before the `.service` suffix.
+To set up two MariaDB database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MariaDB databases on the same node and systemd service templates manage multiple services from one configuration file. A systemd service template is unique in that it has an `@` character before the `.service` suffix.
 
 To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MariaDB configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance. We will name our instances, `mysqld0` and `mysqld1`. We will also create specific log files for each instance.
 
@@ -154,7 +154,7 @@ sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld0
 sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql-mysqld1
 ```
 
-We now replace the  MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively. First backup the existing configuration file with
+We now replace the MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively. First backup the existing configuration file with
 
 ```bash
 sudo cp /etc/my.cnf /etc/my.cnf.ORIG
@@ -324,7 +324,7 @@ and process as before (for when running mysql_secure_installation). At this both
 
 #### Create and instantiate both database instances
 
-To set up two MySQL database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file.  A systemd service template is unique in that it has an `@` character before the `.service` suffix.
+To set up two MySQL database instances on the one node, we will use `mysql_multi` and systemd service templates. The `mysql_multi` utility is a capability that manages multiple MySQL databases on the same node and systemd service templates manage multiple services from one configuration file. A systemd service template is unique in that it has an `@` character before the `.service` suffix.
 
 To use this multiple-instance capability, we need to create two data directories for each database instance and also replace the main MySQL configuration file, `/etc/my.cnf`, with one that includes configuration of key options for each instance. We will name our instances, `mysqld0` and `mysqld1`. We will also create specific log files for each instance.
 
@@ -363,7 +363,7 @@ Disable the default database via
 sudo systemctl disable mysqld
 ```
 
-We now modify the  MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively.  First backup the existing configuration file with
+We now modify the MySQL configuration file to set the options for each instance. Note that we will serve `mysqld0` and `mysqld1` via TCP ports `3307` and `3308` respectively. First backup the existing configuration file with
 
 ```bash
 sudo cp /etc/my.cnf /etc/my.cnf.ORIG
@@ -589,7 +589,7 @@ quit;
 
 to exit.
 
-And for the `statistics` database 
+And for the `statistics` database
 
 ```bash
 mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
@@ -658,7 +658,7 @@ install plugin SQL_ERROR_LOG soname 'sql_errlog';
 quit;
 ```
 
-The above will generate two log files, 
+The above will generate two log files,
 
 - `/var/log/mariadb/mysqld-mysqld0_server_audit.log` or `/var/log/mariadb/mysqld-mysqld1_server_audit.log` which records all commands the respective databases run. We have configured the log file will rotate at 10MB in size.
 - `/var/lib/mysql-mysqld0/sql_errors.log` or `/var/lib/mysql-mysqld1/sql_errors.log` which records all erroneous SQL commands. This log file will rotate at 10MB in size. Note we cannot set this filename via the UI, but it will be appear in the data directory.
@@ -673,7 +673,7 @@ If you wish to rotate a log file manually, log into the database as the administ
 
 ### Initial Database Access
 
-It should be noted that if you monitor the `sql_errors.log` log file on a new Stroom deployment, when the Stroom Application first starts, it's initial access to the `stroom` database will result in the following attempted SQL statements.
+It should be noted that if you monitor the `sql_errors.log` log file on a new Stroom deployment, when the Stroom Application first starts, its initial access to the `stroom` database will result in the following attempted SQL statements.
 
 ```sql
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC

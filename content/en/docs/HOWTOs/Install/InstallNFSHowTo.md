@@ -16,7 +16,7 @@ The following assumptions are used in this document.
  - the user has reasonable RHEL/Centos System administration skills
  - installations are on Centos 7.3 minimal systems (fully patched)
  - the user is or has deployed the example two node Stroom cluster storage hierarchy described [here]({{< relref "InstallHowTo.md#storage-scenario" >}})
- - the configuration of this NFS is NOT secure. It is highly recommended to improve it's security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.
+ - the configuration of this NFS is NOT secure. It is highly recommended to improve its security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.
 
 
 ## Installation of NFS software
@@ -127,7 +127,7 @@ sudo su -c "printf '/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\
 ```
 
   * Restart the NFS service and make the firewall enable NFS access as per
- 
+
 ```bash
 sudo systemctl restart nfs-server
 sudo firewall-cmd --zone=public --add-service=nfs --permanent

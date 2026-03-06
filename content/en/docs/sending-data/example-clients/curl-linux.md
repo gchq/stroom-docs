@@ -15,7 +15,7 @@ In the following examples -H is used to specify the header arguments required by
 Notes:
 
 * The `@` character must be used in front of the file being posted.
-    If it is not then curl will post the file name instead of it's contents.
+    If it is not then curl will post the file name instead of its contents.
 * The `--data-binary` argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.
 
 
