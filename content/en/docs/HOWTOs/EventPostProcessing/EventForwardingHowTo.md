@@ -172,13 +172,13 @@ Left click on the split Filter then left click on the Add New Pipeline Element t
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-10.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline XSLT Filter{{< /screenshot >}}
 
-and change the **Id:** from _xsltFilter_ to _ClientAUSxsltFilter_
+And change the **Id:** from _xsltFilter_ to _ClientAUSxsltFilter_
 
 Now select the multiGeoSplitFilter Element again and add another XSLTFilter as previously
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-11.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline XSLT Filter2{{< /screenshot >}}
 
-Name this xsltFilter _ClientGBRxsltFilter_.
+Name this xsltFilter `ClientGBRxsltFilter`.
 
 At this stage the Pipeline should look like
 
@@ -190,15 +190,15 @@ ClientAUSxsltFilter element then left click on the _Add New Pipeline Element_ {{
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-14.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select SchemaFilter{{< /screenshot >}}
 
-and change the **Id:** from schemaFilter to AUSschemaFilter to show
+And change the **Id:** from `schemaFilter` to `AUSschemaFilter` to show
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-15.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development{{< /screenshot >}}
 
-Now, left click the AUSschemaFilter element then right click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element">}} to bring up the pipeline Element context menu and select the XMLWriter item
+Now, left click the `AUSschemaFilter` element then right click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element">}} to bring up the pipeline Element context menu and select the XMLWriter item
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-16.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select XMLWriter{{< /screenshot >}}
 
-and change the **Id:** from xmlWriter to AUSxmlWriter
+And change the **Id:** from `xmlWriter` to `AUSxmlWriter`
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-17.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline XMLWriter Id{{< /screenshot >}}
 
@@ -206,13 +206,13 @@ Your Pipeline should now look like
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-18.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development2{{< /screenshot >}}
 
-Finally, left click the AUSxmlWriter element then right click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element" >}} to bring up the **Destination** pipeline Element context menu.
+Finally, left click the `AUSxmlWriter` element then right click on the _Add New Pipeline Element_ {{< stroom-icon "add.svg" "Add new pipeline element" >}} to bring up the **Destination** pipeline Element context menu.
 
 Select **RollingFileAppender**
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-19.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline select destination{{< /screenshot >}}
 
-and change the **Id:** from rollingFileAppender to AUSrollingFileAppender to show
+And change the **Id:** from `rollingFileAppender` to `AUSrollingFileAppender` to show
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-20.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline development3{{< /screenshot >}}
 
@@ -245,7 +245,7 @@ Click on **OK** twice to get your back to main MultiGeoFwd tab which should now 
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-26.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline xslt Edit Property completed{{< /screenshot >}}
 
-Now go back to the top pane of the Pipeline Structure and select the AUSschemaFilter element on the pipeline.
+Now go back to the top pane of the Pipeline Structure and select the `AUSschemaFilter` element on the pipeline.
 Then click the _schemaGroup_ **Property Name** line.
 Now click on the **Edit Property** {{< stroom-icon "edit.svg" "Edit property" >}} icon.
 Set the Property Value to be EVENTS.
@@ -256,7 +256,7 @@ then press **OK**.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-28.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline schemaFilter Edit Property completed{{< /screenshot >}}
 
-Now select the AUSxmlWriter element in the pipeline structure and click the _indentOutput_ **Property Name** line.
+Now select the `AUSxmlWriter` element in the pipeline structure and click the _indentOutput_ **Property Name** line.
 Click on the **Edit Property** {{< stroom-icon "edit.svg" "Edit property" >}} icon.
 Set the Property Value to be _true_.
 The completed Element should look like
@@ -275,7 +275,7 @@ The outputPath can contain replacement variables to provide more structure if de
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-31.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline rollingFileAppender Edit Property completed{{< /screenshot >}}
 
-Repeat this Element Property Name assignment for the GBR branch of the pipeline substituting the ClientGBR translation and /stroom/volumes/defaultStreamVolume/forwarding/GBR00 for rollingFileAppender outputPaths where appropriate.
+Repeat this Element Property Name assignment for the GBR branch of the pipeline substituting the ClientGBR translation and `/stroom/volumes/defaultStreamVolume/forwarding/GBR00`  for `rollingFileAppender` `outputPaths` where appropriate.
 
 Note, if you expect lots of events to be processed by the pipeline, you may wish to create multiple outputPaths.
 For example, you could have
@@ -293,7 +293,7 @@ and
 /stroom/volumes/defaultStreamVolume/forwarding/_GBR0n_
 ```
 
-as appropriate.
+As appropriate. 
 
 Save the pipeline by pressing the Save {{< stroom-icon "save.svg" >}} icon.
 
@@ -309,7 +309,7 @@ We select the Events stream and Enter Stepping Mode by pressing the large {{< st
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-33.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test Enter Stepping Mode{{< /screenshot >}}
 
-and we will choose the {{< stroom-icon "document/Pipeline.svg">}} _MultiGeoFwd_ to step with.
+And we will choose the {{< stroom-icon "document/Pipeline.svg">}} _MultiGeoFwd_ to step with.
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-35.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Test selection{{< /screenshot >}}
 
@@ -364,7 +364,7 @@ Add the following items to the processor:
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-44.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Filters{{< /screenshot >}}
 
-then press **OK** to see
+Then press **OK** to see
 
 {{< screenshot "HOWTOs/v6/UI-MultiGeoFwd-45.png" >}}Stroom UI MultiGeoFwd - MultiGeoFwd Pipeline Processors Configured{{< /screenshot >}}
 
