@@ -324,9 +324,10 @@ verify_link() {
       # GitHub is pretty agressive with rate limiting, so checking all
       # the issue links in the rel notes is not wise. They are unlikely
       # to be deleted though, just closed.
-      echo -e "${indent}${YELLOW}Unable to check github issue links due to rate limiting" \
-        "[${BLUE}${link_name}${YELLOW}]" \
-        "with url [${BLUE}${link_location}${YELLOW}]${NC}"
+      : # noop
+      #echo -e "${indent}${YELLOW}Unable to check github issue links due to rate limiting" \
+        #"[${BLUE}${link_name}${YELLOW}]" \
+        #"with url [${BLUE}${link_location}${YELLOW}]${NC}"
     elif [[  "${link_location}" =~ www\.somehost\.com ]]; then
       : # noop
       #echo -e "${indent}${YELLOW}Ignoring dummy link" \
