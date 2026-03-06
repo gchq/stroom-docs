@@ -284,7 +284,7 @@ These header variables typically provide situational awareness of the source sys
 
 For our purposes we set the following HTTP Header variables
 
-```text
+```properties
 Environment:Development
 LogFileName:sampleBluecoat.log
 MyHost:"somenode.strmdev00.org"
