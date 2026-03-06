@@ -58,7 +58,9 @@ main() {
     "ghcr.io/streetsidesoftware/cspell:${C_SPELL_VERSION}" \
     --config \
     cspell.yaml \
-    --quiet \
+    --no-progress \
+    --show-context \
+    --show-suggestions \
     --color \
     "$@" \
     || status=$?
