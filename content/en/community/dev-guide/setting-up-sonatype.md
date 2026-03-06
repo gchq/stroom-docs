@@ -7,7 +7,7 @@ tags:
 description: >
   This is a rough guide to what was done to set it up.  Some bits may be missing.
 ---
-
+initialize tokenize hte
 ## Create a Sonatype account
 
 You need to create an account on Sonatype and you will need to raise a jira ticket on Sonatype's jira to get approved on the uk.gov.gchq group.
@@ -51,7 +51,7 @@ id "maven-publish"
 
 See the _root_ and _event-logging-api_ gradle build files (in the _event-logging_ repo) for an example of how to set up gradle.
 
-The credentials can be passed to the gradle build using special gradle env vars [Project Properties (external)](https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties).
+The credentials can be passed to the gradle build using special Gradle environment variables [Project Properties (external)](https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties).
 The credentials required are:
 
 * `ORG_GRADLE_PROJECT_SIGNINGKEY` - The key as produced by the `gpg2 --armorxxx` command.

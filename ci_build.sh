@@ -906,6 +906,11 @@ main() {
   ./broken_links.sh
   echo "::endgroup::"
 
+  echo "::group::Checking spelling"
+  echo -e "${GREEN}Checking the spelling in all .md files${NC}"
+  ./check_spelling.sh
+  echo "::endgroup::"
+
   pushd "${GIT_WORK_DIR}"
 
   # Only master branch builds all the branches

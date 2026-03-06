@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -e -o pipefail
 
 setup_echo_colours() {
   # Exit the script on any error
@@ -45,19 +45,34 @@ debug() {
 
 main() {
   IS_DEBUG=false
+  C_SPELL_VERSION="9.7.0"
   #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
   setup_echo_colours
 
+  local status=0
+
   docker \
     run \
     -v "${PWD}:/workdir" \
-    ghcr.io/streetsidesoftware/cspell:9.7.0 \
+    "ghcr.io/streetsidesoftware/cspell:${C_SPELL_VERSION}" \
     --config \
     cspell.yaml \
     --quiet \
     --color \
-    "$@"
+    "$@" \
+    || status=$?
+
+  if [[ $status -ne 0 ]]; then
+    echo -e "${RED}ERROR${NC}: Spell check failed."
+    echo -e "Do one or more of the following:"
+    echo -e "  * Fix the spelling mistakes."
+    echo -e "  * Add the word to the list of allowed words (${YELLOW}words${NC}) in ${BLUE}cspell.yaml${NC}"
+    echo -e "  * Surround the text with backticks if appropriate, e.g. '${BLUE}Enter the value: \`foobar\`'${NC}"
+    echo -e "  * Add a new regex pattern to (${YELLOW}ignoreRegExpList${NC}) in ${BLUE}cspell.yaml${NC} to ignore sections of text"
+    echo -e "  * Surround the bad text with ${BLUE}\`<!-- cSpell:enable -->\`${NC} and ${BLUE}\`<!-- cSpell:disable -->\`${NC}"
+    exit 1
+  fi
 }
 
 main "$@"

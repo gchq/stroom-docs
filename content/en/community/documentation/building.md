@@ -33,7 +33,7 @@ docker buildx version
 (out)github.com/docker/buildx 0.9.1 ed00243a0ce2a0aee75311b06e32d33b44729689
 {{</ command-line >}}
 
-It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.
+It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. `java`, `plantuml`, `puppeteer`, `hugo`, `npm`, `html2canvas`, `jspdf`, `graphviz` etc.
 
 It is assumed that you have a reasonable understanding of how to use Git and Github, specifically:
 

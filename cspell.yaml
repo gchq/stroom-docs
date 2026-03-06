@@ -73,6 +73,11 @@ ignoreRegExpList:
 # e.g. <a name="mysqlclientinstall"></a>
 - '/<a\s+(?:name|id)="[^"]+"\s*>.*<\/a>/gm'
 
+# UPPER CASE only words
+# e.g. RAID
+- '/(?<=\W)[A-Z0-9]+(?=\W)/g'
+
+# Allowed words
 words:
 - Adoptium
 - amongst
@@ -128,9 +133,7 @@ words:
 - dialog
 - dialogs
 - dockerfile
-- Dockerfile
 - dockerhub
-- DockerHub
 - Docsy
 - docsy
 - DOCTYPE
@@ -278,7 +281,6 @@ words:
 - stderr
 - stdin
 - stdout
-- Stroom
 - stroom
 - stroompassword
 - stroomuser
@@ -294,7 +296,6 @@ words:
 - timestamps
 - TLS
 - tokenisation
-- Tokenisation
 - tokenise
 - tokenised
 - TOML
@@ -324,8 +325,110 @@ words:
 - yaml
 - zstd
 
-
-
+# Forbidden words
+# Note cspell normall only checks words >= 4chars
+# A lot of these override american english words included in the 'software-terms' dictionary.
+flagWords:
+- hte # 'the'
+- anonymize
+- anonymized
+- anonymizer
+- anonymizers
+- anonymizes
+- camelize
+- camelized
+- camelizes
+- canonicalize
+- canonicalized
+- canonicalizes
+- color
+- colored
+- coloring
+- colorize
+- colorized
+- colorizer
+- colorizers
+- componentize
+- daemonize
+- dasherize
+- dasherized
+- denormalize
+- denormalized
+- denormalizes
+- deparameterize
+- deparameterized
+- deparameterizes
+- deparametrize
+- deparametrized
+- deparametrizes
+- deserialize
+- deserialized
+- deserializer
+- deserializers
+- deserializes
+- detokenize
+- detokenized
+- detokenizer
+- detokenizers
+- detokenizes
+- diarize
+- diarized
+- diarizes
+- discretize
+- discretized
+- discretizes
+- dockerize
+- initializer
+- initializers
+- parameterized
+- parametrized
+- productize
+- productized
+- productizes
+- randomizer
+- randomizers
+- reinitialize
+- reinitialized
+- reinitializes
+- renormalize
+- renormalized
+- renormalizer
+- renormalizers
+- renormalizes
+- reparameterize
+- reparameterized
+- reparameterizes
+- reparametrize
+- reparametrized
+- reparametrizes
+- resynchronize
+- resynchronized
+- resynchronizes
+- serialize
+- serialized
+- serializer
+- serializers
+- serializes
+- strategize
+- tokenize
+- tokenized
+- tokenizer
+- tokenizers
+- tokenizes
+- transparentize
+- uncustomized
+- uninitialize
+- unnormalize
+- unnormalized
+- unnormalizer
+- unoptimized
+- unparenthesized
+- vectorize
+- vectorized
+- vectorizes
+- virtualize
+- virtualized
+- virtualizer
 
 dictionaries:
 - en_GB
