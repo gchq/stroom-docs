@@ -25,7 +25,6 @@ file_deny_list=(
 # Any link locations to not check
 # mariadb.com - We get a 403 even when using a browser user-agent
 url_deny_list=(
-  "https://github.com/gchq/stroom/issues/\1"
   "https://mariadb.com"
 )
 
@@ -325,7 +324,7 @@ verify_link() {
       echo -e "${indent}${YELLOW}Unable to check localhost link" \
         "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
-    elif [[  "${link_location}" =~ http://github.com/gchq/stroom/issues/[0-9]+ ]]; then
+    elif [[  "${link_location}" =~ https://github.com/gchq/stroom/issues/[0-9]+ ]]; then
       # GitHub is pretty agressive with rate limiting, so checking all
       # the issue links in the rel notes is not wise. They are unlikely
       # to be deleted though, just closed.
