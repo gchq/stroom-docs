@@ -219,6 +219,19 @@ build_version_from_source() {
       remove_unwanted_sections "${repo_root}"
   fi
 
+  # Do the spelling/link checking before we build the site so we
+  # can fail faster
+
+  echo "::group::Checking for broken links"
+  echo -e "${GREEN}Checking all .md files for broken links${NC}"
+  ./broken_links.sh
+  echo "::endgroup::"
+
+  echo "::group::Checking spelling"
+  echo -e "${GREEN}Checking the spelling in all .md files${NC}"
+  ./check_spelling.sh
+  echo "::endgroup::"
+
   echo "::group::PUML conversion"
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
   ./container_build/runInPumlDocker.sh SVG
@@ -900,16 +913,6 @@ main() {
     # branch
     build_version_from_source "${BUILD_BRANCH}" "${BUILD_DIR}"
   fi
-
-  echo "::group::Checking for broken links"
-  echo -e "${GREEN}Checking all .md files for broken links${NC}"
-  ./broken_links.sh
-  echo "::endgroup::"
-
-  echo "::group::Checking spelling"
-  echo -e "${GREEN}Checking the spelling in all .md files${NC}"
-  ./check_spelling.sh
-  echo "::endgroup::"
 
   pushd "${GIT_WORK_DIR}"
 
