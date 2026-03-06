@@ -202,6 +202,11 @@ appConfig / proxyConfig:
     # Files in sub-directory will be ignored.
     dataFeedKeysDir: "data_feed_keys"
     # The types of authentication that are enabled for data receipt.
+    # One or more of 
+    # TOKEN - A Stroom API Key or an OAuth token in the 'Authorization' header
+    # CERTIFICATE - An X509 certificate on the request or a DN in the header configured
+    #               by .receive.x509CertificateDnHeader
+    # DATA_FEED_KEY - A Stroom Data Feed Key in the 'Authorization' header
     enabledAuthenticationTypes:
     - "TOKEN"
     - "CERTIFICATE"
