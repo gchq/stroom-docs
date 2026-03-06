@@ -127,7 +127,7 @@ You should now see the following structure:
 {{< image "quick-start-guide/index/012_indexing_pipeline.png" >}}Indexing pipeline{{< /image >}}
 
 Inheriting from another pipeline often means the structure is there but some properties may not have been set, e.g. `xslt` in the _xsltFilter_.
-If a property has been set in the partent pipeline then you can either use the inherited value or override it.
+If a property has been set in the parent pipeline then you can either use the inherited value or override it.
 
 See the [Pipeline Element Reference]({{< relref "docs/reference-section/pipeline-elements" >}}) for details of what each element does.
 
@@ -304,7 +304,7 @@ The Output should have changed so that the Input and Output now look like this:
   {{< /card >}}
 {{< /cardpane >}}
 
-You can use the stepping controls ({{< stroom-icon name="fast-backward.svg" title="Fast Backward" colour="green" >}}{{< stroom-icon name="step-backward.svg" title="Step Backward" colour="green" >}}{{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}}{{< stroom-icon name="fast-forward.svg" title="Fast Forward" colour="green" >}}) to check that the ouput is correct for other input events.
+You can use the stepping controls ({{< stroom-icon name="fast-backward.svg" title="Fast Backward" colour="green" >}}{{< stroom-icon name="step-backward.svg" title="Step Backward" colour="green" >}}{{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}}{{< stroom-icon name="fast-forward.svg" title="Fast Forward" colour="green" >}}) to check that the output is correct for other input events.
 
 Once you are happy with your translation click the {{< stroom-icon "save.svg" >}} button to save the XSLT content to the _Stroom 101_ XSLT document.
 

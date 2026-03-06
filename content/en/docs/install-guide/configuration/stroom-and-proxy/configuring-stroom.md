@@ -53,7 +53,7 @@ Typically stroom is configured to keep it statistics data in a separate database
 
 In a clustered deployment each node must be given a node name that is unique within the cluster.
 This is used to identify nodes in the Nodes screen.
-It could be the hostname of the node or follow some other naming convetion.
+It could be the hostname of the node or follow some other naming convention.
 
 ```yaml
   node:

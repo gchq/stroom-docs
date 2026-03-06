@@ -121,7 +121,7 @@ We need to tell the new _CSV parser_ to use the {{< stroom-icon "document/TextCo
 Now save the pipeline by clicking the add button {{< stroom-icon "add.svg" >}}.
 
 
-#### Test the csv splitter
+#### Test the CSV splitter
 
 So now we have CSV data in Stroom and a pipeline that is configured to process CSV data.
 We've done a fair few things so far and are we sure the pipeline is correctly configured?
@@ -255,7 +255,7 @@ We need to get this data to a destination.
 
 The XSLT filter doesn't actually write XML but instead it just outputs XML events to the next element in the pipeline.
 In order to write these XML events out to a destination you need a writer.
-If your transofmration is producing XML then you need an {{< element "XMLWriter" >}}, if it is producing JSON then you need a {{< element "JSONWriter" >}} and for plain text you need a {{< element "TextWriter" >}}.
+If your transformation is producing XML then you need an {{< element "XMLWriter" >}}, if it is producing JSON then you need a {{< element "JSONWriter" >}} and for plain text you need a {{< element "TextWriter" >}}.
 
 Our _XSLT filter_ element is outputting XML so we will create an _XMLWriter_.
 

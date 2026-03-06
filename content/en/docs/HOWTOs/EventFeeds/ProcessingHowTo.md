@@ -94,7 +94,7 @@ The configuration items for a Event Feed are
 
 In our example, we will set the above to
 
- * _Description_ - *BlueCoat Proxy log data sent in W2C Extended Log File Format (ELFF)*
+ * _Description_ - *BlueCoat Proxy log data sent in W2C Extended Log File Format ({{< glossary "ELFF" >}})*
  * _Classification_ - We will leave this blank
  * _Reference Feed Flag_ - We leave the check-box unchecked as this is not a *Reference Feed*
  * _Feed Status_ - We set to *Receive*
@@ -130,7 +130,7 @@ and it's corresponding reference in the `Explorer` display.
 
 We set the configuration for this `Text Converter` to be
 
- * Description - *Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format (ELFF)*
+ * Description - *Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format ({{< glossary "ELFF" >}})*
  * Converter Type - We set to *Data Splitter* was we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
  
 Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configuration items.
@@ -209,8 +209,8 @@ then pressing {{< stroom-btn "Ok" >}} to see the inherited pipeline structure
 
 For the purpose of this HOWTO, we are only interested in two of the eleven (11) elements in this pipeline
 
- * the Text Converter labeled *dsParser*
- * the XSLT Translation labeled *translationFilter*
+ * the Text Converter labelled *dsParser*
+ * the XSLT Translation labelled *translationFilter*
 
 We need to assign our BlueCoat-Proxy-V1.0-EVENTS Text Converter and XSLT Translation to these elements respectively.
 
@@ -230,7 +230,7 @@ At this, the `Edit Property` configuration window is displayed.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-14.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property{{< /screenshot >}}
 
-We select the **Value:** _None_ {{< stroom-icon "ellipses-horizontal.svg" "Menu selection" >}} entry box labeled to reveal a **Choose Item** configuration item window.
+We select the **Value:** _None_ {{< stroom-icon "ellipses-horizontal.svg" "Menu selection" >}} entry box labelled to reveal a **Choose Item** configuration item window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-15.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser Edit Property choose item{{< /screenshot >}}
 
@@ -386,10 +386,10 @@ The lower two panes are the _input_ and _output_ displays for the text converter
 The authoring of this data splitter translation is outside the scope of this HOWTO.
 It is recommended that one reads up on the [Data Splitter]({{< relref "../../user-guide/data-splitter" >}}) and review the various samples found in the Stroom Context packs published, or the Pull Requests of {{< external-link "github.com/gchq/stroom-content" "https://github.com/gchq/stroom-content" >}}.
 
-For the purpose of this HOWTO, the Datasplitter appears below.
+For the purpose of this HOWTO, the Data Splitter appears below.
 The author believes the comments should support the understanding of the transformation.
 
-{{< textfile "HOWTOs/EventFeeds/ProcessingHowTo/BlueCoat.ds" "xml" >}}BlueCoat dataspliter{{</textfile >}}
+{{< textfile "HOWTOs/EventFeeds/ProcessingHowTo/BlueCoat.ds" "xml" >}}BlueCoat data Spliter{{</textfile >}}
 
 It should be entered into the Text Converter's editing pane as per
 
@@ -409,7 +409,7 @@ So, if one was to press the {{< stroom-icon name="step-forward.svg" title="Step 
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-33.png" >}}Stroom UI Create Feed - Translation - Stepping dsParser textConverter 1{{< /screenshot >}}
 
-We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and it's _value_ attribute of _SGOS 3.2.4.28_.
+We see that the _input_ pane has the first line of input from our sample file and the _output_ pane has an XML **record** structure where we have defined a **data** element with the _name_ attribute of _bc_software_ and it's _value_ attribute of `SGOS 3.2.4.28`.
 The definition of the **record** structure can be found in the **System/XML Schemas/records** folder.
 
 This is the result of the code in our editor
@@ -463,9 +463,9 @@ If we change the record number from __3__ to __12__ then either press Enter or p
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-38.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 3{{< /screenshot >}}
 
-and note that a new record has been processed in the _input_ and _output_ panes.
+And note that a new record has been processed in the _input_ and _output_ panes.
 Further, if one steps back to the `Source` element of the pipeline to view the raw source file, we see that the highlighted __current__ line is the 12th line of processed data.
-It is the 10th actual bluecoat event, but remember the #Software, #Version lines are considered as processed data (2+10 = 12).
+It is the 10th actual Bluecoat event, but remember the #Software, #Version lines are considered as processed data (2+10 = 12).
 Also noted that the #Date and #Fields lines are not considered processed data, and hence do not contribute to the **recordNo** value.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-39.png" >}}Stroom UI Create Feed - Translation - Stepping Indicator 4{{< /screenshot >}}

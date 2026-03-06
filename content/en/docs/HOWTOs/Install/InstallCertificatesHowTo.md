@@ -15,13 +15,13 @@ The following assumptions are used in this document.
  - the user has reasonable RHEL/Centos System administration skills
  - installations are on Centos 7.3 minimal systems (fully patched)
  - either a Stroom Proxy or Stroom Application has already been deployed
- - processing node names are 'stroomp00.strmdev00.org' and 'stroomp01.strmdev00.org'
- - the first node, 'stroomp00.strmdev00.org' also has a CNAME 'stroomp.strmdev00.org'
- - in the scenario of a Stroom Forwarding Proxy, the node name is 'stroomfp0.strmdev00.org'
- - in the scenario of a Stroom Standalone Proxy, the node name is 'stroomsap0.strmdev00.org'
- - stroom runs as user 'stroomuser'
+ - processing node names are `stroomp00.strmdev00.org` and `stroomp01.strmdev00.org`
+ - the first node, `stroomp00.strmdev00.org` also has a CNAME `stroomp.strmdev00.org`
+ - in the scenario of a Stroom Forwarding Proxy, the node name is `stroomfp0.strmdev00.org`
+ - in the scenario of a Stroom Standalone Proxy, the node name is `stroomsap0.strmdev00.org`
+ - stroom runs as user `stroomuser`
  - the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments
- - in this document, when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
+ - in this document, when a screen capture is documented, data entry is identified by the data surrounded by `<__` `__>` . This excludes enter/return presses.
 
 ## Create certificates
 The first step is to establish a self signed certificate for our Stroom service. If you have a certificate server, then certainly gain an
@@ -114,7 +114,8 @@ Enter pass phrase for private/stroomp.key: <__ENTER_SERVER_KEY_PASSWORD__>
 ```
 and noting the `subject` will change depending on the host name used when generating the signing request.
 
-Create insecure version of private key for Apache autoboot (you will again need to enter the server key password)
+Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)
+
 ```bash
 openssl rsa -in private/$H.key -out private/$H.key.insecure
 ```
@@ -133,15 +134,18 @@ mv private/$H.key.insecure private/$H.key
 We have now completed the creation of our certificates and keys.
 
 ### Replication of Keys Directory to other nodes
-If you are deploying a multi node Stroom cluster, then you would replicate the directory ~stroomuser/stroom-jks to each node in the cluster. That is,
-tar it up, copy the tar file to the other node(s) then untar it. We can make use of the other node's mounted file system for this process.
+If you are deploying a multi node Stroom cluster, then you would replicate the directory `~/stroomuser/stroom-jks` to each node in the cluster. That is,
+tar it up, copy the tar file to the other node(s) then `untar` it. We can make use of the other node's mounted file system for this process.
 That is one could execute the commands on the first node, where we created the certificates
+
 ```bash
 cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
 mv stroom-jks.tar /stroomdata/stroom-data-p01
 ```
-then on the another node, say `stroomp01.strmdev00.org`, as the stroomuser we extract the data.
+
+Then on the another node, say `stroomp01.strmdev00.org`, as the stroomuser we extract the data.
+
 ```bash
 sudo -i -u stroomuser
 cd ~stroomuser
@@ -149,7 +153,9 @@ tar xf /stroomdata/stroom-data-p01/stroom-jks.tar && rm -f /stroomdata/stroom-da
 ```
 
 ### Protection, Ownership and SELinux Context
+
 Now ensure protection, ownership and SELinux context for these key files on **ALL** nodes via
+
 ```bash
 chmod 700 ~stroomuser/stroom-jks/private ~stroomuser/stroom-jks
 chown -R stroomuser:stroomuser ~stroomuser/stroom-jks
@@ -157,6 +163,7 @@ chcon -R --reference /etc/pki ~stroomuser/stroom-jks
 ```
 
 ## Stroom Proxy to Proxy Key and Trust Stores
+
 In order for a Stroom Forwarding Proxy to communicate to a central Stroom proxy over https, the JVM running the forwarding proxy needs
 relevant keystores set up.
 
@@ -170,11 +177,12 @@ export H=stroomfp0
 and then proceed as [above](#use-host-variable).
 
 Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
-the central Stroom proxy is the _stroomp.strmdev00.org_ server and it's public key is stored in the file `stroomp.crt`. We will store
+the central Stroom proxy is the `stroomp.strmdev00.org` server and it's public key is stored in the file `stroomp.crt`. We will store
 this file on the forwarding proxy in `~stroomuser/stroom-jks/public/stroomp.crt`.
 
 So once you have created the forwarding proxy server's SSL keys and have deployed the central proxy's public key, we next
 need to convert the proxy server's SSL keys into DER format. This is done by executing the following.
+
 ```bash
 cd ~stroomuser/stroom-jks
 export H=stroomfp0
@@ -187,42 +195,57 @@ openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER
 ```
 
 When you convert the local server's private key, you will be prompted for the server key password. 
+
 ```bash
 # Convert the local server's Private key
 openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER
 ```
-as per
-```
+
+As per
+
+```bash
 Enter pass phrase for private/stroomfp0.key.secure: <__ENTER_SERVER_KEY_PASSWORD__>
 ```
 
 We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it's found with the command
+
 ```bash
 find ~stroomuser/*proxy -name 'stroom*util*.jar' -print | head -1
 ```
-which should return _/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar_ or similar depending on the release version.
+
+Which should return _/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar_ or similar depending on the release version.
 To make execution simpler, we set this as a shell variable as per
+
 ```bash
 Stroom_UTIL_JAR=`find ~/*proxy -name 'stroom*util*.jar' -print | head -1`
 ```
+
 We now create the keystore and import the proxy's server key
+
 ```bash
 java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der
 ```
-as per
-```
+
+As per
+
+```text
 One certificate, no chain
 ```
+
 We now import the destination server's public key
+
 ```bash
 keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}
 ```
-as per
-```
+
+As per
+
+```text
 Certificate was added to keystore
 ```
 
 We now add the key and trust store location and password arguments to our Stroom proxy environment files.
+
 ```bash
 PWD=`pwd`
 echo "export JAVA_OPTS=\"-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.trustStorePassword=${S} -Djavax.net.ssl.keyStore=${PWD}/${H}_k.jks -Djavax.net.ssl.keyStorePassword=${H}\"" >> ~/env.sh
@@ -230,6 +253,7 @@ echo "JAVA_OPTS=\"-Djavax.net.ssl.trustStore=${PWD}/${S}_k.jks -Djavax.net.ssl.t
 ```
 
 At this point you should restart the proxy service. Using the commands
+
 ```bash
 cd ~stroomuser
 source ./env.sh

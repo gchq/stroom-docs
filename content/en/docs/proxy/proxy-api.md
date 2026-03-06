@@ -131,9 +131,9 @@ Current registered health checks are:
 
 * _deadlocks_ - Checks for any deadlocked threads.
 * _stroom.dropwizard.common.LogLevelInspector_ - Reports the current logger levels that have been set.
-  This is not strictly a healthcheck as it will always return _healthy_, more for information purposes.
+  This is not strictly a health check as it will always return _healthy_, more for information purposes.
 * _stroom.proxy.app.ProxyConfigHealthCheck_ - Displays the current configuration values.
-  This is not strictly a healthcheck as it will always return _healthy_, more for information purposes.
+  This is not strictly a health check as it will always return _healthy_, more for information purposes.
 * _stroom.proxy.app.ProxyConfigMonitor_ - Returns _healthy_ if the monitoring of the config file is working correctly.
 * _stroom.proxy.app.ReceiveDataRuleSetClient_ - Returns _healthy_ if the receipt policy rules could be fetched from the downstream host.
   Will return _healthy_ if receipt policy checking is not enabled/configured.

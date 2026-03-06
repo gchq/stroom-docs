@@ -25,7 +25,7 @@ E.g. if the events file is missing information relating to the computer it was g
 ## Feed Identifiers
 
 Feed identifiers must be unique within the system.
-Identifiers can be in any format but an established convetnion is to use the following format
+Identifiers can be in any format but an established convention is to use the following format
 
 ```text
 <SYSTEM>-<ENVIRONMENT>-<TYPE>-<EVENTS/REFERENCE>-<VERSION>

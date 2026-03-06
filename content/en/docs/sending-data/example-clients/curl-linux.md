@@ -81,7 +81,7 @@ The hostname being sent as a header argument may be resolved upon execution usin
 
 ## SSL Notes
 
-To create a .pem format key simply append the private key and certifcate.
+To create a .pem format key simply append the private key and certificate.
 
 {{< command-line "user" "localhost" >}}
 cat <NAME>.key >> <NAME>.pem

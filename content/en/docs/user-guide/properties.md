@@ -212,7 +212,7 @@ See [Delimiters in String Conversion](#delimiters-in-string-conversion) for deta
 
 ### DocRef Data Type
 
-A DocRef (or Document Reference) is a type specific to Stroom that defines a reference to an instance of a Document within Stroom, e.g. an XLST, Pipeline, Dictionary, etc.
+A DocRef (or Document Reference) is a type specific to Stroom that defines a reference to an instance of a Document within Stroom, e.g. an XSLT, Pipeline, Dictionary, etc.
 A DocRef consists of three parts, the type, the {{< external-link "UUID" "https://en.wikipedia.org/wiki/Universally_unique_identifier" >}} and the name of the Document.
 
 The following is an example of how a property (`aDocRefProperty`) that is a DocRef would be represented in the YAML:

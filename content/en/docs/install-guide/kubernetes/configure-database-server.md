@@ -82,7 +82,7 @@ This may be desirable if you have for instance, a replication-enabled MySQL Inno
 ### Provision the server and Stroom databases
 
 {{% todo %}}
-Complete this secion.
+Complete this section.
 {{% /todo %}}
 
 

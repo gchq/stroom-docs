@@ -22,6 +22,8 @@ descriptive text.
 ********************************************************************************
 -->
 
+<!-- spell-checker: disable - content is all generated in Stroom code, so rely on IDE for spell checking there -->
+
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->
 ## Reader
 

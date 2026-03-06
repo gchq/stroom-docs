@@ -786,7 +786,9 @@ root:
 
 The markdown for this is:
 
-````marckdown
+<!-- spell-checker: disable -->
+
+````text
 {{</* cardpane */>}}
   {{</* card header="YAML" */>}}
 ```yaml
@@ -804,6 +806,9 @@ root:
   {{</* /card */>}}
 {{</* /cardpane */>}}
 ````
+
+
+<!-- spell-checker: enable -->
 
 
 ## Tabbed panes

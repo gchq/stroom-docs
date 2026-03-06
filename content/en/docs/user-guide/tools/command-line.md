@@ -399,7 +399,7 @@ This may need to be changed if the IDP in use has a different claim to uniquely 
 Once you have established the claim that will be used to identify the user and have configured Stroom accordingly, you need to find the value of this claim in the IDP for the user that will be the administrator.
 This value may look like an email address, or a {{< glossary "UUID" >}} or something else.
 
-Assuming the unique identifier for _Hohn Doe_ is `b6e06181-9e10-44eb-a33a-537509ec3abd`, do the following to set them up as an administrator.
+Assuming the unique identifier for _John Doe_ is `b6e06181-9e10-44eb-a33a-537509ec3abd`, do the following to set them up as an administrator.
 
 {{< command-line "stroomuser" "localhost" >}}
 java -jar /absolute/path/to/stroom-app-all.jar \

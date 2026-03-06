@@ -43,13 +43,14 @@ As a result the `config.yml` shipped with Stroom Proxy only contains a minimal s
 The full tree of properties can be seen in `./config/config-defaults.yml` and a schema for the configuration tree (along with descriptions for each property) can be found in `./config/config-schema.yml`.
 These two files can be used as a reference when configuring stroom.
 
-In the snippets of YAML configuration below, the defaultsections 
+In the snippets of YAML configuration below, the default sections 
 
 
 ### Basic Structure
 
-Stroom-proxy has a number of [key functions]({{< relref "docs/proxy/proxy-functions" >}}) which are all configured via its YAML configuration file.
+Stroom-Proxy has a number of [key functions]({{< relref "docs/proxy/proxy-functions" >}}) which are all configured via its YAML configuration file.
 
+The following YAML shows the high level structure of the Stroom-Proxy configuration file.
 Each branch of the this YAML is explained in more detail below.
 
 ```yaml

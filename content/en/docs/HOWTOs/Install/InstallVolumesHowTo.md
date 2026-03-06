@@ -117,11 +117,12 @@ And after adding the second node's volumes we are finally presented with our con
 
 #### Delete Default Volumes
 
-We now need to deal with our default volumes. We want to delete them.
+We now need to deal with our default volumes.
+We want to delete them.
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-09.png" >}}Stroom UI Delete Default - display default{{< /screenshot >}}
 
-So we move the cursor to the first volume's line (_stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume_ ...) and select the line then move the cursor to the  _Delete_ icon {{< stroom-icon "delete.svg" "Delete" >}} in the top left of the `Volumes` window and select it. On selection you will be given a confirmation request
+So we move the cursor to the first volume's line (`stroomp00` `/home/stroomuser/stroom-app/volumes/defaultindexVolume` ...) and select the line then move the cursor to the  _Delete_ icon {{< stroom-icon "delete.svg" "Delete" >}} in the top left of the `Volumes` window and select it. On selection you will be given a confirmation request
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-10.png" >}}Stroom UI Delete Default - confirm deletion{{< /screenshot >}}
 
@@ -129,7 +130,7 @@ at which we press the {{< stroom-btn "Ok" >}} button to see the first default vo
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-11.png" >}}Stroom UI Delete Default - first volume deleted{{< /screenshot >}}
 
-and after we select then delete the second default volume( _stroomp00 /home/stroomuser/stroom-app/volumes/defaultStreamVolume_ ...), we are left with
+and after we select then delete the second default volume(`stroomp00` `/home/stroomuser/stroom-app/volumes/defaultStreamVolume` ...), we are left with
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-12.png" >}}Stroom UI Delete Default - all deleted{{< /screenshot >}}
 
@@ -149,16 +150,16 @@ This **MUST** be done before sending any data to your multi-node Stroom cluster.
 ## Adding new Volumes
 When one expands a Multi Node Stroom cluster deployment, after the installation of the Stroom Proxy and Application software and services on the new node,
 one has to configure the new volumes that are on the new node. The following demonstrates this assuming we are adding
-- the new node is `stroomp02`
-- the storage hierarchy for this node is
- - `/stroomdata/stroom-data-p02`        - location to store Stroom application data files (events, etc.) for this node
- - `/stroomdata/stroom-index-p02`       - location to store Stroom application index files
- - `/stroomdata/stroom-working-p02`     - location to store Stroom application working files (e.g. tmp, output, etc.) for this node
- - `/stroomdata/stroom-working-p02/proxy`       - location for Stroom proxy to store inbound data files
+* the new node is `stroomp02`
+* the storage hierarchy for this node is
+ * `/stroomdata/stroom-data-p02`        - location to store Stroom application data files (events, etc.) for this node
+ * `/stroomdata/stroom-index-p02`       - location to store Stroom application index files
+ * `/stroomdata/stroom-working-p02`     - location to store Stroom application working files (e.g. tmp, output, etc.) for this node
+ * `/stroomdata/stroom-working-p02/proxy`       - location for Stroom proxy to store inbound data files
 
 From this we need to create two volumes on `stroomp02`
- - `/stroomdata/stroom-data-p02`        - location to store Stroom application data files (events, etc.) for this node
- - `/stroomdata/stroom-index-p02`       - location to store Stroom application index files
+ * `/stroomdata/stroom-data-p02`        - location to store Stroom application data files (events, etc.) for this node
+ * `/stroomdata/stroom-index-p02`       - location to store Stroom application index files
 
 To configure the volumes, move to the `Tools` item of the __Main Menu__ and select it to bring up the `Tools` sub-menu.
 {{< screenshot "HOWTOs/UI-ToolsSubmenu-00.png" >}}Stroom UI Tools sub-menu{{< /screenshot >}}

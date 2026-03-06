@@ -137,7 +137,7 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
 
 If the look up fails no result will be returned.
 
-The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. `14`/`0xE` is `1110` as a binary bitmap.
+The key is a bitmap expressed as either a decimal integer or a hexadecimal value, e.g. `14`/`0xE` is `1110` as a binary bitmap.
 For each bit position that is set, (i.e. has a binary value of `1`) a lookup will be performed using that bit position as the key.
 In this example, positions `1`, `2` & `3` are set so a lookup would be performed for these bit positions.
 The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.
@@ -440,7 +440,7 @@ stroom:format-date('2009/02/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', '+01:00')
 ```
 
 ```xml
-<!-- Named timezone -->
+<!-- Named time zone -->
 stroom:format-date('2009/02/01 23:34:11', 'yyyy/MM/dd HH:mm:ss', 'US/Eastern')
 -> '2009-02-02T04:34:11.000Z'
 ```
@@ -632,7 +632,7 @@ stroom:format-dateTime('xs:dateTime("2009-02-01T12:34:11Z")', 'yyyy/MM/dd HH:mm:
 ```
 
 ```xml
-<!-- Named timezone -->
+<!-- Named time zone -->
 stroom:format-dateTime('xs:dateTime("2009-02-02T04:34:11Z")', 'yyyy/MM/dd HH:mm:ss', 'US/Eastern')
 -> '2009/02/01 23:34:11'
 ```
@@ -1170,7 +1170,7 @@ Arguments:
 * `yPolyData` - A sequence of Y values that define the polygon.
 
 The list of values supplied for `xPolyData` must correspond with the list of values supplied for `yPolyData`.
-The points that define the polygon must be provided in order, i.e. starting from one point on the polygon and then traveling round the path of the polygon until it gets back to the beginning.
+The points that define the polygon must be provided in order, i.e. starting from one point on the polygon and then travelling round the path of the polygon until it gets back to the beginning.
 
 <!-- TODO add example XSLT -->
 

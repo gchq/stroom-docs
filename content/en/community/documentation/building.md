@@ -18,7 +18,7 @@ In order to build and contribute to the documentation you will need the followin
 * {{< external-link "docker-buildx" "https://github.com/docker/buildx#installing" >}}
 
 {{% note %}}
-If you cannot or do not want to install Docker and buildx on your local machine see [Developing Stroom-Docs on GitHub Codespaces]({{< relref "#developing-stroom-docs-on-github-codespaces" >}}) below.
+If you cannot or do not want to install Docker and `buildx` on your local machine see [Developing Stroom-Docs on GitHub Codespaces]({{< relref "#developing-stroom-docs-on-github-codespaces" >}}) below.
 {{% /note %}}
 
 Docker or Docker Desktop is required as all the build steps are performed in docker containers to ensure a consistent and known build environment.
@@ -119,7 +119,7 @@ This will execute the following steps:
 
 ## Developing Stroom-Docs on GitHub Codespaces
 
-If you cannot or do not want to install docker and buildx on your local machine but need to work on the documentation then you can do it from within {{< external-link "GitHub Codespaces" "https://github.com/features/codespaces" >}}.
+If you cannot or do not want to install docker and `buildx` on your local machine but need to work on the documentation then you can do it from within {{< external-link "GitHub Codespaces" "https://github.com/features/codespaces" >}}.
 
 {{% note %}}
 Codespaces is a paid feature on GitHub, however it comes with 60hrs of free use per month so if you are only using it for stroom-docs development this should be ample.

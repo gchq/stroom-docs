@@ -11,13 +11,16 @@ description: >
 ---
 
 ## Assumptions
+
 The following assumptions are used in this document.
  - the user has reasonable RHEL/Centos System administration skills
  - installations are on Centos 7.3 minimal systems (fully patched)
  - the user is or has deployed the example two node Stroom cluster storage hierarchy described [here]({{< relref "InstallHowTo.md#storage-scenario" >}})
  - the configuration of this NFS is NOT secure. It is highly recommended to improve it's security in a production environment. This could include improved firewall configuration to limit NFS access, NFS4 with Kerberos etc.
 
+
 ## Installation of NFS software
+
 We install NFS on each node, via
 ```bash
 sudo yum -y install nfs-utils
@@ -35,33 +38,42 @@ sudo systemctl start nfs-idmap
 ```
 
 ## Configuration of NFS exports
-We now export the node's /stroomdata directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of stroomp*.strmdev00.org to mount the `/stroomdata` directory. This means the same configuration applies to all nodes.
-```
+
+We now export the node's `/stroomdata` directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of `stroomp*.strmdev00.org` to mount the `/stroomdata` directory.
+This means the same configuration applies to all nodes.
+
+```text
 # Share Stroom data directory
 /stroomdata	stroomp*.strmdev00.org(rw,sync,no_root_squash)
 ```
 
 This can be achieved with the following on both nodes
+
 ```bash
 sudo su -c "printf '# Share Stroom data directory\n' >> /etc/exports"
 sudo su -c "printf '/stroomdata\tstroomp*.strmdev00.org(rw,sync,no_root_squash)\n' >> /etc/exports"
 ```
 
 On both nodes restart the NFS service to ensure the above export takes effect via
+
 ```bash
 sudo systemctl restart nfs-server
 ```
 
 So that our nodes can offer their filesystems, we need to enable NFS access on the firewall.
 This is done via
+
 ```bash
 sudo firewall-cmd --zone=public --add-service=nfs --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 ```
 
+
 ## Test Mounting
+
 You should do test mounts on each node.
+
 - Node: `stroomp00.strmdev00.org`
 
 ```bash
@@ -98,7 +110,9 @@ sudo su -c "printf 'stroomp00.strmdev00.org:/stroomdata/stroom-data-p00 /stroomd
 ```
 At this point reboot all processing nodes to ensure the directories mount automatically. You may need to give the nodes a minute to do this.
 
+
 ## Addition of another Node
+
 If one needs to add another node to the cluster, lets say, `stroomp02.strmdev00.org`, on which `/stroomdata` follows the same storage hierarchy
 as the existing nodes and all nodes have added mount points (directories) for this new node, you would take the following steps _in order_.
 

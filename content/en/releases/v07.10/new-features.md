@@ -57,7 +57,7 @@ formatIECByteSize(bytes, omitTrailingZeros, significantFigures)
 ### `formatMetricByteSize(...)`
 
 A new function for converting an integer amount of bytes into an appropriate byte size unit, e.g. `1000` bytes becomes `1K`.
-Metrix units with a base of `1000` rather than `1024` are used.
+Metric units with a base of `1000` rather than `1024` are used.
 
 The function has three forms:
 
@@ -89,6 +89,7 @@ For example:
 ```clike
 data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 'info')
 ```
+
 
 ### `isWeekend(..)`
 
@@ -122,7 +123,7 @@ parse-dateTime(string, pattern)
 parse-dateTime(string, pattern, timezone)
 ```
 
-This function will either parse a date/time string in {{< glossary "ISO8601" >}} standard date/time format or in a custom date/time format using the supplied pattern and optional timezone.
+This function will either parse a date/time string in {{< glossary "ISO8601" >}} standard date/time format or in a custom date/time format using the supplied pattern and optional time zone.
 
 For details of the pattern syntax see [Custom Date Formats]({{< relref "docs/reference-section/dates#custom-date-formats" >}}).
 
@@ -141,8 +142,8 @@ format-dateTime(DateTimeValue, pattern, timezone)
 
 All three variants take an `xs:dateTime` value as the first argument.
 If only one argument is supplied, the function will output the date/time as a standard {{< glossary "ISO8601" >}} format `xs:string`.
-If two or more arguments are supplied then it will output the date/time formatted using the specified [pattern]({{< relref "docs/reference-section/dates#custom-date-formats" >}}) and optionally using the specified timezone.
-If no timezone is supplied, the date/time is assumed to be in {{< glossary "UTC" >}}.
+If two or more arguments are supplied then it will output the date/time formatted using the specified [pattern]({{< relref "docs/reference-section/dates#custom-date-formats" >}}) and optionally using the specified `timezone`.
+If no `timezone` is supplied, the date/time is assumed to be in {{< glossary "UTC" >}}.
 
 
 ### Meta Functions

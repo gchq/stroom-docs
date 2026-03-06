@@ -275,7 +275,7 @@ in  _server.DataFeedServiceImpl_ events in both log files. The Stroom applicatio
 
 In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
-`strooomp00:`
+`stroomp00:`
 
 ```text
 2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
@@ -292,7 +292,7 @@ move the cursor to the `TEST-FEED-V1_0` entry in the `Explorer` tab and select t
 
 {{< screenshot "HOWTOs/UI-TestDirectFeed-00.png" >}}Stroom UI Test Feed - Open Feed{{< /screenshot >}}
 
-and double click on the entry to see our `TEST-FEED-V1_0` tab.
+And double click on the entry to see our `TEST-FEED-V1_0` tab.
 
 {{< screenshot "HOWTOs/UI-TestDirectFeed-01.png" >}}Stroom UI Test Feed - Opened Feed{{< /screenshot >}}
 and it is noted that we are viewing the Feed's attributes as we can see the __Setting__ hyper-link highlighted.
@@ -398,7 +398,7 @@ the _datafeed.DataFeedRequestHandler$1_ event in the _ajp-apr-9009-exec-3_ threa
 ### Data Post Tests
 #### Simple Post tests
 
-This test is to ensure the Stroom _Store NODB_ or _Standalone_ proxy is working.
+This test is to ensure the Stroom _Store NO-DB_ or _Standalone_ proxy is working.
 
 We will send a file to our _Standalone_ proxy (`stroomsap0.strmdev00.org`) and monitor this nodes' proxy log files as well the directory the
 received files are meant to be stored in.
