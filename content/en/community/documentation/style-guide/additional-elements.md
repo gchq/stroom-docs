@@ -466,6 +466,7 @@ The list of included language names are:
 `javascript`  
 `jq`  
 `json`  
+`properties` (Use for Stroom metadata)
 `python`  
 `regex`  
 `scss`  
