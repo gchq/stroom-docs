@@ -170,7 +170,7 @@ Note that if you are deploying a single node environment, where the database is 
 
 ## Start the Application service
 Now we start the application. In the case of multi node Stroom deployment, we start the Stroom application on the first node in the cluster,
-then __wait__ until it has initialised the database commenced it's Lifecycle task. You will need to monitor the log file to see it's
+then __wait__ until it has initialised the database commenced its Lifecycle task. You will need to monitor the log file to see its
 completed initialisation.
 
 So as the `stroomuser` start the application with the command
@@ -186,7 +186,7 @@ INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166)
 ```
 The directory `stroom-app/instance/logs/events` will also appear with an empty file with
 the nomenclature `events_YYYY-MM-DDThh:mm:ss.msecZ`. This is the directory for storing Stroom's application event logs. We will return to this
-directory and it's content in a later HOWTO.
+directory and its content in a later HOWTO.
 
 If you have a multi node configuration, then once the database has initialised, start the application service on all other nodes. Again with
 ```bash

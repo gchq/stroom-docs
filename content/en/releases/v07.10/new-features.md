@@ -57,7 +57,7 @@ formatIECByteSize(bytes, omitTrailingZeros, significantFigures)
 ### `formatMetricByteSize(...)`
 
 A new function for converting an integer amount of bytes into an appropriate byte size unit, e.g. `1000` bytes becomes `1K`.
-Metrix units with a base of `1000` rather than `1024` are used.
+Metric units with a base of `1000` rather than `1024` are used.
 
 The function has three forms:
 

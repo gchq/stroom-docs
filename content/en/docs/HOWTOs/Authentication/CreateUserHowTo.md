@@ -15,7 +15,7 @@ The following assumptions are used in this document.
 
 - An account with the `Administrator` [Application Permission]({{< relref "docs/user-guide/security/app-permissions.md" >}}) is currently logged in.
 - We will be adding the user `burn`
-- We will make this user an `Administrator` 
+- We will make this user an `Administrator`
 
 
 ## Add a new user
@@ -40,7 +40,7 @@ and on pressing {{< stroom-btn "Ok" >}} will be presented with the User configur
 
 ### Set the User Application Permissions
 
-See 
+See
 [Permissions](../../../user-guide/roles "Stroom Application Permissions")
 for an explanation of the various Application Permissions a user can have.
 

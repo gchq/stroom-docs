@@ -80,7 +80,7 @@ It can be used to add/remove members, be they Users or Groups.
 
 ### Application Permissions Screen
 
-This screen has been added to manages the application level permissions that are granted to Users/Groups.
+This screen has been added to manage the application level permissions that are granted to Users/Groups.
 It replaces the previous modal dialog screen.
 It is accessible from:
 
@@ -109,7 +109,7 @@ This screen is split into three panes.
   If a permission is inherited from the membership of a Group, the user may make grant the permission explicitly, but they cannot remove the inherited grant except by modifying the explicit grants of the ancestor group.
 
 * Bottom pane - Provides the detail for the currently selected permission in the middle pane.
-  If the currently selected User/Group holds the permission indirectly, it will details which of the ancestor groups have been granted that permission explicitly.
+  If the currently selected User/Group holds the permission indirectly, it will detail which of the ancestor groups have been granted that permission explicitly.
 
 
 ### Document Permissions
@@ -268,7 +268,7 @@ The following sub-tabs are available:
 
 {{< image "releases/07.06/User_DocPerms.png" "500x" >}}The Document Permissions sub-tab on the User/Group Profile screen{{</ image >}}
 
-* **Dependencies** - This list various dependencies on the User/Group, e.g. a  that is configured to [_Run As_]({{< relref "#pipeline-_run-as-user_" >}}) this user.
+* **Dependencies** - This lists various dependencies on the User/Group, e.g. a Pipeline that is configured to [_Run As_]({{< relref "#pipeline-_run-as-user_" >}}) this user.
   It is useful in cases where a User is leaving the organisation and administrator needs to see what Stroom content depends on that user.
   Currently the following things can appear in the Dependencies sub-tab:
   * Pipelines {{< stroom-icon "document/Pipeline.svg">}} that _Run As_ the User/Group.

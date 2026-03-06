@@ -55,7 +55,7 @@ This change should be made in the `.env` configuration file. If the values are n
 
 #### Create yourself an account
 
-After first logging in as `admin` you should create yourself a normal account (using your email address) and add yourself to the `Administrators` group. You should then log out of `admin`, log in with your new administrator account and then disable the `admin` account. 
+After first logging in as `admin` you should create yourself a normal account (using your email address) and add yourself to the `Administrators` group. You should then log out of `admin`, log in with your new administrator account and then disable the `admin` account.
 
 If you decide to use the `admin` account as your normal account you might find yourself locked out. The `admin` account has no associated email address, so the Reset Password feature will not work if your account is locked. It might become locked if you enter your password incorrectly too many times.
 
@@ -69,7 +69,7 @@ If you decide to use the `admin` account as your normal account you might find y
 
 #### Change the API keys
 
-First generate new API keys. You can generate a new API key using Stroom. From the top menu, select: 
+First generate new API keys. You can generate a new API key using Stroom. From the top menu, select:
 
 {{< stroom-menu "Tools" "API Keys" >}}
 

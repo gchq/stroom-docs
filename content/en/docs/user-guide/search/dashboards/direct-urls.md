@@ -67,7 +67,7 @@ The inclusion of `${name}` in the title allows the default dashboard name to be 
 
 ## Permissions
 
-In order for as user to view a dashboard they will need the necessary permission on the various entities that make up the dashboard.
+In order for a user to view a dashboard they will need the necessary permission on the various entities that make up the dashboard.
 
 For a Lucene index query and associated table the following permissions will be required:
 

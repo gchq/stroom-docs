@@ -50,7 +50,7 @@ This can be set either by using the {{< pipe-elm "CombinedParser" >}} and settin
 
 The parser has several minor limitations.
 The most significant is that it's unable to deal with records that are interleaved.
-This occasionally happens within multi-line syslog records where a syslog server receives the first x lines of record A followed by the first y lines of record B, then the rest of record A and finally the rest of record B (or the start of record C etc).
+This occasionally happens within multi-line syslog records where a syslog server receives the first x lines of record A followed by the first y lines of record B, then the rest of record A and finally the rest of record B (or the start of record C etc.).
 If data is likely to arrive like this then some sort of pre-processing within the source system would be necessary to ensure that each record is a contiguous block before being forwarded to stroom.
 
 The other main limitation of the parser is actually its flexibility.
@@ -105,8 +105,8 @@ The following initial XSLT provides the minimum required function:
 {{< code-block language="xml" >}}
 <?xml version="1.1" encoding="UTF-8" ?>
 <xsl:stylesheet
-    xpath-default-namespace="records:2" 
-    xmlns="event-logging:3" 
+    xpath-default-namespace="records:2"
+    xmlns="event-logging:3"
     xmlns:stroom="stroom"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -238,7 +238,7 @@ XPath references to nodes further down inside the record should normally be made
 
 Depending on the output format from the parser, there are two ways of referencing a field to populate an output node.
 
-If the intermedia XML is of the following format:
+If the intermediate XML is of the following format:
 
 ```xml
 <record>
@@ -249,7 +249,7 @@ If the intermedia XML is of the following format:
 </record>
 ```
 
-Then the developer needs to understand which field contains what data and then to reference based upon the index, e.g:
+Then the developer needs to understand which field contains what data and then to reference based upon the index, e.g.:
 
 ```xml
 <IPAddress>
@@ -309,7 +309,7 @@ It's normally best to start with several examples of each event type requiring t
 There are many different ways of structuring the overall XSLT and it's ultimately for the developer to decide the best way based upon the requirements of their own data.
 However, the following points should be noted:
 
-* When working on e.g a CreateDocument event, it's far easier to edit a 10-line template named **CreateDocument** than lines 841-850 of a template named **MainTemplate**.
+* When working on e.g. a CreateDocument event, it's far easier to edit a 10-line template named **CreateDocument** than lines 841-850 of a template named **MainTemplate**.
 Therefore, keep each template relatively small and helpfully named.
 * Both the logic and XPaths required for EventTime and EventSource are normally common to all or most events for a given log.
 Therefore, it usually makes sense to have a common EventTime and EventSource template for all event types rather than a duplicate of this code for each event type.
@@ -344,7 +344,7 @@ From experience, the following type of XSLT is normally the easiest to write and
 * If in the above example, the various values of `$typeId` are sufficiently descriptive to use as text values then the **TypeId** node can be implemented prior to the `<xsl:choose>` to avoid specifying it once in each child template.
 * It's common for systems to generate `Create/Delete/View/Modify/...` events against a range of different `Document/File/Email/Object/...` types.
 Rather than looking at events such as `CreateDocument/DeleteFile/...` and creating a template for each, it's often simpler to work in two stages.
-Firstly create templates for the `Create/Delete/...`  types within `EventDetail` and then from each of these templates, call another template which then checks and calls the relevant object template.
+Firstly create templates for the `Create/Delete/...` types within `EventDetail` and then from each of these templates, call another template which then checks and calls the relevant object template.
 * It's also sometimes possible to take the above multi-step process further and use a common template for Create/Delete/View.
 The following code assumes that the variable `${evttype}` is a valid schema action such as `Create/Delete/View`.
 Whilst it can be used to produce more compact XSLT code, it tends to lose readability and makes extending the code for additional types more difficult.
@@ -373,7 +373,7 @@ But if there's ever a possibility of e.g. logon failures, logoffs or anything el
 
 ## Filtering Wanted/Unwanted Event Types
 
-It's common that not all received events are required to be translated.  Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.
+It's common that not all received events are required to be translated. Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.
 
 
 ### Remove Unwanted Events
@@ -416,7 +416,7 @@ If an unexpected message type appears in the logs then it's likely that the tran
 ### Translate Wanted Events
 
 This is the opposite of the previous method and the XSLT just ignores anything that it's not expecting.
-This method is best used where only a few event types are of interest such as the scenario of translation logons/logoffs from a vast range of possible types. 
+This method is best used where only a few event types are of interest such as the scenario of translation logons/logoffs from a vast range of possible types.
 
 For this, we'd use something like:
 
@@ -657,5 +657,5 @@ In this example, all empty outputs AND schema errors will be seen, effectively p
 The XPath syntax is fairly flexible.
 If looking for specific TypeId values, the shortcut of `//TypeId` will work just as well as `/Events/Event/EventDetail/TypeId`, for example.
 
-Using filters will allow a developer to find a wide range of types of records far quicker than stepping through a large file of events. 
+Using filters will allow a developer to find a wide range of types of records far quicker than stepping through a large file of events.
 

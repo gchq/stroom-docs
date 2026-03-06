@@ -6,14 +6,14 @@ date: 2023-02-02
 tags: 
   - api
 description: >
-  Details of the API specifcation and how to find what API endpoints are available.
+  Details of the API specification and how to find what API endpoints are available.
 ---
 
 ## Swagger UI
 
 The APIs are available as a _Swagger_ Open API specification in the following forms:
 
-* JSON - {{< external-link "stroom.json" "https://gchq.github.io/stroom/v@@VERSION@@/stroom.json" >}} 
+* JSON - {{< external-link "stroom.json" "https://gchq.github.io/stroom/v@@VERSION@@/stroom.json" >}}
 * YAML - {{< external-link "stroom.yaml" "https://gchq.github.io/stroom/v@@VERSION@@/stroom.yaml" >}}
 
 A dynamic Swagger user interface is also available for viewing all the API endpoints with details of parameters and data types.
@@ -25,7 +25,7 @@ This can be found in two places.
 
 ## API Endpoints in Application Logs
 
-The API methods are also all listed in the application logs when Stroom first boots up, e.g. 
+The API methods are also all listed in the application logs when Stroom first boots up, e.g.
 
 ```text
 INFO  2023-01-17T11:09:30.244Z main i.d.j.DropwizardResourceConfig The following paths were found for the configured resources:
