@@ -145,7 +145,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -397,7 +397,7 @@ This can be set either by using the
 .</p>
 <p>The parser has several minor limitations.
 The most significant is that it&rsquo;s unable to deal with records that are interleaved.
-This occasionally happens within multi-line syslog records where a syslog server receives the first x lines of record A followed by the first y lines of record B, then the rest of record A and finally the rest of record B (or the start of record C etc).
+This occasionally happens within multi-line syslog records where a syslog server receives the first x lines of record A followed by the first y lines of record B, then the rest of record A and finally the rest of record B (or the start of record C etc.).
 If data is likely to arrive like this then some sort of pre-processing within the source system would be necessary to ensure that each record is a contiguous block before being forwarded to stroom.</p>
 <p>The other main limitation of the parser is actually its flexibility.
 If forwarding large streams to stroom and one or more regexes within the parser have been written inefficiently or incorrectly then it&rsquo;s quite possible for the parser to try to read the entire stream in one go rather than a single record or part of a record.
@@ -461,8 +461,8 @@ The following initial XSLT provides the minimum required function:</p>
      
      data-start="1"  ><code class="language-xml">&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34; ?&gt;
 &lt;xsl:stylesheet
-    xpath-default-namespace=&#34;records:2&#34; 
-    xmlns=&#34;event-logging:3&#34; 
+    xpath-default-namespace=&#34;records:2&#34;
+    xmlns=&#34;event-logging:3&#34;
     xmlns:stroom=&#34;stroom&#34;
     xmlns:xsl=&#34;http://www.w3.org/1999/XSL/Transform&#34;
     xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
@@ -603,7 +603,7 @@ The following initial XSLT provides the minimum required function:</p>
 <p>The above examples of <code>&lt;xsl:apply-templates match=&quot;...&quot;/&gt;</code> for an Event all point to a specific path within the XML document - often at <code>/records/record/</code> or at <code>/map/map/</code>.
 XPath references to nodes further down inside the record should normally be made relative to this node.</p>
 <p>Depending on the output format from the parser, there are two ways of referencing a field to populate an output node.</p>
-<p>If the intermedia XML is of the following format:</p>
+<p>If the intermediate XML is of the following format:</p>
 <pre><code class="language-xml">&lt;record&gt;
   &lt;data value=&quot;2022-04-06 15:45:38.737&quot; /&gt;
   &lt;data value=&quot;fakeuser2&quot; /&gt;
@@ -611,7 +611,7 @@ XPath references to nodes further down inside the record should normally be made
   ...
 &lt;/record&gt;
 </code></pre>
-<p>Then the developer needs to understand which field contains what data and then to reference based upon the index, e.g:</p>
+<p>Then the developer needs to understand which field contains what data and then to reference based upon the index, e.g.:</p>
 <pre><code class="language-xml">&lt;IPAddress&gt;
   &lt;xsl:value-of select=&quot;data[3]/@value&quot;/&gt;
 &lt;/IPAddress&gt;
@@ -652,7 +652,7 @@ It&rsquo;s normally best to start with several examples of each event type requi
 <p>There are many different ways of structuring the overall XSLT and it&rsquo;s ultimately for the developer to decide the best way based upon the requirements of their own data.
 However, the following points should be noted:</p>
 <ul>
-<li>When working on e.g a CreateDocument event, it&rsquo;s far easier to edit a 10-line template named <strong>CreateDocument</strong> than lines 841-850 of a template named <strong>MainTemplate</strong>.
+<li>When working on e.g. a CreateDocument event, it&rsquo;s far easier to edit a 10-line template named <strong>CreateDocument</strong> than lines 841-850 of a template named <strong>MainTemplate</strong>.
 Therefore, keep each template relatively small and helpfully named.</li>
 <li>Both the logic and XPaths required for EventTime and EventSource are normally common to all or most events for a given log.
 Therefore, it usually makes sense to have a common EventTime and EventSource template for all event types rather than a duplicate of this code for each event type.</li>
@@ -686,7 +686,7 @@ From experience, the following type of XSLT is normally the easiest to write and
 <li>If in the above example, the various values of <code>$typeId</code> are sufficiently descriptive to use as text values then the <strong>TypeId</strong> node can be implemented prior to the <code>&lt;xsl:choose&gt;</code> to avoid specifying it once in each child template.</li>
 <li>It&rsquo;s common for systems to generate <code>Create/Delete/View/Modify/...</code> events against a range of different <code>Document/File/Email/Object/...</code> types.
 Rather than looking at events such as <code>CreateDocument/DeleteFile/...</code> and creating a template for each, it&rsquo;s often simpler to work in two stages.
-Firstly create templates for the <code>Create/Delete/...</code>  types within <code>EventDetail</code> and then from each of these templates, call another template which then checks and calls the relevant object template.</li>
+Firstly create templates for the <code>Create/Delete/...</code> types within <code>EventDetail</code> and then from each of these templates, call another template which then checks and calls the relevant object template.</li>
 <li>It&rsquo;s also sometimes possible to take the above multi-step process further and use a common template for Create/Delete/View.
 The following code assumes that the variable <code>${evttype}</code> is a valid schema action such as <code>Create/Delete/View</code>.
 Whilst it can be used to produce more compact XSLT code, it tends to lose readability and makes extending the code for additional types more difficult.
@@ -710,7 +710,7 @@ There may occasionally be times when this sort of thing is useful but care shoul
 If a feed will only ever contain e.g. successful logins then it may be easier to create the entire event within a single template, for example.
 But if there&rsquo;s ever a possibility of e.g. logon failures, logoffs or anything else in the future then it&rsquo;s safer to structure the XSLT into separate templates.</p>
 <h2 id="filtering-wantedunwanted-event-types">Filtering Wanted/Unwanted Event Types</h2>
-<p>It&rsquo;s common that not all received events are required to be translated.  Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.</p>
+<p>It&rsquo;s common that not all received events are required to be translated. Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.</p>
 <h3 id="remove-unwanted-events">Remove Unwanted Events</h3>
 <p>The first method is best to use when the majority of event types are to be translated and only a few types, such as debug messages are to be dropped.
 Consider the code fragment from earlier:</p>
@@ -1280,7 +1280,7 @@ Save this file as a text document with ANSI encoding.</p>
 <h2 id="create-the-feed-and-its-pipeline">Create the Feed and its Pipeline</h2>
 <p>To reflect the source of these Accounting Logs, we will name our feed and its pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group Apache HTTPD under the main system group - <code>Event Sources</code>.</p>
 <h3 id="create-system-group">Create System Group</h3>
-<p>To create the system group Apache  HTTPD, navigate to the <em>Event Sources/Infrastructure/WebServer</em> system group within the Explorer pane (if this system group structure does not already exist in your Stroom instance then refer to the <strong>HOWTO Stroom Explorer Management</strong> for guidance).
+<p>To create the system group Apache HTTPD, navigate to the <em>Event Sources/Infrastructure/WebServer</em> system group within the Explorer pane (if this system group structure does not already exist in your Stroom instance then refer to the <strong>HOWTO Stroom Explorer Management</strong> for guidance).
 Left click to highlight the
 <em>WebServer</em> system group then right click to bring up the object context menu.
 Navigate to the <em>New</em> icon, then the <em>Folder</em> icon to reveal the <em>New Folder</em> selection window.</p>
@@ -1471,7 +1471,7 @@ Navigate to New, Feed</p>
 <p>Select the Feed icon <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Feed"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__green)" d="m 938.50195,211.41007 c -5.56299,0.0388 -11.74705,1.29983 -18.55468,3.7832 -18.1537,6.6223 -30.41561,18.62426 -36.78321,36.00781 L 781.2832,529.3378 l -636.59961,0 c -11.58903,0 -22.47327,3.72569 -32.65234,11.17578 -10.17907,7.4501 -17.391684,16.96956 -21.636719,28.5586 L 3.0683594,807.47452 c -4.2450584,11.5891 -4.00823944,21.10849 0.7128906,28.55859 4.72114,7.4501 12.877765,11.17578 24.466797,11.17578 358.940143,-0.86657 728.661783,-0.53744 1037.093753,-0.52148 l 192.0293,-132.33789 c 11.3101,-8.27788 19.0869,-18.21175 23.332,-29.80078 3.9418,-10.76125 3.2906,-20.28072 -1.9551,-28.5586 L 961.13086,221.4003 c -5.81425,-6.72578 -13.35726,-10.05491 -22.62891,-9.99023 z m 509.37505,415.625 c -5.563,0.0388 -11.7471,1.29983 -18.5547,3.7832 -18.1537,6.6223 -30.4156,18.62426 -36.7832,36.00781 l -101.8809,278.13672 -762.55273,0 c -11.58903,0 -22.47327,3.72569 -32.65235,11.17578 -10.17906,7.4501 -17.39165,16.96957 -21.63671,28.5586 l -87.32618,238.40232 c -4.24506,11.5891 -4.00824,21.1085 0.71289,28.5586 4.72113,7.4501 12.87777,11.1758 24.4668,11.1758 l 762.55278,0 -101.8809,278.1367 c -6.0644,16.5558 -2.5987,28.5577 10.4004,36.0078 13.3022,6.6223 28.6997,4.1399 46.1894,-7.4492 l 637.8145,-439.5547 c 11.3101,-8.2779 19.0869,-18.2117 23.332,-29.8008 3.9418,-10.7612 3.2906,-20.2807 -1.9551,-28.5586 L 1470.5059,637.0253 c -5.8143,-6.72578 -13.3573,-10.05491 -22.6289,-9.99023 z"/></svg></span>
   </span>, when the <strong>New Feed</strong> selection window comes up, ensure the <code>Apache HTTPD</code> system group is selected or navigate to it.
-Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the <strong>Name:</strong> text entry box the press 
+Then enter the name of the feed, Apache-SSLBlackBox-V2.0-EVENTS, into the <strong>Name:</strong> text entry box then press 
 
 
 
@@ -1537,13 +1537,13 @@ See the <a href="../../../../docs/howtos/administration/systemproperties/">HOWTO
 <p>At this point you will be presented with the new feed&rsquo;s configuration tab and the feed&rsquo;s Explorer object will automatically appear in the Explorer pane within the <code>Apache HTTPD</code> system group.</p>
 <p>Select the <em>Settings</em> tab on the feed&rsquo;s configuration tab.
 Enter an appropriate description into the <strong>Description:</strong> text entry box, for instance:</p>
-<p>&ldquo;Apache HTTPD events for BlackBox Version 2.0.  These events are from a Secure service  (https).&rdquo;</p>
+<p>&ldquo;Apache HTTPD events for BlackBox Version 2.0. These events are from a Secure service (https).&rdquo;</p>
 <p>In the <strong>Classification:</strong> text entry box, enter a Classification of the data that the event feed will contain - that is the classification or sensitivity of the accounting log’s content itself.</p>
 <p>As this is not a Reference Feed, leave the <strong>Reference Feed:</strong> check box unchecked.</p>
 <p>We leave the <strong>Feed Status:</strong> at <em>Receive</em>.</p>
-<p>We leave the <strong>Stream Type:</strong> as <em>Raw Events</em> as this we will be sending batches (streams) of raw event logs.</p>
+<p>We leave the <strong>Stream Type:</strong> as <em>Raw Events</em> as we will be sending batches (streams) of raw event logs.</p>
 <p>We leave the <strong>Data Encoding:</strong> as UTF-8 as the raw logs are in this form.</p>
-<p>We leave the <strong>Context Encoding:</strong> as UTF-8 as there no context events for this feed.</p>
+<p>We leave the <strong>Context Encoding:</strong> as UTF-8 as there are no context events for this feed.</p>
 <p>We leave the <strong>Retention Period:</strong> at <em>Forever</em> as we do not want to delete the raw logs.</p>
 <p>This results in</p>
 
@@ -1983,7 +1983,7 @@ At this point you will be presented with the new XSLT&rsquo;s configuration tab.
 </div>
 
 <p>Enter an appropriate description into the <strong>Description:</strong> text entry box, for instance</p>
-<p>&ldquo;Apache HTTPD events for  BlackBox Version 2.0  - translation.
+<p>&ldquo;Apache HTTPD events for BlackBox Version 2.0 - translation.
 See Translation for complete documentation.&rdquo;</p>
 
 
@@ -2030,7 +2030,7 @@ See Translation for complete documentation.&rdquo;</p>
     <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
   </span> icon.</p>
 <h3 id="create-pipeline">Create Pipeline</h3>
-<p>In the process of creating this pipeline we have assumed that the  <strong>Template Pipeline</strong> content pack has been loaded, so that we can <em>Inherit</em> a pipeline structure from this content pack and configure it to support this specific feed.</p>
+<p>In the process of creating this pipeline we have assumed that the <strong>Template Pipeline</strong> content pack has been loaded, so that we can <em>Inherit</em> a pipeline structure from this content pack and configure it to support this specific feed.</p>
 <p>Within the Explorer pane, and having selected the Apache HTTPD system group, right click to bring up object context menu, then select:</p>
 
 
@@ -2118,7 +2118,7 @@ See Translation for complete documentation.&rdquo;</p>
   <span class="stroom-button-text">OK</span>
 </span>
 .
-At this you will be presented with the new pipeline’s configuration tab</p>
+At this point you will be presented with the new pipeline’s configuration tab</p>
 
 
 
@@ -2161,7 +2161,7 @@ At this you will be presented with the new pipeline’s configuration tab</p>
 </div>
 
 <p>As usual, enter an appropriate <strong>Description:</strong></p>
-<p>&ldquo;Apache HTTPD events for BlackBox Version 2.0  - pipeline.
+<p>&ldquo;Apache HTTPD events for BlackBox Version 2.0 - pipeline.
 This pipeline uses the standard event pipeline to store the events in the Event Store.&rdquo;</p>
 
 
@@ -2253,7 +2253,7 @@ This is done by clicking on the <strong>Structure</strong> link, at which we see
 
 <p>Next we will choose an Event Data pipeline.
 This is done by inheriting it from a defined set of Template Pipelines.
-To do this, click on the menu selection icon  to the right of the Inherit From: text display box.</p>
+To do this, click on the menu selection icon to the right of the Inherit From: text display box.</p>
 <p>When the <strong>Choose item</strong></p>
 
 
@@ -3271,8 +3271,8 @@ As this is not a <em>Reference Feed</em> we ignore the <strong>Effective:</stron
     </figure>
   </a>
 </div>
-  which should be <strong>closed</strong>.</p>
-<p>The stream we have just loaded will now be displayed in the  <em>Streams Table</em> pane.
+ which should be <strong>closed</strong>.</p>
+<p>The stream we have just loaded will now be displayed in the <em>Streams Table</em> pane.
 Note that the <em>Specific Stream</em>
 and <em>Data/Meta-data</em> panes are still blank.</p>
 
@@ -5129,8 +5129,8 @@ See the <a href="../../../../docs/howtos/administration/systemproperties/">HOWTO
   </a>
 </div>
 
-<p>and it&rsquo;s corresponding reference in the <code>Explorer</code> display.</p>
-<p>The configuration items for a Event Feed are</p>
+<p>and its corresponding reference in the <code>Explorer</code> display.</p>
+<p>The configuration items for an Event Feed are</p>
 <ul>
 <li><em>Description</em> - a description of the feed</li>
 <li><em>Classification</em> - the classification or sensitivity of the Event Feed data</li>
@@ -5232,7 +5232,7 @@ This is indicated by the asterisk character <code>*</code> between the <em>Feed<
     <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
   </span> in the top left of the <strong>BlueCoat-Proxy-V1.0-EVENTS</strong> tab.
 At this point one should notice two things, the first is that the asterisk
-has disappeared from the <code>Feed</code> tab and the the second is that the <em>Save</em> icon <span class="stroom-icon inline-svg-button icon-button disabled " >
+has disappeared from the <code>Feed</code> tab and the second is that the <em>Save</em> icon <span class="stroom-icon inline-svg-button icon-button disabled " >
     <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
   </span> is now disabled.</p>
 
@@ -5406,11 +5406,11 @@ We first select (with a <em>left click</em>) the <strong>System/Event Sources/Pr
   </a>
 </div>
 
-<p>and it&rsquo;s corresponding reference in the <code>Explorer</code> display.</p>
+<p>and its corresponding reference in the <code>Explorer</code> display.</p>
 <p>We set the configuration for this <code>Text Converter</code> to be</p>
 <ul>
 <li>Description - <em>Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format (ELFF)</em></li>
-<li>Converter Type - We set to <em>Data Splitter</em> was we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.</li>
+<li>Converter Type - We set to <em>Data Splitter</em> as we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.</li>
 </ul>
 <p>Again, press the <em>Save</em> icon <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Save"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path style="fill:currentColor;stroke-width:0.570676;stroke-dasharray:none" d="M 339.40234 116.52148 C 216.56504 116.52148 116.69531 216.3912 116.69531 339.22852 L 116.69531 1452.7715 C 116.69531 1575.6089 216.56504 1675.4785 339.40234 1675.4785 L 1452.5977 1675.4785 C 1575.4349 1675.4785 1675.3047 1575.6089 1675.3047 1452.7715 L 1675.3047 598.82422 C 1675.3047 539.66744 1651.9901 482.94523 1610.2324 441.1875 L 1610.5801 440.83984 L 1351.334 181.59375 C 1309.5761 139.83602 1252.8561 116.52148 1193.6992 116.52148 L 339.40234 116.52148 z M 339.40234 283.55273 L 395.08008 283.55273 L 395.08008 645.45312 C 395.08008 691.73461 432.31423 728.96875 478.5957 728.96875 L 1146.7207 728.96875 C 1193.0023 728.96875 1230.2363 691.73461 1230.2363 645.45312 L 1230.2363 297.12305 C 1231.2803 298.167 1231.9756 298.8623 1233.0195 299.90625 L 1492.6152 558.80469 L 1492.2676 559.1543 C 1502.707 569.59373 1508.6211 583.8594 1508.6211 598.47461 L 1508.6211 1452.7715 C 1508.6211 1483.3939 1483.5678 1508.4473 1452.9453 1508.4473 L 1395.6113 1508.4473 L 1395.6113 1059.8359 C 1395.6113 981.08539 1331.5826 917.05859 1252.832 917.05859 L 539.16797 917.05859 C 460.41738 917.05859 396.38867 981.08539 396.38867 1059.8359 L 396.38867 1508.4473 L 339.40234 1508.4473 C 308.78001 1508.4473 283.72656 1483.3939 283.72656 1452.7715 L 283.72656 339.22852 C 283.72656 308.60619 308.78001 283.55273 339.40234 283.55273 z M 562.11133 283.55273 L 1063.2051 283.55273 L 1063.2051 561.9375 L 562.11133 561.9375 L 562.11133 283.55273 z M 538.94531 1024.1426 L 1252.832 1024.1426 C 1272.4639 1024.1426 1288.5273 1040.2041 1288.5273 1059.8359 L 1288.5273 1508.4473 L 503.25 1508.4473 L 503.25 1059.8359 C 503.25 1040.2041 519.31334 1024.1426 538.94531 1024.1426 z " /></svg> </span>
@@ -5545,7 +5545,7 @@ We first select (with a <em>left click</em>) the <strong>System/Event Sources/Pr
   </a>
 </div>
 
-<p>and it&rsquo;s corresponding reference in the <code>Explorer</code> display.</p>
+<p>and its corresponding reference in the <code>Explorer</code> display.</p>
 <p>We set the configuration for this <code>XSLT Translation</code> to be</p>
 <ul>
 <li>Description - <em>Transform simple XML of BlueCoat Proxy log data into Stroom Event Logging XML form</em></li>
@@ -5683,7 +5683,7 @@ We first select (with a <em>left click</em>) the <strong>System/Event Sources/Pr
   </a>
 </div>
 
-<p>and it&rsquo;s corresponding reference in the <code>Explorer</code> display.</p>
+<p>and its corresponding reference in the <code>Explorer</code> display.</p>
 <p>We set the configuration for this <code>Pipeline</code> to be</p>
 <ul>
 <li>Description - <em>Processing of XML of BlueCoat Proxy log data into Stroom Event Logging XML</em></li>
@@ -5692,7 +5692,7 @@ We first select (with a <em>left click</em>) the <strong>System/Event Sources/Pr
 <h3 id="configure-pipeline-structure">Configure Pipeline Structure</h3>
 <p>We now need to configure the <em>Structure</em> of this <code>Pipeline</code>.</p>
 <p>We do this by selecting the <code>Structure</code> hyper-link of the *<em>BlueCoat-Proxy-V1.0-EVENTS</em> <code>Pipeline</code> tab.</p>
-<p>At this we see the <code>Pipeline Structure</code> configuration tab</p>
+<p>At this point, we see the <code>Pipeline Structure</code> configuration tab</p>
 
 
 
@@ -7119,7 +7119,7 @@ The author believes the comments should support the understanding of the transfo
   </a>
 </div>
 
-<p>As mentioned earlier, to <em>step</em> the translation, one uses the green  <em>Stepping Actions</em>.</p>
+<p>As mentioned earlier, to <em>step</em> the translation, one uses the green <em>Stepping Actions</em>.</p>
 <p>The actions are</p>
 <ul>
 <li><span class="stroom-icon inline-svg-button icon-button  icon-colour__green" >
@@ -7182,7 +7182,7 @@ The author believes the comments should support the understanding of the transfo
   </a>
 </div>
 
-<p>We see that the <em>input</em> pane has the first line of input from our sample file and the <em>output</em> pane has an XML <strong>record</strong> structure where we have defined a <strong>data</strong> element with the <em>name</em> attribute of <em>bc_software</em> and it&rsquo;s <em>value</em> attribute of <em>SGOS 3.2.4.28</em>.
+<p>We see that the <em>input</em> pane has the first line of input from our sample file and the <em>output</em> pane has an XML <strong>record</strong> structure where we have defined a <strong>data</strong> element with the <em>name</em> attribute of <em>bc_software</em> and its <em>value</em> attribute of <em>SGOS 3.2.4.28</em>.
 The definition of the <strong>record</strong> structure can be found in the <strong>System/XML Schemas/records</strong> folder.</p>
 <p>This is the result of the code in our editor</p>
 <pre><code class="language-xml">&lt;!-- Match the software comment line and save it in _bc_software --&gt;
@@ -7192,7 +7192,7 @@ The definition of the <strong>record</strong> structure can be found in the <str
 </code></pre>
 <p>If one presses the <span class="stroom-icon inline-svg-button icon-button  icon-colour__green" >
     <span class="face" title="Step forward"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path style="fill:currentColor" d="m 400,75.977968 0,360.000002 c 0,6.6 -5.4,12 -12,12 l -40,0 c -6.6,0 -12,-5.4 -12,-12 l 0,-151.9 -171.5,156.5 c -20.6,17.2 -52.5,2.8 -52.5,-24.6 0,-202.11605 0,-87.47785 0,-320.000002 0,-27.399997 31.9,-41.699997 52.5,-24.6 L 336,226.77797 336,75.977968 c 0,-6.599997 5.4,-11.999997 12,-11.999997 l 40,0 c 6.6,0 12,5.4 12,11.999997 z" /></svg> </span>
-  </span> <em>stepping action</em> again, we see that we have moved to the second line of the input file with the resultant output of a <strong>data</strong> element with the <em>name</em> attribute of <em>bc_version</em> and it&rsquo;s <em>value</em> attribute of <em>1.0</em>.</p>
+  </span> <em>stepping action</em> again, we see that we have moved to the second line of the input file with the resultant output of a <strong>data</strong> element with the <em>name</em> attribute of <em>bc_version</em> and its <em>value</em> attribute of <em>1.0</em>.</p>
 
 
 
@@ -7292,7 +7292,7 @@ When Stroom aggregates multiple event sources for a feed, it aggregates multiple
 <p>One can double click on either the <strong>subStreamId</strong> or <strong>recordNo</strong> entry and enter a new value.
 This allows you to <em>jump</em> around a stream rather than just relying on first, previous, next and last movements.</p>
 <p>Hovering the mouse over the <em>stepping indicator</em> will change the cursor to a <code>hand pointer</code>.
-Selecting (by a left click) the <code>recordNo</code> will allow you to edit it&rsquo;s value (and the other values for that matter).
+Selecting (by a left click) the <code>recordNo</code> will allow you to edit its value (and the other values for that matter).
 You will see the display change from</p>
 <p>
 

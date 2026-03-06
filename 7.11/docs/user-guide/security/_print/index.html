@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -327,7 +327,7 @@ This is the multi-page printable view of this section.
 <li>Removal of Tomcat connectors other than AJP and configuration of Apache to communicate on port 443 using SSL and certificates</li>
 </ul>
 <h3 id="application-to-stroom-proxy-communication">Application to Stroom Proxy Communication</h3>
-<p>The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or it&rsquo;s reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.</p>
+<p>The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or its reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.</p>
 <h3 id="admin-port">Admin port</h3>
 <p>Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.</p>
 <h3 id="servlets">Servlets</h3>
@@ -417,13 +417,13 @@ This is the multi-page printable view of this section.
 <tr>
 <td>SessionResourceStore</td>
 <td>/resourcestore/*</td>
-<td>Used to create, download and delete temporary files liked to a users session such as data for export</td>
+<td>Used to create, download and delete temporary files linked to a user&rsquo;s session such as data for export</td>
 <td>This is secured by using the users session and requiring authentication</td>
 </tr>
 </tbody>
 </table>
 <h2 id="hdfs-kafka-hbase-zookeeper">HDFS, Kafka, HBase, Zookeeper</h2>
-<p>Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be careful controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.</p>
+<p>Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be carefully controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.</p>
 <h2 id="content">Content</h2>
 <p>It may be possible for a user to write XSLT, Data Splitter or other content that may expose data that we do not wish to or to cause the application some harm. At present processing operations are not isolated processes and so it is easy to cripple processing performance with a badly written translation whether written accidentally or on purpose. To mitigate this risk it is recommended that users that are given permission to create XSLT, Data Splitter and Pipeline configurations are trusted to do so.</p>
 <p>Visualisations can be completely customised with javascript. The javascript that is added is executed in a clients browser potentially opening up the possibility of XSS attacks, an attack on the application to access data that a user shouldn&rsquo;t be able to access, an attack to destroy data or simply failure/incorrect operation of the user interface. To mitigate this risk all user defined javascript is executed within a separate browser IFrame. In addition all javascript should be examined before being added to a production system unless the author is trusted. This may necessitate the creation of a separate development and testing environment for user content.</p>
@@ -793,7 +793,7 @@ A disabled account cannot login.
 Useful for disabling a user that is temporarily on leave.</p>
 </li>
 <li>
-<p><em>Locked</em> - Set when a users has too many failed login attempts (controlled by the property <code>stroom.security.identity.failedLoginLockThreshold</code>).
+<p><em>Locked</em> - Set when a user has too many failed login attempts (controlled by the property <code>stroom.security.identity.failedLoginLockThreshold</code>).
 Can be un-set by a user with <code>Manage Users</code> <span class="glossary-link">
   <a href="../../../../docs/glossary/#application-permission" title="Glossary entry for Application Permission">
     <span>Application Permission</span>
@@ -807,7 +807,7 @@ A locked account cannot login.</p>
 <ul>
 <li>A brand new account has not been used for a duration greater than <code>stroom.security.identity.passwordPolicy.neverUsedAccountDeactivationThreshold</code>.</li>
 <li>An account has not been used for a duration greater than <code>stroom.security.identity.passwordPolicy.unusedAccountDeactivationThreshold</code>.
-A inactive account cannot login.</li>
+An inactive account cannot login.</li>
 </ul>
 </li>
 </ul>
@@ -849,7 +849,7 @@ Therefore this section will be updated with more detail in v7.6.
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
 </span>.
-It can also represent  non-human processing user, e.g. where a Stroom User is created and has an <span class="glossary-link">
+It can also represent a non-human processing user, e.g. where a Stroom User is created and has an <span class="glossary-link">
   <a href="../../../../docs/glossary/#api-key" title="Glossary entry for API Key">
     <span>API Key</span>
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
@@ -918,7 +918,7 @@ When a user joins or leaves the team it is simply a case of editing the membersh
 <div class="td-content" style="--base-section-num: '5.'; page-break-before: always">
     
   <h1 id="pg-0c823c7b2537c66572c77a3c6f28473f">5 - Application Permissions</h1>
-    <div class="lead">Assigning application level permssions (such as &lsquo;Manage Users&rsquo;) to users or groups.</div>
+    <div class="lead">Assigning application level permissions (such as &lsquo;Manage Users&rsquo;) to users or groups.</div>
 	
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
@@ -1035,7 +1035,7 @@ If you have one of these permissions then you can access the Application Permiss
 </tr>
 <tr>
 <td><strong>Data - View</strong></td>
-<td>View stream data (e.g. in the Data Viewer or a Dashboard text pane</td>
+<td>View stream data (e.g. in the Data Viewer or a Dashboard text pane).</td>
 </tr>
 <tr>
 <td><strong>Data - View With Pipeline</strong></td>
@@ -1065,7 +1065,7 @@ If you have one of these permissions then you can access the Application Permiss
 </tr>
 <tr>
 <td><strong>Manage API Keys</strong></td>
-<td>Access the <em>API Keys</em> screen to view, create, edit, delete the user&rsquo;s own API keys. &lsquo;Manage Users&rsquo; permission is also required to managed other users API keys</td>
+<td>Access the <em>API Keys</em> screen to view, create, edit, delete the user&rsquo;s own API keys. &lsquo;Manage Users&rsquo; permission is also required to manage other users API keys</td>
 </tr>
 <tr>
 <td><strong>Manage Cache</strong></td>
@@ -1142,7 +1142,7 @@ If you have one of these permissions then you can access the Application Permiss
 <div class="td-content" style="--base-section-num: '6.'; page-break-before: always">
     
   <h1 id="pg-b2328cd374f50eb4ca8a6927fcd011d6">6 - Document Permissions</h1>
-    <div class="lead">Assigning document level permssions (such as &lsquo;View&rsquo;) to users or groups.</div>
+    <div class="lead">Assigning document level permissions (such as &lsquo;View&rsquo;) to users or groups.</div>
 	
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">TODO</h4>
@@ -1226,7 +1226,7 @@ The Document Permissions screen for a document/folder can be accessed by right c
 <tbody>
 <tr>
 <td><strong>Owner</strong></td>
-<td>Same as delete plus ability to change the document&rsquo;s permissions (i.e. grant permissions on this document to other users/groups.</td>
+<td>Same as delete plus ability to change the document&rsquo;s permissions (i.e. grant permissions on this document to other users/groups).</td>
 </tr>
 <tr>
 <td><strong>Delete</strong></td>
@@ -1238,7 +1238,7 @@ The Document Permissions screen for a document/folder can be accessed by right c
 </tr>
 <tr>
 <td><strong>View</strong></td>
-<td>Permission to see the document in the explorer tree, open it as read-only, copy it or export it (subject to also having the <code>Export Configuration</code> application permission.</td>
+<td>Permission to see the document in the explorer tree, open it as read-only, copy it or export it (subject to also having the <code>Export Configuration</code> application permission).</td>
 </tr>
 <tr>
 <td><strong>Use</strong></td>
@@ -1259,7 +1259,7 @@ The Document Permissions screen for a document/folder can be accessed by right c
 <tbody>
 <tr>
 <td><strong>Owner</strong></td>
-<td>Same as delete plus ability to change the folder&rsquo;s permissions (i.e. grant permissions on this folder to other users/groups.</td>
+<td>Same as delete plus ability to change the folder&rsquo;s permissions (i.e. grant permissions on this folder to other users/groups).</td>
 </tr>
 <tr>
 <td><strong>Delete</strong></td>
@@ -1271,7 +1271,7 @@ The Document Permissions screen for a document/folder can be accessed by right c
 </tr>
 <tr>
 <td><strong>View</strong></td>
-<td>Permission to see the folder in the explorer tree (and it&rsquo;s child items that you also have <em>View</em> permission on), open it as read-only, copy it or export it (subject to also having the <code>Export Configuration</code> application permission.</td>
+<td>Permission to see the folder in the explorer tree (and its child items that you also have <em>View</em> permission on), open it as read-only, copy it or export it (subject to also having the <code>Export Configuration</code> application permission).</td>
 </tr>
 <tr>
 <td><strong>Use</strong></td>
@@ -1281,7 +1281,7 @@ The Document Permissions screen for a document/folder can be accessed by right c
 </table>
 <h3 id="implied-permissions">Implied Permissions</h3>
 <p>Note that each permission in the two tables above also includes all the permissions below it in the table, e.g. a user with <code>Edit</code> permission on a document will also have the implied permissions <code>View</code> and <code>Use</code>.
-There is no need to grant these lower permissions to the user, though doing so will have no impact as Stroom will user the highest value permission when checking permissions.</p>
+There is no need to grant these lower permissions to the user, though doing so will have no impact as Stroom will use the highest value permission when checking permissions.</p>
 <h3 id="inherited-permissions">Inherited Permissions</h3>
 <p>If a User <em>jbloggs</em> is a member of Group <em>Team A</em> and that group is a member of group <em>Division 123</em>, then <em>jbloggs</em> will inherit all permissions from both <em>Team A</em> and <em>Division 123</em>.
 A User/Group will inherit all permissions of the groups that they are a member of and also from any ancestor groups of those groups.</p>
@@ -1374,7 +1374,7 @@ This means Joe can only create Dashboard <span class="stroom-icon inline-svg-but
     <span class="face" title="Query"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M1216 832q0-185-131.5-316.5t-316.5-131.5-316.5 131.5-131.5 316.5 131.5 316.5 316.5 131.5 316.5-131.5 131.5-316.5zm512 832q0 52-38 90t-90 38q-54 0-90-38l-343-342q-179 124-399 124-143 0-273.5-55.5t-225-150-150-225-55.5-273.5 55.5-273.5 150-225 225-150 273.5-55.5 273.5 55.5 225 150 150 225 55.5 273.5q0 220-124 399l343 343q37 37 37 90z"/></svg></span>
   </span> documents in that folder and nothing else.</p>
 <h3 id="applying-changes-to-descendants">Applying Changes to Descendants</h3>
-<p>When making changes to the permissions on Folder <span class="stroom-icon inline-svg-button icon-button  " >
+<p>When making changes to the permissions on a Folder <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Folder"><svg width="1792" height="1792" viewBox="0 0 1792 1792" version="1.1" id="svg1" sodipodi:docname="Folder.svg" inkscape:version="1.4.2 (f4327f4, 2025-05-13)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs1" /><sodipodi:namedview id="namedview1" pagecolor="var(--icon-colour__white)" bordercolor="var(--icon-colour__black)" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:zoom="0.51702009" inkscape:cx="814.2817" inkscape:cy="683.72585" inkscape:window-width="3840" inkscape:window-height="2071" inkscape:window-x="3191" inkscape:window-y="-9" inkscape:window-maximized="1" inkscape:current-layer="svg1" /><path style="stroke-width:1.07898" d="m 1792,646.90301 v 761.05769 q 0,99.4565 -71.077,170.8056 -71.0768,71.3493 -170.1538,71.3493 H 241.23076 q -99.07692,0 -170.153839,-71.3493 Q 0,1507.4172 0,1407.9607 V 370.15473 Q 0,270.69833 71.076921,199.34916 142.15384,128 241.23076,128 h 344.6154 q 99.07692,0 170.15384,71.34916 71.07692,71.34917 71.07692,170.80557 v 34.59355 h 723.69228 q 99.077,0 170.1538,71.34915 Q 1792,547.44659 1792,646.90301 Z" id="path1" /></svg> </span>
   </span> you have the option of making the changes to just that folder or to all descendants of that folder.
 Selecting to apply to all descendants will make all permission changes apply to every descendant, i.e. including any sub-folders and their contents or own sub-folders.</p>
@@ -1402,7 +1402,7 @@ of the destination folder. You will be the owner of the moved document if not al
 
 
 
-    <p>You must have <code>Owner</code> permission on the source document/folder (or <code>Admistrator</code> <span class="glossary-link">
+    <p>You must have <code>Owner</code> permission on the source document/folder (or <code>Administrator</code> <span class="glossary-link">
 <a href="../../../../docs/glossary/#application-permission" title="Glossary entry for Application Permission">
 <span>Application Permission</span>
 <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>

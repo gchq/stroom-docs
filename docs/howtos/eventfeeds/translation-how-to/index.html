@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/eventfeeds/translation-how-to/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2022-06-07T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-02T17:56:30+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-04T11:59:55+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Writing an XSLT Translation">
 <meta itemprop="description" content="This HOWTO will take you through the production of an XSLT for a feed, including issues such as event filtering, common errors and testing.
 "><meta itemprop="datePublished" content="2022-06-07T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-02T17:56:30+00:00" />
+<meta itemprop="dateModified" content="2026-03-04T11:59:55+00:00" />
 <meta itemprop="wordCount" content="3772">
 <meta itemprop="keywords" content="processing,feed," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Writing an XSLT Translation"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -535,7 +535,7 @@
   <a href="../../../../docs/user-guide/pipelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelines"><span class="">Pipelines</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesrecipies-li">
-  <a href="../../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipies</span></a>
+  <a href="../../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipes</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesparser-li">
   <a href="../../../../docs/user-guide/pipelines/parser/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesparser"><span class="">Parser</span></a>
   <ul class="ul-4 foldable">
@@ -1203,7 +1203,7 @@ This can be set either by using the
 .</p>
 <p>The parser has several minor limitations.
 The most significant is that it&rsquo;s unable to deal with records that are interleaved.
-This occasionally happens within multi-line syslog records where a syslog server receives the first x lines of record A followed by the first y lines of record B, then the rest of record A and finally the rest of record B (or the start of record C etc).
+This occasionally happens within multi-line syslog records where a syslog server receives the first x lines of record A followed by the first y lines of record B, then the rest of record A and finally the rest of record B (or the start of record C etc.).
 If data is likely to arrive like this then some sort of pre-processing within the source system would be necessary to ensure that each record is a contiguous block before being forwarded to stroom.</p>
 <p>The other main limitation of the parser is actually its flexibility.
 If forwarding large streams to stroom and one or more regexes within the parser have been written inefficiently or incorrectly then it&rsquo;s quite possible for the parser to try to read the entire stream in one go rather than a single record or part of a record.
@@ -1267,8 +1267,8 @@ The following initial XSLT provides the minimum required function:</p>
      
      data-start="1"  ><code class="language-xml">&lt;?xml version=&#34;1.1&#34; encoding=&#34;UTF-8&#34; ?&gt;
 &lt;xsl:stylesheet
-    xpath-default-namespace=&#34;records:2&#34; 
-    xmlns=&#34;event-logging:3&#34; 
+    xpath-default-namespace=&#34;records:2&#34;
+    xmlns=&#34;event-logging:3&#34;
     xmlns:stroom=&#34;stroom&#34;
     xmlns:xsl=&#34;http://www.w3.org/1999/XSL/Transform&#34;
     xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
@@ -1409,7 +1409,7 @@ The following initial XSLT provides the minimum required function:</p>
 <p>The above examples of <code>&lt;xsl:apply-templates match=&quot;...&quot;/&gt;</code> for an Event all point to a specific path within the XML document - often at <code>/records/record/</code> or at <code>/map/map/</code>.
 XPath references to nodes further down inside the record should normally be made relative to this node.</p>
 <p>Depending on the output format from the parser, there are two ways of referencing a field to populate an output node.</p>
-<p>If the intermedia XML is of the following format:</p>
+<p>If the intermediate XML is of the following format:</p>
 <pre><code class="language-xml">&lt;record&gt;
   &lt;data value=&quot;2022-04-06 15:45:38.737&quot; /&gt;
   &lt;data value=&quot;fakeuser2&quot; /&gt;
@@ -1417,7 +1417,7 @@ XPath references to nodes further down inside the record should normally be made
   ...
 &lt;/record&gt;
 </code></pre>
-<p>Then the developer needs to understand which field contains what data and then to reference based upon the index, e.g:</p>
+<p>Then the developer needs to understand which field contains what data and then to reference based upon the index, e.g.:</p>
 <pre><code class="language-xml">&lt;IPAddress&gt;
   &lt;xsl:value-of select=&quot;data[3]/@value&quot;/&gt;
 &lt;/IPAddress&gt;
@@ -1458,7 +1458,7 @@ It&rsquo;s normally best to start with several examples of each event type requi
 <p>There are many different ways of structuring the overall XSLT and it&rsquo;s ultimately for the developer to decide the best way based upon the requirements of their own data.
 However, the following points should be noted:</p>
 <ul>
-<li>When working on e.g a CreateDocument event, it&rsquo;s far easier to edit a 10-line template named <strong>CreateDocument</strong> than lines 841-850 of a template named <strong>MainTemplate</strong>.
+<li>When working on e.g. a CreateDocument event, it&rsquo;s far easier to edit a 10-line template named <strong>CreateDocument</strong> than lines 841-850 of a template named <strong>MainTemplate</strong>.
 Therefore, keep each template relatively small and helpfully named.</li>
 <li>Both the logic and XPaths required for EventTime and EventSource are normally common to all or most events for a given log.
 Therefore, it usually makes sense to have a common EventTime and EventSource template for all event types rather than a duplicate of this code for each event type.</li>
@@ -1492,7 +1492,7 @@ From experience, the following type of XSLT is normally the easiest to write and
 <li>If in the above example, the various values of <code>$typeId</code> are sufficiently descriptive to use as text values then the <strong>TypeId</strong> node can be implemented prior to the <code>&lt;xsl:choose&gt;</code> to avoid specifying it once in each child template.</li>
 <li>It&rsquo;s common for systems to generate <code>Create/Delete/View/Modify/...</code> events against a range of different <code>Document/File/Email/Object/...</code> types.
 Rather than looking at events such as <code>CreateDocument/DeleteFile/...</code> and creating a template for each, it&rsquo;s often simpler to work in two stages.
-Firstly create templates for the <code>Create/Delete/...</code>  types within <code>EventDetail</code> and then from each of these templates, call another template which then checks and calls the relevant object template.</li>
+Firstly create templates for the <code>Create/Delete/...</code> types within <code>EventDetail</code> and then from each of these templates, call another template which then checks and calls the relevant object template.</li>
 <li>It&rsquo;s also sometimes possible to take the above multi-step process further and use a common template for Create/Delete/View.
 The following code assumes that the variable <code>${evttype}</code> is a valid schema action such as <code>Create/Delete/View</code>.
 Whilst it can be used to produce more compact XSLT code, it tends to lose readability and makes extending the code for additional types more difficult.
@@ -1516,7 +1516,7 @@ There may occasionally be times when this sort of thing is useful but care shoul
 If a feed will only ever contain e.g. successful logins then it may be easier to create the entire event within a single template, for example.
 But if there&rsquo;s ever a possibility of e.g. logon failures, logoffs or anything else in the future then it&rsquo;s safer to structure the XSLT into separate templates.</p>
 <h2 id="filtering-wantedunwanted-event-types">Filtering Wanted/Unwanted Event Types</h2>
-<p>It&rsquo;s common that not all received events are required to be translated.  Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.</p>
+<p>It&rsquo;s common that not all received events are required to be translated. Depending upon the data being received and the auditing requirements that have been set against the source system, there are several ways to filter the events.</p>
 <h3 id="remove-unwanted-events">Remove Unwanted Events</h3>
 <p>The first method is best to use when the majority of event types are to be translated and only a few types, such as debug messages are to be dropped.
 Consider the code fragment from earlier:</p>
@@ -1861,7 +1861,7 @@ If looking for specific TypeId values, the shortcut of <code>//TypeId</code> wil
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 2, 2026: <a href="https://github.com/gchq/stroom-docs/commit/4bfc3d5913bf93b35caecb435402f94f0b6c777c">Merge branch &#39;7.10&#39; into 7.11 (4bfc3d5)</a>
+  Last modified March 4, 2026: <a href="https://github.com/gchq/stroom-docs/commit/873e9cbde89370b3437b5de05505414e43108def">Merge pull request #120 from gchq/grammar (873e9cb)</a>
 </div>
 
 </div>

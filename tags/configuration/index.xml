@@ -172,7 +172,7 @@ Dropwizard uses a YAML configuration file on each node to configure the applicat
 This is typically &lt;code&gt;config.yml&lt;/code&gt; and is located in the &lt;code&gt;config&lt;/code&gt; directory.&lt;/p&gt;
 &lt;p&gt;For details of the structure of this file, see &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/common-configuration/&#34;&gt;Stroom and Stroom-Proxy Common Configuration&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;source-precedence&#34;&gt;Source Precedence&lt;/h2&gt;
-&lt;p&gt;The three sources (&lt;em&gt;Default&lt;/em&gt;, &lt;em&gt;Database&lt;/em&gt; &amp;amp; &lt;em&gt;YAML&lt;/em&gt;) are listed in increasing priority, i.e &lt;em&gt;YAML&lt;/em&gt; trumps &lt;em&gt;Database&lt;/em&gt;, which trumps &lt;em&gt;Default&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;The three sources (&lt;em&gt;Default&lt;/em&gt;, &lt;em&gt;Database&lt;/em&gt; &amp;amp; &lt;em&gt;YAML&lt;/em&gt;) are listed in increasing priority, i.e. &lt;em&gt;YAML&lt;/em&gt; trumps &lt;em&gt;Database&lt;/em&gt;, which trumps &lt;em&gt;Default&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;For example, in a two node cluster, this table shows the effective value of a property on each node.
 A &lt;code&gt;-&lt;/code&gt; indicates the value has not been set in that source.
 &lt;code&gt;NULL&lt;/code&gt; indicates that the value has been explicitly set to NULL.&lt;/p&gt;
@@ -402,7 +402,7 @@ For details of how the string is parsed to a Stroom Duration, see
 &lt;p&gt;Combinations such as &lt;code&gt;1m30s&lt;/code&gt; are not supported.&lt;/p&gt;
 &lt;h3 id=&#34;list-data-type&#34;&gt;List Data Type&lt;/h3&gt;
 &lt;p&gt;This type supports ordered lists of items, where an item can be of any supported data type, e.g. a list of strings or list of integers.&lt;/p&gt;
-&lt;p&gt;The following is an example of how a property (&lt;code&gt;statusValues&lt;/code&gt;) that is is List of strings is represented in the YAML:&lt;/p&gt;
+&lt;p&gt;The following is an example of how a property (&lt;code&gt;statusValues&lt;/code&gt;) that is a List of strings is represented in the YAML:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  annotation:
     statusValues:
     - &amp;quot;New&amp;quot;
@@ -412,7 +412,7 @@ For details of how the string is parsed to a Stroom Duration, see
 &lt;p&gt;This would be represented as a string in the User Interface as:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;|New|Assigned|Closed&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;#delimiters-in-string-conversion&#34;&gt;Delimiters in String Conversion&lt;/a&gt; for details of how the items are delimited in the string.&lt;/p&gt;
-&lt;p&gt;The following is an example of how a property (&lt;code&gt;cpu&lt;/code&gt;) that is is List of DocRefs is represented in the YAML:&lt;/p&gt;
+&lt;p&gt;The following is an example of how a property (&lt;code&gt;cpu&lt;/code&gt;) that is a List of DocRefs is represented in the YAML:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  statistics:
     internal:
       cpu:
@@ -440,7 +440,7 @@ The type of the key must be string, but the type of the value can be any support
 &lt;p&gt;The delimiter between pairs is defined first, then the delimiter for the key and value.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;#delimiters-in-string-conversion&#34;&gt;Delimiters in String Conversion&lt;/a&gt; for details of how the items are delimited in the string.&lt;/p&gt;
 &lt;h3 id=&#34;docref-data-type&#34;&gt;DocRef Data Type&lt;/h3&gt;
-&lt;p&gt;A DocRef (or Document Reference) is a type specific to Stroom that defines a reference to an instance of a Document within Stroom, e.g. an XLST, Pipeline, Dictionary, etc.
+&lt;p&gt;A DocRef (or Document Reference) is a type specific to Stroom that defines a reference to an instance of a Document within Stroom, e.g. an XSLT, Pipeline, Dictionary, etc.
 A DocRef consists of three parts, the type, the 
 
 
@@ -1144,7 +1144,7 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.&lt
 &lt;h4 class=&#34;alert-heading&#34;&gt;Note&lt;/h4&gt;
 
 
-    The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e relative to &lt;code&gt;stroom.home&lt;/code&gt; if relative and supporting variable substitution.
+    The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to &lt;code&gt;stroom.home&lt;/code&gt; if relative and supporting variable substitution.
 
 &lt;/div&gt;
 
@@ -1209,8 +1209,8 @@ In this example, files will be rolled every 1 minute.&lt;/p&gt;
  for application level logging.
 All logs in Stroom and Stroom-Proxy apart from the request log are Logback based logs.&lt;/p&gt;
 &lt;p&gt;Logback uses the concept of &lt;em&gt;Loggers&lt;/em&gt; and &lt;em&gt;Appenders&lt;/em&gt;.
-A &lt;em&gt;Logger&lt;/em&gt; is a named thing that that produces log messages.
-An _Appender is an output that a &lt;em&gt;Logger&lt;/em&gt; can append its log messages to.
+A &lt;em&gt;Logger&lt;/em&gt; is a named thing that produces log messages.
+An &lt;em&gt;Appender&lt;/em&gt; is an output that a &lt;em&gt;Logger&lt;/em&gt; can append its log messages to.
 Typical &lt;em&gt;Appenders&lt;/em&gt; are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;File - appends messages to a file that may or may not be rolled.&lt;/li&gt;
@@ -1300,7 +1300,7 @@ Some loggers, such as &lt;code&gt;event-logger&lt;/code&gt; do not have a Java c
 &lt;h4 id=&#34;log-rolling&#34;&gt;Log Rolling&lt;/h4&gt;
 &lt;p&gt;Rolling of log files can be done based on size of file or time.
 The &lt;code&gt;archivedLogFilenamePattern&lt;/code&gt; property controls the rolling behaviour.
-The rolling policy is determined from the filename pattern, e.g a pattern with a minute precision date format will be rolled every minute.
+The rolling policy is determined from the filename pattern, e.g. a pattern with a minute precision date format will be rolled every minute.
 The following is an example of an appender that rolls based on the size of the log file:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  - type: file
     currentLogFilename: logs/app.log
@@ -1516,7 +1516,7 @@ In the example below we have selected the &lt;code&gt;stroom.maxStreamSize&lt;/c
 &lt;/div&gt;
 
 &lt;p&gt;Now bring up the editing window by &lt;em&gt;double clicking&lt;/em&gt; on the selected line.
-At this we will be presented with the
+At this point we will be presented with the
 &lt;code&gt;Application Property - stroom.maxStreamSize&lt;/code&gt; editing window.&lt;/p&gt;
 
 

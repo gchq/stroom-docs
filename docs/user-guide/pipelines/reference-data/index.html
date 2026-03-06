@@ -45,13 +45,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/pipelines/reference-data/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2022-03-11T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-02T17:56:30+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-04T11:59:55+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Reference Data">
 <meta itemprop="description" content="Performing temporal reference data lookups to decorate event data.
 "><meta itemprop="datePublished" content="2022-03-11T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-02T17:56:30+00:00" />
-<meta itemprop="wordCount" content="4354">
+<meta itemprop="dateModified" content="2026-03-04T11:59:55+00:00" />
+<meta itemprop="wordCount" content="4351">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Reference Data"/>
 <meta name="twitter:description" content="Performing temporal reference data lookups to decorate event data.
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -535,7 +535,7 @@
   <a href="../../../../docs/user-guide/pipelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelines"><span class="">Pipelines</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-guidepipelinesrecipies-li">
-  <a href="../../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipies</span></a>
+  <a href="../../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipes</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-guidepipelinesparser-li">
   <a href="../../../../docs/user-guide/pipelines/parser/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesparser"><span class="">Parser</span></a>
   <ul class="ul-4 foldable">
@@ -1089,8 +1089,8 @@ This allows reference data lookups to be performed using the date of the event t
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
-    There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an <em>Events</em> Feed being dependant on a <em>Reference</em> Feed.
-When performing a lookup Stroom can only uses the <em>Reference</em> streams that it has available.
+    There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an <em>Events</em> Feed being dependent on a <em>Reference</em> Feed.
+When performing a lookup Stroom can only use the <em>Reference</em> streams that it has available.
 If a <em>Reference</em> stream has been delayed (in receipt or translation), then Stroom will have to use the most recent one it has.
 
 </div>
@@ -1417,7 +1417,7 @@ As soon as the <em>Events</em> stream has been processed, the transient store wi
 <p>As the <em>Context</em> sub-stream sits alongside the <em>Events</em> stream, there is no concept of Effective Date so no date/time argument is needed in the <code>lookup()</code> call.</p>
 <p>Using <em>Context</em> sub-stream based reference data involves the following steps/processes:</p>
 <ul>
-<li>Creating a context loader pipeline with to transform the raw context data into <code>reference-data:2</code> XML and pass that into a 
+<li>Creating a context loader pipeline to transform the raw context data into <code>reference-data:2</code> XML and pass that into a 
 
 
 
@@ -2274,7 +2274,7 @@ The <em>Stream Type</em> is set to <code>Context</code>.</li>
 <p>The ReferenceDataFilter requires the reference data to be XML that conforms to the <code>reference-data:2</code> XMLSchema.</p>
 <p>A reference data entry essentially consists of the following:</p>
 <ul>
-<li><strong>Effective time</strong> - The data/time that the entry was effective from, i.e the time the raw reference data was received.</li>
+<li><strong>Effective time</strong> - The data/time that the entry was effective from, i.e. the time the raw reference data was received.</li>
 <li><strong>Map name</strong> - A unique name for the key/value map that the entry will be stored in.
 The name only needs to be unique within all map names that may be loaded within an XSLT Filter.
 In practice it makes sense to keep map names globally unique.
@@ -2378,7 +2378,7 @@ While duplicate namespacing may appear odd it is valid XML.</p>
   &lt;/reference&gt;
 &lt;/referenceData&gt;
 </code></pre>
-<p>This reference data will be injected into event XML exactly as it, i.e.:</p>
+<p>This reference data will be injected into event XML exactly as is, i.e.:</p>
 <pre><code class="language-xml">      &lt;Location xmlns=&quot;event-logging:3&quot;&gt;
         &lt;Country&gt;GBR&lt;/Country&gt;
         &lt;Site&gt;Bristol-S00&lt;/Site&gt;
@@ -2395,9 +2395,9 @@ While this will result in duplicate data being held by nodes it makes the storag
 <h3 id="on-heap-store">On-Heap Store</h3>
 <p>The On-Heap store is the reference data store that is held in memory in the Java Heap.
 This store is volatile and will be lost on shut down of the node.
-The On-Heap store is only used for storage of context data which is is destroyed once processing of the <em>Events</em> stream is complete.</p>
+The On-Heap store is only used for storage of context data which is destroyed once processing of the <em>Events</em> stream is complete.</p>
 <h3 id="off-heap-store">Off-Heap Store</h3>
-<p>The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to to local disk.
+<p>The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to local disk.
 As the store is also persisted to local disk it means the reference data will survive the shutdown of the stroom instance.
 Storing the data off-heap means Stroom can run with a much smaller Java Heap size.</p>
 <p>The Off-Heap store is based on the Lightning Memory-Mapped Database (LMDB).
@@ -2431,7 +2431,7 @@ There can only be one write transaction at a time so if there are a number of co
 <p>Read transactions, i.e. lookups, are not blocked by each other but may be blocked by a write transaction depending on the value of the system property <code>stroom.pipeline.referenceData.lmdb.readerBlockedByWriter</code>.
 LMDB can operate such that readers are not blocked by writers but if there is an open read transaction while a write transaction is writing data to the store then it is unable to make use of free space (from previous deletes, see <a href="#store-size--compaction">Store Size &amp; Compaction</a>) so will result in the store increasing in size.
 If read transactions are likely while writes are taking place then this can lead to excessive growth of the store.
-Setting  <code>stroom.pipeline.referenceData.lmdb.readerBlockedByWriter</code> to <code>true</code> will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
+Setting <code>stroom.pipeline.referenceData.lmdb.readerBlockedByWriter</code> to <code>true</code> will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
 Use of this setting will depend on how likely it is that loads will clash with lookups and the store size should be monitored.</p>
 <h4 id="read-ahead-mode">Read-Ahead Mode</h4>
 <p>When data is read from the store, if the data is not already in the page cache then it will be read from disk and added to the page cache by the OS.
@@ -2699,7 +2699,7 @@ Context reference data is specific to a single event stream so is transient in n
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 2, 2026: <a href="https://github.com/gchq/stroom-docs/commit/4bfc3d5913bf93b35caecb435402f94f0b6c777c">Merge branch &#39;7.10&#39; into 7.11 (4bfc3d5)</a>
+  Last modified March 4, 2026: <a href="https://github.com/gchq/stroom-docs/commit/873e9cbde89370b3437b5de05505414e43108def">Merge pull request #120 from gchq/grammar (873e9cb)</a>
 </div>
 
 </div>

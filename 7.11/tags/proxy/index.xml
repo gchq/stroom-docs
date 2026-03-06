@@ -847,7 +847,7 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.
 If you make a mistake in the above, just re-run the script.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The selection of the &lt;code&gt;REPO_DIR&lt;/code&gt; above and the setting of the &lt;code&gt;STROOM_TMP&lt;/code&gt; environment variable &lt;a href=&#34;../../docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;earlier&lt;/a&gt; ensure that not only inbound files are placed in the &lt;code&gt;REPO_DIR&lt;/code&gt; location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in it&amp;rsquo;s proxy aggregation threads.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The selection of the &lt;code&gt;REPO_DIR&lt;/code&gt; above and the setting of the &lt;code&gt;STROOM_TMP&lt;/code&gt; environment variable &lt;a href=&#34;../../docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;earlier&lt;/a&gt; ensure that not only inbound files are placed in the &lt;code&gt;REPO_DIR&lt;/code&gt; location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in its proxy aggregation threads.&lt;/p&gt;
 &lt;h3 id=&#34;forwarding-proxy-configuration&#34;&gt;Forwarding Proxy Configuration&lt;/h3&gt;
 &lt;p&gt;In our &lt;em&gt;Forwarding&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomfp0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-fp0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; (the CNAME for &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Forwarding&lt;/em&gt; proxy, we run&lt;/p&gt;
@@ -1177,7 +1177,7 @@ If this is on the same host then you can use the http endpoint, however if it is
 The API key must be created in the downstream stroom instance and then copied into this configuration.&lt;/p&gt;
 &lt;p&gt;If the proxy is configured to forward data then the forward destination(s) should be set.
 This is the &lt;code&gt;datafeed&lt;/code&gt; endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
-This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
+This may also be the address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
 See also &lt;a href=&#34;#feed-status-certificate-configuration&#34;&gt;Feed status certificate configuration&lt;/a&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;  forwardHttpDestinations:
     - enabled: true
@@ -1187,7 +1187,7 @@ See also &lt;a href=&#34;#feed-status-certificate-configuration&#34;&gt;Feed sta
 &lt;p&gt;&lt;code&gt;forwardUrl&lt;/code&gt; specifies the URL of the &lt;em&gt;datafeed&lt;/em&gt; endpoint on the destination host.
 Each forward location can use a different key/trust store pair.
 See also &lt;a href=&#34;#forwarding-certificate-configuration&#34;&gt;Forwarding certificate configuration&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.&lt;/p&gt;
+&lt;p&gt;If the proxy is configured to store then the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.&lt;/p&gt;
 &lt;h3 id=&#34;aggregator-configuration&#34;&gt;Aggregator Configuration&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyConfig:
   aggregator:

@@ -141,7 +141,7 @@ deployment as well the volume maintenance needed when expanding a Multi Node Clu
 &lt;/p&gt;
 &lt;p&gt;The attributes we see for each volume are&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Node - the processing node the volume resides on (this is just the node name entered when configuration the Stroom application)&lt;/li&gt;
+&lt;li&gt;Node - the processing node the volume resides on (this is just the node name entered when configuring the Stroom application)&lt;/li&gt;
 &lt;li&gt;Path - the path to the volume&lt;/li&gt;
 &lt;li&gt;Volume Type - The type of volume&lt;/li&gt;
 &lt;li&gt;Public - to indicate that all nodes would access this volume&lt;/li&gt;
@@ -166,25 +166,25 @@ configuring the Stroom service application, you will see two default volumes hav
 &lt;p&gt;Now from our two node Stroom Cluster example, our storage hierarchy was&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p00&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p00&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p00&lt;/code&gt;     - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt;       - location for Stroom proxy to store inbound data files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p00&lt;/code&gt; - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p00&lt;/code&gt; - location to store Stroom application index files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p00&lt;/code&gt; - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; - location for Stroom proxy to store inbound data files&lt;/li&gt;
 &lt;li&gt;Node: &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p01&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p01&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p01&lt;/code&gt;     - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt;       - location for Stroom proxy to store inbound data files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p01&lt;/code&gt; - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p01&lt;/code&gt; - location to store Stroom application index files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p01&lt;/code&gt; - location to store Stroom application working files (e.g. temporary files, output, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; - location for Stroom proxy to store inbound data files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;From this we need to create four volumes. On &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; we create&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p00&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p00&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p00&lt;/code&gt; - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p00&lt;/code&gt; - location to store Stroom application index files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;and on &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt; we create&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p01&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p01&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p01&lt;/code&gt; - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p01&lt;/code&gt; - location to store Stroom application index files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;So the first step to configure a volume is to move the cursor to the &lt;em&gt;New&lt;/em&gt; icon &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
@@ -234,10 +234,10 @@ the &lt;code&gt;Volumes&lt;/code&gt; window and select it. This will bring up th
 &lt;p&gt;As you can see, the entry box titles reflect the attributes of a volume. So we will add the first
 nodes &lt;em&gt;data&lt;/em&gt; volume&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p00&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p00&lt;/code&gt; - location to store Stroom application data files (events, etc.) for this node
 for node &lt;code&gt;stroomp00&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;If you move the the &lt;em&gt;Node&lt;/em&gt; drop down entry box and select it you will be presented with a choice of available
+&lt;p&gt;If you move the &lt;em&gt;Node&lt;/em&gt; drop down entry box and select it you will be presented with a choice of available
 nodes - in this case &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp01&lt;/code&gt; as we have a two node cluster with these node names.&lt;/p&gt;
 
 
@@ -558,7 +558,7 @@ nodes - in this case &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp0
   &lt;/a&gt;
 &lt;/div&gt;
 
-&lt;p&gt;So we move the cursor to the first volume&amp;rsquo;s line (&lt;em&gt;stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume&lt;/em&gt; &amp;hellip;) and select the line then move the cursor to the  &lt;em&gt;Delete&lt;/em&gt; icon &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
+&lt;p&gt;So we move the cursor to the first volume&amp;rsquo;s line (&lt;em&gt;stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume&lt;/em&gt; &amp;hellip;) and select the line then move the cursor to the &lt;em&gt;Delete&lt;/em&gt; icon &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Delete&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M704 1376v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm-544-992h448l-48-117q-7-9-17-11h-317q-10 2-17 11zm928 32v64q0 14-9 23t-23 9h-96v948q0 83-47 143.5t-113 60.5h-832q-66 0-113-58.5t-47-141.5v-952h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h309l70-167q15-37 54-63t79-26h320q40 0 79 26t54 63l70 167h309q14 0 23 9t9 23z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
   &lt;/span&gt; in the top left of the &lt;code&gt;Volumes&lt;/code&gt; window and select it. On selection you will be given a confirmation request&lt;/p&gt;
 
@@ -724,7 +724,7 @@ nodes - in this case &lt;code&gt;stroomp00&lt;/code&gt; and &lt;code&gt;stroomp0
 &lt;/span&gt;
  button.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: At the time of writing there is an issue regarding volumes&lt;/p&gt;
-&lt;h5 id=&#34;stroom-github-issue-84---&#34;&gt;Stroom Github Issue 84  -&lt;/h5&gt;
+&lt;h5 id=&#34;stroom-github-issue-84--&#34;&gt;Stroom Github Issue 84 -&lt;/h5&gt;
 &lt;p&gt;Due to 
 
 
@@ -752,15 +752,15 @@ one has to configure the new volumes that are on the new node. The following dem
 &lt;ul&gt;
 &lt;li&gt;the new node is &lt;code&gt;stroomp02&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;the storage hierarchy for this node is&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p02&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p02&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p02&lt;/code&gt;     - location to store Stroom application working files (e.g. tmp, output, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p02/proxy&lt;/code&gt;       - location for Stroom proxy to store inbound data files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p02&lt;/code&gt; - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p02&lt;/code&gt; - location to store Stroom application index files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p02&lt;/code&gt; - location to store Stroom application working files (e.g. tmp, output, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-working-p02/proxy&lt;/code&gt; - location for Stroom proxy to store inbound data files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;From this we need to create two volumes on &lt;code&gt;stroomp02&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p02&lt;/code&gt;        - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p02&lt;/code&gt;       - location to store Stroom application index files&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-data-p02&lt;/code&gt; - location to store Stroom application data files (events, etc.) for this node&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/stroomdata/stroom-index-p02&lt;/code&gt; - location to store Stroom application index files&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To configure the volumes, move to the &lt;code&gt;Tools&lt;/code&gt; item of the &lt;strong&gt;Main Menu&lt;/strong&gt; and select it to bring up the &lt;code&gt;Tools&lt;/code&gt; sub-menu.
 
@@ -804,7 +804,7 @@ one has to configure the new volumes that are on the new node. The following dem
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;/p&gt;
-&lt;p&gt;then move down and select the &lt;code&gt;Volumes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Volumes&lt;/code&gt; configuration window as.
+&lt;p&gt;then move down and select the &lt;code&gt;Volumes&lt;/code&gt; sub-item to be presented with the &lt;code&gt;Volumes&lt;/code&gt; configuration window as seen below.
 We then move the cursor to the &lt;em&gt;New&lt;/em&gt; icon &lt;span class=&#34;stroom-icon inline-svg-button icon-button  &#34; &gt;
     &lt;span class=&#34;face&#34; title=&#34;Add&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;m 1600,800 0,192 q 0,40 -28,68 -28,28 -68,28 l -416,0 0,416 q 0,40 -28,68 -28,28 -68,28 l -192,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-416 -416,0 q -40,0 -68,-28 -28,-28 -28,-68 l 0,-192 q 0,-40 28,-68 28,-28 68,-28 l 416,0 0,-416 q 0,-40 28,-68 28,-28 68,-28 l 192,0 q 40,0 68,28 28,28 28,68 l 0,416 416,0 q 40,0 68,28 28,28 28,68 z&#34;/&gt;&lt;/svg&gt; &lt;/span&gt;
   &lt;/span&gt;

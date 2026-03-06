@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -196,7 +196,7 @@ This is the multi-page printable view of this section.
     
     
 	
-<li>1: <a href="#pg-fe3ecd50367d9549af52d2dffec9fd16">Pipeline Recipies</a></li>
+<li>1: <a href="#pg-fe3ecd50367d9549af52d2dffec9fd16">Pipeline Recipes</a></li>
 
 
     
@@ -1207,13 +1207,13 @@ Input data is converted into XML
 ) or converted into a desired output format for storage/forwarding.</p>
 <h2 id="forks">Forks</h2>
 <p>Pipelines can also be forked at any point in the pipeline.
-This allows the same data to processed in different ways.</p>
+This allows the same data to be processed in different ways.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
 
 
-    Rather than creating complicated pipelines with forks, it is sometimes better to create multiple pipelines as this makes it easer to handle errors in one fork of the processing.
+    Rather than creating complicated pipelines with forks, it is sometimes better to create multiple pipelines as this makes it easier to handle errors in one fork of the processing.
 It also makes it easier to re-use common simple pipelines.
 For example if you have a pipeline to transform CSV events into normalised XML then index it and forward it to a remote server, it may be better to have a pipeline to cook the events, then a common one to index those XML events and one to forward XML events.
 
@@ -1296,8 +1296,8 @@ Multi level inheritance is also supported.</p>
 <h3 id="reader">Reader</h3>
 <p>Readers are responsible for reading the raw bytes of the input data and converting it to character data using the Feed&rsquo;s character encoding.
 They also provide functionality to modify the data before or after it is decoded to characters, e.g. <span class="glossary-link">
-  <a href="../../../../docs/glossary/#bye-order-mark" title="Glossary entry for Bye Order Mark">
-    <span>Bye Order Mark</span>
+  <a href="../../../../docs/glossary/#byte-order-mark" title="Glossary entry for Byte Order Mark">
+    <span>Byte Order Mark</span>
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
 </span> removal, or doing find/replace on the character data.
@@ -1701,10 +1701,10 @@ Other destinations can be used for sending the encoded character data to Kafka, 
 
 <div class="td-content" style="--base-section-num: '1.'; page-break-before: always">
     
-  <h1 id="pg-fe3ecd50367d9549af52d2dffec9fd16">1 - Pipeline Recipies</h1>
-    <div class="lead">A set of basic pipeline structure recipies for common use cases.</div>
+  <h1 id="pg-fe3ecd50367d9549af52d2dffec9fd16">1 - Pipeline Recipes</h1>
+    <div class="lead">A set of basic pipeline structure recipes for common use cases.</div>
 	<p>The following are a basic set of pipeline recipes for doing typical tasks in Stroom.
-Is it not an exhaustive list as the possibilities with Pipelines are vast.
+It is not an exhaustive list, as the possibilities with Pipelines are vast.
 They are intended as a rough guide to get you started with building Pipelines.</p>
 <h2 id="data-ingest-and-transformation">Data Ingest and Transformation</h2>
 <h3 id="csv-to-normalised-xml">CSV to Normalised XML</h3>
@@ -2790,7 +2790,7 @@ They are intended as a rough guide to get you started with building Pipelines.</
 <h3 id="json-to-normalised-xml">JSON to Normalised XML</h3>
 <p>The same as ingesting CSV data above, except the input JSON is converted into an XML representation of the JSON by the JSONParser.
 The <em>Normalise</em> XSLTFilter will be specific to the format of the JSON being ingested.
-The <em>Decorate)</em> XSLTFilter will likely be identical to that used for the CSV ingest above, demonstrating reuse of pipeline element content.</p>
+The <em>Decorate</em> XSLTFilter will likely be identical to that used for the CSV ingest above, demonstrating reuse of pipeline element content.</p>
 
 <div class="stroom-theme-dark pipeline-container">
   
@@ -7036,7 +7036,7 @@ The
 
 [Pipeline truncated]</p>
 <h2 id="raw-streaming">Raw Streaming</h2>
-<p>In cases where you want to export the raw (or cooked) data from a feed you can have a very simply pipeline to pipe the source data directly to an appender.
+<p>In cases where you want to export the raw (or cooked) data from a feed you can have a very simple pipeline to pipe the source data directly to an appender.
 This may be so that the raw data can be ingested into another system for analysis.
 In this case the data is being written to disk using a file appender.</p>
 
@@ -8048,7 +8048,7 @@ The
 
  - An XSLT <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg></span>
-  </span> transforming  <code>event-logging:3</code> =&gt; <code>records:2</code>.</li>
+  </span> transforming <code>event-logging:3</code> =&gt; <code>records:2</code>.</li>
 <li>
 
 
@@ -9865,7 +9865,7 @@ The
 
  - An XSLT <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg></span>
-  </span> transforming  <code>event-logging:3</code> =&gt; <code>records:2</code>.</li>
+  </span> transforming <code>event-logging:3</code> =&gt; <code>records:2</code>.</li>
 <li>
 
 
@@ -10440,7 +10440,7 @@ Search extraction pipelines are referenced in Dashboard and View settings.</p>
 
  - An XSLT <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Xslt"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__xsl-background)" d="M 684.30664 211.38672 C 672.42766 211.38672 661.91891 215.95413 652.78125 225.0918 L 14.058594 863.81641 C 4.9209141 872.95409 0.3515625 883.46088 0.3515625 895.33984 C 0.3515625 907.21882 4.9209142 917.72756 14.058594 926.86523 L 652.78125 1565.5898 C 661.91891 1574.7275 672.42766 1579.2949 684.30664 1579.2949 C 696.1856 1579.2949 706.69435 1574.7275 715.83203 1565.5898 L 784.36523 1497.0566 C 793.5029 1487.9191 798.07031 1477.4102 798.07031 1465.5312 C 798.07031 1453.6524 793.5029 1443.1436 784.36523 1434.0059 L 245.69922 895.33984 L 784.36523 356.67578 C 793.5029 347.53811 798.07031 337.02937 798.07031 325.15039 C 798.07031 313.27142 793.5029 302.76268 784.36523 293.625 L 715.83203 225.0918 C 706.69435 215.95413 696.1856 211.38672 684.30664 211.38672 z M 1107.9082 211.38672 C 1096.0293 211.38672 1085.5225 215.95414 1076.3848 225.0918 L 1007.8516 293.625 C 998.71402 302.76268 994.14453 313.27142 994.14453 325.15039 C 994.14453 337.02937 998.71402 347.53811 1007.8516 356.67578 L 1546.5176 895.33984 L 1007.8516 1434.0059 C 998.71402 1443.1436 994.14453 1453.6523 994.14453 1465.5312 C 994.14453 1477.4102 998.71402 1487.9191 1007.8516 1497.0566 L 1076.3848 1565.5898 C 1085.5225 1574.7275 1096.0293 1579.2949 1107.9082 1579.2949 C 1119.7872 1579.2949 1130.2959 1574.7275 1139.4336 1565.5898 L 1778.1582 926.86523 C 1787.2959 917.72756 1791.8633 907.21882 1791.8633 895.33984 C 1791.8633 883.46088 1787.2959 872.95409 1778.1582 863.81641 L 1139.4336 225.0918 C 1130.2959 215.95414 1119.7872 211.38672 1107.9082 211.38672 z "/><path style="fill:var(--icon-colour__black)" d="M 914.01562 609.75391 C 846.69543 609.75391 793.7585 624.0295 755.20508 652.58203 C 716.65166 681.13457 697.375 720.39439 697.375 770.36133 C 697.375 809.25185 709.09092 840.2669 732.51953 863.4043 C 755.94815 886.29555 800.72934 908.20094 866.86328 929.12305 L 931.36523 949.42969 C 953.90415 956.5678 971.1042 966.4135 982.9668 978.9668 C 994.82939 991.27392 1000.7617 1005.6745 1000.7617 1022.166 C 1000.7617 1044.0727 991.86421 1061.1792 974.07031 1073.4863 C 956.27643 1085.5473 931.21618 1091.5781 898.89062 1091.5781 C 866.86163 1091.5781 834.38939 1086.5313 801.4707 1076.4395 C 768.84858 1066.3477 735.03956 1050.9651 700.04492 1030.2891 L 700.04492 1142.8984 C 730.88766 1155.6978 762.76881 1165.2975 795.6875 1171.6973 C 828.90275 1178.3431 861.96998 1181.666 894.88867 1181.666 C 974.96115 1181.666 1034.719 1168.0054 1074.1621 1140.6836 C 1113.9018 1113.1156 1133.7715 1071.5169 1133.7715 1015.8887 C 1133.7715 975.02903 1121.167 941.18506 1095.959 914.35547 C 1070.751 887.52595 1031.4559 865.98759 978.07422 849.74219 L 921.57812 832.01953 C 882.43158 819.95854 856.6315 809.00586 844.17578 799.16016 C 832.01663 789.06832 825.93555 776.3917 825.93555 761.13086 C 825.93555 741.43946 834.38878 726.30288 851.29297 715.71875 C 868.19716 705.13462 892.51562 699.8418 924.24805 699.8418 C 952.71826 699.8418 981.4855 704.14869 1010.5488 712.76367 C 1039.6122 721.37867 1068.2307 733.93228 1096.4043 750.42383 L 1096.4043 644.08984 C 1066.4513 632.76728 1036.2005 624.27651 1005.6543 618.61523 C 975.10813 612.70782 944.56179 609.75391 914.01562 609.75391 z M 109.28711 619.72266 L 298.79297 891.09375 L 103.94922 1170.959 L 239.62891 1170.959 L 365.96484 988.56641 L 492.74609 1170.959 L 628.42383 1170.959 L 434.4707 891.09375 L 623.08594 619.72266 L 487.4082 619.72266 L 365.96484 795.09961 L 244.9668 619.72266 L 109.28711 619.72266 z M 1288.1328 619.72266 L 1288.1328 1170.959 L 1700.0605 1170.959 L 1700.0605 1074.9629 L 1419.3633 1074.9629 L 1419.3633 619.72266 L 1288.1328 619.72266 z "/></svg></span>
-  </span> transforming  <code>event-logging:3</code> =&gt; <code>records:2</code>.</li>
+  </span> transforming <code>event-logging:3</code> =&gt; <code>records:2</code>.</li>
 </ul>
 <h3 id="dynamic-lucene-index-extraction">Dynamic Lucene Index Extraction</h3>
 <p>This is a dynamic search extraction pipeline for a Lucene index.</p>
@@ -10953,7 +10953,7 @@ Search extraction pipelines are referenced in Dashboard and View settings.</p>
 </ul>
 <h2 id="data-egress">Data Egress</h2>
 <h3 id="xml-to-csv-file">XML to CSV File</h3>
-<p>An recipe of writing normalised XML events (as produced by an ingest pipeline above) to a file, but in a flat file format like CSV.
+<p>A recipe for writing normalised XML events (as produced by an ingest pipeline above) to a file, but in a flat file format like CSV.
 The 
 
 
@@ -13822,7 +13822,7 @@ The
 
 
 <h2 id="statistics">Statistics</h2>
-<p>This recipe converts normalised XML data and converts it into statistic events (confirming to the <code>statistics:4</code> XMLSchema).
+<p>This recipe takes normalised XML data and converts it into statistic events (conforming to the <code>statistics:4</code> XMLSchema).
 Stroom&rsquo;s Statistic Stores <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Statistic store"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:var(--icon-colour__blue)" d="M896 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0 768q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-384q237 0 443-43t325-127v170q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-170q119 84 325 127t443 43zm0-1152q208 0 385 34.5t280 93.5 103 128v128q0 69-103 128t-280 93.5-385 34.5-385-34.5-280-93.5-103-128v-128q0-69 103-128t280-93.5 385-34.5z"/></svg></span>
   </span> are a way to store aggregated counts or averaged values over time periods.
@@ -15160,7 +15160,7 @@ It will always be logged at <code>FATAL</code>.
     
   <h1 id="pg-00fcef074a5fb84079d17e4049c5a7f8">3.2 - XSLT Functions</h1>
     <div class="lead">Custom XSLT functions available in Stroom.</div>
-	<!-- 
+	<!--
 TODO
 This file needs splitting up with one file per function.
 These files can be generated from annotations in the Java code (see https://github.com/gchq/stroom/issues/2932)
@@ -15246,16 +15246,15 @@ The key can be <code>Feed</code>, <code>StreamType</code>, <code>CreatedTime</co
 <li><a href="#parse-dateTime"><code>parse-dateTime(String dateTime, String pattern, String timeZone)</code></a> - Returns the dateTime for a specified string using the pattern and time zone</li>
 <li><a href="#parse-uri"><code>parse-uri(String URI)</code></a> - Returns an XML structure of the URI providing <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code>, and <code>userInfo</code> components if present.</li>
 <li><code>pipeline-name()</code> - Get the name of the pipeline currently processing the stream.</li>
-<li><a href="#pointIsInsideXYPolygon"><code>pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)</code></a> - Get the name of the pipeline currently processing the stream.</li>
+<li><a href="#pointIsInsideXYPolygon"><code>pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)</code></a> - Determines whether a given point (xPos, yPos) lies inside the polygon defined by the provided x and y coordinate arrays.</li>
 <li><code>random()</code> - Get a system generated random number between 0 and 1.</li>
 <li><code>record-no()</code> - The current record number within the current part (substream) (1 based).</li>
 <li><code>search-id()</code> - Get the id of the batch search when a pipeline is processing as part of a batch search</li>
 <li><code>source()</code> - Returns an XML structure with the <code>stroom-meta</code> namespace detailing the current source location.</li>
 <li><code>source-id()</code> - Get the id of the current input stream that is being processed</li>
-<li><code>split-document(Sting doc, String segmentSize, String overlapSize)</code> - Split a document for LLM tokenisation (experimental).</li>
+<li><code>split-document(String doc, String segmentSize, String overlapSize)</code> - Split a document for LLM tokenisation (experimental).</li>
 <li><code>stream-id()</code> - An alias for <code>source-id</code> included for backward compatibility.</li>
 <li><code>to-unixTime(DateTime dateTime)</code> - Returns milliseconds since the epoch for a specified dateTime</li>
-<li><code>pipeline-name()</code> - Name of the current processing pipeline using the XSLT</li>
 <li><a href="#put-and-get"><code>put(String key, String value)</code></a> - Store a value for use later on in the translation</li>
 </ul>
 <h2 id="bitmap-lookup">bitmap-lookup()</h2>
@@ -15268,7 +15267,7 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
 <ul>
 <li><code>map</code> - The name of the reference data map to perform the lookup against.</li>
 <li><code>key</code> - The bitmap value to lookup.
-This can either be represented as a decimal integer (e.g. <code>14</code>) or as hexadecimal by prefixing with <code>0x</code> (e.g <code>0xE</code>).</li>
+This can either be represented as a decimal integer (e.g. <code>14</code>) or as hexadecimal by prefixing with <code>0x</code> (e.g. <code>0xE</code>).</li>
 <li><code>time</code> - Determines which set of reference data was effective at the requested time.
 If no reference data exists with an effective time before the requested time then the lookup will fail.
 Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-01-01T00:00:00.000Z</code>.</li>
@@ -15276,13 +15275,13 @@ Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-
 <li><code>trace</code> - If true, additional trace information is output as INFO messages.</li>
 </ul>
 <p>If the look up fails no result will be returned.</p>
-<p>The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. <code>14</code>/<code>0xE</code> is <code>1110</code> as a binary bitmap.
+<p>The key is a bitmap expressed as either a decimal integer or a hexadecimal value, e.g. <code>14</code>/<code>0xE</code> is <code>1110</code> as a binary bitmap.
 For each bit position that is set, (i.e. has a binary value of <code>1</code>) a lookup will be performed using that bit position as the key.
 In this example, positions <code>1</code>, <code>2</code> &amp; <code>3</code> are set so a lookup would be performed for these bit positions.
 The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.</p>
 <p>If <code>ignoreWarnings</code> is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.</p>
 <p>This function can be useful when you have a set of values that can be represented as a bitmap and you need them to be converted back to individual values.
-For example if you have a set of additive account permissions (e.g Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&rsquo;s permissions could be defined as a single decimal/hex bitmap value.
+For example if you have a set of additive account permissions (e.g. Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&rsquo;s permissions could be defined as a single decimal/hex bitmap value.
 Thus a bitmap lookup with this value would return all the permissions held by the user.</p>
 <p>For example the reference data store may contain:</p>
 <table>
@@ -15521,7 +15520,7 @@ See the examples below.</p>
 <p>The following table shows various examples of calls to <code>stroom:format-date()</code> with their output.
 The <code>stroom:format-date</code> part has been omitted for brevity.</p>
 <!--
-This table is generated by the test 
+This table is generated by the test
 stroom.pipeline.xsltfunctions.TestFormatDate#testParseExamples
 -->
 <pre><code class="language-xml">&lt;!-- Date in millis since UNIX epoch --&gt;
@@ -15646,8 +15645,8 @@ Despite this, it is advisable to use a pattern that matches the known format of 
 
 
 <h3 id="formatting-examples">Formatting Examples</h3>
-<!-- 
-This table is generated by the test 
+<!--
+This table is generated by the test
 stroom.pipeline.xsltfunctions.TestFormatDate#testCustomFormatExamples
 -->
 <pre><code class="language-xml">&lt;!-- Specific output, no input or output TZ --&gt;
@@ -15982,12 +15981,12 @@ By testing the result a default value may be output if no result is returned.</p
 &lt;/xsl:if&gt;
 </code></pre>
 <h3 id="range-lookups">Range lookups</h3>
-<p>Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g 1-100.
+<p>Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g. 1-100.
 When a lookup is preformed the passed key is looked up as if it were a normal string key.
 If that lookup fails Stroom will try to convert the key to an integer (long) value.
 If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.</p>
 <p>Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
-In this use case, the IP address must first be converted into a numeric value using <code>numeric-ip()</code>, e.g:</p>
+In this use case, the IP address must first be converted into a numeric value using <code>numeric-ip()</code>, e.g.:</p>
 <pre><code class="language-xslt">stroom:lookup('IP_TO_LOCATION', numeric-ip($ipAddress))
 </code></pre>
 <p>Similarly the reference data must be stored with key ranges whose bounds were created using this function.</p>
@@ -16306,8 +16305,8 @@ This allows reference data lookups to be performed using the date of the event t
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
-    There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an <em>Events</em> Feed being dependant on a <em>Reference</em> Feed.
-When performing a lookup Stroom can only uses the <em>Reference</em> streams that it has available.
+    There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an <em>Events</em> Feed being dependent on a <em>Reference</em> Feed.
+When performing a lookup Stroom can only use the <em>Reference</em> streams that it has available.
 If a <em>Reference</em> stream has been delayed (in receipt or translation), then Stroom will have to use the most recent one it has.
 
 </div>
@@ -16634,7 +16633,7 @@ As soon as the <em>Events</em> stream has been processed, the transient store wi
 <p>As the <em>Context</em> sub-stream sits alongside the <em>Events</em> stream, there is no concept of Effective Date so no date/time argument is needed in the <code>lookup()</code> call.</p>
 <p>Using <em>Context</em> sub-stream based reference data involves the following steps/processes:</p>
 <ul>
-<li>Creating a context loader pipeline with to transform the raw context data into <code>reference-data:2</code> XML and pass that into a 
+<li>Creating a context loader pipeline to transform the raw context data into <code>reference-data:2</code> XML and pass that into a 
 
 
 
@@ -17491,7 +17490,7 @@ The <em>Stream Type</em> is set to <code>Context</code>.</li>
 <p>The ReferenceDataFilter requires the reference data to be XML that conforms to the <code>reference-data:2</code> XMLSchema.</p>
 <p>A reference data entry essentially consists of the following:</p>
 <ul>
-<li><strong>Effective time</strong> - The data/time that the entry was effective from, i.e the time the raw reference data was received.</li>
+<li><strong>Effective time</strong> - The data/time that the entry was effective from, i.e. the time the raw reference data was received.</li>
 <li><strong>Map name</strong> - A unique name for the key/value map that the entry will be stored in.
 The name only needs to be unique within all map names that may be loaded within an XSLT Filter.
 In practice it makes sense to keep map names globally unique.
@@ -17595,7 +17594,7 @@ While duplicate namespacing may appear odd it is valid XML.</p>
   &lt;/reference&gt;
 &lt;/referenceData&gt;
 </code></pre>
-<p>This reference data will be injected into event XML exactly as it, i.e.:</p>
+<p>This reference data will be injected into event XML exactly as is, i.e.:</p>
 <pre><code class="language-xml">      &lt;Location xmlns=&quot;event-logging:3&quot;&gt;
         &lt;Country&gt;GBR&lt;/Country&gt;
         &lt;Site&gt;Bristol-S00&lt;/Site&gt;
@@ -17612,9 +17611,9 @@ While this will result in duplicate data being held by nodes it makes the storag
 <h3 id="on-heap-store">On-Heap Store</h3>
 <p>The On-Heap store is the reference data store that is held in memory in the Java Heap.
 This store is volatile and will be lost on shut down of the node.
-The On-Heap store is only used for storage of context data which is is destroyed once processing of the <em>Events</em> stream is complete.</p>
+The On-Heap store is only used for storage of context data which is destroyed once processing of the <em>Events</em> stream is complete.</p>
 <h3 id="off-heap-store">Off-Heap Store</h3>
-<p>The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to to local disk.
+<p>The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to local disk.
 As the store is also persisted to local disk it means the reference data will survive the shutdown of the stroom instance.
 Storing the data off-heap means Stroom can run with a much smaller Java Heap size.</p>
 <p>The Off-Heap store is based on the Lightning Memory-Mapped Database (LMDB).
@@ -17648,7 +17647,7 @@ There can only be one write transaction at a time so if there are a number of co
 <p>Read transactions, i.e. lookups, are not blocked by each other but may be blocked by a write transaction depending on the value of the system property <code>stroom.pipeline.referenceData.lmdb.readerBlockedByWriter</code>.
 LMDB can operate such that readers are not blocked by writers but if there is an open read transaction while a write transaction is writing data to the store then it is unable to make use of free space (from previous deletes, see <a href="#store-size--compaction">Store Size &amp; Compaction</a>) so will result in the store increasing in size.
 If read transactions are likely while writes are taking place then this can lead to excessive growth of the store.
-Setting  <code>stroom.pipeline.referenceData.lmdb.readerBlockedByWriter</code> to <code>true</code> will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
+Setting <code>stroom.pipeline.referenceData.lmdb.readerBlockedByWriter</code> to <code>true</code> will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
 Use of this setting will depend on how likely it is that loads will clash with lookups and the store size should be monitored.</p>
 <h4 id="read-ahead-mode">Read-Ahead Mode</h4>
 <p>When data is read from the store, if the data is not already in the page cache then it will be read from disk and added to the page cache by the OS.

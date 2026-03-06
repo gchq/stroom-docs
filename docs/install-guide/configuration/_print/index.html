@@ -38,7 +38,7 @@
 <link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>Configuration | Stroom</title>
-<meta name="description" content="Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+<meta name="description" content="Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc.).
 This document will …">
 <meta property="og:title" content="Configuration" />
 <meta property="og:description" content="Stroom documentation, release notes, news and open source community information" />
@@ -146,7 +146,7 @@ This document will …">
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -262,7 +262,7 @@ This is the multi-page printable view of this section.
 
 
 <div class="content">
-      <p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc).
+      <p>Stroom and its associated services can be deployed in may ways (single node docker stack, non-docker cluster, kubernetes, etc.).
 This document will cover two types of deployment:</p>
 <ul>
 <li>Single node stroom_core docker stack.</li>
@@ -1139,7 +1139,7 @@ ISO 8601 duration strings are NOT supported, nor are values without a suffix.</p
 <h4 class="alert-heading">Note</h4>
 
 
-    The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e relative to <code>stroom.home</code> if relative and supporting variable substitution.
+    The paths used for the key and trust stores will be treated in the same way as Stroom property paths, i.e. relative to <code>stroom.home</code> if relative and supporting variable substitution.
 
 </div>
 
@@ -1204,8 +1204,8 @@ In this example, files will be rolled every 1 minute.</p>
  for application level logging.
 All logs in Stroom and Stroom-Proxy apart from the request log are Logback based logs.</p>
 <p>Logback uses the concept of <em>Loggers</em> and <em>Appenders</em>.
-A <em>Logger</em> is a named thing that that produces log messages.
-An _Appender is an output that a <em>Logger</em> can append its log messages to.
+A <em>Logger</em> is a named thing that produces log messages.
+An <em>Appender</em> is an output that a <em>Logger</em> can append its log messages to.
 Typical <em>Appenders</em> are:</p>
 <ul>
 <li>File - appends messages to a file that may or may not be rolled.</li>
@@ -1295,7 +1295,7 @@ Some loggers, such as <code>event-logger</code> do not have a Java class name.</
 <h4 id="log-rolling">Log Rolling</h4>
 <p>Rolling of log files can be done based on size of file or time.
 The <code>archivedLogFilenamePattern</code> property controls the rolling behaviour.
-The rolling policy is determined from the filename pattern, e.g a pattern with a minute precision date format will be rolled every minute.
+The rolling policy is determined from the filename pattern, e.g. a pattern with a minute precision date format will be rolled every minute.
 The following is an example of an appender that rolls based on the size of the log file:</p>
 <pre><code class="language-yaml">  - type: file
     currentLogFilename: logs/app.log
@@ -1608,7 +1608,7 @@ If this is on the same host then you can use the http endpoint, however if it is
 The API key must be created in the downstream stroom instance and then copied into this configuration.</p>
 <p>If the proxy is configured to forward data then the forward destination(s) should be set.
 This is the <code>datafeed</code> endpoint of the downstream stroom-proxy or stroom instance that data will be forwarded to.
-This may also be te address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
+This may also be the address of a load balancer or similar that is fronting a cluster of stroom-proxy or stroom instances.
 See also <a href="#feed-status-certificate-configuration">Feed status certificate configuration</a>.</p>
 <pre><code class="language-yaml">  forwardHttpDestinations:
     - enabled: true
@@ -1618,7 +1618,7 @@ See also <a href="#feed-status-certificate-configuration">Feed status certificat
 <p><code>forwardUrl</code> specifies the URL of the <em>datafeed</em> endpoint on the destination host.
 Each forward location can use a different key/trust store pair.
 See also <a href="#forwarding-certificate-configuration">Forwarding certificate configuration</a>.</p>
-<p>If the proxy is configured to store then it is the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.</p>
+<p>If the proxy is configured to store then the location of the proxy repository may need to be configured if it needs to be in a different location to the proxy home directory, e.g. on another mount point.</p>
 <h3 id="aggregator-configuration">Aggregator Configuration</h3>
 <pre><code class="language-yaml">proxyConfig:
   aggregator:
@@ -2280,12 +2280,12 @@ proxyConfig:
 
 <p>Nginx is the standard web server used by stroom.
 Its primary role is SSL termination and reverse proxying for stroom and stroom-proxy that sit behind it.
-It can also load balance incoming requests and ensure traffic from the same source is always route to the same upstream instance.
+It can also load balance incoming requests and ensure traffic from the same source is always routed to the same upstream instance.
 Other web servers can be used if required but their installation/configuration is out of the scope of this documentation.</p>
 <h2 id="without-docker">Without Docker</h2>
 <p>The standard way of deploying Nginx with stroom running without docker involves running Nginx as part of the <em>services</em> stack.
 See below for details of how to configure it.
-If you want to deploy Nginx without docker then you can but that is outside the scope of the this documentation.</p>
+If you want to deploy Nginx without docker then you can but that is outside the scope of this documentation.</p>
 <h2 id="as-part-of-a-docker-stack">As part of a docker stack</h2>
 <p>Nginx is included in all the stroom docker stacks.
 Nginx is configured using multiple configuration files to aid clarity and allow reuse of sections of configuration.
@@ -2306,8 +2306,8 @@ The main file for configuring Nginx is <code>nginx.conf.template</code> and this
 <ul>
 <li><code>locations_defaults.conf.template</code> - Defines some default directives (e.g. headers) for configuring stroom paths.</li>
 <li><code>proxy_location_defaults.conf.template</code> - Defines some default directives (e.g. headers) for configuring stroom-proxy paths.</li>
-<li><code>locations.proxy.conf.template</code> - Defines the various paths (e.g/ <code>/datafeed</code>) that will be reverse proxied to stroom-proxy hosts.</li>
-<li><code>locations.stroom.conf.template</code> - Defines the various paths (e.g/ <code>/datafeeddirect</code>) that will be reverse proxied to stroom hosts.</li>
+<li><code>locations.proxy.conf.template</code> - Defines the various paths (e.g./ <code>/datafeed</code>) that will be reverse proxied to stroom-proxy hosts.</li>
+<li><code>locations.stroom.conf.template</code> - Defines the various paths (e.g./ <code>/datafeeddirect</code>) that will be reverse proxied to stroom hosts.</li>
 </ul>
 </li>
 </ul>
@@ -2435,7 +2435,7 @@ This will typically be the nginx host or load balancer and the path will typical
 <p>If your implementation of cron supports environment variables then you can define some of the common values at the top of the crontab file and use them in the entries.
 <code>cronie</code> as used by Centos does not support environment variables in the crontab file but variables can be defined at the line level as has been shown with STROOM_HOME and PROXY_HOME.</p>
 <p>The above crontab entries assume that stroom and stroom-proxy are running on the same host.
-If there are not then the entries can be split across the hosts accordingly.</p>
+If they are not then the entries can be split across the hosts accordingly.</p>
 <h3 id="service-hosts">Service host(s)</h3>
 <p>When deploying stroom/stroom-proxy without stroom you may still be deploying the service stack (nginx and stroom-log-sender) to a host.
 In this case see <a href="#as-part-of-a-docker-stack">As part of a docker stack</a> below for details of how to configure stroom-log-sender to send the nginx logs.</p>
@@ -2592,7 +2592,7 @@ How MySQL is deployed and configured will depend on the requirements of the envi
 The <code>.cnf</code> file is located in <code>volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf</code>.
 This file is read-only to the container and will be read on container start.</p>
 <h3 id="database-initialisation">Database initialisation</h3>
-<p>When the container is started for the first time the database be initialised with the root user account.
+<p>When the container is started for the first time the database will be initialised with the root user account.
 It will also then run any scripts found in <code>volumes/stroom-all-dbs/init/stroom</code>.
 The scripts in here will be run in alphabetical order.
 Scripts of the form <code>.sh</code>, <code>.sql</code>, <code>.sql.gz</code> and <code>.sql.template</code> are supported.</p>

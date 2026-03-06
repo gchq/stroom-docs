@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/releases/v07.00/" /><meta property="article:section" content="releases" />
 <meta property="article:published_time" content="2021-07-07T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-02T17:56:30+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-04T11:59:55+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Version 7.0">
 <meta itemprop="description" content="Key new features and changes present in v7.0 of Stroom and Stroom-Proxy.
 "><meta itemprop="datePublished" content="2021-07-07T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-02T17:56:30+00:00" />
+<meta itemprop="dateModified" content="2026-03-04T11:59:55+00:00" />
 <meta itemprop="wordCount" content="1613">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Version 7.0"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -697,12 +697,12 @@ This makes finding values or rows in a table faster and more precise.</p>
 <p>See <a href="user-guide/finding-things/finding-things.md">Finding Things</a> for more details.</p>
 <h2 id="new-off-heap-memory-efficient-reference-data">New (off-heap) memory efficient reference data</h2>
 <p>The reference data feature in previous versions of <em>stroom</em> loaded the reference data on demand and held it in Java&rsquo;s heap memory.
-In large systems or where a pipeline doing reference data lookups across a wide time range this can lead to very large heap sizes.</p>
+In large systems or in pipelines doing reference data lookups across a wide time range this can lead to very large heap sizes.</p>
 <p>In v7 <em>stroom</em> now uses an off-heap, disk backed store (<a href="http://www.lmdb.tech/doc/">LMDB</a>) for the reference data.
-This removes all (with the exception of context lookups) from the Java heap, so the <code>-Xmx</code> value can be reduced.
+This removes all reference data (with the exception of context lookups) from the Java heap, so the <code>-Xmx</code> value can be reduced.
 In large systems this can mean keeping your <code>-Xmx</code> value below the 32Gb threshold to further reduce the memory usage.
 Because the store is disk backed frequently used reference data can be kept in the store to reduce the loading overhead.
-As the reference data is held off-heap it <em>stroom</em> can make use of all available free RAM for the reference data.</p>
+As the reference data is held off-heap, <em>stroom</em> can make use of all available free RAM for the reference data.</p>
 <p>See <a href="user-guide/pipelines/reference-data.md">Reference Data</a></p>
 <h3 id="reference-data-api">Reference Data API</h3>
 <p>A RESTful API has been added for the reference data store.
@@ -822,7 +822,7 @@ This separation makes for a more logical code base and allows for the possibilit
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 2, 2026: <a href="https://github.com/gchq/stroom-docs/commit/4bfc3d5913bf93b35caecb435402f94f0b6c777c">Merge branch &#39;7.10&#39; into 7.11 (4bfc3d5)</a>
+  Last modified March 4, 2026: <a href="https://github.com/gchq/stroom-docs/commit/873e9cbde89370b3437b5de05505414e43108def">Merge pull request #120 from gchq/grammar (873e9cb)</a>
 </div>
 
 </div>

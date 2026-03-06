@@ -182,7 +182,7 @@ It can also be configured to act as a load balancer to multiple Stroom instances
 &lt;li&gt;An internet connection.
 If you don&amp;rsquo;t have one see &lt;a href=&#34;../../docs/install-guide/air-gapped/#docker-images&#34;&gt;Air Gapped Environments&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;A Linux-like shell environment.&lt;/li&gt;
-&lt;li&gt;Docker CE (v17.12.0+) - e.g 
+&lt;li&gt;Docker CE (v17.12.0+) - e.g. 
 
 
 
@@ -341,7 +341,7 @@ The &lt;code&gt;start.sh&lt;/code&gt; script will provide details of the various
 
 
     If you have installed the &lt;code&gt;stroom_core&lt;/code&gt; stack no user accounts are created by default.
-You will need to manually create and administrator account.
+You will need to manually create an administrator account.
 
 &lt;/div&gt;
 
@@ -445,9 +445,8 @@ mysql&amp;gt; quit
 &lt;/div&gt;
 
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;MySQL configuration can be simple to complex depending on your requirements.&lt;br&gt;
-For a very simple configuration you simply need an out-of-the-box mysql
-install and create a database user account.&lt;/p&gt;
+&lt;p&gt;MySQL configuration can be simple to complex depending on your requirements.&lt;/p&gt;
+&lt;p&gt;For a very simple configuration you simply need an out-of-the-box mysql install and create a database user account.&lt;/p&gt;
 &lt;p&gt;Things get more complicated when considering:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Security&lt;/li&gt;
@@ -480,7 +479,7 @@ Query OK, 0 rows affected (0.00 sec)
 &lt;h2 id=&#34;advanced-security&#34;&gt;Advanced Security&lt;/h2&gt;
 &lt;p&gt;It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.&lt;/p&gt;
 &lt;p&gt;./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
-cluster (or single node setup).  Run to see the options:&lt;/p&gt;
+cluster (or single node setup). Run to see the options:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[stroomuser@host stroom-setup]$ ./mysql_grant.sh
 usage : --name=&amp;lt;instance name (defaults to my for /etc/my.cnf)&amp;gt;
         --user=&amp;lt;the stroom user for the db&amp;gt;
@@ -1032,7 +1031,7 @@ See &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/conf
 &lt;h2 id=&#34;firewall&#34;&gt;Firewall&lt;/h2&gt;
 &lt;p&gt;The following firewall configuration is recommended:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc&lt;/li&gt;
+&lt;li&gt;Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc.&lt;/li&gt;
 &lt;li&gt;Within cluster allow all access&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;This will enable nodes within the cluster to communicate on:&lt;/p&gt;
@@ -1140,7 +1139,7 @@ These are not hard rules and you do not have to follow them, however it may help
 &lt;p&gt;In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore&amp;rsquo;s setting up.&lt;/p&gt;
 &lt;p&gt;As the processing user copy the following files to a directory stroom-jks in the processing user home directory :&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CA.crt     - Certificate Authority&lt;/li&gt;
+&lt;li&gt;CA.crt - Certificate Authority&lt;/li&gt;
 &lt;li&gt;SERVER.crt - Server certificate with client authentication attributes&lt;/li&gt;
 &lt;li&gt;SERVER.key - Server private key&lt;/li&gt;
 &lt;/ul&gt;
@@ -1518,7 +1517,7 @@ orange
       <description>
         
         
-        &lt;p&gt;All nodes in an Stroom cluster must be configured correctly for them to communicate with each other.&lt;/p&gt;
+        &lt;p&gt;All nodes in a Stroom cluster must be configured correctly for them to communicate with each other.&lt;/p&gt;
 &lt;h2 id=&#34;configuring-nodes&#34;&gt;Configuring nodes&lt;/h2&gt;
 &lt;p&gt;Open Monitoring/Nodes from the top menu. The nodes screen looks like this:&lt;/p&gt;
 
@@ -1533,7 +1532,7 @@ orange
     &lt;span class=&#34;face&#34; title=&#34;Edit&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1792&#34; height=&#34;1792&#34; viewBox=&#34;0 0 1792 1792&#34;&gt;&lt;path style=&#34;fill:currentColor&#34; d=&#34;M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z&#34;/&gt;&lt;/svg&gt;&lt;/span&gt;
   &lt;/span&gt; icon at the bottom.
 The URL for each node needs to be set as above but obviously substituting in the host name of the individual node, e.g. &lt;code&gt;http://&amp;lt;HOST_NAME&amp;gt;:8080/stroom/clustercall.rpc&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Nodes are expected communicate with each other on port 8080 over http.
+&lt;p&gt;Nodes are expected to communicate with each other on port 8080 over http.
 Ensure you have configured your firewall to allow nodes to talk to each other over this port.
 You can configure the URL to use a different port and possibly HTTPS but performance will be better with HTTP as no SSL termination is required.&lt;/p&gt;
 &lt;p&gt;Once you have set the URLs of each node you should also set the master assignment priority for each node to be different to all of the others.
@@ -1555,13 +1554,13 @@ If you do not get ping results for each node then they are not configured correc
       <description>
         
         
-        &lt;!-- 
+        &lt;!--
 ********************************************************************************
 
                            ****** IMPORTANT ******
 
 The content in this page was generated by stroom.app.docs.GeneratePipelineElementsDoc
-therefore don&#39;t change the order so when you need to regenerate the structure using 
+therefore don&#39;t change the order so when you need to regenerate the structure using
 that class you can easily diff the new output with this file which contains added
 descriptive text.
 ********************************************************************************
@@ -1695,7 +1694,7 @@ Some of them will also transform the data at the character level before the data
 
 
  &lt;/p&gt;
-&lt;p&gt;Escapes the content of a configured list of named XML elements that are know to potentially contain un-escaped XML reserved characters.
+&lt;p&gt;Escapes the content of a configured list of named XML elements that are known to potentially contain un-escaped XML reserved characters.
 For example the element &lt;code&gt;&amp;lt;Expression&amp;gt;$time &amp;lt; now()&amp;lt;/Expression&amp;gt;&lt;/code&gt; would be transformed to &lt;code&gt;&amp;lt;Expression&amp;gt;$time &amp;amp;lt; now()&amp;lt;/Expression&amp;gt;&lt;/code&gt; if property &lt;code&gt;leafList&lt;/code&gt; is set to &lt;code&gt;Expression&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Element properties:&lt;/strong&gt;&lt;/p&gt;
 &lt;table&gt;
@@ -2089,7 +2088,7 @@ The version of XML (e.g. 1.0 or 1.1) can be set using the &amp;lsquo;xmlVersion&
 &lt;p&gt;A basic reader that simply decodes the raw bytes using the Feed&amp;rsquo;s configured character encoding.
 It does not transform the data in any other way.&lt;/p&gt;
 &lt;h2 id=&#34;parser&#34;&gt;Parser&lt;/h2&gt;
-&lt;p&gt;Parser elements parse raw text data that has an expected structure (e.g. XML, JSON, CSV) into XML events (elements, attributes, text, etc) that can be further validated or transformed using XSLT.
+&lt;p&gt;Parser elements parse raw text data that has an expected structure (e.g. XML, JSON, CSV) into XML events (elements, attributes, text, etc.) that can be further validated or transformed using XSLT.
 The choice of Parser will be dictated by the structure of the data.
 If no Reader is used before the Parser, the Parser will also do the job of a simple Reader and decode the raw bytes using the Feed&amp;rsquo;s configured character encoding.&lt;/p&gt;
 &lt;h3 id=&#34;combinedparser&#34;&gt;CombinedParser&lt;/h3&gt;
@@ -4694,14 +4693,14 @@ The output data can then be fed to a Destination.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;xsltNamePattern&lt;/td&gt;
-&lt;td&gt;A name pattern for dynamic loading of an XSLT, that will modfy the output via xsl:output attributes.&lt;/td&gt;
+&lt;td&gt;A name pattern for dynamic loading of an XSLT, that will modify the output via xsl:output attributes.&lt;/td&gt;
 &lt;td&gt;-&lt;/td&gt;
 &lt;td&gt;String&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;destination&#34;&gt;Destination&lt;/h2&gt;
-&lt;p&gt;Destination elements consume a stream of bytes from a &lt;em&gt;Writer&lt;/em&gt; and persist then to a destination.
+&lt;p&gt;Destination elements consume a stream of bytes from a &lt;em&gt;Writer&lt;/em&gt; and persist them to a destination.
 This could be a file on a file system or to Stroom&amp;rsquo;s stream store.&lt;/p&gt;
 &lt;h3 id=&#34;annotationwriter&#34;&gt;AnnotationWriter&lt;/h3&gt;
 &lt;p&gt;
@@ -6071,7 +6070,7 @@ Sufficient for storing 15 decimal digits.&lt;/li&gt;
 &lt;h3 id=&#34;stored-fields&#34;&gt;Stored fields&lt;/h3&gt;
 &lt;p&gt;If a field is &lt;em&gt;Stored&lt;/em&gt; then it means the complete field value will be stored in the index.
 This means the value can be retrieved from the index when building search results rather than using the slower &lt;a href=&#34;../../tags/extraction/&#34;&gt;Search Extraction&lt;/a&gt; process.
-Storing field values comes at the cost of hight storage requirements for the index.
+Storing field values comes at the cost of high storage requirements for the index.
 If storage space is not an issue then storing all fields that you want to return in search results is the optimum.&lt;/p&gt;
 &lt;h3 id=&#34;indexed-fields&#34;&gt;Indexed fields&lt;/h3&gt;
 &lt;p&gt;An &lt;em&gt;Indexed&lt;/em&gt; field is one that will be processed by Lucene so that the field can be queried.
@@ -6088,7 +6087,7 @@ A non-indexed field would either need to be &lt;em&gt;Stored&lt;/em&gt; in the i
 &lt;p&gt;If &lt;em&gt;Positions&lt;/em&gt; is selected then Lucene will store the positions of all the field terms in the document.&lt;/p&gt;
 &lt;h3 id=&#34;analyser-types&#34;&gt;Analyser types&lt;/h3&gt;
 &lt;p&gt;The Analyser determines how Lucene reads the fields value and extracts tokens from it.
-The choice of Analyser will depend on the date in the field and how you want to search it.&lt;/p&gt;
+The choice of Analyser will depend on the data in the field and how you want to search it.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Keyword&lt;/code&gt; - Treats the whole field value as one token.
 Useful for things like IDs and post codes.
@@ -6101,7 +6100,7 @@ Supports the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.&lt;/li&gt;
 Supports the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Whitespace&lt;/code&gt; - Tokenises only on white space.
 Not affected by the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;, case sensitive.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Stop words&lt;/code&gt; - Tokenises bases on non-letter characters and removes &lt;a href=&#34;#stop-words&#34;&gt;Stop Words&lt;/a&gt;, e.g. &lt;code&gt;and&lt;/code&gt;.
+&lt;li&gt;&lt;code&gt;Stop words&lt;/code&gt; - Tokenises based on non-letter characters and removes &lt;a href=&#34;#stop-words&#34;&gt;Stop Words&lt;/a&gt;, e.g. &lt;code&gt;and&lt;/code&gt;.
 Not affected by the &lt;em&gt;Case Sensitivity setting&lt;/em&gt;.
 Case insensitive.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Standard&lt;/code&gt; - The most common analyser.
@@ -6268,7 +6267,7 @@ How MySQL is deployed and configured will depend on the requirements of the envi
 The &lt;code&gt;.cnf&lt;/code&gt; file is located in &lt;code&gt;volumes/stroom-all-dbs/conf/stroom-all-dbs.cnf&lt;/code&gt;.
 This file is read-only to the container and will be read on container start.&lt;/p&gt;
 &lt;h3 id=&#34;database-initialisation&#34;&gt;Database initialisation&lt;/h3&gt;
-&lt;p&gt;When the container is started for the first time the database be initialised with the root user account.
+&lt;p&gt;When the container is started for the first time the database will be initialised with the root user account.
 It will also then run any scripts found in &lt;code&gt;volumes/stroom-all-dbs/init/stroom&lt;/code&gt;.
 The scripts in here will be run in alphabetical order.
 Scripts of the form &lt;code&gt;.sh&lt;/code&gt;, &lt;code&gt;.sql&lt;/code&gt;, &lt;code&gt;.sql.gz&lt;/code&gt; and &lt;code&gt;.sql.template&lt;/code&gt; are supported.&lt;/p&gt;

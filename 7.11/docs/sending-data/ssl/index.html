@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/sending-data/ssl/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-02T17:56:30+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-04T11:59:55+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="SSL Configuration">
 <meta itemprop="description" content="Configuring SSL with cURL.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-02T17:56:30+00:00" />
+<meta itemprop="dateModified" content="2026-03-04T11:59:55+00:00" />
 <meta itemprop="wordCount" content="273">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SSL Configuration"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -535,7 +535,7 @@
   <a href="../../../docs/user-guide/pipelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelines"><span class="">Pipelines</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesrecipies-li">
-  <a href="../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipies</span></a>
+  <a href="../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipes</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesparser-li">
   <a href="../../../docs/user-guide/pipelines/parser/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesparser"><span class="">Parser</span></a>
   <ul class="ul-4 foldable">
@@ -793,7 +793,16 @@
 
 </div>
 
-            
+            <div class="td-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#final-testing">Final Testing</a></li>
+    <li><a href="#final-tidy-up">Final Tidy Up</a></li>
+    <li><a href="#certificate-expiry">Certificate Expiry</a></li>
+  </ul>
+</nav>
+      </div>
+    
             
 
 	
@@ -1005,7 +1014,7 @@
 		
 	</header>    
 	<p>This page provides a step by step guide to getting PKI authentication working correctly for Unix hosts so as to be able to sign deliveries from cURL.</p>
-<p>First make sure you have a copy of your organisations CA certificate.</p>
+<p>First make sure you have a copy of your organisation&rsquo;s CA certificate.</p>
 <p>Check that the CA certificate works by running the following command:</p>
 <pre><code class="language-bash">echo &quot;Test&quot; | curl --cacert CA.crt --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
 </code></pre>
@@ -1018,7 +1027,7 @@
 </code></pre>
 <p>then one-way SSL authentication using the CA certificate is successful.</p>
 <p>The VBScript file to check windows certificates is <code>check-certs.vbs</code> (TODO link).</p>
-<p>#Final Testing</p>
+<h2 id="final-testing">Final Testing</h2>
 <p>Once one-way authentication has been tested, two-way authentication should be configured:</p>
 <p>The server certificate and private key should be concatenated to create a PEM file:</p>
 <pre><code class="language-bash">cat hostname.cert hostname.key &gt; hostname.pem
@@ -1030,10 +1039,10 @@
 <pre><code class="language-bash">HTTP Status 406 - Stroom Status 100 - Feed must be specified
 </code></pre>
 <p>then two-way SSL authentication is successful.</p>
-<p>#Final Tidy Up</p>
+<h2 id="final-tidy-up">Final Tidy Up</h2>
 <p>The files <code>ca.crt</code> and <code>hostname.pem</code> are the only files required for two-way authentication and should be stored permanently on the server; all other remaining files may be deleted or backed up if required.</p>
-<p>#Certificate Expiry</p>
-<p>PKI certificates expire after 2 years.  To check the expiry date of a certificate, run the following command:</p>
+<h2 id="certificate-expiry">Certificate Expiry</h2>
+<p>PKI certificates expire after 2 years. To check the expiry date of a certificate, run the following command:</p>
 <pre><code class="language-bash">openssl x509 -in /path/to/certificate.pem -noout -enddate
 </code></pre>
 <p>This will give a response looking similar to:</p>
@@ -1043,7 +1052,7 @@
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 2, 2026: <a href="https://github.com/gchq/stroom-docs/commit/4bfc3d5913bf93b35caecb435402f94f0b6c777c">Merge branch &#39;7.10&#39; into 7.11 (4bfc3d5)</a>
+  Last modified March 4, 2026: <a href="https://github.com/gchq/stroom-docs/commit/873e9cbde89370b3437b5de05505414e43108def">Merge pull request #120 from gchq/grammar (873e9cb)</a>
 </div>
 
 </div>

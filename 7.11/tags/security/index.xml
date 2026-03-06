@@ -79,7 +79,7 @@
 &lt;li&gt;Removal of Tomcat connectors other than AJP and configuration of Apache to communicate on port 443 using SSL and certificates&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;application-to-stroom-proxy-communication&#34;&gt;Application to Stroom Proxy Communication&lt;/h3&gt;
-&lt;p&gt;The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or it&amp;rsquo;s reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.&lt;/p&gt;
+&lt;p&gt;The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or its reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.&lt;/p&gt;
 &lt;h3 id=&#34;admin-port&#34;&gt;Admin port&lt;/h3&gt;
 &lt;p&gt;Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.&lt;/p&gt;
 &lt;h3 id=&#34;servlets&#34;&gt;Servlets&lt;/h3&gt;
@@ -169,13 +169,13 @@
 &lt;tr&gt;
 &lt;td&gt;SessionResourceStore&lt;/td&gt;
 &lt;td&gt;/resourcestore/*&lt;/td&gt;
-&lt;td&gt;Used to create, download and delete temporary files liked to a users session such as data for export&lt;/td&gt;
+&lt;td&gt;Used to create, download and delete temporary files linked to a user&amp;rsquo;s session such as data for export&lt;/td&gt;
 &lt;td&gt;This is secured by using the users session and requiring authentication&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;hdfs-kafka-hbase-zookeeper&#34;&gt;HDFS, Kafka, HBase, Zookeeper&lt;/h2&gt;
-&lt;p&gt;Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be careful controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.&lt;/p&gt;
+&lt;p&gt;Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be carefully controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.&lt;/p&gt;
 &lt;h2 id=&#34;content&#34;&gt;Content&lt;/h2&gt;
 &lt;p&gt;It may be possible for a user to write XSLT, Data Splitter or other content that may expose data that we do not wish to or to cause the application some harm. At present processing operations are not isolated processes and so it is easy to cripple processing performance with a badly written translation whether written accidentally or on purpose. To mitigate this risk it is recommended that users that are given permission to create XSLT, Data Splitter and Pipeline configurations are trusted to do so.&lt;/p&gt;
 &lt;p&gt;Visualisations can be completely customised with javascript. The javascript that is added is executed in a clients browser potentially opening up the possibility of XSS attacks, an attack on the application to access data that a user shouldn&amp;rsquo;t be able to access, an attack to destroy data or simply failure/incorrect operation of the user interface. To mitigate this risk all user defined javascript is executed within a separate browser IFrame. In addition all javascript should be examined before being added to a production system unless the author is trusted. This may necessitate the creation of a separate development and testing environment for user content.&lt;/p&gt;

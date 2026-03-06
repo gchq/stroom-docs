@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -410,7 +410,7 @@ The following is a non-exhaustive list of formats supported by Stroom:</p>
 <li>Event XML fragments</li>
 <li>Events XML</li>
 <li>JSON</li>
-<li>Delimited data, with and without a header row (e.g CSV, TSV, etc.)</li>
+<li>Delimited data, with and without a header row (e.g. CSV, TSV, etc.)</li>
 <li>Fixed width text data</li>
 <li>Multi line data (where each line can be a different format), e.g. Auditd.</li>
 </ul>
@@ -466,7 +466,7 @@ If data is sent in Events/Event XML then it will not require any additional tran
     <div class="lead">Details of the character encodings supported by Stroom.</div>
 	<p>When data is sent to Stroom the character encoding of the data should be configured for the <a href="../../../docs/user-guide/feeds/">Feed</a>.
 This tells Stroom how to decode the data that has been sent.
-All data sent to a feed must be encoded in the character encode configured for that Feed.</p>
+All data sent to a feed must be encoded in the character encoding configured for that Feed.</p>
 <h2 id="supported-character-encodings">Supported Character Encodings</h2>
 <p>The currently supported character encodings are:</p>
 <h3 id="utf-8">UTF-8</h3>
@@ -550,7 +550,7 @@ For example, a file may look like:</p>
   ...
 &lt;/Event&gt;
 </code></pre>
-<p>Each <code>&lt;Evemt&gt;</code> element is valid against the <em>event-logging</em> XML Schema but the file is not as it contains no root element.
+<p>Each <code>&lt;Event&gt;</code> element is valid against the <em>event-logging</em> XML Schema but the file is not as it contains no root element.
 This is the output format used by the <a href="../../../docs/sending-data/example-clients/event-logging/"><em>event-logging</em> Java library</a>.</p>
 
 </div>
@@ -592,13 +592,13 @@ An environment may be a combination of these attributes separated with an unders
 This is mandatory and must match a feed defined within Stroom in order for Stroom to accept the data and know what to do with it.</p>
 </li>
 <li>
-<p><code>Compression</code> - This token is optionally used when the POST payload is compressed with either gzip of zip compression.
+<p><code>Compression</code> - This token is optionally used when the POST payload is compressed with either gzip or zip compression.
 Value of <code>ZIP</code> and <code>GZIP</code> are valid. <strong>Note</strong>: The <code>Compression</code> token MUST not be used in conjunction with the standard HTTP header token <code>Content-Encoding</code> otherwise stroom will be unable to un-compress the data. Use either <code>Compression:GZIP</code> or <code>Content-Encoding:gzip</code>, not both. Using <code>Compression</code> is preferred.</p>
 </li>
 <li>
 <p><code>EffectiveTime</code> - This is only applicable to reference data.
 It is used to indicate the point in time that the reference data is applicable to, i.e. all event data that uses the reference data that is created after the effective time will use the reference data until a new reference data item arrives with a later effective time.
-<strong>Note</strong>: This argument must be in <em>ISO 8601</em> date time format, i.e: <code>yyyy-MM-ddTHH:mm:ss.sssZ</code>.</p>
+<strong>Note</strong>: This argument must be in <em>ISO 8601</em> date time format, i.e.: <code>yyyy-MM-ddTHH:mm:ss.sssZ</code>.</p>
 </li>
 <li>
 <p><code>Authorization</code> - This is only applicable when Stroom/Stroom-Proxy are configured for token based authentication.</p>
@@ -852,7 +852,7 @@ This format is only suitable for sending event data, if you need to send additio
 </span>
  archive.
 This allows one or more text files to be sent in one go.
-It allows allows additional 
+It allows additional 
 
 
 
@@ -999,7 +999,7 @@ Therefore the ZIP would be rejected with a <em>duplicate file</em> error.</p>
 <h4 id="directories">Directories</h4>
 <p>Directories within the ZIP file are supported.</p>
 <p>A file&rsquo;s base name includes its full path within the ZIP file, so an event data file and its associated sidecar files <strong>must</strong> all reside in the same directory.</p>
-<p>The depth and names of the directories have no bearing on how Stroom processed the data.</p>
+<p>The depth and names of the directories have no bearing on how Stroom processes the data.</p>
 <p>When downloading or aggregating large numbers of streams into a ZIP file, Stroom will split the files up into directories with multiple levels to limit the number of files in each directory.</p>
 <h4 id="_event-data_-files"><em>Event Data</em> Files</h4>
 <p>An event data file is the file containing the log/audit data and has the preferred extension of <code>.dat</code>.
@@ -1119,7 +1119,7 @@ zip -d 001.mf &#34;StroomData (20)&#34;.zip</code></pre>
   <h1 id="pg-3531374684773e7f54ae3921e8c9c4fe">5 - SSL Configuration</h1>
     <div class="lead">Configuring SSL with cURL.</div>
 	<p>This page provides a step by step guide to getting PKI authentication working correctly for Unix hosts so as to be able to sign deliveries from cURL.</p>
-<p>First make sure you have a copy of your organisations CA certificate.</p>
+<p>First make sure you have a copy of your organisation&rsquo;s CA certificate.</p>
 <p>Check that the CA certificate works by running the following command:</p>
 <pre><code class="language-bash">echo &quot;Test&quot; | curl --cacert CA.crt --data-binary @- &quot;https://&lt;Stroom_HOST&gt;/stroom/datafeed&quot;
 </code></pre>
@@ -1132,7 +1132,7 @@ zip -d 001.mf &#34;StroomData (20)&#34;.zip</code></pre>
 </code></pre>
 <p>then one-way SSL authentication using the CA certificate is successful.</p>
 <p>The VBScript file to check windows certificates is <code>check-certs.vbs</code> (TODO link).</p>
-<p>#Final Testing</p>
+<h2 id="final-testing">Final Testing</h2>
 <p>Once one-way authentication has been tested, two-way authentication should be configured:</p>
 <p>The server certificate and private key should be concatenated to create a PEM file:</p>
 <pre><code class="language-bash">cat hostname.cert hostname.key &gt; hostname.pem
@@ -1144,10 +1144,10 @@ zip -d 001.mf &#34;StroomData (20)&#34;.zip</code></pre>
 <pre><code class="language-bash">HTTP Status 406 - Stroom Status 100 - Feed must be specified
 </code></pre>
 <p>then two-way SSL authentication is successful.</p>
-<p>#Final Tidy Up</p>
+<h2 id="final-tidy-up">Final Tidy Up</h2>
 <p>The files <code>ca.crt</code> and <code>hostname.pem</code> are the only files required for two-way authentication and should be stored permanently on the server; all other remaining files may be deleted or backed up if required.</p>
-<p>#Certificate Expiry</p>
-<p>PKI certificates expire after 2 years.  To check the expiry date of a certificate, run the following command:</p>
+<h2 id="certificate-expiry">Certificate Expiry</h2>
+<p>PKI certificates expire after 2 years. To check the expiry date of a certificate, run the following command:</p>
 <pre><code class="language-bash">openssl x509 -in /path/to/certificate.pem -noout -enddate
 </code></pre>
 <p>This will give a response looking similar to:</p>
@@ -1225,7 +1225,7 @@ In the following examples -H is used to specify the header arguments required by
 <p>Notes:</p>
 <ul>
 <li>The <code>@</code> character must be used in front of the file being posted.
-If it is not then curl will post the file name instead of it&rsquo;s contents.</li>
+If it is not then curl will post the file name instead of its contents.</li>
 <li>The <code>--data-binary</code> argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.</li>
 </ul>
 <h2 id="example-https-post-without-authentication">Example HTTPS post without authentication:</h2>
@@ -1326,7 +1326,7 @@ The data provider provides a certificate using the &lsquo;&ndash;cert example.pe
 </code></pre>
 <p>The hostname being sent as a header argument may be resolved upon execution using the command <code>hostname -f</code>.</p>
 <h2 id="ssl-notes">SSL Notes</h2>
-<p>To create a .pem format key simply append the private key and certifcate.</p>
+<p>To create a .pem format key simply append the private key and certificate.</p>
 
   
 
@@ -1782,7 +1782,7 @@ feed=EXAMPLE-FEED</code></pre>
 <div class="td-content" style="--base-section-num: '6.7.'; page-break-before: always">
     
   <h1 id="pg-5816a31f40b44194fbd5c9e1249594ad">6.7 - stroom-log-sender (Docker)</h1>
-    <div class="lead">A Docker image for peridoically sending log files generated by an application to Stroom.</div>
+    <div class="lead">A Docker image for periodically sending log files generated by an application to Stroom.</div>
 	<p>
 
 

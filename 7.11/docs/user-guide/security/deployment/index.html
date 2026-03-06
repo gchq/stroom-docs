@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/user-guide/security/deployment/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-02T17:56:30+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-04T11:59:55+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Deployment">
 <meta itemprop="description" content="There are many aspects of security that should be considered when installing and running Stroom.
 "><meta itemprop="datePublished" content="2021-07-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-02T17:56:30+00:00" />
+<meta itemprop="dateModified" content="2026-03-04T11:59:55+00:00" />
 <meta itemprop="wordCount" content="1046">
 <meta itemprop="keywords" content="security," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Deployment"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -535,7 +535,7 @@
   <a href="../../../../docs/user-guide/pipelines/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelines"><span class="">Pipelines</span></a>
   <ul class="ul-3 foldable">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child collapse" id="m-docsuser-guidepipelinesrecipies-li">
-  <a href="../../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipies</span></a>
+  <a href="../../../../docs/user-guide/pipelines/recipies/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-guidepipelinesrecipies"><span class="">Pipeline Recipes</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child collapse" id="m-docsuser-guidepipelinesparser-li">
   <a href="../../../../docs/user-guide/pipelines/parser/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-guidepipelinesparser"><span class="">Parser</span></a>
   <ul class="ul-4 foldable">
@@ -1094,7 +1094,7 @@
 <li>Removal of Tomcat connectors other than AJP and configuration of Apache to communicate on port 443 using SSL and certificates</li>
 </ul>
 <h3 id="application-to-stroom-proxy-communication">Application to Stroom Proxy Communication</h3>
-<p>The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or it&rsquo;s reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.</p>
+<p>The application can be configured to share some information with Stroom Proxy so that Stroom Proxy can decide whether or not to accept data for certain feeds based on the existence of the feed or its reject/accept status. The amount of information shared between the application and the proxy is minimal but could be used to discover what feeds are present within the system. Securing this communication is harder as both the application and the proxy will not typically reside behind the same firewall. Despite this communication can still be performed over SSL thus protecting this potential attack vector.</p>
 <h3 id="admin-port">Admin port</h3>
 <p>Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.</p>
 <h3 id="servlets">Servlets</h3>
@@ -1184,13 +1184,13 @@
 <tr>
 <td>SessionResourceStore</td>
 <td>/resourcestore/*</td>
-<td>Used to create, download and delete temporary files liked to a users session such as data for export</td>
+<td>Used to create, download and delete temporary files linked to a user&rsquo;s session such as data for export</td>
 <td>This is secured by using the users session and requiring authentication</td>
 </tr>
 </tbody>
 </table>
 <h2 id="hdfs-kafka-hbase-zookeeper">HDFS, Kafka, HBase, Zookeeper</h2>
-<p>Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be careful controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.</p>
+<p>Stroom and stroom-stats can integrate with HDFS, Kafka, HBase and Zookeeper. It should be noted that communication with these external services is currently not secure. Until additional security measures (e.g. authentication) are put in place it is assumed that access to these services will be carefully controlled (using a firewall, iptables or similar) so that only stroom nodes can access the open ports.</p>
 <h2 id="content">Content</h2>
 <p>It may be possible for a user to write XSLT, Data Splitter or other content that may expose data that we do not wish to or to cause the application some harm. At present processing operations are not isolated processes and so it is easy to cripple processing performance with a badly written translation whether written accidentally or on purpose. To mitigate this risk it is recommended that users that are given permission to create XSLT, Data Splitter and Pipeline configurations are trusted to do so.</p>
 <p>Visualisations can be completely customised with javascript. The javascript that is added is executed in a clients browser potentially opening up the possibility of XSS attacks, an attack on the application to access data that a user shouldn&rsquo;t be able to access, an attack to destroy data or simply failure/incorrect operation of the user interface. To mitigate this risk all user defined javascript is executed within a separate browser IFrame. In addition all javascript should be examined before being added to a production system unless the author is trusted. This may necessitate the creation of a separate development and testing environment for user content.</p>
@@ -1198,7 +1198,7 @@
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 2, 2026: <a href="https://github.com/gchq/stroom-docs/commit/4bfc3d5913bf93b35caecb435402f94f0b6c777c">Merge branch &#39;7.10&#39; into 7.11 (4bfc3d5)</a>
+  Last modified March 4, 2026: <a href="https://github.com/gchq/stroom-docs/commit/873e9cbde89370b3437b5de05505414e43108def">Merge pull request #120 from gchq/grammar (873e9cb)</a>
 </div>
 
 </div>

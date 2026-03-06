@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -804,7 +804,7 @@ It will always be logged at <code>FATAL</code>.
     
   <h1 id="pg-00fcef074a5fb84079d17e4049c5a7f8">2 - XSLT Functions</h1>
     <div class="lead">Custom XSLT functions available in Stroom.</div>
-	<!-- 
+	<!--
 TODO
 This file needs splitting up with one file per function.
 These files can be generated from annotations in the Java code (see https://github.com/gchq/stroom/issues/2932)
@@ -890,16 +890,15 @@ The key can be <code>Feed</code>, <code>StreamType</code>, <code>CreatedTime</co
 <li><a href="#parse-dateTime"><code>parse-dateTime(String dateTime, String pattern, String timeZone)</code></a> - Returns the dateTime for a specified string using the pattern and time zone</li>
 <li><a href="#parse-uri"><code>parse-uri(String URI)</code></a> - Returns an XML structure of the URI providing <code>authority</code>, <code>fragment</code>, <code>host</code>, <code>path</code>, <code>port</code>, <code>query</code>, <code>scheme</code>, <code>schemeSpecificPart</code>, and <code>userInfo</code> components if present.</li>
 <li><code>pipeline-name()</code> - Get the name of the pipeline currently processing the stream.</li>
-<li><a href="#pointIsInsideXYPolygon"><code>pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)</code></a> - Get the name of the pipeline currently processing the stream.</li>
+<li><a href="#pointIsInsideXYPolygon"><code>pointIsInsideXYPolygon(Number xPos, Number yPos, Number[] xPolyData, Number[] yPolyData)</code></a> - Determines whether a given point (xPos, yPos) lies inside the polygon defined by the provided x and y coordinate arrays.</li>
 <li><code>random()</code> - Get a system generated random number between 0 and 1.</li>
 <li><code>record-no()</code> - The current record number within the current part (substream) (1 based).</li>
 <li><code>search-id()</code> - Get the id of the batch search when a pipeline is processing as part of a batch search</li>
 <li><code>source()</code> - Returns an XML structure with the <code>stroom-meta</code> namespace detailing the current source location.</li>
 <li><code>source-id()</code> - Get the id of the current input stream that is being processed</li>
-<li><code>split-document(Sting doc, String segmentSize, String overlapSize)</code> - Split a document for LLM tokenisation (experimental).</li>
+<li><code>split-document(String doc, String segmentSize, String overlapSize)</code> - Split a document for LLM tokenisation (experimental).</li>
 <li><code>stream-id()</code> - An alias for <code>source-id</code> included for backward compatibility.</li>
 <li><code>to-unixTime(DateTime dateTime)</code> - Returns milliseconds since the epoch for a specified dateTime</li>
-<li><code>pipeline-name()</code> - Name of the current processing pipeline using the XSLT</li>
 <li><a href="#put-and-get"><code>put(String key, String value)</code></a> - Store a value for use later on in the translation</li>
 </ul>
 <h2 id="bitmap-lookup">bitmap-lookup()</h2>
@@ -912,7 +911,7 @@ bitmap-lookup(String map, String key, String time, Boolean ignoreWarnings, Boole
 <ul>
 <li><code>map</code> - The name of the reference data map to perform the lookup against.</li>
 <li><code>key</code> - The bitmap value to lookup.
-This can either be represented as a decimal integer (e.g. <code>14</code>) or as hexadecimal by prefixing with <code>0x</code> (e.g <code>0xE</code>).</li>
+This can either be represented as a decimal integer (e.g. <code>14</code>) or as hexadecimal by prefixing with <code>0x</code> (e.g. <code>0xE</code>).</li>
 <li><code>time</code> - Determines which set of reference data was effective at the requested time.
 If no reference data exists with an effective time before the requested time then the lookup will fail.
 Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-01-01T00:00:00.000Z</code>.</li>
@@ -920,13 +919,13 @@ Time is in the format <code>yyyy-MM-dd'T'HH:mm:ss.SSSXX</code>, e.g. <code>2010-
 <li><code>trace</code> - If true, additional trace information is output as INFO messages.</li>
 </ul>
 <p>If the look up fails no result will be returned.</p>
-<p>The key is a bitmap expressed as either a decimal integer or a hexidecimal value, e.g. <code>14</code>/<code>0xE</code> is <code>1110</code> as a binary bitmap.
+<p>The key is a bitmap expressed as either a decimal integer or a hexadecimal value, e.g. <code>14</code>/<code>0xE</code> is <code>1110</code> as a binary bitmap.
 For each bit position that is set, (i.e. has a binary value of <code>1</code>) a lookup will be performed using that bit position as the key.
 In this example, positions <code>1</code>, <code>2</code> &amp; <code>3</code> are set so a lookup would be performed for these bit positions.
 The result of each lookup for the bitmap are concatenated together in bit position order, separated by a space.</p>
 <p>If <code>ignoreWarnings</code> is true then any lookup failures will be ignored and it will return the value(s) for the bit positions it was able to lookup.</p>
 <p>This function can be useful when you have a set of values that can be represented as a bitmap and you need them to be converted back to individual values.
-For example if you have a set of additive account permissions (e.g Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&rsquo;s permissions could be defined as a single decimal/hex bitmap value.
+For example if you have a set of additive account permissions (e.g. Admin, ManageUsers, PerformExport, etc.), each of which is associated with a bit position, then a user&rsquo;s permissions could be defined as a single decimal/hex bitmap value.
 Thus a bitmap lookup with this value would return all the permissions held by the user.</p>
 <p>For example the reference data store may contain:</p>
 <table>
@@ -1165,7 +1164,7 @@ See the examples below.</p>
 <p>The following table shows various examples of calls to <code>stroom:format-date()</code> with their output.
 The <code>stroom:format-date</code> part has been omitted for brevity.</p>
 <!--
-This table is generated by the test 
+This table is generated by the test
 stroom.pipeline.xsltfunctions.TestFormatDate#testParseExamples
 -->
 <pre><code class="language-xml">&lt;!-- Date in millis since UNIX epoch --&gt;
@@ -1290,8 +1289,8 @@ Despite this, it is advisable to use a pattern that matches the known format of 
 
 
 <h3 id="formatting-examples">Formatting Examples</h3>
-<!-- 
-This table is generated by the test 
+<!--
+This table is generated by the test
 stroom.pipeline.xsltfunctions.TestFormatDate#testCustomFormatExamples
 -->
 <pre><code class="language-xml">&lt;!-- Specific output, no input or output TZ --&gt;
@@ -1626,12 +1625,12 @@ By testing the result a default value may be output if no result is returned.</p
 &lt;/xsl:if&gt;
 </code></pre>
 <h3 id="range-lookups">Range lookups</h3>
-<p>Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g 1-100.
+<p>Reference data entries can either be stored with single string key or a key range that defines a numeric range, e.g. 1-100.
 When a lookup is preformed the passed key is looked up as if it were a normal string key.
 If that lookup fails Stroom will try to convert the key to an integer (long) value.
 If it can be converted to an integer than a second lookup will be performed against entries with key ranges to see if there is a key range that includes the requested key.</p>
 <p>Range lookups can be used for looking up an IP address where the reference data values are associated with ranges of IP addresses.
-In this use case, the IP address must first be converted into a numeric value using <code>numeric-ip()</code>, e.g:</p>
+In this use case, the IP address must first be converted into a numeric value using <code>numeric-ip()</code>, e.g.:</p>
 <pre><code class="language-xslt">stroom:lookup('IP_TO_LOCATION', numeric-ip($ipAddress))
 </code></pre>
 <p>Similarly the reference data must be stored with key ranges whose bounds were created using this function.</p>

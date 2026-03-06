@@ -145,7 +145,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -354,9 +354,8 @@ mysql&gt; quit
 </div>
 
 <h2 id="overview">Overview</h2>
-<p>MySQL configuration can be simple to complex depending on your requirements.<br>
-For a very simple configuration you simply need an out-of-the-box mysql
-install and create a database user account.</p>
+<p>MySQL configuration can be simple to complex depending on your requirements.</p>
+<p>For a very simple configuration you simply need an out-of-the-box mysql install and create a database user account.</p>
 <p>Things get more complicated when considering:</p>
 <ul>
 <li>Security</li>
@@ -389,7 +388,7 @@ Query OK, 0 rows affected (0.00 sec)
 <h2 id="advanced-security">Advanced Security</h2>
 <p>It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.</p>
 <p>./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
-cluster (or single node setup).  Run to see the options:</p>
+cluster (or single node setup). Run to see the options:</p>
 <pre><code class="language-bash">[stroomuser@host stroom-setup]$ ./mysql_grant.sh
 usage : --name=&lt;instance name (defaults to my for /etc/my.cnf)&gt;
         --user=&lt;the stroom user for the db&gt;
@@ -590,7 +589,7 @@ Query OK, 1 row affected (0.00 sec)
 <h2 id="firewall">Firewall</h2>
 <p>The following firewall configuration is recommended:</p>
 <ul>
-<li>Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc</li>
+<li>Outside cluster drop all access except ports HTTP 80, HTTPS 443, and any other system ports your require SSH, etc.</li>
 <li>Within cluster allow all access</li>
 </ul>
 <p>This will enable nodes within the cluster to communicate on:</p>
@@ -649,7 +648,7 @@ Query OK, 1 row affected (0.00 sec)
 <p>In order that the java process communicates over https (for example Stroom Proxy forwarding onto Stroom) the JVM requires relevant keystore&rsquo;s setting up.</p>
 <p>As the processing user copy the following files to a directory stroom-jks in the processing user home directory :</p>
 <ul>
-<li>CA.crt     - Certificate Authority</li>
+<li>CA.crt - Certificate Authority</li>
 <li>SERVER.crt - Server certificate with client authentication attributes</li>
 <li>SERVER.key - Server private key</li>
 </ul>
@@ -809,7 +808,7 @@ exit 0
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 export PATH=${JAVA_HOME}/bin:${PATH}
 </code></pre>
-<p>Setup the user&rsquo;s profile to include source the env script.</p>
+<p>Setup the user&rsquo;s profile to source the env script.</p>
 
   
 
@@ -1446,7 +1445,7 @@ echo -e &quot;\nNew refresh token (expiry $( get_jwt_expiry &quot;${refresh_toke
 <p>Access tokens typically have a short life (of the order of minutes) while a refresh token will have a much longer life (maybe up to a year).
 Refreshing the token does not require re-authentication.</p>
 <h2 id="creating-a-service-account-token">Creating a service account token</h2>
-<p>If want another system to call one of Stroom&rsquo;s APIs then it is likely that you will do that using a non-human service account (or processing user account).</p>
+<p>If you want another system to call one of Stroom&rsquo;s APIs then it is likely that you will do that using a non-human service account (or processing user account).</p>
 <h3 id="creating-a-new-client-id">Creating a new Client ID</h3>
 <p>The client system needs to be represented by a Client ID in KeyCloak.
 To create a new Client ID, assuming the client system is called <em>System X</em>, do the following in the KeyCloak admin UI.</p>
@@ -1471,8 +1470,7 @@ Tokens will be created under this non-human user identity.
 </div>
 
 
-<p>Open the <em>Credentials</em> tab and copy the <em>Client secret</em> for use later.
-Open the <em>Credentials</em> tab and copy the <em>Client secret</em> for use later.</p>
+<p>Open the <em>Credentials</em> tab and copy the <em>Client secret</em> for use later.</p>
 <p>To create an access token run the following shell commands:</p>
 <pre><code class="language-bash">response=&quot;$( \
   curl \

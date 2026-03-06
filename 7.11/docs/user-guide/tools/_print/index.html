@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.10d570e1dc0b8e612d277727d1846ff0.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -358,7 +358,7 @@ reset_password \
 
 
     All the examples below assume you are running stroom as part of the zip distribution.
-If you are running a Docker stack then you will need to use the <code>command.sh</code> script (as described above) with the same arguments  but omitting the config file path.
+If you are running a Docker stack then you will need to use the <code>command.sh</code> script (as described above) with the same arguments but omitting the config file path.
 
 </div>
 
@@ -450,7 +450,7 @@ There are times when you may wish to create this account manually which this com
 <h4 id="authentication-accounts-and-stroom-users">Authentication Accounts and Stroom Users</h4>
 <p>The user account used for authentication is distinct to the Stroom <em>user</em> entity that is used for authorisation within Stroom.
 If an external IDP is used then the mechanism for creating the authentication account will be specific to that IDP.
-If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged used or using this command.
+If using the default internal Stroom IDP then an account must be created in order to authenticate, either from within the UI if you are already authenticated as a privileged user or using this command.
 In either case a Stroom user will need to exist with the same username as the authentication account.</p>
 <p>The command will fail if the user already exists.
 This command should NOT be run if you are using an external identity provider.</p>
@@ -512,7 +512,7 @@ path/to/config.yml</code></pre>
 <ul>
 <li><code>--createUser</code> <code>USER_IDENTIFIER</code> - Creates a Stroom user with the supplied user identifier.
 See <a href="#user-identifier">below</a> for the format of this argument.</li>
-<li><code>--greateGroup</code> <code>GROUP_IDENTIFIER</code> - Creates a Stroom user group with the supplied group name.</li>
+<li><code>--createGroup</code> <code>GROUP_IDENTIFIER</code> - Creates a Stroom user group with the supplied group name.</li>
 <li><code>--addToGroup</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>TARGET_GROUP</code> - Adds a user/group to an existing group.</li>
 <li><code>--removeFromGroup</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>TARGET_GROUP</code> - Removes a user/group from an existing group.</li>
 <li><code>--grantPermission</code> <code>USER_OR_GROUP_IDENTIFIER</code> <code>PERMISSION_IDENTIFIER</code> - Grants the named application permission to the user/group.</li>
@@ -520,7 +520,7 @@ See <a href="#user-identifier">below</a> for the format of this argument.</li>
 <li><code>--listPermissions</code> - Lists all the valid permission names.</li>
 </ul>
 <p>This command allows you to manage the user permissions within Stroom regardless of whether the internal identity provider or an external party is used.
-A typical use case for this is when using a external identity provider.
+A typical use case for this is when using an external identity provider.
 In this instance Stroom has no way of auto creating an admin user when first started so the association between the account on the 3rd party IDP and the stroom user needs to be made manually.</p>
 <p>This command is not intended for automation of user management tasks on a running Stroom instance that you can authenticate with.
 It is only intended for cases where you cannot authenticate with Stroom, i.e. when setting up a new Stroom with a 3rd party IDP or when scripting the creation of a test environment.
@@ -578,7 +578,7 @@ Regardless of the order of the arguments, the changes are executed in the follow
 <p>The command is idempotent.
 It can be run multiple times with the same value with no error.</p>
 <p>The <code>manage_users</code> command is particularly useful for provisioning a new Stroom installation.
-It allows you to automate the setup of some or all Stroom users and their group membership and application permissions..</p>
+It allows you to automate the setup of some or all Stroom users and their group membership and application permissions.</p>
 
 <div class="alert alert-primary" role="alert">
 <h4 class="alert-heading">Note</h4>
@@ -597,7 +597,7 @@ It allows you to automate the setup of some or all Stroom users and their group 
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
 </span>.
-Stroom stores this unique identifier (know as a <em>Subject ID</em> in stroom) against a user so it is able to associate the stroom user with the identity provider user.</p>
+Stroom stores this unique identifier (known as a <em>Subject ID</em> in stroom) against a user so it is able to associate the stroom user with the identity provider user.</p>
 <h4 id="user_identifier"><code>USER_IDENTIFIER</code></h4>
 <p>The <code>USER_IDENTIFIER</code> is of the form <code>subject_id[,display_name[,full_name]]</code> e.g.:</p>
 <ul>
@@ -694,7 +694,7 @@ create_api_key \
 --user jbloggs \
 --expiresDays 365 \
 --keyName &#34;Test key&#34; \
---outFile  /tmp/api_key.txt \
+--outFile /tmp/api_key.txt \
 path/to/config.yml</code></pre>
 </div>
 
@@ -714,7 +714,7 @@ If not set, the API Key string will be output to <em>stdout</em>.</li>
 <h2 id="typical-use-cases">Typical Use Cases</h2>
 <h3 id="creating-an-internal-idp-administrator">Creating an Internal IDP Administrator</h3>
 <p>If you have installed a new Stroom instance (and are not using the <code>stroom_core_test</code> Docker stack) that is using the default Internal IDP, then you will need to create an administrator account in order to login and set up your stroom instance.</p>
-<p>Assuming that you are running the <code>stroom_core</code> docker stack that is configured to use the internal IDP and want to setup <code>johndoe</code> and <code>janedoe</code>as administrators, you need to do the following:</p>
+<p>Assuming that you are running the <code>stroom_core</code> docker stack that is configured to use the internal IDP and want to setup <code>johndoe</code> and <code>janedoe</code> as administrators, you need to do the following:</p>
 <p>First create the Stroom user accounts:</p>
 
   
@@ -795,7 +795,7 @@ This value may look like an email address, or a <span class="glossary-link">
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
 </span> or something else.</p>
-<p>Assuming the unique identifier for <em>Hohn Doe</em> is <code>b6e06181-9e10-44eb-a33a-537509ec3abd</code>, do the following to set them up as an administrator.</p>
+<p>Assuming the unique identifier for <em>John Doe</em> is <code>b6e06181-9e10-44eb-a33a-537509ec3abd</code>, do the following to set them up as an administrator.</p>
 
   
 
@@ -814,14 +814,14 @@ This value may look like an email address, or a <span class="glossary-link">
 manage_users \
 --createUser &#34;2b6e06181-9e10-44eb-a33a-537509ec3abd2,johndoe,John Doe&#34; \
 --createGroup Administrators \
---addToGroup &#34;2b6e06181-9e10-44eb-a33a-537509ec3abd2&#34;  Administrators \
+--addToGroup &#34;2b6e06181-9e10-44eb-a33a-537509ec3abd2&#34; Administrators \
 --grantPermission Administrators &#34;Administrator&#34; \
 path/to/config.yml</code></pre>
 </div>
 
 <p>Identity providers may also have a more friendly <em>Display Name</em> and <em>Full Name</em> for the user, though these may not be unique.
 The above command will set initial values for these fields, so that you have more human friendly values in the Stroom UI, but once the user has logged in, the values will be obtained from the IDP tokens.</p>
-<p>The properties  <code>stroom.authentication.openiId.userDisplayNameClaim</code> (defaults to <code>preferred_username</code>) and <code>stroom.authentication.openiId.fullNameClaimTemplate</code> (defaults to <code>${name}</code>) allow you to control which IDP claims are used for the <em>Display Name</em> and <em>Full Name</em> fields in Stroom.</p>
+<p>The properties <code>stroom.authentication.openiId.userDisplayNameClaim</code> (defaults to <code>preferred_username</code>) and <code>stroom.authentication.openiId.fullNameClaimTemplate</code> (defaults to <code>${name}</code>) allow you to control which IDP claims are used for the <em>Display Name</em> and <em>Full Name</em> fields in Stroom.</p>
 
 </div>
 
@@ -859,8 +859,8 @@ The tool is contained within the core Stroom Java library and can be accessed vi
 <p><code>feed</code> - The name of the feed for the exported data.</p>
 <p><code>streamType</code> - The data type of the exported data, e.g. <code>RAW_EVENTS</code>.</p>
 <p><code>streamId</code> - The id of the data being exported.</p>
-<p><code>pathId</code> - A incrementing numeric id that creates sub directories when required to ensure no directory ends up containing too many files.</p>
-<p><code>id</code> - A incrementing numeric id similar to <code>pathId</code> but without sub directories.</p>
+<p><code>pathId</code> - An incrementing numeric id that creates sub directories when required to ensure no directory ends up containing too many files.</p>
+<p><code>id</code> - An incrementing numeric id similar to <code>pathId</code> but without sub directories.</p>
 
 </div>
 
