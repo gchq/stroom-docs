@@ -25,7 +25,6 @@ file_deny_list=(
 # Any link locations to not check
 # mariadb.com - We get a 403 even when using a browser user-agent
 url_deny_list=(
-  "https://github.com/gchq/stroom/issues/\1"
   "https://mariadb.com"
 )
 
