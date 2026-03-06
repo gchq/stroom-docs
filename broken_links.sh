@@ -320,7 +320,7 @@ verify_link() {
       echo -e "${indent}${YELLOW}Unable to check localhost link" \
         "[${BLUE}${link_name}${YELLOW}]" \
         "with url [${BLUE}${link_location}${YELLOW}]${NC}"
-    elif [[  "${link_location}" =~ https://github.com/gchq/stroom/issues/[0-9]+ ]]; then
+    elif [[  "${link_location}" =~ https?://github.com/gchq/stroom/issues/[0-9]+ ]]; then
       # GitHub is pretty agressive with rate limiting, so checking all
       # the issue links in the rel notes is not wise. They are unlikely
       # to be deleted though, just closed.
