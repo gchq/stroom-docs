@@ -121,7 +121,7 @@ We need to tell the new _CSV parser_ to use the {{< stroom-icon "document/TextCo
 Now save the pipeline by clicking the add button {{< stroom-icon "add.svg" >}}.
 
 
-#### Test the csv splitter
+#### Test the CSV splitter
 
 So now we have CSV data in Stroom and a pipeline that is configured to process CSV data.
 We've done a fair few things so far and are we sure the pipeline is correctly configured?

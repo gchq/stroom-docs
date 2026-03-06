@@ -304,7 +304,7 @@ The Output should have changed so that the Input and Output now look like this:
   {{< /card >}}
 {{< /cardpane >}}
 
-You can use the stepping controls ({{< stroom-icon name="fast-backward.svg" title="Fast Backward" colour="green" >}}{{< stroom-icon name="step-backward.svg" title="Step Backward" colour="green" >}}{{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}}{{< stroom-icon name="fast-forward.svg" title="Fast Forward" colour="green" >}}) to check that the ouput is correct for other input events.
+You can use the stepping controls ({{< stroom-icon name="fast-backward.svg" title="Fast Backward" colour="green" >}}{{< stroom-icon name="step-backward.svg" title="Step Backward" colour="green" >}}{{< stroom-icon name="step-forward.svg" title="Step Forward" colour="green" >}}{{< stroom-icon name="fast-forward.svg" title="Fast Forward" colour="green" >}}) to check that the output is correct for other input events.
 
 Once you are happy with your translation click the {{< stroom-icon "save.svg" >}} button to save the XSLT content to the _Stroom 101_ XSLT document.
 

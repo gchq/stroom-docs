@@ -8,7 +8,7 @@ description: >
   Using VBScript to send data to Stroom.
 
 ---
-`extract-data.vbs` uses wevtutil.exe to extract **Security** event information from the windows event log.
+`extract-data.vbs` uses `wevtutil.exe` to extract **Security** event information from the windows event log.
 This script has been tested on Windows 2008.
 
 This script is designed to run periodically (say every 10 minutes).
@@ -22,6 +22,7 @@ This can be set at the start of the script otherwise it will default to the work
 The `send-data.vbs` script is designed to run periodically (say every 10 minutes). The script will scan for zip files and send them to Stroom.
 
 The script details several parameters that require setting per environment. Among these are the working directory that the zip files are stored in, the feed name and the URL of Stroom.
+
 
 ## SSL
 

@@ -51,10 +51,10 @@ id "maven-publish"
 
 See the _root_ and _event-logging-api_ gradle build files (in the _event-logging_ repo) for an example of how to set up gradle.
 
-The credentials can be passed to the gradle build using special gradle env vars [Project Properties (external)](https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties).
+The credentials can be passed to the gradle build using special Gradle environment variables [Project Properties (external)](https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties).
 The credentials required are:
 
-* `ORG_GRADLE_PROJECT_SIGNINGKEY` - The key as produced by the `gpg2 --armor` command.
+* `ORG_GRADLE_PROJECT_SIGNINGKEY` - The key as produced by the `gpg2 --armorxxx` command.
 * `ORG_GRADLE_PROJECT_SIGNINGPASSWORD` - The password for the GPG key.
 * `ORG_GRADLE_PROJECT_SONATYPEUSERNAME` - The account username on Sonatype.
 * `ORG_GRADLE_PROJECT_SONATYPEPASSWORD` - The account password on Sonatype.

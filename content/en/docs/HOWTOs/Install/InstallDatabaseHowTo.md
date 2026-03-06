@@ -13,6 +13,7 @@ description: >
 Following this HOWTO will produce a simple, minimally secured database deployment. In a production environment consideration needs to be made for redundancy, better security, data-store location, increased memory usage, and the like.
 
 Stroom has two databases. The first, `stroom`, is used for management of Stroom itself and the second, `statistics` is used for the Stroom Statistics capability. There are many ways to deploy these two databases. One could
+
 - have a single database instance and serve both databases from it
 - have two database instances on the same server and serve one database per instance
 - have two separate nodes, each with its own database instance
@@ -21,21 +22,29 @@ Stroom has two databases. The first, `stroom`, is used for management of Stroom 
 In this HOWTO, we describe the deployment of two database instances on the one node, each serving a single database. We provide example deployments using either the {{< external-link "MariaDB" "https://mariadb.com" >}} or {{< external-link "MySQL Community" "https://www.mysql.com/products/community/" >}} versions of MySQL.
 
 ## Assumptions
+
 - we are installing the MariaDB or MySQL Community RDBMS software.
-- the primary database node is 'stroomdb0.strmdev00.org'.
+- the primary database node is `stroomdb0.strmdev00.org`.
 - installation is on a fully patched minimal Centos 7.3 instance.
-- we are installing BOTH databases (`stroom` and `statistics`) on the same node - 'stroomdb0.stromdev00.org' but with two distinct database engines. The first database will communicate on port `3307` and the second on `3308`.
+- we are installing BOTH databases (`stroom` and `statistics`) on the same node - `stroomdb0.stroomdev00.org` but with two distinct database engines. The first database will communicate on port `3307` and the second on `3308`.
 - we are deploying with SELinux in enforcing mode.
 - any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems.
 - in this document, when a textual screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
 
+
 ## Installation of Software
+
 ### MariaDB Server Installation
+
 As MariaDB is directly supported by Centos 7, we simply install the database server software and SELinux policy files, as per
+
 ```bash
 sudo yum -y install policycoreutils-python mariadb-server
 ```
+
+
 ### MySQL Community Server Installation
+
 As MySQL is not directly supported by Centos 7, we need to install its repository files prior to installation.
 We get the current MySQL Community release repository rpm and validate its MD5 checksum against the published value found on the {{< external-link "MySQL Yum Repository" "https://dev.mysql.com/downloads/repo/yum" >}} site.
 
@@ -78,7 +87,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ...
 ```
 
-to become
+To become
 
 ```toml
 ...
@@ -636,7 +645,7 @@ or
 mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
 ```
 
-and at the `MariaDB [(none)]> ` prompt enter
+And at the `MariaDB [(none)]> ` prompt enter
 
 ```bash
 install plugin server_audit SONAME 'server_audit';
@@ -659,11 +668,12 @@ All files will, by default, generate up to 9 rotated files.
 If you wish to rotate a log file manually, log into the database as the administrative user and execute either
 
 - `set global server_audit_file_rotate_now=1;` to rotate the audit log file
-- `set global sql_error_log_rotate=1;` to rotate the sql_errlog log file
+- `set global sql_error_log_rotate=1;` to rotate the `sql_errlog` log file
+
 
 ### Initial Database Access
 
-It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, its initial access to the `stroom` database will result in the following attempted sql statements.
+It should be noted that if you monitor the `sql_errors.log` log file on a new Stroom deployment, when the Stroom Application first starts, its initial access to the `stroom` database will result in the following attempted SQL statements.
 
 ```sql
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC

@@ -95,7 +95,7 @@ If the line is missing or contains the line `version=V1` then the data is in ver
 ### Git commit
 
 Each update to a Git repository is known as a Commit.
-These commits are labeled with a number that look like this: `ca82a6dff817ec66f44342007202690a93763949` or a shorter version like this: `ca82a6d`.
+These commits are labelled with a number that look like this: `ca82a6dff817ec66f44342007202690a93763949` or a shorter version like this: `ca82a6d`.
 The short version is the first 7 characters of the full number.
 Git will recognise this as long as the number has enough characters to be unique in the repository.
 The number identifies the state of the whole repository - every file - at that point in time.

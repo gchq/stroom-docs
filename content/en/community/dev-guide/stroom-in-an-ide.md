@@ -255,8 +255,8 @@ Normally however you can just run:
 ./gradlew :stroom-app-gwt:gwtSuperDevMode
 {{</ command-line >}}
 
-When this gradle task runs it will echo some instructions for how to set up your browser.
-Once the browser is all set up with the dev mode favorites you can visit Stroom at
+When this Gradle task runs it will echo some instructions for how to set up your browser.
+Once the browser is all set up with the dev mode favourites you can visit Stroom at
 
 * http://localhost:8080 (bypassing Nginx)
 * https//localhost (via Nginx)

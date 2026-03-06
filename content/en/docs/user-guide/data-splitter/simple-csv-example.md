@@ -32,9 +32,9 @@ The first thing we need to do is match each record. Each record in a CSV file is
 </dataSplitter>
 ```
 
-In the above example the ‘split’ tokenizer matches all of the supplied content up to the end of each line ready to pass each line of content on for further treatment.
+In the above example the ‘split’ tokeniser matches all of the supplied content up to the end of each line ready to pass each line of content on for further treatment.
 
-We can now add a `<group>` element within `<split>` to take content matched by the tokenizer.
+We can now add a `<group>` element within `<split>` to take content matched by the tokeniser.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
