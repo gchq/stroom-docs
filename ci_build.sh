@@ -227,10 +227,13 @@ build_version_from_source() {
   ./broken_links.sh
   echo "::endgroup::"
 
-  echo "::group::Checking spelling"
-  echo -e "${GREEN}Checking the spelling in all .md files${NC}"
-  ./check_spelling.sh
-  echo "::endgroup::"
+  # Older branches don't have spelling set up, so only check if present
+  if [[ -f ./check_spelling.sh ]]; then
+    echo "::group::Checking spelling"
+    echo -e "${GREEN}Checking the spelling in all .md files${NC}"
+    ./check_spelling.sh
+    echo "::endgroup::"
+  fi
 
   echo "::group::PUML conversion"
   echo -e "${GREEN}Converting all .puml files to .puml.svg${NC}"
