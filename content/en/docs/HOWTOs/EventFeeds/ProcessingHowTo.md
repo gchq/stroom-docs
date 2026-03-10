@@ -28,7 +28,7 @@ The sample BlueCoat Proxy log will be transformed into an intermediate simple XM
 ## Assumptions
 
 The following assumptions are used in this document.
-1. The user successfully deployed Stroom 
+1. The user successfully deployed Stroom
 1. The following Stroom content packages have been installed:
     - Template Pipelines
     - XML Schemas
@@ -124,7 +124,7 @@ has disappeared from the `Feed` tab and the second is that the _Save_ icon {{< s
 ### Create the Text Converter
 
 We now create the Text Converter for this `Feed` in a similar fashion to the `Event Feed`.
-We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select 
+We first select (with a _left click_) the **System/Event Sources/Proxy/BlueCoat** folder in the `Explorer` tab then _right click_ and select
 
 {{< stroom-menu "New" "Transformation" "Text Converter" >}}
 
@@ -244,7 +244,7 @@ and then press the {{< stroom-btn "Ok" >}} to see that the Property **Value:** h
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-17.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property chosen item{{< /screenshot >}}
 
-and pressing the {{< stroom-btn "Ok" >}} button of the `Edit Property` configuration window results in the pipeline's `dsParser` property being set. 
+and pressing the {{< stroom-btn "Ok" >}} button of the `Edit Property` configuration window results in the pipeline's `dsParser` property being set.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-18.png" >}}Stroom UI Create Feed - Pipeline Structure tab - dsParser set Property{{< /screenshot >}}
 
@@ -446,7 +446,7 @@ You will note that the keys have been taken from the Fields comment line which w
 
 You should also take note that the _stepping indicator_ has been incrementing the last number, so at this point it is displaying `[xxx:1:3]` where `xxx` is the stream ID.
 
-The general form of this _indicator_ is 
+The general form of this _indicator_ is
 
 ```text
 '[' streamId ':' subStreamId ':' recordNo ']'
@@ -478,7 +478,7 @@ If we select the `dsParser` pipeline element then press the {{< stroom-icon name
 
 ### Stepping the Pipeline - translationFilter
 
-We now select the `translationFilter` pipeline element that results in 
+We now select the `translationFilter` pipeline element that results in
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-41.png" >}}Stroom UI Create Feed - Translation - Stepping translationFilter Element{{< /screenshot >}}
 

@@ -27,7 +27,7 @@ We think you will learn more by deleting this pre-loaded content and following a
 {{% /warning %}}
 
 1. A lot of Stroom's functionality is available through right-click context menus.
-   If you right-click  {{< stroom-icon "oo.svg" "System">}} _System_ in the tree you can create new child items.
+   If you right-click {{< stroom-icon "oo.svg" "System">}} _System_ in the tree you can create new child items.
 
    Create a new folder by selecting:
 
@@ -62,11 +62,13 @@ curl \
 The `-H` arguments add HTTP headers to the HTTP POST request.
 Stroom uses these headers to determine how to process the data, see [Header Arguments]({{< relref "/docs/sending-data/header-arguments" >}}) for more details.
 
-> In this example we used `/datafeeddirect` rather than `/datafeed`.  
-The former goes directly into Stroom, the latter goes via Stoom Proxy where it is aggregated before being picked up by Stroom.
+{{% note %}}
+In this example we used `/datafeeddirect` rather than `/datafeed`.
+The former goes directly into Stroom, the latter goes via Stroom Proxy where it is aggregated before being picked up by Stroom.
+{{% /note %}}
 
 That's it, there's now data in Stroom.
-In the _CSV_FEED_ tab, ensure the _Data_ sub-tab is selected then click the new entry in the top pane and finnaly click the {{< stroom-icon "refresh.svg" "Refresh" >}} button:
+In the _CSV_FEED_ tab, ensure the _Data_ sub-tab is selected then click the new entry in the top pane and finally click the {{< stroom-icon "refresh.svg" "Refresh" >}} button:
 You should be able to see it in the data table in the bottom pane.
 
 {{< image "quick-start-guide/feed/show-feed-data.png" >}}The data on a feed{{< /image >}}

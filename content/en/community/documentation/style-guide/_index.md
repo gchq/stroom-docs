@@ -51,6 +51,18 @@ You should consult the _Docsy_ documentation in the first instance.
 To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.
 
 
+## Language
+
+For consistency, the documentation should be written in English (i.e. British English).
+
+For example, the word `color` is not allowed by the spell checker, if used in normal text.
+If you need to refer to the CSS property then surround it with back ticks or use it in a code block, .e.g.
+
+```markdown
+Set the CSS property `color` to `red`.
+```
+
+
 ## Shortcodes
 
 The documentation makes heavy use of Hugo _shortcodes_ for adding page elements such as links, icons, images, etc.

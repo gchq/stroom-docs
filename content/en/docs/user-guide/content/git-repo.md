@@ -30,11 +30,11 @@ So Git Repos can be nested, and each will work independently.
 
 Git Repo instances can be created by:
 
-* Pressing the {{< stroom-icon "add.svg" >}} button in the top-left of the Explorer Tree, then 
+* Pressing the {{< stroom-icon "add.svg" >}} button in the top-left of the Explorer Tree, then
 
   {{< stroom-menu "Configuration" "Git Repo" >}}
 
-* Right-clicking on an item within the Explorer Tree and selecting 
+* Right-clicking on an item within the Explorer Tree and selecting
   {{< stroom-menu "New" "Git Repo" >}}
 
 * Importing a Content Pack from the Content Store.
@@ -95,7 +95,7 @@ If the line is missing or contains the line `version=V1` then the data is in ver
 ### Git commit
 
 Each update to a Git repository is known as a Commit.
-These commits are labeled with a number that look like this: `ca82a6dff817ec66f44342007202690a93763949` or a shorter version like this: `ca82a6d`.
+These commits are labelled with a number that look like this: `ca82a6dff817ec66f44342007202690a93763949` or a shorter version like this: `ca82a6d`.
 The short version is the first 7 characters of the full number.
 Git will recognise this as long as the number has enough characters to be unique in the repository.
 The number identifies the state of the whole repository - every file - at that point in time.

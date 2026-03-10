@@ -30,7 +30,7 @@ Stroom and Stroom Proxy live in the same repository, share some common code and 
 
 ### Build and development tools
 
-* Gradle - Building the java application and orcestrating related sub-builds, e.g. npm.
+* Gradle - Building the java application and orchestrating related sub-builds, e.g. npm.
 * Github Actions - The CI build and release.
 * Bash - Various utility shell scripts.
 * Docker - Building the stroom and stroom-proxy docker images.

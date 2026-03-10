@@ -31,7 +31,7 @@ The _Annotations_ data source allows you to query the annotations that have been
 
 Field                   | Type   | Description
 ------                  | ------ | ------------
-`annotaion:Id`          | Long   | Annotation unique identifier.
+`annotation:Id`         | Long   | Annotation unique identifier.
 `annotation:CreatedOn`  | Date   | Date created.
 `annotation:CreatedBy`  | String | Username of the user that created the annotation.
 `annotation:UpdatedOn`  | Date   | Date last updated.
@@ -92,7 +92,7 @@ Field                 | Type   | Description
 `Processor Filter Id` | Long   | The unique ID (within this Stroom cluster) for the processor filter that produced this stream. [Optional]
 `Processor Task Id`   | Long   | The unique ID (within this Stroom cluster) for the processor task that produced this stream. [Optional]
 `Create Time`         | Date   | The time the stream was created.
-`Effective Time`      | Date   | The time that the data in this stream is effective for. This is only used for reference data stream and is the time that the snapshot of reference data was captured. [Optional]
+`Effective Time`      | Date   | The time that the data in this stream is effective for. This is only used for reference data streams and is the time that the snapshot of reference data was captured. [Optional]
 `Status Time`         | Date   | The time that the status was last changed.
 `Duration`            | Long   | The time it took to process the stream in milliseconds. [Optional]
 `Read Count`          | Long   | The number of records read in segmented streams. [Optional]
@@ -145,7 +145,7 @@ Given that most Stroom deployments are clustered and the UI nodes are typically 
 
 ## Task Manager
 
-This data source exposed the back ground tasks currently running across the Stroom cluster.
+This data source exposes the background tasks currently running across the Stroom cluster.
 Each row represents a single background server task.
 
 Requires the `Manage Tasks` application permission.

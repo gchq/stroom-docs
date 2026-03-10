@@ -24,7 +24,7 @@ In order to build/run/debug Stroom you will need the following:
  * Docker CE
  * Docker Compose
 
-These instructions assume that all servcies will either run in the IDE or in Docker containers.
+These instructions assume that all services will either run in the IDE or in Docker containers.
 
 We develop on Linux so if you are running on a Mac you may experience issues with some of our shell scripts.
 For running the various shell scripts in our repositories you are advised to install
@@ -240,7 +240,7 @@ We would like to improve cross-browser support so please let us know about any b
 
 With the Stroom application running you need to also run a draft GWT compile and run the Super Dev Mode compiler.
 
-On first use it is recomended to run:
+On first use it is recommended to run:
 
 {{< command-line "dev" >}}
 ./gradlew gwtClean :stroom-app-gwt:gwtDraftCompile :stroom-app-gwt:gwtSuperDevMode
@@ -255,8 +255,8 @@ Normally however you can just run:
 ./gradlew :stroom-app-gwt:gwtSuperDevMode
 {{</ command-line >}}
 
-When this gradle task runs it will echo some instructions for how to set up your browser.
-Once the browser is all set up with the dev mode favorites you can visit Stroom at
+When this Gradle task runs it will echo some instructions for how to set up your browser.
+Once the browser is all set up with the dev mode favourites you can visit Stroom at
 
 * http://localhost:8080 (bypassing Nginx)
 * https//localhost (via Nginx)
@@ -303,11 +303,11 @@ stroom:
     oncontextmenu: null
 ```
 
-To return it to its defualt value, set it to `"return false;"`.
+To return it to its default value, set it to `"return false;"`.
 
 ### Hot loading GWT UI code changes
 
-If you make any changes to the Java code in `-client` or `-shared` modules then in order for them to be hot loaded into the Javascript code you simply need to refresh the brower.
+If you make any changes to the Java code in `-client` or `-shared` modules then in order for them to be hot loaded into the Javascript code you simply need to refresh the browser.
 This will trigger Super Dev Mode to recompile any changed code.
 
 If you have make significant code changes, e.g. moving/renaming classes then GWT can get confused so you may need to run the _gwtDraftCompile_ and/or _gwtClean_ gradle tasks followed by _gwtSuperDevMode_.

@@ -23,7 +23,7 @@ A {{< stroom-icon "document/Feed.svg" >}} Feed can have the following _Feed Stat
 * **Reject** - All data for this feed will be rejected.
                The client will get HTTP `406` error with the message `110 - Feed is not set to receive data`.
 
-* **Drop** -  All data for this Feed will be silently dropped by Stroom / Stroom Proxy, i.e. discarded and not stored.
+* **Drop** - All data for this Feed will be silently dropped by Stroom / Stroom Proxy, i.e. discarded and not stored.
               The client will receive a HTTP `200` response as if the data had been successfully received.
               This is for use if you do not want the client to know their data is being discarded.
 

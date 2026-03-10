@@ -15,7 +15,7 @@ In the following examples -H is used to specify the header arguments required by
 Notes:
 
 * The `@` character must be used in front of the file being posted.
-    If it is not then curl will post the file name instead of it's contents.
+    If it is not then curl will post the file name instead of its contents.
 * The `--data-binary` argument must always be used even for text formats, in order to prevent data corruption by curl stripping out newlines.
 
 
@@ -81,7 +81,7 @@ The hostname being sent as a header argument may be resolved upon execution usin
 
 ## SSL Notes
 
-To create a .pem format key simply append the private key and certifcate.
+To create a .pem format key simply append the private key and certificate.
 
 {{< command-line "user" "localhost" >}}
 cat <NAME>.key >> <NAME>.pem

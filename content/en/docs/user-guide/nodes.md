@@ -11,7 +11,7 @@ description: >
   Configuring the nodes in a Stroom cluster.
 ---
 
-All nodes in an Stroom cluster must be configured correctly for them to communicate with each other.
+All nodes in a Stroom cluster must be configured correctly for them to communicate with each other.
 
 ## Configuring nodes
 Open Monitoring/Nodes from the top menu. The nodes screen looks like this:
@@ -23,7 +23,7 @@ Screenshot
 You need to edit each line by selecting it and then clicking the edit {{< stroom-icon "edit.svg" "Edit" >}} icon at the bottom.
 The URL for each node needs to be set as above but obviously substituting in the host name of the individual node, e.g. `http://<HOST_NAME>:8080/stroom/clustercall.rpc`
 
-Nodes are expected communicate with each other on port 8080 over http.
+Nodes are expected to communicate with each other on port 8080 over http.
 Ensure you have configured your firewall to allow nodes to talk to each other over this port.
 You can configure the URL to use a different port and possibly HTTPS but performance will be better with HTTP as no SSL termination is required.
 

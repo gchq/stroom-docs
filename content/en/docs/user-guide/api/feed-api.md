@@ -116,7 +116,7 @@ END
 
     echo -e "Skeleton Feed doc for '${feed_name}'\n$(jq '.' <<< "${feed_doc}")"
 
-    # Add/modify propeties on the feed doc
+    # Add/modify properties on the feed doc
     feed_doc=$(jq '
       .classification="HUSH HUSH" 
       | .encoding="UTF8" 

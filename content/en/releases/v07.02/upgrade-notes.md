@@ -29,7 +29,7 @@ It is likely a future release of Stroom will include a new version of Saxon that
 
 The performance issue will show itself when multiple pipelines with effected XSLTs are being processed concurrently.
 This impacts XSLT/Xpath functions like `matches()` that use the `i` flag for case insensitive matching.
-If you don't not use any case-insensitive regular expressions in your XSLTs then you do not need to do anything.
+If you do not use any case-insensitive regular expressions in your XSLTs then you do not need to do anything.
 
 Until Stroom is changed to used a new version of Saxon with a fix, you will have to change the XSLTs that use the `i` flag in one of the following ways:
 

@@ -44,21 +44,21 @@ The following commands can be used to auto start mysql if required:
 
 ## Overview
 
-MySQL configuration can be simple to complex depending on your requirements.  
-For a very simple configuration you simply need an out-of-the-box mysql 
-install and create a database user account.  
+MySQL configuration can be simple to complex depending on your requirements.
+
+For a very simple configuration you simply need an out-of-the-box mysql install and create a database user account.
 
 Things get more complicated when considering:
 
 -	Security
--	Master Slave Replication
+-	Replication
 -	Tuning memory usage
 -	Running Stroom Stats in a different database to Stroom
 -	Performance Monitoring
 
 ## Simple Install
 
-Ensure the database is running, create the database and access to it 
+Ensure the database is running, create the database and access to it
 
 ```bash
 [stroomuser@host stroom-setup]$ mysql --user=root
@@ -86,7 +86,7 @@ Query OK, 0 rows affected (0.00 sec)
 It is recommended to run /usr/bin/mysql_secure_installation to remove test database and accounts.
 
 ./stroom-setup/mysql_grant.sh is a utility script that creates accounts for you to use within a
- cluster (or single node setup).  Run to see the options:
+ cluster (or single node setup). Run to see the options:
 
 ```bash
 [stroomuser@host stroom-setup]$ ./mysql_grant.sh
@@ -98,40 +98,39 @@ usage : --name=<instance name (defaults to my for /etc/my.cnf)>
 ```
 
 N.B. name is used when multiple mysql instances are setup (see below).
- 
-You need to create a file cluster.txt with a line for each member of your cluster 
+
+You need to create a file cluster.txt with a line for each member of your cluster
 (or single line in the case of a one node Stroom install).
 Then run the utility script to lock down the server access.
 
-```bash
-[stroomuser@host ~]$ hostname >> cluster.txt
-[stroomuser@host ~]$ ./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
-Enter root mysql password :
---------------
-flush privileges
---------------
+{{< command-line "stroomuser" "localhost" >}}
+hostname >> cluster.txt
+./stroom-setup/mysql_grant.sh --name=mysql56_dev --user=stroomuser --password= --cluster=cluster.txt
+(out)Enter root mysql password :
+(out)--------------
+(out)flush privileges
+(out)--------------
+(out)
+(out)--------------
+(out)delete from mysql.user where user = 'stroomuser'
+(out)--------------
+(out)...
+(out)...
+(out)...
+(out)--------------
+(out)flush privileges
+(out)--------------
+{{</ command-line >}}
 
---------------
-delete from mysql.user where user = 'stroomuser'
---------------
-...
-...
-...
---------------
-flush privileges
---------------
-
-[stroomuser@host ~]$
-```    
 
 ## Advanced Install
 
 The below example uses the utility scripts to create 3 custom mysql server instances on 2 servers:
 
-- server1 - master stroom,
-- server2 - slave stroom, stroom_stats
+- server1 - stroom (source),
+- server2 - stroom (replica), stroom_stats
 
-As root on server1: 
+As root on server1:
 
 ```bash
 yum install "mysql56-mysql-server"
@@ -189,7 +188,7 @@ Create the grants:
 [root@node1 stroomuser]# ./stroom-setup/mysql_grant.sh --name=mysqld56_stroom --user=stroomuser --password=password --cluster=cluster.txt
 ```
 
-As root on server2: 
+As root on server2:
 
 ```bash
 [root@node2 stroomuser]# yum install "mysql56-mysql-server"
@@ -233,7 +232,7 @@ Create the grants:
 ```
 
 Make the slave database start to follow:
- 
+
 ```bash
 [root@node2 stroomuser]# cat /etc/mysqld56_stroom.cnf | grep "change master"
 # change master to MASTER_HOST='node1.my.org', MASTER_PORT=3106, MASTER_USER='stroomuser', MASTER_PASSWORD='password';
@@ -243,7 +242,7 @@ Make the slave database start to follow:
 mysql> change master to MASTER_HOST='node1.my.org', MASTER_PORT=3106, MASTER_USER='stroomuser', MASTER_PASSWORD='password';
 mysql> start slave; 
 ```
-    
+
 As processing user on server1:
 
 ```bash
@@ -273,7 +272,7 @@ mysql> show create table test;
 1 row in set (0.00 sec)
 ```    
 
-As root on server2: 
+As root on server2:
 
 ```bash
 [root@node2 stroomuser]# /home/stroomuser/stroom-setup/mysqld_instance.sh --name=mysqld56_stats --port=3206 --server=mysqld56 --os=rhel6 --user=statsuser --password=password

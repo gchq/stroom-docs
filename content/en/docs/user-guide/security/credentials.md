@@ -20,7 +20,7 @@ credentials within Stroom.
 
 ## Accessing Credentials Manager
 
-The Credentials Manager can be accessed via the Stroom Menu 
+The Credentials Manager can be accessed via the Stroom Menu
 
 {{< stroom-menu "Security" "Credentials Manager" >}}
 
