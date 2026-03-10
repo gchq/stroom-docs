@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -412,7 +412,7 @@ The content is pre-dominantly authored in Markdown with some Hugo shortcodes.</p
 
 
 
-    <p>If you cannot or do not want to install Docker and buildx on your local machine see <a href="#developing-stroom-docs-on-github-codespaces">Developing Stroom-Docs on GitHub Codespaces</a> below.</p>
+    <p>If you cannot or do not want to install Docker and <code>buildx</code> on your local machine see <a href="#developing-stroom-docs-on-github-codespaces">Developing Stroom-Docs on GitHub Codespaces</a> below.</p>
 
 
 </div>
@@ -441,7 +441,7 @@ You can confirm you have <code>buildx</code> by executing the following command 
 (out)github.com/docker/buildx 0.9.1 ed00243a0ce2a0aee75311b06e32d33b44729689</code></pre>
 </div>
 
-<p>It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. java, plantuml, puppeteer, hugo, npm, html2canvas, jspdf, graphviz etc.</p>
+<p>It is possible to build the docs without docker but you would need to install all the other dependencies that are provided in the docker images, e.g. <code>java</code>, <code>plantuml</code>, <code>puppeteer</code>, <code>hugo</code>, <code>npm</code>, <code>html2canvas</code>, <code>jspdf</code>, <code>graphviz</code> etc.</p>
 <p>It is assumed that you have a reasonable understanding of how to use Git and Github, specifically:</p>
 <ul>
 <li>Github
@@ -576,7 +576,7 @@ A feature branch would typically be merged into the appropriate release branch b
 <li><a href="#running-a-local-hugo-server">Run a local Hugo Server</a></li>
 </ul>
 <h2 id="developing-stroom-docs-on-github-codespaces">Developing Stroom-Docs on GitHub Codespaces</h2>
-<p>If you cannot or do not want to install docker and buildx on your local machine but need to work on the documentation then you can do it from within 
+<p>If you cannot or do not want to install docker and <code>buildx</code> on your local machine but need to work on the documentation then you can do it from within 
 
 
 
@@ -1512,6 +1512,12 @@ The documentation for <em>Docsy</em> can be found
 The <em>Docsy</em> theme provides a lot of the styling but also adds other features and shortcodes.
 You should consult the <em>Docsy</em> documentation in the first instance.</p>
 <p>To maintain a degree of consistency in the documentation you should use this section as a reference for how to layout your content.</p>
+<h2 id="language">Language</h2>
+<p>For consistency, the documentation should be written in English (i.e. British English).</p>
+<p>For example, the word <code>color</code> is not allowed by the spell checker, if used in normal text.
+If you need to refer to the CSS property then surround it with back ticks or use it in a code block, .e.g.</p>
+<pre><code class="language-markdown">Set the CSS property `color` to `red`.
+</code></pre>
 <h2 id="shortcodes">Shortcodes</h2>
 <p>The documentation makes heavy use of Hugo <em>shortcodes</em> for adding page elements such as links, icons, images, etc.
 Shortcodes are a compact way of inserting reusable content into a page and make it easy to change how a page element is styled by just changing the shortcode in one place.</p>
@@ -1723,7 +1729,7 @@ endsnippet
 <p>Ideally files and directories should be named using <em>lower-kebab-case</em>, e.g. <code>site-structure.md</code>.</p>
 <h2 id="directory-structure">Directory structure</h2>
 <p>All page content, i.e. markdown, is located underneath <code>content/en</code>.
-This directory has one sub-directory for each of the top nav bar items.</p>
+This directory has one sub-directory for each of the top navigation bar items.</p>
 <h3 id="stroom-docs-top-level-sections">Stroom-Docs top level sections</h3>
 <p>Each of the following sections can have a different styling that is appropriate to its content, e.g. documentation vs blog.</p>
 <h4 id="landing-page">Landing Page</h4>
@@ -1735,7 +1741,7 @@ This is the page that users will initially see, unless visiting via a direct lin
 <p>This is where all the documentation for installing, administering and using stroom is located.</p>
 <h4 id="newsreleases-news">News/Releases (<code>news</code>)</h4>
 <p>This is a <code>blog</code> type section that contains a page for each new Stroom release and a set of blog posts for Stroom news items.
-The pages in the two sub-sections (<code>news</code> and <code>releases</code>) are displayed in chronalogical order based on the <code>date</code> key in the page&rsquo;s front matter.</p>
+The pages in the two sub-sections (<code>news</code> and <code>releases</code>) are displayed in chronological order based on the <code>date</code> key in the page&rsquo;s front matter.</p>
 <h5 id="news-newsnews">News (<code>news/news</code>)</h5>
 <p>This sub section has a flat structure with one <code>.md</code> file per news item.
 Each file should be named in the form <code>YYYYMMDD-&lt;name&gt;.md</code>.
@@ -1747,7 +1753,7 @@ The date should be set in ISO 8601 date format, i.e.</p>
 <h5 id="releases-newsreleases">Releases (<code>news/releases</code>)</h5>
 <p>Each new minor version release of Stroom should have a file in this directory.
 They should be named in the form <code>vXX.YY.md</code> where <code>XX</code> is the zero padded major version and <code>YY</code> is the zero padded minor version, e.g. <code>v07.01</code>.
-The zero padding is to ensure correct ordering by default withouth having to resort to using <code>weight</code> in the front matter.</p>
+The zero padding is to ensure correct ordering by default without having to resort to using <code>weight</code> in the front matter.</p>
 <p>The front matter should be set along these lines:</p>
 <pre><code class="language-yaml">---
 title: &quot;Version 7.0&quot;
@@ -1816,7 +1822,7 @@ description: &gt;
 <p>The new page should now appear in the list of child pages on the section page and in the left hand navigation pane.</p>
 <p>If you want to control the position of the new page relative to its siblings then adjust the <a href="../../../community/documentation/style-guide/front-matter/#weight">weight</a> of this page and that of its siblings to get the order that you want.</p>
 <h3 id="add-a-new-section">Add a new section</h3>
-<p>If you want to add a sub-section to an existin section then you will already have a structure like this:</p>
+<p>If you want to add a sub-section to an existing section then you will already have a structure like this:</p>
 <pre><code class="language-text">└── my-section/
     ├── _index.md
     ├── a-page.md
@@ -2607,8 +2613,9 @@ Beastie Boys    | License to Ill | 1986
 | Prince | Purple Rain | 1984 |
 | Beastie Boys | License to Ill | 1986 |
 </code></pre>
-<p>All  will produce the same result, however, the latter can be harder to read in markdown form.
+<p>All will produce the same result, however, the latter can be harder to read in markdown form.
 The first two are harder to create and update in markdown form.</p>
+<!-- spell-checker: disable -->
 <table>
 <thead>
 <tr>
@@ -2635,6 +2642,7 @@ The first two are harder to create and update in markdown form.</p>
 </tr>
 </tbody>
 </table>
+<!-- spell-checker: enable -->
 <p>If you are editing the documentation with Vim then the plugin 
 
 
@@ -2653,7 +2661,7 @@ The first two are harder to create and update in markdown form.</p>
   </a>
 </span>
  is very useful for auto aligning markdown tables.
-Simply position the cursor somewhere in the table and do <code>:Tabularize\|</code> to <em>tabularize</em> on the <code>|</code> character.</p>
+Simply position the cursor somewhere in the table and do <code>:Tabularize\|</code> to &rsquo;tabularize&rsquo; on the <code>|</code> character.</p>
 <h3 id="line-breaks-in-cells">Line breaks in cells</h3>
 <p>If you need a line break in a table cell then use <code>&lt;br&gt;</code>.</p>
 <h2 id="comments">Comments</h2>
@@ -3671,7 +3679,7 @@ select database();
   * the device Site location
   * the device Building location
   * the device Room location
-  *the device TimeZone location (both standard then daylight timezone offsets from UTC)
+  *the device TimeZone location (both standard then daylight time zone offsets from UTC)
   
   The data is a TAB delimited file with the first line providing headings.
   
@@ -3761,6 +3769,7 @@ The language specified in the markdown code fence or in the <code>command-line</
 <code>javascript</code><br>
 <code>jq</code><br>
 <code>json</code><br>
+<code>properties</code> (Use for Stroom metadata)
 <code>python</code><br>
 <code>regex</code><br>
 <code>scss</code><br>
@@ -3983,7 +3992,8 @@ root:
 
 </div>
 <p>The markdown for this is:</p>
-<pre><code class="language-marckdown">{{&lt; cardpane &gt;}}
+<!-- spell-checker: disable -->
+<pre><code class="language-text">{{&lt; cardpane &gt;}}
   {{&lt; card header=&quot;YAML&quot; &gt;}}
 ```yaml
 ---
@@ -4000,6 +4010,7 @@ root:
   {{&lt; /card &gt;}}
 {{&lt; /cardpane &gt;}}
 </code></pre>
+<!-- spell-checker: enable -->
 <h2 id="tabbed-panes">Tabbed panes</h2>
 <p>Hugo/Docsy have shortcodes for 
 
@@ -4385,13 +4396,13 @@ The images can be generated by doing:</p>
   </a>
 </span>
 .
-This is where the page is defined as a named directory (rather than a <code>.md</code> file) with an associated <code>index.md</code> file for the markdown contnet.
+This is where the page is defined as a named directory (rather than a <code>.md</code> file) with an associated <code>index.md</code> file for the markdown content.
 All other items in the directory are page resources that can be used by the page, i.e. image files.</p>
 
 <div class="alert alert-warning" role="alert">
 <h4 class="alert-heading">Warning</h4>
 
-    Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
+    Whilst you can structure your site using page resources the preferred approach for stroom-docs is to use the common assets directory.
 This keeps all the images in one place and means pages can have a named markdown file rather than all being called <code>index.md</code>.
 
 </div>

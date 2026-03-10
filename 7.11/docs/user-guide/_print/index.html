@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../"
     data-offline-search-max-results="50"
   >
@@ -3348,10 +3348,16 @@ This allows you to make a change to the rules and test its impact before saving 
     
   <h1 id="pg-4c538bfe356bcf1e0e261c00d44a8992">6 - Data Splitter</h1>
     
-	<p>Data Splitter was created to transform text into XML. The XML produced is basic but can be processed further with XSLT to form any desired XML output.</p>
-<p>Data Splitter works by using regular expressions to match a region of content or tokenizers to split content. The whole match or match group can then be output or passed to other expressions to further divide the matched data.</p>
-<p>The root <code>&lt;dataSplitter&gt;</code> element controls the way content is read and buffered from the source. It then passes this content on to one or more child expressions that attempt to match the content. The child expressions attempt to match content one at a time in the order they are specified until one matches. The matching expression then passes the content that it has matched to other elements that either emit XML or apply other expressions to the content matched by the parent.</p>
-<p>This process of content supply, match, (supply, match)*, emit is best illustrated in a simple CSV example. Note that the elements and attributes used in all examples are explained in detail in the <a href="../../../docs/user-guide/data-splitter/element-reference/">element reference</a>.</p>
+	<p>Data Splitter was created to transform text into XML.
+The XML produced is basic but can be processed further with XSLT to form any desired XML output.</p>
+<p>Data Splitter works by using regular expressions to match a region of content or tokenisers to split content.
+The whole match or match group can then be output or passed to other expressions to further divide the matched data.</p>
+<p>The root <code>&lt;dataSplitter&gt;</code> element controls the way content is read and buffered from the source.
+It then passes this content on to one or more child expressions that attempt to match the content.
+The child expressions attempt to match content one at a time in the order they are specified until one matches.
+The matching expression then passes the content that it has matched to other elements that either emit XML or apply other expressions to the content matched by the parent.</p>
+<p>This process of content supply, match, (supply, match)*, emit is best illustrated in a simple CSV example.
+Note that the elements and attributes used in all examples are explained in detail in the <a href="../../../docs/user-guide/data-splitter/element-reference/">element reference</a>.</p>
 
 </div>
 
@@ -3398,8 +3404,8 @@ This allows you to make a change to the rules and test its impact before saving 
 
 &lt;/dataSplitter&gt;
 </code></pre>
-<p>In the above example the ‘split’ tokenizer matches all of the supplied content up to the end of each line ready to pass each line of content on for further treatment.</p>
-<p>We can now add a <code>&lt;group&gt;</code> element within <code>&lt;split&gt;</code> to take content matched by the tokenizer.</p>
+<p>In the above example the ‘split’ tokeniser matches all of the supplied content up to the end of each line ready to pass each line of content on for further treatment.</p>
+<p>We can now add a <code>&lt;group&gt;</code> element within <code>&lt;split&gt;</code> to take content matched by the tokeniser.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter
     xmlns=&quot;data-splitter:3&quot;
@@ -3626,7 +3632,7 @@ This allows you to make a change to the rules and test its impact before saving 
     
   <h1 id="pg-ff24c916ea4c1a7259cebebc39a4f0cd">6.3 - Complex example with regex and user defined names</h1>
     
-	<p>The following example uses a real world Apache log and demonstrates the use of regular expressions rather than simple &lsquo;split&rsquo; tokenizers. The usage and structure of regular expressions is outside of the scope of this document but Data Splitter uses Java&rsquo;s standard regular expression library that is POSIX compliant and documented in numerous places.</p>
+	<p>The following example uses a real world Apache log and demonstrates the use of regular expressions rather than simple &lsquo;split&rsquo; tokenisers. The usage and structure of regular expressions is outside of the scope of this document but Data Splitter uses Java&rsquo;s standard regular expression library that is POSIX compliant and documented in numerous places.</p>
 <p>This example also demonstrates that the names and values that are output can be hard coded in the absence of field name information to make XSLT conversion easier later on. Also shown is that any match can be divided into further fields with additional expressions and the ability to nest data elements to provide structure if needed.</p>
 <h2 id="input">Input</h2>
 <pre><code class="language-text">192.168.1.100 - &quot;-&quot; [12/Jul/2012:11:57:07 +0000] &quot;GET /doc.htm HTTP/1.1&quot; 200 4235 &quot;-&quot; &quot;Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)&quot;
@@ -22620,7 +22626,7 @@ stroom:format-date('2009/02/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')
 stroom:format-date('2009/02/01 12:34:11', 'yyyy/MM/dd HH:mm:ss', '+01:00')
 -&gt; '2009-02-01T11:34:11.000Z'
 </code></pre>
-<pre><code class="language-xml">&lt;!-- Named timezone --&gt;
+<pre><code class="language-xml">&lt;!-- Named time zone --&gt;
 stroom:format-date('2009/02/01 23:34:11', 'yyyy/MM/dd HH:mm:ss', 'US/Eastern')
 -&gt; '2009-02-02T04:34:11.000Z'
 </code></pre>
@@ -22756,7 +22762,7 @@ stroom:format-dateTime('xs:dateTime(&quot;2009-06-01T11:34:11Z&quot;)', 'yyyy/MM
 stroom:format-dateTime('xs:dateTime(&quot;2009-02-01T12:34:11Z&quot;)', 'yyyy/MM/dd HH:mm:ss', 'GMT/BST')
 -&gt; '2009/02/01 12:34:11'
 </code></pre>
-<pre><code class="language-xml">&lt;!-- Named timezone --&gt;
+<pre><code class="language-xml">&lt;!-- Named time zone --&gt;
 stroom:format-dateTime('xs:dateTime(&quot;2009-02-02T04:34:11Z&quot;)', 'yyyy/MM/dd HH:mm:ss', 'US/Eastern')
 -&gt; '2009/02/01 23:34:11'
 </code></pre>
@@ -23161,7 +23167,7 @@ Useful for determining if a user is inside a physical zone based on their locati
 <li><code>yPolyData</code> - A sequence of Y values that define the polygon.</li>
 </ul>
 <p>The list of values supplied for <code>xPolyData</code> must correspond with the list of values supplied for <code>yPolyData</code>.
-The points that define the polygon must be provided in order, i.e. starting from one point on the polygon and then traveling round the path of the polygon until it gets back to the beginning.</p>
+The points that define the polygon must be provided in order, i.e. starting from one point on the polygon and then travelling round the path of the polygon until it gets back to the beginning.</p>
 <!-- TODO add example XSLT -->
 
 </div>
@@ -27599,7 +27605,8 @@ orange
 <h3 id="admin-port">Admin port</h3>
 <p>Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.</p>
 <h3 id="servlets">Servlets</h3>
-<p>There are several servlets in Stroom that are accessible by certain URLs. Considerations should be made about what URLs are made available via Apache and who can access them. The servlets, path and function are described below:</p>
+<p>There are several servlets in Stroom that are accessible by certain URLs. Considerations should be made about what URLs are made available via Apache and who can access them.
+The servlets, path and function are described below:</p>
 <table>
 <thead>
 <tr>
@@ -27618,73 +27625,73 @@ orange
 </tr>
 <tr>
 <td>RemoteFeedService</td>
-<td>/remoting/remotefeedservice.rpc</td>
+<td><code>/remoting/remotefeedservice.rpc</code></td>
 <td>Used by proxy to ask application about feed status (described in previous section)</td>
 <td>Possible to systematically discover which feeds are available. Communication with this service should be secured over SSL discussed above</td>
 </tr>
 <tr>
 <td>DynamicCSSServlet</td>
-<td>/stroom/dynamic.css</td>
+<td><code>/stroom/dynamic.css</code></td>
 <td>Serves dynamic CSS based on theme configuration</td>
 <td>Low risk as no important data is made available by this servlet</td>
 </tr>
 <tr>
 <td>DispatchService</td>
-<td>/stroom/dispatch.rpc</td>
+<td><code>/stroom/dispatch.rpc</code></td>
 <td>Service for UI and server communication</td>
 <td>All back-end services accessed by this umbrella service are secured appropriately by the application</td>
 </tr>
 <tr>
 <td>ImportFileServlet</td>
-<td>/stroom/importfile.rpc</td>
+<td><code>/stroom/importfile.rpc</code></td>
 <td>Used during configuration upload</td>
 <td>Users must be authenticated and have appropriate permissions to import configuration</td>
 </tr>
 <tr>
 <td>ScriptServlet</td>
-<td>/stroom/script</td>
+<td><code>/stroom/script</code></td>
 <td>Serves user defined visualisation scripts to the UI</td>
 <td>The visualisation script is considered to be part of the application just as the CSS so is not secured</td>
 </tr>
 <tr>
 <td>ClusterCallService</td>
-<td>/clustercall.rpc</td>
+<td><code>/clustercall.rpc</code></td>
 <td>Used for node to node communication as discussed above</td>
 <td>Communication must be secured as discussed above</td>
 </tr>
 <tr>
 <td>ExportConfig</td>
-<td>/export/*</td>
+<td><code>/export/*</code></td>
 <td>Servlet used to export configuration data</td>
 <td>Servlet access must be restricted with Apache to prevent configuration data being made available to unauthenticated users</td>
 </tr>
 <tr>
 <td>Status</td>
-<td>/status</td>
+<td><code>/status</code></td>
 <td>Shows the application status including volume usage</td>
 <td>Needs to be secured so that only appropriate users can see the application status</td>
 </tr>
 <tr>
 <td>Echo</td>
-<td>/echo</td>
+<td><code>/echo</code></td>
 <td>Block GZIP data posted to the echo servlet is sent back uncompressed. This is a utility servlet for decompression of external data</td>
 <td>URL should be secured or not made available</td>
 </tr>
 <tr>
 <td>Debug</td>
-<td>/debug</td>
+<td><code>/debug</code></td>
 <td>Servlet for echoing HTTP header arguments including certificate details</td>
 <td>Should be secured in production environments</td>
 </tr>
 <tr>
 <td>SessionList</td>
-<td>/sessionList</td>
+<td><code>/sessionList</code></td>
 <td>Lists the logged in users</td>
 <td>Needs to be secured so that only appropriate users can see who is logged in</td>
 </tr>
 <tr>
 <td>SessionResourceStore</td>
-<td>/resourcestore/*</td>
+<td><code>/resourcestore/*</code></td>
 <td>Used to create, download and delete temporary files linked to a user&rsquo;s session such as data for export</td>
 <td>This is secured by using the users session and requiring authentication</td>
 </tr>
@@ -31631,7 +31638,7 @@ If the file contains the line <code>version=V2</code> the file is in version 2 f
 If the line is missing or contains the line <code>version=V1</code> then the data is in version 1 format.</p>
 <h3 id="git-commit">Git commit</h3>
 <p>Each update to a Git repository is known as a Commit.
-These commits are labeled with a number that look like this: <code>ca82a6dff817ec66f44342007202690a93763949</code> or a shorter version like this: <code>ca82a6d</code>.
+These commits are labelled with a number that look like this: <code>ca82a6dff817ec66f44342007202690a93763949</code> or a shorter version like this: <code>ca82a6d</code>.
 The short version is the first 7 characters of the full number.
 Git will recognise this as long as the number has enough characters to be unique in the repository.
 The number identifies the state of the whole repository - every file - at that point in time.</p>

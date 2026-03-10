@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installapplicationhowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-04T11:59:55+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Installation of Stroom Application">
 <meta itemprop="description" content="This HOWTO describes the installation and initial configuration of the Stroom Application.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-04T11:59:55+00:00" />
+<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
 <meta itemprop="wordCount" content="1335">
 <meta itemprop="keywords" content="installation," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Installation of Stroom Application"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -1062,8 +1062,8 @@ sudo yum -y install mysql-community-client
 </code></pre>
 <h2 id="test-database-connectivity">Test Database connectivity</h2>
 <p>We need to test access to the Stroom databases on <code>stroomdb0.strmdev00.org</code>. We do this using the client <code>mysql</code> utility. We note that we
-must enter the <em>stroomuser</em> user&rsquo;s password set up in the creation of the database earlier (<code>Stroompassword1@</code>) when connecting to
-the <code>stroom</code> database and we must enter the <em>stroomstats</em> user&rsquo;s password (<code>Stroompassword2@</code>) when connecting to the <code>statistics</code> database.</p>
+must enter the <code>stroomuser</code> user&rsquo;s password set up in the creation of the database earlier (<code>Stroompassword1@</code>) when connecting to
+the <code>stroom</code> database and we must enter the <code>stroomstats</code> user&rsquo;s password (<code>Stroompassword2@</code>) when connecting to the <code>statistics</code> database.</p>
 <p>We first test we can connect to the <code>stroom</code> database and then set the default database to be <code>stroom</code>.</p>
 <pre><code>[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
 Enter password: &lt;__ Stroompassword1@ __&gt;
@@ -1153,7 +1153,7 @@ chmod 750 stroom-app
 <p>We install the application via</p>
 <pre><code class="language-bash">stroom-app/bin/setup.sh
 </code></pre>
-<p>during which one is prompted for a number of configuration settings. Use the following</p>
+<p>During which one is prompted for a number of configuration settings. Use the following</p>
 <pre><code>TEMP_DIR should be set to '/stroomdata/stroom-working-p00' or '/stroomdata/stroom-working-p01' etc depending on the node we are installing on
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' in our multi node scenario)
 RACK can be ignored, just press return
@@ -1174,8 +1174,8 @@ CREATE_DEFAULT_VOLUME_ON_START should use the default, just press return
 </code></pre>
 <p>At this point, the script will configure the application. There should be no errors, but review the output.
 If you made an error then just re-run the script.</p>
-<p>You will note that <strong>TEMP_DIR</strong> is the same directory we used for our <strong>STROOM_TMP</strong> environment variable when we set up the processing user scripts.
-Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the <strong>JDBC_URL</strong> setting can be the default.</p>
+<p>You will note that <code>TEMP_DIR</code> is the same directory we used for our <code>STROOM_TMP</code> environment variable when we set up the processing user scripts.
+Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the <code>JDBC_URL</code> setting can be the default.</p>
 <h2 id="start-the-application-service">Start the Application service</h2>
 <p>Now we start the application. In the case of multi node Stroom deployment, we start the Stroom application on the first node in the cluster,
 then <strong>wait</strong> until it has initialised the database commenced its Lifecycle task. You will need to monitor the log file to see its
@@ -1187,7 +1187,7 @@ completed initialisation.</p>
 and <code>catalina.out</code>. Check them for errors and correct (or post a question). The log4j warnings in <code>catalina.out</code> can be ignored.
 Eventually the log file <code>stroom-app/instance/logs/stroom.log</code> will appear. Again check it for errors and then wait for the application to
 be initialised. That is, wait for the Lifecycle service thread to start. This is indicated by the message</p>
-<pre><code>INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166) - Started Stroom Lifecycle service
+<pre><code class="language-text">INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166) - Started Stroom Lifecycle service
 </code></pre>
 <p>The directory <code>stroom-app/instance/logs/events</code> will also appear with an empty file with
 the nomenclature <code>events_YYYY-MM-DDThh:mm:ss.msecZ</code>. This is the directory for storing Stroom&rsquo;s application event logs. We will return to this
@@ -1217,7 +1217,7 @@ sudo firewall-cmd --zone=public --list-all
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 4, 2026: <a href="https://github.com/gchq/stroom-docs/commit/873e9cbde89370b3437b5de05505414e43108def">Merge pull request #120 from gchq/grammar (873e9cb)</a>
+  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
 </div>
 
 </div>

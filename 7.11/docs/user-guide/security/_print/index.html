@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -331,7 +331,8 @@ This is the multi-page printable view of this section.
 <h3 id="admin-port">Admin port</h3>
 <p>Stroom (v6 and above) and its associated family of stroom-* Dropwizard based services all expose an admin port (8081 in the case of stroom). This port serves up various health check and monitoring pages as well as a number of restful services for initiating admin tasks. There is currently no authentication on this admin port so it is assumed that access to this port will be tightly controlled using a firewall, iptables or similar.</p>
 <h3 id="servlets">Servlets</h3>
-<p>There are several servlets in Stroom that are accessible by certain URLs. Considerations should be made about what URLs are made available via Apache and who can access them. The servlets, path and function are described below:</p>
+<p>There are several servlets in Stroom that are accessible by certain URLs. Considerations should be made about what URLs are made available via Apache and who can access them.
+The servlets, path and function are described below:</p>
 <table>
 <thead>
 <tr>
@@ -350,73 +351,73 @@ This is the multi-page printable view of this section.
 </tr>
 <tr>
 <td>RemoteFeedService</td>
-<td>/remoting/remotefeedservice.rpc</td>
+<td><code>/remoting/remotefeedservice.rpc</code></td>
 <td>Used by proxy to ask application about feed status (described in previous section)</td>
 <td>Possible to systematically discover which feeds are available. Communication with this service should be secured over SSL discussed above</td>
 </tr>
 <tr>
 <td>DynamicCSSServlet</td>
-<td>/stroom/dynamic.css</td>
+<td><code>/stroom/dynamic.css</code></td>
 <td>Serves dynamic CSS based on theme configuration</td>
 <td>Low risk as no important data is made available by this servlet</td>
 </tr>
 <tr>
 <td>DispatchService</td>
-<td>/stroom/dispatch.rpc</td>
+<td><code>/stroom/dispatch.rpc</code></td>
 <td>Service for UI and server communication</td>
 <td>All back-end services accessed by this umbrella service are secured appropriately by the application</td>
 </tr>
 <tr>
 <td>ImportFileServlet</td>
-<td>/stroom/importfile.rpc</td>
+<td><code>/stroom/importfile.rpc</code></td>
 <td>Used during configuration upload</td>
 <td>Users must be authenticated and have appropriate permissions to import configuration</td>
 </tr>
 <tr>
 <td>ScriptServlet</td>
-<td>/stroom/script</td>
+<td><code>/stroom/script</code></td>
 <td>Serves user defined visualisation scripts to the UI</td>
 <td>The visualisation script is considered to be part of the application just as the CSS so is not secured</td>
 </tr>
 <tr>
 <td>ClusterCallService</td>
-<td>/clustercall.rpc</td>
+<td><code>/clustercall.rpc</code></td>
 <td>Used for node to node communication as discussed above</td>
 <td>Communication must be secured as discussed above</td>
 </tr>
 <tr>
 <td>ExportConfig</td>
-<td>/export/*</td>
+<td><code>/export/*</code></td>
 <td>Servlet used to export configuration data</td>
 <td>Servlet access must be restricted with Apache to prevent configuration data being made available to unauthenticated users</td>
 </tr>
 <tr>
 <td>Status</td>
-<td>/status</td>
+<td><code>/status</code></td>
 <td>Shows the application status including volume usage</td>
 <td>Needs to be secured so that only appropriate users can see the application status</td>
 </tr>
 <tr>
 <td>Echo</td>
-<td>/echo</td>
+<td><code>/echo</code></td>
 <td>Block GZIP data posted to the echo servlet is sent back uncompressed. This is a utility servlet for decompression of external data</td>
 <td>URL should be secured or not made available</td>
 </tr>
 <tr>
 <td>Debug</td>
-<td>/debug</td>
+<td><code>/debug</code></td>
 <td>Servlet for echoing HTTP header arguments including certificate details</td>
 <td>Should be secured in production environments</td>
 </tr>
 <tr>
 <td>SessionList</td>
-<td>/sessionList</td>
+<td><code>/sessionList</code></td>
 <td>Lists the logged in users</td>
 <td>Needs to be secured so that only appropriate users can see who is logged in</td>
 </tr>
 <tr>
 <td>SessionResourceStore</td>
-<td>/resourcestore/*</td>
+<td><code>/resourcestore/*</code></td>
 <td>Used to create, download and delete temporary files linked to a user&rsquo;s session such as data for export</td>
 <td>This is secured by using the users session and requiring authentication</td>
 </tr>

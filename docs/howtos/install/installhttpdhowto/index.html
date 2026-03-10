@@ -45,12 +45,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/docs/howtos/install/installhttpdhowto/" /><meta property="article:section" content="docs" />
 <meta property="article:published_time" content="2021-07-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-03-04T11:59:55+00:00" /><meta property="og:site_name" content="Stroom" />
+<meta property="article:modified_time" content="2026-03-09T08:39:40+00:00" /><meta property="og:site_name" content="Stroom" />
 
 <meta itemprop="name" content="Apache Httpd/Mod_JK configuration for Stroom">
 <meta itemprop="description" content="The following is a HOWTO to assist users in configuring Apache&#39;s HTTPD with Mod_JK for Stroom.
 "><meta itemprop="datePublished" content="2021-07-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2026-03-04T11:59:55+00:00" />
+<meta itemprop="dateModified" content="2026-03-09T08:39:40+00:00" />
 <meta itemprop="wordCount" content="4036">
 <meta itemprop="keywords" content="httpd,installation," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Apache Httpd/Mod_JK configuration for Stroom"/>
@@ -153,7 +153,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -178,7 +178,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -802,16 +802,16 @@
       <ul>
         <li><a href="#forwarding-file-for-stroom-user-interface-deployments">Forwarding file for Stroom User Interface deployments</a></li>
         <li><a href="#httpdconf-configuration">Httpd.conf Configuration</a></li>
-        <li><a href="#configuration-of-sslconf">Configuration of ssl.conf</a>
+        <li><a href="#configuration-of-sslconf">Configuration of <code>ssl.conf</code></a>
           <ul>
-            <li><a href="#sslconf-http-to-https-redirection---all-scenarios">ssl.conf: HTTP to HTTPS Redirection - All scenarios</a></li>
-            <li><a href="#sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</a></li>
-            <li><a href="#sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment">ssl.conf: VirtualHost directives - Standalone or Forwarding Proxy deployment</a></li>
-            <li><a href="#sslconf-virtualhost-directives---single-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</a></li>
-            <li><a href="#sslconf-certificate-file-changes---all-scenarios">ssl.conf: Certificate file changes - All scenarios</a></li>
-            <li><a href="#sslconf-certificate-bundleno-ca-verification---all-scenarios">ssl.conf: Certificate Bundle/NO-CA Verification - All scenarios</a></li>
-            <li><a href="#sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy">ssl.conf: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</a></li>
-            <li><a href="#sslconf-log-formats---all-scenarios">ssl.conf: Log formats - All scenarios</a></li>
+            <li><a href="#sslconf-http-to-https-redirection---all-scenarios"><code>ssl.conf</code>: HTTP to HTTPS Redirection - All scenarios</a></li>
+            <li><a href="#sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</a></li>
+            <li><a href="#sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Standalone or Forwarding Proxy deployment</a></li>
+            <li><a href="#sslconf-virtualhost-directives---single-node-application-and-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</a></li>
+            <li><a href="#sslconf-certificate-file-changes---all-scenarios"><code>ssl.conf</code>: Certificate file changes - All scenarios</a></li>
+            <li><a href="#sslconf-certificate-bundleno-ca-verification---all-scenarios"><code>ssl.conf</code>: Certificate Bundle/NO-CA Verification - All scenarios</a></li>
+            <li><a href="#sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy"><code>ssl.conf</code>: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</a></li>
+            <li><a href="#sslconf-log-formats---all-scenarios"><code>ssl.conf</code>: Log formats - All scenarios</a></li>
           </ul>
         </li>
         <li><a href="#apache-mod_jk-configuration">Apache Mod_JK configuration</a>
@@ -1054,23 +1054,23 @@
 	<h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
-<li>the user has reasonable RHEL/Centos System administration skills</li>
-<li>installations are on Centos 7.3 minimal systems (fully patched)</li>
-<li>the security of the HTTPD deployment should be reviewed for a production environment.</li>
+<li>The user has reasonable RHEL/Centos System administration skills</li>
+<li>Installations are on Centos 7.3 minimal systems (fully patched)</li>
+<li>The security of the HTTPD deployment should be reviewed for a production environment.</li>
 </ul>
 <h2 id="installation-of-apache-httpd-and-mod_jk-software">Installation of Apache httpd and Mod_JK Software</h2>
 <p>To deploy Stroom using Apache&rsquo;s httpd web service as a front end (https) and Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications, we also need</p>
 <ul>
-<li>apr</li>
-<li>apr-util</li>
-<li>apr-devel</li>
-<li>gcc</li>
-<li>httpd</li>
-<li>httpd-devel</li>
-<li>mod_ssl</li>
-<li>epel-release</li>
-<li>tomcat-native</li>
-<li>apache&rsquo;s mod_jk tomcat connector plugin</li>
+<li><code>apr</code></li>
+<li><code>apr-util</code></li>
+<li><code>apr-devel</code></li>
+<li><code>gcc</code></li>
+<li><code>httpd</code></li>
+<li><code>httpd-devel</code></li>
+<li><code>mod_ssl</code></li>
+<li><code>epel-release</code></li>
+<li><code>tomcat-native</code></li>
+<li>Apache&rsquo;s <code>mod_jk</code> Tomcat connector plugin</li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
 <pre><code class="language-bash">sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
@@ -1171,7 +1171,7 @@ ServerRoot &quot;/etc/httpd&quot;
 # Listen: Allows you to bind Apache to specific IP addresses and/or
 ...
 </code></pre>
-<p>becomes</p>
+<p>Becomes</p>
 <pre><code class="language-text">...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
@@ -1215,8 +1215,8 @@ ServerRoot &quot;/etc/httpd&quot;
 # Further relax access to the default document root:
 ...
 </code></pre>
-<p>becomes</p>
-<pre><code>...
+<p>Becomes</p>
+<pre><code class="language-text">...
 #
 # Relax access to content within /var/www.
 #
@@ -1231,11 +1231,11 @@ ServerRoot &quot;/etc/httpd&quot;
 # Further relax access to the default document root:
 ...
 </code></pre>
-<p>then within the /var/www/html directory turn off Indexes FollowSymLinks by commenting out the line</p>
-<pre><code>Options Indexes FollowSymLinks
+<p>Then within the <code>/var/www/html</code> directory turn off <code>Indexes FollowSymLinks</code> by commenting out the line:</p>
+<pre><code class="language-text">Options Indexes FollowSymLinks
 </code></pre>
 <p>That is</p>
-<pre><code>...
+<pre><code class="language-text">...
     # The Options directive is both complicated and important.  Please see
     # http://httpd.apache.org/docs/2.4/mod/core.html#options
     # for more information.
@@ -1247,8 +1247,8 @@ ServerRoot &quot;/etc/httpd&quot;
     # It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:
 ...
 </code></pre>
-<p>becomes</p>
-<pre><code>...
+<p>Becomes</p>
+<pre><code class="language-text">...
     # The Options directive is both complicated and important.  Please see
     # http://httpd.apache.org/docs/2.4/mod/core.html#options
     # for more information.
@@ -1263,17 +1263,17 @@ ServerRoot &quot;/etc/httpd&quot;
 ...
 </code></pre>
 <p>Then finally we add two new log formats and configure the access log to use the new format. This is done within the <code>&lt;IfModule logio_module&gt;</code> by adding the two new LogFormat directives</p>
-<pre><code>LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%u\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxUser
+<pre><code class="language-text">LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%u\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxUser
 LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxSSLUser
 </code></pre>
-<p>and replacing the CustomLog directive</p>
-<pre><code>CustomLog &quot;logs/access_log&quot; combined
+<p>And replacing the CustomLog directive</p>
+<pre><code class="language-text">CustomLog &quot;logs/access_log&quot; combined
 </code></pre>
-<p>with</p>
-<pre><code>CustomLog logs/access_log blackboxSSLUser
+<p>With</p>
+<pre><code class="language-text">CustomLog logs/access_log blackboxSSLUser
 </code></pre>
 <p>That is</p>
-<pre><code>...
+<pre><code class="language-text">...
     LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
 
     &lt;IfModule logio_module&gt;
@@ -1298,8 +1298,8 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
 &lt;/IfModule&gt;
 ...
 </code></pre>
-<p>becomes</p>
-<pre><code>...
+<p>Becomes</p>
+<pre><code class="language-text">...
     LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
 
     &lt;IfModule logio_module&gt;
@@ -1338,30 +1338,45 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
 ...
 </code></pre>
 <p>Remember, deploy this file on all nodes.</p>
-<h3 id="configuration-of-sslconf">Configuration of ssl.conf</h3>
+<h3 id="configuration-of-sslconf">Configuration of <code>ssl.conf</code></h3>
 <p>We modify <code>/etc/httpd/conf.d/ssl.conf</code> on all nodes, backing up first,</p>
-<pre><code class="language-base">cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG</code></pre>
+</div>
+
 <p>The configuration of the <code>/etc/httpd/conf.d/ssl.conf</code> <strong>does</strong> change depending on the Stroom scenario deployed. In the following we will indicate
 differences by tagged sub-headings. If the configuration applies irrespective of scenario, then <strong>All scenarios</strong> is the tag, else the tag indicated the
 type of Stroom deployment.</p>
-<h4 id="sslconf-http-to-https-redirection---all-scenarios">ssl.conf: HTTP to HTTPS Redirection - All scenarios</h4>
+<h4 id="sslconf-http-to-https-redirection---all-scenarios"><code>ssl.conf</code>: HTTP to HTTPS Redirection - All scenarios</h4>
 <p>Before the <VirtualHost _default_:443> context we add http to https redirection by adding the directives (noting we specify the actual server name)</p>
-<pre><code>&lt;VirtualHost *:80&gt;
+<pre><code class="language-text">&lt;VirtualHost *:80&gt;
   ServerName stroomp00.strmdev00.org
   Redirect permanent &quot;/&quot; &quot;https://stroomp00.strmdev00.org/&quot;
 &lt;/VirtualHost&gt;
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 ## SSL Virtual Host Context
 ##
 
 &lt;VirtualHost _default_:443&gt;
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 ## SSL Virtual Host Context
 ##
 
@@ -1374,9 +1389,9 @@ type of Stroom deployment.</p>
 
 &lt;VirtualHost _default_:443&gt;
 </code></pre>
-<h4 id="sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</h4>
+<h4 id="sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</h4>
 <p>Within the <VirtualHost _default_:443> context we set the directives, in this case, we use the CNAME <code>stroomp.strmdev00.org</code></p>
-<pre><code>ServerName stroomp.strmdev00.org
+<pre><code class="language-text">ServerName stroomp.strmdev00.org
 JkMount /stroom* loadbalancer
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* loadbalancer_proxy
@@ -1385,7 +1400,7 @@ JkMount /stroom/datafeeddirect* loadbalancer
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -1396,8 +1411,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -1417,14 +1432,14 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<h4 id="sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment">ssl.conf: VirtualHost directives - Standalone or Forwarding Proxy deployment</h4>
+<h4 id="sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Standalone or Forwarding Proxy deployment</h4>
 <p>Within the <VirtualHost _default_:443> context set the directives, in this case, for a node named say <code>stroomfp0.strmdev00.org</code></p>
-<pre><code>ServerName stroomfp0.strmdev00.org
+<pre><code class="language-text">ServerName stroomfp0.strmdev00.org
 JkMount /stroom/datafeed* local_proxy
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -1435,8 +1450,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -1452,9 +1467,9 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<h4 id="sslconf-virtualhost-directives---single-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</h4>
+<h4 id="sslconf-virtualhost-directives---single-node-application-and-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</h4>
 <p>Within the <VirtualHost _default_:443> context set the directives, in this case, for a node name <code>stroomp00.strmdev00.org</code></p>
-<pre><code>ServerName stroomp00.strmdev00.org
+<pre><code class="language-text">ServerName stroomp00.strmdev00.org
 JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* local_proxy
@@ -1463,7 +1478,7 @@ JkMount /stroom/datafeeddirect* local
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -1474,8 +1489,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -1495,7 +1510,7 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<h4 id="sslconf-certificate-file-changes---all-scenarios">ssl.conf: Certificate file changes - All scenarios</h4>
+<h4 id="sslconf-certificate-file-changes---all-scenarios"><code>ssl.conf</code>: Certificate file changes - All scenarios</h4>
 <p>We replace the standard certificate files with the generated certificates. In the example below, we are using the multi node scenario, in
 that the key file names are <code>stroomp.crt</code> and <code>stroomp.key</code>. For other scenarios, use the appropriate file names generated. We replace</p>
 <pre><code>SSLCertificateFile /etc/pki/tls/certs/localhost.crt
@@ -1549,7 +1564,7 @@ SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 #   Point SSLCertificateChainFile at a file containing the
 ...
 </code></pre>
-<h4 id="sslconf-certificate-bundleno-ca-verification---all-scenarios">ssl.conf: Certificate Bundle/NO-CA Verification - All scenarios</h4>
+<h4 id="sslconf-certificate-bundleno-ca-verification---all-scenarios"><code>ssl.conf</code>: Certificate Bundle/NO-CA Verification - All scenarios</h4>
 <p>If you have signed your Stroom server certificate with a Certificate Authority, then change</p>
 <pre><code>SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
 </code></pre>
@@ -1589,7 +1604,7 @@ SSLVerifyClient optional_no_ca
 #   With SSLRequire you can do per-directory access control based
 ...
 </code></pre>
-<h4 id="sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy">ssl.conf: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</h4>
+<h4 id="sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy"><code>ssl.conf</code>: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</h4>
 <p>We now need to secure certain Stroom Application servlets, to ensure they are only accessed under appropriate control.</p>
 <p>This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost). We achieve this by adding after the example Location directives</p>
 <pre><code>&lt;Location ~ &quot;stroom/(status|echo|sessionList|debug)&quot; &gt;
@@ -1597,7 +1612,7 @@ SSLVerifyClient optional_no_ca
  Require ip 127.0.0.1 192.168.2
 &lt;/Location&gt;
 </code></pre>
-<p>We further restrict the clustercall and export servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.</p>
+<p>We further restrict the <code>clustercall</code> and <code>export</code> servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.</p>
 <pre><code>&lt;Location ~ &quot;stroom/export/|stroom/remoting/clustercall.rpc&quot; &gt;
  Require all denied
  Require ip 127.0.0.1 192.168.2
@@ -1639,7 +1654,7 @@ SSLVerifyClient optional_no_ca
 #   o FakeBasicAuth:
 ...
 </code></pre>
-<h4 id="sslconf-log-formats---all-scenarios">ssl.conf: Log formats - All scenarios</h4>
+<h4 id="sslconf-log-formats---all-scenarios"><code>ssl.conf</code>: Log formats - All scenarios</h4>
 <p>Finally, as we make use of the Black Box Apache log format, we replace the standard format</p>
 <pre><code>CustomLog logs/ssl_request_log \
         &quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&quot;%r\&quot; %b&quot;
@@ -1681,9 +1696,7 @@ CustomLog logs/ssl_request_log blackboxSSLUser
 The contents of these two configuration files differ depending on the Stroom deployment. The following provide the various deployment scenarios.</p>
 <h4 id="mod_jk-multi-node-application-and-proxy-deployment">Mod_JK Multi Node Application and Proxy Deployment</h4>
 <p>For a Stroom Multi node Application and Proxy server,</p>
-<ul>
-<li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
-</ul>
+<p>We configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</p>
 <pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
 printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
@@ -1709,10 +1722,8 @@ printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
 printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
 chmod 640 ${F}
 </code></pre>
-<ul>
-<li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
-</ul>
-<p>Since we are deploying for a cluster with load balancing, we need a <em>workers.properties</em> file per node. Executing the following will result in two files (<em>workers.properties.stroomp00</em> and <em>workers.properties.stroomp01</em>) which should be deployed to their respective servers.</p>
+<p>We configure <code>/etc/httpd/conf/workers.properties</code> as per</p>
+<p>Since we are deploying for a cluster with load balancing, we need a <code>workers.properties</code> file per node. Executing the following will result in two files (<code>workers.properties.stroomp00</code> and <code>workers.properties.stroomp01</code>) which should be deployed to their respective servers.</p>
 <pre><code class="language-bash">cd /tmp
 # Set the list of nodes
 Nodes=&quot;stroomp00.strmdev00.org stroomp01.strmdev00.org&quot;
@@ -1757,7 +1768,8 @@ for oN in ${Nodes}; do
   chmod 640 workers.properties.${_n}
 done
 </code></pre>
-<p>Now depending in the node you are on, copy the relevant workers.properties.nodename file to /etc/httpd/conf/workers.properties. The following command makes this simple.</p>
+<p>Now depending in the node you are on, copy the relevant <code>workers.properties.nodename</code> file to <code>/etc/httpd/conf/workers</code>.properties.
+The following command makes this simple.</p>
 <pre><code class="language-bash">cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
 </code></pre>
 <p>If you were to add an additional node to a multi node cluster, say the node <code>stroomp02.strmdev00.org</code>, then you would re-run the above script with</p>
@@ -1768,16 +1780,15 @@ take effect you will need to restart the Apache Httpd service on both nodes.</p>
 <p>Remember, in multi node cluster deployments, the following files are the same and hence can be created on one node, but copied to the
 others not forgetting to backup the other node&rsquo;s original files. That is, the files</p>
 <ul>
-<li>/var/www/html/index.html</li>
-<li>/etc/httpd/conf.d/mod_jk.conf</li>
-<li>/etc/httpd/conf/httpd.conf</li>
+<li><code>/var/www/html/index.html</code></li>
+<li><code>/etc/httpd/conf.d/mod_jk.conf</code></li>
+<li><code>/etc/httpd/conf/httpd.conf</code></li>
 </ul>
-<p>are to be the same on all nodes. Only the /etc/httpd/conf.d/ssl.conf and /etc/httpd/conf/workers.properties files change.</p>
+<p>Are to be the same on all nodes.
+Only the <code>/etc/httpd/conf.d/ssl.conf</code> and <code>/etc/httpd/conf/workers.properties</code> files change.</p>
 <h4 id="mod_jk-standalone-or-forwarding-stroom-proxy-deployment">Mod_JK Standalone or Forwarding Stroom Proxy Deployment</h4>
 <p>For a Stroom Standalone or Forwarding proxy,</p>
-<ul>
-<li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
-</ul>
+<p>We configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</p>
 <pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
 printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
@@ -1799,10 +1810,8 @@ printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
 printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
 chmod 640 ${F}
 </code></pre>
-<ul>
-<li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
-</ul>
-<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. stroomfp0).</p>
+<p>We configure <code>/etc/httpd/conf/workers.properties</code> as per</p>
+<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. <code>stroomfp0</code>).</p>
 <pre><code class="language-bash">N=stroomfp0
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -1819,9 +1828,7 @@ chmod 640 ${F}
 </code></pre>
 <h4 id="mod_jk-single-node-application-and-proxy-deployment">Mod_JK Single Node Application and Proxy Deployment</h4>
 <p>For a Stroom Single node Application and Proxy server,</p>
-<ul>
-<li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
-</ul>
+<p>We configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</p>
 <pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
 printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
@@ -1847,10 +1854,8 @@ printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
 printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
 chmod 640 ${F}
 </code></pre>
-<ul>
-<li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
-</ul>
-<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. stroomp00).</p>
+<p>We configure <code>/etc/httpd/conf/workers.properties</code> as per</p>
+<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. <code>stroomp00</code>).</p>
 <pre><code class="language-bash">N=stroomp00
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -1888,8 +1893,8 @@ firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
 firewall-cmd --zone=public --list-all
 </code></pre>
-<p>Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
-the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in <code>/var/log/httpd/</code>.</p>
+<p>Finally enable then start the httpd service, correcting any errors.
+It should be noted that on any errors, the suggestion of a <code>systemctl</code> status or viewing the journal are good, but also review information in the httpd error logs found in <code>/var/log/httpd/</code>.</p>
 <pre><code class="language-bash">systemctl enable httpd.service
 systemctl start httpd.service
 </code></pre>
@@ -1897,7 +1902,7 @@ systemctl start httpd.service
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 4, 2026: <a href="https://github.com/gchq/stroom-docs/commit/873e9cbde89370b3437b5de05505414e43108def">Merge pull request #120 from gchq/grammar (873e9cb)</a>
+  Last modified March 9, 2026: <a href="https://github.com/gchq/stroom-docs/commit/14b415aff83f127ae78a1d2c9aac5de1fe611ddf">Change build to only check spelling if script is present (14b415a)</a>
 </div>
 
 </div>

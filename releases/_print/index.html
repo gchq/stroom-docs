@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../"
     data-offline-search-max-results="50"
   >
@@ -4206,7 +4206,7 @@ parse-dateTime(string, pattern, timezone)
     <span>ISO8601</span>
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
-</span> standard date/time format or in a custom date/time format using the supplied pattern and optional timezone.</p>
+</span> standard date/time format or in a custom date/time format using the supplied pattern and optional time zone.</p>
 <p>For details of the pattern syntax see <a href="../../docs/reference-section/dates/#custom-date-formats">Custom Date Formats</a>.</p>
 <p>All forms of the function return an <code>xs:dateTime</code> value for use by standard XSLT/XPath functions that can consume an <code>xs:dateTime</code> value.</p>
 <h3 id="format-datetime"><code>format-dateTime(...)</code></h3>
@@ -4222,8 +4222,8 @@ If only one argument is supplied, the function will output the date/time as a st
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
   </a>
 </span> format <code>xs:string</code>.
-If two or more arguments are supplied then it will output the date/time formatted using the specified <a href="../../docs/reference-section/dates/#custom-date-formats">pattern</a> and optionally using the specified timezone.
-If no timezone is supplied, the date/time is assumed to be in <span class="glossary-link">
+If two or more arguments are supplied then it will output the date/time formatted using the specified <a href="../../docs/reference-section/dates/#custom-date-formats">pattern</a> and optionally using the specified <code>timezone</code>.
+If no <code>timezone</code> is supplied, the date/time is assumed to be in <span class="glossary-link">
   <a href="../../docs/glossary/#utc" title="Glossary entry for UTC">
     <span>UTC</span>
     <i class="glossary-link-icon fas fa-book fa-sm text-primary"></i>
@@ -6084,7 +6084,7 @@ They allow for a set of hashed short life keys to be placed in a directory acces
 One or more files of this format are placed in the directory defined by the Stroom-Proxy/Stroom config property <code>.receive.dataFeedKeysDir</code>.
 This allows for generating Data Feed Keys with a life of say 26hrs, adding a new file every day and deleting files older than 2 days.</p>
 <p>The file(s) will be read on boot and all hashed keys will be stored in memory for receipt authentication.
-Files added to this directory while Stoom-Proxy/Stroom is running will be read and added to the in-memory store of hashed keys.
+Files added to this directory while Stroom-Proxy/Stroom is running will be read and added to the in-memory store of hashed keys.
 Files deleted from this directory will result in all entries associated with the file path being removed from the in-memory store of hashed keys.</p>
 <p>The <code>accountId</code> is typically an identifier for a client team that may have one or more systems that require one or more Feeds in Stroom.
 This JSON key, which identifies the ownership of the Data Feed Key, is configured via the property <code>.receive.dataFeedKeyOwnerMetaKey</code>.</p>
@@ -22095,15 +22095,15 @@ The migration script files can be viewed at
 
 <h2 id="integrated-authentication">Integrated Authentication</h2>
 <p>The previously standalone (in v6) <em>stroom-auth-service</em> and <em>stroom-auth-ui</em> services have been integrated into the core <em>stroom</em> application.
-This simplifies the installation and configuration of stroom.</p>
+This simplifies the installation and configuration of Stroom.</p>
 <h2 id="configuration-properties-improvements">Configuration Properties Improvements</h2>
 <h3 id="configuration-is-now-provided-by-yaml-files-on-boot">Configuration is now provided by YAML files on boot</h3>
-<p>Previously <em>stroom</em> used a flat <code>.conf</code> file to manage the application configuration.
+<p>Previously <em>Stroom</em> used a flat <code>.conf</code> file to manage the application configuration.
 Application logging was configured either via a <code>.yml</code> file (in v6) or in an <code>.xml</code> file (in v5).
-Now <em>stroom</em> uses a single <code>.yml</code> file to configure the application and logging.
+Now <em>Stroom</em> uses a single <code>.yml</code> file to configure the application and logging.
 This file is different to the <code>.yml</code> files(s) used in the docker compose configuration.
 The YAML file provides a more logical hierarchical structure and support for typed values (longs, doubles, maps, lists, etc.).</p>
-<p>The YAML configuration is intended for configuration items that are either needed to bootstrap <em>stroom</em> or have values that are specific to a node.
+<p>The YAML configuration is intended for configuration items that are either needed to bootstrap <em>Stroom</em> or have values that are specific to a node.
 Cluster wide configuration properties are still stored in the database and managed via the UI.</p>
 <p>There has been a change to the precedence of the configuration properties held in different locations (YAML, database, default) and this is described in <a href="user-guide/properties.md">Properties</a>.</p>
 <h3 id="stroom-home-and-relative-paths">Stroom Home and relative paths</h3>
@@ -22127,7 +22127,7 @@ The validation rules are defined in the application code and allow for things li
 </ul>
 <p>Validation will be enforced on application boot or when a value is edited via the UI.</p>
 <h3 id="hot-loading-of-node-configuration">Hot Loading of Node Configuration</h3>
-<p>Now that node specific configuration is managed via the YAML configuration file <em>stroom</em> will detect changes to this file and update the configuration properties accordingly.
+<p>Now that node specific configuration is managed via the YAML configuration file <em>Stroom</em> will detect changes to this file and update the configuration properties accordingly.
 Some properties however do not support being changed at runtime so will still require either the whole system or the UI nodes to be restarted.</p>
 <h2 id="data-retention-impact-summary">Data retention impact summary</h2>
 <p>The <em>Data_Retention</em> screen now provides an <em>Impact Summary</em> tab that will show you a summary of what will be deleted by the current active rules.
@@ -22141,13 +22141,13 @@ It has also been added to some text input fields with suggestion fields, e.g. <e
 This makes finding values or rows in a table faster and more precise.</p>
 <p>See <a href="user-guide/finding-things/finding-things.md">Finding Things</a> for more details.</p>
 <h2 id="new-off-heap-memory-efficient-reference-data">New (off-heap) memory efficient reference data</h2>
-<p>The reference data feature in previous versions of <em>stroom</em> loaded the reference data on demand and held it in Java&rsquo;s heap memory.
+<p>The reference data feature in previous versions of <em>Stroom</em> loaded the reference data on demand and held it in Java&rsquo;s heap memory.
 In large systems or in pipelines doing reference data lookups across a wide time range this can lead to very large heap sizes.</p>
-<p>In v7 <em>stroom</em> now uses an off-heap, disk backed store (<a href="http://www.lmdb.tech/doc/">LMDB</a>) for the reference data.
+<p>In v7 <em>Stroom</em> now uses an off-heap, disk backed store (<a href="http://www.lmdb.tech/doc/">LMDB</a>) for the reference data.
 This removes all reference data (with the exception of context lookups) from the Java heap, so the <code>-Xmx</code> value can be reduced.
 In large systems this can mean keeping your <code>-Xmx</code> value below the 32Gb threshold to further reduce the memory usage.
 Because the store is disk backed frequently used reference data can be kept in the store to reduce the loading overhead.
-As the reference data is held off-heap, <em>stroom</em> can make use of all available free RAM for the reference data.</p>
+As the reference data is held off-heap, <em>Stroom</em> can make use of all available free RAM for the reference data.</p>
 <p>See <a href="user-guide/pipelines/reference-data.md">Reference Data</a></p>
 <h3 id="reference-data-api">Reference Data API</h3>
 <p>A RESTful API has been added for the reference data store.
@@ -22216,7 +22216,7 @@ This view provides navigation controls to define the range of data being display
 <h3 id="new-kafka-configuration-entity">New Kafka Configuration Entity</h3>
 <p>Integration with Apache Kafka was introduced in v6 however the way the connection to Kafka cluster(s) is configured has been improved.
 We have introduced a new entity type called <em>Kafka Configuration</em> that can be created/managed via the explorer tree.
-This means <em>stroom</em> can integrate with many Kafka clusters or connect to a cluster using different sets of Kafka Configuration properties.
+This means <em>Stroom</em> can integrate with many Kafka clusters or connect to a cluster using different sets of Kafka Configuration properties.
 The Kafka Configuration entity provides an editor for setting all the Kafka specific configuration properties.
 Pipeline elements that use Kafka now provide a means to select the Kafka Configuration to use.</p>
 
@@ -22251,18 +22251,18 @@ This allows for complete control of things like timestamps, topics, keys, values
 
 <h2 id="improved-rest-api">Improved REST API</h2>
 <h3 id="a-rich-rest-api-for-all-ui-accessible-functions">A rich REST API for all UI accessible functions</h3>
-<p>The architecture of the <em>stroom</em> UI has been changed such that all communication between the UI and the back end is via REST calls.
-This means all of these REST calls are available as an API for users of <em>stroom</em> to take advantage of.
-It opens up the possibility for interacting with <em>stoom</em> via scripts or from other applications.</p>
+<p>The architecture of the <em>Stroom</em> UI has been changed such that all communication between the UI and the back end is via REST calls.
+This means all of these REST calls are available as an API for users of <em>Stroom</em> to take advantage of.
+It opens up the possibility for interacting with <em>Stroom</em> via scripts or from other applications.</p>
 <h3 id="swagger-ui-to-document-rest-api-methods">Swagger UI to document REST API methods</h3>
-<p>The Swagger UI and specification file have been improved to include all of the API methods available in stroom.</p>
+<p>The Swagger UI and specification file have been improved to include all of the API methods available in Stroom.</p>
 <h2 id="improved-architecture-with-separate-modules-with-individual-db-access-to-spread-load">Improved architecture with separate modules with individual DB access to spread load.</h2>
-<p>The architecture of the core stroom application has been fundamentally changed in v7 to internally break up the application into its functional areas.
+<p>The architecture of the core Stroom application has been fundamentally changed in v7 to internally break up the application into its functional areas.
 This separation makes for a more logical code base and allows for the possibility of each functional area having its own database instance, if required.</p>
 <h2 id="java-12">Java 12</h2>
-<p><em>stroom</em> v7 now runs on the Java 12 JVM.</p>
+<p><em>Stroom</em> v7 now runs on the Java 12 JVM.</p>
 <h2 id="mysql-8-support">MySQL 8 support.</h2>
-<p><em>stroom</em> v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.</p>
+<p><em>Stroom</em> v7 has been changed to support MySQL v8, opening up the possibility of using features like group replication.</p>
 
 </div>
 

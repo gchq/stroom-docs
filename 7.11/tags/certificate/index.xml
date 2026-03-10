@@ -29,13 +29,13 @@
 &lt;li&gt;the user has reasonable RHEL/Centos System administration skills&lt;/li&gt;
 &lt;li&gt;installations are on Centos 7.3 minimal systems (fully patched)&lt;/li&gt;
 &lt;li&gt;either a Stroom Proxy or Stroom Application has already been deployed&lt;/li&gt;
-&lt;li&gt;processing node names are &amp;lsquo;stroomp00.strmdev00.org&amp;rsquo; and &amp;lsquo;stroomp01.strmdev00.org&amp;rsquo;&lt;/li&gt;
-&lt;li&gt;the first node, &amp;lsquo;stroomp00.strmdev00.org&amp;rsquo; also has a CNAME &amp;lsquo;stroomp.strmdev00.org&amp;rsquo;&lt;/li&gt;
-&lt;li&gt;in the scenario of a Stroom Forwarding Proxy, the node name is &amp;lsquo;stroomfp0.strmdev00.org&amp;rsquo;&lt;/li&gt;
-&lt;li&gt;in the scenario of a Stroom Standalone Proxy, the node name is &amp;lsquo;stroomsap0.strmdev00.org&amp;rsquo;&lt;/li&gt;
-&lt;li&gt;stroom runs as user &amp;lsquo;stroomuser&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;processing node names are &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; and &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;the first node, &lt;code&gt;stroomp00.strmdev00.org&lt;/code&gt; also has a CNAME &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;in the scenario of a Stroom Forwarding Proxy, the node name is &lt;code&gt;stroomfp0.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;in the scenario of a Stroom Standalone Proxy, the node name is &lt;code&gt;stroomsap0.strmdev00.org&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;stroom runs as user &lt;code&gt;stroomuser&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments&lt;/li&gt;
-&lt;li&gt;in this document, when a screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
+&lt;li&gt;in this document, when a screen capture is documented, data entry is identified by the data surrounded by &lt;code&gt;&amp;lt;__&lt;/code&gt; &lt;code&gt;__&amp;gt;&lt;/code&gt; . This excludes enter/return presses.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;create-certificates&#34;&gt;Create certificates&lt;/h2&gt;
 &lt;p&gt;The first step is to establish a self signed certificate for our Stroom service. If you have a certificate server, then certainly gain an
@@ -108,7 +108,7 @@ Getting Private key
 Enter pass phrase for private/stroomp.key: &amp;lt;__ENTER_SERVER_KEY_PASSWORD__&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and noting the &lt;code&gt;subject&lt;/code&gt; will change depending on the host name used when generating the signing request.&lt;/p&gt;
-&lt;p&gt;Create insecure version of private key for Apache autoboot (you will again need to enter the server key password)&lt;/p&gt;
+&lt;p&gt;Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;openssl rsa -in private/$H.key -out private/$H.key.insecure
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;as per&lt;/p&gt;
@@ -122,14 +122,14 @@ mv private/$H.key.insecure private/$H.key
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We have now completed the creation of our certificates and keys.&lt;/p&gt;
 &lt;h3 id=&#34;replication-of-keys-directory-to-other-nodes&#34;&gt;Replication of Keys Directory to other nodes&lt;/h3&gt;
-&lt;p&gt;If you are deploying a multi node Stroom cluster, then you would replicate the directory ~stroomuser/stroom-jks to each node in the cluster. That is,
-tar it up, copy the tar file to the other node(s) then untar it. We can make use of the other node&amp;rsquo;s mounted file system for this process.
+&lt;p&gt;If you are deploying a multi node Stroom cluster, then you would replicate the directory &lt;code&gt;~/stroomuser/stroom-jks&lt;/code&gt; to each node in the cluster. That is,
+tar it up, copy the tar file to the other node(s) then &lt;code&gt;untar&lt;/code&gt; it. We can make use of the other node&amp;rsquo;s mounted file system for this process.
 That is one could execute the commands on the first node, where we created the certificates&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
 mv stroom-jks.tar /stroomdata/stroom-data-p01
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;then on the another node, say &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;, as the stroomuser we extract the data.&lt;/p&gt;
+&lt;p&gt;Then on the another node, say &lt;code&gt;stroomp01.strmdev00.org&lt;/code&gt;, as the stroomuser we extract the data.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo -i -u stroomuser
 cd ~stroomuser
 tar xf /stroomdata/stroom-data-p01/stroom-jks.tar &amp;amp;&amp;amp; rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
@@ -150,7 +150,7 @@ proxy. Lets say it is &lt;code&gt;stroomfp0&lt;/code&gt; thus we would set&lt;/p
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;and then proceed as &lt;a href=&#34;#use-host-variable&#34;&gt;above&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
-the central Stroom proxy is the &lt;em&gt;stroomp.strmdev00.org&lt;/em&gt; server and its public key is stored in the file &lt;code&gt;stroomp.crt&lt;/code&gt;. We will store
+the central Stroom proxy is the &lt;code&gt;stroomp.strmdev00.org&lt;/code&gt; server and its public key is stored in the file &lt;code&gt;stroomp.crt&lt;/code&gt;. We will store
 this file on the forwarding proxy in &lt;code&gt;~stroomuser/stroom-jks/public/stroomp.crt&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;So once you have created the forwarding proxy server&amp;rsquo;s SSL keys and have deployed the central proxy&amp;rsquo;s public key, we next
 need to convert the proxy server&amp;rsquo;s SSL keys into DER format. This is done by executing the following.&lt;/p&gt;
@@ -167,27 +167,27 @@ openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Convert the local server&#39;s Private key
 openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;as per&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Enter pass phrase for private/stroomfp0.key.secure: &amp;lt;__ENTER_SERVER_KEY_PASSWORD__&amp;gt;
+&lt;p&gt;As per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Enter pass phrase for private/stroomfp0.key.secure: &amp;lt;__ENTER_SERVER_KEY_PASSWORD__&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it&amp;rsquo;s found with the command&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;find ~stroomuser/*proxy -name &#39;stroom*util*.jar&#39; -print | head -1
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;which should return &lt;em&gt;/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar&lt;/em&gt; or similar depending on the release version.
+&lt;p&gt;Which should return &lt;em&gt;/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar&lt;/em&gt; or similar depending on the release version.
 To make execution simpler, we set this as a shell variable as per&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Stroom_UTIL_JAR=`find ~/*proxy -name &#39;stroom*util*.jar&#39; -print | head -1`
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now create the keystore and import the proxy&amp;rsquo;s server key&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;as per&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;One certificate, no chain
+&lt;p&gt;As per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;One certificate, no chain
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now import the destination server&amp;rsquo;s public key&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;as per&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Certificate was added to keystore
+&lt;p&gt;As per&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Certificate was added to keystore
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We now add the key and trust store location and password arguments to our Stroom proxy environment files.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;PWD=`pwd`

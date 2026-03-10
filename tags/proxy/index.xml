@@ -789,15 +789,15 @@ This is to support applications that want to log events directly to Stroom-Proxy
 &lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
 &lt;p&gt;The following assumptions are used in this document.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;the user has reasonable RHEL/Centos System administration skills.&lt;/li&gt;
-&lt;li&gt;installation is on a fully patched minimal Centos 7.3 instance.&lt;/li&gt;
-&lt;li&gt;the Stroom database has been created and resides on the host &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt; listening on port 3307.&lt;/li&gt;
-&lt;li&gt;the Stroom database user is &lt;code&gt;stroomuser&lt;/code&gt; with a password of &lt;code&gt;Stroompassword1@&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;the application user &lt;code&gt;stroomuser&lt;/code&gt; has been created.&lt;/li&gt;
-&lt;li&gt;the user is or has deployed the two node Stroom cluster described &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;the user has set up the Stroom processing user as described &lt;a href=&#34;../../docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;the prerequisite software has been installed.&lt;/li&gt;
-&lt;li&gt;when a screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
+&lt;li&gt;The user has reasonable RHEL/Centos System administration skills.&lt;/li&gt;
+&lt;li&gt;Installation is on a fully patched minimal Centos 7.3 instance.&lt;/li&gt;
+&lt;li&gt;The Stroom database has been created and resides on the host &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt; listening on port 3307.&lt;/li&gt;
+&lt;li&gt;The Stroom database user is &lt;code&gt;stroomuser&lt;/code&gt; with a password of &lt;code&gt;Stroompassword1@&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The application user &lt;code&gt;stroomuser&lt;/code&gt; has been created.&lt;/li&gt;
+&lt;li&gt;The user is or has deployed the two node Stroom cluster described &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The user has set up the Stroom processing user as described &lt;a href=&#34;../../docs/howtos/install/installprocessingusersetuphowto/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The prerequisite software has been installed.&lt;/li&gt;
+&lt;li&gt;When a screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;confirm-prerequisite-software-installation&#34;&gt;Confirm Prerequisite Software Installation&lt;/h2&gt;
 &lt;p&gt;The following command will ensure the prerequisite software has been deployed&lt;/p&gt;
@@ -817,20 +817,19 @@ unzip stroom-proxy-distribution-${Prx}.zip
 &lt;h2 id=&#34;configure-the-software&#34;&gt;Configure the Software&lt;/h2&gt;
 &lt;p&gt;There are three different types of Stroom Proxy&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Store&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Store&lt;/em&gt; - A &lt;em&gt;store&lt;/em&gt; proxy accepts batches of events, as files. It will validate the batch with the database then store the batches as files in a configured directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Store_No_DB&lt;/em&gt; - A &lt;em&gt;store_no_DB&lt;/em&gt; proxy accepts batches of events, as files. It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Forwarding&lt;/em&gt; - A &lt;em&gt;forwarding&lt;/em&gt; proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;A &lt;em&gt;store&lt;/em&gt; proxy accepts batches of events, as files. It will validate the batch with the database then store the batches as files in a configured directory.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Store_NoDB&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A &lt;em&gt;store_nodb&lt;/em&gt; proxy accepts batches of events, as files. It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Forwarding&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A &lt;em&gt;forwarding&lt;/em&gt; proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.&lt;/p&gt;
 &lt;p&gt;We will demonstrate the installation of each.&lt;/p&gt;
 &lt;h3 id=&#34;store-proxy-configuration&#34;&gt;Store Proxy Configuration&lt;/h3&gt;
-&lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario. That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (stroomp00, stroomp01) and we have configured our storage as per the &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
+&lt;p&gt;In our &lt;em&gt;Store&lt;/em&gt; Proxy description below, we will use the multi node deployment scenario. That is we are deploying the &lt;em&gt;Store&lt;/em&gt; proxy on multiple Stroom nodes (&lt;code&gt;stroomp00&lt;/code&gt;, &lt;code&gt;stroomp01&lt;/code&gt;) and we have configured our storage as per the &lt;a href=&#34;../../docs/howtos/install/installhowto/#storage-scenario&#34;&gt;Storage Scenario&lt;/a&gt; which means the directories to install the inbound batches of data are &lt;code&gt;/stroomdata/stroom-working-p00/proxy&lt;/code&gt; and &lt;code&gt;/stroomdata/stroom-working-p01/proxy&lt;/code&gt; depending on the node.&lt;/p&gt;
 &lt;p&gt;To install a &lt;em&gt;Store&lt;/em&gt; proxy, we run&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store
 &lt;/code&gt;&lt;/pre&gt;
@@ -863,11 +862,11 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.&lt;/p&gt;
 &lt;h3 id=&#34;store-no-database-proxy-configuration&#34;&gt;Store No Database Proxy Configuration&lt;/h3&gt;
-&lt;p&gt;In our &lt;em&gt;Store_NoDB&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomsap0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-sap0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.&lt;/p&gt;
-&lt;p&gt;To install a &lt;em&gt;Store_NoDB&lt;/em&gt; proxy, we run&lt;/p&gt;
+&lt;p&gt;In our &lt;em&gt;Store_No_DB&lt;/em&gt; Proxy description below, we will deploy on a host named &lt;code&gt;stroomsap0&lt;/code&gt; and it will store the files in &lt;code&gt;/stroomdata/stroom-working-sap0/proxy&lt;/code&gt;. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.&lt;/p&gt;
+&lt;p&gt;To install a &lt;em&gt;Store_No_DB&lt;/em&gt; proxy, we run&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/setup.sh store_nodb
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;during which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
+&lt;p&gt;During which one is prompted for a number of configuration settings. Use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;NODE to be the hostname (not FQDN) of your host (i.e. &#39;stroomsap0&#39; in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to &#39;/stroomdata/stroom-working-sap0/proxy&#39; which we created earlier.
@@ -876,13 +875,13 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;At this point, the script will configure the proxy. There should be no errors, but review the output.&lt;/p&gt;
 &lt;h2 id=&#34;apachemod_jk-change&#34;&gt;Apache/Mod_JK change&lt;/h2&gt;
-&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K packetSize. View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a packetSize attribute of &lt;code&gt;65536&lt;/code&gt;. For example,&lt;/p&gt;
+&lt;p&gt;For all proxy deployments, if we are using Apache&amp;rsquo;s mod_jk then we need to ensure the proxy&amp;rsquo;s AJP connector specifies a 64K &lt;code&gt;packetSize&lt;/code&gt;. View the file &lt;code&gt;stroom-proxy/instance/conf/server.xml&lt;/code&gt; to ensure the Connector element for the AJP protocol has a &lt;code&gt;packetSize&lt;/code&gt; attribute of &lt;code&gt;65536&lt;/code&gt;. For example,&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;grep AJP stroom-proxy/instance/conf/server.xml
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;shows&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;Connector port=&amp;quot;9009&amp;quot; protocol=&amp;quot;AJP/1.3&amp;quot; connectionTimeout=&amp;quot;20000&amp;quot; redirectPort=&amp;quot;8443&amp;quot; maxThreads=&amp;quot;200&amp;quot; packetSize=&amp;quot;65536&amp;quot; /&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This check is required for earlier releases of the Stroom Proxy. Releases since &lt;code&gt;v5.1-beta.4&lt;/code&gt; have set the AJP packetSize.&lt;/p&gt;
+&lt;p&gt;This check is required for earlier releases of the Stroom Proxy. Releases since &lt;code&gt;v5.1-beta.4&lt;/code&gt; have set the AJP &lt;code&gt;packetSize&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;start-the-proxy-service&#34;&gt;Start the Proxy Service&lt;/h2&gt;
 &lt;p&gt;We can now manually start our proxy service. Do so as the &lt;code&gt;stroomuser&lt;/code&gt; with the command&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;stroom-proxy/bin/start.sh
@@ -950,35 +949,35 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;year&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;year&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;four digit year&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;month&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;month&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;two digit month&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;day&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;day&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;two digit day&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;hour&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;hour&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;two digit hour&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;minute&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;minute&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;two digit minute&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;second&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;second&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;two digit second&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;millis&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;millis&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;three digit milliseconds value&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;ms&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ms&lt;/code&gt;&lt;/td&gt;
 &lt;td style=&#34;text-align:left&#34;&gt;milliseconds since Epoch value&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
@@ -1042,7 +1041,7 @@ The default template is &lt;code&gt;${pathId}/${id}&lt;/code&gt; and this patter
 /stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
 [stroomuser@stroomsap0 ~]$ 
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and one would also see a warning for each post in the proxy&amp;rsquo;s log file of the form&lt;/p&gt;
+&lt;p&gt;And one would also see a warning for each post in the proxy&amp;rsquo;s log file of the form&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -1112,10 +1111,11 @@ See &lt;a href=&#34;../../docs/install-guide/configuration/stroom-and-proxy/comm
 &lt;p&gt;As a result the &lt;code&gt;config.yml&lt;/code&gt; shipped with Stroom Proxy only contains a minimal set of properties.
 The full tree of properties can be seen in &lt;code&gt;./config/config-defaults.yml&lt;/code&gt; and a schema for the configuration tree (along with descriptions for each property) can be found in &lt;code&gt;./config/config-schema.yml&lt;/code&gt;.
 These two files can be used as a reference when configuring stroom.&lt;/p&gt;
-&lt;p&gt;In the snippets of YAML configuration below, the defaultsections&lt;/p&gt;
+&lt;p&gt;In the snippets of YAML configuration below, the default sections&lt;/p&gt;
 &lt;h3 id=&#34;basic-structure&#34;&gt;Basic Structure&lt;/h3&gt;
-&lt;p&gt;Stroom-proxy has a number of &lt;a href=&#34;../../docs/proxy/proxy-functions/&#34;&gt;key functions&lt;/a&gt; which are all configured via its YAML configuration file.&lt;/p&gt;
-&lt;p&gt;Each branch of the this YAML is explained in more detail below.&lt;/p&gt;
+&lt;p&gt;Stroom-Proxy has a number of &lt;a href=&#34;../../docs/proxy/proxy-functions/&#34;&gt;key functions&lt;/a&gt; which are all configured via its YAML configuration file.&lt;/p&gt;
+&lt;p&gt;The following YAML shows the high level structure of the Stroom-Proxy configuration file.
+Each branch of the this YAML is explained in more detail below.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;proxyConfig:
 
   # This should be set to a value that is unique within your Stroom/Stroom-Proxy estate.

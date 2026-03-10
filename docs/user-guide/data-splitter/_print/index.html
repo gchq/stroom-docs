@@ -38,7 +38,8 @@
 <link rel="icon" type="image/png" href="../../../../favicons/android-192x192.png" sizes="192x192">
 
 <title>Data Splitter | Stroom</title>
-<meta name="description" content="Data Splitter was created to transform text into XML. The XML produced is basic but can be processed further with XSLT to form any desired XML output. …">
+<meta name="description" content="Data Splitter was created to transform text into XML.
+The XML produced is basic but can be processed further with XSLT to form any desired XML output. …">
 <meta property="og:title" content="Data Splitter" />
 <meta property="og:description" content="Stroom documentation, release notes, news and open source community information" />
 <meta property="og:type" content="website" />
@@ -145,7 +146,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -328,10 +329,16 @@ This is the multi-page printable view of this section.
 
 
 <div class="content">
-      <p>Data Splitter was created to transform text into XML. The XML produced is basic but can be processed further with XSLT to form any desired XML output.</p>
-<p>Data Splitter works by using regular expressions to match a region of content or tokenizers to split content. The whole match or match group can then be output or passed to other expressions to further divide the matched data.</p>
-<p>The root <code>&lt;dataSplitter&gt;</code> element controls the way content is read and buffered from the source. It then passes this content on to one or more child expressions that attempt to match the content. The child expressions attempt to match content one at a time in the order they are specified until one matches. The matching expression then passes the content that it has matched to other elements that either emit XML or apply other expressions to the content matched by the parent.</p>
-<p>This process of content supply, match, (supply, match)*, emit is best illustrated in a simple CSV example. Note that the elements and attributes used in all examples are explained in detail in the <a href="../../../../docs/user-guide/data-splitter/element-reference/">element reference</a>.</p>
+      <p>Data Splitter was created to transform text into XML.
+The XML produced is basic but can be processed further with XSLT to form any desired XML output.</p>
+<p>Data Splitter works by using regular expressions to match a region of content or tokenisers to split content.
+The whole match or match group can then be output or passed to other expressions to further divide the matched data.</p>
+<p>The root <code>&lt;dataSplitter&gt;</code> element controls the way content is read and buffered from the source.
+It then passes this content on to one or more child expressions that attempt to match the content.
+The child expressions attempt to match content one at a time in the order they are specified until one matches.
+The matching expression then passes the content that it has matched to other elements that either emit XML or apply other expressions to the content matched by the parent.</p>
+<p>This process of content supply, match, (supply, match)*, emit is best illustrated in a simple CSV example.
+Note that the elements and attributes used in all examples are explained in detail in the <a href="../../../../docs/user-guide/data-splitter/element-reference/">element reference</a>.</p>
 
 </div>
 </div>
@@ -375,8 +382,8 @@ This is the multi-page printable view of this section.
 
 &lt;/dataSplitter&gt;
 </code></pre>
-<p>In the above example the ‘split’ tokenizer matches all of the supplied content up to the end of each line ready to pass each line of content on for further treatment.</p>
-<p>We can now add a <code>&lt;group&gt;</code> element within <code>&lt;split&gt;</code> to take content matched by the tokenizer.</p>
+<p>In the above example the ‘split’ tokeniser matches all of the supplied content up to the end of each line ready to pass each line of content on for further treatment.</p>
+<p>We can now add a <code>&lt;group&gt;</code> element within <code>&lt;split&gt;</code> to take content matched by the tokeniser.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;dataSplitter
     xmlns=&quot;data-splitter:3&quot;
@@ -603,7 +610,7 @@ This is the multi-page printable view of this section.
     
   <h1 id="pg-ff24c916ea4c1a7259cebebc39a4f0cd">3 - Complex example with regex and user defined names</h1>
     
-	<p>The following example uses a real world Apache log and demonstrates the use of regular expressions rather than simple &lsquo;split&rsquo; tokenizers. The usage and structure of regular expressions is outside of the scope of this document but Data Splitter uses Java&rsquo;s standard regular expression library that is POSIX compliant and documented in numerous places.</p>
+	<p>The following example uses a real world Apache log and demonstrates the use of regular expressions rather than simple &lsquo;split&rsquo; tokenisers. The usage and structure of regular expressions is outside of the scope of this document but Data Splitter uses Java&rsquo;s standard regular expression library that is POSIX compliant and documented in numerous places.</p>
 <p>This example also demonstrates that the names and values that are output can be hard coded in the absence of field name information to make XSLT conversion easier later on. Also shown is that any match can be divided into further fields with additional expressions and the ability to nest data elements to provide structure if needed.</p>
 <h2 id="input">Input</h2>
 <pre><code class="language-text">192.168.1.100 - &quot;-&quot; [12/Jul/2012:11:57:07 +0000] &quot;GET /doc.htm HTTP/1.1&quot; 200 4235 &quot;-&quot; &quot;Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)&quot;

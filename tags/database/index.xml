@@ -131,7 +131,7 @@ This may be desirable if you have for instance, a replication-enabled MySQL Inno
 &lt;div class=&#34;alert alert-warning&#34; role=&#34;alert&#34;&gt;
 &lt;h4 class=&#34;alert-heading&#34;&gt;TODO&lt;/h4&gt;
 
-    Complete this secion.
+    Complete this section.
 
 &lt;/div&gt;
 
@@ -212,9 +212,9 @@ This is a necessary safeguard to prevent database connectivity from being lost.&
 &lt;h2 id=&#34;assumptions&#34;&gt;Assumptions&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;we are installing the MariaDB or MySQL Community RDBMS software.&lt;/li&gt;
-&lt;li&gt;the primary database node is &amp;lsquo;stroomdb0.strmdev00.org&amp;rsquo;.&lt;/li&gt;
+&lt;li&gt;the primary database node is &lt;code&gt;stroomdb0.strmdev00.org&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;installation is on a fully patched minimal Centos 7.3 instance.&lt;/li&gt;
-&lt;li&gt;we are installing BOTH databases (&lt;code&gt;stroom&lt;/code&gt; and &lt;code&gt;statistics&lt;/code&gt;) on the same node - &amp;lsquo;stroomdb0.stromdev00.org&amp;rsquo; but with two distinct database engines. The first database will communicate on port &lt;code&gt;3307&lt;/code&gt; and the second on &lt;code&gt;3308&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;we are installing BOTH databases (&lt;code&gt;stroom&lt;/code&gt; and &lt;code&gt;statistics&lt;/code&gt;) on the same node - &lt;code&gt;stroomdb0.stroomdev00.org&lt;/code&gt; but with two distinct database engines. The first database will communicate on port &lt;code&gt;3307&lt;/code&gt; and the second on &lt;code&gt;3308&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;we are deploying with SELinux in enforcing mode.&lt;/li&gt;
 &lt;li&gt;any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems.&lt;/li&gt;
 &lt;li&gt;in this document, when a textual screen capture is documented, data entry is identified by the data surrounded by &amp;lsquo;&amp;lt;&lt;strong&gt;&amp;rsquo; &amp;lsquo;&lt;/strong&gt;&amp;gt;&amp;rsquo; . This excludes enter/return presses.&lt;/li&gt;
@@ -273,7 +273,7 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ...
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;to become&lt;/p&gt;
+&lt;p&gt;To become&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;...
 # Enable to use MySQL 5.6
 [mysql56-community]
@@ -730,7 +730,7 @@ To do so, log onto the relevant database as the administrative user as per&lt;/p
 or
 mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and at the &lt;code&gt;MariaDB [(none)]&amp;gt; &lt;/code&gt; prompt enter&lt;/p&gt;
+&lt;p&gt;And at the &lt;code&gt;MariaDB [(none)]&amp;gt; &lt;/code&gt; prompt enter&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;install plugin server_audit SONAME &#39;server_audit&#39;;
 set global server_audit_file_path=&#39;/var/log/mariadb/mysqld-mysqld0_server_audit.log&#39;;
 or
@@ -749,10 +749,10 @@ quit;
 &lt;p&gt;If you wish to rotate a log file manually, log into the database as the administrative user and execute either&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;set global server_audit_file_rotate_now=1;&lt;/code&gt; to rotate the audit log file&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;set global sql_error_log_rotate=1;&lt;/code&gt; to rotate the sql_errlog log file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;set global sql_error_log_rotate=1;&lt;/code&gt; to rotate the &lt;code&gt;sql_errlog&lt;/code&gt; log file&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;initial-database-access&#34;&gt;Initial Database Access&lt;/h3&gt;
-&lt;p&gt;It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, its initial access to the &lt;code&gt;stroom&lt;/code&gt; database will result in the following attempted sql statements.&lt;/p&gt;
+&lt;p&gt;It should be noted that if you monitor the &lt;code&gt;sql_errors.log&lt;/code&gt; log file on a new Stroom deployment, when the Stroom Application first starts, its initial access to the &lt;code&gt;stroom&lt;/code&gt; database will result in the following attempted SQL statements.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.schema_version&#39; doesn&#39;t exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.STROOM_VER&#39; doesn&#39;t exist : SELECT VER_MAJ, VER_MIN, VER_PAT FROM STROOM_VER ORDER BY VER_MAJ DESC, VER_MIN DESC, VER_PAT DESC LIMIT 1
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table &#39;stroom.FD&#39; doesn&#39;t exist : SELECT ID FROM FD LIMIT 1

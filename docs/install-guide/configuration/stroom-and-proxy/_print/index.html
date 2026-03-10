@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../../"
     data-offline-search-max-results="50"
   >
@@ -471,6 +471,11 @@ For details of how different types are represented in the YAML and the UI, see <
     # Files in sub-directory will be ignored.
     dataFeedKeysDir: &quot;data_feed_keys&quot;
     # The types of authentication that are enabled for data receipt.
+    # One or more of 
+    # TOKEN - A Stroom API Key or an OAuth token in the 'Authorization' header
+    # CERTIFICATE - An X509 certificate on the request or a DN in the header configured
+    #               by .receive.x509CertificateDnHeader
+    # DATA_FEED_KEY - A Stroom Data Feed Key in the 'Authorization' header
     enabledAuthenticationTypes:
     - &quot;TOKEN&quot;
     - &quot;CERTIFICATE&quot;
@@ -1148,7 +1153,7 @@ Typically stroom is configured to keep it statistics data in a separate database
 </code></pre>
 <p>In a clustered deployment each node must be given a node name that is unique within the cluster.
 This is used to identify nodes in the Nodes screen.
-It could be the hostname of the node or follow some other naming convetion.</p>
+It could be the hostname of the node or follow some other naming convention.</p>
 <pre><code class="language-yaml">  node:
     name: &quot;node1a&quot;
 </code></pre>
@@ -1285,10 +1290,11 @@ See <a href="../../../../../docs/install-guide/configuration/stroom-and-proxy/co
 <p>As a result the <code>config.yml</code> shipped with Stroom Proxy only contains a minimal set of properties.
 The full tree of properties can be seen in <code>./config/config-defaults.yml</code> and a schema for the configuration tree (along with descriptions for each property) can be found in <code>./config/config-schema.yml</code>.
 These two files can be used as a reference when configuring stroom.</p>
-<p>In the snippets of YAML configuration below, the defaultsections</p>
+<p>In the snippets of YAML configuration below, the default sections</p>
 <h3 id="basic-structure">Basic Structure</h3>
-<p>Stroom-proxy has a number of <a href="../../../../../docs/proxy/proxy-functions/">key functions</a> which are all configured via its YAML configuration file.</p>
-<p>Each branch of the this YAML is explained in more detail below.</p>
+<p>Stroom-Proxy has a number of <a href="../../../../../docs/proxy/proxy-functions/">key functions</a> which are all configured via its YAML configuration file.</p>
+<p>The following YAML shows the high level structure of the Stroom-Proxy configuration file.
+Each branch of the this YAML is explained in more detail below.</p>
 <pre><code class="language-yaml">proxyConfig:
 
   # This should be set to a value that is unique within your Stroom/Stroom-Proxy estate.

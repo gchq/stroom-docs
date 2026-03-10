@@ -149,7 +149,7 @@
     aria-label="Search this site…"
     autocomplete="off"
     
-    data-offline-search-index-json-src="../../../../offline-search-index.275abf226578ae319307f6a17187c455.json"
+    data-offline-search-index-json-src="../../../../offline-search-index.0a005bba63f0fad58d724ce154f84187.json"
     data-offline-search-base-href="../../../../"
     data-offline-search-max-results="50"
   >
@@ -314,23 +314,23 @@ This is the multi-page printable view of this section.
 	<h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
-<li>the user has reasonable RHEL/Centos System administration skills</li>
-<li>installations are on Centos 7.3 minimal systems (fully patched)</li>
-<li>the security of the HTTPD deployment should be reviewed for a production environment.</li>
+<li>The user has reasonable RHEL/Centos System administration skills</li>
+<li>Installations are on Centos 7.3 minimal systems (fully patched)</li>
+<li>The security of the HTTPD deployment should be reviewed for a production environment.</li>
 </ul>
 <h2 id="installation-of-apache-httpd-and-mod_jk-software">Installation of Apache httpd and Mod_JK Software</h2>
 <p>To deploy Stroom using Apache&rsquo;s httpd web service as a front end (https) and Apache&rsquo;s mod_jk as the interface between Apache and the Stroom tomcat applications, we also need</p>
 <ul>
-<li>apr</li>
-<li>apr-util</li>
-<li>apr-devel</li>
-<li>gcc</li>
-<li>httpd</li>
-<li>httpd-devel</li>
-<li>mod_ssl</li>
-<li>epel-release</li>
-<li>tomcat-native</li>
-<li>apache&rsquo;s mod_jk tomcat connector plugin</li>
+<li><code>apr</code></li>
+<li><code>apr-util</code></li>
+<li><code>apr-devel</code></li>
+<li><code>gcc</code></li>
+<li><code>httpd</code></li>
+<li><code>httpd-devel</code></li>
+<li><code>mod_ssl</code></li>
+<li><code>epel-release</code></li>
+<li><code>tomcat-native</code></li>
+<li>Apache&rsquo;s <code>mod_jk</code> Tomcat connector plugin</li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
 <pre><code class="language-bash">sudo yum -y install apr apr-util apr-devel gcc httpd httpd-devel mod_ssl epel-release
@@ -431,7 +431,7 @@ ServerRoot &quot;/etc/httpd&quot;
 # Listen: Allows you to bind Apache to specific IP addresses and/or
 ...
 </code></pre>
-<p>becomes</p>
+<p>Becomes</p>
 <pre><code class="language-text">...
 # Do not add a slash at the end of the directory path.  If you point
 # ServerRoot at a non-local disk, be sure to specify a local disk on the
@@ -475,8 +475,8 @@ ServerRoot &quot;/etc/httpd&quot;
 # Further relax access to the default document root:
 ...
 </code></pre>
-<p>becomes</p>
-<pre><code>...
+<p>Becomes</p>
+<pre><code class="language-text">...
 #
 # Relax access to content within /var/www.
 #
@@ -491,11 +491,11 @@ ServerRoot &quot;/etc/httpd&quot;
 # Further relax access to the default document root:
 ...
 </code></pre>
-<p>then within the /var/www/html directory turn off Indexes FollowSymLinks by commenting out the line</p>
-<pre><code>Options Indexes FollowSymLinks
+<p>Then within the <code>/var/www/html</code> directory turn off <code>Indexes FollowSymLinks</code> by commenting out the line:</p>
+<pre><code class="language-text">Options Indexes FollowSymLinks
 </code></pre>
 <p>That is</p>
-<pre><code>...
+<pre><code class="language-text">...
     # The Options directive is both complicated and important.  Please see
     # http://httpd.apache.org/docs/2.4/mod/core.html#options
     # for more information.
@@ -507,8 +507,8 @@ ServerRoot &quot;/etc/httpd&quot;
     # It can be &quot;All&quot;, &quot;None&quot;, or any combination of the keywords:
 ...
 </code></pre>
-<p>becomes</p>
-<pre><code>...
+<p>Becomes</p>
+<pre><code class="language-text">...
     # The Options directive is both complicated and important.  Please see
     # http://httpd.apache.org/docs/2.4/mod/core.html#options
     # for more information.
@@ -523,17 +523,17 @@ ServerRoot &quot;/etc/httpd&quot;
 ...
 </code></pre>
 <p>Then finally we add two new log formats and configure the access log to use the new format. This is done within the <code>&lt;IfModule logio_module&gt;</code> by adding the two new LogFormat directives</p>
-<pre><code>LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%u\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxUser
+<pre><code class="language-text">LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%u\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxUser
 LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&quot;%r\&quot; %s/%&gt;s %D %I/%O/%B \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %V/%p&quot; blackboxSSLUser
 </code></pre>
-<p>and replacing the CustomLog directive</p>
-<pre><code>CustomLog &quot;logs/access_log&quot; combined
+<p>And replacing the CustomLog directive</p>
+<pre><code class="language-text">CustomLog &quot;logs/access_log&quot; combined
 </code></pre>
-<p>with</p>
-<pre><code>CustomLog logs/access_log blackboxSSLUser
+<p>With</p>
+<pre><code class="language-text">CustomLog logs/access_log blackboxSSLUser
 </code></pre>
 <p>That is</p>
-<pre><code>...
+<pre><code class="language-text">...
     LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
 
     &lt;IfModule logio_module&gt;
@@ -558,8 +558,8 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
 &lt;/IfModule&gt;
 ...
 </code></pre>
-<p>becomes</p>
-<pre><code>...
+<p>Becomes</p>
+<pre><code class="language-text">...
     LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
 
     &lt;IfModule logio_module&gt;
@@ -598,30 +598,45 @@ LogFormat &quot;%a/%{REMOTE_PORT}e %X %t %l \&quot;%{SSL_CLIENT_S_DN}x\&quot; \&
 ...
 </code></pre>
 <p>Remember, deploy this file on all nodes.</p>
-<h3 id="configuration-of-sslconf">Configuration of ssl.conf</h3>
+<h3 id="configuration-of-sslconf">Configuration of <code>ssl.conf</code></h3>
 <p>We modify <code>/etc/httpd/conf.d/ssl.conf</code> on all nodes, backing up first,</p>
-<pre><code class="language-base">cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG
-</code></pre>
+
+  
+
+
+
+
+
+
+<div class="code-toolbar">
+  <pre 
+    class="command-line language-bash" 
+    data-user="root" 
+    data-host="localhost" 
+    data-continuation-str="\"
+    data-filter-output="(out)"><code class="language-bash">cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.ORIG</code></pre>
+</div>
+
 <p>The configuration of the <code>/etc/httpd/conf.d/ssl.conf</code> <strong>does</strong> change depending on the Stroom scenario deployed. In the following we will indicate
 differences by tagged sub-headings. If the configuration applies irrespective of scenario, then <strong>All scenarios</strong> is the tag, else the tag indicated the
 type of Stroom deployment.</p>
-<h4 id="sslconf-http-to-https-redirection---all-scenarios">ssl.conf: HTTP to HTTPS Redirection - All scenarios</h4>
+<h4 id="sslconf-http-to-https-redirection---all-scenarios"><code>ssl.conf</code>: HTTP to HTTPS Redirection - All scenarios</h4>
 <p>Before the <VirtualHost _default_:443> context we add http to https redirection by adding the directives (noting we specify the actual server name)</p>
-<pre><code>&lt;VirtualHost *:80&gt;
+<pre><code class="language-text">&lt;VirtualHost *:80&gt;
   ServerName stroomp00.strmdev00.org
   Redirect permanent &quot;/&quot; &quot;https://stroomp00.strmdev00.org/&quot;
 &lt;/VirtualHost&gt;
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 ## SSL Virtual Host Context
 ##
 
 &lt;VirtualHost _default_:443&gt;
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 ## SSL Virtual Host Context
 ##
 
@@ -634,9 +649,9 @@ type of Stroom deployment.</p>
 
 &lt;VirtualHost _default_:443&gt;
 </code></pre>
-<h4 id="sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</h4>
+<h4 id="sslconf-virtualhost-directives---multi-node-application-and-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Multi Node &lsquo;Application and Proxy&rsquo; deployment</h4>
 <p>Within the <VirtualHost _default_:443> context we set the directives, in this case, we use the CNAME <code>stroomp.strmdev00.org</code></p>
-<pre><code>ServerName stroomp.strmdev00.org
+<pre><code class="language-text">ServerName stroomp.strmdev00.org
 JkMount /stroom* loadbalancer
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* loadbalancer_proxy
@@ -645,7 +660,7 @@ JkMount /stroom/datafeeddirect* loadbalancer
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -656,8 +671,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -677,14 +692,14 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<h4 id="sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment">ssl.conf: VirtualHost directives - Standalone or Forwarding Proxy deployment</h4>
+<h4 id="sslconf-virtualhost-directives---standalone-or-forwarding-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Standalone or Forwarding Proxy deployment</h4>
 <p>Within the <VirtualHost _default_:443> context set the directives, in this case, for a node named say <code>stroomfp0.strmdev00.org</code></p>
-<pre><code>ServerName stroomfp0.strmdev00.org
+<pre><code class="language-text">ServerName stroomfp0.strmdev00.org
 JkMount /stroom/datafeed* local_proxy
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -695,8 +710,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -712,9 +727,9 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<h4 id="sslconf-virtualhost-directives---single-node-application-and-proxy-deployment">ssl.conf: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</h4>
+<h4 id="sslconf-virtualhost-directives---single-node-application-and-proxy-deployment"><code>ssl.conf</code>: VirtualHost directives - Single Node &lsquo;Application and Proxy&rsquo; deployment</h4>
 <p>Within the <VirtualHost _default_:443> context set the directives, in this case, for a node name <code>stroomp00.strmdev00.org</code></p>
-<pre><code>ServerName stroomp00.strmdev00.org
+<pre><code class="language-text">ServerName stroomp00.strmdev00.org
 JkMount /stroom* local
 JkMount /stroom/remoting/cluster* local
 JkMount /stroom/datafeed* local_proxy
@@ -723,7 +738,7 @@ JkMount /stroom/datafeeddirect* local
 JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirectories
 </code></pre>
 <p>That is, we change</p>
-<pre><code>...
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -734,8 +749,8 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<p>to</p>
-<pre><code>...
+<p>To</p>
+<pre><code class="language-text">...
 &lt;VirtualHost _default_:443&gt;
 
 # General setup for the virtual host, inherited from global configuration
@@ -755,7 +770,7 @@ JkOptions +ForwardKeySize +ForwardURICompat +ForwardSSLCertChain -ForwardDirecto
 # is not inherited from httpd.conf.
 ...
 </code></pre>
-<h4 id="sslconf-certificate-file-changes---all-scenarios">ssl.conf: Certificate file changes - All scenarios</h4>
+<h4 id="sslconf-certificate-file-changes---all-scenarios"><code>ssl.conf</code>: Certificate file changes - All scenarios</h4>
 <p>We replace the standard certificate files with the generated certificates. In the example below, we are using the multi node scenario, in
 that the key file names are <code>stroomp.crt</code> and <code>stroomp.key</code>. For other scenarios, use the appropriate file names generated. We replace</p>
 <pre><code>SSLCertificateFile /etc/pki/tls/certs/localhost.crt
@@ -809,7 +824,7 @@ SSLCertificateKeyFile /home/stroomuser/stroom-jks/private/stroomp.key
 #   Point SSLCertificateChainFile at a file containing the
 ...
 </code></pre>
-<h4 id="sslconf-certificate-bundleno-ca-verification---all-scenarios">ssl.conf: Certificate Bundle/NO-CA Verification - All scenarios</h4>
+<h4 id="sslconf-certificate-bundleno-ca-verification---all-scenarios"><code>ssl.conf</code>: Certificate Bundle/NO-CA Verification - All scenarios</h4>
 <p>If you have signed your Stroom server certificate with a Certificate Authority, then change</p>
 <pre><code>SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
 </code></pre>
@@ -849,7 +864,7 @@ SSLVerifyClient optional_no_ca
 #   With SSLRequire you can do per-directory access control based
 ...
 </code></pre>
-<h4 id="sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy">ssl.conf: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</h4>
+<h4 id="sslconf-servlet-protection---single-or-multi-node-scenarios-not-for-standaloneforwarding-proxy"><code>ssl.conf</code>: Servlet Protection - Single or Multi Node scenarios (not for Standalone/Forwarding Proxy)</h4>
 <p>We now need to secure certain Stroom Application servlets, to ensure they are only accessed under appropriate control.</p>
 <p>This set of servlets will be accessible by all nodes in the subnet 192.168.2 (as well as localhost). We achieve this by adding after the example Location directives</p>
 <pre><code>&lt;Location ~ &quot;stroom/(status|echo|sessionList|debug)&quot; &gt;
@@ -857,7 +872,7 @@ SSLVerifyClient optional_no_ca
  Require ip 127.0.0.1 192.168.2
 &lt;/Location&gt;
 </code></pre>
-<p>We further restrict the clustercall and export servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.</p>
+<p>We further restrict the <code>clustercall</code> and <code>export</code> servlets to just the localhost. If we had multiple Stroom processing nodes, you would specify each node, or preferably, the subnet they are on. In our multi node case this is 192.168.2.</p>
 <pre><code>&lt;Location ~ &quot;stroom/export/|stroom/remoting/clustercall.rpc&quot; &gt;
  Require all denied
  Require ip 127.0.0.1 192.168.2
@@ -899,7 +914,7 @@ SSLVerifyClient optional_no_ca
 #   o FakeBasicAuth:
 ...
 </code></pre>
-<h4 id="sslconf-log-formats---all-scenarios">ssl.conf: Log formats - All scenarios</h4>
+<h4 id="sslconf-log-formats---all-scenarios"><code>ssl.conf</code>: Log formats - All scenarios</h4>
 <p>Finally, as we make use of the Black Box Apache log format, we replace the standard format</p>
 <pre><code>CustomLog logs/ssl_request_log \
         &quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&quot;%r\&quot; %b&quot;
@@ -941,9 +956,7 @@ CustomLog logs/ssl_request_log blackboxSSLUser
 The contents of these two configuration files differ depending on the Stroom deployment. The following provide the various deployment scenarios.</p>
 <h4 id="mod_jk-multi-node-application-and-proxy-deployment">Mod_JK Multi Node Application and Proxy Deployment</h4>
 <p>For a Stroom Multi node Application and Proxy server,</p>
-<ul>
-<li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
-</ul>
+<p>We configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</p>
 <pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
 printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
@@ -969,10 +982,8 @@ printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
 printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
 chmod 640 ${F}
 </code></pre>
-<ul>
-<li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
-</ul>
-<p>Since we are deploying for a cluster with load balancing, we need a <em>workers.properties</em> file per node. Executing the following will result in two files (<em>workers.properties.stroomp00</em> and <em>workers.properties.stroomp01</em>) which should be deployed to their respective servers.</p>
+<p>We configure <code>/etc/httpd/conf/workers.properties</code> as per</p>
+<p>Since we are deploying for a cluster with load balancing, we need a <code>workers.properties</code> file per node. Executing the following will result in two files (<code>workers.properties.stroomp00</code> and <code>workers.properties.stroomp01</code>) which should be deployed to their respective servers.</p>
 <pre><code class="language-bash">cd /tmp
 # Set the list of nodes
 Nodes=&quot;stroomp00.strmdev00.org stroomp01.strmdev00.org&quot;
@@ -1017,7 +1028,8 @@ for oN in ${Nodes}; do
   chmod 640 workers.properties.${_n}
 done
 </code></pre>
-<p>Now depending in the node you are on, copy the relevant workers.properties.nodename file to /etc/httpd/conf/workers.properties. The following command makes this simple.</p>
+<p>Now depending in the node you are on, copy the relevant <code>workers.properties.nodename</code> file to <code>/etc/httpd/conf/workers</code>.properties.
+The following command makes this simple.</p>
 <pre><code class="language-bash">cp workers.properties.`hostname -s` /etc/httpd/conf/workers.properties
 </code></pre>
 <p>If you were to add an additional node to a multi node cluster, say the node <code>stroomp02.strmdev00.org</code>, then you would re-run the above script with</p>
@@ -1028,16 +1040,15 @@ take effect you will need to restart the Apache Httpd service on both nodes.</p>
 <p>Remember, in multi node cluster deployments, the following files are the same and hence can be created on one node, but copied to the
 others not forgetting to backup the other node&rsquo;s original files. That is, the files</p>
 <ul>
-<li>/var/www/html/index.html</li>
-<li>/etc/httpd/conf.d/mod_jk.conf</li>
-<li>/etc/httpd/conf/httpd.conf</li>
+<li><code>/var/www/html/index.html</code></li>
+<li><code>/etc/httpd/conf.d/mod_jk.conf</code></li>
+<li><code>/etc/httpd/conf/httpd.conf</code></li>
 </ul>
-<p>are to be the same on all nodes. Only the /etc/httpd/conf.d/ssl.conf and /etc/httpd/conf/workers.properties files change.</p>
+<p>Are to be the same on all nodes.
+Only the <code>/etc/httpd/conf.d/ssl.conf</code> and <code>/etc/httpd/conf/workers.properties</code> files change.</p>
 <h4 id="mod_jk-standalone-or-forwarding-stroom-proxy-deployment">Mod_JK Standalone or Forwarding Stroom Proxy Deployment</h4>
 <p>For a Stroom Standalone or Forwarding proxy,</p>
-<ul>
-<li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
-</ul>
+<p>We configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</p>
 <pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
 printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
@@ -1059,10 +1070,8 @@ printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
 printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
 chmod 640 ${F}
 </code></pre>
-<ul>
-<li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
-</ul>
-<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. stroomfp0).</p>
+<p>We configure <code>/etc/httpd/conf/workers.properties</code> as per</p>
+<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. <code>stroomfp0</code>).</p>
 <pre><code class="language-bash">N=stroomfp0
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -1079,9 +1088,7 @@ chmod 640 ${F}
 </code></pre>
 <h4 id="mod_jk-single-node-application-and-proxy-deployment">Mod_JK Single Node Application and Proxy Deployment</h4>
 <p>For a Stroom Single node Application and Proxy server,</p>
-<ul>
-<li>we configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</li>
-</ul>
+<p>We configure <code>/etc/httpd/conf.d/mod_jk.conf</code> as per</p>
 <pre><code class="language-bash">F=/etc/httpd/conf.d/mod_jk.conf
 printf 'LoadModule jk_module modules/mod_jk.so\n' &gt; ${F}
 printf 'JkWorkersFile conf/workers.properties\n' &gt;&gt; ${F}
@@ -1107,10 +1114,8 @@ printf '  Allow from 127.0.0.1\n' &gt;&gt; ${F}
 printf '&lt;/Location&gt;\n' &gt;&gt; ${F}
 chmod 640 ${F}
 </code></pre>
-<ul>
-<li>we configure <code>/etc/httpd/conf/workers.properties</code> as per</li>
-</ul>
-<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. stroomp00).</p>
+<p>We configure <code>/etc/httpd/conf/workers.properties</code> as per</p>
+<p>The variable <strong>N</strong> in the script below is to be the node name (not FQDN) of your sever (i.e. <code>stroomp00</code>).</p>
 <pre><code class="language-bash">N=stroomp00
 FQDN=`hostname -f`
 F=/etc/httpd/conf/workers.properties
@@ -1148,8 +1153,8 @@ firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
 firewall-cmd --zone=public --list-all
 </code></pre>
-<p>Finally enable then start the httpd service, correcting any errors. It should be noted that on any errors,
-the suggestion of a systemctl status or viewing the journal are good, but also review information in the httpd error logs found in <code>/var/log/httpd/</code>.</p>
+<p>Finally enable then start the httpd service, correcting any errors.
+It should be noted that on any errors, the suggestion of a <code>systemctl</code> status or viewing the journal are good, but also review information in the httpd error logs found in <code>/var/log/httpd/</code>.</p>
 <pre><code class="language-bash">systemctl enable httpd.service
 systemctl start httpd.service
 </code></pre>
@@ -1219,9 +1224,9 @@ systemctl start httpd.service
 <h2 id="assumptions">Assumptions</h2>
 <ul>
 <li>we are installing the MariaDB or MySQL Community RDBMS software.</li>
-<li>the primary database node is &lsquo;stroomdb0.strmdev00.org&rsquo;.</li>
+<li>the primary database node is <code>stroomdb0.strmdev00.org</code>.</li>
 <li>installation is on a fully patched minimal Centos 7.3 instance.</li>
-<li>we are installing BOTH databases (<code>stroom</code> and <code>statistics</code>) on the same node - &lsquo;stroomdb0.stromdev00.org&rsquo; but with two distinct database engines. The first database will communicate on port <code>3307</code> and the second on <code>3308</code>.</li>
+<li>we are installing BOTH databases (<code>stroom</code> and <code>statistics</code>) on the same node - <code>stroomdb0.stroomdev00.org</code> but with two distinct database engines. The first database will communicate on port <code>3307</code> and the second on <code>3308</code>.</li>
 <li>we are deploying with SELinux in enforcing mode.</li>
 <li>any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems.</li>
 <li>in this document, when a textual screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
@@ -1280,7 +1285,7 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ...
 </code></pre>
-<p>to become</p>
+<p>To become</p>
 <pre><code class="language-toml">...
 # Enable to use MySQL 5.6
 [mysql56-community]
@@ -1737,7 +1742,7 @@ To do so, log onto the relevant database as the administrative user as per</p>
 or
 mysql --user=root --port=3308 --socket=/var/lib/mysql-mysqld1/mysql.sock --password
 </code></pre>
-<p>and at the <code>MariaDB [(none)]&gt; </code> prompt enter</p>
+<p>And at the <code>MariaDB [(none)]&gt; </code> prompt enter</p>
 <pre><code class="language-bash">install plugin server_audit SONAME 'server_audit';
 set global server_audit_file_path='/var/log/mariadb/mysqld-mysqld0_server_audit.log';
 or
@@ -1756,10 +1761,10 @@ quit;
 <p>If you wish to rotate a log file manually, log into the database as the administrative user and execute either</p>
 <ul>
 <li><code>set global server_audit_file_rotate_now=1;</code> to rotate the audit log file</li>
-<li><code>set global sql_error_log_rotate=1;</code> to rotate the sql_errlog log file</li>
+<li><code>set global sql_error_log_rotate=1;</code> to rotate the <code>sql_errlog</code> log file</li>
 </ul>
 <h3 id="initial-database-access">Initial Database Access</h3>
-<p>It should be noted that if you monitor the sql_errors.log log file on a new Stooom deployment, when the Stoom Application first starts, its initial access to the <code>stroom</code> database will result in the following attempted sql statements.</p>
+<p>It should be noted that if you monitor the <code>sql_errors.log</code> log file on a new Stroom deployment, when the Stroom Application first starts, its initial access to the <code>stroom</code> database will result in the following attempted SQL statements.</p>
 <pre><code class="language-sql">2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.schema_version' doesn't exist : SELECT version FROM schema_version ORDER BY installed_rank DESC
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.STROOM_VER' doesn't exist : SELECT VER_MAJ, VER_MIN, VER_PAT FROM STROOM_VER ORDER BY VER_MAJ DESC, VER_MIN DESC, VER_PAT DESC LIMIT 1
 2017-04-16 16:24:50 stroomuser[stroomuser] @ stroomp00.strmdev00.org [192.168.2.126] ERROR 1146: Table 'stroom.FD' doesn't exist : SELECT ID FROM FD LIMIT 1
@@ -1793,17 +1798,18 @@ quit;
 	<h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
-<li>the user has reasonable RHEL/Centos System administration skills.</li>
-<li>installations are on Centos 7.3 minimal systems (fully patched).</li>
-<li>the term &rsquo;node&rsquo; is used to reference the &lsquo;host&rsquo; a service is running on.</li>
-<li>the Stroom Proxy and Application software runs as user &lsquo;stroomuser&rsquo; and will be deployed in this user&rsquo;s home directory</li>
-<li>data will reside in a directory tree referenced via &lsquo;/stroomdata&rsquo;. It is up to the user to provision a filesystem here, noting sub-directories of it will be NFS shared in Multi Node Stroom Deployments</li>
-<li>any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems</li>
-<li>in this document, when a textual screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
-<li>better security of password choices, networking, firewalls, data stores, etc. can and should be achieved in various ways, but these HOWTOs are just a quick means of getting a working system, so only limited security is applied</li>
-<li>better configuration of the database (e.g. more memory. redundancy) should be considered in production environments</li>
-<li>the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments</li>
-<li>the user has access to a 
+<li>The user has reasonable RHEL/Centos System administration skills.</li>
+<li>Installations are on Centos 7.3 minimal systems (fully patched).</li>
+<li>The term &rsquo;node&rsquo; is used to reference the &lsquo;host&rsquo; a service is running on.</li>
+<li>The Stroom Proxy and Application software runs as user <code>stroomuser</code> and will be deployed in this user&rsquo;s home directory</li>
+<li>Data will reside in a directory tree referenced via <code>/stroomdata</code>. It is up to the user to provision a file system here, noting sub-directories of it will be NFS shared in Multi Node Stroom Deployments</li>
+<li>Any scripts or commands that should run are in code blocks and are designed to allow the user to cut then paste the commands onto their systems</li>
+<li>In this document, when a textual screen capture is documented, data entry is identified by the data surrounded by <code>&lt;__</code> <code>__&gt;</code>.
+This excludes enter/return presses.</li>
+<li>Better security of password choices, networking, firewalls, data stores, etc. can and should be achieved in various ways, but these HOWTOs are just a quick means of getting a working system, so only limited security is applied</li>
+<li>Better configuration of the database (e.g. more memory, redundancy, etc.) should be considered in production environments</li>
+<li>The use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments</li>
+<li>The user has access to a 
 
 
 
@@ -1840,17 +1846,18 @@ quit;
 <li><a href="#addition-of-a-node-to-a-stroom-cluster-deployment"><strong>Addition of a Node to Stroom Cluster</strong></a></li>
 </ul>
 <p>for when one needs to add an additional node to an existing cluster.</p>
-<h2 id="nodename-nomenclature">Nodename Nomenclature</h2>
-<p>For simplicity sake, the nodenames used in this HOWTO are geared towards the Multi Node Stroom Cluster deployment. That is,</p>
+<h2 id="node-name-nomenclature">Node Name Nomenclature</h2>
+<p>For simplicity sake, the node names used in this HOWTO are geared towards the Multi Node Stroom Cluster deployment.
+That is:</p>
 <ul>
-<li>the database nodename is <code>stroomdb0.strmdev00.org</code></li>
-<li>the processing nodenames are <code>stroomp00.strmdev00.org</code>, <code>stroomp01.strmdev00.org</code>, and <code>stroomp02.strmdev00.org</code></li>
-<li>the first node in our cluster, <code>stroomp00.strmdev00.org</code>, also has the CNAME <code>stroomp.strmdev00.org</code></li>
+<li>the database node name is <code>stroomdb0.strmdev00.org</code></li>
+<li>the processing node names are <code>stroomp00.strmdev00.org</code>, <code>stroomp01.strmdev00.org</code>, and <code>stroomp02.strmdev00.org</code></li>
+<li>the first node in our cluster, <code>stroomp00.strmdev00.org</code>, also has the <code>CNAME</code> <code>stroomp.strmdev00.org</code></li>
 </ul>
 <p>In the case of the Proxy only deployments,</p>
 <ul>
-<li>the forwarding Stroom proxy nodename is <code>stoomfp0.strmdev00.org</code></li>
-<li>the standalone nodename will be <code>stroomp00.strmdev00.org</code></li>
+<li>the forwarding Stroom proxy node name is <code>stoomfp0.strmdev00.org</code></li>
+<li>the standalone node name will be <code>stroomp00.strmdev00.org</code></li>
 </ul>
 <h2 id="storage">Storage</h2>
 <p>Both the Stroom Proxy and Application store data. The typical requirement is</p>
@@ -1863,26 +1870,26 @@ quit;
 <p>Where multiple processing nodes are involved, the application&rsquo;s <strong>permanent data</strong> directories need to be accessible by all participating nodes.</p>
 <p>Thus a hierarchy for a Stroom Proxy might be</p>
 <ul>
-<li>/stroomdata/stroom-proxy</li>
+<li><code>/stroomdata/stroom-proxy</code></li>
 </ul>
-<p>and for an Application node</p>
+<p>And for an Application node</p>
 <ul>
-<li>/stroomdata/stroom-data</li>
-<li>/stroomdata/stroom-index</li>
-<li>/stroomdata/stroom-working</li>
+<li><code>/stroomdata/stroom-data</code></li>
+<li><code>/stroomdata/stroom-index</code></li>
+<li><code>/stroomdata/stroom-working</code></li>
 </ul>
 <p>In the following examples, the storage hierarchy proposed will more suited for a multi node Stroom cluster, including the Forwarding or
 Standalone proxy deployments. This is to simplify the documentation. Thus, the above structure is generalised into</p>
 <ul>
-<li>/stroomdata/stroom-working-p_nn_/proxy</li>
+<li><code>/stroomdata/stroom-working-p_nn_/proxy</code></li>
 </ul>
-<p>and</p>
+<p>And</p>
 <ul>
-<li>/stroomdata/stroom-data-p_nn_</li>
-<li>/stroomdata/stroom-index-p_nn_</li>
-<li>/stroomdata/stroom-working-p_nn_</li>
+<li><code>/stroomdata/stroom-data-p_nn_</code></li>
+<li><code>/stroomdata/stroom-index-p_nn_</code></li>
+<li><code>/stroomdata/stroom-working-p_nn_</code></li>
 </ul>
-<p>where <em>nn</em> is a two digit node number. The reason for placing the proxy directory within the <em>Application</em> working area
+<p>Where <em>nn</em> is a two digit node number. The reason for placing the proxy directory within the <em>Application</em> working area
 will be explained later.</p>
 <p>All data should be owned by the Stroom processing user. In this HOWTO, we will use <code>stroomuser</code></p>
 <h2 id="multi-node-stroom-cluster-proxy-and-application-deployment">Multi Node Stroom Cluster (Proxy and Application) Deployment</h2>
@@ -1898,12 +1905,12 @@ just install them both on the first (or only) Stroom node.</p>
 <p>Certain software packages are required for either the Stroom Proxy or Stroom Application to run.</p>
 <p>The core software list is</p>
 <ul>
-<li>java-1.8.0-openjdk</li>
-<li>java-1.8.0-openjdk-devel</li>
-<li>policycoreutils-python</li>
-<li>unzip</li>
-<li>zip</li>
-<li>mariadb or mysql client</li>
+<li><code>java-1.8.0-openjdk</code></li>
+<li><code>java-1.8.0-openjdk-devel</code></li>
+<li><code>policycoreutils-python</code></li>
+<li><code>unzip</code></li>
+<li><code>zip</code></li>
+<li>MariaDB or MySQL client</li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
 <pre><code class="language-bash">sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
@@ -1913,9 +1920,7 @@ just install them both on the first (or only) Stroom node.</p>
 </code></pre>
 <p>One could deploy the MySQL database software as the alternative.</p>
 <p><a name="mysqlclientinstall"></a>To do this you need to install the MySQL Community repository files then install the client.
-Instructions for installation of the MySQL Community repository files can be
-found <a href="../../../../docs/howtos/install/installdatabasehowto/#mysql-community-server-installation">here</a> or on
-the 
+Instructions for installation of the MySQL Community repository files can be found <a href="../../../../docs/howtos/install/installdatabasehowto/#mysql-community-server-installation">here</a> or on the 
 
 
 
@@ -1936,13 +1941,13 @@ the
 Once you have installed the MySQL repository files, install the client via</p>
 <pre><code class="language-bash">sudo yum -y install mysql-community-client
 </code></pre>
-<p>Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk). This is
-described in the <a href="#web-service-integration" title="Web Service Integration">Web Service Integration</a> section of this document.</p>
+<p>Note that additional software will be required for other integration components (e.g. Apache httpd/mod_jk).
+This is described in the <a href="#web-service-integration" title="Web Service Integration">Web Service Integration</a> section of this document.</p>
 <p>Note also, that Standalone or Forwarding Stroom Proxy deployments do <strong>NOT</strong> need a database client deployed.</p>
 <h3 id="entropy-issues-in-virtual-environments">Entropy Issues in Virtual environments</h3>
-<p>Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java SecureRandom class to provide
+<p>Both the Stroom Application and Stroom Proxy currently run on Tomcat (Version 7) which relies on the Java <em>SecureRandom</em> class to provide
 random values for any generated session identifiers as well as other components. In some circumstances the Java runtime can be delayed if the entropy source that is
-used to initialise SecureRandom is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy souce
+used to initialise <em>SecureRandom</em> is short of entropy. The delay is caused by the Java runtime waiting on the blocking entropy source
 /dev/random to have sufficient entropy. This quite often occurs in virtual environments were there are few sources that can contribute to
 a system&rsquo;s entropy.</p>
 <p>To view the current available entropy on a Linux system, run the command</p>
@@ -1968,7 +1973,7 @@ the Application as high as 15 minutes.</p>
     <i class="external-link-icon fas fa-external-link-alt fa-sm text-secondary"></i>
   </a>
 </span>
- service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the HAVEGE algorithm.
+ service that attempts to provide an easy-to-use, unpredictable random number generator based upon an adaptation of the &lsquo;HAVEGE&rsquo; algorithm.
 To install execute</p>
 <pre><code class="language-bash">yum -y install haveged
 systemctl enable haveged
@@ -2126,9 +2131,9 @@ the <em>datafeed.DataFeedRequestHandler</em> events running under, in this case,
 2017-01-03T03:35:47.368Z INFO  [ajp-apr-9009-exec-1] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - &quot;doPost() - Took 478 ms to process (concurrentRequestCount=1) 406&quot;,&quot;Environment=EXAMPLE_ENVIRONMENT&quot;,&quot;Expect=100-continue&quot;,&quot;Feed=TEST-FEED-V1_0&quot;,&quot;GUID=39960cf9-e50b-4ae8-a5f2-449ee670d2eb&quot;,&quot;ReceivedTime=2017-01-03T03:35:46.915Z&quot;,&quot;RemoteAddress=192.168.2.220&quot;,&quot;RemoteHost=192.168.2.220&quot;,&quot;System=EXAMPLE_SYSTEM&quot;,&quot;accept=*/*&quot;,&quot;content-length=1051&quot;,&quot;content-type=application/x-www-form-urlencoded&quot;,&quot;host=stroomp.strmdev00.org&quot;,&quot;user-agent=curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2&quot;
 ...
 </code></pre>
-<p>Further, if you execute the data posting command (<code>curl</code>) multiple times, you will see the loadbalancer working in that,
-the above WARN/ERROR/INFO logs will swap between the proxy services (i.e. first error will be in stroomp00.strmdev00.org&rsquo;s
-proxy log file, then second on stroomp01.strmdev00.org&rsquo;s proxy log file, then back to stroomp00.strmdev00.org and so on).</p>
+<p>Further, if you execute the data posting command (<code>curl</code>) multiple times, you will see the load balancer working in that,
+the above WARN/ERROR/INFO logs will swap between the proxy services (i.e. first error will be in <code>stroomp00.strmdev00.org</code>&rsquo;s
+proxy log file, then second on <code>stroomp01.strmdev00.org</code>&rsquo;s proxy log file, then back to <code>stroomp00.strmdev00.org</code> and so on).</p>
 <h2 id="stroom-application-configuration">Stroom Application Configuration</h2>
 <p>Although we have installed our multi node Stroom cluster, we now need to configure it.
 We do this via the user interface (UI).</p>
@@ -2241,7 +2246,7 @@ and continue.</p>
   </a>
 </div>
 
-<p>If you select the <strong>Proceed to stroomp.strmdev00.org (unsafe)</strong> hyper-link you will be presented with the standard Stroom UI login page.</p>
+<p>If you select the <strong>Proceed to <code>stroomp.strmdev00.org</code> (unsafe)</strong> hyper-link you will be presented with the standard Stroom UI login page.</p>
 
 
 
@@ -2293,56 +2298,42 @@ and continue.</p>
 </ul>
 <h3 id="login-with-stroom-default-administrative-user">Login with Stroom default Administrative User</h3>
 <p>Each new Stroom deployment automatically creates the administrative user <code>admin</code> and this user&rsquo;s password is initially set to <code>admin</code>.
-We will
-<a href="../../../../docs/howtos/authentication/userloginhowto/">login as this user</a>
-which also validates that the database and UI is working correctly in that you can login and the password is <code>admin</code>.</p>
+We will <a href="../../../../docs/howtos/authentication/userloginhowto/">login as this user</a> which also validates that the database and UI is working correctly in that you can login and the password is <code>admin</code>.</p>
 <h3 id="create-an-attributed-user-to-perform-configuration">Create an Attributed User to perform configuration</h3>
 <p>We should configure Stroom using an <em>attributed user</em> account.
-That is, we should
-<a href="../../../../docs/howtos/authentication/createuserhowto/">create</a>
-a user, in our case it will be <code>burn</code> (the author) and once created, we login with that account then perform the initial configuration activities.
+That is, we should <a href="../../../../docs/howtos/authentication/createuserhowto/">create</a> a user, in our case it will be <code>burn</code> (the author) and once created, we login with that account then perform the initial configuration activities.
 You don&rsquo;t have to do this, but it is sound security practice.</p>
-<p>Once you have created the user you should
-<a href="../../../../docs/howtos/authentication/userlogouthowto/">log out</a>
-of the <code>admin</code> account and log back in as our user <code>burn</code>.</p>
+<p>Once you have created the user you should <a href="../../../../docs/howtos/authentication/userlogouthowto/">log out</a> of the <code>admin</code> account and log back in as our user <code>burn</code>.</p>
 <h3 id="configure-the-volumes-for-our-stroom-deployment">Configure the Volumes for our Stroom deployment</h3>
-<p>Before we can store data within Stroom we need to configure the
-<a href="../../../../docs/user-guide/volumes/">volumes</a>
-we have allocated in our Storage hierarchy. The
-<a href="../../../../docs/howtos/install/installvolumeshowto/">Volume Maintenance HOWTO</a>
-shows how to do this.</p>
+<p>Before we can store data within Stroom we need to configure the <a href="../../../../docs/user-guide/volumes/">volumes</a> we have allocated in our Storage hierarchy.
+The <a href="../../../../docs/howtos/install/installvolumeshowto/">Volume Maintenance HOWTO</a> shows how to do this.</p>
 <h3 id="configure-the-nodes-for-our-stroom-deployment">Configure the Nodes for our Stroom deployment</h3>
 <p>In a Stroom cluster, nodes are expected to communicate with each other on port 8080 over http. Our
 installation in a multi node environment ensures the firewall will allow this but we also need to
 configure the nodes. This is achieved via the Stroom UI where we set a Cluster URL for each node.
-The following <a href="../../../../docs/howtos/install/installnodeshowto/">Node Configuration HOWTO</a> demonstrates how do
-set the Cluster URL.</p>
+The following <a href="../../../../docs/howtos/install/installnodeshowto/">Node Configuration HOWTO</a> demonstrates how do set the Cluster URL.</p>
 <h3 id="data-stream-processing">Data Stream Processing</h3>
-<p>To enable Stroom to process data, it&rsquo;s
-<a href="../../../../docs/reference-section/jobs/#data-processor">Data Processors</a>
-need to be enabled. There are NOT enabled by default on installation. The following
-<a href="../../../../docs/howtos/general/taskshowto/#enable-stream-processors">section</a>
-in our <a href="../../../../docs/howtos/general/taskshowto/">Stroom Tasks HowTo</a> shows how to do this.</p>
+<p>To enable Stroom to process data, it&rsquo;s <a href="../../../../docs/reference-section/jobs/#data-processor">Data Processors</a> need to be enabled. There are NOT enabled by default on installation.
+The following <a href="../../../../docs/howtos/general/taskshowto/#enable-stream-processors">section</a> in our <a href="../../../../docs/howtos/general/taskshowto/">Stroom Tasks HowTo</a> shows how to do this.</p>
 <h2 id="testing-our-stroom-application-and-proxy-installation">Testing our Stroom Application and Proxy Installation</h2>
 <p>To complete the installation process we will test that we can send and ingest data.</p>
 <h3 id="add-a-test-feed">Add a Test Feed</h3>
 <p>In order for Stroom to be able to handle various data sources, be they Apache HTTPD web access logs,
-MicroSoft Windows Event logs or Squid Proxy logs, Stroom must be told what the data is when it is received.
-This is achieved using
-<a href="../../../../docs/user-guide/feeds/">Event Feeds</a>.
+Microsoft Windows Event logs or Squid Proxy logs, Stroom must be told what the data is when it is received.
+This is achieved using <a href="../../../../docs/user-guide/feeds/">Event Feeds</a>.
 Each feed has a unique name within the system.</p>
-<p>To test our installation can accept and ingest data, we will
-<a href="../../../../docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed">create a test Event feed</a>. The &rsquo;name&rsquo; of the feed will be
-<code>TEST-FEED-V1_0</code>. Note that in a production environment is is best that a well defined nomenclature is used for feed &rsquo;names&rsquo;. For our
-testing purposes <code>TEST-FEED-V1_0</code> is sufficient.</p>
+<p>To test our installation can accept and ingest data, we will <a href="../../../../docs/howtos/general/feedmanagementhowto/#creation-of-an-event-feed">create a test Event feed</a>.
+The &rsquo;name&rsquo; of the feed will be <code>TEST-FEED-V1_0</code>.
+Note that in a production environment is is best that a well defined nomenclature is used for feed &rsquo;names&rsquo;.
+For our testing purposes <code>TEST-FEED-V1_0</code> is sufficient.</p>
 <h3 id="sending-test-data">Sending Test Data</h3>
-<p><strong>NOTE:</strong> Before testing our new feed, we should restart both our Stroom application services so that any volume changes are
-propagated. This can be achieved by simply running</p>
+<p>Before testing our new feed, we should restart both our Stroom application services so that any volume changes are propagated.
+This can be achieved by simply running the following on both nodes.</p>
 <pre><code class="language-bash">sudo -i -u stroomuser
 bin/StopServices.sh
 bin/StartServices.sh
 </code></pre>
-<p>on both nodes. It is suggested you first log out of Stroom, if you are currently logged in and you should monitor the Stroom
+<p>It is suggested you first log out of Stroom, if you are currently logged in and you should monitor the Stroom
 application logs to ensure it has successfully restarted. Remember to use the <code>T</code> and <code>Tp</code> bash aliases we set up.</p>
 <p>For this test, we will send the contents of /etc/group to our test feed. We will also send the file from the cluster&rsquo;s database
 machine. The command to send this file is</p>
@@ -2375,11 +2366,11 @@ Proxy.</p>
 <p>Certain software packages are required for the Stroom Proxy to run.</p>
 <p>The core software list is</p>
 <ul>
-<li>java-1.8.0-openjdk</li>
-<li>java-1.8.0-openjdk-devel</li>
-<li>policycoreutils-python</li>
-<li>unzip</li>
-<li>zip</li>
+<li><code>java-1.8.0-openjdk</code></li>
+<li><code>java-1.8.0-openjdk-devel</code></li>
+<li><code>policycoreutils-python</code></li>
+<li><code>unzip</code></li>
+<li><code>zip</code></li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
 <pre><code class="language-bash">sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
@@ -2398,7 +2389,7 @@ section of this document.</p>
 <p>We create the processing user, as per</p>
 <pre><code class="language-bash">sudo useradd --system stroomuser
 </code></pre>
-<p>then create the storage hierarchy with the commands</p>
+<p>Then create the storage hierarchy with the commands</p>
 <pre><code class="language-bash">sudo mkdir -p /stroomdata/stroom-working-fp0/proxy
 sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
@@ -2444,11 +2435,11 @@ configuration item is different to that of a Stroom Application processing node.
 .</p>
 <h2 id="testing-our-forwarding-proxy-installation">Testing our Forwarding Proxy Installation</h2>
 <p>To complete the installation process we will test that we can send data to the forwarding proxy and that it forwards the files
-it receives to the central Stroom processing system. As stated earlier, it is assumed we have installed, configured and tested the destination
-central Stroom processing system and thus we will have a test <a href="../../../../docs/user-guide/feeds/">Feed</a>
-already established - <code>TEST-FEED-V1_0</code>.</p>
+it receives to the central Stroom processing system.
+As stated earlier, it is assumed we have installed, configured and tested the destination central Stroom processing system and thus we will have a test <a href="../../../../docs/user-guide/feeds/">Feed</a> already established - <code>TEST-FEED-V1_0</code>.</p>
 <h3 id="sending-test-data-1">Sending Test Data</h3>
-<p>For this test, we will send the contents of /etc/group to our test feed - <code>TEST-FEED-V1_0</code>. It doesn&rsquo;t matter from which host we send the file from.
+<p>For this test, we will send the contents of /etc/group to our test feed - <code>TEST-FEED-V1_0</code>.
+It doesn&rsquo;t matter from which host we send the file from.
 The command to send file is</p>
 <pre><code class="language-bash">curl -k --data-binary @/etc/group &quot;https://stroomfp0.strmdev00.org/stroom/datafeed&quot; -H &quot;Feed:TEST-FEED-V1_0&quot; -H &quot;System:EXAMPLE_SYSTEM&quot; -H &quot;Environment:EXAMPLE_ENVIRONMENT&quot;
 </code></pre>
@@ -2464,11 +2455,11 @@ Proxy.</p>
 <p>Certain software packages are required for the Stroom Proxy to run.</p>
 <p>The core software list is</p>
 <ul>
-<li>java-1.8.0-openjdk</li>
-<li>java-1.8.0-openjdk-devel</li>
-<li>policycoreutils-python</li>
-<li>unzip</li>
-<li>zip</li>
+<li><code>java-1.8.0-openjdk</code></li>
+<li><code>java-1.8.0-openjdk-devel</code></li>
+<li><code>policycoreutils-python</code></li>
+<li><code>unzip</code></li>
+<li><code>zip</code></li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
 <pre><code class="language-bash">sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
@@ -2487,7 +2478,7 @@ section of this document.</p>
 <p>We create the processing user, as per</p>
 <pre><code class="language-bash">sudo useradd --system stroomuser
 </code></pre>
-<p>then create the storage hierarchy with the commands</p>
+<p>Then create the storage hierarchy with the commands</p>
 <pre><code class="language-bash">sudo mkdir -p /stroomdata/stroom-working-sap0/proxy
 sudo chown -R stroomuser:stroomuser /stroomdata
 sudo chmod -R 750 /stroomdata
@@ -2556,12 +2547,12 @@ quit;
 <p>Certain software packages are required for either the Stroom Proxy or Stroom Application to run.</p>
 <p>The core software list is</p>
 <ul>
-<li>java-1.8.0-openjdk</li>
-<li>java-1.8.0-openjdk-devel</li>
-<li>policycoreutils-python</li>
-<li>unzip</li>
-<li>zip</li>
-<li>mariadb or mysql client</li>
+<li><code>java-1.8.0-openjdk</code></li>
+<li><code>java-1.8.0-openjdk-devel</code></li>
+<li><code>policycoreutils-python</code></li>
+<li><code>unzip</code></li>
+<li><code>zip</code></li>
+<li>MariaDB or MySQL client</li>
 </ul>
 <p>Most of the required software are packages available via standard repositories and hence we can simply execute</p>
 <pre><code class="language-bash">sudo yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel policycoreutils-python unzip zip
@@ -2575,17 +2566,20 @@ described in the <a href="#web-service-integration" title="Web Service Integrati
 <h3 id="storage-scenario-1">Storage Scenario</h3>
 <p>To maintain our Storage Scenario them, the scenario for this node is</p>
 <ul>
-<li>Node: <code>stroomp02.strmdev00.org</code></li>
-<li><code>/stroomdata/stroom-data-p02</code> - location to store Stroom application data files (events, etc.) for this node</li>
-<li><code>/stroomdata/stroom-index-p02</code> - location to store Stroom application index files</li>
-<li><code>/stroomdata/stroom-working-p02</code> - location to store Stroom application working files (e.g. tmp, output, etc.) for this node</li>
-<li><code>/stroomdata/stroom-working-p02/proxy</code> - location for Stroom proxy to store inbound data files</li>
+<li>Node: <code>stroomp02.strmdev00.org</code>
+<ul>
+<li><code>/stroomdata/stroom-data-p02</code>        - location to store Stroom application data files (events, etc.) for this node</li>
+<li><code>/stroomdata/stroom-index-p02</code>       - location to store Stroom application index files</li>
+<li><code>/stroomdata/stroom-working-p02</code>     - location to store Stroom application working files (e.g. tmp, output, etc.) for this node</li>
+<li><code>/stroomdata/stroom-working-p02/proxy</code>       - location for Stroom proxy to store inbound data files</li>
+</ul>
+</li>
 </ul>
 <h4 id="creation-of-storage-hierarchy-1">Creation of Storage Hierarchy</h4>
 <p>So, we first create processing user on our new node as per</p>
 <pre><code class="language-bash">sudo useradd --system stroomuser
 </code></pre>
-<p>then create the storage via</p>
+<p>Then create the storage via</p>
 <pre><code class="language-bash">sudo mkdir -p /stroomdata/stroom-data-p02 /stroomdata/stroom-index-p02 /stroomdata/stroom-working-p02 /stroomdata/stroom-working-p02/proxy
 sudo mkdir -p /stroomdata/stroom-data-p00  # So that this node can mount stroomp00's data directory
 sudo mkdir -p /stroomdata/stroom-data-p01  # So that this node can mount stroomp01's data directory
@@ -2602,7 +2596,7 @@ create mount point directories on our existing nodes in addition to deploying NF
 sudo chmod 750 /stroomdata/stroom-data-p02
 sudo chown stroomuser:stroomuser /stroomdata/stroom-data-p02
 </code></pre>
-<p>and on</p>
+<p>And on</p>
 <ul>
 <li>Node: <code>stroomp01.strmdev00.org</code></li>
 </ul>
@@ -2641,25 +2635,25 @@ the Stroom Processing user&rsquo;s home directory to support the Stroom services
 when generating the Environment Variable files to <em>02</em>.</p>
 <h3 id="stroom-proxy-installation-1">Stroom Proxy Installation</h3>
 <p>Instructions for installation of the Stroom Proxy can be found <a href="../../../../docs/howtos/install/installproxyhowto/">here</a>. Note you
-will be deploying a <em>Store</em> proxy and during the setup execution ensure you enter the appropriate values for NODE (&lsquo;stroomp02&rsquo;)
-and REPO_DIR (&rsquo;/stroomdata/stroom-working-p02/proxy&rsquo;). All other values will be the same.</p>
+will be deploying a <em>Store</em> proxy and during the setup execution ensure you enter the appropriate values for <code>NODE</code> <code>stroomp02</code>
+and <code>REPO_DIR</code> <code>/stroomdata/stroom-working-p02/proxy</code>. All other values will be the same.</p>
 <h3 id="stroom-application-installation-1">Stroom Application Installation</h3>
 <p>Instructions for installation of the Stroom application can be found <a href="../../../../docs/howtos/install/installapplicationhowto/">here</a>.
-When executing the setup script ensure you enter the appropriate values for TEMP_DIR (&rsquo;/stroomdata/stroom-working-p02&rsquo;) and NODE (&lsquo;stroomp02&rsquo;).
-All other values will be the same. Note also that you will not have to wait for the &lsquo;first&rsquo; node to initialise the Stroom database as
-this would have already been done when you first deployed your Stroom Cluster.</p>
+When executing the setup script ensure you enter the appropriate values for <code>TEMP_DIR</code> <code>/stroomdata/stroom-working-p02</code> and <code>NODE</code> <code>stroomp02</code>.
+All other values will be the same. Note also that you will not have to wait for the &lsquo;first&rsquo; node to initialise the Stroom database as this would have already been done when you first deployed your Stroom Cluster.</p>
 <h2 id="web-service-integration-1">Web Service Integration</h2>
 <p>One typically &lsquo;fronts&rsquo; either a Stroom Proxy or Stroom Application with a secure web service such as Apache&rsquo;s Httpd or NGINX.
 In our scenario, we will use SSL to secure the web service and further, we will use Apache&rsquo;s Httpd.</p>
 <p>As we are a cluster, we use the same certificate as the other nodes. Thus we need to gain the certificate package from an existing node.</p>
-<p>So, on <code>stroomp00.strmdev00.org</code>, we replicate the directory ~stroomuser/stroom-jks to our new node. That is, tar it up, copy the tar file to
-stroomp02 and untar it. We can make use of the other node&rsquo;s mounted file system.</p>
+<p>So, on <code>stroomp00.strmdev00.org</code>, we replicate the directory <code>~/stroomuser/stroom-jks</code> to our new node.
+That is, tar it up, copy the tar file to <code>stroomp02</code> and <code>untar</code> it.
+We can make use of the other node&rsquo;s mounted file system.</p>
 <pre><code class="language-bash">sudo -i -u stroomuser
 cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
 mv stroom-jks.tar /stroomdata/stroom-data-p02
 </code></pre>
-<p>then on our new node (<code>stroomp02.strmdev00.org</code>) we extract the data.</p>
+<p>Then on our new node (<code>stroomp02.strmdev00.org</code>) we extract the data.</p>
 <pre><code class="language-bash">sudo -i -u stroomuser
 cd ~stroomuser
 tar xf /stroomdata/stroom-data-p02/stroom-jks.tar &amp;&amp; rm -f /stroomdata/stroom-data-p02/stroom-jks.tar
@@ -2703,7 +2697,7 @@ and <a href="#testing-our-new-node-installation" title="Integration Tests">later
 <pre><code class="language-bash">sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-all
 </code></pre>
-<p>should result in</p>
+<p>Should result in</p>
 <pre><code class="language-text">public (active)
   target: default
   icmp-block-inversion: no
@@ -2801,8 +2795,8 @@ sudo yum -y install mysql-community-client
 </code></pre>
 <h2 id="test-database-connectivity">Test Database connectivity</h2>
 <p>We need to test access to the Stroom databases on <code>stroomdb0.strmdev00.org</code>. We do this using the client <code>mysql</code> utility. We note that we
-must enter the <em>stroomuser</em> user&rsquo;s password set up in the creation of the database earlier (<code>Stroompassword1@</code>) when connecting to
-the <code>stroom</code> database and we must enter the <em>stroomstats</em> user&rsquo;s password (<code>Stroompassword2@</code>) when connecting to the <code>statistics</code> database.</p>
+must enter the <code>stroomuser</code> user&rsquo;s password set up in the creation of the database earlier (<code>Stroompassword1@</code>) when connecting to
+the <code>stroom</code> database and we must enter the <code>stroomstats</code> user&rsquo;s password (<code>Stroompassword2@</code>) when connecting to the <code>statistics</code> database.</p>
 <p>We first test we can connect to the <code>stroom</code> database and then set the default database to be <code>stroom</code>.</p>
 <pre><code>[burn@stroomp00 ~]$ mysql --user=stroomuser --host=stroomdb0.strmdev00.org --port=3307 --password
 Enter password: &lt;__ Stroompassword1@ __&gt;
@@ -2892,7 +2886,7 @@ chmod 750 stroom-app
 <p>We install the application via</p>
 <pre><code class="language-bash">stroom-app/bin/setup.sh
 </code></pre>
-<p>during which one is prompted for a number of configuration settings. Use the following</p>
+<p>During which one is prompted for a number of configuration settings. Use the following</p>
 <pre><code>TEMP_DIR should be set to '/stroomdata/stroom-working-p00' or '/stroomdata/stroom-working-p01' etc depending on the node we are installing on
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' in our multi node scenario)
 RACK can be ignored, just press return
@@ -2913,8 +2907,8 @@ CREATE_DEFAULT_VOLUME_ON_START should use the default, just press return
 </code></pre>
 <p>At this point, the script will configure the application. There should be no errors, but review the output.
 If you made an error then just re-run the script.</p>
-<p>You will note that <strong>TEMP_DIR</strong> is the same directory we used for our <strong>STROOM_TMP</strong> environment variable when we set up the processing user scripts.
-Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the <strong>JDBC_URL</strong> setting can be the default.</p>
+<p>You will note that <code>TEMP_DIR</code> is the same directory we used for our <code>STROOM_TMP</code> environment variable when we set up the processing user scripts.
+Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the <code>JDBC_URL</code> setting can be the default.</p>
 <h2 id="start-the-application-service">Start the Application service</h2>
 <p>Now we start the application. In the case of multi node Stroom deployment, we start the Stroom application on the first node in the cluster,
 then <strong>wait</strong> until it has initialised the database commenced its Lifecycle task. You will need to monitor the log file to see its
@@ -2926,7 +2920,7 @@ completed initialisation.</p>
 and <code>catalina.out</code>. Check them for errors and correct (or post a question). The log4j warnings in <code>catalina.out</code> can be ignored.
 Eventually the log file <code>stroom-app/instance/logs/stroom.log</code> will appear. Again check it for errors and then wait for the application to
 be initialised. That is, wait for the Lifecycle service thread to start. This is indicated by the message</p>
-<pre><code>INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166) - Started Stroom Lifecycle service
+<pre><code class="language-text">INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166) - Started Stroom Lifecycle service
 </code></pre>
 <p>The directory <code>stroom-app/instance/logs/events</code> will also appear with an empty file with
 the nomenclature <code>events_YYYY-MM-DDThh:mm:ss.msecZ</code>. This is the directory for storing Stroom&rsquo;s application event logs. We will return to this
@@ -2983,15 +2977,15 @@ sudo firewall-cmd --zone=public --list-all
 <h2 id="assumptions">Assumptions</h2>
 <p>The following assumptions are used in this document.</p>
 <ul>
-<li>the user has reasonable RHEL/Centos System administration skills.</li>
-<li>installation is on a fully patched minimal Centos 7.3 instance.</li>
-<li>the Stroom database has been created and resides on the host <code>stroomdb0.strmdev00.org</code> listening on port 3307.</li>
-<li>the Stroom database user is <code>stroomuser</code> with a password of <code>Stroompassword1@</code>.</li>
-<li>the application user <code>stroomuser</code> has been created.</li>
-<li>the user is or has deployed the two node Stroom cluster described <a href="../../../../docs/howtos/install/installhowto/#storage-scenario">here</a>.</li>
-<li>the user has set up the Stroom processing user as described <a href="../../../../docs/howtos/install/installprocessingusersetuphowto/">here</a>.</li>
-<li>the prerequisite software has been installed.</li>
-<li>when a screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
+<li>The user has reasonable RHEL/Centos System administration skills.</li>
+<li>Installation is on a fully patched minimal Centos 7.3 instance.</li>
+<li>The Stroom database has been created and resides on the host <code>stroomdb0.strmdev00.org</code> listening on port 3307.</li>
+<li>The Stroom database user is <code>stroomuser</code> with a password of <code>Stroompassword1@</code>.</li>
+<li>The application user <code>stroomuser</code> has been created.</li>
+<li>The user is or has deployed the two node Stroom cluster described <a href="../../../../docs/howtos/install/installhowto/#storage-scenario">here</a>.</li>
+<li>The user has set up the Stroom processing user as described <a href="../../../../docs/howtos/install/installprocessingusersetuphowto/">here</a>.</li>
+<li>The prerequisite software has been installed.</li>
+<li>When a screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
 </ul>
 <h2 id="confirm-prerequisite-software-installation">Confirm Prerequisite Software Installation</h2>
 <p>The following command will ensure the prerequisite software has been deployed</p>
@@ -3011,20 +3005,19 @@ unzip stroom-proxy-distribution-${Prx}.zip
 <h2 id="configure-the-software">Configure the Software</h2>
 <p>There are three different types of Stroom Proxy</p>
 <ul>
-<li>Store</li>
+<li>
+<p><em>Store</em> - A <em>store</em> proxy accepts batches of events, as files. It will validate the batch with the database then store the batches as files in a configured directory.</p>
+</li>
+<li>
+<p><em>Store_No_DB</em> - A <em>store_no_DB</em> proxy accepts batches of events, as files. It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.</p>
+</li>
+<li>
+<p><em>Forwarding</em> - A <em>forwarding</em> proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.</p>
+</li>
 </ul>
-<p>A <em>store</em> proxy accepts batches of events, as files. It will validate the batch with the database then store the batches as files in a configured directory.</p>
-<ul>
-<li>Store_NoDB</li>
-</ul>
-<p>A <em>store_nodb</em> proxy accepts batches of events, as files. It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.</p>
-<ul>
-<li>Forwarding</li>
-</ul>
-<p>A <em>forwarding</em> proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.</p>
 <p>We will demonstrate the installation of each.</p>
 <h3 id="store-proxy-configuration">Store Proxy Configuration</h3>
-<p>In our <em>Store</em> Proxy description below, we will use the multi node deployment scenario. That is we are deploying the <em>Store</em> proxy on multiple Stroom nodes (stroomp00, stroomp01) and we have configured our storage as per the <a href="../../../../docs/howtos/install/installhowto/#storage-scenario">Storage Scenario</a> which means the directories to install the inbound batches of data are <code>/stroomdata/stroom-working-p00/proxy</code> and <code>/stroomdata/stroom-working-p01/proxy</code> depending on the node.</p>
+<p>In our <em>Store</em> Proxy description below, we will use the multi node deployment scenario. That is we are deploying the <em>Store</em> proxy on multiple Stroom nodes (<code>stroomp00</code>, <code>stroomp01</code>) and we have configured our storage as per the <a href="../../../../docs/howtos/install/installhowto/#storage-scenario">Storage Scenario</a> which means the directories to install the inbound batches of data are <code>/stroomdata/stroom-working-p00/proxy</code> and <code>/stroomdata/stroom-working-p01/proxy</code> depending on the node.</p>
 <p>To install a <em>Store</em> proxy, we run</p>
 <pre><code class="language-bash">stroom-proxy/bin/setup.sh store
 </code></pre>
@@ -3057,11 +3050,11 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 </code></pre>
 <p>At this point, the script will configure the proxy. There should be no errors, but review the output.</p>
 <h3 id="store-no-database-proxy-configuration">Store No Database Proxy Configuration</h3>
-<p>In our <em>Store_NoDB</em> Proxy description below, we will deploy on a host named <code>stroomsap0</code> and it will store the files in <code>/stroomdata/stroom-working-sap0/proxy</code>. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.</p>
-<p>To install a <em>Store_NoDB</em> proxy, we run</p>
+<p>In our <em>Store_No_DB</em> Proxy description below, we will deploy on a host named <code>stroomsap0</code> and it will store the files in <code>/stroomdata/stroom-working-sap0/proxy</code>. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.</p>
+<p>To install a <em>Store_No_DB</em> proxy, we run</p>
 <pre><code class="language-bash">stroom-proxy/bin/setup.sh store_nodb
 </code></pre>
-<p>during which one is prompted for a number of configuration settings. Use the following</p>
+<p>During which one is prompted for a number of configuration settings. Use the following</p>
 <pre><code>NODE to be the hostname (not FQDN) of your host (i.e. 'stroomsap0' in our example)
 PORT_PREFIX should use the default, just press return
 REPO_DIR should be set to '/stroomdata/stroom-working-sap0/proxy' which we created earlier.
@@ -3070,13 +3063,13 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 </code></pre>
 <p>At this point, the script will configure the proxy. There should be no errors, but review the output.</p>
 <h2 id="apachemod_jk-change">Apache/Mod_JK change</h2>
-<p>For all proxy deployments, if we are using Apache&rsquo;s mod_jk then we need to ensure the proxy&rsquo;s AJP connector specifies a 64K packetSize. View the file <code>stroom-proxy/instance/conf/server.xml</code> to ensure the Connector element for the AJP protocol has a packetSize attribute of <code>65536</code>. For example,</p>
+<p>For all proxy deployments, if we are using Apache&rsquo;s mod_jk then we need to ensure the proxy&rsquo;s AJP connector specifies a 64K <code>packetSize</code>. View the file <code>stroom-proxy/instance/conf/server.xml</code> to ensure the Connector element for the AJP protocol has a <code>packetSize</code> attribute of <code>65536</code>. For example,</p>
 <pre><code class="language-bash">grep AJP stroom-proxy/instance/conf/server.xml
 </code></pre>
 <p>shows</p>
 <pre><code>&lt;Connector port=&quot;9009&quot; protocol=&quot;AJP/1.3&quot; connectionTimeout=&quot;20000&quot; redirectPort=&quot;8443&quot; maxThreads=&quot;200&quot; packetSize=&quot;65536&quot; /&gt;
 </code></pre>
-<p>This check is required for earlier releases of the Stroom Proxy. Releases since <code>v5.1-beta.4</code> have set the AJP packetSize.</p>
+<p>This check is required for earlier releases of the Stroom Proxy. Releases since <code>v5.1-beta.4</code> have set the AJP <code>packetSize</code>.</p>
 <h2 id="start-the-proxy-service">Start the Proxy Service</h2>
 <p>We can now manually start our proxy service. Do so as the <code>stroomuser</code> with the command</p>
 <pre><code class="language-bash">stroom-proxy/bin/start.sh
@@ -3144,35 +3137,35 @@ The default template is <code>${pathId}/${id}</code> and this pattern will produ
 </thead>
 <tbody>
 <tr>
-<td>year</td>
+<td><code>year</code></td>
 <td style="text-align:left">four digit year</td>
 </tr>
 <tr>
-<td>month</td>
+<td><code>month</code></td>
 <td style="text-align:left">two digit month</td>
 </tr>
 <tr>
-<td>day</td>
+<td><code>day</code></td>
 <td style="text-align:left">two digit day</td>
 </tr>
 <tr>
-<td>hour</td>
+<td><code>hour</code></td>
 <td style="text-align:left">two digit hour</td>
 </tr>
 <tr>
-<td>minute</td>
+<td><code>minute</code></td>
 <td style="text-align:left">two digit minute</td>
 </tr>
 <tr>
-<td>second</td>
+<td><code>second</code></td>
 <td style="text-align:left">two digit second</td>
 </tr>
 <tr>
-<td>millis</td>
+<td><code>millis</code></td>
 <td style="text-align:left">three digit milliseconds value</td>
 </tr>
 <tr>
-<td>ms</td>
+<td><code>ms</code></td>
 <td style="text-align:left">milliseconds since Epoch value</td>
 </tr>
 </tbody>
@@ -3236,7 +3229,7 @@ The default template is <code>${pathId}/${id}</code> and this pattern will produ
 /stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
 [stroomuser@stroomsap0 ~]$ 
 </code></pre>
-<p>and one would also see a warning for each post in the proxy&rsquo;s log file of the form</p>
+<p>And one would also see a warning for each post in the proxy&rsquo;s log file of the form</p>
 <pre><code>WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 </code></pre>
 
@@ -3282,8 +3275,9 @@ sudo systemctl start nfs-lock
 sudo systemctl start nfs-idmap
 </code></pre>
 <h2 id="configuration-of-nfs-exports">Configuration of NFS exports</h2>
-<p>We now export the node&rsquo;s /stroomdata directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of stroomp*.strmdev00.org to mount the <code>/stroomdata</code> directory. This means the same configuration applies to all nodes.</p>
-<pre><code># Share Stroom data directory
+<p>We now export the node&rsquo;s <code>/stroomdata</code> directory (in case you want to share the working directories) by configuring /etc/exports. For simplicity sake, we will allow all nodes with the hostname nomenclature of <code>stroomp*.strmdev00.org</code> to mount the <code>/stroomdata</code> directory.
+This means the same configuration applies to all nodes.</p>
+<pre><code class="language-text"># Share Stroom data directory
 /stroomdata	stroomp*.strmdev00.org(rw,sync,no_root_squash)
 </code></pre>
 <p>This can be achieved with the following on both nodes</p>
@@ -4256,7 +4250,7 @@ difference is that for the Stroom processes, we need to <code>export</code> the 
 The STROOM_TMP variable is set to a working area for the Stroom Application to use. The application accesses this environment variable internally
 via the ${stroom_tmp} context variable. Note that we only need the STROOM_TMP variable for Stroom Application deployments, so one
 could remove it from the files for a Forwarding or Standalone proxy deployment.</p>
-<p>With respect to the working area, we will make use of the <a href="../../../../docs/howtos/install/installhowto/#storage-scenario">Storage Scenario</a> we have defined and hence use the directory <code>/stroomdata/stroom-working-p_nn_</code> where <em>nn</em> is the hostname node number (i.e. 00 for host stroomp00, 01 for host stroomp01, etc.).</p>
+<p>With respect to the working area, we will make use of the <a href="../../../../docs/howtos/install/installhowto/#storage-scenario">Storage Scenario</a> we have defined and hence use the directory <code>/stroomdata/stroom-working-p_nn_</code> where <em>nn</em> is the hostname node number (i.e. <code>00</code> for host <code>stroomp00</code>, <code>01</code> for host <code>stroomp01</code>, etc).</p>
 <p>So, for the first node, <em>00</em>, we run</p>
 <pre><code class="language-bash">N=00
 F=~/env.sh
@@ -4273,7 +4267,7 @@ printf 'PATH=${JAVA_HOME}/bin:${PATH}\n' &gt;&gt; ${F}
 printf 'STROOM_TMP=/stroomdata/stroom-working-p%s\n' ${N} &gt;&gt; ${F}
 chmod 640 ${F}
 </code></pre>
-<p>then we can change the <strong>N</strong> variable on each successive node and run the above.</p>
+<p>Then we can change the <strong>N</strong> variable on each successive node and run the above.</p>
 <p>Alternately, for a Stroom Forwarding or Standalone proxy, the following would be sufficient</p>
 <pre><code class="language-bash">F=~/env.sh
 printf '# Environment variables for Stroom services\n' &gt; ${F}
@@ -4304,7 +4298,8 @@ which java
 </code></pre>
 <p>which should return <code>/usr/lib/jvm/java-1.8.0/bin/java</code></p>
 <h3 id="establish-simple-startstop-scripts">Establish Simple Start/Stop Scripts</h3>
-<p>We create some simple start/stop scripts that start, or stop, all the available Stroom services. At this point, it&rsquo;s just the Stroom application and proxy.</p>
+<p>We create some simple start/stop scripts that start, or stop, all the available Stroom services.
+At this point, it&rsquo;s just the Stroom application and proxy.</p>
 <pre><code class="language-bash">if [ ! -d ~/bin ]; then mkdir ~/bin; fi
 F=~/bin/StartServices.sh
 printf '#!/bin/bash\n' &gt; ${F}
@@ -4413,13 +4408,13 @@ the installation process.</p>
 <li>the user has reasonable RHEL/Centos System administration skills</li>
 <li>installations are on Centos 7.3 minimal systems (fully patched)</li>
 <li>either a Stroom Proxy or Stroom Application has already been deployed</li>
-<li>processing node names are &lsquo;stroomp00.strmdev00.org&rsquo; and &lsquo;stroomp01.strmdev00.org&rsquo;</li>
-<li>the first node, &lsquo;stroomp00.strmdev00.org&rsquo; also has a CNAME &lsquo;stroomp.strmdev00.org&rsquo;</li>
-<li>in the scenario of a Stroom Forwarding Proxy, the node name is &lsquo;stroomfp0.strmdev00.org&rsquo;</li>
-<li>in the scenario of a Stroom Standalone Proxy, the node name is &lsquo;stroomsap0.strmdev00.org&rsquo;</li>
-<li>stroom runs as user &lsquo;stroomuser&rsquo;</li>
+<li>processing node names are <code>stroomp00.strmdev00.org</code> and <code>stroomp01.strmdev00.org</code></li>
+<li>the first node, <code>stroomp00.strmdev00.org</code> also has a CNAME <code>stroomp.strmdev00.org</code></li>
+<li>in the scenario of a Stroom Forwarding Proxy, the node name is <code>stroomfp0.strmdev00.org</code></li>
+<li>in the scenario of a Stroom Standalone Proxy, the node name is <code>stroomsap0.strmdev00.org</code></li>
+<li>stroom runs as user <code>stroomuser</code></li>
 <li>the use of self signed certificates is appropriate for test systems, but users should consider appropriate CA infrastructure in production environments</li>
-<li>in this document, when a screen capture is documented, data entry is identified by the data surrounded by &lsquo;&lt;<strong>&rsquo; &lsquo;</strong>&gt;&rsquo; . This excludes enter/return presses.</li>
+<li>in this document, when a screen capture is documented, data entry is identified by the data surrounded by <code>&lt;__</code> <code>__&gt;</code> . This excludes enter/return presses.</li>
 </ul>
 <h2 id="create-certificates">Create certificates</h2>
 <p>The first step is to establish a self signed certificate for our Stroom service. If you have a certificate server, then certainly gain an
@@ -4492,7 +4487,7 @@ Getting Private key
 Enter pass phrase for private/stroomp.key: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 </code></pre>
 <p>and noting the <code>subject</code> will change depending on the host name used when generating the signing request.</p>
-<p>Create insecure version of private key for Apache autoboot (you will again need to enter the server key password)</p>
+<p>Create insecure version of private key for Apache auto-boot (you will again need to enter the server key password)</p>
 <pre><code class="language-bash">openssl rsa -in private/$H.key -out private/$H.key.insecure
 </code></pre>
 <p>as per</p>
@@ -4506,14 +4501,14 @@ mv private/$H.key.insecure private/$H.key
 </code></pre>
 <p>We have now completed the creation of our certificates and keys.</p>
 <h3 id="replication-of-keys-directory-to-other-nodes">Replication of Keys Directory to other nodes</h3>
-<p>If you are deploying a multi node Stroom cluster, then you would replicate the directory ~stroomuser/stroom-jks to each node in the cluster. That is,
-tar it up, copy the tar file to the other node(s) then untar it. We can make use of the other node&rsquo;s mounted file system for this process.
+<p>If you are deploying a multi node Stroom cluster, then you would replicate the directory <code>~/stroomuser/stroom-jks</code> to each node in the cluster. That is,
+tar it up, copy the tar file to the other node(s) then <code>untar</code> it. We can make use of the other node&rsquo;s mounted file system for this process.
 That is one could execute the commands on the first node, where we created the certificates</p>
 <pre><code class="language-bash">cd ~stroomuser
 tar cf stroom-jks.tar stroom-jks
 mv stroom-jks.tar /stroomdata/stroom-data-p01
 </code></pre>
-<p>then on the another node, say <code>stroomp01.strmdev00.org</code>, as the stroomuser we extract the data.</p>
+<p>Then on the another node, say <code>stroomp01.strmdev00.org</code>, as the stroomuser we extract the data.</p>
 <pre><code class="language-bash">sudo -i -u stroomuser
 cd ~stroomuser
 tar xf /stroomdata/stroom-data-p01/stroom-jks.tar &amp;&amp; rm -f /stroomdata/stroom-data-p01/stroom-jks.tar
@@ -4534,7 +4529,7 @@ proxy. Lets say it is <code>stroomfp0</code> thus we would set</p>
 </code></pre>
 <p>and then proceed as <a href="#use-host-variable">above</a>.</p>
 <p>Note that you also need the public key of the central Stroom server you will be connecting to. For the following, we will assume
-the central Stroom proxy is the <em>stroomp.strmdev00.org</em> server and its public key is stored in the file <code>stroomp.crt</code>. We will store
+the central Stroom proxy is the <code>stroomp.strmdev00.org</code> server and its public key is stored in the file <code>stroomp.crt</code>. We will store
 this file on the forwarding proxy in <code>~stroomuser/stroom-jks/public/stroomp.crt</code>.</p>
 <p>So once you have created the forwarding proxy server&rsquo;s SSL keys and have deployed the central proxy&rsquo;s public key, we next
 need to convert the proxy server&rsquo;s SSL keys into DER format. This is done by executing the following.</p>
@@ -4551,27 +4546,27 @@ openssl x509 -in public/$H.crt -inform PERM -out public/$H.crt.der -outform DER
 <pre><code class="language-bash"># Convert the local server's Private key
 openssl pkcs8 -topk8 -nocrypt -in private/$H.key.secure -inform PEM -out private/$H.key.der -outform DER
 </code></pre>
-<p>as per</p>
-<pre><code>Enter pass phrase for private/stroomfp0.key.secure: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
+<p>As per</p>
+<pre><code class="language-bash">Enter pass phrase for private/stroomfp0.key.secure: &lt;__ENTER_SERVER_KEY_PASSWORD__&gt;
 </code></pre>
 <p>We now import these keys into our Key Store. As part of the Stroom Proxy release, an Import Keystore application has been provisioned. We identify where it&rsquo;s found with the command</p>
 <pre><code class="language-bash">find ~stroomuser/*proxy -name 'stroom*util*.jar' -print | head -1
 </code></pre>
-<p>which should return <em>/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar</em> or similar depending on the release version.
+<p>Which should return <em>/home/stroomuser/stroom-proxy/lib/stroom-proxy-util-v5.1-beta.10.jar</em> or similar depending on the release version.
 To make execution simpler, we set this as a shell variable as per</p>
 <pre><code class="language-bash">Stroom_UTIL_JAR=`find ~/*proxy -name 'stroom*util*.jar' -print | head -1`
 </code></pre>
 <p>We now create the keystore and import the proxy&rsquo;s server key</p>
 <pre><code class="language-bash">java -cp ${Stroom_UTIL_JAR} stroom.util.cert.ImportKey keystore=${H}_k.jks keypass=$H alias=$H keyfile=private/$H.key.der certfile=public/$H.crt.der
 </code></pre>
-<p>as per</p>
-<pre><code>One certificate, no chain
+<p>As per</p>
+<pre><code class="language-text">One certificate, no chain
 </code></pre>
 <p>We now import the destination server&rsquo;s public key</p>
 <pre><code class="language-bash">keytool -import -noprompt -alias ${S} -file public/${S}.crt -keystore ${S}_k.jks -storepass ${S}
 </code></pre>
-<p>as per</p>
-<pre><code>Certificate was added to keystore
+<p>As per</p>
+<pre><code class="language-text">Certificate was added to keystore
 </code></pre>
 <p>We now add the key and trust store location and password arguments to our Stroom proxy environment files.</p>
 <pre><code class="language-bash">PWD=`pwd`
@@ -4817,7 +4812,7 @@ T
 in <em>server.DataFeedServiceImpl</em> events in both log files. The Stroom application log is quite busy, you may have to look for these logs.</p>
 <p>In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
-<code>strooomp00:</code></p>
+<code>stroomp00:</code></p>
 <pre><code class="language-text">2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
 </code></pre>
 <p>and on <code>stroomp01:</code></p>
@@ -4867,7 +4862,7 @@ move the cursor to the <code>TEST-FEED-V1_0</code> entry in the <code>Explorer</
   </a>
 </div>
 
-<p>and double click on the entry to see our <code>TEST-FEED-V1_0</code> tab.</p>
+<p>And double click on the entry to see our <code>TEST-FEED-V1_0</code> tab.</p>
 <p>
 
 
@@ -5064,7 +5059,7 @@ the <em>datafeed.DataFeedRequestHandler$1</em> event in the <em>ajp-apr-9009-exe
 <h2 id="stroom-standalone-proxy-testing">Stroom Standalone Proxy Testing</h2>
 <h3 id="data-post-tests-2">Data Post Tests</h3>
 <h4 id="simple-post-tests-2">Simple Post tests</h4>
-<p>This test is to ensure the Stroom <em>Store NODB</em> or <em>Standalone</em> proxy is working.</p>
+<p>This test is to ensure the Stroom <em>Store NO-DB</em> or <em>Standalone</em> proxy is working.</p>
 <p>We will send a file to our <em>Standalone</em> proxy (<code>stroomsap0.strmdev00.org</code>) and monitor this nodes&rsquo; proxy log files as well the directory the
 received files are meant to be stored in.</p>
 <p>Perform the following</p>
@@ -5620,7 +5615,8 @@ nodes - in this case <code>stroomp00</code> and <code>stroomp01</code> as we hav
 </div>
 
 <h4 id="delete-default-volumes">Delete Default Volumes</h4>
-<p>We now need to deal with our default volumes. We want to delete them.</p>
+<p>We now need to deal with our default volumes.
+We want to delete them.</p>
 
 
 
@@ -5662,7 +5658,7 @@ nodes - in this case <code>stroomp00</code> and <code>stroomp01</code> as we hav
   </a>
 </div>
 
-<p>So we move the cursor to the first volume&rsquo;s line (<em>stroomp00 /home/stroomuser/stroom-app/volumes/defaultindexVolume</em> &hellip;) and select the line then move the cursor to the <em>Delete</em> icon <span class="stroom-icon inline-svg-button icon-button  " >
+<p>So we move the cursor to the first volume&rsquo;s line (<code>stroomp00</code> <code>/home/stroomuser/stroom-app/volumes/defaultindexVolume</code> &hellip;) and select the line then move the cursor to the  <em>Delete</em> icon <span class="stroom-icon inline-svg-button icon-button  " >
     <span class="face" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1792" viewBox="0 0 1792 1792"><path style="fill:currentColor" d="M704 1376v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm256 0v-704q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v704q0 14 9 23t23 9h64q14 0 23-9t9-23zm-544-992h448l-48-117q-7-9-17-11h-317q-10 2-17 11zm928 32v64q0 14-9 23t-23 9h-96v948q0 83-47 143.5t-113 60.5h-832q-66 0-113-58.5t-47-141.5v-952h-96q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h309l70-167q15-37 54-63t79-26h320q40 0 79 26t54 63l70 167h309q14 0 23 9t9 23z"/></svg></span>
   </span> in the top left of the <code>Volumes</code> window and select it. On selection you will be given a confirmation request</p>
 
@@ -5766,7 +5762,7 @@ nodes - in this case <code>stroomp00</code> and <code>stroomp01</code> as we hav
   </a>
 </div>
 
-<p>and after we select then delete the second default volume( <em>stroomp00 /home/stroomuser/stroom-app/volumes/defaultStreamVolume</em> &hellip;), we are left with</p>
+<p>and after we select then delete the second default volume(<code>stroomp00</code> <code>/home/stroomuser/stroom-app/volumes/defaultStreamVolume</code> &hellip;), we are left with</p>
 
 
 
@@ -5856,15 +5852,15 @@ one has to configure the new volumes that are on the new node. The following dem
 <ul>
 <li>the new node is <code>stroomp02</code></li>
 <li>the storage hierarchy for this node is</li>
-<li><code>/stroomdata/stroom-data-p02</code> - location to store Stroom application data files (events, etc.) for this node</li>
-<li><code>/stroomdata/stroom-index-p02</code> - location to store Stroom application index files</li>
-<li><code>/stroomdata/stroom-working-p02</code> - location to store Stroom application working files (e.g. tmp, output, etc.) for this node</li>
-<li><code>/stroomdata/stroom-working-p02/proxy</code> - location for Stroom proxy to store inbound data files</li>
+<li><code>/stroomdata/stroom-data-p02</code>        - location to store Stroom application data files (events, etc.) for this node</li>
+<li><code>/stroomdata/stroom-index-p02</code>       - location to store Stroom application index files</li>
+<li><code>/stroomdata/stroom-working-p02</code>     - location to store Stroom application working files (e.g. tmp, output, etc.) for this node</li>
+<li><code>/stroomdata/stroom-working-p02/proxy</code>       - location for Stroom proxy to store inbound data files</li>
 </ul>
 <p>From this we need to create two volumes on <code>stroomp02</code></p>
 <ul>
-<li><code>/stroomdata/stroom-data-p02</code> - location to store Stroom application data files (events, etc.) for this node</li>
-<li><code>/stroomdata/stroom-index-p02</code> - location to store Stroom application index files</li>
+<li><code>/stroomdata/stroom-data-p02</code>        - location to store Stroom application data files (events, etc.) for this node</li>
+<li><code>/stroomdata/stroom-index-p02</code>       - location to store Stroom application index files</li>
 </ul>
 <p>To configure the volumes, move to the <code>Tools</code> item of the <strong>Main Menu</strong> and select it to bring up the <code>Tools</code> sub-menu.
 
