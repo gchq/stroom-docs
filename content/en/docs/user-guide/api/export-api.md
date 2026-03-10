@@ -108,12 +108,13 @@ done
 ```
 
 This will output something like:
-```text
-./Standard Pipelines/Json/Events to JSON   (./Standard_Pipelines/Json/Events_to_JSON.XSLT.1c3d42c2-f512-423f-aa6a-050c5cad7c0f.node)
-./Standard Pipelines/Json/JSON Extraction   (./Standard_Pipelines/Json/JSON_Extraction.Pipeline.13143179-b494-4146-ac4b-9a6010cada89.node)
-./Standard Pipelines/Json/JSON Search Extraction   (./Standard_Pipelines/Json/JSON_Search_Extraction.XSLT.a8c1aa77-fb90-461a-a121-d4d87d2ff072.node)
-./Standard Pipelines/Reference Loader   (./Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node)
-```
+
+{{< command-line >}}
+(out) ./Standard Pipelines/Json/Events to JSON   (./Standard_Pipelines/Json/Events_to_JSON.XSLT.1c3d42c2-f512-423f-aa6a-050c5cad7c0f.node)
+(out) ./Standard Pipelines/Json/JSON Extraction   (./Standard_Pipelines/Json/JSON_Extraction.Pipeline.13143179-b494-4146-ac4b-9a6010cada89.node)
+(out) ./Standard Pipelines/Json/JSON Search Extraction   (./Standard_Pipelines/Json/JSON_Search_Extraction.XSLT.a8c1aa77-fb90-461a-a121-d4d87d2ff072.node)
+(out) ./Standard Pipelines/Reference Loader   (./Standard_Pipelines/Reference_Loader.Pipeline.da1c7351-086f-493b-866a-b42dbe990700.node)
+{{< /command-line >}}
 
 
 

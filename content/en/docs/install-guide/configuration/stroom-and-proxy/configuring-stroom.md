@@ -91,7 +91,7 @@ The distribution also includes these files which are helpful when it comes to co
 ### scripts.env
 
 This file is used by the various shell scripts like `start.sh`, `stop.sh`, etc.
-This file should not need to be unless you want to change the locations where certain log files are written to or need to change the java memory settings.
+This file should not need to be changed unless you want to change the locations where certain log files are written to or need to change the java memory settings.
 
 In a production system it is highly likely that you will need to increase the java heap size as the default is only 2G.
 The heap size settings and any other java command line options can be set by changing:

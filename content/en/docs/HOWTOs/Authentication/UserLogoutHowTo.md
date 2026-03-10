@@ -26,7 +26,7 @@ and select the `Logout` sub-item and confirm you wish to log out by selecting th
 
 {{< screenshot "HOWTOs/UI-UserLogout-00.png" >}}Stroom UI - User Logout{{< /screenshot >}}
 
-This will return you to the Login page
+This will return you to the Login page.
 
 {{< screenshot "HOWTOs/UI-Login-00.png" >}}Stroom UI Login Page{{< /screenshot >}}
 

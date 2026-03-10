@@ -131,5 +131,5 @@ This access token can be refreshed in the same way as for a user access token, a
 
 ## Using access tokens
 
-Access tokens can be used in calls the Stroom's REST API or its datafeed API.
+Access tokens can be used in calls to Stroom's REST API or its datafeed API.
 The process of including the token in a HTTP request is described in [API Authentication]({{< relref "/docs/user-guide/api#authentication" >}})

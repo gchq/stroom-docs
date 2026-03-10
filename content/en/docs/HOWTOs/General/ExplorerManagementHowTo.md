@@ -20,7 +20,7 @@ Because Stroom Explorer is a flat structure you can move resources around to reo
 
 ### Create a System Group
 
-First, move your mouse over the `Event Sources` object in the explorer, single click to highlight this object to highlight, you will see
+First, move your mouse over the `Event Sources` object in the explorer, single click to highlight this object, and you will see
 
 {{< screenshot "HOWTOs/v6/UI-ExplorerMgmt-00.png" >}}Stroom UI ExplorerManagement - Highlighted object in Explorer{{< /screenshot >}}
 
@@ -47,7 +47,7 @@ With the newly created `Reference` folder highlighted, repeat the above process 
 then click {{< stroom-btn "Ok" >}} to save.
 
 Note that we could have navigated within the explorer tree but as we want the Reference/GeoHost system group at the top level of the `Event Sources` group, there is no need to perform any navigation.
-Had we needed to, double click any system group that contains objects, indicated by the icon and to select the system group you want to store your new group in, just left or right click the mouse once over the group to select it.
+Had we needed to, double click any system group that contains objects; to select the system group you want to store your new group in, just left or right click the mouse once over the group to select it.
 You will note that the `Event Sources` system group was selected above.
 
 At this point, our new folders will display in the main pane.

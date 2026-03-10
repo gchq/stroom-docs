@@ -34,7 +34,6 @@ Stroom and Stroom Proxy live in the same repository, share some common code and 
 * Github Actions - The CI build and release.
 * Bash - Various utility shell scripts.
 * Docker - Building the stroom and stroom-proxy docker images.
-* Docker Compose - 
 * Docker containers - Provide consistent build environments for
   * Java
   * npm

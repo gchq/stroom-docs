@@ -11,8 +11,8 @@ description: >
 
 ---
 
-Some examples of components in Stroom include
-* stroom-activity - Component for recording a users actions against a current activity
+Some examples of components in Stroom include:
+* stroom-activity - Component for recording a user's actions against a current activity
 * stroom-dictionary - Component for storing lists of words.
 * stroom-statistics - Component for recording statistical data, e.g. amount of data received in X minutes.
 
@@ -28,11 +28,11 @@ Components have further subdirectories (modules) that make up the various parts 
     * `stroom-activity-mock` - Mock implementation for the `stroom-activity` API
 
 
-## Dependencies between a modules components
+## Dependencies between a module's components
 
 The diagram below shows the dependencies between the different modules that make up a component as well as the internal dependencies within the `impl` module.
 The actual implementations used at runtime are determined by Guice bindings in whichever Guice modules are loaded by the application.
-Tests can bind mock implementations of a components API just by using the Guice module within the mock module.
+Tests can bind mock implementations of a component's API just by using the Guice module within the mock module.
 
 {{< image "dev-guide/module-dependencies.puml.svg">}}Internal Component Dependencies{{< /image >}}
 
@@ -61,7 +61,7 @@ For component testing purposes mock implementations of these APIs can be used to
 ### Client interaction - REST services and GWT Action Handlers
 
 The uppermost layer of the server side code services requests from the client.
-The client may make restful calls as is the case for the new UI or will use Actions that are handles with ActionHandlers as is the case for the legacy GWT UI.
+The client may make restful calls as is the case for the new UI or will use Actions that are handled with ActionHandlers as is the case for the legacy GWT UI.
 
 Since this layer deals with all client interaction it should be responsible for creating audit logs for all user activity, e.g. accessing documents, searching etc.
 No audit logging should need to be performed at a lower level within the application as deeper levels have less knowledge of user intent since they may just be playing a part in the wider request.

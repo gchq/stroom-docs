@@ -134,7 +134,7 @@ and after we select then delete the second default volume(`stroomp00` `/home/str
 
 {{< screenshot "HOWTOs/UI-ManageVolumes-12.png" >}}Stroom UI Delete Default - all deleted{{< /screenshot >}}
 
-At this one can close the `Volumes` configuration window by pressing the {{< stroom-btn "Close" >}} button.
+At this point, one can close the `Volumes` configuration window by pressing the {{< stroom-btn "Close" >}} button.
 
 __NOTE__: At the time of writing there is an issue regarding volumes
 
@@ -185,4 +185,4 @@ And on pressing the {{< stroom-btn "Ok" >}} button we see our two new volumes fo
 
 {{< screenshot "HOWTOs/UI-ManageNewVolume-03.png" >}}Stroom UI Volumes - New Node configuration window volumes added{{< /screenshot >}}
 
-At this one can close the `Volumes` configuration window by pressing the {{< stroom-btn "Close" >}} button.
+At this point, one can close the `Volumes` configuration window by pressing the {{< stroom-btn "Close" >}} button.

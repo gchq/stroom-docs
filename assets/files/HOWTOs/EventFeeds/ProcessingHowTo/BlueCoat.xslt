@@ -8,7 +8,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     version="3.0">
 
-  <!-- Bluecoat Proxy logs in W2C Extended Log File Format (ELF) -->
+  <!-- Bluecoat Proxy logs in W3C Extended Log File Format (ELF) -->
 
   <!-- Ingest the record key value pair elements -->
   <xsl:template match="records">

@@ -90,10 +90,10 @@ vi ~/.bashrc
 
 In vi add the following lines.
 
-``` bash
+```bash
 # User specific aliases and functions
 . ~/env.sh
-```	 
+```
 
 ### Verify Java installation
 

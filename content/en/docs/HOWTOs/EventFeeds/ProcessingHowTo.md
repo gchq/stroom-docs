@@ -37,7 +37,7 @@ The following assumptions are used in this document.
 ## Event Source
 
 As mentioned, we will use BlueCoat Proxy logs as a sample event source.
-Although BlueCoat logs can be customised, the default is to use the W2C Extended Log File Format (ELF).
+Although BlueCoat logs can be customised, the default is to use the W3C Extended Log File Format (ELF).
 Our sample data set looks like
 
 {{< textfile "HOWTOs/EventFeeds/ProcessingHowTo/sampleBluecoat.log" "text" >}}Sample BlueCoat logs{{</textfile >}}
@@ -94,14 +94,14 @@ The configuration items for an Event Feed are
 
 In our example, we will set the above to
 
- * _Description_ - *BlueCoat Proxy log data sent in W2C Extended Log File Format ({{< glossary "ELFF" >}})*
+ * _Description_ - *BlueCoat Proxy log data sent in W3C Extended Log File Format ({{< glossary "ELFF" >}})*
  * _Classification_ - We will leave this blank
  * _Reference Feed Flag_ - We leave the check-box unchecked as this is not a *Reference Feed*
  * _Feed Status_ - We set to *Receive*
  * _Stream Type_ - We set to *Raw Events* as we will be sending batches (streams) of raw event logs
  * _Data Encoding_ - We leave at the default of *UTF-8* as this is the proposed character encoding
  * _Context Encoding_ - We leave at the default of *UTF-8* as there are no Context Events for this Feed
- * _Retention Period_ - We leave at *Forever* was we do not want to delete any collected BlueCoat event data.
+ * _Retention Period_ - We leave at *Forever* as we do not want to delete any collected BlueCoat event data.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-02.png" >}}Stroom UI Create Feed - New feed tab configuration{{< /screenshot >}}
 
@@ -130,7 +130,7 @@ and its corresponding reference in the `Explorer` display.
 
 We set the configuration for this `Text Converter` to be
 
- * Description - *Simple XML transform for BlueCoat Proxy log data sent in W2C Extended Log File Format ({{< glossary "ELFF" >}})*
+ * Description - *Simple XML transform for BlueCoat Proxy log data sent in W3C Extended Log File Format ({{< glossary "ELFF" >}})*
  * Converter Type - We set to *Data Splitter* as we will be using the Stroom Data Splitter facility to convert the raw log data into simple XML.
 
 Again, press the _Save_ icon {{< stroom-icon "save.svg" >}} to save the configuration items.
@@ -310,7 +310,7 @@ Having selected our file, we see
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-24.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload Complete{{< /screenshot >}}
 
-On pressing {{< stroom-btn "Ok" >}} and `Alert` pop-up window is presented indicating the file was uploaded
+On pressing {{< stroom-btn "Ok" >}} an `Alert` pop-up window is presented indicating the file was uploaded
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-25.png" >}}Stroom UI Create Feed - Translation - Data Pane Upload Complete Verify{{< /screenshot >}}
 
@@ -511,7 +511,7 @@ This code segment is
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="3.0">
 
-  <!-- Bluecoat Proxy logs in W2C Extended Log File Format (ELF) -->
+  <!-- Bluecoat Proxy logs in W3C Extended Log File Format (ELF) -->
 
   <!-- Ingest the record key value pair elements -->
   <xsl:template match="records">
@@ -571,7 +571,7 @@ By pressing the _Save_ icon, you will save the XSLT translation as it currently 
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-45.png" >}}Stroom UI Create Feed - Translation - Stepping XSLT Translation 4{{< /screenshot >}}
 
-We next extend out translation by authoring a **event_source** template to form an appropriate Stroom Event Logging `EventSource` element structure.
+We next extend our translation by authoring a **event_source** template to form an appropriate Stroom Event Logging `EventSource` element structure.
 Thus our translation now is
 
 ```xml
@@ -585,7 +585,7 @@ Thus our translation now is
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     version="3.0">
 
-  <!-- Bluecoat Proxy logs in W2C Extended Log File Format (ELF) -->
+  <!-- Bluecoat Proxy logs in W3C Extended Log File Format (ELF) -->
 
   <!-- Ingest the record key value pair elements -->
   <xsl:template match="records">
@@ -882,7 +882,7 @@ To configure a Processor we select the `Processors` hyper-link of the **BlueCoat
 {{< screenshot "HOWTOs/UI-FeedProcessing-51.png" >}}Stroom UI Enable Processing - Processors table{{< /screenshot >}}
 
 We add a Processor by pressing the add processor button {{< stroom-icon "add.svg" "Add processor">}} in the top left hand corner.
-At this you will be presented with an `Add Filter` configuration window.
+At this point, you will be presented with an `Add Filter` configuration window.
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-52.png" >}}Stroom UI Enable Processing - Add Filter 1{{< /screenshot >}}
 
@@ -918,7 +918,7 @@ We select (_left click_) the drop down selection to display the types of Stream 
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-59.png" >}}Stroom UI Enable Processing - Add Filter 8{{< /screenshot >}}
 
-and as we are selecting `Raw Events` we select that item then press the {{< stroom-btn "Ok" >}} button at which we see that our `Add Filter` configuration window displays
+and as we are selecting `Raw Events` we select that item then press the {{< stroom-btn "Ok" >}} button at which point we see that our `Add Filter` configuration window displays
 
 {{< screenshot "HOWTOs/UI-FeedProcessing-60.png" >}}Stroom UI Enable Processing - Add Filter 9{{< /screenshot >}}
 

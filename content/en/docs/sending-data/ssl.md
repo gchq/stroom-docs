@@ -14,23 +14,23 @@ First make sure you have a copy of your organisation's CA certificate.
 
 Check that the CA certificate works by running the following command:
 
-```bash
+{{< command-line >}}
 echo "Test" | curl --cacert CA.crt --data-binary @- "https://<Stroom_HOST>/stroom/datafeed"
-```
+{{< /command-line >}}
 
 If the response starts with the line:
 
-```bash
-curl: (60) SSL certificate problem, verify that the CA cert is OK.
-```
+{{< command-line >}}
+(out) (60) SSL certificate problem, verify that the CA cert is OK.
+{{< /command-line >}}
 
 then you do not have the correct CA certificate.
 
 If the response contains the line
 
-```bash
-HTTP Status 406 - Stroom Status 100 - Feed must be specified
-```
+{{< command-line >}}
+(out) HTTP Status 406 - Stroom Status 100 - Feed must be specified
+{{< /command-line >}}
 
 then one-way SSL authentication using the CA certificate is successful.
 
@@ -42,21 +42,21 @@ Once one-way authentication has been tested, two-way authentication should be co
 
 The server certificate and private key should be concatenated to create a PEM file:
 
-```bash
+{{< command-line >}}
 cat hostname.cert hostname.key > hostname.pem
-```
+{{< /command-line >}}
 
 Finally, test for 2-way authentication:
 
-```bash
+{{< command-line >}}
 echo "Test" | curl --cacert CA.crt --cert hostname.pem --data-binary @- "https://<Stroom_HOST>/stroom/datafeed"
-```
+{{< /command-line >}}
 
 If the response contains the line
 
-```bash
-HTTP Status 406 - Stroom Status 100 - Feed must be specified
-```
+{{< command-line >}}
+(out) HTTP Status 406 - Stroom Status 100 - Feed must be specified
+{{< /command-line >}}
 
 then two-way SSL authentication is successful.
 
@@ -68,12 +68,12 @@ The files `ca.crt` and `hostname.pem` are the only files required for two-way au
 
 PKI certificates expire after 2 years. To check the expiry date of a certificate, run the following command:
 
-```bash
+{{< command-line >}}
 openssl x509 -in /path/to/certificate.pem -noout -enddate
-```
+{{< /command-line >}}
 
 This will give a response looking similar to:
 
-```bash
-notAfter=Aug 15 10:01:42 2013 GMT
-```
+{{< command-line >}}
+(out) notAfter=Aug 15 10:01:42 2013 GMT
+{{< /command-line >}}

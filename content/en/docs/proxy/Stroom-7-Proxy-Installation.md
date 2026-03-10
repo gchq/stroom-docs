@@ -153,10 +153,10 @@ The 2 URL values also refer to the stroom server and can be a fully qualified do
 
 e.g. if the stroom server was - stroom-serve.somewhere.co.uk - the URL lines would be:
 
-{{< command-line "stroomuser" "localhost" >}}
+```bash
 export STROOM_PROXY_REMOTE_FEED_STATUS_URL="http://stroom-serve.somewhere.co.uk:8080/api/feedStatus/v1"
 export STROOM_PROXY_REMOTE_FORWARD_URL="http://stroom-serve.somewhere.co.uk:8080/stroom/datafeed"
-{{</ command-line >}}
+```
 
 
 ### To Start Stroom Proxy
