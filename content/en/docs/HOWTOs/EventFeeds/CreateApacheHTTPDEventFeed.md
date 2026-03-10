@@ -34,16 +34,16 @@ Again, Event Decoration is described in another document.
 For this example, we will use logs from an Apache HTTPD Web server.
 In fact, the web server in front of Stroom v5 and earlier.
 
-To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension of the BlackBox format.
+To get the optimal information from the Apache HTTPD access logs, we define our log format based on an extension of the _BlackBox_ format.
 The format is described and defined below.
-This is an extract from a httpd configuration file (/etc/httpd/conf/httpd.conf)
+This is an extract from a HTTPD configuration file (`/etc/httpd/conf/httpd.conf`)
 
-{{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/ApacheHTTPDAuditConfig.txt" "text" >}}Apache BlackBox Auditing Configuration{{</textfile >}}
+{{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/ApacheHTTPDAuditConfig.txt" "text" >}}_Apache BlackBox_ Auditing Configuration{{</textfile >}}
 
-As Stroom can use PKI for login, you can configure Stroom’s Apache to make use of the blackboxSSLUser log format.
+As Stroom can use PKI for login, you can configure Stroom’s Apache to make use of the _blackboxSSLUser_ log format.
 A sample set of logs in this format appear below.
 
-{{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/sampleApacheBlackBox.log" "text" >}}Apache BlackBox sample log{{</textfile >}}
+{{< textfile "HOWTOs/EventFeeds/CreateApacheHTTPDEventFeed/sampleApacheBlackBox.log" "text" >}}_Apache BlackBox_ sample log{{</textfile >}}
 
 Save a copy of this data to your local environment for use later in this HOWTO.
 Save this file as a text document with ANSI encoding.
@@ -51,7 +51,7 @@ Save this file as a text document with ANSI encoding.
 
 ## Create the Feed and its Pipeline
 
-To reflect the source of these Accounting Logs, we will name our feed and its pipeline Apache-SSLBlackBox-V2.0-EVENTS and it will be stored in the system group Apache HTTPD under the main system group - `Event Sources`.
+To reflect the source of these Accounting Logs, we will name our feed and its pipeline _Apache-SSLBlackBox-V2.0-EVENTS_ and it will be stored in the system group Apache HTTPD under the main system group - `Event Sources`.
 
 
 ### Create System Group
@@ -322,14 +322,16 @@ Common attributes are
 * MyNameServer - the name server the system resolves names through
 
 Since our translation will want these feed attributes, we will set them in the Meta Data text entry box of the **Upload** selection window.
-Note we can skip _Feed_ as this will automatically be assigned correctly as part of the upload action (setting it to Apache-SSLBlackBox-V2.0-EVENTS obviously).
-Our **Meta Data:** will have
+Note we can skip _Feed_ as this will automatically be assigned correctly as part of the upload action (setting it to `Apache-SSLBlackBox-V2.0-EVENTS` obviously).
 
-* System:LinuxWebServer
-* Environment:Production
-* MyHost:stroomnode00.strmdev00.org
-* MyIPaddress:192.168.2.245
-* MyNameServer:192.168.2.254
+Our **Meta Data:** will have
+```properties
+System:LinuxWebServer 
+Environment:Production 
+MyHost:stroomnode00.strmdev00.org 
+MyIPaddress:192.168.2.245
+MyNameServer:192.168.2.254
+```
 
 We select a **Stream Type:** of _Raw Events_ as this data is for an _Event Feed_.
 As this is not a _Reference Feed_ we ignore the **Effective:** entry box (a date/time selector).
@@ -376,24 +378,24 @@ We now have data that will allow us to develop our text converter and translatio
 
 We now need to step our data through the pipeline.
 
-To do this, set the check-box on the _Specific Stream_ pane and we note that the previously grayed out action icons ({{< stroom-icon "process.svg">}} {{< stroom-icon "delete.svg">}} {{< stroom-icon "download.svg" >}}) are now enabled.
+To do this, set the check-box on the _Specific Stream_ pane and we note that the previously greyed out action icons ({{< stroom-icon "process.svg">}} {{< stroom-icon "delete.svg">}} {{< stroom-icon "download.svg" >}}) are now enabled.
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-43.png" >}}Select Stream to Step{{< /screenshot >}}
 
 We now want to step our data through the first element of the pipeline, the Text Converter.
 We enter Stepping Mode by pressing the stepping button {{< stroom-icon "stepping.svg">}} found at the bottom right corner of the _Data/Meta-data_ pane.
 
-We will then be requested to choose a pipeline to step with, at which point you should navigate to the Apache-SSLBlackBox-V2.0-EVENTS pipeline as per
+We will then be requested to choose a pipeline to step with, at which point you should navigate to the `Apache-SSLBlackBox-V2.0-EVENTS` pipeline as per
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-44.png" >}}Select pipeline to Step{{< /screenshot >}}
 
-then press {{< stroom-btn "Ok" >}}.
+Then press {{< stroom-btn "Ok" >}}.
 
 At this point, we enter the pipeline Stepping tab
 
 {{< screenshot "HOWTOs/v6/UI-ApacheHttpEventFeed-45.png" >}}pipeline Stepping tab - Source{{< /screenshot >}}
 
-which, initially displays the Raw Event data from our stream.
+Which, initially displays the Raw Event data from our stream.
 This is the Source display for the Event Pipeline.
 
 

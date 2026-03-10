@@ -16,7 +16,8 @@ Ideally files and directories should be named using _lower-kebab-case_, e.g. `si
 ## Directory structure
 
 All page content, i.e. markdown, is located underneath `content/en`.
-This directory has one sub-directory for each of the top nav bar items.
+This directory has one sub-directory for each of the top navigation bar items.
+
 
 ### Stroom-Docs top level sections
 

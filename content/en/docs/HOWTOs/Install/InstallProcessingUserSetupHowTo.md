@@ -22,6 +22,7 @@ description: >
 To automate the running of a Stroom Proxy or Application service under our Stroom processing user, `stroomuser`, there are a number of configuration files and scripts we need to deploy.
 
 We first become the stroomuser
+
 {{< command-line >}}
 sudo -i -u stroomuser
 {{< /command-line >}}
@@ -36,9 +37,10 @@ The STROOM_TMP variable is set to a working area for the Stroom Application to u
 via the ${stroom_tmp} context variable. Note that we only need the STROOM_TMP variable for Stroom Application deployments, so one
 could remove it from the files for a Forwarding or Standalone proxy deployment.
 
-With respect to the working area, we will make use of the [Storage Scenario]({{< relref "InstallHowTo.md#storage-scenario" >}}) we have defined and hence use the directory `/stroomdata/stroom-working-p_nn_` where _nn_ is the hostname node number (i.e. 00 for host stroomp00, 01 for host stroomp01, etc.).
+With respect to the working area, we will make use of the [Storage Scenario]({{< relref "InstallHowTo.md#storage-scenario" >}}) we have defined and hence use the directory `/stroomdata/stroom-working-p_nn_` where _nn_ is the hostname node number (i.e. `00` for host `stroomp00`, `01` for host `stroomp01`, etc).
 
 So, for the first node, _00_, we run
+
 ```bash
 N=00
 F=~/env.sh
@@ -56,9 +58,10 @@ printf 'STROOM_TMP=/stroomdata/stroom-working-p%s\n' ${N} >> ${F}
 chmod 640 ${F}
 ```
 
-then we can change the __N__ variable on each successive node and run the above.
+Then we can change the __N__ variable on each successive node and run the above.
 
 Alternately, for a Stroom Forwarding or Standalone proxy, the following would be sufficient
+
 ```bash
 F=~/env.sh
 printf '# Environment variables for Stroom services\n' > ${F}
@@ -95,9 +98,12 @@ which java
 {{< /command-line >}}
 which should return `/usr/lib/jvm/java-1.8.0/bin/java`
 
+
 ### Establish Simple Start/Stop Scripts
 
-We create some simple start/stop scripts that start, or stop, all the available Stroom services. At this point, it's just the Stroom application and proxy.
+We create some simple start/stop scripts that start, or stop, all the available Stroom services.
+At this point, it's just the Stroom application and proxy.
+
 ```bash
 if [ ! -d ~/bin ]; then mkdir ~/bin; fi
 F=~/bin/StartServices.sh
@@ -130,8 +136,10 @@ Although one can modify the above for Stroom Forwarding or Standalone Proxy depl
 ## Establish and Deploy Systemd services
 
 ### Processing or Proxy node
+
 For a standard Stroom Processing or Proxy nodes, we can use the following service script.
 (Noting this is done as root)
+
 ```bash
 sudo bash
 F=/etc/systemd/system/stroom-services.service
@@ -156,10 +164,12 @@ chmod 640 ${F}
 ```
 
 ### Single Node Scenario with local database
+
 Should you only have a deployment where the database is on a processing node, use the following service script. The only
 difference is the Stroom dependency on the database. The database dependency below is for the MariaDB database. If you had
 installed the MySQL Community database, then replace `mariadb.service` with `mysqld.service`.
 (Noting this is done as root)
+
 ```bash
 sudo bash
 F=/etc/systemd/system/stroom-services.service
@@ -184,8 +194,10 @@ chmod 640 ${F}
 ```
 
 ### Enable the service
+
 Now we enable the Stroom service, but we **DO NOT** start it as we will manually start the Stroom services as part of
 the installation process.
+
 {{< command-line >}}
 systemctl enable stroom-services.service
 {{< /command-line >}}

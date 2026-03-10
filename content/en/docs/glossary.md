@@ -169,6 +169,14 @@ See the [Document Permissions]({{< relref "docs/user-guide/security/doc-permissi
 Stroom can be connected to one or more Elasticsearch clusters so that event indexing and search is handled by Elasticsearch rather than internally.
 
 
+## ELFF
+
+The Extended Log File Format.
+A W3C standard format for log files produced by web servers.
+
+See {{< external-link "Extended Log File Format" "https://www.w3.org/TR/WD-logfile.html" >}} for more detail.
+
+
 ## Entity
 
 Typically refers to an item that can be created in the Explorer Tree, e.g. a Feed, a Pipeline, a Dashboard, etc. May also be known as a {{< glossary "Document" >}}.
@@ -263,7 +271,7 @@ See [Users and Groups]({{< relref "docs/user-guide/security/users-and-groups" >}
 
 An _Identity Provider_ is a system or service that can authenticate a user and assert their identity.
 _Identity providers_ can support single sign on (SSO), which allows the user to sign in once to the _Identity Provider_ so they are then authenticated to all systems using that IDP.
-Examples of identity providers are Google, Cognito, KeyCloak and Microsoft Azure/Entra AD.
+Examples of identity providers are Google, Cognito, Keycloak and Microsoft Azure/Entra AD.
 Stroom has its own built in IDP or can be configured to use a 3rd party IDP.
 
 
@@ -512,10 +520,10 @@ See [Users and Groups]({{< relref "docs/user-guide/security/users-and-groups" >}
 
 {{< external-link "UTC (Coordinated Universal Time)" "https://en.wikipedia.org/wiki/Coordinated_Universal_Time" >}}, also known as Zulu time, is the international standard by which the world regulates clocks and time.
 It is essentially a successor to Greenwich Mean Time (GMT).
-UTC has the timezone offset of `+00:00`.
+UTC has the time zone offset of `+00:00`.
 All international time zones are relative to UTC.
 
-Stroom currently works internally in UTC, though it is possible to change the display time zone via User Preferences to display times in another timezone.
+Stroom currently works internally in UTC, though it is possible to change the display time zone via User Preferences to display times in another time zone.
 
 
 ## UUID

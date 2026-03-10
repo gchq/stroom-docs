@@ -36,7 +36,7 @@ Our reference data will be supplied in a <TAB> separated file containing the fie
 * the device Country location (using ISO 3166-1 alpha-3 codes)
 * the device Site location
 * the device Building location
-* the device TimeZone location (both standard then daylight timezone offsets from UTC)
+* the device TimeZone location (both standard then daylight time zone offsets from UTC)
 
 For simplicity, our example will use a file with just 5 entries
 
@@ -261,7 +261,7 @@ The following is our Data Splitter code (see **Data Splitter** documentation for
   * the device Site location
   * the device Building location
   * the device Room location
-  *the device TimeZone location (both standard then daylight timezone offsets from UTC)
+  *the device TimeZone location (both standard then daylight time zone offsets from UTC)
   
   The data is a TAB delimited file with the first line providing headings.
   
@@ -410,7 +410,7 @@ We now see the **XSL translationFilter** Property Table for our pipeline in the 
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-45.png" >}}xslt translation element - property pane{{< /screenshot >}}
 
-To associate our new translation with the pipeline, move the cursor to the _Property Table_, click on the grayed out _xslt_ Property Name and then click on the Edit Property {{< stroom-icon "edit.svg" >}} icon to allow you to edit the property as per
+To associate our new translation with the pipeline, move the cursor to the _Property Table_, click on the greyed out _xslt_ Property Name and then click on the Edit Property {{< stroom-icon "edit.svg" >}} icon to allow you to edit the property as per
 
 {{< screenshot "HOWTOs/v6/UI-CreateReferenceFeed-46.png" >}}xslt -property editor{{< /screenshot >}}
 
@@ -537,7 +537,7 @@ version="2.0">
   * the device Site location
   * the device Building location
   * the device Room location
-  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
+  *the device TimeZone location (both standard then daylight time zone offsets from UTC)  
   
   The reference maps are
   FQDN_TO_IP - Fully Qualified Domain Name to IP Address
@@ -621,7 +621,7 @@ version="2.0">
   * the device Site location
   * the device Building location
   * the device Room location
-  *the device TimeZone location (both standard then daylight timezone offsets from UTC)  
+  *the device TimeZone location (both standard then daylight time zone offsets from UTC)  
   
   The reference maps are
   FQDN_TO_IP - Fully Qualified Domain Name to IP Address

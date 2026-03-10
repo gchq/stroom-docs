@@ -132,7 +132,7 @@ If we click on that stream we will see the raw data
 ### Processor Errors
 
 Occasionally you may need to reprocess a stream.
-This is most likely required as a result of correcting translation issues during the development phase, or it can occur from the data source having an unexpected change (unnotified application upgrade for example).
+This is most likely required as a result of correcting translation issues during the development phase, or it can occur from the data source having an unexpected change (un-notified application upgrade for example).
 You can reprocess a stream by selecting its check box and then pressing the {{< stroom-icon "process.svg" >}} icon in the top left of the same pane.
 This will cause the pipeline to reprocess the selected stream.
 One can only reprocess _Event_ or _Error_ streams.

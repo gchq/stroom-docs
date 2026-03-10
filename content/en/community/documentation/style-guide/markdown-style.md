@@ -459,17 +459,19 @@ Beastie Boys    | License to Ill | 1986
 | Beastie Boys | License to Ill | 1986 |
 ```
 
-All  will produce the same result, however, the latter can be harder to read in markdown form.
+All will produce the same result, however, the latter can be harder to read in markdown form.
 The first two are harder to create and update in markdown form.
 
+<!-- spell-checker: disable -->
 | Artist            | Album            | Year   |
 | ----------------- | ---------------- | ------ |
 | Michael Jackson   | Thriller         | 1982   |
 | Prince            | Purple Rain      | 1984   |
 | Beastie Boys      | License to Ill   | 1986   |
+<!-- spell-checker: enable -->
 
 If you are editing the documentation with Vim then the plugin {{< external-link "tabular" "https://github.com/godlygeek/tabular" >}} is very useful for auto aligning markdown tables.
-Simply position the cursor somewhere in the table and do `:Tabularize\|` to _tabularize_ on the `|` character.
+Simply position the cursor somewhere in the table and do `:Tabularize\|` to 'tabularize' on the `|` character.
 
 
 ### Line breaks in cells

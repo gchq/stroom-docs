@@ -41,8 +41,8 @@ sudo yum -y install mysql-community-client
 
 ## Test Database connectivity
 We need to test access to the Stroom databases on `stroomdb0.strmdev00.org`. We do this using the client `mysql` utility. We note that we
-must enter the _stroomuser_ user's password set up in the creation of the database earlier (`Stroompassword1@`) when connecting to
-the `stroom` database and we must enter the _stroomstats_ user's password (`Stroompassword2@`) when connecting to the `statistics` database.
+must enter the `stroomuser` user's password set up in the creation of the database earlier (`Stroompassword1@`) when connecting to
+the `stroom` database and we must enter the `stroomstats` user's password (`Stroompassword2@`) when connecting to the `statistics` database.
 
 We first test we can connect to the `stroom` database and then set the default database to be `stroom`.
 
@@ -147,6 +147,7 @@ quit
 If there are any errors, correct them.
 
 ## Get the Software
+
 The following will gain the identified, in this case release `5.0-beta.18`, Stroom Application software release from github, then deploy it. You should regularly monitor the site for newer releases.
 
 {{< command-line >}}
@@ -158,13 +159,14 @@ chmod 750 stroom-app
 {{< /command-line >}}
 
 ## Configure the Software
+
 We install the application via
 
 {{< command-line >}}
 stroom-app/bin/setup.sh
 {{< /command-line >}}
 
-during which one is prompted for a number of configuration settings. Use the following
+During which one is prompted for a number of configuration settings. Use the following
 ```
 TEMP_DIR should be set to '/stroomdata/stroom-working-p00' or '/stroomdata/stroom-working-p01' etc depending on the node we are installing on
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomp00' or 'stroomp01' in our multi node scenario)
@@ -188,10 +190,12 @@ CREATE_DEFAULT_VOLUME_ON_START should use the default, just press return
 At this point, the script will configure the application. There should be no errors, but review the output.
 If you made an error then just re-run the script.
 
-You will note that __TEMP_DIR__ is the same directory we used for our __STROOM_TMP__ environment variable when we set up the processing user scripts.
-Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the __JDBC_URL__ setting can be the default.
+You will note that `TEMP_DIR` is the same directory we used for our `STROOM_TMP` environment variable when we set up the processing user scripts.
+Note that if you are deploying a single node environment, where the database is also running on your Stroom node, then the `JDBC_URL` setting can be the default.
+
 
 ## Start the Application service
+
 Now we start the application. In the case of multi node Stroom deployment, we start the Stroom application on the first node in the cluster,
 then __wait__ until it has initialised the database commenced its Lifecycle task. You will need to monitor the log file to see its
 completed initialisation.
@@ -204,7 +208,8 @@ Now monitor `stroom-app/instance/logs` for any errors. Initially you will see th
 and `catalina.out`. Check them for errors and correct (or post a question). The log4j warnings in `catalina.out` can be ignored.
 Eventually the log file `stroom-app/instance/logs/stroom.log` will appear. Again check it for errors and then wait for the application to
 be initialised. That is, wait for the Lifecycle service thread to start. This is indicated by the message
-```
+
+```text
 INFO  [Thread-11] lifecycle.LifecycleServiceImpl (LifecycleServiceImpl.java:166) - Started Stroom Lifecycle service
 ```
 The directory `stroom-app/instance/logs/events` will also appear with an empty file with

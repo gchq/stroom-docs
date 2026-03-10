@@ -119,8 +119,8 @@ For a production deployment these will need to be changed, see [Certificates]({{
 
 ### Log rotation
 
-The Nginx container makes use of logrotate to rotate Nginx's log files after a period of time so that rotated logs can be sent to stroom.
-Logrotate is configured using the file `volumes/stroom-log-sender/logrotate.conf.template`.
+The Nginx container makes use of _logrotate_ to rotate Nginx's log files after a period of time so that rotated logs can be sent to stroom.
+_Logrotate_ is configured using the file `volumes/stroom-log-sender/logrotate.conf.template`.
 This file is templated in the same way as the Nginx configuration files, see [above](#templating).
 The number of rotated files that should be kept before deleting them can be controlled using the line.
 
@@ -128,6 +128,6 @@ The number of rotated files that should be kept before deleting them can be cont
 rotate 100
 ```
 
-This should be set in conjunction with the frequency that logrotate is called, which is controlled by `volumes/stroom-log-sender/crontab.txt`.
-This crontab file drives the lograte process and by default is set to run every minute.
+This should be set in conjunction with the frequency that _logrotate_ is called, which is controlled by `volumes/stroom-log-sender/crontab.txt`.
+This _crontab_ file drives the _logrotate_ process and by default is set to run every minute.
 
