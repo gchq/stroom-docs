@@ -89,6 +89,24 @@ Generally this doesn't make any difference to how you use the user-interface; ho
 To get back to the current live state and remove any unsaved changes, click the {{< stroom-icon "refresh.svg" "Revert changes">}} icon.
 
 
+### Import and Export, GitRepo Structure
+
+The import and export or GitRepo format is designed to allow you to edit the assets within the import/export structure.
+If you look at the structure you'll have something like this:
+
+- `Name.Visualisation.UUID.json`
+- `Name.Visualisation.UUID.meta`
+- `Name.Visualisation.UUID.node`
+- `Name.Visualisation.UUID-path-assets/`
+
+Here `Name` is the name of the Visualisation document, and UUID is a long string that looks something like `b565d110-508d-483c-95f7-69196479aee9`.
+
+The first three files (`.json`, `.meta` and `.node`) should not be edited.
+However, under the `-path-assets/` directory you'll find your assets in the same structure as shown in the Stroom user-interface. 
+You may edit, add or delete files as required. 
+When you re-import the files or Pull from the GitRepo, the files within Stroom will be updated.
+
+
 ## Assets and Visualisations
 
 The assets can be used directly via [links]({{< relref "#http-access" >}}) from Scripts.
