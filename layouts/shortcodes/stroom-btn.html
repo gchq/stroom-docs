@@ -7,6 +7,8 @@ stroom-btn title
 e.g
 stroom-btn "Ok"
 stroom-btn "Cancel"
+
+NOTE: The css class names are all found in assets/scss/_styles_project.scss
 -->
 
 {{ $iconName := "" }}
@@ -37,6 +39,10 @@ stroom-btn "Cancel"
   {{ $title = "Cancel" }}
   {{ $extra_classes = "stroom-button-secondary" }}
   {{ $filename = "close.svg" }}
+{{ else if eq (lower $title) "new" }}
+  {{ $title = "New" }}
+  {{ $extra_classes = "stroom-button-green" }}
+  {{ $filename = "add.svg" }}
 {{ else if eq $type "primary" }}
   {{ $extra_classes = "stroom-button-primary" }}
 {{ else if eq $type "secondary" }}

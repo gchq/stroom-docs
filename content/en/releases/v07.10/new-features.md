@@ -10,9 +10,9 @@ description: >
 
 ## Dashboard & StroomQL Functions
 
-### `ceilingTime(..)` & `floorTime(...)`
+### `ceilingTime(..)` & `floorTime(...)` & `roundTime(...)`
 
-Two new functions similar to the existing [`ceilingXXX`]({{< relref "docs/reference-section/expressions/date#ceiling-yearmonthdayhourminutesecond" >}}) and [`floorXXX`]({{< relref "docs/reference-section/expressions/date#floor-yearmonthdayhourminutesecond" >}}) functions, except that an arbitrary duration can be used.
+Three new functions similar to the existing [`ceilingXXX`]({{< relref "docs/reference-section/expressions/date#ceiling-yearmonthdayhourminutesecond" >}}) and [`floorXXX`]({{< relref "docs/reference-section/expressions/date#floor-yearmonthdayhourminutesecond" >}}) functions, except that an arbitrary duration can be used.
 
 For example, `floorTime($time, 'PT5m')` will floor the time to the latest time that is divisible by 5 minutes.
 
@@ -57,7 +57,7 @@ formatIECByteSize(bytes, omitTrailingZeros, significantFigures)
 ### `formatMetricByteSize(...)`
 
 A new function for converting an integer amount of bytes into an appropriate byte size unit, e.g. `1000` bytes becomes `1K`.
-Metrix units with a base of `1000` rather than `1024` are used.
+Metric units with a base of `1000` rather than `1024` are used.
 
 The function has three forms:
 
@@ -91,6 +91,18 @@ data('View Cooked', ${StreamId}, 1, ${eventId}, null(), null(), null(), null(), 
 ```
 
 
+### `isWeekend(..)`
+
+Returns whether a date and time is part of the weekend or not.
+
+For example:
+
+```clike
+isWeekend('2026-02-04T12:45:11.000Z') returns false
+isWeekend('2026-02-01T12:45:11.000Z') returns true
+```
+
+
 ## Dashboard Embedded Queries
 
 When creating an Embedded Query Dashboard pane, it is now possible to embed a copy of an existing query rather than embedding a reference to one.
@@ -111,7 +123,7 @@ parse-dateTime(string, pattern)
 parse-dateTime(string, pattern, timezone)
 ```
 
-This function will either parse a date/time string in {{< glossary "ISO8601" >}} standard date/time format or in a custom date/time format using the supplied pattern and optional timezone.
+This function will either parse a date/time string in {{< glossary "ISO8601" >}} standard date/time format or in a custom date/time format using the supplied pattern and optional time zone.
 
 For details of the pattern syntax see [Custom Date Formats]({{< relref "docs/reference-section/dates#custom-date-formats" >}}).
 
@@ -130,8 +142,8 @@ format-dateTime(DateTimeValue, pattern, timezone)
 
 All three variants take an `xs:dateTime` value as the first argument.
 If only one argument is supplied, the function will output the date/time as a standard {{< glossary "ISO8601" >}} format `xs:string`.
-If two or more arguments are supplied then it will output the date/time formatted using the specified [pattern]({{< relref "docs/reference-section/dates#custom-date-formats" >}}) and optionally using the specified timezone.
-If no timezone is supplied, the date/time is assumed to be in {{< glossary "UTC" >}}.
+If two or more arguments are supplied then it will output the date/time formatted using the specified [pattern]({{< relref "docs/reference-section/dates#custom-date-formats" >}}) and optionally using the specified `timezone`.
+If no `timezone` is supplied, the date/time is assumed to be in {{< glossary "UTC" >}}.
 
 
 ### Meta Functions
@@ -153,7 +165,7 @@ When creating a content template of type `INHERIT_PIPELINE` it is now possible t
 This allows the Data Splitter or XSLT to be refined/populated for the new content.
 
 
-### Index Shards Searchable
+## Index Shards Searchable
 
 The _IndexShards_ {{< glossary "Searchable" >}} has been changed to add the fields `Shard Id` and `Index Version` to the list of available fields.
 

@@ -19,6 +19,8 @@ FROM adoptopenjdk/openjdk15:jdk-15.0.2_7-alpine
 # Work from the shared git repo dir
 WORKDIR /builder/shared
 
+ARG PLANT_UML_VER="1.2026.1"
+
 # graphviz, ttf-* for plantuml
 RUN apk add --no-cache \
       bash \
@@ -30,7 +32,7 @@ RUN apk add --no-cache \
       ttf-droid-nonlatin \
     && curl \
       -Ls \
-      https://sourceforge.net/projects/plantuml/files/plantuml.1.2021.5.jar/download \
+      https://github.com/plantuml/plantuml/releases/download/v${PLANT_UML_VER}/plantuml-${PLANT_UML_VER}.jar \
       -o /builder/plantuml.jar \
     && apk del curl
 

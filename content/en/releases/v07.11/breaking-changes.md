@@ -15,14 +15,43 @@ Please read this section carefully in case any of the changes affect you.
 
 ## Stroom
 
-No Stroom specific breaking changes in v7.11.
+Breaking changes relating to Stroom.
+
+### Import of Legacy Content
+
+Stroom v7.11 is no longer able to import content that has been exported from a v5/v6 Stroom.
+Any such content will have to be imported into Stroom v7.10 or lower then exported for import into Stroom v7.11.
+
+
+### Elastic Configuration
+
+The property `stroom.elastic.retention.scrollSize` has been removed.
+See [Upgrade Notes]({{< relref "upgrade-notes#removed-elastic-property" >}}).
 
 
 ## Stroom-Proxy
 
-No Stroom-Proxy specific breaking changes in v7.11.
+Breaking changes relating to Stroom Proxy.
+
+
+### Feed Status Check Configuration
+
+Various properties have been removed from the `proxyConfig.feedStatus` configuration branch.
+See [Upgrade Notes]({{< relref "upgrade-notes#remove-various-feedstatus-properties" >}}).
+
+
+### Content Sync Configuration
+
+The whole `contentSync` branch has been removed as it is no longer in use.
+See [Upgrade Notes]({{< relref "upgrade-notes#removed-contentsync" >}}).
 
 
 ## Stroom & Stroom-Proxy
 
-No breaking changes common to Stroom and Stroom-Proxy in v7.11.
+Breaking changes that are common to both Stroom and Stroom Proxy.
+
+
+### Receive Configuration
+
+The property `receiptPolicyUuid` has been removed.
+See [Upgrade Notes]({{< relref "upgrade-notes#removed-property-proxyconfigreceivereceiptpolicyuuid" >}}).

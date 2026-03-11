@@ -26,7 +26,7 @@ Once you have logged in, move the cursor to the **System** folder within the `Ex
 {{< screenshot "HOWTOs/UI-CreateFeed-00.png" >}}Stroom UI Create Feed - System selected{{< /screenshot >}}
 
 Once selected, _right click_ to bring up the `New Item` selection sub-menu. By selecting the **System** folder we are
-requesting any  _new_ item created to be placed within it.
+requesting any _new_ item created to be placed within it.
 
 Select {{< stroom-menu "New" "Feed" >}}
 
@@ -68,7 +68,7 @@ You will be presented with a `New Folder` configuration window.
 
 {{< screenshot "HOWTOs/UI-EventSources-01.png" >}}Stroom UI Create Folder - New folder configuration window{{< /screenshot >}}
 
-You will note that the **System** folder has already been selected as the _parent group_ and all we need to do is enter our folders's name in the **Name:** entry box
+You will note that the **System** folder has already been selected as the _parent group_ and all we need to do is enter our folder's name in the **Name:** entry box
 
 {{< screenshot "HOWTOs/UI-EventSources-02.png" >}}Stroom UI Create Folder - New folder configuration window enter name{{< /screenshot >}}
 

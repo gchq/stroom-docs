@@ -38,7 +38,7 @@ To insert a snippet do one of the following:
 * Type the whole Tab Trigger then hit {{< key-bind "tab" >}}.
 * Type some characters from the Name then hit {{< key-bind "ctrl,space" >}} to select it from the list.
 
-The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be position on the first tab position (`${1}` if present, otherwise `${0}`).
+The snippet will be inserted (replacing the Tab Trigger if used) and the cursor will be positioned on the first tab position (`${1}` if present, otherwise `${0}`).
 If the tab position has a default value then the whole of that default value will be selected allowing the user to quickly over type it.
 Once the user is happy with the first tab position (whether they inserted text, over typed or did nothing), they can hit `tab` to move to the next tab position.
 
@@ -71,7 +71,7 @@ Therefore, available snippets may be subject to change.
 However, until then, if there are any generic snippets that you think would be useful to add to Stroom then please raise an issue on {{< external-link "GitHub" "https://github.com/gchq/stroom/issues" >}}.
 
 
-<!-- 
+<!--
 ******************* IMPORTANT *********************
 
 Everything below here is semi-auto-generated using
@@ -81,7 +81,7 @@ stroom.app.docs.GenerateSnippetsDoc#main on 7.3+
 Run that main method then copy the content from the console
 and paste it below this message.
 
-******************* IMPORTANT ********************* 
+******************* IMPORTANT *********************
 -->
 
 <!-- #~#~#~#~#~# GENERATED CONTENT START #~#~#~#~#~#~# -->

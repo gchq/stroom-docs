@@ -1,7 +1,7 @@
 ---
 title: "User Accounts"
 linkTitle: "User Accounts"
-weight: 20
+weight: 30
 date: 2024-11-01
 tags:
   - authentication
@@ -52,12 +52,12 @@ User accounts have a number of flags that can be set by an administrator or auto
   A disabled account cannot login.
   Useful for disabling a user that is temporarily on leave.
 
-* _Locked_ - Set when a users has too many failed login attempts (controlled by the property `stroom.security.identity.failedLoginLockThreshold`).
+* _Locked_ - Set when a user has too many failed login attempts (controlled by the property `stroom.security.identity.failedLoginLockThreshold`).
   Can be un-set by a user with `Manage Users` {{< glossary "Application Permission" >}}.
   A locked account cannot login.
 
 * _Inactive_ - Set automatically in one of these cases:
   * A brand new account has not been used for a duration greater than `stroom.security.identity.passwordPolicy.neverUsedAccountDeactivationThreshold`.
   * An account has not been used for a duration greater than `stroom.security.identity.passwordPolicy.unusedAccountDeactivationThreshold`.
-  A inactive account cannot login.
+  An inactive account cannot login.
 

@@ -1,7 +1,7 @@
 ---
 title: "Content Import and Export"
 linkTitle: "Content Import and Export"
-weight: 50
+weight: 70
 date: 2025-07-11
 tags: 
   - import
@@ -33,7 +33,7 @@ Content can be exported using two methods:
 * Selecting one or more items in the explorer tree then clicking _Export_ from the right-click context menu.
   {{< stroom-menu "Export" >}}
 
-From the dialog that is displayed, the user can select which items to included in the import.
+From the dialog that is displayed, the user can select which items to include in the import.
 On clicking {{< stroom-btn "OK" >}} a confirmation dialog will be displayed confirming the number of items that will be exported, including a breakdown of counts by document type.
 
 The export will be written to a file called `StroomConfig.zip` that will typically be located in the `Downloads` directory on the users computer.
@@ -46,7 +46,7 @@ Stroom aims to support the import of older formats but older versions of Stroom 
 
 ## Importing Content
 
-Content can be exported using two methods:
+Content can be imported using two methods:
 
 * Via the main menu:
   {{< stroom-menu "Tools" "Import" >}}

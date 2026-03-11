@@ -32,8 +32,8 @@ Reference data is often time sensitive, e.g. an employee's job title will change
 This allows reference data lookups to be performed using the date of the event to ensure the reference data that was actually effective at the time of the event is used.
 
 {{% warning %}}
-There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependant on a _Reference_ Feed.
-When performing a lookup Stroom can only uses the _Reference_ streams that it has available.
+There is currently no mechanism in Stroom to place dependencies between Feeds, i.e. an _Events_ Feed being dependent on a _Reference_ Feed.
+When performing a lookup Stroom can only use the _Reference_ streams that it has available.
 If a _Reference_ stream has been delayed (in receipt or translation), then Stroom will have to use the most recent one it has.
 {{% /warning %}}
 
@@ -81,7 +81,7 @@ As the _Context_ sub-stream sits alongside the _Events_ stream, there is no conc
 
 Using _Context_ sub-stream based reference data involves the following steps/processes:
 
-* Creating a context loader pipeline with to transform the raw context data into `reference-data:2` XML and pass that into a {{< pipe-elm "ReferenceDataFilter" >}} element.
+* Creating a context loader pipeline to transform the raw context data into `reference-data:2` XML and pass that into a {{< pipe-elm "ReferenceDataFilter" >}} element.
   This pipeline does not need any processors or processor filters as it is used on demand when the first lookup call is made in an _Events_ stream.
 * Adding reference pipeline/feeds to an XSLT Filter in your event pipeline.
   The _Pipeline_ is set to the context loader pipeline created above.
@@ -111,7 +111,7 @@ The ReferenceDataFilter requires the reference data to be XML that conforms to t
 
 A reference data entry essentially consists of the following:
 
-* **Effective time** - The data/time that the entry was effective from, i.e the time the raw reference data was received.
+* **Effective time** - The data/time that the entry was effective from, i.e. the time the raw reference data was received.
 * **Map name** - A unique name for the key/value map that the entry will be stored in.
   The name only needs to be unique within all map names that may be loaded within an XSLT Filter.
   In practice it makes sense to keep map names globally unique.
@@ -227,7 +227,7 @@ The namespacing can also be achieved like this:
 </referenceData>
 ```
 
-This reference data will be injected into event XML exactly as it, i.e.:
+This reference data will be injected into event XML exactly as is, i.e.:
 
 ``` xml
       <Location xmlns="event-logging:3">
@@ -252,12 +252,12 @@ While this will result in duplicate data being held by nodes it makes the storag
 
 The On-Heap store is the reference data store that is held in memory in the Java Heap.
 This store is volatile and will be lost on shut down of the node.
-The On-Heap store is only used for storage of context data which is is destroyed once processing of the _Events_ stream is complete.
+The On-Heap store is only used for storage of context data which is destroyed once processing of the _Events_ stream is complete.
 
 
 ### Off-Heap Store
 
-The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to to local disk.
+The Off-Heap store is the reference data store that is held in memory outside of the Java Heap and is persisted to local disk.
 As the store is also persisted to local disk it means the reference data will survive the shutdown of the stroom instance.
 Storing the data off-heap means Stroom can run with a much smaller Java Heap size.
 
@@ -294,7 +294,7 @@ There can only be one write transaction at a time so if there are a number of co
 Read transactions, i.e. lookups, are not blocked by each other but may be blocked by a write transaction depending on the value of the system property `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter`.
 LMDB can operate such that readers are not blocked by writers but if there is an open read transaction while a write transaction is writing data to the store then it is unable to make use of free space (from previous deletes, see [Store Size & Compaction]({{< relref "#store-size--compaction" >}})) so will result in the store increasing in size.
 If read transactions are likely while writes are taking place then this can lead to excessive growth of the store.
-Setting  `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter` to `true` will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
+Setting `stroom.pipeline.referenceData.lmdb.readerBlockedByWriter` to `true` will block all reads while a load is happening so any free space can be re-used, at the cost of making all lookups wait for the load to complete.
 Use of this setting will depend on how likely it is that loads will clash with lookups and the store size should be monitored.
 
 
@@ -336,7 +336,7 @@ The new node will use the copied store and have access to its reference data.
 #### Store Size & Compaction
 
 Due to the way LMDB works the store can only grow in size, it will **never** shrink, even if reference data is deleted.
-Deleted data frees up space for new writes to the store so will be reused but will never be freed back to the operating system. 
+Deleted data frees up space for new writes to the store so will be reused but will never be freed back to the operating system.
 If there is a regular process of purging old data and adding new reference data then this should not be an issue as the new reference data will use the space made available by the purged data.
 
 If store size becomes an issue then it is possible to _compact_ the store.

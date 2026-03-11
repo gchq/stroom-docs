@@ -1,0 +1,439 @@
+---
+version: '0.2'
+language: en-GB
+
+files:
+- content/**/*.md
+- README.md
+
+ignorePaths:
+- CHANGELOG.md
+- CONTRIBUTING.md
+- content/**/change-log.md
+- ".git/**"
+- assets/**
+- static/**
+- node_modules/**
+
+
+ignoreRegExpList:
+# Front matter
+- '/^---(?:.|\n)*?^---/gm'
+
+# Hugo shortcode blocks with markdown inner text
+# We WANT to spell check these, e.g. note/warn blocks.
+# e.g. {{% note %}}xxxx{{% /note %}}
+#- '/{{%\s*([a-zA-Z_-]+)\s+[^%]*%}}(?:.|\n)*?{{\s*%\s*\/\s*\1\s+%}}/gm'
+#
+# Hugo shortcode blocks with markdown inner text
+# We WANT to spell check the inner text
+# e.g. {{% note %}}{% /note %}}
+# e.g. {{% /pageinfo %}}
+- '/{{%\s*(?:\/)?\s*\w+\s*%}}/g'
+
+# Hugo shortcode blocks with raw inner text
+# e.g. {{< command-line "user" "localhost" >}}xxxxxx{{</ command-line >}}
+- '/{{<\s*([a-zA-Z_-]+)\s+[^>]*>}}(?:.|\n)*?{{<\s*\/\s*\1\s+>}}/gm'
+
+# Hugo single shortcode
+# e.g. {{< external-link "text_or_url" "url" >}}
+- '/{{<\s*([a-zA-Z_-]+)\s+[^>]*>}}/gm'
+
+# Inline code
+# e.g. `xxxxx`
+- '/(?<!`)`[^`]+?`/g'
+
+# Fenced code block
+# e.g. ```bash\necho\n```
+- '/```.*\n(.|\n)+?```$/gm'
+
+# Links
+# e.g. (Foo)[http://foo]
+- '/\[[^\]]+?\]\([^)]+?\)/g'
+
+# URLs
+- '/(?:https?|localhost):\/\/\S+/g'
+
+- "\\$\\{[^}]+\\}"
+# HTML comments
+- "<!--[\\s\\S]*?-->"
+
+# e.g. **X**xx, xx**X**, xx**X**xx
+- '/(?:\w+\*\*\w+\**\w+|\*\*\w+\*\*\w+|\w+\*\*\w+\*\*)/g'
+
+# Named anchors
+# e.g. {#regex-maxmatch}
+- '/{#[^}]+}/g'
+
+# Single quoted text
+# e.g. 'tabularize' 
+- "'\w+'"
+
+# HTML links, used for anchors in markdown
+# e.g. <a name="mysqlclientinstall"></a>
+- '/<a\s+(?:name|id)="[^"]+"\s*>.*<\/a>/gm'
+
+# UPPER CASE only words
+# e.g. RAID
+- '/(?<=\W)[A-Z0-9]+(?=\W)/g'
+
+# Allowed words
+words:
+- Adoptium
+- amongst
+- analysable
+- analyse
+- analysed
+- analysing
+- API
+- apikey
+- APIs
+- auditd
+- authorisation
+- authorise
+- authorised
+- autoscroll
+- Azul
+- behaviour
+- behaviours
+- Blackbox
+- Bloggs
+- Bluecoat
+- cancelled
+- cancelling
+- categorise
+- categorised
+- centralise
+- centralised
+- centos
+- changelog
+- cheque
+- CIFS
+- classman
+- classpath
+- clickable
+- colour
+- colours
+- config
+- configs
+- copyof
+- coreutils
+- customisation
+- customise
+- customised
+- decentralise
+- decentralised
+- dedup
+- deduplicate
+- deduplicated
+- deduplication
+- defence
+- deserialise
+- deserialised
+- dialog
+- dialogs
+- dockerfile
+- dockerhub
+- Docsy
+- docsy
+- DOCTYPE
+- Dropwizard
+- DTD
+- Elasticsearch
+- elasticsearch
+- enrol
+- enrolment
+- failover
+- favour
+- feedName
+- finalise
+- finalised
+- flavour
+- focussed
+- focussing
+- fulfil
+- fulfilment
+- gchq
+- GCHQ
+- graphviz
+- grey
+- Guice
+- GUID
+- gzip
+- Hadoop
+- HDFS
+- hdfs
+- helm
+- Helm
+- hostname
+- hostnames
+- HTTPd
+- httpd
+- Hugo
+- idempotency
+- idempotent
+- initialisation
+- initialise
+- initialised
+- InnoDB
+- JAXB
+- jbloggs
+- Jinja
+- JNDI
+- johndoe
+- JOOQ
+- JSON
+- json
+- keystore
+- kubectl
+- kubernetes
+- Kubernetes
+- labelled
+- labelling
+- LDAP
+- ldap
+- licence
+- licences
+- LMDB
+- lmdb
+- localisation
+- localise
+- localised
+- Logback
+- Lucence
+- lz4
+- manoeuvre
+- MariaDB
+- mariadb
+- maximise
+- maximised
+- microservice
+- microservices
+- minimise
+- minimised
+- modelled
+- modelling
+- modularise
+- multi
+- MySQL
+- mysql
+- nameserver
+- namespace
+- namespaces
+- neighbour
+- neighbouring
+- NFS
+- nfs
+- nginx
+- Nginx
+- NGINX
+- non
+- normalisation
+- normalise
+- normalised
+- OAuth
+- offence
+- OIDC
+- optimisation
+- optimise
+- optimised
+- organisation
+- organisations
+- organise
+- organised
+- parameterisation
+- parameterise
+- PKI
+- PKIDs
+- PKIX
+- practise
+- pre
+- pretence
+- programme
+- programmes
+- proxied
+- proxying
+- RDBMS
+- RDBMSs
+- RHEL
+- re
+- realise
+- realised
+- recognise
+- recognised
+- refeed
+- regex
+- regexp
+- SAML
+- searchable
+- searchables
+- serialisation
+- serialise
+- serialised
+- shebang
+- signalled
+- signalling
+- Solr
+- Sonatype
+- SSL
+- standardise
+- standardised
+- stderr
+- stdin
+- stdout
+- stroom
+- stroompassword
+- stroomuser
+- subdirectories
+- subdirectory
+- subkey
+- subkeys
+- subpath
+- subpaths
+- syslog
+- Temurin
+- timestamp
+- timestamps
+- TLS
+- tokenisation
+- tokenise
+- tokenised
+- TOML
+- toml
+- travelled
+- travelling
+- truststore
+- unzip
+- unzipped
+- url
+- URLs
+- utilisation
+- utilise
+- utilised
+- UUID
+- visualisation
+- visualise
+- visualised
+- whilst
+- wildcard
+- wildcards
+- xpath
+- XPath
+- XSLT
+- xslt
+- YAML
+- yaml
+- zstd
+
+# Forbidden words
+# Note cspell normall only checks words >= 4chars
+# A lot of these override american english words included in the 'software-terms' dictionary.
+flagWords:
+- hte # 'the'
+- anonymize
+- anonymized
+- anonymizer
+- anonymizers
+- anonymizes
+- camelize
+- camelized
+- camelizes
+- canonicalize
+- canonicalized
+- canonicalizes
+- color
+- colored
+- coloring
+- colorize
+- colorized
+- colorizer
+- colorizers
+- componentize
+- daemonize
+- dasherize
+- dasherized
+- denormalize
+- denormalized
+- denormalizes
+- deparameterize
+- deparameterized
+- deparameterizes
+- deparametrize
+- deparametrized
+- deparametrizes
+- deserialize
+- deserialized
+- deserializer
+- deserializers
+- deserializes
+- detokenize
+- detokenized
+- detokenizer
+- detokenizers
+- detokenizes
+- diarize
+- diarized
+- diarizes
+- discretize
+- discretized
+- discretizes
+- dockerize
+- initializer
+- initializers
+- parameterized
+- parametrized
+- productize
+- productized
+- productizes
+- randomizer
+- randomizers
+- reinitialize
+- reinitialized
+- reinitializes
+- renormalize
+- renormalized
+- renormalizer
+- renormalizers
+- renormalizes
+- reparameterize
+- reparameterized
+- reparameterizes
+- reparametrize
+- reparametrized
+- reparametrizes
+- resynchronize
+- resynchronized
+- resynchronizes
+- serialize
+- serialized
+- serializer
+- serializers
+- serializes
+- strategize
+- tokenize
+- tokenized
+- tokenizer
+- tokenizers
+- tokenizes
+- transparentize
+- uncustomized
+- uninitialize
+- unnormalize
+- unnormalized
+- unnormalizer
+- unoptimized
+- unparenthesized
+- vectorize
+- vectorized
+- vectorizes
+- virtualize
+- virtualized
+- virtualizer
+
+dictionaries:
+- en_GB
+- software-terms
+
+dictionaryDefinitions: []
+
+ignoreWords: []

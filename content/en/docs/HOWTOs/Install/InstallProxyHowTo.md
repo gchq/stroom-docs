@@ -10,19 +10,27 @@ description: >
   This HOWTO describes the installation and configuration of the Stroom Proxy software.
 ---
 
+{{% todo %}}
+This section was written for Stroom-Proxy v5, so is is out of date.
+{{% /todo %}}
+
+
 ## Assumptions
+
 The following assumptions are used in this document.
-- the user has reasonable RHEL/Centos System administration skills.
-- installation is on a fully patched minimal Centos 7.3 instance.
-- the Stroom database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3307.
-- the Stroom database user is `stroomuser` with a password of `Stroompassword1@`.
-- the application user `stroomuser` has been created.
-- the user is or has deployed the two node Stroom cluster described [here]({{< relref "InstallHowTo.md#storage-scenario" >}}).
-- the user has set up the Stroom processing user as described [here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}).
-- the prerequisite software has been installed.
-- when a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
+* The user has reasonable RHEL/Centos System administration skills.
+* Installation is on a fully patched minimal Centos 7.3 instance.
+* The Stroom database has been created and resides on the host `stroomdb0.strmdev00.org` listening on port 3307.
+* The Stroom database user is `stroomuser` with a password of `Stroompassword1@`.
+* The application user `stroomuser` has been created.
+* The user is or has deployed the two node Stroom cluster described [here]({{< relref "InstallHowTo.md#storage-scenario" >}}).
+* The user has set up the Stroom processing user as described [here]({{< relref "InstallProcessingUserSetupHowTo.md" >}}).
+* The prerequisite software has been installed.
+* When a screen capture is documented, data entry is identified by the data surrounded by '<__' '__>' . This excludes enter/return presses.
+
 
 ## Confirm Prerequisite Software Installation
+
 The following command will ensure the prerequisite software has been deployed
 
 ```bash
@@ -44,22 +52,23 @@ wget https://github.com/gchq/stroom-proxy/releases/download/${Prx}/stroom-proxy-
 unzip stroom-proxy-distribution-${Prx}.zip
 ```
 
+
 ## Configure the Software
+
 There are three different types of Stroom Proxy
-- Store
 
- A _store_ proxy accepts batches of events, as files. It will validate the batch with the database then store the batches as files in a configured directory.
-- Store_NoDB
+- _Store_ - A _store_ proxy accepts batches of events, as files. It will validate the batch with the database then store the batches as files in a configured directory.
 
- A _store_nodb_ proxy accepts batches of events, as files. It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.
-- Forwarding
+- _Store_No_DB_ - A _store_no_DB_ proxy accepts batches of events, as files. It has no connectivity to the database, so it assumes all batches are valid, so it stores the batches as files in a configured directory.
 
- A _forwarding_ proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.
+- _Forwarding_ - A _forwarding_ proxy accepts batches of events, as files. It has indirect connectivity to the database via the destination proxy, so it validates the batches then stores the batches as files in a configured directory until they are periodically forwarded to the configured destination Stroom proxy.
 
 We will demonstrate the installation of each.
 
+
 ### Store Proxy Configuration
-In our _Store_ Proxy description below, we will use the multi node deployment scenario. That is we are deploying the _Store_ proxy on multiple Stroom nodes (stroomp00, stroomp01) and we have configured our storage as per the [Storage Scenario]({{< relref "InstallHowTo.md#storage-scenario" >}}) which means the directories to install the inbound batches of data are `/stroomdata/stroom-working-p00/proxy` and `/stroomdata/stroom-working-p01/proxy` depending on the node.
+
+In our _Store_ Proxy description below, we will use the multi node deployment scenario. That is we are deploying the _Store_ proxy on multiple Stroom nodes (`stroomp00`, `stroomp01`) and we have configured our storage as per the [Storage Scenario]({{< relref "InstallHowTo.md#storage-scenario" >}}) which means the directories to install the inbound batches of data are `/stroomdata/stroom-working-p00/proxy` and `/stroomdata/stroom-working-p01/proxy` depending on the node.
 
 To install a _Store_ proxy, we run
 
@@ -82,9 +91,11 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 At this point, the script will configure the proxy. There should be no errors, but review the output.
 If you make a mistake in the above, just re-run the script.
 
-**NOTE:** The selection of the `REPO_DIR` above and the setting of the `STROOM_TMP` environment variable [earlier]({{< relref "InstallProcessingUserSetupHowTo.md" >}}) ensure that not only inbound files are placed in the `REPO_DIR` location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in it's proxy aggregation threads.
+**NOTE:** The selection of the `REPO_DIR` above and the setting of the `STROOM_TMP` environment variable [earlier]({{< relref "InstallProcessingUserSetupHowTo.md" >}}) ensure that not only inbound files are placed in the `REPO_DIR` location but the Stroom Application itself will access the same directory when it aggregates inbound data for ingest in its proxy aggregation threads.
+
 
 ### Forwarding Proxy Configuration
+
 In our _Forwarding_ Proxy description below, we will deploy on a host named `stroomfp0` and it will store the files in `/stroomdata/stroom-working-fp0/proxy`. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler. Our destination host to periodically forward the files to will be `stroomp.strmdev00.org` (the CNAME for `stroomp00.strmdev00.org`).
 
 To install a _Forwarding_ proxy, we run
@@ -103,15 +114,19 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 ```
 At this point, the script will configure the proxy. There should be no errors, but review the output.
 
-### Store No Database Proxy Configuration
-In our _Store_NoDB_ Proxy description below, we will deploy on a host named `stroomsap0` and it will store the files in `/stroomdata/stroom-working-sap0/proxy`. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.
 
-To install a _Store_NoDB_ proxy, we run
+### Store No Database Proxy Configuration
+
+In our _Store_No_DB_ Proxy description below, we will deploy on a host named `stroomsap0` and it will store the files in `/stroomdata/stroom-working-sap0/proxy`. Remember, we are being consistent with our Storage hierarchy to make documentation and scripting simpler.
+
+To install a _Store_No_DB_ proxy, we run
 
 ```bash
 stroom-proxy/bin/setup.sh store_nodb
 ```
-during which one is prompted for a number of configuration settings. Use the following
+
+During which one is prompted for a number of configuration settings. Use the following
+
 ```
 NODE to be the hostname (not FQDN) of your host (i.e. 'stroomsap0' in our example)
 PORT_PREFIX should use the default, just press return
@@ -122,8 +137,10 @@ JAVA_OPTS can use the defaults, but ensure you have sufficient memory, either ch
 
 At this point, the script will configure the proxy. There should be no errors, but review the output.
 
+
 ## Apache/Mod_JK change
-For all proxy deployments, if we are using Apache's mod_jk then we need to ensure the proxy's AJP connector specifies a 64K packetSize. View the file `stroom-proxy/instance/conf/server.xml` to ensure the Connector element for the AJP protocol has a packetSize attribute of `65536`. For example,
+
+For all proxy deployments, if we are using Apache's mod_jk then we need to ensure the proxy's AJP connector specifies a 64K `packetSize`. View the file `stroom-proxy/instance/conf/server.xml` to ensure the Connector element for the AJP protocol has a `packetSize` attribute of `65536`. For example,
 ```bash
 grep AJP stroom-proxy/instance/conf/server.xml
 ```
@@ -131,9 +148,11 @@ shows
 ```
 <Connector port="9009" protocol="AJP/1.3" connectionTimeout="20000" redirectPort="8443" maxThreads="200" packetSize="65536" />
 ```
-This check is required for earlier releases of the Stroom Proxy. Releases since `v5.1-beta.4` have set the AJP packetSize.
+This check is required for earlier releases of the Stroom Proxy. Releases since `v5.1-beta.4` have set the AJP `packetSize`.
+
 
 ## Start the Proxy Service
+
 We can now manually start our proxy service. Do so as the `stroomuser` with the command
 ```bash
 stroom-proxy/bin/start.sh
@@ -158,7 +177,9 @@ INFO  [Repository Reader Thread 1] repo.ProxyRepositoryReader (ProxyRepositoryRe
 
 If a proxy takes too long to start, you should read the section on [Entropy Issues]({{< relref "InstallHowTo.md#entropy-issues-in-virtual-environments" >}}).
 
+
 ## Proxy Repository Format
+
 A Stroom Proxy stores inbound files in a hierarchical file system whose root is supplied during the proxy setup (`REPO_DIR`) and as files arrive they are given a _repository id_ that is a one-up number starting at one (1). The files are stored in a specific _repository format_.
 The default template is `${pathId}/${id}` and this pattern will produce the following output files under `REPO_DIR` for the given repository id
 
@@ -183,21 +204,24 @@ Other replacement variables can be used to in the template including http header
 
 Available time based parameters are based on the file's time of processing and are zero filled (excluding `ms`).
 
-| Parameter | Description |
-| --------- | :---------- |
-| year | four digit year |
-| month | two digit month |
-| day | two digit day |
-| hour | two digit hour |
-| minute | two digit minute |
-| second | two digit second |
-| millis | three digit milliseconds value |
-| ms | milliseconds since Epoch value |
+| Parameter | Description                    |
+|-----------|:-------------------------------|
+| `year`    | four digit year                |
+| `month`   | two digit month                |
+| `day`     | two digit day                  |
+| `hour`    | two digit hour                 |
+| `minute`  | two digit minute               |
+| `second`  | two digit second               |
+| `millis`  | three digit milliseconds value |
+| `ms`      | milliseconds since Epoch value |
+
 
 ### Proxy Repository Template Examples
+
 For each of the following templates applied to a Store NoDB Proxy, the resultant proxy directory tree is shown after three posts were sent to the test feed `TEST-FEED-V1_0` and two posts to the test feed `FEED-NOVALUE-V9_0`
 
 #### Example A - The default - `${pathId}/${id}`
+
 ```bash
 [stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
 /stroomdata/stroom-working-sap0/proxy/
@@ -210,6 +234,7 @@ For each of the following templates applied to a Store NoDB Proxy, the resultant
 ```
 
 #### Example B - A feed orientated structure - `${feed}/${year}/${month}/${day}/${pathId}/${id}`
+
 ```bash
 [stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
 /stroomdata/stroom-working-sap0/proxy/
@@ -230,6 +255,7 @@ For each of the following templates applied to a Store NoDB Proxy, the resultant
 ```
 
 #### Example C - A date orientated structure - `${year}/${month}/${day}/${pathId}/${id}`
+
 ```bash
 [stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
 /stroomdata/stroom-working-sap0/proxy/
@@ -245,6 +271,7 @@ For each of the following templates applied to a Store NoDB Proxy, the resultant
 ```
 
 #### Example D - A feed orientated structure, but with a bad parameter - `${feed}/${badparam}/${day}/${pathId}/${id}`
+
 ```bash
 [stroomuser@stroomsap0 ~]$ find /stroomdata/stroom-working-sap0/proxy/
 /stroomdata/stroom-working-sap0/proxy/
@@ -261,7 +288,9 @@ For each of the following templates applied to a Store NoDB Proxy, the resultant
 /stroomdata/stroom-working-sap0/proxy/FEED-NOVALUE-V9_0/_/23/005.zip
 [stroomuser@stroomsap0 ~]$ 
 ```
-and one would also see a warning for each post in the proxy's log file of the form
+
+And one would also see a warning for each post in the proxy's log file of the form
+
 ```
 WARN  [ajp-apr-9009-exec-4] repo.StroomFileNameUtil (StroomFileNameUtil.java:133) - Unused variables found: [badparam]
 ```

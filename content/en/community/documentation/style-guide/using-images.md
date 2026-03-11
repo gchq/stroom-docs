@@ -178,11 +178,11 @@ You should embed a PlantUML image like this, using the `.puml.svg` file (that ma
 ## Using page resources
 
 Images can be located in a {{< external-link "page bundle" "https://gohugo.io/content-management/page-bundles/" >}}.
-This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown contnet.
+This is where the page is defined as a named directory (rather than a `.md` file) with an associated `index.md` file for the markdown content.
 All other items in the directory are page resources that can be used by the page, i.e. image files.
 
 {{% warning %}}
-Whilst you can structure your site using page resources the preffered approach for stroom-docs is to use the common assets directory.
+Whilst you can structure your site using page resources the preferred approach for stroom-docs is to use the common assets directory.
 This keeps all the images in one place and means pages can have a named markdown file rather than all being called `index.md`.
 {{% /warning %}}
 
@@ -310,7 +310,7 @@ If the _title_ is `OK`, `Close` or `Cancel` then the type and filename do not ne
 
 **Examples:**
 
-{{< stroom-btn "Ok" >}}, {{< stroom-btn "Close" >}}, {{< stroom-btn "Cancel" >}} and {{< stroom-btn title="Undo" filename="undo.svg" >}}
+{{< stroom-btn "Ok" >}}, {{< stroom-btn "Close" >}}, {{< stroom-btn "Cancel" >}}, {{< stroom-btn "New" >}} and {{< stroom-btn title="Undo" filename="undo.svg" >}}
 
 And not in line
 

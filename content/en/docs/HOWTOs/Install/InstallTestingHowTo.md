@@ -29,9 +29,9 @@ description: >
 ### Data Post Tests
 #### Simple Post tests
 
-These tests are to ensure the Stroom _Store_ proxy and it's connection to the database is working along with the Apache mod_jk loadbalancer.
+These tests are to ensure the Stroom _Store_ proxy and its connection to the database is working along with the Apache mod_jk loadbalancer.
 We will send a file to the load balanced `stroomp.strmdev00.org` node (really `stroomp00.strmdev00.org`) and each time we send the file,
-it's receipt should be managed by alternate proxy nodes. As a number of elements can effect load balancing, it is not always guaranteed
+its receipt should be managed by alternate proxy nodes. As a number of elements can effect load balancing, it is not always guaranteed
 to alternate every time but for the most part it will.
 
 Perform the following
@@ -125,7 +125,7 @@ in the first node getting the file. That is `stroomp00.strmdev00.org` log file g
 2017-01-14T06:52:13.378Z INFO  [ajp-apr-9009-exec-3] datafeed.DataFeedRequestHandler$1 (DataFeedRequestHandler.java:104) - "doPost() - Took 3.0 ms to process (concurrentRequestCount=1) 200","Environment=EXAMPLE_ENVIRONMENT","Feed=TEST-FEED-V1_0","GUID=55dda4c9-2c76-43c8-9b48-dcdb3a1f459b","ReceivedTime=2017-01-14T06:52:13.374Z","RemoteAddress=192.168.2.144","RemoteHost=192.168.2.144","System=EXAMPLE_SYSTEM","accept=*/*","content-length=527","content-type=application/x-www-form-urlencoded","host=stroomp.strmdev00.org","user-agent=curl/7.29.0"
 ```
 
-At this point we will see what the proxies have received. 
+At this point we will see what the proxies have received.
 - On each node run the command
 
 ```bash
@@ -271,11 +271,11 @@ On each node you should see _LifecyleTask_ events, for example,
 ```
 
 To perform the test, on the database node, run the posting command a number of times in rapid succession. This will result
-in  _server.DataFeedServiceImpl_ events in both log files. The Stroom application log is quite busy, you may have to look for these logs.
+in _server.DataFeedServiceImpl_ events in both log files. The Stroom application log is quite busy, you may have to look for these logs.
 
 In the following we needed to execute the posting command three times before seeing the data arrive on both nodes. Looking at the arrival
 times, the file turned up on the second node twice before appearing on the first node.
-`strooomp00:`
+`stroomp00:`
 
 ```text
 2017-01-14T07:43:09.394Z INFO  [ajp-apr-8009-exec-6] server.DataFeedServiceImpl (DataFeedServiceImpl.java:133) - handleRequest response 200 - 0 - OK
@@ -292,7 +292,7 @@ move the cursor to the `TEST-FEED-V1_0` entry in the `Explorer` tab and select t
 
 {{< screenshot "HOWTOs/UI-TestDirectFeed-00.png" >}}Stroom UI Test Feed - Open Feed{{< /screenshot >}}
 
-and double click on the entry to see our `TEST-FEED-V1_0` tab.
+And double click on the entry to see our `TEST-FEED-V1_0` tab.
 
 {{< screenshot "HOWTOs/UI-TestDirectFeed-01.png" >}}Stroom UI Test Feed - Opened Feed{{< /screenshot >}}
 and it is noted that we are viewing the Feed's attributes as we can see the __Setting__ hyper-link highlighted.
@@ -337,7 +337,7 @@ This demonstrates that Proxy Aggregation is working.
 ### Data Post Tests
 #### Simple Post tests
 
-This test is to ensure the Stroom _Forwarding_ proxy and it's connection to the central Stroom Processing system is working.
+This test is to ensure the Stroom _Forwarding_ proxy and its connection to the central Stroom Processing system is working.
 
 We will send a file to our _Forwarding_ proxy (`stroomfp0.strmdev00.org`) and monitor this nodes' proxy log files as well as all the
 destination nodes proxy log files. The reason for monitoring all the destination system's proxy log files is that the destination system is
@@ -398,7 +398,7 @@ the _datafeed.DataFeedRequestHandler$1_ event in the _ajp-apr-9009-exec-3_ threa
 ### Data Post Tests
 #### Simple Post tests
 
-This test is to ensure the Stroom _Store NODB_ or _Standalone_ proxy is working.
+This test is to ensure the Stroom _Store NO-DB_ or _Standalone_ proxy is working.
 
 We will send a file to our _Standalone_ proxy (`stroomsap0.strmdev00.org`) and monitor this nodes' proxy log files as well the directory the
 received files are meant to be stored in.
@@ -418,7 +418,7 @@ Tp
 curl -k --data-binary @/etc/group "https://stroomsap0.strmdev00.org/stroom/datafeed" -H "Feed:TEST-FEED-V1_0" -H "System:EXAMPLE_SYSTEM" -H "Environment:EXAMPLE_ENVIRONMENT"
 ```
 
-In the stroom proxy log, `~/stroom-proxy/instance/logs/stroom.log`, you will see the arrival of the file via both the _handler.LogRequestHandler_ and  _datafeed.DataFeedRequestHandler$1_ events running under, in this case, the _ajp-apr-9009-exec-1_ thread.
+In the stroom proxy log, `~/stroom-proxy/instance/logs/stroom.log`, you will see the arrival of the file via both the _handler.LogRequestHandler_ and _datafeed.DataFeedRequestHandler$1_ events running under, in this case, the _ajp-apr-9009-exec-1_ thread.
 
 ```text
 ...

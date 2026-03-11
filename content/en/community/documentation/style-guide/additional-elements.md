@@ -631,6 +631,7 @@ The list of included language names are:
 `javascript`  
 `jq`  
 `json`  
+`properties` (Use for Stroom metadata)
 `python`  
 `regex`  
 `scss`  
@@ -786,7 +787,9 @@ root:
 
 The markdown for this is:
 
-````marckdown
+<!-- spell-checker: disable -->
+
+````text
 {{</* cardpane */>}}
   {{</* card header="YAML" */>}}
 ```yaml
@@ -805,6 +808,10 @@ root:
 {{</* /cardpane */>}}
 ````
 
+
+<!-- spell-checker: enable -->
+
+
 ## Tabbed panes
 
-Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/adding-content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.
+Hugo/Docsy have shortcodes for {{< external-link "tabbed panes" "https://www.docsy.dev/docs/content/shortcodes/#tabbed-panes" >}} however these mean only one tab will be printed or visible in the generated PDF so their use should be avoided.

@@ -26,5 +26,5 @@ For example, a file may look like:
 </Event>
 ```
 
-Each `<Evemt>` element is valid against the _event-logging_ XML Schema but the file is not as it contains no root element.
+Each `<Event>` element is valid against the _event-logging_ XML Schema but the file is not as it contains no root element.
 This is the output format used by the [_event-logging_ Java library]({{< relref "../example-clients/event-logging" >}}).

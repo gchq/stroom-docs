@@ -55,6 +55,7 @@ ceilingDay(args...)
 ceilingHour(args...)
 ceilingMinute(args...)
 ceilingSecond(args...)
+ceilingTime(args...)
 ```
 
 Examples
@@ -72,6 +73,8 @@ ceilingMonth("2014-02-22T12:12:12.888Z")
 > "2014-03-01T00:00:00.000Z"
 ceilingYear("2014-02-22T12:12:12.888Z")
 > "2015-01-01T00:00:00.000Z"
+ceilingTime("2014-02-22T12:12:12.888Z", "10m")
+> "2014-02-22T12:20:00.000Z"
 ```
 
 
@@ -84,6 +87,7 @@ floorDay(args...)
 floorHour(args...)
 floorMinute(args...)
 floorSecond(args...)
+floorTime(args...)
 ```
 
 Examples
@@ -101,6 +105,8 @@ floorMonth("2014-02-22T12:12:12.888Z")
 > "2014-02-01T00:00:00.000Z"
 floorYear("2014-02-22T12:12:12.888Z")
 > "2014-01-01T00:00:00.000Z"
+floorTime("2014-02-22T12:12:12.888Z", "10m")
+> "2014-02-22T12:10:00.000Z"
 ```
 
 
@@ -113,6 +119,7 @@ roundDay(args...)
 roundHour(args...)
 roundMinute(args...)
 roundSecond(args...)
+roundTime(args...)
 ```
 
 Examples
@@ -130,4 +137,21 @@ roundMonth("2014-02-22T12:12:12.888Z")
 > "2014-03-01T00:00:00.000Z"
 roundYear("2014-02-22T12:12:12.888Z")
 > "2014-01-01T00:00:00.000Z"
+roundTime("2014-02-22T12:12:12.888Z", "10m")
+> "2014-02-22T12:10:00.000Z"
+roundTime("2014-02-22T12:15:12.888Z", "10m")
+> "2014-02-22T12:20:00.000Z"
+```
+
+## `isWeekend(..)`
+
+Returns whether a date and time is part of the weekend or not.
+
+For example:
+
+```clike
+isWeekend('2026-02-04T12:45:11.000Z')
+> false
+isWeekend('2026-02-01T12:45:11.000Z')
+> true
 ```

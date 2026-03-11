@@ -32,7 +32,7 @@ The new [Find Content]({{< relref "./new-features#find-content" >}}) feature can
 The APIs for running searches against Stroom data sources have changed in a breaking way.
 This is due to a change in the way running queries are identified.
 
-Previously the client calling the API would provide generate a unique `key` for the query and included it in the `searchRequest` object.
+Previously the client calling the API would generate a unique `key` for the query and included it in the `searchRequest` object.
 This key would then be used again if the client wanted to make further requests for results for the same running query.
 
 ```json

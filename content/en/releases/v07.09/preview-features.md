@@ -45,7 +45,7 @@ One or more files of this format are placed in the directory defined by the Stro
 This allows for generating Data Feed Keys with a life of say 26hrs, adding a new file every day and deleting files older than 2 days.
 
 The file(s) will be read on boot and all hashed keys will be stored in memory for receipt authentication.
-Files added to this directory while Stoom-Proxy/Stroom is running will be read and added to the in-memory store of hashed keys.
+Files added to this directory while Stroom-Proxy/Stroom is running will be read and added to the in-memory store of hashed keys.
 Files deleted from this directory will result in all entries associated with the file path being removed from the in-memory store of hashed keys.
 
 The `accountId` is typically an identifier for a client team that may have one or more systems that require one or more Feeds in Stroom.

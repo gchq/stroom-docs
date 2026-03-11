@@ -55,7 +55,7 @@ curl -k --data-binary @file.dat "https://<Stroom_HOST>/stroom/datafeed" \
 
 Data can be sent to Stroom as a {{< external-link "ZIP" "https://en.wikipedia.org/wiki/ZIP_(file_format)" >}} archive.
 This allows one or more text files to be sent in one go.
-It allows allows additional {{< external-link "sidecar files" "https://en.wikipedia.org/wiki/Sidecar_file" >}} to be sent.
+It allows additional {{< external-link "sidecar files" "https://en.wikipedia.org/wiki/Sidecar_file" >}} to be sent.
 
 A ZIP archive is sent to Stroom with the `Compression` flag set to `ZIP` in the [Headers]({{< relref "header-arguments" >}}).
 The contents of the ZIP archive is described below.
@@ -155,7 +155,7 @@ Directories within the ZIP file are supported.
 
 A file's base name includes its full path within the ZIP file, so an event data file and its associated sidecar files **must** all reside in the same directory.
 
-The depth and names of the directories have no bearing on how Stroom processed the data.
+The depth and names of the directories have no bearing on how Stroom processes the data.
 
 When downloading or aggregating large numbers of streams into a ZIP file, Stroom will split the files up into directories with multiple levels to limit the number of files in each directory.
 

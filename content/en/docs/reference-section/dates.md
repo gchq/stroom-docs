@@ -14,7 +14,7 @@ Stroom's standard format for displaying dates and times is {{< external-link "IS
 
 `yyyy-MM-dd'T'HH:mm:ss.SSSXX`
 
-(where `'T'` is the constant `T` and `XX` is the timezone offset or `Z` for Zulu/UTC).
+(where `'T'` is the constant `T` and `XX` is the time zone offset or `Z` for Zulu/UTC).
 
 The time part is always represented with three digits for the millisecond part.
 
@@ -90,7 +90,7 @@ Symbol   | Meaning                    | Presentation | Examples
 `m`      | minute-of-hour             | number       | `30`
 `s`      | second-of-minute           | number       | `55`
 `S`      | fraction-of-second         | fraction     | `978`
-`A`      | milli-of-day               | number       | `1234`
+`A`      | millisecond-of-day         | number       | `1234`
 `n`      | nano-of-second             | number       | `987654321`
 `N`      | nano-of-day                | number       | `1234000000`
 `V`      | time-zone ID               | zone-id      | `America/Los_Angeles`, `Z`, `-08:30`
@@ -250,7 +250,7 @@ ISO 8601 duration strings are used in a number of places in Stroom:
 ## Date Expressions
 
 Date expressions are a way to represent relative dates or to express simple date arithmetic.
-They can be used in the following places in Strom:
+They can be used in the following places in Stroom:
 
 * Dashboard expression term values.
 * Dashboard/Query time range settings.

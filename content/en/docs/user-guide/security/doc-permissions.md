@@ -1,7 +1,7 @@
 ---
 title: "Document Permissions"
 linkTitle: "Document Permissions"
-weight: 50
+weight: 60
 date: 2024-11-01
 tags:
   - permission
@@ -9,7 +9,7 @@ tags:
   - content
   - document
 description: >
-  Assigning document level permssions (such as 'View') to users or groups.
+  Assigning document level permissions (such as 'View') to users or groups.
 ---
 
 {{% todo %}}
@@ -47,20 +47,20 @@ The following is the list of different permissions that can be granted to users/
 
 | Permission | Description                                                                                                                                                                |
 | ---------- | -----------                                                                                                                                                                |
-| **Owner**  | Same as delete plus ability to change the document's permissions (i.e. grant permissions on this document to other users/groups.                                           |
+| **Owner**  | Same as delete plus ability to change the document's permissions (i.e. grant permissions on this document to other users/groups).                                           |
 | **Delete** | Same as edit plus permission to delete the document.                                                                                                                       |
 | **Edit**   | Same as view plus permission to edit, move, rename or add tags to the document.                                                                                            |
-| **View**   | Permission to see the document in the explorer tree, open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission. |
+| **View**   | Permission to see the document in the explorer tree, open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission). |
 | **Use**    | Only allow use of a document, e.g. allow use of an index as part of a search process but do not allow viewing of the document itself.                                      |
 
 The following is the list of different permissions that can be granted to users/groups on a folder {{< stroom-icon "document/Folder.svg" >}}.
 
 | Permission | Description                                                                                                                                                                |
 | ---------- | -----------                                                                                                                                                                |
-| **Owner**  | Same as delete plus ability to change the folder's permissions (i.e. grant permissions on this folder to other users/groups.                                           |
+| **Owner**  | Same as delete plus ability to change the folder's permissions (i.e. grant permissions on this folder to other users/groups).                                           |
 | **Delete** | Same as edit plus permission to delete the folder.                                                                                                                       |
 | **Edit**   | Same as view plus permission to edit, move, rename or add tags to the folder.                                                                                            |
-| **View**   | Permission to see the folder in the explorer tree (and it's child items that you also have _View_ permission on), open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission. |
+| **View**   | Permission to see the folder in the explorer tree (and its child items that you also have _View_ permission on), open it as read-only, copy it or export it (subject to also having the `Export Configuration` application permission). |
 | **Use**    | Only allow use of a folder, e.g. allow use of an index as part of a search process but do not allow viewing of the folder itself.                                      |
 
 
@@ -69,7 +69,7 @@ The following is the list of different permissions that can be granted to users/
 ### Implied Permissions
 
 Note that each permission in the two tables above also includes all the permissions below it in the table, e.g. a user with `Edit` permission on a document will also have the implied permissions `View` and `Use`.
-There is no need to grant these lower permissions to the user, though doing so will have no impact as Stroom will user the highest value permission when checking permissions.
+There is no need to grant these lower permissions to the user, though doing so will have no impact as Stroom will use the highest value permission when checking permissions.
 
 
 ### Inherited Permissions
@@ -148,7 +148,7 @@ This means Joe can only create Dashboard {{< stroom-icon "document/Dashboard.svg
 
 ### Applying Changes to Descendants
 
-When making changes to the permissions on Folder {{< stroom-icon "document/Folder.svg" >}} you have the option of making the changes to just that folder or to all descendants of that folder.
+When making changes to the permissions on a Folder {{< stroom-icon "document/Folder.svg" >}} you have the option of making the changes to just that folder or to all descendants of that folder.
 Selecting to apply to all descendants will make all permission changes apply to every descendant, i.e. including any sub-folders and their contents or own sub-folders.
 
 
@@ -168,6 +168,6 @@ The move/copy dialog offers the following choices:
     of the destination folder. You will be the owner of the moved document if not already.
 
 {{% note %}}
-You must have `Owner` permission on the source document/folder (or `Admistrator` {{< glossary "Application Permission" >}}) if you wish to use _None_, _Destination_ or _Combined_ as these all involve a change of permissions.
+You must have `Owner` permission on the source document/folder (or `Administrator` {{< glossary "Application Permission" >}}) if you wish to use _None_, _Destination_ or _Combined_ as these all involve a change of permissions.
 {{% /note %}}
 
