@@ -1,7 +1,7 @@
 ---
 title: "Visualisation Assets"
 linkTitle: "Visualisation Assets"
-weight: 50
+weight: 70
 date: 2026-03-04
 tags:
 description: >
